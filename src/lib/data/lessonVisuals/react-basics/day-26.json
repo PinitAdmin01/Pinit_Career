@@ -2,141 +2,1220 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 26,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "flow",
-      "title": "REST Request Dispatch Pipeline",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "1c2f8d68f98c084bbf9e9ba5b4188505be576bee46adad8a87cf4bad77ac35ef"
+      "partTitle": "RESTful Resource Topologies, HTTP Verbs & Idempotency Guarantees",
+      "codeHash": "1c2f8d68f98c084bbf9e9ba5b4188505be576bee46adad8a87cf4bad77ac35ef",
+      "spec": {
+        "template": "flow",
+        "title": "REST Request Dispatch Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "resource",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "idempotency",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "headers",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "status",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client constructs uniform resource identifier paths.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Idempotency guarantees protect state against retries.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "HTTP headers establish content negotiation protocols.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Explicit status codes signal response delivery outcomes.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Client initiates request to resource URI."
-        },
-        {
-          "step": 2,
-          "caption": "Dispatcher evaluates safe and idempotent properties."
-        },
-        {
-          "step": 3,
-          "caption": "Storage engine commits state mutation safely."
-        },
-        {
-          "step": 4,
-          "caption": "Client receives standard status envelope."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "REST Request Dispatch Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "resource",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "idempotency",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "headers",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "status",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client constructs uniform resource identifier paths.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Idempotency guarantees protect state against retries.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "HTTP headers establish content negotiation protocols.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Explicit status codes signal response delivery outcomes.",
+            "values": {
+              "n1": {
+                "text": "resource"
+              },
+              "n2": {
+                "text": "idempotency"
+              },
+              "n3": {
+                "text": "headers"
+              },
+              "n4": {
+                "text": "status"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "boxes",
-      "title": "Stale While Revalidate Cache Layout",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c70d7cfaeb3c4aa59db52d063e5f6166581a994e051f444dfd2531f2f3adfbe0"
+      "partTitle": "The Stale-While-Revalidate (SWR) Protocol & Cache Key Serialization",
+      "codeHash": "c70d7cfaeb3c4aa59db52d063e5f6166581a994e051f444dfd2531f2f3adfbe0",
+      "spec": {
+        "template": "boxes",
+        "title": "Stale While Revalidate Cache Layout",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "stale",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "revalidate",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "gcTime",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "serialization",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client serves stale cache data instantly to view.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Background fetch triggers revalidate over the wire.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Unused cache entries persist until gcTime eviction.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Query key serialization prevents duplicate entries.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Client queries cache with serialized tokens."
-        },
-        {
-          "step": 2,
-          "caption": "Cache synchronously returns available stale data."
-        },
-        {
-          "step": 3,
-          "caption": "Background worker dispatches fresh network call."
-        },
-        {
-          "step": 4,
-          "caption": "Cache updates memory and notifies observers."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "Stale While Revalidate Cache Layout",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "stale",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "revalidate",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "gcTime",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "serialization",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client serves stale cache data instantly to view.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Background fetch triggers revalidate over the wire.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Unused cache entries persist until gcTime eviction.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Query key serialization prevents duplicate entries.",
+            "values": {
+              "b1": {
+                "text": "stale"
+              },
+              "b2": {
+                "text": "revalidate"
+              },
+              "b3": {
+                "text": "gcTime"
+              },
+              "b4": {
+                "text": "serialization"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "states",
-      "title": "In Flight Request Deduplication State",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "eb2b593530dbf5973d8e3acccc9c385f1dec7d3040d80a987953245cab2e1f21"
+      "partTitle": "Request Deduplication, In-Flight Promise Pooling & Garbage Collection",
+      "codeHash": "eb2b593530dbf5973d8e3acccc9c385f1dec7d3040d80a987953245cab2e1f21",
+      "spec": {
+        "template": "flow",
+        "title": "In Flight Request Deduplication State",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "pooling",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "observer",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "fetch",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "settles",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Promise pooling coordinates concurrent suspense requests.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Observer count drops to zero when components unmount.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Naive fetching triggers five separate network calls.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "error",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Single network promise settles once for all listeners.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "First caller requests key and instantiates task."
-        },
-        {
-          "step": 2,
-          "caption": "Active task promise registers in lookup table."
-        },
-        {
-          "step": 3,
-          "caption": "Concurrent callers attach to existing promise."
-        },
-        {
-          "step": 4,
-          "caption": "Task settles and shared response resolves."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "In Flight Request Deduplication State",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "pooling",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "observer",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "fetch",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "settles",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Promise pooling coordinates concurrent suspense requests.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Observer count drops to zero when components unmount.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Naive fetching triggers five separate network calls.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "error",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Single network promise settles once for all listeners.",
+            "values": {
+              "n1": {
+                "text": "pooling"
+              },
+              "n2": {
+                "text": "observer"
+              },
+              "n3": {
+                "text": "fetch"
+              },
+              "n4": {
+                "text": "settles"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "compare",
-      "title": "Optimistic UI Mutation with Rollback",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c232b9306b24cac70bad1ff95c6b07e5c59e2bb593583cf418c3d070148a5386"
+      "partTitle": "Optimistic UI Mutations, Rollback Snapshots & Cache Reconciliation",
+      "codeHash": "c232b9306b24cac70bad1ff95c6b07e5c59e2bb593583cf418c3d070148a5386",
+      "spec": {
+        "template": "compare",
+        "title": "Optimistic UI Mutation with Rollback",
+        "left": {
+          "id": "c1",
+          "label": "Optimistic",
+          "tappable": false
+        },
+        "right": {
+          "id": "c2",
+          "label": "server",
+          "tappable": false
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client applies optimistic updates before network calls.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Network failure triggers rolling back cached updates.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "data"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Authoritative server payload reconciles client cache.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Synchronous cache mutation patches UI without delay.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Store captures immutable pre mutation snapshot."
+      "filled": {
+        "template": "compare",
+        "title": "Optimistic UI Mutation with Rollback",
+        "left": {
+          "id": "c1",
+          "label": "Optimistic",
+          "tappable": false
         },
-        {
-          "step": 2,
-          "caption": "Optimistic patch applies to view immediately."
+        "right": {
+          "id": "c2",
+          "label": "server",
+          "tappable": false
         },
-        {
-          "step": 3,
-          "caption": "Network rejection triggers error handler."
-        },
-        {
-          "step": 4,
-          "caption": "Snapshot restores previous view without drift."
-        }
-      ]
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client applies optimistic updates before network calls.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Network failure triggers rolling back cached updates.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "data"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Authoritative server payload reconciles client cache.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Synchronous cache mutation patches UI without delay.",
+            "values": {
+              "c1": {
+                "text": "Optimistic"
+              },
+              "c2": {
+                "text": "server"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "flow",
-      "title": "Resilient Backoff with Full Jitter",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "3189b4d0eca17fcaf01f4cabe4ce8cdba29bc931a30e19bf2be6bdcc345bf717"
+      "partTitle": "Network Resiliency: Exponential Backoff, Jitter & Request Cancellation",
+      "codeHash": "3189b4d0eca17fcaf01f4cabe4ce8cdba29bc931a30e19bf2be6bdcc345bf717",
+      "spec": {
+        "template": "flow",
+        "title": "Resilient Backoff with Full Jitter",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Circuit",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "latency",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Jitter",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "transient",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Circuit breaker pattern protects recovering backends.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Search requests yield when user typing speed outpaces.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Randomized Full Jitter breaks synchronized retry waves.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Retries strictly target transient server error codes.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Network request fails on transient server error."
-        },
-        {
-          "step": 2,
-          "caption": "Scheduler computes exponential delay interval."
-        },
-        {
-          "step": 3,
-          "caption": "Randomized jitter desynchronizes retry attempts."
-        },
-        {
-          "step": 4,
-          "caption": "Client attempts reconnection with active signal."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Resilient Backoff with Full Jitter",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Circuit",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "latency",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Jitter",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "transient",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Circuit breaker pattern protects recovering backends.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Search requests yield when user typing speed outpaces.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Randomized Full Jitter breaks synchronized retry waves.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Retries strictly target transient server error codes.",
+            "values": {
+              "n1": {
+                "text": "Circuit"
+              },
+              "n2": {
+                "text": "latency"
+              },
+              "n3": {
+                "text": "Jitter"
+              },
+              "n4": {
+                "text": "transient"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     }
   ]
 }
