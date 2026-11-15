@@ -7884,13 +7884,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What happens under the hood when two independent components invoke the same custom hook?",
           options: [
-            "Each component receives its own completely isolated state and hook records on its individual Fiber node",
-            "The components share a global singleton state managed by React's root reconciliation context",
-            "React creates a hidden Higher-Order Component wrapper that synchronizes their render cycles",
-            "The JavaScript runtime caches the return value and shares it across all component instances",
+            "Components share a global singleton state managed by React's root reconciliation context.",
+            "React creates a hidden Higher-Order Component wrapper that synchronizes their render passes.",
+            "Each component receives its own completely isolated state and hook cells on its Fiber node.",
+            "The JavaScript runtime caches return values and shares memory across all calling instances."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Custom hooks share stateful logic, not state itself; each invocation registers private hook cells on the calling Fiber.",
           explanation: "Custom hooks are functions that invoke primitives like useState. Each calling component instantiates its own independent hook list, maintaining completely isolated state."
         }
@@ -7978,12 +7978,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "const { data: userProfile } = api.useComplexResource('/api/v1/user');\nconsole.log('Renamed Data:', userProfile);",
         check: {
-          question: "Why is the Object return style preferred over the Tuple return style for composite custom hooks returning three or more items?",
+          question: "Why is the Object return style preferred over Tuples for composite custom hooks returning many values?",
           options: [
-            "Object returns allow consumers to destructure only needed fields and enable library authors to add new properties without breaking existing call sites",
-            "JavaScript V8 engines throw an execution stack overflow when destructuring arrays containing more than two elements",
-            "Tuple returns automatically disable TypeScript type inference when consumed inside asynchronous event handlers",
-            "React Fiber enforces an architectural limit of two return values for any function whose name begins with 'use'",
+            "Object returns allow consumers to destructure needed fields without breaking call sites on additions.",
+            "JavaScript V8 engines throw execution stack overflows when destructuring arrays with multiple entries.",
+            "Tuple returns automatically disable TypeScript type inference when consumed in asynchronous callbacks.",
+            "React Fiber enforces an architectural limit of two return values for functions with hook prefixes."
           ],
           answer: 0,
           answerIndex: 0,
@@ -8080,15 +8080,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "debouncer.update('react_19', 510);\nconsole.log('At 600ms:', debouncer.tick(600));",
         check: {
-          question: "What is the primary difference between a debounced hook (useDebounce) and a throttled hook (useThrottle)?",
+          question: "What is the primary operational difference between a debounced hook (useDebounce) and a throttled hook (useThrottle)?",
           options: [
-            "Debouncing waits for a quiet delay after the last event before executing, while throttling guarantees execution at a fixed maximum frequency",
-            "Debouncing executes synchronously before browser paint, while throttling executes asynchronously inside a web worker thread",
-            "Debouncing is restricted to keyboard inputs, while throttling can only be applied to window scroll events",
-            "Throttling cancels all future events permanently, while debouncing caches every intermediate keystroke in local storage",
+            "Debouncing executes synchronously before paint, while throttling executes asynchronously in worker threads.",
+            "Debouncing applies exclusively to keyboard events, while throttling can only handle window scroll events.",
+            "Throttling cancels all future events permanently, while debouncing caches every intermediate input in state.",
+            "Debouncing waits for a quiet delay after activity stops, while throttling runs at a fixed maximum frequency."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "Debouncing enforces a quiet period on the trailing edge; throttling rate-limits executions to an invariant maximum frequency.",
           explanation: "Debouncing resets its timer on every trigger, running only after activity ceases for N milliseconds. Throttling permits execution at regular, spaced intervals regardless of input volume."
         }
@@ -8185,15 +8185,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "tabStorage.setItem('theme', 'solarized_dark');\nconsole.log('Updated Theme:', clientSyncedTheme);",
         check: {
-          question: "How does an enterprise useLocalStorage hook synchronize changes made in one browser tab with all other active tabs in real time?",
+          question: "How does an enterprise useLocalStorage hook synchronize changes made in one browser tab with all other active tabs?",
           options: [
-            "By subscribing to the browser's native window 'storage' event, which fires across all other tabs on the same origin",
-            "By establishing a continuous HTTP polling loop against the browser's internal service worker cache",
-            "By serializing state changes into a SharedArrayBuffer allocated in the operating system page cache",
-            "By invoking React's global Fiber tree broadcaster to dispatch cross-process IPC signals",
+            "By establishing an automated polling loop against the browser internal service worker cache storage.",
+            "By subscribing to the browser native window storage event, which fires across tabs on the same origin.",
+            "By serializing state updates into a SharedArrayBuffer allocated inside operating system memory pages.",
+            "By invoking React's global Fiber tree broadcaster to dispatch cross-process IPC notification signals."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "The browser automatically dispatches the window storage event to all other tabs sharing the same origin whenever localStorage is modified.",
           explanation: "Listening to the window 'storage' event allows background tabs to receive notifications when another tab updates localStorage, updating their local state synchronously."
         }
@@ -8313,13 +8313,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does a production WebSocket custom hook implement Exponential Backoff with randomized jitter during reconnection attempts?",
           options: [
-            "To prevent the 'thundering herd' problem where thousands of re-connecting clients synchronize and crash backend servers simultaneously",
-            "Because TCP protocol specifications require exponential delays before transmitting TCP ACK packets",
-            "React Fiber throws an unrecoverable reconciliation exception if reconnect attempts exceed one per second",
-            "The browser event loop automatically drops WebSocket connection requests if sent at linear time intervals",
+            "Because TCP protocol specifications require exponential delays before transmitting TCP ACK packets.",
+            "React Fiber throws a reconciliation exception if reconnect attempts exceed one connection per second.",
+            "To avoid the thundering herd problem where reconnecting clients overwhelm backend servers at once.",
+            "The browser event loop drops WebSocket connection handshakes if dispatched at linear time intervals."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Randomized exponential backoff spaces out retry attempts, preventing massive simultaneous reconnection waves that overwhelm servers after an outage.",
           explanation: "Exponential backoff with jitter desynchronizes client reconnect attempts, spreading server load over time and allowing backend infrastructure to recover gracefully."
         }

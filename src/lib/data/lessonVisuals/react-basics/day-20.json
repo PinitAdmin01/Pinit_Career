@@ -1,703 +1,1309 @@
 {
   "schemaVersion": 1,
-  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 20,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Custom Hook Logic Extraction",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "7951e1992b3fda6036bab0397f4e08d2bd0ac648adcf7fea113b050900ea8cae"
+      "partTitle": "The Philosophy of Custom Hooks: Logic Reuse Without Component Hierarchy Churn",
+      "codeHash": "7951e1992b3fda6036bab0397f4e08d2bd0ac648adcf7fea113b050900ea8cae",
+      "spec": {
+        "template": "flow",
+        "title": "Custom Hook Logic Decoupling & Fiber Hook List",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "custom",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "hooks",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "hierarchy",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engineers appreciate custom hooks as architectural breakthrough.",
+            "values": {
+              "n1": {
+                "text": "custom"
+              },
+              "n2": {
+                "text": "hooks"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "hierarchy"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Decorator functions wrapped components inside complex wrappers.",
+            "values": {
+              "n1": {
+                "text": "custom"
+              },
+              "n2": {
+                "text": "hooks"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "hierarchy"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Custom hooks decouple stateful logic from hierarchy.",
+            "values": {
+              "n1": {
+                "text": "custom"
+              },
+              "n2": {
+                "text": "hooks"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "hierarchy"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Fiber hook linked list tracks state during rendering.",
+            "values": {
+              "n1": {
+                "text": "custom"
+              },
+              "n2": {
+                "text": "hooks"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "hierarchy"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "data"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Component invokes reusable custom logic abstraction.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Hook Function Call",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Fiber Hook Queue",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "State Cell Allocated",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "View Layer Return",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Custom Hook Logic Decoupling & Fiber Hook List",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "custom",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "hooks",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "hierarchy",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Internal hooks register directly into host Fiber queue.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Hook Function Call",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engineers appreciate custom hooks as architectural breakthrough.",
+            "values": {
+              "n1": {
+                "text": "custom"
               },
-              {
-                "id": "n2",
-                "label": "Fiber Hook Queue",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "hooks"
               },
-              {
-                "id": "n3",
-                "label": "State Cell Allocated",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "Fiber"
               },
-              {
-                "id": "n4",
-                "label": "View Layer Return",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "hierarchy"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Independent state cells allocated for each component instance.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Hook Function Call",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Decorator functions wrapped components inside complex wrappers.",
+            "values": {
+              "n1": {
+                "text": "custom"
               },
-              {
-                "id": "n2",
-                "label": "Fiber Hook Queue",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "hooks"
               },
-              {
-                "id": "n3",
-                "label": "State Cell Allocated",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "Fiber"
               },
-              {
-                "id": "n4",
-                "label": "View Layer Return",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "hierarchy"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Custom hook returns state machine methods to clean view.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Hook Function Call",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Custom hooks decouple stateful logic from hierarchy.",
+            "values": {
+              "n1": {
+                "text": "custom"
               },
-              {
-                "id": "n2",
-                "label": "Fiber Hook Queue",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "hooks"
               },
-              {
-                "id": "n3",
-                "label": "State Cell Allocated",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "Fiber"
               },
-              {
-                "id": "n4",
-                "label": "View Layer Return",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "hierarchy"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Fiber hook linked list tracks state during rendering.",
+            "values": {
+              "n1": {
+                "text": "custom"
+              },
+              "n2": {
+                "text": "hooks"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "hierarchy"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "data"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "title": "Hook API Signature Conventions",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "23bca59be1b128b891bd54570d9d53a6debf012706aeb9252e603bc6e90e0b10"
+      "partTitle": "Custom Hook API Design: Tuples vs Objects, Reference Stability & TypeScript Generics",
+      "codeHash": "23bca59be1b128b891bd54570d9d53a6debf012706aeb9252e603bc6e90e0b10",
+      "spec": {
+        "template": "boxes",
+        "title": "Custom Hook API Ergonomics & Return Signatures",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "tuples",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "objects",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "stability",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "signatures",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Custom hook return signatures dictate long-term maintenance.",
+            "values": {
+              "b1": {
+                "text": "tuples"
+              },
+              "b2": {
+                "text": "objects"
+              },
+              "b3": {
+                "text": "stability"
+              },
+              "b4": {
+                "text": "signatures"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Tuple style returns fixed-length arrays for simple hooks.",
+            "values": {
+              "b1": {
+                "text": "tuples"
+              },
+              "b2": {
+                "text": "objects"
+              },
+              "b3": {
+                "text": "stability"
+              },
+              "b4": {
+                "text": "signatures"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Object style returns named properties for composite hooks.",
+            "values": {
+              "b1": {
+                "text": "tuples"
+              },
+              "b2": {
+                "text": "objects"
+              },
+              "b3": {
+                "text": "stability"
+              },
+              "b4": {
+                "text": "signatures"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Function reference stability prevents unnecessary re-renders.",
+            "values": {
+              "b1": {
+                "text": "tuples"
+              },
+              "b2": {
+                "text": "objects"
+              },
+              "b3": {
+                "text": "stability"
+              },
+              "b4": {
+                "text": "signatures"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Fixed array tuple provides flexible local naming ergonomics.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Tuple Signature",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Object Signature",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "TypeScript Generic",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Discriminated State",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Custom Hook API Ergonomics & Return Signatures",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "tuples",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "objects",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "stability",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "signatures",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Object dictionary allows selective destructuring cleanly.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Tuple Signature",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Custom hook return signatures dictate long-term maintenance.",
+            "values": {
+              "b1": {
+                "text": "tuples"
               },
-              {
-                "id": "b2",
-                "label": "Object Signature",
-                "tappable": false,
-                "highlight": true
+              "b2": {
+                "text": "objects"
               },
-              {
-                "id": "b3",
-                "label": "TypeScript Generic",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "stability"
               },
-              {
-                "id": "b4",
-                "label": "Discriminated State",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "signatures"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Generic type parameters ensure rigorous end-to-end typing.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Tuple Signature",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Tuple style returns fixed-length arrays for simple hooks.",
+            "values": {
+              "b1": {
+                "text": "tuples"
               },
-              {
-                "id": "b2",
-                "label": "Object Signature",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "objects"
               },
-              {
-                "id": "b3",
-                "label": "TypeScript Generic",
-                "tappable": false,
-                "highlight": true
+              "b3": {
+                "text": "stability"
               },
-              {
-                "id": "b4",
-                "label": "Discriminated State",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "signatures"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Discriminated unions eliminate undefined runtime errors.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Tuple Signature",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Object style returns named properties for composite hooks.",
+            "values": {
+              "b1": {
+                "text": "tuples"
               },
-              {
-                "id": "b2",
-                "label": "Object Signature",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "objects"
               },
-              {
-                "id": "b3",
-                "label": "TypeScript Generic",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "stability"
               },
-              {
-                "id": "b4",
-                "label": "Discriminated State",
-                "tappable": false,
-                "highlight": true
+              "b4": {
+                "text": "signatures"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Function reference stability prevents unnecessary re-renders.",
+            "values": {
+              "b1": {
+                "text": "tuples"
+              },
+              "b2": {
+                "text": "objects"
+              },
+              "b3": {
+                "text": "stability"
+              },
+              "b4": {
+                "text": "signatures"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "title": "Rate-Limiting Debounce Engine",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "4649d4a7d2c8f9016e7b1a365f2020f3c622b95ffa6011659ae4f7b31babf19f"
+      "partTitle": "Enterprise Primitives: Building Rate-Limiting useDebounce & useThrottle Hooks",
+      "codeHash": "4649d4a7d2c8f9016e7b1a365f2020f3c622b95ffa6011659ae4f7b31babf19f",
+      "spec": {
+        "template": "flow",
+        "title": "Rate-Limiting Timing Primitives & Trailing Periods",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useDebounce",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "useThrottle",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "timing",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "trailing",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Debounce and throttle hook suite provides enterprise primitives.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
+              },
+              "n2": {
+                "text": "useThrottle"
+              },
+              "n3": {
+                "text": "timing"
+              },
+              "n4": {
+                "text": "trailing"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Applications dispatch expensive search queries with care.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
+              },
+              "n2": {
+                "text": "useThrottle"
+              },
+              "n3": {
+                "text": "timing"
+              },
+              "n4": {
+                "text": "trailing"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Debouncing enforces trailing edge quiet periods for events.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
+              },
+              "n2": {
+                "text": "useThrottle"
+              },
+              "n3": {
+                "text": "timing"
+              },
+              "n4": {
+                "text": "trailing"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "JavaScript runtimes schedule timers as macrotasks.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
+              },
+              "n2": {
+                "text": "useThrottle"
+              },
+              "n3": {
+                "text": "timing"
+              },
+              "n4": {
+                "text": "trailing"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "User types rapidly generating high-frequency change events.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "High-Rate Input",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Timer Cancellation",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Quiet Period Wait",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Debounced Flush",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Rate-Limiting Timing Primitives & Trailing Periods",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useDebounce",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "useThrottle",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "timing",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "trailing",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Incoming stroke cancels previous timer handle in ref.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "High-Rate Input",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Debounce and throttle hook suite provides enterprise primitives.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
               },
-              {
-                "id": "n2",
-                "label": "Timer Cancellation",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "useThrottle"
               },
-              {
-                "id": "n3",
-                "label": "Quiet Period Wait",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "timing"
               },
-              {
-                "id": "n4",
-                "label": "Debounced Flush",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "trailing"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Engine waits for trailing quiet period without activity.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "High-Rate Input",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Applications dispatch expensive search queries with care.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
               },
-              {
-                "id": "n2",
-                "label": "Timer Cancellation",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "useThrottle"
               },
-              {
-                "id": "n3",
-                "label": "Quiet Period Wait",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "timing"
               },
-              {
-                "id": "n4",
-                "label": "Debounced Flush",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "trailing"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Debounced state updates triggering single definitive action.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "High-Rate Input",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Debouncing enforces trailing edge quiet periods for events.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
               },
-              {
-                "id": "n2",
-                "label": "Timer Cancellation",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "useThrottle"
               },
-              {
-                "id": "n3",
-                "label": "Quiet Period Wait",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "timing"
               },
-              {
-                "id": "n4",
-                "label": "Debounced Flush",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "trailing"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "JavaScript runtimes schedule timers as macrotasks.",
+            "values": {
+              "n1": {
+                "text": "useDebounce"
+              },
+              "n2": {
+                "text": "useThrottle"
+              },
+              "n3": {
+                "text": "timing"
+              },
+              "n4": {
+                "text": "trailing"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "title": "Cross-Tab Storage Sync Pipeline",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "cc75b4ee5543fe54f8398b3007f8f336c91f8603d6efc4cc8353cc7c29adc2d7"
+      "partTitle": "Enterprise Primitives: Building useLocalStorage with Cross-Tab Sync & useNetworkStatus",
+      "codeHash": "cc75b4ee5543fe54f8398b3007f8f336c91f8603d6efc4cc8353cc7c29adc2d7",
+      "spec": {
+        "template": "boxes",
+        "title": "Storage Synchronization & Cross-Tab Notification",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useLocalStorage",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "storage",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "SSR",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "hydration",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Modern enterprise applications require robust persistence.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
+              },
+              "b2": {
+                "text": "storage"
+              },
+              "b3": {
+                "text": "SSR"
+              },
+              "b4": {
+                "text": "hydration"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Hook synchronizes state with persistent browser storage.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
+              },
+              "b2": {
+                "text": "storage"
+              },
+              "b3": {
+                "text": "SSR"
+              },
+              "b4": {
+                "text": "hydration"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Adjacent browser tabs synchronize updates across windows.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
+              },
+              "b2": {
+                "text": "storage"
+              },
+              "b3": {
+                "text": "SSR"
+              },
+              "b4": {
+                "text": "hydration"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Server rendering avoids hydration mismatch warnings.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
+              },
+              "b2": {
+                "text": "storage"
+              },
+              "b3": {
+                "text": "SSR"
+              },
+              "b4": {
+                "text": "hydration"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Primary browser tab commits state update to web storage.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Origin Write",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Storage Event",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Adjacent Tab Catch",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "State Sync Apply",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Storage Synchronization & Cross-Tab Notification",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useLocalStorage",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "storage",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "SSR",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "hydration",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Browser dispatches storage notification event across tabs.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Origin Write",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Modern enterprise applications require robust persistence.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
               },
-              {
-                "id": "n2",
-                "label": "Storage Event",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "storage"
               },
-              {
-                "id": "n3",
-                "label": "Adjacent Tab Catch",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "SSR"
               },
-              {
-                "id": "n4",
-                "label": "State Sync Apply",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "hydration"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Secondary browser tab detects storage event payload.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Origin Write",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Hook synchronizes state with persistent browser storage.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
               },
-              {
-                "id": "n2",
-                "label": "Storage Event",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "storage"
               },
-              {
-                "id": "n3",
-                "label": "Adjacent Tab Catch",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "SSR"
               },
-              {
-                "id": "n4",
-                "label": "State Sync Apply",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "hydration"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Secondary hook updates local React state synchronously.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Origin Write",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Adjacent browser tabs synchronize updates across windows.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
               },
-              {
-                "id": "n2",
-                "label": "Storage Event",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "storage"
               },
-              {
-                "id": "n3",
-                "label": "Adjacent Tab Catch",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "SSR"
               },
-              {
-                "id": "n4",
-                "label": "State Sync Apply",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "hydration"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Server rendering avoids hydration mismatch warnings.",
+            "values": {
+              "b1": {
+                "text": "useLocalStorage"
+              },
+              "b2": {
+                "text": "storage"
+              },
+              "b3": {
+                "text": "SSR"
+              },
+              "b4": {
+                "text": "hydration"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Real-Time Streaming Sync Engine",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "7717b0d8c28853e45e8201fef7502ff02cc057982bf3413e40bb4132c69f497b"
+      "partTitle": "Milestone 4 Capstone: The Enterprise Real-Time Data Streaming & Sync Engine",
+      "codeHash": "7717b0d8c28853e45e8201fef7502ff02cc057982bf3413e40bb4132c69f497b",
+      "spec": {
+        "template": "flow",
+        "title": "Real-Time WebSocket Sync Engine & Exponential Backoff",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "WebSocket",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "backoff",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "jitter",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "reconnection",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Capstone synthesizes side effect lifecycles and stabilization.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
+              },
+              "n2": {
+                "text": "backoff"
+              },
+              "n3": {
+                "text": "jitter"
+              },
+              "n4": {
+                "text": "reconnection"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Client interfaces maintain persistent bidirectional connections.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
+              },
+              "n2": {
+                "text": "backoff"
+              },
+              "n3": {
+                "text": "jitter"
+              },
+              "n4": {
+                "text": "reconnection"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Custom hook manages formal connection state machine.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
+              },
+              "n2": {
+                "text": "backoff"
+              },
+              "n3": {
+                "text": "jitter"
+              },
+              "n4": {
+                "text": "reconnection"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Engine detects half-open connections to trigger reconnects.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
+              },
+              "n2": {
+                "text": "backoff"
+              },
+              "n3": {
+                "text": "jitter"
+              },
+              "n4": {
+                "text": "reconnection"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Duplex streaming socket maintains persistent server channel.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Stream Connection",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Exponential Backoff",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Offline Buffer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Batch Drain Resync",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Real-Time WebSocket Sync Engine & Exponential Backoff",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "WebSocket",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "backoff",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "jitter",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "reconnection",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Connection drop initiates exponential backoff with jitter.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Stream Connection",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Capstone synthesizes side effect lifecycles and stabilization.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
               },
-              {
-                "id": "b2",
-                "label": "Exponential Backoff",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "backoff"
               },
-              {
-                "id": "b3",
-                "label": "Offline Buffer",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "jitter"
               },
-              {
-                "id": "b4",
-                "label": "Batch Drain Resync",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "reconnection"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Pending client mutations queue in persistent offline ref.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Stream Connection",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Client interfaces maintain persistent bidirectional connections.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
               },
-              {
-                "id": "b2",
-                "label": "Exponential Backoff",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "backoff"
               },
-              {
-                "id": "b3",
-                "label": "Offline Buffer",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "jitter"
               },
-              {
-                "id": "b4",
-                "label": "Batch Drain Resync",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "reconnection"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Reconnection flushes mutation buffer restoring consistency.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Stream Connection",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Custom hook manages formal connection state machine.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
               },
-              {
-                "id": "b2",
-                "label": "Exponential Backoff",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "backoff"
               },
-              {
-                "id": "b3",
-                "label": "Offline Buffer",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "jitter"
               },
-              {
-                "id": "b4",
-                "label": "Batch Drain Resync",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "reconnection"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Engine detects half-open connections to trigger reconnects.",
+            "values": {
+              "n1": {
+                "text": "WebSocket"
+              },
+              "n2": {
+                "text": "backoff"
+              },
+              "n3": {
+                "text": "jitter"
+              },
+              "n4": {
+                "text": "reconnection"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
