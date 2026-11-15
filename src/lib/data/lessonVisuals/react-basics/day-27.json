@@ -2,141 +2,1220 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 27,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "boxes",
-      "title": "JSON Web Token Cryptographic Anatomy",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "384f9f7b5644791f1fcff2086446126cd4c001a00f225a624869b99e8a17d2c6"
+      "partTitle": "Stateless vs Stateful Authentication: JWT Cryptographic Signatures vs Opaque Sessions",
+      "codeHash": "384f9f7b5644791f1fcff2086446126cd4c001a00f225a624869b99e8a17d2c6",
+      "spec": {
+        "template": "boxes",
+        "title": "JSON Web Token Cryptographic Anatomy",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Header",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Payload",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Signature",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "stateless",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Header specifies algorithm and token format type.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Payload carries user claims and expiration timestamp.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Cryptographic signature prevents unauthorized tampering.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Stateless tokens eliminate database session lookups.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Token separates into header payload and signature."
-        },
-        {
-          "step": 2,
-          "caption": "Header declares signing algorithm and token type."
-        },
-        {
-          "step": 3,
-          "caption": "Payload provides verified subject and role claims."
-        },
-        {
-          "step": 4,
-          "caption": "Cryptographic signature verifies token integrity."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "JSON Web Token Cryptographic Anatomy",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Header",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Payload",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Signature",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "stateless",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Header specifies algorithm and token format type.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Payload carries user claims and expiration timestamp.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Cryptographic signature prevents unauthorized tampering.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Stateless tokens eliminate database session lookups.",
+            "values": {
+              "b1": {
+                "text": "Header"
+              },
+              "b2": {
+                "text": "Payload"
+              },
+              "b3": {
+                "text": "Signature"
+              },
+              "b4": {
+                "text": "stateless"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "states",
-      "title": "Dual Token Rotation Lifecycle",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c4a775f5e60e27f3124e7907485387ceb3b65d7a9ee41f5d3f0d0db6c63c4bd9"
+      "partTitle": "The Dual-Token Lifecycle: Short-Lived Access Tokens, Refresh Tokens & Rotation",
+      "codeHash": "c4a775f5e60e27f3124e7907485387ceb3b65d7a9ee41f5d3f0d0db6c63c4bd9",
+      "spec": {
+        "template": "boxes",
+        "title": "Dual Token Rotation Lifecycle",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "rotation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "BroadcastChannel",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "refresh",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "threat",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Preemptive background refresh prevents request failures.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Leader tab broadcasts rotated access token to siblings.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Long lived refresh token resides securely on client.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Token family reuse detection neutralizes token threat.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Client presents short lived access token."
-        },
-        {
-          "step": 2,
-          "caption": "Expired access token triggers refresh exchange."
-        },
-        {
-          "step": 3,
-          "caption": "Auth server rotates tokens and issues new pair."
-        },
-        {
-          "step": 4,
-          "caption": "Token family reuse detection protects session."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "Dual Token Rotation Lifecycle",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "rotation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "BroadcastChannel",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "refresh",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "threat",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Preemptive background refresh prevents request failures.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Leader tab broadcasts rotated access token to siblings.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Long lived refresh token resides securely on client.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Token family reuse detection neutralizes token threat.",
+            "values": {
+              "b1": {
+                "text": "rotation"
+              },
+              "b2": {
+                "text": "BroadcastChannel"
+              },
+              "b3": {
+                "text": "refresh"
+              },
+              "b4": {
+                "text": "threat"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "error"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "compare",
-      "title": "XSS and CSRF Defense Architecture",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "658a060324e24f02b03240c1131902aac37c05363795b1f981a9c62015301e04"
+      "partTitle": "Security Vectors: Cross-Site Scripting (XSS), CSRF Tokens & HttpOnly Cookies",
+      "codeHash": "658a060324e24f02b03240c1131902aac37c05363795b1f981a9c62015301e04",
+      "spec": {
+        "template": "compare",
+        "title": "XSS and CSRF Defense Architecture",
+        "left": {
+          "id": "c1",
+          "label": "localStorage",
+          "tappable": false
+        },
+        "right": {
+          "id": "c2",
+          "label": "HttpOnly",
+          "tappable": false
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Script access in localStorage enables token exfiltration.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "error",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "HttpOnly cookies block client JavaScript access completely.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "SameSite strict cookies eliminate cross site forgery.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Defense in depth combines CSP headers and sanitization.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Sensitive session tokens reside in secure cookies."
+      "filled": {
+        "template": "compare",
+        "title": "XSS and CSRF Defense Architecture",
+        "left": {
+          "id": "c1",
+          "label": "localStorage",
+          "tappable": false
         },
-        {
-          "step": 2,
-          "caption": "Client script environment cannot access tokens."
+        "right": {
+          "id": "c2",
+          "label": "HttpOnly",
+          "tappable": false
         },
-        {
-          "step": 3,
-          "caption": "Double submit header accompanies state mutations."
-        },
-        {
-          "step": 4,
-          "caption": "Same origin verification blocks forged requests."
-        }
-      ]
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Script access in localStorage enables token exfiltration.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "error",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "HttpOnly cookies block client JavaScript access completely.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "SameSite strict cookies eliminate cross site forgery.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Defense in depth combines CSP headers and sanitization.",
+            "values": {
+              "c1": {
+                "text": "localStorage"
+              },
+              "c2": {
+                "text": "HttpOnly"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "flow",
-      "title": "OAuth Authorization Flow with PKCE",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "1e2a4b9b986245deece663f188e7e4290cdf7be8e79ef50d258498f634869ce9"
+      "partTitle": "OAuth2 Authorization Code Flow with PKCE & Enterprise Identity Providers",
+      "codeHash": "1e2a4b9b986245deece663f188e7e4290cdf7be8e79ef50d258498f634869ce9",
+      "spec": {
+        "template": "flow",
+        "title": "OAuth Authorization Flow with PKCE",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "verifier",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "challenge",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "authorization",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "exchange",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client generates cryptographic code verifier secret.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser transmits hashed code challenge to provider.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Identity provider returns authorization code redirect.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Client verifies secret code to exchange token payload.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Client generates random verifier and challenge."
-        },
-        {
-          "step": 2,
-          "caption": "Identity provider authenticates user consent."
-        },
-        {
-          "step": 3,
-          "caption": "Client exchanges code along with raw verifier."
-        },
-        {
-          "step": 4,
-          "caption": "Provider verifies challenge hash and mints tokens."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "OAuth Authorization Flow with PKCE",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "verifier",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "challenge",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "authorization",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "exchange",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client generates cryptographic code verifier secret.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser transmits hashed code challenge to provider.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Identity provider returns authorization code redirect.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Client verifies secret code to exchange token payload.",
+            "values": {
+              "n1": {
+                "text": "verifier"
+              },
+              "n2": {
+                "text": "challenge"
+              },
+              "n3": {
+                "text": "authorization"
+              },
+              "n4": {
+                "text": "exchange"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "component-tree",
-      "title": "Declarative Route Guard Architecture",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "99ae494ff4853b952d7a570ec72e2bd8e8f8903f9175cb7a505d09793c2ec27f"
+      "partTitle": "Declarative Route Protection: Auth Context, Navigation Interceptors & RBAC",
+      "codeHash": "99ae494ff4853b952d7a570ec72e2bd8e8f8903f9175cb7a505d09793c2ec27f",
+      "spec": {
+        "template": "flow",
+        "title": "Declarative Route Guard Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Hydration",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "policies",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "flashing",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "middleware",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Session Hydration bridges edge runtime and client state.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Contextual policies evaluate fine grained permissions.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Page useEffect guards trigger severe visual flashing.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "error",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Edge middleware validates session before page rendering.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Navigation enters top level route container."
-        },
-        {
-          "step": 2,
-          "caption": "Edge middleware inspects active session claims."
-        },
-        {
-          "step": 3,
-          "caption": "Auth context verifies candidate role permissions."
-        },
-        {
-          "step": 4,
-          "caption": "Protected component tree mounts without layout flash."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Declarative Route Guard Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Hydration",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "policies",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "flashing",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "middleware",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Session Hydration bridges edge runtime and client state.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Contextual policies evaluate fine grained permissions.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Page useEffect guards trigger severe visual flashing.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "error",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Edge middleware validates session before page rendering.",
+            "values": {
+              "n1": {
+                "text": "Hydration"
+              },
+              "n2": {
+                "text": "policies"
+              },
+              "n3": {
+                "text": "flashing"
+              },
+              "n4": {
+                "text": "middleware"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     }
   ]
 }

@@ -54,7 +54,10 @@ lesson.parts.forEach((p, idx) => {
     console: { log: (...args: unknown[]) => out.push(formatLogArgs(args)) },
     setTimeout: (fn: Function) => fn(),
     clearTimeout: () => {},
-    URLSearchParams
+    URLSearchParams,
+    require,
+    crypto: require('crypto'),
+    Buffer
   };
   try {
     vm.runInNewContext(p.code, sandbox, { timeout: 2000 });
