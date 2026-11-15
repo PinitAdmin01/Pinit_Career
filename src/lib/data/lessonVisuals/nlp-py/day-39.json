@@ -607,16 +607,14 @@
                 "hit": 1
               },
               "jaccard_threshold": {
-                "var": "jaccard_threshold",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "k_shingle": "data",
               "num_hashes": "data",
-              "jaccard_threshold": "data"
+              "jaccard_threshold": "idle"
             },
             "arrows": [
               [
@@ -756,13 +754,13 @@
               "self": "<WebDataEngine>",
               "k_shingle": "3",
               "num_hashes": "16",
-              "jaccard_threshold": "0.6"
+              "jaccard_threshold": ""
             },
             "tones": {
               "self": "data",
               "k_shingle": "data",
               "num_hashes": "data",
-              "jaccard_threshold": "data"
+              "jaccard_threshold": "idle"
             },
             "arrows": [
               [

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If that single unlucky shard holding `hotkey:celebrity` collapses into GC.",
+            "activeActor": "nodes",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "nodes",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If that single unlucky shard holding `hotkey:celebrity` collapses into GC.",
-            "activeActor": "nodes",
+            "at": "say7",
+            "caption": "Implement and verify Bounded-Load Consistent Hashing caps under Zipf-like.",
+            "activeActor": "epsilon",
             "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "epsilon",
+                "label": {
+                  "var": "nodes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "nodes",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Implement and verify Bounded-Load Consistent Hashing caps under Zipf-like.",
-            "activeActor": "epsilon",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "nodes",
@@ -118,12 +148,6 @@
                 "to": "nodes",
                 "label": "<BoundedHashRing>",
                 "tone": "data"
-              },
-              {
-                "from": "nodes",
-                "to": "epsilon",
-                "label": "['S0', 'S1', 'S2', 'S3']",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Implement and verify Bounded-Load Consistent Hashing caps under Zipf-like.",
             "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<BoundedHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "epsilon",
+                "label": "['S0', 'S1', 'S2', 'S3']",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<BoundedHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "epsilon",
+                "label": "['S0', 'S1', 'S2', 'S3']",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "nodes",
@@ -251,17 +299,17 @@
               },
               "n": {
                 "var": "n",
-                "line": 31,
-                "hit": 3
+                "line": 32,
+                "hit": 9
               },
               "z": {
                 "var": "z",
-                "line": 31,
-                "hit": 3
+                "line": 32,
+                "hit": 16
               },
               "v": {
                 "var": "v",
-                "line": 31,
+                "line": 32,
                 "hit": 4
               }
             },
@@ -298,16 +346,16 @@
               "n": {
                 "var": "n",
                 "line": 32,
-                "hit": 3
+                "hit": 16
               },
               "z": {
                 "var": "z",
                 "line": 32,
-                "hit": 3
+                "hit": 30
               },
               "v": {
                 "var": "v",
-                "line": 31,
+                "line": 32,
                 "hit": 5
               }
             },
@@ -391,9 +439,9 @@
             "caption": "When Zone `us-east-1a` suffers a fiber cut or power event, ALL THREE.",
             "values": {
               "cluster": "[['n1', 'az-a'], ['n2', 'az-a'], ['n3',…",
-              "n": "'n1'",
-              "z": "'az-a'",
-              "v": "0"
+              "n": "'n2'",
+              "z": "'az-b'",
+              "v": "1"
             },
             "tones": {
               "cluster": "data",
@@ -421,9 +469,9 @@
             "caption": "Implement Zone-Aware clockwise replica placement verifying 0 co-located.",
             "values": {
               "cluster": "[['n1', 'az-a'], ['n2', 'az-a'], ['n3',…",
-              "n": "'n1'",
-              "z": "'az-a'",
-              "v": "0"
+              "n": "'n3'",
+              "z": "'az-c'",
+              "v": "2"
             },
             "tones": {
               "cluster": "ok",
@@ -478,7 +526,7 @@
           },
           {
             "at": "say2",
-            "caption": "Look closely at why naive vnode placement (`v = 4` tiny ring points per.",
+            "caption": "Verify the node transition driving picking behavior.",
             "currentState": "vnodes",
             "transition": {
               "from": "nodes",
@@ -493,7 +541,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how verify updates movement during execution.",
+            "caption": "Examine the virtual value produced for node processing.",
             "currentState": "pts",
             "transition": {
               "from": "vnodes",
@@ -534,7 +582,7 @@
           },
           {
             "at": "say2",
-            "caption": "Look closely at why naive vnode placement (`v = 4` tiny ring points per.",
+            "caption": "Verify the node transition driving picking behavior.",
             "currentState": "vnodes",
             "transition": {
               "from": "nodes",
@@ -545,7 +593,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how verify updates movement during execution.",
+            "caption": "Examine the virtual value produced for node processing.",
             "currentState": "pts",
             "transition": {
               "from": "vnodes",
@@ -583,6 +631,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the zone transition driving local behavior.",
+            "activeActor": "key_replicas",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "key_replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "key_replicas",
@@ -597,10 +662,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Whenever a web backend running inside `az-a` handles an `R=1` read (or.",
-            "activeActor": "key_replicas",
+            "at": "say4",
+            "caption": "Simulate caller-zone-aware routing paired cleanly with health & load-cap.",
+            "activeActor": "caller_zone",
             "messages": [
+              {
+                "from": "reps",
+                "to": "key_replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": {
+                  "var": "key_replicas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "reps",
                 "to": "key_replicas",
@@ -620,14 +705,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Simulate caller-zone-aware routing paired cleanly with health & load-cap.",
-            "activeActor": "caller_zone",
-            "messages": [
+              },
               {
                 "from": "reps",
                 "to": "key_replicas",
@@ -670,19 +748,13 @@
                 "to": "key_replicas",
                 "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
                 "tone": "data"
-              },
-              {
-                "from": "key_replicas",
-                "to": "caller_zone",
-                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
-                "tone": "ok"
               }
             ],
             "activeActor": "reps"
           },
           {
             "at": "say2",
-            "caption": "Whenever a web backend running inside `az-a` handles an `R=1` read (or.",
+            "caption": "Verify the zone transition driving local behavior.",
             "messages": [
               {
                 "from": "reps",
@@ -703,6 +775,30 @@
             "at": "say4",
             "caption": "Simulate caller-zone-aware routing paired cleanly with health & load-cap.",
             "messages": [
+              {
+                "from": "reps",
+                "to": "key_replicas",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "data"
+              },
+              {
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "ok"
+              },
+              {
+                "from": "reps",
+                "to": "key_replicas",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "data"
+              },
+              {
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "ok"
+              },
               {
                 "from": "reps",
                 "to": "key_replicas",

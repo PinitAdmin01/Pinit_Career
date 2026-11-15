@@ -337,19 +337,289 @@
       "partTitle": "Dates: today, differences and parts",
       "codeHash": "281df52b24772bbe6c665933a40aabbbebe1c740c754c66da3faf77321319d85",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Dates: today, differences and parts",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "PostgreSQL is very good with dates.",
+            "values": {
+              "query": {
+                "text": "SELECT date '2026-09-30' - date '2026-09-01' AS "
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Subtracting two dates gives the number of days between them.",
+            "values": {
+              "query": {
+                "text": "date_trunc('month', date '2026-09-28')::date AS month_start;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "year"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Dates: today, differences and parts",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "PostgreSQL is very good with dates.",
+            "values": {
+              "query": "SELECT date '2026-09-30' - date '2026-09-01' AS ",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Subtracting two dates gives the number of days between them.",
+            "values": {
+              "query": "date_trunc('month', date '2026-09-28')::date AS month_start;",
+              "db": "PostgreSQL",
+              "res": "2026"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Formatting dates and numbers for people",
       "codeHash": "f960668c11c072ac0d730bc5d030192c54bb2b119bd00948bf7f30ba4771d187",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Formatting dates and numbers for people",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Databases store dates as year-month-day, but people often prefer \"28 Sep 2026\".",
+            "values": {
+              "query": {
+                "text": "SELECT to_char(date '2026-09-28', 'DD Mon YYYY')"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The pattern letters are codes.",
+            "values": {
+              "query": {
+                "text": "to_char(1250000, 'FM99,99,999') AS indian_commas;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 1,
+                "row": 1,
+                "col": "short_date"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Formatting dates and numbers for people",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Databases store dates as year-month-day, but people often prefer \"28 Sep 2026\".",
+            "values": {
+              "query": "SELECT to_char(date '2026-09-28', 'DD Mon YYYY')",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The pattern letters are codes.",
+            "values": {
+              "query": "to_char(1250000, 'FM99,99,999') AS indian_commas;",
+              "db": "PostgreSQL",
+              "res": "28 Sep 2026"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: an invoice view of products",

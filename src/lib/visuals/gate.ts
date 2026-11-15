@@ -78,6 +78,51 @@ export const COURSE_ALLOWED_TEMPLATES: Record<string, string[]> = {
   bcom_dmkt: ['funnel', 'bars', 'flow', 'table'],
 };
 
+const PYTHON_CERT_COURSES = new Set([
+  'python',
+  'dsa-py',
+  'sql-mastery',
+  'ai-py',
+  'dist-py',
+  'cloud-py',
+  'nlp-py',
+  'quant-py',
+  'prompt-py',
+  'cyber-py',
+  'train-py',
+  'vec-py',
+  'safe-py',
+]);
+
+function findInternalTraceArtifact(val: unknown, inVarMap = false): string | null {
+  if (typeof val === 'string') {
+    if (/['"]__other__['"]\s*:/.test(val) || /\b(?:list_iterator|tuple_iterator|set_iterator|dict_\w*iterator)\b/.test(val)) {
+      return `raw iterator artifact "${val.slice(0, 40)}"`;
+    }
+    if (inVarMap && /^\.\d+$/.test(val.trim())) {
+      return `CPython internal variable "${val.trim()}"`;
+    }
+    return null;
+  }
+  if (Array.isArray(val)) {
+    for (const item of val) {
+      const hit = findInternalTraceArtifact(item, inVarMap);
+      if (hit) return hit;
+    }
+    return null;
+  }
+  if (val && typeof val === 'object') {
+    for (const [k, v] of Object.entries(val as Record<string, unknown>)) {
+      if (/^\.\d+$/.test(k.trim())) {
+        return `CPython internal key "${k}"`;
+      }
+      const hit = findInternalTraceArtifact(v, inVarMap || k === 'values' || k === 'id' || k === 'label' || k === 'var');
+      if (hit) return hit;
+    }
+  }
+  return null;
+}
+
 const STOP_WORDS = new Set([
   'this', 'that', 'with', 'from', 'have', 'were', 'what', 'when', 'your', 'will',
   'then', 'them', 'they', 'some', 'each', 'also', 'just', 'into', 'only', 'more',
@@ -177,6 +222,7 @@ export function checkDayFile(fileInput: string | any, options?: GateCheckOptions
   }
 
   // --- R1: Exactly matching entries, partTitle matches real part title ---
+  const isPythonCert = PYTHON_CERT_COURSES.has(file.prefix);
   const entries = file.entries;
   const lesson: LongLesson | null = getLongLesson(file.prefix, file.day);
   const expectedCount = lesson?.parts?.length ?? 5;
@@ -400,6 +446,27 @@ export function checkDayFile(fileInput: string | any, options?: GateCheckOptions
         if (/(\p{Extended_Pictographic}|\p{Emoji_Presentation})/u.test(caption)) {
           errors.push(`R5: Entry [${i}] step [${s}] caption contains emoji`);
         }
+        if (isPythonCert) {
+          if (/^Trace how\b/i.test(caption)) {
+            errors.push(`R5: Entry [${i}] step [${s}] caption uses forbidden "Trace how..." template`);
+          }
+          if (/[,;:(]\s*\.$/.test(caption)) {
+            errors.push(`R5: Entry [${i}] step [${s}] caption is truncated before the period`);
+          }
+          if (
+            (caption.match(/"/g) || []).length % 2 !== 0 ||
+            (caption.match(/\(/g) || []).length > (caption.match(/\)/g) || []).length
+          ) {
+            errors.push(`R5: Entry [${i}] step [${s}] caption has an unclosed quote or parenthesis`);
+          }
+          if (
+            /(?:^|\s)(?:a|an|the|and|or|but|with|without|within|into|onto|from|of|during|among|across|toward|towards|upon|via|against|until|unless|because|although|though|while|since|every|their|our|your|his|her|some|any|are|were|has|have|had|my)\.$/.test(
+              caption
+            )
+          ) {
+            errors.push(`R5: Entry [${i}] step [${s}] caption ends abruptly on a dangling word`);
+          }
+        }
       }
     }
   }
@@ -416,6 +483,32 @@ export function checkDayFile(fileInput: string | any, options?: GateCheckOptions
       // Check filled object exists
       if (!entry.filled || typeof entry.filled !== 'object') {
         errors.push(`R6: Entry [${i}] filled data is missing or not an object`);
+      }
+
+      const artifactHit = findInternalTraceArtifact(spec) || findInternalTraceArtifact(entry.filled);
+      if (artifactHit) {
+        errors.push(`R6: Entry [${i}] exposes internal trace ${artifactHit}`);
+      }
+
+      if (isPythonCert && Array.isArray(entry.filled?.steps) && entry.filled.steps.length >= 2) {
+        const fSteps = entry.filled.steps;
+        const allValuesFrozen =
+          fSteps.every((st: any) => st?.values && typeof st.values === 'object' && Object.keys(st.values).length > 0) &&
+          new Set(fSteps.map((st: any) => JSON.stringify(st.values))).size === 1;
+        const allRowsFrozen =
+          fSteps.every((st: any) => Array.isArray(st?.rows) && st.rows.length > 0) &&
+          new Set(fSteps.map((st: any) => JSON.stringify(st.rows))).size === 1;
+        const allBarsFrozen =
+          fSteps.every((st: any) => Array.isArray(st?.bars) && st.bars.length > 0) &&
+          new Set(fSteps.map((st: any) => JSON.stringify(st.bars))).size === 1;
+        const allMessagesFrozen =
+          fSteps.every((st: any) => Array.isArray(st?.messages) && st.messages.length > 0) &&
+          new Set(fSteps.map((st: any) => JSON.stringify(st.messages))).size === 1;
+        if (allValuesFrozen || allRowsFrozen || allBarsFrozen || allMessagesFrozen) {
+          errors.push(
+            `R6: Entry [${i}] has frozen filled steps with identical values across all ${fSteps.length} steps`
+          );
+        }
       }
 
       // Check step values are bindings
@@ -597,6 +690,14 @@ export function checkDayFile(fileInput: string | any, options?: GateCheckOptions
         `R10: Day has fewer than ${minPictures} pictures (${pictureCount}/${entries.length}) but is not marked needs-review`
       );
     }
+    if (isPythonCert) {
+      const noneCount = entries.filter((e: any) => !e?.spec || e.spec.template === 'none').length;
+      if (noneCount > 1 && file.status !== 'needs-review') {
+        errors.push(
+          `R10: Day has ${noneCount} entries with template "none" (at most 1 allowed for "${file.prefix}")`
+        );
+      }
+    }
   }
 
   // --- R11: Manifest status matches the file ---
@@ -704,6 +805,9 @@ export function checkDayFile(fileInput: string | any, options?: GateCheckOptions
 
       const bindings = extractBindings(spec);
       for (const b of bindings) {
+        if (b.var && /^\.\d+$/.test(b.var.trim())) {
+          errors.push(`R14: Entry [${i}] binding points to CPython internal variable "${b.var}"`);
+        }
         if (b.var && unstableSet.has(b.var)) {
           errors.push(`R14: Entry [${i}] binding points to unstable variable "${b.var}"`);
         }

@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "turns": {
-                "var": "turns",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "sys_m": "data",
               "history": "data",
               "system_msg": "data",
-              "turns": "data"
+              "turns": "idle"
             }
           },
           {
@@ -96,7 +94,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run pack_working_memory() packing maximum recent context within.",
+            "caption": "Examine the working value produced for memory processing.",
             "values": {
               "sys_m": {
                 "var": "sys_m",
@@ -157,13 +155,13 @@
               "sys_m": "{'id': 'sys', 'tokens': 6}",
               "history": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…",
               "system_msg": "{'id': 'sys', 'tokens': 6}",
-              "turns": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…"
+              "turns": ""
             },
             "tones": {
               "sys_m": "data",
               "history": "data",
               "system_msg": "data",
-              "turns": "data"
+              "turns": "idle"
             }
           },
           {
@@ -184,7 +182,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run pack_working_memory() packing maximum recent context within.",
+            "caption": "Examine the working value produced for memory processing.",
             "values": {
               "sys_m": "{'id': 'sys', 'tokens': 6}",
               "history": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…",
@@ -293,7 +291,7 @@
               },
               "scored": {
                 "var": "scored",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -339,8 +337,8 @@
               },
               "scored": {
                 "var": "scored",
-                "line": 6,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -425,7 +423,7 @@
               "eps": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
               "episodes": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
               "lam": "0.05",
-              "scored": "[]"
+              "scored": "[[0.0102, 'ep_old']]"
             },
             "tones": {
               "eps": "data",
@@ -455,7 +453,7 @@
               "eps": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
               "episodes": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
               "lam": "0.05",
-              "scored": "[]"
+              "scored": "[[0.0102, 'ep_old'], [0.5156, 'ep_mid']]"
             },
             "tones": {
               "eps": "ok",
@@ -807,6 +805,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Redacting strictly at UI display time comes far too lateby then plaintexts.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": {
+                  "var": "SECRET_PATTERNS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "text",
@@ -821,10 +836,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Redacting strictly at UI display time comes far too lateby then plaintexts.",
-            "activeActor": "text",
+            "at": "say7",
+            "caption": "Verify sanitize_memory_text() catching both API keys and formatted.",
+            "activeActor": "clean",
             "messages": [
+              {
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": {
+                  "var": "SECRET_PATTERNS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "clean",
+                "label": {
+                  "var": "text",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "SECRET_PATTERNS",
                 "to": "text",
@@ -844,14 +879,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Verify sanitize_memory_text() catching both API keys and formatted.",
-            "activeActor": "clean",
-            "messages": [
+              },
               {
                 "from": "SECRET_PATTERNS",
                 "to": "text",
@@ -892,14 +920,8 @@
               {
                 "from": "SECRET_PATTERNS",
                 "to": "text",
-                "label": "[[{'__other__': 'Pattern'}, '[REDACTED_…",
+                "label": "[[<Pattern>, '[REDACTED_KEY]'], [<Patte…",
                 "tone": "data"
-              },
-              {
-                "from": "text",
-                "to": "clean",
-                "label": "'Use sk-liveAbcd1234ef and card 4111-22…",
-                "tone": "ok"
               }
             ],
             "activeActor": "SECRET_PATTERNS"
@@ -911,7 +933,7 @@
               {
                 "from": "SECRET_PATTERNS",
                 "to": "text",
-                "label": "[[{'__other__': 'Pattern'}, '[REDACTED_…",
+                "label": "[[<Pattern>, '[REDACTED_KEY]'], [<Patte…",
                 "tone": "data"
               },
               {
@@ -930,7 +952,31 @@
               {
                 "from": "SECRET_PATTERNS",
                 "to": "text",
-                "label": "[[{'__other__': 'Pattern'}, '[REDACTED_…",
+                "label": "[[<Pattern>, '[REDACTED_KEY]'], [<Patte…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "clean",
+                "label": "'Use sk-liveAbcd1234ef and card 4111-22…",
+                "tone": "ok"
+              },
+              {
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": "[[<Pattern>, '[REDACTED_KEY]'], [<Patte…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "clean",
+                "label": "'Use sk-liveAbcd1234ef and card 4111-22…",
+                "tone": "ok"
+              },
+              {
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": "[[<Pattern>, '[REDACTED_KEY]'], [<Patte…",
                 "tone": "data"
               },
               {

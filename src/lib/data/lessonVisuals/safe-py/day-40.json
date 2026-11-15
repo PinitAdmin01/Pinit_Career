@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Output Safety Pipeline — Foundations & Mathematical Invariants",
+      "partTitle": "Unified Egress Orchestration inside `OutputSafetyOrchestrator`",
       "codeHash": "3cb664a5563959fe634aee33ce345e368aa385e00c9ec56917cb77e86136e54e",
       "spec": {
         "template": "flow",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Inspect egress updates as self tracks milestone state.",
             "values": {
               "self": {
                 "var": "self",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "response": {
-                "var": "response",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "orch": "data",
               "sample": "data",
-              "response": "data"
+              "response": "idle"
             },
             "arrows": [
               [
@@ -124,7 +122,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the egress value produced for inside processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -194,18 +192,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Inspect egress updates as self tracks milestone state.",
             "values": {
               "self": "<OutputSafetyOrchestrator>",
               "orch": "<OutputSafetyOrchestrator>",
               "sample": "'Support: 800-555-0199. Docs: https://s…",
-              "response": "'Support: 800-555-0199. Docs: https://s…"
+              "response": ""
             },
             "tones": {
               "self": "data",
               "orch": "data",
               "sample": "data",
-              "response": "data"
+              "response": "idle"
             },
             "arrows": [
               [
@@ -254,7 +252,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the egress value produced for inside processing.",
             "values": {
               "self": "<OutputSafetyOrchestrator>",
               "orch": "<OutputSafetyOrchestrator>",
@@ -286,7 +284,7 @@
       }
     },
     {
-      "partTitle": "Output Safety Pipeline — Core Algorithm & State Representation",
+      "partTitle": "Unsupported Claim Detection with `verify_m8_groundedness`",
       "codeHash": "82b44a3beffab4b574a12824e66bf2128b05d3988d155650ec1333125b029be2",
       "spec": {
         "template": "bars",
@@ -360,7 +358,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the verify value produced for groundedness processing.",
             "bars": [
               {
                 "label": "matches",
@@ -441,7 +439,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the verify value produced for groundedness processing.",
             "bars": [
               {
                 "label": "matches",
@@ -464,7 +462,7 @@
       }
     },
     {
-      "partTitle": "Output Safety Pipeline — Production Implementation & Boundary Mechanics",
+      "partTitle": "Strict Contract Type Checking via `parse_and_validate_m8_contract`",
       "codeHash": "eb89c89513c8d77e66073cdacb020996ad3dd397a37689e112f4b665166ad778",
       "spec": {
         "template": "states",
@@ -507,7 +505,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for output.",
+            "caption": "Examine the strict value produced for contract processing.",
             "currentState": "data",
             "transition": {
               "from": "raw_json",
@@ -559,7 +557,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for output.",
+            "caption": "Examine the strict value produced for contract processing.",
             "currentState": "data",
             "transition": {
               "from": "raw_json",
@@ -572,7 +570,7 @@
       }
     },
     {
-      "partTitle": "Output Safety Pipeline — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Stateful Reject Counting inside `Milestone8Pipeline`",
       "codeHash": "f909c01c52fe6c20c10311e422eb59707441d1a9630d490c5cb80c30767f7801",
       "spec": {
         "template": "states",
@@ -615,7 +613,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the inside value produced for milestone8pipeline processing.",
             "currentState": "text",
             "transition": {
               "from": "m8",
@@ -667,7 +665,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the inside value produced for milestone8pipeline processing.",
             "currentState": "text",
             "transition": {
               "from": "m8",
@@ -680,8 +678,8 @@
       }
     },
     {
-      "partTitle": "Output Safety Pipeline — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "e438f4b1bef993d3e48fc713c2acf34fef5722537189e4d6d9b4153da83f540b",
+      "partTitle": "Release Certification Badges via `generate_m8_audit_badge`",
+      "codeHash": "7974097911ec39f7444986ea5209bf7175992383ac79ca7437eada369aa1c910",
       "spec": {
         "template": "states",
         "title": "Output Safety Pipeline — Production Capstone & Enterprise SRE In",
@@ -708,7 +706,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how achieve updates badge during execution.",
+            "caption": "Verify the badge transition driving achieve behavior.",
             "currentState": "pii_leaks",
             "transition": {
               "from": "groundedness",
@@ -723,7 +721,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the release value produced for badges processing.",
             "currentState": "schema_valid",
             "transition": {
               "from": "pii_leaks",
@@ -764,7 +762,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how achieve updates badge during execution.",
+            "caption": "Verify the badge transition driving achieve behavior.",
             "currentState": "pii_leaks",
             "transition": {
               "from": "groundedness",
@@ -775,7 +773,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the release value produced for badges processing.",
             "currentState": "schema_valid",
             "transition": {
               "from": "pii_leaks",

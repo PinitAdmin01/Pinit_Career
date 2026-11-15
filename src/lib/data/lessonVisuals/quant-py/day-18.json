@@ -41,15 +41,13 @@
                 "hit": 1
               },
               "breaches": {
-                "var": "breaches",
-                "line": 3,
-                "hit": 21
+                "text": ""
               }
             },
             "tones": {
               "pnl": "data",
               "var_95": "data",
-              "breaches": "data"
+              "breaches": "idle"
             },
             "arrows": [
               [
@@ -64,7 +62,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how percent updates million during execution.",
+            "caption": "Verify the means transition driving percent behavior.",
             "values": {
               "pnl": {
                 "var": "pnl",
@@ -160,12 +158,12 @@
             "values": {
               "pnl": "[-12, 5, 8, -3, -25, 14, 2, -9, 6, -31,…",
               "var_95": "24",
-              "breaches": "[-25, -31]"
+              "breaches": ""
             },
             "tones": {
               "pnl": "data",
               "var_95": "data",
-              "breaches": "data"
+              "breaches": "idle"
             },
             "arrows": [
               [
@@ -180,7 +178,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how percent updates million during execution.",
+            "caption": "Verify the means transition driving percent behavior.",
             "values": {
               "pnl": "[-12, 5, 8, -3, -25, 14, 2, -9, 6, -31,…",
               "var_95": "24",
@@ -280,7 +278,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how normal updates distribution during execution.",
+            "caption": "Verify the normal transition driving distribution behavior.",
             "bars": [
               {
                 "label": "value",
@@ -396,7 +394,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how normal updates distribution during execution.",
+            "caption": "Verify the normal transition driving distribution behavior.",
             "bars": [
               {
                 "label": "value",
@@ -536,13 +534,13 @@
               },
               "conf": {
                 "var": "conf",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "idx": {
                 "var": "idx",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -582,12 +580,12 @@
               },
               "conf": {
                 "var": "conf",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "idx": {
                 "var": "idx",
-                "line": 6,
+                "line": 7,
                 "hit": 2
               }
             },
@@ -672,8 +670,8 @@
             "values": {
               "rets": "[0.01, -0.02, 0.005, -0.035, 0.012, -0.…",
               "s": "[-0.05, -0.05, -0.035, -0.035, -0.02, -…",
-              "conf": "0.95",
-              "idx": "1"
+              "conf": "0.9",
+              "idx": "2"
             },
             "tones": {
               "rets": "data",
@@ -702,8 +700,8 @@
             "values": {
               "rets": "[0.01, -0.02, 0.005, -0.035, 0.012, -0.…",
               "s": "[-0.05, -0.05, -0.035, -0.035, -0.02, -…",
-              "conf": "0.95",
-              "idx": "1"
+              "conf": "0.9",
+              "idx": "2"
             },
             "tones": {
               "rets": "ok",
@@ -742,7 +740,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Regulators often ask for 10-day VaR, but daily data is what firms have.",
+            "caption": "The common shortcut is the square-root-of-time rule.",
             "activeActor": "one_day",
             "messages": [
               {
@@ -833,7 +831,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Regulators often ask for 10-day VaR, but daily data is what firms have.",
+            "caption": "The common shortcut is the square-root-of-time rule.",
             "messages": [
               {
                 "from": "one_day",
@@ -978,13 +976,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "r": {
                 "var": "r",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -1024,13 +1022,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "r": {
                 "var": "r",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -1114,8 +1112,8 @@
             "values": {
               "calm": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…",
               "hidden": "[-0.02, -0.02, -0.02, -0.02, -0.4, 0.01…",
-              "name": "'calm'",
-              "r": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…"
+              "name": "'hidden tail'",
+              "r": "[-0.02, -0.02, -0.02, -0.02, -0.4, 0.01…"
             },
             "tones": {
               "calm": "data",
@@ -1144,8 +1142,8 @@
             "values": {
               "calm": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…",
               "hidden": "[-0.02, -0.02, -0.02, -0.02, -0.4, 0.01…",
-              "name": "'calm'",
-              "r": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…"
+              "name": "'hidden tail'",
+              "r": "[-0.02, -0.02, -0.02, -0.02, -0.4, 0.01…"
             },
             "tones": {
               "calm": "ok",
@@ -1180,7 +1178,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates value during execution.",
+            "caption": "Observe how practice shapes parametric during this step.",
             "bars": [
               {
                 "label": "mu",
@@ -1222,7 +1220,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates million during execution.",
+            "caption": "Verify the checks transition driving million behavior.",
             "bars": [
               {
                 "label": "mu",
@@ -1312,7 +1310,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates value during execution.",
+            "caption": "Observe how practice shapes parametric during this step.",
             "bars": [
               {
                 "label": "mu",
@@ -1338,7 +1336,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates million during execution.",
+            "caption": "Verify the checks transition driving million behavior.",
             "bars": [
               {
                 "label": "mu",

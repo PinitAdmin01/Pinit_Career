@@ -111,19 +111,289 @@
       "partTitle": "IN with a subquery",
       "codeHash": "a569f6da9338b9a002cad1e2e0d6da804e13a84e0143199e7784c3fa2b73ad8e",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "IN with a subquery",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "On Day 5 you used IN with a fixed list: status IN ('delivered', 'shipped').",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This subquery can return many rows, but only one column.",
+            "values": {
+              "query": {
+                "text": "ORDER BY name;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "name"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "IN with a subquery",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "On Day 5 you used IN with a fixed list: status IN ('delivered', 'shipped').",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This subquery can return many rows, but only one column.",
+            "values": {
+              "query": "ORDER BY name;",
+              "db": "PostgreSQL",
+              "res": "Asha"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Subqueries in FROM",
       "codeHash": "e42063ef3e5169f55c13e2e1348c3d4d65a42b387f1cb5d2c69a9b753a0d262d",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Subqueries in FROM",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A subquery can also be used as a table, in the FROM part.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A subquery in FROM must have an alias: FROM (SELECT ...) AS t.",
+            "values": {
+              "query": {
+                "text": ") AS totals;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "table": 1,
+                "row": 1,
+                "col": "average_order"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Subqueries in FROM",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A subquery can also be used as a table, in the FROM part.",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A subquery in FROM must have an alias: FROM (SELECT ...) AS t.",
+            "values": {
+              "query": ") AS totals;",
+              "db": "SELECT",
+              "res": "397.50"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "EXISTS and correlated subqueries",
@@ -314,7 +584,7 @@
           },
           {
             "at": "say2",
-            "caption": "This naturally gives 0 for customers with no orders without a join trap.",
+            "caption": "This naturally gives zero for customers with no orders without a join trap.",
             "rows": [
               {
                 "cells": [

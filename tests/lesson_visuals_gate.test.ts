@@ -91,6 +91,54 @@ function getValidBaseDayFile() {
           filled: { l: 1 },
         };
       }
+      if (i === 3) {
+        return {
+          partTitle: part.title,
+          codeHash,
+          spec: {
+            template: 'boxes',
+            title: 'Case Sensitivity',
+            boxes: [{ id: '1', label: 'print', tappable: true }],
+            steps: [
+              {
+                at: 'say1',
+                caption: 'Python separates small and capital letters in print.',
+                values: { out: { out: 1 } },
+              },
+              {
+                at: 'say2',
+                caption: 'A misspelled capital word causes a NameError.',
+                values: { out: { out: 2 } },
+              },
+            ],
+          },
+          filled: { out: 'hello' },
+        };
+      }
+      if (i === 4) {
+        return {
+          partTitle: part.title,
+          codeHash,
+          spec: {
+            template: 'boxes',
+            title: 'Hash Comments',
+            boxes: [{ id: '1', label: 'comment', tappable: true }],
+            steps: [
+              {
+                at: 'say1',
+                caption: 'Python ignores every comment marked with a hash sign.',
+                values: { out: { out: 1 } },
+              },
+              {
+                at: 'say2',
+                caption: 'Good comments help a teammate understand your code.',
+                values: { out: { out: 2 } },
+              },
+            ],
+          },
+          filled: { out: 'Tea 20' },
+        };
+      }
       return {
         partTitle: part.title,
         codeHash,
@@ -134,23 +182,52 @@ describe('Gate v2 (Task E-13)', () => {
       return results;
     }
 
-    const CERT_24M_COURSES = new Set([
+    const CERT_24M_COURSES = [
       // [FIX-STAGE: wave0-include-cyber-py] Enforce Gate v2 on cyber-py alongside the other 11 Python certification courses
       'python', 'dsa-py', 'sql-mastery', 'ai-py', 'dist-py', 'cloud-py', 'nlp-py', 'quant-py', 'prompt-py', 'cyber-py', 'train-py', 'vec-py', 'safe-py',
       'react-basics', 'node-web', 'dsa-optim', 'devops', 'cloud', 'dist', 'cyber', 'ai', 'sre-web', 'stream-web', 'aideploy-web'
-    ]);
+    ];
 
     const files = findJsonFiles(dir);
-    for (const file of files) {
-      const parts = file.split(/[\\/]/);
-      const courseFolder = parts[parts.length - 2];
-      if (!CERT_24M_COURSES.has(courseFolder)) continue;
+    for (const courseFolder of CERT_24M_COURSES) {
+      const courseFiles = files.filter((file) => {
+        const parts = file.split(/[\\/]/);
+        return parts[parts.length - 2] === courseFolder;
+      });
+      if (courseFiles.length === 0) continue;
 
-      const res = checkDayFile(file);
-      if (!res.passed) {
-        throw new Error(`Day file ${file} failed gate checks: ${res.errors.join('\n')}`);
+      const failures: string[] = [];
+      for (const file of courseFiles) {
+        const res = checkDayFile(file);
+        if (!res.passed) {
+          failures.push(`${path.basename(file)}: ${res.errors.join(' | ')}`);
+        }
       }
-      assert.equal(res.passed, true);
+      if (failures.length > 0) {
+        throw new Error(`Course "${courseFolder}" failed Gate v2 (${failures.length}/${courseFiles.length} files):\n${failures.slice(0, 5).join('\n')}`);
+      }
+      assert.equal(failures.length, 0);
+    }
+  });
+
+  // Per-course Gate v2 checks so one legacy course failure never masks other courses
+  describe('Per-course Gate v2 validation', () => {
+    const dir = path.resolve(process.cwd(), 'src/lib/data/lessonVisuals');
+    const PYTHON_AND_SQL_COURSES = [
+      'python', 'dsa-py', 'sql-mastery', 'ai-py', 'dist-py', 'cloud-py', 'nlp-py', 'quant-py', 'prompt-py', 'cyber-py', 'train-py', 'vec-py', 'safe-py',
+    ];
+    for (const courseFolder of PYTHON_AND_SQL_COURSES) {
+      it(`all ${courseFolder} day files pass checkDayFile`, () => {
+        const courseDir = path.join(dir, courseFolder);
+        if (!fs.existsSync(courseDir)) return;
+        const files = fs.readdirSync(courseDir).filter((f) => f.endsWith('.json')).sort();
+        const failures: string[] = [];
+        for (const f of files) {
+          const res = checkDayFile(path.join(courseDir, f));
+          if (!res.passed) failures.push(`${f}: ${res.errors.join(' | ')}`);
+        }
+        assert.deepEqual(failures, [], `${courseFolder} Gate v2 failures:\n${failures.slice(0, 8).join('\n')}`);
+      });
     }
   });
 
@@ -363,6 +440,66 @@ describe('Gate v2 (Task E-13)', () => {
       const resDone = checkDayFile(doneToken);
       assert.equal(resDone.passed, false);
       assert.ok(resDone.errors.some((e) => e.includes('R5:') && e.includes('[Done.*]')));
+
+      // 4. R6/R14 reject CPython .0 locals and raw {'__other__': 'list_iterator'} artifacts
+      const dotZero = getValidBaseDayFile();
+      (dotZero.entries[0].spec as any).steps[0].values = { step: { var: '.0', line: 1 } };
+      const resDotZero = checkDayFile(dotZero);
+      assert.equal(resDotZero.passed, false);
+      assert.ok(resDotZero.errors.some((e) => e.includes('R6:') && e.includes('.0')));
+      assert.ok(resDotZero.errors.some((e) => e.includes('R14:') && e.includes('.0')));
+
+      const rawIter = getValidBaseDayFile();
+      (rawIter.entries[0] as any).filled = {
+        steps: [
+          { values: { it: "{'__other__': 'list_iterator'}" } },
+          { values: { it: '[1, 2]' } },
+        ],
+      };
+      const resIter = checkDayFile(rawIter);
+      assert.equal(resIter.passed, false);
+      assert.ok(resIter.errors.some((e) => e.includes('R6:') && e.includes('iterator artifact')));
+
+      // 5. R5 rejects "Trace how..." captions, chopped endings, and unclosed quotes
+      const traceHow = getValidBaseDayFile();
+      (traceHow.entries[0].spec as any).steps[0].caption =
+        'Trace how Python runs exact instructions cleanly.';
+      const resTraceHow = checkDayFile(traceHow);
+      assert.equal(resTraceHow.passed, false);
+      assert.ok(resTraceHow.errors.some((e) => e.includes('R5:') && e.includes('Trace how')));
+
+      const dangling = getValidBaseDayFile();
+      (dangling.entries[0].spec as any).steps[0].caption =
+        'Python executes instructions strictly within.';
+      const resDangling = checkDayFile(dangling);
+      assert.equal(resDangling.passed, false);
+      assert.ok(resDangling.errors.some((e) => e.includes('R5:') && e.includes('dangling word')));
+
+      const unclosedQuote = getValidBaseDayFile();
+      (unclosedQuote.entries[0].spec as any).steps[0].caption =
+        'Python reads exact instructions like "hello.';
+      const resQuote = checkDayFile(unclosedQuote);
+      assert.equal(resQuote.passed, false);
+      assert.ok(resQuote.errors.some((e) => e.includes('R5:') && e.includes('unclosed quote')));
+
+      // 6. R6 rejects frozen multi-step filled values/messages across all steps
+      const frozen = getValidBaseDayFile();
+      (frozen.entries[0] as any).filled = {
+        steps: [
+          { at: 'say1', values: { x: '1', y: '2' } },
+          { at: 'say2', values: { x: '1', y: '2' } },
+        ],
+      };
+      const resFrozen = checkDayFile(frozen);
+      assert.equal(resFrozen.passed, false);
+      assert.ok(resFrozen.errors.some((e) => e.includes('R6:') && e.includes('frozen filled steps')));
+
+      // 7. R10 rejects >1 template "none" entry on a Python cert day
+      const twoNones = getValidBaseDayFile();
+      (twoNones.entries[4].spec as any) = { template: 'none', reason: 'Skipped visual' };
+      const resTwoNones = checkDayFile(twoNones);
+      assert.equal(resTwoNones.passed, false);
+      assert.ok(resTwoNones.errors.some((e) => e.includes('R10:') && e.includes('template "none"')));
     });
   });
 });

@@ -228,7 +228,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how asking updates holistic during execution.",
+            "caption": "Inspect asking updates as STOPWORDS tracks holistic state.",
             "values": {
               "STOPWORDS": {
                 "var": "STOPWORDS",
@@ -294,7 +294,7 @@
               "text": {
                 "var": "text",
                 "line": 6,
-                "hit": 2
+                "hit": 22
               }
             },
             "tones": {
@@ -340,7 +340,7 @@
               "text": {
                 "var": "text",
                 "line": 6,
-                "hit": 3
+                "hit": 22
               }
             },
             "tones": {
@@ -390,7 +390,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how asking updates holistic during execution.",
+            "caption": "Inspect asking updates as STOPWORDS tracks holistic state.",
             "values": {
               "STOPWORDS": "{'a', 'an', 'and', 'are', 'by', 'for', …",
               "evidence": "['Enterprise plans include 99.95 uptime…",
@@ -425,7 +425,7 @@
               "STOPWORDS": "{'a', 'an', 'and', 'are', 'by', 'for', …",
               "evidence": "['Enterprise plans include 99.95 uptime…",
               "draft_claims": "['Enterprise plans include 99.95 uptime…",
-              "text": "'Enterprise plans include 99.95 uptime …"
+              "text": "'Refund credits trigger within 24 hours…"
             },
             "tones": {
               "STOPWORDS": "data",
@@ -455,7 +455,7 @@
               "STOPWORDS": "{'a', 'an', 'and', 'are', 'by', 'for', …",
               "evidence": "['Enterprise plans include 99.95 uptime…",
               "draft_claims": "['Enterprise plans include 99.95 uptime…",
-              "text": "'Enterprise plans include 99.95 uptime …"
+              "text": "'Refund credits trigger within 24 hours…"
             },
             "tones": {
               "STOPWORDS": "ok",
@@ -574,7 +574,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how trace updates across during execution.",
+            "caption": "Examine the precision value produced for inside processing.",
             "bars": [
               {
                 "label": "hits",
@@ -674,7 +674,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how trace updates across during execution.",
+            "caption": "Examine the precision value produced for inside processing.",
             "bars": [
               {
                 "label": "hits",
@@ -727,6 +727,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Yet the user leaves empty-handed because the response never delivered one.",
+            "activeActor": "required_intents",
+            "messages": [
+              {
+                "from": "reqs",
+                "to": "required_intents",
+                "label": {
+                  "var": "reqs",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "required_intents",
@@ -741,10 +758,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Yet the user leaves empty-handed because the response never delivered one.",
-            "activeActor": "required_intents",
+            "at": "say7",
+            "caption": "Run check_answer_relevance() distinguishing concrete step-by-step coverage.",
+            "activeActor": "answer_text",
             "messages": [
+              {
+                "from": "reqs",
+                "to": "required_intents",
+                "label": {
+                  "var": "reqs",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": {
+                  "var": "required_intents",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "reqs",
                 "to": "required_intents",
@@ -764,14 +801,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Run check_answer_relevance() distinguishing concrete step-by-step coverage.",
-            "activeActor": "answer_text",
-            "messages": [
+              },
               {
                 "from": "reqs",
                 "to": "required_intents",
@@ -814,12 +844,6 @@
                 "to": "required_intents",
                 "label": "['dual keys', 'verify', 'revoke old']",
                 "tone": "data"
-              },
-              {
-                "from": "required_intents",
-                "to": "answer_text",
-                "label": "['dual keys', 'verify', 'revoke old']",
-                "tone": "ok"
               }
             ],
             "activeActor": "reqs"
@@ -847,6 +871,30 @@
             "at": "say7",
             "caption": "Run check_answer_relevance() distinguishing concrete step-by-step coverage.",
             "messages": [
+              {
+                "from": "reqs",
+                "to": "required_intents",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "data"
+              },
+              {
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "ok"
+              },
+              {
+                "from": "reqs",
+                "to": "required_intents",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "data"
+              },
+              {
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "ok"
+              },
               {
                 "from": "reqs",
                 "to": "required_intents",
@@ -891,6 +939,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Enterprise AI platforms wire lightweight asynchronous Triad auditors over.",
+            "activeActor": "retrieved_ids",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": {
+                  "var": "answer",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "retrieved_ids",
@@ -905,10 +970,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Enterprise AI platforms wire lightweight asynchronous Triad auditors over.",
-            "activeActor": "retrieved_ids",
+            "at": "say7",
+            "caption": "Inspect audit_citations_and_triad() checking ghost bracket references.",
+            "activeActor": "ctx_rel",
             "messages": [
+              {
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": {
+                  "var": "answer",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": {
+                  "var": "retrieved_ids",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "answer",
                 "to": "retrieved_ids",
@@ -928,14 +1013,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect audit_citations_and_triad() checking ghost bracket references.",
-            "activeActor": "ctx_rel",
-            "messages": [
+              },
               {
                 "from": "answer",
                 "to": "retrieved_ids",
@@ -978,12 +1056,6 @@
                 "to": "retrieved_ids",
                 "label": "'Limit is 50 req/s [doc_2].'",
                 "tone": "data"
-              },
-              {
-                "from": "retrieved_ids",
-                "to": "ctx_rel",
-                "label": "['doc_1', 'doc_2']",
-                "tone": "ok"
               }
             ],
             "activeActor": "answer"
@@ -1011,6 +1083,30 @@
             "at": "say7",
             "caption": "Inspect audit_citations_and_triad() checking ghost bracket references.",
             "messages": [
+              {
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": "'Limit is 50 req/s [doc_2].'",
+                "tone": "data"
+              },
+              {
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": "['doc_1', 'doc_2']",
+                "tone": "ok"
+              },
+              {
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": "'Limit is 50 req/s [doc_2].'",
+                "tone": "data"
+              },
+              {
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": "['doc_1', 'doc_2']",
+                "tone": "ok"
+              },
               {
                 "from": "answer",
                 "to": "retrieved_ids",

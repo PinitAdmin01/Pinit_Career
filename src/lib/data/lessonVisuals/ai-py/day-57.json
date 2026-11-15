@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Layout-aware parsers rely instead on 2D **bounding boxes `[x0, y0, x1.",
+            "activeActor": "blocks",
+            "messages": [
+              {
+                "from": "boxes",
+                "to": "blocks",
+                "label": {
+                  "var": "boxes",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "blocks",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Layout-aware parsers rely instead on 2D **bounding boxes `[x0, y0, x1.",
-            "activeActor": "blocks",
+            "at": "say6",
+            "caption": "Trace sort_two_column_blocks() restoring natural human reading flow over.",
+            "activeActor": "page_mid_x",
             "messages": [
+              {
+                "from": "boxes",
+                "to": "blocks",
+                "label": {
+                  "var": "boxes",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": {
+                  "var": "blocks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "boxes",
                 "to": "blocks",
@@ -68,23 +105,6 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace sort_two_column_blocks() restoring natural human reading flow over.",
-            "activeActor": "page_mid_x",
-            "messages": [
-              {
-                "from": "boxes",
-                "to": "blocks",
-                "label": {
-                  "var": "boxes",
-                  "line": 19,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "blocks",
@@ -118,12 +138,6 @@
                 "to": "blocks",
                 "label": "[['R1', 320, 100, 560, 130, 'Right col …",
                 "tone": "data"
-              },
-              {
-                "from": "blocks",
-                "to": "page_mid_x",
-                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
-                "tone": "ok"
               }
             ],
             "activeActor": "boxes"
@@ -156,6 +170,24 @@
                 "to": "blocks",
                 "label": "[['R1', 320, 100, 560, 130, 'Right col …",
                 "tone": "data"
+              },
+              {
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "ok"
+              },
+              {
+                "from": "boxes",
+                "to": "blocks",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "data"
+              },
+              {
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "ok"
               },
               {
                 "from": "blocks",
@@ -214,16 +246,14 @@
                 "hit": 1
               },
               "rows": {
-                "var": "rows",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "hdr": "data",
               "data": "data",
               "headers": "data",
-              "rows": "data"
+              "rows": "idle"
             }
           },
           {
@@ -321,13 +351,13 @@
               "hdr": "['Metric', '2024', '2025']",
               "data": "[['Revenue', 120, 150], ['COGS', 80, 95…",
               "headers": "['Metric', '2024', '2025']",
-              "rows": "[['Revenue', 120, 150], ['COGS', 80, 95…"
+              "rows": ""
             },
             "tones": {
               "hdr": "data",
               "data": "data",
               "headers": "data",
-              "rows": "data"
+              "rows": "idle"
             }
           },
           {
@@ -410,16 +440,14 @@
                 "hit": 1
               },
               "bot_y": {
-                "var": "bot_y",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "doc_pages": "data",
               "pages": "data",
               "top_y": "data",
-              "bot_y": "data"
+              "bot_y": "idle"
             }
           },
           {
@@ -517,13 +545,13 @@
               "doc_pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
               "pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
               "top_y": "60",
-              "bot_y": "740"
+              "bot_y": ""
             },
             "tones": {
               "doc_pages": "data",
               "pages": "data",
               "top_y": "data",
-              "bot_y": "data"
+              "bot_y": "idle"
             }
           },
           {
@@ -620,7 +648,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how reading updates blurry during execution.",
+            "caption": "Verify the reading transition driving blurry behavior.",
             "values": {
               "samples": {
                 "var": "samples",
@@ -736,7 +764,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how reading updates blurry during execution.",
+            "caption": "Verify the reading transition driving blurry behavior.",
             "values": {
               "samples": "[{'has_native_text': True, 'is_complex_…",
               "s": "{'has_native_text': True, 'is_complex_c…",
@@ -794,7 +822,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how analyst updates sees during execution.",
+            "caption": "Observe how visual shapes page during this step.",
             "bars": [
               {
                 "label": "x0",
@@ -836,7 +864,7 @@
           },
           {
             "at": "say2",
-            "caption": "Storing structured **Spatial Provenance Metadata** (`doc_id`, `page_num`.",
+            "caption": "Verify the provenance transition driving text behavior.",
             "bars": [
               {
                 "label": "x0",
@@ -926,7 +954,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how analyst updates sees during execution.",
+            "caption": "Observe how visual shapes page during this step.",
             "bars": [
               {
                 "label": "x0",
@@ -952,7 +980,7 @@
           },
           {
             "at": "say2",
-            "caption": "Storing structured **Spatial Provenance Metadata** (`doc_id`, `page_num`.",
+            "caption": "Verify the provenance transition driving text behavior.",
             "bars": [
               {
                 "label": "x0",

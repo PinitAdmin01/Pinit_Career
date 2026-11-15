@@ -139,6 +139,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Permanent errors will fail every time.",
+            "activeActor": "errors",
+            "messages": [
+              {
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": {
+                  "var": "TRANSIENT",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "errors",
@@ -153,10 +170,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Permanent errors will fail every time.",
-            "activeActor": "errors",
+            "at": "say7",
+            "caption": "The example classifies a few common errors.",
+            "activeActor": "err",
             "messages": [
+              {
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": {
+                  "var": "TRANSIENT",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "err",
+                "label": {
+                  "var": "errors",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "TRANSIENT",
                 "to": "errors",
@@ -176,14 +213,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example classifies a few common errors.",
-            "activeActor": "err",
-            "messages": [
+              },
               {
                 "from": "TRANSIENT",
                 "to": "errors",
@@ -224,14 +254,8 @@
               {
                 "from": "TRANSIENT",
                 "to": "errors",
-                "label": "[{'__other__': 'type'}, {'__other__': '…",
+                "label": "[<type>, <type>]",
                 "tone": "data"
-              },
-              {
-                "from": "errors",
-                "to": "err",
-                "label": "[<TimeoutError>, <ValueError>, <Connect…",
-                "tone": "ok"
               }
             ],
             "activeActor": "TRANSIENT"
@@ -243,7 +267,7 @@
               {
                 "from": "TRANSIENT",
                 "to": "errors",
-                "label": "[{'__other__': 'type'}, {'__other__': '…",
+                "label": "[<type>, <type>]",
                 "tone": "data"
               },
               {
@@ -262,7 +286,31 @@
               {
                 "from": "TRANSIENT",
                 "to": "errors",
-                "label": "[{'__other__': 'type'}, {'__other__': '…",
+                "label": "[<type>, <type>]",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "err",
+                "label": "[<TimeoutError>, <ValueError>, <Connect…",
+                "tone": "ok"
+              },
+              {
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": "[<type>, <type>]",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "err",
+                "label": "[<TimeoutError>, <ValueError>, <Connect…",
+                "tone": "ok"
+              },
+              {
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": "[<type>, <type>]",
                 "tone": "data"
               },
               {
@@ -281,162 +329,184 @@
       "partTitle": "Retry, then dead-letter",
       "codeHash": "063c891d509405e2bc3524418a6ef1f875fcc9bf854ae2b86f4461adbb93c083",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Retry, then dead-letter",
-        "actors": [
-          "flaky_calls",
-          "dlq",
-          "m1"
+        "nodes": [
+          {
+            "id": "dlq",
+            "label": "dlq",
+            "tappable": true
+          },
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Handle_message(msg, handler, dlq, max_attempts).",
-            "activeActor": "flaky_calls",
-            "messages": [
-              {
-                "from": "flaky_calls",
-                "to": "dlq",
-                "label": {
-                  "var": "flaky_calls",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Practice 1: handle_message(msg, handler, dlq, max_attempts).",
+            "values": {
+              "dlq": {
+                "var": "dlq",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "from": "dlq",
-                "to": "m1",
-                "label": {
-                  "var": "dlq",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "text": ""
+              },
+              "r": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "dlq": "data",
+              "msg": "idle",
+              "r": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "On an exception, add 1 to msg[\"retry_count\"].",
-            "activeActor": "dlq",
-            "messages": [
-              {
-                "from": "flaky_calls",
-                "to": "dlq",
-                "label": {
-                  "var": "flaky_calls",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "dlq": {
+                "var": "dlq",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "from": "dlq",
-                "to": "m1",
-                "label": {
-                  "var": "dlq",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "var": "msg",
+                "line": 2,
+                "hit": 3
+              },
+              "r": {
+                "text": ""
               }
+            },
+            "tones": {
+              "dlq": "data",
+              "msg": "data",
+              "r": "idle"
+            },
+            "arrows": [
+              [
+                "dlq",
+                "msg"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Once a message is in the DLQ, the consumer moves on to the next one.",
-            "activeActor": "m1",
-            "messages": [
-              {
-                "from": "flaky_calls",
-                "to": "dlq",
-                "label": {
-                  "var": "flaky_calls",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the retry value produced for storing processing.",
+            "values": {
+              "dlq": {
+                "var": "dlq",
+                "line": 23,
+                "hit": 3
               },
-              {
-                "from": "dlq",
-                "to": "m1",
-                "label": {
-                  "var": "dlq",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "text": ""
+              },
+              "r": {
+                "text": ""
               }
+            },
+            "tones": {
+              "dlq": "ok",
+              "msg": "idle",
+              "r": "idle"
+            },
+            "arrows": [
+              [
+                "dlq",
+                "msg"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Retry, then dead-letter",
-        "actors": [
-          "flaky_calls",
-          "dlq",
-          "m1"
+        "nodes": [
+          {
+            "id": "dlq",
+            "label": "dlq",
+            "tappable": true
+          },
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Handle_message(msg, handler, dlq, max_attempts).",
-            "messages": [
-              {
-                "from": "flaky_calls",
-                "to": "dlq",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "dlq",
-                "to": "m1",
-                "label": "[]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "flaky_calls"
+            "caption": "Practice 1: handle_message(msg, handler, dlq, max_attempts).",
+            "values": {
+              "dlq": "[]",
+              "msg": "",
+              "r": ""
+            },
+            "tones": {
+              "dlq": "data",
+              "msg": "idle",
+              "r": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "On an exception, add 1 to msg[\"retry_count\"].",
-            "messages": [
-              {
-                "from": "flaky_calls",
-                "to": "dlq",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "dlq",
-                "to": "m1",
-                "label": "[]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "dlq"
+            "values": {
+              "dlq": "[]",
+              "msg": "{'id': 2, 'payload': {}, 'retry_count':…",
+              "r": ""
+            },
+            "tones": {
+              "dlq": "data",
+              "msg": "data",
+              "r": "idle"
+            },
+            "arrows": [
+              [
+                "dlq",
+                "msg"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Once a message is in the DLQ, the consumer moves on to the next one.",
-            "messages": [
-              {
-                "from": "flaky_calls",
-                "to": "dlq",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "dlq",
-                "to": "m1",
-                "label": "[]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "m1"
+            "at": "say3",
+            "caption": "Examine the retry value produced for storing processing.",
+            "values": {
+              "dlq": "[{'message': {'id': 2, 'payload': {}, '…",
+              "msg": "",
+              "r": ""
+            },
+            "tones": {
+              "dlq": "ok",
+              "msg": "idle",
+              "r": "idle"
+            },
+            "arrows": [
+              [
+                "dlq",
+                "msg"
+              ]
+            ]
           }
         ]
       }
@@ -631,6 +701,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Sometimes the right action is to discard a message, for example a test.",
+            "activeActor": "fixed_errors",
+            "messages": [
+              {
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": {
+                  "var": "dlq",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "fixed_errors",
@@ -645,10 +732,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Sometimes the right action is to discard a message, for example a test.",
-            "activeActor": "fixed_errors",
+            "at": "say7",
+            "caption": "The example redrives only the entries whose error has been fixed.",
+            "activeActor": "main_topic",
             "messages": [
+              {
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": {
+                  "var": "dlq",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": {
+                  "var": "fixed_errors",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "dlq",
                 "to": "fixed_errors",
@@ -668,14 +775,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example redrives only the entries whose error has been fixed.",
-            "activeActor": "main_topic",
-            "messages": [
+              },
               {
                 "from": "dlq",
                 "to": "fixed_errors",
@@ -718,12 +818,6 @@
                 "to": "fixed_errors",
                 "label": "[{'id': 1, 'error': 'KeyError: customer…",
                 "tone": "data"
-              },
-              {
-                "from": "fixed_errors",
-                "to": "main_topic",
-                "label": "{'KeyError: customer_id'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "dlq"
@@ -751,6 +845,30 @@
             "at": "say7",
             "caption": "The example redrives only the entries whose error has been fixed.",
             "messages": [
+              {
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": "[{'id': 1, 'error': 'KeyError: customer…",
+                "tone": "data"
+              },
+              {
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": "{'KeyError: customer_id'}",
+                "tone": "ok"
+              },
+              {
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": "[{'id': 1, 'error': 'KeyError: customer…",
+                "tone": "data"
+              },
+              {
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": "{'KeyError: customer_id'}",
+                "tone": "ok"
+              },
               {
                 "from": "dlq",
                 "to": "fixed_errors",
@@ -851,18 +969,18 @@
               },
               "failed_keys": {
                 "var": "failed_keys",
-                "line": 3,
+                "line": 8,
                 "hit": 1
               },
               "key": {
                 "var": "key",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "op": {
                 "var": "op",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -897,18 +1015,18 @@
               },
               "failed_keys": {
                 "var": "failed_keys",
-                "line": 4,
+                "line": 8,
                 "hit": 1
               },
               "key": {
                 "var": "key",
-                "line": 7,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "op": {
                 "var": "op",
-                "line": 7,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -991,9 +1109,9 @@
             "caption": "Give each DLQ an owner team, so someone is clearly responsible for looking.",
             "values": {
               "stream": "[['acct-1', 'deposit 100'], ['acct-2', …",
-              "failed_keys": "set()",
-              "key": "'acct-1'",
-              "op": "'deposit 100'"
+              "failed_keys": "{'acct-1'}",
+              "key": "'acct-2'",
+              "op": "'deposit 50'"
             },
             "tones": {
               "stream": "data",
@@ -1021,9 +1139,9 @@
             "caption": "The code shows a simple check for \"later messages of the same key\" when.",
             "values": {
               "stream": "[['acct-1', 'deposit 100'], ['acct-2', …",
-              "failed_keys": "set()",
+              "failed_keys": "{'acct-1'}",
               "key": "'acct-1'",
-              "op": "'deposit 100'"
+              "op": "'withdraw 80'"
             },
             "tones": {
               "stream": "ok",

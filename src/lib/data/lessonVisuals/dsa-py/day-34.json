@@ -98,7 +98,7 @@
           },
           {
             "at": "say6",
-            "caption": "Observe the self-contained NaiveUnionFind demonstration below tracking.",
+            "caption": "Examine the equivalence value produced for classes processing.",
             "bars": [
               {
                 "label": "size",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say6",
-            "caption": "Observe the self-contained NaiveUnionFind demonstration below tracking.",
+            "caption": "Examine the equivalence value produced for classes processing.",
             "bars": [
               {
                 "label": "size",
@@ -758,7 +758,7 @@
           },
           {
             "at": "say6",
-            "caption": "Run the self-contained network cycle detector below identifying.",
+            "caption": "Examine the inverse value produced for ackermann processing.",
             "bars": [
               {
                 "label": "size",
@@ -858,7 +858,7 @@
           },
           {
             "at": "say6",
-            "caption": "Run the self-contained network cycle detector below identifying.",
+            "caption": "Examine the inverse value produced for ackermann processing.",
             "bars": [
               {
                 "label": "size",

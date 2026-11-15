@@ -262,7 +262,7 @@
           },
           {
             "at": "say2",
-            "caption": "Government (.",
+            "caption": "Verify the government transition driving university behavior.",
             "bars": [
               {
                 "label": "days_old",
@@ -332,7 +332,7 @@
           },
           {
             "at": "say2",
-            "caption": "Government (.",
+            "caption": "Verify the government transition driving university behavior.",
             "bars": [
               {
                 "label": "days_old",
@@ -367,7 +367,7 @@
     },
     {
       "partTitle": "Cross-checking claims",
-      "codeHash": "c6bfcc0377f122c400af6afc6a5862669c38cc60af83632539fa76bed0d3a1cf",
+      "codeHash": "2d443a21e255139e74b86fbcf56e8fa3f20c91bcb42b8d6ed9efd8d76650168d",
       "spec": {
         "template": "sequence",
         "title": "Cross-checking claims",
@@ -381,6 +381,23 @@
             "at": "say1",
             "caption": "A single source can be wrong.",
             "activeActor": "reports",
+            "messages": [
+              {
+                "from": "reports",
+                "to": "support",
+                "label": {
+                  "var": "reports",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Many news articles repeat the same press release, so five articles may.",
+            "activeActor": "support",
             "messages": [
               {
                 "from": "reports",
@@ -405,10 +422,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Many news articles repeat the same press release, so five articles may.",
-            "activeActor": "support",
+            "at": "say8",
+            "caption": "Primary sources, such as the original study, the official statistics.",
+            "activeActor": "source",
             "messages": [
+              {
+                "from": "reports",
+                "to": "support",
+                "label": {
+                  "var": "reports",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "support",
+                "to": "source",
+                "label": {
+                  "var": "support",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "reports",
                 "to": "support",
@@ -428,14 +465,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Primary sources, such as the original study, the official statistics.",
-            "activeActor": "source",
-            "messages": [
+              },
               {
                 "from": "reports",
                 "to": "support",
@@ -478,12 +508,6 @@
                 "to": "support",
                 "label": "{'paper A': ['rain friday', 'roads clos…",
                 "tone": "data"
-              },
-              {
-                "from": "support",
-                "to": "source",
-                "label": "{}",
-                "tone": "ok"
               }
             ],
             "activeActor": "reports"
@@ -511,6 +535,30 @@
             "at": "say8",
             "caption": "Primary sources, such as the original study, the official statistics.",
             "messages": [
+              {
+                "from": "reports",
+                "to": "support",
+                "label": "{'paper A': ['rain friday', 'roads clos…",
+                "tone": "data"
+              },
+              {
+                "from": "support",
+                "to": "source",
+                "label": "{}",
+                "tone": "ok"
+              },
+              {
+                "from": "reports",
+                "to": "support",
+                "label": "{'paper A': ['rain friday', 'roads clos…",
+                "tone": "data"
+              },
+              {
+                "from": "support",
+                "to": "source",
+                "label": "{}",
+                "tone": "ok"
+              },
               {
                 "from": "reports",
                 "to": "support",
@@ -720,7 +768,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Good research notes separate facts (with sources), interpretations,.",
+            "caption": "Observe how research shapes good during this step.",
             "activeActor": "notes",
             "messages": [
               {
@@ -811,7 +859,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Good research notes separate facts (with sources), interpretations,.",
+            "caption": "Observe how research shapes good during this step.",
             "messages": [
               {
                 "from": "notes",
@@ -942,7 +990,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates government during execution.",
+            "caption": "Verify the checks transition driving government behavior.",
             "values": {
               "claims": {
                 "var": "claims",
@@ -1088,7 +1136,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates government during execution.",
+            "caption": "Verify the checks transition driving government behavior.",
             "values": {
               "claims": "{'ministry site': ['Exam on 5 March', '…",
               "counts": "{}",

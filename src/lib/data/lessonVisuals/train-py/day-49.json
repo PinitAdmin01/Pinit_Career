@@ -131,158 +131,81 @@
         "title": "Fused Optimizers — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "n",
-            "label": "n"
+            "label": "n",
+            "tappable": true
           },
           {
-            "id": "param_grad_norms",
-            "label": "param_grad_norms"
-          },
-          {
-            "id": "clip_threshold",
-            "label": "clip_threshold"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deep neural networks are susceptible to exploding gradients caused.",
+            "caption": "Inspect deep updates as n tracks neural state.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 1
-              },
               "n": {
                 "var": "n",
                 "line": 4,
                 "hit": 1
               },
-              "param_grad_norms": {
-                "var": "param_grad_norms",
-                "line": 4,
-                "hit": 6
-              },
-              "clip_threshold": {
-                "var": "clip_threshold",
-                "line": 4,
-                "hit": 6
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              ".0": "data",
               "n": "data",
-              "param_grad_norms": "data",
-              "clip_threshold": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                ".0",
-                "n"
-              ],
-              [
-                "n",
-                "param_grad_norms"
-              ],
-              [
-                "param_grad_norms",
-                "clip_threshold"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Gradient clipping by global norm prevents unstable parameter steps.",
+            "caption": "Verify the gradient transition driving clipping behavior.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 2
-              },
               "n": {
                 "var": "n",
                 "line": 4,
-                "hit": 2
+                "hit": 3
               },
-              "param_grad_norms": {
-                "var": "param_grad_norms",
-                "line": 5,
-                "hit": 1
-              },
-              "clip_threshold": {
-                "var": "clip_threshold",
-                "line": 5,
-                "hit": 1
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              ".0": "data",
               "n": "data",
-              "param_grad_norms": "data",
-              "clip_threshold": "data"
+              "out": "ok"
             },
             "arrows": [
               [
-                ".0",
-                "n"
-              ],
-              [
                 "n",
-                "param_grad_norms"
-              ],
-              [
-                "param_grad_norms",
-                "clip_threshold"
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Rigorous testing confirms that global norm clipping maintains smooth.",
+            "at": "say3",
+            "caption": "Examine the algorithm value produced for computes processing.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 3
-              },
               "n": {
                 "var": "n",
                 "line": 4,
-                "hit": 3
+                "hit": 4
               },
-              "param_grad_norms": {
-                "var": "param_grad_norms",
-                "line": 6,
-                "hit": 1
-              },
-              "clip_threshold": {
-                "var": "clip_threshold",
-                "line": 6,
-                "hit": 1
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              ".0": "ok",
               "n": "ok",
-              "param_grad_norms": "ok",
-              "clip_threshold": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
-                ".0",
-                "n"
-              ],
-              [
                 "n",
-                "param_grad_norms"
-              ],
-              [
-                "param_grad_norms",
-                "clip_threshold"
+                "out"
               ]
             ]
           }
@@ -293,110 +216,63 @@
         "title": "Fused Optimizers — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "n",
-            "label": "n"
+            "label": "n",
+            "tappable": true
           },
           {
-            "id": "param_grad_norms",
-            "label": "param_grad_norms"
-          },
-          {
-            "id": "clip_threshold",
-            "label": "clip_threshold"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deep neural networks are susceptible to exploding gradients caused.",
+            "caption": "Inspect deep updates as n tracks neural state.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
               "n": "0.8",
-              "param_grad_norms": "[0.8, 1.2, 0.9, 0.7]",
-              "clip_threshold": "1"
+              "out": ""
             },
             "tones": {
-              ".0": "data",
               "n": "data",
-              "param_grad_norms": "data",
-              "clip_threshold": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                ".0",
-                "n"
-              ],
-              [
-                "n",
-                "param_grad_norms"
-              ],
-              [
-                "param_grad_norms",
-                "clip_threshold"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Gradient clipping by global norm prevents unstable parameter steps.",
+            "caption": "Verify the gradient transition driving clipping behavior.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "n": "1.2",
-              "param_grad_norms": "[0.8, 1.2, 0.9, 0.7]",
-              "clip_threshold": "1"
+              "n": "0.9",
+              "out": "Global Gradient Norm: 1.838 -> Action: CLIPPED (Scale Factor: 0.544)"
             },
             "tones": {
-              ".0": "data",
               "n": "data",
-              "param_grad_norms": "data",
-              "clip_threshold": "data"
+              "out": "ok"
             },
             "arrows": [
               [
-                ".0",
-                "n"
-              ],
-              [
                 "n",
-                "param_grad_norms"
-              ],
-              [
-                "param_grad_norms",
-                "clip_threshold"
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Rigorous testing confirms that global norm clipping maintains smooth.",
+            "at": "say3",
+            "caption": "Examine the algorithm value produced for computes processing.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "n": "0.9",
-              "param_grad_norms": "[0.8, 1.2, 0.9, 0.7]",
-              "clip_threshold": "1"
+              "n": "0.7",
+              "out": "Global Gradient Norm: 1.838 -> Action: CLIPPED (Scale Factor: 0.544)"
             },
             "tones": {
-              ".0": "ok",
               "n": "ok",
-              "param_grad_norms": "ok",
-              "clip_threshold": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
-                ".0",
-                "n"
-              ],
-              [
                 "n",
-                "param_grad_norms"
-              ],
-              [
-                "param_grad_norms",
-                "clip_threshold"
+                "out"
               ]
             ]
           }
@@ -429,6 +305,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the billion transition driving parameter behavior.",
+            "activeActor": "bytes_per_elem",
+            "messages": [
+              {
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": {
+                  "var": "params_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bytes_per_elem",
@@ -443,10 +336,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how billion updates parameter during execution.",
-            "activeActor": "bytes_per_elem",
+            "at": "say11",
+            "caption": "Distributed infrastructure platforms enforce fused optimizer backends as.",
+            "activeActor": "standard_traffic_gb",
             "messages": [
+              {
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": {
+                  "var": "params_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": {
+                  "var": "bytes_per_elem",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "params_b",
                 "to": "bytes_per_elem",
@@ -466,14 +379,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Distributed infrastructure platforms enforce fused optimizer backends as.",
-            "activeActor": "standard_traffic_gb",
-            "messages": [
+              },
               {
                 "from": "params_b",
                 "to": "bytes_per_elem",
@@ -516,19 +422,13 @@
                 "to": "bytes_per_elem",
                 "label": "7",
                 "tone": "data"
-              },
-              {
-                "from": "bytes_per_elem",
-                "to": "standard_traffic_gb",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "params_b"
           },
           {
             "at": "say2",
-            "caption": "Trace how billion updates parameter during execution.",
+            "caption": "Verify the billion transition driving parameter behavior.",
             "messages": [
               {
                 "from": "params_b",
@@ -560,6 +460,30 @@
                 "to": "standard_traffic_gb",
                 "label": "4",
                 "tone": "ok"
+              },
+              {
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": "7",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": "4",
+                "tone": "ok"
+              },
+              {
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": "7",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": "4",
+                "tone": "ok"
               }
             ],
             "activeActor": "standard_traffic_gb"
@@ -569,7 +493,7 @@
     },
     {
       "partTitle": "Fused Optimizers — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a67c45ed814d9667772e6c061c6fb3bf2c296a456dc5004645ddf708c30284ab",
+      "codeHash": "05a249bcb5363bd403b271d29d00124984fd1311b9dffaccbcd6c3eb45f1f5a9",
       "spec": {
         "template": "sequence",
         "title": "Fused Optimizers — Resilience Guardrails & Failure Recovery",
@@ -593,6 +517,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the global transition driving gradient behavior.",
+            "activeActor": "clip_threshold",
+            "messages": [
+              {
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": {
+                  "var": "global_norm",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "clip_threshold",
@@ -607,16 +548,16 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how global updates gradient during execution.",
-            "activeActor": "clip_threshold",
+            "at": "say11",
+            "caption": "Enforcing robust gradient guardrails guarantees that transient dataset.",
+            "activeActor": "status",
             "messages": [
               {
                 "from": "global_norm",
                 "to": "clip_threshold",
                 "label": {
                   "var": "global_norm",
-                  "line": 4,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -626,18 +567,11 @@
                 "to": "status",
                 "label": {
                   "var": "clip_threshold",
-                  "line": 4,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing robust gradient guardrails guarantees that transient dataset.",
-            "activeActor": "status",
-            "messages": [
+              },
               {
                 "from": "global_norm",
                 "to": "clip_threshold",
@@ -678,26 +612,20 @@
               {
                 "from": "global_norm",
                 "to": "clip_threshold",
-                "label": "2.1",
+                "label": "150",
                 "tone": "data"
-              },
-              {
-                "from": "clip_threshold",
-                "to": "status",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "global_norm"
           },
           {
             "at": "say2",
-            "caption": "Trace how global updates gradient during execution.",
+            "caption": "Verify the global transition driving gradient behavior.",
             "messages": [
               {
                 "from": "global_norm",
                 "to": "clip_threshold",
-                "label": "2.1",
+                "label": "150",
                 "tone": "data"
               },
               {
@@ -716,7 +644,19 @@
               {
                 "from": "global_norm",
                 "to": "clip_threshold",
-                "label": "2.1",
+                "label": "150",
+                "tone": "data"
+              },
+              {
+                "from": "clip_threshold",
+                "to": "status",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": "150",
                 "tone": "data"
               },
               {

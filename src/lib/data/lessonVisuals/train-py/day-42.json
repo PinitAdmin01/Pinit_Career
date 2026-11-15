@@ -98,7 +98,7 @@
           },
           {
             "at": "say11",
-            "caption": "This structural advancement enables distributed training pipelines.",
+            "caption": "Examine the interleaved value produced for reducing processing.",
             "bars": [
               {
                 "label": "num_stages",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say11",
-            "caption": "This structural advancement enables distributed training pipelines.",
+            "caption": "Examine the interleaved value produced for reducing processing.",
             "bars": [
               {
                 "label": "num_stages",
@@ -270,16 +270,14 @@
                 "hit": 1
               },
               "layers_per_chunk": {
-                "var": "layers_per_chunk",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_layers": "data",
               "pp_stages": "data",
               "virtual_stages": "data",
-              "layers_per_chunk": "data"
+              "layers_per_chunk": "idle"
             },
             "arrows": [
               [
@@ -298,7 +296,7 @@
           },
           {
             "at": "say2",
-            "caption": "For a 64-layer model on 8 physical GPUs with virtual stage factor v=2,.",
+            "caption": "Verify the layer transition driving model behavior.",
             "values": {
               "total_layers": {
                 "var": "total_layers",
@@ -344,7 +342,7 @@
           },
           {
             "at": "say11",
-            "caption": "This cyclic execution flow ensures that accelerators remain continuously.",
+            "caption": "Examine the mapping value produced for individual processing.",
             "values": {
               "total_layers": {
                 "var": "total_layers",
@@ -419,13 +417,13 @@
               "total_layers": "64",
               "pp_stages": "8",
               "virtual_stages": "2",
-              "layers_per_chunk": "4"
+              "layers_per_chunk": ""
             },
             "tones": {
               "total_layers": "data",
               "pp_stages": "data",
               "virtual_stages": "data",
-              "layers_per_chunk": "data"
+              "layers_per_chunk": "idle"
             },
             "arrows": [
               [
@@ -444,7 +442,7 @@
           },
           {
             "at": "say2",
-            "caption": "For a 64-layer model on 8 physical GPUs with virtual stage factor v=2,.",
+            "caption": "Verify the layer transition driving model behavior.",
             "values": {
               "total_layers": "64",
               "pp_stages": "8",
@@ -474,7 +472,7 @@
           },
           {
             "at": "say11",
-            "caption": "This cyclic execution flow ensures that accelerators remain continuously.",
+            "caption": "Examine the mapping value produced for individual processing.",
             "values": {
               "total_layers": "64",
               "pp_stages": "8",
@@ -550,16 +548,14 @@
                 "hit": 1
               },
               "favorable": {
-                "var": "favorable",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "comm_overhead_ms": "data",
               "bubble_reduction_ms": "data",
               "net_gain_ms": "data",
-              "favorable": "data"
+              "favorable": "idle"
             },
             "arrows": [
               [
@@ -699,13 +695,13 @@
               "comm_overhead_ms": "4.2",
               "bubble_reduction_ms": "18.5",
               "net_gain_ms": "14.3",
-              "favorable": "True"
+              "favorable": ""
             },
             "tones": {
               "comm_overhead_ms": "data",
               "bubble_reduction_ms": "data",
               "net_gain_ms": "data",
-              "favorable": "data"
+              "favorable": "idle"
             },
             "arrows": [
               [
@@ -787,164 +783,114 @@
     },
     {
       "partTitle": "Interleaved 1F1B — Resilience Guardrails & Failure Recovery",
-      "codeHash": "94cddd06d33e15c60edae2595ae3192ae7bb59c96efb460ac322d862ef668e21",
+      "codeHash": "deb123a8e86c0c32a9f3004d6c6ab608bb6cf5b734fc5fe27725c40b9622cee1",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Interleaved 1F1B — Resilience Guardrails & Failure Recovery",
-        "actors": [
-          "num_layers",
-          "pp_stages",
-          "virtual_stages"
+        "nodes": [
+          {
+            "id": "num_layers",
+            "label": "num_layers",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Virtual pipeline stage allocation requires strict mathematical.",
-            "activeActor": "num_layers",
-            "messages": [
-              {
-                "from": "num_layers",
-                "to": "pp_stages",
-                "label": {
-                  "var": "num_layers",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect virtual updates as num_layers tracks pipeline state.",
+            "values": {
+              "num_layers": {
+                "var": "num_layers",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "pp_stages",
-                "to": "virtual_stages",
-                "label": {
-                  "var": "pp_stages",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "num_layers": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The total number of transformer layers must be evenly divisible by.",
-            "activeActor": "pp_stages",
-            "messages": [
-              {
-                "from": "num_layers",
-                "to": "pp_stages",
-                "label": {
-                  "var": "num_layers",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Layer depth must divide evenly by pp_stages * virtual_stages (total_chunks).",
+            "values": {
+              "num_layers": {
+                "var": "num_layers",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "from": "pp_stages",
-                "to": "virtual_stages",
-                "label": {
-                  "var": "pp_stages",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing structural divisibility guarantees balanced computational loads.",
-            "activeActor": "virtual_stages",
-            "messages": [
-              {
-                "from": "num_layers",
-                "to": "pp_stages",
-                "label": {
-                  "var": "num_layers",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": "pp_stages",
-                "to": "virtual_stages",
-                "label": {
-                  "var": "pp_stages",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "num_layers": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "num_layers",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Interleaved 1F1B — Resilience Guardrails & Failure Recovery",
-        "actors": [
-          "num_layers",
-          "pp_stages",
-          "virtual_stages"
+        "nodes": [
+          {
+            "id": "num_layers",
+            "label": "num_layers",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Virtual pipeline stage allocation requires strict mathematical.",
-            "messages": [
-              {
-                "from": "num_layers",
-                "to": "pp_stages",
-                "label": "80",
-                "tone": "data"
-              },
-              {
-                "from": "pp_stages",
-                "to": "virtual_stages",
-                "label": "8",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "num_layers"
+            "caption": "Inspect virtual updates as num_layers tracks pipeline state.",
+            "values": {
+              "num_layers": "70",
+              "out": ""
+            },
+            "tones": {
+              "num_layers": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The total number of transformer layers must be evenly divisible by.",
-            "messages": [
-              {
-                "from": "num_layers",
-                "to": "pp_stages",
-                "label": "80",
-                "tone": "data"
-              },
-              {
-                "from": "pp_stages",
-                "to": "virtual_stages",
-                "label": "8",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "pp_stages"
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing structural divisibility guarantees balanced computational loads.",
-            "messages": [
-              {
-                "from": "num_layers",
-                "to": "pp_stages",
-                "label": "80",
-                "tone": "data"
-              },
-              {
-                "from": "pp_stages",
-                "to": "virtual_stages",
-                "label": "8",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "virtual_stages"
+            "caption": "Layer depth must divide evenly by pp_stages * virtual_stages (total_chunks).",
+            "values": {
+              "num_layers": "80",
+              "out": "Virtual Stage Guardrail: VIRTUAL_STAGE_CONFIG_VALID (Passed: True)"
+            },
+            "tones": {
+              "num_layers": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "num_layers",
+                "out"
+              ]
+            ]
           }
         ]
       }

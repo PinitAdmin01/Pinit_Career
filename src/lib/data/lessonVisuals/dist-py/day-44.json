@@ -95,7 +95,7 @@
             "transition": {
               "from": "st",
               "to": "workflow",
-              "label": "[['reserve', {'__other__': 'function'},…"
+              "label": "[['reserve', <function>, <function>], […"
             },
             "tone": "data"
           },
@@ -106,7 +106,7 @@
             "transition": {
               "from": "workflow",
               "to": "steps",
-              "label": "[['reserve', {'__other__': 'function'},…"
+              "label": "[['reserve', <function>, <function>], […"
             },
             "tone": "ok"
           }
@@ -139,6 +139,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A **Saga Orchestrator** centralizes workflow state transitions cleanly.",
+            "activeActor": "orch",
+            "messages": [
+              {
+                "from": "self",
+                "to": "orch",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "orch",
@@ -153,10 +170,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A **Saga Orchestrator** centralizes workflow state transitions cleanly.",
-            "activeActor": "orch",
+            "at": "say5",
+            "caption": "Build a durable crash-recoverable Saga Orchestrator state machine.",
+            "activeActor": "new_status",
             "messages": [
+              {
+                "from": "self",
+                "to": "orch",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orch",
+                "to": "new_status",
+                "label": {
+                  "var": "orch",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "orch",
@@ -176,14 +213,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Build a durable crash-recoverable Saga Orchestrator state machine.",
-            "activeActor": "new_status",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "orch",
@@ -226,12 +256,6 @@
                 "to": "orch",
                 "label": "<DurableSagaOrchestrator>",
                 "tone": "data"
-              },
-              {
-                "from": "orch",
-                "to": "new_status",
-                "label": "<DurableSagaOrchestrator>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -259,6 +283,30 @@
             "at": "say5",
             "caption": "Build a durable crash-recoverable Saga Orchestrator state machine.",
             "messages": [
+              {
+                "from": "self",
+                "to": "orch",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "data"
+              },
+              {
+                "from": "orch",
+                "to": "new_status",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "orch",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "data"
+              },
+              {
+                "from": "orch",
+                "to": "new_status",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "orch",
@@ -303,6 +351,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Upon reboot, recovery inspects the durable log, sees `COMPENSATING` still.",
+            "activeActor": "svc",
+            "messages": [
+              {
+                "from": "self",
+                "to": "svc",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "svc",
@@ -317,10 +382,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Upon reboot, recovery inspects the durable log, sees `COMPENSATING` still.",
-            "activeActor": "svc",
+            "at": "say7",
+            "caption": "Simulate both idempotent duplicate compensation AND out-of-order.",
+            "activeActor": "order_key",
             "messages": [
+              {
+                "from": "self",
+                "to": "svc",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "svc",
+                "to": "order_key",
+                "label": {
+                  "var": "svc",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "svc",
@@ -340,14 +425,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Simulate both idempotent duplicate compensation AND out-of-order.",
-            "activeActor": "order_key",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "svc",
@@ -390,12 +468,6 @@
                 "to": "svc",
                 "label": "<SafeSagaService>",
                 "tone": "data"
-              },
-              {
-                "from": "svc",
-                "to": "order_key",
-                "label": "<SafeSagaService>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -423,6 +495,30 @@
             "at": "say7",
             "caption": "Simulate both idempotent duplicate compensation AND out-of-order.",
             "messages": [
+              {
+                "from": "self",
+                "to": "svc",
+                "label": "<SafeSagaService>",
+                "tone": "data"
+              },
+              {
+                "from": "svc",
+                "to": "order_key",
+                "label": "<SafeSagaService>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "svc",
+                "label": "<SafeSagaService>",
+                "tone": "data"
+              },
+              {
+                "from": "svc",
+                "to": "order_key",
+                "label": "<SafeSagaService>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "svc",
@@ -673,7 +769,7 @@
           },
           {
             "at": "say4",
-            "caption": "Trace how execute updates full during execution.",
+            "caption": "Examine the saga value produced for integrating processing.",
             "activeActor": "key",
             "messages": [
               {
@@ -749,7 +845,7 @@
           },
           {
             "at": "say4",
-            "caption": "Trace how execute updates full during execution.",
+            "caption": "Examine the saga value produced for integrating processing.",
             "messages": [
               {
                 "from": "ledger",

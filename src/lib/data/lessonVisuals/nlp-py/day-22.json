@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "subwords": {
-                "var": "subwords",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "sentence": "data",
               "words": "data",
               "chars": "data",
-              "subwords": "data"
+              "subwords": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "sentence": "'unbelievable tokenisation results'",
               "words": "['unbelievable', 'tokenisation', 'resul…",
               "chars": "['u', 'n', 'b', 'e', 'l', 'i', 'e', 'v'…",
-              "subwords": "['un', 'believ', 'able', '_token', 'isa…"
+              "subwords": ""
             },
             "tones": {
               "sentence": "data",
               "words": "data",
               "chars": "data",
-              "subwords": "data"
+              "subwords": "idle"
             },
             "arrows": [
               [
@@ -308,7 +306,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how byte updates pair during execution.",
+            "caption": "Inspect byte updates as tokens tracks pair state.",
             "values": {
               "tokens": {
                 "var": "tokens",
@@ -321,15 +319,13 @@
                 "hit": 1
               },
               "best": {
-                "var": "best",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "tokens": "data",
               "pairs": "data",
-              "best": "data"
+              "best": "idle"
             },
             "arrows": [
               [
@@ -436,16 +432,16 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how byte updates pair during execution.",
+            "caption": "Inspect byte updates as tokens tracks pair state.",
             "values": {
               "tokens": "['l', 'o', 'w', '_', 'l', 'o', 'w', 'e'…",
               "pairs": "{['l', 'o']: 3, ['o', 'w']: 3, ['w', '_…",
-              "best": "['l', 'o']"
+              "best": ""
             },
             "tones": {
               "tokens": "data",
               "pairs": "data",
-              "best": "data"
+              "best": "idle"
             },
             "arrows": [
               [
@@ -905,7 +901,7 @@
           },
           {
             "at": "say2",
-            "caption": "A single merge in \"lower\", no overlap in \"aaa\", every occurrence in \"the.",
+            "caption": "Verify the checks transition driving single behavior.",
             "bars": [
               {
                 "label": "step",
@@ -975,7 +971,7 @@
           },
           {
             "at": "say2",
-            "caption": "A single merge in \"lower\", no overlap in \"aaa\", every occurrence in \"the.",
+            "caption": "Verify the checks transition driving single behavior.",
             "bars": [
               {
                 "label": "step",

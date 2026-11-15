@@ -221,10 +221,143 @@
       "partTitle": "FOREIGN KEY: letting PostgreSQL protect the link",
       "codeHash": "5452c621caf1ce011e25e8bcada4308c32ff6e80f5c74feb1364ad1e6aaddd16",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "FOREIGN KEY: letting PostgreSQL protect the link",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "That is called an orphan row, and it breaks reports.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "You declare the link with REFERENCES: customer_id int REFERENCES customers(id).",
+            "values": {
+              "query": {
+                "text": "INSERT INTO orders VALUES (102, 999, 50);"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "error": true
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "FOREIGN KEY: letting PostgreSQL protect the link",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "That is called an orphan row, and it breaks reports.",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "You declare the link with REFERENCES: customer_id int REFERENCES customers(id).",
+            "values": {
+              "query": "INSERT INTO orders VALUES (102, 999, 50);",
+              "db": "PostgreSQL",
+              "res": "insert or update on table \"orders\" violates foreign key constraint \"orders_customer_id_fkey\""
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Many-to-many relationships",
@@ -346,10 +479,303 @@
       "partTitle": "Reading a database design",
       "codeHash": "714a76ca145f7ace40ea4ee3f086a56e25fb2c0a074cf6564e64299eb41c83c3",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Reading a database design",
+        "columns": [
+          "table_name",
+          "constraint_type",
+          "how_many"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Being able to read it quickly is a real job skill.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL itself can tell you.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 6,
+                    "col": "table_name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 6,
+                    "col": "constraint_type"
+                  },
+                  {
+                    "table": 1,
+                    "row": 6,
+                    "col": "how_many"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Reading a database design",
+        "columns": [
+          "table_name",
+          "constraint_type",
+          "how_many"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Being able to read it quickly is a real job skill.",
+            "rows": [
+              {
+                "cells": [
+                  "customers",
+                  "PRIMARY KEY",
+                  "1"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "order_items",
+                  "FOREIGN KEY",
+                  "2"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "order_items",
+                  "PRIMARY KEY",
+                  "1"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL itself can tell you.",
+            "rows": [
+              {
+                "cells": [
+                  "customers",
+                  "PRIMARY KEY",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "order_items",
+                  "FOREIGN KEY",
+                  "2"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "order_items",
+                  "PRIMARY KEY",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "orders",
+                  "FOREIGN KEY",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "orders",
+                  "PRIMARY KEY",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "products",
+                  "PRIMARY KEY",
+                  "1"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: adding reviews to the shop",

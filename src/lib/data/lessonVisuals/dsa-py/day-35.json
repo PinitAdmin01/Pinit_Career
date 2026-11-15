@@ -35,7 +35,7 @@
           },
           {
             "at": "say7",
-            "caption": "Review this complete self-contained initialization blueprint instantiating.",
+            "caption": "Examine the architectural value produced for boundaries processing.",
             "items": {
               "var": "signatures",
               "line": 159,
@@ -72,7 +72,7 @@
           },
           {
             "at": "say7",
-            "caption": "Review this complete self-contained initialization blueprint instantiating.",
+            "caption": "Examine the architectural value produced for boundaries processing.",
             "mode": "queue",
             "items": [
               "'ERR_TIMEOUT'",
@@ -92,7 +92,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Edge clusters constantly undergo routing table churn, fiber cuts,.",
+            "caption": "Observe how speculative shapes edge during this step.",
             "bars": [
               {
                 "label": "size",
@@ -176,7 +176,7 @@
           },
           {
             "at": "say7",
-            "caption": "Execute the self-contained failover controller below joining separated.",
+            "caption": "Linking (0, 2) and (4, 6) permanently partitions nodes 0..2 apart from 4..6.",
             "bars": [
               {
                 "label": "size",
@@ -224,7 +224,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Edge clusters constantly undergo routing table churn, fiber cuts,.",
+            "caption": "Observe how speculative shapes edge during this step.",
             "bars": [
               {
                 "label": "size",
@@ -276,7 +276,7 @@
           },
           {
             "at": "say7",
-            "caption": "Execute the self-contained failover controller below joining separated.",
+            "caption": "Linking (0, 2) and (4, 6) permanently partitions nodes 0..2 apart from 4..6.",
             "bars": [
               {
                 "label": "size",
@@ -477,7 +477,7 @@
           },
           {
             "at": "say7",
-            "caption": "Examine this self-contained TimeWindowGovernor stacking baseline.",
+            "caption": "Examine the interval value produced for lazy processing.",
             "bars": [
               {
                 "label": "node",
@@ -577,7 +577,7 @@
           },
           {
             "at": "say7",
-            "caption": "Examine this self-contained TimeWindowGovernor stacking baseline.",
+            "caption": "Examine the interval value produced for lazy processing.",
             "bars": [
               {
                 "label": "node",

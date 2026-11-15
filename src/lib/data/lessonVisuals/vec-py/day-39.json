@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Foundations & Mathematical Invariants",
+      "partTitle": "Affine Min-Max Mapping from FP32 Coordinates to SQ8 uint8",
       "codeHash": "f58ac36a3ec1268a70ceda5795adc0a2346a62362059b3159f8192e79b1e855f",
       "spec": {
         "template": "flow",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "max_val": {
-                "var": "max_val",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "val_sample": "data",
               "val": "data",
               "min_val": "data",
-              "max_val": "data"
+              "max_val": "idle"
             },
             "arrows": [
               [
@@ -124,7 +122,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the packs value produced for levels processing.",
             "values": {
               "val_sample": {
                 "var": "val_sample",
@@ -199,13 +197,13 @@
               "val_sample": "0.45",
               "val": "0.45",
               "min_val": "-1",
-              "max_val": "1"
+              "max_val": ""
             },
             "tones": {
               "val_sample": "data",
               "val": "data",
               "min_val": "data",
-              "max_val": "data"
+              "max_val": "idle"
             },
             "arrows": [
               [
@@ -254,7 +252,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the packs value produced for levels processing.",
             "values": {
               "val_sample": "0.45",
               "val": "0.45",
@@ -286,84 +284,58 @@
       }
     },
     {
-      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Core Algorithm & State Representation",
-      "codeHash": "47c7d3bba8023c64f43b621b0217982bd44fb9741d329d4280dfe5816c3d27c6",
+      "partTitle": "Scalar Dequantization Error & Inverse Scaling Fidelity",
+      "codeHash": "43f218c7255ffa0505afbf314ed1eefdd0dde72bfa1b4b7beac91cb752305fb2",
       "spec": {
         "template": "flow",
-        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
+        "title": "Scalar Dequantization Error & Inverse Scaling Fidelity",
         "nodes": [
           {
             "id": "orig_val",
-            "label": "orig_val"
+            "label": "orig_val",
+            "tappable": true
           },
           {
             "id": "code",
-            "label": "code"
+            "label": "code",
+            "tappable": true
           },
           {
             "id": "min_val",
-            "label": "min_val"
-          },
-          {
-            "id": "max_val",
-            "label": "max_val"
+            "label": "min_val",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dequantization reconstructs an approximate floating-point coordinate.",
+            "caption": "Inspect dequantization updates as orig_val tracks reconstructs state.",
             "values": {
               "orig_val": {
                 "var": "orig_val",
-                "line": 4,
+                "line": 10,
                 "hit": 1
               },
               "code": {
-                "var": "code",
-                "line": 5,
-                "hit": 1
+                "text": ""
               },
               "min_val": {
-                "var": "min_val",
-                "line": 2,
-                "hit": 1
-              },
-              "max_val": {
-                "var": "max_val",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "orig_val": "data",
-              "code": "data",
-              "min_val": "data",
-              "max_val": "data"
+              "code": "idle",
+              "min_val": "idle"
             },
-            "arrows": [
-              [
-                "orig_val",
-                "code"
-              ],
-              [
-                "code",
-                "min_val"
-              ],
-              [
-                "min_val",
-                "max_val"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The dequantization formula inverts the linear scaling transformation using.",
+            "caption": "Verify the dequantization transition driving scaling behavior.",
             "values": {
               "orig_val": {
-                "var": "orig_val",
-                "line": 5,
-                "hit": 1
+                "text": ""
               },
               "code": {
                 "var": "code",
@@ -374,77 +346,17 @@
                 "var": "min_val",
                 "line": 2,
                 "hit": 1
-              },
-              "max_val": {
-                "var": "max_val",
-                "line": 2,
-                "hit": 1
               }
             },
             "tones": {
-              "orig_val": "data",
-              "code": "data",
-              "min_val": "data",
-              "max_val": "data"
-            },
-            "arrows": [
-              [
-                "orig_val",
-                "code"
-              ],
-              [
-                "code",
-                "min_val"
-              ],
-              [
-                "min_val",
-                "max_val"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
-            "values": {
-              "orig_val": {
-                "var": "orig_val",
-                "line": 6,
-                "hit": 1
-              },
-              "code": {
-                "var": "code",
-                "line": 6,
-                "hit": 1
-              },
-              "min_val": {
-                "var": "min_val",
-                "line": 2,
-                "hit": 1
-              },
-              "max_val": {
-                "var": "max_val",
-                "line": 2,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "orig_val": "ok",
+              "orig_val": "idle",
               "code": "ok",
-              "min_val": "ok",
-              "max_val": "ok"
+              "min_val": "ok"
             },
             "arrows": [
               [
                 "orig_val",
                 "code"
-              ],
-              [
-                "code",
-                "min_val"
-              ],
-              [
-                "min_val",
-                "max_val"
               ]
             ]
           }
@@ -452,113 +364,57 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
+        "title": "Scalar Dequantization Error & Inverse Scaling Fidelity",
         "nodes": [
           {
             "id": "orig_val",
-            "label": "orig_val"
+            "label": "orig_val",
+            "tappable": true
           },
           {
             "id": "code",
-            "label": "code"
+            "label": "code",
+            "tappable": true
           },
           {
             "id": "min_val",
-            "label": "min_val"
-          },
-          {
-            "id": "max_val",
-            "label": "max_val"
+            "label": "min_val",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dequantization reconstructs an approximate floating-point coordinate.",
+            "caption": "Inspect dequantization updates as orig_val tracks reconstructs state.",
             "values": {
               "orig_val": "0.45",
-              "code": "185",
-              "min_val": "-1",
-              "max_val": "1"
+              "code": "",
+              "min_val": ""
             },
             "tones": {
               "orig_val": "data",
-              "code": "data",
-              "min_val": "data",
-              "max_val": "data"
+              "code": "idle",
+              "min_val": "idle"
             },
-            "arrows": [
-              [
-                "orig_val",
-                "code"
-              ],
-              [
-                "code",
-                "min_val"
-              ],
-              [
-                "min_val",
-                "max_val"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The dequantization formula inverts the linear scaling transformation using.",
+            "caption": "Verify the dequantization transition driving scaling behavior.",
             "values": {
-              "orig_val": "0.45",
+              "orig_val": "",
               "code": "185",
-              "min_val": "-1",
-              "max_val": "1"
+              "min_val": "-1"
             },
             "tones": {
-              "orig_val": "data",
-              "code": "data",
-              "min_val": "data",
-              "max_val": "data"
-            },
-            "arrows": [
-              [
-                "orig_val",
-                "code"
-              ],
-              [
-                "code",
-                "min_val"
-              ],
-              [
-                "min_val",
-                "max_val"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
-            "values": {
-              "orig_val": "0.45",
-              "code": "185",
-              "min_val": "-1",
-              "max_val": "1"
-            },
-            "tones": {
-              "orig_val": "ok",
+              "orig_val": "idle",
               "code": "ok",
-              "min_val": "ok",
-              "max_val": "ok"
+              "min_val": "ok"
             },
             "arrows": [
               [
                 "orig_val",
                 "code"
-              ],
-              [
-                "code",
-                "min_val"
-              ],
-              [
-                "min_val",
-                "max_val"
               ]
             ]
           }
@@ -566,7 +422,7 @@
       }
     },
     {
-      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Sign-Bit 1-Bit Quantization & Bitwise Hamming Distance",
       "codeHash": "f22e21ce76b12a2909386a971d30604f836932f30dcb8c46ee91ff264b47982a",
       "spec": {
         "template": "bars",
@@ -640,7 +496,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the hamming value produced for distance processing.",
             "bars": [
               {
                 "label": "x",
@@ -721,7 +577,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the hamming value produced for distance processing.",
             "bars": [
               {
                 "label": "x",
@@ -744,8 +600,8 @@
       }
     },
     {
-      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Resilience Guardrails & Failure Recovery",
-      "codeHash": "3f5a4625386a1a744be1e48f76aa3f5d3ec2d2b1c15be53faf030b7d9e240b29",
+      "partTitle": "Degenerate Quantization Bound Guards Preventing Zero Division",
+      "codeHash": "d073030b0d104c4dbd58b62fda720c85db77f061d85a418010f9badbcea347c3",
       "spec": {
         "template": "bars",
         "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
@@ -776,7 +632,7 @@
           },
           {
             "at": "say2",
-            "caption": "If all elements in an indexed dimension have the same constant value,.",
+            "caption": "Verify the zero transition driving elements behavior.",
             "bars": [
               {
                 "label": "min_v",
@@ -800,7 +656,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the handling value produced for negative processing.",
             "bars": [
               {
                 "label": "min_v",
@@ -834,19 +690,19 @@
             "bars": [
               {
                 "label": "min_v",
-                "value": 2,
+                "value": -1,
                 "tone": "data"
               },
               {
                 "label": "max_v",
-                "value": 2,
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "If all elements in an indexed dimension have the same constant value,.",
+            "caption": "Verify the zero transition driving elements behavior.",
             "bars": [
               {
                 "label": "min_v",
@@ -862,7 +718,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the handling value produced for negative processing.",
             "bars": [
               {
                 "label": "min_v",
@@ -880,7 +736,7 @@
       }
     },
     {
-      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Production Telemetry & Verification Audit",
+      "partTitle": "Comparing FP32, SQ8, and 1-Bit Binary Footprint Curves",
       "codeHash": "23f68efa77645f712e6e4ef09e517071a84bd6129ca6b5f4151f232343a58816",
       "spec": {
         "template": "bars",
@@ -930,7 +786,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how million updates dimensional during execution.",
+            "caption": "Verify the fp32 transition driving million behavior.",
             "bars": [
               {
                 "label": "num_docs",
@@ -1046,7 +902,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how million updates dimensional during execution.",
+            "caption": "Verify the fp32 transition driving million behavior.",
             "bars": [
               {
                 "label": "num_docs",

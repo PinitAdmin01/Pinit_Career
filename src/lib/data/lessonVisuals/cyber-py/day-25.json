@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Signature-based detection matches known attack patterns.",
+            "activeActor": "desc",
+            "messages": [
+              {
+                "from": "packets",
+                "to": "desc",
+                "label": {
+                  "var": "packets",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "desc",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Signature-based detection matches known attack patterns.",
-            "activeActor": "desc",
+            "at": "say10",
+            "caption": "Rules are shared by communities and vendors, and updated as new attacks appear.",
+            "activeActor": "malicious",
             "messages": [
+              {
+                "from": "packets",
+                "to": "desc",
+                "label": {
+                  "var": "packets",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "malicious",
+                "label": {
+                  "var": "desc",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "packets",
                 "to": "desc",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Rules are shared by communities and vendors, and updated as new attacks appear.",
-            "activeActor": "malicious",
-            "messages": [
+              },
               {
                 "from": "packets",
                 "to": "desc",
@@ -118,12 +148,6 @@
                 "to": "desc",
                 "label": "[['normal page view', False], ['SQL inj…",
                 "tone": "data"
-              },
-              {
-                "from": "desc",
-                "to": "malicious",
-                "label": "'normal page view'",
-                "tone": "ok"
               }
             ],
             "activeActor": "packets"
@@ -151,6 +175,30 @@
             "at": "say10",
             "caption": "Rules are shared by communities and vendors, and updated as new attacks appear.",
             "messages": [
+              {
+                "from": "packets",
+                "to": "desc",
+                "label": "[['normal page view', False], ['SQL inj…",
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "malicious",
+                "label": "'normal page view'",
+                "tone": "ok"
+              },
+              {
+                "from": "packets",
+                "to": "desc",
+                "label": "[['normal page view', False], ['SQL inj…",
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "malicious",
+                "label": "'normal page view'",
+                "tone": "ok"
+              },
               {
                 "from": "packets",
                 "to": "desc",
@@ -194,7 +242,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how example updates alert during execution.",
+            "caption": "Verify the example transition driving inspection behavior.",
             "currentState": "m",
             "transition": {
               "from": "rule",
@@ -231,12 +279,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how example updates alert during execution.",
+            "caption": "Verify the example transition driving inspection behavior.",
             "currentState": "m",
             "transition": {
               "from": "rule",
               "to": "m",
-              "label": "{'__other__': 'Match'}"
+              "label": "<Match>"
             },
             "tone": "ok"
           }
@@ -486,7 +534,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "New rules should start in alert-only mode, even on an IPS, until their.",
+            "caption": "Inspect rules updates as tests tracks start state.",
             "values": {
               "tests": {
                 "var": "tests",
@@ -527,18 +575,18 @@
               },
               "payload": {
                 "var": "payload",
-                "line": 2,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "should_match": {
                 "var": "should_match",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "got": {
                 "var": "got",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -559,18 +607,18 @@
               },
               "payload": {
                 "var": "payload",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               },
               "should_match": {
                 "var": "should_match",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               },
               "got": {
                 "var": "got",
-                "line": 6,
-                "hit": 2
+                "line": 7,
+                "hit": 4
               }
             },
             "tones": {
@@ -606,7 +654,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "New rules should start in alert-only mode, even on an IPS, until their.",
+            "caption": "Inspect rules updates as tests tracks start state.",
             "values": {
               "tests": "[['GET /search?q=union+select+data', Tr…",
               "payload": "'GET /search?q=union+select+data'",
@@ -625,9 +673,9 @@
             "caption": "Test each rule against captured normal traffic (should not match).",
             "values": {
               "tests": "[['GET /search?q=union+select+data', Tr…",
-              "payload": "'GET /search?q=union+select+data'",
-              "should_match": "True",
-              "got": "False"
+              "payload": "'GET /search?q=trade union news'",
+              "should_match": "False",
+              "got": "True"
             },
             "tones": {
               "tests": "data",
@@ -641,7 +689,7 @@
             "caption": "Tomorrow shifts from defence to assessment.",
             "values": {
               "tests": "[['GET /search?q=union+select+data', Tr…",
-              "payload": "'GET /search?q=union+select+data'",
+              "payload": "'POST id=1 UNION SELECT password'",
               "should_match": "True",
               "got": "False"
             },
@@ -700,16 +748,14 @@
                 "hit": 1
               },
               "traffic": {
-                "var": "traffic",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "rule": "data",
               "m": "data",
               "opts": "data",
-              "traffic": "data"
+              "traffic": "idle"
             },
             "arrows": [
               [
@@ -728,7 +774,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include an alert rule with content, a drop rule without.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "rule": {
                 "var": "rule",
@@ -847,15 +893,15 @@
             "caption": "Parse_rule(rule).",
             "values": {
               "rule": "'alert tcp any any -> any 80 (msg:\"Admi…",
-              "m": "{'__other__': 'Match'}",
+              "m": "<Match>",
               "opts": "{'msg': 'Admin probe', 'content': '/adm…",
-              "traffic": "[[80, 'GET /admin/login'], [80, 'GET /p…"
+              "traffic": ""
             },
             "tones": {
               "rule": "data",
               "m": "data",
               "opts": "data",
-              "traffic": "data"
+              "traffic": "idle"
             },
             "arrows": [
               [
@@ -874,10 +920,10 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include an alert rule with content, a drop rule without.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "rule": "'alert tcp any any -> any 80 (msg:\"Admi…",
-              "m": "{'__other__': 'Match'}",
+              "m": "<Match>",
               "opts": "{'msg': 'Admin probe', 'content': '/adm…",
               "traffic": "[[80, 'GET /admin/login'], [80, 'GET /p…"
             },
@@ -907,7 +953,7 @@
             "caption": "Precision is the goal.",
             "values": {
               "rule": "'alert tcp any any -> any 80 (msg:\"Admi…",
-              "m": "{'__other__': 'Match'}",
+              "m": "<Match>",
               "opts": "{'msg': 'Admin probe', 'content': '/adm…",
               "traffic": "[[80, 'GET /admin/login'], [80, 'GET /p…"
             },

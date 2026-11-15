@@ -714,16 +714,14 @@
                 "hit": 1
               },
               "base": {
-                "var": "base",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "layers": "data",
               "matrices": "data",
               "d": "data",
-              "base": "data"
+              "base": "idle"
             },
             "arrows": [
               [
@@ -788,7 +786,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how even updates rank during execution.",
+            "caption": "Examine the rank value produced for even processing.",
             "values": {
               "layers": {
                 "var": "layers",
@@ -863,13 +861,13 @@
               "layers": "32",
               "matrices": "4",
               "d": "4096",
-              "base": "7000000000"
+              "base": ""
             },
             "tones": {
               "layers": "data",
               "matrices": "data",
               "d": "data",
-              "base": "data"
+              "base": "idle"
             },
             "arrows": [
               [
@@ -918,7 +916,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how even updates rank during execution.",
+            "caption": "Examine the rank value produced for even processing.",
             "values": {
               "layers": "32",
               "matrices": "4",
@@ -1000,7 +998,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates rank during execution.",
+            "caption": "Verify the checks transition driving rank behavior.",
             "bars": [
               {
                 "label": "full_model_gib",
@@ -1116,7 +1114,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates rank during execution.",
+            "caption": "Verify the checks transition driving rank behavior.",
             "bars": [
               {
                 "label": "full_model_gib",

@@ -24,7 +24,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how injection updates flaws during execution.",
+            "caption": "Observe how injection shapes flaws during this step.",
             "currentState": "ac",
             "tone": "data"
           },
@@ -61,7 +61,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how injection updates flaws during execution.",
+            "caption": "Observe how injection shapes flaws during this step.",
             "currentState": "ac",
             "tone": "data"
           },
@@ -123,7 +123,7 @@
           },
           {
             "at": "say9",
-            "caption": "Automated test suites must include negative fuzzing cases with.",
+            "caption": "Examine the enforcing value produced for placeholder processing.",
             "currentState": "placeholder_count",
             "transition": {
               "from": "params",
@@ -175,7 +175,7 @@
           },
           {
             "at": "say9",
-            "caption": "Automated test suites must include negative fuzzing cases with.",
+            "caption": "Examine the enforcing value produced for placeholder processing.",
             "currentState": "placeholder_count",
             "transition": {
               "from": "params",
@@ -246,7 +246,7 @@
           },
           {
             "at": "say2",
-            "caption": "In a second-order attack, an adversary submits an injection string (such.",
+            "caption": "Verify the second transition driving order behavior.",
             "values": {
               "db_record": {
                 "var": "db_record",
@@ -278,7 +278,7 @@
           },
           {
             "at": "say9",
-            "caption": "Database connection strings should configure least-privilege user.",
+            "caption": "Examine the throughput value produced for case processing.",
             "values": {
               "db_record": {
                 "var": "db_record",
@@ -350,7 +350,7 @@
           },
           {
             "at": "say2",
-            "caption": "In a second-order attack, an adversary submits an injection string (such.",
+            "caption": "Verify the second transition driving order behavior.",
             "values": {
               "db_record": "{'user_id': 104, 'bio': 'Senior Enginee…",
               "record_dict": "{'user_id': 104, 'bio': 'Senior Enginee…",
@@ -366,7 +366,7 @@
           },
           {
             "at": "say9",
-            "caption": "Database connection strings should configure least-privilege user.",
+            "caption": "Examine the throughput value produced for case processing.",
             "values": {
               "db_record": "{'user_id': 104, 'bio': 'Senior Enginee…",
               "record_dict": "{'user_id': 104, 'bio': 'Senior Enginee…",
@@ -689,6 +689,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production metrics monitor total query execution volume, parameterized.",
+            "activeActor": "nosql_operators_blocked",
+            "messages": [
+              {
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": {
+                  "var": "sql_parameterized",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "nosql_operators_blocked",
@@ -703,10 +720,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Production metrics monitor total query execution volume, parameterized.",
-            "activeActor": "nosql_operators_blocked",
+            "at": "say9",
+            "caption": "Comprehensive injection defense telemetry provides compliance officers.",
+            "activeActor": "second_order_detected",
             "messages": [
+              {
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": {
+                  "var": "sql_parameterized",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": {
+                  "var": "nosql_operators_blocked",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "sql_parameterized",
                 "to": "nosql_operators_blocked",
@@ -726,14 +763,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Comprehensive injection defense telemetry provides compliance officers.",
-            "activeActor": "second_order_detected",
-            "messages": [
+              },
               {
                 "from": "sql_parameterized",
                 "to": "nosql_operators_blocked",
@@ -776,12 +806,6 @@
                 "to": "nosql_operators_blocked",
                 "label": "True",
                 "tone": "data"
-              },
-              {
-                "from": "nosql_operators_blocked",
-                "to": "second_order_detected",
-                "label": "True",
-                "tone": "ok"
               }
             ],
             "activeActor": "sql_parameterized"
@@ -809,6 +833,30 @@
             "at": "say9",
             "caption": "Comprehensive injection defense telemetry provides compliance officers.",
             "messages": [
+              {
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": "True",
+                "tone": "ok"
+              },
+              {
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": "True",
+                "tone": "ok"
+              },
               {
                 "from": "sql_parameterized",
                 "to": "nosql_operators_blocked",

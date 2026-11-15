@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Capturing Both Equivalence and Concurrency Exactly",
-      "codeHash": "000e99a0c25643ef412f4e3e752977c4d7aefbf2ca9e3eacf412b01513bc9c3c",
+      "codeHash": "7ad4976414caaff3164a81e95d3183dd7c9bdb1127833d180ee89436a9c48ffb",
       "spec": {
         "template": "states",
         "title": "Capturing Both Equivalence and Concurrency Exactly",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace the vector increment, element-wise merge, and partial-order relation.",
+            "caption": "Examine the comparing value produced for multi processing.",
             "currentState": "vc",
             "transition": {
               "from": "vb",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace the vector increment, element-wise merge, and partial-order relation.",
+            "caption": "Examine the comparing value produced for multi processing.",
             "currentState": "vc",
             "transition": {
               "from": "vb",
@@ -115,7 +115,7 @@
     },
     {
       "partTitle": "Sibling Preservation and Client Context Merging",
-      "codeHash": "128b2734398a63d7cd54541cc8a421733f16c6b627d30e0d287ff7a0fb3e502e",
+      "codeHash": "88ae9a0056651b91ae39bc992433ef752321d7c56c224f6f35e47cab80916fd0",
       "spec": {
         "template": "sequence",
         "title": "Sibling Preservation and Client Context Merging",
@@ -139,6 +139,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Instead, the storage coordinator retains both versions as conflicting siblings.",
+            "activeActor": "coord_id",
+            "messages": [
+              {
+                "from": "siblings",
+                "to": "coord_id",
+                "label": {
+                  "var": "siblings",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "coord_id",
@@ -153,10 +170,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Instead, the storage coordinator retains both versions as conflicting siblings.",
-            "activeActor": "coord_id",
+            "at": "say8",
+            "caption": "Run the replica put-reconciliation loop below showing automatic pruning.",
+            "activeActor": "client_ctx",
             "messages": [
+              {
+                "from": "siblings",
+                "to": "coord_id",
+                "label": {
+                  "var": "siblings",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": {
+                  "var": "coord_id",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "siblings",
                 "to": "coord_id",
@@ -176,14 +213,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Run the replica put-reconciliation loop below showing automatic pruning.",
-            "activeActor": "client_ctx",
-            "messages": [
+              },
               {
                 "from": "siblings",
                 "to": "coord_id",
@@ -226,12 +256,6 @@
                 "to": "coord_id",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "coord_id",
-                "to": "client_ctx",
-                "label": "'n1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "siblings"
@@ -259,6 +283,30 @@
             "at": "say8",
             "caption": "Run the replica put-reconciliation loop below showing automatic pruning.",
             "messages": [
+              {
+                "from": "siblings",
+                "to": "coord_id",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": "'n1'",
+                "tone": "ok"
+              },
+              {
+                "from": "siblings",
+                "to": "coord_id",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": "'n1'",
+                "tone": "ok"
+              },
               {
                 "from": "siblings",
                 "to": "coord_id",
@@ -303,6 +351,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Two complementary production techniques prevent runaway vector growth.",
+            "activeActor": "entries",
+            "messages": [
+              {
+                "from": "v",
+                "to": "entries",
+                "label": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "entries",
@@ -317,10 +382,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Two complementary production techniques prevent runaway vector growth.",
-            "activeActor": "entries",
+            "at": "say8",
+            "caption": "Inspect the LRU actor pruning helper below bounding vector metadata size.",
+            "activeActor": "max_actors",
             "messages": [
+              {
+                "from": "v",
+                "to": "entries",
+                "label": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "max_actors",
+                "label": {
+                  "var": "entries",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "v",
                 "to": "entries",
@@ -340,14 +425,7 @@
                   "hit": 5
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Inspect the LRU actor pruning helper below bounding vector metadata size.",
-            "activeActor": "max_actors",
-            "messages": [
+              },
               {
                 "from": "v",
                 "to": "entries",
@@ -390,12 +468,6 @@
                 "to": "entries",
                 "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
                 "tone": "data"
-              },
-              {
-                "from": "entries",
-                "to": "max_actors",
-                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
-                "tone": "ok"
               }
             ],
             "activeActor": "v"
@@ -423,6 +495,30 @@
             "at": "say8",
             "caption": "Inspect the LRU actor pruning helper below bounding vector metadata size.",
             "messages": [
+              {
+                "from": "v",
+                "to": "entries",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "max_actors",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "ok"
+              },
+              {
+                "from": "v",
+                "to": "entries",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "max_actors",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "ok"
+              },
               {
                 "from": "v",
                 "to": "entries",
@@ -467,6 +563,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "TCP only orders bytes inside one single sender-receiver socket.",
+            "activeActor": "pid",
+            "messages": [
+              {
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "pid",
@@ -481,10 +594,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "TCP only orders bytes inside one single sender-receiver socket.",
-            "activeActor": "pid",
+            "at": "say8",
+            "caption": "Examine the order value produced for message processing.",
+            "activeActor": "charlie",
             "messages": [
+              {
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pid",
+                "to": "charlie",
+                "label": {
+                  "var": "pid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "pid",
@@ -504,14 +637,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Trace how Charlie's causal delivery buffer holds Bob's premature reply.",
-            "activeActor": "charlie",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "pid",
@@ -554,12 +680,6 @@
                 "to": "pid",
                 "label": "<CausalDeliverNode>",
                 "tone": "data"
-              },
-              {
-                "from": "pid",
-                "to": "charlie",
-                "label": "'C'",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -585,8 +705,32 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how Charlie's causal delivery buffer holds Bob's premature reply.",
+            "caption": "Examine the order value produced for message processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<CausalDeliverNode>",
+                "tone": "data"
+              },
+              {
+                "from": "pid",
+                "to": "charlie",
+                "label": "'C'",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<CausalDeliverNode>",
+                "tone": "data"
+              },
+              {
+                "from": "pid",
+                "to": "charlie",
+                "label": "'C'",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "pid",
@@ -607,7 +751,7 @@
     },
     {
       "partTitle": "Measuring Causality Violations Under Reordered Network Delivery",
-      "codeHash": "f5cb2f84d42eb6dc04cbba8581ab5432d1de28e6287463980c618fce37201e2a",
+      "codeHash": "85f94fe4a4da322ad8f84c7d1d8bea5719e150c04ae612fbe1130b6f682b8897",
       "spec": {
         "template": "sequence",
         "title": "Measuring Causality Violations Under Reordered Network Delivery",
@@ -621,6 +765,23 @@
             "at": "say1",
             "caption": "During chaos testing or shard failover drills, engineers must quantify.",
             "activeActor": "raw_arrival",
+            "messages": [
+              {
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": {
+                  "var": "raw_arrival",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Suppose distributed trace logs record application read observations.",
+            "activeActor": "causal_order",
             "messages": [
               {
                 "from": "raw_arrival",
@@ -645,10 +806,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Suppose distributed trace logs record application read observations.",
-            "activeActor": "causal_order",
+            "at": "say7",
+            "caption": "Examine the delivery value produced for quantifying processing.",
+            "activeActor": "delivered_vcs",
             "messages": [
+              {
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": {
+                  "var": "raw_arrival",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": {
+                  "var": "causal_order",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "raw_arrival",
                 "to": "causal_order",
@@ -668,14 +849,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect the causality violation detector below comparing naive FIFO raw.",
-            "activeActor": "delivered_vcs",
-            "messages": [
+              },
               {
                 "from": "raw_arrival",
                 "to": "causal_order",
@@ -718,12 +892,6 @@
                 "to": "causal_order",
                 "label": "[{'A': 1, 'B': 1}, {'A': 1}, {'A': 2, '…",
                 "tone": "data"
-              },
-              {
-                "from": "causal_order",
-                "to": "delivered_vcs",
-                "label": "[{'A': 1}, {'A': 1, 'B': 1}, {'A': 2, '…",
-                "tone": "ok"
               }
             ],
             "activeActor": "raw_arrival"
@@ -749,8 +917,32 @@
           },
           {
             "at": "say7",
-            "caption": "Inspect the causality violation detector below comparing naive FIFO raw.",
+            "caption": "Examine the delivery value produced for quantifying processing.",
             "messages": [
+              {
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": "[{'A': 1, 'B': 1}, {'A': 1}, {'A': 2, '…",
+                "tone": "data"
+              },
+              {
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": "[{'A': 1}, {'A': 1, 'B': 1}, {'A': 2, '…",
+                "tone": "ok"
+              },
+              {
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": "[{'A': 1, 'B': 1}, {'A': 1}, {'A': 2, '…",
+                "tone": "data"
+              },
+              {
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": "[{'A': 1}, {'A': 1, 'B': 1}, {'A': 2, '…",
+                "tone": "ok"
+              },
               {
                 "from": "raw_arrival",
                 "to": "causal_order",

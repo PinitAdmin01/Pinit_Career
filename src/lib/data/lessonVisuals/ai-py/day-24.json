@@ -695,6 +695,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The margin is logprob(chosen) - logprob(rejected).",
+            "activeActor": "rejected_logprob",
+            "messages": [
+              {
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": {
+                  "var": "chosen_logprob",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "rejected_logprob",
@@ -709,10 +726,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The margin is logprob(chosen) - logprob(rejected).",
-            "activeActor": "rejected_logprob",
+            "at": "say7",
+            "caption": "DPO is simpler and more stable than RLHF, which is why many open models use it.",
+            "activeActor": "beta",
             "messages": [
+              {
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": {
+                  "var": "chosen_logprob",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": {
+                  "var": "rejected_logprob",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "chosen_logprob",
                 "to": "rejected_logprob",
@@ -732,14 +769,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "DPO is simpler and more stable than RLHF, which is why many open models use it.",
-            "activeActor": "beta",
-            "messages": [
+              },
               {
                 "from": "chosen_logprob",
                 "to": "rejected_logprob",
@@ -782,12 +812,6 @@
                 "to": "rejected_logprob",
                 "label": "-12",
                 "tone": "data"
-              },
-              {
-                "from": "rejected_logprob",
-                "to": "beta",
-                "label": "-15.5",
-                "tone": "ok"
               }
             ],
             "activeActor": "chosen_logprob"
@@ -815,6 +839,30 @@
             "at": "say7",
             "caption": "DPO is simpler and more stable than RLHF, which is why many open models use it.",
             "messages": [
+              {
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": "-12",
+                "tone": "data"
+              },
+              {
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": "-15.5",
+                "tone": "ok"
+              },
+              {
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": "-12",
+                "tone": "data"
+              },
+              {
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": "-15.5",
+                "tone": "ok"
+              },
               {
                 "from": "chosen_logprob",
                 "to": "rejected_logprob",
@@ -1074,16 +1122,14 @@
                 "hit": 1
               },
               "ties": {
-                "var": "ties",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "judgements": "data",
               "wins": "data",
               "losses": "data",
-              "ties": "data"
+              "ties": "idle"
             }
           },
           {
@@ -1181,13 +1227,13 @@
               "judgements": "['new', 'new', 'old', 'tie', 'new', 'ne…",
               "wins": "6",
               "losses": "2",
-              "ties": "2"
+              "ties": ""
             },
             "tones": {
               "judgements": "data",
               "wins": "data",
               "losses": "data",
-              "ties": "data"
+              "ties": "idle"
             }
           },
           {

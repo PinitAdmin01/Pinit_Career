@@ -91,7 +91,7 @@ const DAYS: Day[] = [
       "desc": "Write `inverted_index(docs)` where docs maps a doc id to its token list. Return a dict from each token to the sorted list of doc ids containing it (each id once).",
       "starter": "def inverted_index(docs):\n    pass",
       "hint": "index.setdefault(tok, set()).add(doc_id), then sort each set.",
-      "test": "idx = inverted_index({'d2': ['cloud', 'python'], 'd1': ['cloud', 'cloud', 'cost'], 'd3': []})\nassert idx == {'cloud': ['d1', 'd2'], 'python': ['d2'], 'cost': ['d1']}, f'Got {idx}'\nassert inverted_index({}) == {}, 'No documents'\nprint('All checks passed.')"
+      "test": "idx = inverted_index({'d2': ['cloud', 'python'], 'd1': ['cloud', 'cloud', 'cost'], 'd3': []})\nassert idx == {'cloud': ['d1', 'd2'], 'python': ['d2'], 'cost': ['d1']}, f'Got {idx}'\nassert inverted_index({}) == {}, 'No documents'\nassert inverted_index({'d1': []}) == {}, 'Empty doc contributes no tokens'\nprint('All checks passed.')"
     }
   },
   {
@@ -116,7 +116,7 @@ const DAYS: Day[] = [
       "desc": "Write `vector_analogy(a, b, c)` returning a - b + c element by element (as in king - man + woman), each value rounded to 4 decimals.",
       "starter": "def vector_analogy(a, b, c):\n    pass",
       "hint": "[round(x - y + z, 4) for x, y, z in zip(a, b, c)]",
-      "test": "king, man, woman = [0.8, 0.9, 0.1], [0.7, 0.1, 0.1], [0.7, 0.1, 0.9]\nassert vector_analogy(king, man, woman) == [0.8, 0.9, 0.9], f'Got {vector_analogy(king, man, woman)}'\nassert vector_analogy([1, 2], [1, 2], [3, -1]) == [3, -1], 'a - a + c = c'\nprint('All checks passed.')"
+      "test": "king, man, woman = [0.8, 0.9, 0.1], [0.7, 0.1, 0.1], [0.7, 0.1, 0.9]\nassert vector_analogy(king, man, woman) == [0.8, 0.9, 0.9], f'Got {vector_analogy(king, man, woman)}'\nassert vector_analogy([1, 2], [1, 2], [3, -1]) == [3, -1], 'a - a + c = c'\nassert vector_analogy([], [], []) == [], 'Empty vectors'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Nearest Word",
@@ -283,7 +283,7 @@ const DAYS: Day[] = [
       "desc": "Write `context_vector(weights, values)` returning the weighted sum of the value vectors: sum over i of weights[i] * values[i], element by element, rounded to 4 decimals. This is what attention hands to the decoder.",
       "starter": "def context_vector(weights, values):\n    pass",
       "hint": "[round(sum(w * v[j] for w, v in zip(weights, values)), 4) for j in range(len(values[0]))]",
-      "test": "vals = [[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]\nassert context_vector([1.0, 0.0, 0.0], vals) == [1.0, 0.0], 'All attention on the first word'\nassert context_vector([0.5, 0.25, 0.25], vals) == [0.75, 0.5], f'Got {context_vector([0.5, 0.25, 0.25], vals)}'\nprint('All checks passed.')"
+      "test": "vals = [[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]\nassert context_vector([1.0, 0.0, 0.0], vals) == [1.0, 0.0], 'All attention on the first word'\nassert context_vector([0.5, 0.25, 0.25], vals) == [0.75, 0.5], f'Got {context_vector([0.5, 0.25, 0.25], vals)}'\nassert context_vector([0.0, 1.0, 0.0], vals) == [0.0, 1.0], 'All weight on second item'\nprint('All checks passed.')"
     }
   },
   {
@@ -299,7 +299,7 @@ const DAYS: Day[] = [
       "desc": "Write `self_attention(Q, K, V)` for lists of vectors. For each query q in Q: score every key with dot(q, k) / sqrt(d) (d = len(k)), turn the scores into weights with softmax, and output the weighted sum of the value vectors. Return the list of outputs, every number rounded to 4 decimals (round only at the end).",
       "starter": "import math\n\n\ndef self_attention(Q, K, V):\n    pass",
       "hint": "For each q: scores -> exps (subtract max) -> weights -> [sum(w * v[j]) for j]",
-      "test": "Q = [[1.0, 0.0], [0.0, 1.0]]\nK = [[1.0, 0.0], [0.0, 1.0]]\nV = [[10.0, 0.0], [0.0, 10.0]]\nout = self_attention(Q, K, V)\nassert out == [[6.6976, 3.3024], [3.3024, 6.6976]], f'Got {out}'\nsame = self_attention([[1.0, 1.0]], [[1.0, 1.0], [1.0, 1.0]], [[2.0, 0.0], [4.0, 0.0]])\nassert same == [[3.0, 0.0]], 'Equal scores average the values'\nprint('All checks passed.')"
+      "test": "Q = [[1.0, 0.0], [0.0, 1.0]]\nK = [[1.0, 0.0], [0.0, 1.0]]\nV = [[10.0, 0.0], [0.0, 10.0]]\nout = self_attention(Q, K, V)\nassert out == [[6.6976, 3.3024], [3.3024, 6.6976]], f'Got {out}'\nsame = self_attention([[1.0, 1.0]], [[1.0, 1.0], [1.0, 1.0]], [[2.0, 0.0], [4.0, 0.0]])\nassert same == [[3.0, 0.0]], 'Equal scores average the values'\nassert self_attention([[0.0, 0.0]], [[1.0, 0.0]], [[5.0, 7.0]]) == [[5.0, 7.0]], 'Single key-value pair returns exact value'\nprint('All checks passed.')"
     }
   },
   {
@@ -308,7 +308,7 @@ const DAYS: Day[] = [
       "desc": "Write `head_dim(d_model, heads)` returning d_model // heads. If heads is not positive, or d_model is not evenly divisible by heads, raise ValueError.",
       "starter": "def head_dim(d_model, heads):\n    pass",
       "hint": "if heads <= 0 or d_model % heads: raise ValueError(...)",
-      "test": "assert head_dim(512, 8) == 64, 'The original Transformer: 512 / 8'\nassert head_dim(768, 12) == 64, 'BERT base'\nfor bad in [(512, 7), (512, 0)]:\n    try:\n        head_dim(*bad)\n        raise AssertionError(f'{bad} must raise ValueError')\n    except ValueError:\n        pass\nprint('All checks passed.')"
+      "test": "assert head_dim(512, 8) == 64, 'The original Transformer: 512 / 8'\nassert head_dim(768, 12) == 64, 'BERT base'\nfor bad in [(512, 7), (512, 0)]:\n    try:\n        head_dim(*bad)\n        raise AssertionError(f'{bad} must raise ValueError')\n    except ValueError:\n        pass\nassert head_dim(64, 1) == 64, 'Single head'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Split Into Heads",
@@ -427,7 +427,7 @@ const DAYS: Day[] = [
       "desc": "Write `rerank(candidates, scores, k)` where candidates is the stage-1 list of doc ids (best first by the fast retriever) and scores maps a doc id to its cross-encoder score. Return the top k ids by cross-encoder score, highest first; ties keep the stage-1 order. Candidates without a score are dropped.",
       "starter": "def rerank(candidates, scores, k):\n    pass",
       "hint": "sorted((c for c in candidates if c in scores), key=lambda c: -scores[c])[:k]  (sorted is stable)",
-      "test": "cands = ['d7', 'd2', 'd9', 'd4']\nscores = {'d7': 0.2, 'd2': 0.9, 'd9': 0.9, 'd4': 0.5}\nassert rerank(cands, scores, 3) == ['d2', 'd9', 'd4'], f'Got {rerank(cands, scores, 3)}'\nassert rerank(cands, {'d4': 0.1}, 2) == ['d4'], 'Unscored candidates are dropped'\nprint('All checks passed.')"
+      "test": "cands = ['d7', 'd2', 'd9', 'd4']\nscores = {'d7': 0.2, 'd2': 0.9, 'd9': 0.9, 'd4': 0.5}\nassert rerank(cands, scores, 3) == ['d2', 'd9', 'd4'], f'Got {rerank(cands, scores, 3)}'\nassert rerank(cands, {'d4': 0.1}, 2) == ['d4'], 'Unscored candidates are dropped'\nassert rerank(cands, scores, 0) == [], 'k=0 returns empty list'\nprint('All checks passed.')"
     }
   },
   {
@@ -468,7 +468,7 @@ const DAYS: Day[] = [
       "desc": "Write `lora_params(d, k, r)` for a d x k weight matrix adapted with rank r. Return {'full': d * k, 'lora': r * (d + k), 'saving_pct': (1 - lora / full) * 100 rounded to 2 decimals}.",
       "starter": "def lora_params(d, k, r):\n    pass",
       "hint": "full = d * k; lora = r * (d + k)",
-      "test": "assert lora_params(4096, 4096, 8) == {'full': 16777216, 'lora': 65536, 'saving_pct': 99.61}, f'Got {lora_params(4096, 4096, 8)}'\nassert lora_params(100, 50, 10) == {'full': 5000, 'lora': 1500, 'saving_pct': 70.0}, 'Small example'\nprint('All checks passed.')"
+      "test": "assert lora_params(4096, 4096, 8) == {'full': 16777216, 'lora': 65536, 'saving_pct': 99.61}, f'Got {lora_params(4096, 4096, 8)}'\nassert lora_params(100, 50, 10) == {'full': 5000, 'lora': 1500, 'saving_pct': 70.0}, 'Small example'\nassert lora_params(10, 10, 5) == {'full': 100, 'lora': 100, 'saving_pct': 0.0}, 'Full-size LoRA saves 0%'\nprint('All checks passed.')"
     },
     "a": {
       "title": "LoRA Weight Merge",

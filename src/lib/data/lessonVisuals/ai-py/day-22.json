@@ -50,21 +50,19 @@
                 "hit": 1
               },
               "cache_seconds": {
-                "var": "cache_seconds",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "calls_per_day": "data",
               "cost_per_call": "data",
               "model_seconds": "data",
-              "cache_seconds": "data"
+              "cache_seconds": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "A cache stores answers and returns them instantly when the same (or a very.",
+            "caption": "Verify the cache transition driving answers behavior.",
             "values": {
               "calls_per_day": {
                 "var": "calls_per_day",
@@ -157,18 +155,18 @@
               "calls_per_day": "50000",
               "cost_per_call": "0.004",
               "model_seconds": "2.5",
-              "cache_seconds": "0.01"
+              "cache_seconds": ""
             },
             "tones": {
               "calls_per_day": "data",
               "cost_per_call": "data",
               "model_seconds": "data",
-              "cache_seconds": "data"
+              "cache_seconds": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "A cache stores answers and returns them instantly when the same (or a very.",
+            "caption": "Verify the cache transition driving answers behavior.",
             "values": {
               "calls_per_day": "50000",
               "cost_per_call": "0.004",
@@ -470,7 +468,7 @@
           },
           {
             "at": "say2",
-            "caption": "\"When do you open.",
+            "caption": "If the best match is above a threshold (often 0.9 to 0.97), return its answer.",
             "values": {
               "stored": {
                 "var": "stored",
@@ -484,13 +482,13 @@
               },
               "q": {
                 "var": "q",
-                "line": 10,
-                "hit": 3
+                "line": 9,
+                "hit": 2
               },
               "emb": {
                 "var": "emb",
-                "line": 10,
-                "hit": 3
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -530,13 +528,13 @@
               },
               "q": {
                 "var": "q",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "emb": {
                 "var": "emb",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -616,12 +614,12 @@
           },
           {
             "at": "say2",
-            "caption": "\"When do you open.",
+            "caption": "If the best match is above a threshold (often 0.9 to 0.97), return its answer.",
             "values": {
               "stored": "[{'q': 'What are your opening hours?', …",
               "new_questions": "{'When do you open?': [0.88, 0.15, 0.2]…",
-              "q": "'When do you open?'",
-              "emb": "[0.88, 0.15, 0.2]"
+              "q": "'Can I cancel my order?'",
+              "emb": "[0.3, 0.8, 0.5]"
             },
             "tones": {
               "stored": "data",
@@ -650,8 +648,8 @@
             "values": {
               "stored": "[{'q': 'What are your opening hours?', …",
               "new_questions": "{'When do you open?': [0.88, 0.15, 0.2]…",
-              "q": "'When do you open?'",
-              "emb": "[0.88, 0.15, 0.2]"
+              "q": "'Can I cancel my order?'",
+              "emb": "[0.3, 0.8, 0.5]"
             },
             "tones": {
               "stored": "ok",
@@ -770,7 +768,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how guard updates cosine during execution.",
+            "caption": "Examine the guard value produced for cosine processing.",
             "bars": [
               {
                 "label": "threshold",
@@ -870,7 +868,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how guard updates cosine during execution.",
+            "caption": "Examine the guard value produced for cosine processing.",
             "bars": [
               {
                 "label": "threshold",
@@ -906,7 +904,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Hit_rate(hits, misses) returns the percentage with one decimal, like \"80.",
+            "caption": "With no traffic at all, return \"0.0%\".",
             "bars": [
               {
                 "label": "hits",
@@ -972,7 +970,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how dashboards updates will during execution.",
+            "caption": "Examine the dashboards value produced for show processing.",
             "bars": [
               {
                 "label": "hits",
@@ -1011,7 +1009,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Hit_rate(hits, misses) returns the percentage with one decimal, like \"80.",
+            "caption": "With no traffic at all, return \"0.0%\".",
             "bars": [
               {
                 "label": "hits",
@@ -1053,7 +1051,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how dashboards updates will during execution.",
+            "caption": "Examine the dashboards value produced for show processing.",
             "bars": [
               {
                 "label": "hits",
@@ -1101,6 +1099,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Never share personalised answers between users.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": {
+                  "var": "TTL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cache",
@@ -1115,10 +1130,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Never share personalised answers between users.",
-            "activeActor": "cache",
+            "at": "say6",
+            "caption": "The expiry example below uses a fake clock so it runs the same way every time.",
+            "activeActor": "key",
             "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": {
+                  "var": "TTL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "TTL",
                 "to": "cache",
@@ -1138,14 +1173,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The expiry example below uses a fake clock so it runs the same way every time.",
-            "activeActor": "key",
-            "messages": [
+              },
               {
                 "from": "TTL",
                 "to": "cache",
@@ -1188,12 +1216,6 @@
                 "to": "cache",
                 "label": "3600",
                 "tone": "data"
-              },
-              {
-                "from": "cache",
-                "to": "key",
-                "label": "{}",
-                "tone": "ok"
               }
             ],
             "activeActor": "TTL"
@@ -1221,6 +1243,30 @@
             "at": "say6",
             "caption": "The expiry example below uses a fake clock so it runs the same way every time.",
             "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": "3600",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              },
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": "3600",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              },
               {
                 "from": "TTL",
                 "to": "cache",

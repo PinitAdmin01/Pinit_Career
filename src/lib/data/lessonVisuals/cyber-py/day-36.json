@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how oauth updates authorization during execution.",
+            "caption": "Inspect oauth updates as verifier tracks code state.",
             "values": {
               "verifier": {
                 "var": "verifier",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "digest": {
-                "var": "digest",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "verifier": "data",
               "code_verifier_str": "data",
               "verifier_bytes": "data",
-              "digest": "data"
+              "digest": "idle"
             },
             "arrows": [
               [
@@ -194,18 +192,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how oauth updates authorization during execution.",
+            "caption": "Inspect oauth updates as verifier tracks code state.",
             "values": {
               "verifier": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
               "code_verifier_str": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
-              "verifier_bytes": "{'__other__': 'bytes'}",
-              "digest": "{'__other__': 'bytes'}"
+              "verifier_bytes": "<bytes>",
+              "digest": ""
             },
             "tones": {
               "verifier": "data",
               "code_verifier_str": "data",
               "verifier_bytes": "data",
-              "digest": "data"
+              "digest": "idle"
             },
             "arrows": [
               [
@@ -228,8 +226,8 @@
             "values": {
               "verifier": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
               "code_verifier_str": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
-              "verifier_bytes": "{'__other__': 'bytes'}",
-              "digest": "{'__other__': 'bytes'}"
+              "verifier_bytes": "<bytes>",
+              "digest": "<bytes>"
             },
             "tones": {
               "verifier": "data",
@@ -258,8 +256,8 @@
             "values": {
               "verifier": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
               "code_verifier_str": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
-              "verifier_bytes": "{'__other__': 'bytes'}",
-              "digest": "{'__other__': 'bytes'}"
+              "verifier_bytes": "<bytes>",
+              "digest": "<bytes>"
             },
             "tones": {
               "verifier": "ok",
@@ -299,8 +297,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how implementing updates oauth during execution.",
+            "caption": "Observe how oauth shapes code during this step.",
             "activeActor": "verifier",
+            "messages": [
+              {
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": {
+                  "var": "verifier",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When a user grants consent, the server generates a cryptographically.",
+            "activeActor": "code_verifier_str",
             "messages": [
               {
                 "from": "verifier",
@@ -325,10 +340,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When a user grants consent, the server generates a cryptographically.",
-            "activeActor": "code_verifier_str",
+            "at": "say9",
+            "caption": "Authorization server grant tables should enforce automatic expiration.",
+            "activeActor": "digest",
             "messages": [
+              {
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": {
+                  "var": "verifier",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": {
+                  "var": "code_verifier_str",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "verifier",
                 "to": "code_verifier_str",
@@ -348,14 +383,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Authorization server grant tables should enforce automatic expiration.",
-            "activeActor": "digest",
-            "messages": [
+              },
               {
                 "from": "verifier",
                 "to": "code_verifier_str",
@@ -391,19 +419,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how implementing updates oauth during execution.",
+            "caption": "Observe how oauth shapes code during this step.",
             "messages": [
               {
                 "from": "verifier",
                 "to": "code_verifier_str",
                 "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
                 "tone": "data"
-              },
-              {
-                "from": "code_verifier_str",
-                "to": "digest",
-                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
-                "tone": "ok"
               }
             ],
             "activeActor": "verifier"
@@ -431,6 +453,30 @@
             "at": "say9",
             "caption": "Authorization server grant tables should enforce automatic expiration.",
             "messages": [
+              {
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "data"
+              },
+              {
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "ok"
+              },
+              {
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "data"
+              },
+              {
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "ok"
+              },
               {
                 "from": "verifier",
                 "to": "code_verifier_str",
@@ -688,7 +734,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operating updates zero during execution.",
+            "caption": "Observe how oauth shapes telemetry during this step.",
             "currentState": "pkce_enforced",
             "tone": "data"
           },
@@ -709,7 +755,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how production updates oauth during execution.",
+            "caption": "Examine the oauth value produced for audit processing.",
             "currentState": "code_single_use",
             "transition": {
               "from": "state_bound",
@@ -744,7 +790,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operating updates zero during execution.",
+            "caption": "Observe how oauth shapes telemetry during this step.",
             "currentState": "pkce_enforced",
             "tone": "data"
           },
@@ -761,7 +807,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how production updates oauth during execution.",
+            "caption": "Examine the oauth value produced for audit processing.",
             "currentState": "code_single_use",
             "transition": {
               "from": "state_bound",

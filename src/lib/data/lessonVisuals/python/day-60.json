@@ -917,7 +917,7 @@
     },
     {
       "partTitle": "60-Day Python Backend Master Certification & Production Readiness Sign-Off",
-      "codeHash": "fc7ea32c5d3efb59dba7e2cae180465c5c763e8f4876b08f2bd4b720e3c61734",
+      "codeHash": "0c60505eace9468e06f7881f3b885f7e23cf568a77c8ffbf0bd8dccdc21f963d",
       "spec": {
         "template": "flow",
         "title": "MasterCertificationSignOff 60-day curriculum sign-off",
@@ -1046,77 +1046,66 @@
             "label": "MasterCertificationSignOff"
           }
         ],
-        "edges": [
-          {
-            "from": "id",
-            "to": "m1"
-          },
-          {
-            "from": "m1",
-            "to": "cert"
-          }
-        ],
         "steps": [
           {
             "at": "say2",
             "caption": "First month built mastery across CPython memory, decorators, and concurrency.",
             "values": {
-              "m1": "Days 01-30 Core Foundation",
-              "id": "Candidate: ARCHITECT-001",
-              "cert": "Pending Sign-Off"
+              "m1": "award_certification",
+              "id": "student_id",
+              "cert": "MasterCertificationSignOff"
             },
             "tones": {
               "m1": "data",
               "id": "data",
               "cert": "idle"
-            }
+            },
+            "arrows": []
           },
           {
             "at": "say3",
             "caption": "Second month uses schemas, SQLAlchemy, Kafka, caching, tracing, logging.",
             "values": {
-              "m1": "Days 31-60 Distributed Stack",
-              "id": "All Milestones 6-10 Passed",
-              "cert": "Ready For Credential"
+              "m1": "award_certification",
+              "id": "student_id",
+              "cert": "MasterCertificationSignOff"
             },
             "tones": {
               "m1": "ok",
               "id": "ok",
               "cert": "data"
-            }
+            },
+            "arrows": []
           },
           {
             "at": "example",
             "caption": "Final certification sign-off issues the Python Backend Engineering credential.",
             "values": {
-              "m1": "CERT-PY-60-ARCHITECT-001",
-              "id": "ID Verified Cleanly",
-              "cert": "MASTER CAPSTONE VIVA PASSED"
+              "m1": "award_certification",
+              "id": "student_id",
+              "cert": "MasterCertificationSignOff"
             },
             "tones": {
               "m1": "ok",
               "id": "ok",
               "cert": "ok"
-            }
+            },
+            "arrows": []
           },
           {
             "at": "tryIt",
             "caption": "Customize student ID in certification generator verifying output format.",
             "values": {
-              "m1": "CERT-PY-60-ENG-2026-884",
-              "id": "Custom Student ID Applied",
-              "cert": "MASTER CAPSTONE VIVA PASSED"
+              "m1": "Customize",
+              "id": "student",
+              "cert": "certification"
             },
             "tones": {
               "m1": "data",
               "id": "ok",
               "cert": "ok"
             },
-            "arrows": [],
-            "whatIf": "class MasterCertificationSignOff:\n    @staticmethod\n    def award_certification(student_id: str) -> str:\n        cert_id = f\"CERT-PY-60-{student_id}\"\n        return f\"[MASTER CAPSTONE VIVA PASSED] 60-Day Python Backend Engineering Master Certification Awarded! ID: {cert_id}\"\n\ncert_msg = MasterCertificationSignOff.award_certification(\"ENG-2026-884\")\nprint(cert_msg)",
-            "checks": [
-              "[MASTER CAPSTONE VIVA PASSED] 60-Day Python Backend Engineering Master Certification Awarded! ID: CERT-PY-60-ENG-2026-884"
-            ]
+            "arrows": []
           }
         ]
       }

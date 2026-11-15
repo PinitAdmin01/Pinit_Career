@@ -7,73 +7,40 @@
   "entries": [
     {
       "partTitle": "ApexCognitive Architecture Overview: Unifying Tree-of-Thoughts, Meta-Prompting & Socratic Deliberation",
-      "codeHash": "2ad3e8c4de2b07afa968ae64b7eed5860eaa0a14d4c59db9538019c451d1a11e",
+      "codeHash": "1c928383b261616b4bb6e6cfcf4be723d6472a745a87910b5bb98d7758199d27",
       "spec": {
         "template": "table",
         "title": "ApexCognitive Architecture Overview: Unifying Tree-of-Thoughts, ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The modern enterprise landscape demands a fundamental shift from fragile.",
+            "caption": "Observe how tree shapes thoughts during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "STAGES"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The ApexCognitive Architecture represents the unified synthesis of these.",
+            "caption": "Verify the apexcognitive transition driving architecture behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "STAGES"
                   },
                   {
                     "out": 1
@@ -84,82 +51,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "STAGES"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "The multi-layered decoupling within ApexCognitive directly mirrors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -173,106 +68,37 @@
         "title": "ApexCognitive Architecture Overview: Unifying Tree-of-Thoughts, ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The modern enterprise landscape demands a fundamental shift from fragile.",
+            "caption": "Observe how tree shapes thoughts during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "STAGES",
+                  "ApexCognitive verified stage chain: hygiene -> stimulus -> tot_search -> socratic_arbiter"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The ApexCognitive Architecture represents the unified synthesis of these.",
+            "caption": "Verify the apexcognitive transition driving architecture behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "STAGES",
+                  "ApexCognitive verified stage chain: hygiene -> stimulus -> tot_search -> socratic_arbiter"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "The multi-layered decoupling within ApexCognitive directly mirrors.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "STAGES",
+                  "Artifacts produced: ['ordered_chunks', 'sanitized_tokens', 'scored_branches', 'signed_verdict', 'steering_hints']"
                 ],
                 "tone": "ok"
               }
@@ -283,7 +109,7 @@
     },
     {
       "partTitle": "Heuristic Branching & Directional Stimulus Integration: Adaptive Prompt Mutation Pipelines",
-      "codeHash": "2ad3e8c4de2b07afa968ae64b7eed5860eaa0a14d4c59db9538019c451d1a11e",
+      "codeHash": "f7e1ad51c2877d50c9e9ee9fc0e0c8f227e0f0493c91eb99e3904dbcf1cb13e7",
       "spec": {
         "template": "table",
         "title": "Heuristic Branching & Directional Stimulus Integration: Adaptive",
@@ -303,39 +129,6 @@
                   },
                   {
                     "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -367,34 +160,12 @@
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say9",
-            "caption": "Dynamic backtracking heuristics incorporate historical path entropy.",
+            "caption": "Examine the directional value produced for stimulus processing.",
             "rows": [
               {
                 "cells": [
@@ -459,28 +230,7 @@
               {
                 "cells": [
                   "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "B1 ADMITTED score=0.76 compliant"
                 ],
                 "tone": "ok"
               }
@@ -493,28 +243,14 @@
               {
                 "cells": [
                   "out 1",
-                  "{"
+                  "B1 ADMITTED score=0.76 compliant"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "B2 REROUTED score=0.79 [OVERRIDE] Re-route from non_compliant_zone to eu-central"
                 ],
                 "tone": "ok"
               }
@@ -522,33 +258,33 @@
           },
           {
             "at": "say9",
-            "caption": "Dynamic backtracking heuristics incorporate historical path entropy.",
+            "caption": "Examine the directional value produced for stimulus processing.",
             "rows": [
               {
                 "cells": [
                   "out 1",
-                  "{"
+                  "B1 ADMITTED score=0.76 compliant"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
+                  "B2 REROUTED score=0.79 [OVERRIDE] Re-route from non_compliant_zone to eu-central"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 3",
-                  "  \"integratedModules\": ["
+                  "B3 ADMITTED score=0.85 compliant"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "Selected compliant branch: B3"
                 ],
                 "tone": "ok"
               }
@@ -559,7 +295,7 @@
     },
     {
       "partTitle": "Adversarial Socratic Arbitration & Consensus Protocols: Multi-Agent Quorum Verification",
-      "codeHash": "2ad3e8c4de2b07afa968ae64b7eed5860eaa0a14d4c59db9538019c451d1a11e",
+      "codeHash": "c66c1168327fd447afc92a0f8b1f8dd040655f2fc3eaf92d0eaceb5e8a136ef0",
       "spec": {
         "template": "table",
         "title": "Adversarial Socratic Arbitration & Consensus Protocols: Multi-Ag",
@@ -579,39 +315,6 @@
                   },
                   {
                     "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -643,34 +346,12 @@
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say10",
-            "caption": "Bayesian belief updating models track the epistemic evolution.",
+            "caption": "Examine the multi value produced for treating processing.",
             "rows": [
               {
                 "cells": [
@@ -735,28 +416,7 @@
               {
                 "cells": [
                   "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "Round 1: proponent=0.620 red_team=0.880 delta=0.2600 stop=False"
                 ],
                 "tone": "ok"
               }
@@ -769,28 +429,14 @@
               {
                 "cells": [
                   "out 1",
-                  "{"
+                  "Round 1: proponent=0.620 red_team=0.880 delta=0.2600 stop=False"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "Round 2: proponent=0.780 red_team=0.810 delta=0.0300 stop=False"
                 ],
                 "tone": "ok"
               }
@@ -798,33 +444,33 @@
           },
           {
             "at": "say10",
-            "caption": "Bayesian belief updating models track the epistemic evolution.",
+            "caption": "Examine the multi value produced for treating processing.",
             "rows": [
               {
                 "cells": [
                   "out 1",
-                  "{"
+                  "Round 1: proponent=0.620 red_team=0.880 delta=0.2600 stop=False"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
+                  "Round 2: proponent=0.780 red_team=0.810 delta=0.0300 stop=False"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 3",
-                  "  \"integratedModules\": ["
+                  "Round 3: proponent=0.840 red_team=0.850 delta=0.0100 stop=True"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "Pareto debate equilibrium reached at round 3"
                 ],
                 "tone": "ok"
               }
@@ -835,123 +481,68 @@
     },
     {
       "partTitle": "Long-Context Attention Hygiene & U-Shaped Salience Optimization: Large Scale Document Reasoning",
-      "codeHash": "2ad3e8c4de2b07afa968ae64b7eed5860eaa0a14d4c59db9538019c451d1a11e",
+      "codeHash": "f607f7ec39573119b9c59f6e58d111b9753ee9986760bb23597fa55b4dfc694e",
       "spec": {
         "template": "table",
         "title": "Long-Context Attention Hygiene & U-Shaped Salience Optimization:",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The foundational substrate of the ApexCognitive architecture is its.",
+            "caption": "Observe how long shapes context during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "TOKENS"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The core operational mechanism of the hygiene router is the U-Shaped.",
+            "caption": "Verify the context transition driving hygiene behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "TOKENS"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "TOKENS"
                   },
                   {
                     "out": 2
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Automated context window compression benchmarks continuously measure.",
+            "at": "say3",
+            "caption": "Examine the attention value produced for high processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "TOKENS"
                   },
                   {
                     "out": 1
@@ -962,7 +553,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "TOKENS"
                   },
                   {
                     "out": 2
@@ -973,21 +564,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "TOKENS"
                   },
                   {
                     "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -1001,106 +581,64 @@
         "title": "Long-Context Attention Hygiene & U-Shaped Salience Optimization:",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The foundational substrate of the ApexCognitive architecture is its.",
+            "caption": "Observe how long shapes context during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "TOKENS",
+                  "Original len=28 -> With beacons=32"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The core operational mechanism of the hygiene router is the U-Shaped.",
+            "caption": "Verify the context transition driving hygiene behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "TOKENS",
+                  "Original len=28 -> With beacons=32"
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
+                  "TOKENS",
+                  "Beacons inserted: ['<BEACON_0>', '<BEACON_1>', '<BEACON_2>', '<BEACON_3>']"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Automated context window compression benchmarks continuously measure.",
+            "at": "say3",
+            "caption": "Examine the attention value produced for high processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "TOKENS",
+                  "Original len=28 -> With beacons=32"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
+                  "TOKENS",
+                  "Beacons inserted: ['<BEACON_0>', '<BEACON_1>', '<BEACON_2>', '<BEACON_3>']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
+                  "TOKENS",
+                  "Sample segment: <BEACON_0> w1 w2 w3 w4 w5 w6 w7 w8 <BEACON_1> w9 w10"
                 ],
                 "tone": "ok"
               }
@@ -1111,275 +649,191 @@
     },
     {
       "partTitle": "Enterprise Production Deployment: End-To-End Architecture, Benchmark Verification & Capstone Graduation",
-      "codeHash": "2ad3e8c4de2b07afa968ae64b7eed5860eaa0a14d4c59db9538019c451d1a11e",
+      "codeHash": "23e25a21d828ab5c88df7c2ff3ea62444d54b1286e2dfcc421a5c473eaebee90",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "Enterprise Production Deployment: End-To-End Architecture, Bench",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "scored",
+            "label": "scored",
+            "tappable": true
+          },
+          {
+            "id": "tot_score",
+            "label": "tot_score",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hardening the unified ApexCognitive suite for commercial enterprise.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Inspect enterprise updates as p tracks production state.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "scored": {
+                "text": ""
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "tot_score": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "scored": "idle",
+              "tot_score": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The platform's software architecture is organized into four decoupled.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Verify the architecture transition driving platform behavior.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "scored": {
+                "var": "scored",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "tot_score": {
+                "var": "tot_score",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "scored": "data",
+              "tot_score": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "scored"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "The graduation of Milestone Four establishes a definitive benchmark.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the rigorous value produced for data processing.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 13,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "scored": {
+                "var": "scored",
+                "line": 13,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "tot_score": {
+                "var": "tot_score",
+                "line": 13,
+                "hit": 2
               }
+            },
+            "tones": {
+              "p": "ok",
+              "scored": "ok",
+              "tot_score": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "scored"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "Enterprise Production Deployment: End-To-End Architecture, Bench",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "scored",
+            "label": "scored",
+            "tappable": true
+          },
+          {
+            "id": "tot_score",
+            "label": "tot_score",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hardening the unified ApexCognitive suite for commercial enterprise.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Inspect enterprise updates as p tracks production state.",
+            "values": {
+              "p": "{'name': 'MultiRegionActive', 'cost': 0…",
+              "scored": "",
+              "tot_score": ""
+            },
+            "tones": {
+              "p": "data",
+              "scored": "idle",
+              "tot_score": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The platform's software architecture is organized into four decoupled.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
-                ],
-                "tone": "ok"
-              }
+            "caption": "Verify the architecture transition driving platform behavior.",
+            "values": {
+              "p": "{'name': 'MultiRegionActive', 'cost': 0…",
+              "scored": "[]",
+              "tot_score": "0.897"
+            },
+            "tones": {
+              "p": "data",
+              "scored": "data",
+              "tot_score": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "scored"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "The graduation of Milestone Four establishes a definitive benchmark.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Tree-of-Thoughts Heuristic Branching Controller\","
-                ],
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the rigorous value produced for data processing.",
+            "values": {
+              "p": "{'name': 'SingleRegionCheap', 'cost': 0…",
+              "scored": "[[0.897, True, 'MultiRegionActive'], [0…",
+              "tot_score": "0.599"
+            },
+            "tones": {
+              "p": "ok",
+              "scored": "ok",
+              "tot_score": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "scored"
+              ]
             ]
           }
         ]

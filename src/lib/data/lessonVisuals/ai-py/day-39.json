@@ -19,8 +19,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how loading updates thirty during execution.",
+            "caption": "Observe how loading shapes thirty during this step.",
             "activeActor": "RULES",
+            "messages": [
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": {
+                  "var": "RULES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Splitting responsibilities into narrow specialistsfor example.",
+            "activeActor": "tickets",
             "messages": [
               {
                 "from": "RULES",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Splitting responsibilities into narrow specialistsfor example.",
-            "activeActor": "tickets",
+            "at": "say7",
+            "caption": "Examine the specialist value produced for dispatch processing.",
+            "activeActor": "t",
             "messages": [
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": {
+                  "var": "RULES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tickets",
+                "to": "t",
+                "label": {
+                  "var": "tickets",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "RULES",
                 "to": "tickets",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Run dispatch_specialist() below tracing clean ordered routing across.",
-            "activeActor": "t",
-            "messages": [
+              },
               {
                 "from": "RULES",
                 "to": "tickets",
@@ -111,19 +141,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how loading updates thirty during execution.",
+            "caption": "Observe how loading shapes thirty during this step.",
             "messages": [
               {
                 "from": "RULES",
                 "to": "tickets",
                 "label": "[['SecurityReviewer', ['secret', 'leak'…",
                 "tone": "data"
-              },
-              {
-                "from": "tickets",
-                "to": "t",
-                "label": "['Possible leaked token inside staging …",
-                "tone": "ok"
               }
             ],
             "activeActor": "RULES"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say7",
-            "caption": "Run dispatch_specialist() below tracing clean ordered routing across.",
+            "caption": "Examine the specialist value produced for dispatch processing.",
             "messages": [
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": "[['SecurityReviewer', ['secret', 'leak'…",
+                "tone": "data"
+              },
+              {
+                "from": "tickets",
+                "to": "t",
+                "label": "['Possible leaked token inside staging …",
+                "tone": "ok"
+              },
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": "[['SecurityReviewer', ['secret', 'leak'…",
+                "tone": "data"
+              },
+              {
+                "from": "tickets",
+                "to": "t",
+                "label": "['Possible leaked token inside staging …",
+                "tone": "ok"
+              },
               {
                 "from": "RULES",
                 "to": "tickets",
@@ -214,16 +262,14 @@
                 "hit": 1
               },
               "facts": {
-                "var": "facts",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "src": "data",
               "dst": "data",
               "goal": "data",
-              "facts": "data"
+              "facts": "idle"
             }
           },
           {
@@ -321,13 +367,13 @@
               "src": "'SqlAnalyst'",
               "dst": "'InfraReviewer'",
               "goal": "'Check PG connection pool headroom'",
-              "facts": "['p95 latency spiked to 920ms', 'slow t…"
+              "facts": ""
             },
             "tones": {
               "src": "data",
               "dst": "data",
               "goal": "data",
-              "facts": "data"
+              "facts": "idle"
             }
           },
           {
@@ -392,7 +438,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how giving updates each during execution.",
+            "caption": "Inspect giving updates as self tracks worker state.",
             "values": {
               "self": {
                 "var": "self",
@@ -443,8 +489,8 @@
               },
               "agent": {
                 "var": "agent",
-                "line": 8,
-                "hit": 1
+                "line": 15,
+                "hit": 2
               }
             },
             "tones": {
@@ -475,8 +521,8 @@
               },
               "agent": {
                 "var": "agent",
-                "line": 10,
-                "hit": 1
+                "line": 15,
+                "hit": 3
               }
             },
             "tones": {
@@ -512,7 +558,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how giving updates each during execution.",
+            "caption": "Inspect giving updates as self tracks worker state.",
             "values": {
               "self": "<BudgetLedger>",
               "cap_tokens": "1000",
@@ -533,7 +579,7 @@
               "self": "<BudgetLedger>",
               "cap_tokens": "1000",
               "ledger": "<BudgetLedger>",
-              "agent": "'Supervisor'"
+              "agent": "'Researcher'"
             },
             "tones": {
               "self": "data",
@@ -549,7 +595,7 @@
               "self": "<BudgetLedger>",
               "cap_tokens": "1000",
               "ledger": "<BudgetLedger>",
-              "agent": "'Supervisor'"
+              "agent": "'SqlAnalyst'"
             },
             "tones": {
               "self": "ok",
@@ -680,7 +726,7 @@
           },
           {
             "at": "say7",
-            "caption": "Inspect consensus_vote() resolving decisive majority panels while.",
+            "caption": "Examine the consensus value produced for parallel processing.",
             "values": {
               "verdicts": {
                 "var": "verdicts",
@@ -810,7 +856,7 @@
           },
           {
             "at": "say7",
-            "caption": "Inspect consensus_vote() resolving decisive majority panels while.",
+            "caption": "Examine the consensus value produced for parallel processing.",
             "values": {
               "verdicts": "['pass', 'PASS ', 'fail']",
               "v": "'fail'",
@@ -867,6 +913,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Just like internet IP packets embed an explicit Hop Limit Time-To-Live.",
+            "activeActor": "next_agent",
+            "messages": [
+              {
+                "from": "path",
+                "to": "next_agent",
+                "label": {
+                  "var": "path",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "next_agent",
@@ -881,10 +944,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Just like internet IP packets embed an explicit Hop Limit Time-To-Live.",
-            "activeActor": "next_agent",
+            "at": "say6",
+            "caption": "Trace forward_handoff() catching cyclic ping-pong jumps and deep.",
+            "activeActor": "max_hops",
             "messages": [
+              {
+                "from": "path",
+                "to": "next_agent",
+                "label": {
+                  "var": "path",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": {
+                  "var": "next_agent",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "path",
                 "to": "next_agent",
@@ -904,14 +987,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace forward_handoff() catching cyclic ping-pong jumps and deep.",
-            "activeActor": "max_hops",
-            "messages": [
+              },
               {
                 "from": "path",
                 "to": "next_agent",
@@ -954,12 +1030,6 @@
                 "to": "next_agent",
                 "label": "['Supervisor', 'Researcher']",
                 "tone": "data"
-              },
-              {
-                "from": "next_agent",
-                "to": "max_hops",
-                "label": "'SqlAnalyst'",
-                "tone": "ok"
               }
             ],
             "activeActor": "path"
@@ -987,6 +1057,30 @@
             "at": "say6",
             "caption": "Trace forward_handoff() catching cyclic ping-pong jumps and deep.",
             "messages": [
+              {
+                "from": "path",
+                "to": "next_agent",
+                "label": "['Supervisor', 'Researcher']",
+                "tone": "data"
+              },
+              {
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": "'SqlAnalyst'",
+                "tone": "ok"
+              },
+              {
+                "from": "path",
+                "to": "next_agent",
+                "label": "['Supervisor', 'Researcher']",
+                "tone": "data"
+              },
+              {
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": "'SqlAnalyst'",
+                "tone": "ok"
+              },
               {
                 "from": "path",
                 "to": "next_agent",

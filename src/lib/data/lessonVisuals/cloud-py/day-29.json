@@ -846,7 +846,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS Backup manages backup plans across services (EBS, RDS, DynamoDB, EFS.",
+            "caption": "Observe how backup shapes manages during this step.",
             "bars": [
               {
                 "label": "backup_every_m",
@@ -924,7 +924,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS Backup manages backup plans across services (EBS, RDS, DynamoDB, EFS.",
+            "caption": "Observe how backup shapes manages during this step.",
             "bars": [
               {
                 "label": "backup_every_m",

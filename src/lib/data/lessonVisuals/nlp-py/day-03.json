@@ -41,15 +41,13 @@
                 "hit": 1
               },
               "counts": {
-                "var": "counts",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "tokens": "data",
               "bigrams": "data",
-              "counts": "data"
+              "counts": "idle"
             },
             "arrows": [
               [
@@ -160,12 +158,12 @@
             "values": {
               "tokens": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
               "bigrams": "[['<s>', 'i'], ['i', 'like'], ['like', …",
-              "counts": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…"
+              "counts": ""
             },
             "tones": {
               "tokens": "data",
               "bigrams": "data",
-              "counts": "data"
+              "counts": "idle"
             },
             "arrows": [
               [
@@ -558,7 +556,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example compares MLE and Laplace probabilities for a seen and.",
+            "caption": "Examine the laplace value produced for example processing.",
             "bars": [
               {
                 "label": "V",
@@ -658,7 +656,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example compares MLE and Laplace probabilities for a seen and.",
+            "caption": "Examine the laplace value produced for example processing.",
             "bars": [
               {
                 "label": "V",
@@ -693,16 +691,14 @@
         "title": "Evaluating with perplexity",
         "nodes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "p",
-            "label": "p"
+            "label": "p",
+            "tappable": true
           },
           {
             "id": "probs",
-            "label": "probs"
+            "label": "probs",
+            "tappable": true
           }
         ],
         "steps": [
@@ -710,68 +706,39 @@
             "at": "say1",
             "caption": "How do you know if one language model is better than another.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 1
-              },
               "p": {
                 "var": "p",
                 "line": 4,
                 "hit": 1
               },
               "probs": {
-                "var": "probs",
-                "line": 4,
-                "hit": 6
+                "text": ""
               }
             },
             "tones": {
-              ".0": "data",
               "p": "data",
-              "probs": "data"
+              "probs": "idle"
             },
-            "arrows": [
-              [
-                ".0",
-                "p"
-              ],
-              [
-                "p",
-                "probs"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Perplexity measures that surprise.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 2
-              },
               "p": {
                 "var": "p",
                 "line": 4,
-                "hit": 2
+                "hit": 14
               },
               "probs": {
-                "var": "probs",
-                "line": 6,
-                "hit": 6
+                "text": ""
               }
             },
             "tones": {
-              ".0": "data",
               "p": "data",
-              "probs": "data"
+              "probs": "idle"
             },
             "arrows": [
-              [
-                ".0",
-                "p"
-              ],
               [
                 "p",
                 "probs"
@@ -779,35 +746,23 @@
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example compares a confident, a uniform and a poor model on the same.",
+            "at": "say3",
+            "caption": "A perplexity of 4 means it is as uncertain as choosing among 4 words at random.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 3
-              },
               "p": {
-                "var": "p",
-                "line": 4,
-                "hit": 3
+                "text": ""
               },
               "probs": {
                 "var": "probs",
                 "line": 4,
-                "hit": 12
+                "hit": 21
               }
             },
             "tones": {
-              ".0": "ok",
-              "p": "ok",
+              "p": "idle",
               "probs": "ok"
             },
             "arrows": [
-              [
-                ".0",
-                "p"
-              ],
               [
                 "p",
                 "probs"
@@ -821,16 +776,14 @@
         "title": "Evaluating with perplexity",
         "nodes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "p",
-            "label": "p"
+            "label": "p",
+            "tappable": true
           },
           {
             "id": "probs",
-            "label": "probs"
+            "label": "probs",
+            "tappable": true
           }
         ],
         "steps": [
@@ -838,44 +791,27 @@
             "at": "say1",
             "caption": "How do you know if one language model is better than another.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
               "p": "0.9",
-              "probs": "[0.9, 0.8, 0.7, 0.9]"
+              "probs": ""
             },
             "tones": {
-              ".0": "data",
               "p": "data",
-              "probs": "data"
+              "probs": "idle"
             },
-            "arrows": [
-              [
-                ".0",
-                "p"
-              ],
-              [
-                "p",
-                "probs"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Perplexity measures that surprise.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "p": "0.8",
-              "probs": "[0.9, 0.8, 0.7, 0.9]"
+              "p": "0.1",
+              "probs": ""
             },
             "tones": {
-              ".0": "data",
               "p": "data",
-              "probs": "data"
+              "probs": "idle"
             },
             "arrows": [
-              [
-                ".0",
-                "p"
-              ],
               [
                 "p",
                 "probs"
@@ -883,23 +819,17 @@
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example compares a confident, a uniform and a poor model on the same.",
+            "at": "say3",
+            "caption": "A perplexity of 4 means it is as uncertain as choosing among 4 words at random.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "p": "0.7",
-              "probs": "[0.25, 0.25, 0.25, 0.25]"
+              "p": "",
+              "probs": "[0.5, 0]"
             },
             "tones": {
-              ".0": "ok",
-              "p": "ok",
+              "p": "idle",
               "probs": "ok"
             },
             "arrows": [
-              [
-                ".0",
-                "p"
-              ],
               [
                 "p",
                 "probs"
@@ -936,7 +866,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates line during execution.",
+            "caption": "Practice 1: laplace_bigram_prob(bigram_count, context_count, vocab_size).",
             "values": {
               "train": {
                 "var": "train",
@@ -954,16 +884,14 @@
                 "hit": 1
               },
               "V": {
-                "var": "V",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "train": "data",
               "pairs": "data",
               "singles": "data",
-              "V": "data"
+              "V": "idle"
             },
             "arrows": [
               [
@@ -1098,18 +1026,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates line during execution.",
+            "caption": "Practice 1: laplace_bigram_prob(bigram_count, context_count, vocab_size).",
             "values": {
               "train": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
               "pairs": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…",
               "singles": "{'<s>': 3, 'i': 2, 'like': 3, 'tea': 2,…",
-              "V": "7"
+              "V": ""
             },
             "tones": {
               "train": "data",
               "pairs": "data",
               "singles": "data",
-              "V": "data"
+              "V": "idle"
             },
             "arrows": [
               [

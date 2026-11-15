@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how embedding updates models during execution.",
+            "caption": "Inspect embedding updates as words tracks models state.",
             "values": {
               "words": {
                 "var": "words",
@@ -41,15 +41,13 @@
                 "hit": 1
               },
               "chunks": {
-                "var": "chunks",
-                "line": 3,
-                "hit": 5
+                "text": ""
               }
             },
             "tones": {
               "words": "data",
               "chunk_size": "data",
-              "chunks": "data"
+              "chunks": "idle"
             },
             "arrows": [
               [
@@ -156,16 +154,16 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how embedding updates models during execution.",
+            "caption": "Inspect embedding updates as words tracks models state.",
             "values": {
               "words": "['Our', 'refund', 'policy', 'allows', '…",
               "chunk_size": "50",
-              "chunks": "[['Our', 'refund', 'policy', 'allows', …"
+              "chunks": ""
             },
             "tones": {
               "words": "data",
               "chunk_size": "data",
-              "chunks": "data"
+              "chunks": "idle"
             },
             "arrows": [
               [
@@ -426,7 +424,7 @@
           },
           {
             "at": "say2",
-            "caption": "Split the text into sentences, then pack consecutive sentences into.",
+            "caption": "Verify the split transition driving text behavior.",
             "values": {
               "text": {
                 "var": "text",
@@ -440,12 +438,12 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 6,
+                "line": 9,
                 "hit": 1
               },
               "current": {
                 "var": "current",
-                "line": 6,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -486,12 +484,12 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 7,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "current": {
                 "var": "current",
-                "line": 7,
+                "line": 10,
                 "hit": 1
               }
             },
@@ -572,12 +570,12 @@
           },
           {
             "at": "say2",
-            "caption": "Split the text into sentences, then pack consecutive sentences into.",
+            "caption": "Verify the split transition driving text behavior.",
             "values": {
               "text": "'Vectors capture meaning. Search finds …",
               "sentences": "['Vectors capture meaning.', 'Search fi…",
-              "chunks": "[]",
-              "current": "[]"
+              "chunks": "['Vectors capture meaning.']",
+              "current": "['Vectors capture meaning.']"
             },
             "tones": {
               "text": "data",
@@ -606,7 +604,7 @@
             "values": {
               "text": "'Vectors capture meaning. Search finds …",
               "sentences": "['Vectors capture meaning.', 'Search fi…",
-              "chunks": "[]",
+              "chunks": "['Vectors capture meaning.', 'Search fi…",
               "current": "[]"
             },
             "tones": {
@@ -642,7 +640,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how small updates chunks during execution.",
+            "caption": "Observe how small shapes chunks during this step.",
             "bars": [
               {
                 "label": "doc_words",
@@ -684,7 +682,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how large updates chunks during execution.",
+            "caption": "Verify the large transition driving chunks behavior.",
             "bars": [
               {
                 "label": "doc_words",
@@ -774,7 +772,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how small updates chunks during execution.",
+            "caption": "Observe how small shapes chunks during this step.",
             "bars": [
               {
                 "label": "doc_words",
@@ -800,7 +798,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how large updates chunks during execution.",
+            "caption": "Verify the large transition driving chunks behavior.",
             "bars": [
               {
                 "label": "doc_words",
@@ -935,18 +933,18 @@
               },
               "i": {
                 "var": "i",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "text": {
                 "var": "text",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "record": {
                 "var": "record",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 4
               }
             },
             "tones": {
@@ -981,18 +979,18 @@
               },
               "i": {
                 "var": "i",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "text": {
                 "var": "text",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "record": {
                 "var": "record",
-                "line": 4,
-                "hit": 2
+                "line": 5,
+                "hit": 4
               }
             },
             "tones": {
@@ -1075,9 +1073,9 @@
             "caption": "Metadata links search results back to the original document and supports.",
             "values": {
               "doc": "{'id': 'policy-7', 'title': 'Refund pol…",
-              "i": "0",
-              "text": "'Refunds within 30 days.'",
-              "record": "{'id': 'policy-7#0', 'doc': 'policy-7',…"
+              "i": "1",
+              "text": "'Damaged items: full refund.'",
+              "record": "{'id': 'policy-7#1', 'doc': 'policy-7',…"
             },
             "tones": {
               "doc": "data",
@@ -1105,9 +1103,9 @@
             "caption": "Tomorrow uses metadata to filter search results.",
             "values": {
               "doc": "{'id': 'policy-7', 'title': 'Refund pol…",
-              "i": "0",
-              "text": "'Refunds within 30 days.'",
-              "record": "{'id': 'policy-7#0', 'doc': 'policy-7',…"
+              "i": "1",
+              "text": "'Damaged items: full refund.'",
+              "record": "{'id': 'policy-7#1', 'doc': 'policy-7',…"
             },
             "tones": {
               "doc": "ok",
@@ -1158,7 +1156,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": {
               "var": "fixed",
               "line": 9,
@@ -1212,7 +1210,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": [
               "'Refunds are allowed within 30 days. Da…",
               "'Damaged items get a full refund. Conta…",

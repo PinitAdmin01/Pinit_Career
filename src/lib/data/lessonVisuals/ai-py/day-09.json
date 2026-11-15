@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A chunk is a piece of a document, often a few hundred tokens, that.",
+            "activeActor": "size",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": {
+                  "var": "policy",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "size",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A chunk is a piece of a document, often a few hundred tokens, that.",
-            "activeActor": "size",
+            "at": "say6",
+            "caption": "We will start with fixed-size chunks and improve from there.",
+            "activeActor": "chunks",
             "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": {
+                  "var": "policy",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "policy",
                 "to": "size",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "We will start with fixed-size chunks and improve from there.",
-            "activeActor": "chunks",
-            "messages": [
+              },
               {
                 "from": "policy",
                 "to": "size",
@@ -118,12 +148,6 @@
                 "to": "size",
                 "label": "'Refunds: items can be returned within …",
                 "tone": "data"
-              },
-              {
-                "from": "size",
-                "to": "chunks",
-                "label": "50",
-                "tone": "ok"
               }
             ],
             "activeActor": "policy"
@@ -151,6 +175,30 @@
             "at": "say6",
             "caption": "We will start with fixed-size chunks and improve from there.",
             "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": "'Refunds: items can be returned within …",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": "50",
+                "tone": "ok"
+              },
+              {
+                "from": "policy",
+                "to": "size",
+                "label": "'Refunds: items can be returned within …",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": "50",
+                "tone": "ok"
+              },
               {
                 "from": "policy",
                 "to": "size",
@@ -247,7 +295,7 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               }
             },
@@ -279,7 +327,7 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 4,
+                "line": 5,
                 "hit": 1
               }
             },
@@ -337,7 +385,7 @@
               "text": "'The quick brown fox jumps over the laz…",
               "max_chunk": "40",
               "overlap": "10",
-              "chunks": "[]"
+              "chunks": "['The quick brown fox jumps over the la…"
             },
             "tones": {
               "text": "data",
@@ -353,7 +401,7 @@
               "text": "'The quick brown fox jumps over the laz…",
               "max_chunk": "40",
               "overlap": "10",
-              "chunks": "[]"
+              "chunks": "['The quick brown fox jumps over the la…"
             },
             "tones": {
               "text": "ok",
@@ -653,7 +701,7 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 6,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -699,7 +747,7 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 7,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -785,7 +833,7 @@
               "text": "'Returns are free. You have 30 days to …",
               "max_chars": "60",
               "sentences": "['Returns are free.', 'You have 30 days…",
-              "chunks": "[]"
+              "chunks": "['Returns are free. You have 30 days to…"
             },
             "tones": {
               "text": "data",
@@ -815,7 +863,7 @@
               "text": "'Returns are free. You have 30 days to …",
               "max_chars": "60",
               "sentences": "['Returns are free.', 'You have 30 days…",
-              "chunks": "[]"
+              "chunks": "['Returns are free. You have 30 days to…"
             },
             "tones": {
               "text": "ok",
@@ -892,7 +940,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how metadata updates lets during execution.",
+            "caption": "Verify the metadata transition driving citations behavior.",
             "bars": [
               {
                 "label": "size",
@@ -1008,7 +1056,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how metadata updates lets during execution.",
+            "caption": "Verify the metadata transition driving citations behavior.",
             "bars": [
               {
                 "label": "size",
@@ -1154,7 +1202,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will combine vector search with keyword search, because.",
+            "caption": "Tomorrow you will combine vector search with keyword search.",
             "bars": [
               {
                 "label": "chunk_tokens",
@@ -1254,7 +1302,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will combine vector search with keyword search, because.",
+            "caption": "Tomorrow you will combine vector search with keyword search.",
             "bars": [
               {
                 "label": "chunk_tokens",

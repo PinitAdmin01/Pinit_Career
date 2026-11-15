@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The foundational model pioneered by Microsoft decomposes adversarial.",
+            "activeActor": "reproducibility",
+            "messages": [
+              {
+                "from": "damage",
+                "to": "reproducibility",
+                "label": {
+                  "var": "damage",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "reproducibility",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The foundational model pioneered by Microsoft decomposes adversarial.",
-            "activeActor": "reproducibility",
+            "at": "say8",
+            "caption": "Threat modeling artifacts must be version-controlled alongside source.",
+            "activeActor": "exploitability",
             "messages": [
+              {
+                "from": "damage",
+                "to": "reproducibility",
+                "label": {
+                  "var": "damage",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": {
+                  "var": "reproducibility",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "damage",
                 "to": "reproducibility",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Threat modeling artifacts must be version-controlled alongside source.",
-            "activeActor": "exploitability",
-            "messages": [
+              },
               {
                 "from": "damage",
                 "to": "reproducibility",
@@ -118,12 +148,6 @@
                 "to": "reproducibility",
                 "label": "9.5",
                 "tone": "data"
-              },
-              {
-                "from": "reproducibility",
-                "to": "exploitability",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "damage"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "Threat modeling artifacts must be version-controlled alongside source.",
             "messages": [
+              {
+                "from": "damage",
+                "to": "reproducibility",
+                "label": "9.5",
+                "tone": "data"
+              },
+              {
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "damage",
+                "to": "reproducibility",
+                "label": "9.5",
+                "tone": "data"
+              },
+              {
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": "8",
+                "tone": "ok"
+              },
               {
                 "from": "damage",
                 "to": "reproducibility",
@@ -538,16 +586,14 @@
                 "hit": 1
               },
               "min_attack_cost": {
-                "var": "min_attack_cost",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "nodes": "data",
               "sample_threats": "data",
               "model_nodes": "data",
-              "min_attack_cost": "data"
+              "min_attack_cost": "idle"
             }
           },
           {
@@ -645,13 +691,13 @@
               "nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
               "sample_threats": "[{'id': 'T1', 'dread_score': 8}]",
               "model_nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
-              "min_attack_cost": "4"
+              "min_attack_cost": ""
             },
             "tones": {
               "nodes": "data",
               "sample_threats": "data",
               "model_nodes": "data",
-              "min_attack_cost": "data"
+              "min_attack_cost": "idle"
             }
           },
           {

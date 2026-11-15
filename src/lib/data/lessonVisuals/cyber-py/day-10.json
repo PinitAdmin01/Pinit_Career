@@ -49,7 +49,7 @@
           },
           {
             "at": "say9",
-            "caption": "Banks in India commonly use OTPs for transactions, a familiar example of.",
+            "caption": "Examine the banks value produced for india processing.",
             "currentState": "resistance",
             "transition": {
               "from": "name",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say9",
-            "caption": "Banks in India commonly use OTPs for transactions, a familiar example of.",
+            "caption": "Examine the banks value produced for india processing.",
             "currentState": "resistance",
             "transition": {
               "from": "name",
@@ -126,7 +126,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how totp updates time during execution.",
+            "caption": "Observe how totp shapes time during this step.",
             "rows": [
               {
                 "cells": [
@@ -164,7 +164,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how hotp updates older during execution.",
+            "caption": "Examine the hotp value produced for older processing.",
             "rows": [
               {
                 "cells": [
@@ -224,7 +224,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how totp updates time during execution.",
+            "caption": "Observe how totp shapes time during this step.",
             "rows": [
               {
                 "cells": [
@@ -250,7 +250,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how hotp updates older during execution.",
+            "caption": "Examine the hotp value produced for older processing.",
             "rows": [
               {
                 "cells": [
@@ -330,16 +330,14 @@
                 "hit": 1
               },
               "offset": {
-                "var": "offset",
-                "line": 9,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "secret": "data",
               "key": "data",
               "h": "data",
-              "offset": "data"
+              "offset": "idle"
             },
             "arrows": [
               [
@@ -404,7 +402,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how secret updates usually during execution.",
+            "caption": "Examine the secret value produced for usually processing.",
             "values": {
               "secret": {
                 "var": "secret",
@@ -477,15 +475,15 @@
             "caption": "Counter = struct.",
             "values": {
               "secret": "'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ'",
-              "key": "{'__other__': 'bytes'}",
-              "h": "{'__other__': 'bytes'}",
-              "offset": "11"
+              "key": "<bytes>",
+              "h": "<bytes>",
+              "offset": ""
             },
             "tones": {
               "secret": "data",
               "key": "data",
               "h": "data",
-              "offset": "data"
+              "offset": "idle"
             },
             "arrows": [
               [
@@ -507,8 +505,8 @@
             "caption": "Offset = h[-1] & 0x0F.",
             "values": {
               "secret": "'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ'",
-              "key": "{'__other__': 'bytes'}",
-              "h": "{'__other__': 'bytes'}",
+              "key": "<bytes>",
+              "h": "<bytes>",
               "offset": "11"
             },
             "tones": {
@@ -534,11 +532,11 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how secret updates usually during execution.",
+            "caption": "Examine the secret value produced for usually processing.",
             "values": {
               "secret": "'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ'",
-              "key": "{'__other__': 'bytes'}",
-              "h": "{'__other__': 'bytes'}",
+              "key": "<bytes>",
+              "h": "<bytes>",
               "offset": "11"
             },
             "tones": {
@@ -591,6 +589,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the verification transition driving usually behavior.",
+            "activeActor": "step",
+            "messages": [
+              {
+                "from": "window",
+                "to": "step",
+                "label": {
+                  "var": "window",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "step",
@@ -605,10 +620,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Verification usually accepts the current step and one step either side (a.",
-            "activeActor": "step",
+            "at": "say9",
+            "caption": "Server clocks should be synchronised with NTP so that drift stays small.",
+            "activeActor": "now",
             "messages": [
+              {
+                "from": "window",
+                "to": "step",
+                "label": {
+                  "var": "window",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "now",
+                "label": {
+                  "var": "step",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "window",
                 "to": "step",
@@ -628,14 +663,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Server clocks should be synchronised with NTP so that drift stays small.",
-            "activeActor": "now",
-            "messages": [
+              },
               {
                 "from": "window",
                 "to": "step",
@@ -678,19 +706,13 @@
                 "to": "step",
                 "label": "1",
                 "tone": "data"
-              },
-              {
-                "from": "step",
-                "to": "now",
-                "label": "30",
-                "tone": "ok"
               }
             ],
             "activeActor": "window"
           },
           {
             "at": "say2",
-            "caption": "Verification usually accepts the current step and one step either side (a.",
+            "caption": "Verify the verification transition driving usually behavior.",
             "messages": [
               {
                 "from": "window",
@@ -711,6 +733,30 @@
             "at": "say9",
             "caption": "Server clocks should be synchronised with NTP so that drift stays small.",
             "messages": [
+              {
+                "from": "window",
+                "to": "step",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "now",
+                "label": "30",
+                "tone": "ok"
+              },
+              {
+                "from": "window",
+                "to": "step",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "now",
+                "label": "30",
+                "tone": "ok"
+              },
               {
                 "from": "window",
                 "to": "step",
@@ -832,7 +878,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates three during execution.",
+            "caption": "Verify the checks transition driving three behavior.",
             "currentState": "secret",
             "transition": {
               "from": "t",
@@ -888,7 +934,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates three during execution.",
+            "caption": "Verify the checks transition driving three behavior.",
             "currentState": "secret",
             "transition": {
               "from": "t",

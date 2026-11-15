@@ -100,7 +100,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how defence updates depth during execution.",
+            "caption": "Examine the defence value produced for depth processing.",
             "values": {
               "layers": {
                 "var": "layers",
@@ -204,7 +204,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how defence updates depth during execution.",
+            "caption": "Examine the defence value produced for depth processing.",
             "values": {
               "layers": "[['EMPTY', 'Day 3'], ['TOO_LONG', 'Day …",
               "reason": "'TOO_LONG'",
@@ -248,7 +248,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how validator updates stopped during execution.",
+            "caption": "Observe how validator shapes stopped during this step.",
             "currentState": "text",
             "tone": "data"
           },
@@ -285,7 +285,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how validator updates stopped during execution.",
+            "caption": "Observe how validator shapes stopped during this step.",
             "currentState": "text",
             "tone": "data"
           },
@@ -508,13 +508,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The last piece is a one-page answer to \"how safe is this system right now.",
+            "caption": "Observe how last shapes piece during this step.",
             "currentState": "targets",
             "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "A scorecard lists safety targets, each with a metric, a direction and.",
+            "caption": "Verify the safety transition driving scorecard behavior.",
             "currentState": "metrics",
             "transition": {
               "from": "targets",
@@ -564,13 +564,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The last piece is a one-page answer to \"how safe is this system right now.",
+            "caption": "Observe how last shapes piece during this step.",
             "currentState": "targets",
             "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "A scorecard lists safety targets, each with a metric, a direction and.",
+            "caption": "Verify the safety transition driving scorecard behavior.",
             "currentState": "metrics",
             "transition": {
               "from": "targets",

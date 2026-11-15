@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates integrates during execution.",
+            "caption": "Verify the milestone transition driving zone behavior.",
             "rows": [
               {
                 "cells": [
@@ -96,7 +96,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates integrates during execution.",
+            "caption": "Verify the milestone transition driving zone behavior.",
             "rows": [
               {
                 "cells": [
@@ -257,6 +257,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Watch every defensive component step up cleanly in concert.",
+            "activeActor": "r",
+            "messages": [
+              {
+                "from": "self",
+                "to": "r",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "r",
@@ -271,10 +288,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Watch every defensive component step up cleanly in concert.",
-            "activeActor": "r",
+            "at": "say5",
+            "caption": "Examine the execution value produced for milestone11router processing.",
+            "activeActor": "req_id",
             "messages": [
+              {
+                "from": "self",
+                "to": "r",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "req_id",
+                "label": {
+                  "var": "r",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "r",
@@ -294,14 +331,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Trace how execute updates integrated during execution.",
-            "activeActor": "req_id",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "r",
@@ -344,12 +374,6 @@
                 "to": "r",
                 "label": "<Milestone11Router>",
                 "tone": "data"
-              },
-              {
-                "from": "r",
-                "to": "req_id",
-                "label": "<Milestone11Router>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -375,8 +399,32 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how execute updates integrated during execution.",
+            "caption": "Examine the execution value produced for milestone11router processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "r",
+                "label": "<Milestone11Router>",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "req_id",
+                "label": "<Milestone11Router>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "r",
+                "label": "<Milestone11Router>",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "req_id",
+                "label": "<Milestone11Router>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "r",
@@ -420,7 +468,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how think updates clearly during execution.",
+            "caption": "Verify the think transition driving clearly behavior.",
             "items": {
               "var": "events",
               "line": 10,
@@ -436,7 +484,7 @@
           },
           {
             "at": "say5",
-            "caption": "Verify explicit fault classification filtering cleanly separating client.",
+            "caption": "Examine the across value produced for circuit processing.",
             "items": {
               "var": "events",
               "line": 10,
@@ -475,7 +523,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how think updates clearly during execution.",
+            "caption": "Verify the think transition driving clearly behavior.",
             "items": [
               "'RATE_LIMITED'",
               "'PRIORITY_SHED'",
@@ -492,7 +540,7 @@
           },
           {
             "at": "say5",
-            "caption": "Verify explicit fault classification filtering cleanly separating client.",
+            "caption": "Examine the across value produced for circuit processing.",
             "items": [
               "'RATE_LIMITED'",
               "'PRIORITY_SHED'",
@@ -523,7 +571,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how certify updates milestone during execution.",
+            "caption": "Observe how milestone shapes verification during this step.",
             "rows": [
               {
                 "cells": [
@@ -542,7 +590,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how gate updates rigorously during execution.",
+            "caption": "Verify the gate transition driving rigorously behavior.",
             "rows": [
               {
                 "cells": [
@@ -561,7 +609,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how deterministic updates milestone during execution.",
+            "caption": "Examine the milestone value produced for stack processing.",
             "rows": [
               {
                 "cells": [
@@ -588,7 +636,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how certify updates milestone during execution.",
+            "caption": "Observe how milestone shapes verification during this step.",
             "rows": [
               {
                 "cells": [
@@ -601,7 +649,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how gate updates rigorously during execution.",
+            "caption": "Verify the gate transition driving rigorously behavior.",
             "rows": [
               {
                 "cells": [
@@ -614,7 +662,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how deterministic updates milestone during execution.",
+            "caption": "Examine the milestone value produced for stack processing.",
             "rows": [
               {
                 "cells": [

@@ -518,17 +518,17 @@
           },
           {
             "at": "say2",
-            "caption": "When asset prices exhibit non-stationarity ($b \\ge 1.",
+            "caption": "Verify the mean transition driving reversion behavior.",
             "values": {
               "b_slope": {
                 "var": "b_slope",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "half_life_days": {
                 "var": "half_life_days",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "current_spread": {
                 "var": "current_spread",
@@ -568,13 +568,13 @@
             "values": {
               "b_slope": {
                 "var": "b_slope",
-                "line": 11,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "half_life_days": {
                 "var": "half_life_days",
-                "line": 11,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "current_spread": {
                 "var": "current_spread",
@@ -664,10 +664,10 @@
           },
           {
             "at": "say2",
-            "caption": "When asset prices exhibit non-stationarity ($b \\ge 1.",
+            "caption": "Verify the mean transition driving reversion behavior.",
             "values": {
-              "b_slope": "0.88",
-              "half_life_days": "5.4",
+              "b_slope": "0.99",
+              "half_life_days": "68",
               "current_spread": "104.5",
               "mu": "100"
             },
@@ -696,8 +696,8 @@
             "at": "say8",
             "caption": "Execution algorithms invert the cross-impact covariance tensor to compute.",
             "values": {
-              "b_slope": "0.88",
-              "half_life_days": "5.4",
+              "b_slope": "0.99",
+              "half_life_days": "68",
               "current_spread": "104.5",
               "mu": "100"
             },
@@ -751,6 +751,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If company A is acquired, files for bankruptcy, or experiences.",
+            "activeActor": "holding_days",
+            "messages": [
+              {
+                "from": "z_score",
+                "to": "holding_days",
+                "label": {
+                  "var": "z_score",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "holding_days",
@@ -765,10 +782,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If company A is acquired, files for bankruptcy, or experiences.",
-            "activeActor": "holding_days",
+            "at": "say8",
+            "caption": "Pre-trade risk engines enforce cross-asset slippage constraints.",
+            "activeActor": "expected_half_life",
             "messages": [
+              {
+                "from": "z_score",
+                "to": "holding_days",
+                "label": {
+                  "var": "z_score",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": {
+                  "var": "holding_days",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "z_score",
                 "to": "holding_days",
@@ -788,14 +825,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Pre-trade risk engines enforce cross-asset slippage constraints.",
-            "activeActor": "expected_half_life",
-            "messages": [
+              },
               {
                 "from": "z_score",
                 "to": "holding_days",
@@ -838,12 +868,6 @@
                 "to": "holding_days",
                 "label": "2.1",
                 "tone": "data"
-              },
-              {
-                "from": "holding_days",
-                "to": "expected_half_life",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "z_score"
@@ -871,6 +895,30 @@
             "at": "say8",
             "caption": "Pre-trade risk engines enforce cross-asset slippage constraints.",
             "messages": [
+              {
+                "from": "z_score",
+                "to": "holding_days",
+                "label": "2.1",
+                "tone": "data"
+              },
+              {
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": "4",
+                "tone": "ok"
+              },
+              {
+                "from": "z_score",
+                "to": "holding_days",
+                "label": "2.1",
+                "tone": "data"
+              },
+              {
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": "4",
+                "tone": "ok"
+              },
               {
                 "from": "z_score",
                 "to": "holding_days",

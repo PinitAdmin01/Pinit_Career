@@ -766,7 +766,7 @@
           },
           {
             "at": "say2",
-            "caption": "This helped researchers understand models, though a head's weights are.",
+            "caption": "Verify the helped transition driving researchers behavior.",
             "values": {
               "heads": {
                 "var": "heads",
@@ -785,8 +785,8 @@
               },
               "name": {
                 "var": "name",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -831,8 +831,8 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -912,12 +912,12 @@
           },
           {
             "at": "say2",
-            "caption": "This helped researchers understand models, though a head's weights are.",
+            "caption": "Verify the helped transition driving researchers behavior.",
             "values": {
               "heads": "32",
               "head_dim": "128",
               "tokens": "4096",
-              "name": "'multi-head'"
+              "name": "'grouped-query (8 groups)'"
             },
             "tones": {
               "heads": "data",
@@ -947,7 +947,7 @@
               "heads": "32",
               "head_dim": "128",
               "tokens": "4096",
-              "name": "'multi-head'"
+              "name": "'multi-query'"
             },
             "tones": {
               "heads": "ok",

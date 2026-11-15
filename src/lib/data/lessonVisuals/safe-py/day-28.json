@@ -136,7 +136,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how bradley updates terry during execution.",
+            "caption": "Observe how bradley shapes terry during this step.",
             "currentState": "r_a",
             "tone": "data"
           },
@@ -192,7 +192,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how bradley updates terry during execution.",
+            "caption": "Observe how bradley shapes terry during this step.",
             "currentState": "r_a",
             "tone": "data"
           },
@@ -530,7 +530,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates items during execution.",
+            "caption": "Verify the ratings transition driving comparisons behavior.",
             "currentState": "comparisons",
             "transition": {
               "from": "items",
@@ -586,7 +586,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates items during execution.",
+            "caption": "Verify the ratings transition driving comparisons behavior.",
             "currentState": "comparisons",
             "transition": {
               "from": "items",

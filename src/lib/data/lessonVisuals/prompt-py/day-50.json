@@ -7,28 +7,26 @@
   "entries": [
     {
       "partTitle": "Architectural Synthesis Unifying CodeAct Sandboxes Self Healing And Dynamic Toolkits",
-      "codeHash": "cc3d66270f0298a96278c41226b8ed82af12f401f613db4a73ab4d7715319069",
+      "codeHash": "dca99e7a2ceb9d0da5fa7343cee5d504dead81a485e70833e5b774c84bdc6b45",
       "spec": {
         "template": "table",
         "title": "Architectural Synthesis Unifying CodeAct Sandboxes Self Healing ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Throughout the history of artificial intelligence, software engineers have.",
+            "caption": "Observe how throughout shapes history during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "apexcodeact_step"
                   },
                   {
-                    "var": "result",
-                    "line": 28,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -37,31 +35,12 @@
           },
           {
             "at": "say2",
-            "caption": "The architectural synthesis of CodeAct sandboxes and self healing loops.",
+            "caption": "Verify the architectural transition driving synthesis behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 29,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering the unified architecture of ApexCodeAct represents the zenith.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
+                    "text": "apexcodeact_step"
                   },
                   {
                     "out": 1
@@ -72,32 +51,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "apexcodeact_step"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -111,17 +68,17 @@
         "title": "Architectural Synthesis Unifying CodeAct Sandboxes Self Healing ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Throughout the history of artificial intelligence, software engineers have.",
+            "caption": "Observe how throughout shapes history during this step.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
+                  "apexcodeact_step",
+                  "Safe action: ['extract_code', 'ast_whitelist_ok', 'lease_warm_sandbox', 'compact_observation']"
                 ],
                 "tone": "data"
               }
@@ -129,46 +86,19 @@
           },
           {
             "at": "say2",
-            "caption": "The architectural synthesis of CodeAct sandboxes and self healing loops.",
+            "caption": "Verify the architectural transition driving synthesis behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering the unified architecture of ApexCodeAct represents the zenith.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
+                  "apexcodeact_step",
+                  "Safe action: ['extract_code', 'ast_whitelist_ok', 'lease_warm_sandbox', 'compact_observation']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCodeAct Sovereign Autonomous Code-Execution Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedSubsystems\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Executable Python REPL Action Space & Shell Controller\","
+                  "apexcodeact_step",
+                  "Unsafe action: ['extract_code', 'REJECT_AST']"
                 ],
                 "tone": "ok"
               }
@@ -179,28 +109,26 @@
     },
     {
       "partTitle": "Production Grade Hardening Security Fault Tolerance And eBPF Threat Monitoring",
-      "codeHash": "cc3d66270f0298a96278c41226b8ed82af12f401f613db4a73ab4d7715319069",
+      "codeHash": "f36c54e514226bb1f1d7fba8f9e1e519a0dbc4881db519411559bed1e49985bc",
       "spec": {
         "template": "table",
         "title": "Production Grade Hardening Security Fault Tolerance And eBPF Thr",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying an autonomous code execution engine in enterprise production.",
+            "caption": "Observe how production shapes hardening during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "check_runtime_policy"
                   },
                   {
-                    "var": "result",
-                    "line": 28,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -209,31 +137,12 @@
           },
           {
             "at": "say2",
-            "caption": "Production grade hardening combines eBPF monitoring and strict quotas.",
+            "caption": "Verify the production transition driving grade behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 29,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering production-grade security hardening transforms autonomous code.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
+                    "text": "check_runtime_policy"
                   },
                   {
                     "out": 1
@@ -244,32 +153,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "check_runtime_policy"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -283,17 +170,17 @@
         "title": "Production Grade Hardening Security Fault Tolerance And eBPF Thr",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying an autonomous code execution engine in enterprise production.",
+            "caption": "Observe how production shapes hardening during this step.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
+                  "check_runtime_policy",
+                  "Clean job: {'admitted': True, 'violations': []}"
                 ],
                 "tone": "data"
               }
@@ -301,46 +188,19 @@
           },
           {
             "at": "say2",
-            "caption": "Production grade hardening combines eBPF monitoring and strict quotas.",
+            "caption": "Verify the production transition driving grade behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering production-grade security hardening transforms autonomous code.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
+                  "check_runtime_policy",
+                  "Clean job: {'admitted': True, 'violations': []}"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCodeAct Sovereign Autonomous Code-Execution Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedSubsystems\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Executable Python REPL Action Space & Shell Controller\","
+                  "check_runtime_policy",
+                  "Attack job: {'admitted': False, 'violations': ['FORBIDDEN_BUILTIN', 'EXCESS_ITERATION_CAP', 'MEM_CEILING_BREACH']}"
                 ],
                 "tone": "ok"
               }
@@ -351,13 +211,13 @@
     },
     {
       "partTitle": "Autonomous Recovery And Zero Intervention SLA In Complex Analytical Workflows",
-      "codeHash": "cc3d66270f0298a96278c41226b8ed82af12f401f613db4a73ab4d7715319069",
+      "codeHash": "f75134f2d155f89ebff6212ff0f21145b1b7c894b7dc2847c9694c7ba7154f16",
       "spec": {
         "template": "table",
         "title": "Autonomous Recovery And Zero Intervention SLA In Complex Analyti",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
@@ -367,12 +227,10 @@
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "TASKS"
                   },
                   {
-                    "var": "result",
-                    "line": 28,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -381,31 +239,12 @@
           },
           {
             "at": "say2",
-            "caption": "Autonomous recovery mechanisms drive zero intervention SLA convergence.",
+            "caption": "Verify the autonomous transition driving recovery behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 29,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering autonomous error recovery and zero-intervention convergence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
+                    "text": "TASKS"
                   },
                   {
                     "out": 1
@@ -416,32 +255,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "TASKS"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -455,7 +272,7 @@
         "title": "Autonomous Recovery And Zero Intervention SLA In Complex Analyti",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
@@ -464,8 +281,8 @@
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
+                  "TASKS",
+                  "Healed within SLA (<=3 tries): 2/3"
                 ],
                 "tone": "data"
               }
@@ -473,46 +290,19 @@
           },
           {
             "at": "say2",
-            "caption": "Autonomous recovery mechanisms drive zero intervention SLA convergence.",
+            "caption": "Verify the autonomous transition driving recovery behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering autonomous error recovery and zero-intervention convergence.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
+                  "TASKS",
+                  "Healed within SLA (<=3 tries): 2/3"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCodeAct Sovereign Autonomous Code-Execution Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedSubsystems\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Executable Python REPL Action Space & Shell Controller\","
+                  "TASKS",
+                  "Mean iterations to green: 2.5"
                 ],
                 "tone": "ok"
               }
@@ -523,171 +313,191 @@
     },
     {
       "partTitle": "Enterprise Fleet Scalability Multi Tenant Worker Pools And Distributed HNSW Meshes",
-      "codeHash": "cc3d66270f0298a96278c41226b8ed82af12f401f613db4a73ab4d7715319069",
+      "codeHash": "4eaccf4cf03f198f9687cd98df8b6109e1c456c2ba85136bd562804ef2486a1c",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "Enterprise Fleet Scalability Multi Tenant Worker Pools And Distr",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "pool_free",
+            "label": "pool_free",
+            "tappable": true
+          },
+          {
+            "id": "cold_ms_list",
+            "label": "cold_ms_list",
+            "tappable": true
+          },
+          {
+            "id": "req",
+            "label": "req",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying ApexCodeAct across global enterprise fleets requires.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 28,
-                    "hit": 1
-                  }
-                ],
-                "tone": "data"
+            "caption": "Inspect enterprise updates as pool_free tracks scalability state.",
+            "values": {
+              "pool_free": {
+                "var": "pool_free",
+                "line": 4,
+                "hit": 1
+              },
+              "cold_ms_list": {
+                "text": ""
+              },
+              "req": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "pool_free": "data",
+              "cold_ms_list": "idle",
+              "req": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise fleet scalability leverages asynchronous worker pools cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 29,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Verify the enterprise transition driving fleet behavior.",
+            "values": {
+              "pool_free": {
+                "var": "pool_free",
+                "line": 6,
+                "hit": 5
+              },
+              "cold_ms_list": {
+                "var": "cold_ms_list",
+                "line": 6,
+                "hit": 5
+              },
+              "req": {
+                "var": "req",
+                "line": 6,
+                "hit": 5
               }
+            },
+            "tones": {
+              "pool_free": "data",
+              "cold_ms_list": "data",
+              "req": "data"
+            },
+            "arrows": [
+              [
+                "pool_free",
+                "cold_ms_list"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering enterprise fleet scalability ensures that your autonomous code.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the worker value produced for distributed processing.",
+            "values": {
+              "pool_free": {
+                "var": "pool_free",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "cold_ms_list": {
+                "var": "cold_ms_list",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "req": {
+                "var": "req",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pool_free": "ok",
+              "cold_ms_list": "ok",
+              "req": "ok"
+            },
+            "arrows": [
+              [
+                "pool_free",
+                "cold_ms_list"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "Enterprise Fleet Scalability Multi Tenant Worker Pools And Distr",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "pool_free",
+            "label": "pool_free",
+            "tappable": true
+          },
+          {
+            "id": "cold_ms_list",
+            "label": "cold_ms_list",
+            "tappable": true
+          },
+          {
+            "id": "req",
+            "label": "req",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying ApexCodeAct across global enterprise fleets requires.",
-            "rows": [
-              {
-                "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect enterprise updates as pool_free tracks scalability state.",
+            "values": {
+              "pool_free": "16",
+              "cold_ms_list": "",
+              "req": ""
+            },
+            "tones": {
+              "pool_free": "data",
+              "cold_ms_list": "idle",
+              "req": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise fleet scalability leverages asynchronous worker pools cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Verify the enterprise transition driving fleet behavior.",
+            "values": {
+              "pool_free": "12",
+              "cold_ms_list": "[14, 14, 14, 14]",
+              "req": "'cached_tool'"
+            },
+            "tones": {
+              "pool_free": "data",
+              "cold_ms_list": "data",
+              "req": "data"
+            },
+            "arrows": [
+              [
+                "pool_free",
+                "cold_ms_list"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering enterprise fleet scalability ensures that your autonomous code.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCodeAct Sovereign Autonomous Code-Execution Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedSubsystems\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Executable Python REPL Action Space & Shell Controller\","
-                ],
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the worker value produced for distributed processing.",
+            "values": {
+              "pool_free": "12",
+              "cold_ms_list": "[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…",
+              "req": "'cached_tool'"
+            },
+            "tones": {
+              "pool_free": "ok",
+              "cold_ms_list": "ok",
+              "req": "ok"
+            },
+            "arrows": [
+              [
+                "pool_free",
+                "cold_ms_list"
+              ]
             ]
           }
         ]
@@ -695,171 +505,161 @@
     },
     {
       "partTitle": "ApexCodeAct Sovereign Autonomous Engine Capstone Implementation In Python",
-      "codeHash": "cc3d66270f0298a96278c41226b8ed82af12f401f613db4a73ab4d7715319069",
+      "codeHash": "9ab7426ebbd983ba09511e50604d00ab4ec5b758266d1b4c4c3c1c5409b789e2",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "ApexCodeAct Sovereign Autonomous Engine Capstone Implementation ",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "vals",
+            "label": "vals",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the unified CodeAct paradigm, hardened gVisor sandbox.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 28,
-                    "hit": 1
-                  }
-                ],
-                "tone": "data"
+            "caption": "Inspect apexcodeact updates as vals tracks sovereign state.",
+            "values": {
+              "vals": {
+                "var": "vals",
+                "line": 6,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "vals": "data",
+              "s": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexCodeAct sovereign suite unifies execution sandboxes and tools.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 29,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Verify the apexcodeact transition driving sovereign behavior.",
+            "values": {
+              "vals": {
+                "var": "vals",
+                "line": 6,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "vals": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "vals",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering architecture of ApexCodeAct completes Block Ten.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the python value produced for unifying processing.",
+            "values": {
+              "vals": {
+                "var": "vals",
+                "line": 6,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 3
               }
+            },
+            "tones": {
+              "vals": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "vals",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "ApexCodeAct Sovereign Autonomous Engine Capstone Implementation ",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "vals",
+            "label": "vals",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the unified CodeAct paradigm, hardened gVisor sandbox.",
-            "rows": [
-              {
-                "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect apexcodeact updates as vals tracks sovereign state.",
+            "values": {
+              "vals": "[]",
+              "s": "[]"
+            },
+            "tones": {
+              "vals": "data",
+              "s": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexCodeAct sovereign suite unifies execution sandboxes and tools.",
-            "rows": [
-              {
-                "cells": [
-                  "result",
-                  "{'platform': 'ApexCodeAct Sovereign Aut…"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Verify the apexcodeact transition driving sovereign behavior.",
+            "values": {
+              "vals": "[10, 20, 30, 40]",
+              "s": "[10, 20, 30, 40]"
+            },
+            "tones": {
+              "vals": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "vals",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering architecture of ApexCodeAct completes Block Ten.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexCodeAct Sovereign Autonomous Code-Execution Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedSubsystems\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"Executable Python REPL Action Space & Shell Controller\","
-                ],
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the python value produced for unifying processing.",
+            "values": {
+              "vals": "[12, 45, 19, 88, 31]",
+              "s": "[12, 19, 31, 45, 88]"
+            },
+            "tones": {
+              "vals": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "vals",
+                "s"
+              ]
             ]
           }
         ]

@@ -7,73 +7,40 @@
   "entries": [
     {
       "partTitle": "ApexStructuredGrammar Architecture: Converging Grammars, Tool Pools, Compression & Routing",
-      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
+      "codeHash": "0a3d85d71d4faff518ddf63fd0e9e9af0eed01c99b0b295d49d9fa92edc6764c",
       "spec": {
         "template": "table",
         "title": "ApexStructuredGrammar Architecture: Converging Grammars, Tool Po",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The modern enterprise artificial intelligence frontier demands more than.",
+            "caption": "Observe how apexstructuredgrammar shapes tool during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "run_pipeline_trace"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The core architectural breakthrough of the ApexStructuredGrammar platform.",
+            "caption": "Verify the tool transition driving compression behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "run_pipeline_trace"
                   },
                   {
                     "out": 1
@@ -84,82 +51,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "run_pipeline_trace"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Building and deploying the ApexStructuredGrammar suite marks your.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -173,106 +68,37 @@
         "title": "ApexStructuredGrammar Architecture: Converging Grammars, Tool Po",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The modern enterprise artificial intelligence frontier demands more than.",
+            "caption": "Observe how apexstructuredgrammar shapes tool during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "run_pipeline_trace",
+                  "{'intent': 'invoice_api', 'compressed': 'fetch invoice #402 total?', 'grammar': 'InvoiceSchemaV2', 'tool': 'fetch_invoice_ledger'}"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The core architectural breakthrough of the ApexStructuredGrammar platform.",
+            "caption": "Verify the tool transition driving compression behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "run_pipeline_trace",
+                  "{'intent': 'invoice_api', 'compressed': 'fetch invoice #402 total?', 'grammar': 'InvoiceSchemaV2', 'tool': 'fetch_invoice_ledger'}"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Building and deploying the ApexStructuredGrammar suite marks your.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
+                  "run_pipeline_trace",
+                  "{'intent': 'faq', 'compressed': 'What are support hours?', 'grammar': 'PlainText', 'tool': 'none'}"
                 ],
                 "tone": "ok"
               }
@@ -283,73 +109,40 @@
     },
     {
       "partTitle": "Grammatical Parsing & Line-Rate Logit Masking: Zero-Syntax-Error Schema Enforcement",
-      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
+      "codeHash": "57712f7a75ab6d99c267d46eda9f9aa0f56899f88e04ec2b6357bbeb63c43a1c",
       "spec": {
         "template": "table",
         "title": "Grammatical Parsing & Line-Rate Logit Masking: Zero-Syntax-Error",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational heart of the ApexStructuredGrammar suite lies.",
+            "caption": "Observe how line shapes rate during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "ALLOWED_TRANSITIONS"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Finite state automata and context free grammars govern the logit masking.",
+            "caption": "Verify the logit transition driving masking behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "ALLOWED_TRANSITIONS"
                   },
                   {
                     "out": 1
@@ -360,82 +153,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "ALLOWED_TRANSITIONS"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "By mastering line-rate grammatical logit masking, enterprise systems.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -449,106 +170,37 @@
         "title": "Grammatical Parsing & Line-Rate Logit Masking: Zero-Syntax-Error",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational heart of the ApexStructuredGrammar suite lies.",
+            "caption": "Observe how line shapes rate during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "ALLOWED_TRANSITIONS",
+                  "Valid emit:   (True, '{\"status\":\"APPROVED\",\"amount\":450}')"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Finite state automata and context free grammars govern the logit masking.",
+            "caption": "Verify the logit transition driving masking behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "ALLOWED_TRANSITIONS",
+                  "Valid emit:   (True, '{\"status\":\"APPROVED\",\"amount\":450}')"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "By mastering line-rate grammatical logit masking, enterprise systems.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
+                  "ALLOWED_TRANSITIONS",
+                  "Blocked emit: (False, 'blocked invalid token \\'\"MAYBE\"\\' at step 3')"
                 ],
                 "tone": "ok"
               }
@@ -559,7 +211,7 @@
     },
     {
       "partTitle": "Asynchronous Parallel Tool Orchestration: High-Concurrency Workers & Resilient Handlers",
-      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
+      "codeHash": "f4d38512dd015092b7ec67125c171ff65176aa9489273b6135dfe90ce8930ce5",
       "spec": {
         "template": "table",
         "title": "Asynchronous Parallel Tool Orchestration: High-Concurrency Worke",
@@ -579,39 +231,6 @@
                   },
                   {
                     "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -640,28 +259,6 @@
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -735,28 +332,7 @@
               {
                 "cells": [
                   "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
+                  "('kyc_check', 35, 'OK')"
                 ],
                 "tone": "ok"
               }
@@ -769,28 +345,14 @@
               {
                 "cells": [
                   "out 1",
-                  "{"
+                  "('kyc_check', 35, 'OK')"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
+                  "('fx_quote', 80, 'RETRY_SUCCEEDED')"
                 ],
                 "tone": "ok"
               }
@@ -803,28 +365,28 @@
               {
                 "cells": [
                   "out 1",
-                  "{"
+                  "('kyc_check', 35, 'OK')"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
+                  "('fx_quote', 80, 'RETRY_SUCCEEDED')"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 3",
-                  "  \"integratedModules\": ["
+                  "('ledger_post', 28, 'OK')"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
                   "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
+                  "All tools completed within bounded SLA: 3"
                 ],
                 "tone": "ok"
               }
@@ -835,62 +397,29 @@
     },
     {
       "partTitle": "Perplexity-Aware Compression & Dynamic Dispatch: KV-Cache Economics & Tiered Serving",
-      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
+      "codeHash": "e26fad0385e8d0a0ea2438640f9328b50adf980ac5238a4d530108539431c228",
       "spec": {
         "template": "table",
         "title": "Perplexity-Aware Compression & Dynamic Dispatch: KV-Cache Econom",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise AI architectures must balance cognitive capability against.",
+            "caption": "Observe how perplexity shapes aware during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "import"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
@@ -901,7 +430,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "import"
                   },
                   {
                     "out": 1
@@ -912,82 +441,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "import"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Unifying perplexity-aware prompt compression with hierarchical dispatching.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -1001,40 +458,19 @@
         "title": "Perplexity-Aware Compression & Dynamic Dispatch: KV-Cache Econom",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise AI architectures must balance cognitive capability against.",
+            "caption": "Observe how perplexity shapes aware during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "import",
+                  "Before words: 15 | After words: 9"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
@@ -1044,63 +480,15 @@
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "import",
+                  "Before words: 15 | After words: 9"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Unifying perplexity-aware prompt compression with hierarchical dispatching.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
+                  "import",
+                  "Protected entities intact: True | Output: Section 4: reserve ratio 18.5% cap $2,400,000 effective Q4-2026."
                 ],
                 "tone": "ok"
               }
@@ -1111,73 +499,40 @@
     },
     {
       "partTitle": "Enterprise Capstone Integration: End-to-End Validation, Telemetry & Production Deployment",
-      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
+      "codeHash": "de961d8a095e9a365cbed45db581dcc3aac37d2a1b9a1124ab9bd89cde3d8c7f",
       "spec": {
         "template": "table",
         "title": "Enterprise Capstone Integration: End-to-End Validation, Telemetr",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The culmination of our architectural journey is the full synthesis.",
+            "caption": "Observe how enterprise shapes capstone during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "SCENARIOS"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Production telemetry and benchmark validation certify enterprise platform.",
+            "caption": "Verify the enterprise transition driving validation behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "SCENARIOS"
                   },
                   {
                     "out": 1
@@ -1188,82 +543,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "SCENARIOS"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say13",
-            "caption": "Congratulations on conquering Milestone Capstone Five and mastering.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -1277,106 +560,37 @@
         "title": "Enterprise Capstone Integration: End-to-End Validation, Telemetr",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The culmination of our architectural journey is the full synthesis.",
+            "caption": "Observe how enterprise shapes capstone during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "SCENARIOS",
+                  "ApexStructuredGrammar Acceptance: PASS"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Production telemetry and benchmark validation certify enterprise platform.",
+            "caption": "Verify the enterprise transition driving validation behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "SCENARIOS",
+                  "ApexStructuredGrammar Acceptance: PASS"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say13",
-            "caption": "Congratulations on conquering Milestone Capstone Five and mastering.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"integratedModules\": ["
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"DFA Logit Masking & Context-Free Grammar Enforcer\","
+                  "SCENARIOS",
+                  "Tier distribution: {'8B': 1, '70B': 1, 'Frontier': 2}"
                 ],
                 "tone": "ok"
               }

@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "HITL Escalation Workflows — Foundations & Mathematical Invariants",
+      "partTitle": "Impact & Financial Blast Scoring via `calculate_action_blast_radius`",
       "codeHash": "a39f2ff6d2dfa1d93995ece60eb1544e7b9b387c69bd87cdc45e1193e16ea568",
       "spec": {
         "template": "bars",
@@ -62,7 +62,7 @@
           },
           {
             "at": "say13",
-            "caption": "Architectural rigor in human-in-the-loop escalation ensures that formal.",
+            "caption": "Examine the scoring value produced for action processing.",
             "bars": [
               {
                 "label": "row_count",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say13",
-            "caption": "Architectural rigor in human-in-the-loop escalation ensures that formal.",
+            "caption": "Examine the scoring value produced for action processing.",
             "bars": [
               {
                 "label": "row_count",
@@ -142,7 +142,7 @@
       }
     },
     {
-      "partTitle": "HITL Escalation Workflows — Core Algorithm & State Representation",
+      "partTitle": "Secrets-Backed Token Lifecycles inside `ApprovalTokenManager`",
       "codeHash": "57bdf8281dcb9f42abfa217f9dfdf952c91f2ebcf068be71693381aca4091f53",
       "spec": {
         "template": "states",
@@ -185,7 +185,7 @@
           },
           {
             "at": "say13",
-            "caption": "Profiling memory allocations during human-in-the-loop escalation confirms.",
+            "caption": "Examine the inside value produced for approvaltokenmanager processing.",
             "currentState": "action_id",
             "transition": {
               "from": "mgr",
@@ -237,7 +237,7 @@
           },
           {
             "at": "say13",
-            "caption": "Profiling memory allocations during human-in-the-loop escalation confirms.",
+            "caption": "Examine the inside value produced for approvaltokenmanager processing.",
             "currentState": "action_id",
             "transition": {
               "from": "mgr",
@@ -250,7 +250,7 @@
       }
     },
     {
-      "partTitle": "HITL Escalation Workflows — Production Implementation & Boundary Mechanics",
+      "partTitle": "Tiered Escalation Routing in `hitl_escalation_gate`",
       "codeHash": "fe967d137de8f75321dec6afaafd797d317d15937fe106fabd260f132d8834a6",
       "spec": {
         "template": "states",
@@ -274,7 +274,7 @@
           },
           {
             "at": "say2",
-            "caption": "Actions scoring at or below the auto-approval ceiling (e.",
+            "caption": "Verify the actions transition driving scoring behavior.",
             "currentState": "auto_approval_ceiling",
             "transition": {
               "from": "blast_radius",
@@ -311,7 +311,7 @@
           },
           {
             "at": "say2",
-            "caption": "Actions scoring at or below the auto-approval ceiling (e.",
+            "caption": "Verify the actions transition driving scoring behavior.",
             "currentState": "auto_approval_ceiling",
             "transition": {
               "from": "blast_radius",
@@ -324,7 +324,7 @@
       }
     },
     {
-      "partTitle": "HITL Escalation Workflows — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Pending Review Triage Queue inside `EscalationWorkflowQueue`",
       "codeHash": "99cf5ecedc6bb8a08b132da2b3b6c9f7d06f52a4e4a3b65cdc04911ea0b92351",
       "spec": {
         "template": "states",
@@ -346,7 +346,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Stateful escalation queues manage pending approval tasks across.",
+            "caption": "Observe how pending shapes stateful during this step.",
             "currentState": "self",
             "tone": "data"
           },
@@ -367,7 +367,7 @@
           },
           {
             "at": "say13",
-            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "caption": "Examine the pending value produced for queue processing.",
             "currentState": "action",
             "transition": {
               "from": "q",
@@ -402,7 +402,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Stateful escalation queues manage pending approval tasks across.",
+            "caption": "Observe how pending shapes stateful during this step.",
             "currentState": "self",
             "tone": "data"
           },
@@ -419,7 +419,7 @@
           },
           {
             "at": "say13",
-            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "caption": "Examine the pending value produced for queue processing.",
             "currentState": "action",
             "transition": {
               "from": "q",
@@ -432,7 +432,7 @@
       }
     },
     {
-      "partTitle": "HITL Escalation Workflows — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Human Response SLA Tracking via `audit_hitl_sla_metrics`",
       "codeHash": "191a8d95a2e6262515269ba850d3ed7d946e40cae20f3a6c56278b0fad3f8866",
       "spec": {
         "template": "flow",
@@ -476,16 +476,14 @@
                 "hit": 1
               },
               "avg_wait_sec": {
-                "var": "avg_wait_sec",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_escalations": "data",
               "approved": "data",
               "rejected": "data",
-              "avg_wait_sec": "data"
+              "avg_wait_sec": "idle"
             },
             "arrows": [
               [
@@ -550,7 +548,7 @@
           },
           {
             "at": "say14",
-            "caption": "Automated compliance engines continuously validate human-in-the-loop.",
+            "caption": "Examine the inspecting value produced for percentile processing.",
             "values": {
               "total_escalations": {
                 "var": "total_escalations",
@@ -625,13 +623,13 @@
               "total_escalations": "50",
               "approved": "42",
               "rejected": "8",
-              "avg_wait_sec": "142.5"
+              "avg_wait_sec": ""
             },
             "tones": {
               "total_escalations": "data",
               "approved": "data",
               "rejected": "data",
-              "avg_wait_sec": "data"
+              "avg_wait_sec": "idle"
             },
             "arrows": [
               [
@@ -680,7 +678,7 @@
           },
           {
             "at": "say14",
-            "caption": "Automated compliance engines continuously validate human-in-the-loop.",
+            "caption": "Examine the inspecting value produced for percentile processing.",
             "values": {
               "total_escalations": "50",
               "approved": "42",

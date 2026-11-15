@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates unifies during execution.",
+            "caption": "Inspect milestone updates as spec tracks unifies state.",
             "values": {
               "spec": {
                 "var": "spec",
@@ -156,7 +156,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates unifies during execution.",
+            "caption": "Inspect milestone updates as spec tracks unifies state.",
             "values": {
               "spec": "{'pillar_count': 4, 'pillars': {'FLOW_A…",
               "p": "'FLOW_ALPHA'",
@@ -746,8 +746,8 @@
             "values": {
               "heartbeat_delay_ms": {
                 "var": "heartbeat_delay_ms",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "intraday_drawdown_pct": {
                 "var": "intraday_drawdown_pct",
@@ -756,12 +756,12 @@
               },
               "current_inventory": {
                 "var": "current_inventory",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 5,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -788,12 +788,12 @@
           },
           {
             "at": "say8",
-            "caption": "Automated circuit breakers trigger instantaneous quote cancellation across.",
+            "caption": "Examine the recovery value produced for automated processing.",
             "values": {
               "heartbeat_delay_ms": {
                 "var": "heartbeat_delay_ms",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "intraday_drawdown_pct": {
                 "var": "intraday_drawdown_pct",
@@ -802,12 +802,12 @@
               },
               "current_inventory": {
                 "var": "current_inventory",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 7,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -890,10 +890,10 @@
             "at": "say2",
             "caption": "When market volatility spikes beyond historical norms or when exchange.",
             "values": {
-              "heartbeat_delay_ms": "12",
+              "heartbeat_delay_ms": "85",
               "intraday_drawdown_pct": "0.45",
-              "current_inventory": "10",
-              "issues": "[]"
+              "current_inventory": "25",
+              "issues": "['MARKET_DATA_DISCONNECT: 85.0ms (> 50m…"
             },
             "tones": {
               "heartbeat_delay_ms": "data",
@@ -918,12 +918,12 @@
           },
           {
             "at": "say8",
-            "caption": "Automated circuit breakers trigger instantaneous quote cancellation across.",
+            "caption": "Examine the recovery value produced for automated processing.",
             "values": {
-              "heartbeat_delay_ms": "12",
+              "heartbeat_delay_ms": "85",
               "intraday_drawdown_pct": "0.45",
-              "current_inventory": "10",
-              "issues": "[]"
+              "current_inventory": "25",
+              "issues": "['MARKET_DATA_DISCONNECT: 85.0ms (> 50m…"
             },
             "tones": {
               "heartbeat_delay_ms": "ok",
@@ -953,162 +953,186 @@
       "partTitle": "Milestone 7 — Production Telemetry & Verification Audit",
       "codeHash": "5cd6ecc126fe069c8a11eb90d102b6602bef00f94fa5ff6e522797823223b7e1",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 7 — Production Telemetry & Verification Audit",
-        "actors": [
-          "gates",
-          ".0",
-          "g"
+        "nodes": [
+          {
+            "id": "g",
+            "label": "g",
+            "tappable": true
+          },
+          {
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
+          },
+          {
+            "id": "g_res",
+            "label": "g_res",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how gate updates certification during execution.",
-            "activeActor": "gates",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": {
-                  "var": "gates",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect production updates as g tracks trace state.",
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "g_name": {
+                "text": ""
+              },
+              "g_res": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "g": "data",
+              "g_name": "idle",
+              "g_res": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how gate updates asserts during execution.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": {
-                  "var": "gates",
-                  "line": 12,
-                  "hit": 7
-                },
-                "tone": "data"
+            "caption": "Verify the verify transition driving gate behavior.",
+            "values": {
+              "g": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 12,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "g_name": {
+                "var": "g_name",
+                "line": 21,
+                "hit": 1
+              },
+              "g_res": {
+                "var": "g_res",
+                "line": 21,
+                "hit": 1
               }
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "data",
+              "g_res": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Production telemetry streams execution shortfall and inventory decay.",
-            "activeActor": "g",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": {
-                  "var": "gates",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the milestone value produced for second processing.",
+            "values": {
+              "g": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 12,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "g_name": {
+                "var": "g_name",
+                "line": 21,
+                "hit": 5
+              },
+              "g_res": {
+                "var": "g_res",
+                "line": 21,
+                "hit": 5
               }
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "ok",
+              "g_res": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 7 — Production Telemetry & Verification Audit",
-        "actors": [
-          "gates",
-          ".0",
-          "g"
+        "nodes": [
+          {
+            "id": "g",
+            "label": "g",
+            "tappable": true
+          },
+          {
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
+          },
+          {
+            "id": "g_res",
+            "label": "g_res",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how gate updates certification during execution.",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": "{'GATE_1_OFI_ALPHA_IC': {'passed': True…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "gates"
+            "caption": "Inspect production updates as g tracks trace state.",
+            "values": {
+              "g": "{'passed': True, 'metric': 'OFI Informa…",
+              "g_name": "",
+              "g_res": ""
+            },
+            "tones": {
+              "g": "data",
+              "g_name": "idle",
+              "g_res": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how gate updates asserts during execution.",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": "{'GATE_1_OFI_ALPHA_IC': {'passed': True…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the verify transition driving gate behavior.",
+            "values": {
+              "g": "",
+              "g_name": "'GATE_1_OFI_ALPHA_IC'",
+              "g_res": "{'passed': True, 'metric': 'OFI Informa…"
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "data",
+              "g_res": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Production telemetry streams execution shortfall and inventory decay.",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": "{'GATE_1_OFI_ALPHA_IC': {'passed': True…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "g"
+            "at": "say3",
+            "caption": "Examine the milestone value produced for second processing.",
+            "values": {
+              "g": "",
+              "g_name": "'GATE_5_EXECUTION_LATENCY_SLA'",
+              "g_res": "{'passed': True, 'metric': 'P99 tick-to…"
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "ok",
+              "g_res": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
+            ]
           }
         ]
       }

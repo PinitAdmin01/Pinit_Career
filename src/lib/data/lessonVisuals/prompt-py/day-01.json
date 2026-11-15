@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The model produces a reply one token at a time.",
+            "activeActor": "words",
+            "messages": [
+              {
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "words",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The model produces a reply one token at a time.",
-            "activeActor": "words",
+            "at": "say8",
+            "caption": "Notice that the toy soon repeats itself.",
+            "activeActor": "following",
             "messages": [
+              {
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "following",
+                "label": {
+                  "var": "words",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "text",
                 "to": "words",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Notice that the toy soon repeats itself.",
-            "activeActor": "following",
-            "messages": [
+              },
               {
                 "from": "text",
                 "to": "words",
@@ -282,12 +312,6 @@
                 "to": "words",
                 "label": "'the cat sat on the mat . the cat ate t…",
                 "tone": "data"
-              },
-              {
-                "from": "words",
-                "to": "following",
-                "label": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
-                "tone": "ok"
               }
             ],
             "activeActor": "text"
@@ -315,6 +339,30 @@
             "at": "say8",
             "caption": "Notice that the toy soon repeats itself.",
             "messages": [
+              {
+                "from": "text",
+                "to": "words",
+                "label": "'the cat sat on the mat . the cat ate t…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "following",
+                "label": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+                "tone": "ok"
+              },
+              {
+                "from": "text",
+                "to": "words",
+                "label": "'the cat sat on the mat . the cat ate t…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "following",
+                "label": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+                "tone": "ok"
+              },
               {
                 "from": "text",
                 "to": "words",
@@ -538,7 +586,7 @@
           },
           {
             "at": "say2",
-            "caption": "A simple checker counts words and looks for signs of a format (words like.",
+            "caption": "Verify the simple transition driving checker behavior.",
             "activeActor": "p",
             "messages": [
               {
@@ -622,7 +670,7 @@
           },
           {
             "at": "say2",
-            "caption": "A simple checker counts words and looks for signs of a format (words like.",
+            "caption": "Verify the simple transition driving checker behavior.",
             "messages": [
               {
                 "from": "FORMATS",
@@ -720,7 +768,7 @@
           },
           {
             "at": "say2",
-            "caption": "They are weaker at exact arithmetic, very recent events (after their.",
+            "caption": "Verify the weaker transition driving exact behavior.",
             "values": {
               "tasks": {
                 "var": "tasks",
@@ -729,13 +777,13 @@
               },
               "category": {
                 "var": "category",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "items": {
                 "var": "items",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 14
               }
             },
             "tones": {
@@ -765,13 +813,13 @@
               },
               "category": {
                 "var": "category",
-                "line": 5,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               },
               "items": {
                 "var": "items",
-                "line": 4,
-                "hit": 2
+                "line": 5,
+                "hit": 21
               }
             },
             "tones": {
@@ -836,11 +884,11 @@
           },
           {
             "at": "say2",
-            "caption": "They are weaker at exact arithmetic, very recent events (after their.",
+            "caption": "Verify the weaker transition driving exact behavior.",
             "values": {
               "tasks": "{'draft a birthday message': 'good fit'…",
-              "category": "'good fit'",
-              "items": "['draft a birthday message', 'summarise…"
+              "category": "'verify carefully'",
+              "items": "['quote last quarter revenue', 'calcula…"
             },
             "tones": {
               "tasks": "data",
@@ -863,8 +911,8 @@
             "caption": "Knowing when not to use AI is as valuable as knowing how to use it.",
             "values": {
               "tasks": "{'draft a birthday message': 'good fit'…",
-              "category": "'good fit'",
-              "items": "['draft a birthday message', 'summarise…"
+              "category": "'avoid'",
+              "items": "['decide a medical treatment', 'share c…"
             },
             "tones": {
               "tasks": "ok",
@@ -911,6 +959,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks include a long but vague prompt and the \"listening\" trap.",
+            "activeActor": "fmt",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "fmt",
@@ -925,10 +990,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include a long but vague prompt and the \"listening\" trap.",
-            "activeActor": "fmt",
+            "at": "say7",
+            "caption": "Tomorrow you will build much richer prompts with a six-part framework.",
+            "activeActor": "audience",
             "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": {
+                  "var": "fmt",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "topic",
                 "to": "fmt",
@@ -948,14 +1033,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Tomorrow you will build much richer prompts with a six-part framework.",
-            "activeActor": "audience",
-            "messages": [
+              },
               {
                 "from": "topic",
                 "to": "fmt",
@@ -998,12 +1076,6 @@
                 "to": "fmt",
                 "label": "'budgeting'",
                 "tone": "data"
-              },
-              {
-                "from": "fmt",
-                "to": "audience",
-                "label": "'checklist'",
-                "tone": "ok"
               }
             ],
             "activeActor": "topic"
@@ -1031,6 +1103,30 @@
             "at": "say7",
             "caption": "Tomorrow you will build much richer prompts with a six-part framework.",
             "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": "'budgeting'",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": "'checklist'",
+                "tone": "ok"
+              },
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": "'budgeting'",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": "'checklist'",
+                "tone": "ok"
+              },
               {
                 "from": "topic",
                 "to": "fmt",

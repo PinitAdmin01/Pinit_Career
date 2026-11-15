@@ -477,19 +477,297 @@
       "partTitle": "Testing the rules",
       "codeHash": "d2430f6ec8bed8df301b2f7499d435dd0e77c36b76d3bd83903f2fc5fb280a6d",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Testing the rules",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Try the things that should fail, and check that they do.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE menu_items (id serial PRIMARY KEY, "
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Try a negative quantity.",
+            "values": {
+              "query": {
+                "text": "DELETE FROM menu_items WHERE name = 'Tea';"
+              },
+              "db": {
+                "text": "SQL"
+              },
+              "res": {
+                "error": true
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Testing the rules",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Try the things that should fail, and check that they do.",
+            "values": {
+              "query": "CREATE TABLE menu_items (id serial PRIMARY KEY, ",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Try a negative quantity.",
+            "values": {
+              "query": "DELETE FROM menu_items WHERE name = 'Tea';",
+              "db": "SQL",
+              "res": "update or delete on table \"menu_items\" violates foreign key constraint \"canteen_order_items_item_id_fkey\" on table \"canteen_order_items\""
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: placing a canteen order",
       "codeHash": "eb1954f7c75aea5bdea4d5aedad8b9bfb6b245375e4615beb5a9819b5277ffcf",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Putting it together: placing a canteen order",
+        "columns": [
+          "student_name",
+          "dish",
+          "quantity",
+          "line_total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us finish the design day with the most important action.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "student_name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "dish"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "quantity"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "line_total"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "We insert the order and let PostgreSQL fill in the id and the time.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "student_name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "dish"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "quantity"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "line_total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "student_name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "dish"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "quantity"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "line_total"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Putting it together: placing a canteen order",
+        "columns": [
+          "student_name",
+          "dish",
+          "quantity",
+          "line_total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us finish the design day with the most important action.",
+            "rows": [
+              {
+                "cells": [
+                  "Karan",
+                  "Masala dosa",
+                  "1",
+                  "60.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "We insert the order and let PostgreSQL fill in the id and the time.",
+            "rows": [
+              {
+                "cells": [
+                  "Karan",
+                  "Masala dosa",
+                  "1",
+                  "60.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Karan",
+                  "Tea",
+                  "1",
+                  "15.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

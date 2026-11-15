@@ -369,7 +369,7 @@
           },
           {
             "at": "say2",
-            "caption": "First check the trivial ancestor edge case (`is_ancestor(u, v)` -> return `u`.",
+            "caption": "Verify the check transition driving trivial behavior.",
             "bars": [
               {
                 "label": "n",
@@ -485,7 +485,7 @@
           },
           {
             "at": "say2",
-            "caption": "First check the trivial ancestor edge case (`is_ancestor(u, v)` -> return `u`.",
+            "caption": "Verify the check transition driving trivial behavior.",
             "bars": [
               {
                 "label": "n",

@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "bf": {
-                "var": "bf",
-                "line": 24,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "m_bits": "data",
               "k_hashes": "data",
-              "bf": "data"
+              "bf": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "self": "<BloomFilter>",
               "m_bits": "512",
               "k_hashes": "5",
-              "bf": "<BloomFilter>"
+              "bf": ""
             },
             "tones": {
               "self": "data",
               "m_bits": "data",
               "k_hashes": "data",
-              "bf": "data"
+              "bf": "idle"
             },
             "arrows": [
               [
@@ -434,7 +432,7 @@
           },
           {
             "at": "say6",
-            "caption": "Implement sparse block fence indexing (`build_sparse_index` +.",
+            "caption": "Examine the sparse value produced for fence processing.",
             "items": {
               "var": "sparse_keys",
               "line": 11,
@@ -486,7 +484,7 @@
           },
           {
             "at": "say6",
-            "caption": "Implement sparse block fence indexing (`build_sparse_index` +.",
+            "caption": "Examine the sparse value produced for fence processing.",
             "items": [
               "'k010'",
               "'k018'"
@@ -692,6 +690,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the bloom transition driving sparse behavior.",
+            "activeActor": "block_size",
+            "messages": [
+              {
+                "from": "pairs",
+                "to": "block_size",
+                "label": {
+                  "var": "pairs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "block_size",
@@ -706,10 +721,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Track exact disk block reads executed **without filters** (every negative.",
-            "activeActor": "block_size",
+            "at": "say4",
+            "caption": "Execute the full 8-SSTable comparative lookup benchmark below.",
+            "activeActor": "fp_bits",
             "messages": [
+              {
+                "from": "pairs",
+                "to": "block_size",
+                "label": {
+                  "var": "pairs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": {
+                  "var": "block_size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "pairs",
                 "to": "block_size",
@@ -729,14 +764,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Execute the full 8-SSTable comparative lookup benchmark below.",
-            "activeActor": "fp_bits",
-            "messages": [
+              },
               {
                 "from": "pairs",
                 "to": "block_size",
@@ -779,19 +807,13 @@
                 "to": "block_size",
                 "label": "[['k0_000', 'v'], ['k0_001', 'v'], ['k0…",
                 "tone": "data"
-              },
-              {
-                "from": "block_size",
-                "to": "fp_bits",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "pairs"
           },
           {
             "at": "say2",
-            "caption": "Track exact disk block reads executed **without filters** (every negative.",
+            "caption": "Verify the bloom transition driving sparse behavior.",
             "messages": [
               {
                 "from": "pairs",
@@ -812,6 +834,30 @@
             "at": "say4",
             "caption": "Execute the full 8-SSTable comparative lookup benchmark below.",
             "messages": [
+              {
+                "from": "pairs",
+                "to": "block_size",
+                "label": "[['k0_000', 'v'], ['k0_001', 'v'], ['k0…",
+                "tone": "data"
+              },
+              {
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "pairs",
+                "to": "block_size",
+                "label": "[['k0_000', 'v'], ['k0_001', 'v'], ['k0…",
+                "tone": "data"
+              },
+              {
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": "8",
+                "tone": "ok"
+              },
               {
                 "from": "pairs",
                 "to": "block_size",

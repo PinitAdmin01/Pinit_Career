@@ -64,7 +64,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how engineers updates deep during execution.",
+            "caption": "Verify the parameter transition driving engineers behavior.",
             "values": {
               "MEMORY_COMPONENT_TAXONOMY": {
                 "var": "MEMORY_COMPONENT_TAXONOMY",
@@ -180,7 +180,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how engineers updates deep during execution.",
+            "caption": "Verify the parameter transition driving engineers behavior.",
             "values": {
               "MEMORY_COMPONENT_TAXONOMY": "{'WEIGHT_PARAMETERS': 'Model weights st…",
               "comp": "'ACTIVATIONS'",
@@ -306,8 +306,8 @@
             "values": {
               "param_count_billions": {
                 "var": "param_count_billions",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "precision_bytes": {
                 "var": "precision_bytes",
@@ -316,13 +316,13 @@
               },
               "param_bytes": {
                 "var": "param_bytes",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "grad_bytes": {
                 "var": "grad_bytes",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -352,8 +352,8 @@
             "values": {
               "param_count_billions": {
                 "var": "param_count_billions",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "precision_bytes": {
                 "var": "precision_bytes",
@@ -362,13 +362,13 @@
               },
               "param_bytes": {
                 "var": "param_bytes",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "grad_bytes": {
                 "var": "grad_bytes",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -450,10 +450,10 @@
             "at": "say2",
             "caption": "Given a parameter count in billions, the calculator multiplies.",
             "values": {
-              "param_count_billions": "7",
+              "param_count_billions": "70",
               "precision_bytes": "2",
-              "param_bytes": "14000000000",
-              "grad_bytes": "14000000000"
+              "param_bytes": "140000000000",
+              "grad_bytes": "140000000000"
             },
             "tones": {
               "param_count_billions": "data",
@@ -480,10 +480,10 @@
             "at": "say9",
             "caption": "Production training platforms execute this calculation at launch time.",
             "values": {
-              "param_count_billions": "7",
+              "param_count_billions": "70",
               "precision_bytes": "2",
-              "param_bytes": "14000000000",
-              "grad_bytes": "14000000000"
+              "param_bytes": "140000000000",
+              "grad_bytes": "140000000000"
             },
             "tones": {
               "param_count_billions": "ok",
@@ -535,6 +535,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the activations transition driving represent behavior.",
+            "activeActor": "seq_len",
+            "messages": [
+              {
+                "from": "batch_size",
+                "to": "seq_len",
+                "label": {
+                  "var": "batch_size",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "seq_len",
@@ -549,10 +566,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Activations represent the intermediate tensor outputs produced during.",
-            "activeActor": "seq_len",
+            "at": "say10",
+            "caption": "Hardware capacity planners evaluate dynamic activation memory growth.",
+            "activeActor": "hidden_dim",
             "messages": [
+              {
+                "from": "batch_size",
+                "to": "seq_len",
+                "label": {
+                  "var": "batch_size",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": {
+                  "var": "seq_len",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "batch_size",
                 "to": "seq_len",
@@ -572,14 +609,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Hardware capacity planners evaluate dynamic activation memory growth.",
-            "activeActor": "hidden_dim",
-            "messages": [
+              },
               {
                 "from": "batch_size",
                 "to": "seq_len",
@@ -622,19 +652,13 @@
                 "to": "seq_len",
                 "label": "4",
                 "tone": "data"
-              },
-              {
-                "from": "seq_len",
-                "to": "hidden_dim",
-                "label": "2048",
-                "tone": "ok"
               }
             ],
             "activeActor": "batch_size"
           },
           {
             "at": "say2",
-            "caption": "Activations represent the intermediate tensor outputs produced during.",
+            "caption": "Verify the activations transition driving represent behavior.",
             "messages": [
               {
                 "from": "batch_size",
@@ -655,6 +679,30 @@
             "at": "say10",
             "caption": "Hardware capacity planners evaluate dynamic activation memory growth.",
             "messages": [
+              {
+                "from": "batch_size",
+                "to": "seq_len",
+                "label": "4",
+                "tone": "data"
+              },
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": "2048",
+                "tone": "ok"
+              },
+              {
+                "from": "batch_size",
+                "to": "seq_len",
+                "label": "4",
+                "tone": "data"
+              },
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": "2048",
+                "tone": "ok"
+              },
               {
                 "from": "batch_size",
                 "to": "seq_len",
@@ -699,6 +747,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To prevent OOM events before jobs launch, modern training orchestrators.",
+            "activeActor": "activation_memory_gb",
+            "messages": [
+              {
+                "from": "static_memory_gb",
+                "to": "activation_memory_gb",
+                "label": {
+                  "var": "static_memory_gb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "activation_memory_gb",
@@ -713,10 +778,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "To prevent OOM events before jobs launch, modern training orchestrators.",
-            "activeActor": "activation_memory_gb",
+            "at": "say9",
+            "caption": "Examine the activation value produced for memory processing.",
+            "activeActor": "gpu_capacity_gb",
             "messages": [
+              {
+                "from": "static_memory_gb",
+                "to": "activation_memory_gb",
+                "label": {
+                  "var": "static_memory_gb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "activation_memory_gb",
+                "to": "gpu_capacity_gb",
+                "label": {
+                  "var": "activation_memory_gb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "static_memory_gb",
                 "to": "activation_memory_gb",
@@ -736,14 +821,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Cloud infrastructure teams deploy these guardrails within job submission.",
-            "activeActor": "gpu_capacity_gb",
-            "messages": [
+              },
               {
                 "from": "static_memory_gb",
                 "to": "activation_memory_gb",
@@ -786,12 +864,6 @@
                 "to": "activation_memory_gb",
                 "label": "40",
                 "tone": "data"
-              },
-              {
-                "from": "activation_memory_gb",
-                "to": "gpu_capacity_gb",
-                "label": "15",
-                "tone": "ok"
               }
             ],
             "activeActor": "static_memory_gb"
@@ -817,8 +889,32 @@
           },
           {
             "at": "say9",
-            "caption": "Cloud infrastructure teams deploy these guardrails within job submission.",
+            "caption": "Examine the activation value produced for memory processing.",
             "messages": [
+              {
+                "from": "static_memory_gb",
+                "to": "activation_memory_gb",
+                "label": "40",
+                "tone": "data"
+              },
+              {
+                "from": "activation_memory_gb",
+                "to": "gpu_capacity_gb",
+                "label": "15",
+                "tone": "ok"
+              },
+              {
+                "from": "static_memory_gb",
+                "to": "activation_memory_gb",
+                "label": "40",
+                "tone": "data"
+              },
+              {
+                "from": "activation_memory_gb",
+                "to": "gpu_capacity_gb",
+                "label": "15",
+                "tone": "ok"
+              },
               {
                 "from": "static_memory_gb",
                 "to": "activation_memory_gb",
@@ -882,16 +978,14 @@
                 "hit": 1
               },
               "controls": {
-                "var": "controls",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "param_accounted": "data",
               "activation_estimated": "data",
               "oom_guard_active": "data",
-              "controls": "data"
+              "controls": "idle"
             },
             "arrows": [
               [
@@ -1031,13 +1125,13 @@
               "param_accounted": "True",
               "activation_estimated": "True",
               "oom_guard_active": "True",
-              "controls": "{'STATIC_PARAM_ACCOUNTING': True, 'DYNA…"
+              "controls": ""
             },
             "tones": {
               "param_accounted": "data",
               "activation_estimated": "data",
               "oom_guard_active": "data",
-              "controls": "data"
+              "controls": "idle"
             },
             "arrows": [
               [

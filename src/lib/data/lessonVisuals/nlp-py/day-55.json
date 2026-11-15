@@ -98,7 +98,7 @@
           },
           {
             "at": "say10",
-            "caption": "As you build and defend this master capstone, recognize that you are.",
+            "caption": "Examine the master value produced for build processing.",
             "bars": [
               {
                 "label": "d_v",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say10",
-            "caption": "As you build and defend this master capstone, recognize that you are.",
+            "caption": "Examine the master value produced for build processing.",
             "bars": [
               {
                 "label": "d_v",
@@ -581,7 +581,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "We now integrate Subsystem 3 (The Discrete Coordinate Visual Grounding.",
+            "caption": "Inspect discrete updates as self tracks coordinate state.",
             "values": {
               "self": {
                 "var": "self",
@@ -599,16 +599,14 @@
                 "hit": 1
               },
               "w": {
-                "var": "w",
-                "line": 50,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "num_bins": "data",
               "engine": "data",
-              "w": "data"
+              "w": "idle"
             },
             "arrows": [
               [
@@ -743,18 +741,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "We now integrate Subsystem 3 (The Discrete Coordinate Visual Grounding.",
+            "caption": "Inspect discrete updates as self tracks coordinate state.",
             "values": {
               "self": "<GroundingAndSFTEngine>",
               "num_bins": "1000",
               "engine": "<GroundingAndSFTEngine>",
-              "w": "1920"
+              "w": ""
             },
             "tones": {
               "self": "data",
               "num_bins": "data",
               "engine": "data",
-              "w": "data"
+              "w": "idle"
             },
             "arrows": [
               [
@@ -836,7 +834,7 @@
     },
     {
       "partTitle": "Subsystem 5: Milestone Capstone Defense, Benchmarking & Sovereign Certification",
-      "codeHash": "b576818f6fcdc2d4c22af46b697cb42554c00341f4b44126a17f5cd194d2ae64",
+      "codeHash": "018f170f66a45009af1be98bb4349d28843c3a606133a13ab12c86fee32d2fb0",
       "spec": {
         "template": "flow",
         "title": "Subsystem 5: Milestone Capstone Defense, Benchmarking & Sovereig",
@@ -921,13 +919,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 11,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               },
               "value": {
                 "var": "value",
-                "line": 11,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -967,13 +965,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 12,
-                "hit": 1
+                "line": 10,
+                "hit": 3
               },
               "value": {
                 "var": "value",
-                "line": 12,
-                "hit": 1
+                "line": 10,
+                "hit": 3
               }
             },
             "tones": {
@@ -1057,8 +1055,8 @@
             "values": {
               "self": "<ApexOmniDefenseEngine>",
               "defense": "<ApexOmniDefenseEngine>",
-              "name": "'Aspect_Ratio_Preservation'",
-              "value": "'1x2 Grid Assigned (0.0% squish)'"
+              "name": "'Token_Compression_Ratio'",
+              "value": "'75.0% Reduction (4x4 -> 2x2)'"
             },
             "tones": {
               "self": "data",
@@ -1087,8 +1085,8 @@
             "values": {
               "self": "<ApexOmniDefenseEngine>",
               "defense": "<ApexOmniDefenseEngine>",
-              "name": "'Aspect_Ratio_Preservation'",
-              "value": "'1x2 Grid Assigned (0.0% squish)'"
+              "name": "'Projection_Activation_Variance'",
+              "value": "1"
             },
             "tones": {
               "self": "ok",

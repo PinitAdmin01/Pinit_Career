@@ -588,7 +588,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how retrieval updates measured during execution.",
+            "caption": "Verify the retrieval transition driving measured behavior.",
             "values": {
               "sources": {
                 "var": "sources",
@@ -602,13 +602,13 @@
               },
               "sentence": {
                 "var": "sentence",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "src": {
                 "var": "src",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -648,13 +648,13 @@
               },
               "sentence": {
                 "var": "sentence",
-                "line": 5,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               },
               "src": {
                 "var": "src",
-                "line": 5,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -734,12 +734,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how retrieval updates measured during execution.",
+            "caption": "Verify the retrieval transition driving measured behavior.",
             "values": {
               "sources": "{'s1': 'Refunds are allowed within 30 d…",
               "answer": "[['You can get a refund within 30 days.…",
-              "sentence": "'You can get a refund within 30 days.'",
-              "src": "'s1'"
+              "sentence": "'Damaged items get a full refund.'",
+              "src": "'s2'"
             },
             "tones": {
               "sources": "data",
@@ -768,7 +768,7 @@
             "values": {
               "sources": "{'s1': 'Refunds are allowed within 30 d…",
               "answer": "[['You can get a refund within 30 days.…",
-              "sentence": "'You can get a refund within 30 days.'",
+              "sentence": "'Shipping is always free.'",
               "src": "'s1'"
             },
             "tones": {
@@ -882,12 +882,12 @@
               },
               "used": {
                 "var": "used",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "ctx": {
                 "var": "ctx",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               }
             },
@@ -928,13 +928,13 @@
               },
               "used": {
                 "var": "used",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "ctx": {
                 "var": "ctx",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -1018,8 +1018,8 @@
             "values": {
               "ranked": "[['c1', 'Refunds within 30 days.', 12],…",
               "budget": "40",
-              "used": "0",
-              "ctx": "[]"
+              "used": "12",
+              "ctx": "[['c1', 'Refunds within 30 days.']]"
             },
             "tones": {
               "ranked": "data",
@@ -1048,8 +1048,8 @@
             "values": {
               "ranked": "[['c1', 'Refunds within 30 days.', 12],…",
               "budget": "40",
-              "used": "0",
-              "ctx": "[]"
+              "used": "22",
+              "ctx": "[['c1', 'Refunds within 30 days.'], ['c…"
             },
             "tones": {
               "ranked": "ok",

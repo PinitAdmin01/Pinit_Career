@@ -276,7 +276,7 @@ const DAYS: Day[] = [
       "desc": "Write `save_checkpoint(step, weights, optimizer_state, seed)` returning a JSON string (json.dumps with sort_keys=True) of {'version': 1, 'step': ..., 'weights': ..., 'optimizer': ..., 'seed': ...}. Write `load_checkpoint(text)` that parses it and returns the dict, raising ValueError if the version is not 1 or any of the keys step, weights, optimizer, seed is missing.",
       "starter": "import json\n\n\ndef save_checkpoint(step, weights, optimizer_state, seed):\n    pass\n\n\ndef load_checkpoint(text):\n    pass",
       "hint": "Check data.get('version') == 1 and that every required key is in the dict.",
-      "test": "text = save_checkpoint(1200, [0.5, -0.25], {'m': [0.1, 0.0], 't': 1200}, 42)\nassert isinstance(text, str) and text.startswith('{\"optimizer\"'), 'Sorted-key JSON text'\nck = load_checkpoint(text)\nassert ck['step'] == 1200 and ck['weights'] == [0.5, -0.25] and ck['optimizer']['t'] == 1200 and ck['seed'] == 42, f'Got {ck}'\nfor bad in ['{\"version\": 2, \"step\": 1, \"weights\": [], \"optimizer\": {}, \"seed\": 0}',\n            '{\"version\": 1, \"step\": 1, \"weights\": []}']:\n    try:\n        load_checkpoint(bad)\n        raise AssertionError('must raise ValueError')\n    except ValueError:\n        pass\nprint('All checks passed.')"
+      "test": "text = save_checkpoint(1200, [0.5, -0.25], {'m': [0.1, 0.0], 't': 1200}, 42)\nassert isinstance(text, str) and text.startswith('{\"optimizer\"'), 'Sorted-key JSON text'\nck = load_checkpoint(text)\nassert ck['step'] == 1200 and ck['weights'] == [0.5, -0.25] and ck['optimizer']['t'] == 1200 and ck['seed'] == 42, f'Got {ck}'\nfor bad in ['{\"version\": 2, \"step\": 1, \"weights\": [], \"optimizer\": {}, \"seed\": 0}',\n            '{\"version\": 1, \"step\": 1, \"weights\": []}']:\n    try:\n        load_checkpoint(bad)\n        raise AssertionError('must raise ValueError')\n    except ValueError:\n        pass\nassert load_checkpoint(save_checkpoint(0, [], {}, 1))['version'] == 1, 'Empty weights and optimizer roundtrip'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Latest Valid Checkpoint",
@@ -356,7 +356,7 @@ const DAYS: Day[] = [
       "desc": "With C = 6·N·D FLOPs and the Chinchilla rule of about 20 tokens per parameter (D = 20·N), C = 120·N². Write `chinchilla(compute_flops)` returning {'params_b': N in billions, 'tokens_b': D in billions}, both rounded to 1 decimal.",
       "starter": "import math\n\n\ndef chinchilla(compute_flops):\n    pass",
       "hint": "N = math.sqrt(compute_flops / 120); D = 20 * N",
-      "test": "r = chinchilla(5.76e23)\nassert r == {'params_b': 69.3, 'tokens_b': 1385.6}, f'Chinchilla-scale budget: got {r}'\nassert chinchilla(1.2e21) == {'params_b': 3.2, 'tokens_b': 63.2}, f'Got {chinchilla(1.2e21)}'\nprint('All checks passed.')"
+      "test": "r = chinchilla(5.76e23)\nassert r == {'params_b': 69.3, 'tokens_b': 1385.6}, f'Chinchilla-scale budget: got {r}'\nassert chinchilla(1.2e21) == {'params_b': 3.2, 'tokens_b': 63.2}, f'Got {chinchilla(1.2e21)}'\nassert chinchilla(0) == {'params_b': 0.0, 'tokens_b': 0.0}, 'Zero FLOPs'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Training Budget Check",
@@ -379,7 +379,7 @@ const DAYS: Day[] = [
       "desc": "Write `throughput_report(step_seconds, tokens_per_step)` for a list of step times. Return {'tokens_per_sec': total tokens / total seconds rounded to 0 decimals as an int, 'median_step': the median step time (statistics.median) rounded to 3 decimals, 'slowest_step': the max rounded to 3 decimals, 'slow_steps': number of steps taking more than 1.5 × the median}.",
       "starter": "import statistics\n\n\ndef throughput_report(step_seconds, tokens_per_step):\n    pass",
       "hint": "median = statistics.median(step_seconds); slow = sum(t > 1.5 * median for t in step_seconds)",
-      "test": "r = throughput_report([1.0, 1.1, 0.9, 1.0, 3.0], 1_000_000)\nassert r == {'tokens_per_sec': 714286, 'median_step': 1.0, 'slowest_step': 3.0, 'slow_steps': 1}, f'Got {r}'\nr = throughput_report([0.5, 0.5], 262144)\nassert r == {'tokens_per_sec': 524288, 'median_step': 0.5, 'slowest_step': 0.5, 'slow_steps': 0}, f'Got {r}'\nprint('All checks passed.')"
+      "test": "r = throughput_report([1.0, 1.1, 0.9, 1.0, 3.0], 1_000_000)\nassert r == {'tokens_per_sec': 714286, 'median_step': 1.0, 'slowest_step': 3.0, 'slow_steps': 1}, f'Got {r}'\nr = throughput_report([0.5, 0.5], 262144)\nassert r == {'tokens_per_sec': 524288, 'median_step': 0.5, 'slowest_step': 0.5, 'slow_steps': 0}, f'Got {r}'\nassert throughput_report([1.0], 1000) == {'tokens_per_sec': 1000, 'median_step': 1.0, 'slowest_step': 1.0, 'slow_steps': 0}, 'Single step'\nprint('All checks passed.')"
     }
   },
   {
@@ -491,7 +491,7 @@ const DAYS: Day[] = [
       "desc": "Write `run_report(log)` where log is a list of dicts {'step': int, 'loss': float, 'tokens': int, 'seconds': float}. Return {'steps': number of entries, 'final_loss': loss of the last entry, 'best_loss': the smallest non-NaN loss, 'nan_steps': list of steps whose loss is NaN, 'tokens_per_sec': total tokens / total seconds rounded to 0 decimals as an int}. Round losses to 4 decimals. For an empty log return {'steps': 0, 'final_loss': None, 'best_loss': None, 'nan_steps': [], 'tokens_per_sec': 0}.",
       "starter": "import math\n\n\ndef run_report(log):\n    pass",
       "hint": "good = [e['loss'] for e in log if not math.isnan(e['loss'])]",
-      "test": "log = [{'step': 1, 'loss': 4.2, 'tokens': 4000, 'seconds': 2.0},\n       {'step': 2, 'loss': float('nan'), 'tokens': 4000, 'seconds': 2.0},\n       {'step': 3, 'loss': 3.61234, 'tokens': 4000, 'seconds': 1.0},\n       {'step': 4, 'loss': 3.7, 'tokens': 4000, 'seconds': 1.0}]\nr = run_report(log)\nassert r == {'steps': 4, 'final_loss': 3.7, 'best_loss': 3.6123, 'nan_steps': [2], 'tokens_per_sec': 2667}, f'Got {r}'\nassert run_report([]) == {'steps': 0, 'final_loss': None, 'best_loss': None, 'nan_steps': [], 'tokens_per_sec': 0}, 'Empty log'\nprint('All checks passed.')"
+      "test": "log = [{'step': 1, 'loss': 4.2, 'tokens': 4000, 'seconds': 2.0},\n       {'step': 2, 'loss': float('nan'), 'tokens': 4000, 'seconds': 2.0},\n       {'step': 3, 'loss': 3.61234, 'tokens': 4000, 'seconds': 1.0},\n       {'step': 4, 'loss': 3.7, 'tokens': 4000, 'seconds': 1.0}]\nr = run_report(log)\nassert r == {'steps': 4, 'final_loss': 3.7, 'best_loss': 3.6123, 'nan_steps': [2], 'tokens_per_sec': 2667}, f'Got {r}'\nassert run_report([]) == {'steps': 0, 'final_loss': None, 'best_loss': None, 'nan_steps': [], 'tokens_per_sec': 0}, 'Empty log'\nassert run_report([{'step': 1, 'loss': float('nan'), 'tokens': 100, 'seconds': 1.0}])['best_loss'] is None, 'All-NaN run has None best_loss'\nprint('All checks passed.')"
     }
   }
 ];

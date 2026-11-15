@@ -246,16 +246,14 @@
                 "hit": 1
               },
               "max_messages": {
-                "var": "max_messages",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "conversation": "data",
               "system": "data",
               "messages": "data",
-              "max_messages": "data"
+              "max_messages": "idle"
             }
           },
           {
@@ -353,13 +351,13 @@
               "conversation": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
               "system": "'You are a travel helper.'",
               "messages": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
-              "max_messages": "4"
+              "max_messages": ""
             },
             "tones": {
               "conversation": "data",
               "system": "data",
               "messages": "data",
-              "max_messages": "data"
+              "max_messages": "idle"
             }
           },
           {
@@ -442,16 +440,14 @@
                 "hit": 1
               },
               "messages": {
-                "var": "messages",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "history": "data",
               "new_turn": "data",
               "max_tokens": "data",
-              "messages": "data"
+              "messages": "idle"
             },
             "arrows": [
               [
@@ -591,13 +587,13 @@
               "history": "[{'role': 'user', 'text': '...', 'topic…",
               "new_turn": "{'role': 'assistant', 'text': '...', 't…",
               "max_tokens": "100",
-              "messages": "[{'role': 'user', 'text': '...', 'topic…"
+              "messages": ""
             },
             "tones": {
               "history": "data",
               "new_turn": "data",
               "max_tokens": "data",
-              "messages": "data"
+              "messages": "idle"
             },
             "arrows": [
               [
@@ -703,6 +699,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Simple counts are useful signals.",
+            "activeActor": "messages",
+            "messages": [
+              {
+                "from": "msgs",
+                "to": "messages",
+                "label": {
+                  "var": "msgs",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "messages",
@@ -717,10 +730,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Simple counts are useful signals.",
-            "activeActor": "messages",
+            "at": "say7",
+            "caption": "Small helper functions like this make analytics dashboards straightforward.",
+            "activeActor": "counts",
             "messages": [
+              {
+                "from": "msgs",
+                "to": "messages",
+                "label": {
+                  "var": "msgs",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "counts",
+                "label": {
+                  "var": "messages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "msgs",
                 "to": "messages",
@@ -740,14 +773,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Small helper functions like this make analytics dashboards straightforward.",
-            "activeActor": "counts",
-            "messages": [
+              },
               {
                 "from": "msgs",
                 "to": "messages",
@@ -790,12 +816,6 @@
                 "to": "messages",
                 "label": "[{'role': 'system'}, {'role': 'user'}, …",
                 "tone": "data"
-              },
-              {
-                "from": "messages",
-                "to": "counts",
-                "label": "[{'role': 'system'}, {'role': 'user'}, …",
-                "tone": "ok"
               }
             ],
             "activeActor": "msgs"
@@ -823,6 +843,30 @@
             "at": "say7",
             "caption": "Small helper functions like this make analytics dashboards straightforward.",
             "messages": [
+              {
+                "from": "msgs",
+                "to": "messages",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "counts",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
+                "tone": "ok"
+              },
+              {
+                "from": "msgs",
+                "to": "messages",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "counts",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
+                "tone": "ok"
+              },
               {
                 "from": "msgs",
                 "to": "messages",
@@ -867,6 +911,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Long-term memory stores such facts outside the chat, often as small.",
+            "activeActor": "ALLOWED",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": {
+                  "var": "profile",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ALLOWED",
@@ -881,10 +942,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Long-term memory stores such facts outside the chat, often as small.",
-            "activeActor": "ALLOWED",
+            "at": "say7",
+            "caption": "Keep each fact short and dated, so newer facts can replace older ones.",
+            "activeActor": "user_id",
             "messages": [
+              {
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": {
+                  "var": "profile",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": {
+                  "var": "ALLOWED",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "profile",
                 "to": "ALLOWED",
@@ -904,14 +985,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Keep each fact short and dated, so newer facts can replace older ones.",
-            "activeActor": "user_id",
-            "messages": [
+              },
               {
                 "from": "profile",
                 "to": "ALLOWED",
@@ -954,12 +1028,6 @@
                 "to": "ALLOWED",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "ALLOWED",
-                "to": "user_id",
-                "label": "{'city', 'diet', 'name', 'seat'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "profile"
@@ -987,6 +1055,30 @@
             "at": "say7",
             "caption": "Keep each fact short and dated, so newer facts can replace older ones.",
             "messages": [
+              {
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": "{'city', 'diet', 'name', 'seat'}",
+                "tone": "ok"
+              },
+              {
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": "{'city', 'diet', 'name', 'seat'}",
+                "tone": "ok"
+              },
               {
                 "from": "profile",
                 "to": "ALLOWED",
@@ -1031,6 +1123,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Long, flowing chats (coaching, tutoring).",
+            "activeActor": "summary",
+            "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": {
+                  "var": "facts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "summary",
@@ -1045,10 +1154,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Long, flowing chats (coaching, tutoring).",
-            "activeActor": "summary",
+            "at": "say7",
+            "caption": "Tomorrow you will give the assistant the ability to act in steps with tools.",
+            "activeActor": "recent",
             "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": {
+                  "var": "facts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": {
+                  "var": "summary",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "facts",
                 "to": "summary",
@@ -1068,14 +1197,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Tomorrow you will give the assistant the ability to act in steps with tools.",
-            "activeActor": "recent",
-            "messages": [
+              },
               {
                 "from": "facts",
                 "to": "summary",
@@ -1118,12 +1240,6 @@
                 "to": "summary",
                 "label": "['name: Asha', 'diet: vegetarian']",
                 "tone": "data"
-              },
-              {
-                "from": "summary",
-                "to": "recent",
-                "label": "'discussed Goa trip in December'",
-                "tone": "ok"
               }
             ],
             "activeActor": "facts"
@@ -1151,6 +1267,30 @@
             "at": "say7",
             "caption": "Tomorrow you will give the assistant the ability to act in steps with tools.",
             "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": "['name: Asha', 'diet: vegetarian']",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": "'discussed Goa trip in December'",
+                "tone": "ok"
+              },
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": "['name: Asha', 'diet: vegetarian']",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": "'discussed Goa trip in December'",
+                "tone": "ok"
+              },
               {
                 "from": "facts",
                 "to": "summary",

@@ -13,117 +13,92 @@
         "title": "Unified Multi-Index Chunk & Entity Ingestion",
         "boxes": [
           {
-            "id": "self",
-            "label": "self"
-          },
-          {
-            "id": "idx",
-            "label": "idx"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "cid",
+            "label": "cid",
+            "tappable": true
+          },
+          {
+            "id": "tenant",
+            "label": "tenant",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Operating lexical postings, dense embeddings, and entity graphs.",
+            "caption": "Inspect entity updates as x tracks operating state.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 6,
-                "hit": 1
-              },
-              "idx": {
-                "var": "idx",
-                "line": 20,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 12,
-                "hit": 1
-              },
               "x": {
                 "var": "x",
                 "line": 12,
                 "hit": 1
+              },
+              "cid": {
+                "text": ""
+              },
+              "tenant": {
+                "text": ""
               }
             },
             "tones": {
-              "self": "data",
-              "idx": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "cid": "idle",
+              "tenant": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Encapsulating ingestion inside one atomic `EnterpriseIndex` ensures every.",
+            "caption": "Verify the chunk transition driving entity behavior.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 7,
-                "hit": 1
-              },
-              "idx": {
-                "var": "idx",
-                "line": 21,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 12,
-                "hit": 2
-              },
               "x": {
-                "var": "x",
+                "text": ""
+              },
+              "cid": {
+                "var": "cid",
                 "line": 12,
-                "hit": 2
+                "hit": 8
+              },
+              "tenant": {
+                "var": "tenant",
+                "line": 12,
+                "hit": 8
               }
             },
             "tones": {
-              "self": "data",
-              "idx": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "idle",
+              "cid": "data",
+              "tenant": "data"
             }
           },
           {
-            "at": "say8",
-            "caption": "Verify in production that deletion or version updates purge stale tokens.",
+            "at": "say3",
+            "caption": "Examine the normalizing value produced for vector processing.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 8,
-                "hit": 1
-              },
-              "idx": {
-                "var": "idx",
-                "line": 22,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 12,
-                "hit": 3
-              },
               "x": {
                 "var": "x",
-                "line": 12,
-                "hit": 3
+                "line": 14,
+                "hit": 8
+              },
+              "cid": {
+                "var": "cid",
+                "line": 14,
+                "hit": 8
+              },
+              "tenant": {
+                "var": "tenant",
+                "line": 14,
+                "hit": 8
               }
             },
             "tones": {
-              "self": "ok",
-              "idx": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "ok",
+              "cid": "ok",
+              "tenant": "ok"
             }
           }
         ]
@@ -133,69 +108,62 @@
         "title": "Unified Multi-Index Chunk & Entity Ingestion",
         "boxes": [
           {
-            "id": "self",
-            "label": "self"
-          },
-          {
-            "id": "idx",
-            "label": "idx"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "cid",
+            "label": "cid",
+            "tappable": true
+          },
+          {
+            "id": "tenant",
+            "label": "tenant",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Operating lexical postings, dense embeddings, and entity graphs.",
+            "caption": "Inspect entity updates as x tracks operating state.",
             "values": {
-              "self": "<EnterpriseIndex>",
-              "idx": "<EnterpriseIndex>",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "0.8"
+              "x": "0.8",
+              "cid": "",
+              "tenant": ""
             },
             "tones": {
-              "self": "data",
-              "idx": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "cid": "idle",
+              "tenant": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Encapsulating ingestion inside one atomic `EnterpriseIndex` ensures every.",
+            "caption": "Verify the chunk transition driving entity behavior.",
             "values": {
-              "self": "<EnterpriseIndex>",
-              "idx": "<EnterpriseIndex>",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "0.5"
+              "x": "",
+              "cid": "'c2'",
+              "tenant": "'acme'"
             },
             "tones": {
-              "self": "data",
-              "idx": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "idle",
+              "cid": "data",
+              "tenant": "data"
             }
           },
           {
-            "at": "say8",
-            "caption": "Verify in production that deletion or version updates purge stale tokens.",
+            "at": "say3",
+            "caption": "Examine the normalizing value produced for vector processing.",
             "values": {
-              "self": "<EnterpriseIndex>",
-              "idx": "<EnterpriseIndex>",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "0.5"
+              "x": "0.4",
+              "cid": "'c3'",
+              "tenant": "'globex'"
             },
             "tones": {
-              "self": "ok",
-              "idx": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "ok",
+              "cid": "ok",
+              "tenant": "ok"
             }
           }
         ]
@@ -228,7 +196,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "During query execution, each retriever harvests candidates strictly within.",
+            "caption": "Inspect tenant updates as chunks tracks during state.",
             "values": {
               "chunks": {
                 "var": "chunks",
@@ -246,16 +214,14 @@
                 "hit": 1
               },
               "grp": {
-                "var": "grp",
-                "line": 16,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "chunks": "data",
               "vecs": "data",
               "inv": "data",
-              "grp": "data"
+              "grp": "idle"
             },
             "arrows": [
               [
@@ -390,18 +356,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "During query execution, each retriever harvests candidates strictly within.",
+            "caption": "Inspect tenant updates as chunks tracks during state.",
             "values": {
               "chunks": "{'c1': {'tenant': 'acme'}, 'c2': {'tena…",
               "vecs": "{'c1': [0.9, 0.4], 'c2': [0.3, 0.95], '…",
               "inv": "{'redis': {'c1', 'c3'}, 'lock': {'c2'}}",
-              "grp": "{'redis': {'c1', 'c2', 'c3'}}"
+              "grp": ""
             },
             "tones": {
               "chunks": "data",
               "vecs": "data",
               "inv": "data",
-              "grp": "data"
+              "grp": "idle"
             },
             "arrows": [
               [
@@ -490,7 +456,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Three candidate lists now enter RRF fusion simultaneously (`bm25`, `vec`.",
+            "caption": "Observe how three shapes candidate during this step.",
             "bars": [
               {
                 "label": "k_rrf",
@@ -574,7 +540,7 @@
           },
           {
             "at": "say8",
-            "caption": "Tracing intermediate scores during offline evaluation also reveals when.",
+            "caption": "Examine the three value produced for diversity processing.",
             "bars": [
               {
                 "label": "k_rrf",
@@ -622,7 +588,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Three candidate lists now enter RRF fusion simultaneously (`bm25`, `vec`.",
+            "caption": "Observe how three shapes candidate during this step.",
             "bars": [
               {
                 "label": "k_rrf",
@@ -674,7 +640,7 @@
           },
           {
             "at": "say8",
-            "caption": "Tracing intermediate scores during offline evaluation also reveals when.",
+            "caption": "Examine the three value produced for diversity processing.",
             "bars": [
               {
                 "label": "k_rrf",
@@ -734,7 +700,7 @@
           },
           {
             "at": "say2",
-            "caption": "Packing extracts surviving chunks cleanly in priority order, labels every.",
+            "caption": "Verify the packing transition driving extracts behavior.",
             "bars": [
               {
                 "label": "budget_words",
@@ -758,7 +724,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how `pack_citations` packs chunk `c1` and chunk `c3` while skipping.",
+            "caption": "Examine the budget value produced for prompt processing.",
             "bars": [
               {
                 "label": "budget_words",
@@ -804,7 +770,7 @@
           },
           {
             "at": "say2",
-            "caption": "Packing extracts surviving chunks cleanly in priority order, labels every.",
+            "caption": "Verify the packing transition driving extracts behavior.",
             "bars": [
               {
                 "label": "budget_words",
@@ -820,7 +786,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how `pack_citations` packs chunk `c1` and chunk `c3` while skipping.",
+            "caption": "Examine the budget value produced for prompt processing.",
             "bars": [
               {
                 "label": "budget_words",
@@ -851,8 +817,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates declaring during execution.",
+            "caption": "Observe how integration shapes audit during this step.",
             "activeActor": "db",
+            "messages": [
+              {
+                "from": "db",
+                "to": "chunks",
+                "label": {
+                  "var": "db",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Notice what invariants matter most.",
+            "activeActor": "chunks",
             "messages": [
               {
                 "from": "db",
@@ -877,10 +860,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Notice what invariants matter most.",
-            "activeActor": "chunks",
+            "at": "say8",
+            "caption": "Notice how quickly fake retrieval stubs expose broken tenant filters.",
+            "activeActor": "checks",
             "messages": [
+              {
+                "from": "db",
+                "to": "chunks",
+                "label": {
+                  "var": "db",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "chunks",
+                "to": "checks",
+                "label": {
+                  "var": "chunks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "db",
                 "to": "chunks",
@@ -900,14 +903,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Notice how quickly fake retrieval stubs expose broken tenant filters.",
-            "activeActor": "checks",
-            "messages": [
+              },
               {
                 "from": "db",
                 "to": "chunks",
@@ -943,19 +939,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates declaring during execution.",
+            "caption": "Observe how integration shapes audit during this step.",
             "messages": [
               {
                 "from": "db",
                 "to": "chunks",
                 "label": "{'c1': {'tenant': 'acme', 'text': 'redi…",
                 "tone": "data"
-              },
-              {
-                "from": "chunks",
-                "to": "checks",
-                "label": "{'c1': {'tenant': 'acme', 'text': 'redi…",
-                "tone": "ok"
               }
             ],
             "activeActor": "db"
@@ -983,6 +973,30 @@
             "at": "say8",
             "caption": "Notice how quickly fake retrieval stubs expose broken tenant filters.",
             "messages": [
+              {
+                "from": "db",
+                "to": "chunks",
+                "label": "{'c1': {'tenant': 'acme', 'text': 'redi…",
+                "tone": "data"
+              },
+              {
+                "from": "chunks",
+                "to": "checks",
+                "label": "{'c1': {'tenant': 'acme', 'text': 'redi…",
+                "tone": "ok"
+              },
+              {
+                "from": "db",
+                "to": "chunks",
+                "label": "{'c1': {'tenant': 'acme', 'text': 'redi…",
+                "tone": "data"
+              },
+              {
+                "from": "chunks",
+                "to": "checks",
+                "label": "{'c1': {'tenant': 'acme', 'text': 'redi…",
+                "tone": "ok"
+              },
               {
                 "from": "db",
                 "to": "chunks",

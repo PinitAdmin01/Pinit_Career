@@ -220,7 +220,7 @@
           },
           {
             "at": "say2",
-            "caption": "Specifically, define implicit reward difference `margin = beta * [(logp_w.",
+            "caption": "Verify the implicit transition driving reward behavior.",
             "bars": [
               {
                 "label": "logp_w",
@@ -336,7 +336,7 @@
           },
           {
             "at": "say2",
-            "caption": "Specifically, define implicit reward difference `margin = beta * [(logp_w.",
+            "caption": "Verify the implicit transition driving reward behavior.",
             "bars": [
               {
                 "label": "logp_w",
@@ -457,7 +457,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run inspect_beta_regime() evaluating healthy moderate constraints against.",
+            "caption": "Examine the divergence value produced for beta processing.",
             "activeActor": "chosen_logp_delta",
             "messages": [
               {
@@ -533,7 +533,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run inspect_beta_regime() evaluating healthy moderate constraints against.",
+            "caption": "Examine the divergence value produced for beta processing.",
             "messages": [
               {
                 "from": "beta",
@@ -757,117 +757,90 @@
         "title": "Tracking Validation Reward Margins and Win-Rate Telemetry",
         "boxes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "m",
-            "label": "m"
+            "label": "m",
+            "tappable": true
           },
           {
             "id": "eval_margins",
-            "label": "eval_margins"
+            "label": "eval_margins",
+            "tappable": true
           },
           {
-            "id": "core_bench_before",
-            "label": "core_bench_before"
+            "id": "core_bench_after",
+            "label": "core_bench_after",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Simply watching training DPO cross-entropy loss tick downward across steps.",
+            "caption": "Inspect simply updates as m tracks watching state.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 2,
-                "hit": 1
-              },
               "m": {
                 "var": "m",
                 "line": 2,
                 "hit": 1
               },
               "eval_margins": {
-                "var": "eval_margins",
-                "line": 2,
-                "hit": 7
+                "text": ""
               },
-              "core_bench_before": {
-                "var": "core_bench_before",
-                "line": 2,
-                "hit": 7
+              "core_bench_after": {
+                "text": ""
               }
             },
             "tones": {
-              ".0": "data",
               "m": "data",
-              "eval_margins": "data",
-              "core_bench_before": "data"
+              "eval_margins": "idle",
+              "core_bench_after": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Tracking validation **Reward Accuracy** (`fraction of held-out triplets.",
+            "caption": "Verify the tracking transition driving validation behavior.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 2,
-                "hit": 2
-              },
               "m": {
-                "var": "m",
-                "line": 2,
-                "hit": 2
+                "text": ""
               },
               "eval_margins": {
                 "var": "eval_margins",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 7
               },
-              "core_bench_before": {
-                "var": "core_bench_before",
-                "line": 3,
-                "hit": 1
+              "core_bench_after": {
+                "var": "core_bench_after",
+                "line": 2,
+                "hit": 7
               }
             },
             "tones": {
-              ".0": "data",
-              "m": "data",
+              "m": "idle",
               "eval_margins": "data",
-              "core_bench_before": "data"
+              "core_bench_after": "data"
             }
           },
           {
-            "at": "say7",
-            "caption": "Inspect summarize_dpo_eval() reporting clean validation accuracy.",
+            "at": "say3",
+            "caption": "Think further about end-to-end verification.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 2,
-                "hit": 3
-              },
               "m": {
-                "var": "m",
-                "line": 2,
-                "hit": 3
+                "text": ""
               },
               "eval_margins": {
                 "var": "eval_margins",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
-              "core_bench_before": {
-                "var": "core_bench_before",
-                "line": 4,
-                "hit": 1
+              "core_bench_after": {
+                "var": "core_bench_after",
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
-              ".0": "ok",
-              "m": "ok",
+              "m": "idle",
               "eval_margins": "ok",
-              "core_bench_before": "ok"
+              "core_bench_after": "ok"
             }
           }
         ]
@@ -877,69 +850,62 @@
         "title": "Tracking Validation Reward Margins and Win-Rate Telemetry",
         "boxes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "m",
-            "label": "m"
+            "label": "m",
+            "tappable": true
           },
           {
             "id": "eval_margins",
-            "label": "eval_margins"
+            "label": "eval_margins",
+            "tappable": true
           },
           {
-            "id": "core_bench_before",
-            "label": "core_bench_before"
+            "id": "core_bench_after",
+            "label": "core_bench_after",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Simply watching training DPO cross-entropy loss tick downward across steps.",
+            "caption": "Inspect simply updates as m tracks watching state.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
               "m": "0.4",
-              "eval_margins": "[0.4, 0.9, -0.1, 0.7, 0.5]",
-              "core_bench_before": "0.86"
+              "eval_margins": "",
+              "core_bench_after": ""
             },
             "tones": {
-              ".0": "data",
               "m": "data",
-              "eval_margins": "data",
-              "core_bench_before": "data"
+              "eval_margins": "idle",
+              "core_bench_after": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Tracking validation **Reward Accuracy** (`fraction of held-out triplets.",
+            "caption": "Verify the tracking transition driving validation behavior.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "m": "0.9",
+              "m": "",
               "eval_margins": "[0.4, 0.9, -0.1, 0.7, 0.5]",
-              "core_bench_before": "0.86"
+              "core_bench_after": "0.85"
             },
             "tones": {
-              ".0": "data",
-              "m": "data",
+              "m": "idle",
               "eval_margins": "data",
-              "core_bench_before": "data"
+              "core_bench_after": "data"
             }
           },
           {
-            "at": "say7",
-            "caption": "Inspect summarize_dpo_eval() reporting clean validation accuracy.",
+            "at": "say3",
+            "caption": "Think further about end-to-end verification.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "m": "-0.1",
-              "eval_margins": "[0.4, 0.9, -0.1, 0.7, 0.5]",
-              "core_bench_before": "0.86"
+              "m": "",
+              "eval_margins": "[0.8, 0.9, 0.7, 0.6]",
+              "core_bench_after": "0.78"
             },
             "tones": {
-              ".0": "ok",
-              "m": "ok",
+              "m": "idle",
               "eval_margins": "ok",
-              "core_bench_before": "ok"
+              "core_bench_after": "ok"
             }
           }
         ]

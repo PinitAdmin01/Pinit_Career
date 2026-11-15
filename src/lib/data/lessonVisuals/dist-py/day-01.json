@@ -82,7 +82,7 @@
             "values": {
               "servers": {
                 "var": "servers",
-                "line": 2,
+                "line": 5,
                 "hit": 1
               },
               "users": {
@@ -92,13 +92,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "server": {
                 "var": "server",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -128,8 +128,8 @@
             "values": {
               "servers": {
                 "var": "servers",
-                "line": 3,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "users": {
                 "var": "users",
@@ -138,13 +138,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "server": {
                 "var": "server",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -226,10 +226,10 @@
             "at": "say2",
             "caption": "We distribute for three reasons.",
             "values": {
-              "servers": "{0: {}, 1: {}, 2: {}}",
+              "servers": "{0: {}, 1: {}, 2: {'asha': {'balance': …",
               "users": "['asha', 'bala', 'chitra', 'dev', 'esha…",
-              "name": "'asha'",
-              "server": "2"
+              "name": "'bala'",
+              "server": "1"
             },
             "tones": {
               "servers": "data",
@@ -256,9 +256,9 @@
             "at": "say6",
             "caption": "Keep asking one question throughout the course.",
             "values": {
-              "servers": "{0: {}, 1: {}, 2: {}}",
+              "servers": "{0: {}, 1: {'bala': {'balance': 100}}, …",
               "users": "['asha', 'bala', 'chitra', 'dev', 'esha…",
-              "name": "'asha'",
+              "name": "'chitra'",
               "server": "2"
             },
             "tones": {
@@ -419,6 +419,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Worse, when a call gets no reply, you cannot tell whether the request was.",
+            "activeActor": "TIMEOUT_MS",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "TIMEOUT_MS",
@@ -433,10 +450,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Worse, when a call gets no reply, you cannot tell whether the request was.",
-            "activeActor": "TIMEOUT_MS",
+            "at": "say6",
+            "caption": "Notice that \"slow\" and \"failed\" look the same to a caller with a timeout.",
+            "activeActor": "i",
             "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": {
+                  "var": "TIMEOUT_MS",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "rng",
                 "to": "TIMEOUT_MS",
@@ -456,14 +493,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Notice that \"slow\" and \"failed\" look the same to a caller with a timeout.",
-            "activeActor": "i",
-            "messages": [
+              },
               {
                 "from": "rng",
                 "to": "TIMEOUT_MS",
@@ -506,12 +536,6 @@
                 "to": "TIMEOUT_MS",
                 "label": "<Random>",
                 "tone": "data"
-              },
-              {
-                "from": "TIMEOUT_MS",
-                "to": "i",
-                "label": "300",
-                "tone": "ok"
               }
             ],
             "activeActor": "rng"
@@ -539,6 +563,30 @@
             "at": "say6",
             "caption": "Notice that \"slow\" and \"failed\" look the same to a caller with a timeout.",
             "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": "300",
+                "tone": "ok"
+              },
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": "300",
+                "tone": "ok"
+              },
               {
                 "from": "rng",
                 "to": "TIMEOUT_MS",
@@ -598,7 +646,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how only updates retry during execution.",
+            "caption": "Only retry operations that are safe to repeat.",
             "items": {
               "var": "waits",
               "line": 19,
@@ -650,7 +698,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how only updates retry during execution.",
+            "caption": "Only retry operations that are safe to repeat.",
             "items": [
               "100",
               "200"
@@ -856,6 +904,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Fan-out makes the tail matter more.",
+            "activeActor": "all_fast",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": {
+                  "var": "servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "all_fast",
@@ -870,10 +935,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Fan-out makes the tail matter more.",
-            "activeActor": "all_fast",
+            "at": "say6",
+            "caption": "These numbers explain why you keep chatty calls inside one datacentre.",
+            "activeActor": "latency_ns",
             "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": {
+                  "var": "servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": {
+                  "var": "all_fast",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "servers",
                 "to": "all_fast",
@@ -893,14 +978,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "These numbers explain why you keep chatty calls inside one datacentre.",
-            "activeActor": "latency_ns",
-            "messages": [
+              },
               {
                 "from": "servers",
                 "to": "all_fast",
@@ -943,12 +1021,6 @@
                 "to": "all_fast",
                 "label": "1",
                 "tone": "data"
-              },
-              {
-                "from": "all_fast",
-                "to": "latency_ns",
-                "label": "0.99",
-                "tone": "ok"
               }
             ],
             "activeActor": "servers"
@@ -976,6 +1048,30 @@
             "at": "say6",
             "caption": "These numbers explain why you keep chatty calls inside one datacentre.",
             "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": "0.99",
+                "tone": "ok"
+              },
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": "0.99",
+                "tone": "ok"
+              },
               {
                 "from": "servers",
                 "to": "all_fast",

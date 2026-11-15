@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "It lets you scale by adding servers, keeps serving when a server fails.",
+            "activeActor": "counts",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": {
+                  "var": "servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "counts",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "It lets you scale by adding servers, keeps serving when a server fails.",
-            "activeActor": "counts",
+            "at": "say8",
+            "caption": "The example sends requests round-robin to three servers.",
+            "activeActor": "request",
             "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": {
+                  "var": "servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": {
+                  "var": "counts",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
               {
                 "from": "servers",
                 "to": "counts",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The example sends requests round-robin to three servers.",
-            "activeActor": "request",
-            "messages": [
+              },
               {
                 "from": "servers",
                 "to": "counts",
@@ -118,12 +148,6 @@
                 "to": "counts",
                 "label": "['s1', 's2', 's3']",
                 "tone": "data"
-              },
-              {
-                "from": "counts",
-                "to": "request",
-                "label": "{'s1': 0, 's2': 0, 's3': 0}",
-                "tone": "ok"
               }
             ],
             "activeActor": "servers"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "The example sends requests round-robin to three servers.",
             "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": "['s1', 's2', 's3']",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": "{'s1': 0, 's2': 0, 's3': 0}",
+                "tone": "ok"
+              },
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": "['s1', 's2', 's3']",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": "{'s1': 0, 's2': 0, 's3': 0}",
+                "tone": "ok"
+              },
               {
                 "from": "servers",
                 "to": "counts",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A naive approach sends a heavy server's requests in a burst (A, A, A, B).",
+            "activeActor": "weights",
+            "messages": [
+              {
+                "from": "self",
+                "to": "weights",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "weights",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A naive approach sends a heavy server's requests in a burst (A, A, A, B).",
-            "activeActor": "weights",
+            "at": "say7",
+            "caption": "The example runs a full cycle for weights 5, 1 and 1.",
+            "activeActor": "sid",
             "messages": [
+              {
+                "from": "self",
+                "to": "weights",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "weights",
+                "to": "sid",
+                "label": {
+                  "var": "weights",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "weights",
@@ -232,14 +317,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example runs a full cycle for weights 5, 1 and 1.",
-            "activeActor": "sid",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "weights",
@@ -282,12 +360,6 @@
                 "to": "weights",
                 "label": "<SmoothWeightedBalancer>",
                 "tone": "data"
-              },
-              {
-                "from": "weights",
-                "to": "sid",
-                "label": "{'big': 5, 'small-1': 1, 'small-2': 1}",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -315,6 +387,30 @@
             "at": "say7",
             "caption": "The example runs a full cycle for weights 5, 1 and 1.",
             "messages": [
+              {
+                "from": "self",
+                "to": "weights",
+                "label": "<SmoothWeightedBalancer>",
+                "tone": "data"
+              },
+              {
+                "from": "weights",
+                "to": "sid",
+                "label": "{'big': 5, 'small-1': 1, 'small-2': 1}",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "weights",
+                "label": "<SmoothWeightedBalancer>",
+                "tone": "data"
+              },
+              {
+                "from": "weights",
+                "to": "sid",
+                "label": "{'big': 5, 'small-1': 1, 'small-2': 1}",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "weights",

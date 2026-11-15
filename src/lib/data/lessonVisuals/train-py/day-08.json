@@ -124,7 +124,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how zero updates shrinks during execution.",
+            "caption": "Examine the zero value produced for shrinks processing.",
             "values": {
               "params": {
                 "var": "params",
@@ -254,7 +254,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how zero updates shrinks during execution.",
+            "caption": "Examine the zero value produced for shrinks processing.",
             "values": {
               "params": "7000000000",
               "parts": "[['fp16 weights', 2], ['fp16 gradients'…",
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the fp32 transition driving adam behavior.",
+            "activeActor": "params",
+            "messages": [
+              {
+                "from": "SETUPS",
+                "to": "params",
+                "label": {
+                  "var": "SETUPS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "params",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how adam updates bytes during execution.",
-            "activeActor": "params",
+            "at": "say10",
+            "caption": "Always state which setup you assume when you quote a memory figure.",
+            "activeActor": "setup",
             "messages": [
+              {
+                "from": "SETUPS",
+                "to": "params",
+                "label": {
+                  "var": "SETUPS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "params",
+                "to": "setup",
+                "label": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "SETUPS",
                 "to": "params",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Always state which setup you assume when you quote a memory figure.",
-            "activeActor": "setup",
-            "messages": [
+              },
               {
                 "from": "SETUPS",
                 "to": "params",
@@ -398,19 +428,13 @@
                 "to": "params",
                 "label": "{'adam_mixed': 16, 'adam_fp32': 16, 'sg…",
                 "tone": "data"
-              },
-              {
-                "from": "params",
-                "to": "setup",
-                "label": "1300000000",
-                "tone": "ok"
               }
             ],
             "activeActor": "SETUPS"
           },
           {
             "at": "say2",
-            "caption": "Trace how adam updates bytes during execution.",
+            "caption": "Verify the fp32 transition driving adam behavior.",
             "messages": [
               {
                 "from": "SETUPS",
@@ -431,6 +455,30 @@
             "at": "say10",
             "caption": "Always state which setup you assume when you quote a memory figure.",
             "messages": [
+              {
+                "from": "SETUPS",
+                "to": "params",
+                "label": "{'adam_mixed': 16, 'adam_fp32': 16, 'sg…",
+                "tone": "data"
+              },
+              {
+                "from": "params",
+                "to": "setup",
+                "label": "1300000000",
+                "tone": "ok"
+              },
+              {
+                "from": "SETUPS",
+                "to": "params",
+                "label": "{'adam_mixed': 16, 'adam_fp32': 16, 'sg…",
+                "tone": "data"
+              },
+              {
+                "from": "params",
+                "to": "setup",
+                "label": "1300000000",
+                "tone": "ok"
+              },
               {
                 "from": "SETUPS",
                 "to": "params",
@@ -475,6 +523,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A common rough estimate for a transformer with 16-bit activations is batch.",
+            "activeActor": "hidden",
+            "messages": [
+              {
+                "from": "seq",
+                "to": "hidden",
+                "label": {
+                  "var": "seq",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "hidden",
@@ -489,10 +554,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A common rough estimate for a transformer with 16-bit activations is batch.",
-            "activeActor": "hidden",
+            "at": "say10",
+            "caption": "Using rough formulas consistently is more useful than guessing.",
+            "activeActor": "layers",
             "messages": [
+              {
+                "from": "seq",
+                "to": "hidden",
+                "label": {
+                  "var": "seq",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hidden",
+                "to": "layers",
+                "label": {
+                  "var": "hidden",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "seq",
                 "to": "hidden",
@@ -512,14 +597,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Using rough formulas consistently is more useful than guessing.",
-            "activeActor": "layers",
-            "messages": [
+              },
               {
                 "from": "seq",
                 "to": "hidden",
@@ -562,12 +640,6 @@
                 "to": "hidden",
                 "label": "2048",
                 "tone": "data"
-              },
-              {
-                "from": "hidden",
-                "to": "layers",
-                "label": "2048",
-                "tone": "ok"
               }
             ],
             "activeActor": "seq"
@@ -595,6 +667,30 @@
             "at": "say10",
             "caption": "Using rough formulas consistently is more useful than guessing.",
             "messages": [
+              {
+                "from": "seq",
+                "to": "hidden",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "hidden",
+                "to": "layers",
+                "label": "2048",
+                "tone": "ok"
+              },
+              {
+                "from": "seq",
+                "to": "hidden",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "hidden",
+                "to": "layers",
+                "label": "2048",
+                "tone": "ok"
+              },
               {
                 "from": "seq",
                 "to": "hidden",
@@ -664,7 +760,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates params during execution.",
+            "caption": "Verify the practice transition driving fits behavior.",
             "bars": [
               {
                 "label": "params",
@@ -780,7 +876,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates params during execution.",
+            "caption": "Verify the practice transition driving fits behavior.",
             "bars": [
               {
                 "label": "params",
@@ -1056,16 +1152,14 @@
                 "hit": 1
               },
               "layers": {
-                "var": "layers",
-                "line": 1,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "gpu_gb": "data",
               "batch": "data",
               "seq": "data",
-              "layers": "data"
+              "layers": "idle"
             },
             "arrows": [
               [
@@ -1205,13 +1299,13 @@
               "gpu_gb": "80",
               "batch": "1",
               "seq": "2048",
-              "layers": "24"
+              "layers": ""
             },
             "tones": {
               "gpu_gb": "data",
               "batch": "data",
               "seq": "data",
-              "layers": "data"
+              "layers": "idle"
             },
             "arrows": [
               [

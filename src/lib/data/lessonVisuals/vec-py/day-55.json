@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 11 — Foundations & Mathematical Invariants",
+      "partTitle": "Enforcing Tenant & Role Authorization Prior to Reranking",
       "codeHash": "714f2ca1f1dbb2d24f34b651dc874d7f4383e5bcf3f85683b88ef1a2b0f0bc6f",
       "spec": {
         "template": "bars",
@@ -62,7 +62,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the tenant value produced for logging processing.",
             "bars": [
               {
                 "label": "user_tenant",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the tenant value produced for logging processing.",
             "bars": [
               {
                 "label": "user_tenant",
@@ -142,7 +142,7 @@
       }
     },
     {
-      "partTitle": "Milestone 11 — Core Algorithm & State Representation",
+      "partTitle": "Composing Access Guards with Greedy MMR Diversity Selection",
       "codeHash": "44c92dc9479cf8407f4e13a0b4c3dc88cd280a11265126e9a84ca0741c6eeb1c",
       "spec": {
         "template": "cells",
@@ -182,7 +182,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the guards value produced for checking processing.",
             "items": {
               "var": "query",
               "line": 18,
@@ -234,7 +234,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the guards value produced for checking processing.",
             "items": [
               "1",
               "0"
@@ -251,29 +251,32 @@
       }
     },
     {
-      "partTitle": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "5f7fa1f40b601dffc86ec3508b12aa6b5513266c2c56dba157b544f91e533e5e",
+      "partTitle": "Zero-Violation Tenant Isolation Compliance Verification",
+      "codeHash": "6c77e489fabfc4f0355ae180dfc9a693512ac758f321d91fefaf80fd8db7dc0d",
       "spec": {
         "template": "flow",
-        "title": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
+        "title": "Zero-Violation Tenant Isolation Compliance Verification",
         "nodes": [
           {
             "id": "auth_checks",
-            "label": "auth_checks"
+            "label": "auth_checks",
+            "tappable": true
           },
           {
             "id": "violations",
-            "label": "violations"
+            "label": "violations",
+            "tappable": true
           },
           {
-            "id": "compliance_pct",
-            "label": "compliance_pct"
+            "id": "passed",
+            "label": "passed",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compliance auditing in Milestone 11 verifies that authorization checks.",
+            "caption": "Inspect compliance updates as auth_checks tracks auditing state.",
             "values": {
               "auth_checks": {
                 "var": "auth_checks",
@@ -285,97 +288,78 @@
                 "line": 2,
                 "hit": 1
               },
-              "compliance_pct": {
-                "var": "compliance_pct",
-                "line": 2,
-                "hit": 1
+              "passed": {
+                "text": ""
               }
             },
             "tones": {
               "auth_checks": "data",
               "violations": "data",
-              "compliance_pct": "data"
+              "passed": "idle"
             },
-            "arrows": [
-              [
-                "auth_checks",
-                "violations"
-              ],
-              [
-                "violations",
-                "compliance_pct"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Our audit_m11_compliance function tracks cumulative authorization checks.",
+            "caption": "Verify the compliance transition driving audit behavior.",
             "values": {
               "auth_checks": {
                 "var": "auth_checks",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
               "violations": {
                 "var": "violations",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
-              "compliance_pct": {
-                "var": "compliance_pct",
-                "line": 3,
+              "passed": {
+                "var": "passed",
+                "line": 4,
                 "hit": 1
               }
             },
             "tones": {
               "auth_checks": "data",
               "violations": "data",
-              "compliance_pct": "data"
+              "passed": "data"
             },
             "arrows": [
               [
                 "auth_checks",
                 "violations"
-              ],
-              [
-                "violations",
-                "compliance_pct"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "at": "say3",
+            "caption": "Examine the zero value produced for tenant processing.",
             "values": {
               "auth_checks": {
                 "var": "auth_checks",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "violations": {
                 "var": "violations",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
-              "compliance_pct": {
-                "var": "compliance_pct",
-                "line": 3,
+              "passed": {
+                "var": "passed",
+                "line": 5,
                 "hit": 1
               }
             },
             "tones": {
               "auth_checks": "ok",
               "violations": "ok",
-              "compliance_pct": "ok"
+              "passed": "ok"
             },
             "arrows": [
               [
                 "auth_checks",
                 "violations"
-              ],
-              [
-                "violations",
-                "compliance_pct"
               ]
             ]
           }
@@ -383,91 +367,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
+        "title": "Zero-Violation Tenant Isolation Compliance Verification",
         "nodes": [
           {
             "id": "auth_checks",
-            "label": "auth_checks"
+            "label": "auth_checks",
+            "tappable": true
           },
           {
             "id": "violations",
-            "label": "violations"
+            "label": "violations",
+            "tappable": true
           },
           {
-            "id": "compliance_pct",
-            "label": "compliance_pct"
+            "id": "passed",
+            "label": "passed",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compliance auditing in Milestone 11 verifies that authorization checks.",
+            "caption": "Inspect compliance updates as auth_checks tracks auditing state.",
             "values": {
               "auth_checks": "50000",
               "violations": "0",
-              "compliance_pct": "100"
+              "passed": ""
             },
             "tones": {
               "auth_checks": "data",
               "violations": "data",
-              "compliance_pct": "data"
+              "passed": "idle"
             },
-            "arrows": [
-              [
-                "auth_checks",
-                "violations"
-              ],
-              [
-                "violations",
-                "compliance_pct"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Our audit_m11_compliance function tracks cumulative authorization checks.",
+            "caption": "Verify the compliance transition driving audit behavior.",
             "values": {
               "auth_checks": "50000",
               "violations": "0",
-              "compliance_pct": "100"
+              "passed": "50000"
             },
             "tones": {
               "auth_checks": "data",
               "violations": "data",
-              "compliance_pct": "data"
+              "passed": "data"
             },
             "arrows": [
               [
                 "auth_checks",
                 "violations"
-              ],
-              [
-                "violations",
-                "compliance_pct"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "at": "say3",
+            "caption": "Examine the zero value produced for tenant processing.",
             "values": {
               "auth_checks": "50000",
               "violations": "0",
-              "compliance_pct": "100"
+              "passed": "50000"
             },
             "tones": {
               "auth_checks": "ok",
               "violations": "ok",
-              "compliance_pct": "ok"
+              "passed": "ok"
             },
             "arrows": [
               [
                 "auth_checks",
                 "violations"
-              ],
-              [
-                "violations",
-                "compliance_pct"
               ]
             ]
           }
@@ -475,8 +445,8 @@
       }
     },
     {
-      "partTitle": "Milestone 11 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "98b1ee1f9df6e3ffebbb3effa4a9104fb6e7f5ff0afbeca3b6886a1df3451088",
+      "partTitle": "Caller Credential & Candidate List Boundary Guardrails",
+      "codeHash": "2c97fe336cdcec752e2fa4e14a69774a66794adab0c8aa91a83ee52b1b3aea29",
       "spec": {
         "template": "flow",
         "title": "Milestone 11 — Resilience Guardrails & Failure Recovery",
@@ -493,7 +463,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how defensive updates input during execution.",
+            "caption": "Inspect candidate updates as user_tenant tracks execution state.",
             "values": {
               "user_tenant": {
                 "var": "user_tenant",
@@ -524,12 +494,12 @@
               "user_tenant": {
                 "var": "user_tenant",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "candidates": {
                 "var": "candidates",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               }
             },
             "tones": {
@@ -545,17 +515,17 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the list value produced for boundary processing.",
             "values": {
               "user_tenant": {
                 "var": "user_tenant",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "candidates": {
                 "var": "candidates",
                 "line": 2,
-                "hit": 1
+                "hit": 3
               }
             },
             "tones": {
@@ -587,9 +557,9 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how defensive updates input during execution.",
+            "caption": "Inspect candidate updates as user_tenant tracks execution state.",
             "values": {
-              "user_tenant": "42",
+              "user_tenant": "0",
               "candidates": "[1, 2]"
             },
             "tones": {
@@ -608,7 +578,7 @@
             "caption": "A request with a negative tenant ID or an empty candidate list violates.",
             "values": {
               "user_tenant": "42",
-              "candidates": "[1, 2]"
+              "candidates": "[]"
             },
             "tones": {
               "user_tenant": "data",
@@ -623,7 +593,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the list value produced for boundary processing.",
             "values": {
               "user_tenant": "42",
               "candidates": "[1, 2]"
@@ -643,15 +613,15 @@
       }
     },
     {
-      "partTitle": "Milestone 11 — Production Telemetry & Verification Audit",
-      "codeHash": "572355a93952eec47e8ce29f0e25b6d2dccf0d1b585c165e316c83351d7a3bc7",
+      "partTitle": "Stage-Split Sub-5ms Latency Budgeting Under Access + MMR",
+      "codeHash": "68f81c935239a72fe78995ade43806e86d86999f909df8075355da582eb4ea5c",
       "spec": {
         "template": "bars",
-        "title": "Milestone 11 — Production Telemetry & Verification Audit",
+        "title": "Stage-Split Sub-5ms Latency Budgeting Under Access + MMR",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how execution updates latency during execution.",
+            "caption": "Observe how latency shapes access during this step.",
             "bars": [
               {
                 "label": "guard_ms",
@@ -674,9 +644,14 @@
               {
                 "label": "total_ms",
                 "value": {
-                  "var": "total_ms",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sla_passed",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -684,46 +659,53 @@
           },
           {
             "at": "say2",
-            "caption": "Production SLA specifications require the combined duration.",
+            "caption": "Verify the production transition driving specifications behavior.",
             "bars": [
               {
                 "label": "guard_ms",
                 "value": {
                   "var": "guard_ms",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "mmr_ms",
                 "value": {
                   "var": "mmr_ms",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "total_ms",
                 "value": {
                   "var": "total_ms",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "sla_passed",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the access value produced for timing processing.",
             "bars": [
               {
                 "label": "guard_ms",
                 "value": {
                   "var": "guard_ms",
-                  "line": 3,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -732,7 +714,7 @@
                 "label": "mmr_ms",
                 "value": {
                   "var": "mmr_ms",
-                  "line": 3,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -741,7 +723,16 @@
                 "label": "total_ms",
                 "value": {
                   "var": "total_ms",
-                  "line": 3,
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sla_passed",
+                "value": {
+                  "var": "sla_passed",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -752,11 +743,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Milestone 11 — Production Telemetry & Verification Audit",
+        "title": "Stage-Split Sub-5ms Latency Budgeting Under Access + MMR",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how execution updates latency during execution.",
+            "caption": "Observe how latency shapes access during this step.",
             "bars": [
               {
                 "label": "guard_ms",
@@ -770,35 +761,45 @@
               },
               {
                 "label": "total_ms",
-                "value": 1.97,
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "sla_passed",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Production SLA specifications require the combined duration.",
+            "caption": "Verify the production transition driving specifications behavior.",
             "bars": [
               {
                 "label": "guard_ms",
                 "value": 0.12,
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "mmr_ms",
                 "value": 1.85,
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "total_ms",
                 "value": 1.97,
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "sla_passed",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the access value produced for timing processing.",
             "bars": [
               {
                 "label": "guard_ms",
@@ -813,6 +814,11 @@
               {
                 "label": "total_ms",
                 "value": 1.97,
+                "tone": "ok"
+              },
+              {
+                "label": "sla_passed",
+                "value": "True",
                 "tone": "ok"
               }
             ]

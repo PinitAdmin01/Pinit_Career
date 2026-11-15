@@ -104,7 +104,7 @@
           },
           {
             "at": "say2",
-            "caption": "Consistency here means every read sees the latest write, as if there were.",
+            "caption": "Availability means every request to a working node gets a response.",
             "items": {
               "var": "reachable",
               "line": 4,
@@ -157,7 +157,7 @@
           },
           {
             "at": "say2",
-            "caption": "Consistency here means every read sees the latest write, as if there were.",
+            "caption": "Availability means every request to a working node gets a response.",
             "items": [
               "'r2'",
               "'r3'"
@@ -323,6 +323,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Has_quorum(active_nodes, total_nodes) returns True when active_nodes >.",
+            "activeActor": "need",
+            "messages": [
+              {
+                "from": "total",
+                "to": "need",
+                "label": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "need",
@@ -337,10 +354,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Has_quorum(active_nodes, total_nodes) returns True when active_nodes >.",
-            "activeActor": "need",
+            "at": "say6",
+            "caption": "You will meet quorums again in leader election (Day 7) and Raft consensus.",
+            "activeActor": "active_nodes",
             "messages": [
+              {
+                "from": "total",
+                "to": "need",
+                "label": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "need",
+                "to": "active_nodes",
+                "label": {
+                  "var": "need",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "total",
                 "to": "need",
@@ -360,14 +397,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "You will meet quorums again in leader election (Day 7) and Raft consensus.",
-            "activeActor": "active_nodes",
-            "messages": [
+              },
               {
                 "from": "total",
                 "to": "need",
@@ -410,12 +440,6 @@
                 "to": "need",
                 "label": "3",
                 "tone": "data"
-              },
-              {
-                "from": "need",
-                "to": "active_nodes",
-                "label": "2",
-                "tone": "ok"
               }
             ],
             "activeActor": "total"
@@ -443,6 +467,30 @@
             "at": "say6",
             "caption": "You will meet quorums again in leader election (Day 7) and Raft consensus.",
             "messages": [
+              {
+                "from": "total",
+                "to": "need",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "need",
+                "to": "active_nodes",
+                "label": "2",
+                "tone": "ok"
+              },
+              {
+                "from": "total",
+                "to": "need",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "need",
+                "to": "active_nodes",
+                "label": "2",
+                "tone": "ok"
+              },
               {
                 "from": "total",
                 "to": "need",
@@ -487,6 +535,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If R + W > N, every read set overlaps every write set in at least one.",
+            "activeActor": "W",
+            "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": {
+                  "var": "N",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "W",
@@ -501,10 +566,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If R + W > N, every read set overlaps every write set in at least one.",
-            "activeActor": "W",
+            "at": "say6",
+            "caption": "The code lists every combination for N = 3.",
+            "activeActor": "R",
             "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": {
+                  "var": "N",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "R",
+                "label": {
+                  "var": "W",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "N",
                 "to": "W",
@@ -524,14 +609,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The code lists every combination for N = 3.",
-            "activeActor": "R",
-            "messages": [
+              },
               {
                 "from": "N",
                 "to": "W",
@@ -574,12 +652,6 @@
                 "to": "W",
                 "label": "3",
                 "tone": "data"
-              },
-              {
-                "from": "W",
-                "to": "R",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "N"
@@ -607,6 +679,30 @@
             "at": "say6",
             "caption": "The code lists every combination for N = 3.",
             "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "R",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "N",
+                "to": "W",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "R",
+                "label": "1",
+                "tone": "ok"
+              },
               {
                 "from": "N",
                 "to": "W",

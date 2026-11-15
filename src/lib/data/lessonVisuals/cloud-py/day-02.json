@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how runs updates cloud during execution.",
+            "caption": "Observe how regions shapes runs during this step.",
             "currentState": "regions",
             "tone": "data"
           },
@@ -84,7 +84,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how runs updates cloud during execution.",
+            "caption": "Observe how regions shapes runs during this step.",
             "currentState": "regions",
             "tone": "data"
           },
@@ -690,7 +690,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how amazon updates cloudfront during execution.",
+            "caption": "Verify the edge transition driving locations behavior.",
             "values": {
               "FIBRE_KM_PER_S": {
                 "var": "FIBRE_KM_PER_S",
@@ -836,7 +836,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how amazon updates cloudfront during execution.",
+            "caption": "Verify the edge transition driving locations behavior.",
             "values": {
               "FIBRE_KM_PER_S": "200000",
               "place": "'Same city edge'",
@@ -984,13 +984,13 @@
               },
               "azs": {
                 "var": "azs",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "all_down": {
                 "var": "all_down",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -1016,7 +1016,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how multi updates region during execution.",
+            "caption": "Examine the multi value produced for region processing.",
             "values": {
               "single_az_uptime": {
                 "var": "single_az_uptime",
@@ -1030,13 +1030,13 @@
               },
               "azs": {
                 "var": "azs",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "all_down": {
                 "var": "all_down",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -1120,8 +1120,8 @@
             "values": {
               "single_az_uptime": "0.999",
               "minutes_per_year": "525600",
-              "azs": "1",
-              "all_down": "0.0010000000000000009"
+              "azs": "2",
+              "all_down": "0.0000010000000000000019"
             },
             "tones": {
               "single_az_uptime": "data",
@@ -1146,12 +1146,12 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how multi updates region during execution.",
+            "caption": "Examine the multi value produced for region processing.",
             "values": {
               "single_az_uptime": "0.999",
               "minutes_per_year": "525600",
-              "azs": "1",
-              "all_down": "0.0010000000000000009"
+              "azs": "3",
+              "all_down": "1.0000000000000028e-9"
             },
             "tones": {
               "single_az_uptime": "ok",
@@ -1202,6 +1202,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the practice transition driving region behavior.",
+            "activeActor": "per_az",
+            "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": {
+                  "var": "fleet",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "per_az",
@@ -1216,10 +1233,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how practice updates code during execution.",
+            "at": "say7",
+            "caption": "The example shows a quick report of servers per AZ using collections.",
             "activeActor": "per_az",
             "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": {
+                  "var": "fleet",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": {
+                  "var": "per_az",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "fleet",
                 "to": "per_az",
@@ -1239,14 +1276,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows a quick report of servers per AZ using collections.",
-            "activeActor": "per_az",
-            "messages": [
+              },
               {
                 "from": "fleet",
                 "to": "per_az",
@@ -1288,19 +1318,13 @@
                 "to": "per_az",
                 "label": "['us-east-1a', 'us-east-1a', 'us-east-1…",
                 "tone": "data"
-              },
-              {
-                "from": "per_az",
-                "to": "fleet",
-                "label": "{'us-east-1a': 3, 'us-east-1b': 1, 'us-…",
-                "tone": "ok"
               }
             ],
             "activeActor": "fleet"
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates code during execution.",
+            "caption": "Verify the practice transition driving region behavior.",
             "messages": [
               {
                 "from": "fleet",
@@ -1321,6 +1345,30 @@
             "at": "say7",
             "caption": "The example shows a quick report of servers per AZ using collections.",
             "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": "['us-east-1a', 'us-east-1a', 'us-east-1…",
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": "{'us-east-1a': 3, 'us-east-1b': 1, 'us-…",
+                "tone": "ok"
+              },
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": "['us-east-1a', 'us-east-1a', 'us-east-1…",
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": "{'us-east-1a': 3, 'us-east-1b': 1, 'us-…",
+                "tone": "ok"
+              },
               {
                 "from": "fleet",
                 "to": "per_az",

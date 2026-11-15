@@ -131,7 +131,7 @@
           },
           {
             "at": "say5",
-            "caption": "Append one artificial trailing `0` bar at the end of `heights` (`heights +.",
+            "caption": "Examine the largest value produced for rectangle processing.",
             "items": {
               "var": "bars",
               "line": 42,
@@ -176,7 +176,7 @@
           },
           {
             "at": "say5",
-            "caption": "Append one artificial trailing `0` bar at the end of `heights` (`heights +.",
+            "caption": "Examine the largest value produced for rectangle processing.",
             "mode": "stack",
             "items": [
               "2",
@@ -211,7 +211,7 @@
           },
           {
             "at": "say2",
-            "caption": "A Monotonic Deque (`collections.",
+            "caption": "Verify the sliding transition driving window behavior.",
             "items": {
               "var": "series",
               "line": 28,
@@ -254,7 +254,7 @@
           },
           {
             "at": "say2",
-            "caption": "A Monotonic Deque (`collections.",
+            "caption": "Verify the sliding transition driving window behavior.",
             "mode": "queue",
             "items": [
               "1",

@@ -129,7 +129,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how funding updates interval during execution.",
+            "caption": "Observe how funding shapes every during this step.",
             "bars": [
               {
                 "label": "notional",
@@ -261,7 +261,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how funding updates interval during execution.",
+            "caption": "Observe how funding shapes every during this step.",
             "bars": [
               {
                 "label": "notional",
@@ -611,7 +611,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how percent updates hours during execution.",
+            "caption": "Verify the percent transition driving every behavior.",
             "bars": [
               {
                 "label": "notional",
@@ -727,7 +727,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how percent updates hours during execution.",
+            "caption": "Verify the percent transition driving every behavior.",
             "bars": [
               {
                 "label": "notional",
@@ -803,7 +803,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "When many leveraged longs are liquidated at once, the exchange sells their.",
+            "caption": "Inspect many updates as price tracks leveraged state.",
             "values": {
               "price": {
                 "var": "price",
@@ -931,7 +931,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "When many leveraged longs are liquidated at once, the exchange sells their.",
+            "caption": "Inspect many updates as price tracks leveraged state.",
             "values": {
               "price": "60000",
               "liquidation_levels": "[58800, 58200, 57500, 56900, 55000]",
@@ -1030,6 +1030,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the funding transition driving checks behavior.",
+            "activeActor": "margin",
+            "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": {
+                  "var": "notional",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "margin",
@@ -1044,10 +1061,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how checks updates long during execution.",
-            "activeActor": "margin",
+            "at": "say7",
+            "caption": "Tomorrow moves the fastest parts of trading systems out of software.",
+            "activeActor": "daily_funding",
             "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": {
+                  "var": "notional",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": {
+                  "var": "margin",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "notional",
                 "to": "margin",
@@ -1067,14 +1104,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Tomorrow moves the fastest parts of trading systems out of software.",
-            "activeActor": "daily_funding",
-            "messages": [
+              },
               {
                 "from": "notional",
                 "to": "margin",
@@ -1117,19 +1147,13 @@
                 "to": "margin",
                 "label": "100000",
                 "tone": "data"
-              },
-              {
-                "from": "margin",
-                "to": "daily_funding",
-                "label": "10000",
-                "tone": "ok"
               }
             ],
             "activeActor": "notional"
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates long during execution.",
+            "caption": "Verify the funding transition driving checks behavior.",
             "messages": [
               {
                 "from": "notional",
@@ -1150,6 +1174,30 @@
             "at": "say7",
             "caption": "Tomorrow moves the fastest parts of trading systems out of software.",
             "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": "100000",
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": "10000",
+                "tone": "ok"
+              },
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": "100000",
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": "10000",
+                "tone": "ok"
+              },
               {
                 "from": "notional",
                 "to": "margin",

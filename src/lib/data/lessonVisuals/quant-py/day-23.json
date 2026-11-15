@@ -80,7 +80,7 @@
           },
           {
             "at": "say8",
-            "caption": "Fragmentation creates both a challenge (finding liquidity) and.",
+            "caption": "Examine the fragmentation value produced for creates processing.",
             "bars": [
               {
                 "label": "price",
@@ -161,7 +161,7 @@
           },
           {
             "at": "say8",
-            "caption": "Fragmentation creates both a challenge (finding liquidity) and.",
+            "caption": "Examine the fragmentation value produced for creates processing.",
             "bars": [
               {
                 "label": "price",
@@ -192,7 +192,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Many exchanges charge traders who remove liquidity (takers,.",
+            "caption": "Observe how many shapes exchanges during this step.",
             "bars": [
               {
                 "label": "price",
@@ -270,7 +270,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Many exchanges charge traders who remove liquidity (takers,.",
+            "caption": "Observe how many shapes exchanges during this step.",
             "bars": [
               {
                 "label": "price",
@@ -584,16 +584,14 @@
                 "hit": 1
               },
               "mid": {
-                "var": "mid",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "bid": "data",
               "ask": "data",
               "shares": "data",
-              "mid": "data"
+              "mid": "idle"
             },
             "arrows": [
               [
@@ -733,13 +731,13 @@
               "bid": "99.98",
               "ask": "100.02",
               "shares": "5000",
-              "mid": "100"
+              "mid": ""
             },
             "tones": {
               "bid": "data",
               "ask": "data",
               "shares": "data",
-              "mid": "data"
+              "mid": "idle"
             },
             "arrows": [
               [
@@ -845,6 +843,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "It includes spread, impact, fees and delay.",
+            "activeActor": "fills",
+            "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": {
+                  "var": "arrival",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "fills",
@@ -859,10 +874,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Implementation shortfall compares the average execution price with.",
-            "activeActor": "fills",
+            "at": "say8",
+            "caption": "You cannot improve what you do not measure.",
+            "activeActor": "q",
             "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": {
+                  "var": "arrival",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": {
+                  "var": "fills",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "arrival",
                 "to": "fills",
@@ -882,14 +917,7 @@
                   "hit": 5
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "You cannot improve what you do not measure.",
-            "activeActor": "q",
-            "messages": [
+              },
               {
                 "from": "arrival",
                 "to": "fills",
@@ -932,19 +960,13 @@
                 "to": "fills",
                 "label": "99.99",
                 "tone": "data"
-              },
-              {
-                "from": "fills",
-                "to": "q",
-                "label": "[[100, 99.996], [200, 99.999], [200, 10…",
-                "tone": "ok"
               }
             ],
             "activeActor": "arrival"
           },
           {
             "at": "say2",
-            "caption": "Implementation shortfall compares the average execution price with.",
+            "caption": "It includes spread, impact, fees and delay.",
             "messages": [
               {
                 "from": "arrival",
@@ -965,6 +987,30 @@
             "at": "say8",
             "caption": "You cannot improve what you do not measure.",
             "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": "99.99",
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": "[[100, 99.996], [200, 99.999], [200, 10…",
+                "tone": "ok"
+              },
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": "99.99",
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": "[[100, 99.996], [200, 99.999], [200, 10…",
+                "tone": "ok"
+              },
               {
                 "from": "arrival",
                 "to": "fills",
@@ -1008,7 +1054,7 @@
           },
           {
             "at": "say2",
-            "caption": "Return fills, unfilled and avg_cost rounded to 4 decimals (0.",
+            "caption": "Verify the return transition driving fills behavior.",
             "items": {
               "var": "v",
               "line": 2,
@@ -1062,7 +1108,7 @@
           },
           {
             "at": "say2",
-            "caption": "Return fills, unfilled and avg_cost rounded to 4 decimals (0.",
+            "caption": "Verify the return transition driving fills behavior.",
             "items": [
               "'BSE'",
               "99.985",

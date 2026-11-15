@@ -119,7 +119,7 @@
     },
     {
       "partTitle": "The inverted index",
-      "codeHash": "06dae4b79a5a0a2f4c3b91353590341b334e491d472604f6aeb191e6b0ed9b8d",
+      "codeHash": "a4e3bab6c6e323536fb72b21756d9bb58a7d2a4fa2587caca1ebbe2f74a321b3",
       "spec": {
         "template": "cells",
         "title": "The inverted index",
@@ -433,7 +433,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how real updates search during execution.",
+            "caption": "Inspect real updates as STOP tracks search state.",
             "values": {
               "STOP": {
                 "var": "STOP",
@@ -493,13 +493,13 @@
               },
               "text": {
                 "var": "text",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "toks": {
                 "var": "toks",
                 "line": 6,
-                "hit": 1
+                "hit": 8
               }
             },
             "tones": {
@@ -539,12 +539,12 @@
               },
               "text": {
                 "var": "text",
-                "line": 6,
-                "hit": 2
+                "line": 5,
+                "hit": 3
               },
               "toks": {
                 "var": "toks",
-                "line": 6,
+                "line": 5,
                 "hit": 2
               }
             },
@@ -595,7 +595,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how real updates search during execution.",
+            "caption": "Inspect real updates as STOP tracks search state.",
             "values": {
               "STOP": "{'a', 'and', 'for', 'in', 'is', 'of', '…",
               "raw": "{'d1': 'The cost of runs in the cloud.'…",
@@ -629,8 +629,8 @@
             "values": {
               "STOP": "{'a', 'and', 'for', 'in', 'is', 'of', '…",
               "raw": "{'d1': 'The cost of runs in the cloud.'…",
-              "text": "'The cost of runs in the cloud.'",
-              "toks": "['the', 'cost', 'of', 'runs', 'in', 'th…"
+              "text": "'Python tests for the API.'",
+              "toks": "['cost', 'runs', 'cloud']"
             },
             "tones": {
               "STOP": "data",
@@ -659,8 +659,8 @@
             "values": {
               "STOP": "{'a', 'and', 'for', 'in', 'is', 'of', '…",
               "raw": "{'d1': 'The cost of runs in the cloud.'…",
-              "text": "'The cost of runs in the cloud.'",
-              "toks": "['the', 'cost', 'of', 'runs', 'in', 'th…"
+              "text": "'Cooking rice is easy.'",
+              "toks": "['python', 'tests', 'for', 'the', 'api']"
             },
             "tones": {
               "STOP": "ok",

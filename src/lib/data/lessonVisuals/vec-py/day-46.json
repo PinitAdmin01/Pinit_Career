@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Foundations & Mathematical Invariants",
+      "partTitle": "Append-Only In-Memory Vector MemTables & Flush Triggers",
       "codeHash": "f5c0bd37dfda3b4ddfef8b8105d6f9e6da86d7ff9cc86a62041daf2aea7678ae",
       "spec": {
         "template": "flow",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say13",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the flush value produced for testing processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -254,7 +254,7 @@
           },
           {
             "at": "say13",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the flush value produced for testing processing.",
             "values": {
               "self": "<VectorMemTable>",
               "capacity": "2",
@@ -286,7 +286,7 @@
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Core Algorithm & State Representation",
+      "partTitle": "O(1) Vector Deletions via In-Memory Tombstone Bitmaps",
       "codeHash": "ed10bcca87cd1289dcd476ebcf135c2bb92da71ac1de7ac79ede6a0bed924922",
       "spec": {
         "template": "flow",
@@ -380,7 +380,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the handling value produced for repeated processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -484,7 +484,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the handling value produced for repeated processing.",
             "values": {
               "self": "<TombstoneBitmap>",
               "tomb": "<TombstoneBitmap>",
@@ -510,7 +510,7 @@
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Immutable Segment Merge Compaction & Dead-Record Purging",
       "codeHash": "31c4eb97ce1cb83f1d3ebc74ca7fa1c8804857baa2373e92be7c42a9a3742f80",
       "spec": {
         "template": "flow",
@@ -554,16 +554,14 @@
                 "hit": 1
               },
               "seg_a": {
-                "var": "seg_a",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "s1": "data",
               "s2": "data",
               "dead": "data",
-              "seg_a": "data"
+              "seg_a": "idle"
             },
             "arrows": [
               [
@@ -628,7 +626,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the segment value produced for compaction processing.",
             "values": {
               "s1": {
                 "var": "s1",
@@ -703,13 +701,13 @@
               "s1": "{1: [0.1], 2: [0.2]}",
               "s2": "{3: [0.3], 4: [0.4]}",
               "dead": "{2, 3}",
-              "seg_a": "{1: [0.1], 2: [0.2]}"
+              "seg_a": ""
             },
             "tones": {
               "s1": "data",
               "s2": "data",
               "dead": "data",
-              "seg_a": "data"
+              "seg_a": "idle"
             },
             "arrows": [
               [
@@ -758,7 +756,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the segment value produced for compaction processing.",
             "values": {
               "s1": "{1: [0.1], 2: [0.2]}",
               "s2": "{3: [0.3], 4: [0.4]}",
@@ -790,8 +788,8 @@
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "fcb60e7d10a828cea4dd54cd1a431215a3f9a9128d96078c8b22d6a42da1556b",
+      "partTitle": "Tombstone Precedence Checks on Point Vector Lookups",
+      "codeHash": "0202ac07a90c72e7a8eb02f931d1aadb5b29e24001aa0992ffbf6e5ffbca4c65",
       "spec": {
         "template": "flow",
         "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
@@ -884,7 +882,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the tombstone value produced for recording processing.",
             "values": {
               "doc_id": {
                 "var": "doc_id",
@@ -942,7 +940,7 @@
             "at": "say1",
             "caption": "Production point-lookup queries must check tombstone state before.",
             "values": {
-              "doc_id": "1",
+              "doc_id": "-1",
               "memtable": "{1: [0.9]}",
               "tombstones": "set()"
             },
@@ -988,11 +986,11 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the tombstone value produced for recording processing.",
             "values": {
               "doc_id": "1",
               "memtable": "{1: [0.9]}",
-              "tombstones": "{1}"
+              "tombstones": "set()"
             },
             "tones": {
               "doc_id": "ok",
@@ -1014,33 +1012,32 @@
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Production Telemetry & Verification Audit",
-      "codeHash": "3ce2bbd652d787d711dd8de8dc29e9d58b58415076f09e00046b011c9158f40c",
+      "partTitle": "Calculating Reclaimed RAM After Background Segment Compaction",
+      "codeHash": "ce0fbc0aed7108b12e7dfcb8e6dd4f85ab9479ca12390ad1c3f10b84532cc4b0",
       "spec": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
+        "title": "Calculating Reclaimed RAM After Background Segment Compaction",
         "nodes": [
           {
             "id": "before_docs",
-            "label": "before_docs"
+            "label": "before_docs",
+            "tappable": true
           },
           {
             "id": "after_docs",
-            "label": "after_docs"
+            "label": "after_docs",
+            "tappable": true
           },
           {
             "id": "dim",
-            "label": "dim"
-          },
-          {
-            "id": "freed_docs",
-            "label": "freed_docs"
+            "label": "dim",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compaction telemetry audits quantify storage reclamation and disk.",
+            "caption": "Inspect compaction updates as before_docs tracks telemetry state.",
             "values": {
               "before_docs": {
                 "var": "before_docs",
@@ -1053,86 +1050,19 @@
                 "hit": 1
               },
               "dim": {
-                "var": "dim",
-                "line": 2,
-                "hit": 1
-              },
-              "freed_docs": {
-                "var": "freed_docs",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "before_docs": "data",
               "after_docs": "data",
-              "dim": "data",
-              "freed_docs": "data"
+              "dim": "idle"
             },
-            "arrows": [
-              [
-                "before_docs",
-                "after_docs"
-              ],
-              [
-                "after_docs",
-                "dim"
-              ],
-              [
-                "dim",
-                "freed_docs"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "When high volumes of updates and deletes occur, tracking the megabytes.",
-            "values": {
-              "before_docs": {
-                "var": "before_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "after_docs": {
-                "var": "after_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "dim": {
-                "var": "dim",
-                "line": 3,
-                "hit": 1
-              },
-              "freed_docs": {
-                "var": "freed_docs",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "before_docs": "data",
-              "after_docs": "data",
-              "dim": "data",
-              "freed_docs": "data"
-            },
-            "arrows": [
-              [
-                "before_docs",
-                "after_docs"
-              ],
-              [
-                "after_docs",
-                "dim"
-              ],
-              [
-                "dim",
-                "freed_docs"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the reclaimed transition driving compaction behavior.",
             "values": {
               "before_docs": {
                 "var": "before_docs",
@@ -1146,11 +1076,6 @@
               },
               "dim": {
                 "var": "dim",
-                "line": 4,
-                "hit": 1
-              },
-              "freed_docs": {
-                "var": "freed_docs",
                 "line": 4,
                 "hit": 1
               }
@@ -1158,21 +1083,12 @@
             "tones": {
               "before_docs": "ok",
               "after_docs": "ok",
-              "dim": "ok",
-              "freed_docs": "ok"
+              "dim": "ok"
             },
             "arrows": [
               [
                 "before_docs",
                 "after_docs"
-              ],
-              [
-                "after_docs",
-                "dim"
-              ],
-              [
-                "dim",
-                "freed_docs"
               ]
             ]
           }
@@ -1180,113 +1096,57 @@
       },
       "filled": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
+        "title": "Calculating Reclaimed RAM After Background Segment Compaction",
         "nodes": [
           {
             "id": "before_docs",
-            "label": "before_docs"
+            "label": "before_docs",
+            "tappable": true
           },
           {
             "id": "after_docs",
-            "label": "after_docs"
+            "label": "after_docs",
+            "tappable": true
           },
           {
             "id": "dim",
-            "label": "dim"
-          },
-          {
-            "id": "freed_docs",
-            "label": "freed_docs"
+            "label": "dim",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compaction telemetry audits quantify storage reclamation and disk.",
+            "caption": "Inspect compaction updates as before_docs tracks telemetry state.",
             "values": {
               "before_docs": "100000",
               "after_docs": "75000",
-              "dim": "128",
-              "freed_docs": "25000"
+              "dim": ""
             },
             "tones": {
               "before_docs": "data",
               "after_docs": "data",
-              "dim": "data",
-              "freed_docs": "data"
+              "dim": "idle"
             },
-            "arrows": [
-              [
-                "before_docs",
-                "after_docs"
-              ],
-              [
-                "after_docs",
-                "dim"
-              ],
-              [
-                "dim",
-                "freed_docs"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "When high volumes of updates and deletes occur, tracking the megabytes.",
+            "caption": "Verify the reclaimed transition driving compaction behavior.",
             "values": {
               "before_docs": "100000",
               "after_docs": "75000",
-              "dim": "128",
-              "freed_docs": "25000"
-            },
-            "tones": {
-              "before_docs": "data",
-              "after_docs": "data",
-              "dim": "data",
-              "freed_docs": "data"
-            },
-            "arrows": [
-              [
-                "before_docs",
-                "after_docs"
-              ],
-              [
-                "after_docs",
-                "dim"
-              ],
-              [
-                "dim",
-                "freed_docs"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "before_docs": "100000",
-              "after_docs": "75000",
-              "dim": "128",
-              "freed_docs": "25000"
+              "dim": "128"
             },
             "tones": {
               "before_docs": "ok",
               "after_docs": "ok",
-              "dim": "ok",
-              "freed_docs": "ok"
+              "dim": "ok"
             },
             "arrows": [
               [
                 "before_docs",
                 "after_docs"
-              ],
-              [
-                "after_docs",
-                "dim"
-              ],
-              [
-                "dim",
-                "freed_docs"
               ]
             ]
           }

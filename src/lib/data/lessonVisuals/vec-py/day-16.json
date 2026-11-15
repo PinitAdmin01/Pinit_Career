@@ -92,12 +92,12 @@
               },
               "level": {
                 "var": "level",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "count": {
                 "var": "count",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -138,13 +138,13 @@
               },
               "level": {
                 "var": "level",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "count": {
                 "var": "count",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -228,8 +228,8 @@
             "values": {
               "n": "1000000",
               "M": "16",
-              "level": "0",
-              "count": "1000000"
+              "level": "1",
+              "count": "62500"
             },
             "tones": {
               "n": "data",
@@ -258,8 +258,8 @@
             "values": {
               "n": "1000000",
               "M": "16",
-              "level": "0",
-              "count": "1000000"
+              "level": "2",
+              "count": "3906"
             },
             "tones": {
               "n": "ok",
@@ -995,7 +995,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": {
               "var": "cands",
               "line": 8,
@@ -1052,7 +1052,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": [
               "1",
               "2",

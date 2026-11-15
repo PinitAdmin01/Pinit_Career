@@ -287,7 +287,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates integrated during execution.",
+            "caption": "Observe how scaling shapes integrated during this step.",
             "items": {
               "var": "consumed",
               "line": 32,
@@ -341,7 +341,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates integrated during execution.",
+            "caption": "Observe how scaling shapes integrated during this step.",
             "items": [
               "'TICK_UPDATE_0'",
               "'TICK_UPDATE_1'"
@@ -396,7 +396,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operational updates risk during execution.",
+            "caption": "Observe how milestone shapes operational during this step.",
             "bars": [
               {
                 "label": "price",
@@ -528,7 +528,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operational updates risk during execution.",
+            "caption": "Observe how milestone shapes operational during this step.",
             "bars": [
               {
                 "label": "price",

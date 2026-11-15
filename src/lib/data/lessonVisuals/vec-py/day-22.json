@@ -490,7 +490,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how result updates lists during execution.",
+            "caption": "Verify the several transition driving variants behavior.",
             "items": {
               "var": "variants",
               "line": 8,
@@ -544,7 +544,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how result updates lists during execution.",
+            "caption": "Verify the several transition driving variants behavior.",
             "items": [
               "'cheap flights paris'",
               "'budget flights paris'",
@@ -659,18 +659,18 @@
               },
               "user_a": {
                 "var": "user_a",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "q_a": {
                 "var": "q_a",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "hits_a": {
                 "var": "hits_a",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -705,18 +705,18 @@
               },
               "user_a": {
                 "var": "user_a",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "q_a": {
                 "var": "q_a",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "hits_a": {
                 "var": "hits_a",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -799,9 +799,9 @@
             "caption": "Queries with zero results, or where users immediately rephrase, point.",
             "values": {
               "log": "[['u1', 'wfh policy', 0], ['u1', 'work …",
-              "user_a": "'u1'",
-              "q_a": "'wfh policy'",
-              "hits_a": "0"
+              "user_a": "'u2'",
+              "q_a": "'work from home policy'",
+              "hits_a": "5"
             },
             "tones": {
               "log": "data",
@@ -829,8 +829,8 @@
             "caption": "Treat query logs as a product signal.",
             "values": {
               "log": "[['u1', 'wfh policy', 0], ['u1', 'work …",
-              "user_a": "'u1'",
-              "q_a": "'wfh policy'",
+              "user_a": "'u2'",
+              "q_a": "'refnd'",
               "hits_a": "0"
             },
             "tones": {

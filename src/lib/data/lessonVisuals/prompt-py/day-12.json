@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Tone covers formality (casual to formal), warmth (friendly to neutral).",
+            "activeActor": "versions",
+            "messages": [
+              {
+                "from": "message",
+                "to": "versions",
+                "label": {
+                  "var": "message",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "versions",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Tone covers formality (casual to formal), warmth (friendly to neutral).",
-            "activeActor": "versions",
+            "at": "say9",
+            "caption": "Cultural norms matter too.",
+            "activeActor": "audience",
             "messages": [
+              {
+                "from": "message",
+                "to": "versions",
+                "label": {
+                  "var": "message",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "audience",
+                "label": {
+                  "var": "versions",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "message",
                 "to": "versions",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Cultural norms matter too.",
-            "activeActor": "audience",
-            "messages": [
+              },
               {
                 "from": "message",
                 "to": "versions",
@@ -118,12 +148,6 @@
                 "to": "versions",
                 "label": "'The report will be late'",
                 "tone": "data"
-              },
-              {
-                "from": "versions",
-                "to": "audience",
-                "label": "{'friend': 'Hey, heads up, the report i…",
-                "tone": "ok"
               }
             ],
             "activeActor": "message"
@@ -151,6 +175,30 @@
             "at": "say9",
             "caption": "Cultural norms matter too.",
             "messages": [
+              {
+                "from": "message",
+                "to": "versions",
+                "label": "'The report will be late'",
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "audience",
+                "label": "{'friend': 'Hey, heads up, the report i…",
+                "tone": "ok"
+              },
+              {
+                "from": "message",
+                "to": "versions",
+                "label": "'The report will be late'",
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "audience",
+                "label": "{'friend': 'Hey, heads up, the report i…",
+                "tone": "ok"
+              },
               {
                 "from": "message",
                 "to": "versions",
@@ -202,7 +250,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates formality during execution.",
+            "caption": "Verify the formality transition driving practice behavior.",
             "bars": [
               {
                 "label": "hits",
@@ -272,7 +320,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates formality during execution.",
+            "caption": "Verify the formality transition driving practice behavior.",
             "bars": [
               {
                 "label": "hits",
@@ -331,6 +379,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the lead transition driving conclusion behavior.",
+            "activeActor": "sender",
+            "messages": [
+              {
+                "from": "to",
+                "to": "sender",
+                "label": {
+                  "var": "to",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "sender",
@@ -345,10 +410,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how lead updates conclusion during execution.",
-            "activeActor": "sender",
+            "at": "say9",
+            "caption": "A memo that fits on one screen is far more likely to be read in full than.",
+            "activeActor": "subject",
             "messages": [
+              {
+                "from": "to",
+                "to": "sender",
+                "label": {
+                  "var": "to",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "subject",
+                "label": {
+                  "var": "sender",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "to",
                 "to": "sender",
@@ -368,14 +453,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "A memo that fits on one screen is far more likely to be read in full than.",
-            "activeActor": "subject",
-            "messages": [
+              },
               {
                 "from": "to",
                 "to": "sender",
@@ -418,19 +496,13 @@
                 "to": "sender",
                 "label": "'Leadership'",
                 "tone": "data"
-              },
-              {
-                "from": "sender",
-                "to": "subject",
-                "label": "'Finance'",
-                "tone": "ok"
               }
             ],
             "activeActor": "to"
           },
           {
             "at": "say2",
-            "caption": "Trace how lead updates conclusion during execution.",
+            "caption": "Verify the lead transition driving conclusion behavior.",
             "messages": [
               {
                 "from": "to",
@@ -451,6 +523,30 @@
             "at": "say9",
             "caption": "A memo that fits on one screen is far more likely to be read in full than.",
             "messages": [
+              {
+                "from": "to",
+                "to": "sender",
+                "label": "'Leadership'",
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "subject",
+                "label": "'Finance'",
+                "tone": "ok"
+              },
+              {
+                "from": "to",
+                "to": "sender",
+                "label": "'Leadership'",
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "subject",
+                "label": "'Finance'",
+                "tone": "ok"
+              },
               {
                 "from": "to",
                 "to": "sender",
@@ -488,7 +584,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For emails, give the AI the facts, the recipient, your goal and any.",
+            "caption": "Inspect emails updates as facts tracks give state.",
             "values": {
               "facts": {
                 "var": "facts",
@@ -496,14 +592,12 @@
                 "hit": 2
               },
               "prompt": {
-                "var": "prompt",
-                "line": 3,
-                "hit": 2
+                "text": ""
               }
             },
             "tones": {
               "facts": "data",
-              "prompt": "data"
+              "prompt": "idle"
             },
             "arrows": [
               [
@@ -582,14 +676,14 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For emails, give the AI the facts, the recipient, your goal and any.",
+            "caption": "Inspect emails updates as facts tracks give state.",
             "values": {
               "facts": "{'recipient': 'Mr Sharma, vendor accoun…",
-              "prompt": "'Write an email to Mr Sharma, vendor ac…"
+              "prompt": ""
             },
             "tones": {
               "facts": "data",
-              "prompt": "data"
+              "prompt": "idle"
             },
             "arrows": [
               [
@@ -663,6 +757,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Be specific about the edit.",
+            "activeActor": "after",
+            "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "after",
@@ -677,10 +788,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Be specific about the edit.",
-            "activeActor": "after",
+            "at": "say8",
+            "caption": "For non-native writers, AI editing can remove small grammar errors.",
+            "activeActor": "text",
             "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": {
+                  "var": "after",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "before",
                 "to": "after",
@@ -700,14 +831,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "For non-native writers, AI editing can remove small grammar errors.",
-            "activeActor": "text",
-            "messages": [
+              },
               {
                 "from": "before",
                 "to": "after",
@@ -750,12 +874,6 @@
                 "to": "after",
                 "label": "'In light of the fact that the vendor h…",
                 "tone": "data"
-              },
-              {
-                "from": "after",
-                "to": "text",
-                "label": "'The vendor delivered the parts late. W…",
-                "tone": "ok"
               }
             ],
             "activeActor": "before"
@@ -783,6 +901,30 @@
             "at": "say8",
             "caption": "For non-native writers, AI editing can remove small grammar errors.",
             "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": "'In light of the fact that the vendor h…",
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": "'The vendor delivered the parts late. W…",
+                "tone": "ok"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": "'In light of the fact that the vendor h…",
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": "'The vendor delivered the parts late. W…",
+                "tone": "ok"
+              },
               {
                 "from": "before",
                 "to": "after",
@@ -843,7 +985,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "i",
@@ -936,7 +1078,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "i",

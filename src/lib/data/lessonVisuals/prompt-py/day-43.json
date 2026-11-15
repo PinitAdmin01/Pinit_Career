@@ -7,135 +7,155 @@
   "entries": [
     {
       "partTitle": "Democratic And Weighted Voting Protocols In Autonomous Agent Swarms",
-      "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
+      "codeHash": "c8205d95a2315664d15f2994f502eaea811733bf2f3f8c55ccda38b92be38f63",
       "spec": {
-        "template": "bars",
+        "template": "flow",
         "title": "Democratic And Weighted Voting Protocols In Autonomous Agent Swa",
+        "nodes": [
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In single-agent generative pipelines, model outputs are notoriously.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": {
-                  "var": "total_nodes",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect voting updates as v tracks protocols state.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "label": "f_faults_toler",
-                "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "v": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Democratic and weighted voting protocols in autonomous swarms aggregate.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": {
-                  "var": "total_nodes",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "caption": "Verify the democratic transition driving weighted behavior.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "label": "f_faults_toler",
-                "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "v": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering democratic and weighted voting protocols equips AI system.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": {
-                  "var": "total_nodes",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the voting value produced for agent processing.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "label": "f_faults_toler",
-                "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "v": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
+        "template": "flow",
         "title": "Democratic And Weighted Voting Protocols In Autonomous Agent Swa",
+        "nodes": [
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In single-agent generative pipelines, model outputs are notoriously.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": 4,
-                "tone": "data"
-              },
-              {
-                "label": "f_faults_toler",
-                "value": 1,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect voting updates as v tracks protocols state.",
+            "values": {
+              "v": "{'agent': 'Sec', 'choice': 'MicroVM', '…",
+              "out": ""
+            },
+            "tones": {
+              "v": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Democratic and weighted voting protocols in autonomous swarms aggregate.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": 4,
-                "tone": "ok"
-              },
-              {
-                "label": "f_faults_toler",
-                "value": 1,
-                "tone": "ok"
-              }
+            "caption": "Verify the democratic transition driving weighted behavior.",
+            "values": {
+              "v": "{'agent': 'Perf', 'choice': 'Wasm', 'we…",
+              "out": "Majority: {'MicroVM': 1, 'Docker': 1, 'Wasm': 1}"
+            },
+            "tones": {
+              "v": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering democratic and weighted voting protocols equips AI system.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": 4,
-                "tone": "ok"
-              },
-              {
-                "label": "f_faults_toler",
-                "value": 1,
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the voting value produced for agent processing.",
+            "values": {
+              "v": "{'agent': 'Ops', 'choice': 'Docker', 'w…",
+              "out": "Expertise Weighted: {'MicroVM': 1.6, 'Docker': 1.0, 'Wasm': 1.2} | Winner: MicroVM"
+            },
+            "tones": {
+              "v": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
             ]
           }
         ]
@@ -143,328 +163,285 @@
     },
     {
       "partTitle": "Structured Socratic Debate And Adversarial Cross Examination",
-      "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
+      "codeHash": "551bfc1290edf7515d4defedc5c9503aabc20bd2aa897d719bb7d98441c95a65",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Structured Socratic Debate And Adversarial Cross Examination",
-        "actors": [
-          "participating_agents",
-          "total_nodes",
-          "f_faults_tolerated"
+        "nodes": [
+          {
+            "id": "rname",
+            "label": "rname",
+            "tappable": true
+          },
+          {
+            "id": "scores",
+            "label": "scores",
+            "tappable": true
+          },
+          {
+            "id": "spread",
+            "label": "spread",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While voting protocols aggregate existing opinions efficiently, they do.",
-            "activeActor": "participating_agents",
-            "messages": [
-              {
-                "from": "participating_agents",
-                "to": "total_nodes",
-                "label": {
-                  "var": "participating_agents",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect structured updates as rname tracks socratic state.",
+            "values": {
+              "rname": {
+                "var": "rname",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": "total_nodes",
-                "to": "f_faults_tolerated",
-                "label": {
-                  "var": "total_nodes",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "scores": {
+                "var": "scores",
+                "line": 7,
+                "hit": 1
+              },
+              "spread": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "rname": "data",
+              "scores": "data",
+              "spread": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Structured Socratic debate architectures pit autonomous agents against one.",
-            "activeActor": "total_nodes",
-            "messages": [
-              {
-                "from": "participating_agents",
-                "to": "total_nodes",
-                "label": {
-                  "var": "participating_agents",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the structured transition driving socratic behavior.",
+            "values": {
+              "rname": {
+                "var": "rname",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "from": "total_nodes",
-                "to": "f_faults_tolerated",
-                "label": {
-                  "var": "total_nodes",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "scores": {
+                "var": "scores",
+                "line": 8,
+                "hit": 2
+              },
+              "spread": {
+                "var": "spread",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "rname": "data",
+              "scores": "data",
+              "spread": "data"
+            },
+            "arrows": [
+              [
+                "rname",
+                "scores"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering structured Socratic debate transforms prompt engineers.",
-            "activeActor": "f_faults_tolerated",
-            "messages": [
-              {
-                "from": "participating_agents",
-                "to": "total_nodes",
-                "label": {
-                  "var": "participating_agents",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the adversarial value produced for prosecutor processing.",
+            "values": {
+              "rname": {
+                "var": "rname",
+                "line": 9,
+                "hit": 3
               },
-              {
-                "from": "total_nodes",
-                "to": "f_faults_tolerated",
-                "label": {
-                  "var": "total_nodes",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "scores": {
+                "var": "scores",
+                "line": 9,
+                "hit": 3
+              },
+              "spread": {
+                "var": "spread",
+                "line": 9,
+                "hit": 3
               }
+            },
+            "tones": {
+              "rname": "ok",
+              "scores": "ok",
+              "spread": "ok"
+            },
+            "arrows": [
+              [
+                "rname",
+                "scores"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Structured Socratic Debate And Adversarial Cross Examination",
-        "actors": [
-          "participating_agents",
-          "total_nodes",
-          "f_faults_tolerated"
+        "nodes": [
+          {
+            "id": "rname",
+            "label": "rname",
+            "tappable": true
+          },
+          {
+            "id": "scores",
+            "label": "scores",
+            "tappable": true
+          },
+          {
+            "id": "spread",
+            "label": "spread",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While voting protocols aggregate existing opinions efficiently, they do.",
-            "messages": [
-              {
-                "from": "participating_agents",
-                "to": "total_nodes",
-                "label": "['Financial Risk Modeling Agent', 'Regu…",
-                "tone": "data"
-              },
-              {
-                "from": "total_nodes",
-                "to": "f_faults_tolerated",
-                "label": "4",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "participating_agents"
+            "caption": "Inspect structured updates as rname tracks socratic state.",
+            "values": {
+              "rname": "'Round 1'",
+              "scores": "{'Arch': 0.4, 'Sec': 0.92, 'Fin': 0.55}",
+              "spread": ""
+            },
+            "tones": {
+              "rname": "data",
+              "scores": "data",
+              "spread": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Structured Socratic debate architectures pit autonomous agents against one.",
-            "messages": [
-              {
-                "from": "participating_agents",
-                "to": "total_nodes",
-                "label": "['Financial Risk Modeling Agent', 'Regu…",
-                "tone": "data"
-              },
-              {
-                "from": "total_nodes",
-                "to": "f_faults_tolerated",
-                "label": "4",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "total_nodes"
+            "caption": "Verify the structured transition driving socratic behavior.",
+            "values": {
+              "rname": "'Round 2'",
+              "scores": "{'Arch': 0.71, 'Sec': 0.89, 'Fin': 0.74}",
+              "spread": "0.18"
+            },
+            "tones": {
+              "rname": "data",
+              "scores": "data",
+              "spread": "data"
+            },
+            "arrows": [
+              [
+                "rname",
+                "scores"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering structured Socratic debate transforms prompt engineers.",
-            "messages": [
-              {
-                "from": "participating_agents",
-                "to": "total_nodes",
-                "label": "['Financial Risk Modeling Agent', 'Regu…",
-                "tone": "data"
-              },
-              {
-                "from": "total_nodes",
-                "to": "f_faults_tolerated",
-                "label": "4",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "f_faults_tolerated"
+            "at": "say3",
+            "caption": "Examine the adversarial value produced for prosecutor processing.",
+            "values": {
+              "rname": "'Round 3'",
+              "scores": "{'Arch': 0.78, 'Sec': 0.83, 'Fin': 0.79}",
+              "spread": "0.05"
+            },
+            "tones": {
+              "rname": "ok",
+              "scores": "ok",
+              "spread": "ok"
+            },
+            "arrows": [
+              [
+                "rname",
+                "scores"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks",
-      "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
+      "codeHash": "99da351fffb0be0fa1fe2dc3167345f6d288d75ad23cf2c13193b8674066d7ae",
       "spec": {
         "template": "flow",
         "title": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks",
         "nodes": [
           {
-            "id": "participating_agents",
-            "label": "participating_agents"
+            "id": "counts",
+            "label": "counts",
+            "tappable": true
           },
           {
-            "id": "total_nodes",
-            "label": "total_nodes"
-          },
-          {
-            "id": "f_faults_tolerated",
-            "label": "f_faults_tolerated"
-          },
-          {
-            "id": "consensus_metrics",
-            "label": "consensus_metrics"
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In large-scale distributed AI systems, not all agents can be assumed to be.",
+            "caption": "Inspect byzantine updates as counts tracks fault state.",
             "values": {
-              "participating_agents": {
-                "var": "participating_agents",
-                "line": 9,
+              "counts": {
+                "var": "counts",
+                "line": 13,
                 "hit": 1
               },
-              "total_nodes": {
-                "var": "total_nodes",
-                "line": 17,
-                "hit": 1
-              },
-              "f_faults_tolerated": {
-                "var": "f_faults_tolerated",
-                "line": 18,
-                "hit": 1
-              },
-              "consensus_metrics": {
-                "var": "consensus_metrics",
-                "line": 20,
-                "hit": 1
+              "msg": {
+                "text": ""
               }
             },
             "tones": {
-              "participating_agents": "data",
-              "total_nodes": "data",
-              "f_faults_tolerated": "data",
-              "consensus_metrics": "data"
+              "counts": "data",
+              "msg": "idle"
             },
-            "arrows": [
-              [
-                "participating_agents",
-                "total_nodes"
-              ],
-              [
-                "total_nodes",
-                "f_faults_tolerated"
-              ],
-              [
-                "f_faults_tolerated",
-                "consensus_metrics"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Byzantine fault tolerance protocols guarantee consensus in distributed.",
+            "caption": "Verify the byzantine transition driving fault behavior.",
             "values": {
-              "participating_agents": {
-                "var": "participating_agents",
+              "counts": {
+                "var": "counts",
                 "line": 17,
-                "hit": 1
+                "hit": 2
               },
-              "total_nodes": {
-                "var": "total_nodes",
-                "line": 18,
-                "hit": 1
-              },
-              "f_faults_tolerated": {
-                "var": "f_faults_tolerated",
-                "line": 21,
-                "hit": 1
-              },
-              "consensus_metrics": {
-                "var": "consensus_metrics",
-                "line": 28,
-                "hit": 1
+              "msg": {
+                "var": "msg",
+                "line": 17,
+                "hit": 2
               }
             },
             "tones": {
-              "participating_agents": "data",
-              "total_nodes": "data",
-              "f_faults_tolerated": "data",
-              "consensus_metrics": "data"
+              "counts": "data",
+              "msg": "data"
             },
             "arrows": [
               [
-                "participating_agents",
-                "total_nodes"
-              ],
-              [
-                "total_nodes",
-                "f_faults_tolerated"
-              ],
-              [
-                "f_faults_tolerated",
-                "consensus_metrics"
+                "counts",
+                "msg"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Implementing Byzantine fault tolerance elevates autonomous agent.",
+            "at": "say3",
+            "caption": "Examine the byzantine value produced for fault processing.",
             "values": {
-              "participating_agents": {
-                "var": "participating_agents",
-                "line": 18,
-                "hit": 1
+              "counts": {
+                "var": "counts",
+                "line": 17,
+                "hit": 3
               },
-              "total_nodes": {
-                "var": "total_nodes",
-                "line": 21,
-                "hit": 1
-              },
-              "f_faults_tolerated": {
-                "var": "f_faults_tolerated",
-                "line": 22,
-                "hit": 1
-              },
-              "consensus_metrics": {
-                "var": "consensus_metrics",
-                "line": 29,
-                "hit": 1
+              "msg": {
+                "var": "msg",
+                "line": 17,
+                "hit": 3
               }
             },
             "tones": {
-              "participating_agents": "ok",
-              "total_nodes": "ok",
-              "f_faults_tolerated": "ok",
-              "consensus_metrics": "ok"
+              "counts": "ok",
+              "msg": "ok"
             },
             "arrows": [
               [
-                "participating_agents",
-                "total_nodes"
-              ],
-              [
-                "total_nodes",
-                "f_faults_tolerated"
-              ],
-              [
-                "f_faults_tolerated",
-                "consensus_metrics"
+                "counts",
+                "msg"
               ]
             ]
           }
@@ -475,110 +452,63 @@
         "title": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks",
         "nodes": [
           {
-            "id": "participating_agents",
-            "label": "participating_agents"
+            "id": "counts",
+            "label": "counts",
+            "tappable": true
           },
           {
-            "id": "total_nodes",
-            "label": "total_nodes"
-          },
-          {
-            "id": "f_faults_tolerated",
-            "label": "f_faults_tolerated"
-          },
-          {
-            "id": "consensus_metrics",
-            "label": "consensus_metrics"
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In large-scale distributed AI systems, not all agents can be assumed to be.",
+            "caption": "Inspect byzantine updates as counts tracks fault state.",
             "values": {
-              "participating_agents": "['Financial Risk Modeling Agent', 'Regu…",
-              "total_nodes": "4",
-              "f_faults_tolerated": "1",
-              "consensus_metrics": "{'byzantineFaultToleranceThreshold': '3…"
+              "counts": "{}",
+              "msg": ""
             },
             "tones": {
-              "participating_agents": "data",
-              "total_nodes": "data",
-              "f_faults_tolerated": "data",
-              "consensus_metrics": "data"
+              "counts": "data",
+              "msg": "idle"
             },
-            "arrows": [
-              [
-                "participating_agents",
-                "total_nodes"
-              ],
-              [
-                "total_nodes",
-                "f_faults_tolerated"
-              ],
-              [
-                "f_faults_tolerated",
-                "consensus_metrics"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Byzantine fault tolerance protocols guarantee consensus in distributed.",
+            "caption": "Verify the byzantine transition driving fault behavior.",
             "values": {
-              "participating_agents": "['Financial Risk Modeling Agent', 'Regu…",
-              "total_nodes": "4",
-              "f_faults_tolerated": "1",
-              "consensus_metrics": "{'byzantineFaultToleranceThreshold': '3…"
+              "counts": "{['PATCH', '8dce33b4']: 2}",
+              "msg": "{'action': 'PATCH', 'valid': True}"
             },
             "tones": {
-              "participating_agents": "data",
-              "total_nodes": "data",
-              "f_faults_tolerated": "data",
-              "consensus_metrics": "data"
+              "counts": "data",
+              "msg": "data"
             },
             "arrows": [
               [
-                "participating_agents",
-                "total_nodes"
-              ],
-              [
-                "total_nodes",
-                "f_faults_tolerated"
-              ],
-              [
-                "f_faults_tolerated",
-                "consensus_metrics"
+                "counts",
+                "msg"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Implementing Byzantine fault tolerance elevates autonomous agent.",
+            "at": "say3",
+            "caption": "Examine the byzantine value produced for fault processing.",
             "values": {
-              "participating_agents": "['Financial Risk Modeling Agent', 'Regu…",
-              "total_nodes": "4",
-              "f_faults_tolerated": "1",
-              "consensus_metrics": "{'byzantineFaultToleranceThreshold': '3…"
+              "counts": "{['PATCH', '8dce33b4']: 3}",
+              "msg": "{'action': 'PATCH', 'valid': True}"
             },
             "tones": {
-              "participating_agents": "ok",
-              "total_nodes": "ok",
-              "f_faults_tolerated": "ok",
-              "consensus_metrics": "ok"
+              "counts": "ok",
+              "msg": "ok"
             },
             "arrows": [
               [
-                "participating_agents",
-                "total_nodes"
-              ],
-              [
-                "total_nodes",
-                "f_faults_tolerated"
-              ],
-              [
-                "f_faults_tolerated",
-                "consensus_metrics"
+                "counts",
+                "msg"
               ]
             ]
           }
@@ -587,135 +517,155 @@
     },
     {
       "partTitle": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verification",
-      "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
+      "codeHash": "8e19f523c7f79971056678bb55e56c4e1080203bc34b669621570a91f009de45",
       "spec": {
-        "template": "bars",
+        "template": "flow",
         "title": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verifi",
+        "nodes": [
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Even when an agent swarm operates with robust voting protocols and BFT.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": {
-                  "var": "total_nodes",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect swarm updates as c tracks self state.",
+            "values": {
+              "c": {
+                "var": "c",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "label": "f_faults_toler",
-                "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "c": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Swarm self-reflection and epistemic uncertainty quantification calibrate.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": {
-                  "var": "total_nodes",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "caption": "Verify the swarm transition driving self behavior.",
+            "values": {
+              "c": {
+                "var": "c",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "label": "f_faults_toler",
-                "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "c": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "c",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering swarm self-reflection and epistemic uncertainty transforms.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": {
-                  "var": "total_nodes",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Epistemic uncertainty arises from a lack of knowledge or data.",
+            "values": {
+              "c": {
+                "var": "c",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "label": "f_faults_toler",
-                "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "c": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "c",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
+        "template": "flow",
         "title": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verifi",
+        "nodes": [
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Even when an agent swarm operates with robust voting protocols and BFT.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": 4,
-                "tone": "data"
-              },
-              {
-                "label": "f_faults_toler",
-                "value": 1,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect swarm updates as c tracks self state.",
+            "values": {
+              "c": "{'claim': 'Redis 7 supports ACL', 'pred…",
+              "out": ""
+            },
+            "tones": {
+              "c": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Swarm self-reflection and epistemic uncertainty quantification calibrate.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": 4,
-                "tone": "ok"
-              },
-              {
-                "label": "f_faults_toler",
-                "value": 1,
-                "tone": "ok"
-              }
+            "caption": "Verify the swarm transition driving self behavior.",
+            "values": {
+              "c": "{'claim': 'SQLite runs BFT consensus', …",
+              "out": "Verified factual claims: ['Redis 7 supports ACL', 'SHA-256 outputs 256 bits']"
+            },
+            "tones": {
+              "c": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "c",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering swarm self-reflection and epistemic uncertainty transforms.",
-            "bars": [
-              {
-                "label": "total_nodes",
-                "value": 4,
-                "tone": "ok"
-              },
-              {
-                "label": "f_faults_toler",
-                "value": 1,
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Epistemic uncertainty arises from a lack of knowledge or data.",
+            "values": {
+              "c": "{'claim': 'SHA-256 outputs 256 bits', '…",
+              "out": "Pre-filter Brier calibration error: 0.2175"
+            },
+            "tones": {
+              "c": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "c",
+                "out"
+              ]
             ]
           }
         ]
@@ -723,30 +673,42 @@
     },
     {
       "partTitle": "Enterprise Multi Agent Consensus Engine In Asynchronous Python",
-      "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
+      "codeHash": "3cf209433340715c66e5025c0bc16aa9e1b66d15ef12f0f837ce5baa7c8756eb",
       "spec": {
         "template": "bars",
         "title": "Enterprise Multi Agent Consensus Engine In Asynchronous Python",
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing weighted voting protocols, Socratic debate dynamics.",
+            "caption": "Observe how enterprise shapes multi during this step.",
             "bars": [
               {
-                "label": "total_nodes",
+                "label": "scores",
                 "value": {
-                  "var": "total_nodes",
-                  "line": 17,
+                  "var": "scores",
+                  "line": 12,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "f_faults_toler",
+                "label": "b",
                 "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 18,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pts",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "choice",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -754,47 +716,83 @@
           },
           {
             "at": "say2",
-            "caption": "Enterprise multi-agent consensus engines coordinate distributed.",
+            "caption": "Verify the enterprise transition driving multi behavior.",
             "bars": [
               {
-                "label": "total_nodes",
+                "label": "scores",
                 "value": {
-                  "var": "total_nodes",
-                  "line": 18,
-                  "hit": 1
+                  "var": "scores",
+                  "line": 15,
+                  "hit": 3
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "f_faults_toler",
+                "label": "b",
                 "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 21,
-                  "hit": 1
+                  "var": "b",
+                  "line": 15,
+                  "hit": 3
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "pts",
+                "value": {
+                  "var": "pts",
+                  "line": 15,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "label": "choice",
+                "value": {
+                  "var": "choice",
+                  "line": 15,
+                  "hit": 3
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the architecture of enterprise multi-agent consensus protocols.",
+            "at": "say3",
+            "caption": "Examine the multi value produced for agent processing.",
             "bars": [
               {
-                "label": "total_nodes",
+                "label": "scores",
                 "value": {
-                  "var": "total_nodes",
-                  "line": 21,
-                  "hit": 1
+                  "var": "scores",
+                  "line": 15,
+                  "hit": 6
                 },
                 "tone": "ok"
               },
               {
-                "label": "f_faults_toler",
+                "label": "b",
                 "value": {
-                  "var": "f_faults_tolerated",
-                  "line": 22,
-                  "hit": 1
+                  "var": "b",
+                  "line": 15,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pts",
+                "value": {
+                  "var": "pts",
+                  "line": 15,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "choice",
+                "value": {
+                  "var": "choice",
+                  "line": 15,
+                  "hit": 6
                 },
                 "tone": "ok"
               }
@@ -808,48 +806,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing weighted voting protocols, Socratic debate dynamics.",
+            "caption": "Observe how enterprise shapes multi during this step.",
             "bars": [
               {
-                "label": "total_nodes",
-                "value": 4,
+                "label": "scores",
+                "value": "{}",
                 "tone": "data"
               },
               {
-                "label": "f_faults_toler",
-                "value": 1,
+                "label": "b",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "pts",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "choice",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Enterprise multi-agent consensus engines coordinate distributed.",
+            "caption": "Verify the enterprise transition driving multi behavior.",
             "bars": [
               {
-                "label": "total_nodes",
-                "value": 4,
-                "tone": "ok"
+                "label": "scores",
+                "value": "{'PLAN_B': 2.73, 'PLAN_A': 4.46}",
+                "tone": "data"
               },
               {
-                "label": "f_faults_toler",
-                "value": 1,
-                "tone": "ok"
+                "label": "b",
+                "value": "{'agent': 'a2', 'rank': ['PLAN_A', 'PLA…",
+                "tone": "data"
+              },
+              {
+                "label": "pts",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "choice",
+                "value": "'PLAN_A'",
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the architecture of enterprise multi-agent consensus protocols.",
+            "at": "say3",
+            "caption": "Examine the multi value produced for agent processing.",
             "bars": [
               {
-                "label": "total_nodes",
-                "value": 4,
+                "label": "scores",
+                "value": "{'PLAN_B': 7.1, 'PLAN_A': 4.46, 'PLAN_C…",
                 "tone": "ok"
               },
               {
-                "label": "f_faults_toler",
-                "value": 1,
+                "label": "b",
+                "value": "{'agent': 'a3', 'rank': ['PLAN_B', 'PLA…",
+                "tone": "ok"
+              },
+              {
+                "label": "pts",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "choice",
+                "value": "'PLAN_C'",
                 "tone": "ok"
               }
             ]

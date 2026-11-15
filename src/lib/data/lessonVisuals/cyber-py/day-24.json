@@ -87,18 +87,18 @@
               },
               "line": {
                 "var": "line",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "ts": {
                 "var": "ts",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "event": {
                 "var": "event",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -133,18 +133,18 @@
               },
               "line": {
                 "var": "line",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "ts": {
                 "var": "ts",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "event": {
                 "var": "event",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -227,9 +227,9 @@
             "caption": "A SIEM (security information and event management) system collects logs.",
             "values": {
               "lines": "['2026-05-01T10:00:05 FAILED_LOGIN user…",
-              "line": "'2026-05-01T10:00:05 FAILED_LOGIN user=…",
-              "ts": "'2026-05-01T10:00:05'",
-              "event": "'FAILED_LOGIN'"
+              "line": "'2026-05-01T10:00:09 LOGIN_OK user=meen…",
+              "ts": "'2026-05-01T10:00:09'",
+              "event": "'LOGIN_OK'"
             },
             "tones": {
               "lines": "data",
@@ -257,9 +257,9 @@
             "caption": "Never log passwords, tokens or full card numbers.",
             "values": {
               "lines": "['2026-05-01T10:00:05 FAILED_LOGIN user…",
-              "line": "'2026-05-01T10:00:05 FAILED_LOGIN user=…",
-              "ts": "'2026-05-01T10:00:05'",
-              "event": "'FAILED_LOGIN'"
+              "line": "'2026-05-01T10:00:09 LOGIN_OK user=meen…",
+              "ts": "'2026-05-01T10:00:09'",
+              "event": "'LOGIN_OK'"
             },
             "tones": {
               "lines": "ok",
@@ -289,162 +289,154 @@
       "partTitle": "Detecting brute force with sliding windows",
       "codeHash": "b5157862421371c9a6d23713f1218a0ca31264e4fd6523bd801d42d36e15a55a",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Detecting brute force with sliding windows",
-        "actors": [
-          ".0",
-          "t",
-          "times"
+        "nodes": [
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A brute-force attack produces many failed logins from one source in.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "t",
-                "label": {
-                  "var": ".0",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect brute updates as t tracks force state.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "from": "t",
-                "to": "times",
-                "label": {
-                  "var": "t",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "t": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A sliding window checks whether any window of, say, 60 seconds contains.",
-            "activeActor": "t",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "t",
-                "label": {
-                  "var": ".0",
-                  "line": 3,
-                  "hit": 2
-                },
-                "tone": "data"
+            "caption": "Verify the sliding transition driving window behavior.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 3
               },
-              {
-                "from": "t",
-                "to": "times",
-                "label": {
-                  "var": "t",
-                  "line": 3,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "t": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Password spraying, one attempt per account across many accounts, needs.",
-            "activeActor": "times",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "t",
-                "label": {
-                  "var": ".0",
-                  "line": 3,
-                  "hit": 3
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the windows value produced for sorting processing.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 5
               },
-              {
-                "from": "t",
-                "to": "times",
-                "label": {
-                  "var": "t",
-                  "line": 3,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "t": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Detecting brute force with sliding windows",
-        "actors": [
-          ".0",
-          "t",
-          "times"
+        "nodes": [
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A brute-force attack produces many failed logins from one source in.",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "t",
-                "label": "{'__other__': 'tuple_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "t",
-                "to": "times",
-                "label": "'2026-05-01T10:00:00'",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Inspect brute updates as t tracks force state.",
+            "values": {
+              "t": "'2026-05-01T10:00:00'",
+              "out": ""
+            },
+            "tones": {
+              "t": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A sliding window checks whether any window of, say, 60 seconds contains.",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "t",
-                "label": "{'__other__': 'tuple_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "t",
-                "to": "times",
-                "label": "'2026-05-01T10:00:20'",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "t"
+            "caption": "Verify the sliding transition driving window behavior.",
+            "values": {
+              "t": "'2026-05-01T10:00:35'",
+              "out": "seconds spanned by each run of 3 failures: [35.0, 30.0, 145.0]"
+            },
+            "tones": {
+              "t": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Password spraying, one attempt per account across many accounts, needs.",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "t",
-                "label": "{'__other__': 'tuple_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "t",
-                "to": "times",
-                "label": "'2026-05-01T10:00:35'",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "times"
+            "at": "say3",
+            "caption": "Examine the windows value produced for sorting processing.",
+            "values": {
+              "t": "'2026-05-01T10:00:50'",
+              "out": "brute force within 60 s: True"
+            },
+            "tones": {
+              "t": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
+            ]
           }
         ]
       }
@@ -478,7 +470,7 @@
           },
           {
             "at": "say2",
-            "caption": "Threat intelligence feeds from vendors, governments (such as CERT-In.",
+            "caption": "Verify the threat transition driving intelligence behavior.",
             "currentState": "logs",
             "transition": {
               "from": "iocs",
@@ -534,7 +526,7 @@
           },
           {
             "at": "say2",
-            "caption": "Threat intelligence feeds from vendors, governments (such as CERT-In.",
+            "caption": "Verify the threat transition driving intelligence behavior.",
             "currentState": "logs",
             "transition": {
               "from": "iocs",
@@ -777,162 +769,154 @@
       "partTitle": "Practice time: brute force and IOCs",
       "codeHash": "68dac6e6d7ed7d9eea92342f41bda60cc450e38992b3d95498cd072a62ab4499",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: brute force and IOCs",
-        "actors": [
-          "logs",
-          "iocs",
-          ".0"
+        "nodes": [
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Brute_force_ips(lines, threshold, window).",
-            "activeActor": "logs",
-            "messages": [
-              {
-                "from": "logs",
-                "to": "iocs",
-                "label": {
-                  "var": "logs",
-                  "line": 4,
-                  "hit": 5
-                },
-                "tone": "data"
+            "caption": "Practice 1: brute_force_ips(lines, threshold, window).",
+            "values": {
+              "l": {
+                "var": "l",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "from": "iocs",
-                "to": ".0",
-                "label": {
-                  "var": "iocs",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "l": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include a fast attacker, a slow one visible only with.",
-            "activeActor": "iocs",
-            "messages": [
-              {
-                "from": "logs",
-                "to": "iocs",
-                "label": {
-                  "var": "logs",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the checks transition driving include behavior.",
+            "values": {
+              "l": {
+                "var": "l",
+                "line": 6,
+                "hit": 3
               },
-              {
-                "from": "iocs",
-                "to": ".0",
-                "label": {
-                  "var": "iocs",
-                  "line": 6,
-                  "hit": 6
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "l": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "These two rules, behaviour and indicators, represent the two main families.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "logs",
-                "to": "iocs",
-                "label": {
-                  "var": "logs",
-                  "line": 6,
-                  "hit": 6
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the practice value produced for iocs processing.",
+            "values": {
+              "l": {
+                "var": "l",
+                "line": 6,
+                "hit": 4
               },
-              {
-                "from": "iocs",
-                "to": ".0",
-                "label": {
-                  "var": "iocs",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "l": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: brute force and IOCs",
-        "actors": [
-          "logs",
-          "iocs",
-          ".0"
+        "nodes": [
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Brute_force_ips(lines, threshold, window).",
-            "messages": [
-              {
-                "from": "logs",
-                "to": "iocs",
-                "label": "['2026-05-01T10:00:00 FAILED_LOGIN user…",
-                "tone": "data"
-              },
-              {
-                "from": "iocs",
-                "to": ".0",
-                "label": "{'198.51.100.77'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "logs"
+            "caption": "Practice 1: brute_force_ips(lines, threshold, window).",
+            "values": {
+              "l": "'2026-05-01T10:00:00 FAILED_LOGIN user=…",
+              "out": ""
+            },
+            "tones": {
+              "l": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include a fast attacker, a slow one visible only with.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": "iocs",
-                "label": "['2026-05-01T10:00:00 FAILED_LOGIN user…",
-                "tone": "data"
-              },
-              {
-                "from": "iocs",
-                "to": ".0",
-                "label": "{'198.51.100.77'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "iocs"
+            "caption": "Verify the checks transition driving include behavior.",
+            "values": {
+              "l": "'2026-05-01T10:00:20 FAILED_LOGIN user=…",
+              "out": "brute force: True | known-bad IP: True | severity: HIGH"
+            },
+            "tones": {
+              "l": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "These two rules, behaviour and indicators, represent the two main families.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": "iocs",
-                "label": "['2026-05-01T10:00:00 FAILED_LOGIN user…",
-                "tone": "data"
-              },
-              {
-                "from": "iocs",
-                "to": ".0",
-                "label": "{'198.51.100.77'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Examine the practice value produced for iocs processing.",
+            "values": {
+              "l": "'2026-05-01T10:00:30 FAILED_LOGIN user=…",
+              "out": "brute force: True | known-bad IP: True | severity: HIGH"
+            },
+            "tones": {
+              "l": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
+            ]
           }
         ]
       }

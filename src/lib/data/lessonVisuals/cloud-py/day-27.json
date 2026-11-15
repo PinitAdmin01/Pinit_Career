@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "params": {
-                "var": "params",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "user_input": "data",
               "unsafe": "data",
               "query": "data",
-              "params": "data"
+              "params": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "user_input": "\"' OR 1=1 --\"",
               "unsafe": "\"SELECT * FROM users WHERE name = '' OR…",
               "query": "'SELECT * FROM users WHERE name = ?'",
-              "params": "[\"' OR 1=1 --\"]"
+              "params": ""
             },
             "tones": {
               "user_input": "data",
               "unsafe": "data",
               "query": "data",
-              "params": "data"
+              "params": "idle"
             },
             "arrows": [
               [
@@ -312,7 +310,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS WAF is a web application firewall you attach to CloudFront,.",
+            "caption": "Inspect application updates as SQLI_SIGNS tracks firewall state.",
             "values": {
               "SQLI_SIGNS": {
                 "var": "SQLI_SIGNS",
@@ -372,8 +370,8 @@
               },
               "req": {
                 "var": "req",
-                "line": 4,
-                "hit": 1
+                "line": 15,
+                "hit": 3
               },
               "rules": {
                 "var": "rules",
@@ -418,8 +416,8 @@
               },
               "req": {
                 "var": "req",
-                "line": 5,
-                "hit": 1
+                "line": 15,
+                "hit": 4
               },
               "rules": {
                 "var": "rules",
@@ -474,7 +472,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS WAF is a web application firewall you attach to CloudFront,.",
+            "caption": "Inspect application updates as SQLI_SIGNS tracks firewall state.",
             "values": {
               "SQLI_SIGNS": "[\"' or 1=1\", 'union select', '; drop ta…",
               "acl": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…",
@@ -508,7 +506,7 @@
             "values": {
               "SQLI_SIGNS": "[\"' or 1=1\", 'union select', '; drop ta…",
               "acl": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…",
-              "req": "{'ip': '49.36.1.2', 'query': 'page=2', …",
+              "req": "{'ip': '49.36.1.2', 'query': 'id=5 UNIO…",
               "rules": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…"
             },
             "tones": {
@@ -538,7 +536,7 @@
             "values": {
               "SQLI_SIGNS": "[\"' or 1=1\", 'union select', '; drop ta…",
               "acl": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…",
-              "req": "{'ip': '49.36.1.2', 'query': 'page=2', …",
+              "req": "{'ip': '49.36.1.3', 'query': 'page=2', …",
               "rules": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…"
             },
             "tones": {
@@ -573,20 +571,19 @@
         "title": "Rate-based rules",
         "nodes": [
           {
-            "id": "window",
-            "label": "window"
-          },
-          {
-            "id": "LOGIN_LIMIT",
-            "label": "LOGIN_LIMIT"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "ip",
-            "label": "ip"
+            "label": "ip",
+            "tappable": true
+          },
+          {
+            "id": "path",
+            "label": "path",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
           }
         ],
         "steps": [
@@ -594,137 +591,82 @@
             "at": "say1",
             "caption": "Many attacks are simply too many calls from one place.",
             "values": {
-              "window": {
-                "var": "window",
-                "line": 3,
-                "hit": 1
-              },
-              "LOGIN_LIMIT": {
-                "var": "LOGIN_LIMIT",
-                "line": 4,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 1
-              },
               "ip": {
                 "var": "ip",
                 "line": 5,
                 "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 5,
+                "hit": 1
+              },
+              "n": {
+                "text": ""
               }
             },
             "tones": {
-              "window": "data",
-              "LOGIN_LIMIT": "data",
-              ".0": "data",
-              "ip": "data"
+              "ip": "data",
+              "path": "data",
+              "n": "idle"
             },
-            "arrows": [
-              [
-                "window",
-                "LOGIN_LIMIT"
-              ],
-              [
-                "LOGIN_LIMIT",
-                ".0"
-              ],
-              [
-                ".0",
-                "ip"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "When an IP goes over the limit, WAF blocks it (or challenges it) until its.",
+            "caption": "Verify the rate transition driving goes behavior.",
             "values": {
-              "window": {
-                "var": "window",
-                "line": 4,
-                "hit": 1
-              },
-              "LOGIN_LIMIT": {
-                "var": "LOGIN_LIMIT",
-                "line": 5,
-                "hit": 105
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 2
-              },
               "ip": {
                 "var": "ip",
-                "line": 5,
+                "line": 6,
+                "hit": 2
+              },
+              "path": {
+                "text": ""
+              },
+              "n": {
+                "var": "n",
+                "line": 6,
                 "hit": 2
               }
             },
             "tones": {
-              "window": "data",
-              "LOGIN_LIMIT": "data",
-              ".0": "data",
-              "ip": "data"
+              "ip": "data",
+              "path": "idle",
+              "n": "data"
             },
             "arrows": [
               [
-                "window",
-                "LOGIN_LIMIT"
-              ],
-              [
-                "LOGIN_LIMIT",
-                ".0"
-              ],
-              [
-                ".0",
-                "ip"
+                "ip",
+                "path"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Rate limits in WAF protect everything behind them.",
+            "at": "say3",
+            "caption": "Examine the rate value produced for rules processing.",
             "values": {
-              "window": {
-                "var": "window",
-                "line": 5,
-                "hit": 105
-              },
-              "LOGIN_LIMIT": {
-                "var": "LOGIN_LIMIT",
-                "line": 6,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 3
-              },
               "ip": {
                 "var": "ip",
-                "line": 5,
-                "hit": 3
+                "line": 8,
+                "hit": 101
+              },
+              "path": {
+                "text": ""
+              },
+              "n": {
+                "text": ""
               }
             },
             "tones": {
-              "window": "ok",
-              "LOGIN_LIMIT": "ok",
-              ".0": "ok",
-              "ip": "ok"
+              "ip": "ok",
+              "path": "idle",
+              "n": "idle"
             },
             "arrows": [
               [
-                "window",
-                "LOGIN_LIMIT"
-              ],
-              [
-                "LOGIN_LIMIT",
-                ".0"
-              ],
-              [
-                ".0",
-                "ip"
+                "ip",
+                "path"
               ]
             ]
           }
@@ -735,20 +677,19 @@
         "title": "Rate-based rules",
         "nodes": [
           {
-            "id": "window",
-            "label": "window"
-          },
-          {
-            "id": "LOGIN_LIMIT",
-            "label": "LOGIN_LIMIT"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "ip",
-            "label": "ip"
+            "label": "ip",
+            "tappable": true
+          },
+          {
+            "id": "path",
+            "label": "path",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
           }
         ],
         "steps": [
@@ -756,89 +697,54 @@
             "at": "say1",
             "caption": "Many attacks are simply too many calls from one place.",
             "values": {
-              "window": "[['49.36.1.2', '/products'], ['49.36.1.…",
-              "LOGIN_LIMIT": "20",
-              ".0": "{'__other__': 'list_iterator'}",
-              "ip": "'49.36.1.2'"
+              "ip": "'49.36.1.2'",
+              "path": "'/products'",
+              "n": ""
             },
             "tones": {
-              "window": "data",
-              "LOGIN_LIMIT": "data",
-              ".0": "data",
-              "ip": "data"
+              "ip": "data",
+              "path": "data",
+              "n": "idle"
             },
-            "arrows": [
-              [
-                "window",
-                "LOGIN_LIMIT"
-              ],
-              [
-                "LOGIN_LIMIT",
-                ".0"
-              ],
-              [
-                ".0",
-                "ip"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "When an IP goes over the limit, WAF blocks it (or challenges it) until its.",
+            "caption": "Verify the rate transition driving goes behavior.",
             "values": {
-              "window": "[['49.36.1.2', '/products'], ['49.36.1.…",
-              "LOGIN_LIMIT": "20",
-              ".0": "{'__other__': 'list_iterator'}",
-              "ip": "'49.36.1.2'"
+              "ip": "'49.36.7.7'",
+              "path": "",
+              "n": "3"
             },
             "tones": {
-              "window": "data",
-              "LOGIN_LIMIT": "data",
-              ".0": "data",
-              "ip": "data"
+              "ip": "data",
+              "path": "idle",
+              "n": "data"
             },
             "arrows": [
               [
-                "window",
-                "LOGIN_LIMIT"
-              ],
-              [
-                "LOGIN_LIMIT",
-                ".0"
-              ],
-              [
-                ".0",
-                "ip"
+                "ip",
+                "path"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Rate limits in WAF protect everything behind them.",
+            "at": "say3",
+            "caption": "Examine the rate value produced for rules processing.",
             "values": {
-              "window": "[['49.36.1.2', '/products'], ['49.36.1.…",
-              "LOGIN_LIMIT": "20",
-              ".0": "{'__other__': 'list_iterator'}",
-              "ip": "'49.36.1.2'"
+              "ip": "'49.36.7.7'",
+              "path": "",
+              "n": ""
             },
             "tones": {
-              "window": "ok",
-              "LOGIN_LIMIT": "ok",
-              ".0": "ok",
-              "ip": "ok"
+              "ip": "ok",
+              "path": "idle",
+              "n": "idle"
             },
             "arrows": [
               [
-                "window",
-                "LOGIN_LIMIT"
-              ],
-              [
-                "LOGIN_LIMIT",
-                ".0"
-              ],
-              [
-                ".0",
-                "ip"
+                "ip",
+                "path"
               ]
             ]
           }
@@ -922,18 +828,18 @@
             "values": {
               "entry": {
                 "var": "entry",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "net": {
                 "var": "net",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "note": {
                 "var": "note",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "err": {
                 "var": "err",
@@ -968,18 +874,18 @@
             "values": {
               "entry": {
                 "var": "entry",
-                "line": 7,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "net": {
                 "var": "net",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 4
               },
               "note": {
                 "var": "note",
-                "line": 3,
-                "hit": 2
+                "line": 9,
+                "hit": 3
               },
               "err": {
                 "var": "err",
@@ -1066,9 +972,9 @@
             "at": "say2",
             "caption": "A single address needs a prefix length too.",
             "values": {
-              "entry": "'203.0.113.0/24'",
-              "net": "<IPv4Network>",
-              "note": "''",
+              "entry": "'2001:db8::/32'",
+              "net": "<IPv6Network>",
+              "note": "'  <- careful: this is EVERY address'",
               "err": "<ValueError>"
             },
             "tones": {
@@ -1096,9 +1002,9 @@
             "at": "say7",
             "caption": "The same ipaddress module you used for subnets works for IPv6, so one.",
             "values": {
-              "entry": "'203.0.113.0/24'",
+              "entry": "'10.0.0.5/24'",
               "net": "<IPv4Network>",
-              "note": "''",
+              "note": "'  <- careful: this is EVERY address'",
               "err": "<ValueError>"
             },
             "tones": {
@@ -1151,6 +1057,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the application transition driving attacks behavior.",
+            "activeActor": "hit_ratio",
+            "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": {
+                  "var": "attack_calls_per_s",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "hit_ratio",
@@ -1165,10 +1088,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how application updates attacks during execution.",
-            "activeActor": "hit_ratio",
+            "at": "say7",
+            "caption": "Test your defences only with permission and through AWS's approved process.",
+            "activeActor": "to_origin",
             "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": {
+                  "var": "attack_calls_per_s",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": {
+                  "var": "hit_ratio",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "attack_calls_per_s",
                 "to": "hit_ratio",
@@ -1188,14 +1131,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Test your defences only with permission and through AWS's approved process.",
-            "activeActor": "to_origin",
-            "messages": [
+              },
               {
                 "from": "attack_calls_per_s",
                 "to": "hit_ratio",
@@ -1238,19 +1174,13 @@
                 "to": "hit_ratio",
                 "label": "200000",
                 "tone": "data"
-              },
-              {
-                "from": "hit_ratio",
-                "to": "to_origin",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "attack_calls_per_s"
           },
           {
             "at": "say2",
-            "caption": "Trace how application updates attacks during execution.",
+            "caption": "Verify the application transition driving attacks behavior.",
             "messages": [
               {
                 "from": "attack_calls_per_s",
@@ -1271,6 +1201,30 @@
             "at": "say7",
             "caption": "Test your defences only with permission and through AWS's approved process.",
             "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": "200000",
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": "200000",
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "attack_calls_per_s",
                 "to": "hit_ratio",

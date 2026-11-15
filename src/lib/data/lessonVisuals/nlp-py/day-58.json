@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Over the first fifty-seven days of this master journey, our models have.",
+            "caption": "Inspect agentic updates as self tracks reasoning state.",
             "values": {
               "self": {
                 "var": "self",
@@ -82,7 +82,7 @@
             "values": {
               "self": {
                 "var": "self",
-                "line": 16,
+                "line": 31,
                 "hit": 1
               },
               "env": {
@@ -97,8 +97,8 @@
               },
               "thought": {
                 "var": "thought",
-                "line": 36,
-                "hit": 1
+                "line": 35,
+                "hit": 2
               }
             },
             "tones": {
@@ -128,7 +128,7 @@
             "values": {
               "self": {
                 "var": "self",
-                "line": 17,
+                "line": 21,
                 "hit": 1
               },
               "env": {
@@ -143,8 +143,8 @@
               },
               "thought": {
                 "var": "thought",
-                "line": 45,
-                "hit": 1
+                "line": 35,
+                "hit": 3
               }
             },
             "tones": {
@@ -194,7 +194,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Over the first fifty-seven days of this master journey, our models have.",
+            "caption": "Inspect agentic updates as self tracks reasoning state.",
             "values": {
               "self": "<Environment>",
               "env": "<Environment>",
@@ -226,10 +226,10 @@
             "at": "say2",
             "caption": "The foundational architectural pattern for modern language model agents.",
             "values": {
-              "self": "<Environment>",
+              "self": "<ReActAgent>",
               "env": "<Environment>",
               "agent": "<ReActAgent>",
-              "thought": "'I need to retrieve the actual Q3 reven…"
+              "thought": "'I have actual revenue (14.5M). Now I m…"
             },
             "tones": {
               "self": "data",
@@ -259,7 +259,7 @@
               "self": "<Environment>",
               "env": "<Environment>",
               "agent": "<ReActAgent>",
-              "thought": "'I need to retrieve the actual Q3 reven…"
+              "thought": "'Both figures are available. I will cal…"
             },
             "tones": {
               "self": "ok",
@@ -294,7 +294,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While ReAct provides the cognitive loop for reasoning and acting,.",
+            "caption": "In traditional prompting, developers instruct the model.",
             "items": {
               "var": "target_sequence",
               "line": 53,
@@ -348,7 +348,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While ReAct provides the cognitive loop for reasoning and acting,.",
+            "caption": "In traditional prompting, developers instruct the model.",
             "items": [
               "'{'",
               "'\"'",
@@ -599,16 +599,14 @@
                 "hit": 1
               },
               "tool": {
-                "var": "tool",
-                "line": 19,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "max_consecutive_failures": "data",
               "controller": "data",
-              "tool": "data"
+              "tool": "idle"
             },
             "arrows": [
               [
@@ -748,13 +746,13 @@
               "self": "<SelfReflectiveController>",
               "max_consecutive_failures": "2",
               "controller": "<SelfReflectiveController>",
-              "tool": "'fetch_data'"
+              "tool": ""
             },
             "tones": {
               "self": "data",
               "max_consecutive_failures": "data",
               "controller": "data",
-              "tool": "data"
+              "tool": "idle"
             },
             "arrows": [
               [

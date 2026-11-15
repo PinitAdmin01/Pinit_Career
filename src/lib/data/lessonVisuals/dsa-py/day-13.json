@@ -139,7 +139,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Quick sort partitions the list, then quick sorts the left part and.",
+            "caption": "The pivot is already in place, so it is left out of both.",
             "items": {
               "var": "arr",
               "line": 11,
@@ -176,7 +176,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Quick sort partitions the list, then quick sorts the left part and.",
+            "caption": "The pivot is already in place, so it is left out of both.",
             "mode": "stack",
             "items": [
               "7",
@@ -864,7 +864,7 @@
           },
           {
             "at": "say4",
-            "caption": "Knowing these trade-offs helps you answer \"which sort would you use and why.",
+            "caption": "Examine the sort value produced for knowing processing.",
             "values": {
               "name": {
                 "var": "name",
@@ -938,7 +938,7 @@
           },
           {
             "at": "say4",
-            "caption": "Knowing these trade-offs helps you answer \"which sort would you use and why.",
+            "caption": "Examine the sort value produced for knowing processing.",
             "values": {
               "name": "'worst time'",
               "merge": "'O(N log N)'",

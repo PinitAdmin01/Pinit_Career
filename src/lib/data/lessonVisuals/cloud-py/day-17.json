@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "tld": {
-                "var": "tld",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "root": "data",
               "servers": "data",
               "name": "data",
-              "tld": "data"
+              "tld": "idle"
             },
             "arrows": [
               [
@@ -78,7 +76,7 @@
           },
           {
             "at": "say2",
-            "caption": "Your computer asks a resolver (usually run by your internet provider or.",
+            "caption": "The resolver walks the hierarchy.",
             "values": {
               "root": {
                 "var": "root",
@@ -199,13 +197,13 @@
               "root": "{'com': 'tld-com-server'}",
               "servers": "{'tld-com-server': {'example.com': 'rou…",
               "name": "'shop.example.com'",
-              "tld": "'com'"
+              "tld": ""
             },
             "tones": {
               "root": "data",
               "servers": "data",
               "name": "data",
-              "tld": "data"
+              "tld": "idle"
             },
             "arrows": [
               [
@@ -224,7 +222,7 @@
           },
           {
             "at": "say2",
-            "caption": "Your computer asks a resolver (usually run by your internet provider or.",
+            "caption": "The resolver walks the hierarchy.",
             "values": {
               "root": "{'com': 'tld-com-server'}",
               "servers": "{'tld-com-server': {'example.com': 'rou…",
@@ -358,7 +356,7 @@
           },
           {
             "at": "say2",
-            "caption": "A CNAME cannot be used at the zone apex (the bare domain, example.",
+            "caption": "A CNAME cannot be used at the zone apex (the bare domain, example.com).",
             "values": {
               "zone": {
                 "var": "zone",
@@ -372,13 +370,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "rtype": {
                 "var": "rtype",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -418,13 +416,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "rtype": {
                 "var": "rtype",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -504,12 +502,12 @@
           },
           {
             "at": "say2",
-            "caption": "A CNAME cannot be used at the zone apex (the bare domain, example.",
+            "caption": "A CNAME cannot be used at the zone apex (the bare domain, example.com).",
             "values": {
               "zone": "'example.com'",
               "records": "[['example.com', 'A-ALIAS', 'd123.cloud…",
-              "name": "'example.com'",
-              "rtype": "'A-ALIAS'"
+              "name": "'www.example.com'",
+              "rtype": "'CNAME'"
             },
             "tones": {
               "zone": "data",
@@ -538,7 +536,7 @@
             "values": {
               "zone": "'example.com'",
               "records": "[['example.com', 'A-ALIAS', 'd123.cloud…",
-              "name": "'example.com'",
+              "name": "'api.example.com'",
               "rtype": "'A-ALIAS'"
             },
             "tones": {
@@ -579,7 +577,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how route updates health during execution.",
+            "caption": "Observe how health shapes checks during this step.",
             "activeActor": "cfg",
             "messages": [
               {
@@ -671,7 +669,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how route updates health during execution.",
+            "caption": "Observe how health shapes checks during this step.",
             "messages": [
               {
                 "from": "cfg",
@@ -924,13 +922,13 @@
               },
               "city": {
                 "var": "city",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "options": {
                 "var": "options",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -970,13 +968,13 @@
               },
               "city": {
                 "var": "city",
-                "line": 8,
-                "hit": 2
+                "line": 7,
+                "hit": 3
               },
               "options": {
                 "var": "options",
-                "line": 8,
-                "hit": 2
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -1060,8 +1058,8 @@
             "values": {
               "latency": "{'Mumbai': {'ap-south-1': 15, 'eu-centr…",
               "healthy": "{'ap-south-1': True, 'eu-central-1': Fa…",
-              "city": "'Mumbai'",
-              "options": "{'ap-south-1': 15, 'eu-central-1': 120,…"
+              "city": "'Berlin'",
+              "options": "{'ap-south-1': 125, 'eu-central-1': 12,…"
             },
             "tones": {
               "latency": "data",
@@ -1090,8 +1088,8 @@
             "values": {
               "latency": "{'Mumbai': {'ap-south-1': 15, 'eu-centr…",
               "healthy": "{'ap-south-1': True, 'eu-central-1': Fa…",
-              "city": "'Mumbai'",
-              "options": "{'ap-south-1': 15, 'eu-central-1': 120,…"
+              "city": "'Boston'",
+              "options": "{'ap-south-1': 200, 'eu-central-1': 90,…"
             },
             "tones": {
               "latency": "ok",

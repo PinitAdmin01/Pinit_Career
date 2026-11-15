@@ -579,10 +579,193 @@
       "partTitle": "Mass assignment and excessive data",
       "codeHash": "afeae3b57cce9e5adffd3c574519a674eb8b83f72b569620fb33d9cbfbfbeeda",
       "spec": {
-        "template": "none",
-        "reason": "Concept explained cleanly in text and interactive code."
+        "template": "flow",
+        "title": "Mass assignment and excessive data",
+        "nodes": [
+          {
+            "id": "ALLOWED",
+            "label": "ALLOWED",
+            "tappable": true
+          },
+          {
+            "id": "update",
+            "label": "update",
+            "tappable": true
+          },
+          {
+            "id": "safe",
+            "label": "safe",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Two related API mistakes often appear alongside BOLA.",
+            "values": {
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 1,
+                "hit": 1
+              },
+              "update": {
+                "text": ""
+              },
+              "safe": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "update": "idle",
+              "safe": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the mass transition driving assignment behavior.",
+            "values": {
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 3,
+                "hit": 5
+              },
+              "update": {
+                "var": "update",
+                "line": 3,
+                "hit": 5
+              },
+              "safe": {
+                "var": "safe",
+                "line": 3,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "update": "data",
+              "safe": "data"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "update"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The fix is an allow-list of fields each role may set.",
+            "values": {
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 4,
+                "hit": 1
+              },
+              "update": {
+                "var": "update",
+                "line": 4,
+                "hit": 1
+              },
+              "safe": {
+                "var": "safe",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ALLOWED": "ok",
+              "update": "ok",
+              "safe": "ok"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "update"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Mass assignment and excessive data",
+        "nodes": [
+          {
+            "id": "ALLOWED",
+            "label": "ALLOWED",
+            "tappable": true
+          },
+          {
+            "id": "update",
+            "label": "update",
+            "tappable": true
+          },
+          {
+            "id": "safe",
+            "label": "safe",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Two related API mistakes often appear alongside BOLA.",
+            "values": {
+              "ALLOWED": "{'address', 'name', 'phone'}",
+              "update": "",
+              "safe": ""
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "update": "idle",
+              "safe": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the mass transition driving assignment behavior.",
+            "values": {
+              "ALLOWED": "{'address', 'name', 'phone'}",
+              "update": "{'name': 'Asha K', 'phone': '9876543210…",
+              "safe": "{'name': 'Asha K', 'phone': '9876543210…"
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "update": "data",
+              "safe": "data"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "update"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The fix is an allow-list of fields each role may set.",
+            "values": {
+              "ALLOWED": "{'address', 'name', 'phone'}",
+              "update": "{'name': 'Asha K', 'phone': '9876543210…",
+              "safe": "{'name': 'Asha K', 'phone': '9876543210…"
+            },
+            "tones": {
+              "ALLOWED": "ok",
+              "update": "ok",
+              "safe": "ok"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "update"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Practice time: object checks and route scans",

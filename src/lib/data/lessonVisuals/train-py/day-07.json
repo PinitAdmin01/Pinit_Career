@@ -24,7 +24,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how uses updates bits during execution.",
+            "caption": "Inspect fp32 updates as x tracks uses state.",
             "values": {
               "x": {
                 "var": "x",
@@ -50,12 +50,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how uses updates bits during execution.",
+            "caption": "Verify the fp16 transition driving uses behavior.",
             "values": {
               "x": {
                 "var": "x",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "err": {
                 "var": "err",
@@ -80,8 +80,8 @@
             "values": {
               "x": {
                 "var": "x",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               },
               "err": {
                 "var": "err",
@@ -118,7 +118,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how uses updates bits during execution.",
+            "caption": "Inspect fp32 updates as x tracks uses state.",
             "values": {
               "x": "3.14159265",
               "err": "<OverflowError>"
@@ -136,9 +136,9 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how uses updates bits during execution.",
+            "caption": "Verify the fp16 transition driving uses behavior.",
             "values": {
-              "x": "3.14159265",
+              "x": "0.1",
               "err": "<OverflowError>"
             },
             "tones": {
@@ -156,7 +156,7 @@
             "at": "say10",
             "caption": "Choosing between FP16 and BF16 depends on hardware.",
             "values": {
-              "x": "3.14159265",
+              "x": "0.00001",
               "err": "<OverflowError>"
             },
             "tones": {
@@ -367,6 +367,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because gradients are proportional to the loss, every gradient.",
+            "activeActor": "scale",
+            "messages": [
+              {
+                "from": "grad",
+                "to": "scale",
+                "label": {
+                  "var": "grad",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "scale",
@@ -381,10 +398,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Because gradients are proportional to the loss, every gradient.",
-            "activeActor": "scale",
+            "at": "say10",
+            "caption": "Loss scaling is not needed with BF16, which is another reason for its.",
+            "activeActor": "x",
             "messages": [
+              {
+                "from": "grad",
+                "to": "scale",
+                "label": {
+                  "var": "grad",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "scale",
+                "to": "x",
+                "label": {
+                  "var": "scale",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "grad",
                 "to": "scale",
@@ -404,14 +441,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Loss scaling is not needed with BF16, which is another reason for its.",
-            "activeActor": "x",
-            "messages": [
+              },
               {
                 "from": "grad",
                 "to": "scale",
@@ -454,12 +484,6 @@
                 "to": "scale",
                 "label": "2e-8",
                 "tone": "data"
-              },
-              {
-                "from": "scale",
-                "to": "x",
-                "label": "65536",
-                "tone": "ok"
               }
             ],
             "activeActor": "grad"
@@ -487,6 +511,30 @@
             "at": "say10",
             "caption": "Loss scaling is not needed with BF16, which is another reason for its.",
             "messages": [
+              {
+                "from": "grad",
+                "to": "scale",
+                "label": "2e-8",
+                "tone": "data"
+              },
+              {
+                "from": "scale",
+                "to": "x",
+                "label": "65536",
+                "tone": "ok"
+              },
+              {
+                "from": "grad",
+                "to": "scale",
+                "label": "2e-8",
+                "tone": "data"
+              },
+              {
+                "from": "scale",
+                "to": "x",
+                "label": "65536",
+                "tone": "ok"
+              },
               {
                 "from": "grad",
                 "to": "scale",
@@ -531,6 +579,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "After each backward pass, check the gradients for infinities or NaNs.",
+            "activeActor": "good",
+            "messages": [
+              {
+                "from": "scale",
+                "to": "good",
+                "label": {
+                  "var": "scale",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "good",
@@ -545,10 +610,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "After each backward pass, check the gradients for infinities or NaNs.",
-            "activeActor": "good",
+            "at": "say10",
+            "caption": "Logging the scale over time is a useful health check for mixed-precision runs.",
+            "activeActor": "interval",
             "messages": [
+              {
+                "from": "scale",
+                "to": "good",
+                "label": {
+                  "var": "scale",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "good",
+                "to": "interval",
+                "label": {
+                  "var": "good",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "scale",
                 "to": "good",
@@ -568,14 +653,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Logging the scale over time is a useful health check for mixed-precision runs.",
-            "activeActor": "interval",
-            "messages": [
+              },
               {
                 "from": "scale",
                 "to": "good",
@@ -618,12 +696,6 @@
                 "to": "good",
                 "label": "1024",
                 "tone": "data"
-              },
-              {
-                "from": "good",
-                "to": "interval",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "scale"
@@ -651,6 +723,30 @@
             "at": "say10",
             "caption": "Logging the scale over time is a useful health check for mixed-precision runs.",
             "messages": [
+              {
+                "from": "scale",
+                "to": "good",
+                "label": "1024",
+                "tone": "data"
+              },
+              {
+                "from": "good",
+                "to": "interval",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "scale",
+                "to": "good",
+                "label": "1024",
+                "tone": "data"
+              },
+              {
+                "from": "good",
+                "to": "interval",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "scale",
                 "to": "good",
@@ -902,7 +998,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates return during execution.",
+            "caption": "Practice 1: fp16_status(x).",
             "bars": [
               {
                 "label": "scale",
@@ -944,7 +1040,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "scale",
@@ -1034,7 +1130,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates return during execution.",
+            "caption": "Practice 1: fp16_status(x).",
             "bars": [
               {
                 "label": "scale",
@@ -1060,7 +1156,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "scale",

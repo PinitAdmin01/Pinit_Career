@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "lock1": {
-                "var": "lock1",
-                "line": 24,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "lock_id": "data",
               "operation": "data",
               "user": "data",
-              "lock1": "data"
+              "lock1": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "lock_id": "'lock-abc-111'",
               "operation": "'OperationTypeApply'",
               "user": "'ci-cd-runner'",
-              "lock1": "{'LockID': 'lock-abc-111', 'Operation':…"
+              "lock1": ""
             },
             "tones": {
               "lock_id": "data",
               "operation": "data",
               "user": "data",
-              "lock1": "data"
+              "lock1": "idle"
             },
             "arrows": [
               [
@@ -330,16 +328,14 @@
                 "hit": 1
               },
               "actual_cloud_state": {
-                "var": "actual_cloud_state",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "declared_s3": "data",
               "actual_s3": "data",
               "declared_state": "data",
-              "actual_cloud_state": "data"
+              "actual_cloud_state": "idle"
             },
             "arrows": [
               [
@@ -479,13 +475,13 @@
               "declared_s3": "{'bucket': 'prod-assets', 'versioning':…",
               "actual_s3": "{'bucket': 'prod-assets', 'versioning':…",
               "declared_state": "{'bucket': 'prod-assets', 'versioning':…",
-              "actual_cloud_state": "{'bucket': 'prod-assets', 'versioning':…"
+              "actual_cloud_state": ""
             },
             "tones": {
               "declared_s3": "data",
               "actual_s3": "data",
               "declared_state": "data",
-              "actual_cloud_state": "data"
+              "actual_cloud_state": "idle"
             },
             "arrows": [
               [
@@ -591,6 +587,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Dynamic ephemeral environments provide dedicated, isolated testing.",
+            "activeActor": "commit_sha",
+            "messages": [
+              {
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": {
+                  "var": "pr_number",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "commit_sha",
@@ -605,10 +618,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Dynamic ephemeral environments provide dedicated, isolated testing.",
-            "activeActor": "commit_sha",
+            "at": "say10",
+            "caption": "Examine the environments value produced for static processing.",
+            "activeActor": "base_domain",
             "messages": [
+              {
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": {
+                  "var": "pr_number",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": {
+                  "var": "commit_sha",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "pr_number",
                 "to": "commit_sha",
@@ -628,14 +661,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Strict resource tagging ensures that cloud costs associated with ephemeral.",
-            "activeActor": "base_domain",
-            "messages": [
+              },
               {
                 "from": "pr_number",
                 "to": "commit_sha",
@@ -678,12 +704,6 @@
                 "to": "commit_sha",
                 "label": "1042",
                 "tone": "data"
-              },
-              {
-                "from": "commit_sha",
-                "to": "base_domain",
-                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
-                "tone": "ok"
               }
             ],
             "activeActor": "pr_number"
@@ -709,8 +729,32 @@
           },
           {
             "at": "say10",
-            "caption": "Strict resource tagging ensures that cloud costs associated with ephemeral.",
+            "caption": "Examine the environments value produced for static processing.",
             "messages": [
+              {
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": "1042",
+                "tone": "data"
+              },
+              {
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
+                "tone": "ok"
+              },
+              {
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": "1042",
+                "tone": "data"
+              },
+              {
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
+                "tone": "ok"
+              },
               {
                 "from": "pr_number",
                 "to": "commit_sha",
@@ -773,7 +817,7 @@
           },
           {
             "at": "say10",
-            "caption": "Careful lock lease management guarantees that long-running deployments do.",
+            "caption": "Examine the ephemeral value produced for preview processing.",
             "currentState": "current_timestamp",
             "transition": {
               "from": "environments",
@@ -825,7 +869,7 @@
           },
           {
             "at": "say10",
-            "caption": "Careful lock lease management guarantees that long-running deployments do.",
+            "caption": "Examine the ephemeral value produced for preview processing.",
             "currentState": "current_timestamp",
             "transition": {
               "from": "environments",
@@ -924,12 +968,12 @@
               },
               "backend_config": {
                 "var": "backend_config",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "violations": {
                 "var": "violations",
-                "line": 5,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -970,12 +1014,12 @@
               },
               "backend_config": {
                 "var": "backend_config",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "violations": {
                 "var": "violations",
-                "line": 7,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -1060,8 +1104,8 @@
             "values": {
               "b_good": "{'encrypted': True, 'versioning': True,…",
               "b_bad": "{'encrypted': False, 'versioning': Fals…",
-              "backend_config": "{'encrypted': True, 'versioning': True,…",
-              "violations": "[]"
+              "backend_config": "{'encrypted': False, 'versioning': Fals…",
+              "violations": "['UNENCRYPTED_STATE_BUCKET']"
             },
             "tones": {
               "b_good": "data",
@@ -1090,8 +1134,8 @@
             "values": {
               "b_good": "{'encrypted': True, 'versioning': True,…",
               "b_bad": "{'encrypted': False, 'versioning': Fals…",
-              "backend_config": "{'encrypted': True, 'versioning': True,…",
-              "violations": "[]"
+              "backend_config": "{'encrypted': False, 'versioning': Fals…",
+              "violations": "['UNENCRYPTED_STATE_BUCKET', 'STATE_BUC…"
             },
             "tones": {
               "b_good": "ok",

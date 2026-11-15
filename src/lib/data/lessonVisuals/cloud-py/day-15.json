@@ -78,7 +78,7 @@
           },
           {
             "at": "say2",
-            "caption": "The phone or browser gets a presigned URL from an API (API Gateway.",
+            "caption": "Verify the step transition driving phone behavior.",
             "values": {
               "pipeline": {
                 "var": "pipeline",
@@ -224,7 +224,7 @@
           },
           {
             "at": "say2",
-            "caption": "The phone or browser gets a presigned URL from an API (API Gateway.",
+            "caption": "Verify the step transition driving phone behavior.",
             "values": {
               "pipeline": "[['request upload URL', 'API Gateway + …",
               "step": "1",
@@ -377,8 +377,8 @@
               },
               "obj": {
                 "var": "obj",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -423,8 +423,8 @@
               },
               "obj": {
                 "var": "obj",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -509,7 +509,7 @@
               "event": "{'Records': [{'eventName': 'ObjectCreat…",
               "r": "{'eventName': 'ObjectCreated:Put', 's3'…",
               "record": "{'eventName': 'ObjectCreated:Put', 's3'…",
-              "obj": "{'key': 'demo.mp4', 'size': 5242880}"
+              "obj": "{'key': 'my+holiday%20video.mp4', 'size…"
             },
             "tones": {
               "event": "data",
@@ -539,7 +539,7 @@
               "event": "{'Records': [{'eventName': 'ObjectCreat…",
               "r": "{'eventName': 'ObjectCreated:Put', 's3'…",
               "record": "{'eventName': 'ObjectCreated:Put', 's3'…",
-              "obj": "{'key': 'demo.mp4', 'size': 5242880}"
+              "obj": "{'key': 'my+holiday%20video.mp4', 'size…"
             },
             "tones": {
               "event": "ok",
@@ -1151,6 +1151,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The pattern is to let Lambda start the job and let a dedicated service do.",
+            "activeActor": "minutes",
+            "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": {
+                  "var": "LAMBDA_LIMIT_MIN",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "minutes",
@@ -1165,10 +1182,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The pattern is to let Lambda start the job and let a dedicated service do.",
-            "activeActor": "minutes",
+            "at": "say7",
+            "caption": "Good serverless design is about putting each job where it fits best, not.",
+            "activeActor": "video_minutes",
             "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": {
+                  "var": "LAMBDA_LIMIT_MIN",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": {
+                  "var": "minutes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "LAMBDA_LIMIT_MIN",
                 "to": "minutes",
@@ -1188,14 +1225,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Good serverless design is about putting each job where it fits best, not.",
-            "activeActor": "video_minutes",
-            "messages": [
+              },
               {
                 "from": "LAMBDA_LIMIT_MIN",
                 "to": "minutes",
@@ -1238,12 +1268,6 @@
                 "to": "minutes",
                 "label": "15",
                 "tone": "data"
-              },
-              {
-                "from": "minutes",
-                "to": "video_minutes",
-                "label": "0.5",
-                "tone": "ok"
               }
             ],
             "activeActor": "LAMBDA_LIMIT_MIN"
@@ -1271,6 +1295,30 @@
             "at": "say7",
             "caption": "Good serverless design is about putting each job where it fits best, not.",
             "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": "0.5",
+                "tone": "ok"
+              },
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": "0.5",
+                "tone": "ok"
+              },
               {
                 "from": "LAMBDA_LIMIT_MIN",
                 "to": "minutes",
@@ -1318,7 +1366,7 @@
           },
           {
             "at": "say2",
-            "caption": "Save exactly {\"bucket\", \"output_url\", \"status\"} for each key,.",
+            "caption": "Return the two counts.",
             "currentState": "db",
             "transition": {
               "from": "event",
@@ -1374,7 +1422,7 @@
           },
           {
             "at": "say2",
-            "caption": "Save exactly {\"bucket\", \"output_url\", \"status\"} for each key,.",
+            "caption": "Return the two counts.",
             "currentState": "db",
             "transition": {
               "from": "event",

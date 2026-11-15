@@ -7,73 +7,40 @@
   "entries": [
     {
       "partTitle": "The Tripartite Memory Architecture And Cognitive Agent State Partitioning",
-      "codeHash": "b84c72dc93ad79518d5272f1368ab1c3dc9e8bfd4248449fb7ce7fb03668e6e3",
+      "codeHash": "161dda7300988fbb3df5fcd4cce75ffd33fb1fe783952c3cd433beb907a4ae1d",
       "spec": {
         "template": "table",
         "title": "The Tripartite Memory Architecture And Cognitive Agent State Par",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In single-agent conversational architectures, memory is typically treated.",
+            "caption": "Observe how memory shapes agent during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "class"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The tripartite cognitive memory hierarchy partitions agent state.",
+            "caption": "Verify the tripartite transition driving memory behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "class"
                   },
                   {
                     "out": 1
@@ -84,82 +51,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "class"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Mastering the tripartite memory architecture elevates prompt engineers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -173,106 +68,37 @@
         "title": "The Tripartite Memory Architecture And Cognitive Agent State Par",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In single-agent conversational architectures, memory is typically treated.",
+            "caption": "Observe how memory shapes agent during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "class",
+                  "Ephemeral tail: ['Turn2: scan keys', 'Turn3: rotate key']"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The tripartite cognitive memory hierarchy partitions agent state.",
+            "caption": "Verify the tripartite transition driving memory behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "class",
+                  "Ephemeral tail: ['Turn2: scan keys', 'Turn3: rotate key']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Mastering the tripartite memory architecture elevates prompt engineers.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
+                  "class",
+                  "Working blackboard: {'task': 'iam', 'keys_left': 0} | Long-term: {'org_tier': 'enterprise'}"
                 ],
                 "tone": "ok"
               }
@@ -283,275 +109,195 @@
     },
     {
       "partTitle": "Conflict Free Replicated Data Types And Swarm State Convergence",
-      "codeHash": "b84c72dc93ad79518d5272f1368ab1c3dc9e8bfd4248449fb7ce7fb03668e6e3",
+      "codeHash": "1bb4c33fd7f56a0895d1a10ceeb741f8867ae077f001a09ba2fb56617f5f669d",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "Conflict Free Replicated Data Types And Swarm State Convergence",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "rep_a",
+            "label": "rep_a",
+            "tappable": true
+          },
+          {
+            "id": "rep_b",
+            "label": "rep_b",
+            "tappable": true
+          },
+          {
+            "id": "merged",
+            "label": "merged",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When multiple autonomous agents collaborate across distributed cloud.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Inspect conflict updates as rep_a tracks free state.",
+            "values": {
+              "rep_a": {
+                "var": "rep_a",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "rep_b": {
+                "var": "rep_b",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "merged": {
+                "var": "merged",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "rep_a": "data",
+              "rep_b": "data",
+              "merged": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Conflict free replicated data types guarantee eventual state convergence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Verify the conflict transition driving free behavior.",
+            "values": {
+              "rep_a": {
+                "var": "rep_a",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "rep_b": {
+                "var": "rep_b",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "merged": {
+                "var": "merged",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "rep_a": "data",
+              "rep_b": "data",
+              "merged": "data"
+            },
+            "arrows": [
+              [
+                "rep_a",
+                "rep_b"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "By implementing CRDT state synchronization, enterprise AI platforms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Each receiving node merges the delta using a formal join semilattice operator.",
+            "values": {
+              "rep_a": {
+                "var": "rep_a",
+                "line": 3,
+                "hit": 7
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "rep_b": {
+                "var": "rep_b",
+                "line": 3,
+                "hit": 7
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "merged": {
+                "var": "merged",
+                "line": 3,
+                "hit": 7
               }
+            },
+            "tones": {
+              "rep_a": "ok",
+              "rep_b": "ok",
+              "merged": "ok"
+            },
+            "arrows": [
+              [
+                "rep_a",
+                "rep_b"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "Conflict Free Replicated Data Types And Swarm State Convergence",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "rep_a",
+            "label": "rep_a",
+            "tappable": true
+          },
+          {
+            "id": "rep_b",
+            "label": "rep_b",
+            "tappable": true
+          },
+          {
+            "id": "merged",
+            "label": "merged",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When multiple autonomous agents collaborate across distributed cloud.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Inspect conflict updates as rep_a tracks free state.",
+            "values": {
+              "rep_a": "{'budget': [5000, 10, 'n1'], 'region': …",
+              "rep_b": "{'budget': [6200, 11, 'n2'], 'owner': […",
+              "merged": "{}"
+            },
+            "tones": {
+              "rep_a": "data",
+              "rep_b": "data",
+              "merged": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Conflict free replicated data types guarantee eventual state convergence.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
+            "caption": "Verify the conflict transition driving free behavior.",
+            "values": {
+              "rep_a": "{'budget': [6200, 11, 'n2'], 'owner': […",
+              "rep_b": "{'budget': [5000, 10, 'n1'], 'region': …",
+              "merged": "{}"
+            },
+            "tones": {
+              "rep_a": "data",
+              "rep_b": "data",
+              "merged": "data"
+            },
+            "arrows": [
+              [
+                "rep_a",
+                "rep_b"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "By implementing CRDT state synchronization, enterprise AI platforms.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Each receiving node merges the delta using a formal join semilattice operator.",
+            "values": {
+              "rep_a": "{'budget': [6200, 11, 'n2'], 'owner': […",
+              "rep_b": "{'budget': [5000, 10, 'n1'], 'region': …",
+              "merged": "{'budget': [6200, 11, 'n2'], 'owner': […"
+            },
+            "tones": {
+              "rep_a": "ok",
+              "rep_b": "ok",
+              "merged": "ok"
+            },
+            "arrows": [
+              [
+                "rep_a",
+                "rep_b"
+              ]
             ]
           }
         ]
@@ -559,123 +305,68 @@
     },
     {
       "partTitle": "Working Memory And Shared Blackboard Concurrency Control Mechanisms",
-      "codeHash": "b84c72dc93ad79518d5272f1368ab1c3dc9e8bfd4248449fb7ce7fb03668e6e3",
+      "codeHash": "951829446af79f9b423e1c5164a73681288e9dcd4f419c3bebc9961aeb59040b",
       "spec": {
         "template": "table",
         "title": "Working Memory And Shared Blackboard Concurrency Control Mechani",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While CRDTs provide the mathematical foundation for distributed state.",
+            "caption": "Observe how working shapes memory during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "class"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Shared blackboard working memory architectures coordinate agents through.",
+            "caption": "Verify the working transition driving memory behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "class"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "class"
                   },
                   {
                     "out": 2
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Shared working memory blackboards transform autonomous agents into.",
+            "at": "say3",
+            "caption": "Examine the memory value produced for shared processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "class"
                   },
                   {
                     "out": 1
@@ -686,7 +377,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "class"
                   },
                   {
                     "out": 2
@@ -697,21 +388,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "class"
                   },
                   {
                     "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -725,106 +405,64 @@
         "title": "Working Memory And Shared Blackboard Concurrency Control Mechani",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While CRDTs provide the mathematical foundation for distributed state.",
+            "caption": "Observe how working shapes memory during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "class",
+                  "Agent A write: (True, 2)"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Shared blackboard working memory architectures coordinate agents through.",
+            "caption": "Verify the working transition driving memory behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "class",
+                  "Agent A write: (True, 2)"
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
+                  "class",
+                  "Agent B stale write: False current_ver: 2"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Shared working memory blackboards transform autonomous agents into.",
+            "at": "say3",
+            "caption": "Examine the memory value produced for shared processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "class",
+                  "Agent A write: (True, 2)"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
+                  "class",
+                  "Agent B stale write: False current_ver: 2"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
+                  "class",
+                  "Agent B retry with fresh version: (True, 3)"
                 ],
                 "tone": "ok"
               }
@@ -835,73 +473,40 @@
     },
     {
       "partTitle": "Persistent Long Term Memory Vaults And Semantic Knowledge Graph Grounding",
-      "codeHash": "b84c72dc93ad79518d5272f1368ab1c3dc9e8bfd4248449fb7ce7fb03668e6e3",
+      "codeHash": "3898209e78d6d427de220283d265fa98d02af2edb279a34bcbeb9ac8ecb59217",
       "spec": {
         "template": "table",
         "title": "Persistent Long Term Memory Vaults And Semantic Knowledge Graph ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While working memory coordinates ongoing tasks, enterprise autonomous.",
+            "caption": "Observe how long shapes term during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "EDGES"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Persistent long term memory vaults integrate vector embeddings.",
+            "caption": "Verify the graph transition driving pairing behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "EDGES"
                   },
                   {
                     "out": 1
@@ -912,82 +517,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "EDGES"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Persistent long-term memory architectures transform autonomous agents.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -1001,106 +534,37 @@
         "title": "Persistent Long Term Memory Vaults And Semantic Knowledge Graph ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While working memory coordinates ongoing tasks, enterprise autonomous.",
+            "caption": "Observe how long shapes term during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "EDGES",
+                  "ApexAPI --depends_on--> AuthCluster --hosted_in--> eu-central-1"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Persistent long term memory vaults integrate vector embeddings.",
+            "caption": "Verify the graph transition driving pairing behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "EDGES",
+                  "ApexAPI --depends_on--> AuthCluster --hosted_in--> eu-central-1"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Persistent long-term memory architectures transform autonomous agents.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
+                  "EDGES",
+                  "ApexAPI --depends_on--> AuthCluster --uses_cache--> Redis7"
                 ],
                 "tone": "ok"
               }
@@ -1111,275 +575,191 @@
     },
     {
       "partTitle": "Enterprise Agent Memory Engineering In High Concurrency Python",
-      "codeHash": "b84c72dc93ad79518d5272f1368ab1c3dc9e8bfd4248449fb7ce7fb03668e6e3",
+      "codeHash": "b4daa6e96feb46c43e2207011b1cc030a65bbe3c847ab728da383827121b96b1",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "Enterprise Agent Memory Engineering In High Concurrency Python",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "merged",
+            "label": "merged",
+            "tappable": true
+          },
+          {
+            "id": "rep",
+            "label": "rep",
+            "tappable": true
+          },
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating tripartite memory architectures, CRDT state synchronization.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Inspect agent updates as merged tracks memory state.",
+            "values": {
+              "merged": {
+                "var": "merged",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "rep": {
+                "text": ""
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "merged": "data",
+              "rep": "idle",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Industrial python memory engines implement state synchronization across.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Verify the memory transition driving high behavior.",
+            "values": {
+              "merged": {
+                "var": "merged",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "rep": {
+                "var": "rep",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "merged": "data",
+              "rep": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "merged",
+                "rep"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering enterprise agent memory systems and CRDT state synchronization.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the memory value produced for resilient processing.",
+            "values": {
+              "merged": {
+                "var": "merged",
+                "line": 4,
+                "hit": 7
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
+              "rep": {
+                "var": "rep",
+                "line": 4,
+                "hit": 7
               },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 7
               }
+            },
+            "tones": {
+              "merged": "ok",
+              "rep": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "merged",
+                "rep"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "Enterprise Agent Memory Engineering In High Concurrency Python",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "merged",
+            "label": "merged",
+            "tappable": true
+          },
+          {
+            "id": "rep",
+            "label": "rep",
+            "tappable": true
+          },
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating tripartite memory architectures, CRDT state synchronization.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Inspect agent updates as merged tracks memory state.",
+            "values": {
+              "merged": "{}",
+              "rep": "",
+              "k": ""
+            },
+            "tones": {
+              "merged": "data",
+              "rep": "idle",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Industrial python memory engines implement state synchronization across.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
+            "caption": "Verify the memory transition driving high behavior.",
+            "values": {
+              "merged": "{'step': ['plan', 1, 'east'], 'risk': […",
+              "rep": "{'step': ['exec', 3, 'west'], 'budget':…",
+              "k": "'risk'"
+            },
+            "tones": {
+              "merged": "data",
+              "rep": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "merged",
+                "rep"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering enterprise agent memory systems and CRDT state synchronization.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"memoryTiers\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\","
-                ],
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the memory value produced for resilient processing.",
+            "values": {
+              "merged": "{'step': ['exec', 3, 'west'], 'risk': […",
+              "rep": "{'risk': ['high', 5, 'eu']}",
+              "k": "'risk'"
+            },
+            "tones": {
+              "merged": "ok",
+              "rep": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "merged",
+                "rep"
+              ]
             ]
           }
         ]

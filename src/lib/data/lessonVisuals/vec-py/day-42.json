@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Foundations & Mathematical Invariants",
+      "partTitle": "Greedy Upper-Layer Routing Until Reaching Local Minima",
       "codeHash": "8ee607aa15739519b32a69101744b5116c6baab33c8c4871c7e0a10290d33176",
       "spec": {
         "template": "bars",
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the upper value produced for layer processing.",
             "bars": [
               {
                 "label": "curr_node",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the upper value produced for layer processing.",
             "bars": [
               {
                 "label": "curr_node",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Core Algorithm & State Representation",
+      "partTitle": "Priority-Queue Layer-Zero Beam Traversal with efSearch",
       "codeHash": "831a3114865cdb9cc4df007fc50792971637838abb80b31fda29673060e473f5",
       "spec": {
         "template": "bars",
@@ -318,7 +318,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the watching value produced for heap processing.",
             "bars": [
               {
                 "label": "entry_node",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the watching value produced for heap processing.",
             "bars": [
               {
                 "label": "entry_node",
@@ -446,7 +446,7 @@
       }
     },
     {
-      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Benchmarking the Recall-Latency Pareto Frontier Across ef Values",
       "codeHash": "1f672507de37937ffe0c68e26c238936d9e463f970dac4fa8c7c039144e119b6",
       "spec": {
         "template": "cells",
@@ -486,7 +486,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the latency value produced for recording processing.",
             "items": {
               "var": "ef_values",
               "line": 5,
@@ -540,7 +540,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the latency value produced for recording processing.",
             "items": [
               "16",
               "32",
@@ -558,8 +558,8 @@
       }
     },
     {
-      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Resilience Guardrails & Failure Recovery",
-      "codeHash": "e03103724a95c705592de87e6a6380250907851d1e4e9f65e5264ef92a39747d",
+      "partTitle": "Clamping Unbounded efSearch Requests to Protect Worker CPUs",
+      "codeHash": "e949f652a019bbed8c99712e2bf96c6928fcd94011d69307577cf94d9dab3ad7",
       "spec": {
         "template": "flow",
         "title": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pa",
@@ -602,12 +602,12 @@
           },
           {
             "at": "say2",
-            "caption": "If a client application passes an excessively large efSearch value (such.",
+            "caption": "Verify the efsearch transition driving worker behavior.",
             "values": {
               "ef": {
                 "var": "ef",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "min_k": {
                 "var": "min_k",
@@ -628,12 +628,12 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the separating value produced for parameter processing.",
             "values": {
               "ef": {
                 "var": "ef",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "min_k": {
                 "var": "min_k",
@@ -672,7 +672,7 @@
             "at": "say1",
             "caption": "Production query routers must validate and clamp user-supplied efSearch.",
             "values": {
-              "ef": "5",
+              "ef": "999999",
               "min_k": "10"
             },
             "tones": {
@@ -688,7 +688,7 @@
           },
           {
             "at": "say2",
-            "caption": "If a client application passes an excessively large efSearch value (such.",
+            "caption": "Verify the efsearch transition driving worker behavior.",
             "values": {
               "ef": "5",
               "min_k": "10"
@@ -706,7 +706,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the separating value produced for parameter processing.",
             "values": {
               "ef": "5",
               "min_k": "10"
@@ -726,15 +726,15 @@
       }
     },
     {
-      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Production Telemetry & Verification Audit",
-      "codeHash": "91460e732f991a9c3831969ab05652863c1ba981444e3f5d0b85dc6d6e34f4ff",
+      "partTitle": "Diagnosing Graph Degradation via Mean and Max Hop Telemetry",
+      "codeHash": "1799fd46e35accc1d888631426b0871e8d0aab7936e405470932da13439ad2c0",
       "spec": {
         "template": "cells",
         "title": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pa",
         "steps": [
           {
             "at": "say1",
-            "caption": "Telemetry tracking in HNSW clusters monitors graph hop counts across.",
+            "caption": "Observe how graph shapes telemetry during this step.",
             "items": {
               "var": "hops",
               "line": 2,
@@ -772,7 +772,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Telemetry tracking in HNSW clusters monitors graph hop counts across.",
+            "caption": "Observe how graph shapes telemetry during this step.",
             "items": [
               "4",
               "6",

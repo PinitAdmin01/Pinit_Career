@@ -46,7 +46,7 @@
           },
           {
             "at": "say11",
-            "caption": "A class keeps the records and the rules for changing them together,.",
+            "caption": "A class keeps the records and the rules for changing them together.",
             "items": {
               "var": "vector",
               "line": 4,
@@ -98,7 +98,7 @@
           },
           {
             "at": "say11",
-            "caption": "A class keeps the records and the rules for changing them together,.",
+            "caption": "A class keeps the records and the rules for changing them together.",
             "items": [
               "0.2",
               "0.8"
@@ -209,7 +209,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how deletes updates also during execution.",
+            "caption": "Examine the deletes value produced for legal processing.",
             "values": {
               "records": {
                 "var": "records",
@@ -313,7 +313,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how deletes updates also during execution.",
+            "caption": "Examine the deletes value produced for legal processing.",
             "values": {
               "records": "{'a': {'v': [1, 0], 'deleted': True}, '…",
               "id_": "'a'",
@@ -532,18 +532,18 @@
               },
               "latest": {
                 "var": "latest",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "id_": {
                 "var": "id_",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "version": {
                 "var": "version",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -578,18 +578,18 @@
               },
               "latest": {
                 "var": "latest",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "id_": {
                 "var": "id_",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 5
               },
               "version": {
                 "var": "version",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -672,9 +672,9 @@
             "caption": "Updates and deletes add new entries and tombstones instead of editing old.",
             "values": {
               "log": "[['a', 1, False], ['a', 2, False], ['b'…",
-              "latest": "{}",
-              "id_": "'a'",
-              "version": "1"
+              "latest": "{'a': [1, False]}",
+              "id_": "'b'",
+              "version": "2"
             },
             "tones": {
               "log": "data",
@@ -702,8 +702,8 @@
             "caption": "Many systems compact at quiet times of day, such as overnight, to avoid.",
             "values": {
               "log": "[['a', 1, False], ['a', 2, False], ['b'…",
-              "latest": "{}",
-              "id_": "'a'",
+              "latest": "{'a': [2, False]}",
+              "id_": "'c'",
               "version": "1"
             },
             "tones": {
@@ -807,12 +807,12 @@
             "values": {
               "written": {
                 "var": "written",
-                "line": 2,
+                "line": 6,
                 "hit": 1
               },
               "searchable": {
                 "var": "searchable",
-                "line": 2,
+                "line": 8,
                 "hit": 1
               },
               "doc": {
@@ -853,12 +853,12 @@
             "values": {
               "written": {
                 "var": "written",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "searchable": {
                 "var": "searchable",
-                "line": 4,
+                "line": 8,
                 "hit": 1
               },
               "doc": {
@@ -951,8 +951,8 @@
             "at": "say2",
             "caption": "Many vector databases are eventually consistent.",
             "values": {
-              "written": "[]",
-              "searchable": "[]",
+              "written": "['new-policy']",
+              "searchable": "['new-policy']",
               "doc": "'new-policy'",
               "d": "'new-policy'"
             },
@@ -981,8 +981,8 @@
             "at": "say10",
             "caption": "Tomorrow spreads data across machines, where these questions become even.",
             "values": {
-              "written": "[]",
-              "searchable": "[]",
+              "written": "['new-policy']",
+              "searchable": "['new-policy']",
               "doc": "'new-policy'",
               "d": "'new-policy'"
             },

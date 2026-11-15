@@ -73,7 +73,7 @@
           },
           {
             "at": "say10",
-            "caption": "DNS inspection remains a critical perimeter security discipline because.",
+            "caption": "Examine the classifiers value produced for covert processing.",
             "activeActor": "desc",
             "messages": [
               {
@@ -149,7 +149,7 @@
           },
           {
             "at": "say10",
-            "caption": "DNS inspection remains a critical perimeter security discipline because.",
+            "caption": "Examine the classifiers value produced for covert processing.",
             "messages": [
               {
                 "from": "DNS_THREAT_TAXONOMY",
@@ -321,7 +321,7 @@
           },
           {
             "at": "say10",
-            "caption": "Phonetic frequency analysis catches evasive algorithmically generated.",
+            "caption": "Examine the edge value produced for linguistic processing.",
             "currentState": "text",
             "transition": {
               "from": "dga_label",
@@ -373,7 +373,7 @@
           },
           {
             "at": "say10",
-            "caption": "Phonetic frequency analysis catches evasive algorithmically generated.",
+            "caption": "Examine the edge value produced for linguistic processing.",
             "currentState": "text",
             "transition": {
               "from": "dga_label",
@@ -538,16 +538,14 @@
                 "hit": 1
               },
               "dga_rules_loaded": {
-                "var": "dga_rules_loaded",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "entropy_filter_active": "data",
               "vowel_ratio_active": "data",
               "tunnel_reassembler_ready": "data",
-              "dga_rules_loaded": "data"
+              "dga_rules_loaded": "idle"
             }
           },
           {
@@ -584,7 +582,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous DNS defense auditing asserts that all classification algorithms.",
+            "caption": "Fail-closed verification catches logging blindness early.",
             "values": {
               "entropy_filter_active": {
                 "var": "entropy_filter_active",
@@ -645,13 +643,13 @@
               "entropy_filter_active": "True",
               "vowel_ratio_active": "True",
               "tunnel_reassembler_ready": "True",
-              "dga_rules_loaded": "True"
+              "dga_rules_loaded": ""
             },
             "tones": {
               "entropy_filter_active": "data",
               "vowel_ratio_active": "data",
               "tunnel_reassembler_ready": "data",
-              "dga_rules_loaded": "data"
+              "dga_rules_loaded": "idle"
             }
           },
           {
@@ -672,7 +670,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous DNS defense auditing asserts that all classification algorithms.",
+            "caption": "Fail-closed verification catches logging blindness early.",
             "values": {
               "entropy_filter_active": "True",
               "vowel_ratio_active": "True",

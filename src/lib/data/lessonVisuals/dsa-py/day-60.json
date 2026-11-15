@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Stage 2 embeds an exact **Sorted Order Book Price Ladder** backed by our.",
+            "caption": "Observe how stage shapes seeded during this step.",
             "bars": [
               {
                 "label": "max_lvl",
@@ -376,7 +376,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Stage 2 embeds an exact **Sorted Order Book Price Ladder** backed by our.",
+            "caption": "Observe how stage shapes seeded during this step.",
             "bars": [
               {
                 "label": "max_lvl",
@@ -480,7 +480,7 @@
           },
           {
             "at": "say2",
-            "caption": "First, given candidate proprietary trade baskets `(trade_id, risk_cost.",
+            "caption": "Verify the branch transition driving bound behavior.",
             "items": {
               "var": "mesh",
               "line": 69,
@@ -522,7 +522,7 @@
           },
           {
             "at": "say2",
-            "caption": "First, given candidate proprietary trade baskets `(trade_id, risk_cost.",
+            "caption": "Verify the branch transition driving bound behavior.",
             "items": [
               "'..........'",
               "'.###..###.'",
@@ -563,7 +563,7 @@
           },
           {
             "at": "say2",
-            "caption": "Watch how a single end-to-end trading execution scenario exercises every.",
+            "caption": "Verify the trading transition driving watch behavior.",
             "items": {
               "var": "brokers",
               "line": 32,
@@ -602,7 +602,7 @@
           },
           {
             "at": "say2",
-            "caption": "Watch how a single end-to-end trading execution scenario exercises every.",
+            "caption": "Verify the trading transition driving watch behavior.",
             "mode": "stack",
             "items": [
               "'ny4'",

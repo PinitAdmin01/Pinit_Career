@@ -587,16 +587,14 @@
                 "hit": 1
               },
               "special_tokens": {
-                "var": "special_tokens",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "vocab": "data",
               "special": "data",
               "self": "data",
-              "special_tokens": "data"
+              "special_tokens": "idle"
             },
             "arrows": [
               [
@@ -736,13 +734,13 @@
               "vocab": "{'<unk>': 0, '<s>': 1, '</s>': 2, '<|im…",
               "special": "['<s>', '</s>', '<|im_start|>', '<|im_e…",
               "self": "<ProductionTokenizerValidator>",
-              "special_tokens": "['<s>', '</s>', '<|im_start|>', '<|im_e…"
+              "special_tokens": ""
             },
             "tones": {
               "vocab": "data",
               "special": "data",
               "self": "data",
-              "special_tokens": "data"
+              "special_tokens": "idle"
             },
             "arrows": [
               [

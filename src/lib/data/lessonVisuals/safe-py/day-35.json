@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Input Firewall Architecture — Foundations & Mathematical Invariants",
+      "partTitle": "Pre-Dispatch Boundary Gate in `InputFirewallPipeline`",
       "codeHash": "34bb24c139af7081556d1d2d05b18cef7f4542df9bf27e1b44fdbfb56131b8c7",
       "spec": {
         "template": "flow",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates brings during execution.",
+            "caption": "Inspect milestone updates as self tracks brings state.",
             "values": {
               "self": {
                 "var": "self",
@@ -97,8 +97,8 @@
               },
               "text": {
                 "var": "text",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -143,8 +143,8 @@
               },
               "text": {
                 "var": "text",
-                "line": 9,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -194,7 +194,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates brings during execution.",
+            "caption": "Inspect milestone updates as self tracks brings state.",
             "values": {
               "self": "<InputFirewallPipeline>",
               "max_chars": "500",
@@ -229,7 +229,7 @@
               "self": "<InputFirewallPipeline>",
               "max_chars": "500",
               "fw": "<InputFirewallPipeline>",
-              "text": "'Normal safe user query about weather'"
+              "text": "'Please ignore previous instructions an…"
             },
             "tones": {
               "self": "data",
@@ -259,7 +259,7 @@
               "self": "<InputFirewallPipeline>",
               "max_chars": "500",
               "fw": "<InputFirewallPipeline>",
-              "text": "'Normal safe user query about weather'"
+              "text": "'Please ignore previous instructions an…"
             },
             "tones": {
               "self": "ok",
@@ -286,7 +286,7 @@
       }
     },
     {
-      "partTitle": "Input Firewall Architecture — Core Algorithm & State Representation",
+      "partTitle": "Unified Normalization Pass inside `full_firewall_sanitize`",
       "codeHash": "9cd5a313bd02429a6abf972042fe415fc0d78cb424234e4d9edc2d9c3da6ccbb",
       "spec": {
         "template": "states",
@@ -394,115 +394,195 @@
       }
     },
     {
-      "partTitle": "Input Firewall Architecture — Production Implementation & Boundary Mechanics",
+      "partTitle": "Continuous Adversarial Risk Scoring via `compute_firewall_threat_score`",
       "codeHash": "3b993b5c7d6bd576f088fde7b85bcf7d9b78fa8bc0d91584325df702c9cf2b7e",
       "spec": {
-        "template": "states",
-        "title": "Input Firewall Architecture — Production Implementation & Bounda",
-        "states": [
+        "template": "flow",
+        "title": "Continuous Adversarial Risk Scoring via `compute_firewall_threat",
+        "nodes": [
           {
             "id": "text",
-            "label": "text"
+            "label": "text",
+            "tappable": true
           },
           {
             "id": "score",
-            "label": "score"
+            "label": "score",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "k",
+            "label": "k",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The threat scoring engine calculates a continuous normalized risk score.",
-            "currentState": "text",
-            "tone": "data"
+            "caption": "Inspect continuous updates as text tracks risk state.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
+              },
+              "score": {
+                "var": "score",
+                "line": 2,
+                "hit": 1
+              },
+              "k": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "text": "data",
+              "score": "data",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Feature extractors evaluate input length, forbidden character presence.",
-            "currentState": "score",
-            "transition": {
-              "from": "text",
-              "to": "score",
-              "label": {
-                "var": "score",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tone": "data"
-          },
-          {
-            "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for multi-layered.",
-            "currentState": ".0",
-            "transition": {
-              "from": "score",
-              "to": ".0",
-              "label": {
-                "var": ".0",
+            "caption": "Verify the adversarial transition driving feature behavior.",
+            "values": {
+              "text": {
+                "text": ""
+              },
+              "score": {
+                "text": ""
+              },
+              "k": {
+                "var": "k",
                 "line": 5,
                 "hit": 3
               }
             },
-            "tone": "ok"
+            "tones": {
+              "text": "idle",
+              "score": "idle",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "score"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the individual value produced for feature processing.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 7
+              },
+              "score": {
+                "var": "score",
+                "line": 5,
+                "hit": 7
+              },
+              "k": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "text": "ok",
+              "score": "ok",
+              "k": "idle"
+            },
+            "arrows": [
+              [
+                "text",
+                "score"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Input Firewall Architecture — Production Implementation & Bounda",
-        "states": [
+        "template": "flow",
+        "title": "Continuous Adversarial Risk Scoring via `compute_firewall_threat",
+        "nodes": [
           {
             "id": "text",
-            "label": "text"
+            "label": "text",
+            "tappable": true
           },
           {
             "id": "score",
-            "label": "score"
+            "label": "score",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "k",
+            "label": "k",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The threat scoring engine calculates a continuous normalized risk score.",
-            "currentState": "text",
-            "tone": "data"
+            "caption": "Inspect continuous updates as text tracks risk state.",
+            "values": {
+              "text": "'How do I reset my password?'",
+              "score": "0",
+              "k": ""
+            },
+            "tones": {
+              "text": "data",
+              "score": "data",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Feature extractors evaluate input length, forbidden character presence.",
-            "currentState": "score",
-            "transition": {
-              "from": "text",
-              "to": "score",
-              "label": "0"
+            "caption": "Verify the adversarial transition driving feature behavior.",
+            "values": {
+              "text": "",
+              "score": "",
+              "k": "'jailbreak'"
             },
-            "tone": "data"
+            "tones": {
+              "text": "idle",
+              "score": "idle",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "score"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for multi-layered.",
-            "currentState": ".0",
-            "transition": {
-              "from": "score",
-              "to": ".0",
-              "label": "{'__other__': 'tuple_iterator'}"
+            "at": "say3",
+            "caption": "Examine the individual value produced for feature processing.",
+            "values": {
+              "text": "'Give me admin jailbreak root access'",
+              "score": "0.4",
+              "k": ""
             },
-            "tone": "ok"
+            "tones": {
+              "text": "ok",
+              "score": "ok",
+              "k": "idle"
+            },
+            "arrows": [
+              [
+                "text",
+                "score"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Input Firewall Architecture — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Dual-Plane Inspection Counters in `DefenseEngineM7`",
       "codeHash": "c8d162032c2e69d40247b8d18449ec1ca1cedde48faa46427649454ec7ea8ec0",
       "spec": {
         "template": "states",
@@ -545,7 +625,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the dual value produced for defenseenginem7 processing.",
             "currentState": "user_msg",
             "transition": {
               "from": "engine",
@@ -597,7 +677,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the dual value produced for defenseenginem7 processing.",
             "currentState": "user_msg",
             "transition": {
               "from": "engine",
@@ -610,109 +690,193 @@
       }
     },
     {
-      "partTitle": "Input Firewall Architecture — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "e667ddf0c929d69cebc8c7a7a78bb02c10b9449ef4458db8b840ad1dfb965783",
+      "partTitle": "Drop-Rate Health Alerting with `verify_m7_firewall_telemetry`",
+      "codeHash": "dc41fffaae1061f88de5bbee502fc3082dbd8eb938ee0d78208900b3444d21a3",
       "spec": {
-        "template": "states",
-        "title": "Input Firewall Architecture — Production Capstone & Enterprise S",
-        "states": [
+        "template": "flow",
+        "title": "Drop-Rate Health Alerting with `verify_m7_firewall_telemetry`",
+        "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "dropped",
-            "label": "dropped"
+            "label": "dropped",
+            "tappable": true
           },
           {
             "id": "drop_rate",
-            "label": "drop_rate"
+            "label": "drop_rate",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production telemetry verification ensures that the input firewall operates.",
-            "currentState": "total_queries",
-            "tone": "data"
+            "caption": "Inspect firewall updates as total_queries tracks telemetry state.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 2,
+                "hit": 1
+              },
+              "dropped": {
+                "var": "dropped",
+                "line": 2,
+                "hit": 1
+              },
+              "drop_rate": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "total_queries": "data",
+              "dropped": "data",
+              "drop_rate": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The verify_m7_firewall_telemetry function calculates the overall drop rate.",
-            "currentState": "dropped",
-            "transition": {
-              "from": "total_queries",
-              "to": "dropped",
-              "label": {
+            "caption": "Verify the drop transition driving rate behavior.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 2,
+                "hit": 2
+              },
+              "dropped": {
                 "var": "dropped",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
+              },
+              "drop_rate": {
+                "text": ""
               }
             },
-            "tone": "data"
+            "tones": {
+              "total_queries": "data",
+              "dropped": "data",
+              "drop_rate": "idle"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "dropped"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "currentState": "drop_rate",
-            "transition": {
-              "from": "dropped",
-              "to": "drop_rate",
-              "label": {
+            "at": "say3",
+            "caption": "Examine the drop value produced for rate processing.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 5,
+                "hit": 2
+              },
+              "dropped": {
+                "var": "dropped",
+                "line": 5,
+                "hit": 2
+              },
+              "drop_rate": {
                 "var": "drop_rate",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
-            "tone": "ok"
+            "tones": {
+              "total_queries": "ok",
+              "dropped": "ok",
+              "drop_rate": "ok"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "dropped"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Input Firewall Architecture — Production Capstone & Enterprise S",
-        "states": [
+        "template": "flow",
+        "title": "Drop-Rate Health Alerting with `verify_m7_firewall_telemetry`",
+        "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "dropped",
-            "label": "dropped"
+            "label": "dropped",
+            "tappable": true
           },
           {
             "id": "drop_rate",
-            "label": "drop_rate"
+            "label": "drop_rate",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production telemetry verification ensures that the input firewall operates.",
-            "currentState": "total_queries",
-            "tone": "data"
+            "caption": "Inspect firewall updates as total_queries tracks telemetry state.",
+            "values": {
+              "total_queries": "10000",
+              "dropped": "184",
+              "drop_rate": ""
+            },
+            "tones": {
+              "total_queries": "data",
+              "dropped": "data",
+              "drop_rate": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The verify_m7_firewall_telemetry function calculates the overall drop rate.",
-            "currentState": "dropped",
-            "transition": {
-              "from": "total_queries",
-              "to": "dropped",
-              "label": "184"
+            "caption": "Verify the drop transition driving rate behavior.",
+            "values": {
+              "total_queries": "100",
+              "dropped": "40",
+              "drop_rate": ""
             },
-            "tone": "data"
+            "tones": {
+              "total_queries": "data",
+              "dropped": "data",
+              "drop_rate": "idle"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "dropped"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "currentState": "drop_rate",
-            "transition": {
-              "from": "dropped",
-              "to": "drop_rate",
-              "label": "1.84"
+            "at": "say3",
+            "caption": "Examine the drop value produced for rate processing.",
+            "values": {
+              "total_queries": "100",
+              "dropped": "40",
+              "drop_rate": "40"
             },
-            "tone": "ok"
+            "tones": {
+              "total_queries": "ok",
+              "dropped": "ok",
+              "drop_rate": "ok"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "dropped"
+              ]
+            ]
           }
         ]
       }

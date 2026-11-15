@@ -64,7 +64,7 @@
           },
           {
             "at": "say2",
-            "caption": "Participants include investors (pension funds, mutual funds, people like.",
+            "caption": "Verify the participants transition driving include behavior.",
             "values": {
               "modules": {
                 "var": "modules",
@@ -180,7 +180,7 @@
           },
           {
             "at": "say2",
-            "caption": "Participants include investors (pension funds, mutual funds, people like.",
+            "caption": "Verify the participants transition driving include behavior.",
             "values": {
               "modules": "[[2, 'limit order book'], [3, 'matching…",
               "day": "2",
@@ -302,7 +302,7 @@
           },
           {
             "at": "say2",
-            "caption": "The best bid and best ask across all exchanges are called the NBBO,.",
+            "caption": "India has a similar idea across NSE and BSE.",
             "values": {
               "quotes": {
                 "var": "quotes",
@@ -311,8 +311,8 @@
               },
               "name": {
                 "var": "name",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "bid": {
                 "var": "bid",
@@ -321,8 +321,8 @@
               },
               "ask": {
                 "var": "ask",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -357,8 +357,8 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "bid": {
                 "var": "bid",
@@ -367,8 +367,8 @@
               },
               "ask": {
                 "var": "ask",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -448,12 +448,12 @@
           },
           {
             "at": "say2",
-            "caption": "The best bid and best ask across all exchanges are called the NBBO,.",
+            "caption": "India has a similar idea across NSE and BSE.",
             "values": {
               "quotes": "{'liquid stock': [100, 100.01], 'illiqu…",
-              "name": "'liquid stock'",
+              "name": "'illiquid stock'",
               "bid": "100",
-              "ask": "100.01"
+              "ask": "100.4"
             },
             "tones": {
               "quotes": "data",
@@ -481,9 +481,9 @@
             "caption": "The example prints the spread for a liquid and an illiquid stock.",
             "values": {
               "quotes": "{'liquid stock': [100, 100.01], 'illiqu…",
-              "name": "'liquid stock'",
+              "name": "'illiquid stock'",
               "bid": "100",
-              "ask": "100.01"
+              "ask": "100.4"
             },
             "tones": {
               "quotes": "ok",
@@ -535,6 +535,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Many benchmarks use it.",
+            "activeActor": "bid",
+            "messages": [
+              {
+                "from": "price",
+                "to": "bid",
+                "label": {
+                  "var": "price",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bid",
@@ -549,10 +566,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Many benchmarks use it.",
-            "activeActor": "bid",
+            "at": "say7",
+            "caption": "Get used to thinking in basis points.",
+            "activeActor": "ask",
             "messages": [
+              {
+                "from": "price",
+                "to": "bid",
+                "label": {
+                  "var": "price",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "ask",
+                "label": {
+                  "var": "bid",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "price",
                 "to": "bid",
@@ -572,14 +609,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Get used to thinking in basis points.",
-            "activeActor": "ask",
-            "messages": [
+              },
               {
                 "from": "price",
                 "to": "bid",
@@ -622,12 +652,6 @@
                 "to": "bid",
                 "label": "30",
                 "tone": "data"
-              },
-              {
-                "from": "bid",
-                "to": "ask",
-                "label": "30",
-                "tone": "ok"
               }
             ],
             "activeActor": "price"
@@ -655,6 +679,30 @@
             "at": "say7",
             "caption": "Get used to thinking in basis points.",
             "messages": [
+              {
+                "from": "price",
+                "to": "bid",
+                "label": "30",
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "ask",
+                "label": "30",
+                "tone": "ok"
+              },
+              {
+                "from": "price",
+                "to": "bid",
+                "label": "30",
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "ask",
+                "label": "30",
+                "tone": "ok"
+              },
               {
                 "from": "price",
                 "to": "bid",
@@ -1164,7 +1212,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how round updates spread during execution.",
+            "caption": "Verify the round transition driving spread behavior.",
             "bars": [
               {
                 "label": "p",
@@ -1280,7 +1328,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how round updates spread during execution.",
+            "caption": "Verify the round transition driving spread behavior.",
             "bars": [
               {
                 "label": "p",

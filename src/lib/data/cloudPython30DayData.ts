@@ -251,7 +251,7 @@ const DAYS: Day[] = [
       "desc": "Write `parse_s3_record(record)` returning {'bucket': ..., 'key': ..., 'size': ...} from one S3 event record. S3 events URL-encode object keys, so a key with spaces arrives as 'my+holiday%20video.mp4'. Turn every '+' and every '%20' back into a space.",
       "starter": "def parse_s3_record(record):\n    pass",
       "hint": "key = record['s3']['object']['key'].replace('+', ' ').replace('%20', ' ')",
-      "test": "r = {'s3': {'bucket': {'name': 'b1'}, 'object': {'key': 'vid.mp4', 'size': 1024}}}\nassert parse_s3_record(r) == {'bucket': 'b1', 'key': 'vid.mp4', 'size': 1024}, 'Read the three fields'\nspaced = {'s3': {'bucket': {'name': 'b1'}, 'object': {'key': 'my+holiday%20video.mp4', 'size': 5}}}\nassert parse_s3_record(spaced)['key'] == 'my holiday video.mp4', 'Decode + and %20 into spaces'\nprint('All checks passed.')"
+      "test": "r = {'s3': {'bucket': {'name': 'b1'}, 'object': {'key': 'vid.mp4', 'size': 1024}}}\nassert parse_s3_record(r) == {'bucket': 'b1', 'key': 'vid.mp4', 'size': 1024}, 'Read the three fields'\nspaced = {'s3': {'bucket': {'name': 'b1'}, 'object': {'key': 'my+holiday%20video.mp4', 'size': 5}}}\nassert parse_s3_record(spaced)['key'] == 'my holiday video.mp4', 'Decode + and %20 into spaces'\nassert parse_s3_record({'s3': {'bucket': {'name': 'x'}, 'object': {'key': 'a/b+c.txt', 'size': 0}}}) == {'bucket': 'x', 'key': 'a/b c.txt', 'size': 0}, 'Prefix path and zero size'\nprint('All checks passed.')"
     }
   },
   {
@@ -267,7 +267,7 @@ const DAYS: Day[] = [
       "desc": "CloudFront caches by a 'cache key'. Write `cache_key(path, headers, query, key_headers, key_params)`. Lowercase all header names; keep only the headers named in key_headers (given in lowercase) and the query params named in key_params. Return a string: path, then '|' and 'name=value' pairs of the kept headers sorted by name joined by '&', then '|' and the kept query params sorted by name, joined by '&'.",
       "starter": "def cache_key(path, headers, query, key_headers, key_params):\n    pass",
       "hint": "h = {k.lower(): v for k, v in headers.items()}; kept = sorted((k, h[k]) for k in key_headers if k in h)",
-      "test": "headers = {'Accept-Language': 'en', 'User-Agent': 'Mozilla', 'X-Device': 'mobile'}\nquery = {'page': '2', 'utm_source': 'ad', 'sort': 'price'}\nk = cache_key('/products', headers, query, ['x-device', 'accept-language'], ['sort', 'page'])\nassert k == '/products|accept-language=en&x-device=mobile|page=2&sort=price', f'Got {k}'\nother = cache_key('/products', {'x-device': 'mobile', 'accept-language': 'en', 'User-Agent': 'Chrome'}, {'sort': 'price', 'page': '2', 'utm_source': 'mail'}, ['x-device', 'accept-language'], ['sort', 'page'])\nassert other == k, 'User-Agent and utm_source are not in the key, so both visitors share one cached copy'\nprint('All checks passed.')"
+      "test": "headers = {'Accept-Language': 'en', 'User-Agent': 'Mozilla', 'X-Device': 'mobile'}\nquery = {'page': '2', 'utm_source': 'ad', 'sort': 'price'}\nk = cache_key('/products', headers, query, ['x-device', 'accept-language'], ['sort', 'page'])\nassert k == '/products|accept-language=en&x-device=mobile|page=2&sort=price', f'Got {k}'\nother = cache_key('/products', {'x-device': 'mobile', 'accept-language': 'en', 'User-Agent': 'Chrome'}, {'sort': 'price', 'page': '2', 'utm_source': 'mail'}, ['x-device', 'accept-language'], ['sort', 'page'])\nassert other == k, 'User-Agent and utm_source are not in the key, so both visitors share one cached copy'\nassert cache_key('/api', {}, {}, [], []) == '/api||', 'No kept headers or params'\nprint('All checks passed.')"
     }
   },
   {
@@ -331,7 +331,7 @@ const DAYS: Day[] = [
       "desc": "Write `make_event(source, detail_type, detail, event_id, time)` returning an EventBridge event: {'version': '0', 'id': event_id, 'source': source, 'detail-type': detail_type, 'time': time, 'detail': detail}. The source must look like 'company.service' (contain a dot and not start with 'aws.', which is reserved for AWS); otherwise raise ValueError.",
       "starter": "def make_event(source, detail_type, detail, event_id, time):\n    pass",
       "hint": "if '.' not in source or source.startswith('aws.'): raise ValueError(...)",
-      "test": "e = make_event('pinit.orders', 'OrderPlaced', {'order_id': 101}, 'ev-1', '2026-09-29T10:00:00Z')\nassert e == {'version': '0', 'id': 'ev-1', 'source': 'pinit.orders', 'detail-type': 'OrderPlaced', 'time': '2026-09-29T10:00:00Z', 'detail': {'order_id': 101}}, f'Got {e}'\nfor bad in ('orders', 'aws.ec2'):\n    try:\n        make_event(bad, 'X', {}, 'ev-2', '2026-09-29T10:00:00Z')\n        raise AssertionError(f'{bad} is not an allowed custom source')\n    except ValueError:\n        pass\nprint('All checks passed.')"
+      "test": "e = make_event('pinit.orders', 'OrderPlaced', {'order_id': 101}, 'ev-1', '2026-09-29T10:00:00Z')\nassert e == {'version': '0', 'id': 'ev-1', 'source': 'pinit.orders', 'detail-type': 'OrderPlaced', 'time': '2026-09-29T10:00:00Z', 'detail': {'order_id': 101}}, f'Got {e}'\nfor bad in ('orders', 'aws.ec2'):\n    try:\n        make_event(bad, 'X', {}, 'ev-2', '2026-09-29T10:00:00Z')\n        raise AssertionError(f'{bad} is not an allowed custom source')\n    except ValueError:\n        pass\nassert e['version'] == '0' and e['detail-type'] == 'OrderPlaced', 'Expected EventBridge version and detail-type'\nassert make_event('acme.pay', 'Paid', {}, 'e9', '2026-01-01T00:00:00Z')['source'] == 'acme.pay', 'Custom source accepted'\nprint('All checks passed.')"
     }
   },
   {
@@ -347,7 +347,7 @@ const DAYS: Day[] = [
       "desc": "Write `redrive(messages, max_receive_count)` where messages is a list of {'id', 'receive_count'}. SQS moves a message to the dead letter queue once it has been received MORE than max_receive_count times. Return (main, dlq): two lists of ids, keeping the original order.",
       "starter": "def redrive(messages, max_receive_count):\n    pass",
       "hint": "main = [m['id'] for m in messages if m['receive_count'] <= max_receive_count]",
-      "test": "msgs = [{'id': 'a', 'receive_count': 1}, {'id': 'b', 'receive_count': 4}, {'id': 'c', 'receive_count': 3}, {'id': 'd', 'receive_count': 5}]\nassert redrive(msgs, 3) == (['a', 'c'], ['b', 'd']), 'More than 3 receives: to the DLQ'\nassert redrive(msgs, 10) == (['a', 'b', 'c', 'd'], []), 'Nobody has failed 10 times yet'\nprint('All checks passed.')"
+      "test": "msgs = [{'id': 'a', 'receive_count': 1}, {'id': 'b', 'receive_count': 4}, {'id': 'c', 'receive_count': 3}, {'id': 'd', 'receive_count': 5}]\nassert redrive(msgs, 3) == (['a', 'c'], ['b', 'd']), 'More than 3 receives: to the DLQ'\nassert redrive(msgs, 10) == (['a', 'b', 'c', 'd'], []), 'Nobody has failed 10 times yet'\nassert redrive([], 3) == ([], []), 'No messages'\nprint('All checks passed.')"
     }
   },
   {
@@ -363,7 +363,7 @@ const DAYS: Day[] = [
       "desc": "Write `container_env(plain, secrets)`. plain is a dict of normal settings (name to value); secrets is a dict of name to a Secrets Manager ARN. Return {'environment': [{'name', 'value'} sorted by name], 'secrets': [{'name', 'valueFrom'} sorted by name]}. If a name is in both, raise ValueError (a secret must never also be written as plain text).",
       "starter": "def container_env(plain, secrets):\n    pass",
       "hint": "clash = set(plain) & set(secrets); if clash: raise ValueError(...)",
-      "test": "env = container_env({'PORT': '8080', 'LOG_LEVEL': 'info'}, {'DB_PASS': 'arn:aws:secretsmanager:us-east-1:1:secret:db'})\nassert env == {\n    'environment': [{'name': 'LOG_LEVEL', 'value': 'info'}, {'name': 'PORT', 'value': '8080'}],\n    'secrets': [{'name': 'DB_PASS', 'valueFrom': 'arn:aws:secretsmanager:us-east-1:1:secret:db'}],\n}, f'Got {env}'\ntry:\n    container_env({'DB_PASS': 'hunter2'}, {'DB_PASS': 'arn:x'})\n    raise AssertionError('DB_PASS is in both lists: raise ValueError')\nexcept ValueError:\n    pass\nprint('All checks passed.')"
+      "test": "env = container_env({'PORT': '8080', 'LOG_LEVEL': 'info'}, {'DB_PASS': 'arn:aws:secretsmanager:us-east-1:1:secret:db'})\nassert env == {\n    'environment': [{'name': 'LOG_LEVEL', 'value': 'info'}, {'name': 'PORT', 'value': '8080'}],\n    'secrets': [{'name': 'DB_PASS', 'valueFrom': 'arn:aws:secretsmanager:us-east-1:1:secret:db'}],\n}, f'Got {env}'\ntry:\n    container_env({'DB_PASS': 'hunter2'}, {'DB_PASS': 'arn:x'})\n    raise AssertionError('DB_PASS is in both lists: raise ValueError')\nexcept ValueError:\n    pass\nassert container_env({}, {}) == {'environment': [], 'secrets': []}, 'Empty dicts return empty lists'\nassert len(env['environment']) == 2 and len(env['secrets']) == 1, 'Expected 2 plain vars and 1 secret'\nprint('All checks passed.')"
     }
   },
   {
@@ -379,7 +379,7 @@ const DAYS: Day[] = [
       "desc": "Write `validate_state_machine(definition)` for a Step Functions definition {'StartAt': name, 'States': {name: {'Type': ..., 'Next': ... or 'End': True}}}. Return a sorted list of problems (empty when valid): 'BAD_START' if StartAt is not a state; 'BAD_TYPE:<name>' if Type is not one of Task, Choice, Parallel, Map, Pass, Wait, Succeed, Fail; 'BAD_NEXT:<name>' if Next names a missing state. (Only check Next when it is present.)",
       "starter": "VALID_TYPES = {'Task', 'Choice', 'Parallel', 'Map', 'Pass', 'Wait', 'Succeed', 'Fail'}\n\n\ndef validate_state_machine(definition):\n    pass",
       "hint": "states = definition['States']; loop over states.items(); collect problems; return sorted(problems)",
-      "test": "good = {'StartAt': 'Charge', 'States': {'Charge': {'Type': 'Task', 'Next': 'Ship'}, 'Ship': {'Type': 'Task', 'Next': 'Done'}, 'Done': {'Type': 'Succeed'}}}\nassert validate_state_machine(good) == [], 'A valid machine'\nbad = {'StartAt': 'Begin', 'States': {'Charge': {'Type': 'Job', 'Next': 'Ship'}, 'Done': {'Type': 'Succeed'}}}\nassert validate_state_machine(bad) == ['BAD_NEXT:Charge', 'BAD_START', 'BAD_TYPE:Charge'], f'Got {validate_state_machine(bad)}'\nprint('All checks passed.')"
+      "test": "good = {'StartAt': 'Charge', 'States': {'Charge': {'Type': 'Task', 'Next': 'Ship'}, 'Ship': {'Type': 'Task', 'Next': 'Done'}, 'Done': {'Type': 'Succeed'}}}\nassert validate_state_machine(good) == [], 'A valid machine'\nbad = {'StartAt': 'Begin', 'States': {'Charge': {'Type': 'Job', 'Next': 'Ship'}, 'Done': {'Type': 'Succeed'}}}\nassert validate_state_machine(bad) == ['BAD_NEXT:Charge', 'BAD_START', 'BAD_TYPE:Charge'], f'Got {validate_state_machine(bad)}'\nassert validate_state_machine({'StartAt': 'End', 'States': {'End': {'Type': 'Fail'}}}) == [], 'Single Fail state is valid'\nprint('All checks passed.')"
     }
   },
   {
@@ -395,7 +395,7 @@ const DAYS: Day[] = [
       "desc": "Write `plan_summary(changes)` where changes is a list of {'address', 'actions'} and actions is a list such as ['create'], ['update'], ['delete'], ['no-op'] or ['delete', 'create'] (a replace). Return {'add': n, 'change': n, 'destroy': n, 'replace': [addresses being replaced, sorted]}. A replace counts as one add AND one destroy, like `terraform plan` prints.",
       "starter": "def plan_summary(changes):\n    pass",
       "hint": "Treat actions containing both 'delete' and 'create' as a replace; count add/destroy for it too.",
-      "test": "changes = [\n    {'address': 'aws_s3_bucket.logs', 'actions': ['create']},\n    {'address': 'aws_instance.web', 'actions': ['delete', 'create']},\n    {'address': 'aws_security_group.web', 'actions': ['update']},\n    {'address': 'aws_iam_role.old', 'actions': ['delete']},\n    {'address': 'aws_vpc.main', 'actions': ['no-op']},\n]\nassert plan_summary(changes) == {'add': 2, 'change': 1, 'destroy': 2, 'replace': ['aws_instance.web']}, f'Got {plan_summary(changes)}'\nassert plan_summary([]) == {'add': 0, 'change': 0, 'destroy': 0, 'replace': []}, 'Nothing to do'\nprint('All checks passed.')"
+      "test": "changes = [\n    {'address': 'aws_s3_bucket.logs', 'actions': ['create']},\n    {'address': 'aws_instance.web', 'actions': ['delete', 'create']},\n    {'address': 'aws_security_group.web', 'actions': ['update']},\n    {'address': 'aws_iam_role.old', 'actions': ['delete']},\n    {'address': 'aws_vpc.main', 'actions': ['no-op']},\n]\nassert plan_summary(changes) == {'add': 2, 'change': 1, 'destroy': 2, 'replace': ['aws_instance.web']}, f'Got {plan_summary(changes)}'\nassert plan_summary([]) == {'add': 0, 'change': 0, 'destroy': 0, 'replace': []}, 'Nothing to do'\nassert plan_summary([{'address': 'a', 'actions': ['update']}]) == {'add': 0, 'change': 1, 'destroy': 0, 'replace': []}, 'Update only'\nprint('All checks passed.')"
     }
   },
   {
@@ -427,7 +427,7 @@ const DAYS: Day[] = [
       "desc": "Write `key_policy_risks(policy)` for a KMS key policy {'Statement': [...]}. Return a sorted list of problems: 'PUBLIC_PRINCIPAL' when an Allow statement has Principal '*' (or {'AWS': '*'}) and no Condition; 'KMS_WILDCARD' when an Allow statement's Action is 'kms:*' and its Principal is not the account root (a principal string ending in ':root'). No duplicates.",
       "starter": "def key_policy_risks(policy):\n    pass",
       "hint": "principal = s.get('Principal'); if isinstance(principal, dict): principal = principal.get('AWS'); collect into a set; return sorted(...)",
-      "test": "safe = {'Statement': [\n    {'Effect': 'Allow', 'Principal': {'AWS': 'arn:aws:iam::111122223333:root'}, 'Action': 'kms:*'},\n    {'Effect': 'Allow', 'Principal': '*', 'Action': 'kms:Decrypt', 'Condition': {'StringEquals': {'kms:ViaService': 's3.us-east-1.amazonaws.com'}}},\n]}\nassert key_policy_risks(safe) == [], 'Root admin plus a conditioned statement is fine'\nrisky = {'Statement': [\n    {'Effect': 'Allow', 'Principal': '*', 'Action': 'kms:Decrypt'},\n    {'Effect': 'Allow', 'Principal': {'AWS': 'arn:aws:iam::111122223333:role/app'}, 'Action': 'kms:*'},\n    {'Effect': 'Allow', 'Principal': {'AWS': '*'}, 'Action': 'kms:*'},\n]}\nassert key_policy_risks(risky) == ['KMS_WILDCARD', 'PUBLIC_PRINCIPAL'], f'Got {key_policy_risks(risky)}'\nprint('All checks passed.')"
+      "test": "safe = {'Statement': [\n    {'Effect': 'Allow', 'Principal': {'AWS': 'arn:aws:iam::111122223333:root'}, 'Action': 'kms:*'},\n    {'Effect': 'Allow', 'Principal': '*', 'Action': 'kms:Decrypt', 'Condition': {'StringEquals': {'kms:ViaService': 's3.us-east-1.amazonaws.com'}}},\n]}\nassert key_policy_risks(safe) == [], 'Root admin plus a conditioned statement is fine'\nrisky = {'Statement': [\n    {'Effect': 'Allow', 'Principal': '*', 'Action': 'kms:Decrypt'},\n    {'Effect': 'Allow', 'Principal': {'AWS': 'arn:aws:iam::111122223333:role/app'}, 'Action': 'kms:*'},\n    {'Effect': 'Allow', 'Principal': {'AWS': '*'}, 'Action': 'kms:*'},\n]}\nassert key_policy_risks(risky) == ['KMS_WILDCARD', 'PUBLIC_PRINCIPAL'], f'Got {key_policy_risks(risky)}'\nassert key_policy_risks({'Statement': [{'Effect': 'Deny', 'Principal': '*', 'Action': 'kms:*'}]}) == [], 'Deny statements are ignored'\nprint('All checks passed.')"
     }
   },
   {
@@ -459,7 +459,7 @@ const DAYS: Day[] = [
       "desc": "Write `untagged_resources(resources, required)` where resources is a list of {'id', 'tags': {...}}. A tag counts only if its value is a non-empty string. Return a dict mapping each resource id that is missing tags to a sorted list of the missing tag names. Resources with every tag are left out.",
       "starter": "def untagged_resources(resources, required):\n    pass",
       "hint": "missing = sorted(t for t in required if not r['tags'].get(t))",
-      "test": "resources = [\n    {'id': 'i-1', 'tags': {'Environment': 'prod', 'Project': 'pinit', 'Owner': 'devops'}},\n    {'id': 'i-2', 'tags': {'Environment': 'dev'}},\n    {'id': 'db-1', 'tags': {'Environment': 'prod', 'Project': '', 'Owner': 'data'}},\n]\ngot = untagged_resources(resources, ['Environment', 'Project', 'Owner'])\nassert got == {'i-2': ['Owner', 'Project'], 'db-1': ['Project']}, f'Got {got}'\nassert untagged_resources(resources[:1], ['Environment']) == {}, 'Fully tagged'\nprint('All checks passed.')"
+      "test": "resources = [\n    {'id': 'i-1', 'tags': {'Environment': 'prod', 'Project': 'pinit', 'Owner': 'devops'}},\n    {'id': 'i-2', 'tags': {'Environment': 'dev'}},\n    {'id': 'db-1', 'tags': {'Environment': 'prod', 'Project': '', 'Owner': 'data'}},\n]\ngot = untagged_resources(resources, ['Environment', 'Project', 'Owner'])\nassert got == {'i-2': ['Owner', 'Project'], 'db-1': ['Project']}, f'Got {got}'\nassert untagged_resources(resources[:1], ['Environment']) == {}, 'Fully tagged'\nassert untagged_resources([], ['Owner']) == {}, 'No resources'\nprint('All checks passed.')"
     }
   },
   {
@@ -475,7 +475,7 @@ const DAYS: Day[] = [
       "desc": "Write `outage_cost(rto_minutes, rpo_minutes, orders_per_minute, order_value)`. During the RTO no orders come in; during the RPO window orders already taken are lost. Return {'lost_sales': rto * orders * value, 'lost_data': rpo * orders * value, 'total': both added}.",
       "starter": "def outage_cost(rto_minutes, rpo_minutes, orders_per_minute, order_value):\n    pass",
       "hint": "per_minute = orders_per_minute * order_value",
-      "test": "assert outage_cost(30, 15, 100, 50) == {'lost_sales': 150000, 'lost_data': 75000, 'total': 225000}, '30 min down, 15 min of data lost'\nassert outage_cost(0, 0, 100, 50) == {'lost_sales': 0, 'lost_data': 0, 'total': 0}, 'Active-active: nothing lost'\nprint('All checks passed.')"
+      "test": "assert outage_cost(30, 15, 100, 50) == {'lost_sales': 150000, 'lost_data': 75000, 'total': 225000}, '30 min down, 15 min of data lost'\nassert outage_cost(0, 0, 100, 50) == {'lost_sales': 0, 'lost_data': 0, 'total': 0}, 'Active-active: nothing lost'\nassert outage_cost(10, 0, 20, 100) == {'lost_sales': 20000, 'lost_data': 0, 'total': 20000}, 'Zero RPO loses only sales'\nprint('All checks passed.')"
     }
   },
   {

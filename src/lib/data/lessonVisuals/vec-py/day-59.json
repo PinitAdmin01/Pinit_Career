@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Capacity Planning — Foundations & Mathematical Invariants",
+      "partTitle": "Modeling HNSW Vector Payload + Adjacency Graph RAM Footprints",
       "codeHash": "89da6f9d92455ab624e0dad50f179d4f4454b3fefb54f936a1beef072ef9f513",
       "spec": {
         "template": "bars",
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the using value produced for binary processing.",
             "bars": [
               {
                 "label": "num_vectors",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the using value produced for binary processing.",
             "bars": [
               {
                 "label": "num_vectors",
@@ -226,21 +226,21 @@
       }
     },
     {
-      "partTitle": "Capacity Planning — Core Algorithm & State Representation",
-      "codeHash": "0994ded0418ff25f19fa5c9e804f1fe37ef432bbd5164da60bb9494d5de1db19",
+      "partTitle": "Calculating Sustainable Cluster QPS at 70-75% CPU Utilization",
+      "codeHash": "cb5550d535f4b5b94957298d00c0779951b3c15b3e0d89fd475b046c71e7cb10",
       "spec": {
         "template": "bars",
-        "title": "Capacity Planning — Core Algorithm & State Representation",
+        "title": "Calculating Sustainable Cluster QPS at 70-75% CPU Utilization",
         "steps": [
           {
             "at": "say1",
-            "caption": "Beyond memory sizing, platform architects must determine the maximum query.",
+            "caption": "Observe how cluster shapes beyond during this step.",
             "bars": [
               {
                 "label": "cpu_cores",
                 "value": {
                   "var": "cpu_cores",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -249,26 +249,24 @@
                 "label": "avg_latency_ms",
                 "value": {
                   "var": "avg_latency_ms",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "target_cpu_uti",
+                "label": "target_cpu_utilization",
                 "value": {
                   "var": "target_cpu_utilization",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "max_qps",
+                "label": "bounded_util",
                 "value": {
-                  "var": "max_qps",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -276,49 +274,7 @@
           },
           {
             "at": "say2",
-            "caption": "Throughput saturation is governed by CPU core count, average search.",
-            "bars": [
-              {
-                "label": "cpu_cores",
-                "value": {
-                  "var": "cpu_cores",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "avg_latency_ms",
-                "value": {
-                  "var": "avg_latency_ms",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "target_cpu_uti",
-                "value": {
-                  "var": "target_cpu_utilization",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "max_qps",
-                "value": {
-                  "var": "max_qps",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say13",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Verify the utilization transition driving throughput behavior.",
             "bars": [
               {
                 "label": "cpu_cores",
@@ -339,7 +295,7 @@
                 "tone": "ok"
               },
               {
-                "label": "target_cpu_uti",
+                "label": "target_cpu_utilization",
                 "value": {
                   "var": "target_cpu_utilization",
                   "line": 5,
@@ -348,9 +304,9 @@
                 "tone": "ok"
               },
               {
-                "label": "max_qps",
+                "label": "bounded_util",
                 "value": {
-                  "var": "max_qps",
+                  "var": "bounded_util",
                   "line": 5,
                   "hit": 1
                 },
@@ -362,11 +318,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Capacity Planning — Core Algorithm & State Representation",
+        "title": "Calculating Sustainable Cluster QPS at 70-75% CPU Utilization",
         "steps": [
           {
             "at": "say1",
-            "caption": "Beyond memory sizing, platform architects must determine the maximum query.",
+            "caption": "Observe how cluster shapes beyond during this step.",
             "bars": [
               {
                 "label": "cpu_cores",
@@ -379,20 +335,20 @@
                 "tone": "data"
               },
               {
-                "label": "target_cpu_uti",
+                "label": "target_cpu_utilization",
                 "value": 0.75,
                 "tone": "data"
               },
               {
-                "label": "max_qps",
-                "value": 4571.428571428572,
+                "label": "bounded_util",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Throughput saturation is governed by CPU core count, average search.",
+            "caption": "Verify the utilization transition driving throughput behavior.",
             "bars": [
               {
                 "label": "cpu_cores",
@@ -405,39 +361,13 @@
                 "tone": "ok"
               },
               {
-                "label": "target_cpu_uti",
+                "label": "target_cpu_utilization",
                 "value": 0.75,
                 "tone": "ok"
               },
               {
-                "label": "max_qps",
-                "value": 4571.428571428572,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say13",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
-            "bars": [
-              {
-                "label": "cpu_cores",
-                "value": 16,
-                "tone": "ok"
-              },
-              {
-                "label": "avg_latency_ms",
-                "value": 3.5,
-                "tone": "ok"
-              },
-              {
-                "label": "target_cpu_uti",
+                "label": "bounded_util",
                 "value": 0.75,
-                "tone": "ok"
-              },
-              {
-                "label": "max_qps",
-                "value": 4571.428571428572,
                 "tone": "ok"
               }
             ]
@@ -446,18 +376,18 @@
       }
     },
     {
-      "partTitle": "Capacity Planning — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "51af6208baf507f0eb17d9e8692bcc1f014c5fdb2d478ba530d508e599a4e496",
+      "partTitle": "Unit Economics: Computing Cost per Million Vector Queries",
+      "codeHash": "26252d30ae55b326427dc1791eb334eedfc8a3b85b42435cf830d192a23c543f",
       "spec": {
         "template": "bars",
-        "title": "Capacity Planning — Throughput Optimization & Edge-Case Handling",
+        "title": "Unit Economics: Computing Cost per Million Vector Queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Financial cost modeling evaluates the unit economics of operating vector.",
+            "caption": "Observe how unit shapes economics during this step.",
             "bars": [
               {
-                "label": "monthly_infra_",
+                "label": "monthly_infra_cost",
                 "value": {
                   "var": "monthly_infra_cost",
                   "line": 2,
@@ -466,7 +396,7 @@
                 "tone": "data"
               },
               {
-                "label": "monthly_query_",
+                "label": "monthly_query_volume",
                 "value": {
                   "var": "monthly_query_volume",
                   "line": 2,
@@ -477,18 +407,14 @@
               {
                 "label": "cost_per_query",
                 "value": {
-                  "var": "cost_per_query",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "cost_per_milli",
+                "label": "cost_per_million",
                 "value": {
-                  "var": "cost_per_million",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -496,64 +422,62 @@
           },
           {
             "at": "say2",
-            "caption": "The industry-standard financial metric for search infrastructure is.",
+            "caption": "Verify the cost transition driving million behavior.",
             "bars": [
               {
-                "label": "monthly_infra_",
+                "label": "monthly_infra_cost",
                 "value": {
                   "var": "monthly_infra_cost",
-                  "line": 3,
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "monthly_query_",
+                "label": "monthly_query_volume",
                 "value": {
                   "var": "monthly_query_volume",
-                  "line": 3,
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "cost_per_query",
                 "value": {
                   "var": "cost_per_query",
-                  "line": 3,
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "cost_per_milli",
+                "label": "cost_per_million",
                 "value": {
-                  "var": "cost_per_million",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "at": "say3",
+            "caption": "Examine the unit value produced for cost processing.",
             "bars": [
               {
-                "label": "monthly_infra_",
+                "label": "monthly_infra_cost",
                 "value": {
                   "var": "monthly_infra_cost",
-                  "line": 4,
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "monthly_query_",
+                "label": "monthly_query_volume",
                 "value": {
                   "var": "monthly_query_volume",
-                  "line": 4,
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -562,16 +486,16 @@
                 "label": "cost_per_query",
                 "value": {
                   "var": "cost_per_query",
-                  "line": 4,
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "cost_per_milli",
+                "label": "cost_per_million",
                 "value": {
                   "var": "cost_per_million",
-                  "line": 4,
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -582,71 +506,71 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Capacity Planning — Throughput Optimization & Edge-Case Handling",
+        "title": "Unit Economics: Computing Cost per Million Vector Queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Financial cost modeling evaluates the unit economics of operating vector.",
+            "caption": "Observe how unit shapes economics during this step.",
             "bars": [
               {
-                "label": "monthly_infra_",
+                "label": "monthly_infra_cost",
                 "value": 450,
                 "tone": "data"
               },
               {
-                "label": "monthly_query_",
+                "label": "monthly_query_volume",
                 "value": 100000000,
                 "tone": "data"
               },
               {
                 "label": "cost_per_query",
-                "value": 0.0000045,
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "cost_per_milli",
-                "value": 4.5,
+                "label": "cost_per_million",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The industry-standard financial metric for search infrastructure is.",
+            "caption": "Verify the cost transition driving million behavior.",
             "bars": [
               {
-                "label": "monthly_infra_",
+                "label": "monthly_infra_cost",
                 "value": 450,
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "monthly_query_",
+                "label": "monthly_query_volume",
                 "value": 100000000,
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "cost_per_query",
                 "value": 0.0000045,
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "cost_per_milli",
-                "value": 4.5,
-                "tone": "ok"
+                "label": "cost_per_million",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "at": "say3",
+            "caption": "Examine the unit value produced for cost processing.",
             "bars": [
               {
-                "label": "monthly_infra_",
+                "label": "monthly_infra_cost",
                 "value": 450,
                 "tone": "ok"
               },
               {
-                "label": "monthly_query_",
+                "label": "monthly_query_volume",
                 "value": 100000000,
                 "tone": "ok"
               },
@@ -656,7 +580,7 @@
                 "tone": "ok"
               },
               {
-                "label": "cost_per_milli",
+                "label": "cost_per_million",
                 "value": 4.5,
                 "tone": "ok"
               }
@@ -666,8 +590,8 @@
       }
     },
     {
-      "partTitle": "Capacity Planning — Resilience Guardrails & Failure Recovery",
-      "codeHash": "e410f4f7a49949a6643d5e3ea58ba42027d28b014f73d129af510c6ed4c7d681",
+      "partTitle": "Enforcing 25% Memory Headroom Buffers Against Growth Spikes",
+      "codeHash": "569d6d5fb7e111c96b7e4fa583dbf3eed1fa37bd1953b0959fc24484955d7302",
       "spec": {
         "template": "flow",
         "title": "Capacity Planning — Resilience Guardrails & Failure Recovery",
@@ -710,17 +634,17 @@
           },
           {
             "at": "say2",
-            "caption": "If an index operates with zero headroom, a marketing promotion.",
+            "caption": "Verify the memory transition driving running behavior.",
             "values": {
               "allocated_gb": {
                 "var": "allocated_gb",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "projected_gb": {
                 "var": "projected_gb",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               }
             },
             "tones": {
@@ -736,17 +660,17 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the validating value produced for margin processing.",
             "values": {
               "allocated_gb": {
                 "var": "allocated_gb",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "projected_gb": {
                 "var": "projected_gb",
                 "line": 2,
-                "hit": 1
+                "hit": 3
               }
             },
             "tones": {
@@ -780,7 +704,7 @@
             "at": "say1",
             "caption": "Resilience guardrails in capacity planning enforce mandatory memory.",
             "values": {
-              "allocated_gb": "100",
+              "allocated_gb": "80",
               "projected_gb": "70"
             },
             "tones": {
@@ -796,10 +720,10 @@
           },
           {
             "at": "say2",
-            "caption": "If an index operates with zero headroom, a marketing promotion.",
+            "caption": "Verify the memory transition driving running behavior.",
             "values": {
               "allocated_gb": "100",
-              "projected_gb": "70"
+              "projected_gb": "80"
             },
             "tones": {
               "allocated_gb": "data",
@@ -814,7 +738,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the validating value produced for margin processing.",
             "values": {
               "allocated_gb": "100",
               "projected_gb": "70"
@@ -834,33 +758,32 @@
       }
     },
     {
-      "partTitle": "Capacity Planning — Production Telemetry & Verification Audit",
-      "codeHash": "11c87cb141303031a9d94f0543a2166dcc6c3bf3139034ef3312735149f14f61",
+      "partTitle": "Forecasting Remaining Hardware Runway Months Under Ingest Growth",
+      "codeHash": "190df40010ec3fb5a2401cdaee290abf30fc4991992bfbd5af82634f5bec5dd6",
       "spec": {
         "template": "flow",
-        "title": "Capacity Planning — Production Telemetry & Verification Audit",
+        "title": "Forecasting Remaining Hardware Runway Months Under Ingest Growth",
         "nodes": [
           {
             "id": "total_ram_gb",
-            "label": "total_ram_gb"
+            "label": "total_ram_gb",
+            "tappable": true
           },
           {
             "id": "current_used_gb",
-            "label": "current_used_gb"
+            "label": "current_used_gb",
+            "tappable": true
           },
           {
             "id": "projected_monthly_growth_gb",
-            "label": "projected_monthly_growth_gb"
-          },
-          {
-            "id": "remaining_gb",
-            "label": "remaining_gb"
+            "label": "projected_monthly_growth_gb",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Capacity runway audits forecast the number of months remaining before.",
+            "caption": "Inspect remaining updates as total_ram_gb tracks hardware state.",
             "values": {
               "total_ram_gb": {
                 "var": "total_ram_gb",
@@ -873,86 +796,19 @@
                 "hit": 1
               },
               "projected_monthly_growth_gb": {
-                "var": "projected_monthly_growth_gb",
-                "line": 2,
-                "hit": 1
-              },
-              "remaining_gb": {
-                "var": "remaining_gb",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_ram_gb": "data",
               "current_used_gb": "data",
-              "projected_monthly_growth_gb": "data",
-              "remaining_gb": "data"
+              "projected_monthly_growth_gb": "idle"
             },
-            "arrows": [
-              [
-                "total_ram_gb",
-                "current_used_gb"
-              ],
-              [
-                "current_used_gb",
-                "projected_monthly_growth_gb"
-              ],
-              [
-                "projected_monthly_growth_gb",
-                "remaining_gb"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Runway modeling divides available unallocated RAM by the projected monthly.",
-            "values": {
-              "total_ram_gb": {
-                "var": "total_ram_gb",
-                "line": 3,
-                "hit": 1
-              },
-              "current_used_gb": {
-                "var": "current_used_gb",
-                "line": 3,
-                "hit": 1
-              },
-              "projected_monthly_growth_gb": {
-                "var": "projected_monthly_growth_gb",
-                "line": 3,
-                "hit": 1
-              },
-              "remaining_gb": {
-                "var": "remaining_gb",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "total_ram_gb": "data",
-              "current_used_gb": "data",
-              "projected_monthly_growth_gb": "data",
-              "remaining_gb": "data"
-            },
-            "arrows": [
-              [
-                "total_ram_gb",
-                "current_used_gb"
-              ],
-              [
-                "current_used_gb",
-                "projected_monthly_growth_gb"
-              ],
-              [
-                "projected_monthly_growth_gb",
-                "remaining_gb"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the runway transition driving growth behavior.",
             "values": {
               "total_ram_gb": {
                 "var": "total_ram_gb",
@@ -966,11 +822,6 @@
               },
               "projected_monthly_growth_gb": {
                 "var": "projected_monthly_growth_gb",
-                "line": 4,
-                "hit": 1
-              },
-              "remaining_gb": {
-                "var": "remaining_gb",
                 "line": 4,
                 "hit": 1
               }
@@ -978,21 +829,12 @@
             "tones": {
               "total_ram_gb": "ok",
               "current_used_gb": "ok",
-              "projected_monthly_growth_gb": "ok",
-              "remaining_gb": "ok"
+              "projected_monthly_growth_gb": "ok"
             },
             "arrows": [
               [
                 "total_ram_gb",
                 "current_used_gb"
-              ],
-              [
-                "current_used_gb",
-                "projected_monthly_growth_gb"
-              ],
-              [
-                "projected_monthly_growth_gb",
-                "remaining_gb"
               ]
             ]
           }
@@ -1000,113 +842,57 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Capacity Planning — Production Telemetry & Verification Audit",
+        "title": "Forecasting Remaining Hardware Runway Months Under Ingest Growth",
         "nodes": [
           {
             "id": "total_ram_gb",
-            "label": "total_ram_gb"
+            "label": "total_ram_gb",
+            "tappable": true
           },
           {
             "id": "current_used_gb",
-            "label": "current_used_gb"
+            "label": "current_used_gb",
+            "tappable": true
           },
           {
             "id": "projected_monthly_growth_gb",
-            "label": "projected_monthly_growth_gb"
-          },
-          {
-            "id": "remaining_gb",
-            "label": "remaining_gb"
+            "label": "projected_monthly_growth_gb",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Capacity runway audits forecast the number of months remaining before.",
+            "caption": "Inspect remaining updates as total_ram_gb tracks hardware state.",
             "values": {
               "total_ram_gb": "512",
               "current_used_gb": "320",
-              "projected_monthly_growth_gb": "25",
-              "remaining_gb": "192"
+              "projected_monthly_growth_gb": ""
             },
             "tones": {
               "total_ram_gb": "data",
               "current_used_gb": "data",
-              "projected_monthly_growth_gb": "data",
-              "remaining_gb": "data"
+              "projected_monthly_growth_gb": "idle"
             },
-            "arrows": [
-              [
-                "total_ram_gb",
-                "current_used_gb"
-              ],
-              [
-                "current_used_gb",
-                "projected_monthly_growth_gb"
-              ],
-              [
-                "projected_monthly_growth_gb",
-                "remaining_gb"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Runway modeling divides available unallocated RAM by the projected monthly.",
+            "caption": "Verify the runway transition driving growth behavior.",
             "values": {
               "total_ram_gb": "512",
               "current_used_gb": "320",
-              "projected_monthly_growth_gb": "25",
-              "remaining_gb": "192"
-            },
-            "tones": {
-              "total_ram_gb": "data",
-              "current_used_gb": "data",
-              "projected_monthly_growth_gb": "data",
-              "remaining_gb": "data"
-            },
-            "arrows": [
-              [
-                "total_ram_gb",
-                "current_used_gb"
-              ],
-              [
-                "current_used_gb",
-                "projected_monthly_growth_gb"
-              ],
-              [
-                "projected_monthly_growth_gb",
-                "remaining_gb"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "total_ram_gb": "512",
-              "current_used_gb": "320",
-              "projected_monthly_growth_gb": "25",
-              "remaining_gb": "192"
+              "projected_monthly_growth_gb": "25"
             },
             "tones": {
               "total_ram_gb": "ok",
               "current_used_gb": "ok",
-              "projected_monthly_growth_gb": "ok",
-              "remaining_gb": "ok"
+              "projected_monthly_growth_gb": "ok"
             },
             "arrows": [
               [
                 "total_ram_gb",
                 "current_used_gb"
-              ],
-              [
-                "current_used_gb",
-                "projected_monthly_growth_gb"
-              ],
-              [
-                "projected_monthly_growth_gb",
-                "remaining_gb"
               ]
             ]
           }

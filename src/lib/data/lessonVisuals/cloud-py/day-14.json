@@ -924,13 +924,13 @@
               },
               "restore_to": {
                 "var": "restore_to",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "ok": {
                 "var": "ok",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -970,13 +970,13 @@
               },
               "restore_to": {
                 "var": "restore_to",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "ok": {
                 "var": "ok",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -1060,8 +1060,8 @@
             "values": {
               "retention_days": "7",
               "now_day": "100",
-              "restore_to": "99.5",
-              "ok": "True"
+              "restore_to": "94",
+              "ok": "False"
             },
             "tones": {
               "retention_days": "data",
@@ -1090,8 +1090,8 @@
             "values": {
               "retention_days": "7",
               "now_day": "100",
-              "restore_to": "99.5",
-              "ok": "True"
+              "restore_to": "90",
+              "ok": "False"
             },
             "tones": {
               "retention_days": "ok",
@@ -1143,22 +1143,12 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "err",
-                "to": "safe",
-                "label": {
-                  "var": "err",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Then swap in one line with tuple assignment, and return success with.",
+            "caption": "The checks confirm the dictionary itself changed.",
             "activeActor": "err",
             "messages": [
               {
@@ -1166,7 +1156,7 @@
                 "to": "err",
                 "label": {
                   "var": "replicas",
-                  "line": 2,
+                  "line": 1,
                   "hit": 1
                 },
                 "tone": "data"
@@ -1193,7 +1183,7 @@
                 "to": "err",
                 "label": {
                   "var": "replicas",
-                  "line": 3,
+                  "line": 1,
                   "hit": 1
                 },
                 "tone": "data"
@@ -1207,6 +1197,26 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": {
+                  "var": "replicas",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": {
+                  "var": "replicas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -1230,19 +1240,13 @@
                 "to": "err",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "err",
-                "to": "safe",
-                "label": "<ZeroDivisionError>",
-                "tone": "ok"
               }
             ],
             "activeActor": "replicas"
           },
           {
             "at": "say2",
-            "caption": "Then swap in one line with tuple assignment, and return success with.",
+            "caption": "The checks confirm the dictionary itself changed.",
             "messages": [
               {
                 "from": "replicas",
@@ -1274,6 +1278,18 @@
                 "to": "safe",
                 "label": "<ZeroDivisionError>",
                 "tone": "ok"
+              },
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": "[]",
+                "tone": "data"
               }
             ],
             "activeActor": "safe"

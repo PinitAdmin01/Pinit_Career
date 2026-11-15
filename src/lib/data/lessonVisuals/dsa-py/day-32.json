@@ -25,7 +25,7 @@
           },
           {
             "at": "say2",
-            "caption": "A Segment Tree recursively splits an input array of length N into.",
+            "caption": "Verify the segment transition driving tree behavior.",
             "items": {
               "var": "data",
               "line": 3,
@@ -35,7 +35,7 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect the SegmentTree constructor below building bottom-up aggregates.",
+            "caption": "Examine the tree value produced for sizing processing.",
             "items": {
               "var": "data",
               "line": 14,
@@ -66,7 +66,7 @@
           },
           {
             "at": "say2",
-            "caption": "A Segment Tree recursively splits an input array of length N into.",
+            "caption": "Verify the segment transition driving tree behavior.",
             "mode": "stack",
             "items": [
               "1",
@@ -80,7 +80,7 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect the SegmentTree constructor below building bottom-up aggregates.",
+            "caption": "Examine the tree value produced for sizing processing.",
             "mode": "stack",
             "items": [
               "1",

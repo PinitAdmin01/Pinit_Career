@@ -495,19 +495,257 @@
       "partTitle": "What happens on delete: CASCADE, SET NULL, RESTRICT",
       "codeHash": "649a6fc13c7b8696983961c7fcd4e460abded07415a1398c575613e40c9ffc10",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "What happens on delete: CASCADE, SET NULL, RESTRICT",
+        "columns": [
+          "id",
+          "staff_id"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "What should happen to the children when the parent is deleted.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "staff_id"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The default is to refuse: you cannot delete an order that still has items.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "staff_id"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "staff_id"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "What happens on delete: CASCADE, SET NULL, RESTRICT",
+        "columns": [
+          "id",
+          "staff_id"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "What should happen to the children when the parent is deleted.",
+            "rows": [
+              {
+                "cells": [
+                  "100",
+                  "null"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The default is to refuse: you cannot delete an order that still has items.",
+            "rows": [
+              {
+                "cells": [
+                  "100",
+                  "null"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "101",
+                  "null"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a well-protected table",
       "codeHash": "524a08d411e0f0f0fa6c326ce916172db90918783cbcee674241d3a88c0dfe6d",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Putting it together: a well-protected table",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us design a reviews table with every rule from this week.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE products (id int PRIMARY KEY, name "
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Read the CREATE TABLE line by line.",
+            "values": {
+              "query": {
+                "text": "INSERT INTO reviews (product_id, customer, rating) VALUES (1, 'Asha', 4);"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "error": true
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Putting it together: a well-protected table",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us design a reviews table with every rule from this week.",
+            "values": {
+              "query": "CREATE TABLE products (id int PRIMARY KEY, name ",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Read the CREATE TABLE line by line.",
+            "values": {
+              "query": "INSERT INTO reviews (product_id, customer, rating) VALUES (1, 'Asha', 4);",
+              "db": "SELECT",
+              "res": "duplicate key value violates unique constraint \"reviews_product_id_customer_key\""
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     }
   ]
 }

@@ -597,6 +597,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A simple extractive method.",
+            "activeActor": "chunk",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": {
+                  "var": "STOP",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "chunk",
@@ -611,10 +628,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A simple extractive method.",
-            "activeActor": "chunk",
+            "at": "say6",
+            "caption": "Be careful not to over-compress.",
+            "activeActor": "question",
             "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": {
+                  "var": "STOP",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": {
+                  "var": "chunk",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "STOP",
                 "to": "chunk",
@@ -634,14 +671,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Be careful not to over-compress.",
-            "activeActor": "question",
-            "messages": [
+              },
               {
                 "from": "STOP",
                 "to": "chunk",
@@ -684,12 +714,6 @@
                 "to": "chunk",
                 "label": "{'a', 'an', 'are', 'do', 'does', 'for',…",
                 "tone": "data"
-              },
-              {
-                "from": "chunk",
-                "to": "question",
-                "label": "'Our stores open at 9. Refunds for UPI …",
-                "tone": "ok"
               }
             ],
             "activeActor": "STOP"
@@ -717,6 +741,30 @@
             "at": "say6",
             "caption": "Be careful not to over-compress.",
             "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": "{'a', 'an', 'are', 'do', 'does', 'for',…",
+                "tone": "data"
+              },
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": "'Our stores open at 9. Refunds for UPI …",
+                "tone": "ok"
+              },
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": "{'a', 'an', 'are', 'do', 'does', 'for',…",
+                "tone": "data"
+              },
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": "'Our stores open at 9. Refunds for UPI …",
+                "tone": "ok"
+              },
               {
                 "from": "STOP",
                 "to": "chunk",
@@ -1009,7 +1057,7 @@
               },
               "chosen": {
                 "var": "chosen",
-                "line": 8,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -1041,8 +1089,8 @@
               },
               "chosen": {
                 "var": "chosen",
-                "line": 9,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               }
             },
             "tones": {
@@ -1099,7 +1147,7 @@
               "ranked": "['UPI refunds arrive in 2 days.', 'Card…",
               "ranked_chunks": "['UPI refunds arrive in 2 days.', 'Card…",
               "budget": "20",
-              "chosen": "[]"
+              "chosen": "['UPI refunds arrive in 2 days.']"
             },
             "tones": {
               "ranked": "data",
@@ -1115,7 +1163,7 @@
               "ranked": "['UPI refunds arrive in 2 days.', 'Card…",
               "ranked_chunks": "['UPI refunds arrive in 2 days.', 'Card…",
               "budget": "20",
-              "chosen": "[]"
+              "chosen": "['UPI refunds arrive in 2 days.', 'Gift…"
             },
             "tones": {
               "ranked": "ok",

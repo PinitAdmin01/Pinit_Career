@@ -449,19 +449,327 @@
       "partTitle": "Dynamic Insert with update[] Predecessor Tower Splicing",
       "codeHash": "0f47f03f56dad6af75393df5dc78ef7dcc4e87bdd5a344bd80bc7dd438f96332",
       "spec": {
-        "template": "none",
-        "reason": "Concept explained cleanly in text and interactive code."
+        "template": "boxes",
+        "title": "Dynamic Insert with update[] Predecessor Tower Splicing",
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "key",
+            "label": "key",
+            "tappable": true
+          },
+          {
+            "id": "val",
+            "label": "val",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "new_lvl in one downward sweep — with ZERO balancing rotations.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 52,
+                "hit": 1
+              },
+              "key": {
+                "text": ""
+              },
+              "val": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "x": "data",
+              "key": "idle",
+              "val": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Create an auxiliary array update = [None] * (MAX_LEVEL + 1).",
+            "values": {
+              "x": {
+                "text": ""
+              },
+              "key": {
+                "var": "key",
+                "line": 23,
+                "hit": 13
+              },
+              "val": {
+                "var": "val",
+                "line": 23,
+                "hit": 13
+              }
+            },
+            "tones": {
+              "x": "idle",
+              "key": "data",
+              "val": "data"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Look at what update[lvl] holds at the end of that descent.",
+            "values": {
+              "x": {
+                "text": ""
+              },
+              "key": {
+                "var": "key",
+                "line": 39,
+                "hit": 17
+              },
+              "val": {
+                "var": "val",
+                "line": 39,
+                "hit": 17
+              }
+            },
+            "tones": {
+              "x": "idle",
+              "key": "ok",
+              "val": "ok"
+            }
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "boxes",
+        "title": "Dynamic Insert with update[] Predecessor Tower Splicing",
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "key",
+            "label": "key",
+            "tappable": true
+          },
+          {
+            "id": "val",
+            "label": "val",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "new_lvl in one downward sweep — with ZERO balancing rotations.",
+            "values": {
+              "x": "50",
+              "key": "",
+              "val": ""
+            },
+            "tones": {
+              "x": "data",
+              "key": "idle",
+              "val": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Create an auxiliary array update = [None] * (MAX_LEVEL + 1).",
+            "values": {
+              "x": "",
+              "key": "20",
+              "val": "'item_20'"
+            },
+            "tones": {
+              "x": "idle",
+              "key": "data",
+              "val": "data"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Look at what update[lvl] holds at the end of that descent.",
+            "values": {
+              "x": "",
+              "key": "60",
+              "val": "'item_60'"
+            },
+            "tones": {
+              "x": "idle",
+              "key": "ok",
+              "val": "ok"
+            }
+          }
+        ]
+      }
     },
     {
       "partTitle": "Clean Node Deletion, Level Trimming & O(log N + K) Range Scans",
       "codeHash": "c8d164e8cd99eac3a4fcca1cbf492832e41d24c606239c3f36ebeedd5c6cfbe9",
       "spec": {
-        "template": "none",
-        "reason": "Concept explained cleanly in text and interactive code."
+        "template": "boxes",
+        "title": "Clean Node Deletion, Level Trimming & O(log N + K) Range Scans",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self",
+            "tappable": true
+          },
+          {
+            "id": "key",
+            "label": "key",
+            "tappable": true
+          },
+          {
+            "id": "val",
+            "label": "val",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Start identically by recording predecessors update[0 ..",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 10,
+                "hit": 1
+              },
+              "key": {
+                "text": ""
+              },
+              "val": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "self": "data",
+              "key": "idle",
+              "val": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Otherwise, iterate upward from level 0 cleanly through self.level.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 27,
+                "hit": 4
+              },
+              "key": {
+                "var": "key",
+                "line": 27,
+                "hit": 4
+              },
+              "val": {
+                "var": "val",
+                "line": 27,
+                "hit": 4
+              }
+            },
+            "tones": {
+              "self": "data",
+              "key": "data",
+              "val": "data"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Now pause for the cleanup invariant.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 36,
+                "hit": 2
+              },
+              "key": {
+                "var": "key",
+                "line": 36,
+                "hit": 2
+              },
+              "val": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "key": "ok",
+              "val": "idle"
+            }
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "boxes",
+        "title": "Clean Node Deletion, Level Trimming & O(log N + K) Range Scans",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self",
+            "tappable": true
+          },
+          {
+            "id": "key",
+            "label": "key",
+            "tappable": true
+          },
+          {
+            "id": "val",
+            "label": "val",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Start identically by recording predecessors update[0 ..",
+            "values": {
+              "self": "<FullSkipList>",
+              "key": "",
+              "val": ""
+            },
+            "tones": {
+              "self": "data",
+              "key": "idle",
+              "val": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Otherwise, iterate upward from level 0 cleanly through self.level.",
+            "values": {
+              "self": "<FullSkipList>",
+              "key": "42",
+              "val": "'v42'"
+            },
+            "tones": {
+              "self": "data",
+              "key": "data",
+              "val": "data"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Now pause for the cleanup invariant.",
+            "values": {
+              "self": "<FullSkipList>",
+              "key": "99",
+              "val": ""
+            },
+            "tones": {
+              "self": "ok",
+              "key": "ok",
+              "val": "idle"
+            }
+          }
+        ]
+      }
     },
     {
       "partTitle": "Production Application: Sorted Exchange Order-Book Price Ladder Skip List",

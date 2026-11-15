@@ -7,294 +7,304 @@
   "entries": [
     {
       "partTitle": "The Economics Of Enterprise Generative AI: The Cost-Quality Trade-Off",
-      "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
+      "codeHash": "140498931c5d3f4b21e2388e0a4d1a1102a00ab6a159eef68bf92c5e0026cd0f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Economics Of Enterprise Generative AI: The Cost-Quality Trad",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "frontier",
+            "label": "frontier",
+            "tappable": true
+          },
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "o",
+            "label": "o",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As enterprise organizations scale foundation model applications across.",
-            "activeActor": "routing_tiers",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect routing updates as frontier tracks production state.",
+            "values": {
+              "frontier": {
+                "var": "frontier",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "c": {
+                "text": ""
+              },
+              "o": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "frontier": "data",
+              "c": "idle",
+              "o": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Empirical analysis of enterprise query distributions reveals that over.",
-            "activeActor": "finops_metrics",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the enterprise transition driving cost behavior.",
+            "values": {
+              "frontier": {
+                "var": "frontier",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "c": {
+                "var": "c",
+                "line": 10,
+                "hit": 2
+              },
+              "o": {
+                "text": ""
               }
+            },
+            "tones": {
+              "frontier": "data",
+              "c": "data",
+              "o": "idle"
+            },
+            "arrows": [
+              [
+                "frontier",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the token economics of the Cost-Performance Pareto Frontier.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the cost value produced for concept processing.",
+            "values": {
+              "frontier": {
+                "var": "frontier",
+                "line": 11,
+                "hit": 29
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "c": {
+                "var": "c",
+                "line": 11,
+                "hit": 29
+              },
+              "o": {
+                "text": ""
               }
+            },
+            "tones": {
+              "frontier": "ok",
+              "c": "ok",
+              "o": "idle"
+            },
+            "arrows": [
+              [
+                "frontier",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Economics Of Enterprise Generative AI: The Cost-Quality Trad",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "frontier",
+            "label": "frontier",
+            "tappable": true
+          },
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "o",
+            "label": "o",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As enterprise organizations scale foundation model applications across.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "routing_tiers"
+            "caption": "Inspect routing updates as frontier tracks production state.",
+            "values": {
+              "frontier": "[]",
+              "c": "",
+              "o": ""
+            },
+            "tones": {
+              "frontier": "data",
+              "c": "idle",
+              "o": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Empirical analysis of enterprise query distributions reveals that over.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "finops_metrics"
+            "caption": "Verify the enterprise transition driving cost behavior.",
+            "values": {
+              "frontier": "['Edge-8B-Raw']",
+              "c": "{'name': 'Mid-70B-Raw', 'cost': 0.8, 'q…",
+              "o": ""
+            },
+            "tones": {
+              "frontier": "data",
+              "c": "data",
+              "o": "idle"
+            },
+            "arrows": [
+              [
+                "frontier",
+                "c"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the token economics of the Cost-Performance Pareto Frontier.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the cost value produced for concept processing.",
+            "values": {
+              "frontier": "['Edge-8B-Raw', 'Mid-70B-Raw', 'Frontie…",
+              "c": "{'name': 'Bloated-Cascade', 'cost': 5.5…",
+              "o": ""
+            },
+            "tones": {
+              "frontier": "ok",
+              "c": "ok",
+              "o": "idle"
+            },
+            "arrows": [
+              [
+                "frontier",
+                "c"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Model Cascade Architectures: FrugalGPT, RouteLLM And Predictive Classifiers",
-      "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
+      "codeHash": "0279290381e1432aa94d828bfc57a5dd9054bb2cf09d2a818be88882ffc02b98",
       "spec": {
         "template": "flow",
         "title": "Model Cascade Architectures: FrugalGPT, RouteLLM And Predictive ",
         "nodes": [
           {
-            "id": "routing_tiers",
-            "label": "routing_tiers"
+            "id": "cascade_total",
+            "label": "cascade_total",
+            "tappable": true
           },
           {
-            "id": "finops_metrics",
-            "label": "finops_metrics"
+            "id": "mono_total",
+            "label": "mono_total",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "escalated",
+            "label": "escalated",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the theoretical principles of the Pareto Frontier.",
+            "caption": "Inspect model updates as cascade_total tracks cascade state.",
             "values": {
-              "routing_tiers": {
-                "var": "routing_tiers",
-                "line": 6,
+              "cascade_total": {
+                "var": "cascade_total",
+                "line": 8,
                 "hit": 1
               },
-              "finops_metrics": {
-                "var": "finops_metrics",
-                "line": 12,
+              "mono_total": {
+                "var": "mono_total",
+                "line": 8,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 29,
+              "escalated": {
+                "var": "escalated",
+                "line": 8,
                 "hit": 1
               }
             },
             "tones": {
-              "routing_tiers": "data",
-              "finops_metrics": "data",
-              "result": "data"
+              "cascade_total": "data",
+              "mono_total": "data",
+              "escalated": "data"
             },
-            "arrows": [
-              [
-                "routing_tiers",
-                "finops_metrics"
-              ],
-              [
-                "finops_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The FrugalGPT paradigm introduces sequential model cascading to foundation.",
+            "caption": "Verify the model transition driving frugalgpt behavior.",
             "values": {
-              "routing_tiers": {
-                "var": "routing_tiers",
-                "line": 13,
-                "hit": 1
+              "cascade_total": {
+                "var": "cascade_total",
+                "line": 11,
+                "hit": 2
               },
-              "finops_metrics": {
-                "var": "finops_metrics",
-                "line": 21,
-                "hit": 1
+              "mono_total": {
+                "var": "mono_total",
+                "line": 11,
+                "hit": 2
               },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "escalated": {
+                "var": "escalated",
+                "line": 11,
+                "hit": 2
               }
             },
             "tones": {
-              "routing_tiers": "data",
-              "finops_metrics": "data",
-              "result": "data"
+              "cascade_total": "data",
+              "mono_total": "data",
+              "escalated": "data"
             },
             "arrows": [
               [
-                "routing_tiers",
-                "finops_metrics"
-              ],
-              [
-                "finops_metrics",
-                "result"
+                "cascade_total",
+                "mono_total"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering model cascade architectures and predictive routing frameworks.",
+            "at": "say3",
+            "caption": "Examine the model value produced for routellm processing.",
             "values": {
-              "routing_tiers": {
-                "var": "routing_tiers",
+              "cascade_total": {
+                "var": "cascade_total",
                 "line": 14,
                 "hit": 1
               },
-              "finops_metrics": {
-                "var": "finops_metrics",
-                "line": 22,
+              "mono_total": {
+                "var": "mono_total",
+                "line": 14,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 30,
+              "escalated": {
+                "var": "escalated",
+                "line": 14,
                 "hit": 1
               }
             },
             "tones": {
-              "routing_tiers": "ok",
-              "finops_metrics": "ok",
-              "result": "ok"
+              "cascade_total": "ok",
+              "mono_total": "ok",
+              "escalated": "ok"
             },
             "arrows": [
               [
-                "routing_tiers",
-                "finops_metrics"
-              ],
-              [
-                "finops_metrics",
-                "result"
+                "cascade_total",
+                "mono_total"
               ]
             ]
           }
@@ -305,88 +315,74 @@
         "title": "Model Cascade Architectures: FrugalGPT, RouteLLM And Predictive ",
         "nodes": [
           {
-            "id": "routing_tiers",
-            "label": "routing_tiers"
+            "id": "cascade_total",
+            "label": "cascade_total",
+            "tappable": true
           },
           {
-            "id": "finops_metrics",
-            "label": "finops_metrics"
+            "id": "mono_total",
+            "label": "mono_total",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "escalated",
+            "label": "escalated",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the theoretical principles of the Pareto Frontier.",
+            "caption": "Inspect model updates as cascade_total tracks cascade state.",
             "values": {
-              "routing_tiers": "['Tier 1: High-Speed Edge Model (Quanti…",
-              "finops_metrics": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-              "result": "{'routerArchitecture': 'Apex Pareto Fro…"
+              "cascade_total": "0",
+              "mono_total": "0",
+              "escalated": "0"
             },
             "tones": {
-              "routing_tiers": "data",
-              "finops_metrics": "data",
-              "result": "data"
+              "cascade_total": "data",
+              "mono_total": "data",
+              "escalated": "data"
             },
-            "arrows": [
-              [
-                "routing_tiers",
-                "finops_metrics"
-              ],
-              [
-                "finops_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The FrugalGPT paradigm introduces sequential model cascading to foundation.",
+            "caption": "Verify the model transition driving frugalgpt behavior.",
             "values": {
-              "routing_tiers": "['Tier 1: High-Speed Edge Model (Quanti…",
-              "finops_metrics": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-              "result": "{'routerArchitecture': 'Apex Pareto Fro…"
+              "cascade_total": "0.0004",
+              "mono_total": "0.01",
+              "escalated": "0"
             },
             "tones": {
-              "routing_tiers": "data",
-              "finops_metrics": "data",
-              "result": "data"
+              "cascade_total": "data",
+              "mono_total": "data",
+              "escalated": "data"
             },
             "arrows": [
               [
-                "routing_tiers",
-                "finops_metrics"
-              ],
-              [
-                "finops_metrics",
-                "result"
+                "cascade_total",
+                "mono_total"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering model cascade architectures and predictive routing frameworks.",
+            "at": "say3",
+            "caption": "Examine the model value produced for routellm processing.",
             "values": {
-              "routing_tiers": "['Tier 1: High-Speed Edge Model (Quanti…",
-              "finops_metrics": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-              "result": "{'routerArchitecture': 'Apex Pareto Fro…"
+              "cascade_total": "0.0056",
+              "mono_total": "0.015",
+              "escalated": "1"
             },
             "tones": {
-              "routing_tiers": "ok",
-              "finops_metrics": "ok",
-              "result": "ok"
+              "cascade_total": "ok",
+              "mono_total": "ok",
+              "escalated": "ok"
             },
             "arrows": [
               [
-                "routing_tiers",
-                "finops_metrics"
-              ],
-              [
-                "finops_metrics",
-                "result"
+                "cascade_total",
+                "mono_total"
               ]
             ]
           }
@@ -395,492 +391,532 @@
     },
     {
       "partTitle": "Multi-Tier Routing Infrastructure: Edge, Mid-Weight, And Frontier Routing",
-      "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
+      "codeHash": "8466ad98d5959cea924e33885bc2659e91e09ce8a8efb4cfb9af2957f9ecd6ae",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Multi-Tier Routing Infrastructure: Edge, Mid-Weight, And Frontie",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "prompt",
+            "label": "prompt",
+            "tappable": true
+          },
+          {
+            "id": "words",
+            "label": "words",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying an enterprise-grade dynamic cascade requires organizing.",
-            "activeActor": "routing_tiers",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect multi updates as p tracks tier state.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "prompt": {
+                "text": ""
+              },
+              "words": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "prompt": "idle",
+              "words": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Tier One High-Speed Edge Models serve as the foundation of the routing.",
-            "activeActor": "finops_metrics",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the tier transition driving routing behavior.",
+            "values": {
+              "p": {
+                "text": ""
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "prompt": {
+                "var": "prompt",
+                "line": 2,
+                "hit": 2
+              },
+              "words": {
+                "var": "words",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "p": "idle",
+              "prompt": "data",
+              "words": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "prompt"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering multi-tier routing infrastructure establishes the architectural.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the tier value produced for weight processing.",
+            "values": {
+              "p": {
+                "text": ""
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "prompt": {
+                "var": "prompt",
+                "line": 3,
+                "hit": 3
+              },
+              "words": {
+                "var": "words",
+                "line": 3,
+                "hit": 3
               }
+            },
+            "tones": {
+              "p": "idle",
+              "prompt": "ok",
+              "words": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "prompt"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Multi-Tier Routing Infrastructure: Edge, Mid-Weight, And Frontie",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "prompt",
+            "label": "prompt",
+            "tappable": true
+          },
+          {
+            "id": "words",
+            "label": "words",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying an enterprise-grade dynamic cascade requires organizing.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "routing_tiers"
+            "caption": "Inspect multi updates as p tracks tier state.",
+            "values": {
+              "p": "'Reset password steps?'",
+              "prompt": "",
+              "words": ""
+            },
+            "tones": {
+              "p": "data",
+              "prompt": "idle",
+              "words": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Tier One High-Speed Edge Models serve as the foundation of the routing.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "finops_metrics"
+            "caption": "Verify the tier transition driving routing behavior.",
+            "values": {
+              "p": "",
+              "prompt": "'SELECT id FROM users WHERE active = 1;'",
+              "words": "8"
+            },
+            "tones": {
+              "p": "idle",
+              "prompt": "data",
+              "words": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "prompt"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering multi-tier routing infrastructure establishes the architectural.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the tier value produced for weight processing.",
+            "values": {
+              "p": "",
+              "prompt": "'Compare Raft tradeoff vs 2PC across mu…",
+              "words": "9"
+            },
+            "tones": {
+              "p": "idle",
+              "prompt": "ok",
+              "words": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "prompt"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Dynamic Fallback Policies, Circuit Breakers, And SLA Enforcement",
-      "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
+      "codeHash": "d0d7307ba6cfdcac2de7ffa408bac30ea93c5b24c4d6c8b697fc65c1e5a6e785",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Dynamic Fallback Policies, Circuit Breakers, And SLA Enforcement",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "event",
+            "label": "event",
+            "tappable": true
+          },
+          {
+            "id": "ok",
+            "label": "ok",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a multi-tier dynamic cascade, routing decisions cannot be treated.",
-            "activeActor": "routing_tiers",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect dynamic updates as event tracks fallback state.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ok": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "event": "data",
+              "ok": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Cascaded schema validation error fallbacks serve as the primary structural.",
-            "activeActor": "finops_metrics",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the cascaded transition driving schema behavior.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 18,
+                "hit": 2
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ok": {
+                "text": ""
               }
+            },
+            "tones": {
+              "event": "data",
+              "ok": "idle"
+            },
+            "arrows": [
+              [
+                "event",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering dynamic fallback policies and circuit breaker architectures.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the circuit value produced for breakers processing.",
+            "values": {
+              "event": {
+                "text": ""
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ok": {
+                "var": "ok",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "event": "idle",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "event",
+                "ok"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Dynamic Fallback Policies, Circuit Breakers, And SLA Enforcement",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "event",
+            "label": "event",
+            "tappable": true
+          },
+          {
+            "id": "ok",
+            "label": "ok",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a multi-tier dynamic cascade, routing decisions cannot be treated.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "routing_tiers"
+            "caption": "Inspect dynamic updates as event tracks fallback state.",
+            "values": {
+              "event": "True",
+              "ok": ""
+            },
+            "tones": {
+              "event": "data",
+              "ok": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Cascaded schema validation error fallbacks serve as the primary structural.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "finops_metrics"
+            "caption": "Verify the cascaded transition driving schema behavior.",
+            "values": {
+              "event": "False",
+              "ok": ""
+            },
+            "tones": {
+              "event": "data",
+              "ok": "idle"
+            },
+            "arrows": [
+              [
+                "event",
+                "ok"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering dynamic fallback policies and circuit breaker architectures.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the circuit value produced for breakers processing.",
+            "values": {
+              "event": "",
+              "ok": "False"
+            },
+            "tones": {
+              "event": "idle",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "event",
+                "ok"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Pareto Frontier Cascade Router: 68.2% Cloud Cost Reduction",
-      "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
+      "codeHash": "bd80b052dc6b7387c4a28d5fb857e9c32714821fb2584d6bfb4f6a91f8e2ab3e",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Pareto Frontier Cascade Router: 68.2% Cloud Cost Redu",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "cnt",
+            "label": "cnt",
+            "tappable": true
+          },
+          {
+            "id": "cost",
+            "label": "cost",
+            "tappable": true
+          },
+          {
+            "id": "lat",
+            "label": "lat",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating token economics, Pareto Frontier optimization, FrugalGPT.",
-            "activeActor": "routing_tiers",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as cnt tracks pareto state.",
+            "values": {
+              "cnt": {
+                "var": "cnt",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "cost": {
+                "text": ""
+              },
+              "lat": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "cnt": "data",
+              "cost": "idle",
+              "lat": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise cascade router integrates five.",
-            "activeActor": "finops_metrics",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the cascade transition driving separating behavior.",
+            "values": {
+              "cnt": {
+                "var": "cnt",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "cost": {
+                "var": "cost",
+                "line": 4,
+                "hit": 2
+              },
+              "lat": {
+                "text": ""
               }
+            },
+            "tones": {
+              "cnt": "data",
+              "cost": "data",
+              "lat": "idle"
+            },
+            "arrows": [
+              [
+                "cnt",
+                "cost"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise Pareto Frontier.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": {
-                  "var": "routing_tiers",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the cost value produced for predictive processing.",
+            "values": {
+              "cnt": {
+                "var": "cnt",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": {
-                  "var": "finops_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "cost": {
+                "text": ""
+              },
+              "lat": {
+                "var": "lat",
+                "line": 5,
+                "hit": 3
               }
+            },
+            "tones": {
+              "cnt": "ok",
+              "cost": "idle",
+              "lat": "ok"
+            },
+            "arrows": [
+              [
+                "cnt",
+                "cost"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Pareto Frontier Cascade Router: 68.2% Cloud Cost Redu",
-        "actors": [
-          "routing_tiers",
-          "finops_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "cnt",
+            "label": "cnt",
+            "tappable": true
+          },
+          {
+            "id": "cost",
+            "label": "cost",
+            "tappable": true
+          },
+          {
+            "id": "lat",
+            "label": "lat",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating token economics, Pareto Frontier optimization, FrugalGPT.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "routing_tiers"
+            "caption": "Inspect enterprise updates as cnt tracks pareto state.",
+            "values": {
+              "cnt": "62",
+              "cost": "",
+              "lat": ""
+            },
+            "tones": {
+              "cnt": "data",
+              "cost": "idle",
+              "lat": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise cascade router integrates five.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "finops_metrics"
+            "caption": "Verify the cascade transition driving separating behavior.",
+            "values": {
+              "cnt": "28",
+              "cost": "0.8",
+              "lat": ""
+            },
+            "tones": {
+              "cnt": "data",
+              "cost": "data",
+              "lat": "idle"
+            },
+            "arrows": [
+              [
+                "cnt",
+                "cost"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise Pareto Frontier.",
-            "messages": [
-              {
-                "from": "routing_tiers",
-                "to": "finops_metrics",
-                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
-                "tone": "data"
-              },
-              {
-                "from": "finops_metrics",
-                "to": "result",
-                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the cost value produced for predictive processing.",
+            "values": {
+              "cnt": "10",
+              "cost": "",
+              "lat": "190"
+            },
+            "tones": {
+              "cnt": "ok",
+              "cost": "idle",
+              "lat": "ok"
+            },
+            "arrows": [
+              [
+                "cnt",
+                "cost"
+              ]
+            ]
           }
         ]
       }

@@ -377,8 +377,8 @@
               },
               "c": {
                 "var": "c",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -423,8 +423,8 @@
               },
               "c": {
                 "var": "c",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -509,7 +509,7 @@
               "prior": "{'pos': 0.5, 'neg': 0.5}",
               "like": "{'pos': {'great': 0.3, 'fun': 0.2, 'bor…",
               "review": "['great', 'fun']",
-              "c": "'pos'"
+              "c": "'neg'"
             },
             "tones": {
               "prior": "data",
@@ -539,7 +539,7 @@
               "prior": "{'pos': 0.5, 'neg': 0.5}",
               "like": "{'pos': {'great': 0.3, 'fun': 0.2, 'bor…",
               "review": "['great', 'fun']",
-              "c": "'pos'"
+              "c": "'neg'"
             },
             "tones": {
               "prior": "ok",
@@ -902,7 +902,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how example updates shows during execution.",
+            "caption": "Examine the example value produced for shows processing.",
             "bars": [
               {
                 "label": "product",
@@ -964,7 +964,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how example updates shows during execution.",
+            "caption": "Examine the example value produced for shows processing.",
             "bars": [
               {
                 "label": "product",

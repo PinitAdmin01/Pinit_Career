@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "The base case is the smallest version, which you answer directly without.",
+            "caption": "The base case is the smallest version.",
             "rows": [
               {
                 "cells": [
@@ -129,7 +129,7 @@
           },
           {
             "at": "say2",
-            "caption": "The base case is the smallest version, which you answer directly without.",
+            "caption": "The base case is the smallest version.",
             "rows": [
               {
                 "cells": [

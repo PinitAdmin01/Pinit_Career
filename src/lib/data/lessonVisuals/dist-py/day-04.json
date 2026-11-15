@@ -9,111 +9,107 @@
       "partTitle": "The problem with hash mod N",
       "codeHash": "57d75a425343e6e8f06a6b627c86ab157fcc4a29377836f9406cf5f1f19a505c",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "The problem with hash mod N",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": false
+          },
+          {
+            "id": "output",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A simple way to spread keys over N servers is server = hash(key) % N.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "step": {
+                "text": "import hashlib"
+              },
+              "output": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "step": "data",
+              "output": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The problem appears when N changes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "step": {
+                "text": "import hashlib"
+              },
+              "output": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example measures how many keys move with mod-N.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "step": "idle",
+              "output": "ok"
+            },
+            "arrows": [
+              [
+                "step",
+                "output"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "The problem with hash mod N",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": false
+          },
+          {
+            "id": "output",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A simple way to spread keys over N servers is server = hash(key) % N.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "4 -> 5 servers with mod N: 79.8% of keys moved"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "values": {
+              "step": "import hashlib",
+              "output": ""
+            },
+            "tones": {
+              "step": "data",
+              "output": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The problem appears when N changes.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "4 -> 5 servers with mod N: 79.8% of keys moved"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example measures how many keys move with mod-N.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "4 -> 5 servers with mod N: 79.8% of keys moved"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "step": "import hashlib",
+              "output": "4 -> 5 servers with mod N: 79.8% of keys moved"
+            },
+            "tones": {
+              "step": "idle",
+              "output": "ok"
+            },
+            "arrows": [
+              [
+                "step",
+                "output"
+              ]
             ]
           }
         ]
@@ -145,6 +141,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If there is none before the end, wrap round to the first server.",
+            "activeActor": "positions",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "positions",
+                "label": {
+                  "var": "ring",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "positions",
@@ -159,10 +172,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each key belongs to the first server found by moving clockwise from.",
-            "activeActor": "positions",
+            "at": "say7",
+            "caption": "Examine the ring value produced for small processing.",
+            "activeActor": "key_pos",
             "messages": [
+              {
+                "from": "ring",
+                "to": "positions",
+                "label": {
+                  "var": "ring",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "positions",
+                "to": "key_pos",
+                "label": {
+                  "var": "positions",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ring",
                 "to": "positions",
@@ -182,14 +215,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace how small updates ring during execution.",
-            "activeActor": "key_pos",
-            "messages": [
+              },
               {
                 "from": "ring",
                 "to": "positions",
@@ -232,19 +258,13 @@
                 "to": "positions",
                 "label": "[[90, 'server-A'], [200, 'server-B'], […",
                 "tone": "data"
-              },
-              {
-                "from": "positions",
-                "to": "key_pos",
-                "label": "[90, 200, 300]",
-                "tone": "ok"
               }
             ],
             "activeActor": "ring"
           },
           {
             "at": "say2",
-            "caption": "Each key belongs to the first server found by moving clockwise from.",
+            "caption": "If there is none before the end, wrap round to the first server.",
             "messages": [
               {
                 "from": "ring",
@@ -263,8 +283,32 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how small updates ring during execution.",
+            "caption": "Examine the ring value produced for small processing.",
             "messages": [
+              {
+                "from": "ring",
+                "to": "positions",
+                "label": "[[90, 'server-A'], [200, 'server-B'], […",
+                "tone": "data"
+              },
+              {
+                "from": "positions",
+                "to": "key_pos",
+                "label": "[90, 200, 300]",
+                "tone": "ok"
+              },
+              {
+                "from": "ring",
+                "to": "positions",
+                "label": "[[90, 'server-A'], [200, 'server-B'], […",
+                "tone": "data"
+              },
+              {
+                "from": "positions",
+                "to": "key_pos",
+                "label": "[90, 200, 300]",
+                "tone": "ok"
+              },
               {
                 "from": "ring",
                 "to": "positions",
@@ -309,6 +353,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Keep self.ring as a sorted list of (hash, node) pairs.",
+            "activeActor": "ring",
+            "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ring",
@@ -323,10 +384,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how each updates node during execution.",
-            "activeActor": "ring",
+            "at": "say6",
+            "caption": "Examine the example value produced for uses processing.",
+            "activeActor": "node",
             "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ring",
+                "to": "node",
+                "label": {
+                  "var": "ring",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "ring",
@@ -346,14 +427,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example uses md5-based hashes and shows keys moving only from.",
-            "activeActor": "node",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "ring",
@@ -396,19 +470,13 @@
                 "to": "ring",
                 "label": "<ConsistentHashRing>",
                 "tone": "data"
-              },
-              {
-                "from": "ring",
-                "to": "node",
-                "label": "<ConsistentHashRing>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Trace how each updates node during execution.",
+            "caption": "Keep self.ring as a sorted list of (hash, node) pairs.",
             "messages": [
               {
                 "from": "self",
@@ -427,8 +495,32 @@
           },
           {
             "at": "say6",
-            "caption": "The example uses md5-based hashes and shows keys moving only from.",
+            "caption": "Examine the example value produced for uses processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": "<ConsistentHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "ring",
+                "to": "node",
+                "label": "<ConsistentHashRing>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "ring",
+                "label": "<ConsistentHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "ring",
+                "to": "node",
+                "label": "<ConsistentHashRing>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "ring",
@@ -752,17 +844,6 @@
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
@@ -777,17 +858,6 @@
                   },
                   {
                     "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -842,13 +912,6 @@
                   "estimate: {'fraction': '10.0%', 'keys_moved': 2000}"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "measured: 10.4%"
-                ],
-                "tone": "ok"
               }
             ]
           },
@@ -860,13 +923,6 @@
                 "cells": [
                   "out 1",
                   "estimate: {'fraction': '10.0%', 'keys_moved': 2000}"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "measured: 10.4%"
                 ],
                 "tone": "ok"
               }

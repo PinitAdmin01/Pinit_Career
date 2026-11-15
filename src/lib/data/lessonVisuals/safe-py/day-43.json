@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "ECE & Temperature Scaling — Foundations & Mathematical Invariants",
+      "partTitle": "Softmax Logit Sharpening via `apply_temperature_scaling`",
       "codeHash": "59d71122e3a72c2473bf296839a73d193aaa9393feaa5d85585425b5a848c38b",
       "spec": {
         "template": "states",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the softmax value produced for logit processing.",
             "currentState": "temperature",
             "transition": {
               "from": "logits",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the softmax value produced for logit processing.",
             "currentState": "temperature",
             "transition": {
               "from": "logits",
@@ -114,7 +114,7 @@
       }
     },
     {
-      "partTitle": "ECE & Temperature Scaling — Core Algorithm & State Representation",
+      "partTitle": "Bucketed Confidence Auditing inside `calculate_bin_calibration`",
       "codeHash": "602deb1fe426bc69c9b08b7ea0187a980ea937aecdcfbd1bd420fc6b3ebdf25a",
       "spec": {
         "template": "states",
@@ -157,7 +157,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the confidence value produced for calculate processing.",
             "currentState": "confidences",
             "transition": {
               "from": "accs",
@@ -209,7 +209,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the confidence value produced for calculate processing.",
             "currentState": "confidences",
             "transition": {
               "from": "accs",
@@ -222,7 +222,7 @@
       }
     },
     {
-      "partTitle": "ECE & Temperature Scaling — Production Implementation & Boundary Mechanics",
+      "partTitle": "Weighted Calibration Error in `calculate_expected_calibration_error`",
       "codeHash": "c853f2fcc5e66db9a8c2e74f1cb601c02ddd533ef61327386e66de2bbe87b822",
       "spec": {
         "template": "bars",
@@ -358,7 +358,7 @@
       }
     },
     {
-      "partTitle": "ECE & Temperature Scaling — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Grid NLL Temperature Tuning via `temperature_optimizer_loss`",
       "codeHash": "0d629bebff3164d1927ef30953edf68ca9acdd57f7f2ae1fcd4f7696a62f1d4c",
       "spec": {
         "template": "bars",
@@ -450,7 +450,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the temperature value produced for optimizer processing.",
             "bars": [
               {
                 "label": "best_temp",
@@ -550,7 +550,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the temperature value produced for optimizer processing.",
             "bars": [
               {
                 "label": "best_temp",
@@ -578,75 +578,161 @@
       }
     },
     {
-      "partTitle": "ECE & Temperature Scaling — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "24caf82bf2fa5d41c48a9f7dc4dd3f893d562fa9d49cee7c31adb0872d151203",
+      "partTitle": "Production Probability Health Checks with `audit_model_calibration_health`",
+      "codeHash": "5bad1d7c0bca1085b39fdd44216d98468df755637e37f0f95b0d476e90345d44",
       "spec": {
-        "template": "states",
-        "title": "ECE & Temperature Scaling — Production Capstone & Enterprise SRE",
-        "states": [
+        "template": "flow",
+        "title": "Production Probability Health Checks with `audit_model_calibrati",
+        "nodes": [
           {
             "id": "ece",
-            "label": "ece"
+            "label": "ece",
+            "tappable": true
           },
           {
             "id": "status",
-            "label": "status"
+            "label": "status",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The audit_model_calibration_health function evaluates production ECE.",
-            "currentState": "ece",
-            "tone": "data"
+            "caption": "Inspect production updates as ece tracks health state.",
+            "values": {
+              "ece": {
+                "var": "ece",
+                "line": 2,
+                "hit": 1
+              },
+              "status": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "ece": "data",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how less updates than during execution.",
-            "currentState": "status",
-            "transition": {
-              "from": "ece",
-              "to": "status",
-              "label": {
+            "caption": "Verify the model transition driving less behavior.",
+            "values": {
+              "ece": {
+                "var": "ece",
+                "line": 5,
+                "hit": 1
+              },
+              "status": {
                 "var": "status",
-                "line": 4,
+                "line": 5,
                 "hit": 1
               }
             },
-            "tone": "ok"
+            "tones": {
+              "ece": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "ece",
+                "status"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the exceeds value produced for status processing.",
+            "values": {
+              "ece": {
+                "var": "ece",
+                "line": 9,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ece": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "ece",
+                "status"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "ECE & Temperature Scaling — Production Capstone & Enterprise SRE",
-        "states": [
+        "template": "flow",
+        "title": "Production Probability Health Checks with `audit_model_calibrati",
+        "nodes": [
           {
             "id": "ece",
-            "label": "ece"
+            "label": "ece",
+            "tappable": true
           },
           {
             "id": "status",
-            "label": "status"
+            "label": "status",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The audit_model_calibration_health function evaluates production ECE.",
-            "currentState": "ece",
-            "tone": "data"
+            "caption": "Inspect production updates as ece tracks health state.",
+            "values": {
+              "ece": "0.08",
+              "status": ""
+            },
+            "tones": {
+              "ece": "data",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how less updates than during execution.",
-            "currentState": "status",
-            "transition": {
-              "from": "ece",
-              "to": "status",
-              "label": "'WELL_CALIBRATED'"
+            "caption": "Verify the model transition driving less behavior.",
+            "values": {
+              "ece": "0.038",
+              "status": "'WELL_CALIBRATED'"
             },
-            "tone": "ok"
+            "tones": {
+              "ece": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "ece",
+                "status"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the exceeds value produced for status processing.",
+            "values": {
+              "ece": "0.125",
+              "status": "'UNRELIABLE_PROBABILITIES'"
+            },
+            "tones": {
+              "ece": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "ece",
+                "status"
+              ]
+            ]
           }
         ]
       }

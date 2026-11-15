@@ -85,14 +85,14 @@ const DAYS: Day[] = [
       "desc": "Write `run_matching(orders)`: start from an empty book and send each order through a price-time matching engine (as in Day 3: trades at the resting price, FIFO, remainders rest). Return {'trades': number of trades, 'volume': total shares traded, 'best_bid': best bid price or None, 'best_ask': best ask price or None}.",
       "starter": "def run_matching(orders):\n    pass",
       "hint": "Reuse your Day 3 match_order and insert_order, then read book['bids'][0] and book['asks'][0].",
-      "test": "orders = [\n    {'id': 1, 'side': 'SELL', 'price': 10.2, 'qty': 100}, {'id': 2, 'side': 'SELL', 'price': 10.1, 'qty': 50},\n    {'id': 3, 'side': 'BUY', 'price': 10.0, 'qty': 70}, {'id': 4, 'side': 'BUY', 'price': 10.2, 'qty': 120},\n    {'id': 5, 'side': 'SELL', 'price': 9.9, 'qty': 30},\n]\nr = run_matching(orders)\nassert r == {'trades': 3, 'volume': 150, 'best_bid': 10.0, 'best_ask': 10.2}, f'Got {r}'\nassert run_matching([]) == {'trades': 0, 'volume': 0, 'best_bid': None, 'best_ask': None}, 'Empty stream'\nprint('All checks passed.')"
+      "test": "orders = [\n    {'id': 1, 'side': 'SELL', 'price': 10.2, 'qty': 100}, {'id': 2, 'side': 'SELL', 'price': 10.1, 'qty': 50},\n    {'id': 3, 'side': 'BUY', 'price': 10.0, 'qty': 70}, {'id': 4, 'side': 'BUY', 'price': 10.2, 'qty': 120},\n    {'id': 5, 'side': 'SELL', 'price': 9.9, 'qty': 30},\n]\nr = run_matching(orders)\nassert r == {'trades': 3, 'volume': 150, 'best_bid': 10.0, 'best_ask': 10.2}, f'Got {r}'\nassert run_matching([]) == {'trades': 0, 'volume': 0, 'best_bid': None, 'best_ask': None}, 'Empty stream'\nassert run_matching([{'id': 1, 'side': 'BUY', 'price': 99.5, 'qty': 10}]) == {'trades': 0, 'volume': 0, 'best_bid': 99.5, 'best_ask': None}, 'Resting buy order'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Engine Throughput",
       "desc": "Write `engine_throughput(orders, elapsed_us)` returning {'orders_per_sec': orders / (elapsed_us / 1_000_000) rounded to a whole number, 'ns_per_order': elapsed_us * 1000 / orders rounded to 1 decimal}. If orders or elapsed_us is 0 or less, raise ValueError.",
       "starter": "def engine_throughput(orders, elapsed_us):\n    pass",
       "hint": "seconds = elapsed_us / 1_000_000",
-      "test": "assert engine_throughput(1_000_000, 500_000) == {'orders_per_sec': 2000000, 'ns_per_order': 500.0}, 'Two million orders a second'\nassert engine_throughput(3, 1) == {'orders_per_sec': 3000000, 'ns_per_order': 333.3}, f'Got {engine_throughput(3, 1)}'\nfor bad in [(0, 10), (10, 0)]:\n    try:\n        engine_throughput(*bad)\n        raise AssertionError(f'{bad} must raise ValueError')\n    except ValueError:\n        pass\nprint('All checks passed.')"
+      "test": "assert engine_throughput(1_000_000, 500_000) == {'orders_per_sec': 2000000, 'ns_per_order': 500.0}, 'Two million orders a second'\nassert engine_throughput(3, 1) == {'orders_per_sec': 3000000, 'ns_per_order': 333.3}, f'Got {engine_throughput(3, 1)}'\nfor bad in [(0, 10), (10, 0)]:\n    try:\n        engine_throughput(*bad)\n        raise AssertionError(f'{bad} must raise ValueError')\n    except ValueError:\n        pass\nassert engine_throughput(100, 1000)['ns_per_order'] == 10000.0, '100 orders in 1000us is 10000 ns/order'\nprint('All checks passed.')"
     }
   },
   {
@@ -165,7 +165,7 @@ const DAYS: Day[] = [
       "desc": "An ITCH-style 'Add Order' message here is 26 bytes, big-endian: message type (1 byte, b'A'), order reference (8-byte unsigned), side (1 byte, b'B' or b'S'), shares (4-byte unsigned), stock (8 ASCII bytes, padded with spaces), price (4-byte unsigned, 4 implied decimals). Write `parse_add_order(buf)` with the struct module (format '>cQcI8sI') returning {'ref', 'side': 'BUY' or 'SELL', 'shares', 'stock' (spaces stripped), 'price' (float)}. Raise ValueError if the type is not b'A' or the length is not 26.",
       "starter": "import struct\n\n\ndef parse_add_order(buf):\n    pass",
       "hint": "kind, ref, side, shares, stock, price = struct.unpack('>cQcI8sI', buf)",
-      "test": "import struct\nmsg = struct.pack('>cQcI8sI', b'A', 123456789, b'B', 250, b'INFY    ', 15205000)\nassert parse_add_order(msg) == {'ref': 123456789, 'side': 'BUY', 'shares': 250, 'stock': 'INFY', 'price': 1520.5}, f'Got {parse_add_order(msg)}'\nsell = struct.pack('>cQcI8sI', b'A', 7, b'S', 10, b'TCS     ', 38001234)\nassert parse_add_order(sell)['side'] == 'SELL' and parse_add_order(sell)['price'] == 3800.1234, 'Four implied decimals'\nfor bad in [struct.pack('>cQcI8sI', b'X', 1, b'B', 1, b'A       ', 1), msg[:-1]]:\n    try:\n        parse_add_order(bad)\n        raise AssertionError('Wrong type or length must raise ValueError')\n    except ValueError:\n        pass\nprint('All checks passed.')"
+      "test": "import struct\nmsg = struct.pack('>cQcI8sI', b'A', 123456789, b'B', 250, b'INFY    ', 15205000)\nassert parse_add_order(msg) == {'ref': 123456789, 'side': 'BUY', 'shares': 250, 'stock': 'INFY', 'price': 1520.5}, f'Got {parse_add_order(msg)}'\nsell = struct.pack('>cQcI8sI', b'A', 7, b'S', 10, b'TCS     ', 38001234)\nassert parse_add_order(sell)['side'] == 'SELL' and parse_add_order(sell)['price'] == 3800.1234, 'Four implied decimals'\nfor bad in [struct.pack('>cQcI8sI', b'X', 1, b'B', 1, b'A       ', 1), msg[:-1]]:\n    try:\n        parse_add_order(bad)\n        raise AssertionError('Wrong type or length must raise ValueError')\n    except ValueError:\n        pass\nassert parse_add_order(sell)['stock'] == 'TCS' and parse_add_order(sell)['shares'] == 10, 'Stock padded spaces stripped'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Fixed-Point Prices",
@@ -188,7 +188,7 @@ const DAYS: Day[] = [
       "desc": "Write `bypass_savings(kernel_ns, bypass_ns, msgs_per_day)` returning {'speedup': kernel_ns / bypass_ns rounded to 2 decimals, 'saved_ns': kernel_ns - bypass_ns, 'saved_seconds_per_day': saved_ns * msgs_per_day / 1e9 rounded to 3 decimals}.",
       "starter": "def bypass_savings(kernel_ns, bypass_ns, msgs_per_day):\n    pass",
       "hint": "saved = kernel_ns - bypass_ns",
-      "test": "r = bypass_savings(8000, 1200, 50_000_000)\nassert r == {'speedup': 6.67, 'saved_ns': 6800, 'saved_seconds_per_day': 340.0}, f'Got {r}'\nassert bypass_savings(1000, 1000, 10)['speedup'] == 1.0, 'No gain'\nprint('All checks passed.')"
+      "test": "r = bypass_savings(8000, 1200, 50_000_000)\nassert r == {'speedup': 6.67, 'saved_ns': 6800, 'saved_seconds_per_day': 340.0}, f'Got {r}'\nassert bypass_savings(1000, 1000, 10)['speedup'] == 1.0, 'No gain'\nassert bypass_savings(2000, 500, 0) == {'speedup': 4.0, 'saved_ns': 1500, 'saved_seconds_per_day': 0.0}, 'Zero daily messages'\nprint('All checks passed.')"
     }
   },
   {
@@ -252,7 +252,7 @@ const DAYS: Day[] = [
       "desc": "Write `latency_percentiles(samples)` returning {'p50', 'p90', 'p99', 'max'} using the nearest-rank method: sort the samples; the p-th percentile is sorted[ceil(p / 100 * n) - 1]. Raise ValueError for an empty list.",
       "starter": "import math\n\n\ndef latency_percentiles(samples):\n    pass",
       "hint": "s = sorted(samples); rank = lambda p: s[math.ceil(p / 100 * len(s)) - 1]",
-      "test": "samples = list(range(1, 101))\nassert latency_percentiles(samples) == {'p50': 50, 'p90': 90, 'p99': 99, 'max': 100}, 'One to a hundred'\nspiky = [800] * 97 + [5000, 9000, 20000]\nassert latency_percentiles(spiky) == {'p50': 800, 'p90': 800, 'p99': 9000, 'max': 20000}, f'Got {latency_percentiles(spiky)}'\ntry:\n    latency_percentiles([])\n    raise AssertionError('Empty input must raise ValueError')\nexcept ValueError:\n    pass\nprint('All checks passed.')"
+      "test": "samples = list(range(1, 101))\nassert latency_percentiles(samples) == {'p50': 50, 'p90': 90, 'p99': 99, 'max': 100}, 'One to a hundred'\nspiky = [800] * 97 + [5000, 9000, 20000]\nassert latency_percentiles(spiky) == {'p50': 800, 'p90': 800, 'p99': 9000, 'max': 20000}, f'Got {latency_percentiles(spiky)}'\ntry:\n    latency_percentiles([])\n    raise AssertionError('Empty input must raise ValueError')\nexcept ValueError:\n    pass\nassert latency_percentiles([42]) == {'p50': 42, 'p90': 42, 'p99': 42, 'max': 42}, 'Single sample'\nprint('All checks passed.')"
     }
   },
   {
@@ -284,7 +284,7 @@ const DAYS: Day[] = [
       "desc": "Write `bs_vega(S, K, T, r, sigma)` returning S * n(d1) * sqrt(T), rounded to 4 decimals, where n is the standard normal density and d1 is the Black-Scholes d1. Vega is how much the option price changes for a 1.0 (100 percentage points) change in volatility; also return it per 1 volatility point as vega / 100, rounded to 4 decimals, as a tuple (vega, vega_per_point).",
       "starter": "import math\n\n\ndef bs_vega(S, K, T, r, sigma):\n    pass",
       "hint": "d1 = (math.log(S / K) + (r + sigma ** 2 / 2) * T) / (sigma * math.sqrt(T))",
-      "test": "assert bs_vega(100, 100, 1.0, 0.05, 0.2) == (37.524, 0.3752), f'Got {bs_vega(100, 100, 1.0, 0.05, 0.2)}'\nshort, long = bs_vega(100, 100, 0.1, 0.05, 0.2), bs_vega(100, 100, 2.0, 0.05, 0.2)\nassert short[0] < long[0], 'Longer-dated options are more sensitive to volatility'\nprint('All checks passed.')"
+      "test": "assert bs_vega(100, 100, 1.0, 0.05, 0.2) == (37.524, 0.3752), f'Got {bs_vega(100, 100, 1.0, 0.05, 0.2)}'\nshort, long = bs_vega(100, 100, 0.1, 0.05, 0.2), bs_vega(100, 100, 2.0, 0.05, 0.2)\nassert short[0] < long[0], 'Longer-dated options are more sensitive to volatility'\nassert round(bs_vega(100, 100, 1.0, 0.05, 0.2)[0] / 100, 4) == bs_vega(100, 100, 1.0, 0.05, 0.2)[1], 'Second element is vega per 1% vol'\nprint('All checks passed.')"
     }
   },
   {
@@ -293,7 +293,7 @@ const DAYS: Day[] = [
       "desc": "Write `parametric_var(value, mean, vol, confidence=0.95)` for a one-day VaR assuming normally distributed returns. Use z = 1.645 for 0.95 and z = 2.326 for 0.99 (raise ValueError for anything else). Return {'var_pct': z * vol - mean, 'var_amount': value * (z * vol - mean)}, var_pct rounded to 6 decimals and var_amount to 2.",
       "starter": "def parametric_var(value, mean, vol, confidence=0.95):\n    pass",
       "hint": "Z = {0.95: 1.645, 0.99: 2.326}",
-      "test": "assert parametric_var(1_000_000, 0.0, 0.02) == {'var_pct': 0.0329, 'var_amount': 32900.0}, f'Got {parametric_var(1_000_000, 0.0, 0.02)}'\nassert parametric_var(1_000_000, 0.0005, 0.015, 0.99) == {'var_pct': 0.03439, 'var_amount': 34390.0}, 'A small positive mean lowers VaR'\ntry:\n    parametric_var(100, 0, 0.01, 0.9)\n    raise AssertionError('Unsupported confidence must raise ValueError')\nexcept ValueError:\n    pass\nprint('All checks passed.')"
+      "test": "assert parametric_var(1_000_000, 0.0, 0.02) == {'var_pct': 0.0329, 'var_amount': 32900.0}, f'Got {parametric_var(1_000_000, 0.0, 0.02)}'\nassert parametric_var(1_000_000, 0.0005, 0.015, 0.99) == {'var_pct': 0.03439, 'var_amount': 34390.0}, 'A small positive mean lowers VaR'\ntry:\n    parametric_var(100, 0, 0.01, 0.9)\n    raise AssertionError('Unsupported confidence must raise ValueError')\nexcept ValueError:\n    pass\nassert parametric_var(0, 0.0, 0.02, 0.95) == {'var_pct': 0.0329, 'var_amount': 0.0}, 'Zero portfolio value'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Historical VaR and Scaling",
@@ -341,7 +341,7 @@ const DAYS: Day[] = [
       "desc": "Write `risk_engine(positions, pnl_scenarios, confidence=0.99)`. positions is a list of {'qty', 'delta', 'vega'} (per contract); net_delta = sum(qty * delta) and net_vega = sum(qty * vega). pnl_scenarios is a list of portfolio profit and loss numbers from historical scenarios. With k = max(1, round((1 - confidence) * n)), sort the P&L; var = -(k-th worst), es = -(average of the worst k). Return {'net_delta', 'net_vega', 'var', 'es'} all rounded to 2 decimals.",
       "starter": "def risk_engine(positions, pnl_scenarios, confidence=0.99):\n    pass",
       "hint": "tail = sorted(pnl_scenarios)[:k]",
-      "test": "positions = [{'qty': 10, 'delta': 0.6, 'vega': 0.4}, {'qty': -5, 'delta': 0.3, 'vega': 0.5}, {'qty': 200, 'delta': 1.0, 'vega': 0.0}]\npnl = [-120000, -80000, -50000] + [1000] * 197\nr = risk_engine(positions, pnl)\nassert r == {'net_delta': 204.5, 'net_vega': 1.5, 'var': 80000, 'es': 100000}, f'Got {r}'\nassert risk_engine(positions, pnl, 0.995)['var'] == 120000, 'k = 1 at 99.5% of 200 scenarios'\nprint('All checks passed.')"
+      "test": "positions = [{'qty': 10, 'delta': 0.6, 'vega': 0.4}, {'qty': -5, 'delta': 0.3, 'vega': 0.5}, {'qty': 200, 'delta': 1.0, 'vega': 0.0}]\npnl = [-120000, -80000, -50000] + [1000] * 197\nr = risk_engine(positions, pnl)\nassert r == {'net_delta': 204.5, 'net_vega': 1.5, 'var': 80000, 'es': 100000}, f'Got {r}'\nassert risk_engine(positions, pnl, 0.995)['var'] == 120000, 'k = 1 at 99.5% of 200 scenarios'\nassert risk_engine([], [-100, 200]) == {'net_delta': 0, 'net_vega': 0, 'var': 100, 'es': 100}, 'Empty positions still report VaR/ES'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Delta Hedge",
@@ -364,7 +364,7 @@ const DAYS: Day[] = [
       "desc": "For an Ornstein-Uhlenbeck spread that reverts at speed theta (per day), the half-life is ln(2) / theta days: how long a gap takes to halve. Write `half_life(theta)` rounded to 4 decimals, raising ValueError when theta <= 0 (no mean reversion).",
       "starter": "import math\n\n\ndef half_life(theta):\n    pass",
       "hint": "round(math.log(2) / theta, 4)",
-      "test": "assert half_life(0.1) == 6.9315, 'About a week'\nassert half_life(math.log(2)) == 1.0, 'Halves every day'\ntry:\n    half_life(0)\n    raise AssertionError('theta 0 must raise ValueError')\nexcept ValueError:\n    pass\nprint('All checks passed.')"
+      "test": "assert half_life(0.1) == 6.9315, 'About a week'\nassert half_life(math.log(2)) == 1.0, 'Halves every day'\ntry:\n    half_life(0)\n    raise AssertionError('theta 0 must raise ValueError')\nexcept ValueError:\n    pass\nassert half_life(1.0) == 0.6931, 'Rate 1.0 gives ln(2)'\nprint('All checks passed.')"
     }
   },
   {
@@ -396,7 +396,7 @@ const DAYS: Day[] = [
       "desc": "Write `microwave_advantage(distance_km, fibre_route_factor=1.1)`. Fibre routes are longer than the straight line (the factor) and slower (n = 1.4682); microwave goes almost straight through air (n = 1.0003). Return {'fibre_us', 'microwave_us', 'saved_us'} one-way times in microseconds rounded to 3 decimals, with c = 299,792,458 m/s.",
       "starter": "def microwave_advantage(distance_km, fibre_route_factor=1.1):\n    pass",
       "hint": "us = lambda meters, n: meters * n / C * 1e6",
-      "test": "r = microwave_advantage(1180)\nassert r == {'fibre_us': 6356.81, 'microwave_us': 3937.237, 'saved_us': 2419.573}, f'Chicago to New Jersey, got {r}'\nassert microwave_advantage(1180, 1.0)['saved_us'] > 1800, 'Even on a straight fibre, air wins'\nprint('All checks passed.')"
+      "test": "r = microwave_advantage(1180)\nassert r == {'fibre_us': 6356.81, 'microwave_us': 3937.237, 'saved_us': 2419.573}, f'Chicago to New Jersey, got {r}'\nassert microwave_advantage(1180, 1.0)['saved_us'] > 1800, 'Even on a straight fibre, air wins'\nassert microwave_advantage(0) == {'fibre_us': 0.0, 'microwave_us': 0.0, 'saved_us': 0.0}, 'Zero distance'\nprint('All checks passed.')"
     }
   },
   {
@@ -421,7 +421,7 @@ const DAYS: Day[] = [
       "desc": "In a backtest, every decision must use only data available at that time. Write `lookahead_audit(decisions)` where each decision is {'id', 'decided_at', 'data_times': [...]}. Return {'clean': True/False, 'bad_ids': sorted ids of decisions that used any data timestamped AFTER decided_at}.",
       "starter": "def lookahead_audit(decisions):\n    pass",
       "hint": "bad = sorted(d['id'] for d in decisions if any(t > d['decided_at'] for t in d['data_times']))",
-      "test": "decisions = [\n    {'id': 'd1', 'decided_at': 100, 'data_times': [90, 95, 100]},\n    {'id': 'd3', 'decided_at': 200, 'data_times': [150, 205]},\n    {'id': 'd2', 'decided_at': 150, 'data_times': [160]},\n]\nassert lookahead_audit(decisions) == {'clean': False, 'bad_ids': ['d2', 'd3']}, f'Got {lookahead_audit(decisions)}'\nassert lookahead_audit(decisions[:1]) == {'clean': True, 'bad_ids': []}, 'Data at exactly the decision time is allowed'\nprint('All checks passed.')"
+      "test": "decisions = [\n    {'id': 'd1', 'decided_at': 100, 'data_times': [90, 95, 100]},\n    {'id': 'd3', 'decided_at': 200, 'data_times': [150, 205]},\n    {'id': 'd2', 'decided_at': 150, 'data_times': [160]},\n]\nassert lookahead_audit(decisions) == {'clean': False, 'bad_ids': ['d2', 'd3']}, f'Got {lookahead_audit(decisions)}'\nassert lookahead_audit(decisions[:1]) == {'clean': True, 'bad_ids': []}, 'Data at exactly the decision time is allowed'\nassert lookahead_audit([]) == {'clean': True, 'bad_ids': []}, 'Empty decisions list'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Multiple Testing Haircut",
@@ -469,7 +469,7 @@ const DAYS: Day[] = [
       "desc": "Write `fpga_latency(stages, clock_mhz, cycles_per_stage=1)` returning {'cycles': stages * cycles_per_stage, 'latency_ns': cycles / clock_mhz * 1000 rounded to 2 decimals, 'max_msgs_per_sec': clock_mhz * 1_000_000 // cycles_per_stage} (a pipelined design accepts a new message every cycles_per_stage cycles).",
       "starter": "def fpga_latency(stages, clock_mhz, cycles_per_stage=1):\n    pass",
       "hint": "cycles = stages * cycles_per_stage; latency = cycles / clock_mhz * 1000",
-      "test": "assert fpga_latency(12, 250) == {'cycles': 12, 'latency_ns': 48.0, 'max_msgs_per_sec': 250000000}, f'Got {fpga_latency(12, 250)}'\nassert fpga_latency(12, 400, 2) == {'cycles': 24, 'latency_ns': 60.0, 'max_msgs_per_sec': 200000000}, 'Two cycles per stage'\nprint('All checks passed.')"
+      "test": "assert fpga_latency(12, 250) == {'cycles': 12, 'latency_ns': 48.0, 'max_msgs_per_sec': 250000000}, f'Got {fpga_latency(12, 250)}'\nassert fpga_latency(12, 400, 2) == {'cycles': 24, 'latency_ns': 60.0, 'max_msgs_per_sec': 200000000}, 'Two cycles per stage'\nassert fpga_latency(1, 100, 1) == {'cycles': 1, 'latency_ns': 10.0, 'max_msgs_per_sec': 100000000}, 'Single stage 100 MHz'\nprint('All checks passed.')"
     },
     "a": {
       "title": "FPGA Resource Check",

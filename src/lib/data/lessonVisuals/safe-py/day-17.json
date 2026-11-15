@@ -104,7 +104,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how full updates width during execution.",
+            "caption": "Verify the full transition driving width behavior.",
             "currentState": "n",
             "transition": {
               "from": "text",
@@ -141,7 +141,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how full updates width during execution.",
+            "caption": "Verify the full transition driving width behavior.",
             "currentState": "n",
             "transition": {
               "from": "text",
@@ -272,17 +272,17 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how both updates avoid during execution.",
+            "caption": "\"p.a.s.s\" and \"p a s s\" both avoid a check for \"pass\".",
             "values": {
               "text": {
                 "var": "text",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "letters": {
                 "var": "letters",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -302,13 +302,13 @@
             "values": {
               "text": {
                 "var": "text",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "letters": {
                 "var": "letters",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -358,10 +358,10 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how both updates avoid during execution.",
+            "caption": "\"p.a.s.s\" and \"p a s s\" both avoid a check for \"pass\".",
             "values": {
-              "text": "'h.a.c.k'",
-              "letters": "'hack'"
+              "text": "'h a c k'",
+              "letters": "'washacknowledged'"
             },
             "tones": {
               "text": "data",
@@ -378,8 +378,8 @@
             "at": "say10",
             "caption": "The next part combines everything into the banned-word finder.",
             "values": {
-              "text": "'h.a.c.k'",
-              "letters": "'hack'"
+              "text": "'wash acknowledged'",
+              "letters": "'washacknowledged'"
             },
             "tones": {
               "text": "ok",
@@ -418,7 +418,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates text during execution.",
+            "caption": "Observe how banned shapes words during this step.",
             "currentState": "LEET",
             "tone": "data"
           },
@@ -474,7 +474,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates text during execution.",
+            "caption": "Observe how banned shapes words during this step.",
             "currentState": "LEET",
             "tone": "data"
           },

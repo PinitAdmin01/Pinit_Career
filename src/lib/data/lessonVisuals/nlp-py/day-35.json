@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how welcome updates milestone during execution.",
+            "caption": "Observe how rope shapes welcome during this step.",
             "items": {
               "var": "x_input",
               "line": 23,
@@ -68,7 +68,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how welcome updates milestone during execution.",
+            "caption": "Observe how rope shapes welcome during this step.",
             "items": [
               "1.5",
               "-0.8",
@@ -507,7 +507,7 @@
               },
               "self": {
                 "var": "self",
-                "line": 6,
+                "line": 17,
                 "hit": 1
               },
               "eps": {
@@ -553,7 +553,7 @@
               },
               "self": {
                 "var": "self",
-                "line": 7,
+                "line": 10,
                 "hit": 1
               },
               "eps": {
@@ -643,7 +643,7 @@
             "values": {
               "d_model": "4",
               "d_ffn": "8",
-              "self": "<RMSNorm>",
+              "self": "<SwiGLU_FFN>",
               "eps": "0.000001"
             },
             "tones": {

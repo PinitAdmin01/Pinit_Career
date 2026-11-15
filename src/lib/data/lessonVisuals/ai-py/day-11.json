@@ -283,8 +283,8 @@
               },
               "text": {
                 "var": "text",
-                "line": 2,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "q_words": {
                 "var": "q_words",
@@ -293,8 +293,8 @@
               },
               "t_words": {
                 "var": "t_words",
-                "line": 4,
-                "hit": 10
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -329,8 +329,8 @@
               },
               "text": {
                 "var": "text",
-                "line": 3,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "q_words": {
                 "var": "q_words",
@@ -339,8 +339,8 @@
               },
               "t_words": {
                 "var": "t_words",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -423,9 +423,9 @@
             "caption": "A cross-encoder reads the question and one document together, as a pair.",
             "values": {
               "query": "'refund time for upi payment'",
-              "text": "'Refunds for UPI payment arrive in 2 da…",
+              "text": "'Card payment refunds take 7 days'",
               "q_words": "{'for', 'payment', 'refund', 'time', 'u…",
-              "t_words": "['refunds', 'for', 'upi', 'payment', 'a…"
+              "t_words": "['card', 'payment', 'refunds', 'take', …"
             },
             "tones": {
               "query": "data",
@@ -453,9 +453,9 @@
             "caption": "In our code, a small scoring function stands in for the cross-encoder, so.",
             "values": {
               "query": "'refund time for upi payment'",
-              "text": "'Refunds for UPI payment arrive in 2 da…",
+              "text": "'Store opens at 9'",
               "q_words": "{'for', 'payment', 'refund', 'time', 'u…",
-              "t_words": "['refunds', 'for', 'upi', 'payment', 'a…"
+              "t_words": "['store', 'opens', 'at', '9']"
             },
             "tones": {
               "query": "ok",
@@ -507,6 +507,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Passing score_fn in as a parameter keeps the function flexible.",
+            "activeActor": "query",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "query",
+                "label": {
+                  "var": "chunks",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "query",
@@ -521,10 +538,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Passing score_fn in as a parameter keeps the function flexible.",
-            "activeActor": "query",
+            "at": "say6",
+            "caption": "More chunks cost tokens and, as tomorrow shows, can even hurt answers.",
+            "activeActor": "text",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "query",
+                "label": {
+                  "var": "chunks",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "text",
+                "label": {
+                  "var": "query",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "query",
@@ -544,14 +581,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "More chunks cost tokens and, as tomorrow shows, can even hurt answers.",
-            "activeActor": "text",
-            "messages": [
+              },
               {
                 "from": "chunks",
                 "to": "query",
@@ -594,12 +624,6 @@
                 "to": "query",
                 "label": "[{'id': 'c1', 'text': 'Store hours are …",
                 "tone": "data"
-              },
-              {
-                "from": "query",
-                "to": "text",
-                "label": "'when does my upi refund arrive'",
-                "tone": "ok"
               }
             ],
             "activeActor": "chunks"
@@ -627,6 +651,30 @@
             "at": "say6",
             "caption": "More chunks cost tokens and, as tomorrow shows, can even hurt answers.",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "query",
+                "label": "[{'id': 'c1', 'text': 'Store hours are …",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "text",
+                "label": "'when does my upi refund arrive'",
+                "tone": "ok"
+              },
+              {
+                "from": "chunks",
+                "to": "query",
+                "label": "[{'id': 'c1', 'text': 'Store hours are …",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "text",
+                "label": "'when does my upi refund arrive'",
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "query",
@@ -671,6 +719,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Filter_by_min_score(results, min_score) keeps only results.",
+            "activeActor": "min_score",
+            "messages": [
+              {
+                "from": "results",
+                "to": "min_score",
+                "label": {
+                  "var": "results",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "min_score",
@@ -685,10 +750,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Filter_by_min_score(results, min_score) keeps only results.",
-            "activeActor": "min_score",
+            "at": "say6",
+            "caption": "Log how often nothing passes.",
+            "activeActor": "r",
             "messages": [
+              {
+                "from": "results",
+                "to": "min_score",
+                "label": {
+                  "var": "results",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "min_score",
+                "to": "r",
+                "label": {
+                  "var": "min_score",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "results",
                 "to": "min_score",
@@ -708,14 +793,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Log how often nothing passes.",
-            "activeActor": "r",
-            "messages": [
+              },
               {
                 "from": "results",
                 "to": "min_score",
@@ -758,12 +836,6 @@
                 "to": "min_score",
                 "label": "[{'id': 'c2', 'relevance_score': 0.91},…",
                 "tone": "data"
-              },
-              {
-                "from": "min_score",
-                "to": "r",
-                "label": "0.5",
-                "tone": "ok"
               }
             ],
             "activeActor": "results"
@@ -791,6 +863,30 @@
             "at": "say6",
             "caption": "Log how often nothing passes.",
             "messages": [
+              {
+                "from": "results",
+                "to": "min_score",
+                "label": "[{'id': 'c2', 'relevance_score': 0.91},…",
+                "tone": "data"
+              },
+              {
+                "from": "min_score",
+                "to": "r",
+                "label": "0.5",
+                "tone": "ok"
+              },
+              {
+                "from": "results",
+                "to": "min_score",
+                "label": "[{'id': 'c2', 'relevance_score': 0.91},…",
+                "tone": "data"
+              },
+              {
+                "from": "min_score",
+                "to": "r",
+                "label": "0.5",
+                "tone": "ok"
+              },
               {
                 "from": "results",
                 "to": "min_score",
@@ -835,6 +931,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A rank-aware version rewards putting relevant chunks first.",
+            "activeActor": "before",
+            "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": {
+                  "var": "relevant",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "before",
@@ -849,10 +962,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A rank-aware version rewards putting relevant chunks first.",
-            "activeActor": "before",
+            "at": "say6",
+            "caption": "Examine the builds value produced for fuller processing.",
+            "activeActor": "after",
             "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": {
+                  "var": "relevant",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "relevant",
                 "to": "before",
@@ -872,14 +1005,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace how builds updates fuller during execution.",
-            "activeActor": "after",
-            "messages": [
+              },
               {
                 "from": "relevant",
                 "to": "before",
@@ -922,12 +1048,6 @@
                 "to": "before",
                 "label": "{'c2', 'c5'}",
                 "tone": "data"
-              },
-              {
-                "from": "before",
-                "to": "after",
-                "label": "['c1', 'c2', 'c4', 'c5']",
-                "tone": "ok"
               }
             ],
             "activeActor": "relevant"
@@ -953,8 +1073,32 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how builds updates fuller during execution.",
+            "caption": "Examine the builds value produced for fuller processing.",
             "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": "{'c2', 'c5'}",
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": "['c1', 'c2', 'c4', 'c5']",
+                "tone": "ok"
+              },
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": "{'c2', 'c5'}",
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": "['c1', 'c2', 'c4', 'c5']",
+                "tone": "ok"
+              },
               {
                 "from": "relevant",
                 "to": "before",

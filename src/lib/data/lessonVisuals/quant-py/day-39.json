@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the cross transition driving sectional behavior.",
+            "activeActor": "scores",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "scores",
+                "label": {
+                  "var": "raw",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "scores",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If a momentum signal favors semiconductor stocks during a tech rally,.",
-            "activeActor": "scores",
+            "at": "say10",
+            "caption": "By stripping away macro volatility and sector tailwinds, portfolio.",
+            "activeActor": "clip_std",
             "messages": [
+              {
+                "from": "raw",
+                "to": "scores",
+                "label": {
+                  "var": "raw",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "scores",
+                "to": "clip_std",
+                "label": {
+                  "var": "scores",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "scores",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "By stripping away macro volatility and sector tailwinds, portfolio.",
-            "activeActor": "clip_std",
-            "messages": [
+              },
               {
                 "from": "raw",
                 "to": "scores",
@@ -118,19 +148,13 @@
                 "to": "scores",
                 "label": "[1.2, 0.5, -0.8, 4.5, -2.1, 0.1, -0.3]",
                 "tone": "data"
-              },
-              {
-                "from": "scores",
-                "to": "clip_std",
-                "label": "[1.2, 0.5, -0.8, 4.5, -2.1, 0.1, -0.3]",
-                "tone": "ok"
               }
             ],
             "activeActor": "raw"
           },
           {
             "at": "say2",
-            "caption": "If a momentum signal favors semiconductor stocks during a tech rally,.",
+            "caption": "Verify the cross transition driving sectional behavior.",
             "messages": [
               {
                 "from": "raw",
@@ -151,6 +175,30 @@
             "at": "say10",
             "caption": "By stripping away macro volatility and sector tailwinds, portfolio.",
             "messages": [
+              {
+                "from": "raw",
+                "to": "scores",
+                "label": "[1.2, 0.5, -0.8, 4.5, -2.1, 0.1, -0.3]",
+                "tone": "data"
+              },
+              {
+                "from": "scores",
+                "to": "clip_std",
+                "label": "[1.2, 0.5, -0.8, 4.5, -2.1, 0.1, -0.3]",
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "scores",
+                "label": "[1.2, 0.5, -0.8, 4.5, -2.1, 0.1, -0.3]",
+                "tone": "data"
+              },
+              {
+                "from": "scores",
+                "to": "clip_std",
+                "label": "[1.2, 0.5, -0.8, 4.5, -2.1, 0.1, -0.3]",
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "scores",
@@ -781,7 +829,7 @@
           },
           {
             "at": "say11",
-            "caption": "Real-time observability ensures that portfolio risk metrics are.",
+            "caption": "Examine the factor value produced for real processing.",
             "bars": [
               {
                 "label": "n",
@@ -881,7 +929,7 @@
           },
           {
             "at": "say11",
-            "caption": "Real-time observability ensures that portfolio risk metrics are.",
+            "caption": "Examine the factor value produced for real processing.",
             "bars": [
               {
                 "label": "n",

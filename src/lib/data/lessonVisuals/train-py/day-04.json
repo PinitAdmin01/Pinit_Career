@@ -38,7 +38,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each GPU processes a different slice of the data, called its shard,.",
+            "caption": "Verify the data transition driving processes behavior.",
             "bars": [
               {
                 "label": "world_size",
@@ -108,7 +108,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each GPU processes a different slice of the data, called its shard,.",
+            "caption": "Verify the data transition driving processes behavior.",
             "bars": [
               {
                 "label": "world_size",
@@ -388,14 +388,12 @@
                 "hit": 1
               },
               "avg": {
-                "var": "avg",
-                "line": 2,
-                "hit": 4
+                "text": ""
               }
             },
             "tones": {
               "worker_grads": "data",
-              "avg": "data"
+              "avg": "idle"
             },
             "arrows": [
               [
@@ -477,11 +475,11 @@
             "caption": "After the backward pass, each rank has gradients computed from its own shard.",
             "values": {
               "worker_grads": "[[0.2, -0.4, 1], [0.4, -0.2, 0], [0, -0…",
-              "avg": "[0.2, -0.3, 0.5]"
+              "avg": ""
             },
             "tones": {
               "worker_grads": "data",
-              "avg": "data"
+              "avg": "idle"
             },
             "arrows": [
               [
@@ -574,16 +572,14 @@
                 "hit": 1
               },
               "b": {
-                "var": "b",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "xs": "data",
               "ys": "data",
               "w": "data",
-              "b": "data"
+              "b": "idle"
             },
             "arrows": [
               [
@@ -723,13 +719,13 @@
               "xs": "[0, 1, 2, 3, 4, 5]",
               "ys": "[1, 3, 5, 7, 9, 11]",
               "w": "0.5",
-              "b": "0"
+              "b": ""
             },
             "tones": {
               "xs": "data",
               "ys": "data",
               "w": "data",
-              "b": "data"
+              "b": "idle"
             },
             "arrows": [
               [
@@ -868,22 +864,22 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how model updates gradients during execution.",
+            "caption": "Verify the model transition driving gradients behavior.",
             "values": {
               "name": {
                 "var": "name",
-                "line": 2,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "params": {
                 "var": "params",
-                "line": 2,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "grad_gb": {
                 "var": "grad_gb",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -908,18 +904,18 @@
             "values": {
               "name": {
                 "var": "name",
-                "line": 3,
-                "hit": 1
+                "line": 1,
+                "hit": 3
               },
               "params": {
                 "var": "params",
-                "line": 3,
-                "hit": 1
+                "line": 1,
+                "hit": 3
               },
               "grad_gb": {
                 "var": "grad_gb",
-                "line": 1,
-                "hit": 2
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -984,11 +980,11 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how model updates gradients during execution.",
+            "caption": "Verify the model transition driving gradients behavior.",
             "values": {
-              "name": "'125M'",
-              "params": "125000000",
-              "grad_gb": "0.25"
+              "name": "'1.3B'",
+              "params": "1300000000",
+              "grad_gb": "2.6"
             },
             "tones": {
               "name": "data",
@@ -1010,9 +1006,9 @@
             "at": "say10",
             "caption": "Knowing the weaknesses tells you when to move to more advanced techniques.",
             "values": {
-              "name": "'125M'",
-              "params": "125000000",
-              "grad_gb": "0.25"
+              "name": "'7B'",
+              "params": "7000000000",
+              "grad_gb": "14"
             },
             "tones": {
               "name": "ok",
@@ -1058,7 +1054,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": {
               "var": "xs",
               "line": 7,
@@ -1117,7 +1113,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": [
               "0",
               "1",

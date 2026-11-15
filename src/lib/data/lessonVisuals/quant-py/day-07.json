@@ -80,7 +80,7 @@
           },
           {
             "at": "say7",
-            "caption": "Short-term signals like this are useful for execution (when to place.",
+            "caption": "Examine the short value produced for term processing.",
             "bars": [
               {
                 "label": "bid_qty",
@@ -161,7 +161,7 @@
           },
           {
             "at": "say7",
-            "caption": "Short-term signals like this are useful for execution (when to place.",
+            "caption": "Examine the short value produced for term processing.",
             "bars": [
               {
                 "label": "bid_qty",
@@ -489,6 +489,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the imbalance transition driving example behavior.",
+            "activeActor": "threshold",
+            "messages": [
+              {
+                "from": "obi",
+                "to": "threshold",
+                "label": {
+                  "var": "obi",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "threshold",
@@ -503,10 +520,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how example updates imbalance during execution.",
-            "activeActor": "threshold",
+            "at": "say7",
+            "caption": "The example converts a series of imbalances into signals.",
+            "activeActor": "signal",
             "messages": [
+              {
+                "from": "obi",
+                "to": "threshold",
+                "label": {
+                  "var": "obi",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "signal",
+                "label": {
+                  "var": "threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "obi",
                 "to": "threshold",
@@ -526,14 +563,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example converts a series of imbalances into signals.",
-            "activeActor": "signal",
-            "messages": [
+              },
               {
                 "from": "obi",
                 "to": "threshold",
@@ -576,19 +606,13 @@
                 "to": "threshold",
                 "label": "0.8",
                 "tone": "data"
-              },
-              {
-                "from": "threshold",
-                "to": "signal",
-                "label": "0.3",
-                "tone": "ok"
               }
             ],
             "activeActor": "obi"
           },
           {
             "at": "say2",
-            "caption": "Trace how example updates imbalance during execution.",
+            "caption": "Verify the imbalance transition driving example behavior.",
             "messages": [
               {
                 "from": "obi",
@@ -609,6 +633,30 @@
             "at": "say7",
             "caption": "The example converts a series of imbalances into signals.",
             "messages": [
+              {
+                "from": "obi",
+                "to": "threshold",
+                "label": "0.8",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "signal",
+                "label": "0.3",
+                "tone": "ok"
+              },
+              {
+                "from": "obi",
+                "to": "threshold",
+                "label": "0.8",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "signal",
+                "label": "0.3",
+                "tone": "ok"
+              },
               {
                 "from": "obi",
                 "to": "threshold",

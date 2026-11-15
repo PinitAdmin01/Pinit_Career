@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "bf16_max": {
-                "var": "bf16_max",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "fp16_max": "data",
               "fp16_min_norm": "data",
               "fp16_min_subnorm": "data",
-              "bf16_max": "data"
+              "bf16_max": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "fp16_max": "65504",
               "fp16_min_norm": "0.00006103515625",
               "fp16_min_subnorm": "5.960464477539063e-8",
-              "bf16_max": "3.3895313892515355e+38"
+              "bf16_max": ""
             },
             "tones": {
               "fp16_max": "data",
               "fp16_min_norm": "data",
               "fp16_min_subnorm": "data",
-              "bf16_max": "data"
+              "bf16_max": "idle"
             },
             "arrows": [
               [
@@ -289,10 +287,161 @@
       "partTitle": "The Mixed-Precision Training Loop: FP32 Master Weights, Low-Precision Forward/Backward Passes & Gradient Accumulation",
       "codeHash": "3f6d638a6368b74d5747b2132eeeceed7d6a36d80d774fdda05115098f5281eb",
       "spec": {
-        "template": "none",
-        "reason": "Concept explained cleanly in text and interactive code."
+        "template": "flow",
+        "title": "The Mixed-Precision Training Loop: FP32 Master Weights, Low-Prec",
+        "nodes": [
+          {
+            "id": "w_master",
+            "label": "w_master",
+            "tappable": true
+          },
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect mixed updates as w_master tracks precision state.",
+            "values": {
+              "w_master": {
+                "var": "w_master",
+                "line": 2,
+                "hit": 1
+              },
+              "step": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "w_master": "data",
+              "step": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "The fatal flaw is weight update vanishing caused by machine epsilon.",
+            "values": {
+              "w_master": {
+                "var": "w_master",
+                "line": 10,
+                "hit": 333
+              },
+              "step": {
+                "var": "step",
+                "line": 10,
+                "hit": 333
+              }
+            },
+            "tones": {
+              "w_master": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "w_master",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the training value produced for weights processing.",
+            "values": {
+              "w_master": {
+                "var": "w_master",
+                "line": 11,
+                "hit": 665
+              },
+              "step": {
+                "var": "step",
+                "line": 11,
+                "hit": 665
+              }
+            },
+            "tones": {
+              "w_master": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "w_master",
+                "step"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "The Mixed-Precision Training Loop: FP32 Master Weights, Low-Prec",
+        "nodes": [
+          {
+            "id": "w_master",
+            "label": "w_master",
+            "tappable": true
+          },
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect mixed updates as w_master tracks precision state.",
+            "values": {
+              "w_master": "1",
+              "step": ""
+            },
+            "tones": {
+              "w_master": "data",
+              "step": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "The fatal flaw is weight update vanishing caused by machine epsilon.",
+            "values": {
+              "w_master": "0.9999999833999986",
+              "step": "332"
+            },
+            "tones": {
+              "w_master": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "w_master",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the training value produced for weights processing.",
+            "values": {
+              "w_master": "0.9999999667499972",
+              "step": "664"
+            },
+            "tones": {
+              "w_master": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "w_master",
+                "step"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Underflow, Gradient Vanishing & The Dynamic Loss Scaling Algorithm (Scaling, Overflow Detection & Backoff)",
@@ -303,7 +452,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While maintaining FP32 master weights prevents truncation during.",
+            "caption": "Observe how underflow shapes gradient during this step.",
             "items": {
               "var": "g",
               "line": 49,
@@ -341,7 +490,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While maintaining FP32 master weights prevents truncation during.",
+            "caption": "Observe how underflow shapes gradient during this step.",
             "items": [
               "0.0001",
               "-0.0002",

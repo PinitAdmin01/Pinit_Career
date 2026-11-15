@@ -6,273 +6,262 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Algorithmic Fairness — Foundations & Mathematical Invariants",
-      "codeHash": "38dd1a1add9e730c3c5b029134a3d3e9b66f79052e0a8b1741e407f1a3a64567",
+      "partTitle": "Group Positive Outcome Ratios in `calculate_selection_rate`",
+      "codeHash": "9a0f3cfc1ffc01840467f8259007c239e042f91ada284fcb32c8411ae5bbe352",
       "spec": {
-        "template": "states",
-        "title": "Algorithmic Fairness — Foundations & Mathematical Invariants",
-        "states": [
+        "template": "flow",
+        "title": "Group Positive Outcome Ratios in `calculate_selection_rate`",
+        "nodes": [
           {
             "id": "positive_outcomes",
-            "label": "positive_outcomes"
+            "label": "positive_outcomes",
+            "tappable": true
           },
           {
             "id": "total_applicants",
-            "label": "total_applicants"
+            "label": "total_applicants",
+            "tappable": true
           },
           {
-            "id": "rate_group_a",
-            "label": "rate_group_a"
+            "id": "bounded_pos",
+            "label": "bounded_pos",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When machine learning models automate hiring, credit lending,.",
-            "currentState": "positive_outcomes",
-            "tone": "data"
+            "caption": "Inspect machine updates as positive_outcomes tracks learning state.",
+            "values": {
+              "positive_outcomes": {
+                "var": "positive_outcomes",
+                "line": 2,
+                "hit": 1
+              },
+              "total_applicants": {
+                "var": "total_applicants",
+                "line": 2,
+                "hit": 1
+              },
+              "bounded_pos": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "positive_outcomes": "data",
+              "total_applicants": "data",
+              "bounded_pos": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Legal frameworks such as the US Civil Rights Act and European.",
-            "currentState": "total_applicants",
-            "transition": {
-              "from": "positive_outcomes",
-              "to": "total_applicants",
-              "label": {
+            "caption": "Verify the legal transition driving frameworks behavior.",
+            "values": {
+              "positive_outcomes": {
+                "var": "positive_outcomes",
+                "line": 4,
+                "hit": 2
+              },
+              "total_applicants": {
                 "var": "total_applicants",
-                "line": 3,
+                "line": 4,
+                "hit": 2
+              },
+              "bounded_pos": {
+                "var": "bounded_pos",
+                "line": 4,
                 "hit": 2
               }
             },
-            "tone": "data"
+            "tones": {
+              "positive_outcomes": "data",
+              "total_applicants": "data",
+              "bounded_pos": "data"
+            },
+            "arrows": [
+              [
+                "positive_outcomes",
+                "total_applicants"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
-            "currentState": "rate_group_a",
-            "transition": {
-              "from": "total_applicants",
-              "to": "rate_group_a",
-              "label": {
-                "var": "rate_group_a",
-                "line": 7,
-                "hit": 1
+            "at": "say3",
+            "caption": "Examine the positive value produced for selection processing.",
+            "values": {
+              "positive_outcomes": {
+                "var": "positive_outcomes",
+                "line": 4,
+                "hit": 3
+              },
+              "total_applicants": {
+                "var": "total_applicants",
+                "line": 4,
+                "hit": 3
+              },
+              "bounded_pos": {
+                "var": "bounded_pos",
+                "line": 4,
+                "hit": 3
               }
             },
-            "tone": "ok"
+            "tones": {
+              "positive_outcomes": "ok",
+              "total_applicants": "ok",
+              "bounded_pos": "ok"
+            },
+            "arrows": [
+              [
+                "positive_outcomes",
+                "total_applicants"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Algorithmic Fairness — Foundations & Mathematical Invariants",
-        "states": [
+        "template": "flow",
+        "title": "Group Positive Outcome Ratios in `calculate_selection_rate`",
+        "nodes": [
           {
             "id": "positive_outcomes",
-            "label": "positive_outcomes"
+            "label": "positive_outcomes",
+            "tappable": true
           },
           {
             "id": "total_applicants",
-            "label": "total_applicants"
+            "label": "total_applicants",
+            "tappable": true
           },
           {
-            "id": "rate_group_a",
-            "label": "rate_group_a"
+            "id": "bounded_pos",
+            "label": "bounded_pos",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When machine learning models automate hiring, credit lending,.",
-            "currentState": "positive_outcomes",
-            "tone": "data"
+            "caption": "Inspect machine updates as positive_outcomes tracks learning state.",
+            "values": {
+              "positive_outcomes": "80",
+              "total_applicants": "100",
+              "bounded_pos": ""
+            },
+            "tones": {
+              "positive_outcomes": "data",
+              "total_applicants": "data",
+              "bounded_pos": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Legal frameworks such as the US Civil Rights Act and European.",
-            "currentState": "total_applicants",
-            "transition": {
-              "from": "positive_outcomes",
-              "to": "total_applicants",
-              "label": "80"
+            "caption": "Verify the legal transition driving frameworks behavior.",
+            "values": {
+              "positive_outcomes": "48",
+              "total_applicants": "80",
+              "bounded_pos": "48"
             },
-            "tone": "data"
+            "tones": {
+              "positive_outcomes": "data",
+              "total_applicants": "data",
+              "bounded_pos": "data"
+            },
+            "arrows": [
+              [
+                "positive_outcomes",
+                "total_applicants"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
-            "currentState": "rate_group_a",
-            "transition": {
-              "from": "total_applicants",
-              "to": "rate_group_a",
-              "label": "0.8"
+            "at": "say3",
+            "caption": "Examine the positive value produced for selection processing.",
+            "values": {
+              "positive_outcomes": "0",
+              "total_applicants": "0",
+              "bounded_pos": "0"
             },
-            "tone": "ok"
+            "tones": {
+              "positive_outcomes": "ok",
+              "total_applicants": "ok",
+              "bounded_pos": "ok"
+            },
+            "arrows": [
+              [
+                "positive_outcomes",
+                "total_applicants"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Algorithmic Fairness — Core Algorithm & State Representation",
-      "codeHash": "b21107030d74842e674d0b723d1417a25e6f0f2b0f85348980993c3aa3968664",
+      "partTitle": "Four-Fifths Rule Compliance via `calculate_disparate_impact_ratio`",
+      "codeHash": "8372107fb3a69b80e6e9b46c368776b9e2e2184981eee2e6ba35bca2c6a48a19",
       "spec": {
         "template": "flow",
-        "title": "Algorithmic Fairness — Core Algorithm & State Representation",
+        "title": "Four-Fifths Rule Compliance via `calculate_disparate_impact_rati",
         "nodes": [
           {
             "id": "protected_rate",
-            "label": "protected_rate"
+            "label": "protected_rate",
+            "tappable": true
           },
           {
             "id": "baseline_rate",
-            "label": "baseline_rate"
-          },
-          {
-            "id": "ratio",
-            "label": "ratio"
-          },
-          {
-            "id": "passes_four_fifths",
-            "label": "passes_four_fifths"
+            "label": "baseline_rate",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Four-Fifths Rule (80% Rule) is the primary legal benchmark used by.",
+            "caption": "Inspect four updates as protected_rate tracks fifths state.",
             "values": {
               "protected_rate": {
                 "var": "protected_rate",
-                "line": 3,
+                "line": 2,
                 "hit": 1
               },
               "baseline_rate": {
                 "var": "baseline_rate",
-                "line": 3,
-                "hit": 1
-              },
-              "ratio": {
-                "var": "ratio",
-                "line": 6,
-                "hit": 1
-              },
-              "passes_four_fifths": {
-                "var": "passes_four_fifths",
-                "line": 7,
+                "line": 2,
                 "hit": 1
               }
             },
             "tones": {
               "protected_rate": "data",
-              "baseline_rate": "data",
-              "ratio": "data",
-              "passes_four_fifths": "data"
+              "baseline_rate": "data"
             },
-            "arrows": [
-              [
-                "protected_rate",
-                "baseline_rate"
-              ],
-              [
-                "baseline_rate",
-                "ratio"
-              ],
-              [
-                "ratio",
-                "passes_four_fifths"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The rule calculates the ratio of the selection rate for a protected.",
+            "caption": "Verify the rule transition driving ratio behavior.",
             "values": {
               "protected_rate": {
                 "var": "protected_rate",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "baseline_rate": {
                 "var": "baseline_rate",
-                "line": 4,
-                "hit": 1
-              },
-              "ratio": {
-                "var": "ratio",
-                "line": 7,
-                "hit": 1
-              },
-              "passes_four_fifths": {
-                "var": "passes_four_fifths",
-                "line": 8,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "protected_rate": "data",
-              "baseline_rate": "data",
-              "ratio": "data",
-              "passes_four_fifths": "data"
-            },
-            "arrows": [
-              [
-                "protected_rate",
-                "baseline_rate"
-              ],
-              [
-                "baseline_rate",
-                "ratio"
-              ],
-              [
-                "ratio",
-                "passes_four_fifths"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "values": {
-              "protected_rate": {
-                "var": "protected_rate",
-                "line": 4,
-                "hit": 1
-              },
-              "baseline_rate": {
-                "var": "baseline_rate",
-                "line": 4,
-                "hit": 1
-              },
-              "ratio": {
-                "var": "ratio",
-                "line": 8,
-                "hit": 1
-              },
-              "passes_four_fifths": {
-                "var": "passes_four_fifths",
-                "line": 8,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
               "protected_rate": "ok",
-              "baseline_rate": "ok",
-              "ratio": "ok",
-              "passes_four_fifths": "ok"
+              "baseline_rate": "ok"
             },
             "arrows": [
               [
                 "protected_rate",
                 "baseline_rate"
-              ],
-              [
-                "baseline_rate",
-                "ratio"
-              ],
-              [
-                "ratio",
-                "passes_four_fifths"
               ]
             ]
           }
@@ -280,113 +269,48 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Algorithmic Fairness — Core Algorithm & State Representation",
+        "title": "Four-Fifths Rule Compliance via `calculate_disparate_impact_rati",
         "nodes": [
           {
             "id": "protected_rate",
-            "label": "protected_rate"
+            "label": "protected_rate",
+            "tappable": true
           },
           {
             "id": "baseline_rate",
-            "label": "baseline_rate"
-          },
-          {
-            "id": "ratio",
-            "label": "ratio"
-          },
-          {
-            "id": "passes_four_fifths",
-            "label": "passes_four_fifths"
+            "label": "baseline_rate",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Four-Fifths Rule (80% Rule) is the primary legal benchmark used by.",
+            "caption": "Inspect four updates as protected_rate tracks fifths state.",
             "values": {
               "protected_rate": "0.6",
-              "baseline_rate": "0.8",
-              "ratio": "0.75",
-              "passes_four_fifths": "False"
+              "baseline_rate": "0.8"
             },
             "tones": {
               "protected_rate": "data",
-              "baseline_rate": "data",
-              "ratio": "data",
-              "passes_four_fifths": "data"
+              "baseline_rate": "data"
             },
-            "arrows": [
-              [
-                "protected_rate",
-                "baseline_rate"
-              ],
-              [
-                "baseline_rate",
-                "ratio"
-              ],
-              [
-                "ratio",
-                "passes_four_fifths"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The rule calculates the ratio of the selection rate for a protected.",
+            "caption": "Verify the rule transition driving ratio behavior.",
             "values": {
-              "protected_rate": "0.6",
-              "baseline_rate": "0.8",
-              "ratio": "0.75",
-              "passes_four_fifths": "False"
-            },
-            "tones": {
-              "protected_rate": "data",
-              "baseline_rate": "data",
-              "ratio": "data",
-              "passes_four_fifths": "data"
-            },
-            "arrows": [
-              [
-                "protected_rate",
-                "baseline_rate"
-              ],
-              [
-                "baseline_rate",
-                "ratio"
-              ],
-              [
-                "ratio",
-                "passes_four_fifths"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "values": {
-              "protected_rate": "0.6",
-              "baseline_rate": "0.8",
-              "ratio": "0.75",
-              "passes_four_fifths": "False"
+              "protected_rate": "0",
+              "baseline_rate": "0"
             },
             "tones": {
               "protected_rate": "ok",
-              "baseline_rate": "ok",
-              "ratio": "ok",
-              "passes_four_fifths": "ok"
+              "baseline_rate": "ok"
             },
             "arrows": [
               [
                 "protected_rate",
                 "baseline_rate"
-              ],
-              [
-                "baseline_rate",
-                "ratio"
-              ],
-              [
-                "ratio",
-                "passes_four_fifths"
               ]
             ]
           }
@@ -394,21 +318,21 @@
       }
     },
     {
-      "partTitle": "Algorithmic Fairness — Production Implementation & Boundary Mechanics",
-      "codeHash": "f1c1f95f84f070d85a3c21ff285239f683b8bbbae6eac66ad5d9ad28980e2b61",
+      "partTitle": "Absolute Selection Gaps in `calculate_demographic_parity_difference`",
+      "codeHash": "0a74feee93606b57eccc785904edef200a028b5b94854a9b12095fdc13c59b4e",
       "spec": {
         "template": "bars",
-        "title": "Algorithmic Fairness — Production Implementation & Boundary Mech",
+        "title": "Absolute Selection Gaps in `calculate_demographic_parity_differe",
         "steps": [
           {
             "at": "say1",
-            "caption": "Demographic Parity evaluates fairness from an absolute difference.",
+            "caption": "Observe how absolute shapes demographic during this step.",
             "bars": [
               {
                 "label": "rate_a",
                 "value": {
                   "var": "rate_a",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -417,16 +341,7 @@
                 "label": "rate_b",
                 "value": {
                   "var": "rate_b",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "diff",
-                "value": {
-                  "var": "diff",
-                  "line": 5,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -435,14 +350,14 @@
           },
           {
             "at": "say2",
-            "caption": "Demographic Parity Difference (DPD) measures the absolute arithmetic gap.",
+            "caption": "Verify the absolute transition driving selection behavior.",
             "bars": [
               {
                 "label": "rate_a",
                 "value": {
                   "var": "rate_a",
-                  "line": 3,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
@@ -450,50 +365,8 @@
                 "label": "rate_b",
                 "value": {
                   "var": "rate_b",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "diff",
-                "value": {
-                  "var": "diff",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for algorithmic.",
-            "bars": [
-              {
-                "label": "rate_a",
-                "value": {
-                  "var": "rate_a",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "rate_b",
-                "value": {
-                  "var": "rate_b",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "diff",
-                "value": {
-                  "var": "diff",
-                  "line": 6,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -503,11 +376,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Algorithmic Fairness — Production Implementation & Boundary Mech",
+        "title": "Absolute Selection Gaps in `calculate_demographic_parity_differe",
         "steps": [
           {
             "at": "say1",
-            "caption": "Demographic Parity evaluates fairness from an absolute difference.",
+            "caption": "Observe how absolute shapes demographic during this step.",
             "bars": [
               {
                 "label": "rate_a",
@@ -517,53 +390,22 @@
               {
                 "label": "rate_b",
                 "value": 0.6,
-                "tone": "data"
-              },
-              {
-                "label": "diff",
-                "value": 0.2,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Demographic Parity Difference (DPD) measures the absolute arithmetic gap.",
+            "caption": "Verify the absolute transition driving selection behavior.",
             "bars": [
               {
                 "label": "rate_a",
-                "value": 0.8,
+                "value": 0.75,
                 "tone": "ok"
               },
               {
                 "label": "rate_b",
-                "value": 0.6,
-                "tone": "ok"
-              },
-              {
-                "label": "diff",
-                "value": 0.2,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for algorithmic.",
-            "bars": [
-              {
-                "label": "rate_a",
-                "value": 0.8,
-                "tone": "ok"
-              },
-              {
-                "label": "rate_b",
-                "value": 0.6,
-                "tone": "ok"
-              },
-              {
-                "label": "diff",
-                "value": 0.2,
+                "value": 0.75,
                 "tone": "ok"
               }
             ]
@@ -572,7 +414,7 @@
       }
     },
     {
-      "partTitle": "Algorithmic Fairness — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Joint Cohort Auditing inside `FairnessAuditor`",
       "codeHash": "8c019b5fe175330b25bfed234c81377f95fdcaac2f6ca3077b80f4396773f877",
       "spec": {
         "template": "bars",
@@ -664,7 +506,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the inside value produced for fairnessauditor processing.",
             "bars": [
               {
                 "label": "min_di_ratio",
@@ -764,7 +606,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the inside value produced for fairnessauditor processing.",
             "bars": [
               {
                 "label": "min_di_ratio",
@@ -792,7 +634,7 @@
       }
     },
     {
-      "partTitle": "Algorithmic Fairness — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Regulatory Compliance Rollups via `generate_eeoc_compliance_report`",
       "codeHash": "39271b57548774ad16ed02e3e06d5510a70af78b0458cdda412117cba2d0dbb9",
       "spec": {
         "template": "states",
@@ -835,7 +677,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the regulatory value produced for compliance processing.",
             "currentState": "audits",
             "transition": {
               "from": "a",
@@ -887,7 +729,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the regulatory value produced for compliance processing.",
             "currentState": "audits",
             "transition": {
               "from": "a",

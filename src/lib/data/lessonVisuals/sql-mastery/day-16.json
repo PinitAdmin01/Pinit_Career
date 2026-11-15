@@ -111,91 +111,141 @@
       "partTitle": "Several steps, one after another",
       "codeHash": "d5f1e3e61dc39bc5109967351b029b36ea49feadebed339b20385da9b002177a",
       "spec": {
-        "template": "table",
-        "title": "Layered CTE steps for customer totals and average",
-        "columns": [
-          "name",
-          "spent",
-          "average"
+        "template": "flow",
+        "title": "Several steps, one after another",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A WITH can hold several steps separated by commas building layers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Asha"
-                  },
-                  {
-                    "text": "2377.00"
-                  },
-                  {
-                    "text": "1212.33"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A WITH can hold several steps, separated by commas.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
               }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "There is only one WITH word at the top followed by steps with commas.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Asha"
-                  },
-                  {
-                    "text": "2377.00"
-                  },
-                  {
-                    "text": "1212.33"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "), step_two AS ( SELECT ...",
+            "values": {
+              "query": {
+                "text": "WHERE ct.spent > a.avg_spent;"
+              },
+              "db": {
+                "text": "SQL"
+              },
+              "res": {
+                "table": 1,
+                "row": 1,
+                "col": "name"
               }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Layered CTE steps for customer totals and average",
-        "columns": [
-          "name",
-          "spent",
-          "average"
+        "template": "flow",
+        "title": "Several steps, one after another",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A WITH can hold several steps separated by commas building layers.",
-            "rows": [
-              {
-                "cells": [
-                  "Asha",
-                  "2377.00",
-                  "1212.33"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A WITH can hold several steps, separated by commas.",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "There is only one WITH word at the top followed by steps with commas.",
-            "rows": [
-              {
-                "cells": [
-                  "Asha",
-                  "2377.00",
-                  "1212.33"
-                ],
-                "tone": "ok"
-              }
+            "caption": "), step_two AS ( SELECT ...",
+            "values": {
+              "query": "WHERE ct.spent > a.avg_spent;",
+              "db": "SQL",
+              "res": "Ravi"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
             ]
           }
         ]
@@ -301,19 +351,499 @@
       "partTitle": "Recursive WITH: counting and sequences",
       "codeHash": "031066148ebc937cc2dac8e076bd1fecb87064eed999882bebc53adec7507cb4",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Recursive WITH: counting and sequences",
+        "columns": [
+          "day",
+          "weekday"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "WITH has a special form, WITH RECURSIVE, where a step refers to itself.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A recursive CTE has two parts joined by UNION ALL.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "weekday"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Recursive WITH: counting and sequences",
+        "columns": [
+          "day",
+          "weekday"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "WITH has a special form, WITH RECURSIVE, where a step refers to itself.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-01",
+                  "Tue"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2026-09-02",
+                  "Wed"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2026-09-03",
+                  "Thu"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A recursive CTE has two parts joined by UNION ALL.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-01",
+                  "Tue"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-02",
+                  "Wed"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-03",
+                  "Thu"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-04",
+                  "Fri"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-05",
+                  "Sat"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Recursive WITH: walking a hierarchy",
       "codeHash": "0eac9a682ba47d0a267a23abd3c2b0152d6d338f4d511c910dad814083a01595",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Recursive WITH: walking a hierarchy",
+        "columns": [
+          "level",
+          "name",
+          "path"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The most useful job for WITH RECURSIVE is walking down a tree of data.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "path"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "path"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "path"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the recursive transition driving starting behavior.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "path"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "path"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "path"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "path"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "level"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "path"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Recursive WITH: walking a hierarchy",
+        "columns": [
+          "level",
+          "name",
+          "path"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The most useful job for WITH RECURSIVE is walking down a tree of data.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "Anita",
+                  "Anita"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Sara",
+                  "Anita > Sara"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Vikram",
+                  "Anita > Vikram"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the recursive transition driving starting behavior.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "Anita",
+                  "Anita"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Sara",
+                  "Anita > Sara"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Vikram",
+                  "Anita > Vikram"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "3",
+                  "Joel",
+                  "Anita > Vikram > Joel"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "4",
+                  "Nisha",
+                  "Anita > Vikram > Joel > Nisha"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a monthly report in steps",

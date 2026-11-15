@@ -7,164 +7,192 @@
   "entries": [
     {
       "partTitle": "Why All-to-All Heartbeats Fail at Scale",
-      "codeHash": "a4f0f70458d1ccaf1d75963a0757e52ae8eb5128cf10071c8b4b84a8cbf960e6",
+      "codeHash": "e0ce66bb86c4ffc89e0734819f5fcb266994dd067422f0eea3ab534fd5c515bf",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Why All-to-All Heartbeats Fail at Scale",
-        "actors": [
-          "cluster_sizes",
-          "n",
-          "all_to_all"
+        "nodes": [
+          {
+            "id": "rows",
+            "label": "rows",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "all_to_all",
+            "label": "all_to_all",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The simplest way to detect dead servers is having every node periodically.",
-            "activeActor": "cluster_sizes",
-            "messages": [
-              {
-                "from": "cluster_sizes",
-                "to": "n",
-                "label": {
-                  "var": "cluster_sizes",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect simplest updates as rows tracks detect state.",
+            "values": {
+              "rows": {
+                "var": "rows",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "n",
-                "to": "all_to_all",
-                "label": {
-                  "var": "n",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "text": ""
+              },
+              "all_to_all": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "rows": "data",
+              "n": "idle",
+              "all_to_all": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how bandwidth updates math during execution.",
-            "activeActor": "n",
-            "messages": [
-              {
-                "from": "cluster_sizes",
-                "to": "n",
-                "label": {
-                  "var": "cluster_sizes",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the heartbeats transition driving bandwidth behavior.",
+            "values": {
+              "rows": {
+                "var": "rows",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "from": "n",
-                "to": "all_to_all",
-                "label": {
-                  "var": "n",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 9,
+                "hit": 2
+              },
+              "all_to_all": {
+                "var": "all_to_all",
+                "line": 9,
+                "hit": 2
               }
+            },
+            "tones": {
+              "rows": "data",
+              "n": "data",
+              "all_to_all": "data"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Trace how simulate updates fixed during execution.",
-            "activeActor": "all_to_all",
-            "messages": [
-              {
-                "from": "cluster_sizes",
-                "to": "n",
-                "label": {
-                  "var": "cluster_sizes",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Worse still, false positives cascade under naive timeout detection.",
+            "values": {
+              "rows": {
+                "var": "rows",
+                "line": 5,
+                "hit": 4
               },
-              {
-                "from": "n",
-                "to": "all_to_all",
-                "label": {
-                  "var": "n",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 4
+              },
+              "all_to_all": {
+                "var": "all_to_all",
+                "line": 5,
+                "hit": 4
               }
+            },
+            "tones": {
+              "rows": "ok",
+              "n": "ok",
+              "all_to_all": "ok"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Why All-to-All Heartbeats Fail at Scale",
-        "actors": [
-          "cluster_sizes",
-          "n",
-          "all_to_all"
+        "nodes": [
+          {
+            "id": "rows",
+            "label": "rows",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "all_to_all",
+            "label": "all_to_all",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The simplest way to detect dead servers is having every node periodically.",
-            "messages": [
-              {
-                "from": "cluster_sizes",
-                "to": "n",
-                "label": "[10, 50, 200, 1000]",
-                "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": "all_to_all",
-                "label": "10",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "cluster_sizes"
+            "caption": "Inspect simplest updates as rows tracks detect state.",
+            "values": {
+              "rows": "[]",
+              "n": "",
+              "all_to_all": ""
+            },
+            "tones": {
+              "rows": "data",
+              "n": "idle",
+              "all_to_all": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how bandwidth updates math during execution.",
-            "messages": [
-              {
-                "from": "cluster_sizes",
-                "to": "n",
-                "label": "[10, 50, 200, 1000]",
-                "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": "all_to_all",
-                "label": "10",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "n"
+            "caption": "Verify the heartbeats transition driving bandwidth behavior.",
+            "values": {
+              "rows": "[[10, 90, 10.6], [50, 2450, 53]]",
+              "n": "50",
+              "all_to_all": "2450"
+            },
+            "tones": {
+              "rows": "data",
+              "n": "data",
+              "all_to_all": "data"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
+            ]
           },
           {
-            "at": "say8",
-            "caption": "Trace how simulate updates fixed during execution.",
-            "messages": [
-              {
-                "from": "cluster_sizes",
-                "to": "n",
-                "label": "[10, 50, 200, 1000]",
-                "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": "all_to_all",
-                "label": "10",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "all_to_all"
+            "at": "say3",
+            "caption": "Worse still, false positives cascade under naive timeout detection.",
+            "values": {
+              "rows": "[[10, 90, 10.6], [50, 2450, 53], [200, …",
+              "n": "1000",
+              "all_to_all": "999000"
+            },
+            "tones": {
+              "rows": "ok",
+              "n": "ok",
+              "all_to_all": "ok"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
+            ]
           }
         ]
       }
@@ -242,7 +270,7 @@
           },
           {
             "at": "say2",
-            "caption": "If node A marked B dead immediately after one direct PING timed out,.",
+            "caption": "Verify the ping transition driving node behavior.",
             "values": {
               "target": {
                 "var": "target",
@@ -388,7 +416,7 @@
           },
           {
             "at": "say2",
-            "caption": "If node A marked B dead immediately after one direct PING timed out,.",
+            "caption": "Verify the ping transition driving node behavior.",
             "values": {
               "target": "'B'",
               "direct_links": "{'B': True}",
@@ -583,6 +611,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production SWIM implementations (like HashiCorp Memberlist) enforce.",
+            "activeActor": "n_nodes",
+            "messages": [
+              {
+                "from": "self",
+                "to": "n_nodes",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "n_nodes",
@@ -597,10 +642,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Production SWIM implementations (like HashiCorp Memberlist) enforce.",
-            "activeActor": "n_nodes",
+            "at": "say7",
+            "caption": "Examine the separate value produced for broadcast processing.",
+            "activeActor": "mult",
             "messages": [
+              {
+                "from": "self",
+                "to": "n_nodes",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n_nodes",
+                "to": "mult",
+                "label": {
+                  "var": "n_nodes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "n_nodes",
@@ -620,14 +685,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace the priority piggyback buffer and retransmission eviction loop below.",
-            "activeActor": "mult",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "n_nodes",
@@ -637,16 +695,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "n_nodes",
-                "to": "mult",
-                "label": {
-                  "var": "n_nodes",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -670,12 +718,6 @@
                 "to": "n_nodes",
                 "label": "<PiggybackBuffer>",
                 "tone": "data"
-              },
-              {
-                "from": "n_nodes",
-                "to": "mult",
-                "label": "16",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -701,7 +743,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace the priority piggyback buffer and retransmission eviction loop below.",
+            "caption": "Examine the separate value produced for broadcast processing.",
             "messages": [
               {
                 "from": "self",
@@ -714,6 +756,24 @@
                 "to": "mult",
                 "label": "16",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "n_nodes",
+                "label": "<PiggybackBuffer>",
+                "tone": "data"
+              },
+              {
+                "from": "n_nodes",
+                "to": "mult",
+                "label": "16",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "n_nodes",
+                "label": "<PiggybackBuffer>",
+                "tone": "data"
               }
             ],
             "activeActor": "mult"
@@ -747,6 +807,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "HashiCorp engineers discovered this exact failure cascade under container.",
+            "activeActor": "base_timeout_ms",
+            "messages": [
+              {
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "base_timeout_ms",
@@ -761,10 +838,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "HashiCorp engineers discovered this exact failure cascade under container.",
-            "activeActor": "base_timeout_ms",
+            "at": "say6",
+            "caption": "Watch how cleanly LHM stops a starved observer from blaming healthy.",
+            "activeActor": "max_lhm",
             "messages": [
+              {
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": {
+                  "var": "base_timeout_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "base_timeout_ms",
@@ -784,14 +881,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Watch how cleanly LHM stops a starved observer from blaming healthy.",
-            "activeActor": "max_lhm",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "base_timeout_ms",
@@ -834,12 +924,6 @@
                 "to": "base_timeout_ms",
                 "label": "<LifeguardObserver>",
                 "tone": "data"
-              },
-              {
-                "from": "base_timeout_ms",
-                "to": "max_lhm",
-                "label": "200",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -867,6 +951,30 @@
             "at": "say6",
             "caption": "Watch how cleanly LHM stops a starved observer from blaming healthy.",
             "messages": [
+              {
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": "<LifeguardObserver>",
+                "tone": "data"
+              },
+              {
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": "200",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": "<LifeguardObserver>",
+                "tone": "data"
+              },
+              {
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": "200",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "base_timeout_ms",

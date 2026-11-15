@@ -6,143 +6,163 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Foundations & Mathematical Invariants",
-      "codeHash": "3b1d567841f788ad5759299d38cbdb49c3f31b0973f7c80fa9c70d1436f79ec4",
+      "partTitle": "Euclidean Distance Geometry Across High-Dimensional Spaces",
+      "codeHash": "7b9416da262cfa03b7bb237b22eb7385af5f13801893fd2f343f15222dfc4fac",
       "spec": {
-        "template": "bars",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
+        "template": "flow",
+        "title": "Euclidean Distance Geometry Across High-Dimensional Spaces",
+        "nodes": [
+          {
+            "id": "sq_sum",
+            "label": "sq_sum",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Exhaustive flat vector search compares a query vector against every.",
-            "bars": [
-              {
-                "label": "a",
-                "value": {
-                  "var": "a",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect exhaustive updates as sq_sum tracks flat state.",
+            "values": {
+              "sq_sum": {
+                "var": "sq_sum",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "label": "b",
-                "value": {
-                  "var": "b",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "sq_sum": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "At scales of millions or billions of vectors, brute-force linear scanning.",
-            "bars": [
-              {
-                "label": "a",
-                "value": {
-                  "var": "a",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "ok"
+            "caption": "Verify the scales transition driving millions behavior.",
+            "values": {
+              "sq_sum": {
+                "var": "sq_sum",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "label": "b",
-                "value": {
-                  "var": "b",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "sq_sum": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "sq_sum",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "bars": [
-              {
-                "label": "a",
-                "value": {
-                  "var": "a",
-                  "line": 4,
-                  "hit": 3
-                },
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the inverted value produced for file processing.",
+            "values": {
+              "sq_sum": {
+                "var": "sq_sum",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "label": "b",
-                "value": {
-                  "var": "b",
-                  "line": 4,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "sq_sum": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "sq_sum",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
+        "template": "flow",
+        "title": "Euclidean Distance Geometry Across High-Dimensional Spaces",
+        "nodes": [
+          {
+            "id": "sq_sum",
+            "label": "sq_sum",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Exhaustive flat vector search compares a query vector against every.",
-            "bars": [
-              {
-                "label": "a",
-                "value": 0,
-                "tone": "data"
-              },
-              {
-                "label": "b",
-                "value": 1,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect exhaustive updates as sq_sum tracks flat state.",
+            "values": {
+              "sq_sum": "0",
+              "out": ""
+            },
+            "tones": {
+              "sq_sum": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "At scales of millions or billions of vectors, brute-force linear scanning.",
-            "bars": [
-              {
-                "label": "a",
-                "value": 0,
-                "tone": "ok"
-              },
-              {
-                "label": "b",
-                "value": 1,
-                "tone": "ok"
-              }
+            "caption": "Verify the scales transition driving millions behavior.",
+            "values": {
+              "sq_sum": "1",
+              "out": "Centroid Distance: 1.4142"
+            },
+            "tones": {
+              "sq_sum": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "sq_sum",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "bars": [
-              {
-                "label": "a",
-                "value": 0,
-                "tone": "ok"
-              },
-              {
-                "label": "b",
-                "value": 1,
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the inverted value produced for file processing.",
+            "values": {
+              "sq_sum": "2",
+              "out": "Centroid Distance: 1.4142"
+            },
+            "tones": {
+              "sq_sum": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "sq_sum",
+                "out"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Core Algorithm & State Representation",
+      "partTitle": "Voronoi Cell Assignment Against Coarse k-Means Centroids",
       "codeHash": "43a77d03f114fe9fa6035372d2232b01252b5b10d7df2a646fbd7b93d6c94b1b",
       "spec": {
         "template": "bars",
@@ -234,7 +254,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the centroids value produced for handling processing.",
             "bars": [
               {
                 "label": "min_dist",
@@ -334,7 +354,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the centroids value produced for handling processing.",
             "bars": [
               {
                 "label": "min_dist",
@@ -362,7 +382,7 @@
       }
     },
     {
-      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Multi-Probe Voronoi Scanning & Recall-Latency Tradeoffs",
       "codeHash": "78d4241d2d00b7b501bb1ece5032077c0d2a71588b28dcc11ca00d3443ed2db2",
       "spec": {
         "template": "cells",
@@ -402,7 +422,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Tracking nprobe latency sensitivity under concurrent load informs SLO limits.",
             "items": {
               "var": "query",
               "line": 6,
@@ -454,7 +474,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Tracking nprobe latency sensitivity under concurrent load informs SLO limits.",
             "items": [
               "1.8",
               "1.9"
@@ -471,8 +491,8 @@
       }
     },
     {
-      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b16b979edc6829d4b22652c59e0e511404b39ecdc625618a6927acfb994ff828",
+      "partTitle": "Centroid Initialization Checks Before IVF Search Execution",
+      "codeHash": "911770b185f07aef5f810cfe4398b2dae2f3819f7047fa20848668fafe52b338",
       "spec": {
         "template": "cells",
         "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
@@ -580,33 +600,32 @@
       }
     },
     {
-      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Production Telemetry & Verification Audit",
-      "codeHash": "e813854a3ed58986ede797554cfc8d894a05212ddf749a13a3b15c76744b58d1",
+      "partTitle": "Scan Reduction Speedup Audits Under Varying nprobe Counts",
+      "codeHash": "1ec2be5eb209590525db3abb3a4d1e1c3d271f672e66cc3b53157ec20392e0bc",
       "spec": {
         "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
+        "title": "Scan Reduction Speedup Audits Under Varying nprobe Counts",
         "nodes": [
           {
             "id": "total_vectors",
-            "label": "total_vectors"
+            "label": "total_vectors",
+            "tappable": true
           },
           {
             "id": "nlist",
-            "label": "nlist"
+            "label": "nlist",
+            "tappable": true
           },
           {
             "id": "nprobe",
-            "label": "nprobe"
-          },
-          {
-            "id": "avg_per_cluster",
-            "label": "avg_per_cluster"
+            "label": "nprobe",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production IVF clusters rely on telemetry to quantify search speedup.",
+            "caption": "Inspect scan updates as total_vectors tracks speedup state.",
             "values": {
               "total_vectors": {
                 "var": "total_vectors",
@@ -619,86 +638,19 @@
                 "hit": 1
               },
               "nprobe": {
-                "var": "nprobe",
-                "line": 2,
-                "hit": 1
-              },
-              "avg_per_cluster": {
-                "var": "avg_per_cluster",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_vectors": "data",
               "nlist": "data",
-              "nprobe": "data",
-              "avg_per_cluster": "data"
+              "nprobe": "idle"
             },
-            "arrows": [
-              [
-                "total_vectors",
-                "nlist"
-              ],
-              [
-                "nlist",
-                "nprobe"
-              ],
-              [
-                "nprobe",
-                "avg_per_cluster"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In a flat index containing one million vectors, every query performs one.",
-            "values": {
-              "total_vectors": {
-                "var": "total_vectors",
-                "line": 3,
-                "hit": 1
-              },
-              "nlist": {
-                "var": "nlist",
-                "line": 3,
-                "hit": 1
-              },
-              "nprobe": {
-                "var": "nprobe",
-                "line": 3,
-                "hit": 1
-              },
-              "avg_per_cluster": {
-                "var": "avg_per_cluster",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "total_vectors": "data",
-              "nlist": "data",
-              "nprobe": "data",
-              "avg_per_cluster": "data"
-            },
-            "arrows": [
-              [
-                "total_vectors",
-                "nlist"
-              ],
-              [
-                "nlist",
-                "nprobe"
-              ],
-              [
-                "nprobe",
-                "avg_per_cluster"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the flat transition driving index behavior.",
             "values": {
               "total_vectors": {
                 "var": "total_vectors",
@@ -712,11 +664,6 @@
               },
               "nprobe": {
                 "var": "nprobe",
-                "line": 4,
-                "hit": 1
-              },
-              "avg_per_cluster": {
-                "var": "avg_per_cluster",
                 "line": 4,
                 "hit": 1
               }
@@ -724,21 +671,12 @@
             "tones": {
               "total_vectors": "ok",
               "nlist": "ok",
-              "nprobe": "ok",
-              "avg_per_cluster": "ok"
+              "nprobe": "ok"
             },
             "arrows": [
               [
                 "total_vectors",
                 "nlist"
-              ],
-              [
-                "nlist",
-                "nprobe"
-              ],
-              [
-                "nprobe",
-                "avg_per_cluster"
               ]
             ]
           }
@@ -746,113 +684,57 @@
       },
       "filled": {
         "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
+        "title": "Scan Reduction Speedup Audits Under Varying nprobe Counts",
         "nodes": [
           {
             "id": "total_vectors",
-            "label": "total_vectors"
+            "label": "total_vectors",
+            "tappable": true
           },
           {
             "id": "nlist",
-            "label": "nlist"
+            "label": "nlist",
+            "tappable": true
           },
           {
             "id": "nprobe",
-            "label": "nprobe"
-          },
-          {
-            "id": "avg_per_cluster",
-            "label": "avg_per_cluster"
+            "label": "nprobe",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production IVF clusters rely on telemetry to quantify search speedup.",
+            "caption": "Inspect scan updates as total_vectors tracks speedup state.",
             "values": {
               "total_vectors": "1000000",
               "nlist": "1024",
-              "nprobe": "8",
-              "avg_per_cluster": "976.5625"
+              "nprobe": ""
             },
             "tones": {
               "total_vectors": "data",
               "nlist": "data",
-              "nprobe": "data",
-              "avg_per_cluster": "data"
+              "nprobe": "idle"
             },
-            "arrows": [
-              [
-                "total_vectors",
-                "nlist"
-              ],
-              [
-                "nlist",
-                "nprobe"
-              ],
-              [
-                "nprobe",
-                "avg_per_cluster"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In a flat index containing one million vectors, every query performs one.",
+            "caption": "Verify the flat transition driving index behavior.",
             "values": {
               "total_vectors": "1000000",
               "nlist": "1024",
-              "nprobe": "8",
-              "avg_per_cluster": "976.5625"
-            },
-            "tones": {
-              "total_vectors": "data",
-              "nlist": "data",
-              "nprobe": "data",
-              "avg_per_cluster": "data"
-            },
-            "arrows": [
-              [
-                "total_vectors",
-                "nlist"
-              ],
-              [
-                "nlist",
-                "nprobe"
-              ],
-              [
-                "nprobe",
-                "avg_per_cluster"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "total_vectors": "1000000",
-              "nlist": "1024",
-              "nprobe": "8",
-              "avg_per_cluster": "976.5625"
+              "nprobe": "8"
             },
             "tones": {
               "total_vectors": "ok",
               "nlist": "ok",
-              "nprobe": "ok",
-              "avg_per_cluster": "ok"
+              "nprobe": "ok"
             },
             "arrows": [
               [
                 "total_vectors",
                 "nlist"
-              ],
-              [
-                "nlist",
-                "nprobe"
-              ],
-              [
-                "nprobe",
-                "avg_per_cluster"
               ]
             ]
           }

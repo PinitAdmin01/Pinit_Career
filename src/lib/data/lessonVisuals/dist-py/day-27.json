@@ -183,8 +183,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Consistency_level(mode) maps STRONG, CAUSAL and EVENTUAL to their.",
+            "caption": "Observe how level shapes practice during this step.",
             "activeActor": "LEVELS",
+            "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": {
+                  "var": "LEVELS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Raising an error for unknown modes is safer than silently choosing a default.",
+            "activeActor": "mode",
             "messages": [
               {
                 "from": "LEVELS",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Raising an error for unknown modes is safer than silently choosing a default.",
-            "activeActor": "mode",
+            "at": "say7",
+            "caption": "The example looks up levels and shows the error for an unknown mode.",
+            "activeActor": "err",
             "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": {
+                  "var": "LEVELS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": {
+                  "var": "mode",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "LEVELS",
                 "to": "mode",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example looks up levels and shows the error for an unknown mode.",
-            "activeActor": "err",
-            "messages": [
+              },
               {
                 "from": "LEVELS",
                 "to": "mode",
@@ -275,19 +305,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Consistency_level(mode) maps STRONG, CAUSAL and EVENTUAL to their.",
+            "caption": "Observe how level shapes practice during this step.",
             "messages": [
               {
                 "from": "LEVELS",
                 "to": "mode",
                 "label": "{'STRONG': 'Linearizable (global real-t…",
                 "tone": "data"
-              },
-              {
-                "from": "mode",
-                "to": "err",
-                "label": "'STRONG'",
-                "tone": "ok"
               }
             ],
             "activeActor": "LEVELS"
@@ -315,6 +339,30 @@
             "at": "say7",
             "caption": "The example looks up levels and shows the error for an unknown mode.",
             "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": "{'STRONG': 'Linearizable (global real-t…",
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": "'STRONG'",
+                "tone": "ok"
+              },
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": "{'STRONG': 'Linearizable (global real-t…",
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": "'STRONG'",
+                "tone": "ok"
+              },
               {
                 "from": "LEVELS",
                 "to": "mode",
@@ -359,6 +407,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Audit_linearizability(reads, writes).",
+            "activeActor": "reads",
+            "messages": [
+              {
+                "from": "writes",
+                "to": "reads",
+                "label": {
+                  "var": "writes",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "reads",
@@ -373,10 +438,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Audit_linearizability(reads, writes).",
-            "activeActor": "reads",
+            "at": "say7",
+            "caption": "The example audits a history with one stale read from a lagging replica.",
+            "activeActor": "stale",
             "messages": [
+              {
+                "from": "writes",
+                "to": "reads",
+                "label": {
+                  "var": "writes",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reads",
+                "to": "stale",
+                "label": {
+                  "var": "reads",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "writes",
                 "to": "reads",
@@ -396,14 +481,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example audits a history with one stale read from a lagging replica.",
-            "activeActor": "stale",
-            "messages": [
+              },
               {
                 "from": "writes",
                 "to": "reads",
@@ -446,12 +524,6 @@
                 "to": "reads",
                 "label": "[{'value': 'v1', 'completed_at': 10}, {…",
                 "tone": "data"
-              },
-              {
-                "from": "reads",
-                "to": "stale",
-                "label": "[{'started_at': 20, 'observed': 'v1'}, …",
-                "tone": "ok"
               }
             ],
             "activeActor": "writes"
@@ -479,6 +551,30 @@
             "at": "say7",
             "caption": "The example audits a history with one stale read from a lagging replica.",
             "messages": [
+              {
+                "from": "writes",
+                "to": "reads",
+                "label": "[{'value': 'v1', 'completed_at': 10}, {…",
+                "tone": "data"
+              },
+              {
+                "from": "reads",
+                "to": "stale",
+                "label": "[{'started_at': 20, 'observed': 'v1'}, …",
+                "tone": "ok"
+              },
+              {
+                "from": "writes",
+                "to": "reads",
+                "label": "[{'value': 'v1', 'completed_at': 10}, {…",
+                "tone": "data"
+              },
+              {
+                "from": "reads",
+                "to": "stale",
+                "label": "[{'started_at': 20, 'observed': 'v1'}, …",
+                "tone": "ok"
+              },
               {
                 "from": "writes",
                 "to": "reads",
@@ -523,6 +619,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the causal transition driving consistency behavior.",
+            "activeActor": "shown",
+            "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": {
+                  "var": "arrived",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "shown",
@@ -537,10 +650,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Asha posts \"I lost my phone\" then \"found it.",
-            "activeActor": "shown",
+            "at": "say7",
+            "caption": "The example holds back a reply until the message it answers has arrived.",
+            "activeActor": "waiting",
             "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": {
+                  "var": "arrived",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": {
+                  "var": "shown",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "arrived",
                 "to": "shown",
@@ -560,14 +693,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example holds back a reply until the message it answers has arrived.",
-            "activeActor": "waiting",
-            "messages": [
+              },
               {
                 "from": "arrived",
                 "to": "shown",
@@ -610,19 +736,13 @@
                 "to": "shown",
                 "label": "[{'id': 'm2', 'text': 'Found it!', 'dep…",
                 "tone": "data"
-              },
-              {
-                "from": "shown",
-                "to": "waiting",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "arrived"
           },
           {
             "at": "say2",
-            "caption": "Asha posts \"I lost my phone\" then \"found it.",
+            "caption": "Verify the causal transition driving consistency behavior.",
             "messages": [
               {
                 "from": "arrived",
@@ -643,6 +763,30 @@
             "at": "say7",
             "caption": "The example holds back a reply until the message it answers has arrived.",
             "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": "[{'id': 'm2', 'text': 'Found it!', 'dep…",
+                "tone": "data"
+              },
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": "[{'id': 'm2', 'text': 'Found it!', 'dep…",
+                "tone": "data"
+              },
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "arrived",
                 "to": "shown",
@@ -688,7 +832,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Eventual consistency only promises convergence when writes stop,.",
+            "caption": "Eventual consistency only promises convergence when writes stop.",
             "values": {
               "replicas": {
                 "var": "replicas",
@@ -734,7 +878,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how make updates work during execution.",
+            "caption": "Verify the work transition driving define behavior.",
             "values": {
               "replicas": {
                 "var": "replicas",
@@ -850,7 +994,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Eventual consistency only promises convergence when writes stop,.",
+            "caption": "Eventual consistency only promises convergence when writes stop.",
             "values": {
               "replicas": "[{'v': 1}, {'v': 1}, {'v': 1}]",
               "step": "1",
@@ -880,7 +1024,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how make updates work during execution.",
+            "caption": "Verify the work transition driving define behavior.",
             "values": {
               "replicas": "[{'v': 2}, {'v': 1}, {'v': 1}]",
               "step": "1",

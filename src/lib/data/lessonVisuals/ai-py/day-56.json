@@ -209,6 +209,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Picture standard sorted retrieval handing `[rank_1, rank_2, rank_3.",
+            "activeActor": "ranked_docs",
+            "messages": [
+              {
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": {
+                  "var": "ranked",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ranked_docs",
@@ -223,10 +240,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Picture standard sorted retrieval handing `[rank_1, rank_2, rank_3.",
-            "activeActor": "ranked_docs",
+            "at": "say6",
+            "caption": "Examine the middle value produced for symmetrical processing.",
+            "activeActor": "left",
             "messages": [
+              {
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": {
+                  "var": "ranked",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ranked_docs",
+                "to": "left",
+                "label": {
+                  "var": "ranked_docs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ranked",
                 "to": "ranked_docs",
@@ -246,14 +283,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Inspect pack_u_order() rearranging relevance-ranked items neatly onto.",
-            "activeActor": "left",
-            "messages": [
+              },
               {
                 "from": "ranked",
                 "to": "ranked_docs",
@@ -296,12 +326,6 @@
                 "to": "ranked_docs",
                 "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
                 "tone": "data"
-              },
-              {
-                "from": "ranked_docs",
-                "to": "left",
-                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
-                "tone": "ok"
               }
             ],
             "activeActor": "ranked"
@@ -327,8 +351,32 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect pack_u_order() rearranging relevance-ranked items neatly onto.",
+            "caption": "Examine the middle value produced for symmetrical processing.",
             "messages": [
+              {
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "data"
+              },
+              {
+                "from": "ranked_docs",
+                "to": "left",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "ok"
+              },
+              {
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "data"
+              },
+              {
+                "from": "ranked_docs",
+                "to": "left",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "ok"
+              },
               {
                 "from": "ranked",
                 "to": "ranked_docs",
@@ -392,16 +440,14 @@
                 "hit": 1
               },
               "query_tok": {
-                "var": "query_tok",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "docs": "data",
               "window_cap": "data",
               "sys_tok": "data",
-              "query_tok": "data"
+              "query_tok": "idle"
             }
           },
           {
@@ -499,13 +545,13 @@
               "docs": "[['d1', 12000], ['d2', 15000], ['d3', 1…",
               "window_cap": "32000",
               "sys_tok": "1500",
-              "query_tok": "500"
+              "query_tok": ""
             },
             "tones": {
               "docs": "data",
               "window_cap": "data",
               "sys_tok": "data",
-              "query_tok": "data"
+              "query_tok": "idle"
             }
           },
           {
@@ -596,18 +642,18 @@
             "values": {
               "corpus_tokens": {
                 "var": "corpus_tokens",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "queries_per_day": {
                 "var": "queries_per_day",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "whole_doc_synthesis": {
                 "var": "whole_doc_synthesis",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -622,18 +668,18 @@
             "values": {
               "corpus_tokens": {
                 "var": "corpus_tokens",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "queries_per_day": {
                 "var": "queries_per_day",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "whole_doc_synthesis": {
                 "var": "whole_doc_synthesis",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -680,9 +726,9 @@
             "at": "say2",
             "caption": "Let's run honest production unit economics + latency numbers cleanly.",
             "values": {
-              "corpus_tokens": "2000000",
-              "queries_per_day": "1200",
-              "whole_doc_synthesis": "False"
+              "corpus_tokens": "28000",
+              "queries_per_day": "15",
+              "whole_doc_synthesis": "True"
             },
             "tones": {
               "corpus_tokens": "data",
@@ -694,9 +740,9 @@
             "at": "say6",
             "caption": "Inspect choose_retrieval_strategy() selecting cost-optimal architectures.",
             "values": {
-              "corpus_tokens": "2000000",
-              "queries_per_day": "1200",
-              "whole_doc_synthesis": "False"
+              "corpus_tokens": "28000",
+              "queries_per_day": "15",
+              "whole_doc_synthesis": "True"
             },
             "tones": {
               "corpus_tokens": "ok",
@@ -752,16 +798,14 @@
                 "hit": 1
               },
               "pinned_keys": {
-                "var": "pinned_keys",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "hist": "data",
               "turns": "data",
               "max_recent": "data",
-              "pinned_keys": "data"
+              "pinned_keys": "idle"
             },
             "arrows": [
               [
@@ -901,13 +945,13 @@
               "hist": "['DECISION: strictly use UTC timestamps…",
               "turns": "['DECISION: strictly use UTC timestamps…",
               "max_recent": "2",
-              "pinned_keys": "['DECISION:']"
+              "pinned_keys": ""
             },
             "tones": {
               "hist": "data",
               "turns": "data",
               "max_recent": "data",
-              "pinned_keys": "data"
+              "pinned_keys": "idle"
             },
             "arrows": [
               [

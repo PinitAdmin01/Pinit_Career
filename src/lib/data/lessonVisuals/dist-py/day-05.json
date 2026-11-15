@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In cache-aside, the application manages the cache.",
+            "activeActor": "DATABASE",
+            "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": {
+                  "var": "db_calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "DATABASE",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In cache-aside, the application manages the cache.",
-            "activeActor": "DATABASE",
+            "at": "say6",
+            "caption": "The hit rate, the share of reads served by the cache, is the number to watch.",
+            "activeActor": "cache",
             "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": {
+                  "var": "db_calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": {
+                  "var": "DATABASE",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "db_calls",
                 "to": "DATABASE",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The hit rate, the share of reads served by the cache, is the number to watch.",
-            "activeActor": "cache",
-            "messages": [
+              },
               {
                 "from": "db_calls",
                 "to": "DATABASE",
@@ -118,12 +148,6 @@
                 "to": "DATABASE",
                 "label": "0",
                 "tone": "data"
-              },
-              {
-                "from": "DATABASE",
-                "to": "cache",
-                "label": "{'user:1': 'Asha', 'user:2': 'Bala'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "db_calls"
@@ -151,6 +175,30 @@
             "at": "say6",
             "caption": "The hit rate, the share of reads served by the cache, is the number to watch.",
             "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": "{'user:1': 'Asha', 'user:2': 'Bala'}",
+                "tone": "ok"
+              },
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": "{'user:1': 'Asha', 'user:2': 'Bala'}",
+                "tone": "ok"
+              },
               {
                 "from": "db_calls",
                 "to": "DATABASE",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Store each value with its expiry time.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "calls",
+                "to": "self",
+                "label": {
+                  "var": "calls",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Store each value with its expiry time.",
-            "activeActor": "self",
+            "at": "say6",
+            "caption": "TTLs are a safety net even when you also invalidate on writes, catching.",
+            "activeActor": "cache",
             "messages": [
+              {
+                "from": "calls",
+                "to": "self",
+                "label": {
+                  "var": "calls",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "cache",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "calls",
                 "to": "self",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "TTLs are a safety net even when you also invalidate on writes, catching.",
-            "activeActor": "cache",
-            "messages": [
+              },
               {
                 "from": "calls",
                 "to": "self",
@@ -282,12 +360,6 @@
                 "to": "self",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "cache",
-                "label": "<TtlCache>",
-                "tone": "ok"
               }
             ],
             "activeActor": "calls"
@@ -315,6 +387,30 @@
             "at": "say6",
             "caption": "TTLs are a safety net even when you also invalidate on writes, catching.",
             "messages": [
+              {
+                "from": "calls",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "cache",
+                "label": "<TtlCache>",
+                "tone": "ok"
+              },
+              {
+                "from": "calls",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "cache",
+                "label": "<TtlCache>",
+                "tone": "ok"
+              },
               {
                 "from": "calls",
                 "to": "self",
@@ -410,7 +506,7 @@
             "values": {
               "calls": {
                 "var": "calls",
-                "line": 17,
+                "line": 19,
                 "hit": 1
               },
               "burst": {
@@ -425,8 +521,8 @@
               },
               "key": {
                 "var": "key",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 9
               }
             },
             "tones": {
@@ -456,7 +552,7 @@
             "values": {
               "calls": {
                 "var": "calls",
-                "line": 18,
+                "line": 19,
                 "hit": 1
               },
               "burst": {
@@ -471,8 +567,8 @@
               },
               "key": {
                 "var": "key",
-                "line": 9,
-                "hit": 1
+                "line": 6,
+                "hit": 10
               }
             },
             "tones": {
@@ -554,10 +650,10 @@
             "at": "say2",
             "caption": "For a hot key read thousands of times per second, that can knock over.",
             "values": {
-              "calls": "[]",
+              "calls": "['hot', 'cold']",
               "burst": "['hot', 'hot', 'hot', 'hot', 'hot', 'ho…",
               "self": "<TtlCache>",
-              "key": "'hot'"
+              "key": "'cold'"
             },
             "tones": {
               "calls": "data",
@@ -584,7 +680,7 @@
             "at": "say6",
             "caption": "The example shows ten requests for two keys causing only two database calls.",
             "values": {
-              "calls": "[]",
+              "calls": "['hot', 'cold']",
               "burst": "['hot', 'hot', 'hot', 'hot', 'hot', 'ho…",
               "self": "<TtlCache>",
               "key": "'hot'"
@@ -747,6 +843,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Deleting is safer than updating the cache directly.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": {
+                  "var": "database",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cache",
@@ -761,10 +874,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Deleting is safer than updating the cache directly.",
-            "activeActor": "cache",
+            "at": "say6",
+            "caption": "The example shows the stale-read problem without invalidation, and the fix.",
+            "activeActor": "key",
             "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": {
+                  "var": "database",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "database",
                 "to": "cache",
@@ -784,14 +917,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows the stale-read problem without invalidation, and the fix.",
-            "activeActor": "key",
-            "messages": [
+              },
               {
                 "from": "database",
                 "to": "cache",
@@ -834,12 +960,6 @@
                 "to": "cache",
                 "label": "{'price:sku-42': 499}",
                 "tone": "data"
-              },
-              {
-                "from": "cache",
-                "to": "key",
-                "label": "{}",
-                "tone": "ok"
               }
             ],
             "activeActor": "database"
@@ -867,6 +987,30 @@
             "at": "say6",
             "caption": "The example shows the stale-read problem without invalidation, and the fix.",
             "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": "{'price:sku-42': 499}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              },
+              {
+                "from": "database",
+                "to": "cache",
+                "label": "{'price:sku-42': 499}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              },
               {
                 "from": "database",
                 "to": "cache",
@@ -911,16 +1055,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "capacity",
-                "to": "cache",
-                "label": {
-                  "var": "capacity",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -934,7 +1068,7 @@
                 "to": "capacity",
                 "label": {
                   "var": "self",
-                  "line": 6,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "data"
@@ -944,7 +1078,7 @@
                 "to": "cache",
                 "label": {
                   "var": "capacity",
-                  "line": 6,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -961,7 +1095,27 @@
                 "to": "capacity",
                 "label": {
                   "var": "self",
-                  "line": 9,
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": {
+                  "var": "capacity",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 6,
                   "hit": 1
                 },
                 "tone": "data"
@@ -975,6 +1129,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -998,12 +1162,6 @@
                 "to": "capacity",
                 "label": "<LruCache>",
                 "tone": "data"
-              },
-              {
-                "from": "capacity",
-                "to": "cache",
-                "label": "3",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -1042,6 +1200,24 @@
                 "to": "cache",
                 "label": "3",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<LruCache>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": "3",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<LruCache>",
+                "tone": "data"
               }
             ],
             "activeActor": "cache"

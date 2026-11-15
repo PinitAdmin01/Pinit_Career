@@ -18,7 +18,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates models during execution.",
+            "caption": "Observe how scaling shapes models during this step.",
             "rows": [
               {
                 "cells": [
@@ -56,7 +56,7 @@
           },
           {
             "at": "say11",
-            "caption": "Understanding these communication mechanics is essential for architecting.",
+            "caption": "Examine the expert value produced for parallelism processing.",
             "rows": [
               {
                 "cells": [
@@ -83,7 +83,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates models during execution.",
+            "caption": "Observe how scaling shapes models during this step.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say11",
-            "caption": "Understanding these communication mechanics is essential for architecting.",
+            "caption": "Examine the expert value produced for parallelism processing.",
             "rows": [
               {
                 "cells": [
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Without explicit regularization, gating networks suffer from.",
+            "caption": "Observe how without shapes explicit during this step.",
             "bars": [
               {
                 "label": "f",
@@ -174,7 +174,7 @@
           },
           {
             "at": "say2",
-            "caption": "If one expert randomly performs slightly better early in training,.",
+            "caption": "Verify the expert transition driving randomly behavior.",
             "bars": [
               {
                 "label": "f",
@@ -264,7 +264,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Without explicit regularization, gating networks suffer from.",
+            "caption": "Observe how without shapes explicit during this step.",
             "bars": [
               {
                 "label": "f",
@@ -290,7 +290,7 @@
           },
           {
             "at": "say2",
-            "caption": "If one expert randomly performs slightly better early in training,.",
+            "caption": "Verify the expert transition driving randomly behavior.",
             "bars": [
               {
                 "label": "f",
@@ -436,7 +436,7 @@
           },
           {
             "at": "say11",
-            "caption": "Optimizing All-to-All communication is the cornerstone of scaling sparse.",
+            "caption": "Examine the expert value produced for parallelism processing.",
             "bars": [
               {
                 "label": "num_tokens",
@@ -536,7 +536,7 @@
           },
           {
             "at": "say11",
-            "caption": "Optimizing All-to-All communication is the cornerstone of scaling sparse.",
+            "caption": "Examine the expert value produced for parallelism processing.",
             "bars": [
               {
                 "label": "num_tokens",
@@ -571,158 +571,72 @@
         "title": "Expert Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "f",
-            "label": "f"
+            "label": "f",
+            "tappable": true
           },
           {
             "id": "token_fractions",
-            "label": "token_fractions"
+            "label": "token_fractions",
+            "tappable": true
           },
           {
             "id": "min_entropy",
-            "label": "min_entropy"
+            "label": "min_entropy",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Routing entropy provides a sensitive mathematical metric for detecting.",
+            "caption": "Inspect expert updates as f tracks routing state.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 1
-              },
               "f": {
                 "var": "f",
                 "line": 5,
                 "hit": 1
               },
               "token_fractions": {
-                "var": "token_fractions",
-                "line": 5,
-                "hit": 10
+                "text": ""
               },
               "min_entropy": {
-                "var": "min_entropy",
-                "line": 5,
-                "hit": 10
+                "text": ""
               }
             },
             "tones": {
-              ".0": "data",
               "f": "data",
-              "token_fractions": "data",
-              "min_entropy": "data"
+              "token_fractions": "idle",
+              "min_entropy": "idle"
             },
-            "arrows": [
-              [
-                ".0",
-                "f"
-              ],
-              [
-                "f",
-                "token_fractions"
-              ],
-              [
-                "token_fractions",
-                "min_entropy"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Routing entropy is calculated as.",
             "values": {
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 2
-              },
               "f": {
-                "var": "f",
-                "line": 5,
-                "hit": 2
+                "text": ""
               },
               "token_fractions": {
                 "var": "token_fractions",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 10
               },
               "min_entropy": {
                 "var": "min_entropy",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 10
               }
             },
             "tones": {
-              ".0": "data",
-              "f": "data",
-              "token_fractions": "data",
-              "min_entropy": "data"
-            },
-            "arrows": [
-              [
-                ".0",
-                "f"
-              ],
-              [
-                "f",
-                "token_fractions"
-              ],
-              [
-                "token_fractions",
-                "min_entropy"
-              ]
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This automated surveillance guarantees stable, reliable pre-training.",
-            "values": {
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 3
-              },
-              "f": {
-                "var": "f",
-                "line": 5,
-                "hit": 3
-              },
-              "token_fractions": {
-                "var": "token_fractions",
-                "line": 8,
-                "hit": 1
-              },
-              "min_entropy": {
-                "var": "min_entropy",
-                "line": 8,
-                "hit": 1
-              }
-            },
-            "tones": {
-              ".0": "ok",
-              "f": "ok",
+              "f": "idle",
               "token_fractions": "ok",
               "min_entropy": "ok"
             },
             "arrows": [
               [
-                ".0",
-                "f"
-              ],
-              [
                 "f",
                 "token_fractions"
-              ],
-              [
-                "token_fractions",
-                "min_entropy"
               ]
             ]
           }
@@ -733,110 +647,54 @@
         "title": "Expert Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "f",
-            "label": "f"
+            "label": "f",
+            "tappable": true
           },
           {
             "id": "token_fractions",
-            "label": "token_fractions"
+            "label": "token_fractions",
+            "tappable": true
           },
           {
             "id": "min_entropy",
-            "label": "min_entropy"
+            "label": "min_entropy",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Routing entropy provides a sensitive mathematical metric for detecting.",
+            "caption": "Inspect expert updates as f tracks routing state.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
               "f": "0.125",
-              "token_fractions": "[0.125, 0.125, 0.125, 0.125, 0.125, 0.1…",
-              "min_entropy": "2.5"
+              "token_fractions": "",
+              "min_entropy": ""
             },
             "tones": {
-              ".0": "data",
               "f": "data",
-              "token_fractions": "data",
-              "min_entropy": "data"
+              "token_fractions": "idle",
+              "min_entropy": "idle"
             },
-            "arrows": [
-              [
-                ".0",
-                "f"
-              ],
-              [
-                "f",
-                "token_fractions"
-              ],
-              [
-                "token_fractions",
-                "min_entropy"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Routing entropy is calculated as.",
             "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "f": "0.125",
+              "f": "",
               "token_fractions": "[0.125, 0.125, 0.125, 0.125, 0.125, 0.1…",
               "min_entropy": "2.5"
             },
             "tones": {
-              ".0": "data",
-              "f": "data",
-              "token_fractions": "data",
-              "min_entropy": "data"
-            },
-            "arrows": [
-              [
-                ".0",
-                "f"
-              ],
-              [
-                "f",
-                "token_fractions"
-              ],
-              [
-                "token_fractions",
-                "min_entropy"
-              ]
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This automated surveillance guarantees stable, reliable pre-training.",
-            "values": {
-              ".0": "{'__other__': 'list_iterator'}",
-              "f": "0.125",
-              "token_fractions": "[0.125, 0.125, 0.125, 0.125, 0.125, 0.1…",
-              "min_entropy": "2.5"
-            },
-            "tones": {
-              ".0": "ok",
-              "f": "ok",
+              "f": "idle",
               "token_fractions": "ok",
               "min_entropy": "ok"
             },
             "arrows": [
               [
-                ".0",
-                "f"
-              ],
-              [
                 "f",
                 "token_fractions"
-              ],
-              [
-                "token_fractions",
-                "min_entropy"
               ]
             ]
           }

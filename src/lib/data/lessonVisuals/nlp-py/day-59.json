@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "As language models approach and exceed human-level proficiency across.",
+            "caption": "Observe how frontier shapes evaluation during this step.",
             "bars": [
               {
                 "label": "headroom",
@@ -92,7 +92,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "As language models approach and exceed human-level proficiency across.",
+            "caption": "Observe how frontier shapes evaluation during this step.",
             "bars": [
               {
                 "label": "headroom",
@@ -265,7 +265,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The widespread adoption of automated evaluation rests upon.",
+            "caption": "Observe how judge shapes widespread during this step.",
             "bars": [
               {
                 "label": "elo_apex",
@@ -307,7 +307,7 @@
           },
           {
             "at": "say2",
-            "caption": "The three primary cognitive distortions in LLM-as-a-Judge systems are.",
+            "caption": "The three primary cognitive distortions in LLM-as-a-Judge systems are: 1.",
             "bars": [
               {
                 "label": "elo_apex",
@@ -397,7 +397,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The widespread adoption of automated evaluation rests upon.",
+            "caption": "Observe how judge shapes widespread during this step.",
             "bars": [
               {
                 "label": "elo_apex",
@@ -423,7 +423,7 @@
           },
           {
             "at": "say2",
-            "caption": "The three primary cognitive distortions in LLM-as-a-Judge systems are.",
+            "caption": "The three primary cognitive distortions in LLM-as-a-Judge systems are: 1.",
             "bars": [
               {
                 "label": "elo_apex",
@@ -741,16 +741,14 @@
                 "hit": 1
               },
               "mt_turn_scores": {
-                "var": "mt_turn_scores",
-                "line": 37,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "platform": "data",
               "model_id": "data",
-              "mt_turn_scores": "data"
+              "mt_turn_scores": "idle"
             },
             "arrows": [
               [
@@ -769,7 +767,7 @@
           },
           {
             "at": "say2",
-            "caption": "When an organization evaluates candidate models (e.",
+            "caption": "Third, length-control regression discounts superficial verbosity.",
             "values": {
               "self": {
                 "var": "self",
@@ -890,13 +888,13 @@
               "self": "<ApexEvalPlatform>",
               "platform": "<ApexEvalPlatform>",
               "model_id": "'ApexLinguist-Frontier-70B'",
-              "mt_turn_scores": "[8.8, 8.5, 9.1, 8.7, 8.9]"
+              "mt_turn_scores": ""
             },
             "tones": {
               "self": "data",
               "platform": "data",
               "model_id": "data",
-              "mt_turn_scores": "data"
+              "mt_turn_scores": "idle"
             },
             "arrows": [
               [
@@ -915,7 +913,7 @@
           },
           {
             "at": "say2",
-            "caption": "When an organization evaluates candidate models (e.",
+            "caption": "Third, length-control regression discounts superficial verbosity.",
             "values": {
               "self": "<ApexEvalPlatform>",
               "platform": "<ApexEvalPlatform>",

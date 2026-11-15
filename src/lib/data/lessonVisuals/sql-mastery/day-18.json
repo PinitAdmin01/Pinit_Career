@@ -399,19 +399,547 @@
       "partTitle": "Running totals per group",
       "codeHash": "370b30c296a299a9bb621e4b04fd4a24081fa522b375c653bf2d8f9d2550fce8",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Running totals per group",
+        "columns": [
+          "customer",
+          "paid_on",
+          "amount",
+          "balance"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "PARTITION BY works with frames too.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This is exactly how a bank statement is built for each account.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "paid_on"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "balance"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Running totals per group",
+        "columns": [
+          "customer",
+          "paid_on",
+          "amount",
+          "balance"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "PARTITION BY works with frames too.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "2026-09-01",
+                  "500.00",
+                  "500.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Asha",
+                  "2026-09-05",
+                  "-200.00",
+                  "300.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Asha",
+                  "2026-09-09",
+                  "300.00",
+                  "600.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This is exactly how a bank statement is built for each account.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "2026-09-01",
+                  "500.00",
+                  "500.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Asha",
+                  "2026-09-05",
+                  "-200.00",
+                  "300.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Asha",
+                  "2026-09-09",
+                  "300.00",
+                  "600.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "2026-09-01",
+                  "1000.00",
+                  "1000.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "2026-09-10",
+                  "-400.00",
+                  "600.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Period-over-period growth",
       "codeHash": "a4c87b1e91263cc5429130177b42d85e7102e0275b6799cf944f092cef580c38",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Period-over-period growth",
+        "columns": [
+          "month",
+          "total",
+          "previous",
+          "growth_percent"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "You met lag yesterday: it fetches the previous row's value.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "total"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "growth_percent"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "total"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "growth_percent"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the round transition driving amount behavior.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "total"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "growth_percent"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "total"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "growth_percent"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "total"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "growth_percent"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Period-over-period growth",
+        "columns": [
+          "month",
+          "total",
+          "previous",
+          "growth_percent"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "You met lag yesterday: it fetches the previous row's value.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-07-01",
+                  "12000.00",
+                  "null",
+                  "null"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2026-08-01",
+                  "15000.00",
+                  "12000.00",
+                  "25.0"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the round transition driving amount behavior.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-07-01",
+                  "12000.00",
+                  "null",
+                  "null"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-08-01",
+                  "15000.00",
+                  "12000.00",
+                  "25.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-01",
+                  "18000.00",
+                  "15000.00",
+                  "20.0"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a sales trend report",

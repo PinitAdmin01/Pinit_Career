@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Instead, gradients are grouped into buckets of a target size, commonly.",
+            "activeActor": "buckets",
+            "messages": [
+              {
+                "from": "sizes",
+                "to": "buckets",
+                "label": {
+                  "var": "sizes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "buckets",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Instead, gradients are grouped into buckets of a target size, commonly.",
-            "activeActor": "buckets",
+            "at": "say10",
+            "caption": "Tuning bucket size is a quick win when profiling shows exposed communication.",
+            "activeActor": "current",
             "messages": [
+              {
+                "from": "sizes",
+                "to": "buckets",
+                "label": {
+                  "var": "sizes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "buckets",
+                "to": "current",
+                "label": {
+                  "var": "buckets",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "sizes",
                 "to": "buckets",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Tuning bucket size is a quick win when profiling shows exposed communication.",
-            "activeActor": "current",
-            "messages": [
+              },
               {
                 "from": "sizes",
                 "to": "buckets",
@@ -282,12 +312,6 @@
                 "to": "buckets",
                 "label": "[10, 20, 5, 15, 30]",
                 "tone": "data"
-              },
-              {
-                "from": "buckets",
-                "to": "current",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "sizes"
@@ -315,6 +339,30 @@
             "at": "say10",
             "caption": "Tuning bucket size is a quick win when profiling shows exposed communication.",
             "messages": [
+              {
+                "from": "sizes",
+                "to": "buckets",
+                "label": "[10, 20, 5, 15, 30]",
+                "tone": "data"
+              },
+              {
+                "from": "buckets",
+                "to": "current",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "sizes",
+                "to": "buckets",
+                "label": "[10, 20, 5, 15, 30]",
+                "tone": "data"
+              },
+              {
+                "from": "buckets",
+                "to": "current",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "sizes",
                 "to": "buckets",
@@ -646,7 +694,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how profiling updates check during execution.",
+            "caption": "Examine the overlap value produced for profiling processing.",
             "bars": [
               {
                 "label": "cd",
@@ -746,7 +794,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how profiling updates check during execution.",
+            "caption": "Examine the overlap value produced for profiling processing.",
             "bars": [
               {
                 "label": "cd",
@@ -1070,7 +1118,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "sizes": {
                 "var": "sizes",
@@ -1079,17 +1127,17 @@
               },
               "cap": {
                 "var": "cap",
-                "line": 13,
-                "hit": 1
+                "line": 12,
+                "hit": 2
               },
               "cd": {
                 "var": "cd",
-                "line": 14,
+                "line": 16,
                 "hit": 1
               },
               "md": {
                 "var": "md",
-                "line": 14,
+                "line": 17,
                 "hit": 1
               }
             },
@@ -1125,18 +1173,18 @@
               },
               "cap": {
                 "var": "cap",
-                "line": 2,
-                "hit": 1
+                "line": 12,
+                "hit": 2
               },
               "cd": {
                 "var": "cd",
-                "line": 15,
-                "hit": 3
+                "line": 16,
+                "hit": 2
               },
               "md": {
                 "var": "md",
-                "line": 15,
-                "hit": 3
+                "line": 17,
+                "hit": 2
               }
             },
             "tones": {
@@ -1216,12 +1264,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "sizes": "[4, 8, 8, 8, 8, 8, 8, 12]",
-              "cap": "16",
-              "cd": "0",
-              "md": "0"
+              "cap": "64",
+              "cd": "12",
+              "md": "22.1"
             },
             "tones": {
               "sizes": "data",
@@ -1249,9 +1297,9 @@
             "caption": "If step_time is wrong, print both clocks after each bucket.",
             "values": {
               "sizes": "[4, 8, 8, 8, 8, 8, 8, 12]",
-              "cap": "16",
-              "cd": "0",
-              "md": "0"
+              "cap": "64",
+              "cd": "28",
+              "md": "41.3"
             },
             "tones": {
               "sizes": "ok",

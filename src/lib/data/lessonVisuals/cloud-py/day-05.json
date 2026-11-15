@@ -250,7 +250,7 @@
             "values": {
               "nat_table": {
                 "var": "nat_table",
-                "line": 2,
+                "line": 12,
                 "hit": 1
               },
               "NAT_PUBLIC_IP": {
@@ -296,7 +296,7 @@
             "values": {
               "nat_table": {
                 "var": "nat_table",
-                "line": 4,
+                "line": 12,
                 "hit": 1
               },
               "NAT_PUBLIC_IP": {
@@ -394,7 +394,7 @@
             "at": "say2",
             "caption": "A NAT gateway (network address translation) lets them start connections.",
             "values": {
-              "nat_table": "{}",
+              "nat_table": "{40000: ['10.0.11.25', 51000]}",
               "NAT_PUBLIC_IP": "'54.12.3.4'",
               "private_ip": "'10.0.11.25'",
               "port": "51000"
@@ -424,7 +424,7 @@
             "at": "say7",
             "caption": "The example simulates the address swap for an outgoing connection and its.",
             "values": {
-              "nat_table": "{}",
+              "nat_table": "{40000: ['10.0.11.25', 51000]}",
               "NAT_PUBLIC_IP": "'54.12.3.4'",
               "private_ip": "'10.0.11.25'",
               "port": "51000"
@@ -479,6 +479,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A bastion host (also called a jump box) is one small, hardened server in.",
+            "activeActor": "plan",
+            "messages": [
+              {
+                "from": "OFFICE",
+                "to": "plan",
+                "label": {
+                  "var": "OFFICE",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "plan",
@@ -493,10 +510,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A bastion host (also called a jump box) is one small, hardened server in.",
-            "activeActor": "plan",
+            "at": "say7",
+            "caption": "Examine the notice value produced for security processing.",
+            "activeActor": "problems",
             "messages": [
+              {
+                "from": "OFFICE",
+                "to": "plan",
+                "label": {
+                  "var": "OFFICE",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "problems",
+                "label": {
+                  "var": "plan",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "OFFICE",
                 "to": "plan",
@@ -516,14 +553,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace how notice updates security during execution.",
-            "activeActor": "problems",
-            "messages": [
+              },
               {
                 "from": "OFFICE",
                 "to": "plan",
@@ -566,12 +596,6 @@
                 "to": "plan",
                 "label": "'203.0.113.0/24'",
                 "tone": "data"
-              },
-              {
-                "from": "plan",
-                "to": "problems",
-                "label": "{'bastion-sg': [{'port': 22, 'source': …",
-                "tone": "ok"
               }
             ],
             "activeActor": "OFFICE"
@@ -597,8 +621,32 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how notice updates security during execution.",
+            "caption": "Examine the notice value produced for security processing.",
             "messages": [
+              {
+                "from": "OFFICE",
+                "to": "plan",
+                "label": "'203.0.113.0/24'",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "problems",
+                "label": "{'bastion-sg': [{'port': 22, 'source': …",
+                "tone": "ok"
+              },
+              {
+                "from": "OFFICE",
+                "to": "plan",
+                "label": "'203.0.113.0/24'",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "problems",
+                "label": "{'bastion-sg': [{'port': 22, 'source': …",
+                "tone": "ok"
+              },
               {
                 "from": "OFFICE",
                 "to": "plan",
@@ -758,7 +806,7 @@
           },
           {
             "at": "say2",
-            "caption": "The ipaddress module gives each network an.",
+            "caption": "The ipaddress module gives each network an .overlaps(other) method.",
             "bars": [
               {
                 "label": "i",
@@ -828,7 +876,7 @@
           },
           {
             "at": "say2",
-            "caption": "The ipaddress module gives each network an.",
+            "caption": "The ipaddress module gives each network an .overlaps(other) method.",
             "bars": [
               {
                 "label": "i",
@@ -869,20 +917,19 @@
         "title": "Milestone review: from plan to production",
         "nodes": [
           {
-            "id": "plan",
-            "label": "plan"
-          },
-          {
-            "id": "nets",
-            "label": "nets"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "i",
-            "label": "i"
+            "label": "i",
+            "tappable": true
+          },
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
           }
         ],
         "steps": [
@@ -890,137 +937,78 @@
             "at": "say1",
             "caption": "You now have everything to plan a real AWS network.",
             "values": {
-              "plan": {
-                "var": "plan",
-                "line": 3,
-                "hit": 1
-              },
-              "nets": {
-                "var": "nets",
-                "line": 5,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 1
-              },
               "i": {
                 "var": "i",
                 "line": 6,
                 "hit": 1
+              },
+              "p": {
+                "text": ""
+              },
+              "name": {
+                "text": ""
               }
             },
             "tones": {
-              "plan": "data",
-              "nets": "data",
-              ".0": "data",
-              "i": "data"
+              "i": "data",
+              "p": "idle",
+              "name": "idle"
             },
-            "arrows": [
-              [
-                "plan",
-                "nets"
-              ],
-              [
-                "nets",
-                ".0"
-              ],
-              [
-                ".0",
-                "i"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Professionals turn such a plan into code with tools like Terraform or AWS.",
+            "caption": "Verify the plan transition driving professionals behavior.",
             "values": {
-              "plan": {
-                "var": "plan",
-                "line": 5,
-                "hit": 1
-              },
-              "nets": {
-                "var": "nets",
-                "line": 6,
-                "hit": 12
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 2
-              },
               "i": {
-                "var": "i",
-                "line": 6,
+                "text": ""
+              },
+              "p": {
+                "var": "p",
+                "line": 9,
                 "hit": 2
+              },
+              "name": {
+                "text": ""
               }
             },
             "tones": {
-              "plan": "data",
-              "nets": "data",
-              ".0": "data",
-              "i": "data"
+              "i": "idle",
+              "p": "data",
+              "name": "idle"
             },
             "arrows": [
               [
-                "plan",
-                "nets"
-              ],
-              [
-                "nets",
-                ".0"
-              ],
-              [
-                ".0",
-                "i"
+                "i",
+                "p"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Well done on reaching the first milestone.",
+            "at": "say3",
+            "caption": "Catching it during an outage costs hours and customers.",
             "values": {
-              "plan": {
-                "var": "plan",
-                "line": 5,
-                "hit": 2
-              },
-              "nets": {
-                "var": "nets",
-                "line": 7,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 3
-              },
               "i": {
-                "var": "i",
-                "line": 6,
+                "text": ""
+              },
+              "p": {
+                "text": ""
+              },
+              "name": {
+                "var": "name",
+                "line": 10,
                 "hit": 3
               }
             },
             "tones": {
-              "plan": "ok",
-              "nets": "ok",
-              ".0": "ok",
-              "i": "ok"
+              "i": "idle",
+              "p": "idle",
+              "name": "ok"
             },
             "arrows": [
               [
-                "plan",
-                "nets"
-              ],
-              [
-                "nets",
-                ".0"
-              ],
-              [
-                ".0",
-                "i"
+                "i",
+                "p"
               ]
             ]
           }
@@ -1031,20 +1019,19 @@
         "title": "Milestone review: from plan to production",
         "nodes": [
           {
-            "id": "plan",
-            "label": "plan"
-          },
-          {
-            "id": "nets",
-            "label": "nets"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "i",
-            "label": "i"
+            "label": "i",
+            "tappable": true
+          },
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
           }
         ],
         "steps": [
@@ -1052,89 +1039,54 @@
             "at": "say1",
             "caption": "You now have everything to plan a real AWS network.",
             "values": {
-              "plan": "[['public-a', 'us-east-1a', 'PUBLIC', '…",
-              "nets": "[<IPv4Network>, <IPv4Network>, <IPv4Net…",
-              ".0": "{'__other__': 'enumerate'}",
-              "i": "0"
+              "i": "0",
+              "p": "",
+              "name": ""
             },
             "tones": {
-              "plan": "data",
-              "nets": "data",
-              ".0": "data",
-              "i": "data"
+              "i": "data",
+              "p": "idle",
+              "name": "idle"
             },
-            "arrows": [
-              [
-                "plan",
-                "nets"
-              ],
-              [
-                "nets",
-                ".0"
-              ],
-              [
-                ".0",
-                "i"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Professionals turn such a plan into code with tools like Terraform or AWS.",
+            "caption": "Verify the plan transition driving professionals behavior.",
             "values": {
-              "plan": "[['public-a', 'us-east-1a', 'PUBLIC', '…",
-              "nets": "[<IPv4Network>, <IPv4Network>, <IPv4Net…",
-              ".0": "{'__other__': 'enumerate'}",
-              "i": "0"
+              "i": "",
+              "p": "['public-b', 'us-east-1b', 'PUBLIC', '1…",
+              "name": ""
             },
             "tones": {
-              "plan": "data",
-              "nets": "data",
-              ".0": "data",
-              "i": "data"
+              "i": "idle",
+              "p": "data",
+              "name": "idle"
             },
             "arrows": [
               [
-                "plan",
-                "nets"
-              ],
-              [
-                "nets",
-                ".0"
-              ],
-              [
-                ".0",
-                "i"
+                "i",
+                "p"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Well done on reaching the first milestone.",
+            "at": "say3",
+            "caption": "Catching it during an outage costs hours and customers.",
             "values": {
-              "plan": "[['public-a', 'us-east-1a', 'PUBLIC', '…",
-              "nets": "[<IPv4Network>, <IPv4Network>, <IPv4Net…",
-              ".0": "{'__other__': 'enumerate'}",
-              "i": "0"
+              "i": "",
+              "p": "",
+              "name": "'2+ private'"
             },
             "tones": {
-              "plan": "ok",
-              "nets": "ok",
-              ".0": "ok",
-              "i": "ok"
+              "i": "idle",
+              "p": "idle",
+              "name": "ok"
             },
             "arrows": [
               [
-                "plan",
-                "nets"
-              ],
-              [
-                "nets",
-                ".0"
-              ],
-              [
-                ".0",
-                "i"
+                "i",
+                "p"
               ]
             ]
           }

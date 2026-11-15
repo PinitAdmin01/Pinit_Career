@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "words": {
-                "var": "words",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "chunks": "data",
               "question": "data",
               "k": "data",
-              "words": "data"
+              "words": "idle"
             }
           },
           {
@@ -157,13 +155,13 @@
               "chunks": "{'c1': 'Refunds are issued within 5 wor…",
               "question": "'how many days until refunds are issued'",
               "k": "2",
-              "words": "{'are', 'days', 'how', 'issued', 'many'…"
+              "words": ""
             },
             "tones": {
               "chunks": "data",
               "question": "data",
               "k": "data",
-              "words": "data"
+              "words": "idle"
             }
           },
           {
@@ -341,20 +339,19 @@
         "title": "BM25 in brief",
         "nodes": [
           {
-            "id": "docs",
-            "label": "docs"
-          },
-          {
-            "id": "tokenised",
-            "label": "tokenised"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "t",
-            "label": "t"
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "scores",
+            "label": "scores",
+            "tappable": true
+          },
+          {
+            "id": "words",
+            "label": "words",
+            "tappable": true
           }
         ],
         "steps": [
@@ -362,137 +359,82 @@
             "at": "say1",
             "caption": "BM25 scores how well a document matches a query's words.",
             "values": {
-              "docs": {
-                "var": "docs",
-                "line": 3,
-                "hit": 1
-              },
-              "tokenised": {
-                "var": "tokenised",
-                "line": 4,
-                "hit": 4
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 1
-              },
               "t": {
                 "var": "t",
                 "line": 5,
                 "hit": 1
+              },
+              "scores": {
+                "text": ""
+              },
+              "words": {
+                "text": ""
               }
             },
             "tones": {
-              "docs": "data",
-              "tokenised": "data",
-              ".0": "data",
-              "t": "data"
+              "t": "data",
+              "scores": "idle",
+              "words": "idle"
             },
-            "arrows": [
-              [
-                "docs",
-                "tokenised"
-              ],
-              [
-                "tokenised",
-                ".0"
-              ],
-              [
-                ".0",
-                "t"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Rare words count more (inverse document frequency, IDF).",
             "values": {
-              "docs": {
-                "var": "docs",
-                "line": 4,
+              "t": {
+                "text": ""
+              },
+              "scores": {
+                "var": "scores",
+                "line": 16,
                 "hit": 1
               },
-              "tokenised": {
-                "var": "tokenised",
-                "line": 5,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 2
-              },
-              "t": {
-                "var": "t",
-                "line": 5,
-                "hit": 2
+              "words": {
+                "var": "words",
+                "line": 16,
+                "hit": 1
               }
             },
             "tones": {
-              "docs": "data",
-              "tokenised": "data",
-              ".0": "data",
-              "t": "data"
+              "t": "idle",
+              "scores": "data",
+              "words": "data"
             },
             "arrows": [
               [
-                "docs",
-                "tokenised"
-              ],
-              [
-                "tokenised",
-                ".0"
-              ],
-              [
-                ".0",
-                "t"
+                "t",
+                "scores"
               ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "You rarely write BM25 yourself.",
+            "at": "say3",
+            "caption": "Repeats have diminishing returns (saturation).",
             "values": {
-              "docs": {
-                "var": "docs",
-                "line": 4,
-                "hit": 2
+              "t": {
+                "text": ""
               },
-              "tokenised": {
-                "var": "tokenised",
-                "line": 7,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
+              "scores": {
+                "var": "scores",
+                "line": 16,
                 "hit": 3
               },
-              "t": {
-                "var": "t",
-                "line": 5,
+              "words": {
+                "var": "words",
+                "line": 16,
                 "hit": 3
               }
             },
             "tones": {
-              "docs": "ok",
-              "tokenised": "ok",
-              ".0": "ok",
-              "t": "ok"
+              "t": "idle",
+              "scores": "ok",
+              "words": "ok"
             },
             "arrows": [
               [
-                "docs",
-                "tokenised"
-              ],
-              [
-                "tokenised",
-                ".0"
-              ],
-              [
-                ".0",
-                "t"
+                "t",
+                "scores"
               ]
             ]
           }
@@ -503,20 +445,19 @@
         "title": "BM25 in brief",
         "nodes": [
           {
-            "id": "docs",
-            "label": "docs"
-          },
-          {
-            "id": "tokenised",
-            "label": "tokenised"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "t",
-            "label": "t"
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "scores",
+            "label": "scores",
+            "tappable": true
+          },
+          {
+            "id": "words",
+            "label": "words",
+            "tappable": true
           }
         ],
         "steps": [
@@ -524,89 +465,54 @@
             "at": "say1",
             "caption": "BM25 scores how well a document matches a query's words.",
             "values": {
-              "docs": "['error ERR-504 gateway timeout', 'gate…",
-              "tokenised": "[['error', 'err-504', 'gateway', 'timeo…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "t": "['error', 'err-504', 'gateway', 'timeou…"
+              "t": "['error', 'err-504', 'gateway', 'timeou…",
+              "scores": "",
+              "words": ""
             },
             "tones": {
-              "docs": "data",
-              "tokenised": "data",
-              ".0": "data",
-              "t": "data"
+              "t": "data",
+              "scores": "idle",
+              "words": "idle"
             },
-            "arrows": [
-              [
-                "docs",
-                "tokenised"
-              ],
-              [
-                "tokenised",
-                ".0"
-              ],
-              [
-                ".0",
-                "t"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Rare words count more (inverse document frequency, IDF).",
             "values": {
-              "docs": "['error ERR-504 gateway timeout', 'gate…",
-              "tokenised": "[['error', 'err-504', 'gateway', 'timeo…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "t": "['gateway', 'settings', 'and', 'gateway…"
+              "t": "",
+              "scores": "[1.154]",
+              "words": "['error', 'err-504', 'gateway', 'timeou…"
             },
             "tones": {
-              "docs": "data",
-              "tokenised": "data",
-              ".0": "data",
-              "t": "data"
+              "t": "idle",
+              "scores": "data",
+              "words": "data"
             },
             "arrows": [
               [
-                "docs",
-                "tokenised"
-              ],
-              [
-                "tokenised",
-                ".0"
-              ],
-              [
-                ".0",
-                "t"
+                "t",
+                "scores"
               ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "You rarely write BM25 yourself.",
+            "at": "say3",
+            "caption": "Repeats have diminishing returns (saturation).",
             "values": {
-              "docs": "['error ERR-504 gateway timeout', 'gate…",
-              "tokenised": "[['error', 'err-504', 'gateway', 'timeo…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "t": "['the', 'the', 'the', 'gateway']"
+              "t": "",
+              "scores": "[1.154, 0.182, 0.138]",
+              "words": "['the', 'the', 'the', 'gateway']"
             },
             "tones": {
-              "docs": "ok",
-              "tokenised": "ok",
-              ".0": "ok",
-              "t": "ok"
+              "t": "idle",
+              "scores": "ok",
+              "words": "ok"
             },
             "arrows": [
               [
-                "docs",
-                "tokenised"
-              ],
-              [
-                "tokenised",
-                ".0"
-              ],
-              [
-                ".0",
-                "t"
+                "t",
+                "scores"
               ]
             ]
           }
@@ -638,6 +544,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Support and technical content, full of product names, versions and error.",
+            "activeActor": "sparse_results",
+            "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": {
+                  "var": "dense_results",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "sparse_results",
@@ -652,10 +575,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Support and technical content, full of product names, versions and error.",
+            "at": "say6",
+            "caption": "Many vector databases now offer hybrid search built in.",
             "activeActor": "sparse_results",
             "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": {
+                  "var": "dense_results",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": {
+                  "var": "sparse_results",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "dense_results",
                 "to": "sparse_results",
@@ -675,14 +618,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Many vector databases now offer hybrid search built in.",
-            "activeActor": "sparse_results",
-            "messages": [
+              },
               {
                 "from": "dense_results",
                 "to": "sparse_results",
@@ -724,12 +660,6 @@
                 "to": "sparse_results",
                 "label": "['login-help', 'password-reset', 'accou…",
                 "tone": "data"
-              },
-              {
-                "from": "sparse_results",
-                "to": "dense_results",
-                "label": "['err-504-guide', 'login-help', 'gatewa…",
-                "tone": "ok"
               }
             ],
             "activeActor": "dense_results"
@@ -757,6 +687,30 @@
             "at": "say6",
             "caption": "Many vector databases now offer hybrid search built in.",
             "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": "['login-help', 'password-reset', 'accou…",
+                "tone": "data"
+              },
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": "['err-504-guide', 'login-help', 'gatewa…",
+                "tone": "ok"
+              },
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": "['login-help', 'password-reset', 'accou…",
+                "tone": "data"
+              },
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": "['err-504-guide', 'login-help', 'gatewa…",
+                "tone": "ok"
+              },
               {
                 "from": "dense_results",
                 "to": "sparse_results",
@@ -1021,7 +975,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will rerank retrieved chunks so the best ones come first,.",
+            "caption": "Examine the tomorrow value produced for rerank processing.",
             "activeActor": "text",
             "messages": [
               {
@@ -1097,7 +1051,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will rerank retrieved chunks so the best ones come first,.",
+            "caption": "Examine the tomorrow value produced for rerank processing.",
             "messages": [
               {
                 "from": "chunks",

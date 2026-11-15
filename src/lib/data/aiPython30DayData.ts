@@ -68,7 +68,7 @@ const DAYS: Day[] = [
       "desc": "Write `format_few_shot_prompt(task, examples, query)`. Each example is a dict with 'input', 'thought' and 'output', written as three lines: `Input: ...`, `Thought: ...`, `Output: ...`. Return the task, then each example, then `Input: QUERY` and `Thought:` (the model continues from there), with a blank line between the task and each example block.",
       "starter": "def format_few_shot_prompt(task, examples, query):\n    pass",
       "hint": "blocks = [task] + [f\"Input: {e['input']}\\nThought: {e['thought']}\\nOutput: {e['output']}\" for e in examples] + [f'Input: {query}\\nThought:']; join with '\\n\\n'.",
-      "test": "ex = [{'input': '3 + 5 * 2', 'thought': 'Multiply first: 5*2=10, then 3+10=13', 'output': '13'}]\np = format_few_shot_prompt('Solve math step by step.', ex, '4 + 2 * 3')\nexpected = 'Solve math step by step.\\n\\nInput: 3 + 5 * 2\\nThought: Multiply first: 5*2=10, then 3+10=13\\nOutput: 13\\n\\nInput: 4 + 2 * 3\\nThought:'\nassert p == expected, f'Prompt layout is wrong:\\n{p}'\nassert format_few_shot_prompt('T', [], 'q') == 'T\\n\\nInput: q\\nThought:', 'With no examples: task, then the query'\nprint('All checks passed.')"
+      "test": "ex = [{'input': '3 + 5 * 2', 'thought': 'Multiply first: 5*2=10, then 3+10=13', 'output': '13'}]\np = format_few_shot_prompt('Solve math step by step.', ex, '4 + 2 * 3')\nexpected = 'Solve math step by step.\\n\\nInput: 3 + 5 * 2\\nThought: Multiply first: 5*2=10, then 3+10=13\\nOutput: 13\\n\\nInput: 4 + 2 * 3\\nThought:'\nassert p == expected, f'Prompt layout is wrong:\\n{p}'\nassert format_few_shot_prompt('T', [], 'q') == 'T\\n\\nInput: q\\nThought:', 'With no examples: task, then the query'\nassert format_few_shot_prompt('Task', [{'input': '1', 'thought': 't', 'output': '2'}], '3').endswith('Input: 3\\nThought:'), 'Ends with empty Thought prompt'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Majority Vote Consistency Evaluator",
@@ -187,7 +187,7 @@ const DAYS: Day[] = [
       "desc": "Write `filter_by_min_score(results, min_score=0.5)` keeping only results whose 'relevance_score' is at least min_score, in the same order.",
       "starter": "def filter_by_min_score(results, min_score=0.5):\n    pass",
       "hint": "[r for r in results if r['relevance_score'] >= min_score]",
-      "test": "rs = [{'id': 'a', 'relevance_score': 0.8}, {'id': 'b', 'relevance_score': 0.3}, {'id': 'c', 'relevance_score': 0.5}]\nassert [r['id'] for r in filter_by_min_score(rs)] == ['a', 'c'], 'Keep scores of 0.5 and above'\nassert [r['id'] for r in filter_by_min_score(rs, 0.9)] == [], 'Nothing reaches 0.9'\nprint('All checks passed.')"
+      "test": "rs = [{'id': 'a', 'relevance_score': 0.8}, {'id': 'b', 'relevance_score': 0.3}, {'id': 'c', 'relevance_score': 0.5}]\nassert [r['id'] for r in filter_by_min_score(rs)] == ['a', 'c'], 'Keep scores of 0.5 and above'\nassert [r['id'] for r in filter_by_min_score(rs, 0.9)] == [], 'Nothing reaches 0.9'\nassert [r['id'] for r in filter_by_min_score([], 0.1)] == [], 'Empty results list'\nprint('All checks passed.')"
     }
   },
   {
@@ -251,7 +251,7 @@ const DAYS: Day[] = [
       "desc": "Write `rag_latency(retrieval_ms, rerank_ms, generation_ms)` returning the total time in seconds as a string with 2 decimals and an 's', like '1.00s'.",
       "starter": "def rag_latency(retrieval_ms, rerank_ms, generation_ms):\n    pass",
       "hint": "f'{(retrieval_ms + rerank_ms + generation_ms) / 1000:.2f}s'",
-      "test": "assert rag_latency(120, 80, 800) == '1.00s', 'Expected 1.00s'\nassert rag_latency(45, 30, 1500) == '1.57s', 'Expected 1.57s'\nprint('All checks passed.')"
+      "test": "assert rag_latency(120, 80, 800) == '1.00s', 'Expected 1.00s'\nassert rag_latency(45, 30, 1500) == '1.57s', 'Expected 1.57s'\nassert rag_latency(0, 0, 0) == '0.00s', 'Zero latency prints 0.00s'\nprint('All checks passed.')"
     }
   },
   {
@@ -267,7 +267,7 @@ const DAYS: Day[] = [
       "desc": "Write `count_roles(messages)` returning {'user': how many user messages, 'assistant': how many assistant messages}. Other roles are not counted.",
       "starter": "def count_roles(messages):\n    pass",
       "hint": "sum(1 for m in messages if m['role'] == 'user')",
-      "test": "msgs = [{'role': 'system'}, {'role': 'user'}, {'role': 'assistant'}, {'role': 'user'}]\nassert count_roles(msgs) == {'user': 2, 'assistant': 1}, 'Expected 2 user and 1 assistant message'\nassert count_roles([]) == {'user': 0, 'assistant': 0}, 'No messages: zero of each'\nprint('All checks passed.')"
+      "test": "msgs = [{'role': 'system'}, {'role': 'user'}, {'role': 'assistant'}, {'role': 'user'}]\nassert count_roles(msgs) == {'user': 2, 'assistant': 1}, 'Expected 2 user and 1 assistant message'\nassert count_roles([]) == {'user': 0, 'assistant': 0}, 'No messages: zero of each'\nassert count_roles([{'role': 'system'}, {'role': 'tool'}]) == {'user': 0, 'assistant': 0}, 'Other roles ignored'\nprint('All checks passed.')"
     }
   },
   {
@@ -299,7 +299,7 @@ const DAYS: Day[] = [
       "desc": "Write `format_agent_status(name, status)` returning '[NAME]: status' with the name in capitals, like '[CODER]: DONE'.",
       "starter": "def format_agent_status(name, status):\n    pass",
       "hint": "f'[{name.upper()}]: {status}'",
-      "test": "assert format_agent_status('coder', 'DONE') == '[CODER]: DONE', 'Expected [CODER]: DONE'\nassert format_agent_status('researcher', 'searching') == '[RESEARCHER]: searching', 'Only the name is in capitals'\nprint('All checks passed.')"
+      "test": "assert format_agent_status('coder', 'DONE') == '[CODER]: DONE', 'Expected [CODER]: DONE'\nassert format_agent_status('researcher', 'searching') == '[RESEARCHER]: searching', 'Only the name is in capitals'\nassert format_agent_status('qa', 'PASS') == '[QA]: PASS', 'Lowercase name gets uppercased'\nprint('All checks passed.')"
     }
   },
   {
@@ -324,14 +324,14 @@ const DAYS: Day[] = [
       "desc": "Streaming APIs send lines like `data: {\"choices\":[{\"delta\":{\"content\":\"Hi\"}}]}` and finish with `data: [DONE]`. Write `parse_sse_chunk(chunk)` that joins the content of every data line in order and returns {'text': ..., 'done': True if [DONE] was seen}. Skip lines that are not data lines, and data without content.",
       "starter": "import json\n\n\ndef parse_sse_chunk(chunk):\n    pass",
       "hint": "for line in chunk.splitlines(): if line == 'data: [DONE]': done = True; elif line.startswith('data: '): delta = json.loads(line[6:])['choices'][0]['delta']",
-      "test": "chunk = 'data: {\"choices\":[{\"delta\":{\"content\":\"Hello \"}}]}\\n\\ndata: {\"choices\":[{\"delta\":{\"content\":\"world!\"}}]}\\n\\n'\nassert parse_sse_chunk(chunk) == {'text': 'Hello world!', 'done': False}, 'Join the two tokens'\nend = ': keep-alive\\ndata: {\"choices\":[{\"delta\":{\"role\":\"assistant\"}}]}\\ndata: {\"choices\":[{\"delta\":{\"content\":\"Bye\"}}]}\\ndata: [DONE]\\n'\nassert parse_sse_chunk(end) == {'text': 'Bye', 'done': True}, 'Skip comments and empty deltas, notice [DONE]'\nprint('All checks passed.')"
+      "test": "chunk = 'data: {\"choices\":[{\"delta\":{\"content\":\"Hello \"}}]}\\n\\ndata: {\"choices\":[{\"delta\":{\"content\":\"world!\"}}]}\\n\\n'\nassert parse_sse_chunk(chunk) == {'text': 'Hello world!', 'done': False}, 'Join the two tokens'\nend = ': keep-alive\\ndata: {\"choices\":[{\"delta\":{\"role\":\"assistant\"}}]}\\ndata: {\"choices\":[{\"delta\":{\"content\":\"Bye\"}}]}\\ndata: [DONE]\\n'\nassert parse_sse_chunk(end) == {'text': 'Bye', 'done': True}, 'Skip comments and empty deltas, notice [DONE]'\nassert parse_sse_chunk('data: [DONE]\\n\\n') == {'text': '', 'done': True}, 'DONE-only chunk'\nprint('All checks passed.')"
     },
     "a": {
       "title": "SSE Data Line Formatter",
       "desc": "Write `format_sse_line(obj)` that returns 'data: ' + the object as JSON (json.dumps) + two newlines, so a browser can read it as one server-sent event.",
       "starter": "import json\n\n\ndef format_sse_line(obj):\n    pass",
       "hint": "f'data: {json.dumps(obj)}\\n\\n'",
-      "test": "line = format_sse_line({'token': 'hi'})\nassert line == 'data: {\"token\": \"hi\"}\\n\\n', f'Expected data: {{\"token\": \"hi\"}} and two newlines, got {line!r}'\nassert json.loads(format_sse_line({'n': [1, 2]})[6:]) == {'n': [1, 2]}, 'The data must be valid JSON'\nprint('All checks passed.')"
+      "test": "line = format_sse_line({'token': 'hi'})\nassert line == 'data: {\"token\": \"hi\"}\\n\\n', f'Expected data: {{\"token\": \"hi\"}} and two newlines, got {line!r}'\nassert json.loads(format_sse_line({'n': [1, 2]})[6:]) == {'n': [1, 2]}, 'The data must be valid JSON'\nassert format_sse_line({}).endswith('\\n\\n'), 'SSE frame ends with blank line'\nprint('All checks passed.')"
     }
   },
   {
@@ -372,7 +372,7 @@ const DAYS: Day[] = [
       "desc": "LoRA trains two small matrices A (d × r) and B (r × d) instead of a full d × d weight matrix. Write `lora_parameters(d_model, rank=16)` returning {'full': d*d, 'trainable': 2*d*r, 'percent': trainable/full*100 as a string with 2 decimals and '%'}.",
       "starter": "def lora_parameters(d_model, rank=16):\n    pass",
       "hint": "full = d_model ** 2; trainable = 2 * d_model * rank; f'{trainable / full * 100:.2f}%'",
-      "test": "assert lora_parameters(4096, 16) == {'full': 16777216, 'trainable': 131072, 'percent': '0.78%'}, f'Wrong result: {lora_parameters(4096, 16)}'\nassert lora_parameters(1024) == {'full': 1048576, 'trainable': 32768, 'percent': '3.12%'}, 'Use rank 16 by default'\nprint('All checks passed.')"
+      "test": "assert lora_parameters(4096, 16) == {'full': 16777216, 'trainable': 131072, 'percent': '0.78%'}, f'Wrong result: {lora_parameters(4096, 16)}'\nassert lora_parameters(1024) == {'full': 1048576, 'trainable': 32768, 'percent': '3.12%'}, 'Use rank 16 by default'\nassert lora_parameters(100, 1)['percent'] == '2.00%', 'Rank 1 percentage'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Quantized Model Memory Estimator",
@@ -388,7 +388,7 @@ const DAYS: Day[] = [
       "desc": "Write `evaluate_dpo_pair(chosen_logprob, rejected_logprob, beta=0.1)`. The margin is chosen - rejected. Return {'preferred': margin > 0, 'reward_margin': beta * margin rounded to 4, 'status': 'ALIGNED' if preferred else 'MISALIGNED'}.",
       "starter": "def evaluate_dpo_pair(chosen_logprob, rejected_logprob, beta=0.1):\n    pass",
       "hint": "margin = chosen_logprob - rejected_logprob",
-      "test": "assert evaluate_dpo_pair(-1.2, -4.5) == {'preferred': True, 'reward_margin': 0.33, 'status': 'ALIGNED'}, f'Wrong result: {evaluate_dpo_pair(-1.2, -4.5)}'\nassert evaluate_dpo_pair(-5.0, -1.0, 0.5) == {'preferred': False, 'reward_margin': -2.0, 'status': 'MISALIGNED'}, 'The rejected answer is more likely here'\nprint('All checks passed.')"
+      "test": "assert evaluate_dpo_pair(-1.2, -4.5) == {'preferred': True, 'reward_margin': 0.33, 'status': 'ALIGNED'}, f'Wrong result: {evaluate_dpo_pair(-1.2, -4.5)}'\nassert evaluate_dpo_pair(-5.0, -1.0, 0.5) == {'preferred': False, 'reward_margin': -2.0, 'status': 'MISALIGNED'}, 'The rejected answer is more likely here'\nassert evaluate_dpo_pair(-2.0, -2.0)['preferred'] is False, 'Equal logprobs are not strictly preferred'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Log Probability Difference",
@@ -404,7 +404,7 @@ const DAYS: Day[] = [
       "desc": "Write `paged_attention_savings(traditional_mb, paged_mb)` returning {'saved_mb': traditional - paged, 'percent_saved': saved / traditional * 100 as a string with 1 decimal and '%', 'concurrency': traditional / paged rounded to 1} (how many more requests fit in the same memory).",
       "starter": "def paged_attention_savings(traditional_mb, paged_mb):\n    pass",
       "hint": "saved = traditional_mb - paged_mb; f'{saved / traditional_mb * 100:.1f}%'",
-      "test": "assert paged_attention_savings(1000, 200) == {'saved_mb': 800, 'percent_saved': '80.0%', 'concurrency': 5.0}, f'Wrong result: {paged_attention_savings(1000, 200)}'\nassert paged_attention_savings(900, 600) == {'saved_mb': 300, 'percent_saved': '33.3%', 'concurrency': 1.5}, 'Expected 33.3% and 1.5x'\nprint('All checks passed.')"
+      "test": "assert paged_attention_savings(1000, 200) == {'saved_mb': 800, 'percent_saved': '80.0%', 'concurrency': 5.0}, f'Wrong result: {paged_attention_savings(1000, 200)}'\nassert paged_attention_savings(900, 600) == {'saved_mb': 300, 'percent_saved': '33.3%', 'concurrency': 1.5}, 'Expected 33.3% and 1.5x'\nassert paged_attention_savings(500, 500) == {'saved_mb': 0, 'percent_saved': '0.0%', 'concurrency': 1.0}, 'No savings edge case'\nprint('All checks passed.')"
     },
     "a": {
       "title": "GGUF Quantization Bits",
@@ -452,7 +452,7 @@ const DAYS: Day[] = [
       "desc": "Each span of an LLM trace has 'prompt_tokens', 'completion_tokens', 'cost' (dollars) and 'latency_ms'. The spans ran one after another. Write `aggregate_traces(spans)` returning {'total_tokens': all tokens, 'total_cost': cost rounded to 4, 'total_seconds': summed latency / 1000 rounded to 2}.",
       "starter": "def aggregate_traces(spans):\n    pass",
       "hint": "sum(s['prompt_tokens'] + s['completion_tokens'] for s in spans)",
-      "test": "spans = [\n    {'prompt_tokens': 500, 'completion_tokens': 100, 'cost': 0.002, 'latency_ms': 400},\n    {'prompt_tokens': 300, 'completion_tokens': 50, 'cost': 0.001, 'latency_ms': 650},\n]\nassert aggregate_traces(spans) == {'total_tokens': 950, 'total_cost': 0.003, 'total_seconds': 1.05}, f'Wrong totals: {aggregate_traces(spans)}'\nassert aggregate_traces([]) == {'total_tokens': 0, 'total_cost': 0, 'total_seconds': 0}, 'No spans: all zero'\nprint('All checks passed.')"
+      "test": "spans = [\n    {'prompt_tokens': 500, 'completion_tokens': 100, 'cost': 0.002, 'latency_ms': 400},\n    {'prompt_tokens': 300, 'completion_tokens': 50, 'cost': 0.001, 'latency_ms': 650},\n]\nassert aggregate_traces(spans) == {'total_tokens': 950, 'total_cost': 0.003, 'total_seconds': 1.05}, f'Wrong totals: {aggregate_traces(spans)}'\nassert aggregate_traces([]) == {'total_tokens': 0, 'total_cost': 0, 'total_seconds': 0}, 'No spans: all zero'\nassert aggregate_traces([{'prompt_tokens': 10, 'completion_tokens': 5, 'cost': 0.0, 'latency_ms': 250}]) == {'total_tokens': 15, 'total_cost': 0.0, 'total_seconds': 0.25}, 'Single span aggregate'\nprint('All checks passed.')"
     },
     "a": {
       "title": "User Feedback Score",
@@ -468,14 +468,14 @@ const DAYS: Day[] = [
       "desc": "Write `traverse_graph(graph, start, relation)`. graph has 'nodes' ({'id', 'properties'}) and 'edges' ({'from', 'to', 'type'}). Return [{'entity': edge['to'], 'properties': that node's properties ({} if the node is missing)}] for every edge of type relation leaving start, in edge order.",
       "starter": "def traverse_graph(graph, start, relation):\n    pass",
       "hint": "props = {n['id']: n['properties'] for n in graph['nodes']}",
-      "test": "graph = {\n    'nodes': [{'id': 'Alice', 'properties': {'role': 'Lead'}}, {'id': 'PinIT', 'properties': {'type': 'Platform'}}, {'id': 'Bob', 'properties': {'role': 'Dev'}}],\n    'edges': [{'from': 'Alice', 'to': 'PinIT', 'type': 'WORKS_AT'}, {'from': 'Alice', 'to': 'Bob', 'type': 'MANAGES'}, {'from': 'Alice', 'to': 'Acme', 'type': 'WORKS_AT'}, {'from': 'Bob', 'to': 'PinIT', 'type': 'WORKS_AT'}],\n}\nres = traverse_graph(graph, 'Alice', 'WORKS_AT')\nassert res == [{'entity': 'PinIT', 'properties': {'type': 'Platform'}}, {'entity': 'Acme', 'properties': {}}], f'Wrong result: {res}'\nassert traverse_graph(graph, 'Bob', 'MANAGES') == [], 'Bob manages nobody'\nprint('All checks passed.')"
+      "test": "graph = {\n    'nodes': [{'id': 'Alice', 'properties': {'role': 'Lead'}}, {'id': 'PinIT', 'properties': {'type': 'Platform'}}, {'id': 'Bob', 'properties': {'role': 'Dev'}}],\n    'edges': [{'from': 'Alice', 'to': 'PinIT', 'type': 'WORKS_AT'}, {'from': 'Alice', 'to': 'Bob', 'type': 'MANAGES'}, {'from': 'Alice', 'to': 'Acme', 'type': 'WORKS_AT'}, {'from': 'Bob', 'to': 'PinIT', 'type': 'WORKS_AT'}],\n}\nres = traverse_graph(graph, 'Alice', 'WORKS_AT')\nassert res == [{'entity': 'PinIT', 'properties': {'type': 'Platform'}}, {'entity': 'Acme', 'properties': {}}], f'Wrong result: {res}'\nassert traverse_graph(graph, 'Bob', 'MANAGES') == [], 'Bob manages nobody'\nassert traverse_graph({'nodes': [], 'edges': []}, 'Alice', 'KNOWS') == [], 'Empty graph'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Cypher Query Builder",
       "desc": "Write `build_match_cypher(a, relation, b)` returning the Neo4j query: MATCH (a {id: 'A'})-[:RELATION]->(b {id: 'B'}) RETURN b",
       "starter": "def build_match_cypher(a, relation, b):\n    pass",
       "hint": "f\"MATCH (a {{id: '{a}'}})-[:{relation}]->(b {{id: '{b}'}}) RETURN b\" (double braces print one brace in an f-string)",
-      "test": "q = build_match_cypher('Alice', 'WORKS_AT', 'PinIT')\nassert q == \"MATCH (a {id: 'Alice'})-[:WORKS_AT]->(b {id: 'PinIT'}) RETURN b\", f'Wrong query: {q}'\nprint('All checks passed.')"
+      "test": "q = build_match_cypher('Alice', 'WORKS_AT', 'PinIT')\nassert q == \"MATCH (a {id: 'Alice'})-[:WORKS_AT]->(b {id: 'PinIT'}) RETURN b\", f'Wrong query: {q}'\nassert build_match_cypher('Bob', 'KNOWS', 'Eve') == \"MATCH (a {id: 'Bob'})-[:KNOWS]->(b {id: 'Eve'}) RETURN b\", 'General relationship template'\nassert 'RETURN b' in q, 'Query ends with RETURN b'\nprint('All checks passed.')"
     }
   },
   {

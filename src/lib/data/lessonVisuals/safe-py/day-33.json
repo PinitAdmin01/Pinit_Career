@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Prompt Injection Detection — Foundations & Mathematical Invariants",
+      "partTitle": "Signature Detection inside `detect_direct_injection_signature`",
       "codeHash": "f32038f37cb99d5886732b51234fa0a84b960069262a9b109ea9aedb3ed3fec4",
       "spec": {
         "template": "states",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the signature value produced for inside processing.",
             "currentState": "test2",
             "transition": {
               "from": "test1",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the signature value produced for inside processing.",
             "currentState": "test2",
             "transition": {
               "from": "test1",
@@ -114,8 +114,8 @@
       }
     },
     {
-      "partTitle": "Prompt Injection Detection — Core Algorithm & State Representation",
-      "codeHash": "cae4456aeb2c59d4a83ecfdf4956be8123c2633bdf0b31a330a7a1e57b90d444",
+      "partTitle": "Untrusted Delimiter Encapsulation via `structural_spotlight`",
+      "codeHash": "393decffc9bfaf532e2e5b2e4ec0290bcd4abde893b63c0024ac228eef59d459",
       "spec": {
         "template": "states",
         "title": "Prompt Injection Detection — Core Algorithm & State Representati",
@@ -157,7 +157,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the untrusted value produced for structural processing.",
             "currentState": "delimiter",
             "transition": {
               "from": "untrusted_data",
@@ -209,7 +209,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the untrusted value produced for structural processing.",
             "currentState": "delimiter",
             "transition": {
               "from": "untrusted_data",
@@ -222,7 +222,7 @@
       }
     },
     {
-      "partTitle": "Prompt Injection Detection — Production Implementation & Boundary Mechanics",
+      "partTitle": "Cipher & Smuggling Entropy Scoring in `calculate_char_entropy`",
       "codeHash": "131c9f8fd5d4a439e766da4036f6a8c2eeaae1fc8fba81eab729e4963162191e",
       "spec": {
         "template": "flow",
@@ -294,7 +294,7 @@
           },
           {
             "at": "say2",
-            "caption": "Adversaries frequently employ Base64 encoding, ROT13 ciphers,.",
+            "caption": "Verify the entropy transition driving attackers behavior.",
             "values": {
               "base_text": {
                 "var": "base_text",
@@ -340,7 +340,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for prompt injection.",
+            "caption": "Examine the cipher value produced for smuggling processing.",
             "values": {
               "base_text": {
                 "var": "base_text",
@@ -440,7 +440,7 @@
           },
           {
             "at": "say2",
-            "caption": "Adversaries frequently employ Base64 encoding, ROT13 ciphers,.",
+            "caption": "Verify the entropy transition driving attackers behavior.",
             "values": {
               "base_text": "'This is a standard human readable sent…",
               "adversarial_gibberish": "'a8f!9#zQ@19x%kL92!v~`?+'",
@@ -470,7 +470,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for prompt injection.",
+            "caption": "Examine the cipher value produced for smuggling processing.",
             "values": {
               "base_text": "'This is a standard human readable sent…",
               "adversarial_gibberish": "'a8f!9#zQ@19x%kL92!v~`?+'",
@@ -502,7 +502,7 @@
       }
     },
     {
-      "partTitle": "Prompt Injection Detection — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Weighted Signal Fusion inside `injection_heuristic_classifier`",
       "codeHash": "960924c06f86240df46c9346a840b1646dc9888c60f1c131a5e9a63308d9beae",
       "spec": {
         "template": "states",
@@ -545,7 +545,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the fusion value produced for inside processing.",
             "currentState": "has_roleplay",
             "transition": {
               "from": "has_sys_override",
@@ -597,7 +597,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the fusion value produced for inside processing.",
             "currentState": "has_roleplay",
             "transition": {
               "from": "has_sys_override",
@@ -610,7 +610,7 @@
       }
     },
     {
-      "partTitle": "Prompt Injection Detection — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Fail-Closed Guard Orchestration in `PromptInjectionGuard`",
       "codeHash": "ea7f4607200075867a57988ae05708156b79a35203385ecd3716d22d2bff7325",
       "spec": {
         "template": "states",
@@ -653,7 +653,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the promptinjectionguard value produced for orchestrator processing.",
             "currentState": "guard",
             "transition": {
               "from": "threshold",
@@ -705,7 +705,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the promptinjectionguard value produced for orchestrator processing.",
             "currentState": "guard",
             "transition": {
               "from": "threshold",

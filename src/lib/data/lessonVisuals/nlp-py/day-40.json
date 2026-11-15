@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "In industrial artificial intelligence laboratories (such as Meta FAIR.",
+            "caption": "These cluster simulators verify.",
             "items": {
               "var": "test_ranks",
               "line": 35,
@@ -86,7 +86,7 @@
           },
           {
             "at": "say2",
-            "caption": "In industrial artificial intelligence laboratories (such as Meta FAIR.",
+            "caption": "These cluster simulators verify.",
             "items": [
               "0",
               "1",
@@ -352,7 +352,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Having implemented the ZeRO-3 parameter sharding engine across.",
+            "caption": "Observe how capstone shapes component during this step.",
             "bars": [
               {
                 "label": "d_model",
@@ -484,7 +484,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Having implemented the ZeRO-3 parameter sharding engine across.",
+            "caption": "Observe how capstone shapes component during this step.",
             "bars": [
               {
                 "label": "d_model",
@@ -608,16 +608,14 @@
                 "hit": 1
               },
               "ctrl": {
-                "var": "ctrl",
-                "line": 26,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "init_scale": "data",
               "growth_interval": "data",
-              "ctrl": "data"
+              "ctrl": "idle"
             },
             "arrows": [
               [
@@ -757,13 +755,13 @@
               "self": "<ScalingController>",
               "init_scale": "32768",
               "growth_interval": "10",
-              "ctrl": "<ScalingController>"
+              "ctrl": ""
             },
             "tones": {
               "self": "data",
               "init_scale": "data",
               "growth_interval": "data",
-              "ctrl": "data"
+              "ctrl": "idle"
             },
             "arrows": [
               [
@@ -852,7 +850,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In this grand finale of Block 8, we assemble all subsystems into.",
+            "caption": "Observe how capstone shapes cluster during this step.",
             "items": {
               "var": "x_seq",
               "line": 41,
@@ -906,7 +904,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In this grand finale of Block 8, we assemble all subsystems into.",
+            "caption": "Observe how capstone shapes cluster during this step.",
             "items": [
               "1",
               "0.5",

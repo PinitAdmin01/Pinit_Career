@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how version updates base during execution.",
+            "caption": "Verify the version transition driving base behavior.",
             "currentState": "names",
             "transition": {
               "from": "vector",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how version updates base during execution.",
+            "caption": "Verify the version transition driving base behavior.",
             "currentState": "names",
             "transition": {
               "from": "vector",
@@ -356,7 +356,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates vector during execution.",
+            "caption": "Practice 2 is cvss_severity(vector, score).",
             "values": {
               "findings": {
                 "var": "findings",
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates vector during execution.",
+            "caption": "Practice 2 is cvss_severity(vector, score).",
             "values": {
               "findings": "[['admin panel SQLi', 9.8, True], ['int…",
               "f": "['admin panel SQLi', 9.8, True]",
@@ -790,7 +790,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates classic during execution.",
+            "caption": "Verify the checks transition driving classic behavior.",
             "activeActor": "x",
             "messages": [
               {
@@ -874,7 +874,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates classic during execution.",
+            "caption": "Verify the checks transition driving classic behavior.",
             "messages": [
               {
                 "from": "raw",

@@ -694,7 +694,7 @@
           },
           {
             "at": "say2",
-            "caption": "Every new model, system prompt or filter change triggers a run of.",
+            "caption": "Verify the every transition driving model behavior.",
             "bars": [
               {
                 "label": "a",
@@ -764,7 +764,7 @@
           },
           {
             "at": "say2",
-            "caption": "Every new model, system prompt or filter change triggers a run of.",
+            "caption": "Verify the every transition driving model behavior.",
             "bars": [
               {
                 "label": "a",

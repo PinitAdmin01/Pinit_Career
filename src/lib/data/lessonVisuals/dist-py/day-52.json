@@ -140,6 +140,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Apply **Little's Law** directly to backend throughput.",
+            "activeActor": "initial",
+            "messages": [
+              {
+                "from": "self",
+                "to": "initial",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "initial",
@@ -154,10 +171,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Apply **Little's Law** directly to backend throughput.",
-            "activeActor": "initial",
+            "at": "say6",
+            "caption": "Implement Gradient2 adaptive concurrency tuning below tracking smooth.",
+            "activeActor": "min_limit",
             "messages": [
+              {
+                "from": "self",
+                "to": "initial",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "initial",
+                "to": "min_limit",
+                "label": {
+                  "var": "initial",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "initial",
@@ -177,14 +214,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Implement Gradient2 adaptive concurrency tuning below tracking smooth.",
-            "activeActor": "min_limit",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "initial",
@@ -227,12 +257,6 @@
                 "to": "initial",
                 "label": "<AdaptiveConcurrencyLimiter>",
                 "tone": "data"
-              },
-              {
-                "from": "initial",
-                "to": "min_limit",
-                "label": "20",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -260,6 +284,30 @@
             "at": "say6",
             "caption": "Implement Gradient2 adaptive concurrency tuning below tracking smooth.",
             "messages": [
+              {
+                "from": "self",
+                "to": "initial",
+                "label": "<AdaptiveConcurrencyLimiter>",
+                "tone": "data"
+              },
+              {
+                "from": "initial",
+                "to": "min_limit",
+                "label": "20",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "initial",
+                "label": "<AdaptiveConcurrencyLimiter>",
+                "tone": "data"
+              },
+              {
+                "from": "initial",
+                "to": "min_limit",
+                "label": "20",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "initial",
@@ -534,8 +582,8 @@
               },
               "util": {
                 "var": "util",
-                "line": 20,
-                "hit": 1
+                "line": 19,
+                "hit": 2
               }
             },
             "tones": {
@@ -561,7 +609,7 @@
           },
           {
             "at": "say5",
-            "caption": "Separate database/worker pools (Bulkheads) by tier or enforce adaptive.",
+            "caption": "Examine the priority value produced for shedding processing.",
             "values": {
               "CRIT_LEVEL": {
                 "var": "CRIT_LEVEL",
@@ -580,8 +628,8 @@
               },
               "util": {
                 "var": "util",
-                "line": 20,
-                "hit": 2
+                "line": 19,
+                "hit": 3
               }
             },
             "tones": {
@@ -666,7 +714,7 @@
               "CRIT_LEVEL": "{'CRITICAL_PLUS': 0, 'CRITICAL': 1, 'SH…",
               "self": "<PriorityLoadShedder>",
               "pls": "<PriorityLoadShedder>",
-              "util": "0.5"
+              "util": "0.75"
             },
             "tones": {
               "CRIT_LEVEL": "data",
@@ -691,12 +739,12 @@
           },
           {
             "at": "say5",
-            "caption": "Separate database/worker pools (Bulkheads) by tier or enforce adaptive.",
+            "caption": "Examine the priority value produced for shedding processing.",
             "values": {
               "CRIT_LEVEL": "{'CRITICAL_PLUS': 0, 'CRITICAL': 1, 'SH…",
               "self": "<PriorityLoadShedder>",
               "pls": "<PriorityLoadShedder>",
-              "util": "0.5"
+              "util": "0.88"
             },
             "tones": {
               "CRIT_LEVEL": "ok",
@@ -751,7 +799,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how feed updates mixed during execution.",
+            "caption": "Verify the priority transition driving load behavior.",
             "currentState": "critical_total",
             "transition": {
               "from": "cap",
@@ -807,7 +855,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how feed updates mixed during execution.",
+            "caption": "Verify the priority transition driving load behavior.",
             "currentState": "critical_total",
             "transition": {
               "from": "cap",

@@ -291,7 +291,7 @@
           },
           {
             "at": "say11",
-            "caption": "Many databases now switch strategies automatically, but checking their.",
+            "caption": "Examine the many value produced for databases processing.",
             "items": {
               "var": "ranked",
               "line": 4,
@@ -351,7 +351,7 @@
           },
           {
             "at": "say11",
-            "caption": "Many databases now switch strategies automatically, but checking their.",
+            "caption": "Examine the many value produced for databases processing.",
             "items": [
               "'a'",
               "'b'",
@@ -413,7 +413,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how filter updates matching during execution.",
+            "caption": "Verify the filter transition driving matching behavior.",
             "bars": [
               {
                 "label": "k",
@@ -506,7 +506,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how filter updates matching during execution.",
+            "caption": "Verify the filter transition driving matching behavior.",
             "bars": [
               {
                 "label": "k",
@@ -631,18 +631,18 @@
               },
               "where": {
                 "var": "where",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 4
               },
               "key": {
                 "var": "key",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "cond": {
                 "var": "cond",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -677,18 +677,18 @@
               },
               "where": {
                 "var": "where",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 4
               },
               "key": {
                 "var": "key",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 4
               },
               "cond": {
                 "var": "cond",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 4
               }
             },
             "tones": {
@@ -771,9 +771,9 @@
             "caption": "A simple way to support them is a small expression format that maps each.",
             "values": {
               "meta": "{'lang': 'de', 'year': 2024, 'type': 'p…",
-              "where": "{'lang': {'in': ['en', 'de']}, 'year': …",
-              "key": "'lang'",
-              "cond": "{'in': ['en', 'de']}"
+              "where": "{'type': 'faq'}",
+              "key": "'year'",
+              "cond": "{'min': 2023}"
             },
             "tones": {
               "meta": "data",
@@ -801,9 +801,9 @@
             "caption": "Once equality works reliably, adding ranges and sets is a small.",
             "values": {
               "meta": "{'lang': 'de', 'year': 2024, 'type': 'p…",
-              "where": "{'lang': {'in': ['en', 'de']}, 'year': …",
-              "key": "'lang'",
-              "cond": "{'in': ['en', 'de']}"
+              "where": "{'type': 'faq'}",
+              "key": "'type'",
+              "cond": "'faq'"
             },
             "tones": {
               "meta": "ok",

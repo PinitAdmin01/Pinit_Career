@@ -171,7 +171,7 @@
     },
     {
       "partTitle": "The G-Counter",
-      "codeHash": "a3346c1903602f84d391b4ccef2575780570ab6d5679771e37bf1dab27729fc1",
+      "codeHash": "93754006254e5ca8a08b900c6b34573d7ba1d6783e6e1a8cd8af2c9094d7c715",
       "spec": {
         "template": "sequence",
         "title": "The G-Counter",
@@ -335,7 +335,7 @@
     },
     {
       "partTitle": "The PN-Counter",
-      "codeHash": "4f1fc7584346ed3066ad1a30980db0c32e1588286a55ce7714f6556ed5ce3ef0",
+      "codeHash": "73a0e15a2a86c47716ce558f99852756b8b1c3c1a71a4701c993c6007004b721",
       "spec": {
         "template": "flow",
         "title": "The PN-Counter",
@@ -585,7 +585,7 @@
             "caption": "The example runs increments and decrements on two replicas and merges them.",
             "values": {
               "self": "<PNCounter>",
-              "node": "'mumbai'",
+              "node": "'delhi'",
               "mumbai": "<PNCounter>",
               "delhi": "<PNCounter>"
             },
@@ -747,6 +747,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A grow-only set (G-Set) allows only additions.",
+            "activeActor": "phone",
+            "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": {
+                  "var": "base",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "phone",
@@ -761,10 +778,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A grow-only set (G-Set) allows only additions.",
-            "activeActor": "phone",
+            "at": "say7",
+            "caption": "Libraries such as Automerge and Yjs provide ready-made CRDTs for lists.",
+            "activeActor": "laptop",
             "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": {
+                  "var": "base",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": {
+                  "var": "phone",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "base",
                 "to": "phone",
@@ -784,14 +821,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Libraries such as Automerge and Yjs provide ready-made CRDTs for lists.",
-            "activeActor": "laptop",
-            "messages": [
+              },
               {
                 "from": "base",
                 "to": "phone",
@@ -834,12 +864,6 @@
                 "to": "phone",
                 "label": "{'adds': {['milk', 't1']}, 'removes': s…",
                 "tone": "data"
-              },
-              {
-                "from": "phone",
-                "to": "laptop",
-                "label": "{'adds': {['milk', 't1'], ['milk', 't2'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "base"
@@ -867,6 +891,30 @@
             "at": "say7",
             "caption": "Libraries such as Automerge and Yjs provide ready-made CRDTs for lists.",
             "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": "{'adds': {['milk', 't1']}, 'removes': s…",
+                "tone": "data"
+              },
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": "{'adds': {['milk', 't1'], ['milk', 't2'…",
+                "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "phone",
+                "label": "{'adds': {['milk', 't1']}, 'removes': s…",
+                "tone": "data"
+              },
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": "{'adds': {['milk', 't1'], ['milk', 't2'…",
+                "tone": "ok"
+              },
               {
                 "from": "base",
                 "to": "phone",
@@ -910,7 +958,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how give updates high during execution.",
+            "caption": "Verify the give transition driving high behavior.",
             "items": {
               "var": "args",
               "line": 6,
@@ -963,7 +1011,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how give updates high during execution.",
+            "caption": "Verify the give transition driving high behavior.",
             "items": [
               "True",
               "False"

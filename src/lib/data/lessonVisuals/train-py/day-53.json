@@ -18,7 +18,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how full updates fine during execution.",
+            "caption": "Observe how full shapes fine during this step.",
             "rows": [
               {
                 "cells": [
@@ -83,7 +83,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how full updates fine during execution.",
+            "caption": "Observe how full shapes fine during this step.",
             "rows": [
               {
                 "cells": [
@@ -388,16 +388,14 @@
                 "hit": 1
               },
               "alpha": {
-                "var": "alpha",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "x_dim": "data",
               "hidden_dim": "data",
               "rank": "data",
-              "alpha": "data"
+              "alpha": "idle"
             },
             "arrows": [
               [
@@ -537,13 +535,13 @@
               "x_dim": "4096",
               "hidden_dim": "4096",
               "rank": "16",
-              "alpha": "32"
+              "alpha": ""
             },
             "tones": {
               "x_dim": "data",
               "hidden_dim": "data",
               "rank": "data",
-              "alpha": "data"
+              "alpha": "idle"
             },
             "arrows": [
               [
@@ -668,16 +666,14 @@
                 "hit": 1
               },
               "ok": {
-                "var": "ok",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "rank": "data",
               "alpha": "data",
               "status": "data",
-              "ok": "data"
+              "ok": "idle"
             },
             "arrows": [
               [
@@ -742,7 +738,7 @@
           },
           {
             "at": "say11",
-            "caption": "Rigorous preflight validation is an essential requirement for reliable.",
+            "caption": "Examine the guardrails value produced for preventing processing.",
             "values": {
               "rank": {
                 "var": "rank",
@@ -817,13 +813,13 @@
               "rank": "16",
               "alpha": "32",
               "status": "'LORA_CONFIG_APPROVED'",
-              "ok": "True"
+              "ok": ""
             },
             "tones": {
               "rank": "data",
               "alpha": "data",
               "status": "data",
-              "ok": "data"
+              "ok": "idle"
             },
             "arrows": [
               [
@@ -872,7 +868,7 @@
           },
           {
             "at": "say11",
-            "caption": "Rigorous preflight validation is an essential requirement for reliable.",
+            "caption": "Examine the guardrails value produced for preventing processing.",
             "values": {
               "rank": "16",
               "alpha": "32",

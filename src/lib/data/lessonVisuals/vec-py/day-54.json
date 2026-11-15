@@ -6,164 +6,108 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Foundations & Mathematical Invariants",
-      "codeHash": "0d33196d82a787f072e594f88b2e31602ac5a8587636599bf8d06c6462e83a89",
+      "partTitle": "Normalized Lexical Hashing for Instant Exact-Match Cache Hits",
+      "codeHash": "dcecd52c1a7c969e8df23cdc1726eb277ef72da461cabe058a17e477df0a27c8",
       "spec": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
+        "title": "Normalized Lexical Hashing for Instant Exact-Match Cache Hits",
         "nodes": [
           {
             "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "norm",
-            "label": "norm"
-          },
-          {
-            "id": "c",
-            "label": "c"
+            "label": "text",
+            "tappable": true
           },
           {
             "id": "h",
-            "label": "h"
+            "label": "h",
+            "tappable": true
+          },
+          {
+            "id": "ch",
+            "label": "ch",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In enterprise LLM and RAG applications, users frequently ask queries.",
+            "caption": "Inspect enterprise updates as text tracks applications state.",
             "values": {
               "text": {
                 "var": "text",
-                "line": 3,
-                "hit": 1
-              },
-              "norm": {
-                "var": "norm",
-                "line": 3,
-                "hit": 1
-              },
-              "c": {
-                "var": "c",
-                "line": 4,
+                "line": 2,
                 "hit": 1
               },
               "h": {
-                "var": "h",
-                "line": 4,
-                "hit": 24
+                "text": ""
+              },
+              "ch": {
+                "text": ""
               }
             },
             "tones": {
               "text": "data",
-              "norm": "data",
-              "c": "data",
-              "h": "data"
+              "h": "idle",
+              "ch": "idle"
             },
-            "arrows": [
-              [
-                "text",
-                "norm"
-              ],
-              [
-                "norm",
-                "c"
-              ],
-              [
-                "c",
-                "h"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Executing full vector search and multi-turn LLM generation for every.",
+            "caption": "Verify the executing transition driving full behavior.",
             "values": {
               "text": {
                 "var": "text",
-                "line": 4,
-                "hit": 24
-              },
-              "norm": {
-                "var": "norm",
-                "line": 4,
-                "hit": 24
-              },
-              "c": {
-                "var": "c",
-                "line": 4,
+                "line": 2,
                 "hit": 2
               },
               "h": {
-                "var": "h",
-                "line": 5,
-                "hit": 1
+                "text": ""
+              },
+              "ch": {
+                "text": ""
               }
             },
             "tones": {
               "text": "data",
-              "norm": "data",
-              "c": "data",
-              "h": "data"
+              "h": "idle",
+              "ch": "idle"
             },
             "arrows": [
               [
                 "text",
-                "norm"
-              ],
-              [
-                "norm",
-                "c"
-              ],
-              [
-                "c",
                 "h"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "at": "say3",
+            "caption": "Examine the lexical value produced for hashing processing.",
             "values": {
               "text": {
                 "var": "text",
-                "line": 5,
-                "hit": 1
-              },
-              "norm": {
-                "var": "norm",
-                "line": 5,
-                "hit": 1
-              },
-              "c": {
-                "var": "c",
-                "line": 4,
-                "hit": 3
+                "line": 8,
+                "hit": 44
               },
               "h": {
                 "var": "h",
-                "line": 5,
-                "hit": 1
+                "line": 8,
+                "hit": 44
+              },
+              "ch": {
+                "var": "ch",
+                "line": 8,
+                "hit": 44
               }
             },
             "tones": {
               "text": "ok",
-              "norm": "ok",
-              "c": "ok",
-              "h": "ok"
+              "h": "ok",
+              "ch": "ok"
             },
             "arrows": [
               [
                 "text",
-                "norm"
-              ],
-              [
-                "norm",
-                "c"
-              ],
-              [
-                "c",
                 "h"
               ]
             ]
@@ -172,112 +116,76 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
+        "title": "Normalized Lexical Hashing for Instant Exact-Match Cache Hits",
         "nodes": [
           {
             "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "norm",
-            "label": "norm"
-          },
-          {
-            "id": "c",
-            "label": "c"
+            "label": "text",
+            "tappable": true
           },
           {
             "id": "h",
-            "label": "h"
+            "label": "h",
+            "tappable": true
+          },
+          {
+            "id": "ch",
+            "label": "ch",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In enterprise LLM and RAG applications, users frequently ask queries.",
+            "caption": "Inspect enterprise updates as text tracks applications state.",
             "values": {
-              "text": "'What is vector search?'",
-              "norm": "'what is vector search?'",
-              "c": "'w'",
-              "h": "65224"
+              "text": "'  what IS  vector search? '",
+              "h": "",
+              "ch": ""
             },
             "tones": {
               "text": "data",
-              "norm": "data",
-              "c": "data",
-              "h": "data"
+              "h": "idle",
+              "ch": "idle"
             },
-            "arrows": [
-              [
-                "text",
-                "norm"
-              ],
-              [
-                "norm",
-                "c"
-              ],
-              [
-                "c",
-                "h"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Executing full vector search and multi-turn LLM generation for every.",
+            "caption": "Verify the executing transition driving full behavior.",
             "values": {
               "text": "'What is vector search?'",
-              "norm": "'what is vector search?'",
-              "c": "'h'",
-              "h": "65224"
+              "h": "",
+              "ch": ""
             },
             "tones": {
               "text": "data",
-              "norm": "data",
-              "c": "data",
-              "h": "data"
+              "h": "idle",
+              "ch": "idle"
             },
             "arrows": [
               [
                 "text",
-                "norm"
-              ],
-              [
-                "norm",
-                "c"
-              ],
-              [
-                "c",
                 "h"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "at": "say3",
+            "caption": "Examine the lexical value produced for hashing processing.",
             "values": {
               "text": "'What is vector search?'",
-              "norm": "'what is vector search?'",
-              "c": "'a'",
-              "h": "65224"
+              "h": "65224",
+              "ch": "'?'"
             },
             "tones": {
               "text": "ok",
-              "norm": "ok",
-              "c": "ok",
-              "h": "ok"
+              "h": "ok",
+              "ch": "ok"
             },
             "arrows": [
               [
                 "text",
-                "norm"
-              ],
-              [
-                "norm",
-                "c"
-              ],
-              [
-                "c",
                 "h"
               ]
             ]
@@ -286,7 +194,7 @@
       }
     },
     {
-      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Core Algorithm & State Representation",
+      "partTitle": "Thresholded Vector Similarity Lookups with TTL Expiration",
       "codeHash": "bc9217b41d6cec5e0cf2123d739f6aa0b1305132a8b1ddb2f62be2cdc86e578e",
       "spec": {
         "template": "bars",
@@ -294,7 +202,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "When queries are rephrased ('What is vector search.",
+            "caption": "Observe how vector shapes queries during this step.",
             "bars": [
               {
                 "label": "similarity_thr",
@@ -378,7 +286,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the pairing value produced for semanticquerycache processing.",
             "bars": [
               {
                 "label": "similarity_thr",
@@ -426,7 +334,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "When queries are rephrased ('What is vector search.",
+            "caption": "Observe how vector shapes queries during this step.",
             "bars": [
               {
                 "label": "similarity_thr",
@@ -478,7 +386,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the pairing value produced for semanticquerycache processing.",
             "bars": [
               {
                 "label": "similarity_thr",
@@ -506,7 +414,7 @@
       }
     },
     {
-      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Sweeping Stale Semantic Cache Entries by Age Deadline",
       "codeHash": "8a758755cfb5146b771dc6f6569c7a4505ddb55ede28d4e8f5a33b4434e1108a",
       "spec": {
         "template": "flow",
@@ -550,16 +458,14 @@
                 "hit": 1
               },
               "max_ttl": {
-                "var": "max_ttl",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "entries": "data",
               "cache_entries": "data",
               "current_ts": "data",
-              "max_ttl": "data"
+              "max_ttl": "idle"
             },
             "arrows": [
               [
@@ -624,7 +530,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the entries value produced for watch processing.",
             "values": {
               "entries": {
                 "var": "entries",
@@ -699,13 +605,13 @@
               "entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
               "cache_entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
               "current_ts": "100",
-              "max_ttl": "60"
+              "max_ttl": ""
             },
             "tones": {
               "entries": "data",
               "cache_entries": "data",
               "current_ts": "data",
-              "max_ttl": "data"
+              "max_ttl": "idle"
             },
             "arrows": [
               [
@@ -754,7 +660,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the entries value produced for watch processing.",
             "values": {
               "entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
               "cache_entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
@@ -786,8 +692,8 @@
       }
     },
     {
-      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "644ae6dcf29bfb197abe2e372fc70bb472f9e12b3d6ba8313e1cea8f521aeb82",
+      "partTitle": "Minimum Similarity Floor Clamping Against False Cache Hits",
+      "codeHash": "375ae4fc41bcd101e5e2938fe53262d7c2963c205239a00dddd479358127c3eb",
       "spec": {
         "template": "table",
         "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
@@ -817,7 +723,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how administrator updates configures during execution.",
+            "caption": "Verify the similarity transition driving administrator behavior.",
             "rows": [
               {
                 "cells": [
@@ -836,7 +742,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the floor value produced for testing processing.",
             "rows": [
               {
                 "cells": [
@@ -868,7 +774,7 @@
               {
                 "cells": [
                   "threshold",
-                  "0.2"
+                  "1.2"
                 ],
                 "tone": "data"
               }
@@ -876,12 +782,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how administrator updates configures during execution.",
+            "caption": "Verify the similarity transition driving administrator behavior.",
             "rows": [
               {
                 "cells": [
                   "threshold",
-                  "0.2"
+                  "1.2"
                 ],
                 "tone": "ok"
               }
@@ -889,7 +795,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the floor value produced for testing processing.",
             "rows": [
               {
                 "cells": [
@@ -904,33 +810,32 @@
       }
     },
     {
-      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Production Telemetry & Verification Audit",
-      "codeHash": "466b2660dcbc055a063f95bc477e4d3f90303bd7b7eee5db07535291c6e8bf1f",
+      "partTitle": "Computing Compute Latency Savings & Cache Hit Rate ROI",
+      "codeHash": "730ddacfeeada70626d8b309b2ff2bc7cd7672bf2d27563008d4b52be150bfa5",
       "spec": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
+        "title": "Computing Compute Latency Savings & Cache Hit Rate ROI",
         "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "hits",
-            "label": "hits"
+            "label": "hits",
+            "tappable": true
           },
           {
             "id": "avg_eval_ms",
-            "label": "avg_eval_ms"
-          },
-          {
-            "id": "cache_hit_ms",
-            "label": "cache_hit_ms"
+            "label": "avg_eval_ms",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production cache telemetry measures hit rates, latency reductions,.",
+            "caption": "Inspect latency updates as total_queries tracks savings state.",
             "values": {
               "total_queries": {
                 "var": "total_queries",
@@ -938,131 +843,36 @@
                 "hit": 1
               },
               "hits": {
-                "var": "hits",
-                "line": 2,
-                "hit": 1
-              },
-              "avg_eval_ms": {
-                "var": "avg_eval_ms",
-                "line": 2,
-                "hit": 1
-              },
-              "cache_hit_ms": {
-                "var": "cache_hit_ms",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_queries": "data",
-              "hits": "data",
-              "avg_eval_ms": "data",
-              "cache_hit_ms": "data"
+              "hits": "idle"
             },
-            "arrows": [
-              [
-                "total_queries",
-                "hits"
-              ],
-              [
-                "hits",
-                "avg_eval_ms"
-              ],
-              [
-                "avg_eval_ms",
-                "cache_hit_ms"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates validation during execution.",
+            "caption": "Verify the cache transition driving rate behavior.",
             "values": {
               "total_queries": {
                 "var": "total_queries",
-                "line": 3,
+                "line": 2,
                 "hit": 1
               },
               "hits": {
-                "var": "hits",
-                "line": 3,
-                "hit": 1
-              },
-              "avg_eval_ms": {
-                "var": "avg_eval_ms",
-                "line": 3,
-                "hit": 1
-              },
-              "cache_hit_ms": {
-                "var": "cache_hit_ms",
-                "line": 3,
-                "hit": 1
+                "out": 1
               }
             },
             "tones": {
-              "total_queries": "data",
-              "hits": "data",
-              "avg_eval_ms": "data",
-              "cache_hit_ms": "data"
+              "total_queries": "idle",
+              "hits": "ok"
             },
             "arrows": [
               [
                 "total_queries",
                 "hits"
-              ],
-              [
-                "hits",
-                "avg_eval_ms"
-              ],
-              [
-                "avg_eval_ms",
-                "cache_hit_ms"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "total_queries": {
-                "var": "total_queries",
-                "line": 4,
-                "hit": 1
-              },
-              "hits": {
-                "var": "hits",
-                "line": 4,
-                "hit": 1
-              },
-              "avg_eval_ms": {
-                "var": "avg_eval_ms",
-                "line": 4,
-                "hit": 1
-              },
-              "cache_hit_ms": {
-                "var": "cache_hit_ms",
-                "line": 4,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "total_queries": "ok",
-              "hits": "ok",
-              "avg_eval_ms": "ok",
-              "cache_hit_ms": "ok"
-            },
-            "arrows": [
-              [
-                "total_queries",
-                "hits"
-              ],
-              [
-                "hits",
-                "avg_eval_ms"
-              ],
-              [
-                "avg_eval_ms",
-                "cache_hit_ms"
               ]
             ]
           }
@@ -1070,113 +880,53 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
+        "title": "Computing Compute Latency Savings & Cache Hit Rate ROI",
         "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "hits",
-            "label": "hits"
+            "label": "hits",
+            "tappable": true
           },
           {
             "id": "avg_eval_ms",
-            "label": "avg_eval_ms"
-          },
-          {
-            "id": "cache_hit_ms",
-            "label": "cache_hit_ms"
+            "label": "avg_eval_ms",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production cache telemetry measures hit rates, latency reductions,.",
+            "caption": "Inspect latency updates as total_queries tracks savings state.",
             "values": {
               "total_queries": "50000",
-              "hits": "17500",
-              "avg_eval_ms": "12",
-              "cache_hit_ms": "0.5"
+              "hits": ""
             },
             "tones": {
               "total_queries": "data",
-              "hits": "data",
-              "avg_eval_ms": "data",
-              "cache_hit_ms": "data"
+              "hits": "idle"
             },
-            "arrows": [
-              [
-                "total_queries",
-                "hits"
-              ],
-              [
-                "hits",
-                "avg_eval_ms"
-              ],
-              [
-                "avg_eval_ms",
-                "cache_hit_ms"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates validation during execution.",
+            "caption": "Verify the cache transition driving rate behavior.",
             "values": {
               "total_queries": "50000",
-              "hits": "17500",
-              "avg_eval_ms": "12",
-              "cache_hit_ms": "0.5"
+              "hits": "Semantic Cache ROI: {'total_queries': 50000, 'hits': 17500, 'hit_rate_pct': 35.0, 'total_saved_ms': 201250.0}"
             },
             "tones": {
-              "total_queries": "data",
-              "hits": "data",
-              "avg_eval_ms": "data",
-              "cache_hit_ms": "data"
+              "total_queries": "idle",
+              "hits": "ok"
             },
             "arrows": [
               [
                 "total_queries",
                 "hits"
-              ],
-              [
-                "hits",
-                "avg_eval_ms"
-              ],
-              [
-                "avg_eval_ms",
-                "cache_hit_ms"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "total_queries": "50000",
-              "hits": "17500",
-              "avg_eval_ms": "12",
-              "cache_hit_ms": "0.5"
-            },
-            "tones": {
-              "total_queries": "ok",
-              "hits": "ok",
-              "avg_eval_ms": "ok",
-              "cache_hit_ms": "ok"
-            },
-            "arrows": [
-              [
-                "total_queries",
-                "hits"
-              ],
-              [
-                "hits",
-                "avg_eval_ms"
-              ],
-              [
-                "avg_eval_ms",
-                "cache_hit_ms"
               ]
             ]
           }

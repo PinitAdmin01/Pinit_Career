@@ -7,622 +7,682 @@
   "entries": [
     {
       "partTitle": "Sandboxing Threat Models And System Call Attack Vectors",
-      "codeHash": "09e87c2da374a620b3ce84b7d93c6342563abc67f5a08d93357de0a3d25c23de",
+      "codeHash": "0fb40168d5e491dda60af758a152003657aaa2967c6d065ac48516456d94dea6",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Sandboxing Threat Models And System Call Attack Vectors",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "syscalls",
+            "label": "syscalls",
+            "tappable": true
+          },
+          {
+            "id": "blocked",
+            "label": "blocked",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When autonomous AI agents generate and execute arbitrary code,.",
-            "activeActor": "security_controls",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect system updates as name tracks autonomous state.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "syscalls": {
+                "var": "syscalls",
+                "line": 7,
+                "hit": 1
+              },
+              "blocked": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "syscalls": "data",
+              "blocked": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Sandboxing threat modeling identifies operating system kernel.",
-            "activeActor": "isolation_metrics",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Foundation models do not possess innate moral or operational discretion.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "syscalls": {
+                "var": "syscalls",
+                "line": 7,
+                "hit": 2
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "name": "data",
+              "syscalls": "data",
+              "blocked": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "syscalls"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering sandboxing threat models enables AI security engineers to design.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the privilege value produced for escalation processing.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "syscalls": {
+                "var": "syscalls",
+                "line": 9,
+                "hit": 2
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 9,
+                "hit": 2
               }
+            },
+            "tones": {
+              "name": "ok",
+              "syscalls": "ok",
+              "blocked": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "syscalls"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Sandboxing Threat Models And System Call Attack Vectors",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "syscalls",
+            "label": "syscalls",
+            "tappable": true
+          },
+          {
+            "id": "blocked",
+            "label": "blocked",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When autonomous AI agents generate and execute arbitrary code,.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "security_controls"
+            "caption": "Inspect system updates as name tracks autonomous state.",
+            "values": {
+              "name": "'pandas_agg'",
+              "syscalls": "['read', 'brk', 'mmap', 'write', 'exit_…",
+              "blocked": ""
+            },
+            "tones": {
+              "name": "data",
+              "syscalls": "data",
+              "blocked": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Sandboxing threat modeling identifies operating system kernel.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "isolation_metrics"
+            "caption": "Foundation models do not possess innate moral or operational discretion.",
+            "values": {
+              "name": "'reverse_shell'",
+              "syscalls": "['read', 'socket', 'connect', 'execve',…",
+              "blocked": "[]"
+            },
+            "tones": {
+              "name": "data",
+              "syscalls": "data",
+              "blocked": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "syscalls"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering sandboxing threat models enables AI security engineers to design.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the privilege value produced for escalation processing.",
+            "values": {
+              "name": "'reverse_shell'",
+              "syscalls": "['read', 'socket', 'connect', 'execve',…",
+              "blocked": "['socket', 'connect', 'execve', 'ptrace…"
+            },
+            "tones": {
+              "name": "ok",
+              "syscalls": "ok",
+              "blocked": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "syscalls"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Hardened Container Isolation Runtimes gVisor And MicroVMs",
-      "codeHash": "09e87c2da374a620b3ce84b7d93c6342563abc67f5a08d93357de0a3d25c23de",
+      "codeHash": "3c17f1af34ddec8d0bb7b90313e80fe3b9ba9bc145cb9b568f3203709c40deda",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Hardened Container Isolation Runtimes gVisor And MicroVMs",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "spec",
+            "label": "spec",
+            "tappable": true
+          },
+          {
+            "id": "density",
+            "label": "density",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While standard Docker containers provide convenient process isolation.",
-            "activeActor": "security_controls",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect hardened updates as name tracks container state.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "spec": {
+                "var": "spec",
+                "line": 9,
+                "hit": 1
+              },
+              "density": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "spec": "data",
+              "density": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Hardened container runtimes virtualize operating system kernels.",
-            "activeActor": "isolation_metrics",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the hardened transition driving container behavior.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 3
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "spec": {
+                "var": "spec",
+                "line": 9,
+                "hit": 3
+              },
+              "density": {
+                "var": "density",
+                "line": 9,
+                "hit": 3
               }
+            },
+            "tones": {
+              "name": "data",
+              "spec": "data",
+              "density": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "spec"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering hardened isolation runtimes equips platform architects to select.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "The internal architecture of gVisor comprises two primary components.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 4
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "spec": {
+                "var": "spec",
+                "line": 10,
+                "hit": 4
+              },
+              "density": {
+                "var": "density",
+                "line": 10,
+                "hit": 4
               }
+            },
+            "tones": {
+              "name": "ok",
+              "spec": "ok",
+              "density": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "spec"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Hardened Container Isolation Runtimes gVisor And MicroVMs",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "spec",
+            "label": "spec",
+            "tappable": true
+          },
+          {
+            "id": "density",
+            "label": "density",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While standard Docker containers provide convenient process isolation.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "security_controls"
+            "caption": "Inspect hardened updates as name tracks container state.",
+            "values": {
+              "name": "'Docker_runc'",
+              "spec": "{'mem_mb': 48, 'boot_ms': 180, 'isolati…",
+              "density": ""
+            },
+            "tones": {
+              "name": "data",
+              "spec": "data",
+              "density": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Hardened container runtimes virtualize operating system kernels.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "isolation_metrics"
+            "caption": "Verify the hardened transition driving container behavior.",
+            "values": {
+              "name": "'Firecracker_VM'",
+              "spec": "{'mem_mb': 128, 'boot_ms': 125, 'isolat…",
+              "density": "1024"
+            },
+            "tones": {
+              "name": "data",
+              "spec": "data",
+              "density": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "spec"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering hardened isolation runtimes equips platform architects to select.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "The internal architecture of gVisor comprises two primary components.",
+            "values": {
+              "name": "'Wasm_WASI'",
+              "spec": "{'mem_mb': 12, 'boot_ms': 4, 'isolation…",
+              "density": "5461"
+            },
+            "tones": {
+              "name": "ok",
+              "spec": "ok",
+              "density": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "spec"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "WebAssembly And WASI Lightweight In Process Sandboxes",
-      "codeHash": "09e87c2da374a620b3ce84b7d93c6342563abc67f5a08d93357de0a3d25c23de",
+      "codeHash": "c0b1a0900c47451fe8775c97180895f22471a213938da050570a27e0c50e1955",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "WebAssembly And WASI Lightweight In Process Sandboxes",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "user_path",
+            "label": "user_path",
+            "tappable": true
+          },
+          {
+            "id": "norm",
+            "label": "norm",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While containers and MicroVMs provide robust isolation, they carry.",
-            "activeActor": "security_controls",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect webassembly updates as p tracks wasi state.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "user_path": {
+                "text": ""
+              },
+              "norm": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "user_path": "idle",
+              "norm": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "WebAssembly and WASI runtimes provide lightweight in process sandboxes.",
-            "activeActor": "isolation_metrics",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the webassembly transition driving wasi behavior.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 11,
+                "hit": 3
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "user_path": {
+                "text": ""
+              },
+              "norm": {
+                "text": ""
               }
+            },
+            "tones": {
+              "p": "data",
+              "user_path": "idle",
+              "norm": "idle"
+            },
+            "arrows": [
+              [
+                "p",
+                "user_path"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering WebAssembly sandboxing provides AI engineers with a high-speed.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the wasi value produced for capability processing.",
+            "values": {
+              "p": {
+                "text": ""
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "user_path": {
+                "var": "user_path",
+                "line": 6,
+                "hit": 4
+              },
+              "norm": {
+                "var": "norm",
+                "line": 6,
+                "hit": 4
               }
+            },
+            "tones": {
+              "p": "idle",
+              "user_path": "ok",
+              "norm": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "user_path"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "WebAssembly And WASI Lightweight In Process Sandboxes",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "user_path",
+            "label": "user_path",
+            "tappable": true
+          },
+          {
+            "id": "norm",
+            "label": "norm",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While containers and MicroVMs provide robust isolation, they carry.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "security_controls"
+            "caption": "Inspect webassembly updates as p tracks wasi state.",
+            "values": {
+              "p": "'output/chart.csv'",
+              "user_path": "",
+              "norm": ""
+            },
+            "tones": {
+              "p": "data",
+              "user_path": "idle",
+              "norm": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "WebAssembly and WASI runtimes provide lightweight in process sandboxes.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "isolation_metrics"
+            "caption": "Verify the webassembly transition driving wasi behavior.",
+            "values": {
+              "p": "'../../etc/passwd'",
+              "user_path": "",
+              "norm": ""
+            },
+            "tones": {
+              "p": "data",
+              "user_path": "idle",
+              "norm": "idle"
+            },
+            "arrows": [
+              [
+                "p",
+                "user_path"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering WebAssembly sandboxing provides AI engineers with a high-speed.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the wasi value produced for capability processing.",
+            "values": {
+              "p": "",
+              "user_path": "'/etc/shadow'",
+              "norm": "'/etc/shadow'"
+            },
+            "tones": {
+              "p": "idle",
+              "user_path": "ok",
+              "norm": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "user_path"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Cloud Sandbox Infrastructure Modal And MicroVM Pools",
-      "codeHash": "09e87c2da374a620b3ce84b7d93c6342563abc67f5a08d93357de0a3d25c23de",
+      "codeHash": "75c8287e26a83aa8db278b363ee3d4dca18df5b194443009c820e9d153e7bdd8",
       "spec": {
         "template": "flow",
         "title": "Cloud Sandbox Infrastructure Modal And MicroVM Pools",
         "nodes": [
           {
-            "id": "security_controls",
-            "label": "security_controls"
+            "id": "i",
+            "label": "i",
+            "tappable": true
           },
           {
-            "id": "isolation_metrics",
-            "label": "isolation_metrics"
+            "id": "req",
+            "label": "req",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "vm",
+            "label": "vm",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Managing self-hosted container clusters, gVisor daemons, and microVM pools.",
+            "caption": "Inspect cloud updates as i tracks sandbox state.",
             "values": {
-              "security_controls": {
-                "var": "security_controls",
-                "line": 9,
+              "i": {
+                "var": "i",
+                "line": 3,
                 "hit": 1
               },
-              "isolation_metrics": {
-                "var": "isolation_metrics",
-                "line": 15,
-                "hit": 1
+              "req": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "vm": {
+                "text": ""
               }
             },
             "tones": {
-              "security_controls": "data",
-              "isolation_metrics": "data",
-              "result": "data"
+              "i": "data",
+              "req": "idle",
+              "vm": "idle"
             },
-            "arrows": [
-              [
-                "security_controls",
-                "isolation_metrics"
-              ],
-              [
-                "isolation_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Cloud sandbox platforms provide elastic on demand microVM execution.",
+            "caption": "Verify the cloud transition driving sandbox behavior.",
             "values": {
-              "security_controls": {
-                "var": "security_controls",
-                "line": 16,
-                "hit": 1
+              "i": {
+                "text": ""
               },
-              "isolation_metrics": {
-                "var": "isolation_metrics",
-                "line": 22,
-                "hit": 1
+              "req": {
+                "var": "req",
+                "line": 20,
+                "hit": 2
               },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "vm": {
+                "var": "vm",
+                "line": 20,
+                "hit": 2
               }
             },
             "tones": {
-              "security_controls": "data",
-              "isolation_metrics": "data",
-              "result": "data"
+              "i": "idle",
+              "req": "data",
+              "vm": "data"
             },
             "arrows": [
               [
-                "security_controls",
-                "isolation_metrics"
-              ],
-              [
-                "isolation_metrics",
-                "result"
+                "i",
+                "req"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering cloud sandbox infrastructure empowers AI architects to deploy.",
+            "at": "say3",
+            "caption": "Examine the cloud value produced for sandbox processing.",
             "values": {
-              "security_controls": {
-                "var": "security_controls",
-                "line": 17,
-                "hit": 1
+              "i": {
+                "text": ""
               },
-              "isolation_metrics": {
-                "var": "isolation_metrics",
-                "line": 23,
-                "hit": 1
+              "req": {
+                "var": "req",
+                "line": 20,
+                "hit": 4
               },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "vm": {
+                "var": "vm",
+                "line": 20,
+                "hit": 4
               }
             },
             "tones": {
-              "security_controls": "ok",
-              "isolation_metrics": "ok",
-              "result": "ok"
+              "i": "idle",
+              "req": "ok",
+              "vm": "ok"
             },
             "arrows": [
               [
-                "security_controls",
-                "isolation_metrics"
-              ],
-              [
-                "isolation_metrics",
-                "result"
+                "i",
+                "req"
               ]
             ]
           }
@@ -633,88 +693,74 @@
         "title": "Cloud Sandbox Infrastructure Modal And MicroVM Pools",
         "nodes": [
           {
-            "id": "security_controls",
-            "label": "security_controls"
+            "id": "i",
+            "label": "i",
+            "tappable": true
           },
           {
-            "id": "isolation_metrics",
-            "label": "isolation_metrics"
+            "id": "req",
+            "label": "req",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "vm",
+            "label": "vm",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Managing self-hosted container clusters, gVisor daemons, and microVM pools.",
+            "caption": "Inspect cloud updates as i tracks sandbox state.",
             "values": {
-              "security_controls": "{'syscallInterception': 'Kernel-Space S…",
-              "isolation_metrics": "{'sandboxStartupDurationMs': 14.2, 'res…",
-              "result": "{'sandboxArchitecture': 'gVisor Hardene…"
+              "i": "0",
+              "req": "",
+              "vm": ""
             },
             "tones": {
-              "security_controls": "data",
-              "isolation_metrics": "data",
-              "result": "data"
+              "i": "data",
+              "req": "idle",
+              "vm": "idle"
             },
-            "arrows": [
-              [
-                "security_controls",
-                "isolation_metrics"
-              ],
-              [
-                "isolation_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Cloud sandbox platforms provide elastic on demand microVM execution.",
+            "caption": "Verify the cloud transition driving sandbox behavior.",
             "values": {
-              "security_controls": "{'syscallInterception': 'Kernel-Space S…",
-              "isolation_metrics": "{'sandboxStartupDurationMs': 14.2, 'res…",
-              "result": "{'sandboxArchitecture': 'gVisor Hardene…"
+              "i": "",
+              "req": "2",
+              "vm": "'vm-snap-1'"
             },
             "tones": {
-              "security_controls": "data",
-              "isolation_metrics": "data",
-              "result": "data"
+              "i": "idle",
+              "req": "data",
+              "vm": "data"
             },
             "arrows": [
               [
-                "security_controls",
-                "isolation_metrics"
-              ],
-              [
-                "isolation_metrics",
-                "result"
+                "i",
+                "req"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering cloud sandbox infrastructure empowers AI architects to deploy.",
+            "at": "say3",
+            "caption": "Examine the cloud value produced for sandbox processing.",
             "values": {
-              "security_controls": "{'syscallInterception': 'Kernel-Space S…",
-              "isolation_metrics": "{'sandboxStartupDurationMs': 14.2, 'res…",
-              "result": "{'sandboxArchitecture': 'gVisor Hardene…"
+              "i": "",
+              "req": "4",
+              "vm": "'vm-cold-1'"
             },
             "tones": {
-              "security_controls": "ok",
-              "isolation_metrics": "ok",
-              "result": "ok"
+              "i": "idle",
+              "req": "ok",
+              "vm": "ok"
             },
             "arrows": [
               [
-                "security_controls",
-                "isolation_metrics"
-              ],
-              [
-                "isolation_metrics",
-                "result"
+                "i",
+                "req"
               ]
             ]
           }
@@ -723,164 +769,192 @@
     },
     {
       "partTitle": "Enterprise Hardened Sandbox Controller In Asynchronous Python",
-      "codeHash": "09e87c2da374a620b3ce84b7d93c6342563abc67f5a08d93357de0a3d25c23de",
+      "codeHash": "c6c136af7453524f7d38f622f966013650e725964d42f88e6be410dd2bbfc5dc",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Hardened Sandbox Controller In Asynchronous Python",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "j",
+            "label": "j",
+            "tappable": true
+          },
+          {
+            "id": "reasons",
+            "label": "reasons",
+            "tappable": true
+          },
+          {
+            "id": "status",
+            "label": "status",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing threat modeling, gVisor kernel virtualization, WebAssembly.",
-            "activeActor": "security_controls",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as j tracks hardened state.",
+            "values": {
+              "j": {
+                "var": "j",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "reasons": {
+                "text": ""
+              },
+              "status": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "j": "data",
+              "reasons": "idle",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production sandbox controllers coordinate ephemeral execution.",
-            "activeActor": "isolation_metrics",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the enterprise transition driving sandbox behavior.",
+            "values": {
+              "j": {
+                "var": "j",
+                "line": 9,
+                "hit": 3
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "reasons": {
+                "var": "reasons",
+                "line": 9,
+                "hit": 3
+              },
+              "status": {
+                "var": "status",
+                "line": 9,
+                "hit": 3
               }
+            },
+            "tones": {
+              "j": "data",
+              "reasons": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "j",
+                "reasons"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering principles of ephemeral execution sandboxes.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": {
-                  "var": "security_controls",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the hardened value produced for sandbox processing.",
+            "values": {
+              "j": {
+                "var": "j",
+                "line": 15,
+                "hit": 4
               },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": {
-                  "var": "isolation_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "reasons": {
+                "var": "reasons",
+                "line": 15,
+                "hit": 4
+              },
+              "status": {
+                "var": "status",
+                "line": 15,
+                "hit": 4
               }
+            },
+            "tones": {
+              "j": "ok",
+              "reasons": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "j",
+                "reasons"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Hardened Sandbox Controller In Asynchronous Python",
-        "actors": [
-          "security_controls",
-          "isolation_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "j",
+            "label": "j",
+            "tappable": true
+          },
+          {
+            "id": "reasons",
+            "label": "reasons",
+            "tappable": true
+          },
+          {
+            "id": "status",
+            "label": "status",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing threat modeling, gVisor kernel virtualization, WebAssembly.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "security_controls"
+            "caption": "Inspect enterprise updates as j tracks hardened state.",
+            "values": {
+              "j": "{'id': 'j1', 'est_ram_mb': 256, 'est_ms…",
+              "reasons": "",
+              "status": ""
+            },
+            "tones": {
+              "j": "data",
+              "reasons": "idle",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production sandbox controllers coordinate ephemeral execution.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "isolation_metrics"
+            "caption": "Verify the enterprise transition driving sandbox behavior.",
+            "values": {
+              "j": "{'id': 'j3', 'est_ram_mb': 128, 'est_ms…",
+              "reasons": "['OOM(1024>512MB)']",
+              "status": "'QUARANTINED'"
+            },
+            "tones": {
+              "j": "data",
+              "reasons": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "j",
+                "reasons"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering principles of ephemeral execution sandboxes.",
-            "messages": [
-              {
-                "from": "security_controls",
-                "to": "isolation_metrics",
-                "label": "{'syscallInterception': 'Kernel-Space S…",
-                "tone": "data"
-              },
-              {
-                "from": "isolation_metrics",
-                "to": "result",
-                "label": "{'sandboxStartupDurationMs': 14.2, 'res…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the hardened value produced for sandbox processing.",
+            "values": {
+              "j": "{'id': 'j4', 'est_ram_mb': 320, 'est_ms…",
+              "reasons": "[]",
+              "status": "'EXECUTED'"
+            },
+            "tones": {
+              "j": "ok",
+              "reasons": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "j",
+                "reasons"
+              ]
+            ]
           }
         ]
       }

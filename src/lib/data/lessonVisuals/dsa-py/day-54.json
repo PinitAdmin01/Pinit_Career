@@ -46,7 +46,7 @@
           },
           {
             "at": "say5",
-            "caption": "Important engineering note in Python.",
+            "caption": "k - 1 fill the fixed k-element reservoir directly.",
             "items": {
               "var": "reservoir",
               "line": 7,
@@ -99,7 +99,7 @@
           },
           {
             "at": "say5",
-            "caption": "Important engineering note in Python.",
+            "caption": "k - 1 fill the fixed k-element reservoir directly.",
             "items": [
               "0",
               "1",
@@ -167,7 +167,7 @@
           },
           {
             "at": "say2",
-            "caption": "Under the hood, a Bloom Filter allocates one bit array of `m` bits (stored.",
+            "caption": "Inserting key sets all k bits ON (bitset |= (1 << pos)).",
             "bars": [
               {
                 "label": "expected_items",
@@ -283,7 +283,7 @@
           },
           {
             "at": "say2",
-            "caption": "Under the hood, a Bloom Filter allocates one bit array of `m` bits (stored.",
+            "caption": "Inserting key sets all k bits ON (bitset |= (1 << pos)).",
             "bars": [
               {
                 "label": "expected_items",
@@ -565,7 +565,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "We covered uniform sampling (Algorithm R), membership (Bloom Filter),.",
+            "caption": "What about the fourth streaming pillar.",
             "bars": [
               {
                 "label": "b",
@@ -607,7 +607,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how notice updates brilliant during execution.",
+            "caption": "Verify the distinct transition driving leading behavior.",
             "bars": [
               {
                 "label": "b",
@@ -649,7 +649,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how deterministic updates hyperloglogestimator during execution.",
+            "caption": "Examine the distinct value produced for cardinality processing.",
             "bars": [
               {
                 "label": "b",
@@ -697,7 +697,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "We covered uniform sampling (Algorithm R), membership (Bloom Filter),.",
+            "caption": "What about the fourth streaming pillar.",
             "bars": [
               {
                 "label": "b",
@@ -723,7 +723,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how notice updates brilliant during execution.",
+            "caption": "Verify the distinct transition driving leading behavior.",
             "bars": [
               {
                 "label": "b",
@@ -749,7 +749,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how deterministic updates hyperloglogestimator during execution.",
+            "caption": "Examine the distinct value produced for cardinality processing.",
             "bars": [
               {
                 "label": "b",

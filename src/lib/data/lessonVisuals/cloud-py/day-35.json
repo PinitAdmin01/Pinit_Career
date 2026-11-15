@@ -32,14 +32,12 @@
                 "hit": 1
               },
               "contract": {
-                "var": "contract",
-                "line": 18,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
-              "contract": "data"
+              "contract": "idle"
             },
             "arrows": [
               [
@@ -76,7 +74,7 @@
           },
           {
             "at": "say8",
-            "caption": "By enforcing these architectural invariants, organizations establish.",
+            "caption": "Evaluating each tier independently leaves hidden interactions unnoticed.",
             "values": {
               "self": {
                 "var": "self",
@@ -121,11 +119,11 @@
             "caption": "Production compliance frameworks automate evidence collection directly.",
             "values": {
               "self": "<Milestone7ArchitectureContract>",
-              "contract": "<Milestone7ArchitectureContract>"
+              "contract": ""
             },
             "tones": {
               "self": "data",
-              "contract": "data"
+              "contract": "idle"
             },
             "arrows": [
               [
@@ -154,7 +152,7 @@
           },
           {
             "at": "say8",
-            "caption": "By enforcing these architectural invariants, organizations establish.",
+            "caption": "Evaluating each tier independently leaves hidden interactions unnoticed.",
             "values": {
               "self": "<Milestone7ArchitectureContract>",
               "contract": "<Milestone7ArchitectureContract>"
@@ -218,16 +216,14 @@
                 "hit": 1
               },
               "self": {
-                "var": "self",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "org": "data",
               "routes": "data",
               "roles": "data",
-              "self": "data"
+              "self": "idle"
             },
             "arrows": [
               [
@@ -367,13 +363,13 @@
               "org": "{'denied_actions': ['s3:DeleteBucket']}",
               "routes": "[{'cidr': '10.0.0.0/16'}, {'cidr': '10.…",
               "roles": "[{'role': 'Deployer', 'sub_claim': 'rep…",
-              "self": "<Milestone7StateEvaluator>"
+              "self": ""
             },
             "tones": {
               "org": "data",
               "routes": "data",
               "roles": "data",
-              "self": "data"
+              "self": "idle"
             },
             "arrows": [
               [
@@ -479,6 +475,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In large enterprises managing thousands of accounts and tens of thousands.",
+            "activeActor": "accounts",
+            "messages": [
+              {
+                "from": "accts",
+                "to": "accounts",
+                "label": {
+                  "var": "accts",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "accounts",
@@ -493,10 +506,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In large enterprises managing thousands of accounts and tens of thousands.",
-            "activeActor": "accounts",
+            "at": "say8",
+            "caption": "Automated scoring categorizes account health rapidly, allowing platform.",
+            "activeActor": "results",
             "messages": [
+              {
+                "from": "accts",
+                "to": "accounts",
+                "label": {
+                  "var": "accts",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "accounts",
+                "to": "results",
+                "label": {
+                  "var": "accounts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "accts",
                 "to": "accounts",
@@ -516,23 +549,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Automated scoring categorizes account health rapidly, allowing platform.",
-            "activeActor": "results",
-            "messages": [
-              {
-                "from": "accts",
-                "to": "accounts",
-                "label": {
-                  "var": "accts",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "accounts",
@@ -566,12 +582,6 @@
                 "to": "accounts",
                 "label": "[{'id': 'acct-prod', 'has_scp': True, '…",
                 "tone": "data"
-              },
-              {
-                "from": "accounts",
-                "to": "results",
-                "label": "[{'id': 'acct-prod', 'has_scp': True, '…",
-                "tone": "ok"
               }
             ],
             "activeActor": "accts"
@@ -604,6 +614,24 @@
                 "to": "accounts",
                 "label": "[{'id': 'acct-prod', 'has_scp': True, '…",
                 "tone": "data"
+              },
+              {
+                "from": "accounts",
+                "to": "results",
+                "label": "[{'id': 'acct-prod', 'has_scp': True, '…",
+                "tone": "ok"
+              },
+              {
+                "from": "accts",
+                "to": "accounts",
+                "label": "[{'id': 'acct-prod', 'has_scp': True, '…",
+                "tone": "data"
+              },
+              {
+                "from": "accounts",
+                "to": "results",
+                "label": "[{'id': 'acct-prod', 'has_scp': True, '…",
+                "tone": "ok"
               },
               {
                 "from": "accounts",
@@ -736,16 +764,14 @@
                 "hit": 7
               },
               "cert": {
-                "var": "cert",
-                "line": 18,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "gates": "data",
               "v": "data",
               "all_pass": "data",
-              "cert": "data"
+              "cert": "idle"
             },
             "arrows": [
               [
@@ -764,7 +790,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how final updates step during execution.",
+            "caption": "Verify the milestone transition driving audit behavior.",
             "values": {
               "gates": {
                 "var": "gates",
@@ -810,7 +836,7 @@
           },
           {
             "at": "say7",
-            "caption": "Continuous compliance monitoring ensures that accounts maintain certified.",
+            "caption": "Human checklist sign-offs drift over time.",
             "values": {
               "gates": {
                 "var": "gates",
@@ -885,13 +911,13 @@
               "gates": "{'gate_1_scp_hierarchy_break_glass': 'P…",
               "v": "'PASS'",
               "all_pass": "True",
-              "cert": "{'milestone': 'Milestone 7: Multi-Accou…"
+              "cert": ""
             },
             "tones": {
               "gates": "data",
               "v": "data",
               "all_pass": "data",
-              "cert": "data"
+              "cert": "idle"
             },
             "arrows": [
               [
@@ -910,7 +936,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how final updates step during execution.",
+            "caption": "Verify the milestone transition driving audit behavior.",
             "values": {
               "gates": "{'gate_1_scp_hierarchy_break_glass': 'P…",
               "v": "'PASS'",
@@ -940,7 +966,7 @@
           },
           {
             "at": "say7",
-            "caption": "Continuous compliance monitoring ensures that accounts maintain certified.",
+            "caption": "Human checklist sign-offs drift over time.",
             "values": {
               "gates": "{'gate_1_scp_hierarchy_break_glass': 'P…",
               "v": "'PASS'",

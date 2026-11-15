@@ -245,7 +245,7 @@
           },
           {
             "at": "say2",
-            "caption": "Specifically, on a graph with huge edge capacities C = 1,000,000,000 and.",
+            "caption": "Verify the specifically transition driving graph behavior.",
             "items": {
               "var": "parent_node",
               "line": 14,
@@ -284,7 +284,7 @@
           },
           {
             "at": "say2",
-            "caption": "Specifically, on a graph with huge edge capacities C = 1,000,000,000 and.",
+            "caption": "Verify the specifically transition driving graph behavior.",
             "mode": "queue",
             "items": [
               "-1",
@@ -329,7 +329,7 @@
           },
           {
             "at": "say2",
-            "caption": "Yefim Dinic realized you can squeeze vastly more work out of every.",
+            "caption": "Verify the dinic transition driving layered behavior.",
             "items": {
               "var": "level",
               "line": 10,
@@ -370,7 +370,7 @@
           },
           {
             "at": "say2",
-            "caption": "Yefim Dinic realized you can squeeze vastly more work out of every.",
+            "caption": "Verify the dinic transition driving layered behavior.",
             "mode": "queue",
             "items": [
               "0",

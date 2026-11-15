@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "Instead of waiting unconditionally for all `N` nodes (which stalls.",
+            "caption": "Verify the instead transition driving waiting behavior.",
             "items": {
               "var": "cfg",
               "line": 14,
@@ -46,7 +46,7 @@
           },
           {
             "at": "say7",
-            "caption": "Simulate quorum intersection overlap (`R + W - N`) and concurrent version.",
+            "caption": "Availability stays high across outages.",
             "items": {
               "var": "cfg",
               "line": 14,
@@ -84,7 +84,7 @@
           },
           {
             "at": "say2",
-            "caption": "Instead of waiting unconditionally for all `N` nodes (which stalls.",
+            "caption": "Verify the instead transition driving waiting behavior.",
             "items": [
               "3",
               "1",
@@ -100,7 +100,7 @@
           },
           {
             "at": "say7",
-            "caption": "Simulate quorum intersection overlap (`R + W - N`) and concurrent version.",
+            "caption": "Availability stays high across outages.",
             "items": [
               "5",
               "3",
@@ -295,8 +295,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how imagine updates mapped during execution.",
+            "caption": "Observe how imagine shapes mapped during this step.",
             "activeActor": "ring",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": {
+                  "var": "ring",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the quorums transition driving under behavior.",
+            "activeActor": "pref_list",
             "messages": [
               {
                 "from": "ring",
@@ -321,10 +338,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how under updates strict during execution.",
-            "activeActor": "pref_list",
+            "at": "say7",
+            "caption": "Simulate preference-list failover onto healthy standby ring peers cleanly.",
+            "activeActor": "ring_order",
             "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": {
+                  "var": "ring",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": {
+                  "var": "pref_list",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ring",
                 "to": "pref_list",
@@ -344,14 +381,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Simulate preference-list failover onto healthy standby ring peers cleanly.",
-            "activeActor": "ring_order",
-            "messages": [
+              },
               {
                 "from": "ring",
                 "to": "pref_list",
@@ -387,26 +417,20 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how imagine updates mapped during execution.",
+            "caption": "Observe how imagine shapes mapped during this step.",
             "messages": [
               {
                 "from": "ring",
                 "to": "pref_list",
                 "label": "['A', 'B', 'C', 'D', 'E', 'F']",
                 "tone": "data"
-              },
-              {
-                "from": "pref_list",
-                "to": "ring_order",
-                "label": "['A', 'B', 'C']",
-                "tone": "ok"
               }
             ],
             "activeActor": "ring"
           },
           {
             "at": "say2",
-            "caption": "Trace how under updates strict during execution.",
+            "caption": "Verify the quorums transition driving under behavior.",
             "messages": [
               {
                 "from": "ring",
@@ -427,6 +451,30 @@
             "at": "say7",
             "caption": "Simulate preference-list failover onto healthy standby ring peers cleanly.",
             "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": "['A', 'B', 'C', 'D', 'E', 'F']",
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": "['A', 'B', 'C']",
+                "tone": "ok"
+              },
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": "['A', 'B', 'C', 'D', 'E', 'F']",
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": "['A', 'B', 'C']",
+                "tone": "ok"
+              },
               {
                 "from": "ring",
                 "to": "pref_list",
@@ -490,16 +538,14 @@
                 "hit": 1
               },
               "target_node": {
-                "var": "target_node",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "max_window_ms": "data",
               "standby": "data",
-              "target_node": "data"
+              "target_node": "idle"
             },
             "arrows": [
               [
@@ -639,13 +685,13 @@
               "self": "<HintedStandby>",
               "max_window_ms": "5000",
               "standby": "<HintedStandby>",
-              "target_node": "'B'"
+              "target_node": ""
             },
             "tones": {
               "self": "data",
               "max_window_ms": "data",
               "standby": "data",
-              "target_node": "data"
+              "target_node": "idle"
             },
             "arrows": [
               [
@@ -748,7 +794,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how Strict Quorums, Sloppy Quorums, and Hinted Handoff interact.",
+            "caption": "Observe how sloppy shapes failover during this step.",
             "currentState": "nodes",
             "tone": "data"
           },
@@ -769,7 +815,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how execute updates complete during execution.",
+            "caption": "Examine the quorum value produced for sloppy processing.",
             "currentState": "n",
             "transition": {
               "from": "hints",
@@ -804,7 +850,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how Strict Quorums, Sloppy Quorums, and Hinted Handoff interact.",
+            "caption": "Observe how sloppy shapes failover during this step.",
             "currentState": "nodes",
             "tone": "data"
           },
@@ -821,7 +867,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how execute updates complete during execution.",
+            "caption": "Examine the quorum value produced for sloppy processing.",
             "currentState": "n",
             "transition": {
               "from": "hints",

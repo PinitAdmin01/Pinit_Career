@@ -6,116 +6,167 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Foundations & Mathematical Invariants",
-      "codeHash": "2a7b56241991f2e6ad20fd96314a92b47e46e6029e323ab0f8ae211f2d8c4901",
+      "partTitle": "Parallel Scatter Query Fan-Out Across Distributed Shards",
+      "codeHash": "4898ac94fd72cfe6d13e9bb4c7188bbfebbe067044ce0e8b06b179c1eecc9c31",
       "spec": {
-        "template": "cells",
-        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
+        "template": "flow",
+        "title": "Parallel Scatter Query Fan-Out Across Distributed Shards",
+        "nodes": [
+          {
+            "id": "requests",
+            "label": "requests",
+            "tappable": true
+          },
+          {
+            "id": "s_name",
+            "label": "s_name",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a sharded vector database where each shard stores a slice of the global.",
-            "items": {
-              "var": "shards",
-              "line": 2,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
+            "caption": "Inspect sharded updates as requests tracks vector state.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 5,
+                "hit": 1
+              },
+              "s_name": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "requests": "data",
+              "s_name": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The Scatter-Gather pattern coordinates distributed query execution through.",
-            "items": {
-              "var": "shards",
-              "line": 3,
-              "hit": 2
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "caption": "Verify the scatter transition driving query behavior.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 7,
+                "hit": 1
+              },
+              "s_name": {
+                "var": "s_name",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "requests": "data",
+              "s_name": "data"
+            },
+            "arrows": [
+              [
+                "requests",
+                "s_name"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "items": {
-              "var": "shards",
-              "line": 5,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the parallel value produced for query processing.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 6,
+                "hit": 2
+              },
+              "s_name": {
+                "var": "s_name",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "requests": "ok",
+              "s_name": "ok"
+            },
+            "arrows": [
+              [
+                "requests",
+                "s_name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
+        "template": "flow",
+        "title": "Parallel Scatter Query Fan-Out Across Distributed Shards",
+        "nodes": [
+          {
+            "id": "requests",
+            "label": "requests",
+            "tappable": true
+          },
+          {
+            "id": "s_name",
+            "label": "s_name",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a sharded vector database where each shard stores a slice of the global.",
-            "items": [
-              "'shard_0'",
-              "'shard_1'"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect sharded updates as requests tracks vector state.",
+            "values": {
+              "requests": "[]",
+              "s_name": ""
+            },
+            "tones": {
+              "requests": "data",
+              "s_name": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The Scatter-Gather pattern coordinates distributed query execution through.",
-            "items": [
-              "'shard_0'",
-              "'shard_1'"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "caption": "Verify the scatter transition driving query behavior.",
+            "values": {
+              "requests": "[{'shard': 'shard_0', 'vec_dim': 2, 'st…",
+              "s_name": "'shard_0'"
+            },
+            "tones": {
+              "requests": "data",
+              "s_name": "data"
+            },
+            "arrows": [
+              [
+                "requests",
+                "s_name"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "items": [
-              "'shard_0'",
-              "'shard_1'"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "at": "say3",
+            "caption": "Examine the parallel value produced for query processing.",
+            "values": {
+              "requests": "[{'shard': 'shard_0', 'vec_dim': 2, 'st…",
+              "s_name": "'shard_1'"
+            },
+            "tones": {
+              "requests": "ok",
+              "s_name": "ok"
+            },
+            "arrows": [
+              [
+                "requests",
+                "s_name"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Core Algorithm & State Representation",
+      "partTitle": "K-Way Global Priority Merging During Coordinator Gather",
       "codeHash": "59b693070d35b226e739010f20e7274ba3c10e1559a4b802d53ac639ba643364",
       "spec": {
         "template": "cells",
@@ -123,7 +174,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Once target shards complete their local search loops, they transmit their.",
+            "caption": "Observe how coordinator shapes once during this step.",
             "items": {
               "var": "x",
               "line": 5,
@@ -155,7 +206,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the guarding value produced for empty processing.",
             "items": {
               "var": "x",
               "line": 5,
@@ -177,7 +228,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Once target shards complete their local search loops, they transmit their.",
+            "caption": "Observe how coordinator shapes once during this step.",
             "items": [
               "0.12",
               "101"
@@ -207,7 +258,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the guarding value produced for empty processing.",
             "items": [
               "0.33",
               "202"
@@ -224,7 +275,7 @@
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Straggler Cutoff Deadlines & Partial Result Completeness",
       "codeHash": "16dff22e2ca634d0f8c41e8c22f9cdf9c235f4ee65183e6ceee634934c56490e",
       "spec": {
         "template": "flow",
@@ -315,7 +366,7 @@
               },
               "valid_responses": {
                 "var": "valid_responses",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -342,7 +393,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the setting value produced for timeout processing.",
             "values": {
               "resps": {
                 "var": "resps",
@@ -361,7 +412,7 @@
               },
               "valid_responses": {
                 "var": "valid_responses",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -447,7 +498,7 @@
               "resps": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
               "shard_responses": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
               "timeout_ms": "15",
-              "valid_responses": "[]"
+              "valid_responses": "[{'shard': 's0', 'latency_ms': 8.2, 're…"
             },
             "tones": {
               "resps": "data",
@@ -472,12 +523,12 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the setting value produced for timeout processing.",
             "values": {
               "resps": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
               "shard_responses": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
               "timeout_ms": "15",
-              "valid_responses": "[]"
+              "valid_responses": "[{'shard': 's0', 'latency_ms': 8.2, 're…"
             },
             "tones": {
               "resps": "ok",
@@ -504,7 +555,7 @@
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Safe Shard List Aggregation Under Partial Failures",
       "codeHash": "4f26c2534b4bdd29e83b080604f0e08d2c64edb0aa28bb10290186660cacfe5f",
       "spec": {
         "template": "flow",
@@ -526,7 +577,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Defensive list concatenation in the query coordinator protects against.",
+            "caption": "Inspect shard updates as shard_lists tracks list state.",
             "values": {
               "shard_lists": {
                 "var": "shard_lists",
@@ -654,7 +705,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Defensive list concatenation in the query coordinator protects against.",
+            "caption": "Inspect shard updates as shard_lists tracks list state.",
             "values": {
               "shard_lists": "[[], [1, 2]]",
               "out": "[]",
@@ -728,15 +779,15 @@
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Production Telemetry & Verification Audit",
-      "codeHash": "a0bbd6539d1a4445e151396f7d3f8f22116f1e59efe015400da64c48d9544636",
+      "partTitle": "Monitoring Shard Response Coverage & Coordinator p99 Latency",
+      "codeHash": "5623f8ab803db44c22529930d84e6f8792b1fc87384c62fcc8f3f4d902424c7f",
       "spec": {
         "template": "bars",
-        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
+        "title": "Monitoring Shard Response Coverage & Coordinator p99 Latency",
         "steps": [
           {
             "at": "say1",
-            "caption": "Coordinator telemetry tracks cluster coverage percentages, straggler.",
+            "caption": "Observe how coverage shapes coordinator during this step.",
             "bars": [
               {
                 "label": "total_shards",
@@ -748,7 +799,7 @@
                 "tone": "data"
               },
               {
-                "label": "successful_sha",
+                "label": "successful_shards",
                 "value": {
                   "var": "successful_shards",
                   "line": 2,
@@ -766,11 +817,9 @@
                 "tone": "data"
               },
               {
-                "label": "coverage_pct",
+                "label": "bounded_ok",
                 "value": {
-                  "var": "coverage_pct",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -778,22 +827,22 @@
           },
           {
             "at": "say2",
-            "caption": "Coverage percentage measures the proportion of cluster shards.",
+            "caption": "Verify the coverage transition driving percentage behavior.",
             "bars": [
               {
                 "label": "total_shards",
                 "value": {
                   "var": "total_shards",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "successful_sha",
+                "label": "successful_shards",
                 "value": {
                   "var": "successful_shards",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -802,58 +851,16 @@
                 "label": "p99_latency_ms",
                 "value": {
                   "var": "p99_latency_ms",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "coverage_pct",
+                "label": "bounded_ok",
                 "value": {
-                  "var": "coverage_pct",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "bars": [
-              {
-                "label": "total_shards",
-                "value": {
-                  "var": "total_shards",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "successful_sha",
-                "value": {
-                  "var": "successful_shards",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "p99_latency_ms",
-                "value": {
-                  "var": "p99_latency_ms",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "coverage_pct",
-                "value": {
-                  "var": "coverage_pct",
-                  "line": 3,
+                  "var": "bounded_ok",
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -864,11 +871,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
+        "title": "Monitoring Shard Response Coverage & Coordinator p99 Latency",
         "steps": [
           {
             "at": "say1",
-            "caption": "Coordinator telemetry tracks cluster coverage percentages, straggler.",
+            "caption": "Observe how coverage shapes coordinator during this step.",
             "bars": [
               {
                 "label": "total_shards",
@@ -876,7 +883,7 @@
                 "tone": "data"
               },
               {
-                "label": "successful_sha",
+                "label": "successful_shards",
                 "value": 8,
                 "tone": "data"
               },
@@ -886,15 +893,15 @@
                 "tone": "data"
               },
               {
-                "label": "coverage_pct",
-                "value": 100,
+                "label": "bounded_ok",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Coverage percentage measures the proportion of cluster shards.",
+            "caption": "Verify the coverage transition driving percentage behavior.",
             "bars": [
               {
                 "label": "total_shards",
@@ -902,7 +909,7 @@
                 "tone": "ok"
               },
               {
-                "label": "successful_sha",
+                "label": "successful_shards",
                 "value": 8,
                 "tone": "ok"
               },
@@ -912,34 +919,8 @@
                 "tone": "ok"
               },
               {
-                "label": "coverage_pct",
-                "value": 100,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "bars": [
-              {
-                "label": "total_shards",
+                "label": "bounded_ok",
                 "value": 8,
-                "tone": "ok"
-              },
-              {
-                "label": "successful_sha",
-                "value": 8,
-                "tone": "ok"
-              },
-              {
-                "label": "p99_latency_ms",
-                "value": 4.8,
-                "tone": "ok"
-              },
-              {
-                "label": "coverage_pct",
-                "value": 100,
                 "tone": "ok"
               }
             ]

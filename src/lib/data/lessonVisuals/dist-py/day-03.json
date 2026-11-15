@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Behind the scenes, a client stub turns the call into bytes.",
+            "activeActor": "request",
+            "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": {
+                  "var": "sku",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "request",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Behind the scenes, a client stub turns the call into bytes.",
-            "activeActor": "request",
+            "at": "say6",
+            "caption": "Notice that only bytes cross the network.",
+            "activeActor": "raw",
             "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": {
+                  "var": "sku",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": {
+                  "var": "request",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "sku",
                 "to": "request",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Notice that only bytes cross the network.",
-            "activeActor": "raw",
-            "messages": [
+              },
               {
                 "from": "sku",
                 "to": "request",
@@ -118,12 +148,6 @@
                 "to": "request",
                 "label": "'sku-42'",
                 "tone": "data"
-              },
-              {
-                "from": "request",
-                "to": "raw",
-                "label": "{'__other__': 'bytes'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "sku"
@@ -141,7 +165,7 @@
               {
                 "from": "request",
                 "to": "raw",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "ok"
               }
             ],
@@ -160,7 +184,31 @@
               {
                 "from": "request",
                 "to": "raw",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
+                "tone": "ok"
+              },
+              {
+                "from": "sku",
+                "to": "request",
+                "label": "'sku-42'",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": "<bytes>",
+                "tone": "ok"
+              },
+              {
+                "from": "sku",
+                "to": "request",
+                "label": "'sku-42'",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": "<bytes>",
                 "tone": "ok"
               }
             ],
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Binary formats like Protocol Buffers (Protobuf) send numbers in compact.",
+            "activeActor": "as_json",
+            "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": {
+                  "var": "order",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "as_json",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Binary formats like Protocol Buffers (Protobuf) send numbers in compact.",
-            "activeActor": "as_json",
+            "at": "say6",
+            "caption": "Many teams use JSON at the edges (public APIs) and Protobuf between.",
+            "activeActor": "as_binary",
             "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": {
+                  "var": "order",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": {
+                  "var": "as_json",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "order",
                 "to": "as_json",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Many teams use JSON at the edges (public APIs) and Protobuf between.",
-            "activeActor": "as_binary",
-            "messages": [
+              },
               {
                 "from": "order",
                 "to": "as_json",
@@ -282,12 +360,6 @@
                 "to": "as_json",
                 "label": "{'order_id': 123456, 'quantity': 3, 'pr…",
                 "tone": "data"
-              },
-              {
-                "from": "as_json",
-                "to": "as_binary",
-                "label": "{'__other__': 'bytes'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "order"
@@ -305,7 +377,7 @@
               {
                 "from": "as_json",
                 "to": "as_binary",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "ok"
               }
             ],
@@ -324,7 +396,31 @@
               {
                 "from": "as_json",
                 "to": "as_binary",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
+                "tone": "ok"
+              },
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": "{'order_id': 123456, 'quantity': 3, 'pr…",
+                "tone": "data"
+              },
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": "<bytes>",
+                "tone": "ok"
+              },
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": "{'order_id': 123456, 'quantity': 3, 'pr…",
+                "tone": "data"
+              },
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": "<bytes>",
                 "tone": "ok"
               }
             ],
@@ -359,6 +455,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The top bit (0x80) of each byte is a continuation flag.",
+            "activeActor": "value",
+            "messages": [
+              {
+                "from": "n",
+                "to": "value",
+                "label": {
+                  "var": "n",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "value",
@@ -373,10 +486,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The top bit (0x80) of each byte is a continuation flag.",
-            "activeActor": "value",
+            "at": "say6",
+            "caption": "Decoding reverses the process, adding each 7-bit group shifted into place.",
+            "activeActor": "out",
             "messages": [
+              {
+                "from": "n",
+                "to": "value",
+                "label": {
+                  "var": "n",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "out",
+                "label": {
+                  "var": "value",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "n",
                 "to": "value",
@@ -396,14 +529,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Decoding reverses the process, adding each 7-bit group shifted into place.",
-            "activeActor": "out",
-            "messages": [
+              },
               {
                 "from": "n",
                 "to": "value",
@@ -446,12 +572,6 @@
                 "to": "value",
                 "label": "1",
                 "tone": "data"
-              },
-              {
-                "from": "value",
-                "to": "out",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "n"
@@ -479,6 +599,30 @@
             "at": "say6",
             "caption": "Decoding reverses the process, adding each 7-bit group shifted into place.",
             "messages": [
+              {
+                "from": "n",
+                "to": "value",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "out",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "n",
+                "to": "value",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "out",
+                "label": "1",
+                "tone": "ok"
+              },
               {
                 "from": "n",
                 "to": "value",
@@ -523,6 +667,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Strings, bytes, nested messages), and 5 is FIXED32.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": {
+                  "var": "WIRE_TYPES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "v",
@@ -537,10 +698,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Strings, bytes, nested messages), and 5 is FIXED32.",
-            "activeActor": "v",
+            "at": "say6",
+            "caption": "Seeing the bytes once makes Protobuf feel much less magical.",
+            "activeActor": "out",
             "messages": [
+              {
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": {
+                  "var": "WIRE_TYPES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "out",
+                "label": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "WIRE_TYPES",
                 "to": "v",
@@ -560,14 +741,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Seeing the bytes once makes Protobuf feel much less magical.",
-            "activeActor": "out",
-            "messages": [
+              },
               {
                 "from": "WIRE_TYPES",
                 "to": "v",
@@ -610,12 +784,6 @@
                 "to": "v",
                 "label": "{0: 'VARINT', 1: 'FIXED64', 2: 'LENGTH_…",
                 "tone": "data"
-              },
-              {
-                "from": "v",
-                "to": "out",
-                "label": "150",
-                "tone": "ok"
               }
             ],
             "activeActor": "WIRE_TYPES"
@@ -643,6 +811,30 @@
             "at": "say6",
             "caption": "Seeing the bytes once makes Protobuf feel much less magical.",
             "messages": [
+              {
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": "{0: 'VARINT', 1: 'FIXED64', 2: 'LENGTH_…",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "out",
+                "label": "150",
+                "tone": "ok"
+              },
+              {
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": "{0: 'VARINT', 1: 'FIXED64', 2: 'LENGTH_…",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "out",
+                "label": "150",
+                "tone": "ok"
+              },
               {
                 "from": "WIRE_TYPES",
                 "to": "v",
@@ -748,12 +940,12 @@
               },
               "known": {
                 "var": "known",
-                "line": 12,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "i": {
                 "var": "i",
-                "line": 12,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -794,13 +986,13 @@
               },
               "known": {
                 "var": "known",
-                "line": 13,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "i": {
                 "var": "i",
-                "line": 2,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -884,8 +1076,8 @@
             "values": {
               "new_message": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
               "data": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
-              "known": "{1: 'id', 2: 'name'}",
-              "i": "0"
+              "known": "{1: 'id', 2: 'name', 3: 'is_premium'}",
+              "i": "1"
             },
             "tones": {
               "new_message": "data",
@@ -914,8 +1106,8 @@
             "values": {
               "new_message": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
               "data": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
-              "known": "{1: 'id', 2: 'name'}",
-              "i": "0"
+              "known": "{1: 'id', 2: 'name', 3: 'is_premium'}",
+              "i": "2"
             },
             "tones": {
               "new_message": "ok",

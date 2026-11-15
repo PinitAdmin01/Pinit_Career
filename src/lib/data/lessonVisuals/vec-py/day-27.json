@@ -220,8 +220,8 @@
               },
               "p": {
                 "var": "p",
-                "line": 4,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "values": {
                 "var": "values",
@@ -266,8 +266,8 @@
               },
               "p": {
                 "var": "p",
-                "line": 5,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "values": {
                 "var": "values",
@@ -360,7 +360,7 @@
             "caption": "It always returns an actual measured value, which is easy to explain.",
             "values": {
               "lat": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
-              "p": "0",
+              "p": "50",
               "values": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
               "s": "[11, 12, 12, 13, 14, 14, 15, 16, 90, 25…"
             },
@@ -390,7 +390,7 @@
             "caption": "Changing the method silently can make a system look faster or slower.",
             "values": {
               "lat": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
-              "p": "0",
+              "p": "90",
               "values": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
               "s": "[11, 12, 12, 13, 14, 14, 15, 16, 90, 25…"
             },
@@ -604,158 +604,81 @@
         "title": "Quality signals in production",
         "nodes": [
           {
-            "id": "log",
-            "label": "log"
-          },
-          {
-            "id": "n",
-            "label": "n"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "e",
-            "label": "e"
+            "label": "e",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Live systems lack golden labels for every query, so they rely on indirect.",
+            "caption": "Inspect signals updates as e tracks live state.",
             "values": {
-              "log": {
-                "var": "log",
-                "line": 1,
-                "hit": 2
-              },
-              "n": {
-                "var": "n",
-                "line": 5,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 1
-              },
               "e": {
                 "var": "e",
                 "line": 6,
                 "hit": 1
+              },
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "log": "data",
-              "n": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "log",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Zero-result rates, low top scores, quick rephrasing and users abandoning.",
+            "caption": "Verify the zero transition driving result behavior.",
             "values": {
-              "log": {
-                "var": "log",
-                "line": 5,
-                "hit": 1
-              },
-              "n": {
-                "var": "n",
-                "line": 6,
-                "hit": 6
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 2
-              },
               "e": {
                 "var": "e",
                 "line": 6,
-                "hit": 2
+                "hit": 3
+              },
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "log": "data",
-              "n": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "The best teams review these signals together every week and turn the worst.",
+            "at": "say3",
+            "caption": "Examine the signals value produced for thumbs processing.",
             "values": {
-              "log": {
-                "var": "log",
-                "line": 6,
-                "hit": 6
-              },
-              "n": {
-                "var": "n",
-                "line": 7,
-                "hit": 6
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 3
-              },
               "e": {
                 "var": "e",
                 "line": 6,
-                "hit": 3
+                "hit": 4
+              },
+              "out": {
+                "out": 2
               }
             },
             "tones": {
-              "log": "ok",
-              "n": "ok",
-              ".0": "ok",
-              "e": "ok"
+              "e": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           }
@@ -766,110 +689,63 @@
         "title": "Quality signals in production",
         "nodes": [
           {
-            "id": "log",
-            "label": "log"
-          },
-          {
-            "id": "n",
-            "label": "n"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "e",
-            "label": "e"
+            "label": "e",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Live systems lack golden labels for every query, so they rely on indirect.",
+            "caption": "Inspect signals updates as e tracks live state.",
             "values": {
-              "log": "[{'q': 'refund', 'results': 5, 'top': 0…",
-              "n": "4",
-              ".0": "{'__other__': 'list_iterator'}",
-              "e": "{'q': 'refund', 'results': 5, 'top': 0.…"
+              "e": "{'q': 'refund', 'results': 5, 'top': 0.…",
+              "out": ""
             },
             "tones": {
-              "log": "data",
-              "n": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "log",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Zero-result rates, low top scores, quick rephrasing and users abandoning.",
+            "caption": "Verify the zero transition driving result behavior.",
             "values": {
-              "log": "[{'q': 'refund', 'results': 5, 'top': 0…",
-              "n": "4",
-              ".0": "{'__other__': 'list_iterator'}",
-              "e": "{'q': 'wfh', 'results': 0, 'top': 0, 'r…"
+              "e": "{'q': 'track order', 'results': 4, 'top…",
+              "out": "zero-result rate 25%"
             },
             "tones": {
-              "log": "data",
-              "n": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "The best teams review these signals together every week and turn the worst.",
+            "at": "say3",
+            "caption": "Examine the signals value produced for thumbs processing.",
             "values": {
-              "log": "[{'q': 'refund', 'results': 5, 'top': 0…",
-              "n": "4",
-              ".0": "{'__other__': 'list_iterator'}",
-              "e": "{'q': 'track order', 'results': 4, 'top…"
+              "e": "{'q': 'holiday', 'results': 6, 'top': 0…",
+              "out": "low top score (<0.5) 50%"
             },
             "tones": {
-              "log": "ok",
-              "n": "ok",
-              ".0": "ok",
-              "e": "ok"
+              "e": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           }
@@ -1123,7 +999,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates percentile during execution.",
+            "caption": "Inspect practice updates as rng tracks percentile state.",
             "values": {
               "rng": {
                 "var": "rng",
@@ -1169,7 +1045,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "rng": {
                 "var": "rng",
@@ -1178,18 +1054,18 @@
               },
               "day": {
                 "var": "day",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "slow": {
                 "var": "slow",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "lat": {
                 "var": "lat",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 1002
               }
             },
             "tones": {
@@ -1215,7 +1091,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how your updates percentile during execution.",
+            "caption": "Examine the percentile value produced for position processing.",
             "values": {
               "rng": {
                 "var": "rng",
@@ -1224,18 +1100,18 @@
               },
               "day": {
                 "var": "day",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "slow": {
                 "var": "slow",
-                "line": 9,
-                "hit": 2
+                "line": 8,
+                "hit": 4
               },
               "lat": {
                 "var": "lat",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 1503
               }
             },
             "tones": {
@@ -1285,7 +1161,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates percentile during execution.",
+            "caption": "Inspect practice updates as rng tracks percentile state.",
             "values": {
               "rng": "<Random>",
               "day": "'Mon'",
@@ -1315,12 +1191,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "rng": "<Random>",
-              "day": "'Mon'",
-              "slow": "1",
-              "lat": "[25.910753174820478, 29.17096785892561,…"
+              "day": "'Tue'",
+              "slow": "3",
+              "lat": "[40.25685646184814, 16.633033989466725,…"
             },
             "tones": {
               "rng": "data",
@@ -1345,12 +1221,12 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how your updates percentile during execution.",
+            "caption": "Examine the percentile value produced for position processing.",
             "values": {
               "rng": "<Random>",
-              "day": "'Mon'",
+              "day": "'Wed'",
               "slow": "1",
-              "lat": "[25.910753174820478, 29.17096785892561,…"
+              "lat": "[76.54550657218978, 65.81211767611654, …"
             },
             "tones": {
               "rng": "ok",

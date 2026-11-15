@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every state mutation passes cleanly through three defensive layers before.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "k",
+                "to": "self",
+                "label": {
+                  "var": "k",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Every state mutation passes cleanly through three defensive layers before.",
-            "activeActor": "self",
+            "at": "say6",
+            "caption": "Define the unified Kernel node record wiring election terms, fencing epoch.",
+            "activeActor": "next_idx",
             "messages": [
+              {
+                "from": "k",
+                "to": "self",
+                "label": {
+                  "var": "k",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "next_idx",
+                "label": {
+                  "var": "self",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "k",
                 "to": "self",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Define the unified Kernel node record wiring election terms, fencing epoch.",
-            "activeActor": "next_idx",
-            "messages": [
+              },
               {
                 "from": "k",
                 "to": "self",
@@ -85,16 +115,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "next_idx",
-                "label": {
-                  "var": "self",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -118,12 +138,6 @@
                 "to": "self",
                 "label": "<ConsensusKernelNode>",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "next_idx",
-                "label": "<ConsensusKernelNode>",
-                "tone": "ok"
               }
             ],
             "activeActor": "k"
@@ -162,6 +176,24 @@
                 "to": "next_idx",
                 "label": "<ConsensusKernelNode>",
                 "tone": "ok"
+              },
+              {
+                "from": "k",
+                "to": "self",
+                "label": "<ConsensusKernelNode>",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "next_idx",
+                "label": "<ConsensusKernelNode>",
+                "tone": "ok"
+              },
+              {
+                "from": "k",
+                "to": "self",
+                "label": "<ConsensusKernelNode>",
+                "tone": "data"
               }
             ],
             "activeActor": "next_idx"
@@ -195,6 +227,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "By inspecting Phi Accrual suspicion score alongside Raft term voting.",
+            "activeActor": "voter_last",
+            "messages": [
+              {
+                "from": "voter_term",
+                "to": "voter_last",
+                "label": {
+                  "var": "voter_term",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "voter_last",
@@ -209,10 +258,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "By inspecting Phi Accrual suspicion score alongside Raft term voting.",
-            "activeActor": "voter_last",
+            "at": "say6",
+            "caption": "Verify the Phi-gated log-completeness Pre-Vote / RequestVote evaluator below.",
+            "activeActor": "cand_term",
             "messages": [
+              {
+                "from": "voter_term",
+                "to": "voter_last",
+                "label": {
+                  "var": "voter_term",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "voter_last",
+                "to": "cand_term",
+                "label": {
+                  "var": "voter_last",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "voter_term",
                 "to": "voter_last",
@@ -232,14 +301,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verify the Phi-gated log-completeness Pre-Vote / RequestVote evaluator below.",
-            "activeActor": "cand_term",
-            "messages": [
+              },
               {
                 "from": "voter_term",
                 "to": "voter_last",
@@ -282,12 +344,6 @@
                 "to": "voter_last",
                 "label": "3",
                 "tone": "data"
-              },
-              {
-                "from": "voter_last",
-                "to": "cand_term",
-                "label": "[3, 10]",
-                "tone": "ok"
               }
             ],
             "activeActor": "voter_term"
@@ -315,6 +371,30 @@
             "at": "say6",
             "caption": "Verify the Phi-gated log-completeness Pre-Vote / RequestVote evaluator below.",
             "messages": [
+              {
+                "from": "voter_term",
+                "to": "voter_last",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "voter_last",
+                "to": "cand_term",
+                "label": "[3, 10]",
+                "tone": "ok"
+              },
+              {
+                "from": "voter_term",
+                "to": "voter_last",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "voter_last",
+                "to": "cand_term",
+                "label": "[3, 10]",
+                "tone": "ok"
+              },
               {
                 "from": "voter_term",
                 "to": "voter_last",
@@ -359,6 +439,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Suppose `n0` leads in term 2 and replicates `[set acct 100]` at index 1.",
+            "activeActor": "kv",
+            "messages": [
+              {
+                "from": "self",
+                "to": "kv",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "kv",
@@ -373,10 +470,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Suppose `n0` leads in term 2 and replicates `[set acct 100]` at index 1.",
-            "activeActor": "kv",
+            "at": "say6",
+            "caption": "Examine the storage value produced for fencing processing.",
+            "activeActor": "t2_tok",
             "messages": [
+              {
+                "from": "self",
+                "to": "kv",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "kv",
+                "to": "t2_tok",
+                "label": {
+                  "var": "kv",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "kv",
@@ -396,14 +513,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Execute this multi-layer 5-node partition + dual-barrier defense.",
-            "activeActor": "t2_tok",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "kv",
@@ -446,12 +556,6 @@
                 "to": "kv",
                 "label": "<FencedKV>",
                 "tone": "data"
-              },
-              {
-                "from": "kv",
-                "to": "t2_tok",
-                "label": "<FencedKV>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -477,8 +581,32 @@
           },
           {
             "at": "say6",
-            "caption": "Execute this multi-layer 5-node partition + dual-barrier defense.",
+            "caption": "Examine the storage value produced for fencing processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "kv",
+                "label": "<FencedKV>",
+                "tone": "data"
+              },
+              {
+                "from": "kv",
+                "to": "t2_tok",
+                "label": "<FencedKV>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "kv",
+                "label": "<FencedKV>",
+                "tone": "data"
+              },
+              {
+                "from": "kv",
+                "to": "t2_tok",
+                "label": "<FencedKV>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "kv",
@@ -570,7 +698,7 @@
           },
           {
             "at": "say2",
-            "caption": "Look closely at `n0`'s un-committed minority slot at index 2 (`(term=2.",
+            "caption": "Verify the stale transition driving minority behavior.",
             "values": {
               "n2_leader_log": {
                 "var": "n2_leader_log",
@@ -616,7 +744,7 @@
           },
           {
             "at": "say5",
-            "caption": "Verify in code below that every node in `{n0.",
+            "caption": "Examine the partition value produced for tail processing.",
             "values": {
               "n2_leader_log": {
                 "var": "n2_leader_log",
@@ -716,7 +844,7 @@
           },
           {
             "at": "say2",
-            "caption": "Look closely at `n0`'s un-committed minority slot at index 2 (`(term=2.",
+            "caption": "Verify the stale transition driving minority behavior.",
             "values": {
               "n2_leader_log": "[[0, None], [2, 'set acct 100'], [3, 'n…",
               "n0_old_log": "[[0, None], [2, 'set acct 100'], [3, 'n…",
@@ -746,7 +874,7 @@
           },
           {
             "at": "say5",
-            "caption": "Verify in code below that every node in `{n0.",
+            "caption": "Examine the partition value produced for tail processing.",
             "values": {
               "n2_leader_log": "[[0, None], [2, 'set acct 100'], [3, 'n…",
               "n0_old_log": "[[0, None], [2, 'set acct 100'], [3, 'n…",

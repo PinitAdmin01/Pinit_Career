@@ -82,13 +82,13 @@
             "values": {
               "resource_type": {
                 "var": "resource_type",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "config": {
                 "var": "config",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "mandatory_encryption": {
                 "var": "mandatory_encryption",
@@ -97,7 +97,7 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               }
             },
@@ -124,17 +124,17 @@
           },
           {
             "at": "say10",
-            "caption": "Understanding declarative policy models empowers engineers to enforce.",
+            "caption": "Examine the manual value produced for security processing.",
             "values": {
               "resource_type": {
                 "var": "resource_type",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "config": {
                 "var": "config",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "mandatory_encryption": {
                 "var": "mandatory_encryption",
@@ -143,8 +143,8 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -226,10 +226,10 @@
             "at": "say2",
             "caption": "Embedding security and governance rules directly into continuous.",
             "values": {
-              "resource_type": "'aws_s3_bucket'",
-              "config": "{'server_side_encryption': False}",
+              "resource_type": "'aws_security_group_rule'",
+              "config": "{'cidr_blocks': ['0.0.0.0/0'], 'from_po…",
               "mandatory_encryption": "True",
-              "violations": "[]"
+              "violations": "['S3 bucket must enable server-side enc…"
             },
             "tones": {
               "resource_type": "data",
@@ -254,10 +254,10 @@
           },
           {
             "at": "say10",
-            "caption": "Understanding declarative policy models empowers engineers to enforce.",
+            "caption": "Examine the manual value produced for security processing.",
             "values": {
               "resource_type": "'aws_s3_bucket'",
-              "config": "{'server_side_encryption': False}",
+              "config": "{'server_side_encryption': True}",
               "mandatory_encryption": "True",
               "violations": "[]"
             },
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Parsing planned resource changes allows policy engines to enforce.",
+            "activeActor": "plan_good",
+            "messages": [
+              {
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": {
+                  "var": "plan_bad",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "plan_good",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Parsing planned resource changes allows policy engines to enforce.",
-            "activeActor": "plan_good",
+            "at": "say10",
+            "caption": "Examine the source value produced for files processing.",
+            "activeActor": "tf_plan",
             "messages": [
+              {
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": {
+                  "var": "plan_bad",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": {
+                  "var": "plan_good",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "plan_bad",
                 "to": "plan_good",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Detailed violation messages provide actionable feedback to developers.",
-            "activeActor": "tf_plan",
-            "messages": [
+              },
               {
                 "from": "plan_bad",
                 "to": "plan_good",
@@ -398,12 +428,6 @@
                 "to": "plan_good",
                 "label": "{'resource_changes': [{'address': 'aws_…",
                 "tone": "data"
-              },
-              {
-                "from": "plan_good",
-                "to": "tf_plan",
-                "label": "{'resource_changes': [{'address': 'aws_…",
-                "tone": "ok"
               }
             ],
             "activeActor": "plan_bad"
@@ -429,8 +453,32 @@
           },
           {
             "at": "say10",
-            "caption": "Detailed violation messages provide actionable feedback to developers.",
+            "caption": "Examine the source value produced for files processing.",
             "messages": [
+              {
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "data"
+              },
+              {
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "ok"
+              },
+              {
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "data"
+              },
+              {
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "ok"
+              },
               {
                 "from": "plan_bad",
                 "to": "plan_good",
@@ -644,13 +692,13 @@
               },
               "enforcement_mode": {
                 "var": "enforcement_mode",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "has_break_glass": {
                 "var": "has_break_glass",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -676,7 +724,7 @@
           },
           {
             "at": "say11",
-            "caption": "Audit logs capture every break-glass exception, ensuring complete.",
+            "caption": "Examine the policy value produced for guardrails processing.",
             "values": {
               "sample_violations": {
                 "var": "sample_violations",
@@ -690,13 +738,13 @@
               },
               "enforcement_mode": {
                 "var": "enforcement_mode",
-                "line": 14,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "has_break_glass": {
                 "var": "has_break_glass",
-                "line": 14,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -780,8 +828,8 @@
             "values": {
               "sample_violations": "['EBS volume must be encrypted', 'Missi…",
               "violations": "['EBS volume must be encrypted', 'Missi…",
-              "enforcement_mode": "'AUDIT'",
-              "has_break_glass": "False"
+              "enforcement_mode": "'ENFORCE'",
+              "has_break_glass": "True"
             },
             "tones": {
               "sample_violations": "data",
@@ -806,12 +854,12 @@
           },
           {
             "at": "say11",
-            "caption": "Audit logs capture every break-glass exception, ensuring complete.",
+            "caption": "Examine the policy value produced for guardrails processing.",
             "values": {
               "sample_violations": "['EBS volume must be encrypted', 'Missi…",
               "violations": "['EBS volume must be encrypted', 'Missi…",
-              "enforcement_mode": "'AUDIT'",
-              "has_break_glass": "False"
+              "enforcement_mode": "'ENFORCE'",
+              "has_break_glass": "True"
             },
             "tones": {
               "sample_violations": "ok",

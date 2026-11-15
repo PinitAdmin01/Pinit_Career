@@ -361,7 +361,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In row parallelism, the rows of W are split, and each device holds some.",
+            "caption": "Inspect parallelism updates as x tracks rows state.",
             "values": {
               "x": {
                 "var": "x",
@@ -379,16 +379,14 @@
                 "hit": 1
               },
               "rows": {
-                "var": "rows",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "x": "data",
               "W": "data",
               "parts": "data",
-              "rows": "data"
+              "rows": "idle"
             },
             "arrows": [
               [
@@ -523,18 +521,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In row parallelism, the rows of W are split, and each device holds some.",
+            "caption": "Inspect parallelism updates as x tracks rows state.",
             "values": {
               "x": "[1, 2, 3, 4]",
               "W": "[[1, 0], [0, 1], [1, 1], [2, 0]]",
               "parts": "2",
-              "rows": "2"
+              "rows": ""
             },
             "tones": {
               "x": "data",
               "W": "data",
               "parts": "data",
-              "rows": "data"
+              "rows": "idle"
             },
             "arrows": [
               [
@@ -749,6 +747,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the needs transition driving reduce behavior.",
+            "activeActor": "size_gb",
+            "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": {
+                  "var": "links",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "size_gb",
@@ -763,10 +778,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "But it needs an all-reduce inside every layer, forward and backward,.",
-            "activeActor": "size_gb",
+            "at": "say10",
+            "caption": "Choosing the degree is about balancing memory savings with communication.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": {
+                  "var": "links",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": {
+                  "var": "size_gb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "links",
                 "to": "size_gb",
@@ -786,14 +821,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Choosing the degree is about balancing memory savings with communication.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "links",
                 "to": "size_gb",
@@ -836,19 +864,13 @@
                 "to": "size_gb",
                 "label": "{'NVLink (within a server)': 900, 'Infi…",
                 "tone": "data"
-              },
-              {
-                "from": "size_gb",
-                "to": "name",
-                "label": "0.5",
-                "tone": "ok"
               }
             ],
             "activeActor": "links"
           },
           {
             "at": "say2",
-            "caption": "But it needs an all-reduce inside every layer, forward and backward,.",
+            "caption": "Verify the needs transition driving reduce behavior.",
             "messages": [
               {
                 "from": "links",
@@ -880,6 +902,30 @@
                 "to": "name",
                 "label": "0.5",
                 "tone": "ok"
+              },
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": "{'NVLink (within a server)': 900, 'Infi…",
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": "0.5",
+                "tone": "ok"
+              },
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": "{'NVLink (within a server)': 900, 'Infi…",
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": "0.5",
+                "tone": "ok"
               }
             ],
             "activeActor": "name"
@@ -891,162 +937,186 @@
       "partTitle": "Practice time: splitting layers",
       "codeHash": "675df17449e671adecc98a7b22dabb0739b6829179d71e02671a798870172c7a",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: splitting layers",
-        "actors": [
-          "x",
-          "W",
-          ".0"
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "W",
+            "label": "W",
+            "tappable": true
+          },
+          {
+            "id": "i",
+            "label": "i",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Col_parallel_matmul(x, W, parts).",
-            "activeActor": "x",
-            "messages": [
-              {
-                "from": "x",
-                "to": "W",
-                "label": {
-                  "var": "x",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Practice 1: col_parallel_matmul(x, W, parts).",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "W",
-                "to": ".0",
-                "label": {
-                  "var": "W",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "W": {
+                "text": ""
+              },
+              "i": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "x": "data",
+              "W": "idle",
+              "i": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks use a 2 4 matrix with 1, 2 and 4 devices and always expect.",
-            "activeActor": "W",
-            "messages": [
-              {
-                "from": "x",
-                "to": "W",
-                "label": {
-                  "var": "x",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the checks transition driving matrix behavior.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 2,
+                "hit": 44
               },
-              {
-                "from": "W",
-                "to": ".0",
-                "label": {
-                  "var": "W",
-                  "line": 2,
-                  "hit": 6
-                },
-                "tone": "ok"
+              "W": {
+                "var": "W",
+                "line": 2,
+                "hit": 44
+              },
+              "i": {
+                "text": ""
               }
+            },
+            "tones": {
+              "x": "data",
+              "W": "data",
+              "i": "idle"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "If your output is wrong, print each device's piece or partial vector.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "x",
-                "to": "W",
-                "label": {
-                  "var": "x",
-                  "line": 2,
-                  "hit": 6
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Practice 2: row_parallel_matmul(x, W, parts).",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 2,
+                "hit": 85
               },
-              {
-                "from": "W",
-                "to": ".0",
-                "label": {
-                  "var": "W",
-                  "line": 2,
-                  "hit": 12
-                },
-                "tone": "ok"
+              "W": {
+                "var": "W",
+                "line": 2,
+                "hit": 85
+              },
+              "i": {
+                "text": ""
               }
+            },
+            "tones": {
+              "x": "ok",
+              "W": "ok",
+              "i": "idle"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: splitting layers",
-        "actors": [
-          "x",
-          "W",
-          ".0"
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "W",
+            "label": "W",
+            "tappable": true
+          },
+          {
+            "id": "i",
+            "label": "i",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Col_parallel_matmul(x, W, parts).",
-            "messages": [
-              {
-                "from": "x",
-                "to": "W",
-                "label": "[1, 2, 3, 4]",
-                "tone": "data"
-              },
-              {
-                "from": "W",
-                "to": ".0",
-                "label": "[[1, 0, 2, 1], [0, 1, 1, 3], [2, 2, 0, …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "x"
+            "caption": "Practice 1: col_parallel_matmul(x, W, parts).",
+            "values": {
+              "x": "[1, 2, 3, 4]",
+              "W": "",
+              "i": ""
+            },
+            "tones": {
+              "x": "data",
+              "W": "idle",
+              "i": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks use a 2 4 matrix with 1, 2 and 4 devices and always expect.",
-            "messages": [
-              {
-                "from": "x",
-                "to": "W",
-                "label": "[1, 2, 3, 4]",
-                "tone": "data"
-              },
-              {
-                "from": "W",
-                "to": ".0",
-                "label": "[[1, 0, 2, 1], [0, 1, 1, 3], [2, 2, 0, …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "W"
+            "caption": "Verify the checks transition driving matrix behavior.",
+            "values": {
+              "x": "[1, 2, 3, 4]",
+              "W": "[[2, 1], [1, 3], [0, 1], [1, 0]]",
+              "i": ""
+            },
+            "tones": {
+              "x": "data",
+              "W": "data",
+              "i": "idle"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "If your output is wrong, print each device's piece or partial vector.",
-            "messages": [
-              {
-                "from": "x",
-                "to": "W",
-                "label": "[1, 2, 3, 4]",
-                "tone": "data"
-              },
-              {
-                "from": "W",
-                "to": ".0",
-                "label": "[[1, 0, 2, 1], [0, 1, 1, 3], [2, 2, 0, …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Practice 2: row_parallel_matmul(x, W, parts).",
+            "values": {
+              "x": "[3, 4]",
+              "W": "[[2, 2, 0, 1], [1, 0, 1, 0]]",
+              "i": ""
+            },
+            "tones": {
+              "x": "ok",
+              "W": "ok",
+              "i": "idle"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ]
+            ]
           }
         ]
       }

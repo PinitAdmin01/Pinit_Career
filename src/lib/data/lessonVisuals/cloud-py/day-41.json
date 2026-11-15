@@ -265,15 +265,13 @@
                 "hit": 1
               },
               "module_name": {
-                "var": "module_name",
-                "line": 16,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "kernel": "data",
-              "module_name": "data"
+              "module_name": "idle"
             },
             "arrows": [
               [
@@ -384,12 +382,12 @@
             "values": {
               "self": "<ServerlessOptimizationKernel>",
               "kernel": "<ServerlessOptimizationKernel>",
-              "module_name": "'pandas'"
+              "module_name": ""
             },
             "tones": {
               "self": "data",
               "kernel": "data",
-              "module_name": "data"
+              "module_name": "idle"
             },
             "arrows": [
               [
@@ -479,6 +477,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "However, Provisioned Concurrency introduces fixed hourly costs.",
+            "activeActor": "avg_duration_ms",
+            "messages": [
+              {
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": {
+                  "var": "monthly_requests",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "avg_duration_ms",
@@ -493,10 +508,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "However, Provisioned Concurrency introduces fixed hourly costs.",
-            "activeActor": "avg_duration_ms",
+            "at": "say8",
+            "caption": "Examine the optimization value produced for provisioned processing.",
+            "activeActor": "memory_mb",
             "messages": [
+              {
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": {
+                  "var": "monthly_requests",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": {
+                  "var": "avg_duration_ms",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "monthly_requests",
                 "to": "avg_duration_ms",
@@ -516,14 +551,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "SnapStart microVM memory snapshotting delivers instant initialization.",
-            "activeActor": "memory_mb",
-            "messages": [
+              },
               {
                 "from": "monthly_requests",
                 "to": "avg_duration_ms",
@@ -566,12 +594,6 @@
                 "to": "avg_duration_ms",
                 "label": "10000000",
                 "tone": "data"
-              },
-              {
-                "from": "avg_duration_ms",
-                "to": "memory_mb",
-                "label": "100",
-                "tone": "ok"
               }
             ],
             "activeActor": "monthly_requests"
@@ -597,8 +619,32 @@
           },
           {
             "at": "say8",
-            "caption": "SnapStart microVM memory snapshotting delivers instant initialization.",
+            "caption": "Examine the optimization value produced for provisioned processing.",
             "messages": [
+              {
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": "10000000",
+                "tone": "data"
+              },
+              {
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": "100",
+                "tone": "ok"
+              },
+              {
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": "10000000",
+                "tone": "data"
+              },
+              {
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": "100",
+                "tone": "ok"
+              },
               {
                 "from": "monthly_requests",
                 "to": "avg_duration_ms",

@@ -139,6 +139,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Then 5 bits of datacenter id and 5 bits of worker id.",
+            "activeActor": "DC_BITS",
+            "messages": [
+              {
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": {
+                  "var": "TIME_BITS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "DC_BITS",
@@ -153,10 +170,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Then 5 bits of datacenter id and 5 bits of worker id.",
-            "activeActor": "DC_BITS",
+            "at": "say7",
+            "caption": "The code computes the capacity numbers from the bit sizes.",
+            "activeActor": "WORKER_BITS",
             "messages": [
+              {
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": {
+                  "var": "TIME_BITS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": {
+                  "var": "DC_BITS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "TIME_BITS",
                 "to": "DC_BITS",
@@ -176,14 +213,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The code computes the capacity numbers from the bit sizes.",
-            "activeActor": "WORKER_BITS",
-            "messages": [
+              },
               {
                 "from": "TIME_BITS",
                 "to": "DC_BITS",
@@ -226,12 +256,6 @@
                 "to": "DC_BITS",
                 "label": "41",
                 "tone": "data"
-              },
-              {
-                "from": "DC_BITS",
-                "to": "WORKER_BITS",
-                "label": "5",
-                "tone": "ok"
               }
             ],
             "activeActor": "TIME_BITS"
@@ -270,6 +294,30 @@
                 "to": "WORKER_BITS",
                 "label": "5",
                 "tone": "ok"
+              },
+              {
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": "41",
+                "tone": "data"
+              },
+              {
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": "5",
+                "tone": "ok"
+              },
+              {
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": "41",
+                "tone": "data"
+              },
+              {
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": "5",
+                "tone": "ok"
               }
             ],
             "activeActor": "WORKER_BITS"
@@ -281,162 +329,154 @@
       "partTitle": "Building the generator",
       "codeHash": "b02176272aa01bb030fcf01a206a70a690600ede1be2f847018d026f7b99e6d9",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Building the generator",
-        "actors": [
-          "EPOCH",
-          "times",
-          "self"
+        "nodes": [
+          {
+            "id": "ms",
+            "label": "ms",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Next_id() reads the clock.",
-            "activeActor": "EPOCH",
-            "messages": [
-              {
-                "from": "EPOCH",
-                "to": "times",
-                "label": {
-                  "var": "EPOCH",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Practice 1: next_id() reads the clock.",
+            "values": {
+              "ms": {
+                "var": "ms",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "times",
-                "to": "self",
-                "label": {
-                  "var": "times",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "ms": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If the clock has gone backwards (for example after an NTP correction).",
-            "activeActor": "times",
-            "messages": [
-              {
-                "from": "EPOCH",
-                "to": "times",
-                "label": {
-                  "var": "EPOCH",
-                  "line": 3,
-                  "hit": 2
-                },
-                "tone": "data"
+            "caption": "Issuing IDs anyway could create duplicates.",
+            "values": {
+              "ms": {
+                "var": "ms",
+                "line": 9,
+                "hit": 4
               },
-              {
-                "from": "times",
-                "to": "self",
-                "label": {
-                  "var": "times",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "ms": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "ms",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Everything else happens locally, with no network calls, which is why.",
-            "activeActor": "self",
-            "messages": [
-              {
-                "from": "EPOCH",
-                "to": "times",
-                "label": {
-                  "var": "EPOCH",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Our tests do not reach that, but the code shows where it would go.",
+            "values": {
+              "ms": {
+                "var": "ms",
+                "line": 9,
+                "hit": 5
               },
-              {
-                "from": "times",
-                "to": "self",
-                "label": {
-                  "var": "times",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "ms": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "ms",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Building the generator",
-        "actors": [
-          "EPOCH",
-          "times",
-          "self"
+        "nodes": [
+          {
+            "id": "ms",
+            "label": "ms",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Next_id() reads the clock.",
-            "messages": [
-              {
-                "from": "EPOCH",
-                "to": "times",
-                "label": "1700000000000",
-                "tone": "data"
-              },
-              {
-                "from": "times",
-                "to": "self",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "EPOCH"
+            "caption": "Practice 1: next_id() reads the clock.",
+            "values": {
+              "ms": "1700000000005",
+              "out": ""
+            },
+            "tones": {
+              "ms": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If the clock has gone backwards (for example after an NTP correction).",
-            "messages": [
-              {
-                "from": "EPOCH",
-                "to": "times",
-                "label": "1700000000000",
-                "tone": "data"
-              },
-              {
-                "from": "times",
-                "to": "self",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "times"
+            "caption": "Issuing IDs anyway could create duplicates.",
+            "values": {
+              "ms": "1700000000006",
+              "out": "21114880"
+            },
+            "tones": {
+              "ms": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "ms",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Everything else happens locally, with no network calls, which is why.",
-            "messages": [
-              {
-                "from": "EPOCH",
-                "to": "times",
-                "label": "1700000000000",
-                "tone": "data"
-              },
-              {
-                "from": "times",
-                "to": "self",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "self"
+            "at": "say3",
+            "caption": "Our tests do not reach that, but the code shows where it would go.",
+            "values": {
+              "ms": "1700000000004",
+              "out": "21114881"
+            },
+            "tones": {
+              "ms": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "ms",
+                "out"
+              ]
+            ]
           }
         ]
       }
@@ -467,6 +507,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Id >> 22, plus the epoch.",
+            "activeActor": "made",
+            "messages": [
+              {
+                "from": "EPOCH",
+                "to": "made",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "made",
@@ -481,10 +538,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Id >> 22, plus the epoch.",
-            "activeActor": "made",
+            "at": "say7",
+            "caption": "The example builds an ID and decodes it back.",
+            "activeActor": "snowflake_id",
             "messages": [
+              {
+                "from": "EPOCH",
+                "to": "made",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "made",
+                "to": "snowflake_id",
+                "label": {
+                  "var": "made",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "EPOCH",
                 "to": "made",
@@ -504,14 +581,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example builds an ID and decodes it back.",
-            "activeActor": "snowflake_id",
-            "messages": [
+              },
               {
                 "from": "EPOCH",
                 "to": "made",
@@ -554,12 +624,6 @@
                 "to": "made",
                 "label": "1700000000000",
                 "tone": "data"
-              },
-              {
-                "from": "made",
-                "to": "snowflake_id",
-                "label": "517812285482",
-                "tone": "ok"
               }
             ],
             "activeActor": "EPOCH"
@@ -587,6 +651,30 @@
             "at": "say7",
             "caption": "The example builds an ID and decodes it back.",
             "messages": [
+              {
+                "from": "EPOCH",
+                "to": "made",
+                "label": "1700000000000",
+                "tone": "data"
+              },
+              {
+                "from": "made",
+                "to": "snowflake_id",
+                "label": "517812285482",
+                "tone": "ok"
+              },
+              {
+                "from": "EPOCH",
+                "to": "made",
+                "label": "1700000000000",
+                "tone": "data"
+              },
+              {
+                "from": "made",
+                "to": "snowflake_id",
+                "label": "517812285482",
+                "tone": "ok"
+              },
               {
                 "from": "EPOCH",
                 "to": "made",
@@ -631,6 +719,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Time_prefix(ms) writes ms in base 36, digits 0-9 then A-Z.",
+            "activeActor": "ms",
+            "messages": [
+              {
+                "from": "DIGITS",
+                "to": "ms",
+                "label": {
+                  "var": "DIGITS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ms",
@@ -645,10 +750,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Time_prefix(ms) writes ms in base 36, digits 0-9 then A-Z.",
-            "activeActor": "ms",
+            "at": "say6",
+            "caption": "For text sorting to match time order, all prefixes must have the same.",
+            "activeActor": "out",
             "messages": [
+              {
+                "from": "DIGITS",
+                "to": "ms",
+                "label": {
+                  "var": "DIGITS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ms",
+                "to": "out",
+                "label": {
+                  "var": "ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "DIGITS",
                 "to": "ms",
@@ -668,14 +793,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "For text sorting to match time order, all prefixes must have the same.",
-            "activeActor": "out",
-            "messages": [
+              },
               {
                 "from": "DIGITS",
                 "to": "ms",
@@ -718,12 +836,6 @@
                 "to": "ms",
                 "label": "'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'",
                 "tone": "data"
-              },
-              {
-                "from": "ms",
-                "to": "out",
-                "label": "35",
-                "tone": "ok"
               }
             ],
             "activeActor": "DIGITS"
@@ -751,6 +863,30 @@
             "at": "say6",
             "caption": "For text sorting to match time order, all prefixes must have the same.",
             "messages": [
+              {
+                "from": "DIGITS",
+                "to": "ms",
+                "label": "'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'",
+                "tone": "data"
+              },
+              {
+                "from": "ms",
+                "to": "out",
+                "label": "35",
+                "tone": "ok"
+              },
+              {
+                "from": "DIGITS",
+                "to": "ms",
+                "label": "'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'",
+                "tone": "data"
+              },
+              {
+                "from": "ms",
+                "to": "out",
+                "label": "35",
+                "tone": "ok"
+              },
               {
                 "from": "DIGITS",
                 "to": "ms",
@@ -842,7 +978,7 @@
           },
           {
             "at": "say2",
-            "caption": "Easy and collision-free, good when order does not matter and 128 bits are.",
+            "caption": "Verify the random transition driving uuid behavior.",
             "values": {
               "case": {
                 "var": "case",
@@ -888,7 +1024,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will see how Raft keeps a replicated log consistent across.",
+            "caption": "Examine the tomorrow value produced for raft processing.",
             "values": {
               "case": {
                 "var": "case",
@@ -988,7 +1124,7 @@
           },
           {
             "at": "say2",
-            "caption": "Easy and collision-free, good when order does not matter and 128 bits are.",
+            "caption": "Verify the random transition driving uuid behavior.",
             "values": {
               "case": "[True, True, 64]",
               "single_db": "True",
@@ -1018,7 +1154,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will see how Raft keeps a replicated log consistent across.",
+            "caption": "Examine the tomorrow value produced for raft processing.",
             "values": {
               "case": "[False, False, 128]",
               "single_db": "False",

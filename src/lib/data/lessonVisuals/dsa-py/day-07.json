@@ -495,7 +495,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how collections updates counter during execution.",
+            "caption": "Verify the collections transition driving counter behavior.",
             "items": {
               "var": "votes",
               "line": 5,
@@ -552,7 +552,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how collections updates counter during execution.",
+            "caption": "Verify the collections transition driving counter behavior.",
             "items": [
               "'asha'",
               "'ravi'",
@@ -735,7 +735,7 @@
           },
           {
             "at": "say4",
-            "caption": "Trace how dicts updates also during execution.",
+            "caption": "Examine the dicts value produced for keep processing.",
             "items": {
               "var": "key",
               "line": 6,
@@ -774,7 +774,7 @@
           },
           {
             "at": "say4",
-            "caption": "Trace how dicts updates also during execution.",
+            "caption": "Examine the dicts value produced for keep processing.",
             "mode": "stack",
             "items": [
               "'a'",

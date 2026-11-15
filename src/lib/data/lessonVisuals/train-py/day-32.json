@@ -64,7 +64,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how openai updates published during execution.",
+            "caption": "Verify the scaling transition driving laws behavior.",
             "values": {
               "SCALING_LAW_PILLARS": {
                 "var": "SCALING_LAW_PILLARS",
@@ -180,7 +180,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how openai updates published during execution.",
+            "caption": "Verify the scaling transition driving laws behavior.",
             "values": {
               "SCALING_LAW_PILLARS": "{'KAPLAN_LEGACY_LAW': 'Early empirical …",
               "pillar": "'CHINCHILLA_OPTIMAL'",
@@ -255,6 +255,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Given that total compute is C = 6 * N * D and the optimal ratio is D = 20.",
+            "activeActor": "token_count_billions",
+            "messages": [
+              {
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": {
+                  "var": "param_count_billions",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "token_count_billions",
@@ -269,10 +286,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Given that total compute is C = 6 * N * D and the optimal ratio is D = 20.",
-            "activeActor": "token_count_billions",
+            "at": "say10",
+            "caption": "Automating Chinchilla calculations enables rapid parameter exploration.",
+            "activeActor": "n",
             "messages": [
+              {
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": {
+                  "var": "param_count_billions",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "token_count_billions",
+                "to": "n",
+                "label": {
+                  "var": "token_count_billions",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "param_count_billions",
                 "to": "token_count_billions",
@@ -292,14 +329,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Automating Chinchilla calculations enables rapid parameter exploration.",
-            "activeActor": "n",
-            "messages": [
+              },
               {
                 "from": "param_count_billions",
                 "to": "token_count_billions",
@@ -342,12 +372,6 @@
                 "to": "token_count_billions",
                 "label": "7",
                 "tone": "data"
-              },
-              {
-                "from": "token_count_billions",
-                "to": "n",
-                "label": "140",
-                "tone": "ok"
               }
             ],
             "activeActor": "param_count_billions"
@@ -375,6 +399,30 @@
             "at": "say10",
             "caption": "Automating Chinchilla calculations enables rapid parameter exploration.",
             "messages": [
+              {
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": "7",
+                "tone": "data"
+              },
+              {
+                "from": "token_count_billions",
+                "to": "n",
+                "label": "140",
+                "tone": "ok"
+              },
+              {
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": "7",
+                "tone": "data"
+              },
+              {
+                "from": "token_count_billions",
+                "to": "n",
+                "label": "140",
+                "tone": "ok"
+              },
               {
                 "from": "param_count_billions",
                 "to": "token_count_billions",
@@ -419,6 +467,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Once trained, a model may be queried billions of times by millions.",
+            "activeActor": "token_billions",
+            "messages": [
+              {
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": {
+                  "var": "param_billions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "token_billions",
@@ -433,10 +498,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Once trained, a model may be queried billions of times by millions.",
-            "activeActor": "token_billions",
+            "at": "say10",
+            "caption": "Machine learning teams evaluate lifetime inference costs to strategically.",
+            "activeActor": "ratio",
             "messages": [
+              {
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": {
+                  "var": "param_billions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "token_billions",
+                "to": "ratio",
+                "label": {
+                  "var": "token_billions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "param_billions",
                 "to": "token_billions",
@@ -456,14 +541,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Machine learning teams evaluate lifetime inference costs to strategically.",
-            "activeActor": "ratio",
-            "messages": [
+              },
               {
                 "from": "param_billions",
                 "to": "token_billions",
@@ -506,12 +584,6 @@
                 "to": "token_billions",
                 "label": "70",
                 "tone": "data"
-              },
-              {
-                "from": "token_billions",
-                "to": "ratio",
-                "label": "1400",
-                "tone": "ok"
               }
             ],
             "activeActor": "param_billions"
@@ -539,6 +611,30 @@
             "at": "say10",
             "caption": "Machine learning teams evaluate lifetime inference costs to strategically.",
             "messages": [
+              {
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": "70",
+                "tone": "data"
+              },
+              {
+                "from": "token_billions",
+                "to": "ratio",
+                "label": "1400",
+                "tone": "ok"
+              },
+              {
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": "70",
+                "tone": "data"
+              },
+              {
+                "from": "token_billions",
+                "to": "ratio",
+                "label": "1400",
+                "tone": "ok"
+              },
               {
                 "from": "param_billions",
                 "to": "token_billions",
@@ -822,16 +918,14 @@
                 "hit": 1
               },
               "checks": {
-                "var": "checks",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "chinchilla_calculated": "data",
               "overtraining_evaluated": "data",
               "compute_budget_verified": "data",
-              "checks": "data"
+              "checks": "idle"
             },
             "arrows": [
               [
@@ -971,13 +1065,13 @@
               "chinchilla_calculated": "True",
               "overtraining_evaluated": "True",
               "compute_budget_verified": "True",
-              "checks": "{'CHINCHILLA_FLOP_ACCOUNTING': True, 'I…"
+              "checks": ""
             },
             "tones": {
               "chinchilla_calculated": "data",
               "overtraining_evaluated": "data",
               "compute_budget_verified": "data",
-              "checks": "data"
+              "checks": "idle"
             },
             "arrows": [
               [

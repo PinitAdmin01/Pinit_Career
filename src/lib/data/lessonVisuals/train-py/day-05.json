@@ -50,16 +50,14 @@
                 "hit": 3
               },
               "all_gather": {
-                "var": "all_gather",
-                "line": 4,
-                "hit": 4
+                "text": ""
               }
             },
             "tones": {
               "workers": "data",
               "broadcast": "data",
               "reduce_to_0": "data",
-              "all_gather": "data"
+              "all_gather": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "workers": "[[1, 2], [3, 4], [5, 6]]",
               "broadcast": "[[1, 2], [1, 2], [1, 2]]",
               "reduce_to_0": "[9, 12]",
-              "all_gather": "[[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]…"
+              "all_gather": ""
             },
             "tones": {
               "workers": "data",
               "broadcast": "data",
               "reduce_to_0": "data",
-              "all_gather": "data"
+              "all_gather": "idle"
             },
             "arrows": [
               [
@@ -477,7 +475,7 @@
             "caption": "All-reduce is the workhorse of data-parallel training.",
             "values": {
               "vectors": "[[1, 4], [2, 0], [6, 2]]",
-              "ops": "{'sum': {'__other__': 'function'}, 'mea…",
+              "ops": "{'sum': <function>, 'mean': <function>,…",
               "name": "'sum'",
               "v": "[1, 2, 6]"
             },
@@ -507,7 +505,7 @@
             "caption": "Each worker contributes a vector.",
             "values": {
               "vectors": "[[1, 4], [2, 0], [6, 2]]",
-              "ops": "{'sum': {'__other__': 'function'}, 'mea…",
+              "ops": "{'sum': <function>, 'mean': <function>,…",
               "name": "'sum'",
               "v": "[4, 0, 2]"
             },
@@ -537,7 +535,7 @@
             "caption": "Everything we build today simulates the result.",
             "values": {
               "vectors": "[[1, 4], [2, 0], [6, 2]]",
-              "ops": "{'sum': {'__other__': 'function'}, 'mea…",
+              "ops": "{'sum': <function>, 'mean': <function>,…",
               "name": "'sum'",
               "v": "[1, 2, 6]"
             },
@@ -633,13 +631,13 @@
               },
               "p": {
                 "var": "p",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "leader_traffic": {
                 "var": "leader_traffic",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -669,13 +667,13 @@
               },
               "p": {
                 "var": "p",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "leader_traffic": {
                 "var": "leader_traffic",
-                "line": 2,
-                "hit": 2
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -743,8 +741,8 @@
             "caption": "The leader must receive p 1 full copies and send p 1 full copies, so its.",
             "values": {
               "size_gb": "14",
-              "p": "4",
-              "leader_traffic": "84"
+              "p": "16",
+              "leader_traffic": "420"
             },
             "tones": {
               "size_gb": "data",
@@ -767,8 +765,8 @@
             "caption": "Understanding the naive version makes the clever version easier to appreciate.",
             "values": {
               "size_gb": "14",
-              "p": "4",
-              "leader_traffic": "84"
+              "p": "64",
+              "leader_traffic": "1764"
             },
             "tones": {
               "size_gb": "ok",
@@ -876,13 +874,13 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 4,
+                "line": 7,
                 "hit": 1
               },
               "step": {
                 "var": "step",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -922,12 +920,12 @@
               },
               "chunks": {
                 "var": "chunks",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "step": {
                 "var": "step",
-                "line": 5,
+                "line": 4,
                 "hit": 2
               }
             },
@@ -1012,8 +1010,8 @@
             "values": {
               "p": "3",
               "data": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
-              "chunks": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
-              "step": "0"
+              "chunks": "[[1, 10, 100], [3, 20, 200], [3, 30, 30…",
+              "step": "1"
             },
             "tones": {
               "p": "data",
@@ -1042,8 +1040,8 @@
             "values": {
               "p": "3",
               "data": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
-              "chunks": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
-              "step": "0"
+              "chunks": "[[1, 10, 100], [3, 20, 200], [3, 50, 30…",
+              "step": "1"
             },
             "tones": {
               "p": "ok",
@@ -1204,6 +1202,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks include sum, max and mean, and a test that changing one.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": {
+                  "var": "size_mb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "p",
@@ -1218,10 +1233,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include sum, max and mean, and a test that changing one.",
-            "activeActor": "p",
+            "at": "say10",
+            "caption": "If a mean check fails, check that you divide by the number of workers, not.",
+            "activeActor": "ring",
             "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": {
+                  "var": "size_mb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "size_mb",
                 "to": "p",
@@ -1241,14 +1276,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "If a mean check fails, check that you divide by the number of workers, not.",
-            "activeActor": "ring",
-            "messages": [
+              },
               {
                 "from": "size_mb",
                 "to": "p",
@@ -1291,12 +1319,6 @@
                 "to": "p",
                 "label": "1000",
                 "tone": "data"
-              },
-              {
-                "from": "p",
-                "to": "ring",
-                "label": "2",
-                "tone": "ok"
               }
             ],
             "activeActor": "size_mb"
@@ -1324,6 +1346,30 @@
             "at": "say10",
             "caption": "If a mean check fails, check that you divide by the number of workers, not.",
             "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": "2",
+                "tone": "ok"
+              },
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": "2",
+                "tone": "ok"
+              },
               {
                 "from": "size_mb",
                 "to": "p",

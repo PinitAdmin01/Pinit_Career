@@ -276,7 +276,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how usually updates quoted during execution.",
+            "caption": "Verify the vega transition driving usually behavior.",
             "bars": [
               {
                 "label": "T",
@@ -392,7 +392,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how usually updates quoted during execution.",
+            "caption": "Verify the vega transition driving usually behavior.",
             "bars": [
               {
                 "label": "T",
@@ -496,7 +496,7 @@
           },
           {
             "at": "say2",
-            "caption": "For implied volatility, f(sigma) = BlackScholes(sigma) - market price,.",
+            "caption": "Verify the implied transition driving volatility behavior.",
             "bars": [
               {
                 "label": "S",
@@ -612,7 +612,7 @@
           },
           {
             "at": "say2",
-            "caption": "For implied volatility, f(sigma) = BlackScholes(sigma) - market price,.",
+            "caption": "Verify the implied transition driving volatility behavior.",
             "bars": [
               {
                 "label": "S",
@@ -710,16 +710,14 @@
                 "hit": 1
               },
               "r": {
-                "var": "r",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "S": "data",
               "K": "data",
               "T": "data",
-              "r": "data"
+              "r": "idle"
             },
             "arrows": [
               [
@@ -859,13 +857,13 @@
               "S": "100",
               "K": "100",
               "T": "1",
-              "r": "0.05"
+              "r": ""
             },
             "tones": {
               "S": "data",
               "K": "data",
               "T": "data",
-              "r": "data"
+              "r": "idle"
             },
             "arrows": [
               [
@@ -971,6 +969,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Plotting implied volatility against strike usually shows a smile or a skew.",
+            "activeActor": "atm_vol",
+            "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": {
+                  "var": "strikes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "atm_vol",
@@ -985,10 +1000,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Plotting implied volatility against strike usually shows a smile or a skew.",
-            "activeActor": "atm_vol",
+            "at": "say7",
+            "caption": "Understanding the surface is the step from \"knowing the formula\".",
+            "activeActor": "skew",
             "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": {
+                  "var": "strikes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": {
+                  "var": "atm_vol",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "strikes",
                 "to": "atm_vol",
@@ -1008,14 +1043,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Understanding the surface is the step from \"knowing the formula\".",
-            "activeActor": "skew",
-            "messages": [
+              },
               {
                 "from": "strikes",
                 "to": "atm_vol",
@@ -1058,12 +1086,6 @@
                 "to": "atm_vol",
                 "label": "[80, 90, 100, 110, 120]",
                 "tone": "data"
-              },
-              {
-                "from": "atm_vol",
-                "to": "skew",
-                "label": "0.2",
-                "tone": "ok"
               }
             ],
             "activeActor": "strikes"
@@ -1102,6 +1124,30 @@
                 "to": "skew",
                 "label": "0.2",
                 "tone": "ok"
+              },
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": "[80, 90, 100, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": "0.2",
+                "tone": "ok"
+              },
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": "[80, 90, 100, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": "0.2",
+                "tone": "ok"
               }
             ],
             "activeActor": "skew"
@@ -1118,7 +1164,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Implied_vol(price, S, K, T, r, guess=0.",
+            "caption": "Practice 1: implied_vol(price, S, K, T, r, guess=0.2, tol=1e-6, max_iter=50).",
             "bars": [
               {
                 "label": "price",
@@ -1250,7 +1296,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Implied_vol(price, S, K, T, r, guess=0.",
+            "caption": "Practice 1: implied_vol(price, S, K, T, r, guess=0.2, tol=1e-6, max_iter=50).",
             "bars": [
               {
                 "label": "price",

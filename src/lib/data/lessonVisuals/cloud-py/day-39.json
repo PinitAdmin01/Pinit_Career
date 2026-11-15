@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "c_spiffe": {
-                "var": "c_spiffe",
-                "line": 14,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "trust_domain": "data",
               "mesh": "data",
-              "c_spiffe": "data"
+              "c_spiffe": "idle"
             },
             "arrows": [
               [
@@ -124,7 +122,7 @@
           },
           {
             "at": "say8",
-            "caption": "Short-lived certificates drastically reduce exposure windows if a private.",
+            "caption": "Examine the service value produced for mtls processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -199,13 +197,13 @@
               "self": "<ServiceMeshHandshakeModel>",
               "trust_domain": "'cluster.local'",
               "mesh": "<ServiceMeshHandshakeModel>",
-              "c_spiffe": "'spiffe://cluster.local/ns/prod/sa/orde…"
+              "c_spiffe": ""
             },
             "tones": {
               "self": "data",
               "trust_domain": "data",
               "mesh": "data",
-              "c_spiffe": "data"
+              "c_spiffe": "idle"
             },
             "arrows": [
               [
@@ -254,7 +252,7 @@
           },
           {
             "at": "say8",
-            "caption": "Short-lived certificates drastically reduce exposure windows if a private.",
+            "caption": "Examine the service value produced for mtls processing.",
             "values": {
               "self": "<ServiceMeshHandshakeModel>",
               "trust_domain": "'cluster.local'",
@@ -378,7 +376,7 @@
           },
           {
             "at": "say8",
-            "caption": "Consecutive gateway error thresholds can be configured alongside.",
+            "caption": "Examine the service value produced for envoy processing.",
             "bars": [
               {
                 "label": "consecutive_5x",
@@ -478,7 +476,7 @@
           },
           {
             "at": "say8",
-            "caption": "Consecutive gateway error thresholds can be configured alongside.",
+            "caption": "Examine the service value produced for envoy processing.",
             "bars": [
               {
                 "label": "consecutive_5x",
@@ -550,16 +548,14 @@
                 "hit": 1
               },
               "scoped_mesh_kb": {
-                "var": "scoped_mesh_kb",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_cluster_services": "data",
               "scoped_dependencies": "data",
               "full_mesh_kb": "data",
-              "scoped_mesh_kb": "data"
+              "scoped_mesh_kb": "idle"
             },
             "arrows": [
               [
@@ -699,13 +695,13 @@
               "total_cluster_services": "500",
               "scoped_dependencies": "['auth', 'db-proxy', 'fraud', 'ledger',…",
               "full_mesh_kb": "25000",
-              "scoped_mesh_kb": "300"
+              "scoped_mesh_kb": ""
             },
             "tones": {
               "total_cluster_services": "data",
               "scoped_dependencies": "data",
               "full_mesh_kb": "data",
-              "scoped_mesh_kb": "data"
+              "scoped_mesh_kb": "idle"
             },
             "arrows": [
               [
@@ -830,16 +826,14 @@
                 "hit": 1
               },
               "max_requests": {
-                "var": "max_requests",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "max_connections": "data",
               "max_pending": "data",
-              "max_requests": "data"
+              "max_requests": "idle"
             },
             "arrows": [
               [
@@ -904,7 +898,7 @@
           },
           {
             "at": "say7",
-            "caption": "Decoupling timeout budgets and retry policies between client proxies.",
+            "caption": "Examine the cascading value produced for microservice processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -979,13 +973,13 @@
               "self": "<EnvoyCircuitBreaker>",
               "max_connections": "5",
               "max_pending": "2",
-              "max_requests": "3"
+              "max_requests": ""
             },
             "tones": {
               "self": "data",
               "max_connections": "data",
               "max_pending": "data",
-              "max_requests": "data"
+              "max_requests": "idle"
             },
             "arrows": [
               [
@@ -1034,7 +1028,7 @@
           },
           {
             "at": "say7",
-            "caption": "Decoupling timeout budgets and retry policies between client proxies.",
+            "caption": "Examine the cascading value produced for microservice processing.",
             "values": {
               "self": "<EnvoyCircuitBreaker>",
               "max_connections": "5",
@@ -1091,6 +1085,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Envoy proxies emit rich Prometheus metrics.",
+            "activeActor": "degraded",
+            "messages": [
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "degraded",
@@ -1105,10 +1116,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Envoy proxies emit rich Prometheus metrics.",
-            "activeActor": "degraded",
+            "at": "say7",
+            "caption": "Automated alerts on certificate expiration margins prevent catastrophic.",
+            "activeActor": "mesh_telemetry",
             "messages": [
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": {
+                  "var": "degraded",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "healthy",
                 "to": "degraded",
@@ -1128,14 +1159,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Automated alerts on certificate expiration margins prevent catastrophic.",
-            "activeActor": "mesh_telemetry",
-            "messages": [
+              },
               {
                 "from": "healthy",
                 "to": "degraded",
@@ -1178,12 +1202,6 @@
                 "to": "degraded",
                 "label": "{'days_until_cert_expiry': 14, 'ejectio…",
                 "tone": "data"
-              },
-              {
-                "from": "degraded",
-                "to": "mesh_telemetry",
-                "label": "{'days_until_cert_expiry': 1, 'ejection…",
-                "tone": "ok"
               }
             ],
             "activeActor": "healthy"
@@ -1211,6 +1229,30 @@
             "at": "say7",
             "caption": "Automated alerts on certificate expiration margins prevent catastrophic.",
             "messages": [
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'days_until_cert_expiry': 14, 'ejectio…",
+                "tone": "data"
+              },
+              {
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": "{'days_until_cert_expiry': 1, 'ejection…",
+                "tone": "ok"
+              },
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'days_until_cert_expiry': 14, 'ejectio…",
+                "tone": "data"
+              },
+              {
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": "{'days_until_cert_expiry': 1, 'ejection…",
+                "tone": "ok"
+              },
               {
                 "from": "healthy",
                 "to": "degraded",

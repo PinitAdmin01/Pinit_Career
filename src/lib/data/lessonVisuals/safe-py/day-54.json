@@ -6,8 +6,8 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Data Hygiene — Foundations & Mathematical Invariants",
-      "codeHash": "c759238b4618d897ce98e73a2c2f2deb06aafd90339dc35ad9c1833c2cc359e5",
+      "partTitle": "Enterprise License Allowlisting via `filter_permissive_license`",
+      "codeHash": "f3e0f71682bf22b78eb471333c2b9d3808e51f49d58d5a764ba19969a277ccb6",
       "spec": {
         "template": "states",
         "title": "Data Hygiene — Foundations & Mathematical Invariants",
@@ -72,7 +72,7 @@
             "transition": {
               "from": "APPROVED_LICENSES",
               "to": "doc_license",
-              "label": "'GPL-3.0'"
+              "label": "'Apache-2.0'"
             },
             "tone": "ok"
           }
@@ -80,7 +80,7 @@
       }
     },
     {
-      "partTitle": "Data Hygiene — Core Algorithm & State Representation",
+      "partTitle": "Pattern Span Scrubbing inside `scrub_toxic_training_spans`",
       "codeHash": "ff901eb47aa0780250a0fc210040498127e0f543ed83c6b70cabe025ab5b326e",
       "spec": {
         "template": "flow",
@@ -152,7 +152,7 @@
           },
           {
             "at": "say2",
-            "caption": "Scrubbing pipelines combine keyword lexicons, heuristic classifiers,.",
+            "caption": "Verify the scrubbing transition driving pipelines behavior.",
             "values": {
               "lexicon": {
                 "var": "lexicon",
@@ -171,7 +171,7 @@
               },
               "count": {
                 "var": "count",
-                "line": 5,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -198,7 +198,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the scrub value produced for toxic processing.",
             "values": {
               "lexicon": {
                 "var": "lexicon",
@@ -217,7 +217,7 @@
               },
               "count": {
                 "var": "count",
-                "line": 6,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -298,12 +298,12 @@
           },
           {
             "at": "say2",
-            "caption": "Scrubbing pipelines combine keyword lexicons, heuristic classifiers,.",
+            "caption": "Verify the scrubbing transition driving pipelines behavior.",
             "values": {
               "lexicon": "{'hateword', 'profanity', 'slur1'}",
               "text": "'Normal educational text with hateword …",
               "banned_lexicon": "{'hateword', 'profanity', 'slur1'}",
-              "count": "0"
+              "count": "1"
             },
             "tones": {
               "lexicon": "data",
@@ -328,12 +328,12 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the scrub value produced for toxic processing.",
             "values": {
               "lexicon": "{'hateword', 'profanity', 'slur1'}",
               "text": "'Normal educational text with hateword …",
               "banned_lexicon": "{'hateword', 'profanity', 'slur1'}",
-              "count": "0"
+              "count": "1"
             },
             "tones": {
               "lexicon": "ok",
@@ -360,7 +360,7 @@
       }
     },
     {
-      "partTitle": "Data Hygiene — Production Implementation & Boundary Mechanics",
+      "partTitle": "Canary Memorization Probes via `CanaryExtractionTester`",
       "codeHash": "86f5da0f3182ba8d68e8417621938cbfb693e0b396ffe9a11c49389c87c8c1e0",
       "spec": {
         "template": "states",
@@ -468,21 +468,21 @@
       }
     },
     {
-      "partTitle": "Data Hygiene — Failure Modes, Hardware Bottlenecks & Debugging",
-      "codeHash": "59d085b66d931a82c6eefc09e65880fa7d9c5dcffc78b16ad84971f5c6fa83c2",
+      "partTitle": "Corpus Redundancy Ratios in `calculate_training_deduplication_ratio`",
+      "codeHash": "c44c4032c5e8952dbb7c5bae0746134ec07780119e5c8bb3b07aa9ad828770ba",
       "spec": {
         "template": "bars",
-        "title": "Data Hygiene — Failure Modes, Hardware Bottlenecks & Debugging",
+        "title": "Corpus Redundancy Ratios in `calculate_training_deduplication_ra",
         "steps": [
           {
             "at": "say1",
-            "caption": "Web-scraped training datasets contain massive numbers of duplicate.",
+            "caption": "Observe how training shapes scraped during this step.",
             "bars": [
               {
                 "label": "total_docs",
                 "value": {
                   "var": "total_docs",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -491,17 +491,22 @@
                 "label": "unique_docs",
                 "value": {
                   "var": "unique_docs",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bounded_unique",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
                 "label": "dedup_ratio",
                 "value": {
-                  "var": "dedup_ratio",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -509,47 +514,52 @@
           },
           {
             "at": "say2",
-            "caption": "Training on duplicate data dramatically exacerbates verbatim memorization.",
+            "caption": "Verify the training transition driving duplicate behavior.",
             "bars": [
               {
                 "label": "total_docs",
                 "value": {
                   "var": "total_docs",
-                  "line": 4,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "unique_docs",
                 "value": {
                   "var": "unique_docs",
-                  "line": 4,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "bounded_unique",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
               },
               {
                 "label": "dedup_ratio",
                 "value": {
-                  "var": "dedup_ratio",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "at": "say3",
+            "caption": "Examine the deduplication value produced for data processing.",
             "bars": [
               {
                 "label": "total_docs",
                 "value": {
                   "var": "total_docs",
-                  "line": 4,
-                  "hit": 1
+                  "line": 5,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
@@ -557,8 +567,17 @@
                 "label": "unique_docs",
                 "value": {
                   "var": "unique_docs",
-                  "line": 4,
-                  "hit": 1
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bounded_unique",
+                "value": {
+                  "var": "bounded_unique",
+                  "line": 5,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
@@ -566,8 +585,8 @@
                 "label": "dedup_ratio",
                 "value": {
                   "var": "dedup_ratio",
-                  "line": 4,
-                  "hit": 1
+                  "line": 5,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -577,11 +596,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Data Hygiene — Failure Modes, Hardware Bottlenecks & Debugging",
+        "title": "Corpus Redundancy Ratios in `calculate_training_deduplication_ra",
         "steps": [
           {
             "at": "say1",
-            "caption": "Web-scraped training datasets contain massive numbers of duplicate.",
+            "caption": "Observe how training shapes scraped during this step.",
             "bars": [
               {
                 "label": "total_docs",
@@ -594,50 +613,65 @@
                 "tone": "data"
               },
               {
+                "label": "bounded_unique",
+                "value": 0,
+                "tone": "data"
+              },
+              {
                 "label": "dedup_ratio",
-                "value": 22,
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Training on duplicate data dramatically exacerbates verbatim memorization.",
+            "caption": "Verify the training transition driving duplicate behavior.",
             "bars": [
               {
                 "label": "total_docs",
-                "value": 1000000,
-                "tone": "ok"
+                "value": 0,
+                "tone": "data"
               },
               {
                 "label": "unique_docs",
-                "value": 780000,
-                "tone": "ok"
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "bounded_unique",
+                "value": 0,
+                "tone": "data"
               },
               {
                 "label": "dedup_ratio",
-                "value": 22,
-                "tone": "ok"
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "at": "say3",
+            "caption": "Examine the deduplication value produced for data processing.",
             "bars": [
               {
                 "label": "total_docs",
-                "value": 1000000,
+                "value": 0,
                 "tone": "ok"
               },
               {
                 "label": "unique_docs",
-                "value": 780000,
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "bounded_unique",
+                "value": 0,
                 "tone": "ok"
               },
               {
                 "label": "dedup_ratio",
-                "value": 22,
+                "value": 100,
                 "tone": "ok"
               }
             ]
@@ -646,7 +680,7 @@
       }
     },
     {
-      "partTitle": "Data Hygiene — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Pre-Training Release Certification via `audit_dataset_hygiene_certification`",
       "codeHash": "ec228d11c8848f13c22d6e98d31b7ecb13539c4f2e155ec74f1b41e1d5ddc64f",
       "spec": {
         "template": "states",

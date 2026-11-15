@@ -495,19 +495,325 @@
       "partTitle": "SQL vs NoSQL",
       "codeHash": "910de9d76d1d766834ef0dad2ad13a4722b5b9f5748c8524bf7bb0c229426b06",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "SQL vs NoSQL",
+        "columns": [
+          "need",
+          "good_choice"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "PostgreSQL is a relational, or SQL, database.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "need"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "good_choice"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "need"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "good_choice"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Document databases like MongoDB store JSON-like documents instead of rows.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "need"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "good_choice"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "need"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "good_choice"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "need"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "good_choice"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "need"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "good_choice"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "SQL vs NoSQL",
+        "columns": [
+          "need",
+          "good_choice"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "PostgreSQL is a relational, or SQL, database.",
+            "rows": [
+              {
+                "cells": [
+                  "orders and payments",
+                  "PostgreSQL"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "fast cache and sessions",
+                  "Redis"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Document databases like MongoDB store JSON-like documents instead of rows.",
+            "rows": [
+              {
+                "cells": [
+                  "orders and payments",
+                  "PostgreSQL"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "fast cache and sessions",
+                  "Redis"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "flexible documents",
+                  "MongoDB or PostgreSQL jsonb"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "full-text search",
+                  "Elasticsearch"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a production checklist",
       "codeHash": "fcd2ec405bcd84cc143ebd2b90219a1c7211dc91a919fe2690d43abe10f7048a",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Putting it together: a production checklist",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect putting updates as query tracks checklist state.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE checklist (item text, done boolean)"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Backups: daily automatic backups, stored elsewhere, and a tested restore.",
+            "values": {
+              "query": {
+                "text": "SELECT count(*) FILTER (WHERE done) AS done, count(*) AS total FROM checklist;"
+              },
+              "db": {
+                "text": "SQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "done"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Putting it together: a production checklist",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect putting updates as query tracks checklist state.",
+            "values": {
+              "query": "CREATE TABLE checklist (item text, done boolean)",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Backups: daily automatic backups, stored elsewhere, and a tested restore.",
+            "values": {
+              "query": "SELECT count(*) FILTER (WHERE done) AS done, count(*) AS total FROM checklist;",
+              "db": "SQL",
+              "res": "5"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     }
   ]
 }

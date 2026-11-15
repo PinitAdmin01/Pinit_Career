@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Why hybrid search",
-      "codeHash": "48e7d32b0bf6424c3eb80e61847ab86de06ea88916db02822cff1d275fd860e3",
+      "codeHash": "9641f6c9997f8dda6e63e4bbda0e500e4cbdbe984345f9e5b6d3c6b326fc2edd",
       "spec": {
         "template": "cells",
         "title": "Why hybrid search",
@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each document scores the sum, over all rankings it appears in, of 1 (k +.",
+            "caption": "Verify the rank transition driving document behavior.",
             "items": {
               "var": "dense",
               "line": 5,
@@ -196,7 +196,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each document scores the sum, over all rankings it appears in, of 1 (k +.",
+            "caption": "Verify the rank transition driving document behavior.",
             "items": [
               "'d2'",
               "'d1'",
@@ -231,7 +231,7 @@
     },
     {
       "partTitle": "Normalised score fusion",
-      "codeHash": "1ef4326b21f51ba8a9c89125663494f2095870f83b3677f000e75dc02f5cc6c0",
+      "codeHash": "c27249c6fc4a3dd3359f64fc3e1f57b04abb967b1fcc8f34b38603c0329096e7",
       "spec": {
         "template": "flow",
         "title": "Normalised score fusion",
@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "Choosing a fusion method",
-      "codeHash": "1c69f4c0d51468ea602a33234ee2ab7ee404d9d3501250df809955494b195ae5",
+      "codeHash": "ad663c43fbdc452363ab1a12c798e30cb7848e539b1fbf14549c695cd14b40a1",
       "spec": {
         "template": "flow",
         "title": "Choosing a fusion method",

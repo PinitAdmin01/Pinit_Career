@@ -124,7 +124,7 @@
           },
           {
             "at": "say7",
-            "caption": "Inspect the output dictionary printed below.",
+            "caption": "Examine the vocabulary value produced for token processing.",
             "values": {
               "next_logits": {
                 "var": "next_logits",
@@ -254,7 +254,7 @@
           },
           {
             "at": "say7",
-            "caption": "Inspect the output dictionary printed below.",
+            "caption": "Examine the vocabulary value produced for token processing.",
             "values": {
               "next_logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
               "logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
@@ -299,8 +299,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how decide updates vocabulary during execution.",
+            "caption": "Observe how decide shapes vocabulary during this step.",
             "activeActor": "sample",
+            "messages": [
+              {
+                "from": "sample",
+                "to": "self",
+                "label": {
+                  "var": "sample",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Instead, inference engines compile regular grammars and non-recursive JSON.",
+            "activeActor": "self",
             "messages": [
               {
                 "from": "sample",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Instead, inference engines compile regular grammars and non-recursive JSON.",
-            "activeActor": "self",
+            "at": "say8",
+            "caption": "Each generated character advances one constant-time lookup edge.",
+            "activeActor": "dfa",
             "messages": [
+              {
+                "from": "sample",
+                "to": "self",
+                "label": {
+                  "var": "sample",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "dfa",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "sample",
                 "to": "self",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Notice that invalid digits inside `'{\"ok\":123}'` abort the moment.",
-            "activeActor": "dfa",
-            "messages": [
+              },
               {
                 "from": "sample",
                 "to": "self",
@@ -391,19 +421,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how decide updates vocabulary during execution.",
+            "caption": "Observe how decide shapes vocabulary during this step.",
             "messages": [
               {
                 "from": "sample",
                 "to": "self",
                 "label": "'{\"ok\":true}'",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "dfa",
-                "label": "<JsonBoolObjectDFA>",
-                "tone": "ok"
               }
             ],
             "activeActor": "sample"
@@ -429,8 +453,32 @@
           },
           {
             "at": "say8",
-            "caption": "Notice that invalid digits inside `'{\"ok\":123}'` abort the moment.",
+            "caption": "Each generated character advances one constant-time lookup edge.",
             "messages": [
+              {
+                "from": "sample",
+                "to": "self",
+                "label": "'{\"ok\":true}'",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "dfa",
+                "label": "<JsonBoolObjectDFA>",
+                "tone": "ok"
+              },
+              {
+                "from": "sample",
+                "to": "self",
+                "label": "'{\"ok\":true}'",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "dfa",
+                "label": "<JsonBoolObjectDFA>",
+                "tone": "ok"
+              },
               {
                 "from": "sample",
                 "to": "self",
@@ -490,7 +538,7 @@
           },
           {
             "at": "say2",
-            "caption": "Once `\"status\":\"` finishes emitting, allowed character paths branch.",
+            "caption": "Verify the enum transition driving once behavior.",
             "activeActor": "pfx",
             "messages": [
               {
@@ -574,7 +622,7 @@
           },
           {
             "at": "say2",
-            "caption": "Once `\"status\":\"` finishes emitting, allowed character paths branch.",
+            "caption": "Verify the enum transition driving once behavior.",
             "messages": [
               {
                 "from": "statuses",
@@ -627,7 +675,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "One classic subtlety in subword BPE tokenization occurs when a.",
+            "caption": "Observe how token shapes classic during this step.",
             "activeActor": "TRANSITIONS",
             "messages": [
               {
@@ -719,7 +767,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "One classic subtlety in subword BPE tokenization occurs when a.",
+            "caption": "Observe how token shapes classic during this step.",
             "messages": [
               {
                 "from": "TRANSITIONS",

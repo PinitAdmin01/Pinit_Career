@@ -247,7 +247,7 @@
               },
               "seen": {
                 "var": "seen",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -279,8 +279,8 @@
               },
               "seen": {
                 "var": "seen",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -337,7 +337,7 @@
               "vector": "[{'id': 'c2', 'text': 'UPI refunds: 2 d…",
               "keyword": "[{'id': 'c9', 'text': 'ERR-UPI-7 guide'…",
               "result_lists": "[[{'id': 'c2', 'text': 'UPI refunds: 2 …",
-              "seen": "set()"
+              "seen": "{'c2'}"
             },
             "tones": {
               "vector": "data",
@@ -353,7 +353,7 @@
               "vector": "[{'id': 'c2', 'text': 'UPI refunds: 2 d…",
               "keyword": "[{'id': 'c9', 'text': 'ERR-UPI-7 guide'…",
               "result_lists": "[[{'id': 'c2', 'text': 'UPI refunds: 2 …",
-              "seen": "set()"
+              "seen": "{'c2', 'c5'}"
             },
             "tones": {
               "vector": "ok",
@@ -438,12 +438,12 @@
               },
               "seen": {
                 "var": "seen",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "merged": {
                 "var": "merged",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -470,12 +470,12 @@
               },
               "seen": {
                 "var": "seen",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "merged": {
                 "var": "merged",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -532,8 +532,8 @@
             "values": {
               "scores": "{'c2': 0.95, 'c5': 0.4, 'c9': 0.7}",
               "query": "'When do UPI refunds arrive?'",
-              "seen": "set()",
-              "merged": "[]"
+              "seen": "{'c2'}",
+              "merged": "[{'id': 'c2', 'text': 'UPI refunds arri…"
             },
             "tones": {
               "scores": "data",
@@ -548,8 +548,8 @@
             "values": {
               "scores": "{'c2': 0.95, 'c5': 0.4, 'c9': 0.7}",
               "query": "'When do UPI refunds arrive?'",
-              "seen": "set()",
-              "merged": "[]"
+              "seen": "{'c2', 'c5'}",
+              "merged": "[{'id': 'c2', 'text': 'UPI refunds arri…"
             },
             "tones": {
               "scores": "ok",
@@ -606,16 +606,14 @@
                 "hit": 1
               },
               "totals": {
-                "var": "totals",
-                "line": 9,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "retrieval_ms": "data",
               "rerank_ms": "data",
               "generation_ms": "data",
-              "totals": "data"
+              "totals": "idle"
             },
             "arrows": [
               [
@@ -680,7 +678,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how budget updates example during execution.",
+            "caption": "Examine the budget value produced for example processing.",
             "values": {
               "retrieval_ms": {
                 "var": "retrieval_ms",
@@ -755,13 +753,13 @@
               "retrieval_ms": "120",
               "rerank_ms": "180",
               "generation_ms": "700",
-              "totals": "[900, 950, 1000, 1020, 1100, 1150, 1200…"
+              "totals": ""
             },
             "tones": {
               "retrieval_ms": "data",
               "rerank_ms": "data",
               "generation_ms": "data",
-              "totals": "data"
+              "totals": "idle"
             },
             "arrows": [
               [
@@ -810,7 +808,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how budget updates example during execution.",
+            "caption": "Examine the budget value produced for example processing.",
             "values": {
               "retrieval_ms": "120",
               "rerank_ms": "180",
@@ -867,6 +865,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If one search fails, continue with the other.",
+            "activeActor": "log",
+            "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": {
+                  "var": "question",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "log",
@@ -881,10 +896,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If one search fails, continue with the other.",
-            "activeActor": "log",
+            "at": "say6",
+            "caption": "Test each failure path with a fake that raises an error, just as you.",
+            "activeActor": "query",
             "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": {
+                  "var": "question",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": {
+                  "var": "log",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "question",
                 "to": "log",
@@ -904,14 +939,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Test each failure path with a fake that raises an error, just as you.",
-            "activeActor": "query",
-            "messages": [
+              },
               {
                 "from": "question",
                 "to": "log",
@@ -954,12 +982,6 @@
                 "to": "log",
                 "label": "'What is error UPI-7?'",
                 "tone": "data"
-              },
-              {
-                "from": "log",
-                "to": "query",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "question"
@@ -987,6 +1009,30 @@
             "at": "say6",
             "caption": "Test each failure path with a fake that raises an error, just as you.",
             "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": "'What is error UPI-7?'",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "question",
+                "to": "log",
+                "label": "'What is error UPI-7?'",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "question",
                 "to": "log",
@@ -1031,6 +1077,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When a user reports a bad answer, the trace shows whether retrieval.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": {
+                  "var": "trace",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "name",
@@ -1045,10 +1108,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When a user reports a bad answer, the trace shows whether retrieval.",
-            "activeActor": "name",
+            "at": "say6",
+            "caption": "Congratulations on completing Milestone 2.",
+            "activeActor": "args",
             "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": {
+                  "var": "trace",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "trace",
                 "to": "name",
@@ -1068,14 +1151,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Congratulations on completing Milestone 2.",
-            "activeActor": "args",
-            "messages": [
+              },
               {
                 "from": "trace",
                 "to": "name",
@@ -1118,12 +1194,6 @@
                 "to": "name",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "name",
-                "to": "args",
-                "label": "'vector_search'",
-                "tone": "ok"
               }
             ],
             "activeActor": "trace"
@@ -1151,6 +1221,30 @@
             "at": "say6",
             "caption": "Congratulations on completing Milestone 2.",
             "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": "'vector_search'",
+                "tone": "ok"
+              },
+              {
+                "from": "trace",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": "'vector_search'",
+                "tone": "ok"
+              },
               {
                 "from": "trace",
                 "to": "name",

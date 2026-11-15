@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "engine": {
-                "var": "engine",
-                "line": 70,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "CONSTITUTION": "data",
               "self": "data",
               "principles": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "CONSTITUTION": "[<Principle>, <Principle>]",
               "self": "<ConstitutionalRefiner>",
               "principles": "[<Principle>, <Principle>]",
-              "engine": "<ConstitutionalRefiner>"
+              "engine": ""
             },
             "tones": {
               "CONSTITUTION": "data",
               "self": "data",
               "principles": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [
@@ -312,7 +310,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While Constitutional AI focuses on ethical alignment, safety,.",
+            "caption": "The seminal Self-Instruct framework introduced by Wang et al.",
             "values": {
               "self": {
                 "var": "self",
@@ -474,7 +472,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While Constitutional AI focuses on ethical alignment, safety,.",
+            "caption": "The seminal Self-Instruct framework introduced by Wang et al.",
             "values": {
               "self": "<EvolInstructEngine>",
               "engine": "<EvolInstructEngine>",
@@ -647,7 +645,7 @@
               },
               "self": {
                 "var": "self",
-                "line": 7,
+                "line": 32,
                 "hit": 1
               },
               "benchmark_texts": {
@@ -693,8 +691,8 @@
               },
               "self": {
                 "var": "self",
-                "line": 15,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "benchmark_texts": {
                 "var": "benchmark_texts",
@@ -787,7 +785,7 @@
             "caption": "The filtering pipeline begins with structural and heuristic hygiene checks.",
             "values": {
               "BENCHMARK": "['Suppose Alice has three apples and Bo…",
-              "self": "<BenchmarkDecontaminator>",
+              "self": "<MinHashDeduplicator>",
               "benchmark_texts": "['Suppose Alice has three apples and Bo…",
               "n_gram_size": "8"
             },
@@ -886,7 +884,7 @@
           },
           {
             "at": "say8",
-            "caption": "Beyond scalar difficulty scoring, maintaining task diversity across.",
+            "caption": "Examine the task value produced for diversity processing.",
             "items": {
               "var": "words",
               "line": 38,
@@ -950,7 +948,7 @@
           },
           {
             "at": "say8",
-            "caption": "Beyond scalar difficulty scoring, maintaining task diversity across.",
+            "caption": "Examine the task value produced for diversity processing.",
             "items": [
               "'write'",
               "'a'",

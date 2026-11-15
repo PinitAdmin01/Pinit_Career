@@ -41,15 +41,13 @@
                 "hit": 1
               },
               "oov": {
-                "var": "oov",
-                "line": 3,
-                "hit": 9
+                "text": ""
               }
             },
             "tones": {
               "vocab": "data",
               "sentence": "data",
-              "oov": "data"
+              "oov": "idle"
             },
             "arrows": [
               [
@@ -100,7 +98,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how fasttext updates facebook during execution.",
+            "caption": "Examine the fasttext value produced for facebook processing.",
             "values": {
               "vocab": {
                 "var": "vocab",
@@ -160,12 +158,12 @@
             "values": {
               "vocab": "{'cat', 'friend', 'mat', 'on', 'run', '…",
               "sentence": "['the', 'unfriendly', 'cat', 'was', 'ru…",
-              "oov": "['unfriendly', 'was', 'runnning', 'teh']"
+              "oov": ""
             },
             "tones": {
               "vocab": "data",
               "sentence": "data",
-              "oov": "data"
+              "oov": "idle"
             },
             "arrows": [
               [
@@ -204,7 +202,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how fasttext updates facebook during execution.",
+            "caption": "Examine the fasttext value produced for facebook processing.",
             "values": {
               "vocab": "{'cat', 'friend', 'mat', 'on', 'run', '…",
               "sentence": "['the', 'unfriendly', 'cat', 'was', 'ru…",
@@ -348,7 +346,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "During training, FastText learns a vector for every character n-gram (and.",
+            "caption": "Observe how during shapes training during this step.",
             "bars": [
               {
                 "label": "n",
@@ -426,7 +424,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "During training, FastText learns a vector for every character n-gram (and.",
+            "caption": "Observe how during shapes training during this step.",
             "bars": [
               {
                 "label": "n",
@@ -655,7 +653,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how byte updates pair during execution.",
+            "caption": "Verify the byte transition driving pair behavior.",
             "values": {
               "BUCKETS": {
                 "var": "BUCKETS",
@@ -771,7 +769,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how byte updates pair during execution.",
+            "caption": "Verify the byte transition driving pair behavior.",
             "values": {
               "BUCKETS": "8",
               "g": "'<ru'",
@@ -847,14 +845,12 @@
                 "hit": 1
               },
               "columns": {
-                "var": "columns",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "rows": "data",
-              "columns": "data"
+              "columns": "idle"
             },
             "arrows": [
               [
@@ -936,11 +932,11 @@
             "caption": "Char_ngrams(word, min_n, max_n).",
             "values": {
               "rows": "[[1, 0, 3], [0, 1, 1]]",
-              "columns": "[[1, 0], [0, 1], [3, 1]]"
+              "columns": ""
             },
             "tones": {
               "rows": "data",
-              "columns": "data"
+              "columns": "idle"
             },
             "arrows": [
               [

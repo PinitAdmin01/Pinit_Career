@@ -46,7 +46,7 @@
           },
           {
             "at": "say2",
-            "caption": "At the completion of each backward pass, gradients computed locally across.",
+            "caption": "Verify the completion transition driving backward behavior.",
             "activeActor": "name",
             "messages": [
               {
@@ -73,7 +73,7 @@
           },
           {
             "at": "say11",
-            "caption": "Distributed systems architects master collective communication mathematics.",
+            "caption": "Examine the ring value produced for reduce processing.",
             "activeActor": "desc",
             "messages": [
               {
@@ -130,7 +130,7 @@
           },
           {
             "at": "say2",
-            "caption": "At the completion of each backward pass, gradients computed locally across.",
+            "caption": "Verify the completion transition driving backward behavior.",
             "messages": [
               {
                 "from": "RING_ALLREDUCE_TAXONOMY",
@@ -149,7 +149,7 @@
           },
           {
             "at": "say11",
-            "caption": "Distributed systems architects master collective communication mathematics.",
+            "caption": "Examine the ring value produced for reduce processing.",
             "messages": [
               {
                 "from": "RING_ALLREDUCE_TAXONOMY",
@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For a 14-gigabyte model gradient tensor distributed across 8 GPUs, each.",
+            "activeActor": "num_gpus",
+            "messages": [
+              {
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": {
+                  "var": "tensor_size_gb",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "num_gpus",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "For a 14-gigabyte model gradient tensor distributed across 8 GPUs, each.",
-            "activeActor": "num_gpus",
+            "at": "say9",
+            "caption": "Infrastructure teams use bandwidth calculators to benchmark and validate.",
+            "activeActor": "transferred",
             "messages": [
+              {
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": {
+                  "var": "tensor_size_gb",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": {
+                  "var": "num_gpus",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tensor_size_gb",
                 "to": "num_gpus",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Infrastructure teams use bandwidth calculators to benchmark and validate.",
-            "activeActor": "transferred",
-            "messages": [
+              },
               {
                 "from": "tensor_size_gb",
                 "to": "num_gpus",
@@ -282,12 +312,6 @@
                 "to": "num_gpus",
                 "label": "14",
                 "tone": "data"
-              },
-              {
-                "from": "num_gpus",
-                "to": "transferred",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "tensor_size_gb"
@@ -315,6 +339,30 @@
             "at": "say9",
             "caption": "Infrastructure teams use bandwidth calculators to benchmark and validate.",
             "messages": [
+              {
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": "14",
+                "tone": "data"
+              },
+              {
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": "14",
+                "tone": "data"
+              },
+              {
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": "8",
+                "tone": "ok"
+              },
               {
                 "from": "tensor_size_gb",
                 "to": "num_gpus",
@@ -426,7 +474,7 @@
           },
           {
             "at": "say10",
-            "caption": "Performance engineers tune gradient bucket sizes in distributed data.",
+            "caption": "Examine the ring value produced for reduce processing.",
             "bars": [
               {
                 "label": "num_gpus",
@@ -526,7 +574,7 @@
           },
           {
             "at": "say10",
-            "caption": "Performance engineers tune gradient bucket sizes in distributed data.",
+            "caption": "Examine the ring value produced for reduce processing.",
             "bars": [
               {
                 "label": "num_gpus",
@@ -818,16 +866,14 @@
                 "hit": 1
               },
               "controls": {
-                "var": "controls",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "ring_optimal": "data",
               "step_simulated": "data",
               "straggler_guard_ok": "data",
-              "controls": "data"
+              "controls": "idle"
             },
             "arrows": [
               [
@@ -967,13 +1013,13 @@
               "ring_optimal": "True",
               "step_simulated": "True",
               "straggler_guard_ok": "True",
-              "controls": "{'RING_BANDWIDTH_FORMULA': True, 'STEP_…"
+              "controls": ""
             },
             "tones": {
               "ring_optimal": "data",
               "step_simulated": "data",
               "straggler_guard_ok": "data",
-              "controls": "data"
+              "controls": "idle"
             },
             "arrows": [
               [

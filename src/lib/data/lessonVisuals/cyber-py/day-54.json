@@ -255,6 +255,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Nodes in the graph represent IAM users, federated roles, and service accounts.",
+            "activeActor": "graph",
+            "messages": [
+              {
+                "from": "iam_graph",
+                "to": "graph",
+                "label": {
+                  "var": "iam_graph",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "graph",
@@ -269,10 +286,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Nodes in the graph represent IAM users, federated roles, and service accounts.",
-            "activeActor": "graph",
+            "at": "say10",
+            "caption": "Examine the mutually value produced for trusting processing.",
+            "activeActor": "start_identity",
             "messages": [
+              {
+                "from": "iam_graph",
+                "to": "graph",
+                "label": {
+                  "var": "iam_graph",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "graph",
+                "to": "start_identity",
+                "label": {
+                  "var": "graph",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "iam_graph",
                 "to": "graph",
@@ -292,14 +329,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Breadth-first search pathfinding provides cloud architects with clear.",
-            "activeActor": "start_identity",
-            "messages": [
+              },
               {
                 "from": "iam_graph",
                 "to": "graph",
@@ -342,12 +372,6 @@
                 "to": "graph",
                 "label": "{'user:junior_dev': ['role:ci_deployer'…",
                 "tone": "data"
-              },
-              {
-                "from": "graph",
-                "to": "start_identity",
-                "label": "{'user:junior_dev': ['role:ci_deployer'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "iam_graph"
@@ -373,8 +397,32 @@
           },
           {
             "at": "say10",
-            "caption": "Breadth-first search pathfinding provides cloud architects with clear.",
+            "caption": "Examine the mutually value produced for trusting processing.",
             "messages": [
+              {
+                "from": "iam_graph",
+                "to": "graph",
+                "label": "{'user:junior_dev': ['role:ci_deployer'…",
+                "tone": "data"
+              },
+              {
+                "from": "graph",
+                "to": "start_identity",
+                "label": "{'user:junior_dev': ['role:ci_deployer'…",
+                "tone": "ok"
+              },
+              {
+                "from": "iam_graph",
+                "to": "graph",
+                "label": "{'user:junior_dev': ['role:ci_deployer'…",
+                "tone": "data"
+              },
+              {
+                "from": "graph",
+                "to": "start_identity",
+                "label": "{'user:junior_dev': ['role:ci_deployer'…",
+                "tone": "ok"
+              },
               {
                 "from": "iam_graph",
                 "to": "graph",
@@ -653,7 +701,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous IAM posture auditing ensures that infrastructure-as-code.",
+            "caption": "Examine the cloud value produced for production processing.",
             "currentState": "blast_radius_ok",
             "transition": {
               "from": "shadow_detector_ok",
@@ -705,7 +753,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous IAM posture auditing ensures that infrastructure-as-code.",
+            "caption": "Examine the cloud value produced for production processing.",
             "currentState": "blast_radius_ok",
             "transition": {
               "from": "shadow_detector_ok",

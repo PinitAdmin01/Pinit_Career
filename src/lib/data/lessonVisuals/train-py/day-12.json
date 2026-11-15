@@ -228,12 +228,12 @@
               },
               "t": {
                 "var": "t",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "row": {
                 "var": "row",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -274,13 +274,13 @@
               },
               "t": {
                 "var": "t",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "row": {
                 "var": "row",
-                "line": 5,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -364,8 +364,8 @@
             "values": {
               "stages": "3",
               "micro": "4",
-              "t": "0",
-              "row": "[]"
+              "t": "1",
+              "row": "['m1']"
             },
             "tones": {
               "stages": "data",
@@ -394,8 +394,8 @@
             "values": {
               "stages": "3",
               "micro": "4",
-              "t": "0",
-              "row": "[]"
+              "t": "2",
+              "row": "['m1', '--']"
             },
             "tones": {
               "stages": "ok",
@@ -466,17 +466,17 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how stages updates only during execution.",
+            "caption": "Verify the bubble transition driving stages behavior.",
             "values": {
               "p": {
                 "var": "p",
-                "line": 2,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "row": {
                 "var": "row",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 10
               }
             },
             "tones": {
@@ -496,13 +496,13 @@
             "values": {
               "p": {
                 "var": "p",
-                "line": 2,
-                "hit": 2
+                "line": 1,
+                "hit": 3
               },
               "row": {
                 "var": "row",
-                "line": 1,
-                "hit": 2
+                "line": 2,
+                "hit": 15
               }
             },
             "tones": {
@@ -552,10 +552,10 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how stages updates only during execution.",
+            "caption": "Verify the bubble transition driving stages behavior.",
             "values": {
-              "p": "2",
-              "row": "['m=1: 0.500', 'm=4: 0.200', 'm=16: 0.0…"
+              "p": "4",
+              "row": "['m=1: 0.750', 'm=4: 0.429', 'm=16: 0.1…"
             },
             "tones": {
               "p": "data",
@@ -572,8 +572,8 @@
             "at": "say10",
             "caption": "Always compute the bubble before choosing pipeline depth.",
             "values": {
-              "p": "2",
-              "row": "['m=1: 0.500', 'm=4: 0.200', 'm=16: 0.0…"
+              "p": "8",
+              "row": "['m=1: 0.875', 'm=4: 0.636', 'm=16: 0.3…"
             },
             "tones": {
               "p": "ok",
@@ -615,6 +615,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The one-forward-one-backward (1F1B) schedule, used in PipeDream.",
+            "activeActor": "micro",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "micro",
+                "label": {
+                  "var": "stages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "micro",
@@ -629,10 +646,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The one-forward-one-backward (1F1B) schedule, used in PipeDream.",
-            "activeActor": "micro",
+            "at": "say10",
+            "caption": "Embedding and output layers are often large and need special care in stage.",
+            "activeActor": "gpipe",
             "messages": [
+              {
+                "from": "stages",
+                "to": "micro",
+                "label": {
+                  "var": "stages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "micro",
+                "to": "gpipe",
+                "label": {
+                  "var": "micro",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "stages",
                 "to": "micro",
@@ -652,14 +689,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Embedding and output layers are often large and need special care in stage.",
-            "activeActor": "gpipe",
-            "messages": [
+              },
               {
                 "from": "stages",
                 "to": "micro",
@@ -702,12 +732,6 @@
                 "to": "micro",
                 "label": "4",
                 "tone": "data"
-              },
-              {
-                "from": "micro",
-                "to": "gpipe",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "stages"
@@ -735,6 +759,30 @@
             "at": "say10",
             "caption": "Embedding and output layers are often large and need special care in stage.",
             "messages": [
+              {
+                "from": "stages",
+                "to": "micro",
+                "label": "4",
+                "tone": "data"
+              },
+              {
+                "from": "micro",
+                "to": "gpipe",
+                "label": "4",
+                "tone": "ok"
+              },
+              {
+                "from": "stages",
+                "to": "micro",
+                "label": "4",
+                "tone": "data"
+              },
+              {
+                "from": "micro",
+                "to": "gpipe",
+                "label": "4",
+                "tone": "ok"
+              },
               {
                 "from": "stages",
                 "to": "micro",
@@ -779,6 +827,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Transformer blocks are usually identical.",
+            "activeActor": "times",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "times",
@@ -793,10 +858,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Transformer blocks are usually identical, which makes balancing easy, but.",
-            "activeActor": "times",
+            "at": "say10",
+            "caption": "Pipeline balancing is a small version of a classic scheduling problem.",
+            "activeActor": "stages",
             "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": {
+                  "var": "times",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "layer_ms",
                 "to": "times",
@@ -816,14 +901,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Pipeline balancing is a small version of a classic scheduling problem.",
-            "activeActor": "stages",
-            "messages": [
+              },
               {
                 "from": "layer_ms",
                 "to": "times",
@@ -866,19 +944,13 @@
                 "to": "times",
                 "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
                 "tone": "data"
-              },
-              {
-                "from": "times",
-                "to": "stages",
-                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
-                "tone": "ok"
               }
             ],
             "activeActor": "layer_ms"
           },
           {
             "at": "say2",
-            "caption": "Transformer blocks are usually identical, which makes balancing easy, but.",
+            "caption": "Transformer blocks are usually identical.",
             "messages": [
               {
                 "from": "layer_ms",
@@ -899,6 +971,30 @@
             "at": "say10",
             "caption": "Pipeline balancing is a small version of a classic scheduling problem.",
             "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "ok"
+              },
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "ok"
+              },
               {
                 "from": "layer_ms",
                 "to": "times",

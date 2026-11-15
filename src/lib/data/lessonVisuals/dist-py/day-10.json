@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Inside one database, a transaction gives all-or-nothing.",
+            "activeActor": "bank_b",
+            "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": {
+                  "var": "bank_a",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bank_b",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Inside one database, a transaction gives all-or-nothing.",
-            "activeActor": "bank_b",
+            "at": "say7",
+            "caption": "Keep this failure picture in mind.",
+            "activeActor": "amount",
             "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": {
+                  "var": "bank_a",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": {
+                  "var": "bank_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "bank_a",
                 "to": "bank_b",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Keep this failure picture in mind.",
-            "activeActor": "amount",
-            "messages": [
+              },
               {
                 "from": "bank_a",
                 "to": "bank_b",
@@ -118,12 +148,6 @@
                 "to": "bank_b",
                 "label": "{'asha': 1000}",
                 "tone": "data"
-              },
-              {
-                "from": "bank_b",
-                "to": "amount",
-                "label": "{'bala': 200}",
-                "tone": "ok"
               }
             ],
             "activeActor": "bank_a"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Keep this failure picture in mind.",
             "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": "{'asha': 1000}",
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": "{'bala': 200}",
+                "tone": "ok"
+              },
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": "{'asha': 1000}",
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": "{'bala': 200}",
+                "tone": "ok"
+              },
               {
                 "from": "bank_a",
                 "to": "bank_b",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A COMMIT vote is a promise.",
+            "activeActor": "votes",
+            "messages": [
+              {
+                "from": "participants",
+                "to": "votes",
+                "label": {
+                  "var": "participants",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "votes",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A COMMIT vote is a promise.",
-            "activeActor": "votes",
+            "at": "say7",
+            "caption": "The trace below shows both phases for a successful transaction.",
+            "activeActor": "p",
             "messages": [
+              {
+                "from": "participants",
+                "to": "votes",
+                "label": {
+                  "var": "participants",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "votes",
+                "to": "p",
+                "label": {
+                  "var": "votes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "participants",
                 "to": "votes",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The trace below shows both phases for a successful transaction.",
-            "activeActor": "p",
-            "messages": [
+              },
               {
                 "from": "participants",
                 "to": "votes",
@@ -282,12 +360,6 @@
                 "to": "votes",
                 "label": "['bank_a', 'bank_b']",
                 "tone": "data"
-              },
-              {
-                "from": "votes",
-                "to": "p",
-                "label": "{'bank_a': 'VOTE_COMMIT', 'bank_b': 'VO…",
-                "tone": "ok"
               }
             ],
             "activeActor": "participants"
@@ -315,6 +387,30 @@
             "at": "say7",
             "caption": "The trace below shows both phases for a successful transaction.",
             "messages": [
+              {
+                "from": "participants",
+                "to": "votes",
+                "label": "['bank_a', 'bank_b']",
+                "tone": "data"
+              },
+              {
+                "from": "votes",
+                "to": "p",
+                "label": "{'bank_a': 'VOTE_COMMIT', 'bank_b': 'VO…",
+                "tone": "ok"
+              },
+              {
+                "from": "participants",
+                "to": "votes",
+                "label": "['bank_a', 'bank_b']",
+                "tone": "data"
+              },
+              {
+                "from": "votes",
+                "to": "p",
+                "label": "{'bank_a': 'VOTE_COMMIT', 'bank_b': 'VO…",
+                "tone": "ok"
+              },
               {
                 "from": "participants",
                 "to": "votes",
@@ -359,6 +455,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If all are VOTE_COMMIT, call commit() on every cohort and return.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": {
+                  "var": "votes",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -373,10 +486,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If all are VOTE_COMMIT, call commit() on every cohort and return.",
-            "activeActor": "self",
+            "at": "say7",
+            "caption": "The code runs one transaction that commits and one that aborts.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": {
+                  "var": "votes",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "votes",
                 "to": "self",
@@ -396,14 +529,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The code runs one transaction that commits and one that aborts.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "votes",
                 "to": "self",
@@ -446,12 +572,6 @@
                 "to": "self",
                 "label": "['VOTE_COMMIT', 'VOTE_COMMIT']",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "name",
-                "label": "<Cohort>",
-                "tone": "ok"
               }
             ],
             "activeActor": "votes"
@@ -479,6 +599,30 @@
             "at": "say7",
             "caption": "The code runs one transaction that commits and one that aborts.",
             "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": "['VOTE_COMMIT', 'VOTE_COMMIT']",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<Cohort>",
+                "tone": "ok"
+              },
+              {
+                "from": "votes",
+                "to": "self",
+                "label": "['VOTE_COMMIT', 'VOTE_COMMIT']",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<Cohort>",
+                "tone": "ok"
+              },
               {
                 "from": "votes",
                 "to": "self",
@@ -584,13 +728,13 @@
               },
               "tx": {
                 "var": "tx",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "decision": {
                 "var": "decision",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -630,13 +774,13 @@
               },
               "tx": {
                 "var": "tx",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "decision": {
                 "var": "decision",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -720,8 +864,8 @@
             "values": {
               "votes": "['VOTE_COMMIT', 'VOTE_ABORT', 'VOTE_COM…",
               "coordinator_log": "{'tx-1': 'COMMIT', 'tx-2': None}",
-              "tx": "'tx-1'",
-              "decision": "'COMMIT'"
+              "tx": "'tx-2'",
+              "decision": "None"
             },
             "tones": {
               "votes": "data",
@@ -750,8 +894,8 @@
             "values": {
               "votes": "['VOTE_COMMIT', 'VOTE_ABORT', 'VOTE_COM…",
               "coordinator_log": "{'tx-1': 'COMMIT', 'tx-2': None}",
-              "tx": "'tx-1'",
-              "decision": "'COMMIT'"
+              "tx": "'tx-2'",
+              "decision": "None"
             },
             "tones": {
               "votes": "ok",

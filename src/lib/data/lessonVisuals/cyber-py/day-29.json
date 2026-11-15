@@ -264,7 +264,7 @@
           },
           {
             "at": "say10",
-            "caption": "Before eradication, make sure you understand how the attacker got in,.",
+            "caption": "Examine the before value produced for eradication processing.",
             "values": {
               "playbook": {
                 "var": "playbook",
@@ -368,7 +368,7 @@
           },
           {
             "at": "say10",
-            "caption": "Before eradication, make sure you understand how the attacker got in,.",
+            "caption": "Examine the before value produced for eradication processing.",
             "values": {
               "playbook": "{'ransomware on a laptop': ['isolate fr…",
               "incident": "'stolen API key'",

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Before the cloud, a company that wanted to launch a website had to buy.",
+            "activeActor": "server_price_per_month",
+            "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": {
+                  "var": "monthly_peak_servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "server_price_per_month",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Before the cloud, a company that wanted to launch a website had to buy.",
-            "activeActor": "server_price_per_month",
+            "at": "say8",
+            "caption": "The example compares buying servers for your busiest day with renting.",
+            "activeActor": "owned_server_cost",
             "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": {
+                  "var": "monthly_peak_servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": {
+                  "var": "server_price_per_month",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "monthly_peak_servers",
                 "to": "server_price_per_month",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The example compares buying servers for your busiest day with renting.",
-            "activeActor": "owned_server_cost",
-            "messages": [
+              },
               {
                 "from": "monthly_peak_servers",
                 "to": "server_price_per_month",
@@ -118,12 +148,6 @@
                 "to": "server_price_per_month",
                 "label": "[4, 4, 5, 4, 6, 5, 4, 4, 5, 8, 12, 20]",
                 "tone": "data"
-              },
-              {
-                "from": "server_price_per_month",
-                "to": "owned_server_cost",
-                "label": "300",
-                "tone": "ok"
               }
             ],
             "activeActor": "monthly_peak_servers"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "The example compares buying servers for your busiest day with renting.",
             "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": "[4, 4, 5, 4, 6, 5, 4, 4, 5, 8, 12, 20]",
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": "300",
+                "tone": "ok"
+              },
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": "[4, 4, 5, 4, 6, 5, 4, 4, 5, 8, 12, 20]",
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": "300",
+                "tone": "ok"
+              },
               {
                 "from": "monthly_peak_servers",
                 "to": "server_price_per_month",
@@ -316,7 +364,7 @@
           },
           {
             "at": "say2",
-            "caption": "Security OF the cloud means the buildings, the guards, the hardware,.",
+            "caption": "Verify the security transition driving cloud behavior.",
             "values": {
               "LAYERS": {
                 "var": "LAYERS",
@@ -462,7 +510,7 @@
           },
           {
             "at": "say2",
-            "caption": "Security OF the cloud means the buildings, the guards, the hardware,.",
+            "caption": "Verify the security transition driving cloud behavior.",
             "values": {
               "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
               "AWS_OWNS": "{'IaaS': 2, 'PaaS': 4, 'SaaS': 5}",
@@ -616,7 +664,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how later updates course during execution.",
+            "caption": "Examine the later value produced for course processing.",
             "bars": [
               {
                 "label": "total",
@@ -716,7 +764,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how later updates course during execution.",
+            "caption": "Examine the later value produced for course processing.",
             "bars": [
               {
                 "label": "total",
@@ -811,13 +859,13 @@
               },
               "reservation": {
                 "var": "reservation",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "inst": {
                 "var": "inst",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -847,13 +895,13 @@
               },
               "reservation": {
                 "var": "reservation",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "inst": {
                 "var": "inst",
                 "line": 8,
-                "hit": 2
+                "hit": 3
               }
             },
             "tones": {
@@ -921,8 +969,8 @@
             "caption": "The third way is code.",
             "values": {
               "response": "{'Reservations': [{'Instances': [{'Inst…",
-              "reservation": "{'Instances': [{'InstanceId': 'i-0a1', …",
-              "inst": "{'InstanceId': 'i-0a1', 'State': {'Name…"
+              "reservation": "{'Instances': [{'InstanceId': 'i-0b2', …",
+              "inst": "{'InstanceId': 'i-0b2', 'State': {'Name…"
             },
             "tones": {
               "response": "data",
@@ -945,8 +993,8 @@
             "caption": "Notice that responses are nested dictionaries and lists.",
             "values": {
               "response": "{'Reservations': [{'Instances': [{'Inst…",
-              "reservation": "{'Instances': [{'InstanceId': 'i-0a1', …",
-              "inst": "{'InstanceId': 'i-0a1', 'State': {'Name…"
+              "reservation": "{'Instances': [{'InstanceId': 'i-0b2', …",
+              "inst": "{'InstanceId': 'i-0b2', 'State': {'Name…"
             },
             "tones": {
               "response": "ok",
@@ -1054,13 +1102,13 @@
               },
               "i": {
                 "var": "i",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "layer": {
                 "var": "layer",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -1100,13 +1148,13 @@
               },
               "i": {
                 "var": "i",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "layer": {
                 "var": "layer",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -1190,8 +1238,8 @@
             "values": {
               "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
               "aws_count": "4",
-              "i": "0",
-              "layer": "'PHYSICAL_DATACENTER'"
+              "i": "1",
+              "layer": "'HYPERVISOR'"
             },
             "tones": {
               "LAYERS": "data",
@@ -1220,8 +1268,8 @@
             "values": {
               "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
               "aws_count": "4",
-              "i": "0",
-              "layer": "'PHYSICAL_DATACENTER'"
+              "i": "2",
+              "layer": "'OS_PATCHING'"
             },
             "tones": {
               "LAYERS": "ok",

@@ -254,10 +254,33 @@ test('POST /api/quests/verify and server verifier reject unmodified starter / wr
     },
     'def add(a, b):\n    return a - b\n'
   );
-  if (pyWrongOutcome.verificationMode === 'server-python-sandbox') {
-    assert.equal(pyWrongOutcome.ok, false, 'Wrong Python implementation must fail assertion checks');
-    assert.equal(pyWrongOutcome.status, 422);
-  }
+  assert.equal(pyWrongOutcome.ok, false, 'Wrong Python implementation must fail assertion checks');
+  assert.equal(pyWrongOutcome.status, 422);
+
+  const pyJsMarkerOutcome = await verifyQuestSubmissionServerSide(
+    {
+      id: 'py-legacy-bypass-check',
+      language: 'python',
+      starterCode: 'def add(a, b):\n    return 0\n',
+      testSuite: 'if (add(2, 3) !== 5) throw new Error("bad")',
+    },
+    'def add(a, b):\n    return 0 + 1\n'
+  );
+  assert.equal(pyJsMarkerOutcome.ok, false, 'Python quest with JS markers must fail closed, never auto-pass');
+  assert.equal(pyJsMarkerOutcome.status, 500);
+
+  const { runPythonInPyodideFallback } = await import('../src/lib/server/pythonSandbox');
+  const wasmPass = await runPythonInPyodideFallback({
+    code: 'def add(a, b):\n    return a + b\n',
+    tests: 'assert add(2, 3) == 5',
+  });
+  assert.equal(wasmPass.passed, true, `Pyodide fallback must pass valid Python: ${wasmPass.stderr}`);
+  const wasmFail = await runPythonInPyodideFallback({
+    code: 'def add(a, b):\n    return a - b\n',
+    tests: 'assert add(2, 3) == 5',
+  });
+  assert.equal(wasmFail.passed, false);
+  assert.equal(wasmFail.status, 'ASSERTION_FAILED');
 
   const prevBypass = process.env.ALLOW_DEV_AUTH_BYPASS;
   const prevNodeEnv = process.env.NODE_ENV;

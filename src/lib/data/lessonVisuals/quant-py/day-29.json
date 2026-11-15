@@ -580,7 +580,7 @@
           },
           {
             "at": "say7",
-            "caption": "Keeping hardware designs small and focused is both a performance and.",
+            "caption": "Examine the keeping value produced for hardware processing.",
             "bars": [
               {
                 "label": "total",
@@ -661,7 +661,7 @@
           },
           {
             "at": "say7",
-            "caption": "Keeping hardware designs small and focused is both a performance and.",
+            "caption": "Examine the keeping value produced for hardware processing.",
             "bars": [
               {
                 "label": "total",
@@ -770,13 +770,13 @@
               },
               "i": {
                 "var": "i",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "best_offer": {
                 "var": "best_offer",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -816,13 +816,13 @@
               },
               "i": {
                 "var": "i",
-                "line": 7,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "best_offer": {
                 "var": "best_offer",
-                "line": 7,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -906,8 +906,8 @@
             "values": {
               "trigger": "{'side': 'BUY', 'below': 100.05, 'qty':…",
               "ticks": "[100.1, 100.08, 100.06, 100.04, 100.07]",
-              "i": "0",
-              "best_offer": "100.1"
+              "i": "1",
+              "best_offer": "100.08"
             },
             "tones": {
               "trigger": "data",
@@ -936,8 +936,8 @@
             "values": {
               "trigger": "{'side': 'BUY', 'below': 100.05, 'qty':…",
               "ticks": "[100.1, 100.08, 100.06, 100.04, 100.07]",
-              "i": "0",
-              "best_offer": "100.1"
+              "i": "2",
+              "best_offer": "100.06"
             },
             "tones": {
               "trigger": "ok",
@@ -989,6 +989,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Changing strategy logic can take days or weeks in hardware instead.",
+            "activeActor": "extra_profit_per_day",
+            "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": {
+                  "var": "project_cost",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "extra_profit_per_day",
@@ -1003,10 +1020,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Changing strategy logic can take days or weeks in hardware instead.",
-            "activeActor": "extra_profit_per_day",
+            "at": "say7",
+            "caption": "Choose your battles.",
+            "activeActor": "trading_days",
             "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": {
+                  "var": "project_cost",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": {
+                  "var": "extra_profit_per_day",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "project_cost",
                 "to": "extra_profit_per_day",
@@ -1026,14 +1063,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Choose your battles.",
-            "activeActor": "trading_days",
-            "messages": [
+              },
               {
                 "from": "project_cost",
                 "to": "extra_profit_per_day",
@@ -1076,12 +1106,6 @@
                 "to": "extra_profit_per_day",
                 "label": "1500000",
                 "tone": "data"
-              },
-              {
-                "from": "extra_profit_per_day",
-                "to": "trading_days",
-                "label": "4000",
-                "tone": "ok"
               }
             ],
             "activeActor": "project_cost"
@@ -1109,6 +1133,30 @@
             "at": "say7",
             "caption": "Choose your battles.",
             "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": "1500000",
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": "4000",
+                "tone": "ok"
+              },
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": "1500000",
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": "4000",
+                "tone": "ok"
+              },
               {
                 "from": "project_cost",
                 "to": "extra_profit_per_day",

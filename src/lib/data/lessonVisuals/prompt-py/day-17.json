@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To create a picture, they start from pure random noise and repeatedly.",
+            "activeActor": "image",
+            "messages": [
+              {
+                "from": "target",
+                "to": "image",
+                "label": {
+                  "var": "target",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "image",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "To create a picture, they start from pure random noise and repeatedly.",
-            "activeActor": "image",
+            "at": "say9",
+            "caption": "Generation usually takes seconds, so trying many variations quickly.",
+            "activeActor": "step",
             "messages": [
+              {
+                "from": "target",
+                "to": "image",
+                "label": {
+                  "var": "target",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "step",
+                "label": {
+                  "var": "image",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
               {
                 "from": "target",
                 "to": "image",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Generation usually takes seconds, so trying many variations quickly.",
-            "activeActor": "step",
-            "messages": [
+              },
               {
                 "from": "target",
                 "to": "image",
@@ -118,12 +148,6 @@
                 "to": "image",
                 "label": "[0.2, 0.8, 0.5, 0.9]",
                 "tone": "data"
-              },
-              {
-                "from": "image",
-                "to": "step",
-                "label": "[0.23604808973743452, 0.103166034230715…",
-                "tone": "ok"
               }
             ],
             "activeActor": "target"
@@ -151,6 +175,30 @@
             "at": "say9",
             "caption": "Generation usually takes seconds, so trying many variations quickly.",
             "messages": [
+              {
+                "from": "target",
+                "to": "image",
+                "label": "[0.2, 0.8, 0.5, 0.9]",
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "step",
+                "label": "[0.23604808973743452, 0.103166034230715…",
+                "tone": "ok"
+              },
+              {
+                "from": "target",
+                "to": "image",
+                "label": "[0.2, 0.8, 0.5, 0.9]",
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "step",
+                "label": "[0.23604808973743452, 0.103166034230715…",
+                "tone": "ok"
+              },
               {
                 "from": "target",
                 "to": "image",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "\"a red fox curled up in fresh snow\".",
+            "activeActor": "styles",
+            "messages": [
+              {
+                "from": "subject",
+                "to": "styles",
+                "label": {
+                  "var": "subject",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "styles",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "\"a red fox curled up in fresh snow\".",
-            "activeActor": "styles",
+            "at": "say9",
+            "caption": "Reference artists and brands carefully.",
+            "activeActor": "lighting",
             "messages": [
+              {
+                "from": "subject",
+                "to": "styles",
+                "label": {
+                  "var": "subject",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "styles",
+                "to": "lighting",
+                "label": {
+                  "var": "styles",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "subject",
                 "to": "styles",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Reference artists and brands carefully.",
-            "activeActor": "lighting",
-            "messages": [
+              },
               {
                 "from": "subject",
                 "to": "styles",
@@ -282,12 +360,6 @@
                 "to": "styles",
                 "label": "'a street food stall selling pani puri'",
                 "tone": "data"
-              },
-              {
-                "from": "styles",
-                "to": "lighting",
-                "label": "['35mm photograph', 'watercolour illust…",
-                "tone": "ok"
               }
             ],
             "activeActor": "subject"
@@ -315,6 +387,30 @@
             "at": "say9",
             "caption": "Reference artists and brands carefully.",
             "messages": [
+              {
+                "from": "subject",
+                "to": "styles",
+                "label": "'a street food stall selling pani puri'",
+                "tone": "data"
+              },
+              {
+                "from": "styles",
+                "to": "lighting",
+                "label": "['35mm photograph', 'watercolour illust…",
+                "tone": "ok"
+              },
+              {
+                "from": "subject",
+                "to": "styles",
+                "label": "'a street food stall selling pani puri'",
+                "tone": "data"
+              },
+              {
+                "from": "styles",
+                "to": "lighting",
+                "label": "['35mm photograph', 'watercolour illust…",
+                "tone": "ok"
+              },
               {
                 "from": "subject",
                 "to": "styles",
@@ -691,7 +787,7 @@
               "prompt": "'sunset beach::2 palm trees::1 boats'",
               "parts": "[]",
               "pos": "0",
-              "m": "{'__other__': 'Match'}"
+              "m": "<Match>"
             },
             "tones": {
               "prompt": "data",
@@ -721,7 +817,7 @@
               "prompt": "'sunset beach::2 palm trees::1 boats'",
               "parts": "[]",
               "pos": "0",
-              "m": "{'__other__': 'Match'}"
+              "m": "<Match>"
             },
             "tones": {
               "prompt": "data",
@@ -751,7 +847,7 @@
               "prompt": "'sunset beach::2 palm trees::1 boats'",
               "parts": "[['sunset beach', 2]]",
               "pos": "0",
-              "m": "{'__other__': 'Match'}"
+              "m": "<Match>"
             },
             "tones": {
               "prompt": "ok",
@@ -803,6 +899,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Respect copyright and trademarks.",
+            "activeActor": "prompts",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": {
+                  "var": "RISKY",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "prompts",
@@ -817,10 +930,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Respect copyright and trademarks.",
-            "activeActor": "prompts",
+            "at": "say8",
+            "caption": "When in doubt, ask whether the person or rights holder shown would be.",
+            "activeActor": "p",
             "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": {
+                  "var": "RISKY",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": {
+                  "var": "prompts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "RISKY",
                 "to": "prompts",
@@ -840,14 +973,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "When in doubt, ask whether the person or rights holder shown would be.",
-            "activeActor": "p",
-            "messages": [
+              },
               {
                 "from": "RISKY",
                 "to": "prompts",
@@ -890,12 +1016,6 @@
                 "to": "prompts",
                 "label": "['in the style of', 'logo', 'photo of p…",
                 "tone": "data"
-              },
-              {
-                "from": "prompts",
-                "to": "p",
-                "label": "['a watercolour of a Kerala backwater a…",
-                "tone": "ok"
               }
             ],
             "activeActor": "RISKY"
@@ -923,6 +1043,30 @@
             "at": "say8",
             "caption": "When in doubt, ask whether the person or rights holder shown would be.",
             "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": "['in the style of', 'logo', 'photo of p…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": "['a watercolour of a Kerala backwater a…",
+                "tone": "ok"
+              },
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": "['in the style of', 'logo', 'photo of p…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": "['a watercolour of a Kerala backwater a…",
+                "tone": "ok"
+              },
               {
                 "from": "RISKY",
                 "to": "prompts",

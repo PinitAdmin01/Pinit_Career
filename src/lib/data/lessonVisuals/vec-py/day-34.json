@@ -6,165 +6,113 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "ColBERT Late Interaction — Foundations & Mathematical Invariants",
-      "codeHash": "c7c43f431d41386744ebb1224bd5e6ac465c8774ab10f72f70f2a54ec0493d9b",
+      "partTitle": "Atomic Token-Level Inner Products for Late Interaction",
+      "codeHash": "f5705fb27ed01c8bfa5d07d9984646d29d66740ae814c73095357466bd926db7",
       "spec": {
         "template": "flow",
-        "title": "ColBERT Late Interaction — Foundations & Mathematical Invariants",
+        "title": "Atomic Token-Level Inner Products for Late Interaction",
         "nodes": [
           {
-            "id": "q_vec",
-            "label": "q_vec"
-          },
-          {
-            "id": "d_vec",
-            "label": "d_vec"
+            "id": "total",
+            "label": "total",
+            "tappable": true
           },
           {
             "id": "a",
-            "label": "a"
+            "label": "a",
+            "tappable": true
           },
           {
             "id": "b",
-            "label": "b"
+            "label": "b",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Single-vector dense embedding models compress an entire multi-paragraph.",
+            "caption": "Inspect single updates as total tracks vector state.",
             "values": {
-              "q_vec": {
-                "var": "q_vec",
-                "line": 4,
-                "hit": 1
-              },
-              "d_vec": {
-                "var": "d_vec",
-                "line": 5,
+              "total": {
+                "var": "total",
+                "line": 6,
                 "hit": 1
               },
               "a": {
-                "var": "a",
-                "line": 2,
-                "hit": 1
+                "text": ""
               },
               "b": {
-                "var": "b",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
-              "q_vec": "data",
-              "d_vec": "data",
-              "a": "data",
-              "b": "data"
+              "total": "data",
+              "a": "idle",
+              "b": "idle"
             },
-            "arrows": [
-              [
-                "q_vec",
-                "d_vec"
-              ],
-              [
-                "d_vec",
-                "a"
-              ],
-              [
-                "a",
-                "b"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "This single-vector compression creates an information bottleneck.",
+            "caption": "Verify the single transition driving vector behavior.",
             "values": {
-              "q_vec": {
-                "var": "q_vec",
-                "line": 5,
-                "hit": 1
-              },
-              "d_vec": {
-                "var": "d_vec",
-                "line": 6,
+              "total": {
+                "var": "total",
+                "line": 8,
                 "hit": 1
               },
               "a": {
                 "var": "a",
-                "line": 2,
-                "hit": 2
+                "line": 8,
+                "hit": 1
               },
               "b": {
                 "var": "b",
-                "line": 2,
-                "hit": 2
+                "line": 8,
+                "hit": 1
               }
             },
             "tones": {
-              "q_vec": "data",
-              "d_vec": "data",
+              "total": "data",
               "a": "data",
               "b": "data"
             },
             "arrows": [
               [
-                "q_vec",
-                "d_vec"
-              ],
-              [
-                "d_vec",
+                "total",
                 "a"
-              ],
-              [
-                "a",
-                "b"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "at": "say3",
+            "caption": "Examine the token value produced for colbert processing.",
             "values": {
-              "q_vec": {
-                "var": "q_vec",
-                "line": 6,
-                "hit": 1
-              },
-              "d_vec": {
-                "var": "d_vec",
-                "line": 6,
-                "hit": 1
+              "total": {
+                "var": "total",
+                "line": 8,
+                "hit": 2
               },
               "a": {
                 "var": "a",
-                "line": 2,
-                "hit": 3
+                "line": 8,
+                "hit": 2
               },
               "b": {
                 "var": "b",
-                "line": 2,
-                "hit": 3
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
-              "q_vec": "ok",
-              "d_vec": "ok",
+              "total": "ok",
               "a": "ok",
               "b": "ok"
             },
             "arrows": [
               [
-                "q_vec",
-                "d_vec"
-              ],
-              [
-                "d_vec",
+                "total",
                 "a"
-              ],
-              [
-                "a",
-                "b"
               ]
             ]
           }
@@ -172,113 +120,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "ColBERT Late Interaction — Foundations & Mathematical Invariants",
+        "title": "Atomic Token-Level Inner Products for Late Interaction",
         "nodes": [
           {
-            "id": "q_vec",
-            "label": "q_vec"
-          },
-          {
-            "id": "d_vec",
-            "label": "d_vec"
+            "id": "total",
+            "label": "total",
+            "tappable": true
           },
           {
             "id": "a",
-            "label": "a"
+            "label": "a",
+            "tappable": true
           },
           {
             "id": "b",
-            "label": "b"
+            "label": "b",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Single-vector dense embedding models compress an entire multi-paragraph.",
+            "caption": "Inspect single updates as total tracks vector state.",
             "values": {
-              "q_vec": "[0.8, 0.6]",
-              "d_vec": "[0.6, 0.8]",
+              "total": "0",
+              "a": "",
+              "b": ""
+            },
+            "tones": {
+              "total": "data",
+              "a": "idle",
+              "b": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the single transition driving vector behavior.",
+            "values": {
+              "total": "0.48",
               "a": "0.8",
               "b": "0.6"
             },
             "tones": {
-              "q_vec": "data",
-              "d_vec": "data",
+              "total": "data",
               "a": "data",
               "b": "data"
             },
             "arrows": [
               [
-                "q_vec",
-                "d_vec"
-              ],
-              [
-                "d_vec",
+                "total",
                 "a"
-              ],
-              [
-                "a",
-                "b"
               ]
             ]
           },
           {
-            "at": "say2",
-            "caption": "This single-vector compression creates an information bottleneck.",
+            "at": "say3",
+            "caption": "Examine the token value produced for colbert processing.",
             "values": {
-              "q_vec": "[0.8, 0.6]",
-              "d_vec": "[0.6, 0.8]",
+              "total": "0.96",
               "a": "0.6",
               "b": "0.8"
             },
             "tones": {
-              "q_vec": "data",
-              "d_vec": "data",
-              "a": "data",
-              "b": "data"
-            },
-            "arrows": [
-              [
-                "q_vec",
-                "d_vec"
-              ],
-              [
-                "d_vec",
-                "a"
-              ],
-              [
-                "a",
-                "b"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "values": {
-              "q_vec": "[0.8, 0.6]",
-              "d_vec": "[0.6, 0.8]",
-              "a": "0.6",
-              "b": "0.8"
-            },
-            "tones": {
-              "q_vec": "ok",
-              "d_vec": "ok",
+              "total": "ok",
               "a": "ok",
               "b": "ok"
             },
             "arrows": [
               [
-                "q_vec",
-                "d_vec"
-              ],
-              [
-                "d_vec",
+                "total",
                 "a"
-              ],
-              [
-                "a",
-                "b"
               ]
             ]
           }
@@ -286,7 +198,7 @@
       }
     },
     {
-      "partTitle": "ColBERT Late Interaction — Core Algorithm & State Representation",
+      "partTitle": "Document Relevance via ColBERT MaxSim Alignment Summing",
       "codeHash": "452d13fcf0cb234bddbe349a14f394071b482d10f036e5b3141b808763b82902",
       "spec": {
         "template": "bars",
@@ -378,7 +290,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the document value produced for inspecting processing.",
             "bars": [
               {
                 "label": "total_score",
@@ -478,7 +390,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the document value produced for inspecting processing.",
             "bars": [
               {
                 "label": "total_score",
@@ -506,7 +418,7 @@
       }
     },
     {
-      "partTitle": "ColBERT Late Interaction — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Batched Multi-Document MaxSim Candidate Ranking",
       "codeHash": "470d7f5f55199d42aaf213bb7f14bde00204adb1f448453e11c2fc4f6fbd78c1",
       "spec": {
         "template": "bars",
@@ -514,7 +426,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In high-volume search engines, MaxSim evaluations must be batched across.",
+            "caption": "Observe how batched shapes maxsim during this step.",
             "bars": [
               {
                 "label": "doc_id",
@@ -598,7 +510,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the batched value produced for multi processing.",
             "bars": [
               {
                 "label": "doc_id",
@@ -646,7 +558,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In high-volume search engines, MaxSim evaluations must be batched across.",
+            "caption": "Observe how batched shapes maxsim during this step.",
             "bars": [
               {
                 "label": "doc_id",
@@ -698,7 +610,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the batched value produced for multi processing.",
             "bars": [
               {
                 "label": "doc_id",
@@ -726,7 +638,7 @@
       }
     },
     {
-      "partTitle": "ColBERT Late Interaction — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Empty Token Sequence Guards in Multi-Vector Scorers",
       "codeHash": "d9df75258934e215bd69fd669008f1b7581e892170faf2d828f5f382521ae338",
       "spec": {
         "template": "flow",
@@ -761,15 +673,13 @@
                 "hit": 1
               },
               "empty_check": {
-                "var": "empty_check",
-                "line": 10,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "q_toks": "data",
               "d_toks": "data",
-              "empty_check": "data"
+              "empty_check": "idle"
             },
             "arrows": [
               [
@@ -820,7 +730,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the guardrail value produced for wrappers processing.",
             "values": {
               "q_toks": {
                 "var": "q_toks",
@@ -880,12 +790,12 @@
             "values": {
               "q_toks": "[]",
               "d_toks": "[[1, 0]]",
-              "empty_check": "0"
+              "empty_check": ""
             },
             "tones": {
               "q_toks": "data",
               "d_toks": "data",
-              "empty_check": "data"
+              "empty_check": "idle"
             },
             "arrows": [
               [
@@ -924,7 +834,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the guardrail value produced for wrappers processing.",
             "values": {
               "q_toks": "[]",
               "d_toks": "[[1, 0]]",
@@ -950,33 +860,32 @@
       }
     },
     {
-      "partTitle": "ColBERT Late Interaction — Production Telemetry & Verification Audit",
-      "codeHash": "1208e8819fd951c692d323e67b2f681c945c5a0408d70cf87cef709a50864137",
+      "partTitle": "FP16 Multi-Vector Memory Sizing Across Document Tokens",
+      "codeHash": "0c0ea9bdc3db62ee1ee0271324954cf2188ca45765f792866fe3052e834df127",
       "spec": {
         "template": "flow",
-        "title": "ColBERT Late Interaction — Production Telemetry & Verification A",
+        "title": "FP16 Multi-Vector Memory Sizing Across Document Tokens",
         "nodes": [
           {
             "id": "num_docs",
-            "label": "num_docs"
+            "label": "num_docs",
+            "tappable": true
           },
           {
             "id": "avg_tokens",
-            "label": "avg_tokens"
+            "label": "avg_tokens",
+            "tappable": true
           },
           {
             "id": "dim",
-            "label": "dim"
-          },
-          {
-            "id": "total_embeddings",
-            "label": "total_embeddings"
+            "label": "dim",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While ColBERT delivers state-of-the-art retrieval recall, storing.",
+            "caption": "Inspect multi updates as num_docs tracks vector state.",
             "values": {
               "num_docs": {
                 "var": "num_docs",
@@ -989,86 +898,19 @@
                 "hit": 1
               },
               "dim": {
-                "var": "dim",
-                "line": 2,
-                "hit": 1
-              },
-              "total_embeddings": {
-                "var": "total_embeddings",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "num_docs": "data",
               "avg_tokens": "data",
-              "dim": "data",
-              "total_embeddings": "data"
+              "dim": "idle"
             },
-            "arrows": [
-              [
-                "num_docs",
-                "avg_tokens"
-              ],
-              [
-                "avg_tokens",
-                "dim"
-              ],
-              [
-                "dim",
-                "total_embeddings"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A document of one hundred fifty tokens produces one hundred fifty.",
-            "values": {
-              "num_docs": {
-                "var": "num_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "avg_tokens": {
-                "var": "avg_tokens",
-                "line": 3,
-                "hit": 1
-              },
-              "dim": {
-                "var": "dim",
-                "line": 3,
-                "hit": 1
-              },
-              "total_embeddings": {
-                "var": "total_embeddings",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "num_docs": "data",
-              "avg_tokens": "data",
-              "dim": "data",
-              "total_embeddings": "data"
-            },
-            "arrows": [
-              [
-                "num_docs",
-                "avg_tokens"
-              ],
-              [
-                "avg_tokens",
-                "dim"
-              ],
-              [
-                "dim",
-                "total_embeddings"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the document transition driving tokens behavior.",
             "values": {
               "num_docs": {
                 "var": "num_docs",
@@ -1082,11 +924,6 @@
               },
               "dim": {
                 "var": "dim",
-                "line": 4,
-                "hit": 1
-              },
-              "total_embeddings": {
-                "var": "total_embeddings",
                 "line": 4,
                 "hit": 1
               }
@@ -1094,21 +931,12 @@
             "tones": {
               "num_docs": "ok",
               "avg_tokens": "ok",
-              "dim": "ok",
-              "total_embeddings": "ok"
+              "dim": "ok"
             },
             "arrows": [
               [
                 "num_docs",
                 "avg_tokens"
-              ],
-              [
-                "avg_tokens",
-                "dim"
-              ],
-              [
-                "dim",
-                "total_embeddings"
               ]
             ]
           }
@@ -1116,113 +944,57 @@
       },
       "filled": {
         "template": "flow",
-        "title": "ColBERT Late Interaction — Production Telemetry & Verification A",
+        "title": "FP16 Multi-Vector Memory Sizing Across Document Tokens",
         "nodes": [
           {
             "id": "num_docs",
-            "label": "num_docs"
+            "label": "num_docs",
+            "tappable": true
           },
           {
             "id": "avg_tokens",
-            "label": "avg_tokens"
+            "label": "avg_tokens",
+            "tappable": true
           },
           {
             "id": "dim",
-            "label": "dim"
-          },
-          {
-            "id": "total_embeddings",
-            "label": "total_embeddings"
+            "label": "dim",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While ColBERT delivers state-of-the-art retrieval recall, storing.",
+            "caption": "Inspect multi updates as num_docs tracks vector state.",
             "values": {
               "num_docs": "10000",
               "avg_tokens": "150",
-              "dim": "128",
-              "total_embeddings": "1500000"
+              "dim": ""
             },
             "tones": {
               "num_docs": "data",
               "avg_tokens": "data",
-              "dim": "data",
-              "total_embeddings": "data"
+              "dim": "idle"
             },
-            "arrows": [
-              [
-                "num_docs",
-                "avg_tokens"
-              ],
-              [
-                "avg_tokens",
-                "dim"
-              ],
-              [
-                "dim",
-                "total_embeddings"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A document of one hundred fifty tokens produces one hundred fifty.",
+            "caption": "Verify the document transition driving tokens behavior.",
             "values": {
               "num_docs": "10000",
               "avg_tokens": "150",
-              "dim": "128",
-              "total_embeddings": "1500000"
-            },
-            "tones": {
-              "num_docs": "data",
-              "avg_tokens": "data",
-              "dim": "data",
-              "total_embeddings": "data"
-            },
-            "arrows": [
-              [
-                "num_docs",
-                "avg_tokens"
-              ],
-              [
-                "avg_tokens",
-                "dim"
-              ],
-              [
-                "dim",
-                "total_embeddings"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "num_docs": "10000",
-              "avg_tokens": "150",
-              "dim": "128",
-              "total_embeddings": "1500000"
+              "dim": "128"
             },
             "tones": {
               "num_docs": "ok",
               "avg_tokens": "ok",
-              "dim": "ok",
-              "total_embeddings": "ok"
+              "dim": "ok"
             },
             "arrows": [
               [
                 "num_docs",
                 "avg_tokens"
-              ],
-              [
-                "avg_tokens",
-                "dim"
-              ],
-              [
-                "dim",
-                "total_embeddings"
               ]
             ]
           }

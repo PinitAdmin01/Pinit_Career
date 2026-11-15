@@ -227,7 +227,7 @@
     },
     {
       "partTitle": "Linear Projection vs Multi-Layer Perceptron (MLP) Adapters: LLaVA-1.0 vs LLaVA-1.5",
-      "codeHash": "93e574a6e2df3e0bfd5cb46ce1ccf4d8d5eea54f685f2e920d3ac1568d67994f",
+      "codeHash": "94f80798fe3397fd64e4104dcc1d652161367a511a111916adb804881bad3399",
       "spec": {
         "template": "flow",
         "title": "Linear Projection vs Multi-Layer Perceptron (MLP) Adapters: LLaV",
@@ -270,16 +270,14 @@
                 "hit": 1
               },
               "b_2": {
-                "var": "b_2",
-                "line": 30,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "W_1": "data",
               "b_1": "data",
               "W_2": "data",
-              "b_2": "data"
+              "b_2": "idle"
             },
             "arrows": [
               [
@@ -344,7 +342,7 @@
           },
           {
             "at": "say8",
-            "caption": "Moreover, the computational overhead of the 2-layer MLP adapter during.",
+            "caption": "Examine the projection value produced for layer processing.",
             "values": {
               "W_1": {
                 "var": "W_1",
@@ -419,13 +417,13 @@
               "W_1": "[[0.6, -0.2, 0.4], [-0.3, 0.8, 0.1], [0…",
               "b_1": "[0.1, -0.05, 0.2, 0]",
               "W_2": "[[0.7, -0.1, 0.3, 0.2], [-0.2, 0.6, 0.1…",
-              "b_2": "[0.05, 0.1, -0.05, 0.02]"
+              "b_2": ""
             },
             "tones": {
               "W_1": "data",
               "b_1": "data",
               "W_2": "data",
-              "b_2": "data"
+              "b_2": "idle"
             },
             "arrows": [
               [
@@ -474,7 +472,7 @@
           },
           {
             "at": "say8",
-            "caption": "Moreover, the computational overhead of the 2-layer MLP adapter during.",
+            "caption": "Examine the projection value produced for layer processing.",
             "values": {
               "W_1": "[[0.6, -0.2, 0.4], [-0.3, 0.8, 0.1], [0…",
               "b_1": "[0.1, -0.05, 0.2, 0]",
@@ -514,7 +512,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While linear and MLP projectors preserve every single spatial patch token (e.",
+            "caption": "Observe how attention shapes patches during this step.",
             "items": {
               "var": "row",
               "line": 5,
@@ -568,7 +566,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While linear and MLP projectors preserve every single spatial patch token (e.",
+            "caption": "Observe how attention shapes patches during this step.",
             "items": [
               "0.38105117766515306",
               "0.3406366588218792",

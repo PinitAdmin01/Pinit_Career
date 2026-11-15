@@ -436,7 +436,7 @@
           },
           {
             "at": "say5",
-            "caption": "Level order answers questions like \"what is visible from the right side.",
+            "caption": "Examine the level value produced for order processing.",
             "rows": [
               {
                 "cells": [
@@ -528,7 +528,7 @@
           },
           {
             "at": "say5",
-            "caption": "Level order answers questions like \"what is visible from the right side.",
+            "caption": "Examine the level value produced for order processing.",
             "rows": [
               {
                 "cells": [
@@ -777,7 +777,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how same updates stack during execution.",
+            "caption": "Examine the tree value produced for stack processing.",
             "items": {
               "var": "out",
               "line": 11,
@@ -808,7 +808,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how same updates stack during execution.",
+            "caption": "Examine the tree value produced for stack processing.",
             "mode": "queue",
             "items": [
               "1",
@@ -829,7 +829,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Interview platforms often describe trees as a list in level order,.",
+            "caption": "Building a tree from that list uses the same queue idea as level order.",
             "items": {
               "var": "values",
               "line": 10,
@@ -866,7 +866,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Interview platforms often describe trees as a list in level order,.",
+            "caption": "Building a tree from that list uses the same queue idea as level order.",
             "mode": "queue",
             "items": [
               "3",

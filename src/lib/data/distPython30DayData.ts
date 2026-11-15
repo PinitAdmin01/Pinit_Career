@@ -27,7 +27,7 @@ const DAYS: Day[] = [
       "desc": "Write `backoff_delay(attempt, base_delay=100)` returning base_delay * 2**(attempt - 1): 100, 200, 400, ... for attempts 1, 2, 3.",
       "starter": "def backoff_delay(attempt, base_delay=100):\n    pass",
       "hint": "return base_delay * 2 ** (attempt - 1)",
-      "test": "assert backoff_delay(1) == 100 and backoff_delay(3) == 400, 'Expected 100 then 400'\nassert backoff_delay(5, 50) == 800, 'Attempt 5 with base 50 is 800'\nprint('All checks passed.')"
+      "test": "assert backoff_delay(1) == 100 and backoff_delay(3) == 400, 'Expected 100 then 400'\nassert backoff_delay(5, 50) == 800, 'Attempt 5 with base 50 is 800'\nassert backoff_delay(2, 100) == 200, 'Attempt 2 doubles base'\nprint('All checks passed.')"
     }
   },
   {
@@ -43,7 +43,7 @@ const DAYS: Day[] = [
       "desc": "Write `has_quorum(active_nodes, total_nodes)` returning True when more than half of the nodes are reachable.",
       "starter": "def has_quorum(active_nodes, total_nodes):\n    pass",
       "hint": "return active_nodes > total_nodes // 2",
-      "test": "assert has_quorum(3, 5) is True and has_quorum(2, 5) is False, '3 of 5 is a majority, 2 of 5 is not'\nassert has_quorum(2, 4) is False and has_quorum(3, 4) is True, 'Half is not a majority'\nprint('All checks passed.')"
+      "test": "assert has_quorum(3, 5) is True and has_quorum(2, 5) is False, '3 of 5 is a majority, 2 of 5 is not'\nassert has_quorum(2, 4) is False and has_quorum(3, 4) is True, 'Half is not a majority'\nassert has_quorum(1, 1) is True and has_quorum(0, 1) is False, 'Single node quorum'\nprint('All checks passed.')"
     }
   },
   {
@@ -75,7 +75,7 @@ const DAYS: Day[] = [
       "desc": "When a node joins a consistent-hash ring of N nodes, about 1 / (N + 1) of the keys move to it. Write `migration_estimate(total_keys, nodes)` returning {'fraction': that share as a percentage with 1 decimal, like '10.0%', 'keys_moved': round(total_keys / (nodes + 1))}.",
       "starter": "def migration_estimate(total_keys, nodes):\n    pass",
       "hint": "share = 1 / (nodes + 1); f'{share * 100:.1f}%'",
-      "test": "assert migration_estimate(1000, 9) == {'fraction': '10.0%', 'keys_moved': 100}, 'A 10th node takes 10% of the keys'\nassert migration_estimate(900, 2) == {'fraction': '33.3%', 'keys_moved': 300}, 'A 3rd node takes a third'\nprint('All checks passed.')"
+      "test": "assert migration_estimate(1000, 9) == {'fraction': '10.0%', 'keys_moved': 100}, 'A 10th node takes 10% of the keys'\nassert migration_estimate(900, 2) == {'fraction': '33.3%', 'keys_moved': 300}, 'A 3rd node takes a third'\nassert migration_estimate(0, 4) == {'fraction': '20.0%', 'keys_moved': 0}, 'Zero keys moves 0'\nprint('All checks passed.')"
     }
   },
   {
@@ -123,7 +123,7 @@ const DAYS: Day[] = [
       "desc": "Write `has_majority(votes, total)` returning True when votes is at least total // 2 + 1.",
       "starter": "def has_majority(votes, total):\n    pass",
       "hint": "return votes >= total // 2 + 1",
-      "test": "assert has_majority(3, 5) is True and has_majority(2, 5) is False, '3 of 5 wins, 2 of 5 does not'\nassert has_majority(4, 6) is True and has_majority(3, 6) is False, '3 of 6 is only half'\nprint('All checks passed.')"
+      "test": "assert has_majority(3, 5) is True and has_majority(2, 5) is False, '3 of 5 wins, 2 of 5 does not'\nassert has_majority(4, 6) is True and has_majority(3, 6) is False, '3 of 6 is only half'\nassert has_majority(1, 1) is True and has_majority(1, 2) is False, '1 of 2 is not a strict majority'\nprint('All checks passed.')"
     }
   },
   {
@@ -155,7 +155,7 @@ const DAYS: Day[] = [
       "desc": "An entry is committed once it is stored on a majority of the cluster. Write `is_committed(match_count, cluster_size)`.",
       "starter": "def is_committed(match_count, cluster_size):\n    pass",
       "hint": "return match_count > cluster_size // 2",
-      "test": "assert is_committed(3, 5) is True and is_committed(2, 5) is False, '3 of 5 commits'\nassert is_committed(2, 3) is True and is_committed(2, 4) is False, '2 of 4 is only half'\nprint('All checks passed.')"
+      "test": "assert is_committed(3, 5) is True and is_committed(2, 5) is False, '3 of 5 commits'\nassert is_committed(2, 3) is True and is_committed(2, 4) is False, '2 of 4 is only half'\nassert is_committed(0, 3) is False and is_committed(1, 1) is True, 'Boundary commit counts'\nprint('All checks passed.')"
     }
   },
   {
@@ -171,7 +171,7 @@ const DAYS: Day[] = [
       "desc": "Write `count_votes(votes)` returning {'commit': number of 'VOTE_COMMIT', 'abort': number of 'VOTE_ABORT'}.",
       "starter": "def count_votes(votes):\n    pass",
       "hint": "votes.count('VOTE_COMMIT')",
-      "test": "assert count_votes(['VOTE_COMMIT', 'VOTE_ABORT', 'VOTE_COMMIT']) == {'commit': 2, 'abort': 1}, 'Expected 2 commit and 1 abort'\nassert count_votes([]) == {'commit': 0, 'abort': 0}, 'No votes'\nprint('All checks passed.')"
+      "test": "assert count_votes(['VOTE_COMMIT', 'VOTE_ABORT', 'VOTE_COMMIT']) == {'commit': 2, 'abort': 1}, 'Expected 2 commit and 1 abort'\nassert count_votes([]) == {'commit': 0, 'abort': 0}, 'No votes'\nassert count_votes(['VOTE_ABORT']) == {'commit': 0, 'abort': 1}, 'Single abort vote'\nprint('All checks passed.')"
     }
   },
   {
@@ -187,7 +187,7 @@ const DAYS: Day[] = [
       "desc": "Write `format_saga_log(step, status)` returning '[SAGA]: step -> status'.",
       "starter": "def format_saga_log(step, status):\n    pass",
       "hint": "f'[SAGA]: {step} -> {status}'",
-      "test": "assert format_saga_log('Payment', 'DONE') == '[SAGA]: Payment -> DONE', 'Expected [SAGA]: Payment -> DONE'\nassert format_saga_log('Ship', 'UNDONE') == '[SAGA]: Ship -> UNDONE', 'Use the given step and status'\nprint('All checks passed.')"
+      "test": "assert format_saga_log('Payment', 'DONE') == '[SAGA]: Payment -> DONE', 'Expected [SAGA]: Payment -> DONE'\nassert format_saga_log('Ship', 'UNDONE') == '[SAGA]: Ship -> UNDONE', 'Use the given step and status'\nassert format_saga_log('Reserve', 'FAILED') == '[SAGA]: Reserve -> FAILED', 'Exact tag formatting'\nprint('All checks passed.')"
     }
   },
   {
@@ -196,7 +196,7 @@ const DAYS: Day[] = [
       "desc": "Write `assign_partitions(num_partitions, consumers)` spreading partitions 0..num_partitions-1 over the consumers round-robin: partition p goes to consumers[p % len(consumers)]. Return a dict consumer -> list of partitions (every consumer appears, even with an empty list).",
       "starter": "def assign_partitions(num_partitions, consumers):\n    pass",
       "hint": "assignment = {c: [] for c in consumers}",
-      "test": "assert assign_partitions(6, ['c1', 'c2', 'c3']) == {'c1': [0, 3], 'c2': [1, 4], 'c3': [2, 5]}, 'Round robin'\nassert assign_partitions(2, ['a', 'b', 'c']) == {'a': [0], 'b': [1], 'c': []}, 'More consumers than partitions: one gets nothing'\nprint('All checks passed.')"
+      "test": "assert assign_partitions(6, ['c1', 'c2', 'c3']) == {'c1': [0, 3], 'c2': [1, 4], 'c3': [2, 5]}, 'Round robin'\nassert assign_partitions(2, ['a', 'b', 'c']) == {'a': [0], 'b': [1], 'c': []}, 'More consumers than partitions: one gets nothing'\nassert assign_partitions(0, ['c1', 'c2']) == {'c1': [], 'c2': []}, 'Zero partitions'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Partition Key Router",
@@ -219,7 +219,7 @@ const DAYS: Day[] = [
       "desc": "Write `idempotency_key(user_id, order_id)` returning 'idemp_USER_ORDER'.",
       "starter": "def idempotency_key(user_id, order_id):\n    pass",
       "hint": "f'idemp_{user_id}_{order_id}'",
-      "test": "assert idempotency_key('u1', 'o99') == 'idemp_u1_o99', 'Expected idemp_u1_o99'\nassert idempotency_key('alice', 7) == 'idemp_alice_7', 'Numbers work too'\nprint('All checks passed.')"
+      "test": "assert idempotency_key('u1', 'o99') == 'idemp_u1_o99', 'Expected idemp_u1_o99'\nassert idempotency_key('alice', 7) == 'idemp_alice_7', 'Numbers work too'\nassert idempotency_key('u9', '0') == 'idemp_u9_0', 'Underscore delimiter'\nprint('All checks passed.')"
     }
   },
   {
@@ -235,7 +235,7 @@ const DAYS: Day[] = [
       "desc": "Write `dlq_entry(msg_id, error, now)` returning {'msg_id': msg_id, 'error': error, 'failed_at': now}.",
       "starter": "def dlq_entry(msg_id, error, now):\n    pass",
       "hint": "Return a dict with the three keys.",
-      "test": "assert dlq_entry('m1', 'bad', 1700) == {'msg_id': 'm1', 'error': 'bad', 'failed_at': 1700}, 'Wrong entry'\nprint('All checks passed.')"
+      "test": "assert dlq_entry('m1', 'bad', 1700) == {'msg_id': 'm1', 'error': 'bad', 'failed_at': 1700}, 'Wrong entry'\nassert dlq_entry('m2', 'timeout', 0) == {'msg_id': 'm2', 'error': 'timeout', 'failed_at': 0}, 'Zero timestamp preserved'\nassert set(dlq_entry('x', 'err', 1).keys()) == {'msg_id', 'error', 'failed_at'}, 'Exact three keys'\nprint('All checks passed.')"
     }
   },
   {
@@ -251,7 +251,7 @@ const DAYS: Day[] = [
       "desc": "Write `tx_duration(start_ms, end_ms)` returning the time taken as a string like '125ms'.",
       "starter": "def tx_duration(start_ms, end_ms):\n    pass",
       "hint": "f'{end_ms - start_ms}ms'",
-      "test": "assert tx_duration(1000, 1125) == '125ms', 'Expected 125ms'\nassert tx_duration(5, 5) == '0ms', 'Same time: 0ms'\nprint('All checks passed.')"
+      "test": "assert tx_duration(1000, 1125) == '125ms', 'Expected 125ms'\nassert tx_duration(5, 5) == '0ms', 'Same time: 0ms'\nassert tx_duration(0, 1) == '1ms', '1ms duration'\nprint('All checks passed.')"
     }
   },
   {
@@ -267,7 +267,7 @@ const DAYS: Day[] = [
       "desc": "When a process receives a message, its Lamport clock becomes max(local, received) + 1. Write `lamport_receive(local, received)`.",
       "starter": "def lamport_receive(local, received):\n    pass",
       "hint": "return max(local, received) + 1",
-      "test": "assert lamport_receive(3, 7) == 8 and lamport_receive(9, 2) == 10, 'max + 1'\nprint('All checks passed.')"
+      "test": "assert lamport_receive(3, 7) == 8 and lamport_receive(9, 2) == 10, 'max + 1'\nassert lamport_receive(5, 5) == 6, 'Equal clocks increment by 1'\nassert lamport_receive(0, 0) == 1, 'Both clocks zero becomes 1'\nprint('All checks passed.')"
     }
   },
   {
@@ -315,7 +315,7 @@ const DAYS: Day[] = [
       "desc": "Write `lag_exceeded(lag_seconds, max_lag=10)` returning True when the lag is above max_lag.",
       "starter": "def lag_exceeded(lag_seconds, max_lag=10):\n    pass",
       "hint": "return lag_seconds > max_lag",
-      "test": "assert lag_exceeded(15) is True and lag_exceeded(5) is False, '15 s is too much, 5 s is fine'\nassert lag_exceeded(10) is False and lag_exceeded(3, 2) is True, 'Exactly the limit is fine; use the given limit'\nprint('All checks passed.')"
+      "test": "assert lag_exceeded(15) is True and lag_exceeded(5) is False, '15 s is too much, 5 s is fine'\nassert lag_exceeded(10) is False and lag_exceeded(3, 2) is True, 'Exactly the limit is fine; use the given limit'\nassert lag_exceeded(11, 10) is True and lag_exceeded(0, 0) is False, 'Boundary lag checks'\nprint('All checks passed.')"
     }
   },
   {
@@ -331,7 +331,7 @@ const DAYS: Day[] = [
       "desc": "Write `format_circuit_status(state)` returning '[CIRCUIT]: STATE'.",
       "starter": "def format_circuit_status(state):\n    pass",
       "hint": "f'[CIRCUIT]: {state}'",
-      "test": "assert format_circuit_status('OPEN') == '[CIRCUIT]: OPEN' and format_circuit_status('HALF_OPEN') == '[CIRCUIT]: HALF_OPEN', 'Wrong format'\nprint('All checks passed.')"
+      "test": "assert format_circuit_status('OPEN') == '[CIRCUIT]: OPEN' and format_circuit_status('HALF_OPEN') == '[CIRCUIT]: HALF_OPEN', 'Wrong format'\nassert format_circuit_status('CLOSED') == '[CIRCUIT]: CLOSED', 'Closed circuit format'\nassert format_circuit_status('TEST').startswith('[CIRCUIT]: '), 'Prefix matches [CIRCUIT]: '\nprint('All checks passed.')"
     }
   },
   {
@@ -347,7 +347,7 @@ const DAYS: Day[] = [
       "desc": "Write `response_time_header(ms)` returning 'X-Response-Time: 12ms' for 12.",
       "starter": "def response_time_header(ms):\n    pass",
       "hint": "f'X-Response-Time: {ms}ms'",
-      "test": "assert response_time_header(12) == 'X-Response-Time: 12ms' and response_time_header(0) == 'X-Response-Time: 0ms', 'Wrong header'\nprint('All checks passed.')"
+      "test": "assert response_time_header(12) == 'X-Response-Time: 12ms' and response_time_header(0) == 'X-Response-Time: 0ms', 'Wrong header'\nassert response_time_header(250) == 'X-Response-Time: 250ms', '250ms formatting'\nassert response_time_header(1).endswith('ms'), 'Ends with ms suffix'\nprint('All checks passed.')"
     }
   },
   {
@@ -363,7 +363,7 @@ const DAYS: Day[] = [
       "desc": "Write `fanout_peers(peers, k=3, me=None)` returning the first k peers, skipping me.",
       "starter": "def fanout_peers(peers, k=3, me=None):\n    pass",
       "hint": "[p for p in peers if p != me][:k]",
-      "test": "assert fanout_peers(['n1', 'n2', 'n3', 'n4'], 2) == ['n1', 'n2'], 'First 2 peers'\nassert fanout_peers(['n1', 'n2', 'n3', 'n4'], me='n2') == ['n1', 'n3', 'n4'], 'Never gossip to yourself'\nprint('All checks passed.')"
+      "test": "assert fanout_peers(['n1', 'n2', 'n3', 'n4'], 2) == ['n1', 'n2'], 'First 2 peers'\nassert fanout_peers(['n1', 'n2', 'n3', 'n4'], me='n2') == ['n1', 'n3', 'n4'], 'Never gossip to yourself'\nassert fanout_peers(['n1', 'n2'], k=5, me='n1') == ['n2'], 'k bigger than remaining peers'\nprint('All checks passed.')"
     }
   },
   {
@@ -372,14 +372,14 @@ const DAYS: Day[] = [
       "desc": "Complete the nginx-style smooth weighted round-robin balancer. Each server keeps a current weight (starting at 0). next_server(): add each server's weight to its current weight, pick the server with the highest current weight (the first one on a tie), subtract the total of all weights from the picked server, and return its id.",
       "starter": "class WeightedRoundRobin:\n    def __init__(self):\n        self.servers = []  # dicts: {'id', 'weight', 'current'}\n\n    def add_server(self, server_id, weight):\n        pass\n\n    def next_server(self):\n        pass",
       "hint": "best = max(self.servers, key=lambda s: s['current']) keeps the first on a tie.",
-      "test": "lb = WeightedRoundRobin()\nlb.add_server('a', 5)\nlb.add_server('b', 1)\nlb.add_server('c', 1)\nseq = [lb.next_server() for _ in range(7)]\nassert seq == ['a', 'a', 'b', 'a', 'c', 'a', 'a'], f'Expected the smooth order a a b a c a a, got {seq}'\ntwo = WeightedRoundRobin()\ntwo.add_server('S1', 5)\ntwo.add_server('S2', 1)\nhits = [two.next_server() for _ in range(12)]\nassert hits.count('S1') == 10 and hits.count('S2') == 2, 'Traffic follows the 5:1 weights'\nprint('All checks passed.')"
+      "test": "lb = WeightedRoundRobin()\nlb.add_server('a', 5)\nlb.add_server('b', 1)\nlb.add_server('c', 1)\nseq = [lb.next_server() for _ in range(7)]\nassert seq == ['a', 'a', 'b', 'a', 'c', 'a', 'a'], f'Expected the smooth order a a b a c a a, got {seq}'\ntwo = WeightedRoundRobin()\ntwo.add_server('S1', 5)\ntwo.add_server('S2', 1)\nhits = [two.next_server() for _ in range(12)]\nassert hits.count('S1') == 10 and hits.count('S2') == 2, 'Traffic follows the 5:1 weights'\none = WeightedRoundRobin(); one.add_server('only', 3); assert [one.next_server() for _ in range(3)] == ['only', 'only', 'only'], 'Single server'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Least-Connections Picker",
       "desc": "Write `least_connections(servers)` returning the id of the server with the fewest 'active' connections (the first one on a tie). Do not reorder the input list.",
       "starter": "def least_connections(servers):\n    pass",
       "hint": "min(servers, key=lambda s: s['active'])['id']",
-      "test": "servers = [{'id': 's1', 'active': 10}, {'id': 's2', 'active': 2}, {'id': 's3', 'active': 2}]\nassert least_connections(servers) == 's2', 'Fewest connections, first on a tie'\nassert [s['id'] for s in servers] == ['s1', 's2', 's3'], 'Do not reorder the list'\nprint('All checks passed.')"
+      "test": "servers = [{'id': 's1', 'active': 10}, {'id': 's2', 'active': 2}, {'id': 's3', 'active': 2}]\nassert least_connections(servers) == 's2', 'Fewest connections, first on a tie'\nassert [s['id'] for s in servers] == ['s1', 's2', 's3'], 'Do not reorder the list'\nassert least_connections([{'id': 'only', 'active': 0}]) == 'only', 'Single server'\nprint('All checks passed.')"
     }
   },
   {
@@ -395,7 +395,7 @@ const DAYS: Day[] = [
       "desc": "Write `instance_url(ip, port)` returning 'http://IP:PORT'.",
       "starter": "def instance_url(ip, port):\n    pass",
       "hint": "f'http://{ip}:{port}'",
-      "test": "assert instance_url('10.0.0.1', 8080) == 'http://10.0.0.1:8080', 'Wrong URL'\nprint('All checks passed.')"
+      "test": "assert instance_url('10.0.0.1', 8080) == 'http://10.0.0.1:8080', 'Wrong URL'\nassert instance_url('127.0.0.1', 443) == 'http://127.0.0.1:443', 'Different host and port'\nassert instance_url('localhost', 80).startswith('http://'), 'Starts with http://'\nprint('All checks passed.')"
     }
   },
   {
@@ -404,14 +404,14 @@ const DAYS: Day[] = [
       "desc": "A Backend-for-Frontend stitches several services into one reply. Write `aggregate_profile(user_id, get_user, get_orders, get_reviews)`: call all three with user_id and return {'user_id', 'name', 'recent_orders': the first 3 orders, 'orders_count', 'reviews_count', 'partial': False}. If get_reviews raises, still answer, with 'reviews_count': None and 'partial': True (reviews are optional; users and orders are not).",
       "starter": "def aggregate_profile(user_id, get_user, get_orders, get_reviews):\n    pass",
       "hint": "try: reviews_count = len(get_reviews(user_id)) except Exception: reviews_count, partial = None, True",
-      "test": "user = lambda uid: {'id': uid, 'name': 'Alice'}\norders = lambda uid: [{'id': f'o{i}'} for i in range(5)]\nres = aggregate_profile('u_101', user, orders, lambda uid: [{'id': 'r1'}])\nassert res == {'user_id': 'u_101', 'name': 'Alice', 'recent_orders': [{'id': 'o0'}, {'id': 'o1'}, {'id': 'o2'}], 'orders_count': 5, 'reviews_count': 1, 'partial': False}, f'Wrong profile: {res}'\n\n\ndef reviews_down(uid):\n    raise TimeoutError('reviews timed out')\n\n\nres = aggregate_profile('u_101', user, orders, reviews_down)\nassert res['reviews_count'] is None and res['partial'] is True and res['name'] == 'Alice', 'Answer without reviews'\nprint('All checks passed.')"
+      "test": "user = lambda uid: {'id': uid, 'name': 'Alice'}\norders = lambda uid: [{'id': f'o{i}'} for i in range(5)]\nres = aggregate_profile('u_101', user, orders, lambda uid: [{'id': 'r1'}])\nassert res == {'user_id': 'u_101', 'name': 'Alice', 'recent_orders': [{'id': 'o0'}, {'id': 'o1'}, {'id': 'o2'}], 'orders_count': 5, 'reviews_count': 1, 'partial': False}, f'Wrong profile: {res}'\n\n\ndef reviews_down(uid):\n    raise TimeoutError('reviews timed out')\n\n\nres = aggregate_profile('u_101', user, orders, reviews_down)\nassert res['reviews_count'] is None and res['partial'] is True and res['name'] == 'Alice', 'Answer without reviews'\nassert aggregate_profile('u2', lambda u: {'id': u, 'name': 'Bob'}, lambda u: [], lambda u: [])['orders_count'] == 0, 'Zero orders and reviews'\nprint('All checks passed.')"
     },
     "a": {
       "title": "CORS Header Builder",
       "desc": "Write `cors_headers(origin, methods=('GET', 'POST', 'PUT', 'DELETE'))` returning {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': the methods joined by ','}.",
       "starter": "def cors_headers(origin, methods=('GET', 'POST', 'PUT', 'DELETE')):\n    pass",
       "hint": "','.join(methods)",
-      "test": "assert cors_headers('*') == {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE'}, 'Default headers'\nassert cors_headers('https://app.pinit.io', ['GET'])['Access-Control-Allow-Methods'] == 'GET', 'Use the given methods'\nprint('All checks passed.')"
+      "test": "assert cors_headers('*') == {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE'}, 'Default headers'\nassert cors_headers('https://app.pinit.io', ['GET'])['Access-Control-Allow-Methods'] == 'GET', 'Use the given methods'\nassert cors_headers('https://a.io', ['POST', 'OPTIONS'])['Access-Control-Allow-Origin'] == 'https://a.io', 'Custom origin preserved'\nprint('All checks passed.')"
     }
   },
   {
@@ -420,7 +420,7 @@ const DAYS: Day[] = [
       "desc": "A traceparent header looks like '00-TRACEID-PARENTID-01'. Write `child_span(traceparent, name, new_span_id, new_trace_id)`. If the header has 4 parts, keep its trace id and use its span id as the parent; otherwise start a new trace with new_trace_id and parent None. Return {'name', 'trace_id', 'parent_id', 'span_id': new_span_id, 'traceparent': f'00-{trace_id}-{new_span_id}-01'} (the header to send on).",
       "starter": "def child_span(traceparent, name, new_span_id, new_trace_id):\n    pass",
       "hint": "parts = (traceparent or '').split('-')",
-      "test": "incoming = '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01'\nspan = child_span(incoming, 'db_query', 'b7ad6b7169203331', 'ffff')\nassert span == {'name': 'db_query', 'trace_id': '4bf92f3577b34da6a3ce929d0e0e4736', 'parent_id': '00f067aa0ba902b7', 'span_id': 'b7ad6b7169203331', 'traceparent': '00-4bf92f3577b34da6a3ce929d0e0e4736-b7ad6b7169203331-01'}, f'Wrong span: {span}'\nroot = child_span(None, 'http_in', 'aaaa', '1234')\nassert root['trace_id'] == '1234' and root['parent_id'] is None, 'No header: start a new trace'\nprint('All checks passed.')"
+      "test": "incoming = '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01'\nspan = child_span(incoming, 'db_query', 'b7ad6b7169203331', 'ffff')\nassert span == {'name': 'db_query', 'trace_id': '4bf92f3577b34da6a3ce929d0e0e4736', 'parent_id': '00f067aa0ba902b7', 'span_id': 'b7ad6b7169203331', 'traceparent': '00-4bf92f3577b34da6a3ce929d0e0e4736-b7ad6b7169203331-01'}, f'Wrong span: {span}'\nroot = child_span(None, 'http_in', 'aaaa', '1234')\nassert root['trace_id'] == '1234' and root['parent_id'] is None, 'No header: start a new trace'\nassert root['traceparent'] == '00-1234-aaaa-01', 'New traceparent formatted cleanly'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Traceparent Validator",
@@ -436,7 +436,7 @@ const DAYS: Day[] = [
       "desc": "Write `audit_linearizability(reads, writes)`. writes are {'value', 'completed_at'}; reads are {'started_at', 'observed'}. A read is stale if some write finished at or before the read started and the read did not see the value of the latest such write. Return {'linearizable': no read is stale, 'stale_reads': the stale reads in order}.",
       "starter": "def audit_linearizability(reads, writes):\n    pass",
       "hint": "before = [w for w in writes if w['completed_at'] <= r['started_at']]; latest = max(before, key=lambda w: w['completed_at'])",
-      "test": "writes = [{'value': 'v1', 'completed_at': 100}, {'value': 'v2', 'completed_at': 200}]\ngood = [{'started_at': 250, 'observed': 'v2'}, {'started_at': 150, 'observed': 'v1'}, {'started_at': 50, 'observed': None}]\nassert audit_linearizability(good, writes) == {'linearizable': True, 'stale_reads': []}, 'Every read sees the latest finished write'\nstale = {'started_at': 250, 'observed': 'v1'}\nassert audit_linearizability([stale], writes) == {'linearizable': False, 'stale_reads': [stale]}, 'Seeing v1 after v2 finished is stale'\nprint('All checks passed.')"
+      "test": "writes = [{'value': 'v1', 'completed_at': 100}, {'value': 'v2', 'completed_at': 200}]\ngood = [{'started_at': 250, 'observed': 'v2'}, {'started_at': 150, 'observed': 'v1'}, {'started_at': 50, 'observed': None}]\nassert audit_linearizability(good, writes) == {'linearizable': True, 'stale_reads': []}, 'Every read sees the latest finished write'\nstale = {'started_at': 250, 'observed': 'v1'}\nassert audit_linearizability([stale], writes) == {'linearizable': False, 'stale_reads': [stale]}, 'Seeing v1 after v2 finished is stale'\nassert audit_linearizability([], writes) == {'linearizable': True, 'stale_reads': []}, 'No reads'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Consistency Level Describer",
@@ -459,7 +459,7 @@ const DAYS: Day[] = [
       "desc": "CDNs purge pages by tag. Write `surrogate_keys(keys)` returning 'Surrogate-Key: ' + the keys separated by spaces.",
       "starter": "def surrogate_keys(keys):\n    pass",
       "hint": "'Surrogate-Key: ' + ' '.join(keys)",
-      "test": "assert surrogate_keys(['k1', 'k2']) == 'Surrogate-Key: k1 k2' and surrogate_keys(['product_9']) == 'Surrogate-Key: product_9', 'Wrong header'\nprint('All checks passed.')"
+      "test": "assert surrogate_keys(['k1', 'k2']) == 'Surrogate-Key: k1 k2' and surrogate_keys(['product_9']) == 'Surrogate-Key: product_9', 'Wrong header'\nassert surrogate_keys([]) == 'Surrogate-Key: ', 'Empty tag list'\nassert surrogate_keys(['a', 'b', 'c']) == 'Surrogate-Key: a b c', 'Multiple keys space-separated'\nprint('All checks passed.')"
     }
   },
   {
@@ -475,7 +475,7 @@ const DAYS: Day[] = [
       "desc": "Write `format_rto(minutes)` returning '15 min RTO' for 15.",
       "starter": "def format_rto(minutes):\n    pass",
       "hint": "f'{minutes} min RTO'",
-      "test": "assert format_rto(15) == '15 min RTO' and format_rto(1) == '1 min RTO', 'Wrong format'\nprint('All checks passed.')"
+      "test": "assert format_rto(15) == '15 min RTO' and format_rto(1) == '1 min RTO', 'Wrong format'\nassert format_rto(0) == '0 min RTO', 'Zero minutes'\nassert format_rto(60) == '60 min RTO', 'One hour in minutes'\nprint('All checks passed.')"
     }
   },
   {

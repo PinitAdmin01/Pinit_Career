@@ -7,492 +7,490 @@
   "entries": [
     {
       "partTitle": "The Mechanics Of Socratic Multi-Persona Prompting: Overcoming Monolithic Cognitive Blind Spots",
-      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
+      "codeHash": "d75b03af1d2cc6662acb743880e1e713862d617d64421e081eb88ee2cd1de732",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Mechanics Of Socratic Multi-Persona Prompting: Overcoming Mo",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "RISK_SIGNALS",
+            "label": "RISK_SIGNALS",
+            "tappable": true
+          },
+          {
+            "id": "SINGLE_MODEL",
+            "label": "SINGLE_MODEL",
+            "tappable": true
+          },
+          {
+            "id": "PERSONAS",
+            "label": "PERSONAS",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Monolithic single-prompt interactions in large language models suffer.",
-            "activeActor": "personas",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "The model lacks internal dialectical tension.",
+            "values": {
+              "RISK_SIGNALS": {
+                "var": "RISK_SIGNALS",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "SINGLE_MODEL": {
+                "text": ""
+              },
+              "PERSONAS": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "RISK_SIGNALS": "data",
+              "SINGLE_MODEL": "idle",
+              "PERSONAS": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Human institutions have long recognized the extreme danger of monolithic.",
-            "activeActor": "tally",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Legal systems do not rely on a single benevolent arbiter to determine truth.",
+            "values": {
+              "RISK_SIGNALS": {
+                "var": "RISK_SIGNALS",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "SINGLE_MODEL": {
+                "var": "SINGLE_MODEL",
+                "line": 4,
+                "hit": 1
+              },
+              "PERSONAS": {
+                "var": "PERSONAS",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "RISK_SIGNALS": "data",
+              "SINGLE_MODEL": "data",
+              "PERSONAS": "data"
+            },
+            "arrows": [
+              [
+                "RISK_SIGNALS",
+                "SINGLE_MODEL"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Enterprise adoption of multi-persona reasoning marks the transition.",
-            "activeActor": "weighted_scores",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the socratic value produced for multi processing.",
+            "values": {
+              "RISK_SIGNALS": {
+                "var": "RISK_SIGNALS",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "SINGLE_MODEL": {
+                "var": "SINGLE_MODEL",
+                "line": 10,
+                "hit": 1
+              },
+              "PERSONAS": {
+                "var": "PERSONAS",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "RISK_SIGNALS": "ok",
+              "SINGLE_MODEL": "ok",
+              "PERSONAS": "ok"
+            },
+            "arrows": [
+              [
+                "RISK_SIGNALS",
+                "SINGLE_MODEL"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Mechanics Of Socratic Multi-Persona Prompting: Overcoming Mo",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "RISK_SIGNALS",
+            "label": "RISK_SIGNALS",
+            "tappable": true
+          },
+          {
+            "id": "SINGLE_MODEL",
+            "label": "SINGLE_MODEL",
+            "tappable": true
+          },
+          {
+            "id": "PERSONAS",
+            "label": "PERSONAS",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Monolithic single-prompt interactions in large language models suffer.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "personas"
+            "caption": "The model lacks internal dialectical tension.",
+            "values": {
+              "RISK_SIGNALS": "{'cost_overrun', 'memory_leak', 'pci_ex…",
+              "SINGLE_MODEL": "",
+              "PERSONAS": ""
+            },
+            "tones": {
+              "RISK_SIGNALS": "data",
+              "SINGLE_MODEL": "idle",
+              "PERSONAS": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Human institutions have long recognized the extreme danger of monolithic.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "tally"
+            "caption": "Legal systems do not rely on a single benevolent arbiter to determine truth.",
+            "values": {
+              "RISK_SIGNALS": "{'cost_overrun', 'memory_leak', 'pci_ex…",
+              "SINGLE_MODEL": "{'memory_leak', 'sla_breach'}",
+              "PERSONAS": "{'Security': {'pci_exposure', 'single_a…"
+            },
+            "tones": {
+              "RISK_SIGNALS": "data",
+              "SINGLE_MODEL": "data",
+              "PERSONAS": "data"
+            },
+            "arrows": [
+              [
+                "RISK_SIGNALS",
+                "SINGLE_MODEL"
+              ]
+            ]
           },
           {
-            "at": "say8",
-            "caption": "Enterprise adoption of multi-persona reasoning marks the transition.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "weighted_scores"
+            "at": "say3",
+            "caption": "Examine the socratic value produced for multi processing.",
+            "values": {
+              "RISK_SIGNALS": "{'cost_overrun', 'memory_leak', 'pci_ex…",
+              "SINGLE_MODEL": "{'memory_leak', 'sla_breach'}",
+              "PERSONAS": "{'Security': {'pci_exposure', 'single_a…"
+            },
+            "tones": {
+              "RISK_SIGNALS": "ok",
+              "SINGLE_MODEL": "ok",
+              "PERSONAS": "ok"
+            },
+            "arrows": [
+              [
+                "RISK_SIGNALS",
+                "SINGLE_MODEL"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Structured Persona Specialization: Role Alignment, Domain Invariants & Adversarial Prompting",
-      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
+      "codeHash": "3875d7e52c6ac5a5acc329285c6c0c817f880c08994c568fa2b4a709b30e4cae",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Structured Persona Specialization: Role Alignment, Domain Invari",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "turn",
+            "label": "turn",
+            "tappable": true
+          },
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineering high-performance Socratic personas requires far more than.",
-            "activeActor": "personas",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect persona updates as turn tracks role state.",
+            "values": {
+              "turn": {
+                "var": "turn",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "var": "msg",
+                "line": 13,
+                "hit": 1
+              },
+              "text": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "turn": "data",
+              "msg": "data",
+              "text": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The first structural layer of a robust persona prompt is the Domain.",
-            "activeActor": "tally",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the persona transition driving domain behavior.",
+            "values": {
+              "turn": {
+                "text": ""
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "text": ""
+              },
+              "text": {
+                "var": "text",
+                "line": 10,
+                "hit": 17
               }
+            },
+            "tones": {
+              "turn": "idle",
+              "msg": "idle",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "turn",
+                "msg"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Multi-persona system prompt compilation utilizes Jinja templating engines.",
-            "activeActor": "weighted_scores",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "The second structural layer is Cognitive Stance and Skepticism Calibration.",
+            "values": {
+              "turn": {
+                "text": ""
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "text": ""
+              },
+              "text": {
+                "var": "text",
+                "line": 10,
+                "hit": 33
               }
+            },
+            "tones": {
+              "turn": "idle",
+              "msg": "idle",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "turn",
+                "msg"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Structured Persona Specialization: Role Alignment, Domain Invari",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "turn",
+            "label": "turn",
+            "tappable": true
+          },
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineering high-performance Socratic personas requires far more than.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "personas"
+            "caption": "Inspect persona updates as turn tracks role state.",
+            "values": {
+              "turn": "'Turn 1'",
+              "msg": "'Verify zero_trust encryption, least_pr…",
+              "text": ""
+            },
+            "tones": {
+              "turn": "data",
+              "msg": "data",
+              "text": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The first structural layer of a robust persona prompt is the Domain.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "tally"
+            "caption": "Verify the persona transition driving domain behavior.",
+            "values": {
+              "turn": "",
+              "msg": "",
+              "text": "'Maybe check cve scan and encryption la…"
+            },
+            "tones": {
+              "turn": "idle",
+              "msg": "idle",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "turn",
+                "msg"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Multi-persona system prompt compilation utilizes Jinja templating engines.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "weighted_scores"
+            "at": "say3",
+            "caption": "The second structural layer is Cognitive Stance and Skepticism Calibration.",
+            "values": {
+              "turn": "",
+              "msg": "",
+              "text": "'Features look awesome, ship immediatel…"
+            },
+            "tones": {
+              "turn": "idle",
+              "msg": "idle",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "turn",
+                "msg"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Multi-Round Deliberative Protocols: Cross-Examination, Rebuttal Cycles & Dialectical Synthesis",
-      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
+      "codeHash": "a47f2207b0c620c3611b8f400ff81f7f8904ca4897434f491ed78ba717d906e2",
       "spec": {
         "template": "flow",
         "title": "Multi-Round Deliberative Protocols: Cross-Examination, Rebuttal ",
         "nodes": [
           {
-            "id": "personas",
-            "label": "personas"
+            "id": "transcript",
+            "label": "transcript",
+            "tappable": true
           },
           {
-            "id": "tally",
-            "label": "tally"
+            "id": "speaker",
+            "label": "speaker",
+            "tappable": true
           },
           {
-            "id": "weighted_scores",
-            "label": "weighted_scores"
-          },
-          {
-            "id": "p",
-            "label": "p"
+            "id": "claim",
+            "label": "claim",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-round deliberative protocols govern the temporal choreography.",
+            "caption": "Inspect multi updates as transcript tracks round state.",
             "values": {
-              "personas": {
-                "var": "personas",
-                "line": 5,
+              "transcript": {
+                "var": "transcript",
+                "line": 6,
                 "hit": 1
               },
-              "tally": {
-                "var": "tally",
-                "line": 11,
-                "hit": 1
+              "speaker": {
+                "text": ""
               },
-              "weighted_scores": {
-                "var": "weighted_scores",
-                "line": 12,
-                "hit": 1
-              },
-              "p": {
-                "var": "p",
-                "line": 13,
-                "hit": 1
+              "claim": {
+                "text": ""
               }
             },
             "tones": {
-              "personas": "data",
-              "tally": "data",
-              "weighted_scores": "data",
-              "p": "data"
+              "transcript": "data",
+              "speaker": "idle",
+              "claim": "idle"
             },
-            "arrows": [
-              [
-                "personas",
-                "tally"
-              ],
-              [
-                "tally",
-                "weighted_scores"
-              ],
-              [
-                "weighted_scores",
-                "p"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Phase One constitutes the Independent Thesis Formulation.",
             "values": {
-              "personas": {
-                "var": "personas",
-                "line": 11,
+              "transcript": {
+                "var": "transcript",
+                "line": 17,
                 "hit": 1
               },
-              "tally": {
-                "var": "tally",
-                "line": 12,
+              "speaker": {
+                "var": "speaker",
+                "line": 17,
                 "hit": 1
               },
-              "weighted_scores": {
-                "var": "weighted_scores",
-                "line": 13,
-                "hit": 1
-              },
-              "p": {
-                "var": "p",
-                "line": 14,
+              "claim": {
+                "var": "claim",
+                "line": 17,
                 "hit": 1
               }
             },
             "tones": {
-              "personas": "data",
-              "tally": "data",
-              "weighted_scores": "data",
-              "p": "data"
+              "transcript": "data",
+              "speaker": "data",
+              "claim": "data"
             },
             "arrows": [
               [
-                "personas",
-                "tally"
-              ],
-              [
-                "tally",
-                "weighted_scores"
-              ],
-              [
-                "weighted_scores",
-                "p"
+                "transcript",
+                "speaker"
               ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Automated dialectical deadlock resolution prevents recursive debate loops.",
+            "at": "say3",
+            "caption": "Phase Two initiates the Cross-Examination and Critique Cycle.",
             "values": {
-              "personas": {
-                "var": "personas",
-                "line": 12,
-                "hit": 1
+              "transcript": {
+                "var": "transcript",
+                "line": 17,
+                "hit": 2
               },
-              "tally": {
-                "var": "tally",
-                "line": 13,
-                "hit": 1
+              "speaker": {
+                "var": "speaker",
+                "line": 17,
+                "hit": 2
               },
-              "weighted_scores": {
-                "var": "weighted_scores",
-                "line": 14,
-                "hit": 1
-              },
-              "p": {
-                "var": "p",
-                "line": 15,
-                "hit": 1
+              "claim": {
+                "var": "claim",
+                "line": 17,
+                "hit": 2
               }
             },
             "tones": {
-              "personas": "ok",
-              "tally": "ok",
-              "weighted_scores": "ok",
-              "p": "ok"
+              "transcript": "ok",
+              "speaker": "ok",
+              "claim": "ok"
             },
             "arrows": [
               [
-                "personas",
-                "tally"
-              ],
-              [
-                "tally",
-                "weighted_scores"
-              ],
-              [
-                "weighted_scores",
-                "p"
+                "transcript",
+                "speaker"
               ]
             ]
           }
@@ -503,110 +501,74 @@
         "title": "Multi-Round Deliberative Protocols: Cross-Examination, Rebuttal ",
         "nodes": [
           {
-            "id": "personas",
-            "label": "personas"
+            "id": "transcript",
+            "label": "transcript",
+            "tappable": true
           },
           {
-            "id": "tally",
-            "label": "tally"
+            "id": "speaker",
+            "label": "speaker",
+            "tappable": true
           },
           {
-            "id": "weighted_scores",
-            "label": "weighted_scores"
-          },
-          {
-            "id": "p",
-            "label": "p"
+            "id": "claim",
+            "label": "claim",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-round deliberative protocols govern the temporal choreography.",
+            "caption": "Inspect multi updates as transcript tracks round state.",
             "values": {
-              "personas": "[{'role': 'Systems Performance Architec…",
-              "tally": "{}",
-              "weighted_scores": "{}",
-              "p": "{'role': 'Systems Performance Architect…"
+              "transcript": "[]",
+              "speaker": "",
+              "claim": ""
             },
             "tones": {
-              "personas": "data",
-              "tally": "data",
-              "weighted_scores": "data",
-              "p": "data"
+              "transcript": "data",
+              "speaker": "idle",
+              "claim": "idle"
             },
-            "arrows": [
-              [
-                "personas",
-                "tally"
-              ],
-              [
-                "tally",
-                "weighted_scores"
-              ],
-              [
-                "weighted_scores",
-                "p"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Phase One constitutes the Independent Thesis Formulation.",
             "values": {
-              "personas": "[{'role': 'Systems Performance Architec…",
-              "tally": "{}",
-              "weighted_scores": "{}",
-              "p": "{'role': 'Systems Performance Architect…"
+              "transcript": "[['Round1-Finance', 'Budget breach risk…",
+              "speaker": "'Round1-Finance'",
+              "claim": "'Budget breach risk: $148000 > $120000'"
             },
             "tones": {
-              "personas": "data",
-              "tally": "data",
-              "weighted_scores": "data",
-              "p": "data"
+              "transcript": "data",
+              "speaker": "data",
+              "claim": "data"
             },
             "arrows": [
               [
-                "personas",
-                "tally"
-              ],
-              [
-                "tally",
-                "weighted_scores"
-              ],
-              [
-                "weighted_scores",
-                "p"
+                "transcript",
+                "speaker"
               ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Automated dialectical deadlock resolution prevents recursive debate loops.",
+            "at": "say3",
+            "caption": "Phase Two initiates the Cross-Examination and Critique Cycle.",
             "values": {
-              "personas": "[{'role': 'Systems Performance Architec…",
-              "tally": "{}",
-              "weighted_scores": "{}",
-              "p": "{'role': 'Systems Performance Architect…"
+              "transcript": "[['Round1-Finance', 'Budget breach risk…",
+              "speaker": "'Round1-Systems'",
+              "claim": "'Latency breach risk: p99=480ms > 150ms'"
             },
             "tones": {
-              "personas": "ok",
-              "tally": "ok",
-              "weighted_scores": "ok",
-              "p": "ok"
+              "transcript": "ok",
+              "speaker": "ok",
+              "claim": "ok"
             },
             "arrows": [
               [
-                "personas",
-                "tally"
-              ],
-              [
-                "tally",
-                "weighted_scores"
-              ],
-              [
-                "weighted_scores",
-                "p"
+                "transcript",
+                "speaker"
               ]
             ]
           }
@@ -615,328 +577,356 @@
     },
     {
       "partTitle": "Consensus Mechanisms: Plurality Voting, Confidence-Weighted Tallying & Borda Count Selection",
-      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
+      "codeHash": "ee6520d81dbad45d0ced99eeb27a1acfa87855b483a180eb3c0d9626405f939a",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Consensus Mechanisms: Plurality Voting, Confidence-Weighted Tall",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "plurality",
+            "label": "plurality",
+            "tappable": true
+          },
+          {
+            "id": "weighted",
+            "label": "weighted",
+            "tappable": true
+          },
+          {
+            "id": "borda",
+            "label": "borda",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consensus mechanisms transform the divergent insights and contentious.",
-            "activeActor": "personas",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect consensus updates as plurality tracks mechanisms state.",
+            "values": {
+              "plurality": {
+                "var": "plurality",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "weighted": {
+                "var": "weighted",
+                "line": 12,
+                "hit": 1
+              },
+              "borda": {
+                "var": "borda",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "plurality": "data",
+              "weighted": "data",
+              "borda": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Plurality and Simple Majority Voting represent the most straightforward.",
-            "activeActor": "tally",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the consensus transition driving plurality behavior.",
+            "values": {
+              "plurality": {
+                "var": "plurality",
+                "line": 14,
+                "hit": 3
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "weighted": {
+                "var": "weighted",
+                "line": 14,
+                "hit": 3
+              },
+              "borda": {
+                "var": "borda",
+                "line": 14,
+                "hit": 3
               }
+            },
+            "tones": {
+              "plurality": "data",
+              "weighted": "data",
+              "borda": "data"
+            },
+            "arrows": [
+              [
+                "plurality",
+                "weighted"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Decentralized governance mechanisms integrate cryptographic.",
-            "activeActor": "weighted_scores",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the voting value produced for confidence processing.",
+            "values": {
+              "plurality": {
+                "var": "plurality",
+                "line": 19,
+                "hit": 14
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "weighted": {
+                "var": "weighted",
+                "line": 19,
+                "hit": 14
+              },
+              "borda": {
+                "var": "borda",
+                "line": 19,
+                "hit": 14
               }
+            },
+            "tones": {
+              "plurality": "ok",
+              "weighted": "ok",
+              "borda": "ok"
+            },
+            "arrows": [
+              [
+                "plurality",
+                "weighted"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Consensus Mechanisms: Plurality Voting, Confidence-Weighted Tall",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "plurality",
+            "label": "plurality",
+            "tappable": true
+          },
+          {
+            "id": "weighted",
+            "label": "weighted",
+            "tappable": true
+          },
+          {
+            "id": "borda",
+            "label": "borda",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consensus mechanisms transform the divergent insights and contentious.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "personas"
+            "caption": "Inspect consensus updates as plurality tracks mechanisms state.",
+            "values": {
+              "plurality": "{}",
+              "weighted": "{}",
+              "borda": "{}"
+            },
+            "tones": {
+              "plurality": "data",
+              "weighted": "data",
+              "borda": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Plurality and Simple Majority Voting represent the most straightforward.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "tally"
+            "caption": "Verify the consensus transition driving plurality behavior.",
+            "values": {
+              "plurality": "{'RUST': 2, 'PYTHON': 1}",
+              "weighted": "{'RUST': 2.2316}",
+              "borda": "{'RUST': 4, 'GO': 2, 'PYTHON': 0}"
+            },
+            "tones": {
+              "plurality": "data",
+              "weighted": "data",
+              "borda": "data"
+            },
+            "arrows": [
+              [
+                "plurality",
+                "weighted"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Decentralized governance mechanisms integrate cryptographic.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "weighted_scores"
+            "at": "say3",
+            "caption": "Examine the voting value produced for confidence processing.",
+            "values": {
+              "plurality": "{'RUST': 2, 'PYTHON': 2, 'GO': 1}",
+              "weighted": "{'RUST': 2.2316, 'PYTHON': 1.5408, 'GO'…",
+              "borda": "{'RUST': 5, 'GO': 6, 'PYTHON': 4}"
+            },
+            "tones": {
+              "plurality": "ok",
+              "weighted": "ok",
+              "borda": "ok"
+            },
+            "arrows": [
+              [
+                "plurality",
+                "weighted"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Ensemble Architecture: Hardening Multi-Agent Socratic Networks In Python",
-      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
+      "codeHash": "dcf0156ca5c4d9de2f469893f7ece50657af287dfab2aa1c6af05883ce95e73b",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Ensemble Architecture: Hardening Multi-Agent Socratic",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "latest",
+            "label": "latest",
+            "tappable": true
+          },
+          {
+            "id": "ev",
+            "label": "ev",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hardening multi-agent Socratic networks for enterprise production requires.",
-            "activeActor": "personas",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as latest tracks architecture state.",
+            "values": {
+              "latest": {
+                "var": "latest",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ev": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "latest": "data",
+              "ev": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The core Python architecture centers on four distinct structural entities.",
-            "activeActor": "tally",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the ensemble transition driving agent behavior.",
+            "values": {
+              "latest": {
+                "var": "latest",
+                "line": 13,
+                "hit": 2
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ev": {
+                "var": "ev",
+                "line": 13,
+                "hit": 2
               }
+            },
+            "tones": {
+              "latest": "data",
+              "ev": "data"
+            },
+            "arrows": [
+              [
+                "latest",
+                "ev"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Continuous automated benchmark verification against historical enterprise.",
-            "activeActor": "weighted_scores",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": {
-                  "var": "personas",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the agent value produced for sequential processing.",
+            "values": {
+              "latest": {
+                "var": "latest",
+                "line": 12,
+                "hit": 4
               },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": {
-                  "var": "tally",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ev": {
+                "var": "ev",
+                "line": 12,
+                "hit": 4
               }
+            },
+            "tones": {
+              "latest": "ok",
+              "ev": "ok"
+            },
+            "arrows": [
+              [
+                "latest",
+                "ev"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Ensemble Architecture: Hardening Multi-Agent Socratic",
-        "actors": [
-          "personas",
-          "tally",
-          "weighted_scores"
+        "nodes": [
+          {
+            "id": "latest",
+            "label": "latest",
+            "tappable": true
+          },
+          {
+            "id": "ev",
+            "label": "ev",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hardening multi-agent Socratic networks for enterprise production requires.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "personas"
+            "caption": "Inspect enterprise updates as latest tracks architecture state.",
+            "values": {
+              "latest": "{}",
+              "ev": ""
+            },
+            "tones": {
+              "latest": "data",
+              "ev": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The core Python architecture centers on four distinct structural entities.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "tally"
+            "caption": "Verify the ensemble transition driving agent behavior.",
+            "values": {
+              "latest": "{'Security': 'REJECT', 'Architect': 'AP…",
+              "ev": "{'persona': 'Architect', 'round': 1, 'v…"
+            },
+            "tones": {
+              "latest": "data",
+              "ev": "data"
+            },
+            "arrows": [
+              [
+                "latest",
+                "ev"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Continuous automated benchmark verification against historical enterprise.",
-            "messages": [
-              {
-                "from": "personas",
-                "to": "tally",
-                "label": "[{'role': 'Systems Performance Architec…",
-                "tone": "data"
-              },
-              {
-                "from": "tally",
-                "to": "weighted_scores",
-                "label": "{}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "weighted_scores"
+            "at": "say3",
+            "caption": "Examine the agent value produced for sequential processing.",
+            "values": {
+              "latest": "{'Security': 'REJECT', 'Architect': 'RE…",
+              "ev": "{'persona': 'FinOps', 'round': 2, 'vote…"
+            },
+            "tones": {
+              "latest": "ok",
+              "ev": "ok"
+            },
+            "arrows": [
+              [
+                "latest",
+                "ev"
+              ]
+            ]
           }
         ]
       }

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Schema discovery continuously analyzes high-throughput event buses.",
+            "activeActor": "detail_type",
+            "messages": [
+              {
+                "from": "source",
+                "to": "detail_type",
+                "label": {
+                  "var": "source",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "detail_type",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Schema discovery continuously analyzes high-throughput event buses.",
-            "activeActor": "detail_type",
+            "at": "say8",
+            "caption": "Examine the tightly value produced for coupling processing.",
+            "activeActor": "detail_payload",
             "messages": [
+              {
+                "from": "source",
+                "to": "detail_type",
+                "label": {
+                  "var": "source",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": {
+                  "var": "detail_type",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "source",
                 "to": "detail_type",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Analyze the formal event envelope structure and schema validation model below.",
-            "activeActor": "detail_payload",
-            "messages": [
+              },
               {
                 "from": "source",
                 "to": "detail_type",
@@ -118,12 +148,6 @@
                 "to": "detail_type",
                 "label": "'com.ecommerce.orders'",
                 "tone": "data"
-              },
-              {
-                "from": "detail_type",
-                "to": "detail_payload",
-                "label": "'OrderPlaced'",
-                "tone": "ok"
               }
             ],
             "activeActor": "source"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say8",
-            "caption": "Analyze the formal event envelope structure and schema validation model below.",
+            "caption": "Examine the tightly value produced for coupling processing.",
             "messages": [
+              {
+                "from": "source",
+                "to": "detail_type",
+                "label": "'com.ecommerce.orders'",
+                "tone": "data"
+              },
+              {
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": "'OrderPlaced'",
+                "tone": "ok"
+              },
+              {
+                "from": "source",
+                "to": "detail_type",
+                "label": "'com.ecommerce.orders'",
+                "tone": "data"
+              },
+              {
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": "'OrderPlaced'",
+                "tone": "ok"
+              },
               {
                 "from": "source",
                 "to": "detail_type",
@@ -213,7 +261,7 @@
           },
           {
             "at": "say7",
-            "caption": "Implement the declarative content-based event pattern matching engine below.",
+            "caption": "Examine the distributing value produced for millions processing.",
             "currentState": "rule_free",
             "transition": {
               "from": "rule_vip",
@@ -265,7 +313,7 @@
           },
           {
             "at": "say7",
-            "caption": "Implement the declarative content-based event pattern matching engine below.",
+            "caption": "Examine the distributing value produced for millions processing.",
             "currentState": "rule_free",
             "transition": {
               "from": "rule_vip",
@@ -370,7 +418,7 @@
           },
           {
             "at": "say8",
-            "caption": "Implement the EventBridge archive store and historical replay generator below.",
+            "caption": "Examine the distributed value produced for message processing.",
             "bars": [
               {
                 "label": "timestamp",
@@ -470,7 +518,7 @@
           },
           {
             "at": "say8",
-            "caption": "Implement the EventBridge archive store and historical replay generator below.",
+            "caption": "Examine the distributed value produced for message processing.",
             "bars": [
               {
                 "label": "timestamp",
@@ -706,7 +754,7 @@
           },
           {
             "at": "say2",
-            "caption": "CloudWatch metrics tracking Invocations, FailedInvocations,.",
+            "caption": "Verify the cloudwatch transition driving metrics behavior.",
             "values": {
               "healthy": {
                 "var": "healthy",
@@ -720,13 +768,13 @@
               },
               "bus_telemetry": {
                 "var": "bus_telemetry",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "invocations": {
                 "var": "invocations",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -766,13 +814,13 @@
               },
               "bus_telemetry": {
                 "var": "bus_telemetry",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "invocations": {
                 "var": "invocations",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -852,12 +900,12 @@
           },
           {
             "at": "say2",
-            "caption": "CloudWatch metrics tracking Invocations, FailedInvocations,.",
+            "caption": "Verify the cloudwatch transition driving metrics behavior.",
             "values": {
               "healthy": "{'Invocations': 50000, 'FailedInvocatio…",
               "degraded": "{'Invocations': 12000, 'FailedInvocatio…",
-              "bus_telemetry": "{'Invocations': 50000, 'FailedInvocatio…",
-              "invocations": "50000"
+              "bus_telemetry": "{'Invocations': 12000, 'FailedInvocatio…",
+              "invocations": "12000"
             },
             "tones": {
               "healthy": "data",
@@ -886,8 +934,8 @@
             "values": {
               "healthy": "{'Invocations': 50000, 'FailedInvocatio…",
               "degraded": "{'Invocations': 12000, 'FailedInvocatio…",
-              "bus_telemetry": "{'Invocations': 50000, 'FailedInvocatio…",
-              "invocations": "50000"
+              "bus_telemetry": "{'Invocations': 12000, 'FailedInvocatio…",
+              "invocations": "12000"
             },
             "tones": {
               "healthy": "ok",

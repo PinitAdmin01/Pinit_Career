@@ -35,7 +35,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how part updates define during execution.",
+            "caption": "Notice concrete sanity boundaries checked early.",
             "items": {
               "var": "old_spec",
               "line": 7,
@@ -74,7 +74,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how part updates define during execution.",
+            "caption": "Notice concrete sanity boundaries checked early.",
             "mode": "stack",
             "items": [
               "'timeout=30'",
@@ -96,7 +96,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Stage 1 guarantees physical network readiness before placing a.",
+            "caption": "Observe how stage shapes throughput during this step.",
             "items": {
               "var": "level",
               "line": 27,
@@ -133,7 +133,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Stage 1 guarantees physical network readiness before placing a.",
+            "caption": "Observe how stage shapes throughput during this step.",
             "mode": "queue",
             "items": [
               "-1",
@@ -379,7 +379,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how integrate updates four during execution.",
+            "caption": "Observe how capstone shapes manifest during this step.",
             "items": {
               "var": "names",
               "line": 8,
@@ -399,7 +399,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how execute updates complete during execution.",
+            "caption": "Examine the complete value produced for milestone processing.",
             "items": {
               "var": "names",
               "line": 15,
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how integrate updates four during execution.",
+            "caption": "Observe how capstone shapes manifest during this step.",
             "mode": "queue",
             "items": [],
             "action": "enqueue"
@@ -430,7 +430,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how execute updates complete during execution.",
+            "caption": "Examine the complete value produced for milestone processing.",
             "mode": "queue",
             "items": [
               "'S'",

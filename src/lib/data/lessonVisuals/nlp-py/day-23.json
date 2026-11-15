@@ -78,7 +78,7 @@
           },
           {
             "at": "say2",
-            "caption": "BERT (Bidirectional Encoder Representations from Transformers, Devlin.",
+            "caption": "Verify the bert transition driving bidirectional behavior.",
             "values": {
               "context_votes": {
                 "var": "context_votes",
@@ -224,7 +224,7 @@
           },
           {
             "at": "say2",
-            "caption": "BERT (Bidirectional Encoder Representations from Transformers, Devlin.",
+            "caption": "Verify the bert transition driving bidirectional behavior.",
             "values": {
               "context_votes": "{'river': {'nature': 1}, 'sat': {'natur…",
               "sentence": "'she sat on the river bank'",
@@ -472,7 +472,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how selected updates round during execution.",
+            "caption": "Verify the selected transition driving round behavior.",
             "bars": [
               {
                 "label": "n",
@@ -588,7 +588,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how selected updates round during execution.",
+            "caption": "Verify the selected transition driving round behavior.",
             "bars": [
               {
                 "label": "n",
@@ -1008,7 +1008,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates tokens during execution.",
+            "caption": "Verify the checks transition driving tokens behavior.",
             "rows": [
               {
                 "cells": [
@@ -1089,7 +1089,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates tokens during execution.",
+            "caption": "Verify the checks transition driving tokens behavior.",
             "rows": [
               {
                 "cells": [

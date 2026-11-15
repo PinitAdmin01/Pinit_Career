@@ -527,18 +527,18 @@
               },
               "label": {
                 "var": "label",
-                "line": 24,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               },
               "c": {
                 "var": "c",
-                "line": 24,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               },
               "compute_budget": {
                 "var": "compute_budget",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -573,18 +573,18 @@
               },
               "label": {
                 "var": "label",
-                "line": 25,
-                "hit": 1
+                "line": 23,
+                "hit": 3
               },
               "c": {
                 "var": "c",
-                "line": 25,
-                "hit": 1
+                "line": 23,
+                "hit": 3
               },
               "compute_budget": {
                 "var": "compute_budget",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -667,9 +667,9 @@
             "caption": "To eliminate the methodological flaws of previous studies, Hoffmann et al.",
             "values": {
               "budgets": "[['Budget 1e21 (Small)', 1e+21], ['Budg…",
-              "label": "'Budget 1e21 (Small)'",
-              "c": "1e+21",
-              "compute_budget": "1e+21"
+              "label": "'Budget 1e22 (Medium)'",
+              "c": "1e+22",
+              "compute_budget": "1e+22"
             },
             "tones": {
               "budgets": "data",
@@ -697,9 +697,9 @@
             "caption": "In the following Python script, we will implement Hoffmann's parametric.",
             "values": {
               "budgets": "[['Budget 1e21 (Small)', 1e+21], ['Budg…",
-              "label": "'Budget 1e21 (Small)'",
-              "c": "1e+21",
-              "compute_budget": "1e+21"
+              "label": "'Budget 5.88e23 (Chinchilla)'",
+              "c": "5.88e+23",
+              "compute_budget": "5.88e+23"
             },
             "tones": {
               "budgets": "ok",
@@ -996,7 +996,7 @@
           },
           {
             "at": "say2",
-            "caption": "Let us walk through the complete calculation pipeline implemented in our.",
+            "caption": "Cluster hardware parameters propagate cleanly through the compute equations.",
             "bars": [
               {
                 "label": "num_gpus",
@@ -1112,7 +1112,7 @@
           },
           {
             "at": "say2",
-            "caption": "Let us walk through the complete calculation pipeline implemented in our.",
+            "caption": "Cluster hardware parameters propagate cleanly through the compute equations.",
             "bars": [
               {
                 "label": "num_gpus",

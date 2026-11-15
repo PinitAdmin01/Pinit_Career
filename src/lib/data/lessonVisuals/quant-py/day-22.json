@@ -9,160 +9,112 @@
       "partTitle": "What alpha means",
       "codeHash": "4c99e3698d0f7d931ad2a17f9b557fea1a77aebbfc02dd13c43f79df4519a7dc",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "What alpha means",
-        "actors": [
-          "win_rate",
-          ".0"
+        "nodes": [
+          {
+            "id": "win_rate",
+            "label": "win_rate",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Alpha is return that cannot be explained by simply holding the market.",
-            "activeActor": "win_rate",
-            "messages": [
-              {
-                "from": "win_rate",
-                "to": ".0",
-                "label": {
-                  "var": "win_rate",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "win_rate": {
+                "var": "win_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "win_rate",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "win_rate": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "High-frequency signals use order book data.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "win_rate",
-                "to": ".0",
-                "label": {
-                  "var": "win_rate",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "win_rate": {
+                "var": "win_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "win_rate",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Measuring edge per trade after costs is the honest test of any signal.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "win_rate",
-                "to": ".0",
-                "label": {
-                  "var": "win_rate",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "win_rate",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 3
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "win_rate": "idle",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "win_rate",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "What alpha means",
-        "actors": [
-          "win_rate",
-          ".0"
+        "nodes": [
+          {
+            "id": "win_rate",
+            "label": "win_rate",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Alpha is return that cannot be explained by simply holding the market.",
-            "messages": [
-              {
-                "from": "win_rate",
-                "to": ".0",
-                "label": "0.5",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "win_rate",
-                "label": "{'__other__': 'range_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "win_rate"
+            "values": {
+              "win_rate": "0.5",
+              "out": ""
+            },
+            "tones": {
+              "win_rate": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "High-frequency signals use order book data.",
-            "messages": [
-              {
-                "from": "win_rate",
-                "to": ".0",
-                "label": "0.5",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "win_rate",
-                "label": "{'__other__': 'range_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
-          },
-          {
-            "at": "say7",
-            "caption": "Measuring edge per trade after costs is the honest test of any signal.",
-            "messages": [
-              {
-                "from": "win_rate",
-                "to": ".0",
-                "label": "0.5",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "win_rate",
-                "label": "{'__other__': 'range_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "values": {
+              "win_rate": "0.5",
+              "out": "win rate 50%: total over 100,000 trades = +442"
+            },
+            "tones": {
+              "win_rate": "idle",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "win_rate",
+                "out"
+              ]
+            ]
           }
         ]
       }
@@ -345,7 +297,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how typical updates rules during execution.",
+            "caption": "Verify the typical transition driving rules behavior.",
             "bars": [
               {
                 "label": "mean",
@@ -461,7 +413,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how typical updates rules during execution.",
+            "caption": "Verify the typical transition driving rules behavior.",
             "bars": [
               {
                 "label": "mean",
@@ -700,20 +652,14 @@
         "title": "Validating and combining signals",
         "nodes": [
           {
-            "id": "signal",
-            "label": "signal"
+            "id": "s",
+            "label": "s",
+            "tappable": true
           },
           {
-            "id": "next_ret",
-            "label": "next_ret"
-          },
-          {
-            "id": "ic",
-            "label": "ic"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "r",
+            "label": "r",
+            "tappable": true
           }
         ],
         "steps": [
@@ -721,137 +667,72 @@
             "at": "say1",
             "caption": "A signal that looks good on one dataset may be luck.",
             "values": {
-              "signal": {
-                "var": "signal",
-                "line": 3,
+              "s": {
+                "var": "s",
+                "line": 7,
                 "hit": 1
               },
-              "next_ret": {
-                "var": "next_ret",
-                "line": 4,
-                "hit": 1
-              },
-              "ic": {
-                "var": "ic",
-                "line": 5,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
+              "r": {
+                "var": "r",
                 "line": 7,
                 "hit": 1
               }
             },
             "tones": {
-              "signal": "data",
-              "next_ret": "data",
-              "ic": "data",
-              ".0": "data"
+              "s": "data",
+              "r": "data"
             },
-            "arrows": [
-              [
-                "signal",
-                "next_ret"
-              ],
-              [
-                "next_ret",
-                "ic"
-              ],
-              [
-                "ic",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The information coefficient (IC), the correlation between the signal.",
+            "caption": "Verify the information transition driving coefficient behavior.",
             "values": {
-              "signal": {
-                "var": "signal",
-                "line": 4,
-                "hit": 1
-              },
-              "next_ret": {
-                "var": "next_ret",
-                "line": 5,
-                "hit": 1
-              },
-              "ic": {
-                "var": "ic",
-                "line": 6,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
+              "s": {
+                "var": "s",
                 "line": 7,
-                "hit": 2
+                "hit": 6
+              },
+              "r": {
+                "var": "r",
+                "line": 7,
+                "hit": 6
               }
             },
             "tones": {
-              "signal": "data",
-              "next_ret": "data",
-              "ic": "data",
-              ".0": "data"
+              "s": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "signal",
-                "next_ret"
-              ],
-              [
-                "next_ret",
-                "ic"
-              ],
-              [
-                "ic",
-                ".0"
+                "s",
+                "r"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Keep a research log of every test run.",
+            "at": "say3",
+            "caption": "Examine the combining value produced for signals processing.",
             "values": {
-              "signal": {
-                "var": "signal",
-                "line": 5,
-                "hit": 1
-              },
-              "next_ret": {
-                "var": "next_ret",
-                "line": 6,
-                "hit": 1
-              },
-              "ic": {
-                "var": "ic",
+              "s": {
+                "var": "s",
                 "line": 7,
-                "hit": 12
+                "hit": 10
               },
-              ".0": {
-                "var": ".0",
+              "r": {
+                "var": "r",
                 "line": 7,
-                "hit": 3
+                "hit": 10
               }
             },
             "tones": {
-              "signal": "ok",
-              "next_ret": "ok",
-              "ic": "ok",
-              ".0": "ok"
+              "s": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "signal",
-                "next_ret"
-              ],
-              [
-                "next_ret",
-                "ic"
-              ],
-              [
-                "ic",
-                ".0"
+                "s",
+                "r"
               ]
             ]
           }
@@ -862,20 +743,14 @@
         "title": "Validating and combining signals",
         "nodes": [
           {
-            "id": "signal",
-            "label": "signal"
+            "id": "s",
+            "label": "s",
+            "tappable": true
           },
           {
-            "id": "next_ret",
-            "label": "next_ret"
-          },
-          {
-            "id": "ic",
-            "label": "ic"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "r",
+            "label": "r",
+            "tappable": true
           }
         ],
         "steps": [
@@ -883,89 +758,48 @@
             "at": "say1",
             "caption": "A signal that looks good on one dataset may be luck.",
             "values": {
-              "signal": "[0.5, -0.2, 0.8, -0.6, 0.1, -0.9, 0.4, …",
-              "next_ret": "[0.02, -0.01, 0.01, -0.02, 0, -0.01, 0.…",
-              "ic": "0.8218236153807085",
-              ".0": "{'__other__': 'zip'}"
+              "s": "0.5",
+              "r": "0.02"
             },
             "tones": {
-              "signal": "data",
-              "next_ret": "data",
-              "ic": "data",
-              ".0": "data"
+              "s": "data",
+              "r": "data"
             },
-            "arrows": [
-              [
-                "signal",
-                "next_ret"
-              ],
-              [
-                "next_ret",
-                "ic"
-              ],
-              [
-                "ic",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The information coefficient (IC), the correlation between the signal.",
+            "caption": "Verify the information transition driving coefficient behavior.",
             "values": {
-              "signal": "[0.5, -0.2, 0.8, -0.6, 0.1, -0.9, 0.4, …",
-              "next_ret": "[0.02, -0.01, 0.01, -0.02, 0, -0.01, 0.…",
-              "ic": "0.8218236153807085",
-              ".0": "{'__other__': 'zip'}"
+              "s": "-0.9",
+              "r": "-0.01"
             },
             "tones": {
-              "signal": "data",
-              "next_ret": "data",
-              "ic": "data",
-              ".0": "data"
+              "s": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "signal",
-                "next_ret"
-              ],
-              [
-                "next_ret",
-                "ic"
-              ],
-              [
-                "ic",
-                ".0"
+                "s",
+                "r"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Keep a research log of every test run.",
+            "at": "say3",
+            "caption": "Examine the combining value produced for signals processing.",
             "values": {
-              "signal": "[0.5, -0.2, 0.8, -0.6, 0.1, -0.9, 0.4, …",
-              "next_ret": "[0.02, -0.01, 0.01, -0.02, 0, -0.01, 0.…",
-              "ic": "0.8218236153807085",
-              ".0": "{'__other__': 'zip'}"
+              "s": "0.7",
+              "r": "0.02"
             },
             "tones": {
-              "signal": "ok",
-              "next_ret": "ok",
-              "ic": "ok",
-              ".0": "ok"
+              "s": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "signal",
-                "next_ret"
-              ],
-              [
-                "next_ret",
-                "ic"
-              ],
-              [
-                "ic",
-                ".0"
+                "s",
+                "r"
               ]
             ]
           }
@@ -986,7 +820,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Pairs_signal(price_a, price_b, beta, mean, std, entry=2.",
+            "caption": "Observe how practice shapes pairs during this step.",
             "activeActor": "spread",
             "messages": [
               {
@@ -998,16 +832,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "position",
-                "to": "pnl",
-                "label": {
-                  "var": "position",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -1021,6 +845,53 @@
                 "to": "position",
                 "label": {
                   "var": "spread",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": {
+                  "var": "position",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The next lesson decides where to send those orders.",
+            "activeActor": "pnl",
+            "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": {
+                  "var": "spread",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": {
+                  "var": "position",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "spread",
+                "to": "position",
+                "label": {
+                  "var": "spread",
                   "line": 5,
                   "hit": 1
                 },
@@ -1035,14 +906,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The next lesson decides where to send those orders.",
-            "activeActor": "pnl",
-            "messages": [
+              },
               {
                 "from": "spread",
                 "to": "position",
@@ -1078,19 +942,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Pairs_signal(price_a, price_b, beta, mean, std, entry=2.",
+            "caption": "Observe how practice shapes pairs during this step.",
             "messages": [
               {
                 "from": "spread",
                 "to": "position",
                 "label": "0",
                 "tone": "data"
-              },
-              {
-                "from": "position",
-                "to": "pnl",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "spread"
@@ -1118,6 +976,30 @@
             "at": "say7",
             "caption": "The next lesson decides where to send those orders.",
             "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "spread",
+                "to": "position",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "spread",
                 "to": "position",

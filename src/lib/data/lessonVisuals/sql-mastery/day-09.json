@@ -403,19 +403,249 @@
       "partTitle": "HAVING: filtering groups",
       "codeHash": "878e58bff3c00632ccc7475b660171bd62875a1373e3fc4f1c033c6dcc46cfc6",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "HAVING: filtering groups",
+        "columns": [
+          "customer",
+          "delivered_value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "WHERE filters rows before grouping.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "delivered_value"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "HAVING comes after GROUP BY and can use aggregates.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "delivered_value"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "customer"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "delivered_value"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "HAVING: filtering groups",
+        "columns": [
+          "customer",
+          "delivered_value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "WHERE filters rows before grouping.",
+            "rows": [
+              {
+                "cells": [
+                  "Ravi",
+                  "1200.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "HAVING comes after GROUP BY and can use aggregates.",
+            "rows": [
+              {
+                "cells": [
+                  "Ravi",
+                  "1200.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Priya",
+                  "760.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Common grouping mistakes",
       "codeHash": "eb830e5f04eb16e46c7b7a5927e84257dd603f99c0fed50326516115ca1939c8",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Common grouping mistakes",
+        "columns": [
+          "city",
+          "name",
+          "customers"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A few mistakes come up again and again with GROUP BY.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "city"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "customers"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL refuses, because WHERE runs before any counting.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "city"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "customers"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "city"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "customers"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Common grouping mistakes",
+        "columns": [
+          "city",
+          "name",
+          "customers"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A few mistakes come up again and again with GROUP BY.",
+            "rows": [
+              {
+                "cells": [
+                  "Pune",
+                  "Asha",
+                  "1"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL refuses, because WHERE runs before any counting.",
+            "rows": [
+              {
+                "cells": [
+                  "Pune",
+                  "Asha",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "null",
+                  "Kabir",
+                  "1"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a category report",

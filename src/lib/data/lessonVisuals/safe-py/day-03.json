@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Every message sent to a model costs money and time, and some messages are.",
+            "caption": "Observe how every shapes message during this step.",
             "currentState": "MAX_CHARS",
             "tone": "data"
           },
@@ -84,7 +84,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Every message sent to a model costs money and time, and some messages are.",
+            "caption": "Observe how every shapes message during this step.",
             "currentState": "MAX_CHARS",
             "tone": "data"
           },
@@ -280,7 +280,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how codes updates below during execution.",
+            "caption": "Verify the codes transition driving below behavior.",
             "values": {
               "samples": {
                 "var": "samples",
@@ -289,13 +289,13 @@
               },
               "s": {
                 "var": "s",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "bad": {
                 "var": "bad",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 49
               }
             },
             "tones": {
@@ -325,13 +325,13 @@
               },
               "s": {
                 "var": "s",
-                "line": 3,
-                "hit": 2
+                "line": 2,
+                "hit": 3
               },
               "bad": {
                 "var": "bad",
-                "line": 2,
-                "hit": 2
+                "line": 3,
+                "hit": 49
               }
             },
             "tones": {
@@ -396,11 +396,11 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how codes updates below during execution.",
+            "caption": "Verify the codes transition driving below behavior.",
             "values": {
               "samples": "['plain text', 'tab\tand\nnewline', 'bell…",
-              "s": "'plain text'",
-              "bad": "[]"
+              "s": "'tab\tand\nnewline'",
+              "bad": "[7, 27]"
             },
             "tones": {
               "samples": "data",
@@ -423,8 +423,8 @@
             "caption": "Invisible characters that are not control characters at all.",
             "values": {
               "samples": "['plain text', 'tab\tand\nnewline', 'bell…",
-              "s": "'plain text'",
-              "bad": "[]"
+              "s": "'bell\u0007 and escape\u001b[31m'",
+              "bad": "[7, 27]"
             },
             "tones": {
               "samples": "ok",

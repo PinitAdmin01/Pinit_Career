@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Research on brainstorming shows that the number of ideas generated.",
+            "activeActor": "angles",
+            "messages": [
+              {
+                "from": "product",
+                "to": "angles",
+                "label": {
+                  "var": "product",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "angles",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Research on brainstorming shows that the number of ideas generated.",
-            "activeActor": "angles",
+            "at": "say10",
+            "caption": "Asking for ideas in a numbered list with one line each makes them easy.",
+            "activeActor": "who",
             "messages": [
+              {
+                "from": "product",
+                "to": "angles",
+                "label": {
+                  "var": "product",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "angles",
+                "to": "who",
+                "label": {
+                  "var": "angles",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "product",
                 "to": "angles",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Asking for ideas in a numbered list with one line each makes them easy.",
-            "activeActor": "who",
-            "messages": [
+              },
               {
                 "from": "product",
                 "to": "angles",
@@ -118,12 +148,6 @@
                 "to": "angles",
                 "label": "'a reusable water bottle'",
                 "tone": "data"
-              },
-              {
-                "from": "angles",
-                "to": "who",
-                "label": "['a busy nurse', 'a mountain trekker', …",
-                "tone": "ok"
               }
             ],
             "activeActor": "product"
@@ -151,6 +175,30 @@
             "at": "say10",
             "caption": "Asking for ideas in a numbered list with one line each makes them easy.",
             "messages": [
+              {
+                "from": "product",
+                "to": "angles",
+                "label": "'a reusable water bottle'",
+                "tone": "data"
+              },
+              {
+                "from": "angles",
+                "to": "who",
+                "label": "['a busy nurse', 'a mountain trekker', …",
+                "tone": "ok"
+              },
+              {
+                "from": "product",
+                "to": "angles",
+                "label": "'a reusable water bottle'",
+                "tone": "data"
+              },
+              {
+                "from": "angles",
+                "to": "who",
+                "label": "['a busy nurse', 'a mountain trekker', …",
+                "tone": "ok"
+              },
               {
                 "from": "product",
                 "to": "angles",
@@ -581,6 +629,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A simple normalisation, lower-casing, replacing punctuation with spaces.",
+            "activeActor": "seen",
+            "messages": [
+              {
+                "from": "ideas",
+                "to": "seen",
+                "label": {
+                  "var": "ideas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "seen",
@@ -595,10 +660,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A simple normalisation, lower-casing, replacing punctuation with spaces.",
-            "activeActor": "seen",
+            "at": "say9",
+            "caption": "Keep the removed duplicates in a log if you want to know which ideas came.",
+            "activeActor": "kept",
             "messages": [
+              {
+                "from": "ideas",
+                "to": "seen",
+                "label": {
+                  "var": "ideas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "kept",
+                "label": {
+                  "var": "seen",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ideas",
                 "to": "seen",
@@ -618,14 +703,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Keep the removed duplicates in a log if you want to know which ideas came.",
-            "activeActor": "kept",
-            "messages": [
+              },
               {
                 "from": "ideas",
                 "to": "seen",
@@ -668,12 +746,6 @@
                 "to": "seen",
                 "label": "['Add a built-in filter', 'add a built …",
                 "tone": "data"
-              },
-              {
-                "from": "seen",
-                "to": "kept",
-                "label": "set()",
-                "tone": "ok"
               }
             ],
             "activeActor": "ideas"
@@ -701,6 +773,30 @@
             "at": "say9",
             "caption": "Keep the removed duplicates in a log if you want to know which ideas came.",
             "messages": [
+              {
+                "from": "ideas",
+                "to": "seen",
+                "label": "['Add a built-in filter', 'add a built …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "kept",
+                "label": "set()",
+                "tone": "ok"
+              },
+              {
+                "from": "ideas",
+                "to": "seen",
+                "label": "['Add a built-in filter', 'add a built …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "kept",
+                "label": "set()",
+                "tone": "ok"
+              },
               {
                 "from": "ideas",
                 "to": "seen",
@@ -923,6 +1019,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks confirm there are seven prompts, test specific ones, and check.",
+            "activeActor": "seen",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": {
+                  "var": "answers",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "seen",
@@ -937,10 +1050,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks confirm there are seven prompts, test specific ones, and check.",
-            "activeActor": "seen",
+            "at": "say8",
+            "caption": "The same de-duplication trick works for survey answers, feedback forms.",
+            "activeActor": "final",
             "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": {
+                  "var": "answers",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": {
+                  "var": "seen",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "answers",
                 "to": "seen",
@@ -960,14 +1093,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The same de-duplication trick works for survey answers, feedback forms.",
-            "activeActor": "final",
-            "messages": [
+              },
               {
                 "from": "answers",
                 "to": "seen",
@@ -1010,12 +1136,6 @@
                 "to": "seen",
                 "label": "{'Substitute': ['Bamboo body', 'bamboo …",
                 "tone": "data"
-              },
-              {
-                "from": "seen",
-                "to": "final",
-                "label": "set()",
-                "tone": "ok"
               }
             ],
             "activeActor": "answers"
@@ -1043,6 +1163,30 @@
             "at": "say8",
             "caption": "The same de-duplication trick works for survey answers, feedback forms.",
             "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": "{'Substitute': ['Bamboo body', 'bamboo …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": "set()",
+                "tone": "ok"
+              },
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": "{'Substitute': ['Bamboo body', 'bamboo …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": "set()",
+                "tone": "ok"
+              },
               {
                 "from": "answers",
                 "to": "seen",

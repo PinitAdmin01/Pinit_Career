@@ -339,10 +339,145 @@
       "partTitle": "INTERSECT and EXCEPT: comparing lists",
       "codeHash": "dd9bfb4dffaedc3ecf9a7b7033ea7525eea6e0a921500758be36b49b00327fc7",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "INTERSECT and EXCEPT: comparing lists",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "INTERSECT returns only the rows that appear in both queries.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "EXCEPT returns the rows of the first query that do not appear in the second.",
+            "values": {
+              "query": {
+                "text": "SELECT city FROM stores EXCEPT SELECT city FROM customers ORDER BY city;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "table": 3,
+                "row": 1,
+                "col": "city"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "INTERSECT and EXCEPT: comparing lists",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "INTERSECT returns only the rows that appear in both queries.",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "EXCEPT returns the rows of the first query that do not appear in the second.",
+            "values": {
+              "query": "SELECT city FROM stores EXCEPT SELECT city FROM customers ORDER BY city;",
+              "db": "SELECT",
+              "res": "Bengaluru"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "UNION with joins and totals",
@@ -486,10 +621,145 @@
       "partTitle": "Putting it together: where the shop is",
       "codeHash": "762b259770cd71526dd3c314c58d3acb54116e38e7d8ba3c0e438700c9313e2e",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Putting it together: where the shop is",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect shop updates as query tracks answer state.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every city we are present in, with customers or stores: UNION.",
+            "values": {
+              "query": {
+                "text": "SELECT city AS store_opportunity FROM customers WHERE city IS NOT NULL EXCEPT SELECT city FROM stores;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "table": 3,
+                "row": 1,
+                "col": "store_opportunity"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Putting it together: where the shop is",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect shop updates as query tracks answer state.",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every city we are present in, with customers or stores: UNION.",
+            "values": {
+              "query": "SELECT city AS store_opportunity FROM customers WHERE city IS NOT NULL EXCEPT SELECT city FROM stores;",
+              "db": "SELECT",
+              "res": "Mumbai"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     }
   ]
 }

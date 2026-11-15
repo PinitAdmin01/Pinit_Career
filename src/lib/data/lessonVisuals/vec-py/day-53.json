@@ -6,227 +6,121 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Foundations & Mathematical Invariants",
-      "codeHash": "08ba8d2173e0284628072b6d7d45e53a9817d69d08093d5ed53aeb8d1635d065",
+      "partTitle": "Pairwise Cosine Similarity Computation Between Candidate Vectors",
+      "codeHash": "0a00002e335713a3166878e30c6a36a8140a20716b7ca376908b4703e54b3239",
       "spec": {
-        "template": "bars",
-        "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminat",
+        "template": "flow",
+        "title": "Pairwise Cosine Similarity Computation Between Candidate Vectors",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When indexing long technical documents, chunking strategies often create.",
-            "bars": [
-              {
-                "label": "a",
-                "value": {
-                  "var": "a",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect indexing updates as a tracks long state.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "label": "b",
-                "value": {
-                  "var": "b",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "dot",
-                "value": {
-                  "var": "dot",
-                  "line": 2,
-                  "hit": 4
-                },
-                "tone": "data"
-              },
-              {
-                "label": "n1",
-                "value": {
-                  "var": "n1",
-                  "line": 3,
-                  "hit": 4
-                },
-                "tone": "data"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "a": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how standard updates cosine during execution.",
-            "bars": [
-              {
-                "label": "a",
-                "value": {
-                  "var": "a",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
+            "caption": "Verify the cosine transition driving similarity behavior.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "label": "b",
-                "value": {
-                  "var": "b",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "dot",
-                "value": {
-                  "var": "dot",
-                  "line": 3,
-                  "hit": 4
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "n1",
-                "value": {
-                  "var": "n1",
-                  "line": 4,
-                  "hit": 4
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "bars": [
-              {
-                "label": "a",
-                "value": {
-                  "var": "a",
-                  "line": 2,
-                  "hit": 3
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "b",
-                "value": {
-                  "var": "b",
-                  "line": 2,
-                  "hit": 3
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "dot",
-                "value": {
-                  "var": "dot",
-                  "line": 4,
-                  "hit": 4
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "n1",
-                "value": {
-                  "var": "n1",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "a": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminat",
+        "template": "flow",
+        "title": "Pairwise Cosine Similarity Computation Between Candidate Vectors",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When indexing long technical documents, chunking strategies often create.",
-            "bars": [
-              {
-                "label": "a",
-                "value": 1,
-                "tone": "data"
-              },
-              {
-                "label": "b",
-                "value": 0.7071,
-                "tone": "data"
-              },
-              {
-                "label": "dot",
-                "value": 0.7071,
-                "tone": "data"
-              },
-              {
-                "label": "n1",
-                "value": 1,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect indexing updates as a tracks long state.",
+            "values": {
+              "a": "1",
+              "out": ""
+            },
+            "tones": {
+              "a": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how standard updates cosine during execution.",
-            "bars": [
-              {
-                "label": "a",
-                "value": 0,
-                "tone": "ok"
-              },
-              {
-                "label": "b",
-                "value": 0.7071,
-                "tone": "ok"
-              },
-              {
-                "label": "dot",
-                "value": 0.7071,
-                "tone": "ok"
-              },
-              {
-                "label": "n1",
-                "value": 1,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "bars": [
-              {
-                "label": "a",
-                "value": 0,
-                "tone": "ok"
-              },
-              {
-                "label": "b",
-                "value": 0.7071,
-                "tone": "ok"
-              },
-              {
-                "label": "dot",
-                "value": 0.7071,
-                "tone": "ok"
-              },
-              {
-                "label": "n1",
-                "value": 1,
-                "tone": "ok"
-              }
+            "caption": "Verify the cosine transition driving similarity behavior.",
+            "values": {
+              "a": "0",
+              "out": "Cosine Similarity: 0.7071"
+            },
+            "tones": {
+              "a": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "out"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Core Algorithm & State Representation",
+      "partTitle": "Greedy Maximal Marginal Relevance Diversity Optimization",
       "codeHash": "212fe884c9766245067ffdbadf11033b32ea5547cbe0e3abcce546c80537fcd4",
       "spec": {
         "template": "bars",
@@ -318,7 +212,7 @@
           },
           {
             "at": "say13",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the verifying value produced for diverse processing.",
             "bars": [
               {
                 "label": "lambda_param",
@@ -418,7 +312,7 @@
           },
           {
             "at": "say13",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the verifying value produced for diverse processing.",
             "bars": [
               {
                 "label": "lambda_param",
@@ -446,40 +340,43 @@
       }
     },
     {
-      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "106a123c5a4b8d43426f69b8efdbc39187b728c0c7dbe5590487a6b4f6d26dcf",
+      "partTitle": "Evaluating Redundancy Penalties Against Selected Results",
+      "codeHash": "54490df570ff716368279225b633a9c755603ce93b917ce95f8b85e622435d34",
       "spec": {
         "template": "bars",
-        "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminat",
+        "title": "Evaluating Redundancy Penalties Against Selected Results",
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating the redundancy penalty requires finding the maximum similarity.",
+            "caption": "Observe how evaluating shapes redundancy during this step.",
             "bars": [
+              {
+                "label": "selected_vecs",
+                "value": {
+                  "var": "selected_vecs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_sim",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
               {
                 "label": "a",
                 "value": {
-                  "var": "a",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
                 "label": "b",
                 "value": {
-                  "var": "b",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "penalty",
-                "value": {
-                  "var": "penalty",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -487,65 +384,75 @@
           },
           {
             "at": "say2",
-            "caption": "Our evaluate_redundancy_penalty function computes the maximum dot product.",
+            "caption": "Verify the redundancy transition driving against behavior.",
             "bars": [
+              {
+                "label": "selected_vecs",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_sim",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
               {
                 "label": "a",
                 "value": {
                   "var": "a",
-                  "line": 4,
-                  "hit": 2
+                  "line": 6,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "b",
                 "value": {
                   "var": "b",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "penalty",
-                "value": {
-                  "var": "penalty",
-                  "line": 8,
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "at": "say3",
+            "caption": "Examine the redundancy value produced for selected processing.",
             "bars": [
+              {
+                "label": "selected_vecs",
+                "value": {
+                  "var": "selected_vecs",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_sim",
+                "value": {
+                  "var": "max_sim",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "label": "a",
                 "value": {
-                  "var": "a",
-                  "line": 4,
-                  "hit": 3
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
                 "label": "b",
                 "value": {
-                  "var": "b",
-                  "line": 4,
-                  "hit": 3
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "penalty",
-                "value": {
-                  "var": "penalty",
-                  "line": 8,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               }
@@ -555,12 +462,48 @@
       },
       "filled": {
         "template": "bars",
-        "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminat",
+        "title": "Evaluating Redundancy Penalties Against Selected Results",
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating the redundancy penalty requires finding the maximum similarity.",
+            "caption": "Observe how evaluating shapes redundancy during this step.",
             "bars": [
+              {
+                "label": "selected_vecs",
+                "value": "[]",
+                "tone": "data"
+              },
+              {
+                "label": "max_sim",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the redundancy transition driving against behavior.",
+            "bars": [
+              {
+                "label": "selected_vecs",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "max_sim",
+                "value": 0,
+                "tone": "data"
+              },
               {
                 "label": "a",
                 "value": 0.9,
@@ -570,52 +513,31 @@
                 "label": "b",
                 "value": 1,
                 "tone": "data"
-              },
-              {
-                "label": "penalty",
-                "value": 0.9,
-                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Our evaluate_redundancy_penalty function computes the maximum dot product.",
+            "at": "say3",
+            "caption": "Examine the redundancy value produced for selected processing.",
             "bars": [
               {
+                "label": "selected_vecs",
+                "value": "[[1, 0]]",
+                "tone": "ok"
+              },
+              {
+                "label": "max_sim",
+                "value": 0.9,
+                "tone": "ok"
+              },
+              {
                 "label": "a",
-                "value": 0.1,
+                "value": 0,
                 "tone": "ok"
               },
               {
                 "label": "b",
                 "value": 0,
-                "tone": "ok"
-              },
-              {
-                "label": "penalty",
-                "value": 0.9,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
-            "bars": [
-              {
-                "label": "a",
-                "value": 0.1,
-                "tone": "ok"
-              },
-              {
-                "label": "b",
-                "value": 0,
-                "tone": "ok"
-              },
-              {
-                "label": "penalty",
-                "value": 0.9,
                 "tone": "ok"
               }
             ]
@@ -624,8 +546,8 @@
       }
     },
     {
-      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a4ad63de33e31fe41b8ea2296b3637959565ccb034fed1e37b7313e593667453",
+      "partTitle": "Clamping the Lambda Trade-Off Weight Inside [0.0, 1.0]",
+      "codeHash": "87abd12616e0f1fd211451ff0be6005f01b883427d0c6f307d25ebcd278a71c1",
       "spec": {
         "template": "table",
         "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminat",
@@ -655,7 +577,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how client updates passes during execution.",
+            "caption": "Verify the trade transition driving weight behavior.",
             "rows": [
               {
                 "cells": [
@@ -674,7 +596,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the testing value produced for boundary processing.",
             "rows": [
               {
                 "cells": [
@@ -706,7 +628,7 @@
               {
                 "cells": [
                   "lambda_val",
-                  "1.5"
+                  "-0.5"
                 ],
                 "tone": "data"
               }
@@ -714,12 +636,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how client updates passes during execution.",
+            "caption": "Verify the trade transition driving weight behavior.",
             "rows": [
               {
                 "cells": [
                   "lambda_val",
-                  "1.5"
+                  "-0.5"
                 ],
                 "tone": "ok"
               }
@@ -727,7 +649,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the testing value produced for boundary processing.",
             "rows": [
               {
                 "cells": [
@@ -742,7 +664,7 @@
       }
     },
     {
-      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Production Telemetry & Verification Audit",
+      "partTitle": "Auditing Pairwise Similarity Dispersion for Diversity Quality",
       "codeHash": "ec6f3fa9c67b180bc3030a158cf419e61fc64ac19a2087696a43c5f5caf5deca",
       "spec": {
         "template": "flow",
@@ -828,13 +750,13 @@
               },
               "sims": {
                 "var": "sims",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               },
               "i": {
                 "var": "i",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -874,13 +796,13 @@
               },
               "sims": {
                 "var": "sims",
-                "line": 6,
+                "line": 8,
                 "hit": 1
               },
               "i": {
                 "var": "i",
-                "line": 7,
-                "hit": 4
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -964,8 +886,8 @@
             "values": {
               "v_set": "[[1, 0], [0.7071, 0.7071]]",
               "selected_vecs": "[[1, 0], [0.7071, 0.7071]]",
-              "sims": "[]",
-              "i": "0"
+              "sims": "[0.7071]",
+              "i": "1"
             },
             "tones": {
               "v_set": "data",
@@ -994,8 +916,8 @@
             "values": {
               "v_set": "[[1, 0], [0.7071, 0.7071]]",
               "selected_vecs": "[[1, 0], [0.7071, 0.7071]]",
-              "sims": "[]",
-              "i": "0"
+              "sims": "[0.7071]",
+              "i": "1"
             },
             "tones": {
               "v_set": "ok",

@@ -472,7 +472,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Each quote is checked independently, because one side may be safe while.",
+            "caption": "Each quote is checked independently.",
             "values": {
               "limits": {
                 "var": "limits",
@@ -518,7 +518,7 @@
           },
           {
             "at": "say2",
-            "caption": "A quote passes if the order size is within max_qty and its price is within.",
+            "caption": "Verify the quote transition driving passes behavior.",
             "values": {
               "limits": {
                 "var": "limits",
@@ -527,13 +527,13 @@
               },
               "inventory": {
                 "var": "inventory",
-                "line": 3,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "price": {
                 "var": "price",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "micro": {
                 "var": "micro",
@@ -573,13 +573,13 @@
               },
               "inventory": {
                 "var": "inventory",
-                "line": 4,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "price": {
                 "var": "price",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "micro": {
                 "var": "micro",
@@ -634,7 +634,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Each quote is checked independently, because one side may be safe while.",
+            "caption": "Each quote is checked independently.",
             "values": {
               "limits": "{'max_qty': 500, 'collar_pct': 1, 'max_…",
               "inventory": "0",
@@ -664,11 +664,11 @@
           },
           {
             "at": "say2",
-            "caption": "A quote passes if the order size is within max_qty and its price is within.",
+            "caption": "Verify the quote transition driving passes behavior.",
             "values": {
               "limits": "{'max_qty': 500, 'collar_pct': 1, 'max_…",
-              "inventory": "0",
-              "price": "100.01",
+              "inventory": "1000",
+              "price": "100.11",
               "micro": "100.06"
             },
             "tones": {
@@ -697,7 +697,7 @@
             "caption": "One-sided gating is subtle but important.",
             "values": {
               "limits": "{'max_qty': 500, 'collar_pct': 1, 'max_…",
-              "inventory": "0",
+              "inventory": "-1000",
               "price": "100.01",
               "micro": "100.06"
             },
@@ -751,6 +751,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the typical transition driving checks behavior.",
+            "activeActor": "p99_ns",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "p99_ns",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "p99_ns",
@@ -765,10 +782,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how typical updates checks during execution.",
-            "activeActor": "p99_ns",
+            "at": "say8",
+            "caption": "Real firms add sign-off from risk, compliance and technology leads before.",
+            "activeActor": "budget_ns",
             "messages": [
+              {
+                "from": "checks",
+                "to": "p99_ns",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": {
+                  "var": "p99_ns",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "p99_ns",
@@ -788,14 +825,7 @@
                   "hit": 6
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Real firms add sign-off from risk, compliance and technology leads before.",
-            "activeActor": "budget_ns",
-            "messages": [
+              },
               {
                 "from": "checks",
                 "to": "p99_ns",
@@ -838,19 +868,13 @@
                 "to": "p99_ns",
                 "label": "{'book_tested': True, 'risk_gate': True…",
                 "tone": "data"
-              },
-              {
-                "from": "p99_ns",
-                "to": "budget_ns",
-                "label": "1500",
-                "tone": "ok"
               }
             ],
             "activeActor": "checks"
           },
           {
             "at": "say2",
-            "caption": "Trace how typical updates checks during execution.",
+            "caption": "Verify the typical transition driving checks behavior.",
             "messages": [
               {
                 "from": "checks",
@@ -871,6 +895,30 @@
             "at": "say8",
             "caption": "Real firms add sign-off from risk, compliance and technology leads before.",
             "messages": [
+              {
+                "from": "checks",
+                "to": "p99_ns",
+                "label": "{'book_tested': True, 'risk_gate': True…",
+                "tone": "data"
+              },
+              {
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": "1500",
+                "tone": "ok"
+              },
+              {
+                "from": "checks",
+                "to": "p99_ns",
+                "label": "{'book_tested': True, 'risk_gate': True…",
+                "tone": "data"
+              },
+              {
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": "1500",
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "p99_ns",
@@ -1076,7 +1124,7 @@
           },
           {
             "at": "say2",
-            "caption": "A normal tick (micro 100.",
+            "caption": "Verify the tick transition driving checks behavior.",
             "bars": [
               {
                 "label": "inv",
@@ -1192,7 +1240,7 @@
           },
           {
             "at": "say2",
-            "caption": "A normal tick (micro 100.",
+            "caption": "Verify the tick transition driving checks behavior.",
             "bars": [
               {
                 "label": "inv",

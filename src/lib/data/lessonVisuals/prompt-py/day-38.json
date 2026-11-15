@@ -7,48 +7,42 @@
   "entries": [
     {
       "partTitle": "Context Inflation & Economics: The Hidden Cost Of Bloated Enterprise Prompts",
-      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
+      "codeHash": "c3175658c36c719d1d2e53e0cf8611c9b08f05b55755d9857a936b4da0869f58",
       "spec": {
         "template": "bars",
         "title": "Context Inflation & Economics: The Hidden Cost Of Bloated Enterp",
         "steps": [
           {
             "at": "say1",
-            "caption": "In large-scale enterprise artificial intelligence deployments, prompt.",
+            "caption": "Observe how context shapes inflation during this step.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "BREAKDOWN",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 5,
+                  "var": "BREAKDOWN",
+                  "line": 1,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "compressed_tok",
+                "label": "PRICE_PER_1M_USD",
                 "value": {
-                  "var": "compressed_tokens",
-                  "line": 6,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "pruned_tokens",
+                "label": "DAILY_CALLS",
                 "value": {
-                  "var": "pruned_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "compression_ra",
+                "label": "raw_tokens",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 8,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -56,82 +50,80 @@
           },
           {
             "at": "say2",
-            "caption": "The financial implications of uncompressed prompt inflation compound.",
+            "caption": "Verify the inflation transition driving enterprise behavior.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "BREAKDOWN",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 6,
+                  "var": "BREAKDOWN",
+                  "line": 3,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "compressed_tok",
+                "label": "PRICE_PER_1M_USD",
                 "value": {
-                  "var": "compressed_tokens",
-                  "line": 7,
+                  "var": "PRICE_PER_1M_USD",
+                  "line": 3,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "pruned_tokens",
+                "label": "DAILY_CALLS",
                 "value": {
-                  "var": "pruned_tokens",
-                  "line": 8,
+                  "var": "DAILY_CALLS",
+                  "line": 3,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "compression_ra",
+                "label": "raw_tokens",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 11,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Financial return on investment analyses for context compression engines.",
+            "at": "say3",
+            "caption": "Examine the bloated value produced for beyond processing.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "BREAKDOWN",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 7,
+                  "var": "BREAKDOWN",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "compressed_tok",
+                "label": "PRICE_PER_1M_USD",
                 "value": {
-                  "var": "compressed_tokens",
-                  "line": 8,
+                  "var": "PRICE_PER_1M_USD",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "pruned_tokens",
+                "label": "DAILY_CALLS",
                 "value": {
-                  "var": "pruned_tokens",
-                  "line": 11,
+                  "var": "DAILY_CALLS",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "compression_ra",
+                "label": "raw_tokens",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 12,
+                  "var": "raw_tokens",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -146,78 +138,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In large-scale enterprise artificial intelligence deployments, prompt.",
+            "caption": "Observe how context shapes inflation during this step.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
+                "label": "BREAKDOWN",
+                "value": "{'system_rules': 650, 'few_shot': 900, …",
                 "tone": "data"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
+                "label": "PRICE_PER_1M_USD",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
+                "label": "DAILY_CALLS",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
+                "label": "raw_tokens",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The financial implications of uncompressed prompt inflation compound.",
+            "caption": "Verify the inflation transition driving enterprise behavior.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
-                "tone": "ok"
+                "label": "BREAKDOWN",
+                "value": "{'system_rules': 650, 'few_shot': 900, …",
+                "tone": "data"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
-                "tone": "ok"
+                "label": "PRICE_PER_1M_USD",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
-                "tone": "ok"
+                "label": "DAILY_CALLS",
+                "value": 200000,
+                "tone": "data"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
-                "tone": "ok"
+                "label": "raw_tokens",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Financial return on investment analyses for context compression engines.",
+            "at": "say3",
+            "caption": "Examine the bloated value produced for beyond processing.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
+                "label": "BREAKDOWN",
+                "value": "{'system_rules': 650, 'few_shot': 900, …",
                 "tone": "ok"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
+                "label": "PRICE_PER_1M_USD",
+                "value": 5,
                 "tone": "ok"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
+                "label": "DAILY_CALLS",
+                "value": 200000,
                 "tone": "ok"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
+                "label": "raw_tokens",
+                "value": 7900,
                 "tone": "ok"
               }
             ]
@@ -227,328 +219,298 @@
     },
     {
       "partTitle": "LLMLingua Algorithmic Foundations: Small Language Models & Perplexity Calculation",
-      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
+      "codeHash": "94c81188f2fd4a5549d67b6427c7bff8f459ee1303b3762b1bf10bd96689233f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "LLMLingua Algorithmic Foundations: Small Language Models & Perpl",
-        "actors": [
-          "baseline_tokens",
-          "compressed_tokens",
-          "pruned_tokens"
+        "nodes": [
+          {
+            "id": "scored",
+            "label": "scored",
+            "tappable": true
+          },
+          {
+            "id": "prev",
+            "label": "prev",
+            "tappable": true
+          },
+          {
+            "id": "tok",
+            "label": "tok",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the mathematical foundation of modern prompt compression lies.",
-            "activeActor": "baseline_tokens",
-            "messages": [
-              {
-                "from": "baseline_tokens",
-                "to": "compressed_tokens",
-                "label": {
-                  "var": "baseline_tokens",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect llmlingua updates as scored tracks small state.",
+            "values": {
+              "scored": {
+                "var": "scored",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "compressed_tokens",
-                "to": "pruned_tokens",
-                "label": {
-                  "var": "compressed_tokens",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "prev": {
+                "text": ""
+              },
+              "tok": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "scored": "data",
+              "prev": "idle",
+              "tok": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Perplexity in information theory measures how surprised a language model.",
-            "activeActor": "compressed_tokens",
-            "messages": [
-              {
-                "from": "baseline_tokens",
-                "to": "compressed_tokens",
-                "label": {
-                  "var": "baseline_tokens",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the language transition driving perplexity behavior.",
+            "values": {
+              "scored": {
+                "var": "scored",
+                "line": 10,
+                "hit": 5
               },
-              {
-                "from": "compressed_tokens",
-                "to": "pruned_tokens",
-                "label": {
-                  "var": "compressed_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "prev": {
+                "var": "prev",
+                "line": 10,
+                "hit": 5
+              },
+              "tok": {
+                "var": "tok",
+                "line": 10,
+                "hit": 5
               }
+            },
+            "tones": {
+              "scored": "data",
+              "prev": "data",
+              "tok": "data"
+            },
+            "arrows": [
+              [
+                "scored",
+                "prev"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Dynamic vocabularies and multi-tokenizer mapping protocols ensure.",
-            "activeActor": "pruned_tokens",
-            "messages": [
-              {
-                "from": "baseline_tokens",
-                "to": "compressed_tokens",
-                "label": {
-                  "var": "baseline_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the perplexity value produced for core processing.",
+            "values": {
+              "scored": {
+                "var": "scored",
+                "line": 11,
+                "hit": 10
               },
-              {
-                "from": "compressed_tokens",
-                "to": "pruned_tokens",
-                "label": {
-                  "var": "compressed_tokens",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "prev": {
+                "var": "prev",
+                "line": 11,
+                "hit": 10
+              },
+              "tok": {
+                "var": "tok",
+                "line": 11,
+                "hit": 10
               }
+            },
+            "tones": {
+              "scored": "ok",
+              "prev": "ok",
+              "tok": "ok"
+            },
+            "arrows": [
+              [
+                "scored",
+                "prev"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "LLMLingua Algorithmic Foundations: Small Language Models & Perpl",
-        "actors": [
-          "baseline_tokens",
-          "compressed_tokens",
-          "pruned_tokens"
+        "nodes": [
+          {
+            "id": "scored",
+            "label": "scored",
+            "tappable": true
+          },
+          {
+            "id": "prev",
+            "label": "prev",
+            "tappable": true
+          },
+          {
+            "id": "tok",
+            "label": "tok",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the mathematical foundation of modern prompt compression lies.",
-            "messages": [
-              {
-                "from": "baseline_tokens",
-                "to": "compressed_tokens",
-                "label": "4500",
-                "tone": "data"
-              },
-              {
-                "from": "compressed_tokens",
-                "to": "pruned_tokens",
-                "label": "1350",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "baseline_tokens"
+            "caption": "Inspect llmlingua updates as scored tracks small state.",
+            "values": {
+              "scored": "[]",
+              "prev": "",
+              "tok": ""
+            },
+            "tones": {
+              "scored": "data",
+              "prev": "idle",
+              "tok": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Perplexity in information theory measures how surprised a language model.",
-            "messages": [
-              {
-                "from": "baseline_tokens",
-                "to": "compressed_tokens",
-                "label": "4500",
-                "tone": "data"
-              },
-              {
-                "from": "compressed_tokens",
-                "to": "pruned_tokens",
-                "label": "1350",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "compressed_tokens"
+            "caption": "Verify the language transition driving perplexity behavior.",
+            "values": {
+              "scored": "[['please', 2.737], ['note', 0.621], ['…",
+              "prev": "'the'",
+              "tok": "'timeout'"
+            },
+            "tones": {
+              "scored": "data",
+              "prev": "data",
+              "tok": "data"
+            },
+            "arrows": [
+              [
+                "scored",
+                "prev"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Dynamic vocabularies and multi-tokenizer mapping protocols ensure.",
-            "messages": [
-              {
-                "from": "baseline_tokens",
-                "to": "compressed_tokens",
-                "label": "4500",
-                "tone": "data"
-              },
-              {
-                "from": "compressed_tokens",
-                "to": "pruned_tokens",
-                "label": "1350",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "pruned_tokens"
+            "at": "say3",
+            "caption": "Examine the perplexity value produced for core processing.",
+            "values": {
+              "scored": "[['please', 2.737], ['note', 0.621], ['…",
+              "prev": "'uses'",
+              "tok": "'raft'"
+            },
+            "tones": {
+              "scored": "ok",
+              "prev": "ok",
+              "tok": "ok"
+            },
+            "arrows": [
+              [
+                "scored",
+                "prev"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Budgeted Token Pruning: Dynamic Coarse-to-Fine Compression & Information Density",
-      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
+      "codeHash": "7a3939b28f205adc6b578792cfde75d9d5d9f4e73c304ae974a147bfea55f2fd",
       "spec": {
         "template": "flow",
         "title": "Budgeted Token Pruning: Dynamic Coarse-to-Fine Compression & Inf",
         "nodes": [
           {
-            "id": "baseline_tokens",
-            "label": "baseline_tokens"
+            "id": "t",
+            "label": "t",
+            "tappable": true
           },
           {
-            "id": "compressed_tokens",
-            "label": "compressed_tokens"
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
           },
           {
-            "id": "pruned_tokens",
-            "label": "pruned_tokens"
-          },
-          {
-            "id": "compression_ratio",
-            "label": "compression_ratio"
+            "id": "tok",
+            "label": "tok",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Budgeted token pruning operationalizes prompt compression as a constrained.",
+            "caption": "Inspect budgeted updates as t tracks token state.",
             "values": {
-              "baseline_tokens": {
-                "var": "baseline_tokens",
-                "line": 5,
+              "t": {
+                "var": "t",
+                "line": 15,
                 "hit": 1
               },
-              "compressed_tokens": {
-                "var": "compressed_tokens",
-                "line": 6,
-                "hit": 1
+              "idx": {
+                "text": ""
               },
-              "pruned_tokens": {
-                "var": "pruned_tokens",
-                "line": 7,
-                "hit": 1
-              },
-              "compression_ratio": {
-                "var": "compression_ratio",
-                "line": 8,
-                "hit": 1
+              "tok": {
+                "text": ""
               }
             },
             "tones": {
-              "baseline_tokens": "data",
-              "compressed_tokens": "data",
-              "pruned_tokens": "data",
-              "compression_ratio": "data"
+              "t": "data",
+              "idx": "idle",
+              "tok": "idle"
             },
-            "arrows": [
-              [
-                "baseline_tokens",
-                "compressed_tokens"
-              ],
-              [
-                "compressed_tokens",
-                "pruned_tokens"
-              ],
-              [
-                "pruned_tokens",
-                "compression_ratio"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The coarse-to-fine compression hierarchy begins with Document-Level Filtering.",
             "values": {
-              "baseline_tokens": {
-                "var": "baseline_tokens",
-                "line": 6,
-                "hit": 1
+              "t": {
+                "text": ""
               },
-              "compressed_tokens": {
-                "var": "compressed_tokens",
-                "line": 7,
-                "hit": 1
+              "idx": {
+                "var": "idx",
+                "line": 16,
+                "hit": 7
               },
-              "pruned_tokens": {
-                "var": "pruned_tokens",
-                "line": 8,
-                "hit": 1
-              },
-              "compression_ratio": {
-                "var": "compression_ratio",
-                "line": 11,
-                "hit": 1
+              "tok": {
+                "var": "tok",
+                "line": 16,
+                "hit": 7
               }
             },
             "tones": {
-              "baseline_tokens": "data",
-              "compressed_tokens": "data",
-              "pruned_tokens": "data",
-              "compression_ratio": "data"
+              "t": "idle",
+              "idx": "data",
+              "tok": "data"
             },
             "arrows": [
               [
-                "baseline_tokens",
-                "compressed_tokens"
-              ],
-              [
-                "compressed_tokens",
-                "pruned_tokens"
-              ],
-              [
-                "pruned_tokens",
-                "compression_ratio"
+                "t",
+                "idx"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Empirical cross-entropy evaluations confirm that budgeted token pruning.",
+            "at": "say3",
+            "caption": "The second hierarchical stage executes Sentence-Level Pruning.",
             "values": {
-              "baseline_tokens": {
-                "var": "baseline_tokens",
-                "line": 7,
-                "hit": 1
+              "t": {
+                "text": ""
               },
-              "compressed_tokens": {
-                "var": "compressed_tokens",
-                "line": 8,
-                "hit": 1
+              "idx": {
+                "text": ""
               },
-              "pruned_tokens": {
-                "var": "pruned_tokens",
-                "line": 11,
-                "hit": 1
-              },
-              "compression_ratio": {
-                "var": "compression_ratio",
-                "line": 12,
-                "hit": 1
+              "tok": {
+                "var": "tok",
+                "line": 22,
+                "hit": 5
               }
             },
             "tones": {
-              "baseline_tokens": "ok",
-              "compressed_tokens": "ok",
-              "pruned_tokens": "ok",
-              "compression_ratio": "ok"
+              "t": "idle",
+              "idx": "idle",
+              "tok": "ok"
             },
             "arrows": [
               [
-                "baseline_tokens",
-                "compressed_tokens"
-              ],
-              [
-                "compressed_tokens",
-                "pruned_tokens"
-              ],
-              [
-                "pruned_tokens",
-                "compression_ratio"
+                "t",
+                "idx"
               ]
             ]
           }
@@ -559,110 +521,74 @@
         "title": "Budgeted Token Pruning: Dynamic Coarse-to-Fine Compression & Inf",
         "nodes": [
           {
-            "id": "baseline_tokens",
-            "label": "baseline_tokens"
+            "id": "t",
+            "label": "t",
+            "tappable": true
           },
           {
-            "id": "compressed_tokens",
-            "label": "compressed_tokens"
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
           },
           {
-            "id": "pruned_tokens",
-            "label": "pruned_tokens"
-          },
-          {
-            "id": "compression_ratio",
-            "label": "compression_ratio"
+            "id": "tok",
+            "label": "tok",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Budgeted token pruning operationalizes prompt compression as a constrained.",
+            "caption": "Inspect budgeted updates as t tracks token state.",
             "values": {
-              "baseline_tokens": "4500",
-              "compressed_tokens": "1350",
-              "pruned_tokens": "3150",
-              "compression_ratio": "3.33"
+              "t": "[0, 'CRITICAL', 10, True]",
+              "idx": "",
+              "tok": ""
             },
             "tones": {
-              "baseline_tokens": "data",
-              "compressed_tokens": "data",
-              "pruned_tokens": "data",
-              "compression_ratio": "data"
+              "t": "data",
+              "idx": "idle",
+              "tok": "idle"
             },
-            "arrows": [
-              [
-                "baseline_tokens",
-                "compressed_tokens"
-              ],
-              [
-                "compressed_tokens",
-                "pruned_tokens"
-              ],
-              [
-                "pruned_tokens",
-                "compression_ratio"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The coarse-to-fine compression hierarchy begins with Document-Level Filtering.",
             "values": {
-              "baseline_tokens": "4500",
-              "compressed_tokens": "1350",
-              "pruned_tokens": "3150",
-              "compression_ratio": "3.33"
+              "t": "",
+              "idx": "6",
+              "tok": "'on'"
             },
             "tones": {
-              "baseline_tokens": "data",
-              "compressed_tokens": "data",
-              "pruned_tokens": "data",
-              "compression_ratio": "data"
+              "t": "idle",
+              "idx": "data",
+              "tok": "data"
             },
             "arrows": [
               [
-                "baseline_tokens",
-                "compressed_tokens"
-              ],
-              [
-                "compressed_tokens",
-                "pruned_tokens"
-              ],
-              [
-                "pruned_tokens",
-                "compression_ratio"
+                "t",
+                "idx"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Empirical cross-entropy evaluations confirm that budgeted token pruning.",
+            "at": "say3",
+            "caption": "The second hierarchical stage executes Sentence-Level Pruning.",
             "values": {
-              "baseline_tokens": "4500",
-              "compressed_tokens": "1350",
-              "pruned_tokens": "3150",
-              "compression_ratio": "3.33"
+              "t": "",
+              "idx": "",
+              "tok": "'shard-3'"
             },
             "tones": {
-              "baseline_tokens": "ok",
-              "compressed_tokens": "ok",
-              "pruned_tokens": "ok",
-              "compression_ratio": "ok"
+              "t": "idle",
+              "idx": "idle",
+              "tok": "ok"
             },
             "arrows": [
               [
-                "baseline_tokens",
-                "compressed_tokens"
-              ],
-              [
-                "compressed_tokens",
-                "pruned_tokens"
-              ],
-              [
-                "pruned_tokens",
-                "compression_ratio"
+                "t",
+                "idx"
               ]
             ]
           }
@@ -671,48 +597,44 @@
     },
     {
       "partTitle": "KV-Cache Physics & Latency Acceleration: Pre-Fill Optimization & Memory Footprints",
-      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
+      "codeHash": "03e9d90073cd7c504a0fefaa4f45d1be8e894e4d3c8114ee6bb11450cb3e8522",
       "spec": {
         "template": "bars",
         "title": "KV-Cache Physics & Latency Acceleration: Pre-Fill Optimization &",
         "steps": [
           {
             "at": "say1",
-            "caption": "The physics of the Key-Value (KV) cache in modern transformer inference.",
+            "caption": "Observe how cache shapes physics during this step.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "ratio_name",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "compressed_tok",
-                "value": {
-                  "var": "compressed_tokens",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "pruned_tokens",
-                "value": {
-                  "var": "pruned_tokens",
+                  "var": "ratio_name",
                   "line": 7,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "compression_ra",
+                "label": "seq",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 8,
+                  "var": "seq",
+                  "line": 7,
                   "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mb_per_req",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -720,83 +642,75 @@
           },
           {
             "at": "say2",
-            "caption": "KV-cache memory consumption scales linearly with prompt token length.",
+            "caption": "Verify the cache transition driving latency behavior.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "ratio_name",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 6,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "compressed_tok",
+                "label": "seq",
                 "value": {
-                  "var": "compressed_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "pruned_tokens",
+                "label": "seq_len",
                 "value": {
-                  "var": "pruned_tokens",
-                  "line": 8,
-                  "hit": 1
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "compression_ra",
+                "label": "mb_per_req",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 11,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Continuous memory profiling across enterprise clusters demonstrates.",
+            "at": "say3",
+            "caption": "Examine the cache value produced for memory processing.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "ratio_name",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "compressed_tok",
-                "value": {
-                  "var": "compressed_tokens",
+                  "var": "ratio_name",
                   "line": 8,
-                  "hit": 1
+                  "hit": 3
                 },
                 "tone": "ok"
               },
               {
-                "label": "pruned_tokens",
+                "label": "seq",
                 "value": {
-                  "var": "pruned_tokens",
-                  "line": 11,
-                  "hit": 1
+                  "var": "seq",
+                  "line": 8,
+                  "hit": 3
                 },
                 "tone": "ok"
               },
               {
-                "label": "compression_ra",
+                "label": "seq_len",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 12,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mb_per_req",
+                "value": {
+                  "var": "mb_per_req",
+                  "line": 8,
+                  "hit": 3
                 },
                 "tone": "ok"
               }
@@ -810,78 +724,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The physics of the Key-Value (KV) cache in modern transformer inference.",
+            "caption": "Observe how cache shapes physics during this step.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
+                "label": "ratio_name",
+                "value": "'Uncompressed (16k)'",
                 "tone": "data"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
+                "label": "seq",
+                "value": 16384,
                 "tone": "data"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
+                "label": "seq_len",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
+                "label": "mb_per_req",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "KV-cache memory consumption scales linearly with prompt token length.",
+            "caption": "Verify the cache transition driving latency behavior.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
-                "tone": "ok"
+                "label": "ratio_name",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
-                "tone": "ok"
+                "label": "seq",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
-                "tone": "ok"
+                "label": "seq_len",
+                "value": 8192,
+                "tone": "data"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
-                "tone": "ok"
+                "label": "mb_per_req",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Continuous memory profiling across enterprise clusters demonstrates.",
+            "at": "say3",
+            "caption": "Examine the cache value produced for memory processing.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
+                "label": "ratio_name",
+                "value": "'4x Compressed (4k)'",
                 "tone": "ok"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
+                "label": "seq",
+                "value": 4096,
                 "tone": "ok"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
+                "label": "seq_len",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
+                "label": "mb_per_req",
+                "value": 512,
                 "tone": "ok"
               }
             ]
@@ -891,48 +805,42 @@
     },
     {
       "partTitle": "Enterprise Compression Engineering: Building A Production Prompt Pruner In Python",
-      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
+      "codeHash": "d2fc97a671e48b31012a6fdf5084de4c8ae7eb7a0c6f1a718aade1a2eafe7faf",
       "spec": {
         "template": "bars",
         "title": "Enterprise Compression Engineering: Building A Production Prompt",
         "steps": [
           {
             "at": "say1",
-            "caption": "Building an enterprise-grade prompt compression service requires.",
+            "caption": "Observe how enterprise shapes compression during this step.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "lat",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 5,
+                  "var": "lat",
+                  "line": 16,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "compressed_tok",
+                "label": "scorer_latency_ms",
                 "value": {
-                  "var": "compressed_tokens",
-                  "line": 6,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "pruned_tokens",
+                "label": "mode",
                 "value": {
-                  "var": "pruned_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "compression_ra",
+                "label": "w",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 8,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -940,83 +848,77 @@
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production prompt compression service.",
+            "caption": "Verify the compression transition driving effective behavior.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "lat",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 6,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "compressed_tok",
+                "label": "scorer_latency_ms",
                 "value": {
-                  "var": "compressed_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "pruned_tokens",
-                "value": {
-                  "var": "pruned_tokens",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "compression_ra",
-                "value": {
-                  "var": "compression_ratio",
+                  "var": "scorer_latency_ms",
                   "line": 11,
-                  "hit": 1
+                  "hit": 9
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "mode",
+                "value": {
+                  "var": "mode",
+                  "line": 11,
+                  "hit": 9
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 11,
+                  "hit": 9
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say11",
-            "caption": "Enterprise dashboard integration exposes real-time context economics.",
+            "at": "say3",
+            "caption": "Examine the python value produced for perplexity processing.",
             "bars": [
               {
-                "label": "baseline_token",
+                "label": "lat",
                 "value": {
-                  "var": "baseline_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "var": "lat",
+                  "line": 17,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "compressed_tok",
+                "label": "scorer_latency_ms",
                 "value": {
-                  "var": "compressed_tokens",
-                  "line": 8,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "pruned_tokens",
+                "label": "mode",
                 "value": {
-                  "var": "pruned_tokens",
-                  "line": 11,
-                  "hit": 1
+                  "var": "mode",
+                  "line": 17,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "compression_ra",
+                "label": "w",
                 "value": {
-                  "var": "compression_ratio",
-                  "line": 12,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               }
@@ -1030,78 +932,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Building an enterprise-grade prompt compression service requires.",
+            "caption": "Observe how enterprise shapes compression during this step.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
+                "label": "lat",
+                "value": 12,
                 "tone": "data"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
+                "label": "scorer_latency_ms",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
+                "label": "mode",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
+                "label": "w",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production prompt compression service.",
+            "caption": "Verify the compression transition driving effective behavior.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
-                "tone": "ok"
+                "label": "lat",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
-                "tone": "ok"
+                "label": "scorer_latency_ms",
+                "value": 12,
+                "tone": "data"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
-                "tone": "ok"
+                "label": "mode",
+                "value": "'SLM_PERPLEXITY_PRUNE'",
+                "tone": "data"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
-                "tone": "ok"
+                "label": "w",
+                "value": "'it'",
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say11",
-            "caption": "Enterprise dashboard integration exposes real-time context economics.",
+            "at": "say3",
+            "caption": "Examine the python value produced for perplexity processing.",
             "bars": [
               {
-                "label": "baseline_token",
-                "value": 4500,
+                "label": "lat",
+                "value": 48,
                 "tone": "ok"
               },
               {
-                "label": "compressed_tok",
-                "value": 1350,
+                "label": "scorer_latency_ms",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "pruned_tokens",
-                "value": 3150,
+                "label": "mode",
+                "value": "'REGEX_DEGRADATION_BYPASS'",
                 "tone": "ok"
               },
               {
-                "label": "compression_ra",
-                "value": 3.33,
+                "label": "w",
+                "value": 0,
                 "tone": "ok"
               }
             ]

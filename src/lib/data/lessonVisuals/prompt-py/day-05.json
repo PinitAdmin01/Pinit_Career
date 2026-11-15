@@ -374,7 +374,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AI services charge per token, with separate prices for input (what you.",
+            "caption": "Output is usually several times more expensive.",
             "bars": [
               {
                 "label": "pin",
@@ -506,7 +506,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AI services charge per token, with separate prices for input (what you.",
+            "caption": "Output is usually several times more expensive.",
             "bars": [
               {
                 "label": "pin",
@@ -747,6 +747,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Each addition improves quality but costs tokens, so include what the task.",
+            "activeActor": "examples",
+            "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": {
+                  "var": "role",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "examples",
@@ -761,10 +778,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each addition improves quality but costs tokens, so include what the task.",
-            "activeActor": "examples",
+            "at": "say7",
+            "caption": "This build, budget, send, extract and validate loop is the pattern for.",
+            "activeActor": "question",
             "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": {
+                  "var": "role",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": {
+                  "var": "examples",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "role",
                 "to": "examples",
@@ -784,14 +821,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "This build, budget, send, extract and validate loop is the pattern for.",
-            "activeActor": "question",
-            "messages": [
+              },
               {
                 "from": "role",
                 "to": "examples",
@@ -834,12 +864,6 @@
                 "to": "examples",
                 "label": "'You are a patient maths tutor for clas…",
                 "tone": "data"
-              },
-              {
-                "from": "examples",
-                "to": "question",
-                "label": "'Q: 3 pens at 5 each? Steps: 3 x 5 = 15…",
-                "tone": "ok"
               }
             ],
             "activeActor": "role"
@@ -867,6 +891,30 @@
             "at": "say7",
             "caption": "This build, budget, send, extract and validate loop is the pattern for.",
             "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": "'You are a patient maths tutor for clas…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": "'Q: 3 pens at 5 each? Steps: 3 x 5 = 15…",
+                "tone": "ok"
+              },
+              {
+                "from": "role",
+                "to": "examples",
+                "label": "'You are a patient maths tutor for clas…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": "'Q: 3 pens at 5 each? Steps: 3 x 5 = 15…",
+                "tone": "ok"
+              },
               {
                 "from": "role",
                 "to": "examples",
@@ -930,16 +978,14 @@
                 "hit": 1
               },
               "u": {
-                "var": "u",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "system": "data",
               "user": "data",
               "s": "data",
-              "u": "data"
+              "u": "idle"
             },
             "arrows": [
               [
@@ -1079,13 +1125,13 @@
               "system": "'You are a helpful HR assistant.You are…",
               "user": "'Summarise the leave policy for new joi…",
               "s": "24",
-              "u": "22"
+              "u": ""
             },
             "tones": {
               "system": "data",
               "user": "data",
               "s": "data",
-              "u": "data"
+              "u": "idle"
             },
             "arrows": [
               [

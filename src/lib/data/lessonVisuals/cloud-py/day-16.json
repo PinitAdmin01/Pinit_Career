@@ -503,18 +503,18 @@
               },
               "seen": {
                 "var": "seen",
-                "line": 6,
+                "line": 9,
                 "hit": 1
               },
               "hits": {
                 "var": "hits",
-                "line": 6,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "c": {
                 "var": "c",
-                "line": 12,
-                "hit": 1
+                "line": 6,
+                "hit": 7
               }
             },
             "tones": {
@@ -549,18 +549,18 @@
               },
               "seen": {
                 "var": "seen",
-                "line": 7,
-                "hit": 1
+                "line": 9,
+                "hit": 7
               },
               "hits": {
                 "var": "hits",
-                "line": 7,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "c": {
                 "var": "c",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 9
               }
             },
             "tones": {
@@ -643,9 +643,9 @@
             "caption": "You can add headers, cookies or query parameters to the key when.",
             "values": {
               "calls": "[{'path': '/home', 'lang': 'en', 'ua': …",
-              "seen": "set()",
-              "hits": "0",
-              "c": "{'path': '/home', 'lang': 'en', 'ua': '…"
+              "seen": "{['/home', 'en']}",
+              "hits": "1",
+              "c": "{'path': '/home', 'lang': 'hi', 'ua': '…"
             },
             "tones": {
               "calls": "data",
@@ -673,8 +673,8 @@
             "caption": "The example shows how a bad key choice destroys the hit ratio.",
             "values": {
               "calls": "[{'path': '/home', 'lang': 'en', 'ua': …",
-              "seen": "set()",
-              "hits": "0",
+              "seen": "{['/home', 'en'], ['/home', 'hi']}",
+              "hits": "2",
               "c": "{'path': '/home', 'lang': 'en', 'ua': '…"
             },
             "tones": {
@@ -727,6 +727,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Invalidations take a little time to spread, and after a free monthly.",
+            "activeActor": "content",
+            "messages": [
+              {
+                "from": "name",
+                "to": "content",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "content",
@@ -741,10 +758,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Invalidations take a little time to spread, and after a free monthly.",
-            "activeActor": "content",
+            "at": "say7",
+            "caption": "You have already used the same idea in Git commit ids and in.",
+            "activeActor": "digest",
             "messages": [
+              {
+                "from": "name",
+                "to": "content",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "content",
+                "to": "digest",
+                "label": {
+                  "var": "content",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "name",
                 "to": "content",
@@ -764,14 +801,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "You have already used the same idea in Git commit ids and in.",
-            "activeActor": "digest",
-            "messages": [
+              },
               {
                 "from": "name",
                 "to": "content",
@@ -814,12 +844,6 @@
                 "to": "content",
                 "label": "'app.js'",
                 "tone": "data"
-              },
-              {
-                "from": "content",
-                "to": "digest",
-                "label": "'console-free build v1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "name"
@@ -847,6 +871,30 @@
             "at": "say7",
             "caption": "You have already used the same idea in Git commit ids and in.",
             "messages": [
+              {
+                "from": "name",
+                "to": "content",
+                "label": "'app.js'",
+                "tone": "data"
+              },
+              {
+                "from": "content",
+                "to": "digest",
+                "label": "'console-free build v1'",
+                "tone": "ok"
+              },
+              {
+                "from": "name",
+                "to": "content",
+                "label": "'app.js'",
+                "tone": "data"
+              },
+              {
+                "from": "content",
+                "to": "digest",
+                "label": "'console-free build v1'",
+                "tone": "ok"
+              },
               {
                 "from": "name",
                 "to": "content",

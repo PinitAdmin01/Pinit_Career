@@ -471,6 +471,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "PagedAttention, introduced by vLLM, stores the KV cache in small.",
+            "activeActor": "paged_mb",
+            "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": {
+                  "var": "traditional_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "paged_mb",
@@ -485,16 +502,16 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "PagedAttention, introduced by vLLM, stores the KV cache in small.",
-            "activeActor": "paged_mb",
+            "at": "say7",
+            "caption": "This one idea is a major reason vLLM serves many times more requests than.",
+            "activeActor": "saved",
             "messages": [
               {
                 "from": "traditional_mb",
                 "to": "paged_mb",
                 "label": {
                   "var": "traditional_mb",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -504,18 +521,11 @@
                 "to": "saved",
                 "label": {
                   "var": "paged_mb",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "This one idea is a major reason vLLM serves many times more requests than.",
-            "activeActor": "saved",
-            "messages": [
+              },
               {
                 "from": "traditional_mb",
                 "to": "paged_mb",
@@ -558,12 +568,6 @@
                 "to": "paged_mb",
                 "label": "2048",
                 "tone": "data"
-              },
-              {
-                "from": "paged_mb",
-                "to": "saved",
-                "label": "512",
-                "tone": "ok"
               }
             ],
             "activeActor": "traditional_mb"
@@ -591,6 +595,18 @@
             "at": "say7",
             "caption": "This one idea is a major reason vLLM serves many times more requests than.",
             "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "paged_mb",
+                "to": "saved",
+                "label": "512",
+                "tone": "ok"
+              },
               {
                 "from": "traditional_mb",
                 "to": "paged_mb",
@@ -660,7 +676,7 @@
           },
           {
             "at": "say2",
-            "caption": "Continuous batching (used by vLLM and others) adds new requests into.",
+            "caption": "Verify the batching transition driving continuous behavior.",
             "bars": [
               {
                 "label": "slots",
@@ -776,7 +792,7 @@
           },
           {
             "at": "say2",
-            "caption": "Continuous batching (used by vLLM and others) adds new requests into.",
+            "caption": "Verify the batching transition driving continuous behavior.",
             "bars": [
               {
                 "label": "slots",
@@ -892,18 +908,18 @@
             "values": {
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               },
               "q": {
                 "var": "q",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 4
               },
               "bits": {
                 "var": "bits",
-                "line": 12,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "f": {
                 "var": "f",
@@ -924,18 +940,18 @@
             "values": {
               "name": {
                 "var": "name",
-                "line": 5,
-                "hit": 1
+                "line": 10,
+                "hit": 3
               },
               "q": {
                 "var": "q",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 4
               },
               "bits": {
                 "var": "bits",
-                "line": 10,
-                "hit": 2
+                "line": 11,
+                "hit": 3
               },
               "f": {
                 "var": "f",
@@ -979,9 +995,9 @@
             "caption": "GGUF is the file format used by llama.",
             "values": {
               "name": "'Q4_K_M'",
-              "q": "{'__other__': 'Match'}",
+              "q": "<Match>",
               "bits": "4",
-              "f": "{'__other__': 'Match'}"
+              "f": "<Match>"
             },
             "tones": {
               "name": "data",
@@ -994,10 +1010,10 @@
             "at": "say2",
             "caption": "File names show the quantisation.",
             "values": {
-              "name": "'Q4_K_M'",
-              "q": "{'__other__': 'Match'}",
-              "bits": "4",
-              "f": "{'__other__': 'Match'}"
+              "name": "'Q8_0'",
+              "q": "None",
+              "bits": "8",
+              "f": "<Match>"
             },
             "tones": {
               "name": "data",
@@ -1010,10 +1026,10 @@
             "at": "say6",
             "caption": "File size is roughly parameters x bits / 8, so a 7B model at Q4 is about 3.",
             "values": {
-              "name": "'Q4_K_M'",
-              "q": "{'__other__': 'Match'}",
-              "bits": "4",
-              "f": "{'__other__': 'Match'}"
+              "name": "'Q2_K'",
+              "q": "None",
+              "bits": "2",
+              "f": "<Match>"
             },
             "tones": {
               "name": "ok",

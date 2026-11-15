@@ -255,6 +255,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "By default everything is denied.",
+            "activeActor": "action",
+            "messages": [
+              {
+                "from": "stmts",
+                "to": "action",
+                "label": {
+                  "var": "stmts",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "action",
@@ -269,10 +286,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "By default everything is denied.",
-            "activeActor": "action",
+            "at": "say7",
+            "caption": "The example shows the three outcomes.",
+            "activeActor": "res",
             "messages": [
+              {
+                "from": "stmts",
+                "to": "action",
+                "label": {
+                  "var": "stmts",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "action",
+                "to": "res",
+                "label": {
+                  "var": "action",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "stmts",
                 "to": "action",
@@ -292,14 +329,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows the three outcomes.",
-            "activeActor": "res",
-            "messages": [
+              },
               {
                 "from": "stmts",
                 "to": "action",
@@ -342,12 +372,6 @@
                 "to": "action",
                 "label": "[{'effect': 'Allow', 'action': 's3:GetO…",
                 "tone": "data"
-              },
-              {
-                "from": "action",
-                "to": "res",
-                "label": "'s3:GetObject'",
-                "tone": "ok"
               }
             ],
             "activeActor": "stmts"
@@ -375,6 +399,30 @@
             "at": "say7",
             "caption": "The example shows the three outcomes.",
             "messages": [
+              {
+                "from": "stmts",
+                "to": "action",
+                "label": "[{'effect': 'Allow', 'action': 's3:GetO…",
+                "tone": "data"
+              },
+              {
+                "from": "action",
+                "to": "res",
+                "label": "'s3:GetObject'",
+                "tone": "ok"
+              },
+              {
+                "from": "stmts",
+                "to": "action",
+                "label": "[{'effect': 'Allow', 'action': 's3:GetO…",
+                "tone": "data"
+              },
+              {
+                "from": "action",
+                "to": "res",
+                "label": "'s3:GetObject'",
+                "tone": "ok"
+              },
               {
                 "from": "stmts",
                 "to": "action",

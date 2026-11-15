@@ -122,7 +122,12 @@ const DAYS: Day[] = [
       desc: "Write `run_lru_operations(capacity, ops)` that replays operations on an LRU cache of that capacity and returns the list of results of every 'get'. Each op is ('put', key, value) or ('get', key); a missing key gives -1.",
       starter: code('def run_lru_operations(capacity, ops):', '    results = []', "    # For ('put', k, v) store it (removing the least recently used key if full); for ('get', k) append the value or -1", '    pass'),
       hint: "Use a dict; when you read or write a key, delete it and insert it again so it becomes the most recent. next(iter(cache)) is the least recent key.",
-      test: code("assert run_lru_operations(1, [('put', 1, 10), ('put', 2, 20), ('get', 1), ('get', 2)]) == [-1, 20], 'Capacity 1 keeps only the newest key'", "assert run_lru_operations(2, [('put', 1, 1), ('put', 2, 2), ('get', 1), ('put', 3, 3), ('get', 2), ('get', 1)]) == [1, -1, 1], 'Reading key 1 makes key 2 the one to remove'", done),
+      test: code(
+        "assert run_lru_operations(1, [('put', 1, 10), ('put', 2, 20), ('get', 1), ('get', 2)]) == [-1, 20], 'Capacity 1 keeps only the newest key'",
+        "assert run_lru_operations(2, [('put', 1, 1), ('put', 2, 2), ('get', 1), ('put', 3, 3), ('get', 2), ('get', 1)]) == [1, -1, 1], 'Reading key 1 makes key 2 the one to remove'",
+        "assert run_lru_operations(2, [('get', 99), ('put', 1, 5), ('put', 1, 6), ('get', 1)]) == [-1, 6], 'Updating an existing key refreshes its value'",
+        done
+      ),
     },
   },
   // Day 6: queues
@@ -182,7 +187,12 @@ const DAYS: Day[] = [
       desc: "Write `max_sub_array_sum(nums, k)` returning the biggest sum of any k numbers in a row, sliding the window instead of adding each window again.",
       starter: code('def max_sub_array_sum(nums, k):', '    window = sum(nums[:k])', '    best = window', '    # Slide: add the new number on the right, subtract the one that left on the left', '    pass'),
       hint: "for i in range(k, len(nums)): window += nums[i] - nums[i - k]; best = max(best, window).",
-      test: code("assert max_sub_array_sum([2, 1, 5, 1, 3, 2], 3) == 9, 'Expected 9 from [5, 1, 3]'", "assert max_sub_array_sum([1, 9, -1, -2, 7, 3], 2) == 10, 'Expected 10'", done),
+      test: code(
+        "assert max_sub_array_sum([2, 1, 5, 1, 3, 2], 3) == 9, 'Expected 9 from [5, 1, 3]'",
+        "assert max_sub_array_sum([1, 9, -1, -2, 7, 3], 2) == 10, 'Expected 10'",
+        "assert max_sub_array_sum([-5, -1, -2, -8], 2) == -3, 'All-negative arrays work too'",
+        done
+      ),
     },
   },
   // Day 10: binary search
@@ -212,7 +222,13 @@ const DAYS: Day[] = [
       desc: "Write `permute(nums)` returning every order (permutation) of the numbers, using backtracking with a record of which numbers are already used.",
       starter: code('def permute(nums):', '    result = []', '    used = [False] * len(nums)', '    current = []', '    # Build each order one number at a time', '    pass'),
       hint: "def backtrack(): if len(current) == len(nums): result.append(current[:]); else try every unused index, mark it, recurse, unmark.",
-      test: code('p = permute([1, 2, 3])', "assert len(p) == 6, 'Expected 3! = 6 orders'", "assert sorted(p) == [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]], 'Every order must appear once'", done),
+      test: code(
+        "p = permute([1, 2, 3])",
+        "assert len(p) == 6, 'Expected 3! = 6 orders'",
+        "assert sorted(p) == [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]], 'Every order must appear once'",
+        "assert permute([7]) == [[7]], 'Single-element permutation'",
+        done
+      ),
     },
   },
   // Day 12: merge sort
@@ -227,7 +243,21 @@ const DAYS: Day[] = [
       desc: "Write `merge_two_lists(l1, l2)` that merges two sorted linked lists into one sorted linked list and returns its head. A `ListNode` class is already in the editor.",
       starter: code(LIST_NODE, '', '', 'def merge_two_lists(l1, l2):', '    dummy = ListNode()', '    tail = dummy', '    # Attach the smaller node each time', '    pass'),
       hint: "while l1 and l2: attach the smaller one and move it forward; tail.next = l1 or l2 at the end; return dummy.next.",
-      test: code('def to_list(node):', '    out = []', '    while node:', '        out.append(node.val)', '        node = node.next', '    return out', '', 'a = ListNode(1, ListNode(4))', 'b = ListNode(2, ListNode(3, ListNode(5)))', "assert to_list(merge_two_lists(a, b)) == [1, 2, 3, 4, 5], 'Expected 1 2 3 4 5'", "assert merge_two_lists(None, None) is None, 'Two empty lists give an empty list'", done),
+      test: code(
+        "def to_list(node):",
+        "    out = []",
+        "    while node:",
+        "        out.append(node.val)",
+        "        node = node.next",
+        "    return out",
+        "",
+        "a = ListNode(1, ListNode(4))",
+        "b = ListNode(2, ListNode(3, ListNode(5)))",
+        "assert to_list(merge_two_lists(a, b)) == [1, 2, 3, 4, 5], 'Expected 1 2 3 4 5'",
+        "assert merge_two_lists(None, None) is None, 'Two empty lists give an empty list'",
+        "assert to_list(merge_two_lists(ListNode(1, ListNode(3)), None)) == [1, 3], 'One empty list returns the other'",
+        done
+      ),
     },
   },
   // Day 13: quick sort
@@ -242,7 +272,16 @@ const DAYS: Day[] = [
       desc: "Write `quick_sort(arr, lo=0, hi=None)` that sorts the list in place with quick sort and returns it.",
       starter: code('def quick_sort(arr, lo=0, hi=None):', '    if hi is None:', '        hi = len(arr) - 1', '    # Partition around arr[hi], then sort the left and right parts', '    pass'),
       hint: "if lo >= hi: return arr. Partition, then quick_sort(arr, lo, p - 1) and quick_sort(arr, p + 1, hi).",
-      test: code('a = [5, 2, 9, 1, 7]', 'quick_sort(a)', "assert a == [1, 2, 5, 7, 9], 'The list must be sorted in place'", 'b = [3, 3, 1, 2, 3]', 'quick_sort(b)', "assert b == [1, 2, 3, 3, 3], 'Repeated values must work'", done),
+      test: code(
+        "a = [5, 2, 9, 1, 7]",
+        "quick_sort(a)",
+        "assert a == [1, 2, 5, 7, 9], 'The list must be sorted in place'",
+        "b = [3, 3, 1, 2, 3]",
+        "quick_sort(b)",
+        "assert b == [1, 2, 3, 3, 3], 'Repeated values must work'",
+        "assert quick_sort([]) == [] and quick_sort([9]) == [9], 'Empty and single-element lists'",
+        done
+      ),
     },
   },
   // Day 14: linear-time sorts
@@ -251,13 +290,27 @@ const DAYS: Day[] = [
       desc: "Write `sort_colors(nums)` that sorts a list of 0s, 1s and 2s in place in one pass (Dutch national flag: low, mid and high pointers). Do not use sort().",
       starter: code('def sort_colors(nums):', '    low, mid, high = 0, 0, len(nums) - 1', '    # 0 -> swap to low, 1 -> leave, 2 -> swap to high', '    pass'),
       hint: "while mid <= high: 0 swaps with low (move both), 1 moves mid, 2 swaps with high (move high only).",
-      test: code('a = [2, 0, 2, 1, 1, 0]', 'sort_colors(a)', "assert a == [0, 0, 1, 1, 2, 2], 'Expected [0, 0, 1, 1, 2, 2]'", 'b = [2, 1, 0]', 'sort_colors(b)', "assert b == [0, 1, 2], 'Expected [0, 1, 2]'", done),
+      test: code(
+        "a = [2, 0, 2, 1, 1, 0]",
+        "sort_colors(a)",
+        "assert a == [0, 0, 1, 1, 2, 2], 'Expected [0, 0, 1, 1, 2, 2]'",
+        "b = [2, 1, 0]",
+        "sort_colors(b)",
+        "assert b == [0, 1, 2], 'Expected [0, 1, 2]'",
+        "c = [1, 1]; sort_colors(c); assert c == [1, 1], 'Uniform color list stays intact'",
+        done
+      ),
     },
     a: {
       desc: "Write `counting_sort(arr, max_val)` that sorts whole numbers from 0 to max_val in O(N + K) by counting how often each value appears. Return a new list.",
       starter: code('def counting_sort(arr, max_val):', '    counts = [0] * (max_val + 1)', '    # Count each value, then write each value out as many times as it was counted', '    pass'),
       hint: "for v in arr: counts[v] += 1; then for v in range(max_val + 1): out.extend([v] * counts[v]).",
-      test: code("assert counting_sort([4, 2, 2, 8, 3, 3, 1], 8) == [1, 2, 2, 3, 3, 4, 8], 'Counting sort failed'", "assert counting_sort([], 5) == [], 'An empty list stays empty'", done),
+      test: code(
+        "assert counting_sort([4, 2, 2, 8, 3, 3, 1], 8) == [1, 2, 2, 3, 3, 4, 8], 'Counting sort failed'",
+        "assert counting_sort([], 5) == [], 'An empty list stays empty'",
+        "assert counting_sort([0, 3, 0, 1], 3) == [0, 0, 1, 3], 'Zeros and duplicates sort cleanly'",
+        done
+      ),
     },
   },
   // Day 15: heaps / median
@@ -272,7 +325,12 @@ const DAYS: Day[] = [
       desc: "Write `stream_medians(nums)` returning the running median after each number is added.",
       starter: code('import bisect', '', '', 'def stream_medians(nums):', '    seen = []', '    medians = []', '    # Add each number in sorted position, then record the current median', '    pass'),
       hint: "After bisect.insort(seen, x): n = len(seen); median = seen[n // 2] if n % 2 else (seen[n // 2 - 1] + seen[n // 2]) / 2.",
-      test: code("assert stream_medians([5, 15, 1, 3]) == [5, 10, 5, 4], 'Expected [5, 10, 5, 4]'", "assert stream_medians([]) == [], 'No numbers, no medians'", done),
+      test: code(
+        "assert stream_medians([5, 15, 1, 3]) == [5, 10, 5, 4], 'Expected [5, 10, 5, 4]'",
+        "assert stream_medians([]) == [], 'No numbers, no medians'",
+        "assert stream_medians([2, 4]) == [2, 3.0], 'Two-element median averages them'",
+        done
+      ),
     },
   },
   // Day 16: trees and BFS
@@ -317,7 +375,12 @@ const DAYS: Day[] = [
       desc: "Write `kth_smallest(nums, k)` returning the k-th smallest number using the heapq module (heapify, then pop k times).",
       starter: code('import heapq', '', '', 'def kth_smallest(nums, k):', '    heap = nums[:]', '    heapq.heapify(heap)', '    # Pop k times; the last one popped is the answer', '    pass'),
       hint: "for _ in range(k): value = heapq.heappop(heap). Return value.",
-      test: code("assert kth_smallest([7, 10, 4, 3, 20, 15], 3) == 7, 'The 3rd smallest is 7'", "assert kth_smallest([7, 10, 4, 3, 20, 15], 1) == 3, 'The smallest is 3'", done),
+      test: code(
+        "assert kth_smallest([7, 10, 4, 3, 20, 15], 3) == 7, 'The 3rd smallest is 7'",
+        "assert kth_smallest([7, 10, 4, 3, 20, 15], 1) == 3, 'The smallest is 3'",
+        "assert kth_smallest([7, 10, 4, 3, 20, 15], 6) == 20, 'k equal to len returns largest'",
+        done
+      ),
     },
   },
   // Day 19: tries
@@ -371,13 +434,25 @@ const DAYS: Day[] = [
       desc: "Write `dijkstra(graph, start)` returning a dict of the shortest distance from start to every node it can reach. graph maps a node to a list of (neighbour, weight) pairs. Use heapq as the priority queue.",
       starter: code('import heapq', '', '', 'def dijkstra(graph, start):', '    dist = {start: 0}', '    heap = [(0, start)]', '    # Pop the closest node; relax each edge that gives a shorter distance', '    pass'),
       hint: "while heap: d, node = heapq.heappop(heap); skip if d > dist[node]; for nb, w in graph.get(node, []): if d + w < dist.get(nb, inf): update and push.",
-      test: code("g = {'A': [('B', 4), ('C', 2)], 'B': [('D', 10)], 'C': [('B', 1), ('D', 5)], 'D': []}", 'dist = dijkstra(g, "A")', "assert dist == {'A': 0, 'B': 3, 'C': 2, 'D': 7}, 'Expected A0 B3 C2 D7'", "assert dijkstra({'X': []}, 'X') == {'X': 0}, 'A lone node is 0 from itself'", done),
+      test: code(
+        "g = {'A': [('B', 4), ('C', 2)], 'B': [('D', 10)], 'C': [('B', 1), ('D', 5)], 'D': []}",
+        "dist = dijkstra(g, \"A\")",
+        "assert dist == {'A': 0, 'B': 3, 'C': 2, 'D': 7}, 'Expected A0 B3 C2 D7'",
+        "assert dijkstra({'X': []}, 'X') == {'X': 0}, 'A lone node is 0 from itself'",
+        "assert dijkstra({'A': [('B', 5)], 'B': [], 'Z': []}, 'A') == {'A': 0, 'B': 5}, 'Unreachable nodes are omitted'",
+        done
+      ),
     },
     a: {
       desc: "Write `network_delay_time(times, n, k)`: times is a list of [from, to, milliseconds] links between nodes 1..n. Return how long it takes a signal sent from node k to reach every node, or -1 if some node never gets it.",
       starter: code('import heapq', '', '', 'def network_delay_time(times, n, k):', '    graph = {i: [] for i in range(1, n + 1)}', '    for u, v, w in times:', '        graph[u].append((v, w))', '    # Run Dijkstra from k; the answer is the largest distance (or -1)', '    pass'),
       hint: "After Dijkstra: if len(dist) < n: return -1; return max(dist.values()).",
-      test: code("assert network_delay_time([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2) == 2, 'Expected 2'", "assert network_delay_time([[1, 2, 1]], 2, 2) == -1, 'Node 1 is never reached from node 2'", done),
+      test: code(
+        "assert network_delay_time([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2) == 2, 'Expected 2'",
+        "assert network_delay_time([[1, 2, 1]], 2, 2) == -1, 'Node 1 is never reached from node 2'",
+        "assert network_delay_time([], 1, 1) == 0, 'Single node starts reached in 0 ms'",
+        done
+      ),
     },
   },
   // Day 23: topological sort
@@ -407,7 +482,12 @@ const DAYS: Day[] = [
       desc: "Write `find_redundant_connection(edges)` returning the first edge [a, b] that connects two nodes that were already connected (the edge that makes a cycle). Nodes are numbered from 1.",
       starter: code('def find_redundant_connection(edges):', '    parent = {}', '', '    def find(x):', '        parent.setdefault(x, x)', '        if parent[x] != x:', '            parent[x] = find(parent[x])', '        return parent[x]', '', '    # For each edge, join the groups; if they were already the same group, return the edge', '    pass'),
       hint: "for a, b in edges: ra, rb = find(a), find(b); if ra == rb: return [a, b]; parent[ra] = rb.",
-      test: code("assert find_redundant_connection([[1, 2], [1, 3], [2, 3]]) == [2, 3], 'Edge [2, 3] closes the cycle'", "assert find_redundant_connection([[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]]) == [1, 4], 'Edge [1, 4] closes the cycle'", done),
+      test: code(
+        "assert find_redundant_connection([[1, 2], [1, 3], [2, 3]]) == [2, 3], 'Edge [2, 3] closes the cycle'",
+        "assert find_redundant_connection([[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]]) == [1, 4], 'Edge [1, 4] closes the cycle'",
+        "assert find_redundant_connection([[1, 2], [2, 3], [1, 3]]) == [1, 3], 'Triangle closes on [1, 3]'",
+        done
+      ),
     },
   },
   // Day 25: dynamic programming 1
@@ -497,7 +577,12 @@ const DAYS: Day[] = [
       desc: "Write `audit_flight_graph(flights)` that summarises a route network: return a dict with 'routes' (number of flights), 'airports' (how many different airports appear) and 'cheapest' (the lowest price, or None when there are no flights). flights is a list of [from, to, price].",
       starter: code('def audit_flight_graph(flights):', "    # Return {'routes': ..., 'airports': ..., 'cheapest': ...}", '    pass'),
       hint: "airports = {a for f in flights for a in f[:2]}; cheapest = min((f[2] for f in flights), default=None).",
-      test: code("assert audit_flight_graph([[0, 1, 100], [1, 2, 80], [0, 2, 150]]) == {'routes': 3, 'airports': 3, 'cheapest': 80}, 'Expected 3 routes, 3 airports, cheapest 80'", "assert audit_flight_graph([]) == {'routes': 0, 'airports': 0, 'cheapest': None}, 'An empty network'", done),
+      test: code(
+        "assert audit_flight_graph([[0, 1, 100], [1, 2, 80], [0, 2, 150]]) == {'routes': 3, 'airports': 3, 'cheapest': 80}, 'Expected 3 routes, 3 airports, cheapest 80'",
+        "assert audit_flight_graph([]) == {'routes': 0, 'airports': 0, 'cheapest': None}, 'An empty network'",
+        "assert audit_flight_graph([[5, 9, 42]]) == {'routes': 1, 'airports': 2, 'cheapest': 42}, 'Single route graph'",
+        done
+      ),
     },
   },
 ];

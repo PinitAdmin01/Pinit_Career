@@ -199,6 +199,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Those leftovers are handled one at a time by ordinary scalar code, called.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "width",
+                "to": "n",
+                "label": {
+                  "var": "width",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "n",
@@ -213,10 +230,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Those leftovers are handled one at a time by ordinary scalar code, called.",
-            "activeActor": "n",
+            "at": "say7",
+            "caption": "The example shows the chunk boundaries for a few lengths.",
+            "activeActor": "full",
             "messages": [
+              {
+                "from": "width",
+                "to": "n",
+                "label": {
+                  "var": "width",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "full",
+                "label": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "width",
                 "to": "n",
@@ -236,14 +273,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows the chunk boundaries for a few lengths.",
-            "activeActor": "full",
-            "messages": [
+              },
               {
                 "from": "width",
                 "to": "n",
@@ -286,12 +316,6 @@
                 "to": "n",
                 "label": "8",
                 "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": "full",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "width"
@@ -319,6 +343,30 @@
             "at": "say7",
             "caption": "The example shows the chunk boundaries for a few lengths.",
             "messages": [
+              {
+                "from": "width",
+                "to": "n",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "full",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "width",
+                "to": "n",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "full",
+                "label": "8",
+                "tone": "ok"
+              },
               {
                 "from": "width",
                 "to": "n",
@@ -493,7 +541,7 @@
           },
           {
             "at": "say7",
-            "caption": "Branch-free thinking is a useful skill even outside SIMD, since.",
+            "caption": "Examine the branch value produced for free processing.",
             "items": {
               "var": "pnl",
               "line": 4,
@@ -551,7 +599,7 @@
           },
           {
             "at": "say7",
-            "caption": "Branch-free thinking is a useful skill even outside SIMD, since.",
+            "caption": "Examine the branch value produced for free processing.",
             "items": [
               "120",
               "-40",
@@ -595,17 +643,6 @@
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
@@ -620,17 +657,6 @@
                   },
                   {
                     "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -685,13 +711,6 @@
                   "same result: True"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "timed both versions: True"
-                ],
-                "tone": "ok"
               }
             ]
           },
@@ -703,13 +722,6 @@
                 "cells": [
                   "out 1",
                   "same result: True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "timed both versions: True"
                 ],
                 "tone": "ok"
               }
@@ -771,7 +783,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how return updates product during execution.",
+            "caption": "Verify the return transition driving product behavior.",
             "bars": [
               {
                 "label": "p",
@@ -841,7 +853,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how return updates product during execution.",
+            "caption": "Verify the return transition driving product behavior.",
             "bars": [
               {
                 "label": "p",

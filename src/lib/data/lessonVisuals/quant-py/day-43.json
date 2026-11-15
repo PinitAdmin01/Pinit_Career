@@ -47,7 +47,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how unlike updates level during execution.",
+            "caption": "Verify the order transition driving mathematical behavior.",
             "bars": [
               {
                 "label": "best_bid",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how unlike updates level during execution.",
+            "caption": "Verify the order transition driving mathematical behavior.",
             "bars": [
               {
                 "label": "best_bid",
@@ -270,13 +270,13 @@
               },
               "order_id": {
                 "var": "order_id",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "side": {
                 "var": "side",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -316,13 +316,13 @@
               },
               "order_id": {
                 "var": "order_id",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "side": {
                 "var": "side",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -406,8 +406,8 @@
             "values": {
               "self": "<L3OrderBookEngine>",
               "engine": "<L3OrderBookEngine>",
-              "order_id": "101",
-              "side": "'BUY'"
+              "order_id": "102",
+              "side": "'SELL'"
             },
             "tones": {
               "self": "data",
@@ -436,8 +436,8 @@
             "values": {
               "self": "<L3OrderBookEngine>",
               "engine": "<L3OrderBookEngine>",
-              "order_id": "101",
-              "side": "'BUY'"
+              "order_id": "201",
+              "side": "'SELL'"
             },
             "tones": {
               "self": "ok",
@@ -489,16 +489,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "price_float",
-                "to": "tick",
-                "label": {
-                  "var": "price_float",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -512,7 +502,7 @@
                 "to": "price_float",
                 "label": {
                   "var": "p",
-                  "line": 26,
+                  "line": 25,
                   "hit": 1
                 },
                 "tone": "data"
@@ -539,7 +529,7 @@
                 "to": "price_float",
                 "label": {
                   "var": "p",
-                  "line": 27,
+                  "line": 25,
                   "hit": 1
                 },
                 "tone": "data"
@@ -553,6 +543,26 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "p",
+                "to": "price_float",
+                "label": {
+                  "var": "p",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "price_float",
+                "label": {
+                  "var": "p",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -576,12 +586,6 @@
                 "to": "price_float",
                 "label": "150.25",
                 "tone": "data"
-              },
-              {
-                "from": "price_float",
-                "to": "tick",
-                "label": "150.25",
-                "tone": "ok"
               }
             ],
             "activeActor": "p"
@@ -620,6 +624,18 @@
                 "to": "tick",
                 "label": "150.25",
                 "tone": "ok"
+              },
+              {
+                "from": "p",
+                "to": "price_float",
+                "label": "150.25",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "price_float",
+                "label": "150.25",
+                "tone": "data"
               }
             ],
             "activeActor": "tick"
@@ -660,7 +676,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how itch updates message during execution.",
+            "caption": "Verify the book transition driving itch behavior.",
             "bars": [
               {
                 "label": "incoming_seq",
@@ -684,7 +700,7 @@
           },
           {
             "at": "say10",
-            "caption": "Automated recovery pathways restore synchronized order book depth within.",
+            "caption": "Examine the book value produced for recovery processing.",
             "bars": [
               {
                 "label": "incoming_seq",
@@ -730,7 +746,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how itch updates message during execution.",
+            "caption": "Verify the book transition driving itch behavior.",
             "bars": [
               {
                 "label": "incoming_seq",
@@ -746,7 +762,7 @@
           },
           {
             "at": "say10",
-            "caption": "Automated recovery pathways restore synchronized order book depth within.",
+            "caption": "Examine the book value produced for recovery processing.",
             "bars": [
               {
                 "label": "incoming_seq",

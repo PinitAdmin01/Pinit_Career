@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 10 — Foundations & Mathematical Invariants",
+      "partTitle": "Circular Primary-Replica Shard Topology Initialization",
       "codeHash": "5793e471a7f35e2c8d39ffeec5ccb675a522d1ae600030238edd1af4977ece78",
       "spec": {
         "template": "flow",
@@ -78,7 +78,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates introduces during execution.",
+            "caption": "Verify the milestone transition driving introduces behavior.",
             "values": {
               "num_shards": {
                 "var": "num_shards",
@@ -92,13 +92,13 @@
               },
               "cluster": {
                 "var": "cluster",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "s_idx": {
                 "var": "s_idx",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -138,13 +138,13 @@
               },
               "cluster": {
                 "var": "cluster",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "s_idx": {
                 "var": "s_idx",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -224,12 +224,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates introduces during execution.",
+            "caption": "Verify the milestone transition driving introduces behavior.",
             "values": {
               "num_shards": "3",
               "replication_factor": "2",
-              "cluster": "{}",
-              "s_idx": "0"
+              "cluster": "{'shard_0': {'primary': 'node_0', 'repl…",
+              "s_idx": "1"
             },
             "tones": {
               "num_shards": "data",
@@ -258,8 +258,8 @@
             "values": {
               "num_shards": "3",
               "replication_factor": "2",
-              "cluster": "{}",
-              "s_idx": "0"
+              "cluster": "{'shard_0': {'primary': 'node_0', 'repl…",
+              "s_idx": "2"
             },
             "tones": {
               "num_shards": "ok",
@@ -286,116 +286,121 @@
       }
     },
     {
-      "partTitle": "Milestone 10 — Core Algorithm & State Representation",
-      "codeHash": "4d79b213d39bffae113d3a57a8950570139305aafce14454938b3662b3c9fcee",
+      "partTitle": "Deterministic Upsert Routing with Vector Norm Sanity Checks",
+      "codeHash": "152f310e090caf2c9d0a9b14a7e53e444d0fb8fa6dc2e1b54eea7d9f56d94b45",
       "spec": {
-        "template": "cells",
-        "title": "Milestone 10 — Core Algorithm & State Representation",
+        "template": "flow",
+        "title": "Deterministic Upsert Routing with Vector Norm Sanity Checks",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Ingesting vectors into the distributed cluster requires deterministic.",
-            "items": {
-              "var": "vec",
-              "line": 2,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
+            "caption": "Inspect deterministic updates as x tracks routing state.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 8,
+                "hit": 1
+              },
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "x": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "When a document upsert arrives, the cluster router hashes the document.",
-            "items": {
-              "var": "vec",
-              "line": 3,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "caption": "Verify the vector transition driving incoming behavior.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 8,
+                "hit": 2
+              },
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
-            "items": {
-              "var": "vec",
-              "line": 4,
-              "hit": 4
             },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "tones": {
+              "x": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Milestone 10 — Core Algorithm & State Representation",
+        "template": "flow",
+        "title": "Deterministic Upsert Routing with Vector Norm Sanity Checks",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Ingesting vectors into the distributed cluster requires deterministic.",
-            "items": [
-              "0.6",
-              "0.8"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect deterministic updates as x tracks routing state.",
+            "values": {
+              "x": "0.6",
+              "out": ""
+            },
+            "tones": {
+              "x": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "When a document upsert arrives, the cluster router hashes the document.",
-            "items": [
-              "0.6",
-              "0.8"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
-            "items": [
-              "0.6",
-              "0.8"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "caption": "Verify the vector transition driving incoming behavior.",
+            "values": {
+              "x": "0.8",
+              "out": "Routed Upsert: {'doc_id': 105, 'target_shard': 'shard_0', 'vec_norm': 1.0}"
+            },
+            "tones": {
+              "x": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "out"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Parallel Multi-Shard Nearest Neighbor Search Coordination",
       "codeHash": "d0d5f7bf52b7875ff8c7fed5806130b301c6ecab65de045574909cce9d76c3f4",
       "spec": {
         "template": "flow",
@@ -439,16 +444,14 @@
                 "hit": 1
               },
               "cluster_shards": {
-                "var": "cluster_shards",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "c_shards": "data",
               "q": "data",
               "query": "data",
-              "cluster_shards": "data"
+              "cluster_shards": "idle"
             },
             "arrows": [
               [
@@ -513,7 +516,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the checking value produced for empty processing.",
             "values": {
               "c_shards": {
                 "var": "c_shards",
@@ -588,13 +591,13 @@
               "c_shards": "{'shard_0': [{'id': 1, 'vec': [0.1, 0.1…",
               "q": "[0.85, 0.85]",
               "query": "[0.85, 0.85]",
-              "cluster_shards": "{'shard_0': [{'id': 1, 'vec': [0.1, 0.1…"
+              "cluster_shards": ""
             },
             "tones": {
               "c_shards": "data",
               "q": "data",
               "query": "data",
-              "cluster_shards": "data"
+              "cluster_shards": "idle"
             },
             "arrows": [
               [
@@ -643,7 +646,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the checking value produced for empty processing.",
             "values": {
               "c_shards": "{'shard_0': [{'id': 1, 'vec': [0.1, 0.1…",
               "q": "[0.85, 0.85]",
@@ -675,15 +678,15 @@
       }
     },
     {
-      "partTitle": "Milestone 10 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "32b3a54204b64751aa543054d4210649aaf26b020d586a26b765aaa6ee727e71",
+      "partTitle": "Enforcing Strict Majority Quorum Consensus Across Nodes",
+      "codeHash": "a1270ababeebd183ccb8915d6652f2b016d1a331552ca4ae89f87dd0d5dafbc0",
       "spec": {
         "template": "bars",
-        "title": "Milestone 10 — Resilience Guardrails & Failure Recovery",
+        "title": "Enforcing Strict Majority Quorum Consensus Across Nodes",
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed consensus protocols rely on majority quorum rules to prevent.",
+            "caption": "Observe how majority shapes quorum during this step.",
             "bars": [
               {
                 "label": "live_nodes",
@@ -704,11 +707,16 @@
                 "tone": "data"
               },
               {
-                "label": "quorum_needed",
+                "label": "bounded_live",
                 "value": {
-                  "var": "quorum_needed",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "has_quorum",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -716,46 +724,55 @@
           },
           {
             "at": "say2",
-            "caption": "If network splits divide a three-node cluster into two isolated partitions.",
+            "caption": "Verify the nodes transition driving network behavior.",
             "bars": [
               {
                 "label": "live_nodes",
                 "value": {
                   "var": "live_nodes",
-                  "line": 3,
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "total_nodes",
                 "value": {
                   "var": "total_nodes",
-                  "line": 3,
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "quorum_needed",
+                "label": "bounded_live",
                 "value": {
-                  "var": "quorum_needed",
-                  "line": 3,
+                  "var": "bounded_live",
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "has_quorum",
+                "value": {
+                  "var": "has_quorum",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the both value produced for sides processing.",
             "bars": [
               {
                 "label": "live_nodes",
                 "value": {
                   "var": "live_nodes",
-                  "line": 2,
+                  "line": 6,
                   "hit": 2
                 },
                 "tone": "ok"
@@ -764,16 +781,25 @@
                 "label": "total_nodes",
                 "value": {
                   "var": "total_nodes",
-                  "line": 2,
+                  "line": 6,
                   "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "quorum_needed",
+                "label": "bounded_live",
                 "value": {
-                  "var": "quorum_needed",
-                  "line": 2,
+                  "var": "bounded_live",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "has_quorum",
+                "value": {
+                  "var": "has_quorum",
+                  "line": 6,
                   "hit": 2
                 },
                 "tone": "ok"
@@ -784,53 +810,63 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Milestone 10 — Resilience Guardrails & Failure Recovery",
+        "title": "Enforcing Strict Majority Quorum Consensus Across Nodes",
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed consensus protocols rely on majority quorum rules to prevent.",
+            "caption": "Observe how majority shapes quorum during this step.",
             "bars": [
               {
                 "label": "live_nodes",
-                "value": 2,
+                "value": 0,
                 "tone": "data"
               },
               {
                 "label": "total_nodes",
-                "value": 3,
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "quorum_needed",
-                "value": 2,
+                "label": "bounded_live",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "has_quorum",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "If network splits divide a three-node cluster into two isolated partitions.",
+            "caption": "Verify the nodes transition driving network behavior.",
             "bars": [
               {
                 "label": "live_nodes",
                 "value": 2,
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "total_nodes",
                 "value": 3,
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "quorum_needed",
+                "label": "bounded_live",
                 "value": 2,
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "has_quorum",
+                "value": "True",
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the both value produced for sides processing.",
             "bars": [
               {
                 "label": "live_nodes",
@@ -843,8 +879,13 @@
                 "tone": "ok"
               },
               {
-                "label": "quorum_needed",
-                "value": 2,
+                "label": "bounded_live",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "has_quorum",
+                "value": "False",
                 "tone": "ok"
               }
             ]
@@ -853,8 +894,8 @@
       }
     },
     {
-      "partTitle": "Milestone 10 — Production Telemetry & Verification Audit",
-      "codeHash": "3bab3a68331a128cd2a782511b1c02799ae7ff5bbd48c14d6a76a01c8847d803",
+      "partTitle": "Milestone 10 Cluster Throughput & p99 SLA Health Certification",
+      "codeHash": "b4befc7dad47c14d0af682b348aac6319da157ba56e921b4589e5d3aacc8f03f",
       "spec": {
         "template": "bars",
         "title": "Milestone 10 — Production Telemetry & Verification Audit",
@@ -894,7 +935,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates milestone during execution.",
+            "caption": "Verify the cluster transition driving stress behavior.",
             "bars": [
               {
                 "label": "cluster_nodes",
@@ -927,7 +968,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the cluster value produced for recording processing.",
             "bars": [
               {
                 "label": "cluster_nodes",
@@ -987,7 +1028,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates milestone during execution.",
+            "caption": "Verify the cluster transition driving stress behavior.",
             "bars": [
               {
                 "label": "cluster_nodes",
@@ -1008,7 +1049,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the cluster value produced for recording processing.",
             "bars": [
               {
                 "label": "cluster_nodes",

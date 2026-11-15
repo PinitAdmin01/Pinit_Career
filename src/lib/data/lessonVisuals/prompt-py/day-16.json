@@ -46,7 +46,7 @@
           },
           {
             "at": "say2",
-            "caption": "You can upload a photo of a whiteboard and ask for tidy notes,.",
+            "caption": "Verify the upload transition driving photo behavior.",
             "activeActor": "image",
             "messages": [
               {
@@ -130,7 +130,7 @@
           },
           {
             "at": "say2",
-            "caption": "You can upload a photo of a whiteboard and ask for tidy notes,.",
+            "caption": "Verify the upload transition driving photo behavior.",
             "messages": [
               {
                 "from": "image_tasks",
@@ -359,6 +359,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Regular expressions describe text patterns.",
+            "activeActor": "no",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "no",
+                "label": {
+                  "var": "scan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "no",
@@ -373,10 +390,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Regular expressions describe text patterns.",
-            "activeActor": "no",
+            "at": "say9",
+            "caption": "Examine the case value produced for insensitive processing.",
+            "activeActor": "date",
             "messages": [
+              {
+                "from": "scan",
+                "to": "no",
+                "label": {
+                  "var": "scan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "no",
+                "to": "date",
+                "label": {
+                  "var": "no",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "scan",
                 "to": "no",
@@ -396,14 +433,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Case-insensitive matching (re.",
-            "activeActor": "date",
-            "messages": [
+              },
               {
                 "from": "scan",
                 "to": "no",
@@ -446,12 +476,6 @@
                 "to": "no",
                 "label": "'ACME Traders\nINVOICE NO: INV-2024-0042…",
                 "tone": "data"
-              },
-              {
-                "from": "no",
-                "to": "date",
-                "label": "{'__other__': 'Match'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "scan"
@@ -469,7 +493,7 @@
               {
                 "from": "no",
                 "to": "date",
-                "label": "{'__other__': 'Match'}",
+                "label": "<Match>",
                 "tone": "ok"
               }
             ],
@@ -477,7 +501,7 @@
           },
           {
             "at": "say9",
-            "caption": "Case-insensitive matching (re.",
+            "caption": "Examine the case value produced for insensitive processing.",
             "messages": [
               {
                 "from": "scan",
@@ -488,7 +512,31 @@
               {
                 "from": "no",
                 "to": "date",
-                "label": "{'__other__': 'Match'}",
+                "label": "<Match>",
+                "tone": "ok"
+              },
+              {
+                "from": "scan",
+                "to": "no",
+                "label": "'ACME Traders\nINVOICE NO: INV-2024-0042…",
+                "tone": "data"
+              },
+              {
+                "from": "no",
+                "to": "date",
+                "label": "<Match>",
+                "tone": "ok"
+              },
+              {
+                "from": "scan",
+                "to": "no",
+                "label": "'ACME Traders\nINVOICE NO: INV-2024-0042…",
+                "tone": "data"
+              },
+              {
+                "from": "no",
+                "to": "date",
+                "label": "<Match>",
                 "tone": "ok"
               }
             ],
@@ -523,6 +571,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the review transition driving common behavior.",
+            "activeActor": "threshold",
+            "messages": [
+              {
+                "from": "words",
+                "to": "threshold",
+                "label": {
+                  "var": "words",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "threshold",
@@ -537,10 +602,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how common updates rule during execution.",
-            "activeActor": "threshold",
+            "at": "say9",
+            "caption": "Corrections made by reviewers are valuable data.",
+            "activeActor": "review",
             "messages": [
+              {
+                "from": "words",
+                "to": "threshold",
+                "label": {
+                  "var": "words",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "review",
+                "label": {
+                  "var": "threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "words",
                 "to": "threshold",
@@ -560,14 +645,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Corrections made by reviewers are valuable data.",
-            "activeActor": "review",
-            "messages": [
+              },
               {
                 "from": "words",
                 "to": "threshold",
@@ -610,19 +688,13 @@
                 "to": "threshold",
                 "label": "[['Total', 0.99], ['1,18O.50', 0.62], […",
                 "tone": "data"
-              },
-              {
-                "from": "threshold",
-                "to": "review",
-                "label": "0.8",
-                "tone": "ok"
               }
             ],
             "activeActor": "words"
           },
           {
             "at": "say2",
-            "caption": "Trace how common updates rule during execution.",
+            "caption": "Verify the review transition driving common behavior.",
             "messages": [
               {
                 "from": "words",
@@ -643,6 +715,30 @@
             "at": "say9",
             "caption": "Corrections made by reviewers are valuable data.",
             "messages": [
+              {
+                "from": "words",
+                "to": "threshold",
+                "label": "[['Total', 0.99], ['1,18O.50', 0.62], […",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "review",
+                "label": "0.8",
+                "tone": "ok"
+              },
+              {
+                "from": "words",
+                "to": "threshold",
+                "label": "[['Total', 0.99], ['1,18O.50', 0.62], […",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "review",
+                "label": "0.8",
+                "tone": "ok"
+              },
               {
                 "from": "words",
                 "to": "threshold",
@@ -688,14 +784,12 @@
                 "hit": 1
               },
               "found_by_vision": {
-                "var": "found_by_vision",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "expected": "data",
-              "found_by_vision": "data"
+              "found_by_vision": "idle"
             },
             "arrows": [
               [
@@ -777,11 +871,11 @@
             "caption": "Vision models can read app screenshots.",
             "values": {
               "expected": "{'Create account', 'Forgot password?', …",
-              "found_by_vision": "{'Create account', 'Forgot pasword?', '…"
+              "found_by_vision": ""
             },
             "tones": {
               "expected": "data",
-              "found_by_vision": "data"
+              "found_by_vision": "idle"
             },
             "arrows": [
               [
@@ -843,8 +937,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates search during execution.",
+            "caption": "Observe how practice shapes invoice during this step.",
             "activeActor": "scan",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": {
+                  "var": "scan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Return a dict with None for missing fields.",
+            "activeActor": "confidences",
             "messages": [
               {
                 "from": "scan",
@@ -869,10 +980,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Return a dict with None for missing fields.",
-            "activeActor": "confidences",
+            "at": "say8",
+            "caption": "These two functions form the core of real document-processing systems used.",
+            "activeActor": "fields",
             "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": {
+                  "var": "scan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": {
+                  "var": "confidences",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "scan",
                 "to": "confidences",
@@ -892,14 +1023,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "These two functions form the core of real document-processing systems used.",
-            "activeActor": "fields",
-            "messages": [
+              },
               {
                 "from": "scan",
                 "to": "confidences",
@@ -935,19 +1059,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates search during execution.",
+            "caption": "Observe how practice shapes invoice during this step.",
             "messages": [
               {
                 "from": "scan",
                 "to": "confidences",
                 "label": "'Invoice #A77 issued 2023-12-01. Total:…",
                 "tone": "data"
-              },
-              {
-                "from": "confidences",
-                "to": "fields",
-                "label": "[['A77', 0.95], ['2023-12-01', 0.91], […",
-                "tone": "ok"
               }
             ],
             "activeActor": "scan"
@@ -975,6 +1093,30 @@
             "at": "say8",
             "caption": "These two functions form the core of real document-processing systems used.",
             "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": "'Invoice #A77 issued 2023-12-01. Total:…",
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": "[['A77', 0.95], ['2023-12-01', 0.91], […",
+                "tone": "ok"
+              },
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": "'Invoice #A77 issued 2023-12-01. Total:…",
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": "[['A77', 0.95], ['2023-12-01', 0.91], […",
+                "tone": "ok"
+              },
               {
                 "from": "scan",
                 "to": "confidences",

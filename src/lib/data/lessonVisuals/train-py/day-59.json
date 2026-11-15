@@ -56,7 +56,7 @@
           },
           {
             "at": "say11",
-            "caption": "Understanding the mathematical evolution from PPO to DPO and GRPO.",
+            "caption": "Examine the bridging value produced for next processing.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say11",
-            "caption": "Understanding the mathematical evolution from PPO to DPO and GRPO.",
+            "caption": "Examine the bridging value produced for next processing.",
             "rows": [
               {
                 "cells": [
@@ -174,7 +174,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each completion in the group is evaluated by a reward function (e.",
+            "caption": "rule-based mathematical equivalence or an automated unit test suite).",
             "bars": [
               {
                 "label": "clip_eps",
@@ -216,7 +216,7 @@
           },
           {
             "at": "say11",
-            "caption": "This elegant algorithm drives state-of-the-art mathematical reasoning.",
+            "caption": "Examine the calculating value produced for baseline processing.",
             "bars": [
               {
                 "label": "clip_eps",
@@ -290,7 +290,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each completion in the group is evaluated by a reward function (e.",
+            "caption": "rule-based mathematical equivalence or an automated unit test suite).",
             "bars": [
               {
                 "label": "clip_eps",
@@ -316,7 +316,7 @@
           },
           {
             "at": "say11",
-            "caption": "This elegant algorithm drives state-of-the-art mathematical reasoning.",
+            "caption": "Examine the calculating value produced for baseline processing.",
             "bars": [
               {
                 "label": "clip_eps",
@@ -388,16 +388,14 @@
                 "hit": 1
               },
               "grpo_total_gb": {
-                "var": "grpo_total_gb",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "model_b": "data",
               "ppo_total_gb": "data",
               "dpo_total_gb": "data",
-              "grpo_total_gb": "data"
+              "grpo_total_gb": "idle"
             },
             "arrows": [
               [
@@ -537,13 +535,13 @@
               "model_b": "70",
               "ppo_total_gb": "4480",
               "dpo_total_gb": "1260",
-              "grpo_total_gb": "1260"
+              "grpo_total_gb": ""
             },
             "tones": {
               "model_b": "data",
               "ppo_total_gb": "data",
               "dpo_total_gb": "data",
-              "grpo_total_gb": "data"
+              "grpo_total_gb": "idle"
             },
             "arrows": [
               [
@@ -625,164 +623,63 @@
     },
     {
       "partTitle": "RLHF Evolution — Resilience Guardrails & Failure Recovery",
-      "codeHash": "4ea0f51aafaba44f8bcec750327ac916760996da543046dd120daaaa3d60d7eb",
+      "codeHash": "9937c4c0d2b43de439af95ff06c60bf5143d6a7f88c5bce0c47083c324c9c233",
       "spec": {
         "template": "flow",
         "title": "RLHF Evolution — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
             "id": "kl_drift",
-            "label": "kl_drift"
+            "label": "kl_drift",
+            "tappable": true
           },
           {
-            "id": "max_kl",
-            "label": "max_kl"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "ok",
-            "label": "ok"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "During reinforcement learning alignment, policies can exploit reward.",
+            "caption": "Inspect during updates as kl_drift tracks reinforcement state.",
             "values": {
               "kl_drift": {
                 "var": "kl_drift",
                 "line": 2,
                 "hit": 1
               },
-              "max_kl": {
-                "var": "max_kl",
-                "line": 2,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 6,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 6,
-                "hit": 1
+              "out": {
+                "text": ""
               }
             },
             "tones": {
               "kl_drift": "data",
-              "max_kl": "data",
-              "status": "data",
-              "ok": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "kl_drift",
-                "max_kl"
-              ],
-              [
-                "max_kl",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "This failure modeknown as reward hacking or policy collapseoccurs when.",
+            "caption": "Verify the failure transition driving mode behavior.",
             "values": {
               "kl_drift": {
                 "var": "kl_drift",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
-              "max_kl": {
-                "var": "max_kl",
-                "line": 4,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 7,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 7,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "kl_drift": "data",
-              "max_kl": "data",
-              "status": "data",
-              "ok": "data"
-            },
-            "arrows": [
-              [
-                "kl_drift",
-                "max_kl"
-              ],
-              [
-                "max_kl",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Rigorous safety monitoring protects foundation models from catastrophic.",
-            "values": {
-              "kl_drift": {
-                "var": "kl_drift",
-                "line": 4,
-                "hit": 1
-              },
-              "max_kl": {
-                "var": "max_kl",
-                "line": 4,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 7,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 7,
-                "hit": 1
+              "out": {
+                "out": 1
               }
             },
             "tones": {
               "kl_drift": "ok",
-              "max_kl": "ok",
-              "status": "ok",
-              "ok": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
                 "kl_drift",
-                "max_kl"
-              ],
-              [
-                "max_kl",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
+                "out"
               ]
             ]
           }
@@ -794,109 +691,44 @@
         "nodes": [
           {
             "id": "kl_drift",
-            "label": "kl_drift"
+            "label": "kl_drift",
+            "tappable": true
           },
           {
-            "id": "max_kl",
-            "label": "max_kl"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "ok",
-            "label": "ok"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "During reinforcement learning alignment, policies can exploit reward.",
+            "caption": "Inspect during updates as kl_drift tracks reinforcement state.",
             "values": {
-              "kl_drift": "0.042",
-              "max_kl": "0.1",
-              "status": "'KL_DIVERGENCE_BOUNDED'",
-              "ok": "True"
+              "kl_drift": "0.18",
+              "out": ""
             },
             "tones": {
               "kl_drift": "data",
-              "max_kl": "data",
-              "status": "data",
-              "ok": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "kl_drift",
-                "max_kl"
-              ],
-              [
-                "max_kl",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "This failure modeknown as reward hacking or policy collapseoccurs when.",
+            "caption": "Verify the failure transition driving mode behavior.",
             "values": {
               "kl_drift": "0.042",
-              "max_kl": "0.1",
-              "status": "'KL_DIVERGENCE_BOUNDED'",
-              "ok": "True"
-            },
-            "tones": {
-              "kl_drift": "data",
-              "max_kl": "data",
-              "status": "data",
-              "ok": "data"
-            },
-            "arrows": [
-              [
-                "kl_drift",
-                "max_kl"
-              ],
-              [
-                "max_kl",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Rigorous safety monitoring protects foundation models from catastrophic.",
-            "values": {
-              "kl_drift": "0.042",
-              "max_kl": "0.1",
-              "status": "'KL_DIVERGENCE_BOUNDED'",
-              "ok": "True"
+              "out": "KL Drift Guardrail: KL_DIVERGENCE_BOUNDED (Passed: True)"
             },
             "tones": {
               "kl_drift": "ok",
-              "max_kl": "ok",
-              "status": "ok",
-              "ok": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
                 "kl_drift",
-                "max_kl"
-              ],
-              [
-                "max_kl",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
+                "out"
               ]
             ]
           }

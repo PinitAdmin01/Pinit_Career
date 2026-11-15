@@ -124,7 +124,7 @@
           },
           {
             "at": "say8",
-            "caption": "Choosing between Standard and Express workflows aligns architectural.",
+            "caption": "Examine the step value produced for functions processing.",
             "values": {
               "duration_sec": {
                 "var": "duration_sec",
@@ -254,7 +254,7 @@
           },
           {
             "at": "say8",
-            "caption": "Choosing between Standard and Express workflows aligns architectural.",
+            "caption": "Examine the step value produced for functions processing.",
             "values": {
               "duration_sec": "2",
               "requires_exactly_once": "False",
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The Saga Pattern coordinates multi-service distributed transactions.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "self",
+                "label": {
+                  "var": "steps",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The Saga Pattern coordinates multi-service distributed transactions.",
-            "activeActor": "self",
+            "at": "say8",
+            "caption": "Backward compensating transactions cleanly undo the semantic side-effects.",
+            "activeActor": "saga",
             "messages": [
+              {
+                "from": "steps",
+                "to": "self",
+                "label": {
+                  "var": "steps",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "saga",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "steps",
                 "to": "self",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Backward compensating transactions cleanly undo the semantic side-effects.",
-            "activeActor": "saga",
-            "messages": [
+              },
               {
                 "from": "steps",
                 "to": "self",
@@ -396,14 +426,8 @@
               {
                 "from": "steps",
                 "to": "self",
-                "label": "[{'name': 'BookFlight', 'action_fn': {'…",
+                "label": "[{'name': 'BookFlight', 'action_fn': <f…",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "saga",
-                "label": "<SagaOrchestrator>",
-                "tone": "ok"
               }
             ],
             "activeActor": "steps"
@@ -415,7 +439,7 @@
               {
                 "from": "steps",
                 "to": "self",
-                "label": "[{'name': 'BookFlight', 'action_fn': {'…",
+                "label": "[{'name': 'BookFlight', 'action_fn': <f…",
                 "tone": "data"
               },
               {
@@ -434,7 +458,31 @@
               {
                 "from": "steps",
                 "to": "self",
-                "label": "[{'name': 'BookFlight', 'action_fn': {'…",
+                "label": "[{'name': 'BookFlight', 'action_fn': <f…",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "saga",
+                "label": "<SagaOrchestrator>",
+                "tone": "ok"
+              },
+              {
+                "from": "steps",
+                "to": "self",
+                "label": "[{'name': 'BookFlight', 'action_fn': <f…",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "saga",
+                "label": "<SagaOrchestrator>",
+                "tone": "ok"
+              },
+              {
+                "from": "steps",
+                "to": "self",
+                "label": "[{'name': 'BookFlight', 'action_fn': <f…",
                 "tone": "data"
               },
               {
@@ -644,13 +692,13 @@
               },
               "tx_id": {
                 "var": "tx_id",
-                "line": 12,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "amount": {
                 "var": "amount",
-                "line": 12,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -690,13 +738,13 @@
               },
               "tx_id": {
                 "var": "tx_id",
-                "line": 13,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "amount": {
                 "var": "amount",
-                "line": 13,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -780,8 +828,8 @@
             "values": {
               "self": "<ResilientCompensationManager>",
               "comp_mgr": "<ResilientCompensationManager>",
-              "tx_id": "'tx-100'",
-              "amount": "50"
+              "tx_id": "'tx-200'",
+              "amount": "75"
             },
             "tones": {
               "self": "data",
@@ -810,8 +858,8 @@
             "values": {
               "self": "<ResilientCompensationManager>",
               "comp_mgr": "<ResilientCompensationManager>",
-              "tx_id": "'tx-100'",
-              "amount": "50"
+              "tx_id": "'tx-200'",
+              "amount": "75"
             },
             "tones": {
               "self": "ok",
@@ -930,7 +978,7 @@
           },
           {
             "at": "say8",
-            "caption": "Monitoring execution durations and state transition latencies ensures.",
+            "caption": "Examine the saga value produced for telemetry processing.",
             "bars": [
               {
                 "label": "failed",
@@ -1030,7 +1078,7 @@
           },
           {
             "at": "say8",
-            "caption": "Monitoring execution durations and state transition latencies ensures.",
+            "caption": "Examine the saga value produced for telemetry processing.",
             "bars": [
               {
                 "label": "failed",

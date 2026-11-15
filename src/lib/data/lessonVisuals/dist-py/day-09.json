@@ -307,6 +307,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the otherwise transition driving keep behavior.",
+            "activeActor": "log",
+            "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": {
+                  "var": "follower",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "log",
@@ -321,10 +338,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Otherwise keep log[:prev_index + 1], add the new entries (dropping any.",
-            "activeActor": "log",
+            "at": "say6",
+            "caption": "By induction, if every append passes this check, follower logs always.",
+            "activeActor": "prev_index",
             "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": {
+                  "var": "follower",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": {
+                  "var": "log",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "follower",
                 "to": "log",
@@ -344,14 +381,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "By induction, if every append passes this check, follower logs always.",
-            "activeActor": "prev_index",
-            "messages": [
+              },
               {
                 "from": "follower",
                 "to": "log",
@@ -394,19 +424,13 @@
                 "to": "log",
                 "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
                 "tone": "data"
-              },
-              {
-                "from": "log",
-                "to": "prev_index",
-                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
-                "tone": "ok"
               }
             ],
             "activeActor": "follower"
           },
           {
             "at": "say2",
-            "caption": "Otherwise keep log[:prev_index + 1], add the new entries (dropping any.",
+            "caption": "Verify the otherwise transition driving keep behavior.",
             "messages": [
               {
                 "from": "follower",
@@ -427,6 +451,30 @@
             "at": "say6",
             "caption": "By induction, if every append passes this check, follower logs always.",
             "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "ok"
+              },
+              {
+                "from": "follower",
+                "to": "log",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "ok"
+              },
               {
                 "from": "follower",
                 "to": "log",
@@ -471,6 +519,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Is_committed(match_count, cluster_size) returns match_count > cluster_size.",
+            "activeActor": "ordered",
+            "messages": [
+              {
+                "from": "match_index",
+                "to": "ordered",
+                "label": {
+                  "var": "match_index",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ordered",
@@ -485,10 +550,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Is_committed(match_count, cluster_size) returns match_count > cluster_size.",
-            "activeActor": "ordered",
+            "at": "say7",
+            "caption": "The code computes the commit index for a 5-node cluster.",
+            "activeActor": "commit_index",
             "messages": [
+              {
+                "from": "match_index",
+                "to": "ordered",
+                "label": {
+                  "var": "match_index",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ordered",
+                "to": "commit_index",
+                "label": {
+                  "var": "ordered",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "match_index",
                 "to": "ordered",
@@ -508,14 +593,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The code computes the commit index for a 5-node cluster.",
-            "activeActor": "commit_index",
-            "messages": [
+              },
               {
                 "from": "match_index",
                 "to": "ordered",
@@ -558,12 +636,6 @@
                 "to": "ordered",
                 "label": "{'leader': 7, 'n2': 7, 'n3': 5, 'n4': 4…",
                 "tone": "data"
-              },
-              {
-                "from": "ordered",
-                "to": "commit_index",
-                "label": "[7, 7, 5, 4, 2]",
-                "tone": "ok"
               }
             ],
             "activeActor": "match_index"
@@ -591,6 +663,30 @@
             "at": "say7",
             "caption": "The code computes the commit index for a 5-node cluster.",
             "messages": [
+              {
+                "from": "match_index",
+                "to": "ordered",
+                "label": "{'leader': 7, 'n2': 7, 'n3': 5, 'n4': 4…",
+                "tone": "data"
+              },
+              {
+                "from": "ordered",
+                "to": "commit_index",
+                "label": "[7, 7, 5, 4, 2]",
+                "tone": "ok"
+              },
+              {
+                "from": "match_index",
+                "to": "ordered",
+                "label": "{'leader': 7, 'n2': 7, 'n3': 5, 'n4': 4…",
+                "tone": "data"
+              },
+              {
+                "from": "ordered",
+                "to": "commit_index",
+                "label": "[7, 7, 5, 4, 2]",
+                "tone": "ok"
+              },
               {
                 "from": "match_index",
                 "to": "ordered",
@@ -696,13 +792,13 @@
               },
               "next_index": {
                 "var": "next_index",
-                "line": 9,
+                "line": 15,
                 "hit": 1
               },
               "prev": {
                 "var": "prev",
-                "line": 11,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -742,13 +838,13 @@
               },
               "next_index": {
                 "var": "next_index",
-                "line": 10,
-                "hit": 1
+                "line": 15,
+                "hit": 2
               },
               "prev": {
                 "var": "prev",
-                "line": 12,
-                "hit": 1
+                "line": 10,
+                "hit": 3
               }
             },
             "tones": {
@@ -832,8 +928,8 @@
             "values": {
               "leader": "[{'term': 1}, {'term': 1}, {'term': 2},…",
               "follower": "[{'term': 1}, {'term': 1}, {'term': 2},…",
-              "next_index": "6",
-              "prev": "5"
+              "next_index": "5",
+              "prev": "4"
             },
             "tones": {
               "leader": "data",
@@ -862,8 +958,8 @@
             "values": {
               "leader": "[{'term': 1}, {'term': 1}, {'term': 2},…",
               "follower": "[{'term': 1}, {'term': 1}, {'term': 2},…",
-              "next_index": "6",
-              "prev": "5"
+              "next_index": "4",
+              "prev": "3"
             },
             "tones": {
               "leader": "ok",

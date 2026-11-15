@@ -162,16 +162,14 @@
                 "hit": 1
               },
               "a": {
-                "var": "a",
-                "line": 8,
-                "hit": 2
+                "text": ""
               }
             },
             "tones": {
               "clusters": "data",
               "docs": "data",
               "q": "data",
-              "a": "data"
+              "a": "idle"
             },
             "arrows": [
               [
@@ -311,13 +309,13 @@
               "clusters": "{'vehicles': [0.9, 0.3], 'food': [0.1, …",
               "docs": "{'vehicles': {'car repair': [0.88, 0.35…",
               "q": "[0.85, 0.4]",
-              "a": "[0.85, 0.4]"
+              "a": ""
             },
             "tones": {
               "clusters": "data",
               "docs": "data",
               "q": "data",
-              "a": "data"
+              "a": "idle"
             },
             "arrows": [
               [
@@ -433,15 +431,13 @@
                 "hit": 1
               },
               "cross_encoder_pair_ms": {
-                "var": "cross_encoder_pair_ms",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "docs": "data",
               "bi_encoder_query_ms": "data",
-              "cross_encoder_pair_ms": "data"
+              "cross_encoder_pair_ms": "idle"
             },
             "arrows": [
               [
@@ -492,7 +488,7 @@
           },
           {
             "at": "say7",
-            "caption": "This speed-versus-accuracy trade-off appears throughout engineering,.",
+            "caption": "Examine the speed value produced for versus processing.",
             "values": {
               "docs": {
                 "var": "docs",
@@ -552,12 +548,12 @@
             "values": {
               "docs": "5000000",
               "bi_encoder_query_ms": "20",
-              "cross_encoder_pair_ms": "15"
+              "cross_encoder_pair_ms": ""
             },
             "tones": {
               "docs": "data",
               "bi_encoder_query_ms": "data",
-              "cross_encoder_pair_ms": "data"
+              "cross_encoder_pair_ms": "idle"
             },
             "arrows": [
               [
@@ -596,7 +592,7 @@
           },
           {
             "at": "say7",
-            "caption": "This speed-versus-accuracy trade-off appears throughout engineering,.",
+            "caption": "Examine the speed value produced for versus processing.",
             "values": {
               "docs": "5000000",
               "bi_encoder_query_ms": "20",
@@ -646,7 +642,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how typical updates sizes during execution.",
+            "caption": "Verify the typical transition driving sizes behavior.",
             "items": {
               "var": "design",
               "line": 8,
@@ -700,7 +696,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how typical updates sizes during execution.",
+            "caption": "Verify the typical transition driving sizes behavior.",
             "items": [
               "1000",
               "10",
@@ -742,7 +738,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how stage updates takes during execution.",
+            "caption": "Observe how stage shapes takes during this step.",
             "items": {
               "var": "candidates",
               "line": 1,
@@ -796,7 +792,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how stage updates takes during execution.",
+            "caption": "Observe how stage shapes takes during this step.",
             "items": [
               "'d7'",
               "'d2'",

@@ -231,7 +231,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how practice updates combines during execution.",
+            "caption": "Examine the cleaning value produced for length processing.",
             "currentState": "ok",
             "transition": {
               "from": "digits",
@@ -283,7 +283,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how practice updates combines during execution.",
+            "caption": "Examine the cleaning value produced for length processing.",
             "currentState": "ok",
             "transition": {
               "from": "digits",
@@ -368,7 +368,7 @@
           },
           {
             "at": "say2",
-            "caption": "The pattern \\b(.",
+            "caption": "Verify the pattern transition driving finds behavior.",
             "values": {
               "text": {
                 "var": "text",
@@ -382,13 +382,13 @@
               },
               "digits": {
                 "var": "digits",
-                "line": 13,
-                "hit": 1
+                "line": 12,
+                "hit": 2
               },
               "d": {
                 "var": "d",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -428,13 +428,13 @@
               },
               "digits": {
                 "var": "digits",
-                "line": 11,
-                "hit": 2
+                "line": 12,
+                "hit": 3
               },
               "d": {
                 "var": "d",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -487,7 +487,7 @@
             "caption": "In real text, card numbers sit inside sentences, so you first need to find.",
             "values": {
               "text": "'Card 4242-4242-4242-4242, order 123456…",
-              "m": "{'__other__': 'Match'}",
+              "m": "<Match>",
               "digits": "'4242424242424242'",
               "d": "'4242424242424242'"
             },
@@ -514,12 +514,12 @@
           },
           {
             "at": "say2",
-            "caption": "The pattern \\b(.",
+            "caption": "Verify the pattern transition driving finds behavior.",
             "values": {
               "text": "'Card 4242-4242-4242-4242, order 123456…",
-              "m": "{'__other__': 'Match'}",
-              "digits": "'4242424242424242'",
-              "d": "'4242424242424242'"
+              "m": "<Match>",
+              "digits": "'1234567890123'",
+              "d": "'1234567890123'"
             },
             "tones": {
               "text": "data",
@@ -547,9 +547,9 @@
             "caption": "Hiding a harmless number is a small cost.",
             "values": {
               "text": "'Card 4242-4242-4242-4242, order 123456…",
-              "m": "{'__other__': 'Match'}",
-              "digits": "'4242424242424242'",
-              "d": "'4242424242424242'"
+              "m": "<Match>",
+              "digits": "'5555555555555555'",
+              "d": "'5555555555555555'"
             },
             "tones": {
               "text": "ok",
@@ -650,7 +650,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how same updates pattern during execution.",
+            "caption": "The same re.sub pattern works for other personal data such as email addresses.",
             "bars": [
               {
                 "label": "total",
@@ -731,7 +731,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how same updates pattern during execution.",
+            "caption": "The same re.sub pattern works for other personal data such as email addresses.",
             "bars": [
               {
                 "label": "total",
@@ -782,7 +782,7 @@
           },
           {
             "at": "say2",
-            "caption": "Scrub user input with the same function before it reaches the model or any.",
+            "caption": "Verify the scrub transition driving user behavior.",
             "currentState": "user",
             "transition": {
               "from": "CARD",
@@ -838,7 +838,7 @@
           },
           {
             "at": "say2",
-            "caption": "Scrub user input with the same function before it reaches the model or any.",
+            "caption": "Verify the scrub transition driving user behavior.",
             "currentState": "user",
             "transition": {
               "from": "CARD",
@@ -854,7 +854,7 @@
             "transition": {
               "from": "user",
               "to": "m",
-              "label": "{'__other__': 'Match'}"
+              "label": "<Match>"
             },
             "tone": "ok"
           }

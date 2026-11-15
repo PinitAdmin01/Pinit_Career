@@ -87,18 +87,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 30,
-                "hit": 1
+                "line": 29,
+                "hit": 2
               },
               "w": {
                 "var": "w",
-                "line": 30,
-                "hit": 1
+                "line": 29,
+                "hit": 2
               },
               "h": {
                 "var": "h",
-                "line": 30,
-                "hit": 1
+                "line": 29,
+                "hit": 2
               }
             },
             "tones": {
@@ -133,18 +133,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 31,
-                "hit": 1
+                "line": 29,
+                "hit": 3
               },
               "w": {
                 "var": "w",
-                "line": 31,
-                "hit": 1
+                "line": 29,
+                "hit": 3
               },
               "h": {
                 "var": "h",
-                "line": 31,
-                "hit": 1
+                "line": 29,
+                "hit": 3
               }
             },
             "tones": {
@@ -227,9 +227,9 @@
             "caption": "This rigid fixed-resolution paradigm inflicts catastrophic damage.",
             "values": {
               "test_images": "[['Legal Document (Letter)', 2550, 3300…",
-              "name": "'Legal Document (Letter)'",
-              "w": "2550",
-              "h": "3300"
+              "name": "'Financial Dashboard (16:9)'",
+              "w": "1920",
+              "h": "1080"
             },
             "tones": {
               "test_images": "data",
@@ -257,9 +257,9 @@
             "caption": "To shatter this resolution barrier, frontier multimodal architecturessuch.",
             "values": {
               "test_images": "[['Legal Document (Letter)', 2550, 3300…",
-              "name": "'Legal Document (Letter)'",
-              "w": "2550",
-              "h": "3300"
+              "name": "'Square Instagram Photo'",
+              "w": "1024",
+              "h": "1024"
             },
             "tones": {
               "test_images": "ok",

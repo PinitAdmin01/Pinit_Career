@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Consider a naive **Fixed Window Counter** allowing 100 requests per clock.",
+            "activeActor": "limit",
+            "messages": [
+              {
+                "from": "self",
+                "to": "limit",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "limit",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Consider a naive **Fixed Window Counter** allowing 100 requests per clock.",
-            "activeActor": "limit",
+            "at": "say6",
+            "caption": "Compare exact Fixed Window seam overshoot vs Sliding Window Log.",
+            "activeActor": "window_ms",
             "messages": [
+              {
+                "from": "self",
+                "to": "limit",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "limit",
+                "to": "window_ms",
+                "label": {
+                  "var": "limit",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "limit",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Compare exact Fixed Window seam overshoot vs Sliding Window Log.",
-            "activeActor": "window_ms",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "limit",
@@ -118,12 +148,6 @@
                 "to": "limit",
                 "label": "<SlidingWindowLog>",
                 "tone": "data"
-              },
-              {
-                "from": "limit",
-                "to": "window_ms",
-                "label": "2",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -162,6 +186,30 @@
                 "to": "window_ms",
                 "label": "2",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "limit",
+                "label": "<SlidingWindowLog>",
+                "tone": "data"
+              },
+              {
+                "from": "limit",
+                "to": "window_ms",
+                "label": "2",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "limit",
+                "label": "<SlidingWindowLog>",
+                "tone": "data"
+              },
+              {
+                "from": "limit",
+                "to": "window_ms",
+                "label": "2",
+                "tone": "ok"
               }
             ],
             "activeActor": "window_ms"
@@ -183,7 +231,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Now lift rate limiting out of one Python worker RAM dictionary onto.",
+            "caption": "Observe how redis shapes lift during this step.",
             "activeActor": "self",
             "messages": [
               {
@@ -195,16 +243,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "capacity",
-                "to": "refill_per_sec",
-                "label": {
-                  "var": "capacity",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -218,6 +256,53 @@
                 "to": "capacity",
                 "label": {
                   "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Simulate an atomic Lua-style Token Bucket checking concurrent refills.",
+            "activeActor": "refill_per_sec",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
                   "line": 4,
                   "hit": 1
                 },
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Simulate an atomic Lua-style Token Bucket checking concurrent refills.",
-            "activeActor": "refill_per_sec",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "capacity",
@@ -275,19 +353,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Now lift rate limiting out of one Python worker RAM dictionary onto.",
+            "caption": "Observe how redis shapes lift during this step.",
             "messages": [
               {
                 "from": "self",
                 "to": "capacity",
                 "label": "<AtomicTokenBucketStore>",
                 "tone": "data"
-              },
-              {
-                "from": "capacity",
-                "to": "refill_per_sec",
-                "label": "3",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -315,6 +387,30 @@
             "at": "say6",
             "caption": "Simulate an atomic Lua-style Token Bucket checking concurrent refills.",
             "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<AtomicTokenBucketStore>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<AtomicTokenBucketStore>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "capacity",
@@ -359,6 +455,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If a hierarchical tenant needs both a burst bucket key (`limit:u1:burst`).",
+            "activeActor": "k2",
+            "messages": [
+              {
+                "from": "k1",
+                "to": "k2",
+                "label": {
+                  "var": "k1",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "k2",
@@ -373,10 +486,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If a hierarchical tenant needs both a burst bucket key (`limit:u1:burst`).",
-            "activeActor": "k2",
+            "at": "say5",
+            "caption": "Demonstrate CRC16-style hash-tag slot alignment AND pod-local batch token.",
+            "activeActor": "bad1",
             "messages": [
+              {
+                "from": "k1",
+                "to": "k2",
+                "label": {
+                  "var": "k1",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k2",
+                "to": "bad1",
+                "label": {
+                  "var": "k2",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "k1",
                 "to": "k2",
@@ -396,14 +529,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Demonstrate CRC16-style hash-tag slot alignment AND pod-local batch token.",
-            "activeActor": "bad1",
-            "messages": [
+              },
               {
                 "from": "k1",
                 "to": "k2",
@@ -446,12 +572,6 @@
                 "to": "k2",
                 "label": "'rate:{tenant42}:burst'",
                 "tone": "data"
-              },
-              {
-                "from": "k2",
-                "to": "bad1",
-                "label": "'rate:{tenant42}:daily'",
-                "tone": "ok"
               }
             ],
             "activeActor": "k1"
@@ -479,6 +599,30 @@
             "at": "say5",
             "caption": "Demonstrate CRC16-style hash-tag slot alignment AND pod-local batch token.",
             "messages": [
+              {
+                "from": "k1",
+                "to": "k2",
+                "label": "'rate:{tenant42}:burst'",
+                "tone": "data"
+              },
+              {
+                "from": "k2",
+                "to": "bad1",
+                "label": "'rate:{tenant42}:daily'",
+                "tone": "ok"
+              },
+              {
+                "from": "k1",
+                "to": "k2",
+                "label": "'rate:{tenant42}:burst'",
+                "tone": "data"
+              },
+              {
+                "from": "k2",
+                "to": "bad1",
+                "label": "'rate:{tenant42}:daily'",
+                "tone": "ok"
+              },
               {
                 "from": "k1",
                 "to": "k2",
@@ -912,7 +1056,7 @@
             "at": "say3",
             "caption": "Run the multi-tenant isolation & Retry-After simulation audit below.",
             "values": {
-              "sw": "{'noisy_B': {'__other__': 'deque'}}",
+              "sw": "{'noisy_B': <deque>}",
               "tenant": "'noisy_B'",
               "t_ms": "10",
               "limit": "3"

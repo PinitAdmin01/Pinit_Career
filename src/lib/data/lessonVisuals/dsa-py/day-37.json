@@ -35,7 +35,7 @@
           },
           {
             "at": "say5",
-            "caption": "To understand how Tarjan shrinks this to O(V + E) linear time, first run.",
+            "caption": "Undirected redundancy breaks down along two distinct structural weaknesses.",
             "items": {
               "var": "seen",
               "line": 13,
@@ -82,7 +82,7 @@
           },
           {
             "at": "say5",
-            "caption": "To understand how Tarjan shrinks this to O(V + E) linear time, first run.",
+            "caption": "Undirected redundancy breaks down along two distinct structural weaknesses.",
             "mode": "queue",
             "items": [
               "True",
@@ -107,7 +107,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In an undirected DFS tree, every edge is either a forward tree edge or.",
+            "caption": "Observe how bridge shapes undirected during this step.",
             "items": {
               "var": "disc",
               "line": 7,
@@ -161,7 +161,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In an undirected DFS tree, every edge is either a forward tree edge or.",
+            "caption": "Observe how bridge shapes undirected during this step.",
             "items": [
               "-1",
               "-1",
@@ -263,7 +263,7 @@
           },
           {
             "at": "say5",
-            "caption": "In the code below, we guard against adding duplicate cut vertices via.",
+            "caption": "Examine the root value produced for subtree processing.",
             "items": {
               "var": "disc",
               "line": 34,
@@ -325,7 +325,7 @@
           },
           {
             "at": "say5",
-            "caption": "In the code below, we guard against adding duplicate cut vertices via.",
+            "caption": "Examine the root value produced for subtree processing.",
             "items": [
               "0",
               "1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "say2",
-            "caption": "In real cloud backbones, network engineers cannot eliminate every.",
+            "caption": "Verify the fiber transition driving real behavior.",
             "items": {
               "var": "routers",
               "line": 80,
@@ -469,7 +469,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect and execute the complete ReliabilityAuditor below across.",
+            "caption": "Examine the fiber value produced for carrier processing.",
             "items": {
               "var": "routers",
               "line": 4,
@@ -502,7 +502,7 @@
           },
           {
             "at": "say2",
-            "caption": "In real cloud backbones, network engineers cannot eliminate every.",
+            "caption": "Verify the fiber transition driving real behavior.",
             "mode": "stack",
             "items": [
               "'iad'",
@@ -518,7 +518,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect and execute the complete ReliabilityAuditor below across.",
+            "caption": "Examine the fiber value produced for carrier processing.",
             "mode": "stack",
             "items": [
               "'iad'",

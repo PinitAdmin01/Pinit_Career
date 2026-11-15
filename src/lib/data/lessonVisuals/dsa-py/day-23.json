@@ -444,7 +444,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how processing updates queue during execution.",
+            "caption": "Verify the processing transition driving queue behavior.",
             "items": {
               "var": "ds",
               "line": 2,
@@ -481,7 +481,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how processing updates queue during execution.",
+            "caption": "Verify the processing transition driving queue behavior.",
             "mode": "queue",
             "items": [
               "'api'",

@@ -82,23 +82,23 @@
             "values": {
               "logical_key": {
                 "var": "logical_key",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "writes_per_sec": {
                 "var": "writes_per_sec",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "reads_per_sec": {
                 "var": "reads_per_sec",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "wcu_exceeded": {
                 "var": "wcu_exceeded",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -128,23 +128,23 @@
             "values": {
               "logical_key": {
                 "var": "logical_key",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "writes_per_sec": {
                 "var": "writes_per_sec",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "reads_per_sec": {
                 "var": "reads_per_sec",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "wcu_exceeded": {
                 "var": "wcu_exceeded",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -226,10 +226,10 @@
             "at": "say2",
             "caption": "Understanding internal storage node boundaries allows platform engineers.",
             "values": {
-              "logical_key": "'candidate_alpha'",
-              "writes_per_sec": "4500",
-              "reads_per_sec": "1200",
-              "wcu_exceeded": "True"
+              "logical_key": "'sensor_temp_01'",
+              "writes_per_sec": "350",
+              "reads_per_sec": "400",
+              "wcu_exceeded": "False"
             },
             "tones": {
               "logical_key": "data",
@@ -256,10 +256,10 @@
             "at": "say9",
             "caption": "Review the mathematical partition capacity boundaries and hot partition.",
             "values": {
-              "logical_key": "'candidate_alpha'",
-              "writes_per_sec": "4500",
-              "reads_per_sec": "1200",
-              "wcu_exceeded": "True"
+              "logical_key": "'sensor_temp_01'",
+              "writes_per_sec": "350",
+              "reads_per_sec": "400",
+              "wcu_exceeded": "False"
             },
             "tones": {
               "logical_key": "ok",
@@ -930,7 +930,7 @@
           },
           {
             "at": "say8",
-            "caption": "Execute the Contributor Insights hot key detector and partition variance.",
+            "caption": "Examine the writing value produced for clean processing.",
             "bars": [
               {
                 "label": "total_writes",
@@ -1030,7 +1030,7 @@
           },
           {
             "at": "say8",
-            "caption": "Execute the Contributor Insights hot key detector and partition variance.",
+            "caption": "Examine the writing value produced for clean processing.",
             "bars": [
               {
                 "label": "total_writes",

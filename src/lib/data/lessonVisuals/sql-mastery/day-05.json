@@ -381,19 +381,315 @@
       "partTitle": "BETWEEN: ranges of numbers and dates",
       "codeHash": "b82876681226e0b7fee7b0f67c7c2112e8f6addd2bb60e58ab91f79dfb76e580",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "BETWEEN: ranges of numbers and dates",
+        "columns": [
+          "name",
+          "price"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "BETWEEN picks values in a range.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "price"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "price"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "NOT BETWEEN keeps values outside the range.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "price"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "price"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "price"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "price"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "BETWEEN: ranges of numbers and dates",
+        "columns": [
+          "name",
+          "price"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "BETWEEN picks values in a range.",
+            "rows": [
+              {
+                "cells": [
+                  "Notebook",
+                  "60.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Stapler",
+                  "150.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "NOT BETWEEN keeps values outside the range.",
+            "rows": [
+              {
+                "cells": [
+                  "Notebook",
+                  "60.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Stapler",
+                  "150.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Phone stand",
+                  "299.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Water bottle",
+                  "350.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Combining text, list and range filters",
       "codeHash": "8be8dae0f05fe09c88d4a7b1a7102225e8ae655a51550332bdfa5d018c34679b",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Combining text, list and range filters",
+        "columns": [
+          "name",
+          "category",
+          "price"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Real searches combine several filters at once.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "category"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "price"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In SQL that looks like.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "category"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "price"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "category"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "price"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Combining text, list and range filters",
+        "columns": [
+          "name",
+          "category",
+          "price"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Real searches combine several filters at once.",
+            "rows": [
+              {
+                "cells": [
+                  "Water bottle",
+                  "kitchen",
+                  "350.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In SQL that looks like.",
+            "rows": [
+              {
+                "cells": [
+                  "Water bottle",
+                  "kitchen",
+                  "350.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Bottle lamp",
+                  "home",
+                  "480.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a product search",

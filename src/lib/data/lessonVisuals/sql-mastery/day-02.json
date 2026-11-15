@@ -235,10 +235,135 @@
       "partTitle": "NOT NULL and DEFAULT",
       "codeHash": "b33cfcf1dda27d5e4bf26e6db0a372ad694c970916ad8822e3e18ffdf39cadf5",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "NOT NULL and DEFAULT",
+        "columns": [
+          "title",
+          "done",
+          "priority"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "By default, any column can be left empty, which stores NULL.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "title"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "done"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "priority"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "NOT NULL after a column's type makes that column required.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "title"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "done"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "priority"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "title"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "done"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "priority"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "NOT NULL and DEFAULT",
+        "columns": [
+          "title",
+          "done",
+          "priority"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "By default, any column can be left empty, which stores NULL.",
+            "rows": [
+              {
+                "cells": [
+                  "Finish SQL lesson",
+                  "false",
+                  "normal"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "NOT NULL after a column's type makes that column required.",
+            "rows": [
+              {
+                "cells": [
+                  "Finish SQL lesson",
+                  "false",
+                  "normal"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Pay phone bill",
+                  "false",
+                  "high"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Primary keys and serial ids",
@@ -404,10 +529,145 @@
       "partTitle": "UNIQUE, and removing tables with DROP TABLE",
       "codeHash": "889de9abe37ea765bfb0266f781348d286bc9283d171746a28b25ee74d07ab66",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "UNIQUE, and removing tables with DROP TABLE",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Sometimes a column that is not the primary key must still be unique.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE users ("
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Two customers can both have no email.",
+            "values": {
+              "query": {
+                "text": "SELECT 'the users table is gone' AS note;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "note"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "UNIQUE, and removing tables with DROP TABLE",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Sometimes a column that is not the primary key must still be unique.",
+            "values": {
+              "query": "CREATE TABLE users (",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Two customers can both have no email.",
+            "values": {
+              "query": "SELECT 'the users table is gone' AS note;",
+              "db": "PostgreSQL",
+              "res": "the users table is gone"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: the expenses table",

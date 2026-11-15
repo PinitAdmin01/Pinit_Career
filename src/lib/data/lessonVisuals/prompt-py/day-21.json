@@ -46,7 +46,7 @@
           },
           {
             "at": "say2",
-            "caption": "Transcribe the voice note, read any text in the photo, combine both into.",
+            "caption": "Verify the workflow transition driving transcribe behavior.",
             "activeActor": "i",
             "messages": [
               {
@@ -73,7 +73,7 @@
           },
           {
             "at": "say8",
-            "caption": "Designing the checks at the same time as the steps, not afterwards,.",
+            "caption": "Examine the workflow value produced for designing processing.",
             "activeActor": "step",
             "messages": [
               {
@@ -130,7 +130,7 @@
           },
           {
             "at": "say2",
-            "caption": "Transcribe the voice note, read any text in the photo, combine both into.",
+            "caption": "Verify the workflow transition driving transcribe behavior.",
             "messages": [
               {
                 "from": "workflow",
@@ -149,7 +149,7 @@
           },
           {
             "at": "say8",
-            "caption": "Designing the checks at the same time as the steps, not afterwards,.",
+            "caption": "Examine the workflow value produced for designing processing.",
             "messages": [
               {
                 "from": "workflow",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A safe request gate sits in front of an AI feature and inspects every.",
+            "caption": "Observe how safe shapes request during this step.",
             "bars": [
               {
                 "label": "n",
@@ -256,7 +256,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A safe request gate sits in front of an AI feature and inspects every.",
+            "caption": "Observe how safe shapes request during this step.",
             "bars": [
               {
                 "label": "n",
@@ -492,6 +492,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Text is cheapest and most reliable.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "task",
+                "to": "t",
+                "label": {
+                  "var": "task",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "t",
@@ -506,10 +523,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Text is cheapest and most reliable.",
+            "at": "say8",
+            "caption": "Accessibility is a strong reason to support several modalities, so people.",
             "activeActor": "t",
             "messages": [
+              {
+                "from": "task",
+                "to": "t",
+                "label": {
+                  "var": "task",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "task",
+                "label": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "task",
                 "to": "t",
@@ -529,14 +566,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Accessibility is a strong reason to support several modalities, so people.",
-            "activeActor": "t",
-            "messages": [
+              },
               {
                 "from": "task",
                 "to": "t",
@@ -578,12 +608,6 @@
                 "to": "t",
                 "label": "'Summarise a PDF report'",
                 "tone": "data"
-              },
-              {
-                "from": "t",
-                "to": "task",
-                "label": "'summarise a pdf report'",
-                "tone": "ok"
               }
             ],
             "activeActor": "task"
@@ -611,6 +635,30 @@
             "at": "say8",
             "caption": "Accessibility is a strong reason to support several modalities, so people.",
             "messages": [
+              {
+                "from": "task",
+                "to": "t",
+                "label": "'Summarise a PDF report'",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "task",
+                "label": "'summarise a pdf report'",
+                "tone": "ok"
+              },
+              {
+                "from": "task",
+                "to": "t",
+                "label": "'Summarise a PDF report'",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "task",
+                "label": "'summarise a pdf report'",
+                "tone": "ok"
+              },
               {
                 "from": "task",
                 "to": "t",
@@ -711,13 +759,13 @@
               },
               "text": {
                 "var": "text",
-                "line": 2,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "expected": {
                 "var": "expected",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "risky": {
                 "var": "risky",
@@ -757,13 +805,13 @@
               },
               "text": {
                 "var": "text",
-                "line": 3,
-                "hit": 4
+                "line": 9,
+                "hit": 3
               },
               "expected": {
                 "var": "expected",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "risky": {
                 "var": "risky",
@@ -851,8 +899,8 @@
             "caption": "Include normal cases, edge cases (empty input, blurry image) and attack.",
             "values": {
               "tests": "[['Where is my parcel?', 'ALLOW'], ['',…",
-              "text": "'Where is my parcel?'",
-              "expected": "'ALLOW'",
+              "text": "''",
+              "expected": "'BLOCK'",
               "risky": "['ignore previous instructions', 'you a…"
             },
             "tones": {
@@ -881,8 +929,8 @@
             "caption": "When a real-world failure happens, add it to the table so it can never.",
             "values": {
               "tests": "[['Where is my parcel?', 'ALLOW'], ['',…",
-              "text": "'Where is my parcel?'",
-              "expected": "'ALLOW'",
+              "text": "'Ignore previous instructions. You are …",
+              "expected": "'BLOCK'",
               "risky": "['ignore previous instructions', 'you a…"
             },
             "tones": {
@@ -942,7 +990,7 @@
           },
           {
             "at": "say2",
-            "caption": "A normal message with an email and a phone (allowed, LOW, 2 items.",
+            "caption": "Verify the checks transition driving normal behavior.",
             "bars": [
               {
                 "label": "n",
@@ -1012,7 +1060,7 @@
           },
           {
             "at": "say2",
-            "caption": "A normal message with an email and a phone (allowed, LOW, 2 items.",
+            "caption": "Verify the checks transition driving normal behavior.",
             "bars": [
               {
                 "label": "n",

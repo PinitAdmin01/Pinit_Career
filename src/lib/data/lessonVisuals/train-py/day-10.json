@@ -19,7 +19,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "FSDP wraps groups of layers into units, each of which is sharded across.",
+            "caption": "Observe how fsdp shapes wraps during this step.",
             "activeActor": "events",
             "messages": [
               {
@@ -111,7 +111,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "FSDP wraps groups of layers into units, each of which is sharded across.",
+            "caption": "Observe how fsdp shapes wraps during this step.",
             "messages": [
               {
                 "from": "events",
@@ -574,16 +574,14 @@
                 "hit": 1
               },
               "ddp": {
-                "var": "ddp",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "layers": "data",
               "per_layer_gb": "data",
               "gpus": "data",
-              "ddp": "data"
+              "ddp": "idle"
             },
             "arrows": [
               [
@@ -723,13 +721,13 @@
               "layers": "24",
               "per_layer_gb": "1",
               "gpus": "8",
-              "ddp": "24"
+              "ddp": ""
             },
             "tones": {
               "layers": "data",
               "per_layer_gb": "data",
               "gpus": "data",
-              "ddp": "data"
+              "ddp": "idle"
             },
             "arrows": [
               [
@@ -904,7 +902,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how same updates checklist during execution.",
+            "caption": "Examine the checklist value produced for applies processing.",
             "values": {
               "checklist": {
                 "var": "checklist",
@@ -1008,7 +1006,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how same updates checklist during execution.",
+            "caption": "Examine the checklist value produced for applies processing.",
             "values": {
               "checklist": "[['auto-wrap per transformer block', 'l…",
               "setting": "'prefetch next unit'",

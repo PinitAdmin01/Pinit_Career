@@ -311,7 +311,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates evaluate during execution.",
+            "caption": "Verify the golden transition driving practice behavior.",
             "values": {
               "golden": {
                 "var": "golden",
@@ -330,7 +330,7 @@
               },
               "rec": {
                 "var": "rec",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               }
             },
@@ -376,8 +376,8 @@
               },
               "rec": {
                 "var": "rec",
-                "line": 6,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -457,12 +457,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates evaluate during execution.",
+            "caption": "Verify the golden transition driving practice behavior.",
             "values": {
               "golden": "{'q1': {'a', 'b'}, 'q2': {'c'}, 'q3': {…",
               "results": "{'q1': ['a', 'x', 'b'], 'q2': ['y', 'c'…",
               "k": "3",
-              "rec": "{}"
+              "rec": "{'q1': 1}"
             },
             "tones": {
               "golden": "data",
@@ -492,7 +492,7 @@
               "golden": "{'q1': {'a', 'b'}, 'q2': {'c'}, 'q3': {…",
               "results": "{'q1': ['a', 'x', 'b'], 'q2': ['y', 'c'…",
               "k": "3",
-              "rec": "{}"
+              "rec": "{'q1': 1, 'q2': 1}"
             },
             "tones": {
               "golden": "ok",
@@ -663,7 +663,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sample updates queries during execution.",
+            "caption": "Verify the sample transition driving queries behavior.",
             "bars": [
               {
                 "label": "total",
@@ -733,7 +733,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sample updates queries during execution.",
+            "caption": "Verify the sample transition driving queries behavior.",
             "bars": [
               {
                 "label": "total",

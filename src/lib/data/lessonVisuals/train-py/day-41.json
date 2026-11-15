@@ -56,7 +56,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how stage updates processes during execution.",
+            "caption": "Verify the stage transition driving processes behavior.",
             "bars": [
               {
                 "label": "num_stages",
@@ -172,7 +172,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how stage updates processes during execution.",
+            "caption": "Verify the stage transition driving processes behavior.",
             "bars": [
               {
                 "label": "num_stages",
@@ -447,164 +447,114 @@
     },
     {
       "partTitle": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "bef98e535200e504179758ea76b2145f559a4d71f036cf52b53b66de8b48ab61",
+      "codeHash": "b85c171f120af86df30dd41eae0a04cdc8baa33bf1a7b5110ba9c8c8dc49e75b",
       "spec": {
         "template": "flow",
         "title": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handl",
         "nodes": [
           {
             "id": "stages",
-            "label": "stages"
+            "label": "stages",
+            "tappable": true
           },
           {
             "id": "max_bubble_pct",
-            "label": "max_bubble_pct"
+            "label": "max_bubble_pct",
+            "tappable": true
           },
           {
             "id": "p",
-            "label": "p"
-          },
-          {
-            "id": "m",
-            "label": "m"
+            "label": "p",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Minimizing the pipeline bubble fraction requires finding the optimal.",
+            "caption": "Inspect pipeline updates as stages tracks minimizing state.",
             "values": {
               "stages": {
                 "var": "stages",
-                "line": 4,
+                "line": 3,
                 "hit": 1
               },
               "max_bubble_pct": {
                 "var": "max_bubble_pct",
-                "line": 4,
+                "line": 3,
                 "hit": 1
               },
               "p": {
-                "var": "p",
-                "line": 4,
-                "hit": 1
-              },
-              "m": {
-                "var": "m",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "stages": "data",
               "max_bubble_pct": "data",
-              "p": "data",
-              "m": "data"
+              "p": "idle"
             },
-            "arrows": [
-              [
-                "stages",
-                "max_bubble_pct"
-              ],
-              [
-                "max_bubble_pct",
-                "p"
-              ],
-              [
-                "p",
-                "m"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In high-throughput foundation model training, the target pipeline bubble.",
+            "caption": "Verify the pipeline transition driving throughput behavior.",
             "values": {
               "stages": {
                 "var": "stages",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               },
               "max_bubble_pct": {
                 "var": "max_bubble_pct",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               },
               "p": {
                 "var": "p",
-                "line": 5,
-                "hit": 1
-              },
-              "m": {
-                "var": "m",
-                "line": 6,
+                "line": 7,
                 "hit": 1
               }
             },
             "tones": {
               "stages": "data",
               "max_bubble_pct": "data",
-              "p": "data",
-              "m": "data"
+              "p": "data"
             },
             "arrows": [
               [
                 "stages",
                 "max_bubble_pct"
-              ],
-              [
-                "max_bubble_pct",
-                "p"
-              ],
-              [
-                "p",
-                "m"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Rigorous tuning ensures that the chosen microbatch configuration maximizes.",
+            "at": "say3",
+            "caption": "Examine the using value produced for bubble processing.",
             "values": {
               "stages": {
                 "var": "stages",
-                "line": 6,
+                "line": 8,
                 "hit": 1
               },
               "max_bubble_pct": {
                 "var": "max_bubble_pct",
-                "line": 6,
+                "line": 8,
                 "hit": 1
               },
               "p": {
                 "var": "p",
-                "line": 6,
-                "hit": 1
-              },
-              "m": {
-                "var": "m",
-                "line": 6,
+                "line": 8,
                 "hit": 1
               }
             },
             "tones": {
               "stages": "ok",
               "max_bubble_pct": "ok",
-              "p": "ok",
-              "m": "ok"
+              "p": "ok"
             },
             "arrows": [
               [
                 "stages",
                 "max_bubble_pct"
-              ],
-              [
-                "max_bubble_pct",
-                "p"
-              ],
-              [
-                "p",
-                "m"
               ]
             ]
           }
@@ -616,109 +566,73 @@
         "nodes": [
           {
             "id": "stages",
-            "label": "stages"
+            "label": "stages",
+            "tappable": true
           },
           {
             "id": "max_bubble_pct",
-            "label": "max_bubble_pct"
+            "label": "max_bubble_pct",
+            "tappable": true
           },
           {
             "id": "p",
-            "label": "p"
-          },
-          {
-            "id": "m",
-            "label": "m"
+            "label": "p",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Minimizing the pipeline bubble fraction requires finding the optimal.",
+            "caption": "Inspect pipeline updates as stages tracks minimizing state.",
             "values": {
               "stages": "8",
               "max_bubble_pct": "10",
-              "p": "8",
-              "m": "64"
+              "p": ""
             },
             "tones": {
               "stages": "data",
               "max_bubble_pct": "data",
-              "p": "data",
-              "m": "data"
+              "p": "idle"
             },
-            "arrows": [
-              [
-                "stages",
-                "max_bubble_pct"
-              ],
-              [
-                "max_bubble_pct",
-                "p"
-              ],
-              [
-                "p",
-                "m"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In high-throughput foundation model training, the target pipeline bubble.",
+            "caption": "Verify the pipeline transition driving throughput behavior.",
             "values": {
               "stages": "8",
               "max_bubble_pct": "10",
-              "p": "8",
-              "m": "64"
+              "p": "8"
             },
             "tones": {
               "stages": "data",
               "max_bubble_pct": "data",
-              "p": "data",
-              "m": "data"
+              "p": "data"
             },
             "arrows": [
               [
                 "stages",
                 "max_bubble_pct"
-              ],
-              [
-                "max_bubble_pct",
-                "p"
-              ],
-              [
-                "p",
-                "m"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Rigorous tuning ensures that the chosen microbatch configuration maximizes.",
+            "at": "say3",
+            "caption": "Examine the using value produced for bubble processing.",
             "values": {
               "stages": "8",
               "max_bubble_pct": "10",
-              "p": "8",
-              "m": "64"
+              "p": "8"
             },
             "tones": {
               "stages": "ok",
               "max_bubble_pct": "ok",
-              "p": "ok",
-              "m": "ok"
+              "p": "ok"
             },
             "arrows": [
               [
                 "stages",
                 "max_bubble_pct"
-              ],
-              [
-                "max_bubble_pct",
-                "p"
-              ],
-              [
-                "p",
-                "m"
               ]
             ]
           }
@@ -727,164 +641,63 @@
     },
     {
       "partTitle": "Pipeline Parallelism — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6d5d3a0ff983c71f1c6a8ae5827584a89326e3f43652b71e7636aa73e67a7c97",
+      "codeHash": "304d8647aa3b6c96354d69fbc0d392092e78ea06ec1e7cfb23ad143f66193bba",
       "spec": {
         "template": "flow",
         "title": "Pipeline Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "stages",
-            "label": "stages"
-          },
-          {
             "id": "microbatches",
-            "label": "microbatches"
+            "label": "microbatches",
+            "tappable": true
           },
           {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "ok",
-            "label": "ok"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pipeline execution schedules are susceptible to deadlock if communication.",
+            "caption": "Inspect pipeline updates as microbatches tracks execution state.",
             "values": {
-              "stages": {
-                "var": "stages",
-                "line": 2,
-                "hit": 1
-              },
               "microbatches": {
                 "var": "microbatches",
                 "line": 2,
                 "hit": 1
               },
-              "status": {
-                "var": "status",
-                "line": 6,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 6,
-                "hit": 1
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "stages": "data",
               "microbatches": "data",
-              "status": "data",
-              "ok": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "stages",
-                "microbatches"
-              ],
-              [
-                "microbatches",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A pipeline deadlock occurs when two adjacent stages simultaneously wait.",
+            "caption": "Verify the pipeline transition driving deadlock behavior.",
             "values": {
-              "stages": {
-                "var": "stages",
-                "line": 4,
-                "hit": 1
-              },
               "microbatches": {
                 "var": "microbatches",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
-              "status": {
-                "var": "status",
-                "line": 7,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 7,
-                "hit": 1
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "stages": "data",
-              "microbatches": "data",
-              "status": "data",
-              "ok": "data"
-            },
-            "arrows": [
-              [
-                "stages",
-                "microbatches"
-              ],
-              [
-                "microbatches",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing robust communication guardrails guarantees deterministic.",
-            "values": {
-              "stages": {
-                "var": "stages",
-                "line": 4,
-                "hit": 1
-              },
-              "microbatches": {
-                "var": "microbatches",
-                "line": 4,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 7,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 7,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "stages": "ok",
               "microbatches": "ok",
-              "status": "ok",
-              "ok": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
-                "stages",
-                "microbatches"
-              ],
-              [
                 "microbatches",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
+                "out"
               ]
             ]
           }
@@ -895,110 +708,45 @@
         "title": "Pipeline Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "stages",
-            "label": "stages"
-          },
-          {
             "id": "microbatches",
-            "label": "microbatches"
+            "label": "microbatches",
+            "tappable": true
           },
           {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "ok",
-            "label": "ok"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pipeline execution schedules are susceptible to deadlock if communication.",
+            "caption": "Inspect pipeline updates as microbatches tracks execution state.",
             "values": {
-              "stages": "8",
-              "microbatches": "32",
-              "status": "'PIPELINE_FLOW_HEALTHY'",
-              "ok": "True"
+              "microbatches": "4",
+              "out": ""
             },
             "tones": {
-              "stages": "data",
               "microbatches": "data",
-              "status": "data",
-              "ok": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "stages",
-                "microbatches"
-              ],
-              [
-                "microbatches",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A pipeline deadlock occurs when two adjacent stages simultaneously wait.",
+            "caption": "Verify the pipeline transition driving deadlock behavior.",
             "values": {
-              "stages": "8",
               "microbatches": "32",
-              "status": "'PIPELINE_FLOW_HEALTHY'",
-              "ok": "True"
+              "out": "Pipeline Deadlock Guardrail: PIPELINE_FLOW_HEALTHY (Passed: True)"
             },
             "tones": {
-              "stages": "data",
-              "microbatches": "data",
-              "status": "data",
-              "ok": "data"
-            },
-            "arrows": [
-              [
-                "stages",
-                "microbatches"
-              ],
-              [
-                "microbatches",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing robust communication guardrails guarantees deterministic.",
-            "values": {
-              "stages": "8",
-              "microbatches": "32",
-              "status": "'PIPELINE_FLOW_HEALTHY'",
-              "ok": "True"
-            },
-            "tones": {
-              "stages": "ok",
               "microbatches": "ok",
-              "status": "ok",
-              "ok": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
-                "stages",
-                "microbatches"
-              ],
-              [
                 "microbatches",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
+                "out"
               ]
             ]
           }

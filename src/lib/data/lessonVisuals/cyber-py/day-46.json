@@ -49,7 +49,7 @@
           },
           {
             "at": "say9",
-            "caption": "Combining entropy calculations with structural heuristics creates.",
+            "caption": "Examine the computing value produced for character processing.",
             "currentState": "string_val",
             "transition": {
               "from": "raw_secret",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say9",
-            "caption": "Combining entropy calculations with structural heuristics creates.",
+            "caption": "Examine the computing value produced for character processing.",
             "currentState": "string_val",
             "transition": {
               "from": "raw_secret",
@@ -186,13 +186,13 @@
               },
               "findings": {
                 "var": "findings",
-                "line": 13,
+                "line": 16,
                 "hit": 1
               },
               "name": {
                 "var": "name",
-                "line": 14,
-                "hit": 1
+                "line": 13,
+                "hit": 2
               }
             },
             "tones": {
@@ -204,7 +204,7 @@
           },
           {
             "at": "say9",
-            "caption": "Integrating hybrid scanning into continuous delivery pipelines provides.",
+            "caption": "Examine the entropy value produced for evaluating processing.",
             "values": {
               "sample_line": {
                 "var": "sample_line",
@@ -218,13 +218,13 @@
               },
               "findings": {
                 "var": "findings",
-                "line": 14,
+                "line": 16,
                 "hit": 1
               },
               "name": {
                 "var": "name",
-                "line": 15,
-                "hit": 1
+                "line": 13,
+                "hit": 3
               }
             },
             "tones": {
@@ -280,8 +280,8 @@
             "values": {
               "sample_line": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
               "line_str": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
-              "findings": "[]",
-              "name": "'AWS_KEY_ID'"
+              "findings": "[['AWS_KEY_ID', 'AKIAIOSFODNN7EXAMPLE']]",
+              "name": "'GITHUB_PAT'"
             },
             "tones": {
               "sample_line": "data",
@@ -292,12 +292,12 @@
           },
           {
             "at": "say9",
-            "caption": "Integrating hybrid scanning into continuous delivery pipelines provides.",
+            "caption": "Examine the entropy value produced for evaluating processing.",
             "values": {
               "sample_line": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
               "line_str": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
-              "findings": "[]",
-              "name": "'AWS_KEY_ID'"
+              "findings": "[['AWS_KEY_ID', 'AKIAIOSFODNN7EXAMPLE']]",
+              "name": "'STRIPE_API_KEY'"
             },
             "tones": {
               "sample_line": "ok",
@@ -401,7 +401,7 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 7,
+                "line": 18,
                 "hit": 1
               }
             },
@@ -447,7 +447,7 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 8,
+                "line": 18,
                 "hit": 1
               }
             },
@@ -533,7 +533,7 @@
               "diff": "['--- a/config.py', '+++ b/config.py', …",
               "diff_lines": "['--- a/config.py', '+++ b/config.py', …",
               "entropy_threshold": "4",
-              "violations": "[]"
+              "violations": "[[\"'L7493xZb89Q...\", 4.23]]"
             },
             "tones": {
               "diff": "data",
@@ -563,7 +563,7 @@
               "diff": "['--- a/config.py', '+++ b/config.py', …",
               "diff_lines": "['--- a/config.py', '+++ b/config.py', …",
               "entropy_threshold": "4",
-              "violations": "[]"
+              "violations": "[[\"'L7493xZb89Q...\", 4.23]]"
             },
             "tones": {
               "diff": "ok",
@@ -780,7 +780,7 @@
           },
           {
             "at": "say2",
-            "caption": "A secret scanner infrastructure auditor asserts that scanning hooks are.",
+            "caption": "Verify the secret transition driving scanner behavior.",
             "currentState": "regex_patterns_valid",
             "transition": {
               "from": "entropy_calc_accurate",
@@ -795,7 +795,7 @@
           },
           {
             "at": "say9",
-            "caption": "Mastering secret entropy analysis and git hook engineering empowers.",
+            "caption": "Examine the production value produced for auditing processing.",
             "currentState": "git_diff_streamed",
             "transition": {
               "from": "regex_patterns_valid",
@@ -836,7 +836,7 @@
           },
           {
             "at": "say2",
-            "caption": "A secret scanner infrastructure auditor asserts that scanning hooks are.",
+            "caption": "Verify the secret transition driving scanner behavior.",
             "currentState": "regex_patterns_valid",
             "transition": {
               "from": "entropy_calc_accurate",
@@ -847,7 +847,7 @@
           },
           {
             "at": "say9",
-            "caption": "Mastering secret entropy analysis and git hook engineering empowers.",
+            "caption": "Examine the production value produced for auditing processing.",
             "currentState": "git_diff_streamed",
             "transition": {
               "from": "regex_patterns_valid",

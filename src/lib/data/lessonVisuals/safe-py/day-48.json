@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Safety Regression Gates — Foundations & Mathematical Invariants",
+      "partTitle": "Historical Suite Case Verification in `run_regression_test`",
       "codeHash": "23acbbf1468a320820d13133081bdf6442bbe7144d39771ad9c3c5513158a4a6",
       "spec": {
         "template": "states",
@@ -114,7 +114,7 @@
       }
     },
     {
-      "partTitle": "Safety Regression Gates — Core Algorithm & State Representation",
+      "partTitle": "Zero-Tolerance Aggregate Scoring via `calculate_suite_pass_rate`",
       "codeHash": "bdb59a2ba6314d73752be74414058c90cd9421707b9f8821ffe867d0204bea3d",
       "spec": {
         "template": "states",
@@ -136,7 +136,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The calculate_suite_pass_rate function evaluates test outcomes across.",
+            "caption": "Observe how calculate shapes suite during this step.",
             "currentState": "results",
             "tone": "data"
           },
@@ -157,7 +157,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the aggregate value produced for calculate processing.",
             "currentState": "total",
             "transition": {
               "from": "test_results",
@@ -192,7 +192,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The calculate_suite_pass_rate function evaluates test outcomes across.",
+            "caption": "Observe how calculate shapes suite during this step.",
             "currentState": "results",
             "tone": "data"
           },
@@ -209,7 +209,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the aggregate value produced for calculate processing.",
             "currentState": "total",
             "transition": {
               "from": "test_results",
@@ -222,7 +222,7 @@
       }
     },
     {
-      "partTitle": "Safety Regression Gates — Production Implementation & Boundary Mechanics",
+      "partTitle": "Build Promotion Decisions inside `CIRegressionGate`",
       "codeHash": "4a4aee61340aa16d99e07c2b664317091603ea9deaee5bfc1d9a92ccc6abc34b",
       "spec": {
         "template": "flow",
@@ -266,16 +266,14 @@
                 "hit": 1
               },
               "gate": {
-                "var": "gate",
-                "line": 14,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "suite": "data",
               "self": "data",
               "golden_suite": "data",
-              "gate": "data"
+              "gate": "idle"
             },
             "arrows": [
               [
@@ -340,7 +338,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for automated safety.",
+            "caption": "Structured evaluation receipts clarify exact blockers unambiguously.",
             "values": {
               "suite": {
                 "var": "suite",
@@ -415,13 +413,13 @@
               "suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
               "self": "<CIRegressionGate>",
               "golden_suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
-              "gate": "<CIRegressionGate>"
+              "gate": ""
             },
             "tones": {
               "suite": "data",
               "self": "data",
               "golden_suite": "data",
-              "gate": "data"
+              "gate": "idle"
             },
             "arrows": [
               [
@@ -470,7 +468,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for automated safety.",
+            "caption": "Structured evaluation receipts clarify exact blockers unambiguously.",
             "values": {
               "suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
               "self": "<CIRegressionGate>",
@@ -502,115 +500,199 @@
       }
     },
     {
-      "partTitle": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & Debugging",
-      "codeHash": "eaff5bdad9f337041e850f6ad6faa1d066c0d93308ebb843bcc704c76bc70a4d",
+      "partTitle": "Standardized Runner Banners via `format_ci_safety_report`",
+      "codeHash": "51d7ba69700ad7bd0a08fba9b93d76285591b8a6d148f01e6567f0d325171dad",
       "spec": {
-        "template": "states",
-        "title": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & ",
-        "states": [
+        "template": "flow",
+        "title": "Standardized Runner Banners via `format_ci_safety_report`",
+        "nodes": [
           {
             "id": "eval_summary",
-            "label": "eval_summary"
+            "label": "eval_summary",
+            "tappable": true
           },
           {
             "id": "status",
-            "label": "status"
+            "label": "status",
+            "tappable": true
           },
           {
-            "id": "fails",
-            "label": "fails"
+            "id": "failed_list",
+            "label": "failed_list",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Clear diagnostic reporting is essential for helping developers quickly.",
-            "currentState": "eval_summary",
-            "tone": "data"
+            "caption": "Inspect clear updates as eval_summary tracks diagnostic state.",
+            "values": {
+              "eval_summary": {
+                "var": "eval_summary",
+                "line": 2,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 2,
+                "hit": 1
+              },
+              "failed_list": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "eval_summary": "data",
+              "status": "data",
+              "failed_list": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The format_ci_safety_report function synthesizes evaluation outcomes.",
-            "currentState": "status",
-            "transition": {
-              "from": "eval_summary",
-              "to": "status",
-              "label": {
+            "caption": "Verify the standardized transition driving format behavior.",
+            "values": {
+              "eval_summary": {
+                "var": "eval_summary",
+                "line": 2,
+                "hit": 2
+              },
+              "status": {
                 "var": "status",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
+              },
+              "failed_list": {
+                "text": ""
               }
             },
-            "tone": "data"
+            "tones": {
+              "eval_summary": "data",
+              "status": "data",
+              "failed_list": "idle"
+            },
+            "arrows": [
+              [
+                "eval_summary",
+                "status"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
-            "currentState": "fails",
-            "transition": {
-              "from": "status",
-              "to": "fails",
-              "label": {
-                "var": "fails",
-                "line": 3,
+            "at": "say3",
+            "caption": "Examine the report value produced for highlights processing.",
+            "values": {
+              "eval_summary": {
+                "var": "eval_summary",
+                "line": 4,
+                "hit": 2
+              },
+              "status": {
+                "var": "status",
+                "line": 4,
+                "hit": 2
+              },
+              "failed_list": {
+                "var": "failed_list",
+                "line": 4,
                 "hit": 2
               }
             },
-            "tone": "ok"
+            "tones": {
+              "eval_summary": "ok",
+              "status": "ok",
+              "failed_list": "ok"
+            },
+            "arrows": [
+              [
+                "eval_summary",
+                "status"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & ",
-        "states": [
+        "template": "flow",
+        "title": "Standardized Runner Banners via `format_ci_safety_report`",
+        "nodes": [
           {
             "id": "eval_summary",
-            "label": "eval_summary"
+            "label": "eval_summary",
+            "tappable": true
           },
           {
             "id": "status",
-            "label": "status"
+            "label": "status",
+            "tappable": true
           },
           {
-            "id": "fails",
-            "label": "fails"
+            "id": "failed_list",
+            "label": "failed_list",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Clear diagnostic reporting is essential for helping developers quickly.",
-            "currentState": "eval_summary",
-            "tone": "data"
+            "caption": "Inspect clear updates as eval_summary tracks diagnostic state.",
+            "values": {
+              "eval_summary": "{'ci_status': 'BUILD_APPROVED', 'failed…",
+              "status": "'BUILD_APPROVED'",
+              "failed_list": ""
+            },
+            "tones": {
+              "eval_summary": "data",
+              "status": "data",
+              "failed_list": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The format_ci_safety_report function synthesizes evaluation outcomes.",
-            "currentState": "status",
-            "transition": {
-              "from": "eval_summary",
-              "to": "status",
-              "label": "'BUILD_APPROVED'"
+            "caption": "Verify the standardized transition driving format behavior.",
+            "values": {
+              "eval_summary": "{'ci_status': 'BUILD_BLOCKED', 'failed_…",
+              "status": "'BUILD_BLOCKED'",
+              "failed_list": ""
             },
-            "tone": "data"
+            "tones": {
+              "eval_summary": "data",
+              "status": "data",
+              "failed_list": "idle"
+            },
+            "arrows": [
+              [
+                "eval_summary",
+                "status"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
-            "currentState": "fails",
-            "transition": {
-              "from": "status",
-              "to": "fails",
-              "label": "1"
+            "at": "say3",
+            "caption": "Examine the report value produced for highlights processing.",
+            "values": {
+              "eval_summary": "{'ci_status': 'BUILD_BLOCKED', 'failed_…",
+              "status": "'BUILD_BLOCKED'",
+              "failed_list": "['SAFE-01']"
             },
-            "tone": "ok"
+            "tones": {
+              "eval_summary": "ok",
+              "status": "ok",
+              "failed_list": "ok"
+            },
+            "arrows": [
+              [
+                "eval_summary",
+                "status"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Safety Regression Gates — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Commit Merge Enforcement in `git_commit_safety_enforcer`",
       "codeHash": "0baa1beca1d12623cabad7342ebdfed4af70a6857bb9943d82e38ef74fd997da",
       "spec": {
         "template": "states",

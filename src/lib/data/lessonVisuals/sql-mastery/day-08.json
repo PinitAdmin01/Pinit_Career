@@ -303,19 +303,287 @@
       "partTitle": "MIN and MAX on numbers, text and dates",
       "codeHash": "d02af9ba9b0442448629597b8b902012cc9db186cb33d7c3aa05151de9834134",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "MIN and MAX on numbers, text and dates",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "min and max find the smallest and largest value in a column.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE orders (id int, customer text, orde"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "On dates, min gives the earliest and max the latest.",
+            "values": {
+              "query": {
+                "text": "SELECT customer, max(total) FROM orders;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "error": true
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "MIN and MAX on numbers, text and dates",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "min and max find the smallest and largest value in a column.",
+            "values": {
+              "query": "CREATE TABLE orders (id int, customer text, orde",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "On dates, min gives the earliest and max the latest.",
+            "values": {
+              "query": "SELECT customer, max(total) FROM orders;",
+              "db": "SELECT",
+              "res": "column \"orders.customer\" must appear in the GROUP BY clause or be used in an aggregate function"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Aggregates with WHERE and calculations",
       "codeHash": "c69df073f7ae254ee6753b34c22eff54c70dc2a8e621d37b350471f96efe3c2f",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Aggregates with WHERE and calculations",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Most real reports combine a filter with aggregates.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE orders (id int, status text, ordere"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Remember the order in which PostgreSQL works.",
+            "values": {
+              "query": {
+                "text": "SELECT count(*) AS all_orders, count(*) FILTER (WHERE status = 'cancelled') AS cancelled FROM orders;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "all_orders"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Aggregates with WHERE and calculations",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Most real reports combine a filter with aggregates.",
+            "values": {
+              "query": "CREATE TABLE orders (id int, status text, ordere",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Remember the order in which PostgreSQL works.",
+            "values": {
+              "query": "SELECT count(*) AS all_orders, count(*) FILTER (WHERE status = 'cancelled') AS cancelled FROM orders;",
+              "db": "PostgreSQL",
+              "res": "6"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: the catalogue in numbers",

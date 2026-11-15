@@ -363,7 +363,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Inverse document frequency (IDF) measures how rare a word is across.",
+            "caption": "Observe how inverse shapes document during this step.",
             "bars": [
               {
                 "label": "N",
@@ -396,7 +396,7 @@
           },
           {
             "at": "say2",
-            "caption": "IDF = log(N / df), where N is the number of documents and df (document.",
+            "caption": "Verify the document transition driving frequency behavior.",
             "bars": [
               {
                 "label": "N",
@@ -468,7 +468,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Inverse document frequency (IDF) measures how rare a word is across.",
+            "caption": "Observe how inverse shapes document during this step.",
             "bars": [
               {
                 "label": "N",
@@ -489,7 +489,7 @@
           },
           {
             "at": "say2",
-            "caption": "IDF = log(N / df), where N is the number of documents and df (document.",
+            "caption": "Verify the document transition driving frequency behavior.",
             "bars": [
               {
                 "label": "N",
@@ -534,7 +534,7 @@
     },
     {
       "partTitle": "TF-IDF",
-      "codeHash": "c17e1d7a529d024134c8fdbc5ea62a875efc17c9fd1d9ef045a0a8ede82ae46c",
+      "codeHash": "787d11cc01f27f8bacfe90e780ee6e0d1e8b94e46091c1cac0aed4ae806a15fe",
       "spec": {
         "template": "flow",
         "title": "TF-IDF",
@@ -619,13 +619,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 12,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "doc": {
                 "var": "doc",
-                "line": 8,
-                "hit": 5
+                "line": 11,
+                "hit": 2
               }
             },
             "tones": {
@@ -665,13 +665,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 12,
-                "hit": 2
+                "line": 11,
+                "hit": 3
               },
               "doc": {
                 "var": "doc",
-                "line": 9,
-                "hit": 1
+                "line": 11,
+                "hit": 3
               }
             },
             "tones": {
@@ -755,8 +755,8 @@
             "values": {
               "docs": "{'d1': ['cloud', 'cost', 'cloud', 'savi…",
               "N": "3",
-              "name": "'d1'",
-              "doc": "['cloud', 'cost', 'cloud', 'savings']"
+              "name": "'d2'",
+              "doc": "['python', 'cloud', 'lambda']"
             },
             "tones": {
               "docs": "data",
@@ -785,8 +785,8 @@
             "values": {
               "docs": "{'d1': ['cloud', 'cost', 'cloud', 'savi…",
               "N": "3",
-              "name": "'d1'",
-              "doc": "['cloud', 'cost', 'cloud', 'savings']"
+              "name": "'d3'",
+              "doc": "['python', 'tests', 'python', 'tests']"
             },
             "tones": {
               "docs": "ok",
@@ -863,7 +863,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how test updates yourself during execution.",
+            "caption": "Verify the test transition driving yourself behavior.",
             "bars": [
               {
                 "label": "tc",
@@ -979,7 +979,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how test updates yourself during execution.",
+            "caption": "Verify the test transition driving yourself behavior.",
             "bars": [
               {
                 "label": "tc",

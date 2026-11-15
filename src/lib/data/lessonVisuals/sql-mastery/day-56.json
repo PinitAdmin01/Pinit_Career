@@ -672,7 +672,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production diagnostic forensics evaluate execution nodes and telemetry.",
+            "caption": "Observe how explain shapes window during this step.",
             "left": {
               "code": "Default unbounded RANGE frame",
               "result": {
@@ -752,20 +752,22 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production diagnostic forensics evaluate execution nodes and telemetry.",
+            "caption": "Observe how explain shapes window during this step.",
             "left": {
               "code": "Default unbounded RANGE frame",
-              "result": {
-                "text": "peer group checks buffer tuples in tuplestore; slows I/O"
-              },
-              "tone": "error"
+              "result": "peer group checks buffer tuples in tuplestore; slows I/O",
+              "tone": "error",
+              "checks": [
+                "peer group checks buffer tuples in tuplestore; slows I/O"
+              ]
             },
             "right": {
               "code": "Explicit ROWS BETWEEN frame",
-              "result": {
-                "text": "pure streaming ring buffer executes in O(1) memory"
-              },
-              "tone": "ok"
+              "result": "pure streaming ring buffer executes in O(1) memory",
+              "tone": "ok",
+              "checks": [
+                "pure streaming ring buffer executes in O(1) memory"
+              ]
             }
           },
           {
@@ -773,17 +775,19 @@
             "caption": "Reliability engineers inspect execution nodes using diagnostic plans.",
             "left": {
               "code": "Exact COUNT(DISTINCT) on billions",
-              "result": {
-                "text": "consumes 30GB RAM hash table; 20-minute scan latency"
-              },
-              "tone": "error"
+              "result": "consumes 30GB RAM hash table; 20-minute scan latency",
+              "tone": "error",
+              "checks": [
+                "consumes 30GB RAM hash table; 20-minute scan latency"
+              ]
             },
             "right": {
               "code": "HyperLogLog probabilistic sketch",
-              "result": {
-                "text": "constant 12KB memory footprint; sub-millisecond count"
-              },
-              "tone": "ok"
+              "result": "constant 12KB memory footprint; sub-millisecond count",
+              "tone": "ok",
+              "checks": [
+                "constant 12KB memory footprint; sub-millisecond count"
+              ]
             }
           },
           {
@@ -791,17 +795,19 @@
             "caption": "Architectural drafting team designs blueprints using shared master plans.",
             "left": {
               "code": "Repeated identical OVER clauses",
-              "result": {
-                "text": "triggers redundant sort passes for each window aggregate"
-              },
-              "tone": "error"
+              "result": "triggers redundant sort passes for each window aggregate",
+              "tone": "error",
+              "checks": [
+                "triggers redundant sort passes for each window aggregate"
+              ]
             },
             "right": {
               "code": "Named WINDOW w AS (...) clause",
-              "result": {
-                "text": "single sort pass shared across all window calculations"
-              },
-              "tone": "ok"
+              "result": "single sort pass shared across all window calculations",
+              "tone": "ok",
+              "checks": [
+                "single sort pass shared across all window calculations"
+              ]
             }
           },
           {
@@ -809,17 +815,19 @@
             "caption": "Inspect window query tuning runbook and performance uplifts.",
             "left": {
               "code": "Small default work_mem on window query",
-              "result": {
-                "text": "spills external merge sort and tuplestore to disk"
-              },
-              "tone": "error"
+              "result": "spills external merge sort and tuplestore to disk",
+              "tone": "error",
+              "checks": [
+                "spills external merge sort and tuplestore to disk"
+              ]
             },
             "right": {
               "code": "Calibrated work_mem = 128MB",
-              "result": {
-                "text": "entire window aggregation executes within shared RAM"
-              },
-              "tone": "ok"
+              "result": "entire window aggregation executes within shared RAM",
+              "tone": "ok",
+              "checks": [
+                "entire window aggregation executes within shared RAM"
+              ]
             }
           }
         ]

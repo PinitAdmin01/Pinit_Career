@@ -326,7 +326,7 @@
           },
           {
             "at": "say2",
-            "caption": "Designing explicit **Graceful Degradation Fallbacks** across every.",
+            "caption": "Verify the gracefully transition driving designing behavior.",
             "activeActor": "comp",
             "messages": [
               {
@@ -410,7 +410,7 @@
           },
           {
             "at": "say2",
-            "caption": "Designing explicit **Graceful Degradation Fallbacks** across every.",
+            "caption": "Verify the gracefully transition driving designing behavior.",
             "messages": [
               {
                 "from": "SECURITY_CRITICAL",
@@ -695,6 +695,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Compute aggregate **Blended SLA Scorecards** sweeping traffic distribution.",
+            "activeActor": "cache_pct",
+            "messages": [
+              {
+                "from": "total_reqs",
+                "to": "cache_pct",
+                "label": {
+                  "var": "total_reqs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cache_pct",
@@ -709,10 +726,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Compute aggregate **Blended SLA Scorecards** sweeping traffic distribution.",
-            "activeActor": "cache_pct",
+            "at": "say7",
+            "caption": "Inspect run_platform_simulation() summarizing exact blended latency, total.",
+            "activeActor": "small_pct",
             "messages": [
+              {
+                "from": "total_reqs",
+                "to": "cache_pct",
+                "label": {
+                  "var": "total_reqs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache_pct",
+                "to": "small_pct",
+                "label": {
+                  "var": "cache_pct",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "total_reqs",
                 "to": "cache_pct",
@@ -732,14 +769,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect run_platform_simulation() summarizing exact blended latency, total.",
-            "activeActor": "small_pct",
-            "messages": [
+              },
               {
                 "from": "total_reqs",
                 "to": "cache_pct",
@@ -782,12 +812,6 @@
                 "to": "cache_pct",
                 "label": "10000",
                 "tone": "data"
-              },
-              {
-                "from": "cache_pct",
-                "to": "small_pct",
-                "label": "0.35",
-                "tone": "ok"
               }
             ],
             "activeActor": "total_reqs"
@@ -815,6 +839,30 @@
             "at": "say7",
             "caption": "Inspect run_platform_simulation() summarizing exact blended latency, total.",
             "messages": [
+              {
+                "from": "total_reqs",
+                "to": "cache_pct",
+                "label": "10000",
+                "tone": "data"
+              },
+              {
+                "from": "cache_pct",
+                "to": "small_pct",
+                "label": "0.35",
+                "tone": "ok"
+              },
+              {
+                "from": "total_reqs",
+                "to": "cache_pct",
+                "label": "10000",
+                "tone": "data"
+              },
+              {
+                "from": "cache_pct",
+                "to": "small_pct",
+                "label": "0.35",
+                "tone": "ok"
+              },
               {
                 "from": "total_reqs",
                 "to": "cache_pct",
@@ -892,7 +940,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates closes during execution.",
+            "caption": "Verify the milestone transition driving capstone behavior.",
             "values": {
               "enterprise_checks": {
                 "var": "enterprise_checks",
@@ -924,7 +972,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how execute updates crowning during execution.",
+            "caption": "Examine the milestone value produced for capstone processing.",
             "values": {
               "enterprise_checks": {
                 "var": "enterprise_checks",
@@ -996,7 +1044,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates closes during execution.",
+            "caption": "Verify the milestone transition driving capstone behavior.",
             "values": {
               "enterprise_checks": "{'m7_hybrid_graphrag_grounded': True, '…",
               "checks": "{'m7_hybrid_graphrag_grounded': True, '…",
@@ -1012,7 +1060,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how execute updates crowning during execution.",
+            "caption": "Examine the milestone value produced for capstone processing.",
             "values": {
               "enterprise_checks": "{'m7_hybrid_graphrag_grounded': True, '…",
               "checks": "{'m7_hybrid_graphrag_grounded': True, '…",

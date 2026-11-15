@@ -41,20 +41,18 @@
                 "hit": 5
               },
               "cities": {
-                "var": "cities",
-                "line": 8,
-                "hit": 5
+                "text": ""
               }
             },
             "tones": {
               "facts": "data",
               "owners": "data",
-              "cities": "data"
+              "cities": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "\"Which of our suppliers are owned by companies based in Pune.",
+            "caption": "Verify the example transition driving suppliers behavior.",
             "values": {
               "facts": {
                 "var": "facts",
@@ -130,17 +128,17 @@
             "values": {
               "facts": "[['SupplierA', 'OWNED_BY', 'CompanyX'],…",
               "owners": "{'SupplierA': 'CompanyX', 'SupplierB': …",
-              "cities": "{'CompanyX': 'Pune', 'CompanyY': 'Chenn…"
+              "cities": ""
             },
             "tones": {
               "facts": "data",
               "owners": "data",
-              "cities": "data"
+              "cities": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "\"Which of our suppliers are owned by companies based in Pune.",
+            "caption": "Verify the example transition driving suppliers behavior.",
             "values": {
               "facts": "[['SupplierA', 'OWNED_BY', 'CompanyX'],…",
               "owners": "{'SupplierA': 'CompanyX', 'SupplierB': …",
@@ -256,12 +254,12 @@
               },
               "nodes": {
                 "var": "nodes",
-                "line": 8,
+                "line": 12,
                 "hit": 1
               },
               "edges": {
                 "var": "edges",
-                "line": 8,
+                "line": 13,
                 "hit": 1
               }
             },
@@ -302,12 +300,12 @@
               },
               "nodes": {
                 "var": "nodes",
-                "line": 9,
-                "hit": 1
+                "line": 12,
+                "hit": 2
               },
               "edges": {
                 "var": "edges",
-                "line": 9,
+                "line": 13,
                 "hit": 1
               }
             },
@@ -392,8 +390,8 @@
             "values": {
               "triples": "[['Asha', 'WORKS_AT', 'Infosys Ltd', 'd…",
               "ALLOWED": "{'LIVES_IN', 'WORKS_AT'}",
-              "nodes": "set()",
-              "edges": "[]"
+              "nodes": "{'Asha', 'Infosys'}",
+              "edges": "[{'from': 'Asha', 'to': 'Infosys', 'typ…"
             },
             "tones": {
               "triples": "data",
@@ -422,8 +420,8 @@
             "values": {
               "triples": "[['Asha', 'WORKS_AT', 'Infosys Ltd', 'd…",
               "ALLOWED": "{'LIVES_IN', 'WORKS_AT'}",
-              "nodes": "set()",
-              "edges": "[]"
+              "nodes": "{'Asha', 'Infosys', 'Mysuru'}",
+              "edges": "[{'from': 'Asha', 'to': 'Infosys', 'typ…"
             },
             "tones": {
               "triples": "ok",
@@ -475,6 +473,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Build a lookup from node id to properties first, so each target's.",
+            "activeActor": "start",
+            "messages": [
+              {
+                "from": "graph",
+                "to": "start",
+                "label": {
+                  "var": "graph",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "start",
@@ -489,10 +504,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Build a lookup from node id to properties first, so each target's.",
-            "activeActor": "start",
+            "at": "say7",
+            "caption": "The results, with their properties, can go straight into a prompt.",
+            "activeActor": "relation",
             "messages": [
+              {
+                "from": "graph",
+                "to": "start",
+                "label": {
+                  "var": "graph",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "relation",
+                "label": {
+                  "var": "start",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "graph",
                 "to": "start",
@@ -512,14 +547,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The results, with their properties, can go straight into a prompt.",
-            "activeActor": "relation",
-            "messages": [
+              },
               {
                 "from": "graph",
                 "to": "start",
@@ -562,12 +590,6 @@
                 "to": "start",
                 "label": "{'nodes': [{'id': 'CompanyX', 'properti…",
                 "tone": "data"
-              },
-              {
-                "from": "start",
-                "to": "relation",
-                "label": "'CompanyX'",
-                "tone": "ok"
               }
             ],
             "activeActor": "graph"
@@ -595,6 +617,30 @@
             "at": "say7",
             "caption": "The results, with their properties, can go straight into a prompt.",
             "messages": [
+              {
+                "from": "graph",
+                "to": "start",
+                "label": "{'nodes': [{'id': 'CompanyX', 'properti…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "relation",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              },
+              {
+                "from": "graph",
+                "to": "start",
+                "label": "{'nodes': [{'id': 'CompanyX', 'properti…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "relation",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              },
               {
                 "from": "graph",
                 "to": "start",
@@ -639,6 +685,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Keep the path for each result.",
+            "activeActor": "start",
+            "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": {
+                  "var": "edges",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "start",
@@ -653,10 +716,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Keep the path for each result.",
-            "activeActor": "start",
+            "at": "say7",
+            "caption": "The BFS below is the same algorithm as in the DSA course, now carrying.",
+            "activeActor": "max_hops",
             "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": {
+                  "var": "edges",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": {
+                  "var": "start",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "edges",
                 "to": "start",
@@ -676,14 +759,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The BFS below is the same algorithm as in the DSA course, now carrying.",
-            "activeActor": "max_hops",
-            "messages": [
+              },
               {
                 "from": "edges",
                 "to": "start",
@@ -726,12 +802,6 @@
                 "to": "start",
                 "label": "[['CompanyX', 'OWNS', 'SupplierA'], ['S…",
                 "tone": "data"
-              },
-              {
-                "from": "start",
-                "to": "max_hops",
-                "label": "'CompanyX'",
-                "tone": "ok"
               }
             ],
             "activeActor": "edges"
@@ -759,6 +829,30 @@
             "at": "say7",
             "caption": "The BFS below is the same algorithm as in the DSA course, now carrying.",
             "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": "[['CompanyX', 'OWNS', 'SupplierA'], ['S…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              },
+              {
+                "from": "edges",
+                "to": "start",
+                "label": "[['CompanyX', 'OWNS', 'SupplierA'], ['S…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              },
               {
                 "from": "edges",
                 "to": "start",
@@ -818,7 +912,7 @@
           },
           {
             "at": "say2",
-            "caption": "Build_match_cypher(a, relation, b) returns MATCH (a {id.",
+            "caption": "In an f-string, write {{ and }} to print single braces.",
             "activeActor": "a",
             "messages": [
               {
@@ -902,7 +996,7 @@
           },
           {
             "at": "say2",
-            "caption": "Build_match_cypher(a, relation, b) returns MATCH (a {id.",
+            "caption": "In an f-string, write {{ and }} to print single braces.",
             "messages": [
               {
                 "from": "ALLOWED_RELATIONS",
@@ -986,16 +1080,14 @@
                 "hit": 1
               },
               "context": {
-                "var": "context",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "passages": "data",
               "graph_paths": "data",
               "question": "data",
-              "context": "data"
+              "context": "idle"
             }
           },
           {
@@ -1093,13 +1185,13 @@
               "passages": "{'supplier-risk': 'Suppliers in flood-p…",
               "graph_paths": "['CompanyX owns SupplierA.', 'SupplierA…",
               "question": "'Is CompanyX exposed to monsoon supply …",
-              "context": "'Passages:\nSuppliers in flood-prone are…"
+              "context": ""
             },
             "tones": {
               "passages": "data",
               "graph_paths": "data",
               "question": "data",
-              "context": "data"
+              "context": "idle"
             }
           },
           {

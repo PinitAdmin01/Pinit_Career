@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how high updates speed during execution.",
+            "caption": "Verify the packet transition driving high behavior.",
             "currentState": "cat",
             "transition": {
               "from": "FLOW_THREAT_TAXONOMY",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how high updates speed during execution.",
+            "caption": "Verify the packet transition driving high behavior.",
             "currentState": "cat",
             "transition": {
               "from": "FLOW_THREAT_TAXONOMY",
@@ -299,7 +299,7 @@
               },
               "scanned_ports_per_ip": {
                 "var": "scanned_ports_per_ip",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -331,8 +331,8 @@
               },
               "scanned_ports_per_ip": {
                 "var": "scanned_ports_per_ip",
-                "line": 6,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -389,7 +389,7 @@
               "flows": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
               "flow_records": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
               "scan_port_threshold": "5",
-              "scanned_ports_per_ip": "{}"
+              "scanned_ports_per_ip": "{'10.0.0.99': {22}}"
             },
             "tones": {
               "flows": "data",
@@ -405,7 +405,7 @@
               "flows": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
               "flow_records": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
               "scan_port_threshold": "5",
-              "scanned_ports_per_ip": "{}"
+              "scanned_ports_per_ip": "{'10.0.0.99': {22, 80}}"
             },
             "tones": {
               "flows": "ok",
@@ -723,6 +723,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A network forensics auditor evaluates the health of all three foundational.",
+            "activeActor": "port_scanner_ok",
+            "messages": [
+              {
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": {
+                  "var": "syn_detector_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "port_scanner_ok",
@@ -737,10 +754,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A network forensics auditor evaluates the health of all three foundational.",
-            "activeActor": "port_scanner_ok",
+            "at": "say10",
+            "caption": "Production network defense pipelines maintain continuous telemetry.",
+            "activeActor": "jitter_classifier_ok",
             "messages": [
+              {
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": {
+                  "var": "syn_detector_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": {
+                  "var": "port_scanner_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "syn_detector_ok",
                 "to": "port_scanner_ok",
@@ -760,14 +797,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Production network defense pipelines maintain continuous telemetry.",
-            "activeActor": "jitter_classifier_ok",
-            "messages": [
+              },
               {
                 "from": "syn_detector_ok",
                 "to": "port_scanner_ok",
@@ -810,12 +840,6 @@
                 "to": "port_scanner_ok",
                 "label": "True",
                 "tone": "data"
-              },
-              {
-                "from": "port_scanner_ok",
-                "to": "jitter_classifier_ok",
-                "label": "True",
-                "tone": "ok"
               }
             ],
             "activeActor": "syn_detector_ok"
@@ -843,6 +867,30 @@
             "at": "say10",
             "caption": "Production network defense pipelines maintain continuous telemetry.",
             "messages": [
+              {
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": "True",
+                "tone": "ok"
+              },
+              {
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": "True",
+                "tone": "ok"
+              },
               {
                 "from": "syn_detector_ok",
                 "to": "port_scanner_ok",

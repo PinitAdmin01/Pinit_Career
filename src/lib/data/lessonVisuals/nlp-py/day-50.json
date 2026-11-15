@@ -13,158 +13,81 @@
         "title": "High-Throughput Serving Architecture: Unifying PagedAttention, S",
         "nodes": [
           {
-            "id": "config",
-            "label": "config"
+            "id": "cumulative_mult",
+            "label": "cumulative_mult",
+            "tappable": true
           },
           {
-            "id": "self",
-            "label": "self"
-          },
-          {
-            "id": "suite",
-            "label": "suite"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "(1) The KV cache memory wall, static contiguous allocation fragmentation.",
+            "caption": "Inspect high updates as cumulative_mult tracks serving state.",
             "values": {
-              "config": {
-                "var": "config",
-                "line": 52,
-                "hit": 2
-              },
-              "self": {
-                "var": "self",
-                "line": 28,
+              "cumulative_mult": {
+                "var": "cumulative_mult",
+                "line": 38,
                 "hit": 1
               },
-              "suite": {
-                "var": "suite",
-                "line": 63,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 37,
-                "hit": 1
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
+              "cumulative_mult": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In this grand milestone capstone, you step into the role of Chief Systems.",
+            "caption": "Verify the high transition driving serving behavior.",
             "values": {
-              "config": {
-                "var": "config",
-                "line": 28,
-                "hit": 1
-              },
-              "self": {
-                "var": "self",
-                "line": 30,
-                "hit": 1
-              },
-              "suite": {
-                "var": "suite",
-                "line": 64,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 37,
+              "cumulative_mult": {
+                "var": "cumulative_mult",
+                "line": 40,
                 "hit": 2
+              },
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
+              "cumulative_mult": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
+                "cumulative_mult",
+                "out"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "In the following Python script, we establish the core architectural.",
+            "at": "say3",
+            "caption": "Examine the high value produced for throughput processing.",
             "values": {
-              "config": {
-                "var": "config",
-                "line": 30,
-                "hit": 1
+              "cumulative_mult": {
+                "var": "cumulative_mult",
+                "line": 40,
+                "hit": 4
               },
-              "self": {
-                "var": "self",
-                "line": 31,
-                "hit": 1
-              },
-              "suite": {
-                "var": "suite",
-                "line": 65,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 37,
-                "hit": 3
+              "out": {
+                "out": 2
               }
             },
             "tones": {
-              "config": "ok",
-              "self": "ok",
-              "suite": "ok",
-              ".0": "ok"
+              "cumulative_mult": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
+                "cumulative_mult",
+                "out"
               ]
             ]
           }
@@ -175,110 +98,63 @@
         "title": "High-Throughput Serving Architecture: Unifying PagedAttention, S",
         "nodes": [
           {
-            "id": "config",
-            "label": "config"
+            "id": "cumulative_mult",
+            "label": "cumulative_mult",
+            "tappable": true
           },
           {
-            "id": "self",
-            "label": "self"
-          },
-          {
-            "id": "suite",
-            "label": "suite"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "(1) The KV cache memory wall, static contiguous allocation fragmentation.",
+            "caption": "Inspect high updates as cumulative_mult tracks serving state.",
             "values": {
-              "config": "<ApexInferenceConfig>",
-              "self": "<ApexInferenceMasterSuite>",
-              "suite": "<ApexInferenceMasterSuite>",
-              ".0": "{'__other__': 'list_iterator'}"
+              "cumulative_mult": "1",
+              "out": ""
             },
             "tones": {
-              "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
+              "cumulative_mult": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In this grand milestone capstone, you step into the role of Chief Systems.",
+            "caption": "Verify the high transition driving serving behavior.",
             "values": {
-              "config": "<ApexInferenceConfig>",
-              "self": "<ApexInferenceMasterSuite>",
-              "suite": "<ApexInferenceMasterSuite>",
-              ".0": "{'__other__': 'list_iterator'}"
+              "cumulative_mult": "3.6083237105337433",
+              "out": "{"
             },
             "tones": {
-              "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
+              "cumulative_mult": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
+                "cumulative_mult",
+                "out"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "In the following Python script, we establish the core architectural.",
+            "at": "say3",
+            "caption": "Examine the high value produced for throughput processing.",
             "values": {
-              "config": "<ApexInferenceConfig>",
-              "self": "<ApexInferenceMasterSuite>",
-              "suite": "<ApexInferenceMasterSuite>",
-              ".0": "{'__other__': 'list_iterator'}"
+              "cumulative_mult": "9.353844129554439",
+              "out": "  \"suite_version\": \"ApexInference-v2.0-Sovereign-Master\","
             },
             "tones": {
-              "config": "ok",
-              "self": "ok",
-              "suite": "ok",
-              ".0": "ok"
+              "cumulative_mult": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
+                "cumulative_mult",
+                "out"
               ]
             ]
           }
@@ -448,7 +324,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Physical Necessity of Speculative Decoding stems from.",
+            "caption": "Verify the subsystem transition driving draft behavior.",
             "bars": [
               {
                 "label": "cost_ratio_gam",
@@ -564,7 +440,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Physical Necessity of Speculative Decoding stems from.",
+            "caption": "Verify the subsystem transition driving draft behavior.",
             "bars": [
               {
                 "label": "cost_ratio_gam",
@@ -662,16 +538,14 @@
                 "hit": 1
               },
               "W": {
-                "var": "W",
-                "line": 71,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "quant_bits": "data",
               "engine": "data",
-              "W": "data"
+              "W": "idle"
             },
             "arrows": [
               [
@@ -811,13 +685,13 @@
               "self": "<QuantizedKernelSubsystem>",
               "quant_bits": "4",
               "engine": "<QuantizedKernelSubsystem>",
-              "W": "[[0.25, -0.4, 0.15, 0.35], [0.1, 0.2, -…"
+              "W": ""
             },
             "tones": {
               "self": "data",
               "quant_bits": "data",
               "engine": "data",
-              "W": "data"
+              "W": "idle"
             },
             "arrows": [
               [

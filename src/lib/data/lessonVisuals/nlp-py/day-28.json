@@ -41,15 +41,13 @@
                 "hit": 1
               },
               "shared": {
-                "var": "shared",
-                "line": 3,
-                "hit": 7
+                "text": ""
               }
             },
             "tones": {
               "reference": "data",
               "candidate": "data",
-              "shared": "data"
+              "shared": "idle"
             },
             "arrows": [
               [
@@ -160,12 +158,12 @@
             "values": {
               "reference": "['the', 'cat', 'is', 'on', 'the', 'mat']",
               "candidate": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
-              "shared": "['the', 'cat', 'on', 'the', 'mat']"
+              "shared": ""
             },
             "tones": {
               "reference": "data",
               "candidate": "data",
-              "shared": "data"
+              "shared": "idle"
             },
             "arrows": [
               [
@@ -407,7 +405,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the penalty for several candidate lengths against.",
+            "caption": "Examine the penalty value produced for example processing.",
             "bars": [
               {
                 "label": "c",
@@ -469,7 +467,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the penalty for several candidate lengths against.",
+            "caption": "Examine the penalty value produced for example processing.",
             "bars": [
               {
                 "label": "c",
@@ -495,7 +493,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For summaries, what matters most is whether the important content from.",
+            "caption": "That is recall.",
             "items": {
               "var": "ref",
               "line": 9,
@@ -549,7 +547,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For summaries, what matters most is whether the important content from.",
+            "caption": "That is recall.",
             "items": [
               "'the'",
               "'cat'",
@@ -960,7 +958,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates gives during execution.",
+            "caption": "Verify the checks transition driving gives behavior.",
             "values": {
               "ref": {
                 "var": "ref",
@@ -1106,7 +1104,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates gives during execution.",
+            "caption": "Verify the checks transition driving gives behavior.",
             "values": {
               "ref": "['the', 'cat', 'is', 'on', 'the', 'mat']",
               "cand": "'the cat sat on the mat'",

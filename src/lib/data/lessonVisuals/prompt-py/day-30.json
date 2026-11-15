@@ -9,162 +9,154 @@
       "partTitle": "What makes a great prompt",
       "codeHash": "007e5038076addada812eead979120561747024e8d6f2fef17946b77c2361b95",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "What makes a great prompt",
-        "actors": [
-          "prompt",
-          "low",
-          ".0"
+        "nodes": [
+          {
+            "id": "w",
+            "label": "w",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Across the course, strong prompts shared the same ingredients.",
-            "activeActor": "prompt",
-            "messages": [
-              {
-                "from": "prompt",
-                "to": "low",
-                "label": {
-                  "var": "prompt",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "low",
-                "to": ".0",
-                "label": {
-                  "var": "low",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "name": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "w": "data",
+              "name": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "They also avoided dangers.",
-            "activeActor": "low",
-            "messages": [
-              {
-                "from": "prompt",
-                "to": "low",
-                "label": {
-                  "var": "prompt",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 9
               },
-              {
-                "from": "low",
-                "to": ".0",
-                "label": {
-                  "var": "low",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "name": {
+                "text": ""
               }
+            },
+            "tones": {
+              "w": "data",
+              "name": "idle"
+            },
+            "arrows": [
+              [
+                "w",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "The checks are easy to extend with your own rules, such as requiring.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "prompt",
-                "to": "low",
-                "label": {
-                  "var": "prompt",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the prompt value produced for linter processing.",
+            "values": {
+              "w": {
+                "text": ""
               },
-              {
-                "from": "low",
-                "to": ".0",
-                "label": {
-                  "var": "low",
-                  "line": 4,
-                  "hit": 12
-                },
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 5
               }
+            },
+            "tones": {
+              "w": "idle",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "w",
+                "name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "What makes a great prompt",
-        "actors": [
-          "prompt",
-          "low",
-          ".0"
+        "nodes": [
+          {
+            "id": "w",
+            "label": "w",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Across the course, strong prompts shared the same ingredients.",
-            "messages": [
-              {
-                "from": "prompt",
-                "to": "low",
-                "label": "'You are a patient maths tutor. Explain…",
-                "tone": "data"
-              },
-              {
-                "from": "low",
-                "to": ".0",
-                "label": "'you are a patient maths tutor. explain…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "prompt"
+            "values": {
+              "w": "'you'",
+              "name": ""
+            },
+            "tones": {
+              "w": "data",
+              "name": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "They also avoided dangers.",
-            "messages": [
-              {
-                "from": "prompt",
-                "to": "low",
-                "label": "'You are a patient maths tutor. Explain…",
-                "tone": "data"
-              },
-              {
-                "from": "low",
-                "to": ".0",
-                "label": "'you are a patient maths tutor. explain…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "low"
+            "values": {
+              "w": "'in'",
+              "name": ""
+            },
+            "tones": {
+              "w": "data",
+              "name": "idle"
+            },
+            "arrows": [
+              [
+                "w",
+                "name"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "The checks are easy to extend with your own rules, such as requiring.",
-            "messages": [
-              {
-                "from": "prompt",
-                "to": "low",
-                "label": "'You are a patient maths tutor. Explain…",
-                "tone": "data"
-              },
-              {
-                "from": "low",
-                "to": ".0",
-                "label": "'you are a patient maths tutor. explain…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Examine the prompt value produced for linter processing.",
+            "values": {
+              "w": "",
+              "name": "'length'"
+            },
+            "tones": {
+              "w": "idle",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "w",
+                "name"
+              ]
+            ]
           }
         ]
       }
@@ -924,7 +916,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates complete during execution.",
+            "caption": "Verify the checks transition driving complete behavior.",
             "values": {
               "FORMATS": {
                 "var": "FORMATS",
@@ -1070,7 +1062,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates complete during execution.",
+            "caption": "Verify the checks transition driving complete behavior.",
             "values": {
               "FORMATS": "{'bullet', 'bullets', 'email', 'json', …",
               "p": "'Explain photosynthesis as a 3-bullet s…",

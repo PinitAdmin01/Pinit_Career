@@ -422,7 +422,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates returns during execution.",
+            "caption": "Verify the keywords transition driving practice behavior.",
             "currentState": "u",
             "transition": {
               "from": "RULES",
@@ -478,7 +478,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates returns during execution.",
+            "caption": "Verify the keywords transition driving practice behavior.",
             "currentState": "u",
             "transition": {
               "from": "RULES",
@@ -632,7 +632,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates activities during execution.",
+            "caption": "Observe how coverage shapes practice during this step.",
             "currentState": "FUNCTIONS",
             "tone": "data"
           },
@@ -688,7 +688,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates activities during execution.",
+            "caption": "Observe how coverage shapes practice during this step.",
             "currentState": "FUNCTIONS",
             "tone": "data"
           },

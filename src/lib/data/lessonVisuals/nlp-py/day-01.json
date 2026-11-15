@@ -256,14 +256,12 @@
                 "hit": 1
               },
               "two": {
-                "var": "two",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "one": "data",
-              "two": "data"
+              "two": "idle"
             },
             "arrows": [
               [
@@ -300,7 +298,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows two strings that look identical but are not equal until.",
+            "caption": "Examine the example value produced for shows processing.",
             "values": {
               "one": {
                 "var": "one",
@@ -345,11 +343,11 @@
             "caption": "Modern text is Unicode, which covers every writing system.",
             "values": {
               "one": "'café'",
-              "two": "'café'"
+              "two": ""
             },
             "tones": {
               "one": "data",
-              "two": "data"
+              "two": "idle"
             },
             "arrows": [
               [
@@ -378,7 +376,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows two strings that look identical but are not equal until.",
+            "caption": "Examine the example value produced for shows processing.",
             "values": {
               "one": "'café'",
               "two": "'café'"
@@ -456,7 +454,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how unicodedata updates combining during execution.",
+            "caption": "Verify the unicodedata transition driving combining behavior.",
             "values": {
               "word": {
                 "var": "word",
@@ -572,7 +570,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how unicodedata updates combining during execution.",
+            "caption": "Verify the unicodedata transition driving combining behavior.",
             "values": {
               "word": "'Crème Brûlée'",
               "ch": "'r'",
@@ -933,7 +931,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how step updates unicodedata during execution.",
+            "caption": "Step 1: unicodedata.normalize(\"NFKD\", text), then drop combining marks.",
             "items": {
               "var": "step4",
               "line": 9,
@@ -990,7 +988,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how step updates unicodedata during execution.",
+            "caption": "Step 1: unicodedata.normalize(\"NFKD\", text), then drop combining marks.",
             "items": [
               "'cafe'",
               "'resume'",

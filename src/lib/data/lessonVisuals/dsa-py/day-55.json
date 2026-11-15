@@ -592,7 +592,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how complete updates milestone during execution.",
+            "caption": "Examine the milestone value produced for unified processing.",
             "items": {
               "var": "loads",
               "line": 12,
@@ -654,7 +654,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how complete updates milestone during execution.",
+            "caption": "Examine the milestone value produced for unified processing.",
             "items": [
               "40",
               "80",

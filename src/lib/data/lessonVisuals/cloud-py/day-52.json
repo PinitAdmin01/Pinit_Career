@@ -98,7 +98,7 @@
           },
           {
             "at": "say9",
-            "caption": "Architects model cellular capacities mathematically to guarantee.",
+            "caption": "Examine the monolithic value produced for multi processing.",
             "bars": [
               {
                 "label": "total_customer",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say9",
-            "caption": "Architects model cellular capacities mathematically to guarantee.",
+            "caption": "Examine the monolithic value produced for multi processing.",
             "bars": [
               {
                 "label": "total_customer",
@@ -312,12 +312,12 @@
               },
               "cell_spec": {
                 "var": "cell_spec",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 5,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -344,7 +344,7 @@
           },
           {
             "at": "say9",
-            "caption": "These deterministic controls ensure that failover operations execute.",
+            "caption": "Examine the blindly value produced for failing processing.",
             "values": {
               "cell_ready": {
                 "var": "cell_ready",
@@ -358,12 +358,12 @@
               },
               "cell_spec": {
                 "var": "cell_spec",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 6,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -448,8 +448,8 @@
             "values": {
               "cell_ready": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
               "cell_unready": "{'spare_cpu_pct': 15, 'db_lag_seconds':…",
-              "cell_spec": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
-              "issues": "[]"
+              "cell_spec": "{'spare_cpu_pct': 15, 'db_lag_seconds':…",
+              "issues": "['INSUFFICIENT_CPU_HEADROOM: 15% (< 40%…"
             },
             "tones": {
               "cell_ready": "data",
@@ -474,12 +474,12 @@
           },
           {
             "at": "say9",
-            "caption": "These deterministic controls ensure that failover operations execute.",
+            "caption": "Examine the blindly value produced for failing processing.",
             "values": {
               "cell_ready": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
               "cell_unready": "{'spare_cpu_pct': 15, 'db_lag_seconds':…",
-              "cell_spec": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
-              "issues": "[]"
+              "cell_spec": "{'spare_cpu_pct': 15, 'db_lag_seconds':…",
+              "issues": "['INSUFFICIENT_CPU_HEADROOM: 15% (< 40%…"
             },
             "tones": {
               "cell_ready": "ok",
@@ -550,16 +550,14 @@
                 "hit": 1
               },
               "collision_prob": {
-                "var": "collision_prob",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "n_total_cells": "data",
               "k_cells_per_tenant": "data",
               "total_shards": "data",
-              "collision_prob": "data"
+              "collision_prob": "idle"
             },
             "arrows": [
               [
@@ -624,7 +622,7 @@
           },
           {
             "at": "say9",
-            "caption": "Shuffle sharding transforms standard cloud infrastructure.",
+            "caption": "Examine the simple value produced for modulo processing.",
             "values": {
               "n_total_cells": {
                 "var": "n_total_cells",
@@ -699,13 +697,13 @@
               "n_total_cells": "20",
               "k_cells_per_tenant": "4",
               "total_shards": "4845",
-              "collision_prob": "0.0206"
+              "collision_prob": ""
             },
             "tones": {
               "n_total_cells": "data",
               "k_cells_per_tenant": "data",
               "total_shards": "data",
-              "collision_prob": "data"
+              "collision_prob": "idle"
             },
             "arrows": [
               [
@@ -754,7 +752,7 @@
           },
           {
             "at": "say9",
-            "caption": "Shuffle sharding transforms standard cloud infrastructure.",
+            "caption": "Examine the simple value produced for modulo processing.",
             "values": {
               "n_total_cells": "20",
               "k_cells_per_tenant": "4",
@@ -811,6 +809,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Zonal autoshift mechanisms continuously evaluate availability zone.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "ctrls",
+                "to": "self",
+                "label": {
+                  "var": "ctrls",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -825,10 +840,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Zonal autoshift mechanisms continuously evaluate availability zone.",
-            "activeActor": "self",
+            "at": "say9",
+            "caption": "Continuous validation of control states guarantees that emergency recovery.",
+            "activeActor": "controls",
             "messages": [
+              {
+                "from": "ctrls",
+                "to": "self",
+                "label": {
+                  "var": "ctrls",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "controls",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ctrls",
                 "to": "self",
@@ -848,14 +883,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Continuous validation of control states guarantees that emergency recovery.",
-            "activeActor": "controls",
-            "messages": [
+              },
               {
                 "from": "ctrls",
                 "to": "self",
@@ -898,12 +926,6 @@
                 "to": "self",
                 "label": "{'cell_az1': True, 'cell_az2': False, '…",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "controls",
-                "label": "<ArcSafetyRuleEngine>",
-                "tone": "ok"
               }
             ],
             "activeActor": "ctrls"
@@ -931,6 +953,30 @@
             "at": "say9",
             "caption": "Continuous validation of control states guarantees that emergency recovery.",
             "messages": [
+              {
+                "from": "ctrls",
+                "to": "self",
+                "label": "{'cell_az1': True, 'cell_az2': False, '…",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "controls",
+                "label": "<ArcSafetyRuleEngine>",
+                "tone": "ok"
+              },
+              {
+                "from": "ctrls",
+                "to": "self",
+                "label": "{'cell_az1': True, 'cell_az2': False, '…",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "controls",
+                "label": "<ArcSafetyRuleEngine>",
+                "tone": "ok"
+              },
               {
                 "from": "ctrls",
                 "to": "self",
@@ -993,7 +1039,7 @@
           },
           {
             "at": "say9",
-            "caption": "These rigorous automated verifications certify that enterprise resiliency.",
+            "caption": "Examine the cell value produced for architectures processing.",
             "currentState": "total_cells",
             "transition": {
               "from": "cell_statuses",
@@ -1045,7 +1091,7 @@
           },
           {
             "at": "say9",
-            "caption": "These rigorous automated verifications certify that enterprise resiliency.",
+            "caption": "Examine the cell value produced for architectures processing.",
             "currentState": "total_cells",
             "transition": {
               "from": "cell_statuses",

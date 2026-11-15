@@ -612,16 +612,14 @@
                 "hit": 1
               },
               "engine": {
-                "var": "engine",
-                "line": 53,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "vocab_size": "data",
               "num_coord_bins": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [
@@ -761,13 +759,13 @@
               "self": "<ApexGroundEngine>",
               "vocab_size": "6",
               "num_coord_bins": "1000",
-              "engine": "<ApexGroundEngine>"
+              "engine": ""
             },
             "tones": {
               "self": "data",
               "vocab_size": "data",
               "num_coord_bins": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [

@@ -92,12 +92,12 @@
               },
               "prompts": {
                 "var": "prompts",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "bigrams": {
                 "var": "bigrams",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               }
             },
@@ -138,13 +138,13 @@
               },
               "prompts": {
                 "var": "prompts",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "bigrams": {
                 "var": "bigrams",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -228,8 +228,8 @@
             "values": {
               "repetitive": "['Write a Python function to sort numbe…",
               "diverse": "['Debug stale Redis TTL race under conc…",
-              "prompts": "['Write a Python function to sort numbe…",
-              "bigrams": "[]"
+              "prompts": "['Debug stale Redis TTL race under conc…",
+              "bigrams": "[['write', 'a'], ['a', 'python'], ['pyt…"
             },
             "tones": {
               "repetitive": "data",
@@ -258,7 +258,7 @@
             "values": {
               "repetitive": "['Write a Python function to sort numbe…",
               "diverse": "['Debug stale Redis TTL race under conc…",
-              "prompts": "['Write a Python function to sort numbe…",
+              "prompts": "['Debug stale Redis TTL race under conc…",
               "bigrams": "[]"
             },
             "tones": {
@@ -318,7 +318,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how applying updates depth during execution.",
+            "caption": "Verify the depth transition driving applying behavior.",
             "bars": [
               {
                 "label": "depth",
@@ -388,7 +388,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how applying updates depth during execution.",
+            "caption": "Verify the depth transition driving applying behavior.",
             "bars": [
               {
                 "label": "depth",
@@ -611,6 +611,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "True deduplication drops both exact normalized duplicates AND high-overlap.",
+            "activeActor": "items",
+            "messages": [
+              {
+                "from": "batch",
+                "to": "items",
+                "label": {
+                  "var": "batch",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "items",
@@ -625,10 +642,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "True deduplication drops both exact normalized duplicates AND high-overlap.",
-            "activeActor": "items",
+            "at": "say7",
+            "caption": "Run dedupe_by_jaccard() dropping noisy near-reworded clones while keeping.",
+            "activeActor": "threshold",
             "messages": [
+              {
+                "from": "batch",
+                "to": "items",
+                "label": {
+                  "var": "batch",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "items",
+                "to": "threshold",
+                "label": {
+                  "var": "items",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "batch",
                 "to": "items",
@@ -648,23 +685,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Run dedupe_by_jaccard() dropping noisy near-reworded clones while keeping.",
-            "activeActor": "threshold",
-            "messages": [
-              {
-                "from": "batch",
-                "to": "items",
-                "label": {
-                  "var": "batch",
-                  "line": 25,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "items",
@@ -698,12 +718,6 @@
                 "to": "items",
                 "label": "['Implement fixed window rate limiter p…",
                 "tone": "data"
-              },
-              {
-                "from": "items",
-                "to": "threshold",
-                "label": "['Implement fixed window rate limiter p…",
-                "tone": "ok"
               }
             ],
             "activeActor": "batch"
@@ -736,6 +750,24 @@
                 "to": "items",
                 "label": "['Implement fixed window rate limiter p…",
                 "tone": "data"
+              },
+              {
+                "from": "items",
+                "to": "threshold",
+                "label": "['Implement fixed window rate limiter p…",
+                "tone": "ok"
+              },
+              {
+                "from": "batch",
+                "to": "items",
+                "label": "['Implement fixed window rate limiter p…",
+                "tone": "data"
+              },
+              {
+                "from": "items",
+                "to": "threshold",
+                "label": "['Implement fixed window rate limiter p…",
+                "tone": "ok"
               },
               {
                 "from": "items",
@@ -776,7 +808,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how imagine updates finishing during execution.",
+            "caption": "Inspect imagine updates as pool tracks finishing state.",
             "values": {
               "pool": {
                 "var": "pool",
@@ -808,7 +840,7 @@
           },
           {
             "at": "say2",
-            "caption": "Evaluating candidate checkpoints across an unstratified skew makes every.",
+            "caption": "Verify the across transition driving evaluating behavior.",
             "values": {
               "pool": {
                 "var": "pool",
@@ -896,7 +928,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how imagine updates finishing during execution.",
+            "caption": "Inspect imagine updates as pool tracks finishing state.",
             "values": {
               "pool": "[{'id': 'q1', 'tier': 'easy'}, {'id': '…",
               "rows": "[{'id': 'q1', 'tier': 'easy'}, {'id': '…",
@@ -912,7 +944,7 @@
           },
           {
             "at": "say2",
-            "caption": "Evaluating candidate checkpoints across an unstratified skew makes every.",
+            "caption": "Verify the across transition driving evaluating behavior.",
             "values": {
               "pool": "['q1', 'q2', 'q3', 'q4']",
               "rows": "[{'id': 'q1', 'tier': 'easy'}, {'id': '…",

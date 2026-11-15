@@ -419,6 +419,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To answer a new question, find the most similar FAQ question.",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "faq",
+                "to": "q",
+                "label": {
+                  "var": "faq",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "q",
@@ -433,10 +450,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "To answer a new question, find the most similar FAQ question.",
-            "activeActor": "q",
+            "at": "say10",
+            "caption": "Examine the logging value produced for unanswered processing.",
+            "activeActor": "f",
             "messages": [
+              {
+                "from": "faq",
+                "to": "q",
+                "label": {
+                  "var": "faq",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "f",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "faq",
                 "to": "q",
@@ -456,14 +493,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Logging unanswered questions shows exactly which new FAQ entries are.",
-            "activeActor": "f",
-            "messages": [
+              },
               {
                 "from": "faq",
                 "to": "q",
@@ -506,12 +536,6 @@
                 "to": "q",
                 "label": "['How do I reset my password?', 'What a…",
                 "tone": "data"
-              },
-              {
-                "from": "q",
-                "to": "f",
-                "label": "'How can I reset my password'",
-                "tone": "ok"
               }
             ],
             "activeActor": "faq"
@@ -537,8 +561,32 @@
           },
           {
             "at": "say10",
-            "caption": "Logging unanswered questions shows exactly which new FAQ entries are.",
+            "caption": "Examine the logging value produced for unanswered processing.",
             "messages": [
+              {
+                "from": "faq",
+                "to": "q",
+                "label": "['How do I reset my password?', 'What a…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "f",
+                "label": "'How can I reset my password'",
+                "tone": "ok"
+              },
+              {
+                "from": "faq",
+                "to": "q",
+                "label": "['How do I reset my password?', 'What a…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "f",
+                "label": "'How can I reset my password'",
+                "tone": "ok"
+              },
               {
                 "from": "faq",
                 "to": "q",
@@ -583,6 +631,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "They are described with an API schema (often OpenAPI) listing endpoints.",
+            "activeActor": "a",
+            "messages": [
+              {
+                "from": "actions",
+                "to": "a",
+                "label": {
+                  "var": "actions",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "a",
@@ -597,10 +662,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "They are described with an API schema (often OpenAPI) listing endpoints.",
-            "activeActor": "a",
+            "at": "say9",
+            "caption": "Read-only actions, such as looking up an order, are a safe first step.",
+            "activeActor": "secure",
             "messages": [
+              {
+                "from": "actions",
+                "to": "a",
+                "label": {
+                  "var": "actions",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "secure",
+                "label": {
+                  "var": "a",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "actions",
                 "to": "a",
@@ -620,14 +705,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Read-only actions, such as looking up an order, are a safe first step.",
-            "activeActor": "secure",
-            "messages": [
+              },
               {
                 "from": "actions",
                 "to": "a",
@@ -670,12 +748,6 @@
                 "to": "a",
                 "label": "[{'name': 'order_status', 'url': 'https…",
                 "tone": "data"
-              },
-              {
-                "from": "a",
-                "to": "secure",
-                "label": "{'name': 'order_status', 'url': 'https:…",
-                "tone": "ok"
               }
             ],
             "activeActor": "actions"
@@ -703,6 +775,30 @@
             "at": "say9",
             "caption": "Read-only actions, such as looking up an order, are a safe first step.",
             "messages": [
+              {
+                "from": "actions",
+                "to": "a",
+                "label": "[{'name': 'order_status', 'url': 'https…",
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "secure",
+                "label": "{'name': 'order_status', 'url': 'https:…",
+                "tone": "ok"
+              },
+              {
+                "from": "actions",
+                "to": "a",
+                "label": "[{'name': 'order_status', 'url': 'https…",
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "secure",
+                "label": "{'name': 'order_status', 'url': 'https:…",
+                "tone": "ok"
+              },
               {
                 "from": "actions",
                 "to": "a",
@@ -747,6 +843,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the practice transition driving validate behavior.",
+            "activeActor": "errors",
+            "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": {
+                  "var": "config",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "errors",
@@ -761,10 +874,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how practice updates config during execution.",
-            "activeActor": "errors",
+            "at": "say9",
+            "caption": "The same idea applies to any settings file.",
+            "activeActor": "i",
             "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": {
+                  "var": "config",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": {
+                  "var": "errors",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "config",
                 "to": "errors",
@@ -784,14 +917,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "The same idea applies to any settings file.",
-            "activeActor": "i",
-            "messages": [
+              },
               {
                 "from": "config",
                 "to": "errors",
@@ -834,19 +960,13 @@
                 "to": "errors",
                 "label": "{'name': 'Helper', 'instructions': 'Be …",
                 "tone": "data"
-              },
-              {
-                "from": "errors",
-                "to": "i",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "config"
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates config during execution.",
+            "caption": "Verify the practice transition driving validate behavior.",
             "messages": [
               {
                 "from": "config",
@@ -867,6 +987,30 @@
             "at": "say9",
             "caption": "The same idea applies to any settings file.",
             "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": "{'name': 'Helper', 'instructions': 'Be …",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "config",
+                "to": "errors",
+                "label": "{'name': 'Helper', 'instructions': 'Be …",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "config",
                 "to": "errors",
@@ -912,7 +1056,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Faq_answer(question, faq, threshold=0.",
+            "caption": "Practice 1: faq_answer(question, faq, threshold=0.3).",
             "values": {
               "FALLBACK": {
                 "var": "FALLBACK",
@@ -958,7 +1102,7 @@
           },
           {
             "at": "say2",
-            "caption": "A close paraphrase (0.",
+            "caption": "Verify the checks transition driving close behavior.",
             "values": {
               "FALLBACK": {
                 "var": "FALLBACK",
@@ -1074,7 +1218,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Faq_answer(question, faq, threshold=0.",
+            "caption": "Practice 1: faq_answer(question, faq, threshold=0.3).",
             "values": {
               "FALLBACK": "\"I don't know. Please contact support.\"",
               "faq": "[['When is the library open?', '9 am to…",
@@ -1104,7 +1248,7 @@
           },
           {
             "at": "say2",
-            "caption": "A close paraphrase (0.",
+            "caption": "Verify the checks transition driving close behavior.",
             "values": {
               "FALLBACK": "\"I don't know. Please contact support.\"",
               "faq": "[['When is the library open?', '9 am to…",

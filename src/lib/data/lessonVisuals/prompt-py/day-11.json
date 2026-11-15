@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Prompt chaining splits the job into steps, where each prompt does one.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "notes",
+                "to": "text",
+                "label": {
+                  "var": "notes",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "text",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Prompt chaining splits the job into steps, where each prompt does one.",
-            "activeActor": "text",
+            "at": "say9",
+            "caption": "Each step can also use different settings.",
+            "activeActor": "line",
             "messages": [
+              {
+                "from": "notes",
+                "to": "text",
+                "label": {
+                  "var": "notes",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "line",
+                "label": {
+                  "var": "text",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "notes",
                 "to": "text",
@@ -68,23 +105,6 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Each step can also use different settings.",
-            "activeActor": "line",
-            "messages": [
-              {
-                "from": "notes",
-                "to": "text",
-                "label": {
-                  "var": "notes",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "text",
@@ -118,12 +138,6 @@
                 "to": "text",
                 "label": "'Standup notes\n- Payment API delay of 2…",
                 "tone": "data"
-              },
-              {
-                "from": "text",
-                "to": "line",
-                "label": "'Standup notes\n- Payment API delay of 2…",
-                "tone": "ok"
               }
             ],
             "activeActor": "notes"
@@ -156,6 +170,24 @@
                 "to": "text",
                 "label": "'Standup notes\n- Payment API delay of 2…",
                 "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "line",
+                "label": "'Standup notes\n- Payment API delay of 2…",
+                "tone": "ok"
+              },
+              {
+                "from": "notes",
+                "to": "text",
+                "label": "'Standup notes\n- Payment API delay of 2…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "line",
+                "label": "'Standup notes\n- Payment API delay of 2…",
+                "tone": "ok"
               },
               {
                 "from": "text",
@@ -359,6 +391,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If a step returns nothing useful, such as an empty string, continuing.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "text",
+                "label": {
+                  "var": "steps",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "text",
@@ -373,10 +422,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If a step returns nothing useful, such as an empty string, continuing.",
-            "activeActor": "text",
+            "at": "say8",
+            "caption": "The trace also makes a good teaching tool.",
+            "activeActor": "current",
             "messages": [
+              {
+                "from": "steps",
+                "to": "text",
+                "label": {
+                  "var": "steps",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "current",
+                "label": {
+                  "var": "text",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "steps",
                 "to": "text",
@@ -396,14 +465,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The trace also makes a good teaching tool.",
-            "activeActor": "current",
-            "messages": [
+              },
               {
                 "from": "steps",
                 "to": "text",
@@ -444,14 +506,8 @@
               {
                 "from": "steps",
                 "to": "text",
-                "label": "[['clean', {'__other__': 'method_descri…",
+                "label": "[['clean', <method_descriptor>], ['find…",
                 "tone": "data"
-              },
-              {
-                "from": "text",
-                "to": "current",
-                "label": "'  Invoice 42 Total: 1,180 rupees  '",
-                "tone": "ok"
               }
             ],
             "activeActor": "steps"
@@ -463,7 +519,7 @@
               {
                 "from": "steps",
                 "to": "text",
-                "label": "[['clean', {'__other__': 'method_descri…",
+                "label": "[['clean', <method_descriptor>], ['find…",
                 "tone": "data"
               },
               {
@@ -482,7 +538,31 @@
               {
                 "from": "steps",
                 "to": "text",
-                "label": "[['clean', {'__other__': 'method_descri…",
+                "label": "[['clean', <method_descriptor>], ['find…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "current",
+                "label": "'  Invoice 42 Total: 1,180 rupees  '",
+                "tone": "ok"
+              },
+              {
+                "from": "steps",
+                "to": "text",
+                "label": "[['clean', <method_descriptor>], ['find…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "current",
+                "label": "'  Invoice 42 Total: 1,180 rupees  '",
+                "tone": "ok"
+              },
+              {
+                "from": "steps",
+                "to": "text",
+                "label": "[['clean', <method_descriptor>], ['find…",
                 "tone": "data"
               },
               {
@@ -743,13 +823,13 @@
               },
               "attempt": {
                 "var": "attempt",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "reply": {
                 "var": "reply",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "data": {
                 "var": "data",
@@ -789,13 +869,13 @@
               },
               "attempt": {
                 "var": "attempt",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "reply": {
                 "var": "reply",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "data": {
                 "var": "data",
@@ -883,8 +963,8 @@
             "caption": "The model extracts JSON (step 1), Python validates it (step 2), the model.",
             "values": {
               "attempts": "['Sure! total is 1180', '{\"total\": 1180…",
-              "attempt": "0",
-              "reply": "'Sure! total is 1180'",
+              "attempt": "1",
+              "reply": "'{\"total\": 1180, \"currency\": \"INR\"}'",
               "data": "{'total': 1180, 'currency': 'INR'}"
             },
             "tones": {
@@ -913,8 +993,8 @@
             "caption": "Log how often each check fails.",
             "values": {
               "attempts": "['Sure! total is 1180', '{\"total\": 1180…",
-              "attempt": "0",
-              "reply": "'Sure! total is 1180'",
+              "attempt": "1",
+              "reply": "'{\"total\": 1180, \"currency\": \"INR\"}'",
               "data": "{'total': 1180, 'currency': 'INR'}"
             },
             "tones": {
@@ -967,6 +1047,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Return {\"output\".",
+            "activeActor": "request",
+            "messages": [
+              {
+                "from": "actions",
+                "to": "request",
+                "label": {
+                  "var": "actions",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "request",
@@ -981,10 +1078,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Return {\"output\".",
-            "activeActor": "request",
+            "at": "say8",
+            "caption": "Keeping steps as small named functions makes them easy to test one at.",
+            "activeActor": "steps",
             "messages": [
+              {
+                "from": "actions",
+                "to": "request",
+                "label": {
+                  "var": "actions",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "steps",
+                "label": {
+                  "var": "request",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "actions",
                 "to": "request",
@@ -1004,14 +1121,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Keeping steps as small named functions makes them easy to test one at.",
-            "activeActor": "steps",
-            "messages": [
+              },
               {
                 "from": "actions",
                 "to": "request",
@@ -1052,14 +1162,8 @@
               {
                 "from": "actions",
                 "to": "request",
-                "label": "{'trim': {'__other__': 'method_descript…",
+                "label": "{'trim': <method_descriptor>, 'lower': …",
                 "tone": "data"
-              },
-              {
-                "from": "request",
-                "to": "steps",
-                "label": "'trim, then lower and then title'",
-                "tone": "ok"
               }
             ],
             "activeActor": "actions"
@@ -1071,7 +1175,7 @@
               {
                 "from": "actions",
                 "to": "request",
-                "label": "{'trim': {'__other__': 'method_descript…",
+                "label": "{'trim': <method_descriptor>, 'lower': …",
                 "tone": "data"
               },
               {
@@ -1090,7 +1194,31 @@
               {
                 "from": "actions",
                 "to": "request",
-                "label": "{'trim': {'__other__': 'method_descript…",
+                "label": "{'trim': <method_descriptor>, 'lower': …",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "steps",
+                "label": "'trim, then lower and then title'",
+                "tone": "ok"
+              },
+              {
+                "from": "actions",
+                "to": "request",
+                "label": "{'trim': <method_descriptor>, 'lower': …",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "steps",
+                "label": "'trim, then lower and then title'",
+                "tone": "ok"
+              },
+              {
+                "from": "actions",
+                "to": "request",
+                "label": "{'trim': <method_descriptor>, 'lower': …",
                 "tone": "data"
               },
               {

@@ -7,30 +7,42 @@
   "entries": [
     {
       "partTitle": "The Evolution Of LLM Function Calling: From Single-Turn Tool Invocation To Autonomous Agent Meshes",
-      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
+      "codeHash": "dbd2731aafbe93b34d954539f4560149bc5e9306db813c6f8f93a9ca46d67c9c",
       "spec": {
         "template": "bars",
         "title": "The Evolution Of LLM Function Calling: From Single-Turn Tool Inv",
         "steps": [
           {
             "at": "say1",
-            "caption": "In the early architectural iterations of foundation model applications.",
+            "caption": "Early tool-calling wrappers followed a rigid lockstep loop.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "done",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 11,
-                  "hit": 5
+                  "var": "done",
+                  "line": 9,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "parallel_wall_",
+                "label": "wave_num",
                 "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 12,
-                  "hit": 5
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "parallel_ms",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -38,47 +50,79 @@
           },
           {
             "at": "say2",
-            "caption": "The primary operational bottleneck of sequential tool invocation.",
+            "caption": "Verify the single transition driving tool behavior.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "done",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 12,
-                  "hit": 5
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "parallel_wall_",
-                "value": {
-                  "var": "parallel_wall_clock_latency",
+                  "var": "done",
                   "line": 15,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "wave_num",
+                "value": {
+                  "var": "wave_num",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "parallel_ms",
+                "value": {
+                  "var": "parallel_ms",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Mastering advanced function calling and multi-tool orchestration.",
+            "at": "say3",
+            "caption": "Examine the function value produced for calling processing.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "done",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 15,
-                  "hit": 1
+                  "var": "done",
+                  "line": 17,
+                  "hit": 3
                 },
                 "tone": "ok"
               },
               {
-                "label": "parallel_wall_",
+                "label": "wave_num",
                 "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 16,
-                  "hit": 1
+                  "var": "wave_num",
+                  "line": 17,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "parallel_ms",
+                "value": {
+                  "var": "parallel_ms",
+                  "line": 17,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "ok"
               }
@@ -92,48 +136,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In the early architectural iterations of foundation model applications.",
+            "caption": "Early tool-calling wrappers followed a rigid lockstep loop.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
+                "label": "done",
+                "value": "set()",
                 "tone": "data"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
+                "label": "wave_num",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "parallel_ms",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The primary operational bottleneck of sequential tool invocation.",
+            "caption": "Verify the single transition driving tool behavior.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
-                "tone": "ok"
+                "label": "done",
+                "value": "set()",
+                "tone": "data"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
-                "tone": "ok"
+                "label": "wave_num",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "parallel_ms",
+                "value": 25,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Mastering advanced function calling and multi-tool orchestration.",
+            "at": "say3",
+            "caption": "Examine the function value produced for calling processing.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
+                "label": "done",
+                "value": "{'auth', 'credit', 'decide', 'fraud', '…",
                 "tone": "ok"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
+                "label": "wave_num",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "parallel_ms",
+                "value": 110,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -143,30 +217,42 @@
     },
     {
       "partTitle": "Parallel Tool Execution Architecture: Asynchronous Worker Pools & Concurrency Optimization",
-      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
+      "codeHash": "3bb9fa1f79c85f9be8e9f40843a881936bb3dd1a5348587e4c3edcf4b006729f",
       "spec": {
         "template": "bars",
         "title": "Parallel Tool Execution Architecture: Asynchronous Worker Pools ",
         "steps": [
           {
             "at": "say1",
-            "caption": "At the mechanical core of high-throughput tool orchestration lies.",
+            "caption": "Observe how parallel shapes tool during this step.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "slots",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 11,
-                  "hit": 5
+                  "var": "slots",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "parallel_wall_",
+                "label": "log",
                 "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 12,
-                  "hit": 5
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "jid",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dur",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -174,47 +260,77 @@
           },
           {
             "at": "say2",
-            "caption": "The Python asyncio gather pattern serves as the primary concurrency.",
+            "caption": "Verify the parallel transition driving tool behavior.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "slots",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 12,
+                  "var": "slots",
+                  "line": 10,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "label": "log",
+                "value": {
+                  "var": "log",
+                  "line": 10,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "label": "jid",
+                "value": {
+                  "var": "jid",
+                  "line": 10,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dur",
+                "value": {
+                  "var": "dur",
+                  "line": 10,
+                  "hit": 3
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Different enterprise APIs exhibit wildly divergent operational characteristics.",
+            "bars": [
+              {
+                "label": "slots",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "log",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "jid",
+                "value": {
+                  "var": "jid",
+                  "line": 15,
                   "hit": 5
                 },
                 "tone": "ok"
               },
               {
-                "label": "parallel_wall_",
+                "label": "dur",
                 "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Dynamic load shedding and backpressure propagation protect backend.",
-            "bars": [
-              {
-                "label": "total_serial_l",
-                "value": {
-                  "var": "total_serial_latency",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "parallel_wall_",
-                "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 16,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               }
@@ -228,48 +344,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "At the mechanical core of high-throughput tool orchestration lies.",
+            "caption": "Observe how parallel shapes tool during this step.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
+                "label": "slots",
+                "value": "[0, 0]",
                 "tone": "data"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
+                "label": "log",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "jid",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "dur",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The Python asyncio gather pattern serves as the primary concurrency.",
+            "caption": "Verify the parallel transition driving tool behavior.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
-                "tone": "ok"
+                "label": "slots",
+                "value": "[50, 50]",
+                "tone": "data"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
-                "tone": "ok"
+                "label": "log",
+                "value": "[['t1', 0, 30], ['t2', 0, 50]]",
+                "tone": "data"
+              },
+              {
+                "label": "jid",
+                "value": "'t3'",
+                "tone": "data"
+              },
+              {
+                "label": "dur",
+                "value": 20,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Dynamic load shedding and backpressure propagation protect backend.",
+            "at": "say3",
+            "caption": "Different enterprise APIs exhibit wildly divergent operational characteristics.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
+                "label": "slots",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
+                "label": "log",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "jid",
+                "value": "'t5'",
+                "tone": "ok"
+              },
+              {
+                "label": "dur",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -279,328 +425,275 @@
     },
     {
       "partTitle": "Parameter Schema Validation: Pydantic Contracts, Type Coercion & Zero-Shot Tool Arguments",
-      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
+      "codeHash": "24f69c22be088c0c3613dbfe33772c377f93db01d64cc443209e2e033007d2bb",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Parameter Schema Validation: Pydantic Contracts, Type Coercion &",
-        "actors": [
-          "tools",
-          "t",
-          "total_serial_latency"
+        "nodes": [
+          {
+            "id": "case",
+            "label": "case",
+            "tappable": true
+          },
+          {
+            "id": "payload",
+            "label": "payload",
+            "tappable": true
+          },
+          {
+            "id": "errors",
+            "label": "errors",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parameter schema validation represents the primary defensive barrier.",
-            "activeActor": "tools",
-            "messages": [
-              {
-                "from": "tools",
-                "to": "t",
-                "label": {
-                  "var": "tools",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Consequently, models frequently emit arguments with subtle schema defects.",
+            "values": {
+              "case": {
+                "var": "case",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "from": "t",
-                "to": "total_serial_latency",
-                "label": {
-                  "var": "t",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "payload": {
+                "text": ""
+              },
+              "errors": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "case": "data",
+              "payload": "idle",
+              "errors": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Declarative schema definition via Pydantic models provides an elegant.",
-            "activeActor": "t",
-            "messages": [
-              {
-                "from": "tools",
-                "to": "t",
-                "label": {
-                  "var": "tools",
-                  "line": 11,
-                  "hit": 5
-                },
-                "tone": "data"
+            "caption": "Verify the schema transition driving validation behavior.",
+            "values": {
+              "case": {
+                "text": ""
               },
-              {
-                "from": "t",
-                "to": "total_serial_latency",
-                "label": {
-                  "var": "t",
-                  "line": 11,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "payload": {
+                "var": "payload",
+                "line": 2,
+                "hit": 2
+              },
+              "errors": {
+                "var": "errors",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "case": "idle",
+              "payload": "data",
+              "errors": "data"
+            },
+            "arrows": [
+              [
+                "case",
+                "payload"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Runtime semantic constraint validation extends beyond basic type checking.",
-            "activeActor": "total_serial_latency",
-            "messages": [
-              {
-                "from": "tools",
-                "to": "t",
-                "label": {
-                  "var": "tools",
-                  "line": 12,
-                  "hit": 5
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Pydantic performs rigorous type coercion.",
+            "values": {
+              "case": {
+                "text": ""
               },
-              {
-                "from": "t",
-                "to": "total_serial_latency",
-                "label": {
-                  "var": "t",
-                  "line": 11,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "payload": {
+                "var": "payload",
+                "line": 9,
+                "hit": 1
+              },
+              "errors": {
+                "var": "errors",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "case": "idle",
+              "payload": "ok",
+              "errors": "ok"
+            },
+            "arrows": [
+              [
+                "case",
+                "payload"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Parameter Schema Validation: Pydantic Contracts, Type Coercion &",
-        "actors": [
-          "tools",
-          "t",
-          "total_serial_latency"
+        "nodes": [
+          {
+            "id": "case",
+            "label": "case",
+            "tappable": true
+          },
+          {
+            "id": "payload",
+            "label": "payload",
+            "tappable": true
+          },
+          {
+            "id": "errors",
+            "label": "errors",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parameter schema validation represents the primary defensive barrier.",
-            "messages": [
-              {
-                "from": "tools",
-                "to": "t",
-                "label": "[{'name': 'fetch_user_profile', 'status…",
-                "tone": "data"
-              },
-              {
-                "from": "t",
-                "to": "total_serial_latency",
-                "label": "{'name': 'fetch_user_profile', 'status'…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "tools"
+            "caption": "Consequently, models frequently emit arguments with subtle schema defects.",
+            "values": {
+              "case": "{'account': ' ACC-1042 ', 'amount': '25…",
+              "payload": "",
+              "errors": ""
+            },
+            "tones": {
+              "case": "data",
+              "payload": "idle",
+              "errors": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Declarative schema definition via Pydantic models provides an elegant.",
-            "messages": [
-              {
-                "from": "tools",
-                "to": "t",
-                "label": "[{'name': 'fetch_user_profile', 'status…",
-                "tone": "data"
-              },
-              {
-                "from": "t",
-                "to": "total_serial_latency",
-                "label": "{'name': 'query_credit_score', 'status'…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "t"
+            "caption": "Verify the schema transition driving validation behavior.",
+            "values": {
+              "case": "",
+              "payload": "{'account': 'BAD', 'amount': '75000', '…",
+              "errors": "[]"
+            },
+            "tones": {
+              "case": "idle",
+              "payload": "data",
+              "errors": "data"
+            },
+            "arrows": [
+              [
+                "case",
+                "payload"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Runtime semantic constraint validation extends beyond basic type checking.",
-            "messages": [
-              {
-                "from": "tools",
-                "to": "t",
-                "label": "[{'name': 'fetch_user_profile', 'status…",
-                "tone": "data"
-              },
-              {
-                "from": "t",
-                "to": "total_serial_latency",
-                "label": "{'name': 'check_fraud_registry', 'statu…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "total_serial_latency"
+            "at": "say3",
+            "caption": "Pydantic performs rigorous type coercion.",
+            "values": {
+              "case": "",
+              "payload": "{'account': 'BAD', 'amount': '75000', '…",
+              "errors": "['account must match ACC-XXXX', 'amount…"
+            },
+            "tones": {
+              "case": "idle",
+              "payload": "ok",
+              "errors": "ok"
+            },
+            "arrows": [
+              [
+                "case",
+                "payload"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Automated Tool Error Recovery: Self-Correction Loops, Idempotency Keys & Fault Handlers",
-      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
+      "codeHash": "347d73b954648808bbfb415f351ffb4ccc8161f43091b82993f5afa6a73fd611",
       "spec": {
         "template": "flow",
         "title": "Automated Tool Error Recovery: Self-Correction Loops, Idempotenc",
         "nodes": [
           {
-            "id": "tools",
-            "label": "tools"
+            "id": "SEEN_KEYS",
+            "label": "SEEN_KEYS",
+            "tappable": true
           },
           {
-            "id": "t",
-            "label": "t"
-          },
-          {
-            "id": "total_serial_latency",
-            "label": "total_serial_latency"
-          },
-          {
-            "id": "parallel_wall_clock_latency",
-            "label": "parallel_wall_clock_latency"
+            "id": "amount_cents",
+            "label": "amount_cents",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In real-world enterprise computing environments, external tool invocations.",
+            "caption": "Inspect automated updates as SEEN_KEYS tracks tool state.",
             "values": {
-              "tools": {
-                "var": "tools",
-                "line": 5,
+              "SEEN_KEYS": {
+                "var": "SEEN_KEYS",
+                "line": 1,
                 "hit": 1
               },
-              "t": {
-                "var": "t",
-                "line": 11,
-                "hit": 1
-              },
-              "total_serial_latency": {
-                "var": "total_serial_latency",
-                "line": 11,
-                "hit": 5
-              },
-              "parallel_wall_clock_latency": {
-                "var": "parallel_wall_clock_latency",
-                "line": 12,
-                "hit": 5
+              "amount_cents": {
+                "text": ""
               }
             },
             "tones": {
-              "tools": "data",
-              "t": "data",
-              "total_serial_latency": "data",
-              "parallel_wall_clock_latency": "data"
+              "SEEN_KEYS": "data",
+              "amount_cents": "idle"
             },
-            "arrows": [
-              [
-                "tools",
-                "t"
-              ],
-              [
-                "t",
-                "total_serial_latency"
-              ],
-              [
-                "total_serial_latency",
-                "parallel_wall_clock_latency"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The core architectural pattern for self-healing tool execution is.",
+            "caption": "Verify the tool transition driving resilient behavior.",
             "values": {
-              "tools": {
-                "var": "tools",
-                "line": 11,
-                "hit": 5
+              "SEEN_KEYS": {
+                "text": ""
               },
-              "t": {
-                "var": "t",
-                "line": 11,
+              "amount_cents": {
+                "var": "amount_cents",
+                "line": 4,
                 "hit": 2
-              },
-              "total_serial_latency": {
-                "var": "total_serial_latency",
-                "line": 12,
-                "hit": 5
-              },
-              "parallel_wall_clock_latency": {
-                "var": "parallel_wall_clock_latency",
-                "line": 15,
-                "hit": 1
               }
             },
             "tones": {
-              "tools": "data",
-              "t": "data",
-              "total_serial_latency": "data",
-              "parallel_wall_clock_latency": "data"
+              "SEEN_KEYS": "idle",
+              "amount_cents": "data"
             },
             "arrows": [
               [
-                "tools",
-                "t"
-              ],
-              [
-                "t",
-                "total_serial_latency"
-              ],
-              [
-                "total_serial_latency",
-                "parallel_wall_clock_latency"
+                "SEEN_KEYS",
+                "amount_cents"
               ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Hierarchical exception categorization separates recoverable network blips.",
+            "at": "say3",
+            "caption": "If an agent calls a flight search API passing date.",
             "values": {
-              "tools": {
-                "var": "tools",
-                "line": 12,
-                "hit": 5
-              },
-              "t": {
-                "var": "t",
-                "line": 11,
-                "hit": 3
-              },
-              "total_serial_latency": {
-                "var": "total_serial_latency",
-                "line": 15,
-                "hit": 1
-              },
-              "parallel_wall_clock_latency": {
-                "var": "parallel_wall_clock_latency",
+              "SEEN_KEYS": {
+                "var": "SEEN_KEYS",
                 "line": 16,
                 "hit": 1
+              },
+              "amount_cents": {
+                "text": ""
               }
             },
             "tones": {
-              "tools": "ok",
-              "t": "ok",
-              "total_serial_latency": "ok",
-              "parallel_wall_clock_latency": "ok"
+              "SEEN_KEYS": "ok",
+              "amount_cents": "idle"
             },
             "arrows": [
               [
-                "tools",
-                "t"
-              ],
-              [
-                "t",
-                "total_serial_latency"
-              ],
-              [
-                "total_serial_latency",
-                "parallel_wall_clock_latency"
+                "SEEN_KEYS",
+                "amount_cents"
               ]
             ]
           }
@@ -611,110 +704,63 @@
         "title": "Automated Tool Error Recovery: Self-Correction Loops, Idempotenc",
         "nodes": [
           {
-            "id": "tools",
-            "label": "tools"
+            "id": "SEEN_KEYS",
+            "label": "SEEN_KEYS",
+            "tappable": true
           },
           {
-            "id": "t",
-            "label": "t"
-          },
-          {
-            "id": "total_serial_latency",
-            "label": "total_serial_latency"
-          },
-          {
-            "id": "parallel_wall_clock_latency",
-            "label": "parallel_wall_clock_latency"
+            "id": "amount_cents",
+            "label": "amount_cents",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In real-world enterprise computing environments, external tool invocations.",
+            "caption": "Inspect automated updates as SEEN_KEYS tracks tool state.",
             "values": {
-              "tools": "[{'name': 'fetch_user_profile', 'status…",
-              "t": "{'name': 'fetch_user_profile', 'status'…",
-              "total_serial_latency": "199",
-              "parallel_wall_clock_latency": "89"
+              "SEEN_KEYS": "set()",
+              "amount_cents": ""
             },
             "tones": {
-              "tools": "data",
-              "t": "data",
-              "total_serial_latency": "data",
-              "parallel_wall_clock_latency": "data"
+              "SEEN_KEYS": "data",
+              "amount_cents": "idle"
             },
-            "arrows": [
-              [
-                "tools",
-                "t"
-              ],
-              [
-                "t",
-                "total_serial_latency"
-              ],
-              [
-                "total_serial_latency",
-                "parallel_wall_clock_latency"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The core architectural pattern for self-healing tool execution is.",
+            "caption": "Verify the tool transition driving resilient behavior.",
             "values": {
-              "tools": "[{'name': 'fetch_user_profile', 'status…",
-              "t": "{'name': 'query_credit_score', 'status'…",
-              "total_serial_latency": "199",
-              "parallel_wall_clock_latency": "89"
+              "SEEN_KEYS": "",
+              "amount_cents": "1999"
             },
             "tones": {
-              "tools": "data",
-              "t": "data",
-              "total_serial_latency": "data",
-              "parallel_wall_clock_latency": "data"
+              "SEEN_KEYS": "idle",
+              "amount_cents": "data"
             },
             "arrows": [
               [
-                "tools",
-                "t"
-              ],
-              [
-                "t",
-                "total_serial_latency"
-              ],
-              [
-                "total_serial_latency",
-                "parallel_wall_clock_latency"
+                "SEEN_KEYS",
+                "amount_cents"
               ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Hierarchical exception categorization separates recoverable network blips.",
+            "at": "say3",
+            "caption": "If an agent calls a flight search API passing date.",
             "values": {
-              "tools": "[{'name': 'fetch_user_profile', 'status…",
-              "t": "{'name': 'check_fraud_registry', 'statu…",
-              "total_serial_latency": "199",
-              "parallel_wall_clock_latency": "89"
+              "SEEN_KEYS": "{'k-901'}",
+              "amount_cents": ""
             },
             "tones": {
-              "tools": "ok",
-              "t": "ok",
-              "total_serial_latency": "ok",
-              "parallel_wall_clock_latency": "ok"
+              "SEEN_KEYS": "ok",
+              "amount_cents": "idle"
             },
             "arrows": [
               [
-                "tools",
-                "t"
-              ],
-              [
-                "t",
-                "total_serial_latency"
-              ],
-              [
-                "total_serial_latency",
-                "parallel_wall_clock_latency"
+                "SEEN_KEYS",
+                "amount_cents"
               ]
             ]
           }
@@ -723,30 +769,28 @@
     },
     {
       "partTitle": "Enterprise Orchestration Engineering: Building A Resilient Multi-Tool Python Engine",
-      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
+      "codeHash": "3b8c11317f76fb4a2f1fdbeba9b2279f8cfb45706dfa1be5eba00f985b6e3623",
       "spec": {
         "template": "bars",
         "title": "Enterprise Orchestration Engineering: Building A Resilient Multi",
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the principles of parallel execution, parameter schema.",
+            "caption": "Observe how enterprise shapes orchestration during this step.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "ledger",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 11,
-                  "hit": 5
+                  "var": "ledger",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "parallel_wall_",
+                "label": "compensations",
                 "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 12,
-                  "hit": 5
+                  "text": "compensations"
                 },
                 "tone": "data"
               }
@@ -754,47 +798,47 @@
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production multi-tool orchestration.",
+            "caption": "Verify the orchestration transition driving clean behavior.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "ledger",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 12,
-                  "hit": 5
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "parallel_wall_",
-                "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 15,
+                  "var": "ledger",
+                  "line": 6,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "compensations",
+                "value": {
+                  "var": "compensations",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Enterprise compliance vaults store immutable, cryptographically signed.",
+            "at": "say3",
+            "caption": "Examine the tool value produced for parameter processing.",
             "bars": [
               {
-                "label": "total_serial_l",
+                "label": "ledger",
                 "value": {
-                  "var": "total_serial_latency",
-                  "line": 15,
-                  "hit": 1
+                  "var": "ledger",
+                  "line": 17,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "parallel_wall_",
+                "label": "compensations",
                 "value": {
-                  "var": "parallel_wall_clock_latency",
-                  "line": 16,
-                  "hit": 1
+                  "var": "compensations",
+                  "line": 17,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -808,48 +852,48 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the principles of parallel execution, parameter schema.",
+            "caption": "Observe how enterprise shapes orchestration during this step.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
+                "label": "ledger",
+                "value": "[]",
                 "tone": "data"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
+                "label": "compensations",
+                "value": "compensations",
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production multi-tool orchestration.",
+            "caption": "Verify the orchestration transition driving clean behavior.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
-                "tone": "ok"
+                "label": "ledger",
+                "value": "['charge_card:COMMIT']",
+                "tone": "data"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
-                "tone": "ok"
+                "label": "compensations",
+                "value": "[<function>]",
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Enterprise compliance vaults store immutable, cryptographically signed.",
+            "at": "say3",
+            "caption": "Examine the tool value produced for parameter processing.",
             "bars": [
               {
-                "label": "total_serial_l",
-                "value": 199,
+                "label": "ledger",
+                "value": "['charge_card:COMMIT', 'book_flight:COM…",
                 "tone": "ok"
               },
               {
-                "label": "parallel_wall_",
-                "value": 89,
+                "label": "compensations",
+                "value": "[]",
                 "tone": "ok"
               }
             ]

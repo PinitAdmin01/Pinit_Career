@@ -255,6 +255,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The state representation maintains an active OptionsBook object, tracking.",
+            "activeActor": "spot",
+            "messages": [
+              {
+                "from": "self",
+                "to": "spot",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "spot",
@@ -269,10 +286,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The state representation maintains an active OptionsBook object, tracking.",
-            "activeActor": "spot",
+            "at": "say10",
+            "caption": "Integrating options pricing with dynamic stock hedging allows.",
+            "activeActor": "rate",
             "messages": [
+              {
+                "from": "self",
+                "to": "spot",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "spot",
+                "to": "rate",
+                "label": {
+                  "var": "spot",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "spot",
@@ -292,14 +329,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Integrating options pricing with dynamic stock hedging allows.",
-            "activeActor": "rate",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "spot",
@@ -342,12 +372,6 @@
                 "to": "spot",
                 "label": "<IntegratedOptionsExecutionEngine>",
                 "tone": "data"
-              },
-              {
-                "from": "spot",
-                "to": "rate",
-                "label": "100",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -386,6 +410,30 @@
                 "to": "rate",
                 "label": "100",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "spot",
+                "label": "<IntegratedOptionsExecutionEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "spot",
+                "to": "rate",
+                "label": "100",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "spot",
+                "label": "<IntegratedOptionsExecutionEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "spot",
+                "to": "rate",
+                "label": "100",
+                "tone": "ok"
               }
             ],
             "activeActor": "rate"
@@ -402,7 +450,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates integrated during execution.",
+            "caption": "Observe how scaling shapes integrated during this step.",
             "items": {
               "var": "spots",
               "line": 12,
@@ -456,7 +504,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates integrated during execution.",
+            "caption": "Observe how scaling shapes integrated during this step.",
             "items": [
               "90",
               "95",
@@ -520,7 +568,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operational updates resilience during execution.",
+            "caption": "Observe how milestone shapes resilience during this step.",
             "bars": [
               {
                 "label": "net_delta",
@@ -652,7 +700,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operational updates resilience during execution.",
+            "caption": "Observe how milestone shapes resilience during this step.",
             "bars": [
               {
                 "label": "net_delta",

@@ -214,16 +214,14 @@
                 "hit": 1
               },
               "filter_dict": {
-                "var": "filter_dict",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "rule": "data",
               "rule_dict": "data",
               "selection": "data",
-              "filter_dict": "data"
+              "filter_dict": "idle"
             },
             "arrows": [
               [
@@ -288,7 +286,7 @@
           },
           {
             "at": "say10",
-            "caption": "Stream processing workers execute in-memory compiled predicates against.",
+            "caption": "Examine the rule value produced for matching processing.",
             "values": {
               "rule": {
                 "var": "rule",
@@ -363,13 +361,13 @@
               "rule": "{'title': 'Suspicious PowerShell Encode…",
               "rule_dict": "{'title': 'Suspicious PowerShell Encode…",
               "selection": "{'process_name': 'powershell.exe', 'has…",
-              "filter_dict": "{'user': 'admin_service_account'}"
+              "filter_dict": ""
             },
             "tones": {
               "rule": "data",
               "rule_dict": "data",
               "selection": "data",
-              "filter_dict": "data"
+              "filter_dict": "idle"
             },
             "arrows": [
               [
@@ -418,7 +416,7 @@
           },
           {
             "at": "say10",
-            "caption": "Stream processing workers execute in-memory compiled predicates against.",
+            "caption": "Examine the rule value produced for matching processing.",
             "values": {
               "rule": "{'title': 'Suspicious PowerShell Encode…",
               "rule_dict": "{'title': 'Suspicious PowerShell Encode…",
@@ -475,6 +473,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Temporal correlation engines aggregate events within sliding time windows.",
+            "activeActor": "events",
+            "messages": [
+              {
+                "from": "log_stream",
+                "to": "events",
+                "label": {
+                  "var": "log_stream",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "events",
@@ -489,10 +504,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Temporal correlation engines aggregate events within sliding time windows.",
-            "activeActor": "events",
+            "at": "say10",
+            "caption": "Examine the edge value produced for distributed processing.",
+            "activeActor": "window_sec",
             "messages": [
+              {
+                "from": "log_stream",
+                "to": "events",
+                "label": {
+                  "var": "log_stream",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "window_sec",
+                "label": {
+                  "var": "events",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "log_stream",
                 "to": "events",
@@ -512,14 +547,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Enterprise security architectures implement multi-stage temporal.",
-            "activeActor": "window_sec",
-            "messages": [
+              },
               {
                 "from": "log_stream",
                 "to": "events",
@@ -562,12 +590,6 @@
                 "to": "events",
                 "label": "[{'source_ip': '198.51.100.22', 'status…",
                 "tone": "data"
-              },
-              {
-                "from": "events",
-                "to": "window_sec",
-                "label": "[{'source_ip': '198.51.100.22', 'status…",
-                "tone": "ok"
               }
             ],
             "activeActor": "log_stream"
@@ -593,8 +615,32 @@
           },
           {
             "at": "say10",
-            "caption": "Enterprise security architectures implement multi-stage temporal.",
+            "caption": "Examine the edge value produced for distributed processing.",
             "messages": [
+              {
+                "from": "log_stream",
+                "to": "events",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "window_sec",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "ok"
+              },
+              {
+                "from": "log_stream",
+                "to": "events",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "window_sec",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "ok"
+              },
               {
                 "from": "log_stream",
                 "to": "events",

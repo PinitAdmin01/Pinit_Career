@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "zero_shot": {
-                "var": "zero_shot",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "task": "data",
               "examples": "data",
               "query": "data",
-              "zero_shot": "data"
+              "zero_shot": "idle"
             }
           },
           {
@@ -157,13 +155,13 @@
               "task": "'Classify the review as POSITIVE or NEG…",
               "examples": "[['Loved the biryani, will come again!'…",
               "query": "'The dosa was crisp and the chutney fre…",
-              "zero_shot": "'Classify the review as POSITIVE or NEG…"
+              "zero_shot": ""
             },
             "tones": {
               "task": "data",
               "examples": "data",
               "query": "data",
-              "zero_shot": "data"
+              "zero_shot": "idle"
             }
           },
           {
@@ -260,7 +258,7 @@
           },
           {
             "at": "say2",
-            "caption": "Put the task first, then each example block, separated by blank lines,.",
+            "caption": "The model continues writing from there.",
             "values": {
               "examples": {
                 "var": "examples",
@@ -364,7 +362,7 @@
           },
           {
             "at": "say2",
-            "caption": "Put the task first, then each example block, separated by blank lines,.",
+            "caption": "The model continues writing from there.",
             "values": {
               "examples": "[{'input': '12 apples, eat 5', 'thought…",
               "task": "'Solve the word problem.'",
@@ -480,7 +478,7 @@
               "label": {
                 "var": "label",
                 "line": 4,
-                "hit": 2
+                "hit": 4
               },
               "counts": {
                 "var": "counts",
@@ -526,7 +524,7 @@
               "label": {
                 "var": "label",
                 "line": 4,
-                "hit": 3
+                "hit": 4
               },
               "counts": {
                 "var": "counts",
@@ -619,7 +617,7 @@
             "caption": "Balance the labels.",
             "values": {
               "examples": "[['Superb!', 'POSITIVE'], ['Loved it', …",
-              "label": "'POSITIVE'",
+              "label": "'NEGATIVE'",
               "counts": "{'POSITIVE': 3, 'NEGATIVE': 1}",
               "most": "3"
             },
@@ -649,7 +647,7 @@
             "caption": "A quick label count in code catches imbalance before you ship the prompt.",
             "values": {
               "examples": "[['Superb!', 'POSITIVE'], ['Loved it', …",
-              "label": "'POSITIVE'",
+              "label": "'NEGATIVE'",
               "counts": "{'POSITIVE': 3, 'NEGATIVE': 1}",
               "most": "3"
             },
@@ -691,7 +689,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For maths, logic and multi-step questions, asking the model to \"think step.",
+            "caption": "This is chain-of-thought (CoT).",
             "activeActor": "reply",
             "messages": [
               {
@@ -783,7 +781,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For maths, logic and multi-step questions, asking the model to \"think step.",
+            "caption": "This is chain-of-thought (CoT).",
             "messages": [
               {
                 "from": "reply",

@@ -243,10 +243,181 @@
       "partTitle": "INNER JOIN keeps only matching rows",
       "codeHash": "6ec90cdb10c9e1940e887e24ed25ce8110aa0f4887e768a0ae4086607b172ed5",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "INNER JOIN keeps only matching rows",
+        "columns": [
+          "name",
+          "order_id"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "INNER JOIN has one important behaviour.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "order_id"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "order_id"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In our small shop, Meera has not ordered anything.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "order_id"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "order_id"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "order_id"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "order_id"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "INNER JOIN keeps only matching rows",
+        "columns": [
+          "name",
+          "order_id"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "INNER JOIN has one important behaviour.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "101"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Asha",
+                  "103"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In our small shop, Meera has not ordered anything.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "101"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Asha",
+                  "103"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Priya",
+                  "104"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "102"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Joining and then filtering, sorting and totalling",
@@ -372,10 +543,181 @@
       "partTitle": "Joining a junction table",
       "codeHash": "e9abdd814f8fbf36eb0b56a5bf6347b9efa4b88aec89315ceff4d1580c32e7f4",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Joining a junction table",
+        "columns": [
+          "order_id",
+          "order_total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To show \"which products were in order 101\", you join order_items to products.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "order_total"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "order_total"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The result reads like the lines of a bill.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "order_total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "order_total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "order_total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "order_total"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Joining a junction table",
+        "columns": [
+          "order_id",
+          "order_total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To show \"which products were in order 101\", you join order_items to products.",
+            "rows": [
+              {
+                "cells": [
+                  "101",
+                  "280.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "102",
+                  "1200.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The result reads like the lines of a bill.",
+            "rows": [
+              {
+                "cells": [
+                  "101",
+                  "280.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "102",
+                  "1200.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "103",
+                  "50.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "104",
+                  "60.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: an orders report",

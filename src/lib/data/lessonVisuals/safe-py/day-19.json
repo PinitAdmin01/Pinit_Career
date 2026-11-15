@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how among updates answers during execution.",
+            "caption": "Verify the among transition driving answers behavior.",
             "currentState": "level",
             "transition": {
               "from": "answers",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how among updates answers during execution.",
+            "caption": "Verify the among transition driving answers behavior.",
             "currentState": "level",
             "transition": {
               "from": "answers",
@@ -181,13 +181,13 @@
               },
               "conf": {
                 "var": "conf",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "b": {
                 "var": "b",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -217,13 +217,13 @@
               },
               "conf": {
                 "var": "conf",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "b": {
                 "var": "b",
-                "line": 2,
-                "hit": 2
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -291,8 +291,8 @@
             "caption": "With 5 bins, the bins cover 0 to 0.",
             "values": {
               "bins": "5",
-              "conf": "0.05",
-              "b": "0"
+              "conf": "0.2",
+              "b": "1"
             },
             "tones": {
               "bins": "data",
@@ -315,8 +315,8 @@
             "caption": "Empty bins are simply skipped.",
             "values": {
               "bins": "5",
-              "conf": "0.05",
-              "b": "0"
+              "conf": "0.39",
+              "b": "3"
             },
             "tones": {
               "bins": "ok",

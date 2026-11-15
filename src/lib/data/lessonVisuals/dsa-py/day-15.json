@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A heap is a structure where the smallest item is always at the front,.",
+            "caption": "Python's heapq module turns a plain list into a min-heap.",
             "items": {
               "var": "h",
               "line": 5,
@@ -148,7 +148,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how heapq updates heappush during execution.",
+            "caption": "Verify the heapq transition driving heappush behavior.",
             "items": {
               "var": "h",
               "line": 5,
@@ -186,7 +186,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A heap is a structure where the smallest item is always at the front,.",
+            "caption": "Python's heapq module turns a plain list into a min-heap.",
             "items": [
               "2",
               "7"
@@ -201,7 +201,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how heapq updates heappush during execution.",
+            "caption": "Verify the heapq transition driving heappush behavior.",
             "items": [
               "2",
               "4",
@@ -243,7 +243,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Keep the smaller half of the numbers in a max-heap called low, and.",
+            "caption": "Observe how numbers shapes half during this step.",
             "items": {
               "var": "low",
               "line": 5,
@@ -297,7 +297,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Keep the smaller half of the numbers in a max-heap called low, and.",
+            "caption": "Observe how numbers shapes half during this step.",
             "items": [
               "-3",
               "-1"
@@ -621,17 +621,6 @@
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
@@ -646,17 +635,6 @@
                   },
                   {
                     "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -711,13 +689,6 @@
                   "same median: True"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "both finished: True"
-                ],
-                "tone": "ok"
               }
             ]
           },
@@ -729,13 +700,6 @@
                 "cells": [
                   "out 1",
                   "same median: True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "both finished: True"
                 ],
                 "tone": "ok"
               }

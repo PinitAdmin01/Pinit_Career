@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Metrics are numbers over time.",
+            "activeActor": "minutes",
+            "messages": [
+              {
+                "from": "calls",
+                "to": "minutes",
+                "label": {
+                  "var": "calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "minutes",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Metrics are numbers over time.",
-            "activeActor": "minutes",
+            "at": "say7",
+            "caption": "The example turns raw call records into per-minute metrics.",
+            "activeActor": "m",
             "messages": [
+              {
+                "from": "calls",
+                "to": "minutes",
+                "label": {
+                  "var": "calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "m",
+                "label": {
+                  "var": "minutes",
+                  "line": 2,
+                  "hit": 8
+                },
+                "tone": "ok"
+              },
               {
                 "from": "calls",
                 "to": "minutes",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example turns raw call records into per-minute metrics.",
-            "activeActor": "m",
-            "messages": [
+              },
               {
                 "from": "calls",
                 "to": "minutes",
@@ -118,12 +148,6 @@
                 "to": "minutes",
                 "label": "[[0, 120, 200], [0, 90, 200], [0, 400, …",
                 "tone": "data"
-              },
-              {
-                "from": "minutes",
-                "to": "m",
-                "label": "[0, 1]",
-                "tone": "ok"
               }
             ],
             "activeActor": "calls"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "The example turns raw call records into per-minute metrics.",
             "messages": [
+              {
+                "from": "calls",
+                "to": "minutes",
+                "label": "[[0, 120, 200], [0, 90, 200], [0, 400, …",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "m",
+                "label": "[0, 1]",
+                "tone": "ok"
+              },
+              {
+                "from": "calls",
+                "to": "minutes",
+                "label": "[[0, 120, 200], [0, 90, 200], [0, 400, …",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "m",
+                "label": "[0, 1]",
+                "tone": "ok"
+              },
               {
                 "from": "calls",
                 "to": "minutes",
@@ -294,7 +342,7 @@
           },
           {
             "at": "say2",
-            "caption": "You choose a threshold, a comparison (GreaterThanThreshold.",
+            "caption": "Verify the choose transition driving threshold behavior.",
             "bars": [
               {
                 "label": "value",
@@ -410,7 +458,7 @@
           },
           {
             "at": "say2",
-            "caption": "You choose a threshold, a comparison (GreaterThanThreshold.",
+            "caption": "Verify the choose transition driving threshold behavior.",
             "bars": [
               {
                 "label": "value",
@@ -467,162 +515,182 @@
       "partTitle": "Logs and Logs Insights",
       "codeHash": "9cdc27006f19c47ef143f8dd26aa72c3e00831dd1b75973f58d991dc53067d85",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Logs and Logs Insights",
-        "actors": [
-          "logs",
-          ".0",
-          "l"
+        "nodes": [
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          },
+          {
+            "id": "kv",
+            "label": "kv",
+            "tappable": true
+          },
+          {
+            "id": "path",
+            "label": "path",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudWatch Logs stores log lines in log groups (one per application.",
-            "activeActor": "logs",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": {
-                  "var": "logs",
-                  "line": 3,
-                  "hit": 2
-                },
-                "tone": "data"
+            "caption": "Inspect logs updates as l tracks cloudwatch state.",
+            "values": {
+              "l": {
+                "var": "l",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "kv": {
+                "text": ""
+              },
+              "path": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "l": "data",
+              "kv": "idle",
+              "path": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Set a retention period on every log group.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": {
-                  "var": "logs",
-                  "line": 5,
-                  "hit": 8
-                },
-                "tone": "data"
+            "values": {
+              "l": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "kv": {
+                "var": "kv",
+                "line": 6,
+                "hit": 1
+              },
+              "path": {
+                "text": ""
               }
+            },
+            "tones": {
+              "l": "idle",
+              "kv": "data",
+              "path": "idle"
+            },
+            "arrows": [
+              [
+                "l",
+                "kv"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example runs the error summary over a small batch of structured logs.",
-            "activeActor": "l",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": {
-                  "var": "logs",
-                  "line": 6,
-                  "hit": 4
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the logs value produced for insights processing.",
+            "values": {
+              "l": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "kv": {
+                "text": ""
+              },
+              "path": {
+                "var": "path",
+                "line": 8,
+                "hit": 3
               }
+            },
+            "tones": {
+              "l": "idle",
+              "kv": "idle",
+              "path": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "kv"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Logs and Logs Insights",
-        "actors": [
-          "logs",
-          ".0",
-          "l"
+        "nodes": [
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          },
+          {
+            "id": "kv",
+            "label": "kv",
+            "tappable": true
+          },
+          {
+            "id": "path",
+            "label": "path",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudWatch Logs stores log lines in log groups (one per application.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": "[{'path': '/pay', 'status': 500}, {'pat…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "logs"
+            "caption": "Inspect logs updates as l tracks cloudwatch state.",
+            "values": {
+              "l": "{'path': '/pay', 'status': 500}",
+              "kv": "",
+              "path": ""
+            },
+            "tones": {
+              "l": "data",
+              "kv": "idle",
+              "path": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Set a retention period on every log group.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": "[{'path': '/pay', 'status': 500}, {'pat…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "values": {
+              "l": "",
+              "kv": "['/pay', 2]",
+              "path": ""
+            },
+            "tones": {
+              "l": "idle",
+              "kv": "data",
+              "path": "idle"
+            },
+            "arrows": [
+              [
+                "l",
+                "kv"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The example runs the error summary over a small batch of structured logs.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": "[{'path': '/pay', 'status': 500}, {'pat…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "l"
+            "at": "say3",
+            "caption": "Examine the logs value produced for insights processing.",
+            "values": {
+              "l": "",
+              "kv": "",
+              "path": "'/cart'"
+            },
+            "tones": {
+              "l": "idle",
+              "kv": "idle",
+              "path": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "kv"
+              ]
+            ]
           }
         ]
       }
@@ -654,7 +722,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A dashboard should answer \"is the system healthy right now, and if not, where.",
+            "caption": "Put the most important signals at the top.",
             "values": {
               "alerts": {
                 "var": "alerts",
@@ -709,18 +777,18 @@
               },
               "a": {
                 "var": "a",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "useful": {
                 "var": "useful",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "verdict": {
                 "var": "verdict",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -746,7 +814,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example scores a list of alerts by whether they are actionable,.",
+            "caption": "Examine the alerts value produced for example processing.",
             "values": {
               "alerts": {
                 "var": "alerts",
@@ -755,18 +823,18 @@
               },
               "a": {
                 "var": "a",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "useful": {
                 "var": "useful",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "verdict": {
                 "var": "verdict",
-                "line": 7,
-                "hit": 2
+                "line": 9,
+                "hit": 3
               }
             },
             "tones": {
@@ -816,7 +884,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A dashboard should answer \"is the system healthy right now, and if not, where.",
+            "caption": "Put the most important signals at the top.",
             "values": {
               "alerts": "[{'name': 'checkout 5xx > 2%', 'fired':…",
               "a": "{'name': 'checkout 5xx > 2%', 'fired': …",
@@ -849,9 +917,9 @@
             "caption": "A widely used framework is the four golden signals.",
             "values": {
               "alerts": "[{'name': 'checkout 5xx > 2%', 'fired':…",
-              "a": "{'name': 'checkout 5xx > 2%', 'fired': …",
-              "useful": "1",
-              "verdict": "'keep'"
+              "a": "{'name': 'CPU > 50% on any host', 'fire…",
+              "useful": "0.007142857142857143",
+              "verdict": "'fix or delete'"
             },
             "tones": {
               "alerts": "data",
@@ -876,10 +944,10 @@
           },
           {
             "at": "say7",
-            "caption": "The example scores a list of alerts by whether they are actionable,.",
+            "caption": "Examine the alerts value produced for example processing.",
             "values": {
               "alerts": "[{'name': 'checkout 5xx > 2%', 'fired':…",
-              "a": "{'name': 'checkout 5xx > 2%', 'fired': …",
+              "a": "{'name': 'orders DLQ not empty', 'fired…",
               "useful": "1",
               "verdict": "'keep'"
             },

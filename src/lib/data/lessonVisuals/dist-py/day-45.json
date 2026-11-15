@@ -19,7 +19,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how days updates through during execution.",
+            "caption": "Observe how transactional shapes outbox during this step.",
             "activeActor": "self",
             "messages": [
               {
@@ -31,16 +31,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "name",
-                "to": "initial_balance",
-                "label": {
-                  "var": "name",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -54,6 +44,53 @@
                 "to": "name",
                 "label": {
                   "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "initial_balance",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Construct the atomic Outbox + Dedup + Saga Step service template below.",
+            "activeActor": "initial_balance",
+            "messages": [
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "initial_balance",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
                   "line": 4,
                   "hit": 1
                 },
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Construct the atomic Outbox + Dedup + Saga Step service template below.",
-            "activeActor": "initial_balance",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "name",
@@ -111,19 +141,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how days updates through during execution.",
+            "caption": "Observe how transactional shapes outbox during this step.",
             "messages": [
               {
                 "from": "self",
                 "to": "name",
                 "label": "<OutboxSagaWorker>",
                 "tone": "data"
-              },
-              {
-                "from": "name",
-                "to": "initial_balance",
-                "label": "'wallet'",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -151,6 +175,30 @@
             "at": "say6",
             "caption": "Construct the atomic Outbox + Dedup + Saga Step service template below.",
             "messages": [
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<OutboxSagaWorker>",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "initial_balance",
+                "label": "'wallet'",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<OutboxSagaWorker>",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "initial_balance",
+                "label": "'wallet'",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "name",
@@ -237,7 +285,7 @@
           },
           {
             "at": "say5",
-            "caption": "Build an explicit policy evaluator below routing workload profiles.",
+            "caption": "Examine the latency value produced for choosing processing.",
             "activeActor": "strict_isolation_required",
             "messages": [
               {
@@ -313,7 +361,7 @@
           },
           {
             "at": "say5",
-            "caption": "Build an explicit policy evaluator below routing workload profiles.",
+            "caption": "Examine the latency value produced for choosing processing.",
             "messages": [
               {
                 "from": "spans_external_apis",
@@ -511,8 +559,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Unlike normal business failures (`T_3` rejected cleanly -> unwind `T_2.",
+            "caption": "Observe how unlike shapes normal during this step.",
             "activeActor": "sagas",
+            "messages": [
+              {
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": {
+                  "var": "sagas",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "You MUST NEVER skip a failed compensation `C_2` silently and mark the saga.",
+            "activeActor": "active_sagas",
             "messages": [
               {
                 "from": "sagas",
@@ -537,10 +602,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "You MUST NEVER skip a failed compensation `C_2` silently and mark the saga.",
-            "activeActor": "active_sagas",
+            "at": "say6",
+            "caption": "Inspect the saga SLA watchdog and poison-compensation escalation.",
+            "activeActor": "now_ms",
             "messages": [
+              {
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": {
+                  "var": "sagas",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": {
+                  "var": "active_sagas",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "sagas",
                 "to": "active_sagas",
@@ -560,23 +645,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Inspect the saga SLA watchdog and poison-compensation escalation.",
-            "activeActor": "now_ms",
-            "messages": [
-              {
-                "from": "sagas",
-                "to": "active_sagas",
-                "label": {
-                  "var": "sagas",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "active_sagas",
@@ -603,19 +671,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Unlike normal business failures (`T_3` rejected cleanly -> unwind `T_2.",
+            "caption": "Observe how unlike shapes normal during this step.",
             "messages": [
               {
                 "from": "sagas",
                 "to": "active_sagas",
                 "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
                 "tone": "data"
-              },
-              {
-                "from": "active_sagas",
-                "to": "now_ms",
-                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
-                "tone": "ok"
               }
             ],
             "activeActor": "sagas"
@@ -648,6 +710,24 @@
                 "to": "active_sagas",
                 "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
                 "tone": "data"
+              },
+              {
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "ok"
+              },
+              {
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "data"
+              },
+              {
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "ok"
               },
               {
                 "from": "active_sagas",
@@ -688,7 +768,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how sign updates milestone during execution.",
+            "caption": "Inspect milestone updates as gates tracks verification state.",
             "values": {
               "gates": {
                 "var": "gates",
@@ -780,7 +860,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how execute updates full during execution.",
+            "caption": "Examine the milestone value produced for verification processing.",
             "values": {
               "gates": {
                 "var": "gates",
@@ -850,7 +930,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how sign updates milestone during execution.",
+            "caption": "Inspect milestone updates as gates tracks verification state.",
             "values": {
               "gates": "{}",
               "bal": "200",
@@ -910,7 +990,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how execute updates full during execution.",
+            "caption": "Examine the milestone value produced for verification processing.",
             "values": {
               "gates": "{'2pc_presumed_abort': True, 'outbox_at…",
               "bal": "200",

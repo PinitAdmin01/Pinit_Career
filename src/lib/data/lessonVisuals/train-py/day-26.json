@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "peft": {
-                "var": "peft",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "params": "data",
               "full": "data",
               "trainable": "data",
-              "peft": "data"
+              "peft": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "params": "7000000000",
               "full": "112",
               "trainable": "35000000",
-              "peft": "14.56"
+              "peft": ""
             },
             "tones": {
               "params": "data",
               "full": "data",
               "trainable": "data",
-              "peft": "data"
+              "peft": "idle"
             },
             "arrows": [
               [
@@ -311,6 +309,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Instead of learning a full d_in d_out update, it learns two thin matrices.",
+            "activeActor": "d_in",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "d_in",
+                "label": {
+                  "var": "layers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "d_in",
@@ -325,10 +340,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Instead of learning a full d_in d_out update, it learns two thin matrices.",
-            "activeActor": "d_in",
+            "at": "say10",
+            "caption": "Low-rank structure appears throughout mathematics and machine learning.",
+            "activeActor": "d_out",
             "messages": [
+              {
+                "from": "layers",
+                "to": "d_in",
+                "label": {
+                  "var": "layers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "d_in",
+                "to": "d_out",
+                "label": {
+                  "var": "d_in",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "layers",
                 "to": "d_in",
@@ -348,14 +383,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Low-rank structure appears throughout mathematics and machine learning.",
-            "activeActor": "d_out",
-            "messages": [
+              },
               {
                 "from": "layers",
                 "to": "d_in",
@@ -398,12 +426,6 @@
                 "to": "d_in",
                 "label": "32",
                 "tone": "data"
-              },
-              {
-                "from": "d_in",
-                "to": "d_out",
-                "label": "4096",
-                "tone": "ok"
               }
             ],
             "activeActor": "layers"
@@ -431,6 +453,30 @@
             "at": "say10",
             "caption": "Low-rank structure appears throughout mathematics and machine learning.",
             "messages": [
+              {
+                "from": "layers",
+                "to": "d_in",
+                "label": "32",
+                "tone": "data"
+              },
+              {
+                "from": "d_in",
+                "to": "d_out",
+                "label": "4096",
+                "tone": "ok"
+              },
+              {
+                "from": "layers",
+                "to": "d_in",
+                "label": "32",
+                "tone": "data"
+              },
+              {
+                "from": "d_in",
+                "to": "d_out",
+                "label": "4096",
+                "tone": "ok"
+              },
               {
                 "from": "layers",
                 "to": "d_in",
@@ -475,6 +521,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The scale alpha / r keeps the size of the update roughly independent.",
+            "activeActor": "W",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "W",
@@ -489,10 +552,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The scale alpha / r keeps the size of the update roughly independent.",
-            "activeActor": "W",
+            "at": "say10",
+            "caption": "Examine the lora value produced for forward processing.",
+            "activeActor": "A",
             "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "A",
+                "label": {
+                  "var": "W",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "x",
                 "to": "W",
@@ -512,14 +595,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Understanding the forward pass makes LoRA's settings (rank, alpha, target.",
-            "activeActor": "A",
-            "messages": [
+              },
               {
                 "from": "x",
                 "to": "W",
@@ -562,12 +638,6 @@
                 "to": "W",
                 "label": "[1, 2]",
                 "tone": "data"
-              },
-              {
-                "from": "W",
-                "to": "A",
-                "label": "[[1, 0], [0, 1]]",
-                "tone": "ok"
               }
             ],
             "activeActor": "x"
@@ -593,8 +663,32 @@
           },
           {
             "at": "say10",
-            "caption": "Understanding the forward pass makes LoRA's settings (rank, alpha, target.",
+            "caption": "Examine the lora value produced for forward processing.",
             "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2]",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "A",
+                "label": "[[1, 0], [0, 1]]",
+                "tone": "ok"
+              },
+              {
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2]",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "A",
+                "label": "[[1, 0], [0, 1]]",
+                "tone": "ok"
+              },
               {
                 "from": "x",
                 "to": "W",
@@ -664,7 +758,7 @@
           },
           {
             "at": "say2",
-            "caption": "The merged layer produces exactly the same outputs as the LoRA layer,.",
+            "caption": "Verify the merged transition driving layer behavior.",
             "bars": [
               {
                 "label": "s",
@@ -780,7 +874,7 @@
           },
           {
             "at": "say2",
-            "caption": "The merged layer produces exactly the same outputs as the LoRA layer,.",
+            "caption": "Verify the merged transition driving layer behavior.",
             "bars": [
               {
                 "label": "s",
@@ -875,7 +969,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how qlora updates model during execution.",
+            "caption": "Verify the qlora transition driving fine behavior.",
             "bars": [
               {
                 "label": "params",
@@ -968,7 +1062,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how qlora updates model during execution.",
+            "caption": "Verify the qlora transition driving fine behavior.",
             "bars": [
               {
                 "label": "params",
@@ -1056,16 +1150,14 @@
                 "hit": 1
               },
               "r": {
-                "var": "r",
-                "line": 1,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "layers": "data",
               "hidden": "data",
               "mlp": "data",
-              "r": "data"
+              "r": "idle"
             },
             "arrows": [
               [
@@ -1084,7 +1176,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "layers": {
                 "var": "layers",
@@ -1130,7 +1222,7 @@
           },
           {
             "at": "say10",
-            "caption": "If merge fails, check that the inner sum runs over the rank dimension of.",
+            "caption": "Examine the merge value produced for fails processing.",
             "values": {
               "layers": {
                 "var": "layers",
@@ -1205,13 +1297,13 @@
               "layers": "32",
               "hidden": "4096",
               "mlp": "11008",
-              "r": "16"
+              "r": ""
             },
             "tones": {
               "layers": "data",
               "hidden": "data",
               "mlp": "data",
-              "r": "data"
+              "r": "idle"
             },
             "arrows": [
               [
@@ -1230,7 +1322,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "layers": "32",
               "hidden": "4096",
@@ -1260,7 +1352,7 @@
           },
           {
             "at": "say10",
-            "caption": "If merge fails, check that the inner sum runs over the rank dimension of.",
+            "caption": "Examine the merge value produced for fails processing.",
             "values": {
               "layers": "32",
               "hidden": "4096",

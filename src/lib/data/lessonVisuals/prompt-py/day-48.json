@@ -7,458 +7,471 @@
   "entries": [
     {
       "partTitle": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents",
-      "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
+      "codeHash": "85762f4888377d7fbbcdc63d221683ebd6e05900ab34df8ecf450125fa2a852c",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "counts",
+            "label": "counts",
+            "tappable": true
+          },
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "strategy",
+            "label": "strategy",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Even the most advanced foundation models generate code that occasionally fails.",
-            "activeActor": "diagnostic_pipeline",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "counts": {
+                "var": "counts",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "text": ""
+              },
+              "strategy": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "counts": "data",
+              "msg": "idle",
+              "strategy": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The anatomy of autonomous code execution failures encompasses distinct.",
-            "activeActor": "repair_metrics",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Agent-generated Python fails along three clean fault boundaries.",
+            "values": {
+              "counts": {
+                "var": "counts",
+                "line": 11,
+                "hit": 2
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "var": "msg",
+                "line": 11,
+                "hit": 2
+              },
+              "strategy": {
+                "var": "strategy",
+                "line": 11,
+                "hit": 2
               }
+            },
+            "tones": {
+              "counts": "data",
+              "msg": "data",
+              "strategy": "data"
+            },
+            "arrows": [
+              [
+                "counts",
+                "msg"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering the anatomy of code execution failures transforms errors.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the syntactic value produced for tokenization processing.",
+            "values": {
+              "counts": {
+                "var": "counts",
+                "line": 10,
+                "hit": 4
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "msg": {
+                "var": "msg",
+                "line": 10,
+                "hit": 4
+              },
+              "strategy": {
+                "var": "strategy",
+                "line": 10,
+                "hit": 4
               }
+            },
+            "tones": {
+              "counts": "ok",
+              "msg": "ok",
+              "strategy": "ok"
+            },
+            "arrows": [
+              [
+                "counts",
+                "msg"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "counts",
+            "label": "counts",
+            "tappable": true
+          },
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "strategy",
+            "label": "strategy",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Even the most advanced foundation models generate code that occasionally fails.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "diagnostic_pipeline"
+            "values": {
+              "counts": "{}",
+              "msg": "",
+              "strategy": ""
+            },
+            "tones": {
+              "counts": "data",
+              "msg": "idle",
+              "strategy": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The anatomy of autonomous code execution failures encompasses distinct.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "repair_metrics"
+            "caption": "Agent-generated Python fails along three clean fault boundaries.",
+            "values": {
+              "counts": "{'SyntaxError': 1, 'NameError': 1}",
+              "msg": "\"NameError: name 'df' is not defined\"",
+              "strategy": "'inject_missing_binding'"
+            },
+            "tones": {
+              "counts": "data",
+              "msg": "data",
+              "strategy": "data"
+            },
+            "arrows": [
+              [
+                "counts",
+                "msg"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering the anatomy of code execution failures transforms errors.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the syntactic value produced for tokenization processing.",
+            "values": {
+              "counts": "{'SyntaxError': 1, 'NameError': 1, 'Key…",
+              "msg": "'ZeroDivisionError: division by zero'",
+              "strategy": "'add_zero_denominator_guard'"
+            },
+            "tones": {
+              "counts": "ok",
+              "msg": "ok",
+              "strategy": "ok"
+            },
+            "arrows": [
+              [
+                "counts",
+                "msg"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Static Analysis And Pre Execution Linting With PyFlakes AST",
-      "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
+      "codeHash": "c31fe52a5b1dabb08479133b5e60a180f12541bf1c81c97e952c34d7ea4d75bb",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Static Analysis And Pre Execution Linting With PyFlakes AST",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "banned_imports",
+            "label": "banned_imports",
+            "tappable": true
+          },
+          {
+            "id": "undefined",
+            "label": "undefined",
+            "tappable": true
+          },
+          {
+            "id": "node",
+            "label": "node",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dispatching every raw, model-generated script directly to an execution.",
-            "activeActor": "diagnostic_pipeline",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect static updates as banned_imports tracks analysis state.",
+            "values": {
+              "banned_imports": {
+                "var": "banned_imports",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "undefined": {
+                "text": ""
+              },
+              "node": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "banned_imports": "data",
+              "undefined": "idle",
+              "node": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Static code analysis and pre execution abstract syntax tree linting catch.",
-            "activeActor": "repair_metrics",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the static transition driving analysis behavior.",
+            "values": {
+              "banned_imports": {
+                "var": "banned_imports",
+                "line": 13,
+                "hit": 6
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "undefined": {
+                "var": "undefined",
+                "line": 13,
+                "hit": 6
+              },
+              "node": {
+                "var": "node",
+                "line": 13,
+                "hit": 6
               }
+            },
+            "tones": {
+              "banned_imports": "data",
+              "undefined": "data",
+              "node": "data"
+            },
+            "arrows": [
+              [
+                "banned_imports",
+                "undefined"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering static analysis and pre-execution AST verification provides.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the abstract value produced for syntax processing.",
+            "values": {
+              "banned_imports": {
+                "var": "banned_imports",
+                "line": 13,
+                "hit": 14
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "undefined": {
+                "var": "undefined",
+                "line": 13,
+                "hit": 14
+              },
+              "node": {
+                "var": "node",
+                "line": 13,
+                "hit": 14
               }
+            },
+            "tones": {
+              "banned_imports": "ok",
+              "undefined": "ok",
+              "node": "ok"
+            },
+            "arrows": [
+              [
+                "banned_imports",
+                "undefined"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Static Analysis And Pre Execution Linting With PyFlakes AST",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "banned_imports",
+            "label": "banned_imports",
+            "tappable": true
+          },
+          {
+            "id": "undefined",
+            "label": "undefined",
+            "tappable": true
+          },
+          {
+            "id": "node",
+            "label": "node",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dispatching every raw, model-generated script directly to an execution.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "diagnostic_pipeline"
+            "caption": "Inspect static updates as banned_imports tracks analysis state.",
+            "values": {
+              "banned_imports": "[]",
+              "undefined": "",
+              "node": ""
+            },
+            "tones": {
+              "banned_imports": "data",
+              "undefined": "idle",
+              "node": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Static code analysis and pre execution abstract syntax tree linting catch.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "repair_metrics"
+            "caption": "Verify the static transition driving analysis behavior.",
+            "values": {
+              "banned_imports": "['os']",
+              "undefined": "[]",
+              "node": "<Return>"
+            },
+            "tones": {
+              "banned_imports": "data",
+              "undefined": "data",
+              "node": "data"
+            },
+            "arrows": [
+              [
+                "banned_imports",
+                "undefined"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering static analysis and pre-execution AST verification provides.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the abstract value produced for syntax processing.",
+            "values": {
+              "banned_imports": "['os']",
+              "undefined": "['bonus_offset']",
+              "node": "<Load>"
+            },
+            "tones": {
+              "banned_imports": "ok",
+              "undefined": "ok",
+              "node": "ok"
+            },
+            "arrows": [
+              [
+                "banned_imports",
+                "undefined"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Traceback Dissection And Forensic Frame Extraction",
-      "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
+      "codeHash": "61db50c2d693fe3704b2d9b7acf8caa48acf0b834388ac5bfde6be39ea6ece9a",
       "spec": {
         "template": "flow",
         "title": "Traceback Dissection And Forensic Frame Extraction",
         "nodes": [
           {
-            "id": "diagnostic_pipeline",
-            "label": "diagnostic_pipeline"
+            "id": "f",
+            "label": "f",
+            "tappable": true
           },
           {
-            "id": "repair_metrics",
-            "label": "repair_metrics"
-          },
-          {
-            "id": "result",
-            "label": "result"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When a script passes static analysis but fails during runtime execution.",
+            "caption": "Inspect traceback updates as f tracks frame state.",
             "values": {
-              "diagnostic_pipeline": {
-                "var": "diagnostic_pipeline",
-                "line": 9,
+              "f": {
+                "var": "f",
+                "line": 10,
                 "hit": 1
               },
-              "repair_metrics": {
-                "var": "repair_metrics",
-                "line": 16,
-                "hit": 1
-              },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "diagnostic_pipeline": "data",
-              "repair_metrics": "data",
-              "result": "data"
+              "f": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "diagnostic_pipeline",
-                "repair_metrics"
-              ],
-              [
-                "repair_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Traceback dissection and forensic frame extraction isolate root cause.",
+            "caption": "Verify the traceback transition driving dissection behavior.",
             "values": {
-              "diagnostic_pipeline": {
-                "var": "diagnostic_pipeline",
-                "line": 17,
-                "hit": 1
+              "f": {
+                "var": "f",
+                "line": 10,
+                "hit": 2
               },
-              "repair_metrics": {
-                "var": "repair_metrics",
-                "line": 23,
-                "hit": 1
-              },
-              "result": {
-                "var": "result",
-                "line": 31,
-                "hit": 1
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "diagnostic_pipeline": "data",
-              "repair_metrics": "data",
-              "result": "data"
+              "f": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "diagnostic_pipeline",
-                "repair_metrics"
-              ],
-              [
-                "repair_metrics",
-                "result"
+                "f",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering traceback dissection transforms obscure runtime crashes.",
+            "at": "say3",
+            "caption": "Examine the frame value produced for python processing.",
             "values": {
-              "diagnostic_pipeline": {
-                "var": "diagnostic_pipeline",
-                "line": 18,
-                "hit": 1
+              "f": {
+                "var": "f",
+                "line": 10,
+                "hit": 3
               },
-              "repair_metrics": {
-                "var": "repair_metrics",
-                "line": 24,
-                "hit": 1
-              },
-              "result": {
-                "var": "result",
-                "line": 31,
-                "hit": 1
+              "out": {
+                "out": 2
               }
             },
             "tones": {
-              "diagnostic_pipeline": "ok",
-              "repair_metrics": "ok",
-              "result": "ok"
+              "f": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "diagnostic_pipeline",
-                "repair_metrics"
-              ],
-              [
-                "repair_metrics",
-                "result"
+                "f",
+                "out"
               ]
             ]
           }
@@ -469,88 +482,63 @@
         "title": "Traceback Dissection And Forensic Frame Extraction",
         "nodes": [
           {
-            "id": "diagnostic_pipeline",
-            "label": "diagnostic_pipeline"
+            "id": "f",
+            "label": "f",
+            "tappable": true
           },
           {
-            "id": "repair_metrics",
-            "label": "repair_metrics"
-          },
-          {
-            "id": "result",
-            "label": "result"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When a script passes static analysis but fails during runtime execution.",
+            "caption": "Inspect traceback updates as f tracks frame state.",
             "values": {
-              "diagnostic_pipeline": "['Syntax & Import Validation with PyFla…",
-              "repair_metrics": "{'selfCorrectionConvergenceRatePct': 97…",
-              "result": "{'remediationEngine': 'AST Traceback Pa…"
+              "f": "'File \"/sandbox/user_script.py\", line 4…",
+              "out": ""
             },
             "tones": {
-              "diagnostic_pipeline": "data",
-              "repair_metrics": "data",
-              "result": "data"
+              "f": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "diagnostic_pipeline",
-                "repair_metrics"
-              ],
-              [
-                "repair_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Traceback dissection and forensic frame extraction isolate root cause.",
+            "caption": "Verify the traceback transition driving dissection behavior.",
             "values": {
-              "diagnostic_pipeline": "['Syntax & Import Validation with PyFla…",
-              "repair_metrics": "{'selfCorrectionConvergenceRatePct': 97…",
-              "result": "{'remediationEngine': 'AST Traceback Pa…"
+              "f": "'return profit / revenue'",
+              "out": "Condensed agent diagnostic:"
             },
             "tones": {
-              "diagnostic_pipeline": "data",
-              "repair_metrics": "data",
-              "result": "data"
+              "f": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "diagnostic_pipeline",
-                "repair_metrics"
-              ],
-              [
-                "repair_metrics",
-                "result"
+                "f",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering traceback dissection transforms obscure runtime crashes.",
+            "at": "say3",
+            "caption": "Examine the frame value produced for python processing.",
             "values": {
-              "diagnostic_pipeline": "['Syntax & Import Validation with PyFla…",
-              "repair_metrics": "{'selfCorrectionConvergenceRatePct': 97…",
-              "result": "{'remediationEngine': 'AST Traceback Pa…"
+              "f": "'ZeroDivisionError: division by zero'",
+              "out": "  File \"/sandbox/user_script.py\", line 4, in calc_margin"
             },
             "tones": {
-              "diagnostic_pipeline": "ok",
-              "repair_metrics": "ok",
-              "result": "ok"
+              "f": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "diagnostic_pipeline",
-                "repair_metrics"
-              ],
-              [
-                "repair_metrics",
-                "result"
+                "f",
+                "out"
               ]
             ]
           }
@@ -559,328 +547,344 @@
     },
     {
       "partTitle": "The Hypothesis Patch Verify Loop And Minimal AST Diffs",
-      "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
+      "codeHash": "5522ea5e67f352e207c3fbd0c63815c0534392fa0833e303eaaec6a97770dea7",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Hypothesis Patch Verify Loop And Minimal AST Diffs",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Once an autonomous agent understands the root cause of an execution.",
-            "activeActor": "diagnostic_pipeline",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "This full-regeneration approach is deeply flawed.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "d": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The Hypothesis Patch Verify loop repairs broken scripts through targeted.",
-            "activeActor": "repair_metrics",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the hypothesis transition driving patch behavior.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 7,
+                "hit": 4
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "d": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering the Hypothesis-Patch-Verify loop elevates autonomous agents.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Before generating a patch, the agent outputs a structured explanation.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 7,
+                "hit": 6
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "d": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Hypothesis Patch Verify Loop And Minimal AST Diffs",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Once an autonomous agent understands the root cause of an execution.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "diagnostic_pipeline"
+            "caption": "This full-regeneration approach is deeply flawed.",
+            "values": {
+              "d": "'--- v1.py'",
+              "out": ""
+            },
+            "tones": {
+              "d": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The Hypothesis Patch Verify loop repairs broken scripts through targeted.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "repair_metrics"
+            "caption": "Verify the hypothesis transition driving patch behavior.",
+            "values": {
+              "d": "' def safe_ratio(num, den):'",
+              "out": "--- v1.py"
+            },
+            "tones": {
+              "d": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering the Hypothesis-Patch-Verify loop elevates autonomous agents.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Before generating a patch, the agent outputs a structured explanation.",
+            "values": {
+              "d": "'     return round(num / den, 4)'",
+              "out": "+++ v2.py"
+            },
+            "tones": {
+              "d": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Production Self Healing Execution Harness In Python",
-      "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
+      "codeHash": "fba1bc92ae583bc6ecf2527002b95ce0db0eff22ddc806df04abd7565a3986d9",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Production Self Healing Execution Harness In Python",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "outcomes",
+            "label": "outcomes",
+            "tappable": true
+          },
+          {
+            "id": "tc",
+            "label": "tc",
+            "tappable": true
+          },
+          {
+            "id": "nums",
+            "label": "nums",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating runtime failure analysis, PyFlakes static linting, traceback.",
-            "activeActor": "diagnostic_pipeline",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as outcomes tracks production state.",
+            "values": {
+              "outcomes": {
+                "var": "outcomes",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "tc": {
+                "text": ""
+              },
+              "nums": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "outcomes": "data",
+              "tc": "idle",
+              "nums": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production self healing execution harnesses automate code.",
-            "activeActor": "repair_metrics",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the enterprise transition driving production behavior.",
+            "values": {
+              "outcomes": {
+                "var": "outcomes",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "tc": {
+                "var": "tc",
+                "line": 10,
+                "hit": 2
+              },
+              "nums": {
+                "text": ""
               }
+            },
+            "tones": {
+              "outcomes": "data",
+              "tc": "data",
+              "nums": "idle"
+            },
+            "arrows": [
+              [
+                "outcomes",
+                "tc"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering the engineering architecture of self-debugging and dynamic error.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": {
-                  "var": "diagnostic_pipeline",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the self value produced for healing processing.",
+            "values": {
+              "outcomes": {
+                "var": "outcomes",
+                "line": 12,
+                "hit": 4
               },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": {
-                  "var": "repair_metrics",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "tc": {
+                "var": "tc",
+                "line": 12,
+                "hit": 4
+              },
+              "nums": {
+                "text": ""
               }
+            },
+            "tones": {
+              "outcomes": "ok",
+              "tc": "ok",
+              "nums": "idle"
+            },
+            "arrows": [
+              [
+                "outcomes",
+                "tc"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Production Self Healing Execution Harness In Python",
-        "actors": [
-          "diagnostic_pipeline",
-          "repair_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "outcomes",
+            "label": "outcomes",
+            "tappable": true
+          },
+          {
+            "id": "tc",
+            "label": "tc",
+            "tappable": true
+          },
+          {
+            "id": "nums",
+            "label": "nums",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating runtime failure analysis, PyFlakes static linting, traceback.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "diagnostic_pipeline"
+            "caption": "Inspect enterprise updates as outcomes tracks production state.",
+            "values": {
+              "outcomes": "[]",
+              "tc": "",
+              "nums": ""
+            },
+            "tones": {
+              "outcomes": "data",
+              "tc": "idle",
+              "nums": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production self healing execution harnesses automate code.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "repair_metrics"
+            "caption": "Verify the enterprise transition driving production behavior.",
+            "values": {
+              "outcomes": "[['OK', 20]]",
+              "tc": "[]",
+              "nums": ""
+            },
+            "tones": {
+              "outcomes": "data",
+              "tc": "data",
+              "nums": "idle"
+            },
+            "arrows": [
+              [
+                "outcomes",
+                "tc"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering the engineering architecture of self-debugging and dynamic error.",
-            "messages": [
-              {
-                "from": "diagnostic_pipeline",
-                "to": "repair_metrics",
-                "label": "['Syntax & Import Validation with PyFla…",
-                "tone": "data"
-              },
-              {
-                "from": "repair_metrics",
-                "to": "result",
-                "label": "{'selfCorrectionConvergenceRatePct': 97…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the self value produced for healing processing.",
+            "values": {
+              "outcomes": "[['OK', 20], ['OK', 0]]",
+              "tc": "[]",
+              "nums": ""
+            },
+            "tones": {
+              "outcomes": "ok",
+              "tc": "ok",
+              "nums": "idle"
+            },
+            "arrows": [
+              [
+                "outcomes",
+                "tc"
+              ]
+            ]
           }
         ]
       }

@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates capstone during execution.",
+            "caption": "Inspect milestone updates as spec tracks capstone state.",
             "values": {
               "spec": {
                 "var": "spec",
@@ -100,7 +100,7 @@
           },
           {
             "at": "say10",
-            "caption": "Review the comprehensive enterprise capstone architectural topology.",
+            "caption": "Examine the milestone value produced for culminates processing.",
             "values": {
               "spec": {
                 "var": "spec",
@@ -156,7 +156,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates capstone during execution.",
+            "caption": "Inspect milestone updates as spec tracks capstone state.",
             "values": {
               "spec": "{'pillar_count': 5, 'pillars': {'EDGE_A…",
               "p_name": "'EDGE_AND_ROUTING'",
@@ -204,7 +204,7 @@
           },
           {
             "at": "say10",
-            "caption": "Review the comprehensive enterprise capstone architectural topology.",
+            "caption": "Examine the milestone value produced for culminates processing.",
             "values": {
               "spec": "{'pillar_count': 5, 'pillars': {'EDGE_A…",
               "p_name": "'POLYGLOT_PERSISTENCE'",
@@ -255,6 +255,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Decoupling transactional counters, relational ledgers, and binary assets.",
+            "activeActor": "engine",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "engine",
@@ -269,10 +286,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Decoupling transactional counters, relational ledgers, and binary assets.",
-            "activeActor": "engine",
+            "at": "say9",
+            "caption": "This unified architecture ensures that every transaction.",
+            "activeActor": "tenant_id",
             "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "tenant_id",
+                "label": {
+                  "var": "engine",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "engine",
@@ -292,14 +329,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "This unified architecture ensures that every transaction.",
-            "activeActor": "tenant_id",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "engine",
@@ -342,12 +372,6 @@
                 "to": "engine",
                 "label": "<CapstoneTransactionEngine>",
                 "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "tenant_id",
-                "label": "<CapstoneTransactionEngine>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -375,6 +399,30 @@
             "at": "say9",
             "caption": "This unified architecture ensures that every transaction.",
             "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<CapstoneTransactionEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "tenant_id",
+                "label": "<CapstoneTransactionEngine>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<CapstoneTransactionEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "tenant_id",
+                "label": "<CapstoneTransactionEngine>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "engine",
@@ -437,7 +485,7 @@
           },
           {
             "at": "say9",
-            "caption": "These combined architectural optimizations allow the platform to sustain.",
+            "caption": "Examine the optimization value produced for edge processing.",
             "currentState": "spot_ratio",
             "transition": {
               "from": "cache_hit_pct",
@@ -489,7 +537,7 @@
           },
           {
             "at": "say9",
-            "caption": "These combined architectural optimizations allow the platform to sustain.",
+            "caption": "Examine the optimization value produced for edge processing.",
             "currentState": "spot_ratio",
             "transition": {
               "from": "cache_hit_pct",
@@ -558,7 +606,7 @@
           },
           {
             "at": "say10",
-            "caption": "Empirical verification proves that the platform maintains complete.",
+            "caption": "Leaving even one tier lagging breaks end-to-end SLA commitments.",
             "bars": [
               {
                 "label": "total_downtime",
@@ -620,7 +668,7 @@
           },
           {
             "at": "say10",
-            "caption": "Empirical verification proves that the platform maintains complete.",
+            "caption": "Leaving even one tier lagging breaks end-to-end SLA commitments.",
             "bars": [
               {
                 "label": "total_downtime",
@@ -641,162 +689,186 @@
       "partTitle": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
       "codeHash": "649515531744aa5b26fa2030b10c8cf1984f7d40cc7d87c0918ff2e082c562e4",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 12 Capstone — Production Telemetry & Verification Audi",
-        "actors": [
-          "gates",
-          ".0",
-          "g"
+        "nodes": [
+          {
+            "id": "g",
+            "label": "g",
+            "tappable": true
+          },
+          {
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
+          },
+          {
+            "id": "g_info",
+            "label": "g_info",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how definitive updates gate during execution.",
-            "activeActor": "gates",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": {
-                  "var": "gates",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect audit updates as g tracks definitive state.",
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 32,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 32,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "g_name": {
+                "text": ""
+              },
+              "g_info": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "g": "data",
+              "g_name": "idle",
+              "g_info": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Continuous observability dashboards provide complete operational.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": {
-                  "var": "gates",
-                  "line": 32,
-                  "hit": 7
-                },
-                "tone": "data"
+            "caption": "Verify the unified transition driving executive behavior.",
+            "values": {
+              "g": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 32,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "g_name": {
+                "var": "g_name",
+                "line": 46,
+                "hit": 1
+              },
+              "g_info": {
+                "var": "g_info",
+                "line": 46,
+                "hit": 1
               }
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "data",
+              "g_info": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Trace how review updates final during execution.",
-            "activeActor": "g",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": {
-                  "var": "gates",
-                  "line": 34,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the capstone value produced for final processing.",
+            "values": {
+              "g": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 32,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "g_name": {
+                "var": "g_name",
+                "line": 46,
+                "hit": 5
+              },
+              "g_info": {
+                "var": "g_info",
+                "line": 46,
+                "hit": 5
               }
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "ok",
+              "g_info": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 12 Capstone — Production Telemetry & Verification Audi",
-        "actors": [
-          "gates",
-          ".0",
-          "g"
+        "nodes": [
+          {
+            "id": "g",
+            "label": "g",
+            "tappable": true
+          },
+          {
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
+          },
+          {
+            "id": "g_info",
+            "label": "g_info",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how definitive updates gate during execution.",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": "{'GATE_1_CELLULAR_EDGE_ROUTING': {'pass…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "gates"
+            "caption": "Inspect audit updates as g tracks definitive state.",
+            "values": {
+              "g": "{'passed': True, 'metric': 'CloudFront …",
+              "g_name": "",
+              "g_info": ""
+            },
+            "tones": {
+              "g": "data",
+              "g_name": "idle",
+              "g_info": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Continuous observability dashboards provide complete operational.",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": "{'GATE_1_CELLULAR_EDGE_ROUTING': {'pass…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the unified transition driving executive behavior.",
+            "values": {
+              "g": "",
+              "g_name": "'GATE_1_CELLULAR_EDGE_ROUTING'",
+              "g_info": "{'passed': True, 'metric': 'CloudFront …"
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "data",
+              "g_info": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Trace how review updates final during execution.",
-            "messages": [
-              {
-                "from": "gates",
-                "to": ".0",
-                "label": "{'GATE_1_CELLULAR_EDGE_ROUTING': {'pass…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "g"
+            "at": "say3",
+            "caption": "Examine the capstone value produced for final processing.",
+            "values": {
+              "g": "",
+              "g_name": "'GATE_5_CHAOS_AND_DISASTER_RECOVERY'",
+              "g_info": "{'passed': True, 'metric': 'Regional RT…"
+            },
+            "tones": {
+              "g": "idle",
+              "g_name": "ok",
+              "g_info": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "g_name"
+              ]
+            ]
           }
         ]
       }

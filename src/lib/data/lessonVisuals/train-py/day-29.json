@@ -532,7 +532,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how hours updates budget during execution.",
+            "caption": "Inspect cost updates as hours tracks hours state.",
             "values": {
               "hours": {
                 "var": "hours",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how failures updates restarts during execution.",
+            "caption": "Verify the failures transition driving restarts behavior.",
             "values": {
               "hours": {
                 "var": "hours",
@@ -597,8 +597,8 @@
               },
               "spot_share": {
                 "var": "spot_share",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -643,8 +643,8 @@
               },
               "spot_share": {
                 "var": "spot_share",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -694,7 +694,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how hours updates budget during execution.",
+            "caption": "Inspect cost updates as hours tracks hours state.",
             "values": {
               "hours": "10000",
               "price": "2",
@@ -724,12 +724,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how failures updates restarts during execution.",
+            "caption": "Verify the failures transition driving restarts behavior.",
             "values": {
               "hours": "10000",
               "price": "2",
               "discount": "60",
-              "spot_share": "0"
+              "spot_share": "100"
             },
             "tones": {
               "hours": "data",
@@ -759,7 +759,7 @@
               "hours": "10000",
               "price": "2",
               "discount": "60",
-              "spot_share": "0"
+              "spot_share": "50"
             },
             "tones": {
               "hours": "ok",
@@ -811,6 +811,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the idle transition driving time behavior.",
+            "activeActor": "hours",
+            "messages": [
+              {
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": {
+                  "var": "cluster_gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "hours",
@@ -825,10 +842,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Idle time comes from fragmentation, jobs waiting for gang scheduling,.",
-            "activeActor": "hours",
+            "at": "say10",
+            "caption": "Both are worth tracking on shared dashboards.",
+            "activeActor": "jobs",
             "messages": [
+              {
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": {
+                  "var": "cluster_gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hours",
+                "to": "jobs",
+                "label": {
+                  "var": "hours",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cluster_gpus",
                 "to": "hours",
@@ -848,14 +885,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Both are worth tracking on shared dashboards.",
-            "activeActor": "jobs",
-            "messages": [
+              },
               {
                 "from": "cluster_gpus",
                 "to": "hours",
@@ -898,19 +928,13 @@
                 "to": "hours",
                 "label": "64",
                 "tone": "data"
-              },
-              {
-                "from": "hours",
-                "to": "jobs",
-                "label": "168",
-                "tone": "ok"
               }
             ],
             "activeActor": "cluster_gpus"
           },
           {
             "at": "say2",
-            "caption": "Idle time comes from fragmentation, jobs waiting for gang scheduling,.",
+            "caption": "Verify the idle transition driving time behavior.",
             "messages": [
               {
                 "from": "cluster_gpus",
@@ -931,6 +955,30 @@
             "at": "say10",
             "caption": "Both are worth tracking on shared dashboards.",
             "messages": [
+              {
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "hours",
+                "to": "jobs",
+                "label": "168",
+                "tone": "ok"
+              },
+              {
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "hours",
+                "to": "jobs",
+                "label": "168",
+                "tone": "ok"
+              },
               {
                 "from": "cluster_gpus",
                 "to": "hours",
@@ -975,6 +1023,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Start from the planned runs.",
+            "activeActor": "work",
+            "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": {
+                  "var": "quarter_hours",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "work",
@@ -989,10 +1054,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Start from the planned runs.",
-            "activeActor": "work",
+            "at": "say10",
+            "caption": "Presenting capacity needs clearly is how engineering teams secure.",
+            "activeActor": "h",
             "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": {
+                  "var": "quarter_hours",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": {
+                  "var": "work",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "quarter_hours",
                 "to": "work",
@@ -1012,14 +1097,7 @@
                   "hit": 5
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Presenting capacity needs clearly is how engineering teams secure.",
-            "activeActor": "h",
-            "messages": [
+              },
               {
                 "from": "quarter_hours",
                 "to": "work",
@@ -1062,12 +1140,6 @@
                 "to": "work",
                 "label": "2184",
                 "tone": "data"
-              },
-              {
-                "from": "work",
-                "to": "h",
-                "label": "[['pretraining run', 250000, 512], ['fi…",
-                "tone": "ok"
               }
             ],
             "activeActor": "quarter_hours"
@@ -1095,6 +1167,30 @@
             "at": "say10",
             "caption": "Presenting capacity needs clearly is how engineering teams secure.",
             "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": "2184",
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": "[['pretraining run', 250000, 512], ['fi…",
+                "tone": "ok"
+              },
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": "2184",
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": "[['pretraining run', 250000, 512], ['fi…",
+                "tone": "ok"
+              },
               {
                 "from": "quarter_hours",
                 "to": "work",
@@ -1139,6 +1235,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the checks transition driving include behavior.",
+            "activeActor": "job",
+            "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": {
+                  "var": "free",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "job",
@@ -1153,10 +1266,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include best fit, a two-node placement, an impossible job and.",
-            "activeActor": "job",
+            "at": "say10",
+            "caption": "Examine the place value produced for chooses processing.",
+            "activeActor": "fits",
             "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": {
+                  "var": "free",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": {
+                  "var": "job",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "free",
                 "to": "job",
@@ -1176,14 +1309,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "If place_job chooses the wrong node, print the candidate nodes and their.",
-            "activeActor": "fits",
-            "messages": [
+              },
               {
                 "from": "free",
                 "to": "job",
@@ -1226,19 +1352,13 @@
                 "to": "job",
                 "label": "[8, 8, 8, 8]",
                 "tone": "data"
-              },
-              {
-                "from": "job",
-                "to": "fits",
-                "label": "3",
-                "tone": "ok"
               }
             ],
             "activeActor": "free"
           },
           {
             "at": "say2",
-            "caption": "The checks include best fit, a two-node placement, an impossible job and.",
+            "caption": "Verify the checks transition driving include behavior.",
             "messages": [
               {
                 "from": "free",
@@ -1257,8 +1377,32 @@
           },
           {
             "at": "say10",
-            "caption": "If place_job chooses the wrong node, print the candidate nodes and their.",
+            "caption": "Examine the place value produced for chooses processing.",
             "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": "[8, 8, 8, 8]",
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": "3",
+                "tone": "ok"
+              },
+              {
+                "from": "free",
+                "to": "job",
+                "label": "[8, 8, 8, 8]",
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": "3",
+                "tone": "ok"
+              },
               {
                 "from": "free",
                 "to": "job",

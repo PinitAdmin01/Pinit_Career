@@ -161,7 +161,7 @@
           },
           {
             "at": "say5",
-            "caption": "The complete implementation below computes distances, tracks early-stop.",
+            "caption": "Examine the relaxation value produced for passes processing.",
             "items": {
               "var": "parent",
               "line": 10,
@@ -219,7 +219,7 @@
           },
           {
             "at": "say5",
-            "caption": "The complete implementation below computes distances, tracks early-stop.",
+            "caption": "Examine the relaxation value produced for passes processing.",
             "items": [
               "-1",
               "0",
@@ -473,7 +473,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how production updates arbitrage during execution.",
+            "caption": "* rate_k > 1.0), whereas shortest-path solvers add edge weights linearly.",
             "items": {
               "var": "currencies",
               "line": 8,
@@ -516,7 +516,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how production updates arbitrage during execution.",
+            "caption": "* rate_k > 1.0), whereas shortest-path solvers add edge weights linearly.",
             "mode": "stack",
             "items": [
               "'USD'",

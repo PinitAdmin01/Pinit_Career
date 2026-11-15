@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates represents during execution.",
+            "caption": "Verify milestone behavior across capstone state.",
             "values": {
               "MILESTONE_12_CAPSTONE_PILLARS": {
                 "var": "MILESTONE_12_CAPSTONE_PILLARS",
@@ -100,7 +100,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how milestone updates capstone during execution.",
+            "caption": "Examine the production value produced for integration processing.",
             "values": {
               "MILESTONE_12_CAPSTONE_PILLARS": {
                 "var": "MILESTONE_12_CAPSTONE_PILLARS",
@@ -156,7 +156,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates represents during execution.",
+            "caption": "Verify milestone behavior across capstone state.",
             "values": {
               "MILESTONE_12_CAPSTONE_PILLARS": "{'AI_SECURITY_GUARDRAILS': 'Input promp…",
               "name": "'AI_SECURITY_GUARDRAILS'",
@@ -204,7 +204,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how milestone updates capstone during execution.",
+            "caption": "Examine the production value produced for integration processing.",
             "values": {
               "MILESTONE_12_CAPSTONE_PILLARS": "{'AI_SECURITY_GUARDRAILS': 'Input promp…",
               "name": "'CVSS_SLA_TRIAGE'",
@@ -255,6 +255,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When an incident is reported, the engine evaluates the threat type, target.",
+            "activeActor": "target_host",
+            "messages": [
+              {
+                "from": "threat_type",
+                "to": "target_host",
+                "label": {
+                  "var": "threat_type",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "target_host",
@@ -269,10 +286,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When an incident is reported, the engine evaluates the threat type, target.",
-            "activeActor": "target_host",
+            "at": "say10",
+            "caption": "Examine the core value produced for tier processing.",
+            "activeActor": "user_id",
             "messages": [
+              {
+                "from": "threat_type",
+                "to": "target_host",
+                "label": {
+                  "var": "threat_type",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "target_host",
+                "to": "user_id",
+                "label": {
+                  "var": "target_host",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "threat_type",
                 "to": "target_host",
@@ -292,14 +329,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Real-time SecOps engines evaluate multi-source attack telemetry, executing.",
-            "activeActor": "user_id",
-            "messages": [
+              },
               {
                 "from": "threat_type",
                 "to": "target_host",
@@ -342,12 +372,6 @@
                 "to": "target_host",
                 "label": "'REMOTE_CODE_EXECUTION'",
                 "tone": "data"
-              },
-              {
-                "from": "target_host",
-                "to": "user_id",
-                "label": "'PROD-API-01'",
-                "tone": "ok"
               }
             ],
             "activeActor": "threat_type"
@@ -373,8 +397,32 @@
           },
           {
             "at": "say10",
-            "caption": "Real-time SecOps engines evaluate multi-source attack telemetry, executing.",
+            "caption": "Examine the core value produced for tier processing.",
             "messages": [
+              {
+                "from": "threat_type",
+                "to": "target_host",
+                "label": "'REMOTE_CODE_EXECUTION'",
+                "tone": "data"
+              },
+              {
+                "from": "target_host",
+                "to": "user_id",
+                "label": "'PROD-API-01'",
+                "tone": "ok"
+              },
+              {
+                "from": "threat_type",
+                "to": "target_host",
+                "label": "'REMOTE_CODE_EXECUTION'",
+                "tone": "data"
+              },
+              {
+                "from": "target_host",
+                "to": "user_id",
+                "label": "'PROD-API-01'",
+                "tone": "ok"
+              },
               {
                 "from": "threat_type",
                 "to": "target_host",
@@ -437,7 +485,7 @@
           },
           {
             "at": "say10",
-            "caption": "End-to-end incident pipelines coordinate cryptographic evidence.",
+            "caption": "Examine the pipeline value produced for engineering processing.",
             "currentState": "severity_score",
             "transition": {
               "from": "raw_log_data",
@@ -489,7 +537,7 @@
           },
           {
             "at": "say10",
-            "caption": "End-to-end incident pipelines coordinate cryptographic evidence.",
+            "caption": "Examine the pipeline value produced for engineering processing.",
             "currentState": "severity_score",
             "transition": {
               "from": "raw_log_data",
@@ -545,7 +593,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous zero-trust policy enforcement asserts authentication.",
+            "caption": "Handling stale posture signals cleanly demands fail-closed semantics.",
             "currentState": "is_device_healthy",
             "transition": {
               "from": "is_mfa_verified",
@@ -597,7 +645,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous zero-trust policy enforcement asserts authentication.",
+            "caption": "Handling stale posture signals cleanly demands fail-closed semantics.",
             "currentState": "is_device_healthy",
             "transition": {
               "from": "is_mfa_verified",

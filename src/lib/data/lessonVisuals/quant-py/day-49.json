@@ -270,16 +270,14 @@
                 "hit": 1
               },
               "mean_r": {
-                "var": "mean_r",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "ret_series": "data",
               "returns": "data",
               "n": "data",
-              "mean_r": "data"
+              "mean_r": "idle"
             },
             "arrows": [
               [
@@ -419,13 +417,13 @@
               "ret_series": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
               "returns": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
               "n": "10",
-              "mean_r": "-0.0036000000000000003"
+              "mean_r": ""
             },
             "tones": {
               "ret_series": "data",
               "returns": "data",
               "n": "data",
-              "mean_r": "data"
+              "mean_r": "idle"
             },
             "arrows": [
               [
@@ -519,8 +517,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise risk management platforms evaluate Cornish-Fisher VaR across.",
+            "caption": "Observe how risk shapes enterprise during this step.",
             "activeActor": "stats",
+            "messages": [
+              {
+                "from": "stats",
+                "to": "returns",
+                "label": {
+                  "var": "stats",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Computing high-order powers and moments sequentially across multi-year.",
+            "activeActor": "returns",
             "messages": [
               {
                 "from": "stats",
@@ -545,10 +560,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Computing high-order powers and moments sequentially across multi-year.",
-            "activeActor": "returns",
+            "at": "say10",
+            "caption": "Deterministic optimization ensures that enterprise risk reports finish.",
+            "activeActor": "r",
             "messages": [
+              {
+                "from": "stats",
+                "to": "returns",
+                "label": {
+                  "var": "stats",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "returns",
+                "to": "r",
+                "label": {
+                  "var": "returns",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "stats",
                 "to": "returns",
@@ -568,14 +603,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Deterministic optimization ensures that enterprise risk reports finish.",
-            "activeActor": "r",
-            "messages": [
+              },
               {
                 "from": "stats",
                 "to": "returns",
@@ -611,19 +639,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise risk management platforms evaluate Cornish-Fisher VaR across.",
+            "caption": "Observe how risk shapes enterprise during this step.",
             "messages": [
               {
                 "from": "stats",
                 "to": "returns",
                 "label": "{'n': 0, 'mean': 0, 'm2': 0, 'm3': 0, '…",
                 "tone": "data"
-              },
-              {
-                "from": "returns",
-                "to": "r",
-                "label": "[0.01, -0.02, 0.015, -0.04, 0.005]",
-                "tone": "ok"
               }
             ],
             "activeActor": "stats"
@@ -651,6 +673,30 @@
             "at": "say10",
             "caption": "Deterministic optimization ensures that enterprise risk reports finish.",
             "messages": [
+              {
+                "from": "stats",
+                "to": "returns",
+                "label": "{'n': 0, 'mean': 0, 'm2': 0, 'm3': 0, '…",
+                "tone": "data"
+              },
+              {
+                "from": "returns",
+                "to": "r",
+                "label": "[0.01, -0.02, 0.015, -0.04, 0.005]",
+                "tone": "ok"
+              },
+              {
+                "from": "stats",
+                "to": "returns",
+                "label": "{'n': 0, 'mean': 0, 'm2': 0, 'm3': 0, '…",
+                "tone": "data"
+              },
+              {
+                "from": "returns",
+                "to": "r",
+                "label": "[0.01, -0.02, 0.015, -0.04, 0.005]",
+                "tone": "ok"
+              },
               {
                 "from": "stats",
                 "to": "returns",

@@ -154,7 +154,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Memoization keeps the recursive code but stores each answer in a dict (the.",
+            "caption": "Next time, it returns the stored answer immediately.",
             "rows": [
               {
                 "cells": [
@@ -256,7 +256,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Memoization keeps the recursive code but stores each answer in a dict (the.",
+            "caption": "Next time, it returns the stored answer immediately.",
             "rows": [
               {
                 "cells": [
@@ -330,7 +330,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Tabulation fills a table from the smallest subproblems upwards, with.",
+            "caption": "dp[i] holds the answer for size i.",
             "rows": [
               {
                 "cells": [
@@ -374,7 +374,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Tabulation fills a table from the smallest subproblems upwards, with.",
+            "caption": "dp[i] holds the answer for size i.",
             "rows": [
               {
                 "cells": [

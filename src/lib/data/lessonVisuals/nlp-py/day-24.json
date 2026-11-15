@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how same updates idea during execution.",
+            "caption": "Verify the idea transition driving bigram behavior.",
             "items": {
               "var": "tokens",
               "line": 4,
@@ -86,7 +86,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how same updates idea during execution.",
+            "caption": "Verify the idea transition driving bigram behavior.",
             "items": [
               "'<s>'",
               "'the'",

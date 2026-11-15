@@ -221,10 +221,143 @@
       "partTitle": "Primary keys: one unique id for every row",
       "codeHash": "2a26a48c43439d71f117b4230d930441eecc9a69f8c33795db9ba9b7b5f595a2",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Primary keys: one unique id for every row",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Two students can have the same name.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE students (roll_no int PRIMARY KEY, "
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A primary key has two rules.",
+            "values": {
+              "query": {
+                "text": "SELECT * FROM students;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "error": true
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Primary keys: one unique id for every row",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Two students can have the same name.",
+            "values": {
+              "query": "CREATE TABLE students (roll_no int PRIMARY KEY, ",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A primary key has two rules.",
+            "values": {
+              "query": "SELECT * FROM students;",
+              "db": "PostgreSQL",
+              "res": "duplicate key value violates unique constraint \"students_pkey\""
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "SELECT and FROM: reading data",
@@ -332,10 +465,145 @@
       "partTitle": "The rules of writing SQL",
       "codeHash": "a29821faca5b3e7a6b4f286a0120d43aaefefd0dcff98976c4e7d833ccea6de1",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "The rules of writing SQL",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "SQL has a few simple writing rules.",
+            "values": {
+              "query": {
+                "text": "select 'Hello from PostgreSQL' AS greeting, 5 + "
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Second, text values go inside single quotes, like 'Pune'.",
+            "values": {
+              "query": {
+                "text": "2026 AS year;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "city"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "The rules of writing SQL",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "SQL has a few simple writing rules.",
+            "values": {
+              "query": "select 'Hello from PostgreSQL' AS greeting, 5 + ",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Second, text values go inside single quotes, like 'Pune'.",
+            "values": {
+              "query": "2026 AS year;",
+              "db": "PostgreSQL",
+              "res": "Pune"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a first look at the shop",

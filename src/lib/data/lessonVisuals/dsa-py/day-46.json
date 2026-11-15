@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Scheduling non-overlapping jobs or meeting reservations on a.",
+            "caption": "Suppose each unweighted meeting runs [start, end).",
             "items": {
               "var": "x",
               "line": 4,
@@ -68,7 +68,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Scheduling non-overlapping jobs or meeting reservations on a.",
+            "caption": "Suppose each unweighted meeting runs [start, end).",
             "items": [
               "1",
               "6"
@@ -609,7 +609,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect and execute the complete `CapacitySweepEngine` report below across.",
+            "caption": "Examine the peak value produced for billing processing.",
             "items": {
               "var": "x",
               "line": 38,
@@ -663,7 +663,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect and execute the complete `CapacitySweepEngine` report below across.",
+            "caption": "Examine the peak value produced for billing processing.",
             "items": [
               "'etl-b'",
               "1700000100",

@@ -599,7 +599,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how route updates health during execution.",
+            "caption": "Verify the region transition driving route behavior.",
             "bars": [
               {
                 "label": "moved",
@@ -692,7 +692,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how route updates health during execution.",
+            "caption": "Verify the region transition driving route behavior.",
             "bars": [
               {
                 "label": "moved",
@@ -761,6 +761,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The AWS Well-Architected Framework groups the questions into six pillars.",
+            "activeActor": "score",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "score",
@@ -775,10 +792,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The AWS Well-Architected Framework groups the questions into six pillars.",
-            "activeActor": "score",
+            "at": "say7",
+            "caption": "The example runs an audit on a nearly ready platform.",
+            "activeActor": "flags",
             "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": {
+                  "var": "score",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "score",
@@ -798,14 +835,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example runs an audit on a nearly ready platform.",
-            "activeActor": "flags",
-            "messages": [
+              },
               {
                 "from": "checks",
                 "to": "score",
@@ -848,12 +878,6 @@
                 "to": "score",
                 "label": "{'multi_region_failover_tested': True, …",
                 "tone": "data"
-              },
-              {
-                "from": "score",
-                "to": "flags",
-                "label": "84",
-                "tone": "ok"
               }
             ],
             "activeActor": "checks"
@@ -881,6 +905,30 @@
             "at": "say7",
             "caption": "The example runs an audit on a nearly ready platform.",
             "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": "{'multi_region_failover_tested': True, …",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": "84",
+                "tone": "ok"
+              },
+              {
+                "from": "checks",
+                "to": "score",
+                "label": "{'multi_region_failover_tested': True, …",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": "84",
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "score",

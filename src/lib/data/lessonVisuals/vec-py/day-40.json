@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 8 — Foundations & Mathematical Invariants",
+      "partTitle": "High-Speed Binary Hamming Candidate Pruning in Stage One",
       "codeHash": "c88a58f9f4341b473a6de11fb900264369154f9ee4c1436a9e4962a08440410b",
       "spec": {
         "template": "flow",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "candidates": {
-                "var": "candidates",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "cands": "data",
               "q_b": "data",
               "query_bits": "data",
-              "candidates": "data"
+              "candidates": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "cands": "[{'id': 1, 'bits': [1, 0, 1, 0]}, {'id'…",
               "q_b": "[1, 0, 1, 0]",
               "query_bits": "[1, 0, 1, 0]",
-              "candidates": "[{'id': 1, 'bits': [1, 0, 1, 0]}, {'id'…"
+              "candidates": ""
             },
             "tones": {
               "cands": "data",
               "q_b": "data",
               "query_bits": "data",
-              "candidates": "data"
+              "candidates": "idle"
             },
             "arrows": [
               [
@@ -286,7 +284,7 @@
       }
     },
     {
-      "partTitle": "Milestone 8 — Core Algorithm & State Representation",
+      "partTitle": "Refining Binary Survivors with Subvector ADC Tables",
       "codeHash": "09b23d8a753ce287da863f4b0ef4200f67dcaef405c7b9144ffadf16e05db7c9",
       "spec": {
         "template": "bars",
@@ -378,7 +376,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the passing value produced for precomputed processing.",
             "bars": [
               {
                 "label": "doc_id",
@@ -478,7 +476,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the passing value produced for precomputed processing.",
             "bars": [
               {
                 "label": "doc_id",
@@ -506,7 +504,7 @@
       }
     },
     {
-      "partTitle": "Milestone 8 — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Executing the Combined Binary-ADC Milestone 8 Search Kernel",
       "codeHash": "b90023d2ce5e0c8ccac70a39dc2d60583726ab31721512e1e002246e1e3d8d7d",
       "spec": {
         "template": "bars",
@@ -598,7 +596,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the binary value produced for benchmarking processing.",
             "bars": [
               {
                 "label": "a",
@@ -698,7 +696,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the binary value produced for benchmarking processing.",
             "bars": [
               {
                 "label": "a",
@@ -726,7 +724,7 @@
       }
     },
     {
-      "partTitle": "Milestone 8 — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Bitwise Packing into 64-Bit Words for Hardware Efficiency",
       "codeHash": "f8dcc3e3d3a22c19342a69a023323f0f31f1394eb7950bfce7916fcde44b6745",
       "spec": {
         "template": "bars",
@@ -818,7 +816,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the checking value produced for empty processing.",
             "bars": [
               {
                 "label": "val",
@@ -918,7 +916,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the checking value produced for empty processing.",
             "bars": [
               {
                 "label": "val",
@@ -946,33 +944,32 @@
       }
     },
     {
-      "partTitle": "Milestone 8 — Production Telemetry & Verification Audit",
-      "codeHash": "ee3eb25e000030184256aab182a459039a5f2ac4259954b29f8295c83b66f479",
+      "partTitle": "Throughput & Mean Query Latency Verification at 20K QPS",
+      "codeHash": "787d63e7868df346af52cd8158c1ae0fe738384dd7651f8646c73b91c9a8e9a8",
       "spec": {
         "template": "flow",
-        "title": "Milestone 8 — Production Telemetry & Verification Audit",
+        "title": "Throughput & Mean Query Latency Verification at 20K QPS",
         "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "elapsed_sec",
-            "label": "elapsed_sec"
+            "label": "elapsed_sec",
+            "tappable": true
           },
           {
             "id": "qps",
-            "label": "qps"
-          },
-          {
-            "id": "avg_latency_ms",
-            "label": "avg_latency_ms"
+            "label": "qps",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real-time operational telemetry verifies query throughput, QPS saturation.",
+            "caption": "Inspect throughput updates as total_queries tracks query state.",
             "values": {
               "total_queries": {
                 "var": "total_queries",
@@ -985,58 +982,32 @@
                 "hit": 1
               },
               "qps": {
-                "var": "qps",
-                "line": 2,
-                "hit": 1
-              },
-              "avg_latency_ms": {
-                "var": "avg_latency_ms",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_queries": "data",
               "elapsed_sec": "data",
-              "qps": "data",
-              "avg_latency_ms": "data"
+              "qps": "idle"
             },
-            "arrows": [
-              [
-                "total_queries",
-                "elapsed_sec"
-              ],
-              [
-                "elapsed_sec",
-                "qps"
-              ],
-              [
-                "qps",
-                "avg_latency_ms"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Our audit_m8_throughput function calculates queries per second and average.",
+            "caption": "Verify the throughput transition driving latency behavior.",
             "values": {
               "total_queries": {
                 "var": "total_queries",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
               "elapsed_sec": {
                 "var": "elapsed_sec",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
               "qps": {
                 "var": "qps",
-                "line": 3,
-                "hit": 1
-              },
-              "avg_latency_ms": {
-                "var": "avg_latency_ms",
                 "line": 4,
                 "hit": 1
               }
@@ -1044,67 +1015,44 @@
             "tones": {
               "total_queries": "data",
               "elapsed_sec": "data",
-              "qps": "data",
-              "avg_latency_ms": "data"
+              "qps": "data"
             },
             "arrows": [
               [
                 "total_queries",
                 "elapsed_sec"
-              ],
-              [
-                "elapsed_sec",
-                "qps"
-              ],
-              [
-                "qps",
-                "avg_latency_ms"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the throughput value produced for processing processing.",
             "values": {
               "total_queries": {
                 "var": "total_queries",
-                "line": 4,
+                "line": 5,
                 "hit": 1
               },
               "elapsed_sec": {
                 "var": "elapsed_sec",
-                "line": 4,
+                "line": 5,
                 "hit": 1
               },
               "qps": {
                 "var": "qps",
-                "line": 4,
-                "hit": 1
-              },
-              "avg_latency_ms": {
-                "var": "avg_latency_ms",
-                "line": 4,
+                "line": 5,
                 "hit": 1
               }
             },
             "tones": {
               "total_queries": "ok",
               "elapsed_sec": "ok",
-              "qps": "ok",
-              "avg_latency_ms": "ok"
+              "qps": "ok"
             },
             "arrows": [
               [
                 "total_queries",
                 "elapsed_sec"
-              ],
-              [
-                "elapsed_sec",
-                "qps"
-              ],
-              [
-                "qps",
-                "avg_latency_ms"
               ]
             ]
           }
@@ -1112,113 +1060,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone 8 — Production Telemetry & Verification Audit",
+        "title": "Throughput & Mean Query Latency Verification at 20K QPS",
         "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "elapsed_sec",
-            "label": "elapsed_sec"
+            "label": "elapsed_sec",
+            "tappable": true
           },
           {
             "id": "qps",
-            "label": "qps"
-          },
-          {
-            "id": "avg_latency_ms",
-            "label": "avg_latency_ms"
+            "label": "qps",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real-time operational telemetry verifies query throughput, QPS saturation.",
+            "caption": "Inspect throughput updates as total_queries tracks query state.",
             "values": {
               "total_queries": "50000",
               "elapsed_sec": "2.5",
-              "qps": "20000",
-              "avg_latency_ms": "0.05"
+              "qps": ""
             },
             "tones": {
               "total_queries": "data",
               "elapsed_sec": "data",
-              "qps": "data",
-              "avg_latency_ms": "data"
+              "qps": "idle"
             },
-            "arrows": [
-              [
-                "total_queries",
-                "elapsed_sec"
-              ],
-              [
-                "elapsed_sec",
-                "qps"
-              ],
-              [
-                "qps",
-                "avg_latency_ms"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Our audit_m8_throughput function calculates queries per second and average.",
+            "caption": "Verify the throughput transition driving latency behavior.",
             "values": {
               "total_queries": "50000",
               "elapsed_sec": "2.5",
-              "qps": "20000",
-              "avg_latency_ms": "0.05"
+              "qps": "20000"
             },
             "tones": {
               "total_queries": "data",
               "elapsed_sec": "data",
-              "qps": "data",
-              "avg_latency_ms": "data"
+              "qps": "data"
             },
             "arrows": [
               [
                 "total_queries",
                 "elapsed_sec"
-              ],
-              [
-                "elapsed_sec",
-                "qps"
-              ],
-              [
-                "qps",
-                "avg_latency_ms"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the throughput value produced for processing processing.",
             "values": {
               "total_queries": "50000",
               "elapsed_sec": "2.5",
-              "qps": "20000",
-              "avg_latency_ms": "0.05"
+              "qps": "20000"
             },
             "tones": {
               "total_queries": "ok",
               "elapsed_sec": "ok",
-              "qps": "ok",
-              "avg_latency_ms": "ok"
+              "qps": "ok"
             },
             "arrows": [
               [
                 "total_queries",
                 "elapsed_sec"
-              ],
-              [
-                "elapsed_sec",
-                "qps"
-              ],
-              [
-                "qps",
-                "avg_latency_ms"
               ]
             ]
           }

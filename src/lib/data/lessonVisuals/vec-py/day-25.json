@@ -87,18 +87,18 @@
               },
               "doc": {
                 "var": "doc",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "updated": {
                 "var": "updated",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "indexed": {
                 "var": "indexed",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -133,18 +133,18 @@
               },
               "doc": {
                 "var": "doc",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "updated": {
                 "var": "updated",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "indexed": {
                 "var": "indexed",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -227,9 +227,9 @@
             "caption": "The index must follow.",
             "values": {
               "docs": "[['p1', '2026-09-01', '2026-09-02'], ['…",
-              "doc": "'p1'",
-              "updated": "'2026-09-01'",
-              "indexed": "'2026-09-02'"
+              "doc": "'p2'",
+              "updated": "'2026-09-20'",
+              "indexed": "None"
             },
             "tones": {
               "docs": "data",
@@ -257,8 +257,8 @@
             "caption": "Users notice stale answers quickly, so freshness problems damage trust.",
             "values": {
               "docs": "[['p1', '2026-09-01', '2026-09-02'], ['…",
-              "doc": "'p1'",
-              "updated": "'2026-09-01'",
+              "doc": "'p3'",
+              "updated": "'2026-09-05'",
               "indexed": "'2026-09-02'"
             },
             "tones": {
@@ -310,7 +310,7 @@
           },
           {
             "at": "say2",
-            "caption": "Even models with the same number of dimensions are incompatible, because.",
+            "caption": "Even models with the same number of dimensions are incompatible.",
             "items": {
               "var": "a",
               "line": 3,
@@ -364,7 +364,7 @@
           },
           {
             "at": "say2",
-            "caption": "Even models with the same number of dimensions are incompatible, because.",
+            "caption": "Even models with the same number of dimensions are incompatible.",
             "items": [
               "0.1",
               "0.7",
@@ -722,16 +722,14 @@
                 "hit": 1
               },
               "price_per_million": {
-                "var": "price_per_million",
-                "line": 1,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "chunks": "data",
               "per_second": "data",
               "workers": "data",
-              "price_per_million": "data"
+              "price_per_million": "idle"
             },
             "arrows": [
               [
@@ -796,7 +794,7 @@
           },
           {
             "at": "say11",
-            "caption": "Teams that migrate regularly tend to have scripts for each step,.",
+            "caption": "Teams that migrate regularly tend to have scripts for each step.",
             "values": {
               "chunks": {
                 "var": "chunks",
@@ -871,13 +869,13 @@
               "chunks": "50000000",
               "per_second": "400",
               "workers": "8",
-              "price_per_million": "0.02"
+              "price_per_million": ""
             },
             "tones": {
               "chunks": "data",
               "per_second": "data",
               "workers": "data",
-              "price_per_million": "data"
+              "price_per_million": "idle"
             },
             "arrows": [
               [
@@ -926,7 +924,7 @@
           },
           {
             "at": "say11",
-            "caption": "Teams that migrate regularly tend to have scripts for each step,.",
+            "caption": "Teams that migrate regularly tend to have scripts for each step.",
             "values": {
               "chunks": "50000000",
               "per_second": "400",

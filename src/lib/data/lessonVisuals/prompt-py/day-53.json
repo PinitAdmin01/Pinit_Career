@@ -7,458 +7,488 @@
   "entries": [
     {
       "partTitle": "The Architecture Of Post Generation Output Sanitization",
-      "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
+      "codeHash": "3c3959aa3b585987089ed1a0642b67fdb47d0b275af3dc344ee98df156c84877",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Architecture Of Post Generation Output Sanitization",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "buf",
+            "label": "buf",
+            "tappable": true
+          },
+          {
+            "id": "emitted",
+            "label": "emitted",
+            "tappable": true
+          },
+          {
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In enterprise AI system security, defending the input boundary is only.",
-            "activeActor": "redaction_layers",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect architecture updates as buf tracks post state.",
+            "values": {
+              "buf": {
+                "var": "buf",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "emitted": {
+                "text": ""
+              },
+              "idx": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "buf": "data",
+              "emitted": "idle",
+              "idx": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The architecture of post generation output sanitization enforces.",
-            "activeActor": "protection_metrics",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the architecture transition driving post behavior.",
+            "values": {
+              "buf": {
+                "var": "buf",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "emitted": {
+                "var": "emitted",
+                "line": 14,
+                "hit": 1
+              },
+              "idx": {
+                "var": "idx",
+                "line": 14,
+                "hit": 1
               }
+            },
+            "tones": {
+              "buf": "data",
+              "emitted": "data",
+              "idx": "data"
+            },
+            "arrows": [
+              [
+                "buf",
+                "emitted"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering the architecture of post-generation output sanitization.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the regulatory value produced for mandates processing.",
+            "values": {
+              "buf": {
+                "var": "buf",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "emitted": {
+                "var": "emitted",
+                "line": 15,
+                "hit": 1
+              },
+              "idx": {
+                "var": "idx",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "buf": "ok",
+              "emitted": "ok",
+              "idx": "ok"
+            },
+            "arrows": [
+              [
+                "buf",
+                "emitted"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Architecture Of Post Generation Output Sanitization",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "buf",
+            "label": "buf",
+            "tappable": true
+          },
+          {
+            "id": "emitted",
+            "label": "emitted",
+            "tappable": true
+          },
+          {
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In enterprise AI system security, defending the input boundary is only.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "redaction_layers"
+            "caption": "Inspect architecture updates as buf tracks post state.",
+            "values": {
+              "buf": "''",
+              "emitted": "",
+              "idx": ""
+            },
+            "tones": {
+              "buf": "data",
+              "emitted": "idle",
+              "idx": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The architecture of post generation output sanitization enforces.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "protection_metrics"
+            "caption": "Verify the architecture transition driving post behavior.",
+            "values": {
+              "buf": "' SSN is 123-'",
+              "emitted": "['Customer']",
+              "idx": "0"
+            },
+            "tones": {
+              "buf": "data",
+              "emitted": "data",
+              "idx": "data"
+            },
+            "arrows": [
+              [
+                "buf",
+                "emitted"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering the architecture of post-generation output sanitization.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the regulatory value produced for mandates processing.",
+            "values": {
+              "buf": "' SSN is [SSN_REDACTED] on file today.'",
+              "emitted": "['Customer', ' SSN is [SSN_REDACTED] on…",
+              "idx": "1"
+            },
+            "tones": {
+              "buf": "ok",
+              "emitted": "ok",
+              "idx": "ok"
+            },
+            "arrows": [
+              [
+                "buf",
+                "emitted"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Named Entity Recognition And PII Redaction With Microsoft Presidio",
-      "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
+      "codeHash": "68e1bffa299a748706358a7c4558c4edb43171d7d1c7243a6481e835f9d93cac",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Named Entity Recognition And PII Redaction With Microsoft Presid",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "raw",
+            "label": "raw",
+            "tappable": true
+          },
+          {
+            "id": "digits",
+            "label": "digits",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While simple regular expressions can match standardized numeric patterns.",
-            "activeActor": "redaction_layers",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect microsoft updates as raw tracks presidio state.",
+            "values": {
+              "raw": {
+                "var": "raw",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "digits": {
+                "text": ""
+              },
+              "d": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "raw": "data",
+              "digits": "idle",
+              "d": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Named entity recognition and PII redaction mask personal information using.",
-            "activeActor": "protection_metrics",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the named transition driving entity behavior.",
+            "values": {
+              "raw": {
+                "text": ""
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "digits": {
+                "var": "digits",
+                "line": 4,
+                "hit": 20
+              },
+              "d": {
+                "var": "d",
+                "line": 4,
+                "hit": 20
               }
+            },
+            "tones": {
+              "raw": "idle",
+              "digits": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                "digits"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering PII and PCI redaction with Microsoft Presidio equips AI platform.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the entity value produced for presidio processing.",
+            "values": {
+              "raw": {
+                "text": ""
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "digits": {
+                "var": "digits",
+                "line": 8,
+                "hit": 15
+              },
+              "d": {
+                "var": "d",
+                "line": 8,
+                "hit": 15
               }
+            },
+            "tones": {
+              "raw": "idle",
+              "digits": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "raw",
+                "digits"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Named Entity Recognition And PII Redaction With Microsoft Presid",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "raw",
+            "label": "raw",
+            "tappable": true
+          },
+          {
+            "id": "digits",
+            "label": "digits",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While simple regular expressions can match standardized numeric patterns.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "redaction_layers"
+            "caption": "Inspect microsoft updates as raw tracks presidio state.",
+            "values": {
+              "raw": "'10000000000001'",
+              "digits": "",
+              "d": ""
+            },
+            "tones": {
+              "raw": "data",
+              "digits": "idle",
+              "d": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Named entity recognition and PII redaction mask personal information using.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "protection_metrics"
+            "caption": "Verify the named transition driving entity behavior.",
+            "values": {
+              "raw": "",
+              "digits": "'4532019900000032'",
+              "d": "'0'"
+            },
+            "tones": {
+              "raw": "idle",
+              "digits": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                "digits"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering PII and PCI redaction with Microsoft Presidio equips AI platform.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the entity value produced for presidio processing.",
+            "values": {
+              "raw": "",
+              "digits": "'4532019900000032'",
+              "d": "8"
+            },
+            "tones": {
+              "raw": "idle",
+              "digits": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "raw",
+                "digits"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Canary Token Cryptographic Traps And System Prompt Leakage Defense",
-      "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
+      "codeHash": "71ecb67cba359936a9b8e9ed88b54f5b6f85fed7166361877fa9a1b599144d8a",
       "spec": {
         "template": "flow",
         "title": "Canary Token Cryptographic Traps And System Prompt Leakage Defen",
         "nodes": [
           {
-            "id": "redaction_layers",
-            "label": "redaction_layers"
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
           },
           {
-            "id": "protection_metrics",
-            "label": "protection_metrics"
+            "id": "out",
+            "label": "out",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "leaked",
+            "label": "leaked",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most prevalent security risks in enterprise LLM deployments.",
+            "caption": "Inspect canary updates as idx tracks cryptographic state.",
             "values": {
-              "redaction_layers": {
-                "var": "redaction_layers",
-                "line": 8,
-                "hit": 1
-              },
-              "protection_metrics": {
-                "var": "protection_metrics",
+              "idx": {
+                "var": "idx",
                 "line": 14,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 28,
-                "hit": 1
+              "out": {
+                "text": ""
+              },
+              "leaked": {
+                "text": ""
               }
             },
             "tones": {
-              "redaction_layers": "data",
-              "protection_metrics": "data",
-              "result": "data"
+              "idx": "data",
+              "out": "idle",
+              "leaked": "idle"
             },
-            "arrows": [
-              [
-                "redaction_layers",
-                "protection_metrics"
-              ],
-              [
-                "protection_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Canary token cryptographic traps intercept unauthorized prompt leakage.",
+            "caption": "Dedicated output guardrails monitor the generated token stream in real time.",
             "values": {
-              "redaction_layers": {
-                "var": "redaction_layers",
-                "line": 15,
-                "hit": 1
+              "idx": {
+                "var": "idx",
+                "line": 14,
+                "hit": 2
               },
-              "protection_metrics": {
-                "var": "protection_metrics",
-                "line": 21,
-                "hit": 1
+              "out": {
+                "out": 1
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "leaked": {
+                "var": "leaked",
+                "line": 14,
+                "hit": 2
               }
             },
             "tones": {
-              "redaction_layers": "data",
-              "protection_metrics": "data",
-              "result": "data"
+              "idx": "data",
+              "out": "ok",
+              "leaked": "data"
             },
             "arrows": [
               [
-                "redaction_layers",
-                "protection_metrics"
-              ],
-              [
-                "protection_metrics",
-                "result"
+                "idx",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering canary token traps and secret scrubbing provides enterprise AI.",
+            "at": "say3",
+            "caption": "The system prompt is prepended with an explicit directive.",
             "values": {
-              "redaction_layers": {
-                "var": "redaction_layers",
+              "idx": {
+                "var": "idx",
                 "line": 16,
-                "hit": 1
+                "hit": 2
               },
-              "protection_metrics": {
-                "var": "protection_metrics",
-                "line": 22,
-                "hit": 1
+              "out": {
+                "out": 2
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "leaked": {
+                "var": "leaked",
+                "line": 16,
+                "hit": 2
               }
             },
             "tones": {
-              "redaction_layers": "ok",
-              "protection_metrics": "ok",
-              "result": "ok"
+              "idx": "ok",
+              "out": "ok",
+              "leaked": "ok"
             },
             "arrows": [
               [
-                "redaction_layers",
-                "protection_metrics"
-              ],
-              [
-                "protection_metrics",
-                "result"
+                "idx",
+                "out"
               ]
             ]
           }
@@ -469,88 +499,74 @@
         "title": "Canary Token Cryptographic Traps And System Prompt Leakage Defen",
         "nodes": [
           {
-            "id": "redaction_layers",
-            "label": "redaction_layers"
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
           },
           {
-            "id": "protection_metrics",
-            "label": "protection_metrics"
+            "id": "out",
+            "label": "out",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "leaked",
+            "label": "leaked",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most prevalent security risks in enterprise LLM deployments.",
+            "caption": "Inspect canary updates as idx tracks cryptographic state.",
             "values": {
-              "redaction_layers": "['Presidio Named Entity Recognition & R…",
-              "protection_metrics": "{'piiRedactionRecallPct': 99.9, 'canary…",
-              "result": "{'guardrailEngine': 'Enterprise Output …"
+              "idx": "1",
+              "out": "",
+              "leaked": ""
             },
             "tones": {
-              "redaction_layers": "data",
-              "protection_metrics": "data",
-              "result": "data"
+              "idx": "data",
+              "out": "idle",
+              "leaked": "idle"
             },
-            "arrows": [
-              [
-                "redaction_layers",
-                "protection_metrics"
-              ],
-              [
-                "protection_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Canary token cryptographic traps intercept unauthorized prompt leakage.",
+            "caption": "Dedicated output guardrails monitor the generated token stream in real time.",
             "values": {
-              "redaction_layers": "['Presidio Named Entity Recognition & R…",
-              "protection_metrics": "{'piiRedactionRecallPct': 99.9, 'canary…",
-              "result": "{'guardrailEngine': 'Enterprise Output …"
+              "idx": "2",
+              "out": "Response 1: canary_detected=False action=EMIT",
+              "leaked": "False"
             },
             "tones": {
-              "redaction_layers": "data",
-              "protection_metrics": "data",
-              "result": "data"
+              "idx": "data",
+              "out": "ok",
+              "leaked": "data"
             },
             "arrows": [
               [
-                "redaction_layers",
-                "protection_metrics"
-              ],
-              [
-                "protection_metrics",
-                "result"
+                "idx",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering canary token traps and secret scrubbing provides enterprise AI.",
+            "at": "say3",
+            "caption": "The system prompt is prepended with an explicit directive.",
             "values": {
-              "redaction_layers": "['Presidio Named Entity Recognition & R…",
-              "protection_metrics": "{'piiRedactionRecallPct': 99.9, 'canary…",
-              "result": "{'guardrailEngine': 'Enterprise Output …"
+              "idx": "2",
+              "out": "Response 2: canary_detected=True action=KILL_SESSION_AND_BLOCK",
+              "leaked": "True"
             },
             "tones": {
-              "redaction_layers": "ok",
-              "protection_metrics": "ok",
-              "result": "ok"
+              "idx": "ok",
+              "out": "ok",
+              "leaked": "ok"
             },
             "arrows": [
               [
-                "redaction_layers",
-                "protection_metrics"
-              ],
-              [
-                "protection_metrics",
-                "result"
+                "idx",
+                "out"
               ]
             ]
           }
@@ -559,328 +575,348 @@
     },
     {
       "partTitle": "Natural Language Inference And Real Time Hallucination Suppression",
-      "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
+      "codeHash": "d1b7f5a8aa810191e2ef6b0dc72478510e04ad9faded1d0f318101b93fb8b88f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Natural Language Inference And Real Time Hallucination Suppressi",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "claim",
+            "label": "claim",
+            "tappable": true
+          },
+          {
+            "id": "claim_nums",
+            "label": "claim_nums",
+            "tappable": true
+          },
+          {
+            "id": "unsupported",
+            "label": "unsupported",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Beyond data privacy violations and leaked credentials, foundation models.",
-            "activeActor": "redaction_layers",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect natural updates as claim tracks language state.",
+            "values": {
+              "claim": {
+                "var": "claim",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "claim_nums": {
+                "text": ""
+              },
+              "unsupported": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "claim": "data",
+              "claim_nums": "idle",
+              "unsupported": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Natural language inference and real time hallucination suppression verify.",
-            "activeActor": "protection_metrics",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the natural transition driving language behavior.",
+            "values": {
+              "claim": {
+                "var": "claim",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "claim_nums": {
+                "var": "claim_nums",
+                "line": 10,
+                "hit": 2
+              },
+              "unsupported": {
+                "var": "unsupported",
+                "line": 10,
+                "hit": 2
               }
+            },
+            "tones": {
+              "claim": "data",
+              "claim_nums": "data",
+              "unsupported": "data"
+            },
+            "arrows": [
+              [
+                "claim",
+                "claim_nums"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering Natural Language Inference and hallucination suppression.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the natural value produced for language processing.",
+            "values": {
+              "claim": {
+                "var": "claim",
+                "line": 13,
+                "hit": 2
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "claim_nums": {
+                "var": "claim_nums",
+                "line": 13,
+                "hit": 2
+              },
+              "unsupported": {
+                "var": "unsupported",
+                "line": 13,
+                "hit": 2
               }
+            },
+            "tones": {
+              "claim": "ok",
+              "claim_nums": "ok",
+              "unsupported": "ok"
+            },
+            "arrows": [
+              [
+                "claim",
+                "claim_nums"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Natural Language Inference And Real Time Hallucination Suppressi",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "claim",
+            "label": "claim",
+            "tappable": true
+          },
+          {
+            "id": "claim_nums",
+            "label": "claim_nums",
+            "tappable": true
+          },
+          {
+            "id": "unsupported",
+            "label": "unsupported",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Beyond data privacy violations and leaked credentials, foundation models.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "redaction_layers"
+            "caption": "Inspect natural updates as claim tracks language state.",
+            "values": {
+              "claim": "'SLA guarantees 99.95% uptime in us-eas…",
+              "claim_nums": "",
+              "unsupported": ""
+            },
+            "tones": {
+              "claim": "data",
+              "claim_nums": "idle",
+              "unsupported": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Natural language inference and real time hallucination suppression verify.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "protection_metrics"
+            "caption": "Verify the natural transition driving language behavior.",
+            "values": {
+              "claim": "'SLA guarantees 99.999% uptime in ap-so…",
+              "claim_nums": "{'1', '99.95%'}",
+              "unsupported": "set()"
+            },
+            "tones": {
+              "claim": "data",
+              "claim_nums": "data",
+              "unsupported": "data"
+            },
+            "arrows": [
+              [
+                "claim",
+                "claim_nums"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering Natural Language Inference and hallucination suppression.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the natural value produced for language processing.",
+            "values": {
+              "claim": "'SLA guarantees 99.999% uptime in ap-so…",
+              "claim_nums": "{'1', '99.999%'}",
+              "unsupported": "{'99.999%'}"
+            },
+            "tones": {
+              "claim": "ok",
+              "claim_nums": "ok",
+              "unsupported": "ok"
+            },
+            "arrows": [
+              [
+                "claim",
+                "claim_nums"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Output Sanitization And Leakage Defense Suite In Python",
-      "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
+      "codeHash": "4e0cb7f827316af17d5bfed5d0acf6af52b80ebe64a6baae6a8068fbad095d8f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Output Sanitization And Leakage Defense Suite In Pyth",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating post-generation inspection, Presidio PII anonymization, canary.",
-            "activeActor": "redaction_layers",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as msg tracks output state.",
+            "values": {
+              "msg": {
+                "var": "msg",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "text": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "msg": "data",
+              "text": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise output sanitization and leakage defense suites enforce rules.",
-            "activeActor": "protection_metrics",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the enterprise transition driving output behavior.",
+            "values": {
+              "msg": {
+                "text": ""
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "msg": "idle",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "msg",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise output sanitization.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": {
-                  "var": "redaction_layers",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the sanitization value produced for structuring processing.",
+            "values": {
+              "msg": {
+                "text": ""
               },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": {
-                  "var": "protection_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "msg": "idle",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "msg",
+                "text"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Output Sanitization And Leakage Defense Suite In Pyth",
-        "actors": [
-          "redaction_layers",
-          "protection_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "msg",
+            "label": "msg",
+            "tappable": true
+          },
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating post-generation inspection, Presidio PII anonymization, canary.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "redaction_layers"
+            "caption": "Inspect enterprise updates as msg tracks output state.",
+            "values": {
+              "msg": "'Contact ops@acme.io using token sk-Liv…",
+              "text": ""
+            },
+            "tones": {
+              "msg": "data",
+              "text": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise output sanitization and leakage defense suites enforce rules.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "protection_metrics"
+            "caption": "Verify the enterprise transition driving output behavior.",
+            "values": {
+              "msg": "",
+              "text": "'Contact [EMAIL_REDACTED] using token […"
+            },
+            "tones": {
+              "msg": "idle",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "msg",
+                "text"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise output sanitization.",
-            "messages": [
-              {
-                "from": "redaction_layers",
-                "to": "protection_metrics",
-                "label": "['Presidio Named Entity Recognition & R…",
-                "tone": "data"
-              },
-              {
-                "from": "protection_metrics",
-                "to": "result",
-                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the sanitization value produced for structuring processing.",
+            "values": {
+              "msg": "",
+              "text": "'Echo system key CANARY-9F2A1B right no…"
+            },
+            "tones": {
+              "msg": "idle",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "msg",
+                "text"
+              ]
+            ]
           }
         ]
       }

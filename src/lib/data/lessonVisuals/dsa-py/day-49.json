@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "Bit `i` equals `1` if item `i` is inside S and `0` otherwise (`mask & (1.",
+            "caption": "Bit i equals 1 if item i is inside S and 0 otherwise (mask & (1 << i)).",
             "items": {
               "var": "bits",
               "line": 15,
@@ -83,7 +83,7 @@
           },
           {
             "at": "say2",
-            "caption": "Bit `i` equals `1` if item `i` is inside S and `0` otherwise (`mask & (1.",
+            "caption": "Bit i equals 1 if item i is inside S and 0 otherwise (mask & (1 << i)).",
             "items": [
               "0",
               "2"
@@ -376,7 +376,7 @@
           },
           {
             "at": "say5",
-            "caption": "Once every state fills, close the loop back home from `full_mask = (1 <<.",
+            "caption": "Examine the held value produced for karp processing.",
             "items": {
               "var": "rev_path",
               "line": 40,
@@ -428,7 +428,7 @@
           },
           {
             "at": "say5",
-            "caption": "Once every state fills, close the loop back home from `full_mask = (1 <<.",
+            "caption": "Examine the held value produced for karp processing.",
             "items": [
               "1",
               "3"
@@ -469,7 +469,7 @@
           },
           {
             "at": "say2",
-            "caption": "For example, suppose 10 courier packages each have weights `w_i`,.",
+            "caption": "What is the MINIMUM number of delivery vans required to ship ALL items cleanly.",
             "items": {
               "var": "pkg_weights",
               "line": 36,
@@ -511,7 +511,7 @@
           },
           {
             "at": "say2",
-            "caption": "For example, suppose 10 courier packages each have weights `w_i`,.",
+            "caption": "What is the MINIMUM number of delivery vans required to ship ALL items cleanly.",
             "items": [
               "4",
               "8",
@@ -541,7 +541,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how unite updates submask during execution.",
+            "caption": "Observe how drone shapes batch during this step.",
             "items": {
               "var": "weights",
               "line": 73,
@@ -595,7 +595,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how unite updates submask during execution.",
+            "caption": "Observe how drone shapes batch during this step.",
             "items": [
               "5",
               "4",

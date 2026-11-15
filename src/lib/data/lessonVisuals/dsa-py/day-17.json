@@ -62,7 +62,7 @@
           },
           {
             "at": "say5",
-            "caption": "Databases and file systems use search trees like this (usually wider.",
+            "caption": "Examine the search value produced for databases processing.",
             "bars": [
               {
                 "label": "v",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say5",
-            "caption": "Databases and file systems use search trees like this (usually wider.",
+            "caption": "Examine the search value produced for databases processing.",
             "bars": [
               {
                 "label": "v",
@@ -614,7 +614,7 @@
           },
           {
             "at": "say5",
-            "caption": "LCA answers questions like \"what is the closest shared manager of these.",
+            "caption": "Examine the answers value produced for questions processing.",
             "bars": [
               {
                 "label": "val",
@@ -695,7 +695,7 @@
           },
           {
             "at": "say5",
-            "caption": "LCA answers questions like \"what is the closest shared manager of these.",
+            "caption": "Examine the answers value produced for questions processing.",
             "bars": [
               {
                 "label": "val",

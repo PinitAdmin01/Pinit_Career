@@ -537,7 +537,7 @@
               },
               "rebalance_events": {
                 "var": "rebalance_events",
-                "line": 6,
+                "line": 13,
                 "hit": 1
               }
             },
@@ -564,7 +564,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how deterministic updates random during execution.",
+            "caption": "Examine the hedging value produced for deterministic processing.",
             "values": {
               "deltas": {
                 "var": "deltas",
@@ -583,8 +583,8 @@
               },
               "rebalance_events": {
                 "var": "rebalance_events",
-                "line": 7,
-                "hit": 1
+                "line": 13,
+                "hit": 2
               }
             },
             "tones": {
@@ -669,7 +669,7 @@
               "deltas": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
               "delta_series": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
               "band_width": "0.05",
-              "rebalance_events": "0"
+              "rebalance_events": "1"
             },
             "tones": {
               "deltas": "data",
@@ -694,12 +694,12 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how deterministic updates random during execution.",
+            "caption": "Examine the hedging value produced for deterministic processing.",
             "values": {
               "deltas": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
               "delta_series": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
               "band_width": "0.05",
-              "rebalance_events": "0"
+              "rebalance_events": "2"
             },
             "tones": {
               "deltas": "ok",
@@ -751,6 +751,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The most critical options-specific risk is Pin Risk.",
+            "activeActor": "strike",
+            "messages": [
+              {
+                "from": "spot",
+                "to": "strike",
+                "label": {
+                  "var": "spot",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "strike",
@@ -765,10 +782,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The most critical options-specific risk is Pin Risk.",
-            "activeActor": "strike",
+            "at": "say10",
+            "caption": "Automated risk monitoring ensures that dynamic replication strategies.",
+            "activeActor": "time_to_expiry_mins",
             "messages": [
+              {
+                "from": "spot",
+                "to": "strike",
+                "label": {
+                  "var": "spot",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": {
+                  "var": "strike",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "spot",
                 "to": "strike",
@@ -788,14 +825,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Automated risk monitoring ensures that dynamic replication strategies.",
-            "activeActor": "time_to_expiry_mins",
-            "messages": [
+              },
               {
                 "from": "spot",
                 "to": "strike",
@@ -838,12 +868,6 @@
                 "to": "strike",
                 "label": "100",
                 "tone": "data"
-              },
-              {
-                "from": "strike",
-                "to": "time_to_expiry_mins",
-                "label": "100",
-                "tone": "ok"
               }
             ],
             "activeActor": "spot"
@@ -871,6 +895,30 @@
             "at": "say10",
             "caption": "Automated risk monitoring ensures that dynamic replication strategies.",
             "messages": [
+              {
+                "from": "spot",
+                "to": "strike",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": "100",
+                "tone": "ok"
+              },
+              {
+                "from": "spot",
+                "to": "strike",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": "100",
+                "tone": "ok"
+              },
               {
                 "from": "spot",
                 "to": "strike",

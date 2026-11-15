@@ -495,19 +495,323 @@
       "partTitle": "ORMs and query builders",
       "codeHash": "ab4ae41af8fefc15d25af755ed6729396f9c84a1b76ab10d32a91d28a13c2f9d",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "ORMs and query builders",
+        "columns": [
+          "order_id",
+          "customer"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In Python, SQLAlchemy and Django's ORM are popular.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "customer"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "customer"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "An ORM lets you work with tables as classes and rows as objects.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "customer"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "customer"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "customer"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "customer"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "ORMs and query builders",
+        "columns": [
+          "order_id",
+          "customer"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In Python, SQLAlchemy and Django's ORM are popular.",
+            "rows": [
+              {
+                "cells": [
+                  "101",
+                  "Asha"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "102",
+                  "Ravi"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "An ORM lets you work with tables as classes and rows as objects.",
+            "rows": [
+              {
+                "cells": [
+                  "101",
+                  "Asha"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "102",
+                  "Ravi"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "103",
+                  "Asha"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "104",
+                  "Priya"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a safe search feature",
       "codeHash": "f5315b5975ebb97da26d1765e7b931c7e63f37d0b8a770d8d4cb3acb10f28597",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Putting it together: a safe search feature",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us build the database side of a real feature: a search box for customers.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The query uses ILIKE with the parameter joined to percent signs inside the SQL.",
+            "values": {
+              "query": {
+                "text": "EXECUTE search_customers(''' OR ''1''=''1');"
+              },
+              "db": {
+                "text": "SQL"
+              },
+              "res": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Putting it together: a safe search feature",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us build the database side of a real feature: a search box for customers.",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The query uses ILIKE with the parameter joined to percent signs inside the SQL.",
+            "values": {
+              "query": "EXECUTE search_customers(''' OR ''1''=''1');",
+              "db": "SQL",
+              "res": " name"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     }
   ]
 }

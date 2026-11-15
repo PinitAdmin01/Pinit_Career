@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Chaos Engineering, pioneered by Netflix's Chaos Monkey and formalized.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "metrics",
+                "to": "self",
+                "label": {
+                  "var": "metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Chaos Engineering, pioneered by Netflix's Chaos Monkey and formalized.",
-            "activeActor": "self",
+            "at": "say8",
+            "caption": "Hypothesis testing must be empirical and quantitative.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "metrics",
+                "to": "self",
+                "label": {
+                  "var": "metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "metrics",
                 "to": "self",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Hypothesis testing must be empirical and quantitative.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "metrics",
                 "to": "self",
@@ -118,12 +148,6 @@
                 "to": "self",
                 "label": "{'latency_p99': 25, 'error_rate': 0.002}",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "name",
-                "label": "<ChaosExperiment>",
-                "tone": "ok"
               }
             ],
             "activeActor": "metrics"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "Hypothesis testing must be empirical and quantitative.",
             "messages": [
+              {
+                "from": "metrics",
+                "to": "self",
+                "label": "{'latency_p99': 25, 'error_rate': 0.002}",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<ChaosExperiment>",
+                "tone": "ok"
+              },
+              {
+                "from": "metrics",
+                "to": "self",
+                "label": "{'latency_p99': 25, 'error_rate': 0.002}",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<ChaosExperiment>",
+                "tone": "ok"
+              },
               {
                 "from": "metrics",
                 "to": "self",
@@ -195,16 +243,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "nodes",
-                "to": "proxy",
-                "label": {
-                  "var": "nodes",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -218,7 +256,7 @@
                 "to": "nodes",
                 "label": {
                   "var": "self",
-                  "line": 4,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "data"
@@ -228,7 +266,7 @@
                 "to": "proxy",
                 "label": {
                   "var": "nodes",
-                  "line": 4,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -245,7 +283,27 @@
                 "to": "nodes",
                 "label": {
                   "var": "self",
-                  "line": 8,
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "proxy",
+                "label": {
+                  "var": "nodes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "data"
@@ -259,6 +317,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -282,12 +350,6 @@
                 "to": "nodes",
                 "label": "<PartitionFaultProxy>",
                 "tone": "data"
-              },
-              {
-                "from": "nodes",
-                "to": "proxy",
-                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -326,6 +388,24 @@
                 "to": "proxy",
                 "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<PartitionFaultProxy>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "proxy",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<PartitionFaultProxy>",
+                "tone": "data"
               }
             ],
             "activeActor": "proxy"
@@ -747,6 +827,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "During fault injection, telemetry monitors track the exact elapsed time.",
+            "activeActor": "bad_run",
+            "messages": [
+              {
+                "from": "run_data",
+                "to": "bad_run",
+                "label": {
+                  "var": "run_data",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bad_run",
@@ -761,10 +858,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "During fault injection, telemetry monitors track the exact elapsed time.",
-            "activeActor": "bad_run",
+            "at": "say7",
+            "caption": "Teams that practice continuous automated chaos testing demonstrate.",
+            "activeActor": "experiment_run",
             "messages": [
+              {
+                "from": "run_data",
+                "to": "bad_run",
+                "label": {
+                  "var": "run_data",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": {
+                  "var": "bad_run",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "run_data",
                 "to": "bad_run",
@@ -784,14 +901,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Teams that practice continuous automated chaos testing demonstrate.",
-            "activeActor": "experiment_run",
-            "messages": [
+              },
               {
                 "from": "run_data",
                 "to": "bad_run",
@@ -834,12 +944,6 @@
                 "to": "bad_run",
                 "label": "{'mttd_sec': 3, 'mttr_sec': 12, 'sla_mt…",
                 "tone": "data"
-              },
-              {
-                "from": "bad_run",
-                "to": "experiment_run",
-                "label": "{'mttd_sec': 15, 'mttr_sec': 45, 'sla_m…",
-                "tone": "ok"
               }
             ],
             "activeActor": "run_data"
@@ -867,6 +971,30 @@
             "at": "say7",
             "caption": "Teams that practice continuous automated chaos testing demonstrate.",
             "messages": [
+              {
+                "from": "run_data",
+                "to": "bad_run",
+                "label": "{'mttd_sec': 3, 'mttr_sec': 12, 'sla_mt…",
+                "tone": "data"
+              },
+              {
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": "{'mttd_sec': 15, 'mttr_sec': 45, 'sla_m…",
+                "tone": "ok"
+              },
+              {
+                "from": "run_data",
+                "to": "bad_run",
+                "label": "{'mttd_sec': 3, 'mttr_sec': 12, 'sla_mt…",
+                "tone": "data"
+              },
+              {
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": "{'mttd_sec': 15, 'mttr_sec': 45, 'sla_m…",
+                "tone": "ok"
+              },
               {
                 "from": "run_data",
                 "to": "bad_run",

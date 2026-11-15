@@ -24,7 +24,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Inspect milestone updates as pillar tracks synthesizes state.",
             "values": {
               "pillar": {
                 "var": "pillar",
@@ -100,7 +100,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Inspect milestone updates as pillar tracks synthesizes state.",
             "values": {
               "pillar": "'DATA_ENCRYPTION'",
               "desc": "'AES-256-GCM with Ephemeral 32-Byte DEK'"
@@ -182,16 +182,14 @@
                 "hit": 1
               },
               "engine": {
-                "var": "engine",
-                "line": 25,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "kek": "data",
               "self": "data",
               "kek_bytes": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [
@@ -210,7 +208,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sealing updates envelope during execution.",
+            "caption": "Verify the sealing transition driving envelope behavior.",
             "values": {
               "kek": {
                 "var": "kek",
@@ -256,7 +254,7 @@
           },
           {
             "at": "say9",
-            "caption": "Decoupled envelope architectures simplify regulatory compliance audits.",
+            "caption": "Examine the sealing value produced for performance processing.",
             "values": {
               "kek": {
                 "var": "kek",
@@ -328,16 +326,16 @@
             "at": "say1",
             "caption": "The core envelope encryption engine manages the lifecycle of ephemeral.",
             "values": {
-              "kek": "{'__other__': 'bytes'}",
+              "kek": "<bytes>",
               "self": "<EnvelopeEncryptionEngine>",
-              "kek_bytes": "{'__other__': 'bytes'}",
-              "engine": "<EnvelopeEncryptionEngine>"
+              "kek_bytes": "<bytes>",
+              "engine": ""
             },
             "tones": {
               "kek": "data",
               "self": "data",
               "kek_bytes": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [
@@ -356,11 +354,11 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sealing updates envelope during execution.",
+            "caption": "Verify the sealing transition driving envelope behavior.",
             "values": {
-              "kek": "{'__other__': 'bytes'}",
+              "kek": "<bytes>",
               "self": "<EnvelopeEncryptionEngine>",
-              "kek_bytes": "{'__other__': 'bytes'}",
+              "kek_bytes": "<bytes>",
               "engine": "<EnvelopeEncryptionEngine>"
             },
             "tones": {
@@ -386,11 +384,11 @@
           },
           {
             "at": "say9",
-            "caption": "Decoupled envelope architectures simplify regulatory compliance audits.",
+            "caption": "Examine the sealing value produced for performance processing.",
             "values": {
-              "kek": "{'__other__': 'bytes'}",
+              "kek": "<bytes>",
               "self": "<EnvelopeEncryptionEngine>",
-              "kek_bytes": "{'__other__': 'bytes'}",
+              "kek_bytes": "<bytes>",
               "engine": "<EnvelopeEncryptionEngine>"
             },
             "tones": {
@@ -443,6 +441,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Modern garbage-collected runtime environments (like Python or Java) do not.",
+            "activeActor": "byte_array",
+            "messages": [
+              {
+                "from": "sensitive_key",
+                "to": "byte_array",
+                "label": {
+                  "var": "sensitive_key",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "byte_array",
@@ -457,10 +472,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Modern garbage-collected runtime environments (like Python or Java) do not.",
-            "activeActor": "byte_array",
+            "at": "say9",
+            "caption": "Process memory sanitization tools actively scan heap buffers to ensure.",
+            "activeActor": "i",
             "messages": [
+              {
+                "from": "sensitive_key",
+                "to": "byte_array",
+                "label": {
+                  "var": "sensitive_key",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "byte_array",
+                "to": "i",
+                "label": {
+                  "var": "byte_array",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "sensitive_key",
                 "to": "byte_array",
@@ -480,14 +515,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Process memory sanitization tools actively scan heap buffers to ensure.",
-            "activeActor": "i",
-            "messages": [
+              },
               {
                 "from": "sensitive_key",
                 "to": "byte_array",
@@ -528,14 +556,8 @@
               {
                 "from": "sensitive_key",
                 "to": "byte_array",
-                "label": "{'__other__': 'bytearray'}",
+                "label": "<bytearray>",
                 "tone": "data"
-              },
-              {
-                "from": "byte_array",
-                "to": "i",
-                "label": "{'__other__': 'bytearray'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "sensitive_key"
@@ -547,13 +569,13 @@
               {
                 "from": "sensitive_key",
                 "to": "byte_array",
-                "label": "{'__other__': 'bytearray'}",
+                "label": "<bytearray>",
                 "tone": "data"
               },
               {
                 "from": "byte_array",
                 "to": "i",
-                "label": "{'__other__': 'bytearray'}",
+                "label": "<bytearray>",
                 "tone": "ok"
               }
             ],
@@ -566,13 +588,37 @@
               {
                 "from": "sensitive_key",
                 "to": "byte_array",
-                "label": "{'__other__': 'bytearray'}",
+                "label": "<bytearray>",
                 "tone": "data"
               },
               {
                 "from": "byte_array",
                 "to": "i",
-                "label": "{'__other__': 'bytearray'}",
+                "label": "<bytearray>",
+                "tone": "ok"
+              },
+              {
+                "from": "sensitive_key",
+                "to": "byte_array",
+                "label": "<bytearray>",
+                "tone": "data"
+              },
+              {
+                "from": "byte_array",
+                "to": "i",
+                "label": "<bytearray>",
+                "tone": "ok"
+              },
+              {
+                "from": "sensitive_key",
+                "to": "byte_array",
+                "label": "<bytearray>",
+                "tone": "data"
+              },
+              {
+                "from": "byte_array",
+                "to": "i",
+                "label": "<bytearray>",
                 "tone": "ok"
               }
             ],
@@ -671,7 +717,7 @@
             "transition": {
               "from": "t1",
               "to": "t2",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
@@ -682,7 +728,7 @@
             "transition": {
               "from": "t2",
               "to": "tag",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "ok"
           }

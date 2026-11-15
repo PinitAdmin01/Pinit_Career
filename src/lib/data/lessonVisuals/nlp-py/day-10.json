@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Part-of-speech tagging assigns a tag (NOUN, VERB, ADJ.",
+            "caption": "Observe how tagging shapes part during this step.",
             "items": {
               "var": "sentence",
               "line": 3,
@@ -68,7 +68,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Part-of-speech tagging assigns a tag (NOUN, VERB, ADJ.",
+            "caption": "Observe how tagging shapes part during this step.",
             "items": [
               "'time'",
               "'flies'",
@@ -497,16 +497,14 @@
                 "hit": 1
               },
               "emit": {
-                "var": "emit",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "states": "data",
               "start": "data",
               "trans": "data",
-              "emit": "data"
+              "emit": "idle"
             },
             "arrows": [
               [
@@ -525,7 +523,7 @@
           },
           {
             "at": "say2",
-            "caption": "For each tag, probability = start[tag] times emit[tag][first word],.",
+            "caption": "Verify the start transition driving probability behavior.",
             "values": {
               "states": {
                 "var": "states",
@@ -646,13 +644,13 @@
               "states": "['NOUN', 'VERB']",
               "start": "{'NOUN': 0.7, 'VERB': 0.3}",
               "trans": "{'NOUN': {'NOUN': 0.3, 'VERB': 0.7}, 'V…",
-              "emit": "{'NOUN': {'fish': 0.6, 'dogs': 0.3}, 'V…"
+              "emit": ""
             },
             "tones": {
               "states": "data",
               "start": "data",
               "trans": "data",
-              "emit": "data"
+              "emit": "idle"
             },
             "arrows": [
               [
@@ -671,7 +669,7 @@
           },
           {
             "at": "say2",
-            "caption": "For each tag, probability = start[tag] times emit[tag][first word],.",
+            "caption": "Verify the start transition driving probability behavior.",
             "values": {
               "states": "['NOUN', 'VERB']",
               "start": "{'NOUN': 0.7, 'VERB': 0.3}",
@@ -751,7 +749,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how taggers updates reach during execution.",
+            "caption": "Inspect taggers updates as w tracks reach state.",
             "values": {
               "w": {
                 "var": "w",
@@ -845,7 +843,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how taggers updates reach during execution.",
+            "caption": "Inspect taggers updates as w tracks reach state.",
             "values": {
               "w": "'quickly'",
               "word": "'quickly'"

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because it terminates client connections, it also hides your servers'.",
+            "activeActor": "origin_round_trip_ms",
+            "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": {
+                  "var": "edge_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "origin_round_trip_ms",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Because it terminates client connections, it also hides your servers'.",
-            "activeActor": "origin_round_trip_ms",
+            "at": "say7",
+            "caption": "The example compares response times with and without an edge cache hit.",
+            "activeActor": "hit_rate",
             "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": {
+                  "var": "edge_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": {
+                  "var": "origin_round_trip_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "edge_ms",
                 "to": "origin_round_trip_ms",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example compares response times with and without an edge cache hit.",
-            "activeActor": "hit_rate",
-            "messages": [
+              },
               {
                 "from": "edge_ms",
                 "to": "origin_round_trip_ms",
@@ -118,12 +148,6 @@
                 "to": "origin_round_trip_ms",
                 "label": "15",
                 "tone": "data"
-              },
-              {
-                "from": "origin_round_trip_ms",
-                "to": "hit_rate",
-                "label": "220",
-                "tone": "ok"
               }
             ],
             "activeActor": "edge_ms"
@@ -162,6 +186,30 @@
                 "to": "hit_rate",
                 "label": "220",
                 "tone": "ok"
+              },
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": "220",
+                "tone": "ok"
+              },
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": "220",
+                "tone": "ok"
               }
             ],
             "activeActor": "hit_rate"
@@ -183,8 +231,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The origin tells caches what to do with the Cache-Control header,.",
+            "caption": "Observe how cache shapes control during this step.",
             "activeActor": "header",
+            "messages": [
+              {
+                "from": "header",
+                "to": "directives",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Max-age is how many seconds a copy is fresh.",
+            "activeActor": "directives",
             "messages": [
               {
                 "from": "header",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Max-age is how many seconds a copy is fresh.",
-            "activeActor": "directives",
+            "at": "say7",
+            "caption": "The example parses the directives of a header into a dict.",
+            "activeActor": "part",
             "messages": [
+              {
+                "from": "header",
+                "to": "directives",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "directives",
+                "to": "part",
+                "label": {
+                  "var": "directives",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "directives",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example parses the directives of a header into a dict.",
-            "activeActor": "part",
-            "messages": [
+              },
               {
                 "from": "header",
                 "to": "directives",
@@ -275,19 +353,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The origin tells caches what to do with the Cache-Control header,.",
+            "caption": "Observe how cache shapes control during this step.",
             "messages": [
               {
                 "from": "header",
                 "to": "directives",
                 "label": "'public, max-age=60, stale-while-revali…",
                 "tone": "data"
-              },
-              {
-                "from": "directives",
-                "to": "part",
-                "label": "{}",
-                "tone": "ok"
               }
             ],
             "activeActor": "header"
@@ -315,6 +387,30 @@
             "at": "say7",
             "caption": "The example parses the directives of a header into a dict.",
             "messages": [
+              {
+                "from": "header",
+                "to": "directives",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "directives",
+                "to": "part",
+                "label": "{}",
+                "tone": "ok"
+              },
+              {
+                "from": "header",
+                "to": "directives",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "directives",
+                "to": "part",
+                "label": "{}",
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "directives",
@@ -359,6 +455,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If age is at most max-age, the copy is FRESH.",
+            "activeActor": "age",
+            "messages": [
+              {
+                "from": "header",
+                "to": "age",
+                "label": {
+                  "var": "header",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "age",
@@ -373,10 +486,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If age is at most max-age, the copy is FRESH.",
-            "activeActor": "age",
+            "at": "say7",
+            "caption": "The example evaluates one header at several ages.",
+            "activeActor": "cache_control",
             "messages": [
+              {
+                "from": "header",
+                "to": "age",
+                "label": {
+                  "var": "header",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": {
+                  "var": "age",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "age",
@@ -396,14 +529,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example evaluates one header at several ages.",
-            "activeActor": "cache_control",
-            "messages": [
+              },
               {
                 "from": "header",
                 "to": "age",
@@ -446,12 +572,6 @@
                 "to": "age",
                 "label": "'public, max-age=60, stale-while-revali…",
                 "tone": "data"
-              },
-              {
-                "from": "age",
-                "to": "cache_control",
-                "label": "10",
-                "tone": "ok"
               }
             ],
             "activeActor": "header"
@@ -479,6 +599,30 @@
             "at": "say7",
             "caption": "The example evaluates one header at several ages.",
             "messages": [
+              {
+                "from": "header",
+                "to": "age",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": "10",
+                "tone": "ok"
+              },
+              {
+                "from": "header",
+                "to": "age",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": "10",
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "age",
@@ -533,15 +677,13 @@
                 "hit": 1
               },
               "purge": {
-                "var": "purge",
-                "line": 11,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "pages": "data",
               "keys": "data",
-              "purge": "data"
+              "purge": "idle"
             },
             "arrows": [
               [
@@ -652,12 +794,12 @@
             "values": {
               "pages": "{'/product/42': ['product-42', 'categor…",
               "keys": "['category-shoes', 'product-42', 'produ…",
-              "purge": "'product-42'"
+              "purge": ""
             },
             "tones": {
               "pages": "data",
               "keys": "data",
-              "purge": "data"
+              "purge": "idle"
             },
             "arrows": [
               [
@@ -740,7 +882,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Cache static assets (images, CSS, JavaScript) for a long time,.",
+            "caption": "Observe how cache shapes static during this step.",
             "currentState": "kind",
             "tone": "data"
           },
@@ -777,7 +919,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Cache static assets (images, CSS, JavaScript) for a long time,.",
+            "caption": "Observe how cache shapes static during this step.",
             "currentState": "kind",
             "tone": "data"
           },
@@ -821,6 +963,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the origin transition driving cdns behavior.",
+            "activeActor": "origin_fetches",
+            "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": {
+                  "var": "waiting",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "origin_fetches",
@@ -835,10 +994,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "CDNs defend with request collapsing (only one request per object goes.",
-            "activeActor": "origin_fetches",
+            "at": "say7",
+            "caption": "Examine the origin value produced for example processing.",
+            "activeActor": "url",
             "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": {
+                  "var": "waiting",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": {
+                  "var": "origin_fetches",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "waiting",
                 "to": "origin_fetches",
@@ -858,14 +1037,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace how example updates shows during execution.",
-            "activeActor": "url",
-            "messages": [
+              },
               {
                 "from": "waiting",
                 "to": "origin_fetches",
@@ -908,19 +1080,13 @@
                 "to": "origin_fetches",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "origin_fetches",
-                "to": "url",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "waiting"
           },
           {
             "at": "say2",
-            "caption": "CDNs defend with request collapsing (only one request per object goes.",
+            "caption": "Verify the origin transition driving cdns behavior.",
             "messages": [
               {
                 "from": "waiting",
@@ -939,8 +1105,32 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how example updates shows during execution.",
+            "caption": "Examine the origin value produced for example processing.",
             "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "waiting",
                 "to": "origin_fetches",

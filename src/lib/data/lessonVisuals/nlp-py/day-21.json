@@ -355,157 +355,101 @@
         "nodes": [
           {
             "id": "x",
-            "label": "x"
-          },
-          {
-            "id": "eps",
-            "label": "eps"
+            "label": "x",
+            "tappable": true
           },
           {
             "id": "mean",
-            "label": "mean"
+            "label": "mean",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "v",
+            "label": "v",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As vectors pass through many layers, their values can drift to very large.",
+            "caption": "Inspect vectors updates as x tracks pass state.",
             "values": {
               "x": {
                 "var": "x",
                 "line": 8,
                 "hit": 1
               },
-              "eps": {
-                "var": "eps",
-                "line": 4,
-                "hit": 1
-              },
               "mean": {
-                "var": "mean",
-                "line": 4,
-                "hit": 1
+                "text": ""
               },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 1
+              "v": {
+                "text": ""
               }
             },
             "tones": {
               "x": "data",
-              "eps": "data",
-              "mean": "data",
-              ".0": "data"
+              "mean": "idle",
+              "v": "idle"
             },
-            "arrows": [
-              [
-                "x",
-                "eps"
-              ],
-              [
-                "eps",
-                "mean"
-              ],
-              [
-                "mean",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "(x_i - mean) / sqrt(variance + eps).",
+            "caption": "Verify the layer transition driving normalisation behavior.",
             "values": {
               "x": {
-                "var": "x",
-                "line": 4,
-                "hit": 1
-              },
-              "eps": {
-                "var": "eps",
-                "line": 5,
-                "hit": 5
+                "text": ""
               },
               "mean": {
-                "var": "mean",
-                "line": 5,
-                "hit": 5
+                "text": ""
               },
-              ".0": {
-                "var": ".0",
+              "v": {
+                "var": "v",
                 "line": 5,
-                "hit": 2
+                "hit": 6
               }
             },
             "tones": {
-              "x": "data",
-              "eps": "data",
-              "mean": "data",
-              ".0": "data"
+              "x": "idle",
+              "mean": "idle",
+              "v": "data"
             },
             "arrows": [
               [
                 "x",
-                "eps"
-              ],
-              [
-                "eps",
                 "mean"
-              ],
-              [
-                "mean",
-                ".0"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example normalises vectors of different scales and shows they end up.",
+            "at": "say3",
+            "caption": "Examine the small value produced for prevents processing.",
             "values": {
               "x": {
                 "var": "x",
-                "line": 5,
-                "hit": 5
-              },
-              "eps": {
-                "var": "eps",
                 "line": 6,
-                "hit": 1
+                "hit": 9
               },
               "mean": {
                 "var": "mean",
                 "line": 6,
-                "hit": 1
+                "hit": 9
               },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 3
+              "v": {
+                "var": "v",
+                "line": 6,
+                "hit": 9
               }
             },
             "tones": {
               "x": "ok",
-              "eps": "ok",
               "mean": "ok",
-              ".0": "ok"
+              "v": "ok"
             },
             "arrows": [
               [
                 "x",
-                "eps"
-              ],
-              [
-                "eps",
                 "mean"
-              ],
-              [
-                "mean",
-                ".0"
               ]
             ]
           }
@@ -517,109 +461,73 @@
         "nodes": [
           {
             "id": "x",
-            "label": "x"
-          },
-          {
-            "id": "eps",
-            "label": "eps"
+            "label": "x",
+            "tappable": true
           },
           {
             "id": "mean",
-            "label": "mean"
+            "label": "mean",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "v",
+            "label": "v",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As vectors pass through many layers, their values can drift to very large.",
+            "caption": "Inspect vectors updates as x tracks pass state.",
             "values": {
               "x": "[1, 2, 3]",
-              "eps": "0.00001",
-              "mean": "2",
-              ".0": "{'__other__': 'list_iterator'}"
+              "mean": "",
+              "v": ""
             },
             "tones": {
               "x": "data",
-              "eps": "data",
-              "mean": "data",
-              ".0": "data"
+              "mean": "idle",
+              "v": "idle"
             },
-            "arrows": [
-              [
-                "x",
-                "eps"
-              ],
-              [
-                "eps",
-                "mean"
-              ],
-              [
-                "mean",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "(x_i - mean) / sqrt(variance + eps).",
+            "caption": "Verify the layer transition driving normalisation behavior.",
             "values": {
-              "x": "[1, 2, 3]",
-              "eps": "0.00001",
-              "mean": "2",
-              ".0": "{'__other__': 'list_iterator'}"
+              "x": "",
+              "mean": "",
+              "v": "100"
             },
             "tones": {
-              "x": "data",
-              "eps": "data",
-              "mean": "data",
-              ".0": "data"
+              "x": "idle",
+              "mean": "idle",
+              "v": "data"
             },
             "arrows": [
               [
                 "x",
-                "eps"
-              ],
-              [
-                "eps",
                 "mean"
-              ],
-              [
-                "mean",
-                ".0"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example normalises vectors of different scales and shows they end up.",
+            "at": "say3",
+            "caption": "Examine the small value produced for prevents processing.",
             "values": {
-              "x": "[1, 2, 3]",
-              "eps": "0.00001",
-              "mean": "2",
-              ".0": "{'__other__': 'list_iterator'}"
+              "x": "[5, 5, 5]",
+              "mean": "5",
+              "v": "5"
             },
             "tones": {
               "x": "ok",
-              "eps": "ok",
               "mean": "ok",
-              ".0": "ok"
+              "v": "ok"
             },
             "arrows": [
               [
                 "x",
-                "eps"
-              ],
-              [
-                "eps",
                 "mean"
-              ],
-              [
-                "mean",
-                ".0"
               ]
             ]
           }
@@ -667,7 +575,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how without updates residuals during execution.",
+            "caption": "Examine the without value produced for residuals processing.",
             "items": {
               "var": "x",
               "line": 5,
@@ -723,7 +631,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how without updates residuals during execution.",
+            "caption": "Examine the without value produced for residuals processing.",
             "items": [
               "2.3",
               "-0.8",
@@ -897,7 +805,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the difference between population and sample variance,.",
+            "caption": "Examine the example value produced for shows processing.",
             "items": {
               "var": "x",
               "line": 5,
@@ -953,7 +861,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the difference between population and sample variance,.",
+            "caption": "Examine the example value produced for shows processing.",
             "items": [
               "2",
               "4",

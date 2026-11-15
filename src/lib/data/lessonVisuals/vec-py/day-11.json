@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "An IVF index stores one list per centroid, containing the ids of.",
+            "caption": "Observe how index shapes stores during this step.",
             "bars": [
               {
                 "label": "i",
@@ -56,7 +56,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how called updates inverted during execution.",
+            "caption": "Verify the inverted transition driving called behavior.",
             "bars": [
               {
                 "label": "i",
@@ -146,7 +146,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "An IVF index stores one list per centroid, containing the ids of.",
+            "caption": "Observe how index shapes stores during this step.",
             "bars": [
               {
                 "label": "i",
@@ -172,7 +172,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how called updates inverted during execution.",
+            "caption": "Verify the inverted transition driving called behavior.",
             "bars": [
               {
                 "label": "i",
@@ -1024,7 +1024,7 @@
     },
     {
       "partTitle": "Practice time: IVF",
-      "codeHash": "6dc6f171b46b84a6616f02f11d41bfb3a845988ed4cfb94b720d63db5fa1cf71",
+      "codeHash": "e5d38a8b2a10d284801c0cf78ce192cd7c0a0230341d7aa3741287012d29785e",
       "spec": {
         "template": "flow",
         "title": "Practice time: IVF",

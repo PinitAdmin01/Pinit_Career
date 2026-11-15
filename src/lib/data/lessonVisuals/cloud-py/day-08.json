@@ -195,18 +195,18 @@
               },
               "path": {
                 "var": "path",
-                "line": 2,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "rule": {
                 "var": "rule",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "p": {
                 "var": "p",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -241,18 +241,18 @@
               },
               "path": {
                 "var": "path",
-                "line": 3,
-                "hit": 1
+                "line": 11,
+                "hit": 3
               },
               "rule": {
                 "var": "rule",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 4
               },
               "p": {
                 "var": "p",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -335,9 +335,9 @@
             "caption": "A rule has conditions (path, host, header, method) and an action, usually.",
             "values": {
               "rules": "[{'pattern': '/api/v1/*', 'target_group…",
-              "path": "'/api/v1/orders'",
-              "rule": "{'pattern': '/api/v1/*', 'target_group'…",
-              "p": "'/api/v1/*'"
+              "path": "'/static/app.js'",
+              "rule": "{'pattern': '/static/*', 'target_group'…",
+              "p": "'/static/*'"
             },
             "tones": {
               "rules": "data",
@@ -365,7 +365,7 @@
             "caption": "The example routes several paths through a small rule list.",
             "values": {
               "rules": "[{'pattern': '/api/v1/*', 'target_group…",
-              "path": "'/api/v1/orders'",
+              "path": "'/health'",
               "rule": "{'pattern': '/api/v1/*', 'target_group'…",
               "p": "'/api/v1/*'"
             },
@@ -695,13 +695,13 @@
               },
               "port": {
                 "var": "port",
-                "line": 4,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "path": {
                 "var": "path",
-                "line": 4,
-                "hit": 1
+                "line": 11,
+                "hit": 3
               },
               "client_ip": {
                 "var": "client_ip",
@@ -741,13 +741,13 @@
               },
               "port": {
                 "var": "port",
-                "line": 5,
-                "hit": 1
+                "line": 11,
+                "hit": 3
               },
               "path": {
                 "var": "path",
-                "line": 5,
-                "hit": 1
+                "line": 11,
+                "hit": 3
               },
               "client_ip": {
                 "var": "client_ip",
@@ -835,8 +835,8 @@
             "caption": "This is called TLS termination.",
             "values": {
               "listeners": "{80: 'REDIRECT_TO_HTTPS', 443: 'FORWARD…",
-              "port": "80",
-              "path": "'/cart'",
+              "port": "443",
+              "path": "'/'",
               "client_ip": "'49.36.10.7'"
             },
             "tones": {
@@ -865,8 +865,8 @@
             "caption": "ALBs also add headers such as X-Forwarded-For so your app can still see.",
             "values": {
               "listeners": "{80: 'REDIRECT_TO_HTTPS', 443: 'FORWARD…",
-              "port": "80",
-              "path": "'/cart'",
+              "port": "8080",
+              "path": "'/'",
               "client_ip": "'49.36.10.7'"
             },
             "tones": {
@@ -956,7 +956,7 @@
             "values": {
               "servers": {
                 "var": "servers",
-                "line": 4,
+                "line": 9,
                 "hit": 1
               },
               "cookie": {
@@ -992,7 +992,7 @@
             "values": {
               "servers": {
                 "var": "servers",
-                "line": 5,
+                "line": 9,
                 "hit": 1
               },
               "cookie": {
@@ -1070,7 +1070,7 @@
             "at": "say2",
             "caption": "Sticky sessions fix this by setting a cookie so the ALB keeps sending.",
             "values": {
-              "servers": "['app-a', 'app-b', 'app-c']",
+              "servers": "['app-b', 'app-c']",
               "cookie": "'session-42'",
               "h": "664465660589129313108173003517012857707…"
             },
@@ -1094,7 +1094,7 @@
             "at": "say7",
             "caption": "Prefer stateless servers.",
             "values": {
-              "servers": "['app-a', 'app-b', 'app-c']",
+              "servers": "['app-b', 'app-c']",
               "cookie": "'session-42'",
               "h": "664465660589129313108173003517012857707…"
             },
@@ -1143,6 +1143,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Be careful with the exact-match case.",
+            "activeActor": "total_passes",
+            "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": {
+                  "var": "history",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "total_passes",
@@ -1157,10 +1174,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Be careful with the exact-match case.",
-            "activeActor": "total_passes",
+            "at": "say7",
+            "caption": "The example contrasts counting passes in a row with counting all passes.",
+            "activeActor": "best_streak",
             "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": {
+                  "var": "history",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": {
+                  "var": "total_passes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "history",
                 "to": "total_passes",
@@ -1180,14 +1217,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example contrasts counting passes in a row with counting all passes.",
-            "activeActor": "best_streak",
-            "messages": [
+              },
               {
                 "from": "history",
                 "to": "total_passes",
@@ -1230,12 +1260,6 @@
                 "to": "total_passes",
                 "label": "[True, True, False, True, True]",
                 "tone": "data"
-              },
-              {
-                "from": "total_passes",
-                "to": "best_streak",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "history"
@@ -1263,6 +1287,30 @@
             "at": "say7",
             "caption": "The example contrasts counting passes in a row with counting all passes.",
             "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": "[True, True, False, True, True]",
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": "4",
+                "tone": "ok"
+              },
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": "[True, True, False, True, True]",
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": "4",
+                "tone": "ok"
+              },
               {
                 "from": "history",
                 "to": "total_passes",

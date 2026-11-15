@@ -72,7 +72,7 @@
           },
           {
             "at": "say9",
-            "caption": "Security teams must enforce strict linting rules and runtime policy checks.",
+            "caption": "Examine the switching value produced for external processing.",
             "activeActor": "desc",
             "messages": [
               {
@@ -147,7 +147,7 @@
           },
           {
             "at": "say9",
-            "caption": "Security teams must enforce strict linting rules and runtime policy checks.",
+            "caption": "Examine the switching value produced for external processing.",
             "messages": [
               {
                 "from": "v",
@@ -211,7 +211,7 @@
           },
           {
             "at": "say9",
-            "caption": "Enterprise services handling sensitive user profiles, billing.",
+            "caption": "Examine the deserialization value produced for dictionary processing.",
             "currentState": "raw_json_str",
             "transition": {
               "from": "payload",
@@ -263,7 +263,7 @@
           },
           {
             "at": "say9",
-            "caption": "Enterprise services handling sensitive user profiles, billing.",
+            "caption": "Examine the deserialization value produced for dictionary processing.",
             "currentState": "raw_json_str",
             "transition": {
               "from": "payload",
@@ -365,7 +365,7 @@
             "transition": {
               "from": "safe_bytes",
               "to": "dangerous_bytes",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
@@ -376,7 +376,7 @@
             "transition": {
               "from": "dangerous_bytes",
               "to": "bytecode",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "ok"
           }
@@ -412,7 +412,7 @@
           },
           {
             "at": "say2",
-            "caption": "In XML and JSON parsers, recursive entity expansion attacks (such as.",
+            "caption": "Verify the json transition driving parsers behavior.",
             "currentState": "large_payload",
             "transition": {
               "from": "small_payload",
@@ -427,7 +427,7 @@
           },
           {
             "at": "say9",
-            "caption": "Telemetry systems should aggregate deserialization size violations.",
+            "caption": "Examine the checking value produced for byte processing.",
             "currentState": "raw_bytes",
             "transition": {
               "from": "large_payload",
@@ -468,23 +468,23 @@
           },
           {
             "at": "say2",
-            "caption": "In XML and JSON parsers, recursive entity expansion attacks (such as.",
+            "caption": "Verify the json transition driving parsers behavior.",
             "currentState": "large_payload",
             "transition": {
               "from": "small_payload",
               "to": "large_payload",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
           {
             "at": "say9",
-            "caption": "Telemetry systems should aggregate deserialization size violations.",
+            "caption": "Examine the checking value produced for byte processing.",
             "currentState": "raw_bytes",
             "transition": {
               "from": "large_payload",
               "to": "raw_bytes",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "ok"
           }
@@ -536,21 +536,19 @@
                 "hit": 1
               },
               "safe_defaults": {
-                "var": "safe_defaults",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "schema_enforced": "data",
               "opcodes_restricted": "data",
               "bomb_guard_active": "data",
-              "safe_defaults": "data"
+              "safe_defaults": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "A defense posture auditor evaluates whether all critical safety layers are.",
+            "caption": "Verify the defense transition driving posture behavior.",
             "values": {
               "schema_enforced": {
                 "var": "schema_enforced",
@@ -643,18 +641,18 @@
               "schema_enforced": "True",
               "opcodes_restricted": "True",
               "bomb_guard_active": "True",
-              "safe_defaults": "True"
+              "safe_defaults": ""
             },
             "tones": {
               "schema_enforced": "data",
               "opcodes_restricted": "data",
               "bomb_guard_active": "data",
-              "safe_defaults": "data"
+              "safe_defaults": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "A defense posture auditor evaluates whether all critical safety layers are.",
+            "caption": "Verify the defense transition driving posture behavior.",
             "values": {
               "schema_enforced": "True",
               "opcodes_restricted": "True",

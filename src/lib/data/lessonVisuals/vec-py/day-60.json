@@ -6,8 +6,8 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
-      "codeHash": "779cd206cbe1d62997ad2d3bb7927db6d4ba5f37e7a1e2955d1e522be57e542b",
+      "partTitle": "Initializing Multi-Shard Distributed Vector Engine State",
+      "codeHash": "e0859d7f5e603d6232a536988931a2b689f807886a236bb36b6b8eeac17067ed",
       "spec": {
         "template": "bars",
         "title": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
@@ -62,7 +62,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the multi value produced for shard processing.",
             "bars": [
               {
                 "label": "num_shards",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the multi value produced for shard processing.",
             "bars": [
               {
                 "label": "num_shards",
@@ -142,7 +142,7 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Core Algorithm & State Representation",
+      "partTitle": "Executing Global Parallel Search Across Sharded Clusters",
       "codeHash": "84362dc7f1304e521389d4d89163f4e2ae4fe9a8d2010dea55283b700fbd35c8",
       "spec": {
         "template": "bars",
@@ -234,7 +234,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the pairing value produced for distributed processing.",
             "bars": [
               {
                 "label": "top_k",
@@ -334,7 +334,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the pairing value produced for distributed processing.",
             "bars": [
               {
                 "label": "top_k",
@@ -362,7 +362,7 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Verifying Recall, p99 Latency, and Security Parity Together",
       "codeHash": "549004d3bb43847b9d9e45f1f827b4cd420765082063c516a12c517951cd6a35",
       "spec": {
         "template": "flow",
@@ -406,16 +406,14 @@
                 "hit": 1
               },
               "passed": {
-                "var": "passed",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "eval_recall": "data",
               "p99_latency_ms": "data",
               "compliance_pct": "data",
-              "passed": "data"
+              "passed": "idle"
             },
             "arrows": [
               [
@@ -480,7 +478,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the packaging value produced for exact processing.",
             "values": {
               "eval_recall": {
                 "var": "eval_recall",
@@ -555,13 +553,13 @@
               "eval_recall": "0.965",
               "p99_latency_ms": "4.12",
               "compliance_pct": "100",
-              "passed": "True"
+              "passed": ""
             },
             "tones": {
               "eval_recall": "data",
               "p99_latency_ms": "data",
               "compliance_pct": "data",
-              "passed": "data"
+              "passed": "idle"
             },
             "arrows": [
               [
@@ -610,7 +608,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the packaging value produced for exact processing.",
             "values": {
               "eval_recall": "0.965",
               "p99_latency_ms": "4.12",
@@ -642,8 +640,8 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
-      "codeHash": "cdb674ffa5898adcfcbb5cca8c8d726c08f23a1041484f09edcb83625c47f4e7",
+      "partTitle": "Graceful Connection-Drain Preconditions for Cluster Shutdown",
+      "codeHash": "a422cabb6af80c97dd5098b4b337ffe0442c2fde1dc639e535de76ef19e4903b",
       "spec": {
         "template": "table",
         "title": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
@@ -724,7 +722,7 @@
               {
                 "cells": [
                   "active_connections",
-                  "0"
+                  "5"
                 ],
                 "tone": "data"
               }
@@ -737,7 +735,7 @@
               {
                 "cells": [
                   "active_connections",
-                  "0"
+                  "5"
                 ],
                 "tone": "ok"
               }
@@ -760,8 +758,8 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
-      "codeHash": "bde322677b1e65f9898734c430f2367289979e67b35a6a99cff601dc006e9a96",
+      "partTitle": "Certifying Enterprise-Grade SLA Readiness Across One Million Queries",
+      "codeHash": "12a020c8f4bbc1b1ec2ed1b1dd59a132ac90c62faa30b7ebee58c7bfd4a00819",
       "spec": {
         "template": "flow",
         "title": "Milestone 12 Capstone — Production Telemetry & Verification Audi",
@@ -795,15 +793,13 @@
                 "hit": 1
               },
               "avg_latency_ms": {
-                "var": "avg_latency_ms",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_queries": "data",
               "uptime_pct": "data",
-              "avg_latency_ms": "data"
+              "avg_latency_ms": "idle"
             },
             "arrows": [
               [
@@ -818,7 +814,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates validation during execution.",
+            "caption": "Verify the across transition driving queries behavior.",
             "values": {
               "total_queries": {
                 "var": "total_queries",
@@ -854,7 +850,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the inspecting value produced for tier processing.",
             "values": {
               "total_queries": {
                 "var": "total_queries",
@@ -914,12 +910,12 @@
             "values": {
               "total_queries": "1000000",
               "uptime_pct": "99.999",
-              "avg_latency_ms": "2.35"
+              "avg_latency_ms": ""
             },
             "tones": {
               "total_queries": "data",
               "uptime_pct": "data",
-              "avg_latency_ms": "data"
+              "avg_latency_ms": "idle"
             },
             "arrows": [
               [
@@ -934,7 +930,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates validation during execution.",
+            "caption": "Verify the across transition driving queries behavior.",
             "values": {
               "total_queries": "1000000",
               "uptime_pct": "99.999",
@@ -958,7 +954,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the inspecting value produced for tier processing.",
             "values": {
               "total_queries": "1000000",
               "uptime_pct": "99.999",

@@ -607,19 +607,581 @@
       "partTitle": "Pivot-style reports",
       "codeHash": "286725733b628c51c422d780eedae75982f9ce508ca54ea806d2a910114d17ab",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Pivot-style reports",
+        "columns": [
+          "product",
+          "aug",
+          "sep",
+          "total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Spreadsheets often show data as a grid.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "product"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "aug"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "sep"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "total"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "product"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "aug"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "sep"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "total"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the column transition driving grid behavior.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "product"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "aug"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "sep"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "product"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "aug"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "sep"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "product"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "aug"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "sep"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "total"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Pivot-style reports",
+        "columns": [
+          "product",
+          "aug",
+          "sep",
+          "total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Spreadsheets often show data as a grid.",
+            "rows": [
+              {
+                "cells": [
+                  "Backpack",
+                  "0",
+                  "1200.00",
+                  "1200.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Pen",
+                  "100.00",
+                  "200.00",
+                  "300.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the column transition driving grid behavior.",
+            "rows": [
+              {
+                "cells": [
+                  "Backpack",
+                  "0",
+                  "1200.00",
+                  "1200.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Pen",
+                  "100.00",
+                  "200.00",
+                  "300.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Notebook",
+                  "180.00",
+                  "60.00",
+                  "240.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a product dashboard",
       "codeHash": "23c89e1567922f63f634c9f2df1b173a61eae0603fe27d126568027701d4f8ec",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Putting it together: a product dashboard",
+        "columns": [
+          "name",
+          "price",
+          "stock",
+          "stock_status"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us combine today's ideas into a small product dashboard.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The price band and stock status are CASE expressions in SELECT.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 5,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 6,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 6,
+                    "col": "price"
+                  },
+                  {
+                    "table": 1,
+                    "row": 6,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 1,
+                    "row": 6,
+                    "col": "stock_status"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Putting it together: a product dashboard",
+        "columns": [
+          "name",
+          "price",
+          "stock",
+          "stock_status"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us combine today's ideas into a small product dashboard.",
+            "rows": [
+              {
+                "cells": [
+                  "Desk lamp",
+                  "899.00",
+                  "0",
+                  "out of stock"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Stapler",
+                  "150.00",
+                  "8",
+                  "low"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Backpack",
+                  "1200.00",
+                  "15",
+                  "low"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The price band and stock status are CASE expressions in SELECT.",
+            "rows": [
+              {
+                "cells": [
+                  "Desk lamp",
+                  "899.00",
+                  "0",
+                  "out of stock"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Stapler",
+                  "150.00",
+                  "8",
+                  "low"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Backpack",
+                  "1200.00",
+                  "15",
+                  "low"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Pen",
+                  "10.00",
+                  "500",
+                  "ok"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Notebook",
+                  "60.00",
+                  "120",
+                  "ok"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Headphones",
+                  "1499.00",
+                  "25",
+                  "ok"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

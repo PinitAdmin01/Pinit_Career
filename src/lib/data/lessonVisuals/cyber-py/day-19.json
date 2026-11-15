@@ -31,6 +31,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the code transition driving every behavior.",
+            "activeActor": "pkg",
+            "messages": [
+              {
+                "from": "tree",
+                "to": "pkg",
+                "label": {
+                  "var": "tree",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "pkg",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Every one of them is code written by someone else, running with your.",
-            "activeActor": "pkg",
+            "at": "say10",
+            "caption": "Fewer dependencies mean a smaller attack surface.",
+            "activeActor": "seen",
             "messages": [
+              {
+                "from": "tree",
+                "to": "pkg",
+                "label": {
+                  "var": "tree",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pkg",
+                "to": "seen",
+                "label": {
+                  "var": "pkg",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tree",
                 "to": "pkg",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Fewer dependencies mean a smaller attack surface.",
-            "activeActor": "seen",
-            "messages": [
+              },
               {
                 "from": "tree",
                 "to": "pkg",
@@ -118,19 +148,13 @@
                 "to": "pkg",
                 "label": "{'my-app': ['web-framework', 'http-clie…",
                 "tone": "data"
-              },
-              {
-                "from": "pkg",
-                "to": "seen",
-                "label": "'my-app'",
-                "tone": "ok"
               }
             ],
             "activeActor": "tree"
           },
           {
             "at": "say2",
-            "caption": "Every one of them is code written by someone else, running with your.",
+            "caption": "Verify the code transition driving every behavior.",
             "messages": [
               {
                 "from": "tree",
@@ -151,6 +175,30 @@
             "at": "say10",
             "caption": "Fewer dependencies mean a smaller attack surface.",
             "messages": [
+              {
+                "from": "tree",
+                "to": "pkg",
+                "label": "{'my-app': ['web-framework', 'http-clie…",
+                "tone": "data"
+              },
+              {
+                "from": "pkg",
+                "to": "seen",
+                "label": "'my-app'",
+                "tone": "ok"
+              },
+              {
+                "from": "tree",
+                "to": "pkg",
+                "label": "{'my-app': ['web-framework', 'http-clie…",
+                "tone": "data"
+              },
+              {
+                "from": "pkg",
+                "to": "seen",
+                "label": "'my-app'",
+                "tone": "ok"
+              },
               {
                 "from": "tree",
                 "to": "pkg",
@@ -272,7 +320,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how converting updates tuples during execution.",
+            "caption": "Verify the converting transition driving tuples behavior.",
             "currentState": "a",
             "transition": {
               "from": "pairs",
@@ -328,7 +376,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how converting updates tuples during execution.",
+            "caption": "Verify the converting transition driving tuples behavior.",
             "currentState": "a",
             "transition": {
               "from": "pairs",
@@ -708,13 +756,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "version": {
                 "var": "version",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -754,13 +802,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               },
               "version": {
                 "var": "version",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -844,8 +892,8 @@
             "values": {
               "sbom": "[['httpkit', '2.9.0'], ['yamlkit', '1.1…",
               "advisories": "{'httpkit': '2.31.0', 'yamlkit': '1.9.2…",
-              "name": "'httpkit'",
-              "version": "'2.9.0'"
+              "name": "'yamlkit'",
+              "version": "'1.10.0'"
             },
             "tones": {
               "sbom": "data",
@@ -874,8 +922,8 @@
             "values": {
               "sbom": "[['httpkit', '2.9.0'], ['yamlkit', '1.1…",
               "advisories": "{'httpkit': '2.31.0', 'yamlkit': '1.9.2…",
-              "name": "'httpkit'",
-              "version": "'2.9.0'"
+              "name": "'imgtools'",
+              "version": "'3.1'"
             },
             "tones": {
               "sbom": "ok",

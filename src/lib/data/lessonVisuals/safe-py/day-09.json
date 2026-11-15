@@ -190,23 +190,23 @@
             "values": {
               "name": {
                 "var": "name",
-                "line": 2,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "tp": {
                 "var": "tp",
-                "line": 2,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "fp": {
                 "var": "fp",
-                "line": 2,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "precision": {
                 "var": "precision",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -236,22 +236,22 @@
             "values": {
               "name": {
                 "var": "name",
-                "line": 3,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "tp": {
                 "var": "tp",
-                "line": 3,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "fp": {
                 "var": "fp",
-                "line": 3,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "precision": {
                 "var": "precision",
-                "line": 1,
+                "line": 2,
                 "hit": 2
               }
             },
@@ -334,10 +334,10 @@
             "at": "say2",
             "caption": "It is TP divided by (TP + FP).",
             "values": {
-              "name": "'strict'",
-              "tp": "9",
-              "fp": "1",
-              "precision": "0.9"
+              "name": "'eager'",
+              "tp": "18",
+              "fp": "12",
+              "precision": "0.6"
             },
             "tones": {
               "name": "data",
@@ -364,10 +364,10 @@
             "at": "say10",
             "caption": "The next part introduces its partner, recall.",
             "values": {
-              "name": "'strict'",
-              "tp": "9",
-              "fp": "1",
-              "precision": "0.9"
+              "name": "'eager'",
+              "tp": "18",
+              "fp": "12",
+              "precision": "0.6"
             },
             "tones": {
               "name": "ok",

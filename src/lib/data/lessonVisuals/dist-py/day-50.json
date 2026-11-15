@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates builds during execution.",
+            "caption": "Verify the quorum transition driving milestone behavior.",
             "currentState": "pairs",
             "transition": {
               "from": "self",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say6",
-            "caption": "Define the integrated `QuorumReplicaNode` bridging.",
+            "caption": "Examine the milestone value produced for fuses processing.",
             "currentState": "k",
             "transition": {
               "from": "pairs",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates builds during execution.",
+            "caption": "Verify the quorum transition driving milestone behavior.",
             "currentState": "pairs",
             "transition": {
               "from": "self",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say6",
-            "caption": "Define the integrated `QuorumReplicaNode` bridging.",
+            "caption": "Examine the milestone value produced for fuses processing.",
             "currentState": "k",
             "transition": {
               "from": "pairs",
@@ -115,7 +115,7 @@
     },
     {
       "partTitle": "MemTable & Compaction Sibling-Aware Deduplication",
-      "codeHash": "f6d7fdc4fe8779f1309ba26eb3cb7a2df79e2814b0e7a5e0229acc72ed348c53",
+      "codeHash": "f7febc01cf6b8d6a3cf55a12160573b48cfe69abd35579824307b69c9ebb48c8",
       "spec": {
         "template": "sequence",
         "title": "MemTable & Compaction Sibling-Aware Deduplication",
@@ -129,6 +129,23 @@
             "at": "say1",
             "caption": "Pause on a subtle integration corner case between Vector Clock siblings.",
             "activeActor": "s_new",
+            "messages": [
+              {
+                "from": "s_new",
+                "to": "s_old",
+                "label": {
+                  "var": "s_new",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If your LSM compactor naively used `merged[k] = newest_list` blindly.",
+            "activeActor": "s_old",
             "messages": [
               {
                 "from": "s_new",
@@ -153,10 +170,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If your LSM compactor naively used `merged[k] = newest_list` blindly.",
-            "activeActor": "s_old",
+            "at": "say5",
+            "caption": "Implement sibling-aware LSM merge compaction cleanly reconciling.",
+            "activeActor": "sstables",
             "messages": [
+              {
+                "from": "s_new",
+                "to": "s_old",
+                "label": {
+                  "var": "s_new",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "s_old",
+                "to": "sstables",
+                "label": {
+                  "var": "s_old",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "s_new",
                 "to": "s_old",
@@ -176,14 +213,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Implement sibling-aware LSM merge compaction cleanly reconciling.",
-            "activeActor": "sstables",
-            "messages": [
+              },
               {
                 "from": "s_new",
                 "to": "s_old",
@@ -226,12 +256,6 @@
                 "to": "s_old",
                 "label": "[['cart:5', [[{'n1': 1}, 'eggs']]], ['k…",
                 "tone": "data"
-              },
-              {
-                "from": "s_old",
-                "to": "sstables",
-                "label": "[['cart:5', [[{'n0': 1}, 'milk']]], ['k…",
-                "tone": "ok"
               }
             ],
             "activeActor": "s_new"
@@ -270,6 +294,30 @@
                 "to": "sstables",
                 "label": "[['cart:5', [[{'n0': 1}, 'milk']]], ['k…",
                 "tone": "ok"
+              },
+              {
+                "from": "s_new",
+                "to": "s_old",
+                "label": "[['cart:5', [[{'n1': 1}, 'eggs']]], ['k…",
+                "tone": "data"
+              },
+              {
+                "from": "s_old",
+                "to": "sstables",
+                "label": "[['cart:5', [[{'n0': 1}, 'milk']]], ['k…",
+                "tone": "ok"
+              },
+              {
+                "from": "s_new",
+                "to": "s_old",
+                "label": "[['cart:5', [[{'n1': 1}, 'eggs']]], ['k…",
+                "tone": "data"
+              },
+              {
+                "from": "s_old",
+                "to": "sstables",
+                "label": "[['cart:5', [[{'n0': 1}, 'milk']]], ['k…",
+                "tone": "ok"
               }
             ],
             "activeActor": "sstables"
@@ -286,7 +334,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how compose updates complete during execution.",
+            "caption": "Observe how crash shapes recovery during this step.",
             "items": {
               "var": "names",
               "line": 3,
@@ -340,7 +388,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how compose updates complete during execution.",
+            "caption": "Observe how crash shapes recovery during this step.",
             "items": [
               "'N0'",
               "'N1'",
@@ -418,6 +466,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the negative transition driving observe behavior.",
+            "activeActor": "wal",
+            "messages": [
+              {
+                "from": "gates",
+                "to": "wal",
+                "label": {
+                  "var": "gates",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "wal",
@@ -432,10 +497,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Observe carefully how each storage mechanism reinforces the others during.",
-            "activeActor": "wal",
+            "at": "say4",
+            "caption": "Examine the fault value produced for matrix processing.",
+            "activeActor": "k",
             "messages": [
+              {
+                "from": "gates",
+                "to": "wal",
+                "label": {
+                  "var": "gates",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "k",
+                "label": {
+                  "var": "wal",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "gates",
                 "to": "wal",
@@ -455,14 +540,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Run the full 4-fault stress matrix simulation below and verify every.",
-            "activeActor": "k",
-            "messages": [
+              },
               {
                 "from": "gates",
                 "to": "wal",
@@ -505,19 +583,13 @@
                 "to": "wal",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "wal",
-                "to": "k",
-                "label": "[['PUT', 'x', 'live']]",
-                "tone": "ok"
               }
             ],
             "activeActor": "gates"
           },
           {
             "at": "say2",
-            "caption": "Observe carefully how each storage mechanism reinforces the others during.",
+            "caption": "Verify the negative transition driving observe behavior.",
             "messages": [
               {
                 "from": "gates",
@@ -536,8 +608,32 @@
           },
           {
             "at": "say4",
-            "caption": "Run the full 4-fault stress matrix simulation below and verify every.",
+            "caption": "Examine the fault value produced for matrix processing.",
             "messages": [
+              {
+                "from": "gates",
+                "to": "wal",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "k",
+                "label": "[['PUT', 'x', 'live']]",
+                "tone": "ok"
+              },
+              {
+                "from": "gates",
+                "to": "wal",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "k",
+                "label": "[['PUT', 'x', 'live']]",
+                "tone": "ok"
+              },
               {
                 "from": "gates",
                 "to": "wal",
@@ -582,6 +678,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace each symptom cleanly to its exact underlying cause and operational.",
+            "activeActor": "bloom_fp",
+            "messages": [
+              {
+                "from": "l0_files",
+                "to": "bloom_fp",
+                "label": {
+                  "var": "l0_files",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bloom_fp",
@@ -596,10 +709,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace each symptom cleanly to its exact underlying cause and operational.",
-            "activeActor": "bloom_fp",
+            "at": "say4",
+            "caption": "Inspect the automated storage health diagnostic classifier below turning.",
+            "activeActor": "hint_age_pct",
             "messages": [
+              {
+                "from": "l0_files",
+                "to": "bloom_fp",
+                "label": {
+                  "var": "l0_files",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bloom_fp",
+                "to": "hint_age_pct",
+                "label": {
+                  "var": "bloom_fp",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "l0_files",
                 "to": "bloom_fp",
@@ -619,14 +752,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Inspect the automated storage health diagnostic classifier below turning.",
-            "activeActor": "hint_age_pct",
-            "messages": [
+              },
               {
                 "from": "l0_files",
                 "to": "bloom_fp",
@@ -669,12 +795,6 @@
                 "to": "bloom_fp",
                 "label": "2",
                 "tone": "data"
-              },
-              {
-                "from": "bloom_fp",
-                "to": "hint_age_pct",
-                "label": "0.009",
-                "tone": "ok"
               }
             ],
             "activeActor": "l0_files"
@@ -702,6 +822,30 @@
             "at": "say4",
             "caption": "Inspect the automated storage health diagnostic classifier below turning.",
             "messages": [
+              {
+                "from": "l0_files",
+                "to": "bloom_fp",
+                "label": "2",
+                "tone": "data"
+              },
+              {
+                "from": "bloom_fp",
+                "to": "hint_age_pct",
+                "label": "0.009",
+                "tone": "ok"
+              },
+              {
+                "from": "l0_files",
+                "to": "bloom_fp",
+                "label": "2",
+                "tone": "data"
+              },
+              {
+                "from": "bloom_fp",
+                "to": "hint_age_pct",
+                "label": "0.009",
+                "tone": "ok"
+              },
               {
                 "from": "l0_files",
                 "to": "bloom_fp",

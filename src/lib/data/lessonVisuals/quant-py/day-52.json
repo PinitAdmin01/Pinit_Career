@@ -671,158 +671,106 @@
         "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "nodes": [
           {
-            "id": "weights",
-            "label": "weights"
+            "id": "i",
+            "label": "i",
+            "tappable": true
           },
           {
-            "id": "vols",
-            "label": "vols"
+            "id": "port_var",
+            "label": "port_var",
+            "tappable": true
           },
           {
-            "id": "cov",
-            "label": "cov"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "j",
+            "label": "j",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production observability for HRP asset allocation requires tracking.",
+            "caption": "Inspect hierarchical updates as i tracks risk state.",
             "values": {
-              "weights": {
-                "var": "weights",
-                "line": 25,
-                "hit": 1
-              },
-              "vols": {
-                "var": "vols",
-                "line": 26,
-                "hit": 1
-              },
-              "cov": {
-                "var": "cov",
-                "line": 27,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
+              "i": {
+                "var": "i",
                 "line": 5,
                 "hit": 1
+              },
+              "port_var": {
+                "text": ""
+              },
+              "j": {
+                "text": ""
               }
             },
             "tones": {
-              "weights": "data",
-              "vols": "data",
-              "cov": "data",
-              ".0": "data"
+              "i": "data",
+              "port_var": "idle",
+              "j": "idle"
             },
-            "arrows": [
-              [
-                "weights",
-                "vols"
-              ],
-              [
-                "vols",
-                "cov"
-              ],
-              [
-                "cov",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The telemetry pipeline computes the Diversification Ratio.",
+            "caption": "Verify the audit transition driving diversification behavior.",
             "values": {
-              "weights": {
-                "var": "weights",
-                "line": 26,
-                "hit": 1
+              "i": {
+                "var": "i",
+                "line": 12,
+                "hit": 7
               },
-              "vols": {
-                "var": "vols",
-                "line": 28,
-                "hit": 1
+              "port_var": {
+                "var": "port_var",
+                "line": 12,
+                "hit": 7
               },
-              "cov": {
-                "var": "cov",
-                "line": 33,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 2
+              "j": {
+                "var": "j",
+                "line": 12,
+                "hit": 7
               }
             },
             "tones": {
-              "weights": "data",
-              "vols": "data",
-              "cov": "data",
-              ".0": "data"
+              "i": "data",
+              "port_var": "data",
+              "j": "data"
             },
             "arrows": [
               [
-                "weights",
-                "vols"
-              ],
-              [
-                "vols",
-                "cov"
-              ],
-              [
-                "cov",
-                ".0"
+                "i",
+                "port_var"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Automated diversification telemetry provides verifiable mathematical.",
+            "at": "say3",
+            "caption": "Walk through both variance components cleanly.",
             "values": {
-              "weights": {
-                "var": "weights",
-                "line": 28,
-                "hit": 1
+              "i": {
+                "var": "i",
+                "line": 12,
+                "hit": 16
               },
-              "vols": {
-                "var": "vols",
-                "line": 29,
-                "hit": 1
+              "port_var": {
+                "var": "port_var",
+                "line": 12,
+                "hit": 16
               },
-              "cov": {
-                "var": "cov",
-                "line": 34,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 3
+              "j": {
+                "var": "j",
+                "line": 12,
+                "hit": 16
               }
             },
             "tones": {
-              "weights": "ok",
-              "vols": "ok",
-              "cov": "ok",
-              ".0": "ok"
+              "i": "ok",
+              "port_var": "ok",
+              "j": "ok"
             },
             "arrows": [
               [
-                "weights",
-                "vols"
-              ],
-              [
-                "vols",
-                "cov"
-              ],
-              [
-                "cov",
-                ".0"
+                "i",
+                "port_var"
               ]
             ]
           }
@@ -833,110 +781,74 @@
         "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "nodes": [
           {
-            "id": "weights",
-            "label": "weights"
+            "id": "i",
+            "label": "i",
+            "tappable": true
           },
           {
-            "id": "vols",
-            "label": "vols"
+            "id": "port_var",
+            "label": "port_var",
+            "tappable": true
           },
           {
-            "id": "cov",
-            "label": "cov"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "j",
+            "label": "j",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production observability for HRP asset allocation requires tracking.",
+            "caption": "Inspect hierarchical updates as i tracks risk state.",
             "values": {
-              "weights": "[0.25, 0.25, 0.25, 0.25]",
-              "vols": "[0.2, 0.18, 0.15, 0.12]",
-              "cov": "[[0.04, 0.005, 0.002, 0.001], [0.005, 0…",
-              ".0": "{'__other__': 'range_iterator'}"
+              "i": "0",
+              "port_var": "",
+              "j": ""
             },
             "tones": {
-              "weights": "data",
-              "vols": "data",
-              "cov": "data",
-              ".0": "data"
+              "i": "data",
+              "port_var": "idle",
+              "j": "idle"
             },
-            "arrows": [
-              [
-                "weights",
-                "vols"
-              ],
-              [
-                "vols",
-                "cov"
-              ],
-              [
-                "cov",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The telemetry pipeline computes the Diversification Ratio.",
+            "caption": "Verify the audit transition driving diversification behavior.",
             "values": {
-              "weights": "[0.25, 0.25, 0.25, 0.25]",
-              "vols": "[0.2, 0.18, 0.15, 0.12]",
-              "cov": "[[0.04, 0.005, 0.002, 0.001], [0.005, 0…",
-              ".0": "{'__other__': 'range_iterator'}"
+              "i": "1",
+              "port_var": "0.0055",
+              "j": "2"
             },
             "tones": {
-              "weights": "data",
-              "vols": "data",
-              "cov": "data",
-              ".0": "data"
+              "i": "data",
+              "port_var": "data",
+              "j": "data"
             },
             "arrows": [
               [
-                "weights",
-                "vols"
-              ],
-              [
-                "vols",
-                "cov"
-              ],
-              [
-                "cov",
-                ".0"
+                "i",
+                "port_var"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Automated diversification telemetry provides verifiable mathematical.",
+            "at": "say3",
+            "caption": "Walk through both variance components cleanly.",
             "values": {
-              "weights": "[0.25, 0.25, 0.25, 0.25]",
-              "vols": "[0.2, 0.18, 0.15, 0.12]",
-              "cov": "[[0.04, 0.005, 0.002, 0.001], [0.005, 0…",
-              ".0": "{'__other__': 'range_iterator'}"
+              "i": "3",
+              "port_var": "0.0085",
+              "j": "3"
             },
             "tones": {
-              "weights": "ok",
-              "vols": "ok",
-              "cov": "ok",
-              ".0": "ok"
+              "i": "ok",
+              "port_var": "ok",
+              "j": "ok"
             },
             "arrows": [
               [
-                "weights",
-                "vols"
-              ],
-              [
-                "vols",
-                "cov"
-              ],
-              [
-                "cov",
-                ".0"
+                "i",
+                "port_var"
               ]
             ]
           }

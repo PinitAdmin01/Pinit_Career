@@ -7,18 +7,25 @@
   "entries": [
     {
       "partTitle": "Limitations of Fixed Binary Heartbeat Deadlines",
-      "codeHash": "8c1901c8fe9d8297e2e49ca2ba6240a7a042ce3295cf723c5f945aca023d06ad",
+      "codeHash": "59a1cb6641683c8aadd5d008187432a5ac11803d064bd7994b6be56a1ab76371",
       "spec": {
         "template": "flow",
         "title": "Limitations of Fixed Binary Heartbeat Deadlines",
         "nodes": [
           {
             "id": "p",
-            "label": "p"
+            "label": "p",
+            "tappable": true
           },
           {
             "id": "p_later",
-            "label": "p_later"
+            "label": "p_later",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
           }
         ],
         "steps": [
@@ -28,44 +35,45 @@
             "values": {
               "p": {
                 "var": "p",
-                "line": 7,
+                "line": 14,
                 "hit": 1
               },
               "p_later": {
-                "var": "p_later",
-                "line": 4,
-                "hit": 1
+                "text": ""
+              },
+              "d": {
+                "text": ""
               }
             },
             "tones": {
               "p": "data",
-              "p_later": "data"
+              "p_later": "idle",
+              "d": "idle"
             },
-            "arrows": [
-              [
-                "p",
-                "p_later"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Worse yet, network latency shifts continuously between regions, traffic.",
+            "caption": "Verify the worse transition driving network behavior.",
             "values": {
               "p": {
                 "var": "p",
                 "line": 4,
-                "hit": 1
+                "hit": 6
               },
               "p_later": {
                 "var": "p_later",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 6
+              },
+              "d": {
+                "text": ""
               }
             },
             "tones": {
               "p": "data",
-              "p_later": "data"
+              "p_later": "data",
+              "d": "idle"
             },
             "arrows": [
               [
@@ -75,23 +83,27 @@
             ]
           },
           {
-            "at": "say7",
-            "caption": "Compute logarithmic suspicion phi directly from tail probabilities below.",
+            "at": "say3",
+            "caption": "Examine the instead value produced for outputting processing.",
             "values": {
               "p": {
                 "var": "p",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 9
               },
               "p_later": {
                 "var": "p_later",
                 "line": 4,
-                "hit": 2
+                "hit": 9
+              },
+              "d": {
+                "text": ""
               }
             },
             "tones": {
               "p": "ok",
-              "p_later": "ok"
+              "p_later": "ok",
+              "d": "idle"
             },
             "arrows": [
               [
@@ -108,11 +120,18 @@
         "nodes": [
           {
             "id": "p",
-            "label": "p"
+            "label": "p",
+            "tappable": true
           },
           {
             "id": "p_later",
-            "label": "p_later"
+            "label": "p_later",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
           }
         ],
         "steps": [
@@ -121,29 +140,28 @@
             "caption": "Fixed heartbeat timeouts force an ugly static guess.",
             "values": {
               "p": "0.5",
-              "p_later": "0.5"
+              "p_later": "",
+              "d": ""
             },
             "tones": {
               "p": "data",
-              "p_later": "data"
+              "p_later": "idle",
+              "d": "idle"
             },
-            "arrows": [
-              [
-                "p",
-                "p_later"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Worse yet, network latency shifts continuously between regions, traffic.",
+            "caption": "Verify the worse transition driving network behavior.",
             "values": {
-              "p": "0.5",
-              "p_later": "0.5"
+              "p": "0.2118553985833967",
+              "p_later": "0.2118553985833967",
+              "d": ""
             },
             "tones": {
               "p": "data",
-              "p_later": "data"
+              "p_later": "data",
+              "d": "idle"
             },
             "arrows": [
               [
@@ -153,15 +171,17 @@
             ]
           },
           {
-            "at": "say7",
-            "caption": "Compute logarithmic suspicion phi directly from tail probabilities below.",
+            "at": "say3",
+            "caption": "Examine the instead value produced for outputting processing.",
             "values": {
-              "p": "0.5",
-              "p_later": "0.1"
+              "p": "1e-12",
+              "p_later": "6.220960574271819e-16",
+              "d": ""
             },
             "tones": {
               "p": "ok",
-              "p_later": "ok"
+              "p_later": "ok",
+              "d": "idle"
             },
             "arrows": [
               [
@@ -322,7 +342,7 @@
           },
           {
             "at": "say6",
-            "caption": "Run both models over an identical noisy trace with a sudden 400ms spike below.",
+            "caption": "Compare phi_gaussian against phi_exponential at delta=350ms.",
             "items": {
               "var": "samples",
               "line": 17,
@@ -390,7 +410,7 @@
           },
           {
             "at": "say6",
-            "caption": "Run both models over an identical noisy trace with a sudden 400ms spike below.",
+            "caption": "Compare phi_gaussian against phi_exponential at delta=350ms.",
             "items": [
               "100",
               "105",
@@ -440,6 +460,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "An API load balancer sitting in front of stateless workers wants ultra-low.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "self",
+                "to": "p",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "p",
@@ -454,10 +491,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "An API load balancer sitting in front of stateless workers wants ultra-low.",
-            "activeActor": "p",
+            "at": "say6",
+            "caption": "Examine the evicted value produced for separating processing.",
+            "activeActor": "val",
             "messages": [
+              {
+                "from": "self",
+                "to": "p",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "val",
+                "label": {
+                  "var": "p",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "p",
@@ -477,14 +534,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Build the tiered multi-policy state router with recovery hysteresis below.",
-            "activeActor": "val",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "p",
@@ -527,12 +577,6 @@
                 "to": "p",
                 "label": "<TieredPeerPolicy>",
                 "tone": "data"
-              },
-              {
-                "from": "p",
-                "to": "val",
-                "label": "<TieredPeerPolicy>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -558,8 +602,32 @@
           },
           {
             "at": "say6",
-            "caption": "Build the tiered multi-policy state router with recovery hysteresis below.",
+            "caption": "Examine the evicted value produced for separating processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "p",
+                "label": "<TieredPeerPolicy>",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "val",
+                "label": "<TieredPeerPolicy>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "p",
+                "label": "<TieredPeerPolicy>",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "val",
+                "label": "<TieredPeerPolicy>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "p",
@@ -604,6 +672,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Run a two-regime adaptive simulation.",
+            "activeActor": "probe_times",
+            "messages": [
+              {
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": {
+                  "var": "intervals_before_crash",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "probe_times",
@@ -618,10 +703,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Run a two-regime adaptive simulation.",
-            "activeActor": "probe_times",
+            "at": "say6",
+            "caption": "Execute the dual-regime adaptive benchmark below measuring both.",
+            "activeActor": "window",
             "messages": [
+              {
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": {
+                  "var": "intervals_before_crash",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "probe_times",
+                "to": "window",
+                "label": {
+                  "var": "probe_times",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "intervals_before_crash",
                 "to": "probe_times",
@@ -641,14 +746,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Execute the dual-regime adaptive benchmark below measuring both.",
-            "activeActor": "window",
-            "messages": [
+              },
               {
                 "from": "intervals_before_crash",
                 "to": "probe_times",
@@ -691,12 +789,6 @@
                 "to": "probe_times",
                 "label": "[50, 50, 50, 50, 50, 50, 50, 50, 50, 50…",
                 "tone": "data"
-              },
-              {
-                "from": "probe_times",
-                "to": "window",
-                "label": "{'__other__': 'range'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "intervals_before_crash"
@@ -714,7 +806,7 @@
               {
                 "from": "probe_times",
                 "to": "window",
-                "label": "{'__other__': 'range'}",
+                "label": "<range>",
                 "tone": "ok"
               }
             ],
@@ -733,7 +825,31 @@
               {
                 "from": "probe_times",
                 "to": "window",
-                "label": "{'__other__': 'range'}",
+                "label": "<range>",
+                "tone": "ok"
+              },
+              {
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": "[50, 50, 50, 50, 50, 50, 50, 50, 50, 50…",
+                "tone": "data"
+              },
+              {
+                "from": "probe_times",
+                "to": "window",
+                "label": "<range>",
+                "tone": "ok"
+              },
+              {
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": "[50, 50, 50, 50, 50, 50, 50, 50, 50, 50…",
+                "tone": "data"
+              },
+              {
+                "from": "probe_times",
+                "to": "window",
+                "label": "<range>",
                 "tone": "ok"
               }
             ],

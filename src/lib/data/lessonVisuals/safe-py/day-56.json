@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Statistical LLM Watermarking — Foundations & Mathematical Invariants",
+      "partTitle": "Preceding-Token Green-List Logit Biasing in `get_green_list`",
       "codeHash": "9822029bfab037d49b872e343eacb70498c06add8618bbb6e395e7c7f15c498c",
       "spec": {
         "template": "bars",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "partTitle": "Statistical LLM Watermarking — Core Algorithm & State Representation",
+      "partTitle": "Greedy Watermarked Sampling Loops via `generate_watermarked`",
       "codeHash": "7c3a45e0612510c302fd81f8a6e1a5201b242d97610e2b3352835aff34b9ae3e",
       "spec": {
         "template": "bars",
@@ -318,7 +318,7 @@
           },
           {
             "at": "say13",
-            "caption": "Profiling memory allocations during statistical llm watermarking confirms.",
+            "caption": "Examine the watermarked value produced for sampling processing.",
             "bars": [
               {
                 "label": "length",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say13",
-            "caption": "Profiling memory allocations during statistical llm watermarking confirms.",
+            "caption": "Examine the watermarked value produced for sampling processing.",
             "bars": [
               {
                 "label": "length",
@@ -446,7 +446,7 @@
       }
     },
     {
-      "partTitle": "Statistical LLM Watermarking — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Binomial Hypothesis Detection inside `compute_watermark_z_score`",
       "codeHash": "fea879fabfd74ecb5f8c0bc48006bcd1ce089a23b23120a01d8ea5f817027203",
       "spec": {
         "template": "states",
@@ -554,7 +554,7 @@
       }
     },
     {
-      "partTitle": "Statistical LLM Watermarking — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Paraphrase Edit Survival Checks via `count_green`",
       "codeHash": "de1d6eb0b40736e3f9ab4d540fedc18481cf8b6eacf5b2fa21237fb8b7660e41",
       "spec": {
         "template": "states",
@@ -576,7 +576,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Real-world text undergoes paraphrasing, synonym replacement,.",
+            "caption": "Observe how real shapes world during this step.",
             "currentState": "orig",
             "tone": "data"
           },
@@ -597,7 +597,7 @@
           },
           {
             "at": "say13",
-            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "caption": "Examine the checks value produced for count processing.",
             "currentState": "vocab_size",
             "transition": {
               "from": "tokens",
@@ -632,7 +632,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Real-world text undergoes paraphrasing, synonym replacement,.",
+            "caption": "Observe how real shapes world during this step.",
             "currentState": "orig",
             "tone": "data"
           },
@@ -649,7 +649,7 @@
           },
           {
             "at": "say13",
-            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "caption": "Examine the checks value produced for count processing.",
             "currentState": "vocab_size",
             "transition": {
               "from": "tokens",
@@ -662,7 +662,7 @@
       }
     },
     {
-      "partTitle": "Statistical LLM Watermarking — Production Telemetry & Verification Audit",
+      "partTitle": "Audited Provenance Thresholds inside `WatermarkDetector`",
       "codeHash": "eddfe1ae5d76c7f722c5b0c57847811de3b44a27a805b131cf249bacb12d7d46",
       "spec": {
         "template": "flow",
@@ -753,8 +753,8 @@
               },
               "doc_id": {
                 "var": "doc_id",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -780,7 +780,7 @@
           },
           {
             "at": "say13",
-            "caption": "Automated compliance engines continuously validate statistical llm.",
+            "caption": "Examine the inside value produced for watermarkdetector processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -799,8 +799,8 @@
               },
               "doc_id": {
                 "var": "doc_id",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -885,7 +885,7 @@
               "self": "<WatermarkDetector>",
               "z_threshold": "2.5",
               "det": "<WatermarkDetector>",
-              "doc_id": "'doc_001'"
+              "doc_id": "'doc_002'"
             },
             "tones": {
               "self": "data",
@@ -910,12 +910,12 @@
           },
           {
             "at": "say13",
-            "caption": "Automated compliance engines continuously validate statistical llm.",
+            "caption": "Examine the inside value produced for watermarkdetector processing.",
             "values": {
               "self": "<WatermarkDetector>",
               "z_threshold": "2.5",
               "det": "<WatermarkDetector>",
-              "doc_id": "'doc_001'"
+              "doc_id": "'doc_002'"
             },
             "tones": {
               "self": "ok",

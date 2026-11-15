@@ -19,8 +19,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Cross-shard transactions spanning independent storage partitions (for.",
+            "caption": "Observe how commit shapes cross during this step.",
             "activeActor": "coord_wal",
+            "messages": [
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": {
+                  "var": "coord_wal",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Classic Two-Phase Commit (2PC) splits coordination into a strict voting.",
+            "activeActor": "self",
             "messages": [
               {
                 "from": "coord_wal",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Classic Two-Phase Commit (2PC) splits coordination into a strict voting.",
-            "activeActor": "self",
+            "at": "say7",
+            "caption": "Examine the phase value produced for commit processing.",
+            "activeActor": "pid",
             "messages": [
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": {
+                  "var": "coord_wal",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "coord_wal",
                 "to": "self",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace how inspect updates backed during execution.",
-            "activeActor": "pid",
-            "messages": [
+              },
               {
                 "from": "coord_wal",
                 "to": "self",
@@ -111,19 +141,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Cross-shard transactions spanning independent storage partitions (for.",
+            "caption": "Observe how commit shapes cross during this step.",
             "messages": [
               {
                 "from": "coord_wal",
                 "to": "self",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "pid",
-                "label": "<Participant>",
-                "tone": "ok"
               }
             ],
             "activeActor": "coord_wal"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how inspect updates backed during execution.",
+            "caption": "Examine the phase value produced for commit processing.",
             "messages": [
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<Participant>",
+                "tone": "ok"
+              },
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<Participant>",
+                "tone": "ok"
+              },
               {
                 "from": "coord_wal",
                 "to": "self",
@@ -171,26 +219,25 @@
     },
     {
       "partTitle": "The Blocking Hazard: Prepared Cohorts Trapped Under Coordinator Crash",
-      "codeHash": "6f0b964fb9825259889f2cd39a6d748ffbbecceb9f4575a4973ba187262b61c7",
+      "codeHash": "6761f0d5ca369bdbad449dd3f0358072bdbded100683981631be9a0490f38ba8",
       "spec": {
         "template": "flow",
         "title": "The Blocking Hazard: Prepared Cohorts Trapped Under Coordinator ",
         "nodes": [
           {
-            "id": "inquiring_pid",
-            "label": "inquiring_pid"
+            "id": "label",
+            "label": "label",
+            "tappable": true
+          },
+          {
+            "id": "st_map",
+            "label": "st_map",
+            "tappable": true
           },
           {
             "id": "peer_states",
-            "label": "peer_states"
-          },
-          {
-            "id": "pid",
-            "label": "pid"
-          },
-          {
-            "id": "st",
-            "label": "st"
+            "label": "peer_states",
+            "tappable": true
           }
         ],
         "steps": [
@@ -198,137 +245,84 @@
             "at": "say1",
             "caption": "Now walk into the fatal Achilles' heel of standard 2PC.",
             "values": {
-              "inquiring_pid": {
-                "var": "inquiring_pid",
-                "line": 3,
+              "label": {
+                "var": "label",
+                "line": 19,
+                "hit": 1
+              },
+              "st_map": {
+                "var": "st_map",
+                "line": 19,
                 "hit": 1
               },
               "peer_states": {
-                "var": "peer_states",
-                "line": 3,
-                "hit": 1
-              },
-              "pid": {
-                "var": "pid",
-                "line": 3,
-                "hit": 1
-              },
-              "st": {
-                "var": "st",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
-              "inquiring_pid": "data",
-              "peer_states": "data",
-              "pid": "data",
-              "st": "data"
+              "label": "data",
+              "st_map": "data",
+              "peer_states": "idle"
             },
-            "arrows": [
-              [
-                "inquiring_pid",
-                "peer_states"
-              ],
-              [
-                "peer_states",
-                "pid"
-              ],
-              [
-                "pid",
-                "st"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how examine updates shard during execution.",
+            "caption": "Verify the blocking transition driving prepared behavior.",
             "values": {
-              "inquiring_pid": {
-                "var": "inquiring_pid",
-                "line": 4,
-                "hit": 1
+              "label": {
+                "var": "label",
+                "line": 19,
+                "hit": 2
+              },
+              "st_map": {
+                "var": "st_map",
+                "line": 19,
+                "hit": 2
               },
               "peer_states": {
-                "var": "peer_states",
-                "line": 4,
-                "hit": 1
-              },
-              "pid": {
-                "var": "pid",
-                "line": 4,
-                "hit": 1
-              },
-              "st": {
-                "var": "st",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
-              "inquiring_pid": "data",
-              "peer_states": "data",
-              "pid": "data",
-              "st": "data"
+              "label": "data",
+              "st_map": "data",
+              "peer_states": "idle"
             },
             "arrows": [
               [
-                "inquiring_pid",
-                "peer_states"
-              ],
-              [
-                "peer_states",
-                "pid"
-              ],
-              [
-                "pid",
-                "st"
+                "label",
+                "st_map"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Demonstrate both cooperative termination resolution and true.",
+            "at": "say3",
+            "caption": "Unilateral abort to release held locks is unsafe.",
             "values": {
-              "inquiring_pid": {
-                "var": "inquiring_pid",
-                "line": 3,
-                "hit": 2
+              "label": {
+                "var": "label",
+                "line": 19,
+                "hit": 3
+              },
+              "st_map": {
+                "var": "st_map",
+                "line": 19,
+                "hit": 3
               },
               "peer_states": {
-                "var": "peer_states",
-                "line": 3,
-                "hit": 2
-              },
-              "pid": {
-                "var": "pid",
-                "line": 3,
-                "hit": 2
-              },
-              "st": {
-                "var": "st",
-                "line": 3,
-                "hit": 2
+                "text": ""
               }
             },
             "tones": {
-              "inquiring_pid": "ok",
-              "peer_states": "ok",
-              "pid": "ok",
-              "st": "ok"
+              "label": "ok",
+              "st_map": "ok",
+              "peer_states": "idle"
             },
             "arrows": [
               [
-                "inquiring_pid",
-                "peer_states"
-              ],
-              [
-                "peer_states",
-                "pid"
-              ],
-              [
-                "pid",
-                "st"
+                "label",
+                "st_map"
               ]
             ]
           }
@@ -339,20 +333,19 @@
         "title": "The Blocking Hazard: Prepared Cohorts Trapped Under Coordinator ",
         "nodes": [
           {
-            "id": "inquiring_pid",
-            "label": "inquiring_pid"
+            "id": "label",
+            "label": "label",
+            "tappable": true
+          },
+          {
+            "id": "st_map",
+            "label": "st_map",
+            "tappable": true
           },
           {
             "id": "peer_states",
-            "label": "peer_states"
-          },
-          {
-            "id": "pid",
-            "label": "pid"
-          },
-          {
-            "id": "st",
-            "label": "st"
+            "label": "peer_states",
+            "tappable": true
           }
         ],
         "steps": [
@@ -360,89 +353,54 @@
             "at": "say1",
             "caption": "Now walk into the fatal Achilles' heel of standard 2PC.",
             "values": {
-              "inquiring_pid": "'p1'",
-              "peer_states": "{'p1': 'PREPARED', 'p2': 'COMMITTED'}",
-              "pid": "'p1'",
-              "st": "'PREPARED'"
+              "label": "'all_prepared_blocked'",
+              "st_map": "{'p1': 'PREPARED', 'p2': 'PREPARED', 'p…",
+              "peer_states": ""
             },
             "tones": {
-              "inquiring_pid": "data",
-              "peer_states": "data",
-              "pid": "data",
-              "st": "data"
+              "label": "data",
+              "st_map": "data",
+              "peer_states": "idle"
             },
-            "arrows": [
-              [
-                "inquiring_pid",
-                "peer_states"
-              ],
-              [
-                "peer_states",
-                "pid"
-              ],
-              [
-                "pid",
-                "st"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how examine updates shard during execution.",
+            "caption": "Verify the blocking transition driving prepared behavior.",
             "values": {
-              "inquiring_pid": "'p1'",
-              "peer_states": "{'p1': 'PREPARED', 'p2': 'COMMITTED'}",
-              "pid": "'p1'",
-              "st": "'PREPARED'"
+              "label": "'peer_committed'",
+              "st_map": "{'p1': 'PREPARED', 'p2': 'COMMITTED', '…",
+              "peer_states": ""
             },
             "tones": {
-              "inquiring_pid": "data",
-              "peer_states": "data",
-              "pid": "data",
-              "st": "data"
+              "label": "data",
+              "st_map": "data",
+              "peer_states": "idle"
             },
             "arrows": [
               [
-                "inquiring_pid",
-                "peer_states"
-              ],
-              [
-                "peer_states",
-                "pid"
-              ],
-              [
-                "pid",
-                "st"
+                "label",
+                "st_map"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Demonstrate both cooperative termination resolution and true.",
+            "at": "say3",
+            "caption": "Unilateral abort to release held locks is unsafe.",
             "values": {
-              "inquiring_pid": "'p1'",
-              "peer_states": "{'p1': 'PREPARED', 'p2': 'COMMITTED'}",
-              "pid": "'p2'",
-              "st": "'COMMITTED'"
+              "label": "'peer_aborted'",
+              "st_map": "{'p1': 'PREPARED', 'p2': 'PREPARED', 'p…",
+              "peer_states": ""
             },
             "tones": {
-              "inquiring_pid": "ok",
-              "peer_states": "ok",
-              "pid": "ok",
-              "st": "ok"
+              "label": "ok",
+              "st_map": "ok",
+              "peer_states": "idle"
             },
             "arrows": [
               [
-                "inquiring_pid",
-                "peer_states"
-              ],
-              [
-                "peer_states",
-                "pid"
-              ],
-              [
-                "pid",
-                "st"
+                "label",
+                "st_map"
               ]
             ]
           }
@@ -571,7 +529,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "How do modern geo-distributed SQL databases like Google Spanner, TiDB,.",
+            "caption": "Observe how blocking shapes spanner during this step.",
             "activeActor": "single_coord_alive",
             "messages": [
               {
@@ -583,16 +541,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "raft_alive_count",
-                "to": "raft_size",
-                "label": {
-                  "var": "raft_alive_count",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -606,6 +554,53 @@
                 "to": "raft_alive_count",
                 "label": {
                   "var": "single_coord_alive",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": {
+                  "var": "raft_alive_count",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Compare single-node vs Raft-replicated coordinator recovery availability below.",
+            "activeActor": "raft_size",
+            "messages": [
+              {
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": {
+                  "var": "single_coord_alive",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": {
+                  "var": "raft_alive_count",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": {
+                  "var": "single_coord_alive",
                   "line": 3,
                   "hit": 1
                 },
@@ -620,14 +615,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Compare single-node vs Raft-replicated coordinator recovery availability below.",
-            "activeActor": "raft_size",
-            "messages": [
+              },
               {
                 "from": "single_coord_alive",
                 "to": "raft_alive_count",
@@ -663,19 +651,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "How do modern geo-distributed SQL databases like Google Spanner, TiDB,.",
+            "caption": "Observe how blocking shapes spanner during this step.",
             "messages": [
               {
                 "from": "single_coord_alive",
                 "to": "raft_alive_count",
                 "label": "False",
                 "tone": "data"
-              },
-              {
-                "from": "raft_alive_count",
-                "to": "raft_size",
-                "label": "2",
-                "tone": "ok"
               }
             ],
             "activeActor": "single_coord_alive"
@@ -714,6 +696,30 @@
                 "to": "raft_size",
                 "label": "2",
                 "tone": "ok"
+              },
+              {
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": "False",
+                "tone": "data"
+              },
+              {
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": "2",
+                "tone": "ok"
+              },
+              {
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": "False",
+                "tone": "data"
+              },
+              {
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": "2",
+                "tone": "ok"
               }
             ],
             "activeActor": "raft_size"
@@ -723,162 +729,184 @@
     },
     {
       "partTitle": "Lock Contention Hold Time & Deadlock/Abandonment Metrics",
-      "codeHash": "8b94390330d11f32dce1221a89ed221b260087c22d1ac086bbbd547feb4e4bf2",
+      "codeHash": "a5134edbe662ccaad2846234f38c70c10ff82f17b5d0b3a9af1f98da7e4cb52f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Lock Contention Hold Time & Deadlock/Abandonment Metrics",
-        "actors": [
-          "requester_ts",
-          "holder_ts"
+        "nodes": [
+          {
+            "id": "requester_ts",
+            "label": "requester_ts",
+            "tappable": true
+          },
+          {
+            "id": "holder_ts",
+            "label": "holder_ts",
+            "tappable": true
+          },
+          {
+            "id": "hold_ms",
+            "label": "hold_ms",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Even without coordinator crashes, classic 2PC exposes severe tail latency.",
-            "activeActor": "requester_ts",
-            "messages": [
-              {
-                "from": "requester_ts",
-                "to": "holder_ts",
-                "label": {
-                  "var": "requester_ts",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect contention updates as requester_ts tracks even state.",
+            "values": {
+              "requester_ts": {
+                "var": "requester_ts",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "holder_ts",
-                "to": "requester_ts",
-                "label": {
-                  "var": "holder_ts",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "holder_ts": {
+                "var": "holder_ts",
+                "line": 2,
+                "hit": 1
+              },
+              "hold_ms": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "requester_ts": "data",
+              "holder_ts": "data",
+              "hold_ms": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Little's Law applies directly to lock concurrency.",
-            "activeActor": "holder_ts",
-            "messages": [
-              {
-                "from": "requester_ts",
-                "to": "holder_ts",
-                "label": {
-                  "var": "requester_ts",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "requester_ts": {
+                "text": ""
               },
-              {
-                "from": "holder_ts",
-                "to": "requester_ts",
-                "label": {
-                  "var": "holder_ts",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "holder_ts": {
+                "text": ""
+              },
+              "hold_ms": {
+                "var": "hold_ms",
+                "line": 13,
+                "hit": 2
               }
+            },
+            "tones": {
+              "requester_ts": "idle",
+              "holder_ts": "idle",
+              "hold_ms": "data"
+            },
+            "arrows": [
+              [
+                "requester_ts",
+                "holder_ts"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Implement Wound-Wait deterministic timestamp preemption below preventing.",
-            "activeActor": "holder_ts",
-            "messages": [
-              {
-                "from": "requester_ts",
-                "to": "holder_ts",
-                "label": {
-                  "var": "requester_ts",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the consider value produced for transaction processing.",
+            "values": {
+              "requester_ts": {
+                "out": 1
               },
-              {
-                "from": "holder_ts",
-                "to": "requester_ts",
-                "label": {
-                  "var": "holder_ts",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "holder_ts": {
+                "text": ""
+              },
+              "hold_ms": {
+                "text": ""
               }
+            },
+            "tones": {
+              "requester_ts": "data",
+              "holder_ts": "idle",
+              "hold_ms": "idle"
+            },
+            "arrows": [
+              [
+                "requester_ts",
+                "holder_ts"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Lock Contention Hold Time & Deadlock/Abandonment Metrics",
-        "actors": [
-          "requester_ts",
-          "holder_ts"
+        "nodes": [
+          {
+            "id": "requester_ts",
+            "label": "requester_ts",
+            "tappable": true
+          },
+          {
+            "id": "holder_ts",
+            "label": "holder_ts",
+            "tappable": true
+          },
+          {
+            "id": "hold_ms",
+            "label": "hold_ms",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Even without coordinator crashes, classic 2PC exposes severe tail latency.",
-            "messages": [
-              {
-                "from": "requester_ts",
-                "to": "holder_ts",
-                "label": "100",
-                "tone": "data"
-              },
-              {
-                "from": "holder_ts",
-                "to": "requester_ts",
-                "label": "200",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "requester_ts"
+            "caption": "Inspect contention updates as requester_ts tracks even state.",
+            "values": {
+              "requester_ts": "100",
+              "holder_ts": "200",
+              "hold_ms": ""
+            },
+            "tones": {
+              "requester_ts": "data",
+              "holder_ts": "data",
+              "hold_ms": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Little's Law applies directly to lock concurrency.",
-            "messages": [
-              {
-                "from": "requester_ts",
-                "to": "holder_ts",
-                "label": "100",
-                "tone": "data"
-              },
-              {
-                "from": "holder_ts",
-                "to": "requester_ts",
-                "label": "200",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "holder_ts"
+            "values": {
+              "requester_ts": "",
+              "holder_ts": "",
+              "hold_ms": "20"
+            },
+            "tones": {
+              "requester_ts": "idle",
+              "holder_ts": "idle",
+              "hold_ms": "data"
+            },
+            "arrows": [
+              [
+                "requester_ts",
+                "holder_ts"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Implement Wound-Wait deterministic timestamp preemption below preventing.",
-            "messages": [
-              {
-                "from": "requester_ts",
-                "to": "holder_ts",
-                "label": "200",
-                "tone": "data"
-              },
-              {
-                "from": "holder_ts",
-                "to": "requester_ts",
-                "label": "100",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "holder_ts"
+            "at": "say3",
+            "caption": "Examine the consider value produced for transaction processing.",
+            "values": {
+              "requester_ts": "T1(100) -> locked by T2(200): WOUND_HOLDER_AND_PREEMPT",
+              "holder_ts": "",
+              "hold_ms": ""
+            },
+            "tones": {
+              "requester_ts": "data",
+              "holder_ts": "idle",
+              "hold_ms": "idle"
+            },
+            "arrows": [
+              [
+                "requester_ts",
+                "holder_ts"
+              ]
+            ]
           }
         ]
       }

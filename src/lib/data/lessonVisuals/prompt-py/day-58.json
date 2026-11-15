@@ -7,458 +7,454 @@
   "entries": [
     {
       "partTitle": "The Nature Of LLM Drift: Silent Failures In Hosted Foundation Model APIs",
-      "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
+      "codeHash": "4aa0e91f564f6bae695c42e832431759e56f64fc58adb6593513d91fec382963",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Nature Of LLM Drift: Silent Failures In Hosted Foundation Mo",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "alerts",
+            "label": "alerts",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In traditional software engineering, a compiled binary deployed.",
-            "activeActor": "monitors",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect drift updates as alerts tracks silent state.",
+            "values": {
+              "alerts": {
+                "var": "alerts",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "alerts": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The manifestation of model drift in production environments is subtle.",
-            "activeActor": "telemetry",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the drift transition driving model behavior.",
+            "values": {
+              "alerts": {
+                "var": "alerts",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "alerts": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "alerts",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the architecture of model drift monitoring transforms enterprise.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the drift value produced for model processing.",
+            "values": {
+              "alerts": {
+                "var": "alerts",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "alerts": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "alerts",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Nature Of LLM Drift: Silent Failures In Hosted Foundation Mo",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "alerts",
+            "label": "alerts",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In traditional software engineering, a compiled binary deployed.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "monitors"
+            "caption": "Inspect drift updates as alerts tracks silent state.",
+            "values": {
+              "alerts": "[]",
+              "out": ""
+            },
+            "tones": {
+              "alerts": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The manifestation of model drift in production environments is subtle.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "telemetry"
+            "caption": "Verify the drift transition driving model behavior.",
+            "values": {
+              "alerts": "['SYNTAX_DRIFT', 'VERBOSITY_DRIFT']",
+              "out": "Baseline vs Live: {'json_ok': 0.996, 'avg_words': 82, 'refusal_rate': 0.01} -> {'json_ok': 0.941, 'avg_words': 158, 'refusal_rate': 0.06}"
+            },
+            "tones": {
+              "alerts": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "alerts",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the architecture of model drift monitoring transforms enterprise.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the drift value produced for model processing.",
+            "values": {
+              "alerts": "['SYNTAX_DRIFT', 'VERBOSITY_DRIFT', 'RE…",
+              "out": "Triggered silent drift alerts: ['SYNTAX_DRIFT', 'VERBOSITY_DRIFT', 'REFUSAL_SPIKE']"
+            },
+            "tones": {
+              "alerts": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "alerts",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Statistical Drift Detection: Wasserstein Distance, Kolmogorov-Smirnov Tests & Perplexity",
-      "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
+      "codeHash": "001c2aa14882084017c980434171246e1cb9efdbcab86d581f34d1163875a65f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Statistical Drift Detection: Wasserstein Distance, Kolmogorov-Sm",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
+          },
+          {
+            "id": "sb",
+            "label": "sb",
+            "tappable": true
+          },
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Detecting subtle semantic degradation within high-volume production prompt.",
-            "activeActor": "monitors",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect statistical updates as b tracks drift state.",
+            "values": {
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "sb": {
+                "var": "sb",
+                "line": 2,
+                "hit": 1
+              },
+              "x": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "b": "data",
+              "sb": "data",
+              "x": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Wasserstein Distance, also known as the Earth Mover's Distance, serves.",
-            "activeActor": "telemetry",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the drift transition driving wasserstein behavior.",
+            "values": {
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "sb": {
+                "var": "sb",
+                "line": 2,
+                "hit": 2
+              },
+              "x": {
+                "text": ""
               }
+            },
+            "tones": {
+              "b": "data",
+              "sb": "data",
+              "x": "idle"
+            },
+            "arrows": [
+              [
+                "b",
+                "sb"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering statistical drift detection provides you with the mathematical.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the distance value produced for kolmogorov processing.",
+            "values": {
+              "b": {
+                "text": ""
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "sb": {
+                "text": ""
+              },
+              "x": {
+                "var": "x",
+                "line": 8,
+                "hit": 105
               }
+            },
+            "tones": {
+              "b": "idle",
+              "sb": "idle",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "b",
+                "sb"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Statistical Drift Detection: Wasserstein Distance, Kolmogorov-Sm",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
+          },
+          {
+            "id": "sb",
+            "label": "sb",
+            "tappable": true
+          },
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Detecting subtle semantic degradation within high-volume production prompt.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "monitors"
+            "caption": "Inspect statistical updates as b tracks drift state.",
+            "values": {
+              "b": "[0.9, 0.92, 0.93, 0.91, 0.95, 0.94]",
+              "sb": "[0.9, 0.91, 0.92, 0.93, 0.94, 0.95]",
+              "x": ""
+            },
+            "tones": {
+              "b": "data",
+              "sb": "data",
+              "x": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Wasserstein Distance, also known as the Earth Mover's Distance, serves.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "telemetry"
+            "caption": "Verify the drift transition driving wasserstein behavior.",
+            "values": {
+              "b": "[0.71, 0.75, 0.68, 0.74, 0.72, 0.69]",
+              "sb": "[0.68, 0.69, 0.71, 0.72, 0.74, 0.75]",
+              "x": ""
+            },
+            "tones": {
+              "b": "data",
+              "sb": "data",
+              "x": "idle"
+            },
+            "arrows": [
+              [
+                "b",
+                "sb"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering statistical drift detection provides you with the mathematical.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the distance value produced for kolmogorov processing.",
+            "values": {
+              "b": "",
+              "sb": "",
+              "x": "0.69"
+            },
+            "tones": {
+              "b": "idle",
+              "sb": "idle",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "b",
+                "sb"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Continuous Canary Testing And Automated Regression Suites",
-      "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
+      "codeHash": "4748d6626729ee710a2883390236bfe5d942b4c33cbebe67ff6ec9174afd4eea",
       "spec": {
         "template": "flow",
         "title": "Continuous Canary Testing And Automated Regression Suites",
         "nodes": [
           {
-            "id": "monitors",
-            "label": "monitors"
+            "id": "failures",
+            "label": "failures",
+            "tappable": true
           },
           {
-            "id": "telemetry",
-            "label": "telemetry"
+            "id": "c",
+            "label": "c",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "f",
+            "label": "f",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While statistical drift detection monitors production traffic passively.",
+            "caption": "Inspect continuous updates as failures tracks canary state.",
             "values": {
-              "monitors": {
-                "var": "monitors",
+              "failures": {
+                "var": "failures",
                 "line": 6,
                 "hit": 1
               },
-              "telemetry": {
-                "var": "telemetry",
-                "line": 13,
-                "hit": 1
+              "c": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "f": {
+                "text": ""
               }
             },
             "tones": {
-              "monitors": "data",
-              "telemetry": "data",
-              "result": "data"
+              "failures": "data",
+              "c": "idle",
+              "f": "idle"
             },
-            "arrows": [
-              [
-                "monitors",
-                "telemetry"
-              ],
-              [
-                "telemetry",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The canary probe harness operates as an automated synthetic user.",
+            "caption": "Verify the canary transition driving automated behavior.",
             "values": {
-              "monitors": {
-                "var": "monitors",
-                "line": 14,
+              "failures": {
+                "var": "failures",
+                "line": 9,
                 "hit": 1
               },
-              "telemetry": {
-                "var": "telemetry",
-                "line": 21,
+              "c": {
+                "var": "c",
+                "line": 9,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "f": {
+                "text": ""
               }
             },
             "tones": {
-              "monitors": "data",
-              "telemetry": "data",
-              "result": "data"
+              "failures": "data",
+              "c": "data",
+              "f": "idle"
             },
             "arrows": [
               [
-                "monitors",
-                "telemetry"
-              ],
-              [
-                "telemetry",
-                "result"
+                "failures",
+                "c"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering continuous canary testing and automated regression suites.",
+            "at": "say3",
+            "caption": "Examine the canary value produced for cryptographic processing.",
             "values": {
-              "monitors": {
-                "var": "monitors",
-                "line": 15,
-                "hit": 1
+              "failures": {
+                "var": "failures",
+                "line": 13,
+                "hit": 2
               },
-              "telemetry": {
-                "var": "telemetry",
-                "line": 22,
-                "hit": 1
+              "c": {
+                "var": "c",
+                "line": 13,
+                "hit": 2
               },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "f": {
+                "var": "f",
+                "line": 13,
+                "hit": 2
               }
             },
             "tones": {
-              "monitors": "ok",
-              "telemetry": "ok",
-              "result": "ok"
+              "failures": "ok",
+              "c": "ok",
+              "f": "ok"
             },
             "arrows": [
               [
-                "monitors",
-                "telemetry"
-              ],
-              [
-                "telemetry",
-                "result"
+                "failures",
+                "c"
               ]
             ]
           }
@@ -469,88 +465,74 @@
         "title": "Continuous Canary Testing And Automated Regression Suites",
         "nodes": [
           {
-            "id": "monitors",
-            "label": "monitors"
+            "id": "failures",
+            "label": "failures",
+            "tappable": true
           },
           {
-            "id": "telemetry",
-            "label": "telemetry"
+            "id": "c",
+            "label": "c",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "f",
+            "label": "f",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While statistical drift detection monitors production traffic passively.",
+            "caption": "Inspect continuous updates as failures tracks canary state.",
             "values": {
-              "monitors": "['Wasserstein Embedding Drift Detector'…",
-              "telemetry": "{'baselineEmbeddingCosineDrift': 0.042,…",
-              "result": "{'driftMonitorPlatform': 'Enterprise LL…"
+              "failures": "[]",
+              "c": "",
+              "f": ""
             },
             "tones": {
-              "monitors": "data",
-              "telemetry": "data",
-              "result": "data"
+              "failures": "data",
+              "c": "idle",
+              "f": "idle"
             },
-            "arrows": [
-              [
-                "monitors",
-                "telemetry"
-              ],
-              [
-                "telemetry",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The canary probe harness operates as an automated synthetic user.",
+            "caption": "Verify the canary transition driving automated behavior.",
             "values": {
-              "monitors": "['Wasserstein Embedding Drift Detector'…",
-              "telemetry": "{'baselineEmbeddingCosineDrift': 0.042,…",
-              "result": "{'driftMonitorPlatform': 'Enterprise LL…"
+              "failures": "[['c2', 'ANSWER_DRIFT', 'AES-256-GCM', …",
+              "c": "{'id': 'c2', 'expect': 'AES-256-GCM', '…",
+              "f": ""
             },
             "tones": {
-              "monitors": "data",
-              "telemetry": "data",
-              "result": "data"
+              "failures": "data",
+              "c": "data",
+              "f": "idle"
             },
             "arrows": [
               [
-                "monitors",
-                "telemetry"
-              ],
-              [
-                "telemetry",
-                "result"
+                "failures",
+                "c"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering continuous canary testing and automated regression suites.",
+            "at": "say3",
+            "caption": "Examine the canary value produced for cryptographic processing.",
             "values": {
-              "monitors": "['Wasserstein Embedding Drift Detector'…",
-              "telemetry": "{'baselineEmbeddingCosineDrift': 0.042,…",
-              "result": "{'driftMonitorPlatform': 'Enterprise LL…"
+              "failures": "[['c2', 'ANSWER_DRIFT', 'AES-256-GCM', …",
+              "c": "{'id': 'c2', 'expect': 'AES-256-GCM', '…",
+              "f": "['c2', 'LATENCY_REGRESSION', 180, 340]"
             },
             "tones": {
-              "monitors": "ok",
-              "telemetry": "ok",
-              "result": "ok"
+              "failures": "ok",
+              "c": "ok",
+              "f": "ok"
             },
             "arrows": [
               [
-                "monitors",
-                "telemetry"
-              ],
-              [
-                "telemetry",
-                "result"
+                "failures",
+                "c"
               ]
             ]
           }
@@ -559,328 +541,386 @@
     },
     {
       "partTitle": "Production Observability: OpenTelemetry, Prometheus & Latency Distribution SLIs",
-      "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
+      "codeHash": "2da9db961a195ad51c369c244323e180e0bb00027fb1ec49b5087c2672d22a58",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Production Observability: OpenTelemetry, Prometheus & Latency Di",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "q",
+            "label": "q",
+            "tappable": true
+          },
+          {
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
+          },
+          {
+            "id": "lo",
+            "label": "lo",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying robust drift monitors and canary testing harnesses.",
-            "activeActor": "monitors",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect production updates as q tracks observability state.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "idx": {
+                "text": ""
+              },
+              "lo": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "q": "data",
+              "idx": "idle",
+              "lo": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "OpenTelemetry instrumentation provides standardized, vendor-neutral.",
-            "activeActor": "telemetry",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the opentelemetry transition driving instrumentation behavior.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "idx": {
+                "var": "idx",
+                "line": 6,
+                "hit": 2
+              },
+              "lo": {
+                "var": "lo",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "q": "data",
+              "idx": "data",
+              "lo": "data"
+            },
+            "arrows": [
+              [
+                "q",
+                "idx"
+              ]
             ]
           },
           {
-            "at": "say17",
-            "caption": "Mastering production observability using OpenTelemetry and Prometheus.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the prometheus value produced for latency processing.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 7,
+                "hit": 3
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "idx": {
+                "var": "idx",
+                "line": 7,
+                "hit": 3
+              },
+              "lo": {
+                "var": "lo",
+                "line": 7,
+                "hit": 3
               }
+            },
+            "tones": {
+              "q": "ok",
+              "idx": "ok",
+              "lo": "ok"
+            },
+            "arrows": [
+              [
+                "q",
+                "idx"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Production Observability: OpenTelemetry, Prometheus & Latency Di",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "q",
+            "label": "q",
+            "tappable": true
+          },
+          {
+            "id": "idx",
+            "label": "idx",
+            "tappable": true
+          },
+          {
+            "id": "lo",
+            "label": "lo",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying robust drift monitors and canary testing harnesses.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "monitors"
+            "caption": "Inspect production updates as q tracks observability state.",
+            "values": {
+              "q": "50",
+              "idx": "",
+              "lo": ""
+            },
+            "tones": {
+              "q": "data",
+              "idx": "idle",
+              "lo": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "OpenTelemetry instrumentation provides standardized, vendor-neutral.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "telemetry"
+            "caption": "Verify the opentelemetry transition driving instrumentation behavior.",
+            "values": {
+              "q": "95",
+              "idx": "8.549999999999999",
+              "lo": "8"
+            },
+            "tones": {
+              "q": "data",
+              "idx": "data",
+              "lo": "data"
+            },
+            "arrows": [
+              [
+                "q",
+                "idx"
+              ]
+            ]
           },
           {
-            "at": "say17",
-            "caption": "Mastering production observability using OpenTelemetry and Prometheus.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the prometheus value produced for latency processing.",
+            "values": {
+              "q": "99",
+              "idx": "8.91",
+              "lo": "8"
+            },
+            "tones": {
+              "q": "ok",
+              "idx": "ok",
+              "lo": "ok"
+            },
+            "arrows": [
+              [
+                "q",
+                "idx"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Observability & Drift Shield: Ten Thousand Production Canary Runs",
-      "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
+      "codeHash": "a1065832cd9edf61f826996181fc2df59112b7b0c53b5a7a285dfed9b7b79a35",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Observability & Drift Shield: Ten Thousand Production",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "win",
+            "label": "win",
+            "tappable": true
+          },
+          {
+            "id": "m",
+            "label": "m",
+            "tappable": true
+          },
+          {
+            "id": "tripped",
+            "label": "tripped",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating model drift theory, statistical non-parametric tests.",
-            "activeActor": "monitors",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as win tracks observability state.",
+            "values": {
+              "win": {
+                "var": "win",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 1
+              },
+              "tripped": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "win": "data",
+              "m": "data",
+              "tripped": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise drift shield integrates five.",
-            "activeActor": "telemetry",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the observability transition driving canary behavior.",
+            "values": {
+              "win": {
+                "var": "win",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 2
+              },
+              "tripped": {
+                "var": "tripped",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "win": "data",
+              "m": "data",
+              "tripped": "data"
+            },
+            "arrows": [
+              [
+                "win",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise LLM observability.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": {
-                  "var": "monitors",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the drift value produced for thousand processing.",
+            "values": {
+              "win": {
+                "var": "win",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": {
-                  "var": "telemetry",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 3
+              },
+              "tripped": {
+                "var": "tripped",
+                "line": 8,
+                "hit": 3
               }
+            },
+            "tones": {
+              "win": "ok",
+              "m": "ok",
+              "tripped": "ok"
+            },
+            "arrows": [
+              [
+                "win",
+                "m"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Observability & Drift Shield: Ten Thousand Production",
-        "actors": [
-          "monitors",
-          "telemetry",
-          "result"
+        "nodes": [
+          {
+            "id": "win",
+            "label": "win",
+            "tappable": true
+          },
+          {
+            "id": "m",
+            "label": "m",
+            "tappable": true
+          },
+          {
+            "id": "tripped",
+            "label": "tripped",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating model drift theory, statistical non-parametric tests.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "monitors"
+            "caption": "Inspect enterprise updates as win tracks observability state.",
+            "values": {
+              "win": "'hour_1'",
+              "m": "{'w1': 0.015, 'ks': 0.16, 'p99_ms': 48}",
+              "tripped": ""
+            },
+            "tones": {
+              "win": "data",
+              "m": "data",
+              "tripped": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise drift shield integrates five.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "telemetry"
+            "caption": "Verify the observability transition driving canary behavior.",
+            "values": {
+              "win": "'hour_2'",
+              "m": "{'w1': 0.022, 'ks': 0.21, 'p99_ms': 51}",
+              "tripped": "False"
+            },
+            "tones": {
+              "win": "data",
+              "m": "data",
+              "tripped": "data"
+            },
+            "arrows": [
+              [
+                "win",
+                "m"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise LLM observability.",
-            "messages": [
-              {
-                "from": "monitors",
-                "to": "telemetry",
-                "label": "['Wasserstein Embedding Drift Detector'…",
-                "tone": "data"
-              },
-              {
-                "from": "telemetry",
-                "to": "result",
-                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the drift value produced for thousand processing.",
+            "values": {
+              "win": "'hour_3'",
+              "m": "{'w1': 0.185, 'ks': 0.88, 'p99_ms': 142}",
+              "tripped": "True"
+            },
+            "tones": {
+              "win": "ok",
+              "m": "ok",
+              "tripped": "ok"
+            },
+            "arrows": [
+              [
+                "win",
+                "m"
+              ]
+            ]
           }
         ]
       }

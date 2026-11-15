@@ -7,48 +7,42 @@
   "entries": [
     {
       "partTitle": "The Limits Of Linear Autoregressive Generation: Why Complex Combinatorial Problems Require Search Trees",
-      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
+      "codeHash": "d137b5353b76caa7465ade45286e590a0d818a0517ef4cb075e0df0cc1d27663",
       "spec": {
         "template": "bars",
         "title": "The Limits Of Linear Autoregressive Generation: Why Complex Comb",
         "steps": [
           {
             "at": "say1",
-            "caption": "The fundamental limitation of standard autoregressive generation lies.",
+            "caption": "Observe how linear shapes autoregressive during this step.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "expr",
                 "value": {
-                  "var": "beam_width",
-                  "line": 28,
+                  "var": "expr",
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "score",
+                "label": "total",
                 "value": {
-                  "var": "score",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "v",
                 "value": {
-                  "var": "depth",
-                  "line": 31,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "val",
+                "label": "explored",
                 "value": {
-                  "var": "val",
-                  "line": 35,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -56,83 +50,75 @@
           },
           {
             "at": "say2",
-            "caption": "The primary failure pathology of linear generation is strategic commitment.",
+            "caption": "Verify the linear transition driving autoregressive behavior.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "expr",
                 "value": {
-                  "var": "beam_width",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "score",
-                "value": {
-                  "var": "score",
+                  "var": "expr",
                   "line": 5,
-                  "hit": 1
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "total",
                 "value": {
-                  "var": "depth",
-                  "line": 32,
-                  "hit": 1
+                  "var": "total",
+                  "line": 5,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "val",
+                "label": "v",
                 "value": {
-                  "var": "val",
-                  "line": 36,
-                  "hit": 1
+                  "var": "v",
+                  "line": 5,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "explored",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Experimental cognitive architectures demonstrate that decoupling.",
+            "at": "say3",
+            "caption": "A chess grandmaster does not merely calculate a single sequence of moves.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "expr",
                 "value": {
-                  "var": "beam_width",
-                  "line": 31,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "score",
+                "label": "total",
                 "value": {
-                  "var": "score",
-                  "line": 6,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "depth",
+                "label": "v",
                 "value": {
-                  "var": "depth",
-                  "line": 33,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "val",
+                "label": "explored",
                 "value": {
-                  "var": "val",
-                  "line": 34,
-                  "hit": 2
+                  "var": "explored",
+                  "line": 29,
+                  "hit": 5
                 },
                 "tone": "ok"
               }
@@ -146,78 +132,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The fundamental limitation of standard autoregressive generation lies.",
+            "caption": "Observe how linear shapes autoregressive during this step.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
+                "label": "expr",
+                "value": "'4'",
                 "tone": "data"
               },
               {
-                "label": "score",
-                "value": 1,
-                "tone": "data"
-              },
-              {
-                "label": "depth",
+                "label": "total",
                 "value": 0,
                 "tone": "data"
               },
               {
-                "label": "val",
-                "value": 0.45,
+                "label": "v",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "explored",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The primary failure pathology of linear generation is strategic commitment.",
+            "caption": "Verify the linear transition driving autoregressive behavior.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
-                "tone": "ok"
+                "label": "expr",
+                "value": "'(4 + 2)'",
+                "tone": "data"
               },
               {
-                "label": "score",
-                "value": 1,
-                "tone": "ok"
+                "label": "total",
+                "value": 9,
+                "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "v",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "explored",
                 "value": 0,
-                "tone": "ok"
-              },
-              {
-                "label": "val",
-                "value": 0.45,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Experimental cognitive architectures demonstrate that decoupling.",
+            "at": "say3",
+            "caption": "A chess grandmaster does not merely calculate a single sequence of moves.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
-                "tone": "ok"
-              },
-              {
-                "label": "score",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "depth",
+                "label": "expr",
                 "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "val",
-                "value": 0.45,
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "explored",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -227,48 +213,44 @@
     },
     {
       "partTitle": "The Tree-of-Thoughts Formulation: Thought Generation, State Evaluation & Heuristic Scoring",
-      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
+      "codeHash": "d61ac78432956fae7a75c7361aa017a4c4320c3399dc4e4f78a60f274435dcd8",
       "spec": {
         "template": "bars",
         "title": "The Tree-of-Thoughts Formulation: Thought Generation, State Eval",
         "steps": [
           {
             "at": "say1",
-            "caption": "The Tree-of-Thoughts framework formalizes deliberative reasoning through.",
+            "caption": "Each atomic thought represents a meaningful intermediate milestone.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "k",
                 "value": {
-                  "var": "beam_width",
-                  "line": 28,
+                  "var": "k",
+                  "line": 11,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "score",
+                "label": "w",
                 "value": {
-                  "var": "score",
-                  "line": 4,
+                  "var": "w",
+                  "line": 11,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "node",
                 "value": {
-                  "var": "depth",
-                  "line": 31,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "val",
+                "label": "raw",
                 "value": {
-                  "var": "val",
-                  "line": 35,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -276,83 +258,75 @@
           },
           {
             "at": "say2",
-            "caption": "The Thought Generator function operationalizes the creation of alternative.",
+            "caption": "Each option forms a new branch originating from the parent architectural state.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "k",
                 "value": {
-                  "var": "beam_width",
-                  "line": 29,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "score",
+                "label": "w",
                 "value": {
-                  "var": "score",
-                  "line": 5,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "node",
                 "value": {
-                  "var": "depth",
-                  "line": 32,
-                  "hit": 1
+                  "var": "node",
+                  "line": 11,
+                  "hit": 5
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "val",
+                "label": "raw",
                 "value": {
-                  "var": "val",
-                  "line": 36,
-                  "hit": 1
+                  "var": "raw",
+                  "line": 11,
+                  "hit": 5
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "State serialization formats dictate how intermediate reasoning nodes are.",
+            "at": "say3",
+            "caption": "Examine the state value produced for heuristic processing.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "k",
                 "value": {
-                  "var": "beam_width",
-                  "line": 31,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "score",
+                "label": "w",
                 "value": {
-                  "var": "score",
-                  "line": 6,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "depth",
+                "label": "node",
                 "value": {
-                  "var": "depth",
-                  "line": 33,
-                  "hit": 1
+                  "var": "node",
+                  "line": 11,
+                  "hit": 20
                 },
                 "tone": "ok"
               },
               {
-                "label": "val",
+                "label": "raw",
                 "value": {
-                  "var": "val",
-                  "line": 34,
-                  "hit": 2
+                  "var": "raw",
+                  "line": 11,
+                  "hit": 20
                 },
                 "tone": "ok"
               }
@@ -366,78 +340,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The Tree-of-Thoughts framework formalizes deliberative reasoning through.",
+            "caption": "Each atomic thought represents a meaningful intermediate milestone.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
+                "label": "k",
+                "value": "'feasibility'",
                 "tone": "data"
               },
               {
-                "label": "score",
-                "value": 1,
+                "label": "w",
+                "value": 0.4,
                 "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "node",
                 "value": 0,
                 "tone": "data"
               },
               {
-                "label": "val",
-                "value": 0.45,
+                "label": "raw",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The Thought Generator function operationalizes the creation of alternative.",
+            "caption": "Each option forms a new branch originating from the parent architectural state.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
-                "tone": "ok"
-              },
-              {
-                "label": "score",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "depth",
+                "label": "k",
                 "value": 0,
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "val",
-                "value": 0.45,
-                "tone": "ok"
+                "label": "w",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "node",
+                "value": "{'id': 'T1_direct_cutover', 'feasibilit…",
+                "tone": "data"
+              },
+              {
+                "label": "raw",
+                "value": 0.5325,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "State serialization formats dictate how intermediate reasoning nodes are.",
+            "at": "say3",
+            "caption": "Examine the state value produced for heuristic processing.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
-                "tone": "ok"
-              },
-              {
-                "label": "score",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "depth",
+                "label": "k",
                 "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "val",
-                "value": 0.45,
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "node",
+                "value": "{'id': 'T4_single_table_lock', 'feasibi…",
+                "tone": "ok"
+              },
+              {
+                "label": "raw",
+                "value": 0.51,
                 "tone": "ok"
               }
             ]
@@ -447,48 +421,42 @@
     },
     {
       "partTitle": "Search Algorithms Over Prompt Trees: Breadth-First, Depth-First & Heuristic Beam Search",
-      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
+      "codeHash": "f13f9dd797db995cbc1b8f3cfd6cac0cc0a5147b05f6e069f9505311dd751f4b",
       "spec": {
         "template": "bars",
         "title": "Search Algorithms Over Prompt Trees: Breadth-First, Depth-First ",
         "steps": [
           {
             "at": "say1",
-            "caption": "Search algorithms over prompt trees dictate the strategy, efficiency,.",
+            "caption": "Observe how search shapes algorithms during this step.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "frontier",
                 "value": {
-                  "var": "beam_width",
-                  "line": 28,
+                  "var": "frontier",
+                  "line": 9,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "score",
+                "label": "expanded",
                 "value": {
-                  "var": "score",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "next_level",
                 "value": {
-                  "var": "depth",
-                  "line": 31,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "val",
+                "label": "path",
                 "value": {
-                  "var": "val",
-                  "line": 35,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -496,83 +464,77 @@
           },
           {
             "at": "say2",
-            "caption": "Breadth-First Search explores the reasoning tree layer by layer.",
+            "caption": "Verify the search transition driving breadth behavior.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "frontier",
                 "value": {
-                  "var": "beam_width",
-                  "line": 29,
-                  "hit": 1
+                  "var": "frontier",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "score",
+                "label": "expanded",
                 "value": {
-                  "var": "score",
-                  "line": 5,
-                  "hit": 1
+                  "var": "expanded",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "depth",
+                "label": "next_level",
                 "value": {
-                  "var": "depth",
-                  "line": 32,
-                  "hit": 1
+                  "var": "next_level",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "val",
+                "label": "path",
                 "value": {
-                  "var": "val",
-                  "line": 36,
-                  "hit": 1
+                  "var": "path",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Hierarchical beam width modulation dynamically calibrates exploration.",
+            "at": "say3",
+            "caption": "Examine the search value produced for depth processing.",
             "bars": [
               {
-                "label": "beam_width",
+                "label": "frontier",
                 "value": {
-                  "var": "beam_width",
-                  "line": 31,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "score",
+                "label": "expanded",
                 "value": {
-                  "var": "score",
-                  "line": 6,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "depth",
+                "label": "next_level",
                 "value": {
-                  "var": "depth",
-                  "line": 33,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "val",
+                "label": "path",
                 "value": {
-                  "var": "val",
-                  "line": 34,
-                  "hit": 2
+                  "var": "path",
+                  "line": 26,
+                  "hit": 6
                 },
                 "tone": "ok"
               }
@@ -586,78 +548,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Search algorithms over prompt trees dictate the strategy, efficiency,.",
+            "caption": "Observe how search shapes algorithms during this step.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
+                "label": "frontier",
+                "value": "[[['root'], 1]]",
                 "tone": "data"
               },
               {
-                "label": "score",
-                "value": 1,
-                "tone": "data"
-              },
-              {
-                "label": "depth",
+                "label": "expanded",
                 "value": 0,
                 "tone": "data"
               },
               {
-                "label": "val",
-                "value": 0.45,
+                "label": "next_level",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "path",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Breadth-First Search explores the reasoning tree layer by layer.",
+            "caption": "Verify the search transition driving breadth behavior.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
-                "tone": "ok"
+                "label": "frontier",
+                "value": "[[['root', 'partition_key'], 0.85], [['…",
+                "tone": "data"
               },
               {
-                "label": "score",
-                "value": 1,
-                "tone": "ok"
+                "label": "expanded",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "label": "depth",
-                "value": 0,
-                "tone": "ok"
+                "label": "next_level",
+                "value": "[]",
+                "tone": "data"
               },
               {
-                "label": "val",
-                "value": 0.45,
-                "tone": "ok"
+                "label": "path",
+                "value": "['root', 'partition_key']",
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Hierarchical beam width modulation dynamically calibrates exploration.",
+            "at": "say3",
+            "caption": "Examine the search value produced for depth processing.",
             "bars": [
               {
-                "label": "beam_width",
-                "value": 2,
-                "tone": "ok"
-              },
-              {
-                "label": "score",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "depth",
+                "label": "frontier",
                 "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "val",
-                "value": 0.45,
+                "label": "expanded",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "next_level",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "path",
+                "value": "['root', 'cache_aside', 'write_through']",
                 "tone": "ok"
               }
             ]
@@ -667,328 +629,292 @@
     },
     {
       "partTitle": "Graph-of-Thoughts: Beyond Trees to Graph Aggregation, Branch Merging & Dynamic Transformations",
-      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
+      "codeHash": "e5eb67b2d110bf27b3cc3d2db3fd06782b6266c487e3e73ccd7a2bada20f7ad3",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Graph-of-Thoughts: Beyond Trees to Graph Aggregation, Branch Mer",
-        "actors": [
-          "beam_width",
-          "self",
-          "state"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "indeg",
+            "label": "indeg",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Graph-of-Thoughts represents the next major evolutionary leap beyond.",
-            "activeActor": "beam_width",
-            "messages": [
-              {
-                "from": "beam_width",
-                "to": "self",
-                "label": {
-                  "var": "beam_width",
-                  "line": 28,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect graph updates as k tracks thoughts state.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "from": "self",
-                "to": "state",
-                "label": {
-                  "var": "self",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 12,
+                "hit": 1
+              },
+              "indeg": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "k": "data",
+              "v": "data",
+              "indeg": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The Graph-of-Thoughts paradigm conceptualizes individual thoughts.",
-            "activeActor": "self",
-            "messages": [
-              {
-                "from": "beam_width",
-                "to": "self",
-                "label": {
-                  "var": "beam_width",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the graph transition driving thoughts behavior.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 13,
+                "hit": 5
               },
-              {
-                "from": "self",
-                "to": "state",
-                "label": {
-                  "var": "self",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "text": ""
+              },
+              "indeg": {
+                "var": "indeg",
+                "line": 13,
+                "hit": 5
               }
+            },
+            "tones": {
+              "k": "data",
+              "v": "idle",
+              "indeg": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Empirical complexity analyses confirm that Graph-of-Thoughts reduces token.",
-            "activeActor": "state",
-            "messages": [
-              {
-                "from": "beam_width",
-                "to": "self",
-                "label": {
-                  "var": "beam_width",
-                  "line": 31,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Consider a corporate merger analysis.",
+            "values": {
+              "k": {
+                "text": ""
               },
-              {
-                "from": "self",
-                "to": "state",
-                "label": {
-                  "var": "self",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "text": ""
+              },
+              "indeg": {
+                "var": "indeg",
+                "line": 26,
+                "hit": 2
               }
+            },
+            "tones": {
+              "k": "idle",
+              "v": "idle",
+              "indeg": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Graph-of-Thoughts: Beyond Trees to Graph Aggregation, Branch Mer",
-        "actors": [
-          "beam_width",
-          "self",
-          "state"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "indeg",
+            "label": "indeg",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Graph-of-Thoughts represents the next major evolutionary leap beyond.",
-            "messages": [
-              {
-                "from": "beam_width",
-                "to": "self",
-                "label": "2",
-                "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "state",
-                "label": "<ThoughtNode>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "beam_width"
+            "caption": "Inspect graph updates as k tracks thoughts state.",
+            "values": {
+              "k": "'ingest'",
+              "v": "{'deps': [], 'score': 0.92}",
+              "indeg": ""
+            },
+            "tones": {
+              "k": "data",
+              "v": "data",
+              "indeg": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The Graph-of-Thoughts paradigm conceptualizes individual thoughts.",
-            "messages": [
-              {
-                "from": "beam_width",
-                "to": "self",
-                "label": "2",
-                "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "state",
-                "label": "<ThoughtNode>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "self"
+            "caption": "Verify the graph transition driving thoughts behavior.",
+            "values": {
+              "k": "'verify_sla'",
+              "v": "",
+              "indeg": "{'ingest': 0, 'branch_sql': 1, 'branch_…"
+            },
+            "tones": {
+              "k": "data",
+              "v": "idle",
+              "indeg": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "v"
+              ]
+            ]
           },
           {
-            "at": "say8",
-            "caption": "Empirical complexity analyses confirm that Graph-of-Thoughts reduces token.",
-            "messages": [
-              {
-                "from": "beam_width",
-                "to": "self",
-                "label": "2",
-                "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "state",
-                "label": "<ThoughtNode>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "state"
+            "at": "say3",
+            "caption": "Consider a corporate merger analysis.",
+            "values": {
+              "k": "",
+              "v": "",
+              "indeg": "{'ingest': 0, 'branch_sql': 0, 'branch_…"
+            },
+            "tones": {
+              "k": "idle",
+              "v": "idle",
+              "indeg": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "v"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Cognitive Architecture: Implementing a Production Tree-of-Thoughts Controller in Python",
-      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
+      "codeHash": "f9931a9f157d34733614d9f41836cf403a12bf891cc2a5c70106600fd58f44a5",
       "spec": {
         "template": "flow",
         "title": "Enterprise Cognitive Architecture: Implementing a Production Tre",
         "nodes": [
           {
-            "id": "beam_width",
-            "label": "beam_width"
-          },
-          {
-            "id": "self",
-            "label": "self"
+            "id": "fail_once_key",
+            "label": "fail_once_key",
+            "tappable": true
           },
           {
             "id": "state",
-            "label": "state"
+            "label": "state",
+            "tappable": true
           },
           {
-            "id": "path",
-            "label": "path"
+            "id": "w",
+            "label": "w",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise cognitive architecture demands translating theoretical.",
+            "caption": "Inspect enterprise updates as fail_once_key tracks cognitive state.",
             "values": {
-              "beam_width": {
-                "var": "beam_width",
-                "line": 28,
-                "hit": 1
-              },
-              "self": {
-                "var": "self",
-                "line": 4,
+              "fail_once_key": {
+                "var": "fail_once_key",
+                "line": 6,
                 "hit": 1
               },
               "state": {
-                "var": "state",
-                "line": 4,
-                "hit": 1
+                "text": ""
               },
-              "path": {
-                "var": "path",
-                "line": 4,
-                "hit": 1
+              "w": {
+                "text": ""
               }
             },
             "tones": {
-              "beam_width": "data",
-              "self": "data",
-              "state": "data",
-              "path": "data"
+              "fail_once_key": "data",
+              "state": "idle",
+              "w": "idle"
             },
-            "arrows": [
-              [
-                "beam_width",
-                "self"
-              ],
-              [
-                "self",
-                "state"
-              ],
-              [
-                "state",
-                "path"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The core Python controller architecture centers on an explicit separation.",
+            "caption": "Verify the tree transition driving thoughts behavior.",
             "values": {
-              "beam_width": {
-                "var": "beam_width",
-                "line": 29,
-                "hit": 1
-              },
-              "self": {
-                "var": "self",
-                "line": 5,
-                "hit": 1
+              "fail_once_key": {
+                "text": ""
               },
               "state": {
-                "var": "state",
-                "line": 5,
-                "hit": 1
+                "text": ""
               },
-              "path": {
-                "var": "path",
-                "line": 5,
+              "w": {
+                "var": "w",
+                "line": 23,
                 "hit": 1
               }
             },
             "tones": {
-              "beam_width": "data",
-              "self": "data",
-              "state": "data",
-              "path": "data"
+              "fail_once_key": "idle",
+              "state": "idle",
+              "w": "data"
             },
             "arrows": [
               [
-                "beam_width",
-                "self"
-              ],
-              [
-                "self",
+                "fail_once_key",
                 "state"
-              ],
-              [
-                "state",
-                "path"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Seamless integration with enterprise identity providers and role-based.",
+            "at": "say3",
+            "caption": "Examine the implementing value produced for tree processing.",
             "values": {
-              "beam_width": {
-                "var": "beam_width",
-                "line": 31,
-                "hit": 1
-              },
-              "self": {
-                "var": "self",
-                "line": 6,
-                "hit": 1
+              "fail_once_key": {
+                "text": ""
               },
               "state": {
                 "var": "state",
-                "line": 6,
-                "hit": 1
+                "line": 12,
+                "hit": 5
               },
-              "path": {
-                "var": "path",
-                "line": 6,
-                "hit": 1
+              "w": {
+                "text": ""
               }
             },
             "tones": {
-              "beam_width": "ok",
-              "self": "ok",
+              "fail_once_key": "idle",
               "state": "ok",
-              "path": "ok"
+              "w": "idle"
             },
             "arrows": [
               [
-                "beam_width",
-                "self"
-              ],
-              [
-                "self",
+                "fail_once_key",
                 "state"
-              ],
-              [
-                "state",
-                "path"
               ]
             ]
           }
@@ -999,110 +925,74 @@
         "title": "Enterprise Cognitive Architecture: Implementing a Production Tre",
         "nodes": [
           {
-            "id": "beam_width",
-            "label": "beam_width"
-          },
-          {
-            "id": "self",
-            "label": "self"
+            "id": "fail_once_key",
+            "label": "fail_once_key",
+            "tappable": true
           },
           {
             "id": "state",
-            "label": "state"
+            "label": "state",
+            "tappable": true
           },
           {
-            "id": "path",
-            "label": "path"
+            "id": "w",
+            "label": "w",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise cognitive architecture demands translating theoretical.",
+            "caption": "Inspect enterprise updates as fail_once_key tracks cognitive state.",
             "values": {
-              "beam_width": "2",
-              "self": "<ThoughtNode>",
-              "state": "'root'",
-              "path": "['root']"
+              "fail_once_key": "''",
+              "state": "",
+              "w": ""
             },
             "tones": {
-              "beam_width": "data",
-              "self": "data",
-              "state": "data",
-              "path": "data"
+              "fail_once_key": "data",
+              "state": "idle",
+              "w": "idle"
             },
-            "arrows": [
-              [
-                "beam_width",
-                "self"
-              ],
-              [
-                "self",
-                "state"
-              ],
-              [
-                "state",
-                "path"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The core Python controller architecture centers on an explicit separation.",
+            "caption": "Verify the tree transition driving thoughts behavior.",
             "values": {
-              "beam_width": "2",
-              "self": "<ThoughtNode>",
-              "state": "'root'",
-              "path": "['root']"
+              "fail_once_key": "",
+              "state": "",
+              "w": "0.45"
             },
             "tones": {
-              "beam_width": "data",
-              "self": "data",
-              "state": "data",
-              "path": "data"
+              "fail_once_key": "idle",
+              "state": "idle",
+              "w": "data"
             },
             "arrows": [
               [
-                "beam_width",
-                "self"
-              ],
-              [
-                "self",
+                "fail_once_key",
                 "state"
-              ],
-              [
-                "state",
-                "path"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Seamless integration with enterprise identity providers and role-based.",
+            "at": "say3",
+            "caption": "Examine the implementing value produced for tree processing.",
             "values": {
-              "beam_width": "2",
-              "self": "<ThoughtNode>",
-              "state": "'root'",
-              "path": "['root']"
+              "fail_once_key": "",
+              "state": "{'feasibility': 0.91, 'safety': 0.94}",
+              "w": ""
             },
             "tones": {
-              "beam_width": "ok",
-              "self": "ok",
+              "fail_once_key": "idle",
               "state": "ok",
-              "path": "ok"
+              "w": "idle"
             },
             "arrows": [
               [
-                "beam_width",
-                "self"
-              ],
-              [
-                "self",
+                "fail_once_key",
                 "state"
-              ],
-              [
-                "state",
-                "path"
               ]
             ]
           }

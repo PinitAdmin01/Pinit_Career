@@ -180,7 +180,7 @@ const DAYS: Day[] = [
       "desc": "Write `ivf_build(vectors, centroids)` returning a dict mapping each centroid index (every index, even if empty) to the list of vector indices assigned to it (nearest by squared Euclidean distance, ties to the lower centroid), in increasing order.",
       "starter": "def ivf_build(vectors, centroids):\n    pass",
       "hint": "lists = {c: [] for c in range(len(centroids))}; append each vector index to its nearest centroid's list.",
-      "test": "cents = [[0, 0], [10, 0], [0, 10]]\nvecs = [[1, 1], [9, 1], [0, 9], [2, 0], [8, 0]]\nassert ivf_build(vecs, cents) == {0: [0, 3], 1: [1, 4], 2: [2]}, f'Got {ivf_build(vecs, cents)}'\nassert ivf_build([], cents) == {0: [], 1: [], 2: []}, 'Empty lists kept'\nprint('All checks passed.')"
+      "test": "cents = [[0, 0], [10, 0], [0, 10]]\nvecs = [[1, 1], [9, 1], [0, 9], [2, 0], [8, 0]]\nassert ivf_build(vecs, cents) == {0: [0, 3], 1: [1, 4], 2: [2]}, f'Got {ivf_build(vecs, cents)}'\nassert ivf_build([], cents) == {0: [], 1: [], 2: []}, 'Empty lists kept'\nassert ivf_build([[0, 0]], [[0, 0]]) == {0: [0]}, 'Exact match goes to centroid 0'\nprint('All checks passed.')"
     },
     "a": {
       "title": "IVF Search with nprobe",
@@ -260,7 +260,7 @@ const DAYS: Day[] = [
       "desc": "HNSW gives each new node a random top layer: level = floor(−ln(u) × mL) with mL = 1 ÷ ln(M), where u is a uniform random number in (0, 1]. Write `assign_levels(uniforms, M)` returning the level for each u. Raise ValueError if any u is not in (0, 1] or M < 2.",
       "starter": "import math\n\n\ndef assign_levels(uniforms, M):\n    pass",
       "hint": "mL = 1 / math.log(M); math.floor(-math.log(u) * mL)",
-      "test": "lv = assign_levels([1.0, 0.5, 0.1, 0.01, 0.001], 16)\nassert lv == [0, 0, 0, 1, 2], f'Got {lv}'\nassert assign_levels([0.3, 0.05], 4) == [0, 2], f'Got {assign_levels([0.3, 0.05], 4)}'\nfor bad in [([0.0], 16), ([1.5], 16), ([0.5], 1)]:\n    try:\n        assign_levels(*bad)\n        raise AssertionError(f'{bad} must raise ValueError')\n    except ValueError:\n        pass\nprint('All checks passed.')"
+      "test": "lv = assign_levels([1.0, 0.5, 0.1, 0.01, 0.001], 16)\nassert lv == [0, 0, 0, 1, 2], f'Got {lv}'\nassert assign_levels([0.3, 0.05], 4) == [0, 2], f'Got {assign_levels([0.3, 0.05], 4)}'\nfor bad in [([0.0], 16), ([1.5], 16), ([0.5], 1)]:\n    try:\n        assign_levels(*bad)\n        raise AssertionError(f'{bad} must raise ValueError')\n    except ValueError:\n        pass\nassert assign_levels([], 16) == [], 'Empty uniforms list'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Neighbour Selection Heuristic",
@@ -276,7 +276,7 @@ const DAYS: Day[] = [
       "desc": "Write `pareto_front(configs)` where configs is a list of dicts {'name', 'recall', 'latency_ms'}. A configuration is dominated if another has recall >= and latency <= with at least one strictly better. Return the names of the non-dominated configurations sorted by latency, then name.",
       "starter": "def pareto_front(configs):\n    pass",
       "hint": "def dominated(c): return any(o['recall'] >= c['recall'] and o['latency_ms'] <= c['latency_ms'] and (o['recall'] > c['recall'] or o['latency_ms'] < c['latency_ms']) for o in configs)",
-      "test": "configs = [{'name': 'ef16', 'recall': 0.82, 'latency_ms': 1.2}, {'name': 'ef32', 'recall': 0.91, 'latency_ms': 1.9},\n           {'name': 'ef64', 'recall': 0.96, 'latency_ms': 3.1}, {'name': 'ivf8', 'recall': 0.88, 'latency_ms': 2.5},\n           {'name': 'flat', 'recall': 1.0, 'latency_ms': 40.0}]\nassert pareto_front(configs) == ['ef16', 'ef32', 'ef64', 'flat'], f'Got {pareto_front(configs)}'\nassert pareto_front(configs[:1]) == ['ef16'], 'A single configuration'\nprint('All checks passed.')"
+      "test": "configs = [{'name': 'ef16', 'recall': 0.82, 'latency_ms': 1.2}, {'name': 'ef32', 'recall': 0.91, 'latency_ms': 1.9},\n           {'name': 'ef64', 'recall': 0.96, 'latency_ms': 3.1}, {'name': 'ivf8', 'recall': 0.88, 'latency_ms': 2.5},\n           {'name': 'flat', 'recall': 1.0, 'latency_ms': 40.0}]\nassert pareto_front(configs) == ['ef16', 'ef32', 'ef64', 'flat'], f'Got {pareto_front(configs)}'\nassert pareto_front(configs[:1]) == ['ef16'], 'A single configuration'\nassert pareto_front([]) == [], 'Empty config list'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Pick a Configuration",
@@ -299,7 +299,7 @@ const DAYS: Day[] = [
       "desc": "Segments accumulate old versions and tombstones. Write `compact(records)` where records is a list of {'id', 'version', 'deleted'} entries (possibly several per id). For each id keep only the entry with the highest version, and drop it if that entry is deleted. Return {'kept': sorted list of (id, version), 'reclaimed': number of entries removed}.",
       "starter": "def compact(records):\n    pass",
       "hint": "latest = {}; for r in records: keep r if it has a higher version than latest.get(r['id'])",
-      "test": "recs = [{'id': 'a', 'version': 1, 'deleted': False}, {'id': 'a', 'version': 2, 'deleted': False},\n        {'id': 'b', 'version': 1, 'deleted': False}, {'id': 'b', 'version': 2, 'deleted': True},\n        {'id': 'c', 'version': 3, 'deleted': False}, {'id': 'c', 'version': 1, 'deleted': True}]\nassert compact(recs) == {'kept': [('a', 2), ('c', 3)], 'reclaimed': 4}, f'Got {compact(recs)}'\nassert compact([]) == {'kept': [], 'reclaimed': 0}, 'Nothing to compact'\nprint('All checks passed.')"
+      "test": "recs = [{'id': 'a', 'version': 1, 'deleted': False}, {'id': 'a', 'version': 2, 'deleted': False},\n        {'id': 'b', 'version': 1, 'deleted': False}, {'id': 'b', 'version': 2, 'deleted': True},\n        {'id': 'c', 'version': 3, 'deleted': False}, {'id': 'c', 'version': 1, 'deleted': True}]\nassert compact(recs) == {'kept': [('a', 2), ('c', 3)], 'reclaimed': 4}, f'Got {compact(recs)}'\nassert compact([]) == {'kept': [], 'reclaimed': 0}, 'Nothing to compact'\nassert compact([{'id': 'z', 'version': 1, 'deleted': True}]) == {'kept': [], 'reclaimed': 1}, 'Single tombstone reclaimed'\nprint('All checks passed.')"
     }
   },
   {
@@ -331,7 +331,7 @@ const DAYS: Day[] = [
       "desc": "Write `tenant_search(query, items, tenant, user, k)` where items are {'id', 'tenant', 'vector', 'acl'}. Search only items whose tenant equals the given tenant and whose acl lets the user read (same rules as can_read), rank by cosine similarity (ties by id), and return the top k ids. Raise ValueError if tenant is empty, so a missing tenant can never search everything.",
       "starter": "import math\n\n\ndef tenant_search(query, items, tenant, user, k):\n    pass",
       "hint": "Filter first by tenant and ACL, then rank what is left.",
-      "test": "user = {'id': 'u1', 'groups': ['team-a']}\nitems = [{'id': 'x1', 'tenant': 'acme', 'vector': [1, 0], 'acl': {'groups': ['team-a']}},\n         {'id': 'x2', 'tenant': 'acme', 'vector': [0.9, 0.1], 'acl': {'users': ['u2']}},\n         {'id': 'x3', 'tenant': 'globex', 'vector': [1, 0], 'acl': {'public': True}},\n         {'id': 'x4', 'tenant': 'acme', 'vector': [0, 1], 'acl': {'public': True}}]\nassert tenant_search([1, 0], items, 'acme', user, 5) == ['x1', 'x4'], f\"Got {tenant_search([1, 0], items, 'acme', user, 5)}\"\nassert tenant_search([1, 0], items, 'globex', user, 5) == ['x3'], 'Only the other tenant\\'s public item'\ntry:\n    tenant_search([1, 0], items, '', user, 5)\n    raise AssertionError('empty tenant must raise ValueError')\nexcept ValueError:\n    pass\nprint('All checks passed.')"
+      "test": "user = {'id': 'u1', 'groups': ['team-a']}\nitems = [{'id': 'x1', 'tenant': 'acme', 'vector': [1, 0], 'acl': {'groups': ['team-a']}},\n         {'id': 'x2', 'tenant': 'acme', 'vector': [0.9, 0.1], 'acl': {'users': ['u2']}},\n         {'id': 'x3', 'tenant': 'globex', 'vector': [1, 0], 'acl': {'public': True}},\n         {'id': 'x4', 'tenant': 'acme', 'vector': [0, 1], 'acl': {'public': True}}]\nassert tenant_search([1, 0], items, 'acme', user, 5) == ['x1', 'x4'], f\"Got {tenant_search([1, 0], items, 'acme', user, 5)}\"\nassert tenant_search([1, 0], items, 'globex', user, 5) == ['x3'], 'Only the other tenant\\'s public item'\ntry:\n    tenant_search([1, 0], items, '', user, 5)\n    raise AssertionError('empty tenant must raise ValueError')\nexcept ValueError:\n    pass\nassert tenant_search([1, 0], items, 'acme', {'id': 'u2', 'groups': []}, 1) == ['x2'], 'Direct user ACL grants access'\nprint('All checks passed.')"
     }
   },
   {
@@ -340,7 +340,7 @@ const DAYS: Day[] = [
       "desc": "A second-stage re-ranker looks at each candidate more carefully. Write `rerank(query, docs, candidate_ids)` where docs maps ids to text. Score each candidate by the fraction of distinct query tokens (re.findall(r'[a-z0-9]+', text.lower())) that appear in the document, and return (id, score rounded to 4 decimals) pairs sorted by score, highest first; ties keep the original candidate order.",
       "starter": "import re\n\n\ndef rerank(query, docs, candidate_ids):\n    pass",
       "hint": "Python's sort is stable: sort by -score only and ties keep their original order.",
-      "test": "docs = {'d1': 'Cheap flights to Paris', 'd2': 'Paris hotels and cheap flights in spring', 'd3': 'Train tickets to Rome'}\nr = rerank('cheap flights Paris spring', docs, ['d1', 'd3', 'd2'])\nassert r == [('d2', 1.0), ('d1', 0.75), ('d3', 0.0)], f'Got {r}'\nassert rerank('rome', docs, ['d1', 'd2']) == [('d1', 0.0), ('d2', 0.0)], 'Ties keep the original order'\nprint('All checks passed.')"
+      "test": "docs = {'d1': 'Cheap flights to Paris', 'd2': 'Paris hotels and cheap flights in spring', 'd3': 'Train tickets to Rome'}\nr = rerank('cheap flights Paris spring', docs, ['d1', 'd3', 'd2'])\nassert r == [('d2', 1.0), ('d1', 0.75), ('d3', 0.0)], f'Got {r}'\nassert rerank('rome', docs, ['d1', 'd2']) == [('d1', 0.0), ('d2', 0.0)], 'Ties keep the original order'\nassert rerank('', docs, ['d1', 'd2']) == [('d1', 0.0), ('d2', 0.0)], 'Empty query gives 0.0 scores'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Maximal Marginal Relevance",
@@ -404,7 +404,7 @@ const DAYS: Day[] = [
       "desc": "Write `stale_docs(docs)` where each doc is {'id', 'updated', 'indexed'} with ISO date strings ('YYYY-MM-DD') and indexed possibly None. Return the sorted ids of documents that were never indexed or were updated after they were last indexed. (ISO dates compare correctly as strings.)",
       "starter": "def stale_docs(docs):\n    pass",
       "hint": "d['indexed'] is None or d['updated'] > d['indexed']",
-      "test": "docs = [{'id': 'p1', 'updated': '2026-09-01', 'indexed': '2026-09-02'},\n        {'id': 'p2', 'updated': '2026-09-20', 'indexed': '2026-09-02'},\n        {'id': 'p3', 'updated': '2026-09-05', 'indexed': None},\n        {'id': 'p0', 'updated': '2026-09-02', 'indexed': '2026-09-02'}]\nassert stale_docs(docs) == ['p2', 'p3'], f'Got {stale_docs(docs)}'\nassert stale_docs([]) == [], 'No documents'\nprint('All checks passed.')"
+      "test": "docs = [{'id': 'p1', 'updated': '2026-09-01', 'indexed': '2026-09-02'},\n        {'id': 'p2', 'updated': '2026-09-20', 'indexed': '2026-09-02'},\n        {'id': 'p3', 'updated': '2026-09-05', 'indexed': None},\n        {'id': 'p0', 'updated': '2026-09-02', 'indexed': '2026-09-02'}]\nassert stale_docs(docs) == ['p2', 'p3'], f'Got {stale_docs(docs)}'\nassert stale_docs([]) == [], 'No documents'\nassert stale_docs([{'id': 'p1', 'updated': '2026-09-01', 'indexed': '2026-09-01'}]) == [], 'Same timestamp is fresh'\nprint('All checks passed.')"
     },
     "a": {
       "title": "Choose the Right Index for a Model",
@@ -443,7 +443,7 @@ const DAYS: Day[] = [
       "desc": "Write `drift(baseline, current, threshold)` where both are lists of vectors. Compute each set's mean vector, then the drift = 1 − cosine(mean_baseline, mean_current), rounded to 4 decimals (treat a zero mean as cosine 0). Return {'drift': drift, 'alert': drift > threshold}.",
       "starter": "import math\n\n\ndef drift(baseline, current, threshold):\n    pass",
       "hint": "mean = [sum(col) / len(vectors) for col in zip(*vectors)]",
-      "test": "base = [[1, 0], [0.9, 0.1], [1, 0.2]]\nsame = [[0.95, 0.1], [1, 0.1]]\nshifted = [[0.2, 1], [0.1, 0.9]]\nassert drift(base, same, 0.05) == {'drift': 0.0, 'alert': False}, f'Got {drift(base, same, 0.05)}'\nr = drift(base, shifted, 0.05)\nassert r['alert'] is True and r['drift'] == 0.7432, f'Got {r}'\nprint('All checks passed.')"
+      "test": "base = [[1, 0], [0.9, 0.1], [1, 0.2]]\nsame = [[0.95, 0.1], [1, 0.1]]\nshifted = [[0.2, 1], [0.1, 0.9]]\nassert drift(base, same, 0.05) == {'drift': 0.0, 'alert': False}, f'Got {drift(base, same, 0.05)}'\nr = drift(base, shifted, 0.05)\nassert r['alert'] is True and r['drift'] == 0.7432, f'Got {r}'\nassert drift([[0, 0]], [[1, 0]], 0.5) == {'drift': 1.0, 'alert': True}, 'Zero baseline gives drift 1.0'\nprint('All checks passed.')"
     }
   },
   {

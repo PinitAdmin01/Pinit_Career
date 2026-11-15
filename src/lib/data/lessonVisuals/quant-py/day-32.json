@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Whenever a market participant executes a market order to buy or sell,.",
+            "caption": "Inspect price updates as cov_price_orderflow tracks whenever state.",
             "values": {
               "cov_price_orderflow": {
                 "var": "cov_price_orderflow",
@@ -194,7 +194,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Whenever a market participant executes a market order to buy or sell,.",
+            "caption": "Inspect price updates as cov_price_orderflow tracks whenever state.",
             "values": {
               "cov_price_orderflow": "15",
               "var_orderflow": "500000",
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Permanent Price Impact ($I_{perm}$) reflects the fundamental information.",
+            "activeActor": "adv_volume",
+            "messages": [
+              {
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": {
+                  "var": "order_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "adv_volume",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Permanent Price Impact ($I_{perm}$) reflects the fundamental information.",
-            "activeActor": "adv_volume",
+            "at": "say8",
+            "caption": "Decomposing order flow into permanent information-driven impact.",
+            "activeActor": "daily_volatility",
             "messages": [
+              {
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": {
+                  "var": "order_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": {
+                  "var": "adv_volume",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "order_size",
                 "to": "adv_volume",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Decomposing order flow into permanent information-driven impact.",
-            "activeActor": "daily_volatility",
-            "messages": [
+              },
               {
                 "from": "order_size",
                 "to": "adv_volume",
@@ -398,12 +428,6 @@
                 "to": "adv_volume",
                 "label": "50000",
                 "tone": "data"
-              },
-              {
-                "from": "adv_volume",
-                "to": "daily_volatility",
-                "label": "2000000",
-                "tone": "ok"
               }
             ],
             "activeActor": "order_size"
@@ -431,6 +455,30 @@
             "at": "say8",
             "caption": "Decomposing order flow into permanent information-driven impact.",
             "messages": [
+              {
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": "50000",
+                "tone": "data"
+              },
+              {
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": "2000000",
+                "tone": "ok"
+              },
+              {
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": "50000",
+                "tone": "data"
+              },
+              {
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": "2000000",
+                "tone": "ok"
+              },
               {
                 "from": "order_size",
                 "to": "adv_volume",
@@ -720,7 +768,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how institutional updates fund during execution.",
+            "caption": "Verify the kyle transition driving lambda behavior.",
             "bars": [
               {
                 "label": "target_qty",
@@ -836,7 +884,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how institutional updates fund during execution.",
+            "caption": "Verify the kyle transition driving lambda behavior.",
             "bars": [
               {
                 "label": "target_qty",

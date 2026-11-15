@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Foundations & Mathematical Invariants",
+      "partTitle": "Tenant Match & Role Intersection Row-Level ACL Guards",
       "codeHash": "bcf5b50ad84da24798640c1f6434e2c82b30e4705ced5cbe9a3ac28b70753ace",
       "spec": {
         "template": "flow",
@@ -97,8 +97,8 @@
               },
               "doc_metadata": {
                 "var": "doc_metadata",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -124,7 +124,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the tenant value produced for match processing.",
             "values": {
               "doc_a": {
                 "var": "doc_a",
@@ -143,8 +143,8 @@
               },
               "doc_metadata": {
                 "var": "doc_metadata",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -229,7 +229,7 @@
               "doc_a": "{'tenant_id': 100, 'acl_role': 'admin'}",
               "doc_b": "{'tenant_id': 100, 'acl_role': 'public'}",
               "doc_c": "{'tenant_id': 200, 'acl_role': 'public'}",
-              "doc_metadata": "{'tenant_id': 100, 'acl_role': 'admin'}"
+              "doc_metadata": "{'tenant_id': 100, 'acl_role': 'public'}"
             },
             "tones": {
               "doc_a": "data",
@@ -254,12 +254,12 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the tenant value produced for match processing.",
             "values": {
               "doc_a": "{'tenant_id': 100, 'acl_role': 'admin'}",
               "doc_b": "{'tenant_id': 100, 'acl_role': 'public'}",
               "doc_c": "{'tenant_id': 200, 'acl_role': 'public'}",
-              "doc_metadata": "{'tenant_id': 100, 'acl_role': 'admin'}"
+              "doc_metadata": "{'tenant_id': 200, 'acl_role': 'public'}"
             },
             "tones": {
               "doc_a": "ok",
@@ -286,7 +286,7 @@
       }
     },
     {
-      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Core Algorithm & State Representation",
+      "partTitle": "Burst-Tolerant Per-Tenant Throttling with Token Buckets",
       "codeHash": "71ae44535c475d18bbd33f1f9bcb355979e8cb089539f22c26a4b76c94c9d246",
       "spec": {
         "template": "flow",
@@ -330,16 +330,14 @@
                 "hit": 1
               },
               "limiter": {
-                "var": "limiter",
-                "line": 17,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "capacity": "data",
               "refill_rate_per_sec": "data",
-              "limiter": "data"
+              "limiter": "idle"
             },
             "arrows": [
               [
@@ -404,7 +402,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the throttling value produced for assigning processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -479,13 +477,13 @@
               "self": "<TokenBucketRateLimiter>",
               "capacity": "2",
               "refill_rate_per_sec": "1",
-              "limiter": "<TokenBucketRateLimiter>"
+              "limiter": ""
             },
             "tones": {
               "self": "data",
               "capacity": "data",
               "refill_rate_per_sec": "data",
-              "limiter": "data"
+              "limiter": "idle"
             },
             "arrows": [
               [
@@ -534,7 +532,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the throttling value produced for assigning processing.",
             "values": {
               "self": "<TokenBucketRateLimiter>",
               "capacity": "2",
@@ -566,7 +564,7 @@
       }
     },
     {
-      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Logical Namespace Scoping Across Multi-Tenant Corpus Pools",
       "codeHash": "40cee730c549b34756edad66d7f9f5b2639163ea0fbb8f9a1c322618ba67931a",
       "spec": {
         "template": "flow",
@@ -638,7 +636,7 @@
           },
           {
             "at": "say2",
-            "caption": "For example, a customer may maintain separate 'prod_kb' (production.",
+            "caption": "Verify the tenants transition driving commonly behavior.",
             "values": {
               "corpus": {
                 "var": "corpus",
@@ -684,7 +682,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the namespace value produced for guarding processing.",
             "values": {
               "corpus": {
                 "var": "corpus",
@@ -784,7 +782,7 @@
           },
           {
             "at": "say2",
-            "caption": "For example, a customer may maintain separate 'prod_kb' (production.",
+            "caption": "Verify the tenants transition driving commonly behavior.",
             "values": {
               "corpus": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
               "candidates": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
@@ -814,7 +812,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the namespace value produced for guarding processing.",
             "values": {
               "corpus": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
               "candidates": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
@@ -846,15 +844,15 @@
       }
     },
     {
-      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Resilience Guardrails & Failure Recovery",
-      "codeHash": "204eaaa58fcbc2c737f59582c9b595b964b78f1c4c0818b9c76a130301261f96",
+      "partTitle": "Cumulative Usage Quota Enforcement Before Query Scheduling",
+      "codeHash": "8086eb9157e64e188d38690bd44155e7e013a4e278b3e6963b9d8f15ad0f5193",
       "spec": {
         "template": "bars",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
+        "title": "Cumulative Usage Quota Enforcement Before Query Scheduling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Defensive quota checks protect cluster infrastructure from runaway loops.",
+            "caption": "Observe how quota shapes defensive during this step.",
             "bars": [
               {
                 "label": "tenant_id",
@@ -866,9 +864,9 @@
                 "tone": "data"
               },
               {
-                "label": "max_quota",
+                "label": "usage_db",
                 "value": {
-                  "var": "max_quota",
+                  "var": "usage_db",
                   "line": 2,
                   "hit": 1
                 },
@@ -877,9 +875,14 @@
               {
                 "label": "current",
                 "value": {
-                  "var": "current",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "allowed",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -887,56 +890,63 @@
           },
           {
             "at": "say2",
-            "caption": "If a client script encounters an infinite loop and fires millions.",
+            "caption": "Verify the quota transition driving runaway behavior.",
             "bars": [
               {
                 "label": "tenant_id",
                 "value": {
                   "var": "tenant_id",
-                  "line": 3,
-                  "hit": 1
+                  "line": 4,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "max_quota",
+                "label": "usage_db",
                 "value": {
-                  "var": "max_quota",
-                  "line": 3,
-                  "hit": 1
+                  "var": "usage_db",
+                  "line": 4,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "current",
                 "value": {
                   "var": "current",
-                  "line": 3,
-                  "hit": 1
+                  "line": 4,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "allowed",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the usage value produced for quota processing.",
             "bars": [
               {
                 "label": "tenant_id",
                 "value": {
                   "var": "tenant_id",
-                  "line": 3,
-                  "hit": 1
+                  "line": 7,
+                  "hit": 3
                 },
                 "tone": "ok"
               },
               {
-                "label": "max_quota",
+                "label": "usage_db",
                 "value": {
-                  "var": "max_quota",
-                  "line": 3,
-                  "hit": 1
+                  "var": "usage_db",
+                  "line": 7,
+                  "hit": 3
                 },
                 "tone": "ok"
               },
@@ -944,8 +954,17 @@
                 "label": "current",
                 "value": {
                   "var": "current",
-                  "line": 3,
-                  "hit": 1
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "allowed",
+                "value": {
+                  "var": "allowed",
+                  "line": 7,
+                  "hit": 3
                 },
                 "tone": "ok"
               }
@@ -955,11 +974,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
+        "title": "Cumulative Usage Quota Enforcement Before Query Scheduling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Defensive quota checks protect cluster infrastructure from runaway loops.",
+            "caption": "Observe how quota shapes defensive during this step.",
             "bars": [
               {
                 "label": "tenant_id",
@@ -967,41 +986,51 @@
                 "tone": "data"
               },
               {
-                "label": "max_quota",
-                "value": 1000,
+                "label": "usage_db",
+                "value": "{1: 1000}",
                 "tone": "data"
               },
               {
                 "label": "current",
-                "value": 500,
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "allowed",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "If a client script encounters an infinite loop and fires millions.",
+            "caption": "Verify the quota transition driving runaway behavior.",
             "bars": [
               {
                 "label": "tenant_id",
-                "value": 1,
-                "tone": "ok"
+                "value": 99,
+                "tone": "data"
               },
               {
-                "label": "max_quota",
-                "value": 1000,
-                "tone": "ok"
+                "label": "usage_db",
+                "value": "{}",
+                "tone": "data"
               },
               {
                 "label": "current",
-                "value": 500,
-                "tone": "ok"
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "allowed",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the usage value produced for quota processing.",
             "bars": [
               {
                 "label": "tenant_id",
@@ -1009,13 +1038,18 @@
                 "tone": "ok"
               },
               {
-                "label": "max_quota",
-                "value": 1000,
+                "label": "usage_db",
+                "value": "{1: 500}",
                 "tone": "ok"
               },
               {
                 "label": "current",
                 "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "allowed",
+                "value": "True",
                 "tone": "ok"
               }
             ]
@@ -1024,7 +1058,7 @@
       }
     },
     {
-      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Production Telemetry & Verification Audit",
+      "partTitle": "Tracking ACL Violation Denials & Rate-Limit Telemetry",
       "codeHash": "3cbfb389221dfc5962900315d56c1d56bee92531a197dfe2016ee914ca7da407",
       "spec": {
         "template": "bars",
@@ -1098,7 +1132,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the correlating value produced for throttled processing.",
             "bars": [
               {
                 "label": "total_queries",
@@ -1179,7 +1213,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the correlating value produced for throttled processing.",
             "bars": [
               {
                 "label": "total_queries",

@@ -270,7 +270,7 @@
           },
           {
             "at": "say9",
-            "caption": "Distributed frameworks utilize these formulas to initialize weight tensors.",
+            "caption": "Examine the tensor value produced for computing processing.",
             "items": {
               "var": "col_w1_shape",
               "line": 11,
@@ -322,7 +322,7 @@
           },
           {
             "at": "say9",
-            "caption": "Distributed frameworks utilize these formulas to initialize weight tensors.",
+            "caption": "Examine the tensor value produced for computing processing.",
             "items": [
               "4096",
               "1376"
@@ -364,6 +364,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Each GPU in the TP group is assigned an independent subset of the total.",
+            "activeActor": "tp_degree",
+            "messages": [
+              {
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": {
+                  "var": "num_heads",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "tp_degree",
@@ -378,10 +395,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each GPU in the TP group is assigned an independent subset of the total.",
-            "activeActor": "tp_degree",
+            "at": "say9",
+            "caption": "Breaching divisibility raises ValueError (TP_DIVISIBILITY_ERROR) instantly.",
+            "activeActor": "heads_per_gpu",
             "messages": [
+              {
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": {
+                  "var": "num_heads",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": {
+                  "var": "tp_degree",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "num_heads",
                 "to": "tp_degree",
@@ -401,14 +438,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Production launch scripts run this validator during job configuration.",
-            "activeActor": "heads_per_gpu",
-            "messages": [
+              },
               {
                 "from": "num_heads",
                 "to": "tp_degree",
@@ -451,12 +481,6 @@
                 "to": "tp_degree",
                 "label": "64",
                 "tone": "data"
-              },
-              {
-                "from": "tp_degree",
-                "to": "heads_per_gpu",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "num_heads"
@@ -482,8 +506,32 @@
           },
           {
             "at": "say9",
-            "caption": "Production launch scripts run this validator during job configuration.",
+            "caption": "Breaching divisibility raises ValueError (TP_DIVISIBILITY_ERROR) instantly.",
             "messages": [
+              {
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": "8",
+                "tone": "ok"
+              },
               {
                 "from": "num_heads",
                 "to": "tp_degree",
@@ -511,7 +559,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Tensor Parallelism executes an All-Reduce operation on every.",
+            "caption": "Observe how tensor shapes parallelism during this step.",
             "bars": [
               {
                 "label": "tp_degree",
@@ -535,7 +583,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how layer updates model during execution.",
+            "caption": "Verify the layer transition driving model behavior.",
             "bars": [
               {
                 "label": "tp_degree",
@@ -589,7 +637,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Tensor Parallelism executes an All-Reduce operation on every.",
+            "caption": "Observe how tensor shapes parallelism during this step.",
             "bars": [
               {
                 "label": "tp_degree",
@@ -605,7 +653,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how layer updates model during execution.",
+            "caption": "Verify the layer transition driving model behavior.",
             "bars": [
               {
                 "label": "tp_degree",
@@ -683,16 +731,14 @@
                 "hit": 1
               },
               "controls": {
-                "var": "controls",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "mlp_sharded": "data",
               "heads_validated": "data",
               "nvlink_confined": "data",
-              "controls": "data"
+              "controls": "idle"
             },
             "arrows": [
               [
@@ -757,7 +803,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous tensor parallel auditing ensures that multi-node training.",
+            "caption": "Examine the megatron value produced for audit processing.",
             "values": {
               "mlp_sharded": {
                 "var": "mlp_sharded",
@@ -832,13 +878,13 @@
               "mlp_sharded": "True",
               "heads_validated": "True",
               "nvlink_confined": "True",
-              "controls": "{'MEGATRON_MLP_SHARDING': True, 'ATTENT…"
+              "controls": ""
             },
             "tones": {
               "mlp_sharded": "data",
               "heads_validated": "data",
               "nvlink_confined": "data",
-              "controls": "data"
+              "controls": "idle"
             },
             "arrows": [
               [
@@ -887,7 +933,7 @@
           },
           {
             "at": "say10",
-            "caption": "Continuous tensor parallel auditing ensures that multi-node training.",
+            "caption": "Examine the megatron value produced for audit processing.",
             "values": {
               "mlp_sharded": "True",
               "heads_validated": "True",

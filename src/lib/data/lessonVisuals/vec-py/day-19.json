@@ -234,7 +234,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Each document must be assigned to exactly one shard, in a way every.",
+            "caption": "Observe how document shapes must during this step.",
             "items": {
               "var": "counts",
               "line": 4,
@@ -288,7 +288,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Each document must be assigned to exactly one shard, in a way every.",
+            "caption": "Observe how document shapes must during this step.",
             "items": [
               "0",
               "0",
@@ -349,7 +349,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Scatter-gather sends the query to every shard (scatter) and merges their.",
+            "caption": "Observe how scatter shapes gather during this step.",
             "items": {
               "var": "q",
               "line": 4,
@@ -403,7 +403,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Scatter-gather sends the query to every shard (scatter) and merges their.",
+            "caption": "Observe how scatter shapes gather during this step.",
             "items": [
               "1",
               "0"
@@ -818,7 +818,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Shard_for(doc_id, shards) returns int(md5(doc_id).",
+            "caption": "Observe how practice shapes shards during this step.",
             "bars": [
               {
                 "label": "a",
@@ -842,7 +842,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates confirm during execution.",
+            "caption": "Verify the checks transition driving confirm behavior.",
             "bars": [
               {
                 "label": "a",
@@ -896,7 +896,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Shard_for(doc_id, shards) returns int(md5(doc_id).",
+            "caption": "Observe how practice shapes shards during this step.",
             "bars": [
               {
                 "label": "a",
@@ -912,7 +912,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates confirm during execution.",
+            "caption": "Verify the checks transition driving confirm behavior.",
             "bars": [
               {
                 "label": "a",

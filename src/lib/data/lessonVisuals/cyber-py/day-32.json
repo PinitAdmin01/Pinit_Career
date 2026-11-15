@@ -157,7 +157,7 @@
           },
           {
             "at": "say8",
-            "caption": "The mathematical properties of GHASH polynomial evaluation allow hardware.",
+            "caption": "Examine the adversaries value produced for targeting processing.",
             "currentState": "aes",
             "transition": {
               "from": "key_bytes",
@@ -203,13 +203,13 @@
             "transition": {
               "from": "self",
               "to": "key_bytes",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
           {
             "at": "say8",
-            "caption": "The mathematical properties of GHASH polynomial evaluation allow hardware.",
+            "caption": "Examine the adversaries value produced for targeting processing.",
             "currentState": "aes",
             "transition": {
               "from": "key_bytes",
@@ -311,7 +311,7 @@
             "transition": {
               "from": "stream",
               "to": "key",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
@@ -322,7 +322,7 @@
             "transition": {
               "from": "key",
               "to": "nonce",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "ok"
           }
@@ -374,21 +374,19 @@
                 "hit": 1
               },
               "nonce": {
-                "var": "nonce",
-                "line": 13,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "key_id": "data",
               "guard": "data",
-              "nonce": "data"
+              "nonce": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Trace how under updates nist during execution.",
+            "caption": "Verify the under transition driving nist behavior.",
             "values": {
               "self": {
                 "var": "self",
@@ -481,23 +479,23 @@
               "self": "<NonceExhaustionGuard>",
               "key_id": "'KEY_PROD_2026'",
               "guard": "<NonceExhaustionGuard>",
-              "nonce": "{'__other__': 'bytes'}"
+              "nonce": ""
             },
             "tones": {
               "self": "data",
               "key_id": "data",
               "guard": "data",
-              "nonce": "data"
+              "nonce": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Trace how under updates nist during execution.",
+            "caption": "Verify the under transition driving nist behavior.",
             "values": {
               "self": "<NonceExhaustionGuard>",
               "key_id": "'KEY_PROD_2026'",
               "guard": "<NonceExhaustionGuard>",
-              "nonce": "{'__other__': 'bytes'}"
+              "nonce": "<bytes>"
             },
             "tones": {
               "self": "data",
@@ -513,7 +511,7 @@
               "self": "<NonceExhaustionGuard>",
               "key_id": "'KEY_PROD_2026'",
               "guard": "<NonceExhaustionGuard>",
-              "nonce": "{'__other__': 'bytes'}"
+              "nonce": "<bytes>"
             },
             "tones": {
               "self": "ok",
@@ -570,16 +568,14 @@
                 "hit": 1
               },
               "gates": {
-                "var": "gates",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "key_rotated": "data",
               "nonce_collision_detected": "data",
               "forged_tag_rejected": "data",
-              "gates": "data"
+              "gates": "idle"
             },
             "arrows": [
               [
@@ -644,7 +640,7 @@
           },
           {
             "at": "say8",
-            "caption": "Constant-time comparison algorithms eliminate microarchitectural.",
+            "caption": "Examine the verification value produced for real processing.",
             "values": {
               "key_rotated": {
                 "var": "key_rotated",
@@ -719,13 +715,13 @@
               "key_rotated": "True",
               "nonce_collision_detected": "False",
               "forged_tag_rejected": "True",
-              "gates": "{'GATE_1_NONCE_UNIQUENESS': True, 'GATE…"
+              "gates": ""
             },
             "tones": {
               "key_rotated": "data",
               "nonce_collision_detected": "data",
               "forged_tag_rejected": "data",
-              "gates": "data"
+              "gates": "idle"
             },
             "arrows": [
               [
@@ -774,7 +770,7 @@
           },
           {
             "at": "say8",
-            "caption": "Constant-time comparison algorithms eliminate microarchitectural.",
+            "caption": "Examine the verification value produced for real processing.",
             "values": {
               "key_rotated": "True",
               "nonce_collision_detected": "False",

@@ -49,7 +49,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how both updates reuse during execution.",
+            "caption": "Examine the both value produced for reuse processing.",
             "currentState": "text",
             "transition": {
               "from": "answer",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how both updates reuse during execution.",
+            "caption": "Examine the both value produced for reuse processing.",
             "currentState": "text",
             "transition": {
               "from": "answer",

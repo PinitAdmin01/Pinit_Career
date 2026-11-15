@@ -346,7 +346,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The positional encoding has the same size as the token embedding, and.",
+            "caption": "Observe how positional shapes encoding during this step.",
             "bars": [
               {
                 "label": "pos",
@@ -478,7 +478,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The positional encoding has the same size as the token embedding, and.",
+            "caption": "Observe how positional shapes encoding during this step.",
             "bars": [
               {
                 "label": "pos",
@@ -584,7 +584,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how rotary updates position during execution.",
+            "caption": "Inspect rotary updates as q tracks position state.",
             "values": {
               "q": {
                 "var": "q",
@@ -649,8 +649,8 @@
               },
               "qpos": {
                 "var": "qpos",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -695,8 +695,8 @@
               },
               "qpos": {
                 "var": "qpos",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -746,7 +746,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how rotary updates position during execution.",
+            "caption": "Inspect rotary updates as q tracks position state.",
             "values": {
               "q": "[1, 0]",
               "k": "[0.6, 0.8]",
@@ -781,7 +781,7 @@
               "q": "[1, 0]",
               "k": "[0.6, 0.8]",
               "theta": "0.3",
-              "qpos": "2"
+              "qpos": "7"
             },
             "tones": {
               "q": "data",
@@ -811,7 +811,7 @@
               "q": "[1, 0]",
               "k": "[0.6, 0.8]",
               "theta": "0.3",
-              "qpos": "2"
+              "qpos": "10"
             },
             "tones": {
               "q": "ok",
@@ -964,7 +964,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates compute during execution.",
+            "caption": "Practice 1: positional_encoding(pos, i, d_model).",
             "bars": [
               {
                 "label": "x",
@@ -1096,7 +1096,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates compute during execution.",
+            "caption": "Practice 1: positional_encoding(pos, i, d_model).",
             "bars": [
               {
                 "label": "x",

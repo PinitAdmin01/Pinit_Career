@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A table holds items (like rows).",
+            "activeActor": "pk",
+            "messages": [
+              {
+                "from": "table",
+                "to": "pk",
+                "label": {
+                  "var": "table",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "pk",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A table holds items (like rows).",
-            "activeActor": "pk",
+            "at": "say7",
+            "caption": "The example models a table with a composite key and runs a Query for one.",
+            "activeActor": "start",
             "messages": [
+              {
+                "from": "table",
+                "to": "pk",
+                "label": {
+                  "var": "table",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pk",
+                "to": "start",
+                "label": {
+                  "var": "pk",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "table",
                 "to": "pk",
@@ -68,14 +105,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example models a table with a composite key and runs a Query for one.",
-            "activeActor": "start",
-            "messages": [
+              },
               {
                 "from": "table",
                 "to": "pk",
@@ -118,12 +148,6 @@
                 "to": "pk",
                 "label": "{'user#1': [['2026-08-30', 'ord-7'], ['…",
                 "tone": "data"
-              },
-              {
-                "from": "pk",
-                "to": "start",
-                "label": "'user#1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "table"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "The example models a table with a composite key and runs a Query for one.",
             "messages": [
+              {
+                "from": "table",
+                "to": "pk",
+                "label": "{'user#1': [['2026-08-30', 'ord-7'], ['…",
+                "tone": "data"
+              },
+              {
+                "from": "pk",
+                "to": "start",
+                "label": "'user#1'",
+                "tone": "ok"
+              },
+              {
+                "from": "table",
+                "to": "pk",
+                "label": "{'user#1': [['2026-08-30', 'ord-7'], ['…",
+                "tone": "data"
+              },
+              {
+                "from": "pk",
+                "to": "start",
+                "label": "'user#1'",
+                "tone": "ok"
+              },
               {
                 "from": "table",
                 "to": "pk",
@@ -194,34 +242,12 @@
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "An access pattern is a sentence such as \"get a user's profile\", \"list.",
+            "caption": "Verify the access transition driving pattern behavior.",
             "rows": [
               {
                 "cells": [
@@ -241,17 +267,6 @@
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -317,26 +332,12 @@
                   "user     distinct  50  busiest value gets 2% of traffic"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "country  distinct   2  busiest value gets 90% of traffic"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "status   distinct   2  busiest value gets 75% of traffic"
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "An access pattern is a sentence such as \"get a user's profile\", \"list.",
+            "caption": "Verify the access transition driving pattern behavior.",
             "rows": [
               {
                 "cells": [
@@ -349,13 +350,6 @@
                 "cells": [
                   "out 2",
                   "country  distinct   2  busiest value gets 90% of traffic"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "status   distinct   2  busiest value gets 75% of traffic"
                 ],
                 "tone": "ok"
               }
@@ -395,162 +389,160 @@
       "partTitle": "Hot partitions",
       "codeHash": "a1d765a19d567f393fe6bc20ba1beea9125f54bc2a0bd04368298c17050d5acd",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Hot partitions",
-        "actors": [
-          "log",
-          "counts",
-          ".0"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Each physical partition has limits on reads and writes per second.",
-            "activeActor": "log",
-            "messages": [
-              {
-                "from": "log",
-                "to": "counts",
-                "label": {
-                  "var": "log",
-                  "line": 3,
-                  "hit": 31
-                },
-                "tone": "data"
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": "counts",
-                "to": ".0",
-                "label": {
-                  "var": "counts",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "k": "data",
+              "n": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A celebrity's profile, a single \"global counter\" item, or a date-based key.",
-            "activeActor": "counts",
-            "messages": [
-              {
-                "from": "log",
-                "to": "counts",
-                "label": {
-                  "var": "log",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the classic transition driving causes behavior.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 16
               },
-              {
-                "from": "counts",
-                "to": ".0",
-                "label": {
-                  "var": "counts",
-                  "line": 5,
-                  "hit": 33
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 16
               }
+            },
+            "tones": {
+              "k": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example finds a hot key in a log and shows how sharding spreads it.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "log",
-                "to": "counts",
-                "label": {
-                  "var": "log",
-                  "line": 5,
-                  "hit": 33
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the partitions value produced for dynamodb processing.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 31
               },
-              {
-                "from": "counts",
-                "to": ".0",
-                "label": {
-                  "var": "counts",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 31
               }
+            },
+            "tones": {
+              "k": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Hot partitions",
-        "actors": [
-          "log",
-          "counts",
-          ".0"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Each physical partition has limits on reads and writes per second.",
-            "messages": [
-              {
-                "from": "log",
-                "to": "counts",
-                "label": "['celeb', 'celeb', 'celeb', 'celeb', 'c…",
-                "tone": "data"
-              },
-              {
-                "from": "counts",
-                "to": ".0",
-                "label": "{'celeb': 70, 'user0': 1, 'user1': 1, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "log"
+            "values": {
+              "k": "'celeb'",
+              "n": "70"
+            },
+            "tones": {
+              "k": "data",
+              "n": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A celebrity's profile, a single \"global counter\" item, or a date-based key.",
-            "messages": [
-              {
-                "from": "log",
-                "to": "counts",
-                "label": "['celeb', 'celeb', 'celeb', 'celeb', 'c…",
-                "tone": "data"
-              },
-              {
-                "from": "counts",
-                "to": ".0",
-                "label": "{'celeb': 70, 'user0': 1, 'user1': 1, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "counts"
+            "caption": "Verify the classic transition driving causes behavior.",
+            "values": {
+              "k": "'user14'",
+              "n": "1"
+            },
+            "tones": {
+              "k": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The example finds a hot key in a log and shows how sharding spreads it.",
-            "messages": [
-              {
-                "from": "log",
-                "to": "counts",
-                "label": "['celeb', 'celeb', 'celeb', 'celeb', 'c…",
-                "tone": "data"
-              },
-              {
-                "from": "counts",
-                "to": ".0",
-                "label": "{'celeb': 70, 'user0': 1, 'user1': 1, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Examine the partitions value produced for dynamodb processing.",
+            "values": {
+              "k": "'user29'",
+              "n": "1"
+            },
+            "tones": {
+              "k": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ]
+            ]
           }
         ]
       }
@@ -623,13 +615,13 @@
               },
               "gsi": {
                 "var": "gsi",
-                "line": 8,
+                "line": 10,
                 "hit": 1
               },
               "item": {
                 "var": "item",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -659,13 +651,13 @@
               },
               "gsi": {
                 "var": "gsi",
-                "line": 9,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               },
               "item": {
                 "var": "item",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -733,8 +725,8 @@
             "caption": "A global secondary index (GSI) is a second copy of chosen attributes.",
             "values": {
               "orders": "[{'customer': 'c1', 'order': 'o1', 'sta…",
-              "gsi": "{}",
-              "item": "{'customer': 'c1', 'order': 'o1', 'stat…"
+              "gsi": "{'SHIPPED': ['o1']}",
+              "item": "{'customer': 'c1', 'order': 'o2', 'stat…"
             },
             "tones": {
               "orders": "data",
@@ -757,8 +749,8 @@
             "caption": "Add indexes for real access patterns only.",
             "values": {
               "orders": "[{'customer': 'c1', 'order': 'o1', 'sta…",
-              "gsi": "{}",
-              "item": "{'customer': 'c1', 'order': 'o1', 'stat…"
+              "gsi": "{'SHIPPED': ['o1'], 'PENDING': ['o2']}",
+              "item": "{'customer': 'c2', 'order': 'o3', 'stat…"
             },
             "tones": {
               "orders": "ok",
@@ -856,23 +848,23 @@
             "values": {
               "size": {
                 "var": "size",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "per_sec": {
                 "var": "per_sec",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 4
               },
               "strong": {
                 "var": "strong",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "units": {
                 "var": "units",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -902,23 +894,23 @@
             "values": {
               "size": {
                 "var": "size",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 4
               },
               "per_sec": {
                 "var": "per_sec",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 4
               },
               "strong": {
                 "var": "strong",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "units": {
                 "var": "units",
                 "line": 4,
-                "hit": 2
+                "hit": 4
               }
             },
             "tones": {
@@ -1000,10 +992,10 @@
             "at": "say2",
             "caption": "One read capacity unit (RCU) is one strongly consistent read per second.",
             "values": {
-              "size": "1000",
-              "per_sec": "100",
-              "strong": "True",
-              "units": "100"
+              "size": "9000",
+              "per_sec": "10",
+              "strong": "False",
+              "units": "300"
             },
             "tones": {
               "size": "data",
@@ -1030,10 +1022,10 @@
             "at": "say7",
             "caption": "The example prices reads for a few item sizes and consistency choices.",
             "values": {
-              "size": "1000",
-              "per_sec": "100",
+              "size": "400000",
+              "per_sec": "10",
               "strong": "True",
-              "units": "100"
+              "units": "980"
             },
             "tones": {
               "size": "ok",
@@ -1095,15 +1087,13 @@
                 "hit": 1
               },
               "chunks": {
-                "var": "chunks",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "size": "data",
               "per_sec": "data",
-              "chunks": "data"
+              "chunks": "idle"
             },
             "arrows": [
               [
@@ -1214,12 +1204,12 @@
             "values": {
               "size": "1000",
               "per_sec": "3",
-              "chunks": "1"
+              "chunks": ""
             },
             "tones": {
               "size": "data",
               "per_sec": "data",
-              "chunks": "data"
+              "chunks": "idle"
             },
             "arrows": [
               [

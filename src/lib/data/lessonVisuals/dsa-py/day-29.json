@@ -482,7 +482,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Count how many 1 bits a number has.",
+            "caption": "Observe how bits shapes practice during this step.",
             "bars": [
               {
                 "label": "n",
@@ -560,7 +560,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Count how many 1 bits a number has.",
+            "caption": "Observe how bits shapes practice during this step.",
             "bars": [
               {
                 "label": "n",
@@ -634,7 +634,7 @@
           },
           {
             "at": "say2",
-            "caption": "Adding item i is mask | (1 << i), checking it is mask & (1 << i),.",
+            "caption": "All are single, fast operations.",
             "items": {
               "var": "toppings",
               "line": 9,
@@ -689,7 +689,7 @@
           },
           {
             "at": "say2",
-            "caption": "Adding item i is mask | (1 << i), checking it is mask & (1 << i),.",
+            "caption": "All are single, fast operations.",
             "items": [
               "'cheese'",
               "'corn'",
@@ -799,7 +799,7 @@
           },
           {
             "at": "say5",
-            "caption": "Tomorrow is the capstone, where you combine graphs, heaps and DP into.",
+            "caption": "Tomorrow is the capstone.",
             "bars": [
               {
                 "label": "flags",
@@ -880,7 +880,7 @@
           },
           {
             "at": "say5",
-            "caption": "Tomorrow is the capstone, where you combine graphs, heaps and DP into.",
+            "caption": "Tomorrow is the capstone.",
             "bars": [
               {
                 "label": "flags",

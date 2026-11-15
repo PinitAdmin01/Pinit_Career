@@ -503,17 +503,17 @@
               },
               "r": {
                 "var": "r",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "action": {
                 "var": "action",
-                "line": 14,
+                "line": 9,
                 "hit": 1
               },
               "saving": {
                 "var": "saving",
-                "line": 14,
+                "line": 9,
                 "hit": 1
               }
             },
@@ -549,17 +549,17 @@
               },
               "r": {
                 "var": "r",
-                "line": 10,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "action": {
                 "var": "action",
-                "line": 7,
-                "hit": 2
+                "line": 13,
+                "hit": 1
               },
               "saving": {
                 "var": "saving",
-                "line": 7,
+                "line": 9,
                 "hit": 2
               }
             },
@@ -643,9 +643,9 @@
             "caption": "Next come oversized resources.",
             "values": {
               "inventory": "[{'id': 'i-web-1', 'type': 'm5.2xlarge'…",
-              "r": "{'id': 'i-web-1', 'type': 'm5.2xlarge',…",
-              "action": "'right-size to half'",
-              "saving": "140"
+              "r": "{'id': 'i-test-9', 'type': 't3.large', …",
+              "action": "'check owner, then delete'",
+              "saving": "60"
             },
             "tones": {
               "inventory": "data",
@@ -673,9 +673,9 @@
             "caption": "Make clean-up a habit.",
             "values": {
               "inventory": "[{'id': 'i-web-1', 'type': 'm5.2xlarge'…",
-              "r": "{'id': 'i-web-1', 'type': 'm5.2xlarge',…",
-              "action": "'right-size to half'",
-              "saving": "140"
+              "r": "{'id': 'vol-old', 'type': 'ebs-unattach…",
+              "action": "'keep'",
+              "saving": "40"
             },
             "tones": {
               "inventory": "ok",

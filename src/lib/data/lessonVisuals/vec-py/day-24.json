@@ -386,7 +386,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how threshold updates such during execution.",
+            "caption": "Verify the threshold transition driving hits behavior.",
             "items": {
               "var": "hits",
               "line": 3,
@@ -439,7 +439,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how threshold updates such during execution.",
+            "caption": "Verify the threshold transition driving hits behavior.",
             "items": [
               "True",
               "True"
@@ -564,8 +564,8 @@
               },
               "hit_rate": {
                 "var": "hit_rate",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -610,8 +610,8 @@
               },
               "hit_rate": {
                 "var": "hit_rate",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -696,7 +696,7 @@
               "requests": "100000",
               "llm_cost": "0.02",
               "lookup_cost": "0.0005",
-              "hit_rate": "0"
+              "hit_rate": "0.1"
             },
             "tones": {
               "requests": "data",
@@ -726,7 +726,7 @@
               "requests": "100000",
               "llm_cost": "0.02",
               "lookup_cost": "0.0005",
-              "hit_rate": "0"
+              "hit_rate": "0.3"
             },
             "tones": {
               "requests": "ok",
@@ -829,7 +829,7 @@
             "values": {
               "cache": {
                 "var": "cache",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "updated_docs": {
@@ -875,7 +875,7 @@
             "values": {
               "cache": {
                 "var": "cache",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "updated_docs": {
@@ -973,7 +973,7 @@
             "at": "say2",
             "caption": "Linking each cached answer to the document ids it used allows precise.",
             "values": {
-              "cache": "{'q1': {'answer': 'Refunds within 30 da…",
+              "cache": "{'q2': {'answer': 'Parcels arrive in 3-…",
               "updated_docs": "{'policy-7'}",
               "stale": "['q1']",
               "k": "'q1'"
@@ -1003,7 +1003,7 @@
             "at": "say10",
             "caption": "Tomorrow handles freshness in the index itself, including switching.",
             "values": {
-              "cache": "{'q1': {'answer': 'Refunds within 30 da…",
+              "cache": "{'q2': {'answer': 'Parcels arrive in 3-…",
               "updated_docs": "{'policy-7'}",
               "stale": "['q1']",
               "k": "'q1'"

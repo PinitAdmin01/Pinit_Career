@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates exposing during execution.",
+            "caption": "Inspect shadow updates as p tracks traffic state.",
             "values": {
               "p": {
                 "var": "p",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "live_reply": {
-                "var": "live_reply",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "p": "data",
               "prompt": "data",
               "read_only_tools": "data",
-              "live_reply": "data"
+              "live_reply": "idle"
             }
           },
           {
@@ -152,18 +150,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates exposing during execution.",
+            "caption": "Inspect shadow updates as p tracks traffic state.",
             "values": {
               "p": "'hi'",
               "prompt": "'hi'",
               "read_only_tools": "True",
-              "live_reply": "'v1_ok'"
+              "live_reply": ""
             },
             "tones": {
               "p": "data",
               "prompt": "data",
               "read_only_tools": "data",
-              "live_reply": "data"
+              "live_reply": "idle"
             }
           },
           {
@@ -228,7 +226,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Flipping a blind per-request coin (`random.",
+            "caption": "Inspect canary updates as t tracks flipping state.",
             "values": {
               "t": {
                 "var": "t",
@@ -274,7 +272,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how deterministic updates hash during execution.",
+            "caption": "Verify the deterministic transition driving tenant behavior.",
             "values": {
               "t": {
                 "var": "t",
@@ -390,7 +388,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Flipping a blind per-request coin (`random.",
+            "caption": "Inspect canary updates as t tracks flipping state.",
             "values": {
               "t": "'acme'",
               "tenant_id": "'acme'",
@@ -420,7 +418,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how deterministic updates hash during execution.",
+            "caption": "Verify the deterministic transition driving tenant behavior.",
             "values": {
               "t": "'acme'",
               "tenant_id": "'acme'",
@@ -507,6 +505,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Automated **Canary Guardrail Controllers** compare Canary v2 vs Baseline.",
+            "activeActor": "base_stats",
+            "messages": [
+              {
+                "from": "base",
+                "to": "base_stats",
+                "label": {
+                  "var": "base",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "base_stats",
@@ -521,10 +536,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Automated **Canary Guardrail Controllers** compare Canary v2 vs Baseline.",
-            "activeActor": "base_stats",
+            "at": "say6",
+            "caption": "Run evaluate_canary_guardrails() triggering deterministic instant rollback.",
+            "activeActor": "cand_stats",
             "messages": [
+              {
+                "from": "base",
+                "to": "base_stats",
+                "label": {
+                  "var": "base",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": {
+                  "var": "base_stats",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "base",
                 "to": "base_stats",
@@ -544,14 +579,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Run evaluate_canary_guardrails() triggering deterministic instant rollback.",
-            "activeActor": "cand_stats",
-            "messages": [
+              },
               {
                 "from": "base",
                 "to": "base_stats",
@@ -594,12 +622,6 @@
                 "to": "base_stats",
                 "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
                 "tone": "data"
-              },
-              {
-                "from": "base_stats",
-                "to": "cand_stats",
-                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
-                "tone": "ok"
               }
             ],
             "activeActor": "base"
@@ -627,6 +649,30 @@
             "at": "say6",
             "caption": "Run evaluate_canary_guardrails() triggering deterministic instant rollback.",
             "messages": [
+              {
+                "from": "base",
+                "to": "base_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "data"
+              },
+              {
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "base_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "data"
+              },
+              {
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "ok"
+              },
               {
                 "from": "base",
                 "to": "base_stats",
@@ -671,6 +717,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Decouple prompts cleanly into an **Immutable Content-Addressed Prompt.",
+            "activeActor": "reg",
+            "messages": [
+              {
+                "from": "self",
+                "to": "reg",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "reg",
@@ -685,10 +748,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Decouple prompts cleanly into an **Immutable Content-Addressed Prompt.",
-            "activeActor": "reg",
+            "at": "say7",
+            "caption": "Inspect PromptRegistry verifying immutable content publishing alongside.",
+            "activeActor": "version_id",
             "messages": [
+              {
+                "from": "self",
+                "to": "reg",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reg",
+                "to": "version_id",
+                "label": {
+                  "var": "reg",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "reg",
@@ -708,14 +791,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect PromptRegistry verifying immutable content publishing alongside.",
-            "activeActor": "version_id",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "reg",
@@ -758,12 +834,6 @@
                 "to": "reg",
                 "label": "<PromptRegistry>",
                 "tone": "data"
-              },
-              {
-                "from": "reg",
-                "to": "version_id",
-                "label": "<PromptRegistry>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -802,6 +872,30 @@
                 "to": "version_id",
                 "label": "<PromptRegistry>",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "reg",
+                "label": "<PromptRegistry>",
+                "tone": "data"
+              },
+              {
+                "from": "reg",
+                "to": "version_id",
+                "label": "<PromptRegistry>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "reg",
+                "label": "<PromptRegistry>",
+                "tone": "data"
+              },
+              {
+                "from": "reg",
+                "to": "version_id",
+                "label": "<PromptRegistry>",
+                "tone": "ok"
               }
             ],
             "activeActor": "version_id"
@@ -823,7 +917,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Mature release controllers combine stage gating (`SHADOW -> 5% -> 25% ->.",
+            "caption": "Observe how rollback shapes mature during this step.",
             "activeActor": "STAGES",
             "messages": [
               {
@@ -915,7 +1009,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Mature release controllers combine stage gating (`SHADOW -> 5% -> 25% ->.",
+            "caption": "Observe how rollback shapes mature during this step.",
             "messages": [
               {
                 "from": "STAGES",

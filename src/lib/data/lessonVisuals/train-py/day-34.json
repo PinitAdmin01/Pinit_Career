@@ -46,7 +46,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how large updates cluster during execution.",
+            "caption": "Verify the reduce transition driving ring behavior.",
             "activeActor": "algo",
             "messages": [
               {
@@ -73,7 +73,7 @@
           },
           {
             "at": "say11",
-            "caption": "High-performance collective libraries dynamically select communication.",
+            "caption": "Examine the tree value produced for reduce processing.",
             "activeActor": "summary",
             "messages": [
               {
@@ -130,7 +130,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how large updates cluster during execution.",
+            "caption": "Verify the reduce transition driving ring behavior.",
             "messages": [
               {
                 "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
@@ -149,7 +149,7 @@
           },
           {
             "at": "say11",
-            "caption": "High-performance collective libraries dynamically select communication.",
+            "caption": "Examine the tree value produced for reduce processing.",
             "messages": [
               {
                 "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
@@ -464,7 +464,7 @@
           },
           {
             "at": "say10",
-            "caption": "Modern AI clusters deploy two-tier hierarchical collective communication.",
+            "caption": "Examine the tree value produced for ring processing.",
             "bars": [
               {
                 "label": "tensor_size_kb",
@@ -545,7 +545,7 @@
           },
           {
             "at": "say10",
-            "caption": "Modern AI clusters deploy two-tier hierarchical collective communication.",
+            "caption": "Examine the tree value produced for ring processing.",
             "bars": [
               {
                 "label": "tensor_size_kb",
@@ -586,7 +586,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Tree All-Reduce algorithms require balanced binary tree topologies,.",
+            "caption": "Tree All-Reduce algorithms require balanced binary tree topologies.",
             "values": {
               "num_nodes": {
                 "var": "num_nodes",
@@ -616,13 +616,13 @@
             "values": {
               "num_nodes": {
                 "var": "num_nodes",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "is_power_of_two": {
                 "var": "is_power_of_two",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -642,13 +642,13 @@
             "values": {
               "num_nodes": {
                 "var": "num_nodes",
-                "line": 8,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "is_power_of_two": {
                 "var": "is_power_of_two",
-                "line": 8,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -680,7 +680,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Tree All-Reduce algorithms require balanced binary tree topologies,.",
+            "caption": "Tree All-Reduce algorithms require balanced binary tree topologies.",
             "values": {
               "num_nodes": "64",
               "is_power_of_two": "True"
@@ -700,8 +700,8 @@
             "at": "say2",
             "caption": "If an enterprise cluster provisions an odd or non-power-of-two number.",
             "values": {
-              "num_nodes": "64",
-              "is_power_of_two": "True"
+              "num_nodes": "48",
+              "is_power_of_two": "False"
             },
             "tones": {
               "num_nodes": "data",
@@ -718,8 +718,8 @@
             "at": "say9",
             "caption": "Building resilient collective fallbacks guarantees that cluster training.",
             "values": {
-              "num_nodes": "64",
-              "is_power_of_two": "True"
+              "num_nodes": "48",
+              "is_power_of_two": "False"
             },
             "tones": {
               "num_nodes": "ok",
@@ -780,16 +780,14 @@
                 "hit": 1
               },
               "checks": {
-                "var": "checks",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "comparator_ok": "data",
               "router_ok": "data",
               "topology_guard_ok": "data",
-              "checks": "data"
+              "checks": "idle"
             },
             "arrows": [
               [
@@ -929,13 +927,13 @@
               "comparator_ok": "True",
               "router_ok": "True",
               "topology_guard_ok": "True",
-              "checks": "{'ALPHA_BETA_COMPARATOR': True, 'CROSSO…"
+              "checks": ""
             },
             "tones": {
               "comparator_ok": "data",
               "router_ok": "data",
               "topology_guard_ok": "data",
-              "checks": "data"
+              "checks": "idle"
             },
             "arrows": [
               [

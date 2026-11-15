@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Engineering reliable agents begins by treating loop execution as a bounded.",
+            "activeActor": "trace",
+            "messages": [
+              {
+                "from": "max_steps",
+                "to": "trace",
+                "label": {
+                  "var": "max_steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "trace",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Engineering reliable agents begins by treating loop execution as a bounded.",
-            "activeActor": "trace",
+            "at": "say7",
+            "caption": "Look at step_budget_state() tracing bounded step progression cleanly.",
+            "activeActor": "state",
             "messages": [
+              {
+                "from": "max_steps",
+                "to": "trace",
+                "label": {
+                  "var": "max_steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "trace",
+                "to": "state",
+                "label": {
+                  "var": "trace",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "max_steps",
                 "to": "trace",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Look at step_budget_state() tracing bounded step progression cleanly.",
-            "activeActor": "state",
-            "messages": [
+              },
               {
                 "from": "max_steps",
                 "to": "trace",
@@ -118,12 +148,6 @@
                 "to": "trace",
                 "label": "3",
                 "tone": "data"
-              },
-              {
-                "from": "trace",
-                "to": "state",
-                "label": "[['SEARCH', 'q1', 'r1'], ['CALC', '2+2'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "max_steps"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Look at step_budget_state() tracing bounded step progression cleanly.",
             "messages": [
+              {
+                "from": "max_steps",
+                "to": "trace",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "trace",
+                "to": "state",
+                "label": "[['SEARCH', 'q1', 'r1'], ['CALC', '2+2'…",
+                "tone": "ok"
+              },
+              {
+                "from": "max_steps",
+                "to": "trace",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "trace",
+                "to": "state",
+                "label": "[['SEARCH', 'q1', 'r1'], ['CALC', '2+2'…",
+                "tone": "ok"
+              },
               {
                 "from": "max_steps",
                 "to": "trace",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Two parser bugs break ReAct agents repeatedly.",
+            "activeActor": "t2",
+            "messages": [
+              {
+                "from": "t1",
+                "to": "t2",
+                "label": {
+                  "var": "t1",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "t2",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Two parser bugs break ReAct agents repeatedly.",
-            "activeActor": "t2",
+            "at": "say8",
+            "caption": "Examine the strict value produced for prefix processing.",
+            "activeActor": "text",
             "messages": [
+              {
+                "from": "t1",
+                "to": "t2",
+                "label": {
+                  "var": "t1",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t2",
+                "to": "text",
+                "label": {
+                  "var": "t2",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "t1",
                 "to": "t2",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Notice that keeping structured error keys (`MISSING_ACTION_OR_FINAL`).",
-            "activeActor": "text",
-            "messages": [
+              },
               {
                 "from": "t1",
                 "to": "t2",
@@ -282,12 +360,6 @@
                 "to": "t2",
                 "label": "'Thought: need API status\nAction: http_…",
                 "tone": "data"
-              },
-              {
-                "from": "t2",
-                "to": "text",
-                "label": "'Just guessing here without format'",
-                "tone": "ok"
               }
             ],
             "activeActor": "t1"
@@ -313,8 +385,32 @@
           },
           {
             "at": "say8",
-            "caption": "Notice that keeping structured error keys (`MISSING_ACTION_OR_FINAL`).",
+            "caption": "Examine the strict value produced for prefix processing.",
             "messages": [
+              {
+                "from": "t1",
+                "to": "t2",
+                "label": "'Thought: need API status\nAction: http_…",
+                "tone": "data"
+              },
+              {
+                "from": "t2",
+                "to": "text",
+                "label": "'Just guessing here without format'",
+                "tone": "ok"
+              },
+              {
+                "from": "t1",
+                "to": "t2",
+                "label": "'Thought: need API status\nAction: http_…",
+                "tone": "data"
+              },
+              {
+                "from": "t2",
+                "to": "text",
+                "label": "'Just guessing here without format'",
+                "tone": "ok"
+              },
               {
                 "from": "t1",
                 "to": "t2",
@@ -347,7 +443,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how sometimes updates agent during execution.",
+            "caption": "Observe how sometimes shapes agent during this step.",
             "activeActor": "calls",
             "messages": [
               {
@@ -359,6 +455,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the signatures transition driving notice behavior.",
+            "activeActor": "seen",
+            "messages": [
+              {
+                "from": "calls",
+                "to": "seen",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "seen",
@@ -373,10 +486,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Notice that slight formatting tweaks such as extra leading spaces (`\" tax.",
-            "activeActor": "seen",
+            "at": "say7",
+            "caption": "Examine the loop value produced for circuit processing.",
+            "activeActor": "executed",
             "messages": [
+              {
+                "from": "calls",
+                "to": "seen",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "executed",
+                "label": {
+                  "var": "seen",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "calls",
                 "to": "seen",
@@ -396,14 +529,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Catching disguised whitespace repeats immediately preserves leftover.",
-            "activeActor": "executed",
-            "messages": [
+              },
               {
                 "from": "calls",
                 "to": "seen",
@@ -439,26 +565,20 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how sometimes updates agent during execution.",
+            "caption": "Observe how sometimes shapes agent during this step.",
             "messages": [
               {
                 "from": "calls",
                 "to": "seen",
                 "label": "[['search', 'tax rate 2025'], ['search'…",
                 "tone": "data"
-              },
-              {
-                "from": "seen",
-                "to": "executed",
-                "label": "set()",
-                "tone": "ok"
               }
             ],
             "activeActor": "calls"
           },
           {
             "at": "say2",
-            "caption": "Notice that slight formatting tweaks such as extra leading spaces (`\" tax.",
+            "caption": "Verify the signatures transition driving notice behavior.",
             "messages": [
               {
                 "from": "calls",
@@ -477,8 +597,32 @@
           },
           {
             "at": "say7",
-            "caption": "Catching disguised whitespace repeats immediately preserves leftover.",
+            "caption": "Examine the loop value produced for circuit processing.",
             "messages": [
+              {
+                "from": "calls",
+                "to": "seen",
+                "label": "[['search', 'tax rate 2025'], ['search'…",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "executed",
+                "label": "set()",
+                "tone": "ok"
+              },
+              {
+                "from": "calls",
+                "to": "seen",
+                "label": "[['search', 'tax rate 2025'], ['search'…",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "executed",
+                "label": "set()",
+                "tone": "ok"
+              },
               {
                 "from": "calls",
                 "to": "seen",

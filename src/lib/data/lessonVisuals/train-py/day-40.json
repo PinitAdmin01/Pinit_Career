@@ -7,164 +7,124 @@
   "entries": [
     {
       "partTitle": "Milestone 8 — Foundations & Mathematical Invariants",
-      "codeHash": "f3d297112bc026520ddc04b2c5632572d13095f696cf275bc72b6ef0da7f7d3e",
+      "codeHash": "0616f65e39f43b53d0975b887fad87b3a49c0e85aaba0a3293fb700449264212",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 8 — Foundations & Mathematical Invariants",
-        "actors": [
-          "global_rank",
-          "dp_size",
-          "tp_size"
+        "nodes": [
+          {
+            "id": "global_rank",
+            "label": "global_rank",
+            "tappable": true
+          },
+          {
+            "id": "dp_size",
+            "label": "dp_size",
+            "tappable": true
+          },
+          {
+            "id": "tp_size",
+            "label": "tp_size",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Frontier foundation models with tens or hundreds of billions of parameters.",
-            "activeActor": "global_rank",
-            "messages": [
-              {
-                "from": "global_rank",
-                "to": "dp_size",
-                "label": {
-                  "var": "global_rank",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect frontier updates as global_rank tracks foundation state.",
+            "values": {
+              "global_rank": {
+                "var": "global_rank",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "dp_size",
-                "to": "tp_size",
-                "label": {
-                  "var": "dp_size",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "dp_size": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "global_rank": "data",
+              "dp_size": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Training these models requires 3D Parallelism.",
-            "activeActor": "dp_size",
-            "messages": [
-              {
-                "from": "global_rank",
-                "to": "dp_size",
-                "label": {
-                  "var": "global_rank",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "global_rank": {
+                "var": "global_rank",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "dp_size",
-                "to": "tp_size",
-                "label": {
-                  "var": "dp_size",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "dp_size": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "The product of the parallel group sizes must strictly match the total.",
-            "activeActor": "tp_size",
-            "messages": [
-              {
-                "from": "global_rank",
-                "to": "dp_size",
-                "label": {
-                  "var": "global_rank",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": "dp_size",
-                "to": "tp_size",
-                "label": {
-                  "var": "dp_size",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "global_rank": "idle",
+              "dp_size": "ok"
+            },
+            "arrows": [
+              [
+                "global_rank",
+                "dp_size"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 8 — Foundations & Mathematical Invariants",
-        "actors": [
-          "global_rank",
-          "dp_size",
-          "tp_size"
+        "nodes": [
+          {
+            "id": "global_rank",
+            "label": "global_rank",
+            "tappable": true
+          },
+          {
+            "id": "dp_size",
+            "label": "dp_size",
+            "tappable": true
+          },
+          {
+            "id": "tp_size",
+            "label": "tp_size",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Frontier foundation models with tens or hundreds of billions of parameters.",
-            "messages": [
-              {
-                "from": "global_rank",
-                "to": "dp_size",
-                "label": "19",
-                "tone": "data"
-              },
-              {
-                "from": "dp_size",
-                "to": "tp_size",
-                "label": "4",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "global_rank"
+            "caption": "Inspect frontier updates as global_rank tracks foundation state.",
+            "values": {
+              "global_rank": "19",
+              "dp_size": ""
+            },
+            "tones": {
+              "global_rank": "data",
+              "dp_size": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Training these models requires 3D Parallelism.",
-            "messages": [
-              {
-                "from": "global_rank",
-                "to": "dp_size",
-                "label": "19",
-                "tone": "data"
-              },
-              {
-                "from": "dp_size",
-                "to": "tp_size",
-                "label": "4",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "dp_size"
-          },
-          {
-            "at": "say11",
-            "caption": "The product of the parallel group sizes must strictly match the total.",
-            "messages": [
-              {
-                "from": "global_rank",
-                "to": "dp_size",
-                "label": "19",
-                "tone": "data"
-              },
-              {
-                "from": "dp_size",
-                "to": "tp_size",
-                "label": "4",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "tp_size"
+            "values": {
+              "global_rank": "19",
+              "dp_size": "Global Rank 19 -> DP=1, PP=0, TP=3"
+            },
+            "tones": {
+              "global_rank": "idle",
+              "dp_size": "ok"
+            },
+            "arrows": [
+              [
+                "global_rank",
+                "dp_size"
+              ]
+            ]
           }
         ]
       }
@@ -220,7 +180,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how models updates smaller during execution.",
+            "caption": "Verify the models transition driving smaller behavior.",
             "bars": [
               {
                 "label": "total_gpus",
@@ -262,7 +222,7 @@
           },
           {
             "at": "say11",
-            "caption": "This automated configuration engine eliminates manual calculation errors.",
+            "caption": "Examine the automating value produced for axis processing.",
             "bars": [
               {
                 "label": "total_gpus",
@@ -336,7 +296,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how models updates smaller during execution.",
+            "caption": "Verify the models transition driving smaller behavior.",
             "bars": [
               {
                 "label": "total_gpus",
@@ -362,7 +322,7 @@
           },
           {
             "at": "say11",
-            "caption": "This automated configuration engine eliminates manual calculation errors.",
+            "caption": "Examine the automating value produced for axis processing.",
             "bars": [
               {
                 "label": "total_gpus",
@@ -654,16 +614,14 @@
                 "hit": 1
               },
               "pp": {
-                "var": "pp",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_gpus": "data",
               "dp": "data",
               "tp": "data",
-              "pp": "data"
+              "pp": "idle"
             },
             "arrows": [
               [
@@ -803,13 +761,13 @@
               "total_gpus": "64",
               "dp": "4",
               "tp": "8",
-              "pp": "2"
+              "pp": ""
             },
             "tones": {
               "total_gpus": "data",
               "dp": "data",
               "tp": "data",
-              "pp": "data"
+              "pp": "idle"
             },
             "arrows": [
               [
@@ -940,7 +898,7 @@
           },
           {
             "at": "say11",
-            "caption": "Continuous cluster monitoring guarantees that long-running training.",
+            "caption": "Inspecting its telemetry payload—status.",
             "rows": [
               {
                 "cells": [
@@ -993,7 +951,7 @@
           },
           {
             "at": "say11",
-            "caption": "Continuous cluster monitoring guarantees that long-running training.",
+            "caption": "Inspecting its telemetry payload—status.",
             "rows": [
               {
                 "cells": [

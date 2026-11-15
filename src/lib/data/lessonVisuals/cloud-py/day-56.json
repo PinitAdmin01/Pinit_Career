@@ -206,7 +206,7 @@
           },
           {
             "at": "say10",
-            "caption": "Clear financial visibility eliminates internal friction between.",
+            "caption": "Examine the splitting value produced for shared processing.",
             "bars": [
               {
                 "label": "cluster_bill",
@@ -306,7 +306,7 @@
           },
           {
             "at": "say10",
-            "caption": "Clear financial visibility eliminates internal friction between.",
+            "caption": "Examine the splitting value produced for shared processing.",
             "bars": [
               {
                 "label": "cluster_bill",
@@ -426,7 +426,7 @@
           },
           {
             "at": "say9",
-            "caption": "Platform engineering teams establish automated escalation paths.",
+            "caption": "Examine the wait value produced for monthly processing.",
             "bars": [
               {
                 "label": "historical_dai",
@@ -526,7 +526,7 @@
           },
           {
             "at": "say9",
-            "caption": "Platform engineering teams establish automated escalation paths.",
+            "caption": "Examine the wait value produced for monthly processing.",
             "bars": [
               {
                 "label": "historical_dai",
@@ -630,23 +630,23 @@
             "values": {
               "budget_limit": {
                 "var": "budget_limit",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "actual_spend": {
                 "var": "actual_spend",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "is_production": {
                 "var": "is_production",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "spend_ratio": {
                 "var": "spend_ratio",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -676,23 +676,23 @@
             "values": {
               "budget_limit": {
                 "var": "budget_limit",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "actual_spend": {
                 "var": "actual_spend",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "is_production": {
                 "var": "is_production",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "spend_ratio": {
                 "var": "spend_ratio",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -774,10 +774,10 @@
             "at": "say2",
             "caption": "Automated budget guardrails enforce strict spending limits.",
             "values": {
-              "budget_limit": "1000",
-              "actual_spend": "1350",
-              "is_production": "False",
-              "spend_ratio": "1.35"
+              "budget_limit": "10000",
+              "actual_spend": "12500",
+              "is_production": "True",
+              "spend_ratio": "1.25"
             },
             "tones": {
               "budget_limit": "data",
@@ -804,10 +804,10 @@
             "at": "say10",
             "caption": "Clear governance protocols ensure that automated budget actions operate.",
             "values": {
-              "budget_limit": "1000",
-              "actual_spend": "1350",
-              "is_production": "False",
-              "spend_ratio": "1.35"
+              "budget_limit": "10000",
+              "actual_spend": "12500",
+              "is_production": "True",
+              "spend_ratio": "1.25"
             },
             "tones": {
               "budget_limit": "ok",
@@ -920,12 +920,12 @@
               },
               "compliant_count": {
                 "var": "compliant_count",
-                "line": 7,
+                "line": 14,
                 "hit": 1
               },
               "unallocated_resources": {
                 "var": "unallocated_resources",
-                "line": 9,
+                "line": 16,
                 "hit": 1
               }
             },
@@ -966,12 +966,12 @@
               },
               "compliant_count": {
                 "var": "compliant_count",
-                "line": 9,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               },
               "unallocated_resources": {
                 "var": "unallocated_resources",
-                "line": 10,
+                "line": 16,
                 "hit": 1
               }
             },
@@ -1056,8 +1056,8 @@
             "values": {
               "infra": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
               "resources": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
-              "compliant_count": "0",
-              "unallocated_resources": "[]"
+              "compliant_count": "1",
+              "unallocated_resources": "[{'id': 'vol-3', 'missing_tags': ['Cost…"
             },
             "tones": {
               "infra": "data",
@@ -1086,8 +1086,8 @@
             "values": {
               "infra": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
               "resources": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
-              "compliant_count": "0",
-              "unallocated_resources": "[]"
+              "compliant_count": "2",
+              "unallocated_resources": "[{'id': 'vol-3', 'missing_tags': ['Cost…"
             },
             "tones": {
               "infra": "ok",

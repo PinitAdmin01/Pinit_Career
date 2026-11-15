@@ -64,7 +64,7 @@
           },
           {
             "at": "say2",
-            "caption": "Models generate the most likely next words, and likely-sounding words are.",
+            "caption": "Verify the models transition driving generate behavior.",
             "values": {
               "source": {
                 "var": "source",
@@ -180,7 +180,7 @@
           },
           {
             "at": "say2",
-            "caption": "Models generate the most likely next words, and likely-sounding words are.",
+            "caption": "Verify the models transition driving generate behavior.",
             "values": {
               "source": "'Refunds are available within 30 days o…",
               "answer": "['Refunds are available within 30 days …",
@@ -582,7 +582,7 @@
           },
           {
             "at": "say2",
-            "caption": "A sentence can reuse the source's words and still reverse its meaning,.",
+            "caption": "Verify the sentence transition driving reuse behavior.",
             "currentState": "t",
             "transition": {
               "from": "text",
@@ -638,7 +638,7 @@
           },
           {
             "at": "say2",
-            "caption": "A sentence can reuse the source's words and still reverse its meaning,.",
+            "caption": "Verify the sentence transition driving reuse behavior.",
             "currentState": "t",
             "transition": {
               "from": "text",
@@ -754,7 +754,7 @@
               "t": {
                 "var": "t",
                 "line": 5,
-                "hit": 2
+                "hit": 11
               }
             },
             "tones": {
@@ -800,7 +800,7 @@
               "t": {
                 "var": "t",
                 "line": 5,
-                "hit": 3
+                "hit": 23
               }
             },
             "tones": {
@@ -885,7 +885,7 @@
               "NUM": "'\\d+(?:\\.\\d+)?'",
               "sources": "['Refunds are available within 30 days …",
               "answer": "['Refunds are available within 60 days …",
-              "t": "'Refunds are available within 60 days w…"
+              "t": "'Refunds are available within 30 days o…"
             },
             "tones": {
               "NUM": "data",

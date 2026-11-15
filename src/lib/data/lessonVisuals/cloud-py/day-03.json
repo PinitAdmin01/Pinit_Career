@@ -234,7 +234,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example prints the size for several prefix lengths using 2 ** (32.",
+            "caption": "The example prints the size for several prefix lengths using 2 ** (32 - prefix).",
             "bars": [
               {
                 "label": "prefix",
@@ -296,7 +296,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example prints the size for several prefix lengths using 2 ** (32.",
+            "caption": "The example prints the size for several prefix lengths using 2 ** (32 - prefix).",
             "bars": [
               {
                 "label": "prefix",
@@ -372,7 +372,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how those updates network during execution.",
+            "caption": "Verify the network transition driving address behavior.",
             "values": {
               "subnet": {
                 "var": "subnet",
@@ -466,7 +466,7 @@
             "at": "say1",
             "caption": "In every subnet, AWS reserves five addresses that you cannot give to servers.",
             "values": {
-              "subnet": "[{'__other__': 'IPv4Address'}, {'__othe…",
+              "subnet": "[<IPv4Address>, <IPv4Address>, <IPv4Add…",
               "m": "24",
               "mask": "24"
             },
@@ -488,9 +488,9 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how those updates network during execution.",
+            "caption": "Verify the network transition driving address behavior.",
             "values": {
-              "subnet": "[{'__other__': 'IPv4Address'}, {'__othe…",
+              "subnet": "[<IPv4Address>, <IPv4Address>, <IPv4Add…",
               "m": "24",
               "mask": "24"
             },
@@ -514,7 +514,7 @@
             "at": "say7",
             "caption": "The example lists the reserved addresses of a real subnet with ipaddress.",
             "values": {
-              "subnet": "[{'__other__': 'IPv4Address'}, {'__othe…",
+              "subnet": "[<IPv4Address>, <IPv4Address>, <IPv4Add…",
               "m": "28",
               "mask": "28"
             },
@@ -545,20 +545,14 @@
         "title": "Splitting a VPC into subnets",
         "nodes": [
           {
-            "id": "vpc",
-            "label": "vpc"
-          },
-          {
-            "id": "blocks",
-            "label": "blocks"
-          },
-          {
-            "id": "plan",
-            "label": "plan"
-          },
-          {
             "id": "name",
-            "label": "name"
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
@@ -566,137 +560,66 @@
             "at": "say1",
             "caption": "Once you have a VPC range, you carve it into subnets.",
             "values": {
-              "vpc": {
-                "var": "vpc",
-                "line": 3,
-                "hit": 1
-              },
-              "blocks": {
-                "var": "blocks",
-                "line": 4,
-                "hit": 1
-              },
-              "plan": {
-                "var": "plan",
-                "line": 5,
-                "hit": 1
-              },
               "name": {
                 "var": "name",
                 "line": 6,
                 "hit": 1
+              },
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "vpc": "data",
-              "blocks": "data",
-              "plan": "data",
-              "name": "data"
+              "name": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "vpc",
-                "blocks"
-              ],
-              [
-                "blocks",
-                "plan"
-              ],
-              [
-                "plan",
-                "name"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Subnets must not overlap.",
             "values": {
-              "vpc": {
-                "var": "vpc",
-                "line": 4,
-                "hit": 1
-              },
-              "blocks": {
-                "var": "blocks",
-                "line": 5,
-                "hit": 1
-              },
-              "plan": {
-                "var": "plan",
-                "line": 6,
-                "hit": 1
-              },
               "name": {
                 "var": "name",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 3
+              },
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "vpc": "data",
-              "blocks": "data",
-              "plan": "data",
-              "name": "data"
+              "name": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "vpc",
-                "blocks"
-              ],
-              [
-                "blocks",
-                "plan"
-              ],
-              [
-                "plan",
-                "name"
+                "name",
+                "out"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Trace how will updates check during execution.",
+            "at": "say3",
+            "caption": "Examine the subnets value produced for python processing.",
             "values": {
-              "vpc": {
-                "var": "vpc",
-                "line": 5,
-                "hit": 1
-              },
-              "blocks": {
-                "var": "blocks",
-                "line": 6,
-                "hit": 1
-              },
-              "plan": {
-                "var": "plan",
-                "line": 7,
-                "hit": 1
-              },
               "name": {
                 "var": "name",
                 "line": 6,
-                "hit": 2
+                "hit": 4
+              },
+              "out": {
+                "out": 2
               }
             },
             "tones": {
-              "vpc": "ok",
-              "blocks": "ok",
-              "plan": "ok",
-              "name": "ok"
+              "name": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "vpc",
-                "blocks"
-              ],
-              [
-                "blocks",
-                "plan"
-              ],
-              [
-                "plan",
-                "name"
+                "name",
+                "out"
               ]
             ]
           }
@@ -707,20 +630,14 @@
         "title": "Splitting a VPC into subnets",
         "nodes": [
           {
-            "id": "vpc",
-            "label": "vpc"
-          },
-          {
-            "id": "blocks",
-            "label": "blocks"
-          },
-          {
-            "id": "plan",
-            "label": "plan"
-          },
-          {
             "id": "name",
-            "label": "name"
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
@@ -728,89 +645,48 @@
             "at": "say1",
             "caption": "Once you have a VPC range, you carve it into subnets.",
             "values": {
-              "vpc": "<IPv4Network>",
-              "blocks": "{'__other__': 'generator'}",
-              "plan": "['public-a', 'public-b', 'private-a', '…",
-              "name": "'public-a'"
+              "name": "'public-a'",
+              "out": ""
             },
             "tones": {
-              "vpc": "data",
-              "blocks": "data",
-              "plan": "data",
-              "name": "data"
+              "name": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "vpc",
-                "blocks"
-              ],
-              [
-                "blocks",
-                "plan"
-              ],
-              [
-                "plan",
-                "name"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Subnets must not overlap.",
             "values": {
-              "vpc": "<IPv4Network>",
-              "blocks": "{'__other__': 'generator'}",
-              "plan": "['public-a', 'public-b', 'private-a', '…",
-              "name": "'public-a'"
+              "name": "'private-a'",
+              "out": "public-a   10.0.0.0/24"
             },
             "tones": {
-              "vpc": "data",
-              "blocks": "data",
-              "plan": "data",
-              "name": "data"
+              "name": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "vpc",
-                "blocks"
-              ],
-              [
-                "blocks",
-                "plan"
-              ],
-              [
-                "plan",
-                "name"
+                "name",
+                "out"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Trace how will updates check during execution.",
+            "at": "say3",
+            "caption": "Examine the subnets value produced for python processing.",
             "values": {
-              "vpc": "<IPv4Network>",
-              "blocks": "{'__other__': 'generator'}",
-              "plan": "['public-a', 'public-b', 'private-a', '…",
-              "name": "'public-b'"
+              "name": "'private-b'",
+              "out": "public-b   10.0.1.0/24"
             },
             "tones": {
-              "vpc": "ok",
-              "blocks": "ok",
-              "plan": "ok",
-              "name": "ok"
+              "name": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "vpc",
-                "blocks"
-              ],
-              [
-                "blocks",
-                "plan"
-              ],
-              [
-                "plan",
-                "name"
+                "name",
+                "out"
               ]
             ]
           }
@@ -821,162 +697,112 @@
       "partTitle": "Public and private subnets: it is all in the route table",
       "codeHash": "011b546182c8df30d13428f6125ecd759fe60f532df99d8b85466012870af601",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Public and private subnets: it is all in the route table",
-        "actors": [
-          "public_rt",
-          "private_rt",
-          ".0"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Here is a fact that surprises many people.",
-            "activeActor": "public_rt",
-            "messages": [
-              {
-                "from": "public_rt",
-                "to": "private_rt",
-                "label": {
-                  "var": "public_rt",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "data"
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "private_rt",
-                "to": ".0",
-                "label": {
-                  "var": "private_rt",
-                  "line": 6,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "A route table is a list of rules.",
-            "activeActor": "private_rt",
-            "messages": [
-              {
-                "from": "public_rt",
-                "to": "private_rt",
-                "label": {
-                  "var": "public_rt",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "from": "private_rt",
-                "to": ".0",
-                "label": {
-                  "var": "private_rt",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example checks two route tables with any() and a generator expression.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "public_rt",
-                "to": "private_rt",
-                "label": {
-                  "var": "public_rt",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": "private_rt",
-                "to": ".0",
-                "label": {
-                  "var": "private_rt",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "r": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Public and private subnets: it is all in the route table",
-        "actors": [
-          "public_rt",
-          "private_rt",
-          ".0"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Here is a fact that surprises many people.",
-            "messages": [
-              {
-                "from": "public_rt",
-                "to": "private_rt",
-                "label": "[{'destination': '10.0.0.0/16', 'target…",
-                "tone": "data"
-              },
-              {
-                "from": "private_rt",
-                "to": ".0",
-                "label": "[{'destination': '10.0.0.0/16', 'target…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "public_rt"
+            "values": {
+              "r": "{'destination': '10.0.0.0/16', 'target'…",
+              "out": ""
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "A route table is a list of rules.",
-            "messages": [
-              {
-                "from": "public_rt",
-                "to": "private_rt",
-                "label": "[{'destination': '10.0.0.0/16', 'target…",
-                "tone": "data"
-              },
-              {
-                "from": "private_rt",
-                "to": ".0",
-                "label": "[{'destination': '10.0.0.0/16', 'target…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "private_rt"
-          },
-          {
-            "at": "say7",
-            "caption": "The example checks two route tables with any() and a generator expression.",
-            "messages": [
-              {
-                "from": "public_rt",
-                "to": "private_rt",
-                "label": "[{'destination': '10.0.0.0/16', 'target…",
-                "tone": "data"
-              },
-              {
-                "from": "private_rt",
-                "to": ".0",
-                "label": "[{'destination': '10.0.0.0/16', 'target…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "values": {
+              "r": "{'destination': '0.0.0.0/0', 'target': …",
+              "out": "public route table -> True"
+            },
+            "tones": {
+              "r": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
+            ]
           }
         ]
       }
@@ -985,106 +811,112 @@
       "partTitle": "Practice time: sizes and routes",
       "codeHash": "fb9a187892c38c80d3900dde42ce32e97e1b7af51550f68c32835f0823bcdaa2",
       "spec": {
-        "template": "states",
+        "template": "flow",
         "title": "Practice time: sizes and routes",
-        "states": [
-          {
-            "id": "routes",
-            "label": "routes"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
+        "nodes": [
           {
             "id": "r",
-            "label": "r"
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Usable_subnet_ips(mask).",
-            "currentState": "routes",
-            "tone": "data"
+            "caption": "Practice 1: usable_subnet_ips(mask).",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 4,
+                "hit": 1
+              },
+              "out": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how test updates yourself during execution.",
-            "currentState": ".0",
-            "transition": {
-              "from": "routes",
-              "to": ".0",
-              "label": {
-                "var": ".0",
-                "line": 4,
-                "hit": 2
-              }
-            },
-            "tone": "data"
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows the difference between the correct check and.",
-            "currentState": "r",
-            "transition": {
-              "from": ".0",
-              "to": "r",
-              "label": {
+            "caption": "Verify the test transition driving yourself behavior.",
+            "values": {
+              "r": {
                 "var": "r",
                 "line": 4,
                 "hit": 3
+              },
+              "out": {
+                "out": 1
               }
             },
-            "tone": "ok"
+            "tones": {
+              "r": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
+        "template": "flow",
         "title": "Practice time: sizes and routes",
-        "states": [
-          {
-            "id": "routes",
-            "label": "routes"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
+        "nodes": [
           {
             "id": "r",
-            "label": "r"
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Usable_subnet_ips(mask).",
-            "currentState": "routes",
-            "tone": "data"
+            "caption": "Practice 1: usable_subnet_ips(mask).",
+            "values": {
+              "r": "{'destination': '0.0.0.0/0', 'target': …",
+              "out": ""
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how test updates yourself during execution.",
-            "currentState": ".0",
-            "transition": {
-              "from": "routes",
-              "to": ".0",
-              "label": "{'__other__': 'list_iterator'}"
+            "caption": "Verify the test transition driving yourself behavior.",
+            "values": {
+              "r": "{'destination': '10.9.0.0/16', 'target'…",
+              "out": "half-and-half check says public: True"
             },
-            "tone": "data"
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows the difference between the correct check and.",
-            "currentState": "r",
-            "transition": {
-              "from": ".0",
-              "to": "r",
-              "label": "{'destination': '10.9.0.0/16', 'target'…"
+            "tones": {
+              "r": "ok",
+              "out": "ok"
             },
-            "tone": "ok"
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
+            ]
           }
         ]
       }

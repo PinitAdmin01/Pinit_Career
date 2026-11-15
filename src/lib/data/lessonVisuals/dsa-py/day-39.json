@@ -46,7 +46,7 @@
           },
           {
             "at": "say5",
-            "caption": "Furthermore, updating `dist[i][j]` in place works safely in a single 2D.",
+            "caption": "Examine the dynamic value produced for programming processing.",
             "items": {
               "var": "row",
               "line": 22,
@@ -102,7 +102,7 @@
           },
           {
             "at": "say5",
-            "caption": "Furthermore, updating `dist[i][j]` in place works safely in a single 2D.",
+            "caption": "Examine the dynamic value produced for programming processing.",
             "items": [
               "2",
               "5",
@@ -129,7 +129,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how knowing updates routing during execution.",
+            "caption": "Observe how next shapes forwarding during this step.",
             "items": {
               "var": "path",
               "line": 32,
@@ -183,7 +183,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how knowing updates routing during execution.",
+            "caption": "Observe how next shapes forwarding during this step.",
             "items": [
               "0",
               "1"
@@ -493,7 +493,7 @@
           },
           {
             "at": "say5",
-            "caption": "Compare Boolean Warshall reachability, bitset Warshall speedup,.",
+            "caption": "Examine the warshall value produced for boolean processing.",
             "items": {
               "var": "reach",
               "line": 6,
@@ -551,7 +551,7 @@
           },
           {
             "at": "say5",
-            "caption": "Compare Boolean Warshall reachability, bitset Warshall speedup,.",
+            "caption": "Examine the warshall value produced for boolean processing.",
             "items": [
               "19",
               "6",
@@ -611,7 +611,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how region updates cloud during execution.",
+            "caption": "Examine the cloud value produced for latency processing.",
             "items": {
               "var": "regions",
               "line": 6,
@@ -671,7 +671,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how region updates cloud during execution.",
+            "caption": "Examine the cloud value produced for latency processing.",
             "items": [
               "'us-east'",
               "'us-west'",

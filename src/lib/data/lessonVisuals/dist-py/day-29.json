@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Disaster recovery (DR) is the plan for keeping the business running when.",
+            "activeActor": "rpo_minutes",
+            "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": {
+                  "var": "orders_per_minute",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "rpo_minutes",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Disaster recovery (DR) is the plan for keeping the business running when.",
-            "activeActor": "rpo_minutes",
+            "at": "say7",
+            "caption": "The example shows what an RPO means for a stream of orders.",
+            "activeActor": "lost",
             "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": {
+                  "var": "orders_per_minute",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": {
+                  "var": "rpo_minutes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "orders_per_minute",
                 "to": "rpo_minutes",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows what an RPO means for a stream of orders.",
-            "activeActor": "lost",
-            "messages": [
+              },
               {
                 "from": "orders_per_minute",
                 "to": "rpo_minutes",
@@ -118,12 +148,6 @@
                 "to": "rpo_minutes",
                 "label": "1200",
                 "tone": "data"
-              },
-              {
-                "from": "rpo_minutes",
-                "to": "lost",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "orders_per_minute"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "The example shows what an RPO means for a stream of orders.",
             "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": "1200",
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": "1200",
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "orders_per_minute",
                 "to": "rpo_minutes",
@@ -642,7 +690,7 @@
           },
           {
             "at": "say2",
-            "caption": "Detect the failure, decide to fail over (often a human decision.",
+            "caption": "Verify the failover transition driving steps behavior.",
             "currentState": "i",
             "transition": {
               "from": "runbook",
@@ -698,7 +746,7 @@
           },
           {
             "at": "say2",
-            "caption": "Detect the failure, decide to fail over (often a human decision.",
+            "caption": "Verify the failover transition driving steps behavior.",
             "currentState": "i",
             "transition": {
               "from": "runbook",
@@ -747,6 +795,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The hard part is data.",
+            "activeActor": "healthy",
+            "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": {
+                  "var": "home_region",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "healthy",
@@ -761,10 +826,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The hard part is data.",
-            "activeActor": "healthy",
+            "at": "say7",
+            "caption": "The example routes users to a home region to avoid write conflicts.",
+            "activeActor": "user",
             "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": {
+                  "var": "home_region",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": {
+                  "var": "healthy",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "home_region",
                 "to": "healthy",
@@ -784,14 +869,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example routes users to a home region to avoid write conflicts.",
-            "activeActor": "user",
-            "messages": [
+              },
               {
                 "from": "home_region",
                 "to": "healthy",
@@ -834,12 +912,6 @@
                 "to": "healthy",
                 "label": "{'asha': 'mumbai', 'bala': 'singapore',…",
                 "tone": "data"
-              },
-              {
-                "from": "healthy",
-                "to": "user",
-                "label": "{'mumbai': True, 'singapore': True}",
-                "tone": "ok"
               }
             ],
             "activeActor": "home_region"
@@ -867,6 +939,30 @@
             "at": "say7",
             "caption": "The example routes users to a home region to avoid write conflicts.",
             "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": "{'asha': 'mumbai', 'bala': 'singapore',…",
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": "{'mumbai': True, 'singapore': True}",
+                "tone": "ok"
+              },
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": "{'asha': 'mumbai', 'bala': 'singapore',…",
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": "{'mumbai': True, 'singapore': True}",
+                "tone": "ok"
+              },
               {
                 "from": "home_region",
                 "to": "healthy",
@@ -911,6 +1007,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Measure actual RPO and RTO in each drill and compare with targets, as.",
+            "activeActor": "target",
+            "messages": [
+              {
+                "from": "drills",
+                "to": "target",
+                "label": {
+                  "var": "drills",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "target",
@@ -925,10 +1038,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Measure actual RPO and RTO in each drill and compare with targets, as.",
-            "activeActor": "target",
+            "at": "say6",
+            "caption": "The example reports a series of drills over time.",
+            "activeActor": "month",
             "messages": [
+              {
+                "from": "drills",
+                "to": "target",
+                "label": {
+                  "var": "drills",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "target",
+                "to": "month",
+                "label": {
+                  "var": "target",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "drills",
                 "to": "target",
@@ -948,14 +1081,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example reports a series of drills over time.",
-            "activeActor": "month",
-            "messages": [
+              },
               {
                 "from": "drills",
                 "to": "target",
@@ -998,12 +1124,6 @@
                 "to": "target",
                 "label": "[['Jan', 42], ['Apr', 31], ['Jul', 18],…",
                 "tone": "data"
-              },
-              {
-                "from": "target",
-                "to": "month",
-                "label": "15",
-                "tone": "ok"
               }
             ],
             "activeActor": "drills"
@@ -1031,6 +1151,30 @@
             "at": "say6",
             "caption": "The example reports a series of drills over time.",
             "messages": [
+              {
+                "from": "drills",
+                "to": "target",
+                "label": "[['Jan', 42], ['Apr', 31], ['Jul', 18],…",
+                "tone": "data"
+              },
+              {
+                "from": "target",
+                "to": "month",
+                "label": "15",
+                "tone": "ok"
+              },
+              {
+                "from": "drills",
+                "to": "target",
+                "label": "[['Jan', 42], ['Apr', 31], ['Jul', 18],…",
+                "tone": "data"
+              },
+              {
+                "from": "target",
+                "to": "month",
+                "label": "15",
+                "tone": "ok"
+              },
               {
                 "from": "drills",
                 "to": "target",

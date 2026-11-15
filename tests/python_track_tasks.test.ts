@@ -16,10 +16,12 @@ import { CYBER_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/cyberPython30DayDa
 import { TRAIN_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/trainPython30DayData';
 import { VECTOR_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/vectorPython30DayData';
 import { SAFETY_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/safetyPython30DayData';
+import { DSA_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/dsaPython30DayData';
 import { findForbiddenPython } from '../src/lib/code/python/pythonGuard';
 
 /** Python-track courses whose reference answers are in tests/fixtures (not shipped to students). */
 const COURSES: { name: string; configs: DayConfig[]; solutions: string }[] = [
+  { name: 'DSA in Python', configs: DSA_PYTHON_30_DAYS_CONFIGS, solutions: 'dsa_python_solutions.json' },
   { name: 'AI Engineering in Python', configs: AI_PYTHON_30_DAYS_CONFIGS, solutions: 'ai_python_solutions.json' },
   { name: 'Distributed Systems in Python', configs: DIST_PYTHON_30_DAYS_CONFIGS, solutions: 'dist_python_solutions.json' },
   { name: 'Cloud Engineering in Python', configs: CLOUD_PYTHON_30_DAYS_CONFIGS, solutions: 'cloud_python_solutions.json' },

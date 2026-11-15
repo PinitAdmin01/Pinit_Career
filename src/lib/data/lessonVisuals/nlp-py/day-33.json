@@ -78,17 +78,17 @@
           },
           {
             "at": "say2",
-            "caption": "High Bandwidth Memory (HBM) represents the external memory pool of.",
+            "caption": "However, SRAM capacity is minuscule.",
             "values": {
               "N": {
                 "var": "N",
-                "line": 22,
-                "hit": 1
+                "line": 21,
+                "hit": 2
               },
               "seq_len": {
                 "var": "seq_len",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 5
               },
               "d_head": {
                 "var": "d_head",
@@ -128,13 +128,13 @@
             "values": {
               "N": {
                 "var": "N",
-                "line": 23,
-                "hit": 1
+                "line": 21,
+                "hit": 3
               },
               "seq_len": {
                 "var": "seq_len",
                 "line": 3,
-                "hit": 2
+                "hit": 9
               },
               "d_head": {
                 "var": "d_head",
@@ -224,10 +224,10 @@
           },
           {
             "at": "say2",
-            "caption": "High Bandwidth Memory (HBM) represents the external memory pool of.",
+            "caption": "However, SRAM capacity is minuscule.",
             "values": {
-              "N": "512",
-              "seq_len": "512",
+              "N": "1024",
+              "seq_len": "1024",
               "d_head": "128",
               "n_heads": "32"
             },
@@ -256,8 +256,8 @@
             "at": "say8",
             "caption": "In the following analytical script, we will model the exact memory traffic.",
             "values": {
-              "N": "512",
-              "seq_len": "512",
+              "N": "2048",
+              "seq_len": "2048",
               "d_head": "128",
               "n_heads": "32"
             },
@@ -431,7 +431,7 @@
           },
           {
             "at": "say2",
-            "caption": "In FlashAttention-1, the available on-chip SRAM capacity M (typically.",
+            "caption": "Verify the flashattention transition driving available behavior.",
             "items": {
               "var": "a",
               "line": 4,
@@ -484,7 +484,7 @@
           },
           {
             "at": "say2",
-            "caption": "In FlashAttention-1, the available on-chip SRAM capacity M (typically.",
+            "caption": "Verify the flashattention transition driving available behavior.",
             "items": [
               "0.2",
               "1.8"

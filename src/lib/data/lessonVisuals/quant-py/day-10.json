@@ -32,14 +32,12 @@
                 "hit": 1
               },
               "binary": {
-                "var": "binary",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "text": "data",
-              "binary": "data"
+              "binary": "idle"
             },
             "arrows": [
               [
@@ -121,11 +119,11 @@
             "caption": "A busy exchange publishes millions of market data messages per second.",
             "values": {
               "text": "'A|ref=123456789|side=B|shares=250|stoc…",
-              "binary": "{'__other__': 'bytes'}"
+              "binary": ""
             },
             "tones": {
               "text": "data",
-              "binary": "data"
+              "binary": "idle"
             },
             "arrows": [
               [
@@ -139,7 +137,7 @@
             "caption": "Text formats waste space and time.",
             "values": {
               "text": "'A|ref=123456789|side=B|shares=250|stoc…",
-              "binary": "{'__other__': 'bytes'}"
+              "binary": "<bytes>"
             },
             "tones": {
               "text": "data",
@@ -157,7 +155,7 @@
             "caption": "Smaller messages mean less network time and faster decoding, which.",
             "values": {
               "text": "'A|ref=123456789|side=B|shares=250|stoc…",
-              "binary": "{'__other__': 'bytes'}"
+              "binary": "<bytes>"
             },
             "tones": {
               "text": "ok",
@@ -209,15 +207,13 @@
                 "hit": 1
               },
               "little": {
-                "var": "little",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "n": "data",
               "big": "data",
-              "little": "data"
+              "little": "idle"
             },
             "arrows": [
               [
@@ -327,13 +323,13 @@
             "caption": "Binary fields are raw bytes.",
             "values": {
               "n": "15205000",
-              "big": "{'__other__': 'bytes'}",
-              "little": "{'__other__': 'bytes'}"
+              "big": "<bytes>",
+              "little": ""
             },
             "tones": {
               "n": "data",
               "big": "data",
-              "little": "data"
+              "little": "idle"
             },
             "arrows": [
               [
@@ -351,8 +347,8 @@
             "caption": "Endianness is the order of bytes in a multi-byte number.",
             "values": {
               "n": "15205000",
-              "big": "{'__other__': 'bytes'}",
-              "little": "{'__other__': 'bytes'}"
+              "big": "<bytes>",
+              "little": "<bytes>"
             },
             "tones": {
               "n": "data",
@@ -375,8 +371,8 @@
             "caption": "Always check the specification for byte order before writing a decoder.",
             "values": {
               "n": "15205000",
-              "big": "{'__other__': 'bytes'}",
-              "little": "{'__other__': 'bytes'}"
+              "big": "<bytes>",
+              "little": "<bytes>"
             },
             "tones": {
               "n": "ok",
@@ -406,7 +402,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how simplified updates itch during execution.",
+            "caption": "Observe how order shapes message during this step.",
             "bars": [
               {
                 "label": "ref",
@@ -472,7 +468,7 @@
           },
           {
             "at": "say7",
-            "caption": "Real ITCH messages have more fields (stock locate, tracking number.",
+            "caption": "Examine the real value produced for itch processing.",
             "bars": [
               {
                 "label": "ref",
@@ -511,7 +507,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how simplified updates itch during execution.",
+            "caption": "Observe how order shapes message during this step.",
             "bars": [
               {
                 "label": "ref",
@@ -553,7 +549,7 @@
           },
           {
             "at": "say7",
-            "caption": "Real ITCH messages have more fields (stock locate, tracking number.",
+            "caption": "Examine the real value produced for itch processing.",
             "bars": [
               {
                 "label": "ref",
@@ -788,7 +784,7 @@
             "values": {
               "orders": {
                 "var": "orders",
-                "line": 2,
+                "line": 6,
                 "hit": 1
               },
               "events": {
@@ -798,13 +794,13 @@
               },
               "kind": {
                 "var": "kind",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 4
               },
               "ref": {
                 "var": "ref",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -834,7 +830,7 @@
             "values": {
               "orders": {
                 "var": "orders",
-                "line": 4,
+                "line": 11,
                 "hit": 1
               },
               "events": {
@@ -844,13 +840,13 @@
               },
               "kind": {
                 "var": "kind",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 5
               },
               "ref": {
                 "var": "ref",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -932,10 +928,10 @@
             "at": "say2",
             "caption": "Each message refers to the order by its reference number, so the receiver.",
             "values": {
-              "orders": "{}",
+              "orders": "{1: {'side': 'B', 'qty': 100, 'price': …",
               "events": "[['A', 1, 'B', 100, 1520], ['A', 2, 'B'…",
-              "kind": "'A'",
-              "ref": "1"
+              "kind": "'E'",
+              "ref": "2"
             },
             "tones": {
               "orders": "data",
@@ -962,10 +958,10 @@
             "at": "say7",
             "caption": "Every trading strategy that reads the book depends on this rebuild being.",
             "values": {
-              "orders": "{}",
+              "orders": "{2: {'side': 'B', 'qty': 30, 'price': 1…",
               "events": "[['A', 1, 'B', 100, 1520], ['A', 2, 'B'…",
-              "kind": "'A'",
-              "ref": "1"
+              "kind": "'D'",
+              "ref": "3"
             },
             "tones": {
               "orders": "ok",
@@ -1005,8 +1001,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates check during execution.",
+            "caption": "Observe how practice shapes parse during this step.",
             "activeActor": "FMT",
+            "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": {
+                  "var": "FMT",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks decode a buy and a sell message and expect ValueError for.",
+            "activeActor": "original",
             "messages": [
               {
                 "from": "FMT",
@@ -1031,10 +1044,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks decode a buy and a sell message and expect ValueError for.",
-            "activeActor": "original",
+            "at": "say7",
+            "caption": "The example shows that round-trip test style.",
+            "activeActor": "d",
             "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": {
+                  "var": "FMT",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": {
+                  "var": "original",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "FMT",
                 "to": "original",
@@ -1054,14 +1087,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows that round-trip test style.",
-            "activeActor": "d",
-            "messages": [
+              },
               {
                 "from": "FMT",
                 "to": "original",
@@ -1071,16 +1097,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "original",
-                "to": "d",
-                "label": {
-                  "var": "original",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -1097,19 +1113,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates check during execution.",
+            "caption": "Observe how practice shapes parse during this step.",
             "messages": [
               {
                 "from": "FMT",
                 "to": "original",
                 "label": "'>cQcI8sI'",
                 "tone": "data"
-              },
-              {
-                "from": "original",
-                "to": "d",
-                "label": "{'ref': 42, 'side': 'SELL', 'shares': 7…",
-                "tone": "ok"
               }
             ],
             "activeActor": "FMT"
@@ -1148,6 +1158,24 @@
                 "to": "d",
                 "label": "{'ref': 42, 'side': 'SELL', 'shares': 7…",
                 "tone": "ok"
+              },
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": "'>cQcI8sI'",
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": "{'ref': 42, 'side': 'SELL', 'shares': 7…",
+                "tone": "ok"
+              },
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": "'>cQcI8sI'",
+                "tone": "data"
               }
             ],
             "activeActor": "d"

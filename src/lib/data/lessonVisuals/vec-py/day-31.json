@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Matryoshka Representation Learning (MRL) — Foundations & Mathematical Invariants",
+      "partTitle": "Matryoshka Prefix Truncation & Unit-Norm Renormalization",
       "codeHash": "1c136894bf10e5469163d4b02bcb9ccc3ce03494f2d83d25ac9aab2ee1a79a0a",
       "spec": {
         "template": "bars",
@@ -80,7 +80,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the prefix value produced for aligning processing.",
             "bars": [
               {
                 "label": "prefix_dim",
@@ -161,7 +161,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the prefix value produced for aligning processing.",
             "bars": [
               {
                 "label": "prefix_dim",
@@ -184,7 +184,7 @@
       }
     },
     {
-      "partTitle": "Matryoshka Representation Learning (MRL) — Core Algorithm & State Representation",
+      "partTitle": "Angular Alignment via Renormalized Prefix Cosine Similarity",
       "codeHash": "60ad727566d8ad6d4d6afa894fea88b3d7d5bda60b5552d3e6e88419b8b8498a",
       "spec": {
         "template": "cells",
@@ -224,7 +224,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the angular value produced for prefix processing.",
             "items": {
               "var": "q",
               "line": 14,
@@ -280,7 +280,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the angular value produced for prefix processing.",
             "items": [
               "0.6",
               "0.8",
@@ -299,7 +299,7 @@
       }
     },
     {
-      "partTitle": "Matryoshka Representation Learning (MRL) — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Coarse First-Stage Multi-Granular Candidate Pruning",
       "codeHash": "f87f9b48722a6a859881e60323362ae43a2ddf1184bbc4cf78afa1e53b353e64",
       "spec": {
         "template": "cells",
@@ -339,7 +339,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the coarse value produced for multi processing.",
             "items": {
               "var": "q_pref",
               "line": 16,
@@ -391,7 +391,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the coarse value produced for multi processing.",
             "items": [
               "0.7071",
               "0.7071"
@@ -408,7 +408,7 @@
       }
     },
     {
-      "partTitle": "Matryoshka Representation Learning (MRL) — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Zero-Norm Epsilon Guards Against Division Failure",
       "codeHash": "a763bd12eff9a7ad0802afaa72dc4c58d2ed2e009d8f0c47896448579bd99111",
       "spec": {
         "template": "flow",
@@ -489,8 +489,8 @@
               },
               "vec": {
                 "var": "vec",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "target_dim": {
                 "var": "target_dim",
@@ -499,8 +499,8 @@
               },
               "sub": {
                 "var": "sub",
-                "line": 5,
-                "hit": 4
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -526,7 +526,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the zero value produced for norm processing.",
             "values": {
               "zero_v": {
                 "var": "zero_v",
@@ -535,8 +535,8 @@
               },
               "vec": {
                 "var": "vec",
-                "line": 5,
-                "hit": 4
+                "line": 2,
+                "hit": 2
               },
               "target_dim": {
                 "var": "target_dim",
@@ -545,8 +545,8 @@
               },
               "sub": {
                 "var": "sub",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -629,9 +629,9 @@
             "caption": "If an upstream embedding model produces a vector of all zeros, standard L2.",
             "values": {
               "zero_v": "[0, 0, 0, 0]",
-              "vec": "[0, 0, 0, 0]",
+              "vec": "[3, 4, 0, 0]",
               "target_dim": "2",
-              "sub": "[0, 0]"
+              "sub": "[3, 4]"
             },
             "tones": {
               "zero_v": "data",
@@ -656,12 +656,12 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the zero value produced for norm processing.",
             "values": {
               "zero_v": "[0, 0, 0, 0]",
-              "vec": "[0, 0, 0, 0]",
+              "vec": "[3, 4, 0, 0]",
               "target_dim": "2",
-              "sub": "[0, 0]"
+              "sub": "[3, 4]"
             },
             "tones": {
               "zero_v": "ok",
@@ -688,7 +688,7 @@
       }
     },
     {
-      "partTitle": "Matryoshka Representation Learning (MRL) — Production Telemetry & Verification Audit",
+      "partTitle": "Dimension Reduction RAM Accounting & Compression Ratios",
       "codeHash": "0acd67aed60d2f27e26ba3430e2a4b21a425d0cd6ba7db43969f2d0237b001de",
       "spec": {
         "template": "bars",

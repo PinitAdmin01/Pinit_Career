@@ -19,8 +19,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how user updates questions during execution.",
+            "caption": "Observe how user shapes questions during this step.",
             "activeActor": "doc_vec",
+            "messages": [
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": {
+                  "var": "doc_vec",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Even strong symmetric bi-encoders embed a five-word question into a subtly.",
+            "activeActor": "raw_query",
             "messages": [
               {
                 "from": "doc_vec",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Even strong symmetric bi-encoders embed a five-word question into a subtly.",
-            "activeActor": "raw_query",
+            "at": "say7",
+            "caption": "Inspect the simple vector comparison below.",
+            "activeActor": "hypo_doc",
             "messages": [
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": {
+                  "var": "doc_vec",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": {
+                  "var": "raw_query",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "doc_vec",
                 "to": "raw_query",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect the simple vector comparison below.",
-            "activeActor": "hypo_doc",
-            "messages": [
+              },
               {
                 "from": "doc_vec",
                 "to": "raw_query",
@@ -111,19 +141,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how user updates questions during execution.",
+            "caption": "Observe how user shapes questions during this step.",
             "messages": [
               {
                 "from": "doc_vec",
                 "to": "raw_query",
                 "label": "[0.82, 0.55, 0.14]",
                 "tone": "data"
-              },
-              {
-                "from": "raw_query",
-                "to": "hypo_doc",
-                "label": "[0.4, 0.25, 0.88]",
-                "tone": "ok"
               }
             ],
             "activeActor": "doc_vec"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Inspect the simple vector comparison below.",
             "messages": [
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": "[0.82, 0.55, 0.14]",
+                "tone": "data"
+              },
+              {
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": "[0.4, 0.25, 0.88]",
+                "tone": "ok"
+              },
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": "[0.82, 0.55, 0.14]",
+                "tone": "data"
+              },
+              {
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": "[0.4, 0.25, 0.88]",
+                "tone": "ok"
+              },
               {
                 "from": "doc_vec",
                 "to": "raw_query",
@@ -214,16 +262,14 @@
                 "hit": 1
               },
               "hypo_vs": {
-                "var": "hypo_vs",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "q": "data",
               "hypos": "data",
               "query_v": "data",
-              "hypo_vs": "data"
+              "hypo_vs": "idle"
             }
           },
           {
@@ -321,13 +367,13 @@
               "q": "[0.4, 0.3, 0.85]",
               "hypos": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]",
               "query_v": "[0.4, 0.3, 0.85]",
-              "hypo_vs": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]"
+              "hypo_vs": ""
             },
             "tones": {
               "q": "data",
               "hypos": "data",
               "query_v": "data",
-              "hypo_vs": "data"
+              "hypo_vs": "idle"
             }
           },
           {
@@ -410,16 +456,14 @@
                 "hit": 1
               },
               "cleaned": {
-                "var": "cleaned",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "q": "data",
               "question": "data",
               "max_parts": "data",
-              "cleaned": "data"
+              "cleaned": "idle"
             }
           },
           {
@@ -456,7 +500,7 @@
           },
           {
             "at": "say7",
-            "caption": "Notice also the regular expression cleanup stripping directive filler.",
+            "caption": "Examine the query value produced for multi processing.",
             "values": {
               "q": {
                 "var": "q",
@@ -517,13 +561,13 @@
               "q": "'Compare KMS rotation latency versus Va…",
               "question": "'Compare KMS rotation latency versus Va…",
               "max_parts": "4",
-              "cleaned": "'Compare KMS rotation latency versus Va…"
+              "cleaned": ""
             },
             "tones": {
               "q": "data",
               "question": "data",
               "max_parts": "data",
-              "cleaned": "data"
+              "cleaned": "idle"
             }
           },
           {
@@ -544,7 +588,7 @@
           },
           {
             "at": "say7",
-            "caption": "Notice also the regular expression cleanup stripping directive filler.",
+            "caption": "Examine the query value produced for multi processing.",
             "values": {
               "q": "'Compare KMS rotation latency versus Va…",
               "question": "'Compare KMS rotation latency versus Va…",
@@ -680,7 +724,7 @@
           },
           {
             "at": "say7",
-            "caption": "When `missing_facets` comes back non-empty, your UI or system prompt can.",
+            "caption": "Examine the coverage value produced for facet processing.",
             "values": {
               "hits": {
                 "var": "hits",
@@ -810,7 +854,7 @@
           },
           {
             "at": "say7",
-            "caption": "When `missing_facets` comes back non-empty, your UI or system prompt can.",
+            "caption": "Examine the coverage value produced for facet processing.",
             "values": {
               "hits": "['doc_vlt1', 'doc_vlt2']",
               "sub_hits": "{'KMS latency': ['doc_kms1', 'doc_kms2'…",

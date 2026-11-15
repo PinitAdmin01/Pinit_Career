@@ -9,106 +9,186 @@
       "partTitle": "What SSRF is",
       "codeHash": "38c8336bfe16197ef18a4c2b0dbcb4b8efff98983016e1be6d7efc74d1130add",
       "spec": {
-        "template": "states",
+        "template": "flow",
         "title": "What SSRF is",
-        "states": [
-          {
-            "id": "submitted",
-            "label": "submitted"
-          },
+        "nodes": [
           {
             "id": "url",
-            "label": "url"
+            "label": "url",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "internal",
+            "label": "internal",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Many applications fetch URLs supplied by users.",
-            "currentState": "submitted",
-            "tone": "data"
+            "values": {
+              "url": {
+                "var": "url",
+                "line": 3,
+                "hit": 1
+              },
+              "x": {
+                "text": ""
+              },
+              "internal": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "url": "data",
+              "x": "idle",
+              "internal": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Server-side request forgery (SSRF) abuses this.",
-            "currentState": "url",
-            "transition": {
-              "from": "submitted",
-              "to": "url",
-              "label": {
+            "values": {
+              "url": {
                 "var": "url",
+                "line": 4,
+                "hit": 5
+              },
+              "x": {
+                "text": ""
+              },
+              "internal": {
+                "var": "internal",
                 "line": 4,
                 "hit": 5
               }
             },
-            "tone": "data"
+            "tones": {
+              "url": "data",
+              "x": "idle",
+              "internal": "data"
+            },
+            "arrows": [
+              [
+                "url",
+                "x"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Outbound requests from servers should be treated as carefully as inbound ones.",
-            "currentState": ".0",
-            "transition": {
-              "from": "url",
-              "to": ".0",
-              "label": {
-                "var": ".0",
-                "line": 4,
-                "hit": 3
+            "at": "say3",
+            "caption": "The server can reach places the attacker cannot.",
+            "values": {
+              "url": {
+                "var": "url",
+                "line": 3,
+                "hit": 4
+              },
+              "x": {
+                "text": ""
+              },
+              "internal": {
+                "var": "internal",
+                "line": 3,
+                "hit": 4
               }
             },
-            "tone": "ok"
+            "tones": {
+              "url": "ok",
+              "x": "idle",
+              "internal": "ok"
+            },
+            "arrows": [
+              [
+                "url",
+                "x"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
+        "template": "flow",
         "title": "What SSRF is",
-        "states": [
-          {
-            "id": "submitted",
-            "label": "submitted"
-          },
+        "nodes": [
           {
             "id": "url",
-            "label": "url"
+            "label": "url",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "internal",
+            "label": "internal",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Many applications fetch URLs supplied by users.",
-            "currentState": "submitted",
-            "tone": "data"
+            "values": {
+              "url": "'https://news.example.com/article'",
+              "x": "",
+              "internal": ""
+            },
+            "tones": {
+              "url": "data",
+              "x": "idle",
+              "internal": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Server-side request forgery (SSRF) abuses this.",
-            "currentState": "url",
-            "transition": {
-              "from": "submitted",
-              "to": "url",
-              "label": "'https://news.example.com/article'"
+            "values": {
+              "url": "'https://news.example.com/article'",
+              "x": "",
+              "internal": "False"
             },
-            "tone": "data"
+            "tones": {
+              "url": "data",
+              "x": "idle",
+              "internal": "data"
+            },
+            "arrows": [
+              [
+                "url",
+                "x"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Outbound requests from servers should be treated as carefully as inbound ones.",
-            "currentState": ".0",
-            "transition": {
-              "from": "url",
-              "to": ".0",
-              "label": "{'__other__': 'tuple_iterator'}"
+            "at": "say3",
+            "caption": "The server can reach places the attacker cannot.",
+            "values": {
+              "url": "'http://10.0.0.12:5432/'",
+              "x": "",
+              "internal": "True"
             },
-            "tone": "ok"
+            "tones": {
+              "url": "ok",
+              "x": "idle",
+              "internal": "ok"
+            },
+            "arrows": [
+              [
+                "url",
+                "x"
+              ]
+            ]
           }
         ]
       }
@@ -132,7 +212,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how cloud updates servers during execution.",
+            "caption": "Inspect cloud updates as addr tracks servers state.",
             "values": {
               "addr": {
                 "var": "addr",
@@ -156,8 +236,8 @@
             "values": {
               "addr": {
                 "var": "addr",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "ip": {
                 "var": "ip",
@@ -176,8 +256,8 @@
             "values": {
               "addr": {
                 "var": "addr",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "ip": {
                 "var": "ip",
@@ -208,10 +288,10 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how cloud updates servers during execution.",
+            "caption": "Inspect cloud updates as addr tracks servers state.",
             "values": {
               "addr": "'169.254.169.254'",
-              "ip": "{'__other__': 'IPv4Address'}"
+              "ip": "<IPv4Address>"
             },
             "tones": {
               "addr": "data",
@@ -222,8 +302,8 @@
             "at": "say2",
             "caption": "If an attacker makes the server fetch that address through SSRF, they may.",
             "values": {
-              "addr": "'169.254.169.254'",
-              "ip": "{'__other__': 'IPv4Address'}"
+              "addr": "'10.1.2.3'",
+              "ip": "<IPv4Address>"
             },
             "tones": {
               "addr": "data",
@@ -234,8 +314,8 @@
             "at": "say9",
             "caption": "The metadata example shows why \"internal\" does not mean \"safe\".",
             "values": {
-              "addr": "'169.254.169.254'",
-              "ip": "{'__other__': 'IPv4Address'}"
+              "addr": "'127.0.0.1'",
+              "ip": "<IPv4Address>"
             },
             "tones": {
               "addr": "ok",
@@ -318,7 +398,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates returns during execution.",
+            "caption": "Verify the practice transition driving ssrf behavior.",
             "values": {
               "u": {
                 "var": "u",
@@ -438,7 +518,7 @@
             "values": {
               "u": "'https://api.example.com/v1'",
               "url": "'https://api.example.com/v1'",
-              "m": "{'__other__': 'Match'}",
+              "m": "<Match>",
               "host": "'api.example.com'"
             },
             "tones": {
@@ -464,11 +544,11 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates returns during execution.",
+            "caption": "Verify the practice transition driving ssrf behavior.",
             "values": {
               "u": "'https://api.example.com/v1'",
               "url": "'https://api.example.com/v1'",
-              "m": "{'__other__': 'Match'}",
+              "m": "<Match>",
               "host": "'api.example.com'"
             },
             "tones": {
@@ -498,7 +578,7 @@
             "values": {
               "u": "'http://169.254.169.254/'",
               "url": "'https://api.example.com/v1'",
-              "m": "{'__other__': 'Match'}",
+              "m": "<Match>",
               "host": "'api.example.com'"
             },
             "tones": {
@@ -733,7 +813,7 @@
           },
           {
             "at": "say9",
-            "caption": "Security reviews should specifically ask \"can a user make our server fetch.",
+            "caption": "Examine the security value produced for reviews processing.",
             "currentState": "gaps",
             "transition": {
               "from": "good_when_true",
@@ -785,7 +865,7 @@
           },
           {
             "at": "say9",
-            "caption": "Security reviews should specifically ask \"can a user make our server fetch.",
+            "caption": "Examine the security value produced for reviews processing.",
             "currentState": "gaps",
             "transition": {
               "from": "good_when_true",

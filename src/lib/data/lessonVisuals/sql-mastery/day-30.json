@@ -477,19 +477,325 @@
       "partTitle": "Talking about your Canteen project",
       "codeHash": "147e62c8d1b1b0b3fd39be5af10dc2c32f0d17abe46d135cee6c79d3f08871e2",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Talking about your Canteen project",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "\"Tell me about a database you designed\" is your chance to shine.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE my_pitch (part int, says text);"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the canteen transition driving simple behavior.",
+            "values": {
+              "query": {
+                "text": "SELECT sum(array_length(regexp_split_to_array(says, '\\s+'), 1)) AS words FROM my_pitch;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "words"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Talking about your Canteen project",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "\"Tell me about a database you designed\" is your chance to shine.",
+            "values": {
+              "query": "CREATE TABLE my_pitch (part int, says text);",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the canteen transition driving simple behavior.",
+            "values": {
+              "query": "SELECT sum(array_length(regexp_split_to_array(says, '\\s+'), 1)) AS words FROM my_pitch;",
+              "db": "SELECT",
+              "res": "53"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Your next steps",
       "codeHash": "6077edfb74d2a41aeece0027e9dc60413ce368311cf7e3459151ae7b451fcf02",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Your next steps",
+        "columns": [
+          "week",
+          "plan"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "That is a solid foundation for junior backend and data roles.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "week"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "plan"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "week"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "plan"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To keep growing, practise regularly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "week"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "plan"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "week"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "plan"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "week"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "plan"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "week"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "plan"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Your next steps",
+        "columns": [
+          "week",
+          "plan"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "That is a solid foundation for junior backend and data roles.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "Daily SQL practice problems"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Connect Canteen to a small app"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To keep growing, practise regularly.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "Daily SQL practice problems"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Connect Canteen to a small app"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "3",
+                  "Put the database online"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "4",
+                  "Apply for internships"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

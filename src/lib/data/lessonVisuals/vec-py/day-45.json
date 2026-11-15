@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 9 — Foundations & Mathematical Invariants",
+      "partTitle": "Tenant-Scoped Candidate Filtering Inside Layer Traversal",
       "codeHash": "760c205656fc3fe251ae2bf01948bcdd683f87c938887f075284c3a2b514655c",
       "spec": {
         "template": "cells",
@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "A query issued by Tenant A must never be allowed to observe, traverse,.",
+            "caption": "Verify the tenant transition driving query behavior.",
             "items": {
               "var": "query",
               "line": 4,
@@ -46,7 +46,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the tenant value produced for keeping processing.",
             "items": {
               "var": "query",
               "line": 3,
@@ -83,7 +83,7 @@
           },
           {
             "at": "say2",
-            "caption": "A query issued by Tenant A must never be allowed to observe, traverse,.",
+            "caption": "Verify the tenant transition driving query behavior.",
             "items": [
               "0.85",
               "0.85"
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the tenant value produced for keeping processing.",
             "items": [
               "0.85",
               "0.85"
@@ -115,7 +115,7 @@
       }
     },
     {
-      "partTitle": "Milestone 9 — Core Algorithm & State Representation",
+      "partTitle": "Simulating 4KB SSD Page Consolidation Across Accessed Nodes",
       "codeHash": "780df5fd3184b1453464d2e842cb79dcebe839490b12d67628e5376865024ebd",
       "spec": {
         "template": "flow",
@@ -187,7 +187,7 @@
           },
           {
             "at": "say2",
-            "caption": "In a page-aligned SSD architecture, multiple vector nodes reside within.",
+            "caption": "Verify the page transition driving nodes behavior.",
             "values": {
               "survivor_ids": {
                 "var": "survivor_ids",
@@ -206,7 +206,7 @@
               },
               "pages_accessed": {
                 "var": "pages_accessed",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -233,7 +233,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the page value produced for preventing processing.",
             "values": {
               "survivor_ids": {
                 "var": "survivor_ids",
@@ -252,8 +252,8 @@
               },
               "pages_accessed": {
                 "var": "pages_accessed",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -333,12 +333,12 @@
           },
           {
             "at": "say2",
-            "caption": "In a page-aligned SSD architecture, multiple vector nodes reside within.",
+            "caption": "Verify the page transition driving nodes behavior.",
             "values": {
               "survivor_ids": "[1, 3, 17]",
               "page_size": "4096",
               "bytes_per_node": "256",
-              "pages_accessed": "set()"
+              "pages_accessed": "{0}"
             },
             "tones": {
               "survivor_ids": "data",
@@ -363,12 +363,12 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the page value produced for preventing processing.",
             "values": {
               "survivor_ids": "[1, 3, 17]",
               "page_size": "4096",
               "bytes_per_node": "256",
-              "pages_accessed": "set()"
+              "pages_accessed": "{0, 1}"
             },
             "tones": {
               "survivor_ids": "ok",
@@ -395,7 +395,7 @@
       }
     },
     {
-      "partTitle": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Unified Predicate-Aware Search Pipeline Execution Flow",
       "codeHash": "5ec14a72569f34d71d5ff618502653784d06e712ad25a5b1ba3beee350e34a42",
       "spec": {
         "template": "bars",
@@ -487,7 +487,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the pipeline value produced for execution processing.",
             "bars": [
               {
                 "label": "tenant",
@@ -587,7 +587,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the pipeline value produced for execution processing.",
             "bars": [
               {
                 "label": "tenant",
@@ -615,8 +615,8 @@
       }
     },
     {
-      "partTitle": "Milestone 9 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "f1d82d38a6fd1b55b6e8d23461dde62f6045d337659cea2ae8d17d49dd8dafc7",
+      "partTitle": "Empty Query & Positive Top-K Validation Invariants",
+      "codeHash": "e2c14e2a6fe3ddeb05e044ef73f66b7e5c7d2c87c60b3d096f94f53f40b18d4a",
       "spec": {
         "template": "flow",
         "title": "Milestone 9 — Resilience Guardrails & Failure Recovery",
@@ -664,7 +664,7 @@
               "query": {
                 "var": "query",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "top_k": {
                 "var": "top_k",
@@ -685,12 +685,12 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the empty value produced for testing processing.",
             "values": {
               "query": {
                 "var": "query",
                 "line": 2,
-                "hit": 1
+                "hit": 3
               },
               "top_k": {
                 "var": "top_k",
@@ -729,7 +729,7 @@
             "at": "say1",
             "caption": "Defensive input validation in Milestone 9 ensures that malformed queries.",
             "values": {
-              "query": "[1]",
+              "query": "[]",
               "top_k": "5"
             },
             "tones": {
@@ -747,7 +747,7 @@
             "at": "say2",
             "caption": "A query with an empty vector or a non-positive top_k parameter violates.",
             "values": {
-              "query": "[1]",
+              "query": "[0, 0]",
               "top_k": "5"
             },
             "tones": {
@@ -763,7 +763,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the empty value produced for testing processing.",
             "values": {
               "query": "[1]",
               "top_k": "5"
@@ -783,8 +783,8 @@
       }
     },
     {
-      "partTitle": "Milestone 9 — Production Telemetry & Verification Audit",
-      "codeHash": "b545a623f61350764f7789f339ec31e57903eb1a240c6d1dd94d1ed32b0ba8f3",
+      "partTitle": "Verifying Recall Targets Within Strict NVMe Page Read Caps",
+      "codeHash": "1f123f1dabdf64662425139a204f5c7df4dd805a15588e973d6da982e3997be6",
       "spec": {
         "template": "bars",
         "title": "Milestone 9 — Production Telemetry & Verification Audit",
@@ -815,7 +815,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates criteria during execution.",
+            "caption": "Verify the recall transition driving within behavior.",
             "bars": [
               {
                 "label": "recall",
@@ -885,7 +885,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates criteria during execution.",
+            "caption": "Verify the recall transition driving within behavior.",
             "bars": [
               {
                 "label": "recall",

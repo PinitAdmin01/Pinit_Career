@@ -30,6 +30,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the large transition driving system behavior.",
+            "activeActor": "registry",
+            "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": {
+                  "var": "hard_coded",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "registry",
@@ -44,10 +61,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In a large system, hundreds of instances may change every day without.",
+            "at": "say8",
+            "caption": "The example contrasts a hard-coded list with a registry lookup.",
             "activeActor": "registry",
             "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": {
+                  "var": "hard_coded",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": {
+                  "var": "registry",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "hard_coded",
                 "to": "registry",
@@ -67,14 +104,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The example contrasts a hard-coded list with a registry lookup.",
-            "activeActor": "registry",
-            "messages": [
+              },
               {
                 "from": "hard_coded",
                 "to": "registry",
@@ -116,19 +146,13 @@
                 "to": "registry",
                 "label": "['10.0.0.5:8080', '10.0.0.6:8080']",
                 "tone": "data"
-              },
-              {
-                "from": "registry",
-                "to": "hard_coded",
-                "label": "{'orders': ['10.0.1.21:8080', '10.0.1.2…",
-                "tone": "ok"
               }
             ],
             "activeActor": "hard_coded"
           },
           {
             "at": "say2",
-            "caption": "In a large system, hundreds of instances may change every day without.",
+            "caption": "Verify the large transition driving system behavior.",
             "messages": [
               {
                 "from": "hard_coded",
@@ -149,6 +173,30 @@
             "at": "say8",
             "caption": "The example contrasts a hard-coded list with a registry lookup.",
             "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": "['10.0.0.5:8080', '10.0.0.6:8080']",
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": "{'orders': ['10.0.1.21:8080', '10.0.1.2…",
+                "tone": "ok"
+              },
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": "['10.0.0.5:8080', '10.0.0.6:8080']",
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": "{'orders': ['10.0.1.21:8080', '10.0.1.2…",
+                "tone": "ok"
+              },
               {
                 "from": "hard_coded",
                 "to": "registry",
@@ -854,6 +902,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A process stuck in an endless loop can still answer a simple heartbeat.",
+            "activeActor": "cache_ok",
+            "messages": [
+              {
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": {
+                  "var": "db_ok",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cache_ok",
@@ -868,10 +933,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A process stuck in an endless loop can still answer a simple heartbeat.",
-            "activeActor": "cache_ok",
+            "at": "say9",
+            "caption": "The example reports liveness and readiness separately.",
+            "activeActor": "ready",
             "messages": [
+              {
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": {
+                  "var": "db_ok",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache_ok",
+                "to": "ready",
+                "label": {
+                  "var": "cache_ok",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "db_ok",
                 "to": "cache_ok",
@@ -891,14 +976,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "The example reports liveness and readiness separately.",
-            "activeActor": "ready",
-            "messages": [
+              },
               {
                 "from": "db_ok",
                 "to": "cache_ok",
@@ -941,12 +1019,6 @@
                 "to": "cache_ok",
                 "label": "True",
                 "tone": "data"
-              },
-              {
-                "from": "cache_ok",
-                "to": "ready",
-                "label": "True",
-                "tone": "ok"
               }
             ],
             "activeActor": "db_ok"
@@ -974,6 +1046,30 @@
             "at": "say9",
             "caption": "The example reports liveness and readiness separately.",
             "messages": [
+              {
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cache_ok",
+                "to": "ready",
+                "label": "True",
+                "tone": "ok"
+              },
+              {
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cache_ok",
+                "to": "ready",
+                "label": "True",
+                "tone": "ok"
+              },
               {
                 "from": "db_ok",
                 "to": "cache_ok",

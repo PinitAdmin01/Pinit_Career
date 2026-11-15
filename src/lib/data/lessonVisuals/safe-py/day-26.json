@@ -354,7 +354,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how open updates licences during execution.",
+            "caption": "Verify the licences transition driving open behavior.",
             "currentState": "d",
             "transition": {
               "from": "docs",
@@ -391,7 +391,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how open updates licences during execution.",
+            "caption": "Verify the licences transition driving open behavior.",
             "currentState": "d",
             "transition": {
               "from": "docs",
@@ -430,7 +430,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates docs during execution.",
+            "caption": "Inspect licence updates as docs tracks practice state.",
             "values": {
               "docs": {
                 "var": "docs",
@@ -490,12 +490,12 @@
               },
               "kept": {
                 "var": "kept",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               },
               "excluded": {
                 "var": "excluded",
-                "line": 5,
+                "line": 10,
                 "hit": 1
               }
             },
@@ -536,13 +536,13 @@
               },
               "kept": {
                 "var": "kept",
-                "line": 6,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "excluded": {
                 "var": "excluded",
-                "line": 6,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -592,7 +592,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates docs during execution.",
+            "caption": "Inspect licence updates as docs tracks practice state.",
             "values": {
               "docs": "[{'id': 'd1', 'licence': 'CC-BY'}, {'id…",
               "allowed": "{'cc-by', 'cc0', 'mit'}",
@@ -626,8 +626,8 @@
             "values": {
               "docs": "[{'id': 'd1', 'licence': 'CC-BY'}, {'id…",
               "allowed": "{'cc-by', 'cc0', 'mit'}",
-              "kept": "[]",
-              "excluded": "{}"
+              "kept": "['d1']",
+              "excluded": "{'cc-by-nc': 1}"
             },
             "tones": {
               "docs": "data",
@@ -656,8 +656,8 @@
             "values": {
               "docs": "[{'id': 'd1', 'licence': 'CC-BY'}, {'id…",
               "allowed": "{'cc-by', 'cc0', 'mit'}",
-              "kept": "[]",
-              "excluded": "{}"
+              "kept": "['d1', 'd4']",
+              "excluded": "{'cc-by-nc': 1, 'unknown': 1}"
             },
             "tones": {
               "docs": "ok",

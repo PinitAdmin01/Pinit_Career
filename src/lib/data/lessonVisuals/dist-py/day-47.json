@@ -19,8 +19,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how quorum updates read during execution.",
+            "caption": "Observe how read shapes every during this step.",
             "activeActor": "reps",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Distributed databases like Cassandra eliminate redundant read payload.",
+            "activeActor": "replicas",
             "messages": [
               {
                 "from": "reps",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Distributed databases like Cassandra eliminate redundant read payload.",
-            "activeActor": "replicas",
+            "at": "say6",
+            "caption": "Trace the digest comparison and selective repair push below.",
+            "activeActor": "key",
             "messages": [
+              {
+                "from": "reps",
+                "to": "replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "replicas",
+                "to": "key",
+                "label": {
+                  "var": "replicas",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "reps",
                 "to": "replicas",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace the digest comparison and selective repair push below.",
-            "activeActor": "key",
-            "messages": [
+              },
               {
                 "from": "reps",
                 "to": "replicas",
@@ -111,19 +141,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how quorum updates read during execution.",
+            "caption": "Observe how read shapes every during this step.",
             "messages": [
               {
                 "from": "reps",
                 "to": "replicas",
                 "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
                 "tone": "data"
-              },
-              {
-                "from": "replicas",
-                "to": "key",
-                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "reps"
@@ -162,6 +186,30 @@
                 "to": "key",
                 "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
                 "tone": "ok"
+              },
+              {
+                "from": "reps",
+                "to": "replicas",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "data"
+              },
+              {
+                "from": "replicas",
+                "to": "key",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "ok"
+              },
+              {
+                "from": "reps",
+                "to": "replicas",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "data"
+              },
+              {
+                "from": "replicas",
+                "to": "key",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "ok"
               }
             ],
             "activeActor": "key"
@@ -171,7 +219,7 @@
     },
     {
       "partTitle": "Resolving Multi-Leader Version Vectors Into Sibling Lists",
-      "codeHash": "155a4790468c8db238eb333deea85e79f455a0173d5c07872bc2fb2f9197750d",
+      "codeHash": "0bfe74dde4fe8ced746e1c85c7e539c210d2013441084cfb8e0eb592a902db3d",
       "spec": {
         "template": "sequence",
         "title": "Resolving Multi-Leader Version Vectors Into Sibling Lists",
@@ -185,6 +233,23 @@
             "at": "say1",
             "caption": "Scalar timestamps `(ts, node_id)` pick arbitrary single winners cleanly.",
             "activeActor": "r1",
+            "messages": [
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": {
+                  "var": "r1",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the version transition driving vectors behavior.",
+            "activeActor": "replica_lists",
             "messages": [
               {
                 "from": "r1",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Read Repair in vector-clock stores instead inspects version vectors across.",
-            "activeActor": "replica_lists",
+            "at": "say6",
+            "caption": "Simulate multi-replica sibling union and ancestor elimination during read.",
+            "activeActor": "all_items",
             "messages": [
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": {
+                  "var": "r1",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": {
+                  "var": "replica_lists",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "r1",
                 "to": "replica_lists",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Simulate multi-replica sibling union and ancestor elimination during read.",
-            "activeActor": "all_items",
-            "messages": [
+              },
               {
                 "from": "r1",
                 "to": "replica_lists",
@@ -282,19 +360,13 @@
                 "to": "replica_lists",
                 "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
                 "tone": "data"
-              },
-              {
-                "from": "replica_lists",
-                "to": "all_items",
-                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
-                "tone": "ok"
               }
             ],
             "activeActor": "r1"
           },
           {
             "at": "say2",
-            "caption": "Read Repair in vector-clock stores instead inspects version vectors across.",
+            "caption": "Verify the version transition driving vectors behavior.",
             "messages": [
               {
                 "from": "r1",
@@ -315,6 +387,30 @@
             "at": "say6",
             "caption": "Simulate multi-replica sibling union and ancestor elimination during read.",
             "messages": [
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "data"
+              },
+              {
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "ok"
+              },
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "data"
+              },
+              {
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "ok"
+              },
               {
                 "from": "r1",
                 "to": "replica_lists",
@@ -615,197 +711,183 @@
     },
     {
       "partTitle": "Repair-on-Write (Partial Write Heal) & Sibling Explosion Alerts",
-      "codeHash": "f3553e438071ff664456410b6fc46aa477810e9a75c6ceea96114ddd76d47b26",
+      "codeHash": "d3660920a5a238941af224470e6d0f21c0bdcfa979daa3c023fbc6674c33770f",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "Repair-on-Write (Partial Write Heal) & Sibling Explosion Alerts",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          },
+          {
+            "id": "status",
+            "label": "status",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "What happens if clients forget to pass back read context vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sibs"
-                  },
-                  {
-                    "var": "sibs",
-                    "line": 10,
-                    "hit": 5
-                  }
-                ],
-                "tone": "data"
+            "caption": "Inspect happens updates as k tracks clients state.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": ".0"
-                  },
-                  {
-                    "var": ".0",
-                    "line": 3,
-                    "hit": 1
-                  }
-                ],
-                "tone": "data"
+              "s": {
+                "text": ""
               },
-              {
-                "cells": [
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "var": "k",
-                    "line": 3,
-                    "hit": 1
-                  }
-                ],
-                "tone": "data"
+              "status": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "k": "data",
+              "s": "idle",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Every blind PUT without context arrives concurrent with ALL existing siblings.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sibs"
-                  },
-                  {
-                    "var": "sibs",
-                    "line": 11,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "k": {
+                "text": ""
               },
-              {
-                "cells": [
-                  {
-                    "text": ".0"
-                  },
-                  {
-                    "var": ".0",
-                    "line": 3,
-                    "hit": 3
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 6
               },
-              {
-                "cells": [
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "var": "k",
-                    "line": 3,
-                    "hit": 3
-                  }
-                ],
-                "tone": "ok"
+              "status": {
+                "text": ""
               }
+            },
+            "tones": {
+              "k": "idle",
+              "s": "data",
+              "status": "idle"
+            },
+            "arrows": [
+              [
+                "k",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Verify sibling-explosion throttling guards alongside blocking read-repair.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the repair value produced for sibling processing.",
+            "values": {
+              "k": {
+                "text": ""
+              },
+              "s": {
+                "text": ""
+              },
+              "status": {
+                "var": "status",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "k": "idle",
+              "s": "idle",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "Repair-on-Write (Partial Write Heal) & Sibling Explosion Alerts",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          },
+          {
+            "id": "status",
+            "label": "status",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "What happens if clients forget to pass back read context vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "sibs",
-                  "[[{'n0': 1}, 'v0'], [{'n1': 1}, 'v1'], …"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  ".0",
-                  "{'__other__': 'set_iterator'}"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "k",
-                  "'n0'"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect happens updates as k tracks clients state.",
+            "values": {
+              "k": "'n0'",
+              "s": "",
+              "status": ""
+            },
+            "tones": {
+              "k": "data",
+              "s": "idle",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Every blind PUT without context arrives concurrent with ALL existing siblings.",
-            "rows": [
-              {
-                "cells": [
-                  "sibs",
-                  "[[{'n0': 1}, 'v0'], [{'n1': 1}, 'v1'], …"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  ".0",
-                  "{'__other__': 'set_iterator'}"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "k",
-                  "'n9'"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "k": "",
+              "s": "[{'n2': 1}, 'v2']",
+              "status": ""
+            },
+            "tones": {
+              "k": "idle",
+              "s": "data",
+              "status": "idle"
+            },
+            "arrows": [
+              [
+                "k",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Verify sibling-explosion throttling guards alongside blocking read-repair.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "bloat trigger: ('SIBLING_EXPLOSION_GUARD(count=5 > 4)', [({'n0': 1}, 'v0'), ({'n1': 1}, 'v1'), ({'n2': 1}, 'v2'), ({'n3': 1}, 'v3'), ({'n9': 1}, 'v9')])"
-                ],
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the repair value produced for sibling processing.",
+            "values": {
+              "k": "",
+              "s": "",
+              "status": "'SIBLING_EXPLOSION_GUARD(count=5 > 4)'"
+            },
+            "tones": {
+              "k": "idle",
+              "s": "idle",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "s"
+              ]
             ]
           }
         ]
@@ -837,6 +919,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Run a complete simulation where `N=3` replicas receive partial writes.",
+            "activeActor": "all_sibs",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "all_sibs",
+                "label": {
+                  "var": "reps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "all_sibs",
@@ -851,10 +950,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Run a complete simulation where `N=3` replicas receive partial writes.",
-            "activeActor": "all_sibs",
+            "at": "say4",
+            "caption": "Run the full convergence simulation test below.",
+            "activeActor": "idx",
             "messages": [
+              {
+                "from": "reps",
+                "to": "all_sibs",
+                "label": {
+                  "var": "reps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_sibs",
+                "to": "idx",
+                "label": {
+                  "var": "all_sibs",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "reps",
                 "to": "all_sibs",
@@ -874,14 +993,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Run the full convergence simulation test below.",
-            "activeActor": "idx",
-            "messages": [
+              },
               {
                 "from": "reps",
                 "to": "all_sibs",
@@ -924,12 +1036,6 @@
                 "to": "all_sibs",
                 "label": "[[{'vc': {'n1': 1}, 'val': 'cart:[pen]'…",
                 "tone": "data"
-              },
-              {
-                "from": "all_sibs",
-                "to": "idx",
-                "label": "[{'vc': {'n1': 1}, 'val': 'cart:[pen]'}…",
-                "tone": "ok"
               }
             ],
             "activeActor": "reps"
@@ -957,6 +1063,30 @@
             "at": "say4",
             "caption": "Run the full convergence simulation test below.",
             "messages": [
+              {
+                "from": "reps",
+                "to": "all_sibs",
+                "label": "[[{'vc': {'n1': 1}, 'val': 'cart:[pen]'…",
+                "tone": "data"
+              },
+              {
+                "from": "all_sibs",
+                "to": "idx",
+                "label": "[{'vc': {'n1': 1}, 'val': 'cart:[pen]'}…",
+                "tone": "ok"
+              },
+              {
+                "from": "reps",
+                "to": "all_sibs",
+                "label": "[[{'vc': {'n1': 1}, 'val': 'cart:[pen]'…",
+                "tone": "data"
+              },
+              {
+                "from": "all_sibs",
+                "to": "idx",
+                "label": "[{'vc': {'n1': 1}, 'val': 'cart:[pen]'}…",
+                "tone": "ok"
+              },
               {
                 "from": "reps",
                 "to": "all_sibs",

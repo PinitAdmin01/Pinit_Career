@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "Today, we unify these fifty-nine foundational disciplines into a.",
+            "caption": "Verify the apexlinguist transition driving sovereign behavior.",
             "items": {
               "var": "x_input",
               "line": 59,
@@ -85,7 +85,7 @@
           },
           {
             "at": "say2",
-            "caption": "Today, we unify these fifty-nine foundational disciplines into a.",
+            "caption": "Verify the apexlinguist transition driving sovereign behavior.",
             "items": [
               "1.2",
               "-0.5",
@@ -605,16 +605,14 @@
                 "hit": 1
               },
               "t1": {
-                "var": "t1",
-                "line": 21,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "controller": "data",
               "required_payroll": "data",
-              "t1": "data"
+              "t1": "idle"
             },
             "arrows": [
               [
@@ -754,13 +752,13 @@
               "self": "<SovereignAgentController>",
               "controller": "<SovereignAgentController>",
               "required_payroll": "3000000",
-              "t1": "'I must inspect CASH_ON_HAND to verify …"
+              "t1": ""
             },
             "tones": {
               "self": "data",
               "controller": "data",
               "required_payroll": "data",
-              "t1": "data"
+              "t1": "idle"
             },
             "arrows": [
               [
@@ -849,7 +847,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "We now arrive at the ultimate milestone of Course 37 and the grand.",
+            "caption": "Observe how apexlinguist shapes brings during this step.",
             "bars": [
               {
                 "label": "mt_bench",
@@ -933,7 +931,7 @@
           },
           {
             "at": "say9",
-            "caption": "To conclude this masterwork, we affirm the sovereign principles that have.",
+            "caption": "Examine the every value produced for component processing.",
             "bars": [
               {
                 "label": "mt_bench",
@@ -981,7 +979,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "We now arrive at the ultimate milestone of Course 37 and the grand.",
+            "caption": "Observe how apexlinguist shapes brings during this step.",
             "bars": [
               {
                 "label": "mt_bench",
@@ -1033,7 +1031,7 @@
           },
           {
             "at": "say9",
-            "caption": "To conclude this masterwork, we affirm the sovereign principles that have.",
+            "caption": "Examine the every value produced for component processing.",
             "bars": [
               {
                 "label": "mt_bench",

@@ -196,10 +196,10 @@
             "at": "say1",
             "caption": "Encryption turns readable data (plaintext) into unreadable data.",
             "values": {
-              "key": "{'__other__': 'bytes'}",
+              "key": "<bytes>",
               "i": "0",
               "b": "109",
-              "data": "{'__other__': 'bytes'}"
+              "data": "<bytes>"
             },
             "tones": {
               "key": "data",
@@ -226,10 +226,10 @@
             "at": "say2",
             "caption": "Symmetric encryption uses the same secret key to encrypt and decrypt.",
             "values": {
-              "key": "{'__other__': 'bytes'}",
+              "key": "<bytes>",
               "i": "1",
               "b": "101",
-              "data": "{'__other__': 'bytes'}"
+              "data": "<bytes>"
             },
             "tones": {
               "key": "data",
@@ -256,10 +256,10 @@
             "at": "say9",
             "caption": "Good libraries also handle details such as padding, modes and encoding.",
             "values": {
-              "key": "{'__other__': 'bytes'}",
+              "key": "<bytes>",
               "i": "2",
               "b": "101",
-              "data": "{'__other__': 'bytes'}"
+              "data": "<bytes>"
             },
             "tones": {
               "key": "ok",
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Authenticated encryption, such as AES-GCM or ChaCha20-Poly1305, adds a tag.",
+            "activeActor": "counts",
+            "messages": [
+              {
+                "from": "log",
+                "to": "counts",
+                "label": {
+                  "var": "log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "counts",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Authenticated encryption, such as AES-GCM or ChaCha20-Poly1305, adds a tag.",
-            "activeActor": "counts",
+            "at": "say9",
+            "caption": "Libraries that generate nonces for you remove this whole class.",
+            "activeActor": "p",
             "messages": [
+              {
+                "from": "log",
+                "to": "counts",
+                "label": {
+                  "var": "log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "p",
+                "label": {
+                  "var": "counts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "log",
                 "to": "counts",
@@ -348,14 +385,7 @@
                   "hit": 6
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Libraries that generate nonces for you remove this whole class.",
-            "activeActor": "p",
-            "messages": [
+              },
               {
                 "from": "log",
                 "to": "counts",
@@ -398,12 +428,6 @@
                 "to": "counts",
                 "label": "[['k1', 'a1'], ['k1', 'a2'], ['k2', 'a1…",
                 "tone": "data"
-              },
-              {
-                "from": "counts",
-                "to": "p",
-                "label": "{['k1', 'a1']: 2, ['k1', 'a2']: 1, ['k2…",
-                "tone": "ok"
               }
             ],
             "activeActor": "log"
@@ -431,6 +455,30 @@
             "at": "say9",
             "caption": "Libraries that generate nonces for you remove this whole class.",
             "messages": [
+              {
+                "from": "log",
+                "to": "counts",
+                "label": "[['k1', 'a1'], ['k1', 'a2'], ['k2', 'a1…",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "p",
+                "label": "{['k1', 'a1']: 2, ['k1', 'a2']: 1, ['k2…",
+                "tone": "ok"
+              },
+              {
+                "from": "log",
+                "to": "counts",
+                "label": "[['k1', 'a1'], ['k1', 'a2'], ['k2', 'a1…",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "p",
+                "label": "{['k1', 'a1']: 2, ['k1', 'a2']: 1, ['k2…",
+                "tone": "ok"
+              },
               {
                 "from": "log",
                 "to": "counts",
@@ -586,7 +634,7 @@
           },
           {
             "at": "say2",
-            "caption": "Even a one-character change produces a completely different hash,.",
+            "caption": "Even a one-character change produces a completely different hash.",
             "currentState": "h",
             "transition": {
               "from": "text",
@@ -642,7 +690,7 @@
           },
           {
             "at": "say2",
-            "caption": "Even a one-character change produces a completely different hash,.",
+            "caption": "Even a one-character change produces a completely different hash.",
             "currentState": "h",
             "transition": {
               "from": "text",
@@ -812,13 +860,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "algo": {
                 "var": "algo",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -844,13 +892,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "algo": {
                 "var": "algo",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -906,8 +954,8 @@
             "values": {
               "keys": "[['payments', 'AES', 256], ['legacy-api…",
               "nonces": "[['payments', '0f'], ['payments', '10']…",
-              "name": "'payments'",
-              "algo": "'AES'"
+              "name": "'legacy-api'",
+              "algo": "'RSA'"
             },
             "tones": {
               "keys": "data",
@@ -922,8 +970,8 @@
             "values": {
               "keys": "[['payments', 'AES', 256], ['legacy-api…",
               "nonces": "[['payments', '0f'], ['payments', '10']…",
-              "name": "'payments'",
-              "algo": "'AES'"
+              "name": "'tls'",
+              "algo": "'ECC'"
             },
             "tones": {
               "keys": "ok",

@@ -50,6 +50,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_cap = globals().get('_captured_stdout_', '')",
       "_all_text = ' '.join(_printed) + ' ' + str(_res or '') + ' ' + str(_cap)",
       "assert 'My Expense Tracker' in _all_text, \"Expected 'My Expense Tracker' to be printed or returned\"",
+      "assert 'MY EXPENSE TRACKER' not in _all_text, \"Keep exact title casing 'My Expense Tracker'\"",
+      "assert (callable(_fn) and isinstance(_res, str)) or (not callable(_fn) and (len(_printed) > 0 or len(str(_cap).strip()) > 0)), 'Print or return the title string'",
       done
     ),
     aTitle: "Say Hello",
@@ -74,6 +76,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_cap = globals().get('_captured_stdout_', '')",
       "_all_text = ' '.join(_printed) + ' ' + str(_val1 or '') + ' ' + str(_val2 or '') + ' ' + str(_cap)",
       "assert (_val1 == 'Hello, Asha' and _val2 == 'Hello, Ravi') or ('Asha' in _all_text and 'Hello' in _all_text), \"Expected 'Hello, Asha!' to be printed or returned\"",
+      "assert 'Hello' in _all_text and 'Asha' in _all_text, \"Expected 'Hello' and 'Asha' in greeting\"",
+      "assert (not callable(_fn)) or (_val1 == 'Hello, Asha' and _val2 == 'Hello, Ravi'), 'say_hello(name) must greet any passed name'",
       done
     )
   },
@@ -115,6 +119,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 'Tea costs 20' and _val2 == 'Bus ticket costs 45') or ('Tea costs 20' in _all_text and 'Bus ticket costs 45' in _all_text)",
       "_script_ok = 'Tea costs 20' in _all_text or ('Tea' in _all_text and 'costs' in _all_text and '20' in _all_text)",
       "assert _fn_ok or _script_ok, \"Expected 'Tea costs 20' to be printed or returned\"",
+      "assert 'Tea' in _all_text and 'costs' in _all_text and '20' in _all_text, \"Expected 'Tea costs 20' in output\"",
+      "assert (not callable(_fn)) or (_val1 == 'Tea costs 20' and _val2 == 'Bus ticket costs 45'), 'describe_expense(item, amount) must format any item and amount'",
       done
     ),
     aTitle: "Is It a Big Expense?",
@@ -148,6 +154,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 is True and _val2 is True and _val3 is False) or (callable(_fn) and 'True' in ' '.join(_printed) and 'False' in ' '.join(_printed))",
       "_script_ok = (_var_big is True or 'True' in _all_text) and ('is_big' in globals() or 'True' in _printed or 'True' in str(_cap))",
       "assert _fn_ok or _script_ok, \"Expected is_big to be True when amount >= 1000\"",
+      "assert (not callable(_fn)) or (_val1 is True and _val2 is True and _val3 is False), 'is_big_expense(amount) must return True for >= 1000 and False below 1000'",
+      "assert callable(_fn) or (_var_big is True and ('True' in _all_text or 'is_big' in globals())), 'Assign is_big = amount >= 1000 and print it'",
       done
     )
   },
@@ -189,6 +197,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 'SALE!' and _val2 == 'HI!') or ('SALE!' in _all_text and 'HI!' in _all_text)",
       "_script_ok = 'SALE!' in _all_text",
       "assert _fn_ok or _script_ok, \"Expected 'SALE!' to be printed or returned\"",
+      "assert 'SALE!' in _all_text, \"Expected uppercase 'SALE!'\"",
+      "assert (not callable(_fn)) or (_val1 == 'SALE!' and _val2 == 'HI!'), \"shout(text) must uppercase any text and add '!'\"",
       done
     ),
     aTitle: "Initials (Working With Text)",
@@ -222,6 +232,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 'AR' and _val2 == 'RK') or ('AR' in _all_text and 'RK' in _all_text)",
       "_script_ok = 'AR' in _all_text",
       "assert _fn_ok or _script_ok, \"Expected initials 'AR' to be printed or returned\"",
+      "assert 'AR' in _all_text, \"Expected uppercase initials 'AR'\"",
+      "assert (not callable(_fn)) or (_val1 == 'AR' and _val2 == 'RK'), 'initials(first, last) must work for any names'",
       done
     )
   },
@@ -265,6 +277,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 118.0 and _val2 == 295.0 and _val3 == 117.99) or ('118' in _all_text and '295' in _all_text)",
       "_script_ok = '118.0' in _all_text or '118' in _all_text",
       "assert _fn_ok or _script_ok, \"Expected 118.0 to be printed or returned\"",
+      "assert '118' in _all_text, 'Expected 118.0 for price 100 with 18% GST'",
+      "assert (not callable(_fn)) or (_val1 == 118.0 and _val2 == 295.0 and _val3 == 117.99), 'add_gst(price) must return round(price * 1.18, 2)'",
       done
     ),
     aTitle: "Split the Bill",
@@ -299,6 +313,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 250.0 and _val2 == 33.33) or ('250' in _all_text and '33.33' in _all_text)",
       "_script_ok = '250.0' in _all_text or '250' in _all_text",
       "assert _fn_ok or _script_ok, \"Expected 250.0 to be printed or returned\"",
+      "assert '250' in _all_text, 'Expected 250.0 when splitting 1000 across 4'",
+      "assert (not callable(_fn)) or (_val1 == 250.0 and _val2 == 33.33), 'split_bill(total, people) must round to 2 decimal places'",
       done
     )
   },
@@ -348,6 +364,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 'Pass' and _val2 == 'Pass' and _val3 == 'Fail') or ('Pass' in _all_text and 'Fail' in _all_text)",
       "_script_ok = 'Pass' in _all_text and ('Pass' in _printed or 'Pass' in str(_cap) or _var_grade == 'Pass' or _var_result == 'Pass')",
       "assert _fn_ok or _script_ok, \"Expected 'Pass' to be printed or returned\"",
+      "assert 'Pass' in _all_text, \"Expected 'Pass' when score >= 40\"",
+      "assert (not callable(_fn)) or (_val1 == 'Pass' and _val2 == 'Pass' and _val3 == 'Fail'), \"grade(score) must return 'Pass' for >= 40 and 'Fail' below 40\"",
       done
     ),
     aTitle: "Delivery Fee",
@@ -388,6 +406,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 0 and _val2 == 0 and _val3 == 40) or (callable(_fn) and '0' in _all_text and '40' in _all_text)",
       "_script_ok = ('0' in _all_text or _var_fee == 0 or _var_del == 0) and ('fee' in globals() or '0' in _printed or '0' in str(_cap))",
       "assert _fn_ok or _script_ok, \"Expected delivery fee 0 to be printed or returned\"",
+      "assert (not callable(_fn)) or (_val1 == 0 and _val2 == 0 and _val3 == 40), 'delivery_fee(bill) must return 0 for >= 499 and 40 below 499'",
+      "assert callable(_fn) or (_var_fee == 0 or _var_del == 0 or '0' in _printed or '0' in str(_cap)), 'Expected fee 0 when bill >= 499'",
       done
     )
   },
@@ -437,6 +457,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 165 and _val2 == 0) or (callable(_fn) and '165' in _all_text and '0' in _all_text)",
       "_script_ok = ('165' in _all_text or _var_res == 165 or _var_tot == 165) and ('165' in _printed or '165' in str(_cap) or _var_res == 165)",
       "assert _fn_ok or _script_ok, \"Expected 165 to be printed or returned\"",
+      "assert (not callable(_fn)) or (_val1 == 165 and _val2 == 0), 'total(amounts) must sum [20, 45, 100] -> 165 and [] -> 0'",
+      "assert callable(_fn) or (_var_res == 165 or _var_tot == 165 or '165' in _printed or '165' in str(_cap)), 'Expected total 165'",
       done
     ),
     aTitle: "Count the Big Ones",
@@ -480,6 +502,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 2 and _val2 == 0) or (callable(_fn) and '2' in _all_text and '0' in _all_text)",
       "_script_ok = ('2' in _all_text or _var_count == 2 or _var_ca == 2) and ('2' in _printed or '2' in str(_cap) or _var_count == 2)",
       "assert _fn_ok or _script_ok, \"Expected count 2 to be printed or returned\"",
+      "assert (not callable(_fn)) or (_val1 == 2 and _val2 == 0), 'count_above() must return 2 and 0 when none qualify'",
+      "assert callable(_fn) or (_var_count == 2 or _var_ca == 2 or '2' in _printed or '2' in str(_cap)), 'Expected count 2'",
       done
     )
   },
@@ -524,6 +548,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 20.0 or _val1 == 20) and (_val2 == 1.5) and (_val3 == 0 or _val3 == 0.0)",
       "_script_ok = ('20.0' in _all_text or '20' in _all_text) and not callable(_fn) and ('average' in globals() or 'avg' in globals() or '20' in _printed)",
       "assert _fn_ok or _script_ok, \"Expected average([10, 20, 30]) == 20.0, average([1, 2]) == 1.5, and average([]) == 0\"",
+      "assert (not callable(_fn)) or ((_val1 == 20.0 or _val1 == 20) and _val2 == 1.5), 'average([10, 20, 30]) == 20.0 and average([1, 2]) == 1.5'",
+      "assert (not callable(_fn)) or (_val3 == 0 or _val3 == 0.0), 'average([]) must return 0'",
       done
     ),
     aTitle: "Greeting With a Default",
@@ -556,6 +582,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == 'Hello, Asha!') and (_val2 == 'Namaste, Ravi!')",
       "_script_ok = ('Hello, Asha!' in _all_text) and not callable(_fn)",
       "assert _fn_ok or _script_ok, \"Expected greet('Asha') == 'Hello, Asha!' and greet('Ravi', 'Namaste') == 'Namaste, Ravi!'\"",
+      "assert (not callable(_fn)) or (_val1 == 'Hello, Asha!'), \"Default greeting must be 'Hello'\"",
+      "assert (not callable(_fn)) or (_val2 == 'Namaste, Ravi!'), 'Custom greeting must replace default'",
       done
     )
   },
@@ -599,6 +627,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn_ok = (_val1 == ['a', 'd'] or _val1 == ('a', 'd')) and (_val2 == [10, 20] or _val2 == (10, 20))",
       "_script_ok = not callable(_fn) and (\"['a', 'd']\" in _all_text)",
       "assert _fn_ok or _script_ok, \"Expected first_and_last(['a', 'b', 'c', 'd']) to return ['a', 'd']\"",
+      "assert (not callable(_fn)) or (_val1 == ['a', 'd'] or _val1 == ('a', 'd')), \"Expected ['a', 'd'] for ['a', 'b', 'c', 'd']\"",
+      "assert (not callable(_fn)) or (_val2 == [10, 20] or _val2 == (10, 20)), 'Expected [10, 20] for [10, 20]'",
       done
     ),
     aTitle: "Add Without Changing",
@@ -799,7 +829,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _type_err = True",
       "if _type_err:",
       "    assert False, \"Each item in expenses is a dictionary! Add up e['amount'] for each expense e, not the dictionary itself.\"",
-      "assert _val1 == 65 and (_val2 == 0 or _val2 == 0.0), \"Expected total_spent(data) == 65 and total_spent([]) == 0\"",
+      "assert _val1 == 65, \"Expected total_spent(data) == 65\"",
+      "assert _val2 == 0 or _val2 == 0.0, \"Expected total_spent([]) == 0\"",
+      "assert _fn([{'item': 'Book', 'amount': 12.5}, {'item': 'Pen', 'amount': 7.5}]) == 20.0, 'Expected decimal total 20.0'",
       done
     ),
     aTitle: "One Category",
@@ -818,7 +850,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "assert isinstance(result, list) and isinstance(_r_travel, list) and _r_none == [], \"Expected by_category() to return a list of matching expenses\"",
       "_items = [e['item'] if isinstance(e, dict) else e for e in result]",
       "_travel_items = [e['item'] if isinstance(e, dict) else e for e in _r_travel]",
-      "assert _items == ['Tea', 'Lunch'] and _travel_items == ['Bus'], \"Expected by_category(data, 'food') to keep only the 'Tea' and 'Lunch' food expenses\"",
+      "assert _items == ['Tea', 'Lunch'], \"Expected by_category(data, 'food') to return Tea and Lunch\"",
+      "assert _travel_items == ['Bus'], \"Expected by_category(data, 'travel') to return Bus\"",
+      "assert len(result) == 2 and all(isinstance(e, dict) for e in result), 'Return matching expense dicts'",
       done
     )
   },
@@ -843,7 +877,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _res = sorted(_res)",
       "if isinstance(_res2, set) and _res2 == {'bills', 'rent'}:",
       "    _res2 = sorted(_res2)",
-      "assert _res == ['food', 'travel'] and _res2 == ['bills', 'rent'], \"Expected unique_categories(data) to return ['food', 'travel']\"",
+      "assert _res == ['food', 'travel'], \"Expected unique_categories(data) to return ['food', 'travel']\"",
+      "assert _res2 == ['bills', 'rent'], \"Expected sorted unique categories ['bills', 'rent']\"",
+      "assert _fn([]) == [], 'Empty expense list should return []'",
       done
     ),
     aTitle: "Smallest and Largest",
@@ -854,7 +890,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn = globals().get('min_max')",
       "_r1 = _fn([40, 10, 90]) if callable(_fn) else None",
       "_r2 = _fn([5]) if callable(_fn) else None",
-      "assert (_r1 == (10, 90) or _r1 == [10, 90]) and (_r2 == (5, 5) or _r2 == [5, 5]), \"Expected min_max([40, 10, 90]) to return (10, 90)\"",
+      "assert _r1 == (10, 90) or _r1 == [10, 90], \"Expected min_max([40, 10, 90]) to return (10, 90)\"",
+      "assert _r2 == (5, 5) or _r2 == [5, 5], \"Expected min_max([5]) to return (5, 5)\"",
+      "_r3 = _fn([-5, 0, 10])",
+      "assert _r3 == (-5, 10) or _r3 == [-5, 10], \"Negative numbers must work in min_max([-5, 0, 10])\"",
       done
     )
   },
@@ -939,7 +978,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _z_err = True",
       "if _z_err:",
       "    assert False, \"safe_divide(1, 0) crashed with ZeroDivisionError! Catch it with 'except ZeroDivisionError: return None'.\"",
-      "assert _v1 == 2.5 and _v2 is None, \"Expected safe_divide(10, 4) == 2.5 and safe_divide(1, 0) is None\"",
+      "assert _v1 == 2.5, \"Expected safe_divide(10, 4) == 2.5\"",
+      "assert _v2 is None, \"Expected safe_divide(1, 0) is None\"",
+      "assert _fn(0, 5) == 0.0, \"Expected safe_divide(0, 5) == 0.0\"",
       done
     )
   },
@@ -963,6 +1004,8 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_v2 = _fn(2) if callable(_fn) else None",
       "assert isinstance(_v1, (int, float)) and isinstance(_v2, (int, float)), \"Expected circle_area(r) to return a number\"",
       "assert round(_v1, 2) == 3.14 and round(_v2, 2) == 12.57, \"Expected circle_area(1) == 3.14 and circle_area(2) == 12.57\"",
+      "assert _fn(0) == 0 or _fn(0) == 0.0, 'circle_area(0) must be 0'",
+      "assert round(_fn(3), 2) == 28.27, 'Expected circle_area(3) == 28.27'",
       done
     ),
     aTitle: "Days Between Dates",
@@ -1013,6 +1056,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_r2 = _fn('Bus', 45) if callable(_fn) else None",
       "assert isinstance(_r1, str) and _r1.rstrip('\\n') == 'Tea,20', \"Expected to_line('Tea', 20) to return 'Tea,20'\"",
       "assert isinstance(_r2, str) and _r2.rstrip('\\n') == 'Bus,45', \"Expected to_line('Bus', 45) to return 'Bus,45'\"",
+      "assert isinstance(_fn('Auto', 0), str) and _fn('Auto', 0).rstrip('\\n') == 'Auto,0', \"Expected to_line('Auto', 0) == 'Auto,0'\"",
       done
     )
   },
@@ -1035,6 +1079,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_res2 = _fn([]) if callable(_fn) else None",
       "assert isinstance(_res, str) and isinstance(_res2, str), \"Expected to_json(expenses) to return a JSON string using json.dumps(expenses)\"",
       "assert _json.loads(_res) == [{'item': 'Tea', 'amount': 20}] and _json.loads(_res2) == [], \"Expected json.dumps(expenses) output\"",
+      "assert _json.loads(_fn({'total': 65})) == {'total': 65}, 'Expected to_json() to roundtrip dicts cleanly'",
       done
     ),
     aTitle: "Safe Load",
@@ -1093,7 +1138,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _attrs_ok = False",
       "assert _attrs_ok, \"Save self.item = item and self.amount = amount inside __init__\"",
       "_lbl = e.label(); _lbl2 = e2.label()",
-      "assert _lbl == 'Tea: 20' and _lbl2 == 'Bus: 45', f\"Expected e.label() to return 'Tea: 20' and 'Bus: 45', got {_lbl!r}\"",
+      "assert _lbl == 'Tea: 20', f\"Expected 'Tea: 20', got {_lbl!r}\"",
+      "assert _lbl2 == 'Bus: 45', f\"Expected 'Bus: 45', got {_lbl2!r}\"",
+      "assert Expense('Book', 120).label() == 'Book: 120', 'label() must work for arbitrary Expense objects'",
       done
     ),
     aTitle: "A Wallet",
@@ -1150,7 +1197,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _t_err = True",
       "if _t_err:",
       "    assert False, \"__str__() must return a string! Use: return f'{self.item} (Rs {self.amount})'\"",
-      "assert _s == 'Tea (Rs 20)' and _s2 == 'Bus (Rs 45)', f\"Expected str(Expense('Tea', 20)) == 'Tea (Rs 20)', got {_s!r}\"",
+      "assert _s == 'Tea (Rs 20)', f\"Expected 'Tea (Rs 20)', got {_s!r}\"",
+      "assert _s2 == 'Bus (Rs 45)', f\"Expected 'Bus (Rs 45)', got {_s2!r}\"",
+      "assert str(Expense('Book', 0)) == 'Book (Rs 0)', '__str__ must format arbitrary Expense instances'",
       done
     ),
     aTitle: "Subscription",
@@ -1205,7 +1254,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _v_err = True",
       "if _v_err:",
       "    assert False, \"parse_amount('abc') crashed with ValueError! Catch it with 'except ValueError: return None'.\"",
-      "assert _v1 == 250.0 and _v2 == 99.5 and _v3 is None, \"Expected parse_amount(' 250 ') == 250.0, parse_amount('99.5') == 99.5, and parse_amount('abc') is None\"",
+      "assert _v1 == 250.0, \"Expected parse_amount(' 250 ') == 250.0\"",
+      "assert _v2 == 99.5, \"Expected parse_amount('99.5') == 99.5\"",
+      "assert _v3 is None and _fn('') is None, \"Invalid or empty strings must return None\"",
       done
     ),
     aTitle: "Menu Choice",
@@ -1224,7 +1275,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_v4 = _fn('x') if callable(_fn) else 'UNSET'",
       "if _v1 == '2' or _v2 == '3':",
       "    assert False, \"Almost! menu_choice() returned a string ('2') instead of a number (2). Convert it with int().\"",
-      "assert _v1 == 2 and _v2 == 3 and _v3 is None and _v4 is None, \"Expected menu_choice('2') == 2, menu_choice(' 3 ') == 3, and None for '7' or 'x'\"",
+      "assert _v1 == 2 and _v2 == 3, \"Expected integer choices 2 and 3\"",
+      "assert _v3 is None and _v4 is None, \"Out-of-range or non-numeric strings return None\"",
+      "assert _fn('1') == 1 and _fn('') is None, \"Expected menu_choice('1') == 1 and menu_choice('') is None\"",
       done
     )
   },
@@ -1246,7 +1299,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTest: lines(
       "_fn = globals().get('is_valid_amount')",
       "_ok_num = callable(_fn) and _fn(20) is True and _fn(9.5) is True and _fn(0) is False and _fn(-5) is False and _fn('20') is False",
-      "assert _ok_num, \"Expected is_valid_amount() to return True for 20 and 9.5, and False for 0, -5, and '20'\"",
+      "assert callable(_fn) and _fn(20) is True and _fn(9.5) is True, \"Positive numbers must return True\"",
+      "assert _fn(0) is False and _fn(-5) is False and _fn('20') is False, \"Zero, negative, and strings must return False\"",
+      "assert _fn(True) is False and _fn(None) is False, \"Booleans and None are not valid amounts\"",
       done
     ),
     aTitle: "Your Own Check",
@@ -1293,7 +1348,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_fn = globals().get('is_good_commit_message')",
       "_v1 = _fn('Add expense summary by category') if callable(_fn) else None",
       "_v2 = _fn('fix') if callable(_fn) else None",
-      "assert _v1 is True and _v2 is False, \"Expected is_good_commit_message('Add expense summary by category') is True and is_good_commit_message('fix') is False\"",
+      "assert _v1 is True, \"Expected good commit message to return True\"",
+      "assert _v2 is False and _fn('x' * 9) is False, 'Messages under 10 characters return False'",
+      "assert _fn('x' * 10) is True and _fn('x' * 72) is True and _fn('x' * 73) is False, 'Allowed length is 10..72 inclusive'",
       done
     ),
     aTitle: "Branch Name",
@@ -1309,6 +1366,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_v2 = _fn('  Fix  total ') if callable(_fn) else None",
       "assert _v1 == 'feature/add-monthly-report', f\"Expected 'feature/add-monthly-report', got {_v1!r}\"",
       "assert _v2 in ('feature/fix-total', 'feature/fix--total'), f\"Expected 'feature/fix-total', got {_v2!r}\"",
+      "assert _fn('Upgrade CI Pipeline') == 'feature/upgrade-ci-pipeline', 'Expected lowercase hyphenated branch name'",
       done
     )
   },
@@ -1348,7 +1406,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_res2 = _fn([{'item': 'Rent', 'category': 'home'}]) if callable(_fn) else None",
       "if isinstance(_res, dict) and isinstance(_res.get('food'), list) and len(_res['food']) > 0 and isinstance(_res['food'][0], dict):",
       "    assert False, \"Almost! Append only the item name e['item'] to each category list, not the whole dictionary e.\"",
-      "assert _res == {'food': ['Tea', 'Lunch'], 'travel': ['Bus']} and _res_empty == {} and _res2 == {'home': ['Rent']}, \"Expected {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}\"",
+      "assert _res == {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}, \"Expected {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}\"",
+      "assert _res_empty == {}, 'Empty expense list returns {}'",
+      "assert _res2 == {'home': ['Rent']}, \"Single item category returns {'home': ['Rent']}\"",
       done
     )
   },
@@ -1384,7 +1444,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_res2 = _fn({'item': 'Bus', 'amount': 45.5, 'category': 'travel'}) if callable(_fn) else None",
       "if _res == 'Tea - Rs 20 (food)':",
       "    assert False, \"Almost! Format the amount with 2 decimal places using :.2f -> Rs {e['amount']:.2f}\"",
-      "assert _res == 'Tea - Rs 20.00 (food)' and _res2 == 'Bus - Rs 45.50 (travel)', f\"Expected 'Tea - Rs 20.00 (food)', got {_res!r}\"",
+      "assert _res == 'Tea - Rs 20.00 (food)', f\"Expected 'Tea - Rs 20.00 (food)', got {_res!r}\"",
+      "assert _res2 == 'Bus - Rs 45.50 (travel)', f\"Expected 'Bus - Rs 45.50 (travel)', got {_res2!r}\"",
+      "assert _fn({'item': 'Rent', 'amount': 1000, 'category': 'home'}) == 'Rent - Rs 1000.00 (home)', 'Expected two decimal places for whole numbers'",
       done
     )
   },
@@ -1424,7 +1486,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: lines("def category_totals(expenses):", "    totals = {}", "    for e in expenses:", "        totals[e['category']] = totals.get(e['category'], 0) + e['amount']", "    return totals"),
     aTest: lines(
       "data = [{'category': 'food', 'amount': 20}, {'category': 'travel', 'amount': 45}, {'category': 'food', 'amount': 150}]",
-      "assert category_totals(data) == {'food': 170, 'travel': 45} and category_totals([]) == {} and category_totals([{'category': 'bills', 'amount': 300}]) == {'bills': 300}, \"Expected {'food': 170, 'travel': 45}\"",
+      "assert category_totals(data) == {'food': 170, 'travel': 45}, \"Expected {'food': 170, 'travel': 45}\"",
+      "assert category_totals([]) == {}, 'Empty input returns {}'",
+      "assert category_totals([{'category': 'bills', 'amount': 300}, {'category': 'bills', 'amount': 50}]) == {'bills': 350}, 'Same category sums cleanly'",
       done
     )
   },
@@ -1451,7 +1515,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _k_err = True",
       "if _k_err:",
       "    assert False, \"KeyError when 'results' is missing! Use data.get('results', []) so a missing key returns [].\"",
-      "assert _r1 == [1, 2] and _r2 == [], \"Expected parse_results({'results': [1, 2]}) == [1, 2] and parse_results({}) == []\"",
+      "assert _r1 == [1, 2], \"Expected parse_results({'results': [1, 2]}) == [1, 2]\"",
+      "assert _r2 == [], \"Expected parse_results({}) == []\"",
+      "assert _fn({'results': ['ok'], 'total': 1}) == ['ok'], 'Extra keys are ignored cleanly'",
       done
     ),
     aTitle: "Status Message",
@@ -1493,7 +1559,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    _t_err = True",
       "if _t_err:",
       "    assert False, \"TypeError when 'amount' is missing (None)! Use data.get('amount', 0) <= 0 or check isinstance(amount, (int, float)) first.\"",
-      "assert _v1 == [] and _v2 == ['item is required', 'amount must be more than 0'] and _v3 == ['item is required', 'amount must be more than 0'], \"Expected [] for valid data and ['item is required', 'amount must be more than 0'] when both are invalid\"",
+      "assert _v1 == [], \"Valid expense produces no errors\"",
+      "assert _v2 == ['item is required', 'amount must be more than 0'], 'Blank item and zero amount produce both errors'",
+      "assert _v3 == ['item is required', 'amount must be more than 0'], 'Empty dict produces both errors'",
       done
     ),
     aTitle: "Pages of Results (Building Your Own API with FastAPI)",
@@ -1506,7 +1574,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_p1 = _fn(items, 1, 3) if callable(_fn) else None",
       "if _p1 == [4, 5, 6]:",
       "    assert False, \"Almost! Page 1 should start at index 0. Use start = (page - 1) * size.\"",
-      "assert _p1 == [1, 2, 3] and _fn(items, 3, 3) == [7] and _fn(items, 4, 3) == [], \"Expected paginate(items, 1, 3) == [1, 2, 3], page 3 == [7], page 4 == []\"",
+      "assert _p1 == [1, 2, 3], \"Page 1 must start at index 0\"",
+      "assert _fn(items, 2, 3) == [4, 5, 6] and _fn(items, 3, 3) == [7], \"Middle and partial tail pages\"",
+      "assert _fn(items, 4, 3) == [] and _fn([], 1, 5) == [], \"Out-of-range page or empty items returns []\"",
       done
     )
   },
@@ -1527,7 +1597,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_res2 = total_amount([{'amount': 20}, {'amount': 45}])",
       "if _res == 500:",
       "    assert False, \"total_amount() returned 500 instead of 600 because range(1, len(expenses)) skips index 0! Change 1 to 0.\"",
-      "assert _res == 600 and _res2 == 65 and total_amount([]) == 0, f'Expected 600, got {_res}'",
+      "assert _res == 600, f\"Expected 600, got {_res}\"",
+      "assert _res2 == 65, f\"Expected 65, got {_res2}\"",
+      "assert total_amount([]) == 0, \"Empty list returns 0\"",
       done
     ),
     aTitle: "Find the Bad Record",
@@ -1540,7 +1612,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_r2 = first_invalid([{'id': 1, 'amount': 5}])",
       "if isinstance(_r1, dict) and _r1.get('id') == 3:",
       "    assert False, \"Almost! An amount of 0 is also invalid. Check 'if e[\\\"amount\\\"] <= 0:' instead of '< 0'.\"",
-      "assert isinstance(_r1, dict) and _r1.get('id') == 2 and _r2 is None, \"Expected first_invalid(data) to return {'id': 2, 'amount': 0} and None when all are valid\"",
+      "assert isinstance(_r1, dict) and _r1.get('id') == 2, 'Zero amount is also invalid'",
+      "assert _r2 is None and first_invalid([]) is None, 'Valid or empty input returns None'",
+      "assert first_invalid([{'id': 9, 'amount': -1}]) == {'id': 9, 'amount': -1}, 'Returns the first negative expense'",
       done
     )
   },
@@ -1559,6 +1633,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTest: lines(
       "assert base_url('production') == 'https://expense-api.onrender.com', \"Expected 'https://expense-api.onrender.com' for 'production'\"",
       "assert base_url('development') == 'http://127.0.0.1:8000', \"Expected 'http://127.0.0.1:8000' for 'development'\"",
+      "assert base_url('staging') == 'http://127.0.0.1:8000', 'Non-production environment uses local base URL'",
       done
     ),
     aTitle: "README Checker",
@@ -1567,7 +1642,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: lines("def missing_sections(readme):", "    needed = ['## About', '## Features', '## Setup']", "    return [s for s in needed if s not in readme]"),
     aTest: lines(
       "text = '# Expense API\\n## About\\nTrack spending\\n## Setup\\npip install -r requirements.txt'",
-      "assert missing_sections(text) == ['## Features'] and missing_sections('## About\\n## Features\\n## Setup') == [] and missing_sections('') == ['## About', '## Features', '## Setup'], \"Expected ['## Features']\"",
+      "assert missing_sections(text) == ['## Features'], \"Expected ['## Features']\"",
+      "assert missing_sections('## About\\n## Features\\n## Setup') == [], 'All sections present'",
+      "assert missing_sections('') == ['## About', '## Features', '## Setup'], 'Empty README misses all sections'",
       done
     )
   },
@@ -1600,7 +1677,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_f7 = _fn(7) if callable(_fn) else None",
       "if _f15 in ('Fizz', 'Buzz'):",
       "    assert False, \"fizz_buzz(15) returned \" + repr(_f15) + \" instead of 'FizzBuzz'! Check 'if n % 3 == 0 and n % 5 == 0:' FIRST.\"",
-      "assert _f15 == 'FizzBuzz' and _f9 == 'Fizz' and _f10 == 'Buzz' and str(_f7) == '7' and _f7 is not None, \"Expected fizz_buzz(15)=='FizzBuzz', (9)=='Fizz', (10)=='Buzz', (7)=='7'\"",
+      "assert _f15 == 'FizzBuzz' and _fn(30) == 'FizzBuzz', 'Multiples of 15 return FizzBuzz'",
+      "assert _f9 == 'Fizz' and _f10 == 'Buzz', 'Multiples of 3 and 5 return Fizz and Buzz'",
+      "assert str(_f7) == '7' and _f7 is not None, 'Non-multiples return number as string'",
       done
     ),
     aTitle: "Reverse the Words",
@@ -1616,7 +1695,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "_r2 = _fn('hello world') if callable(_fn) else None",
       "if _r == 'nohtyP evol I':",
       "    assert False, \"That reversed the letters ('nohtyP evol I') instead of the words! Split into words first: ' '.join(sentence.split()[::-1]).\"",
-      "assert _r == 'Python love I' and _r2 == 'world hello', f\"Expected 'Python love I', got {_r!r}\"",
+      "assert _r == 'Python love I', f\"Expected 'Python love I', got {_r!r}\"",
+      "assert _r2 == 'world hello', f\"Expected 'world hello', got {_r2!r}\"",
+      "assert _fn('single') == 'single' and _fn('') == '', 'Single word and empty sentence'",
       done
     )
   }

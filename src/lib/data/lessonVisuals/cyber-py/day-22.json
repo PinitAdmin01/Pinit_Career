@@ -49,7 +49,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how famous updates morris during execution.",
+            "caption": "Examine the buffer value produced for overflow processing.",
             "currentState": "n",
             "transition": {
               "from": "data",
@@ -95,13 +95,13 @@
             "transition": {
               "from": "memory",
               "to": "data",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
           {
             "at": "say9",
-            "caption": "Trace how famous updates morris during execution.",
+            "caption": "Examine the buffer value produced for overflow processing.",
             "currentState": "n",
             "transition": {
               "from": "data",
@@ -158,16 +158,14 @@
                 "hit": 1
               },
               "frame": {
-                "var": "frame",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "canary": "data",
               "data": "data",
               "buf_size": "data",
-              "frame": "data"
+              "frame": "idle"
             }
           },
           {
@@ -262,26 +260,26 @@
             "at": "say1",
             "caption": "A stack canary is a secret random value placed between a function's.",
             "values": {
-              "canary": "{'__other__': 'bytes'}",
-              "data": "{'__other__': 'bytes'}",
+              "canary": "<bytes>",
+              "data": "<bytes>",
               "buf_size": "8",
-              "frame": "{'__other__': 'bytearray'}"
+              "frame": ""
             },
             "tones": {
               "canary": "data",
               "data": "data",
               "buf_size": "data",
-              "frame": "data"
+              "frame": "idle"
             }
           },
           {
             "at": "say2",
             "caption": "Before the function returns, it checks the canary.",
             "values": {
-              "canary": "{'__other__': 'bytes'}",
-              "data": "{'__other__': 'bytes'}",
+              "canary": "<bytes>",
+              "data": "<bytes>",
               "buf_size": "8",
-              "frame": "{'__other__': 'bytearray'}"
+              "frame": "<bytearray>"
             },
             "tones": {
               "canary": "data",
@@ -294,10 +292,10 @@
             "at": "say9",
             "caption": "Canaries do not protect data before the canary, such as other local.",
             "values": {
-              "canary": "{'__other__': 'bytes'}",
-              "data": "{'__other__': 'bytes'}",
+              "canary": "<bytes>",
+              "data": "<bytes>",
               "buf_size": "8",
-              "frame": "{'__other__': 'bytearray'}"
+              "frame": "<bytearray>"
             },
             "tones": {
               "canary": "ok",
@@ -507,6 +505,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "C's strlcpy and snprintf take the buffer size, copy at most size - 1 bytes.",
+            "activeActor": "buf_size",
+            "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": {
+                  "var": "data",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "buf_size",
@@ -521,10 +536,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "C's strlcpy and snprintf take the buffer size, copy at most size - 1 bytes.",
-            "activeActor": "buf_size",
+            "at": "say9",
+            "caption": "Examine the code value produced for review processing.",
+            "activeActor": "kept",
             "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": {
+                  "var": "data",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": {
+                  "var": "buf_size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "data",
                 "to": "buf_size",
@@ -544,14 +579,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Code review should flag any copy whose length is controlled by input but.",
-            "activeActor": "kept",
-            "messages": [
+              },
               {
                 "from": "data",
                 "to": "buf_size",
@@ -592,14 +620,8 @@
               {
                 "from": "data",
                 "to": "buf_size",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
-              },
-              {
-                "from": "buf_size",
-                "to": "kept",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "data"
@@ -611,7 +633,7 @@
               {
                 "from": "data",
                 "to": "buf_size",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
@@ -625,12 +647,36 @@
           },
           {
             "at": "say9",
-            "caption": "Code review should flag any copy whose length is controlled by input but.",
+            "caption": "Examine the code value produced for review processing.",
             "messages": [
               {
                 "from": "data",
                 "to": "buf_size",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
@@ -668,7 +714,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how microsoft updates google during execution.",
+            "caption": "Observe how memory shapes safety during this step.",
             "currentState": "languages",
             "tone": "data"
           },
@@ -724,7 +770,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how microsoft updates google during execution.",
+            "caption": "Observe how memory shapes safety during this step.",
             "currentState": "languages",
             "tone": "data"
           },
@@ -757,106 +803,154 @@
       "partTitle": "Practice time: canaries and bounded copies",
       "codeHash": "00a41fbfe6359fd8eef7b7b81babd5ce2c32fee3c94125f5b5267af58634f9e4",
       "spec": {
-        "template": "states",
+        "template": "flow",
         "title": "Practice time: canaries and bounded copies",
-        "states": [
-          {
-            "id": "worst",
-            "label": "worst"
-          },
+        "nodes": [
           {
             "id": "size",
-            "label": "size"
+            "label": "size",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Copy_into_frame(buf_size, data, canary).",
-            "currentState": "worst",
-            "tone": "data"
+            "caption": "Practice 1: copy_into_frame(buf_size, data, canary).",
+            "values": {
+              "size": {
+                "var": "size",
+                "line": 6,
+                "hit": 1
+              },
+              "out": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "size": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include data that fits, data that exactly fills the buffer,.",
-            "currentState": "size",
-            "transition": {
-              "from": "worst",
-              "to": "size",
-              "label": {
+            "caption": "Verify the canaries transition driving checks behavior.",
+            "values": {
+              "size": {
                 "var": "size",
-                "line": 7,
-                "hit": 33
+                "line": 6,
+                "hit": 15
+              },
+              "out": {
+                "out": 1
               }
             },
-            "tone": "data"
+            "tones": {
+              "size": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "size",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "These simulations teach concepts.",
-            "currentState": ".0",
-            "transition": {
-              "from": "size",
-              "to": ".0",
-              "label": {
-                "var": ".0",
-                "line": 7,
-                "hit": 3
+            "at": "say3",
+            "caption": "Raise ValueError if buf_size < 1.",
+            "values": {
+              "size": {
+                "var": "size",
+                "line": 6,
+                "hit": 49
+              },
+              "out": {
+                "out": 1
               }
             },
-            "tone": "ok"
+            "tones": {
+              "size": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "size",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
+        "template": "flow",
         "title": "Practice time: canaries and bounded copies",
-        "states": [
-          {
-            "id": "worst",
-            "label": "worst"
-          },
+        "nodes": [
           {
             "id": "size",
-            "label": "size"
+            "label": "size",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Copy_into_frame(buf_size, data, canary).",
-            "currentState": "worst",
-            "tone": "data"
+            "caption": "Practice 1: copy_into_frame(buf_size, data, canary).",
+            "values": {
+              "size": "9",
+              "out": ""
+            },
+            "tones": {
+              "size": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include data that fits, data that exactly fills the buffer,.",
-            "currentState": "size",
-            "transition": {
-              "from": "worst",
-              "to": "size",
-              "label": "9"
+            "caption": "Verify the canaries transition driving checks behavior.",
+            "values": {
+              "size": "23",
+              "out": "1000 random copies, worst overrun: 0 bytes"
             },
-            "tone": "data"
+            "tones": {
+              "size": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "size",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "These simulations teach concepts.",
-            "currentState": ".0",
-            "transition": {
-              "from": "size",
-              "to": ".0",
-              "label": "{'__other__': 'range_iterator'}"
+            "at": "say3",
+            "caption": "Raise ValueError if buf_size < 1.",
+            "values": {
+              "size": "13",
+              "out": "1000 random copies, worst overrun: 0 bytes"
             },
-            "tone": "ok"
+            "tones": {
+              "size": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "size",
+                "out"
+              ]
+            ]
           }
         ]
       }

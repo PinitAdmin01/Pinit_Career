@@ -287,10 +287,159 @@
       "partTitle": "NULL: the unknown value",
       "codeHash": "bb7b42ae2e0363bf60faef5dfb46a2256dec0996142cca40c094e6a12a852eae",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "NULL: the unknown value",
+        "columns": [
+          "name",
+          "city_unknown"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "NULL means \"no value\" or \"unknown\".",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 4,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 4,
+                    "row": 1,
+                    "col": "city_unknown"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 4,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 4,
+                    "row": 2,
+                    "col": "city_unknown"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Here is the trap: NULL is never equal to anything, not even to another NULL.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 4,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 4,
+                    "row": 1,
+                    "col": "city_unknown"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 4,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 4,
+                    "row": 2,
+                    "col": "city_unknown"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 4,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 4,
+                    "row": 3,
+                    "col": "city_unknown"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "NULL: the unknown value",
+        "columns": [
+          "name",
+          "city_unknown"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "NULL means \"no value\" or \"unknown\".",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "false"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "false"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Here is the trap: NULL is never equal to anything, not even to another NULL.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "false"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "false"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Meera",
+                  "true"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Filtering dates",
@@ -412,10 +561,115 @@
       "partTitle": "WHERE with UPDATE and DELETE",
       "codeHash": "3f136a9fd2cff0d5ead4bd1620bd0e3c91a713550023df1fb7bddeb76ec7edda",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "WHERE with UPDATE and DELETE",
+        "columns": [
+          "id",
+          "status"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Everything from today works with UPDATE and DELETE too.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "status"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For example, you might mark old unpaid orders as cancelled.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "status"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 3,
+                    "row": 2,
+                    "col": "id"
+                  },
+                  {
+                    "table": 3,
+                    "row": 2,
+                    "col": "status"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "WHERE with UPDATE and DELETE",
+        "columns": [
+          "id",
+          "status"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Everything from today works with UPDATE and DELETE too.",
+            "rows": [
+              {
+                "cells": [
+                  "3",
+                  "pending"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For example, you might mark old unpaid orders as cancelled.",
+            "rows": [
+              {
+                "cells": [
+                  "3",
+                  "pending"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "4",
+                  "pending"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: answering shop questions",

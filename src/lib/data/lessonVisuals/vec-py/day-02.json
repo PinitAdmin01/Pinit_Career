@@ -202,7 +202,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how adding updates rounded during execution.",
+            "caption": "Examine the adding value produced for rounded processing.",
             "items": {
               "var": "a",
               "line": 5,
@@ -254,7 +254,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how adding updates rounded during execution.",
+            "caption": "Examine the adding value produced for rounded processing.",
             "items": [
               "0",
               "0"
@@ -855,7 +855,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates cosine during execution.",
+            "caption": "Practice 1: cosine(a, b).",
             "bars": [
               {
                 "label": "x",
@@ -879,7 +879,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "x",
@@ -933,7 +933,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates cosine during execution.",
+            "caption": "Practice 1: cosine(a, b).",
             "bars": [
               {
                 "label": "x",
@@ -949,7 +949,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "x",

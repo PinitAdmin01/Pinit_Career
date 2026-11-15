@@ -664,7 +664,7 @@
           },
           {
             "at": "say3",
-            "caption": "Using copy or + creates separate lists without changing a.",
+            "caption": "Using copy or + creates separate lists while leaving list a untouched.",
             "values": {
               "a": {
                 "var": "a",
@@ -692,7 +692,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Making b a separate copy keeps only Tea and Bus in a.",
+            "caption": "Making b a separate copy keeps only Tea and Bus intact.",
             "values": {
               "a": {
                 "text": "[\"Tea\", \"Bus\"]"
@@ -756,7 +756,7 @@
           },
           {
             "at": "say3",
-            "caption": "Using copy or + creates separate lists without changing a.",
+            "caption": "Using copy or + creates separate lists while leaving list a untouched.",
             "values": {
               "a": "['Tea', 'Bus', 'Lunch']",
               "b": "['Tea', 'Bus', 'Lunch']",
@@ -768,37 +768,23 @@
               "b": "data",
               "c": "ok",
               "d": "ok"
-            },
-            "checks": [
-              "a: ['Tea', 'Bus', 'Lunch']",
-              "c: ['Tea', 'Bus', 'Lunch', 'Movie']",
-              "d: ['Tea', 'Bus', 'Lunch', 'Snacks']"
-            ]
+            }
           },
           {
             "at": "tryIt",
-            "caption": "Making b a separate copy keeps only Tea and Bus in a.",
+            "caption": "Making b a separate copy keeps only Tea and Bus intact.",
             "values": {
-              "a": "['Tea', 'Bus']",
-              "b": "['Tea', 'Bus', 'Lunch']",
-              "c": "['Tea', 'Bus', 'Movie']",
-              "d": "['Tea', 'Bus', 'Snacks']"
+              "a": "[\"Tea\", \"Bus\"]",
+              "b": "a.copy()",
+              "c": "a.copy()",
+              "d": "a + [\"Snacks\"]"
             },
             "tones": {
               "a": "ok",
               "b": "data",
               "c": "data",
               "d": "data"
-            },
-            "whatIf": "a = [\"Tea\", \"Bus\"]\nb = a.copy()\nb.append(\"Lunch\")\nprint(\"a:\", a)\nc = a.copy()\nc.append(\"Movie\")\nprint(\"a:\", a)\nprint(\"c:\", c)\nd = a + [\"Snacks\"]\nprint(\"a:\", a)\nprint(\"d:\", d)",
-            "checks": [
-              "a: ['Tea', 'Bus']",
-              "c: ['Tea', 'Bus', 'Movie']",
-              "d: ['Tea', 'Bus', 'Snacks']"
-            ],
-            "mustNotShow": [
-              "a: ['Tea', 'Bus', 'Lunch']"
-            ]
+            }
           }
         ]
       }
@@ -808,62 +794,40 @@
       "codeHash": "d009aac4ce9684b5333b722b6d97eeaf4d99ad8a74f4c62e71cbffb155786f3b",
       "spec": {
         "template": "table",
-        "title": "Two-list Expense Tracker report",
+        "title": "Putting it together: a list of expenses",
         "columns": [
-          "Metric",
+          "Symbol",
           "Output"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Appending a matching name and amount keeps both lists aligned.",
+            "at": "say1",
+            "caption": "Let us use lists in the Expense Tracker.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "len(amounts)"
+                    "text": "names"
                   },
                   {
-                    "out": 5
+                    "out": 1
                   }
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sum(amounts)"
-                  },
-                  {
-                    "out": 6
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "List tools find the total, biggest expense, and recent slice from the lists.",
+            "caption": "Keeping two separate lists works, but it is fragile.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "len(amounts)"
+                    "text": "names"
                   },
                   {
-                    "out": 5
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max(amounts)"
-                  },
-                  {
-                    "out": 8
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -871,38 +835,60 @@
               {
                 "cells": [
                   {
-                    "text": "names[-2:]"
+                    "text": "names"
                   },
                   {
-                    "out": 9
+                    "out": 2
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Appending Auto and its amount to both lists updates count and total.",
+            "at": "say3",
+            "caption": "For now, notice how much the list tools give you for free.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "len(amounts)"
+                    "text": "names"
                   },
                   {
-                    "text": "The count becomes 5"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "sum(amounts)"
+                    "text": "names"
                   },
                   {
-                    "text": "the total 565"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "names"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "names"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -913,90 +899,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "Two-list Expense Tracker report",
+        "title": "Putting it together: a list of expenses",
         "columns": [
-          "Metric",
+          "Symbol",
           "Output"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Appending a matching name and amount keeps both lists aligned.",
+            "at": "say1",
+            "caption": "Let us use lists in the Expense Tracker.",
             "rows": [
               {
                 "cells": [
-                  "len(amounts)",
+                  "names",
                   "Count: 4"
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "sum(amounts)",
-                  "Total: 485"
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "List tools find the total, biggest expense, and recent slice from the lists.",
+            "caption": "Keeping two separate lists works, but it is fragile.",
             "rows": [
               {
                 "cells": [
-                  "len(amounts)",
+                  "names",
                   "Count: 4"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "max(amounts)",
-                  "Biggest: Movie 300"
                 ],
                 "tone": "data"
               },
               {
                 "cells": [
-                  "names[-2:]",
+                  "names",
+                  "Total: 485"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "For now, notice how much the list tools give you for free.",
+            "rows": [
+              {
+                "cells": [
+                  "names",
+                  "Count: 4"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "names",
+                  "Total: 485"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "names",
+                  "Biggest: Movie 300"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "names",
                   "Last two: ['Lunch', 'Movie']"
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "Count: 4",
-              "Total: 485",
-              "Biggest: Movie 300",
-              "Last two: ['Lunch', 'Movie']"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Appending Auto and its amount to both lists updates count and total.",
-            "rows": [
-              {
-                "cells": [
-                  "len(amounts)",
-                  "Count: 5"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sum(amounts)",
-                  "Total: 565"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "whatIf": "names = [\"Tea\", \"Bus\", \"Lunch\"]\namounts = [20, 45, 120]\nnames.append(\"Movie\")\namounts.append(300)\nnames.append(\"Auto\")\namounts.append(80)\nprint(\"Count:\", len(amounts))\nprint(\"Total:\", sum(amounts))\nbiggest = max(amounts)\nprint(\"Biggest:\", names[amounts.index(biggest)], biggest)\nprint(\"Last two:\", names[-2:])",
-            "checks": [
-              "Count: 5",
-              "Total: 565",
-              "Biggest: Movie 300",
-              "Last two: ['Movie', 'Auto']"
             ]
           }
         ]

@@ -915,8 +915,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For large files, S3 multipart upload splits the file into parts (at least.",
+            "caption": "Observe how files shapes large during this step.",
             "activeActor": "MB",
+            "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": {
+                  "var": "MB",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "AWS recommends multipart for files over about 100 MB.",
+            "activeActor": "file_size",
             "messages": [
               {
                 "from": "MB",
@@ -941,10 +958,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "AWS recommends multipart for files over about 100 MB.",
-            "activeActor": "file_size",
+            "at": "say7",
+            "caption": "Examine the uploads value produced for again processing.",
+            "activeActor": "part_size",
             "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": {
+                  "var": "MB",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": {
+                  "var": "file_size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "MB",
                 "to": "file_size",
@@ -964,14 +1001,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace how will updates uploads during execution.",
-            "activeActor": "part_size",
-            "messages": [
+              },
               {
                 "from": "MB",
                 "to": "file_size",
@@ -1007,19 +1037,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For large files, S3 multipart upload splits the file into parts (at least.",
+            "caption": "Observe how files shapes large during this step.",
             "messages": [
               {
                 "from": "MB",
                 "to": "file_size",
                 "label": "1048576",
                 "tone": "data"
-              },
-              {
-                "from": "file_size",
-                "to": "part_size",
-                "label": "1363148800",
-                "tone": "ok"
               }
             ],
             "activeActor": "MB"
@@ -1045,8 +1069,32 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how will updates uploads during execution.",
+            "caption": "Examine the uploads value produced for again processing.",
             "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": "1048576",
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": "1363148800",
+                "tone": "ok"
+              },
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": "1048576",
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": "1363148800",
+                "tone": "ok"
+              },
               {
                 "from": "MB",
                 "to": "file_size",

@@ -7,123 +7,68 @@
   "entries": [
     {
       "partTitle": "Centralized Vs Decentralized Choreography: Monolithic Limits And Swarm Architecture",
-      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
+      "codeHash": "ef2c4429b763198114ab56dcd4f2d27697ae87b8013796df49b48ca4f160543c",
       "spec": {
         "template": "table",
         "title": "Centralized Vs Decentralized Choreography: Monolithic Limits And",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the developmental progression of enterprise artificial intelligence.",
+            "caption": "Observe how developmental shapes progression during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "TURNS"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Centralized supervisor coordination establishes explicit hierarchical task.",
+            "caption": "Verify the monolithic transition driving splitting behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "TURNS"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "TURNS"
                   },
                   {
                     "out": 2
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering multi-agent choreography elevates enterprise prompt engineers.",
+            "at": "say3",
+            "caption": "Examine the centralized value produced for decentralized processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "TURNS"
                   },
                   {
                     "out": 1
@@ -134,7 +79,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "TURNS"
                   },
                   {
                     "out": 2
@@ -145,21 +90,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "TURNS"
                   },
                   {
                     "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -173,106 +107,64 @@
         "title": "Centralized Vs Decentralized Choreography: Monolithic Limits And",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the developmental progression of enterprise artificial intelligence.",
+            "caption": "Observe how developmental shapes progression during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "TURNS",
+                  "Monolithic shared history total tokens: 20400"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Centralized supervisor coordination establishes explicit hierarchical task.",
+            "caption": "Verify the monolithic transition driving splitting behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "TURNS",
+                  "Monolithic shared history total tokens: 20400"
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
+                  "TURNS",
+                  "Isolated worker handoff total tokens:   8900"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering multi-agent choreography elevates enterprise prompt engineers.",
+            "at": "say3",
+            "caption": "Examine the centralized value produced for decentralized processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "TURNS",
+                  "Monolithic shared history total tokens: 20400"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
+                  "TURNS",
+                  "Isolated worker handoff total tokens:   8900"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
+                  "TURNS",
+                  "Context overhead savings: 56.4%"
                 ],
                 "tone": "ok"
               }
@@ -283,73 +175,40 @@
     },
     {
       "partTitle": "Hierarchical Supervisor Architectures: Executive Delegation & Task DAG Decomposition",
-      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
+      "codeHash": "2bae1a663488e5a45612f674d7d4652048bd663aea87db0921e5880fda197bec",
       "spec": {
         "template": "table",
         "title": "Hierarchical Supervisor Architectures: Executive Delegation & Ta",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational apex of a hierarchical multi-agent architecture stands.",
+            "caption": "Observe how supervisor shapes delegation during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "from"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Executive supervisor controllers decompose incoming enterprise objectives.",
+            "caption": "Verify the supervisor transition driving executive behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "from"
                   },
                   {
                     "out": 1
@@ -360,82 +219,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "from"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "By engineering robust executive supervisor controllers, enterprise.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -449,106 +236,37 @@
         "title": "Hierarchical Supervisor Architectures: Executive Delegation & Ta",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational apex of a hierarchical multi-agent architecture stands.",
+            "caption": "Observe how supervisor shapes delegation during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "from",
+                  "Schedule: ['fetch', 'audit', 'clean', 'report']"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Executive supervisor controllers decompose incoming enterprise objectives.",
+            "caption": "Verify the supervisor transition driving executive behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "from",
+                  "Schedule: ['fetch', 'audit', 'clean', 'report']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "By engineering robust executive supervisor controllers, enterprise.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
+                  "from",
+                  "Cycle gate: Cycle detected in supervisor task DAG"
                 ],
                 "tone": "ok"
               }
@@ -559,73 +277,40 @@
     },
     {
       "partTitle": "Inter-Agent Communication Protocols: Structured Schema Exchange & Message Passing",
-      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
+      "codeHash": "572df20d6a8592f96af3868f352a400691ac190b3a50c01a2c1775e1f03d0daf",
       "spec": {
         "template": "table",
         "title": "Inter-Agent Communication Protocols: Structured Schema Exchange ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In multi-agent systems, inter-agent communication represents both.",
+            "caption": "Observe how inter shapes agent during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "REQUIRED_FIELDS"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Standardized message passing protocols structure inter agent communication.",
+            "caption": "Every communication envelope contains immutable metadata fields.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "REQUIRED_FIELDS"
                   },
                   {
                     "out": 1
@@ -636,82 +321,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "REQUIRED_FIELDS"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Standardized inter-agent communication protocols transform fragmented.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -725,106 +338,37 @@
         "title": "Inter-Agent Communication Protocols: Structured Schema Exchange ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In multi-agent systems, inter-agent communication represents both.",
+            "caption": "Observe how inter shapes agent during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "REQUIRED_FIELDS",
+                  "Good envelope: (True, 'VALID')"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Standardized message passing protocols structure inter agent communication.",
+            "caption": "Every communication envelope contains immutable metadata fields.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "REQUIRED_FIELDS",
+                  "Good envelope: (True, 'VALID')"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Standardized inter-agent communication protocols transform fragmented.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
+                  "REQUIRED_FIELDS",
+                  "Bad envelope:  (False, \"missing keys: ['correlation_id', 'schema_version']\")"
                 ],
                 "tone": "ok"
               }
@@ -835,73 +379,40 @@
     },
     {
       "partTitle": "Dynamic Re-Planning & Conflict Resolution: Worker Deadlocks & Socratic Arbitration",
-      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
+      "codeHash": "c77b159c3f05445ab4faa96d1bcb567db05d32de14905f49e4d59e1a193bcd0e",
       "spec": {
         "template": "table",
         "title": "Dynamic Re-Planning & Conflict Resolution: Worker Deadlocks & So",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real-world enterprise environments are inherently dynamic, noisy,.",
+            "caption": "Observe how dynamic shapes planning during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "WAIT_GRAPH"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Dynamic replanning algorithms resolve worker deadlocks and conflicting.",
+            "caption": "Verify the dynamic transition driving worker behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "WAIT_GRAPH"
                   },
                   {
                     "out": 1
@@ -912,82 +423,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "WAIT_GRAPH"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Dynamic re-planning and conflict resolution transform fragile multi-agent.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -1001,106 +440,37 @@
         "title": "Dynamic Re-Planning & Conflict Resolution: Worker Deadlocks & So",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real-world enterprise environments are inherently dynamic, noisy,.",
+            "caption": "Observe how dynamic shapes planning during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "WAIT_GRAPH",
+                  "Detected wait cycle: worker_A -> worker_B -> worker_C -> worker_A"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Dynamic replanning algorithms resolve worker deadlocks and conflicting.",
+            "caption": "Verify the dynamic transition driving worker behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "WAIT_GRAPH",
+                  "Detected wait cycle: worker_A -> worker_B -> worker_C -> worker_A"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Dynamic re-planning and conflict resolution transform fragile multi-agent.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
+                  "WAIT_GRAPH",
+                  "Preempting stalled worker worker_C -> reassigning sub-task to fallback_pool"
                 ],
                 "tone": "ok"
               }
@@ -1111,73 +481,40 @@
     },
     {
       "partTitle": "Enterprise Swarm Engineering: Implementing An Asynchronous Python Supervisor",
-      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
+      "codeHash": "d2c6a4bae3db85c98e577459805687cace1d5b40bee6158752c0c376d2cbb48a",
       "spec": {
         "template": "table",
         "title": "Enterprise Swarm Engineering: Implementing An Asynchronous Pytho",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating multi-agent choreography, supervisor coordination, and dynamic.",
+            "caption": "Observe how asynchronous shapes python during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "import"
                   },
                   {
                     "out": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Asynchronous event loops empower production python supervisors.",
+            "caption": "Verify the enterprise transition driving asynchronous behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "import"
                   },
                   {
                     "out": 1
@@ -1188,82 +525,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "import"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering multi-agent choreography and hierarchical supervisor engineering.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 2"
-                  },
-                  {
-                    "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -1277,106 +542,37 @@
         "title": "Enterprise Swarm Engineering: Implementing An Asynchronous Pytho",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating multi-agent choreography, supervisor coordination, and dynamic.",
+            "caption": "Observe how asynchronous shapes python during this step.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "import",
+                  "Artifact: approved[facts(vLLM migration) + model(vLLM migration|p99=18ms)]"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Asynchronous event loops empower production python supervisors.",
+            "caption": "Verify the enterprise transition driving asynchronous behavior.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "import",
+                  "Artifact: approved[facts(vLLM migration) + model(vLLM migration|p99=18ms)]"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering multi-agent choreography and hierarchical supervisor engineering.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 2",
-                  "  \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"specializedWorkers\": ["
+                  "import",
+                  "Supervisor completion checksum: 147fab1a3134"
                 ],
                 "tone": "ok"
               }

@@ -139,7 +139,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how dimensional updates vector during execution.",
+            "caption": "Verify the dimensional transition driving vector behavior.",
             "items": {
               "var": "v",
               "line": 4,
@@ -194,7 +194,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how dimensional updates vector during execution.",
+            "caption": "Verify the dimensional transition driving vector behavior.",
             "items": [
               "0.3",
               "-0.2",
@@ -265,15 +265,13 @@
                 "hit": 1
               },
               "diff": {
-                "var": "diff",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "a": "data",
               "b": "data",
-              "diff": "data"
+              "diff": "idle"
             },
             "arrows": [
               [
@@ -384,12 +382,12 @@
             "values": {
               "a": "11",
               "b": "6",
-              "diff": "13"
+              "diff": ""
             },
             "tones": {
               "a": "data",
               "b": "data",
-              "diff": "data"
+              "diff": "idle"
             },
             "arrows": [
               [
@@ -572,7 +570,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how appears updates again during execution.",
+            "caption": "Examine the appears value produced for again processing.",
             "values": {
               "vecs": {
                 "var": "vecs",
@@ -702,7 +700,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how appears updates again during execution.",
+            "caption": "Examine the appears value produced for again processing.",
             "values": {
               "vecs": "[[0.9, 0.1, -0.2], [0.8, 0.3, 0.1], [0.…",
               "q": "[0.85, 0.2, 0.05]",
@@ -943,7 +941,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include middle values, clamping, exact end points and.",
+            "caption": "Verify the checks transition driving include behavior.",
             "rows": [
               {
                 "cells": [
@@ -1024,7 +1022,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include middle values, clamping, exact end points and.",
+            "caption": "Verify the checks transition driving include behavior.",
             "rows": [
               {
                 "cells": [

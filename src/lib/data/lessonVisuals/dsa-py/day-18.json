@@ -627,7 +627,7 @@
           },
           {
             "at": "say2",
-            "caption": "Pop the smallest, add it to the result, and push the next item from.",
+            "caption": "The heap always holds at most k items, one per list.",
             "items": {
               "var": "lst",
               "line": 4,
@@ -665,7 +665,7 @@
           },
           {
             "at": "say2",
-            "caption": "Pop the smallest, add it to the result, and push the next item from.",
+            "caption": "The heap always holds at most k items, one per list.",
             "mode": "queue",
             "items": [
               "2",

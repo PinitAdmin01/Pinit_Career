@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "total": {
-                "var": "total",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "tokens_per_sec_per_gpu": "data",
               "gpus": "data",
               "bytes_per_token": "data",
-              "total": "data"
+              "total": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "tokens_per_sec_per_gpu": "3000",
               "gpus": "1024",
               "bytes_per_token": "2",
-              "total": "3072000"
+              "total": ""
             },
             "tones": {
               "tokens_per_sec_per_gpu": "data",
               "gpus": "data",
               "bytes_per_token": "data",
-              "total": "data"
+              "total": "idle"
             },
             "arrows": [
               [
@@ -712,6 +710,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Prefetching prepares the next batches while the GPU works on the current one.",
+            "activeActor": "compute_ms",
+            "messages": [
+              {
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": {
+                  "var": "load_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "compute_ms",
@@ -726,10 +741,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Prefetching prepares the next batches while the GPU works on the current one.",
-            "activeActor": "compute_ms",
+            "at": "say10",
+            "caption": "Examine the tomorrow value produced for communication processing.",
+            "activeActor": "steps",
             "messages": [
+              {
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": {
+                  "var": "load_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "compute_ms",
+                "to": "steps",
+                "label": {
+                  "var": "compute_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "load_ms",
                 "to": "compute_ms",
@@ -749,14 +784,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Trace how tomorrow updates communication during execution.",
-            "activeActor": "steps",
-            "messages": [
+              },
               {
                 "from": "load_ms",
                 "to": "compute_ms",
@@ -799,12 +827,6 @@
                 "to": "compute_ms",
                 "label": "60",
                 "tone": "data"
-              },
-              {
-                "from": "compute_ms",
-                "to": "steps",
-                "label": "100",
-                "tone": "ok"
               }
             ],
             "activeActor": "load_ms"
@@ -830,8 +852,32 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how tomorrow updates communication during execution.",
+            "caption": "Examine the tomorrow value produced for communication processing.",
             "messages": [
+              {
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": "60",
+                "tone": "data"
+              },
+              {
+                "from": "compute_ms",
+                "to": "steps",
+                "label": "100",
+                "tone": "ok"
+              },
+              {
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": "60",
+                "tone": "data"
+              },
+              {
+                "from": "compute_ms",
+                "to": "steps",
+                "label": "100",
+                "tone": "ok"
+              },
               {
                 "from": "load_ms",
                 "to": "compute_ms",
@@ -901,7 +947,7 @@
           },
           {
             "at": "say2",
-            "caption": "With deterministic shuffling, the position is just the epoch and.",
+            "caption": "Verify the deterministic transition driving shuffling behavior.",
             "bars": [
               {
                 "label": "n",
@@ -1017,7 +1063,7 @@
           },
           {
             "at": "say2",
-            "caption": "With deterministic shuffling, the position is just the epoch and.",
+            "caption": "Verify the deterministic transition driving shuffling behavior.",
             "bars": [
               {
                 "label": "n",

@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Faithfulness & Groundedness — Foundations & Mathematical Invariants",
+      "partTitle": "Source Overlap Scoring via `calculate_token_overlap_groundedness`",
       "codeHash": "56436ae5e1b35e7802200d38a33c4dccf3f3dc5c87c1e1efc00d03cc64ef9b2d",
       "spec": {
         "template": "states",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the overlap value produced for calculate processing.",
             "currentState": "hallucinated_resp",
             "transition": {
               "from": "grounded_resp",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the overlap value produced for calculate processing.",
             "currentState": "hallucinated_resp",
             "transition": {
               "from": "grounded_resp",
@@ -114,115 +114,195 @@
       }
     },
     {
-      "partTitle": "Faithfulness & Groundedness — Core Algorithm & State Representation",
-      "codeHash": "06aba5ab88e6f0eadae90be0297eaee2f35c285d49dc8181be76030680a5ed0d",
+      "partTitle": "Sentence Claim Decomposition in `extract_factual_claims`",
+      "codeHash": "fba9363b7b1f0255896e0a39a572a1ace81cec1ddec0a15ad377237d61bff35d",
       "spec": {
-        "template": "states",
-        "title": "Faithfulness & Groundedness — Core Algorithm & State Representat",
-        "states": [
-          {
-            "id": "text",
-            "label": "text"
-          },
+        "template": "flow",
+        "title": "Sentence Claim Decomposition in `extract_factual_claims`",
+        "nodes": [
           {
             "id": "statement",
-            "label": "statement"
+            "label": "statement",
+            "tappable": true
           },
           {
             "id": "s",
-            "label": "s"
+            "label": "s",
+            "tappable": true
+          },
+          {
+            "id": "claims",
+            "label": "claims",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating the faithfulness of an entire multi-paragraph document at once.",
-            "currentState": "text",
-            "tone": "data"
+            "caption": "Inspect evaluating updates as statement tracks faithfulness state.",
+            "values": {
+              "statement": {
+                "var": "statement",
+                "line": 2,
+                "hit": 1
+              },
+              "s": {
+                "text": ""
+              },
+              "claims": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "statement": "data",
+              "s": "idle",
+              "claims": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A robust verification algorithm decomposes the generated response.",
-            "currentState": "statement",
-            "transition": {
-              "from": "text",
-              "to": "statement",
-              "label": {
+            "caption": "Verify the claims transition driving robust behavior.",
+            "values": {
+              "statement": {
                 "var": "statement",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 5
+              },
+              "s": {
+                "text": ""
+              },
+              "claims": {
+                "var": "claims",
+                "line": 4,
+                "hit": 5
               }
             },
-            "tone": "data"
+            "tones": {
+              "statement": "data",
+              "s": "idle",
+              "claims": "data"
+            },
+            "arrows": [
+              [
+                "statement",
+                "s"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "currentState": "s",
-            "transition": {
-              "from": "statement",
-              "to": "s",
-              "label": {
-                "var": "s",
-                "line": 3,
-                "hit": 3
+            "at": "say3",
+            "caption": "Examine the claim value produced for factual processing.",
+            "values": {
+              "statement": {
+                "var": "statement",
+                "line": 4,
+                "hit": 8
+              },
+              "s": {
+                "text": ""
+              },
+              "claims": {
+                "var": "claims",
+                "line": 4,
+                "hit": 8
               }
             },
-            "tone": "ok"
+            "tones": {
+              "statement": "ok",
+              "s": "idle",
+              "claims": "ok"
+            },
+            "arrows": [
+              [
+                "statement",
+                "s"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Faithfulness & Groundedness — Core Algorithm & State Representat",
-        "states": [
-          {
-            "id": "text",
-            "label": "text"
-          },
+        "template": "flow",
+        "title": "Sentence Claim Decomposition in `extract_factual_claims`",
+        "nodes": [
           {
             "id": "statement",
-            "label": "statement"
+            "label": "statement",
+            "tappable": true
           },
           {
             "id": "s",
-            "label": "s"
+            "label": "s",
+            "tappable": true
+          },
+          {
+            "id": "claims",
+            "label": "claims",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating the faithfulness of an entire multi-paragraph document at once.",
-            "currentState": "text",
-            "tone": "data"
+            "caption": "Inspect evaluating updates as statement tracks faithfulness state.",
+            "values": {
+              "statement": "'The server was deployed in Frankfurt. …",
+              "s": "",
+              "claims": ""
+            },
+            "tones": {
+              "statement": "data",
+              "s": "idle",
+              "claims": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A robust verification algorithm decomposes the generated response.",
-            "currentState": "statement",
-            "transition": {
-              "from": "text",
-              "to": "statement",
-              "label": "'The server was deployed in Frankfurt. …"
+            "caption": "Verify the claims transition driving robust behavior.",
+            "values": {
+              "statement": "'The server was deployed in Frankfurt. …",
+              "s": "",
+              "claims": "['The server was deployed in Frankfurt'…"
             },
-            "tone": "data"
+            "tones": {
+              "statement": "data",
+              "s": "idle",
+              "claims": "data"
+            },
+            "arrows": [
+              [
+                "statement",
+                "s"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "currentState": "s",
-            "transition": {
-              "from": "statement",
-              "to": "s",
-              "label": "' The CPU usage is 40%'"
+            "at": "say3",
+            "caption": "Examine the claim value produced for factual processing.",
+            "values": {
+              "statement": "'ok.'",
+              "s": "",
+              "claims": "[]"
             },
-            "tone": "ok"
+            "tones": {
+              "statement": "ok",
+              "s": "idle",
+              "claims": "ok"
+            },
+            "arrows": [
+              [
+                "statement",
+                "s"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Faithfulness & Groundedness — Production Implementation & Boundary Mechanics",
+      "partTitle": "Per-Claim Evidence Gate in `GroundednessVerifier`",
       "codeHash": "e0810f4fb6249fa9e9292a71c1cbe32c9856bbed9d3dbc6655abc135c34a2de9",
       "spec": {
         "template": "flow",
@@ -248,7 +328,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The GroundednessVerifier class evaluates extracted claims against.",
+            "caption": "Inspect groundednessverifier updates as self tracks class state.",
             "values": {
               "self": {
                 "var": "self",
@@ -266,16 +346,14 @@
                 "hit": 1
               },
               "ctx": {
-                "var": "ctx",
-                "line": 12,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "threshold": "data",
               "gv": "data",
-              "ctx": "data"
+              "ctx": "idle"
             },
             "arrows": [
               [
@@ -410,18 +488,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The GroundednessVerifier class evaluates extracted claims against.",
+            "caption": "Inspect groundednessverifier updates as self tracks class state.",
             "values": {
               "self": "<GroundednessVerifier>",
               "threshold": "0.6",
               "gv": "<GroundednessVerifier>",
-              "ctx": "'Enterprise security policy requires mu…"
+              "ctx": ""
             },
             "tones": {
               "self": "data",
               "threshold": "data",
               "gv": "data",
-              "ctx": "data"
+              "ctx": "idle"
             },
             "arrows": [
               [
@@ -502,18 +580,18 @@
       }
     },
     {
-      "partTitle": "Faithfulness & Groundedness — Failure Modes, Hardware Bottlenecks & Debugging",
-      "codeHash": "36a3e184c6c0e7a314327469f805c3ed0c1646d1355f2987e4963b354d72f54a",
+      "partTitle": "Three-Way Entailment Triage via `nli_verdict`",
+      "codeHash": "2a7fb2c29ff54ab4aef03f4496180b1f6df4e36b6ae48fb5a79a63f1fd637990",
       "spec": {
         "template": "bars",
-        "title": "Faithfulness & Groundedness — Failure Modes, Hardware Bottleneck",
+        "title": "Three-Way Entailment Triage via `nli_verdict`",
         "steps": [
           {
             "at": "say1",
-            "caption": "Natural Language Inference (NLI) provides the gold standard for semantic.",
+            "caption": "Observe how natural shapes language during this step.",
             "bars": [
               {
-                "label": "entailment_pro",
+                "label": "entailment_prob",
                 "value": {
                   "var": "entailment_prob",
                   "line": 2,
@@ -522,7 +600,7 @@
                 "tone": "data"
               },
               {
-                "label": "contradiction_",
+                "label": "contradiction_prob",
                 "value": {
                   "var": "contradiction_prob",
                   "line": 2,
@@ -534,47 +612,47 @@
           },
           {
             "at": "say2",
-            "caption": "NLI models take a premise (the retrieved context) and a hypothesis (the.",
+            "caption": "Verify the three transition driving models behavior.",
             "bars": [
               {
-                "label": "entailment_pro",
+                "label": "entailment_prob",
                 "value": {
                   "var": "entailment_prob",
-                  "line": 3,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 3
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "contradiction_",
+                "label": "contradiction_prob",
                 "value": {
                   "var": "contradiction_prob",
-                  "line": 3,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 3
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "at": "say3",
+            "caption": "Examine the three value produced for entailment processing.",
             "bars": [
               {
-                "label": "entailment_pro",
+                "label": "entailment_prob",
                 "value": {
                   "var": "entailment_prob",
                   "line": 2,
-                  "hit": 2
+                  "hit": 4
                 },
                 "tone": "ok"
               },
               {
-                "label": "contradiction_",
+                "label": "contradiction_prob",
                 "value": {
                   "var": "contradiction_prob",
                   "line": 2,
-                  "hit": 2
+                  "hit": 4
                 },
                 "tone": "ok"
               }
@@ -584,52 +662,52 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Faithfulness & Groundedness — Failure Modes, Hardware Bottleneck",
+        "title": "Three-Way Entailment Triage via `nli_verdict`",
         "steps": [
           {
             "at": "say1",
-            "caption": "Natural Language Inference (NLI) provides the gold standard for semantic.",
+            "caption": "Observe how natural shapes language during this step.",
             "bars": [
               {
-                "label": "entailment_pro",
-                "value": 0.92,
+                "label": "entailment_prob",
+                "value": 0.1,
                 "tone": "data"
               },
               {
-                "label": "contradiction_",
-                "value": 0.02,
+                "label": "contradiction_prob",
+                "value": 0.5,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "NLI models take a premise (the retrieved context) and a hypothesis (the.",
+            "caption": "Verify the three transition driving models behavior.",
             "bars": [
               {
-                "label": "entailment_pro",
-                "value": 0.92,
-                "tone": "ok"
+                "label": "entailment_prob",
+                "value": 0.05,
+                "tone": "data"
               },
               {
-                "label": "contradiction_",
-                "value": 0.02,
-                "tone": "ok"
+                "label": "contradiction_prob",
+                "value": 0.88,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "at": "say3",
+            "caption": "Examine the three value produced for entailment processing.",
             "bars": [
               {
-                "label": "entailment_pro",
-                "value": 0.05,
+                "label": "entailment_prob",
+                "value": 0.55,
                 "tone": "ok"
               },
               {
-                "label": "contradiction_",
-                "value": 0.88,
+                "label": "contradiction_prob",
+                "value": 0.15,
                 "tone": "ok"
               }
             ]
@@ -638,31 +716,43 @@
       }
     },
     {
-      "partTitle": "Faithfulness & Groundedness — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "8a3b4023bc11e8f137be032bea0f6a7a4578cdedea03eae62fb51745584e4d86",
+      "partTitle": "Corpus Faithfulness Ratio Auditing with `audit_rag_faithfulness`",
+      "codeHash": "3b4b1efab88309c5666d9881d5355d97486380ab3685e57beb9bd2b326f60eba",
       "spec": {
         "template": "bars",
-        "title": "Faithfulness & Groundedness — Production Capstone & Enterprise S",
+        "title": "Corpus Faithfulness Ratio Auditing with `audit_rag_faithfulness`",
         "steps": [
           {
             "at": "say1",
-            "caption": "The audit_rag_faithfulness function synthesizes atomic claim verification.",
+            "caption": "Observe how faithfulness shapes audit during this step.",
             "bars": [
               {
-                "label": "verified",
+                "label": "claims",
                 "value": {
-                  "var": "verified",
+                  "var": "claims",
                   "line": 2,
-                  "hit": 7
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "faithfulness",
+                "label": "verified",
                 "value": {
-                  "var": "faithfulness",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "word",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -670,47 +760,77 @@
           },
           {
             "at": "say2",
-            "caption": "It iterates across all extracted claims, calculating the percentage.",
+            "caption": "Verify the iterates transition driving across behavior.",
             "bars": [
+              {
+                "label": "claims",
+                "value": {
+                  "var": "claims",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "verified",
+                "value": {
+                  "var": "verified",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "word",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the faithfulness value produced for ratio processing.",
+            "bars": [
+              {
+                "label": "claims",
+                "value": {
+                  "var": "claims",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "label": "verified",
                 "value": {
                   "var": "verified",
                   "line": 3,
-                  "hit": 1
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "faithfulness",
+                "label": "c",
                 "value": {
-                  "var": "faithfulness",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "bars": [
-              {
-                "label": "verified",
-                "value": {
-                  "var": "verified",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "faithfulness",
+                "label": "word",
                 "value": {
-                  "var": "faithfulness",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               }
@@ -720,52 +840,82 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Faithfulness & Groundedness — Production Capstone & Enterprise S",
+        "title": "Corpus Faithfulness Ratio Auditing with `audit_rag_faithfulness`",
         "steps": [
           {
             "at": "say1",
-            "caption": "The audit_rag_faithfulness function synthesizes atomic claim verification.",
+            "caption": "Observe how faithfulness shapes audit during this step.",
             "bars": [
               {
-                "label": "verified",
-                "value": 2,
+                "label": "claims",
+                "value": "['Deployment in Frankfurt', 'Zero downt…",
                 "tone": "data"
               },
               {
-                "label": "faithfulness",
-                "value": 1,
+                "label": "verified",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "word",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "It iterates across all extracted claims, calculating the percentage.",
+            "caption": "Verify the iterates transition driving across behavior.",
             "bars": [
               {
-                "label": "verified",
-                "value": 2,
-                "tone": "ok"
+                "label": "claims",
+                "value": "['Deployment in Frankfurt', 'Zero downt…",
+                "tone": "data"
               },
               {
-                "label": "faithfulness",
+                "label": "verified",
                 "value": 1,
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": "'Zero downtime migration completed'",
+                "tone": "data"
+              },
+              {
+                "label": "word",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "at": "say3",
+            "caption": "Examine the faithfulness value produced for ratio processing.",
             "bars": [
               {
-                "label": "verified",
-                "value": 2,
+                "label": "claims",
+                "value": "[]",
                 "tone": "ok"
               },
               {
-                "label": "faithfulness",
-                "value": 1,
+                "label": "verified",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "word",
+                "value": 0,
                 "tone": "ok"
               }
             ]

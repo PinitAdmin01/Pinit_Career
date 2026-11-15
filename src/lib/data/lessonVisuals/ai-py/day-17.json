@@ -53,8 +53,8 @@
               },
               "s": {
                 "var": "s",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -73,8 +73,8 @@
               },
               "s": {
                 "var": "s",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -115,7 +115,7 @@
             "caption": "An agent is a model running in a loop.",
             "values": {
               "steps": "['Thought: I need the population of Mys…",
-              "s": "'Thought: I need the population of Mysu…"
+              "s": "'Observation: about 1.2 million'"
             },
             "tones": {
               "steps": "data",
@@ -127,7 +127,7 @@
             "caption": "Today you will build a small ReAct loop with a fake model, so every step.",
             "values": {
               "steps": "['Thought: I need the population of Mys…",
-              "s": "'Thought: I need the population of Mysu…"
+              "s": "'Thought: Now I can answer.\nFinal Answe…"
             },
             "tones": {
               "steps": "ok",
@@ -200,18 +200,18 @@
             "values": {
               "output": {
                 "var": "output",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "step": {
                 "var": "step",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               },
               "line": {
                 "var": "line",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -236,18 +236,18 @@
             "values": {
               "output": {
                 "var": "output",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "step": {
                 "var": "step",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "line": {
                 "var": "line",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -314,9 +314,9 @@
             "at": "say2",
             "caption": "Loop over output.",
             "values": {
-              "output": "'Thought: need weather\nAction: get_weat…",
-              "step": "{'type': 'ACTION_STEP', 'thought': '', …",
-              "line": "'Thought: need weather'"
+              "output": "'Thought: done\nFinal Answer: It is 31 C…",
+              "step": "{'type': 'ACTION_STEP', 'thought': 'nee…",
+              "line": "'Action: get_weather'"
             },
             "tones": {
               "output": "data",
@@ -338,9 +338,9 @@
             "at": "say6",
             "caption": "A clear parse result with a type field makes the main loop simple.",
             "values": {
-              "output": "'Thought: need weather\nAction: get_weat…",
+              "output": "'Thought: hmm'",
               "step": "{'type': 'ACTION_STEP', 'thought': '', …",
-              "line": "'Thought: need weather'"
+              "line": "'Action Input: Chennai'"
             },
             "tones": {
               "output": "ok",
@@ -365,162 +365,190 @@
       "partTitle": "The agent loop",
       "codeHash": "7eae3fbb7c381d21190d2755fff1fb471dd1ea2b1e18417e03e10f9bdd7c8582",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The agent loop",
-        "actors": [
-          "script",
-          "TOOLS",
-          "scratchpad"
+        "nodes": [
+          {
+            "id": "scratchpad",
+            "label": "scratchpad",
+            "tappable": true
+          },
+          {
+            "id": "output",
+            "label": "output",
+            "tappable": true
+          },
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Send the conversation to the model, parse its step, and if it is.",
-            "activeActor": "script",
-            "messages": [
-              {
-                "from": "script",
-                "to": "TOOLS",
-                "label": {
-                  "var": "script",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Repeat until a final answer.",
+            "values": {
+              "scratchpad": {
+                "var": "scratchpad",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "TOOLS",
-                "to": "scratchpad",
-                "label": {
-                  "var": "TOOLS",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "output": {
+                "text": ""
+              },
+              "step": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "scratchpad": "data",
+              "output": "idle",
+              "step": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Keep a scratchpad.",
-            "activeActor": "TOOLS",
-            "messages": [
-              {
-                "from": "script",
-                "to": "TOOLS",
-                "label": {
-                  "var": "script",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Keep a scratchpad: the list of previous steps and observations.",
+            "values": {
+              "scratchpad": {
+                "var": "scratchpad",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "from": "TOOLS",
-                "to": "scratchpad",
-                "label": {
-                  "var": "TOOLS",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "output": {
+                "var": "output",
+                "line": 10,
+                "hit": 2
+              },
+              "step": {
+                "var": "step",
+                "line": 10,
+                "hit": 2
               }
+            },
+            "tones": {
+              "scratchpad": "data",
+              "output": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "scratchpad",
+                "output"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Notice how little code the loop needs.",
-            "activeActor": "scratchpad",
-            "messages": [
-              {
-                "from": "script",
-                "to": "TOOLS",
-                "label": {
-                  "var": "script",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the tools value produced for through processing.",
+            "values": {
+              "scratchpad": {
+                "var": "scratchpad",
+                "line": 11,
+                "hit": 3
               },
-              {
-                "from": "TOOLS",
-                "to": "scratchpad",
-                "label": {
-                  "var": "TOOLS",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "output": {
+                "var": "output",
+                "line": 11,
+                "hit": 3
+              },
+              "step": {
+                "var": "step",
+                "line": 11,
+                "hit": 3
               }
+            },
+            "tones": {
+              "scratchpad": "ok",
+              "output": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "scratchpad",
+                "output"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The agent loop",
-        "actors": [
-          "script",
-          "TOOLS",
-          "scratchpad"
+        "nodes": [
+          {
+            "id": "scratchpad",
+            "label": "scratchpad",
+            "tappable": true
+          },
+          {
+            "id": "output",
+            "label": "output",
+            "tappable": true
+          },
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Send the conversation to the model, parse its step, and if it is.",
-            "messages": [
-              {
-                "from": "script",
-                "to": "TOOLS",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "TOOLS",
-                "to": "scratchpad",
-                "label": "{'lookup': {'__other__': 'function'}, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "script"
+            "caption": "Repeat until a final answer.",
+            "values": {
+              "scratchpad": "[]",
+              "output": "",
+              "step": ""
+            },
+            "tones": {
+              "scratchpad": "data",
+              "output": "idle",
+              "step": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Keep a scratchpad.",
-            "messages": [
-              {
-                "from": "script",
-                "to": "TOOLS",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "TOOLS",
-                "to": "scratchpad",
-                "label": "{'lookup': {'__other__': 'function'}, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "TOOLS"
+            "caption": "Keep a scratchpad: the list of previous steps and observations.",
+            "values": {
+              "scratchpad": "[['lookup', '120 rupees per adult']]",
+              "output": "'Thought: 4 people\nAction: calculator\nA…",
+              "step": "['Thought: find the ticket price\nAction…"
+            },
+            "tones": {
+              "scratchpad": "data",
+              "output": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "scratchpad",
+                "output"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Notice how little code the loop needs.",
-            "messages": [
-              {
-                "from": "script",
-                "to": "TOOLS",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "TOOLS",
-                "to": "scratchpad",
-                "label": "{'lookup': {'__other__': 'function'}, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "scratchpad"
+            "at": "say3",
+            "caption": "Examine the tools value produced for through processing.",
+            "values": {
+              "scratchpad": "[['lookup', '120 rupees per adult'], ['…",
+              "output": "'Thought: done\nFinal Answer: Tickets fo…",
+              "step": "['Thought: done\n', ' Tickets for 4 cost…"
+            },
+            "tones": {
+              "scratchpad": "ok",
+              "output": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "scratchpad",
+                "output"
+              ]
+            ]
           }
         ]
       }
@@ -717,8 +745,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The agent's system prompt describes the goal, the tools (with clear.",
+            "caption": "Observe how agent shapes prompt during this step.",
             "activeActor": "tools",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": {
+                  "var": "tools",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Include the format rules explicitly.",
+            "activeActor": "prompt",
             "messages": [
               {
                 "from": "tools",
@@ -743,10 +788,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Include the format rules explicitly.",
-            "activeActor": "prompt",
+            "at": "say6",
+            "caption": "Improve prompts and tools based on those logs, then rerun a fixed set.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": {
+                  "var": "tools",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": {
+                  "var": "prompt",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tools",
                 "to": "prompt",
@@ -766,14 +831,7 @@
                   "hit": 4
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Improve prompts and tools based on those logs, then rerun a fixed set.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "tools",
                 "to": "prompt",
@@ -809,19 +867,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The agent's system prompt describes the goal, the tools (with clear.",
+            "caption": "Observe how agent shapes prompt during this step.",
             "messages": [
               {
                 "from": "tools",
                 "to": "prompt",
                 "label": "{'search': 'Search the company help cen…",
                 "tone": "data"
-              },
-              {
-                "from": "prompt",
-                "to": "name",
-                "label": "\"You are a support agent. Solve the use…",
-                "tone": "ok"
               }
             ],
             "activeActor": "tools"
@@ -849,6 +901,30 @@
             "at": "say6",
             "caption": "Improve prompts and tools based on those logs, then rerun a fixed set.",
             "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": "{'search': 'Search the company help cen…",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": "\"You are a support agent. Solve the use…",
+                "tone": "ok"
+              },
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": "{'search': 'Search the company help cen…",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": "\"You are a support agent. Solve the use…",
+                "tone": "ok"
+              },
               {
                 "from": "tools",
                 "to": "prompt",

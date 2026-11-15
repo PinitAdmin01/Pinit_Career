@@ -391,7 +391,7 @@
     },
     {
       "partTitle": "Recall against exact search",
-      "codeHash": "7f90f2e1d7574640ac1dee3779c46d547ade04e32985679227f16b33aeff575f",
+      "codeHash": "861f6bd51f0e7943cae4ef1e5e22e490bc4ad89ac54521ef66fb554737a227f3",
       "spec": {
         "template": "flow",
         "title": "Recall against exact search",
@@ -462,7 +462,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how instead updates exact during execution.",
+            "caption": "Verify the recall transition driving exact behavior.",
             "values": {
               "exact": {
                 "var": "exact",
@@ -476,13 +476,13 @@
               },
               "q": {
                 "var": "q",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "overlap": {
                 "var": "overlap",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -522,12 +522,12 @@
               },
               "q": {
                 "var": "q",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "overlap": {
                 "var": "overlap",
-                "line": 3,
+                "line": 4,
                 "hit": 2
               }
             },
@@ -608,12 +608,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how instead updates exact during execution.",
+            "caption": "Verify the recall transition driving exact behavior.",
             "values": {
               "exact": "{'q1': ['d4', 'd9', 'd2', 'd7'], 'q2': …",
               "approx": "{'q1': ['d4', 'd2', 'd7', 'd6'], 'q2': …",
-              "q": "'q1'",
-              "overlap": "0.75"
+              "q": "'q2'",
+              "overlap": "1"
             },
             "tones": {
               "exact": "data",
@@ -642,8 +642,8 @@
             "values": {
               "exact": "{'q1': ['d4', 'd9', 'd2', 'd7'], 'q2': …",
               "approx": "{'q1': ['d4', 'd2', 'd7', 'd6'], 'q2': …",
-              "q": "'q1'",
-              "overlap": "0.75"
+              "q": "'q2'",
+              "overlap": "1"
             },
             "tones": {
               "exact": "ok",
@@ -865,13 +865,13 @@
               },
               "recalls": {
                 "var": "recalls",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "rrs": {
                 "var": "rrs",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -911,13 +911,13 @@
               },
               "recalls": {
                 "var": "recalls",
-                "line": 5,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "rrs": {
                 "var": "rrs",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 5
               }
             },
             "tones": {
@@ -1001,8 +1001,8 @@
             "values": {
               "golden": "{'q1': {'a'}, 'q2': {'b', 'c'}, 'q3': {…",
               "runs": "{'q1': ['a', 'x'], 'q2': ['x', 'c', 'b'…",
-              "recalls": "[]",
-              "rrs": "[]"
+              "recalls": "[1]",
+              "rrs": "[1]"
             },
             "tones": {
               "golden": "data",
@@ -1031,8 +1031,8 @@
             "values": {
               "golden": "{'q1': {'a'}, 'q2': {'b', 'c'}, 'q3': {…",
               "runs": "{'q1': ['a', 'x'], 'q2': ['x', 'c', 'b'…",
-              "recalls": "[]",
-              "rrs": "[]"
+              "recalls": "[1, 0.5]",
+              "rrs": "[1, 0.5]"
             },
             "tones": {
               "golden": "ok",

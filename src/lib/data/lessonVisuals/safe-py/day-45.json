@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Uncertainty-Gated Execution — Foundations & Mathematical Invariants",
+      "partTitle": "Drift-Aware Confidence Gating inside `CalibratedUncertaintyGate`",
       "codeHash": "31e7f787b77aa3a640d5f28d14bbabeee917dbae280c617cd32004d83d484abf",
       "spec": {
         "template": "flow",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Inspect milestone updates as self tracks establishes state.",
             "values": {
               "self": {
                 "var": "self",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "gate": {
-                "var": "gate",
-                "line": 12,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "ece_limit": "data",
               "min_confidence": "data",
-              "gate": "data"
+              "gate": "idle"
             },
             "arrows": [
               [
@@ -124,7 +122,7 @@
           },
           {
             "at": "say13",
-            "caption": "Architectural rigor in uncertainty gate & tool sandbox ensures that formal.",
+            "caption": "Crisp floating tolerances avoid spurious flip-flops near decision boundaries.",
             "values": {
               "self": {
                 "var": "self",
@@ -194,18 +192,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Inspect milestone updates as self tracks establishes state.",
             "values": {
               "self": "<CalibratedUncertaintyGate>",
               "ece_limit": "0.08",
               "min_confidence": "0.75",
-              "gate": "<CalibratedUncertaintyGate>"
+              "gate": ""
             },
             "tones": {
               "self": "data",
               "ece_limit": "data",
               "min_confidence": "data",
-              "gate": "data"
+              "gate": "idle"
             },
             "arrows": [
               [
@@ -254,7 +252,7 @@
           },
           {
             "at": "say13",
-            "caption": "Architectural rigor in uncertainty gate & tool sandbox ensures that formal.",
+            "caption": "Crisp floating tolerances avoid spurious flip-flops near decision boundaries.",
             "values": {
               "self": "<CalibratedUncertaintyGate>",
               "ece_limit": "0.08",
@@ -286,7 +284,7 @@
       }
     },
     {
-      "partTitle": "Uncertainty-Gated Execution — Core Algorithm & State Representation",
+      "partTitle": "Command Separator Stripping via `sanitize_tool_arguments`",
       "codeHash": "8828245864d5e7f814b4cdc88e6fa71d0be7a767b7caf04d1e1c1ac252a20aa1",
       "spec": {
         "template": "states",
@@ -394,7 +392,7 @@
       }
     },
     {
-      "partTitle": "Uncertainty-Gated Execution — Production Implementation & Boundary Mechanics",
+      "partTitle": "Certified Enclave Dispatch in `ZeroTrustExecutionEnclave`",
       "codeHash": "8022b5d2c96089b627927774e44ea06bca7662afd26827b7d7dd8f190ed9d902",
       "spec": {
         "template": "states",
@@ -437,7 +435,7 @@
           },
           {
             "at": "say13",
-            "caption": "Production load simulations prove that uncertainty gate & tool sandbox.",
+            "caption": "Examine the enclave value produced for dispatch processing.",
             "currentState": "tool",
             "transition": {
               "from": "enclave",
@@ -489,7 +487,7 @@
           },
           {
             "at": "say13",
-            "caption": "Production load simulations prove that uncertainty gate & tool sandbox.",
+            "caption": "Examine the enclave value produced for dispatch processing.",
             "currentState": "tool",
             "transition": {
               "from": "enclave",
@@ -502,217 +500,315 @@
       }
     },
     {
-      "partTitle": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottlenecks & Debugging",
-      "codeHash": "f6161d6f188baf05dd09363e20d8b2c06f8be004b216ab17be895f32b97befaf",
+      "partTitle": "Containment Compliance Verification via `verify_sandbox_containment`",
+      "codeHash": "135b6e043ef002554a42dc949e74d665061a4d2b309dc786ca003fe54f8ccbe2",
       "spec": {
-        "template": "states",
-        "title": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottleneck",
-        "states": [
-          {
-            "id": "hist",
-            "label": "hist"
-          },
+        "template": "flow",
+        "title": "Containment Compliance Verification via `verify_sandbox_containm",
+        "nodes": [
           {
             "id": "enclave_history",
-            "label": "enclave_history"
+            "label": "enclave_history",
+            "tappable": true
           },
           {
             "id": "total",
-            "label": "total"
+            "label": "total",
+            "tappable": true
+          },
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Continuous verification of sandbox containment is vital for detecting.",
-            "currentState": "hist",
-            "tone": "data"
+            "caption": "Inspect containment updates as enclave_history tracks verification state.",
+            "values": {
+              "enclave_history": {
+                "var": "enclave_history",
+                "line": 2,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 2,
+                "hit": 1
+              },
+              "t": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "enclave_history": "data",
+              "total": "data",
+              "t": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The verify_sandbox_containment function inspects historical enclave.",
-            "currentState": "enclave_history",
-            "transition": {
-              "from": "hist",
-              "to": "enclave_history",
-              "label": {
+            "caption": "Verify the containment transition driving verify behavior.",
+            "values": {
+              "enclave_history": {
                 "var": "enclave_history",
-                "line": 3,
-                "hit": 4
+                "line": 2,
+                "hit": 2
+              },
+              "total": {
+                "var": "total",
+                "line": 2,
+                "hit": 2
+              },
+              "t": {
+                "text": ""
               }
             },
-            "tone": "data"
+            "tones": {
+              "enclave_history": "data",
+              "total": "data",
+              "t": "idle"
+            },
+            "arrows": [
+              [
+                "enclave_history",
+                "total"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
-            "currentState": "total",
-            "transition": {
-              "from": "enclave_history",
-              "to": "total",
-              "label": {
+            "at": "say3",
+            "caption": "Examine the fully value produced for contained processing.",
+            "values": {
+              "enclave_history": {
+                "var": "enclave_history",
+                "line": 5,
+                "hit": 7
+              },
+              "total": {
                 "var": "total",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 7
+              },
+              "t": {
+                "text": ""
               }
             },
-            "tone": "ok"
+            "tones": {
+              "enclave_history": "ok",
+              "total": "ok",
+              "t": "idle"
+            },
+            "arrows": [
+              [
+                "enclave_history",
+                "total"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottleneck",
-        "states": [
-          {
-            "id": "hist",
-            "label": "hist"
-          },
+        "template": "flow",
+        "title": "Containment Compliance Verification via `verify_sandbox_containm",
+        "nodes": [
           {
             "id": "enclave_history",
-            "label": "enclave_history"
+            "label": "enclave_history",
+            "tappable": true
           },
           {
             "id": "total",
-            "label": "total"
+            "label": "total",
+            "tappable": true
+          },
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Continuous verification of sandbox containment is vital for detecting.",
-            "currentState": "hist",
-            "tone": "data"
+            "caption": "Inspect containment updates as enclave_history tracks verification state.",
+            "values": {
+              "enclave_history": "[['sys_exec', {}]]",
+              "total": "1",
+              "t": ""
+            },
+            "tones": {
+              "enclave_history": "data",
+              "total": "data",
+              "t": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The verify_sandbox_containment function inspects historical enclave.",
-            "currentState": "enclave_history",
-            "transition": {
-              "from": "hist",
-              "to": "enclave_history",
-              "label": "[['read_log', {'file': 'a.txt'}], ['que…"
+            "caption": "Verify the containment transition driving verify behavior.",
+            "values": {
+              "enclave_history": "[['read_log', {'file': 'a.txt'}], ['que…",
+              "total": "2",
+              "t": ""
             },
-            "tone": "data"
+            "tones": {
+              "enclave_history": "data",
+              "total": "data",
+              "t": "idle"
+            },
+            "arrows": [
+              [
+                "enclave_history",
+                "total"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
-            "currentState": "total",
-            "transition": {
-              "from": "enclave_history",
-              "to": "total",
-              "label": "2"
+            "at": "say3",
+            "caption": "Examine the fully value produced for contained processing.",
+            "values": {
+              "enclave_history": "[['read_log', {'file': 'a.txt'}], ['que…",
+              "total": "2",
+              "t": ""
             },
-            "tone": "ok"
+            "tones": {
+              "enclave_history": "ok",
+              "total": "ok",
+              "t": "idle"
+            },
+            "arrows": [
+              [
+                "enclave_history",
+                "total"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Uncertainty-Gated Execution — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "2dd481225df1949aeb6bc535afa615ce29595780ff5286e77dd5a3a411058962",
+      "partTitle": "SHA-256 Receipt Generation inside `generate_m9_safety_receipt`",
+      "codeHash": "5c98f18a2a4044533e21fcdf751dcb20ec91bff6e4b5c5fdf2886574f5f49685",
       "spec": {
-        "template": "states",
-        "title": "Uncertainty-Gated Execution — Production Capstone & Enterprise S",
-        "states": [
+        "template": "flow",
+        "title": "SHA-256 Receipt Generation inside `generate_m9_safety_receipt`",
+        "nodes": [
           {
             "id": "action_id",
-            "label": "action_id"
+            "label": "action_id",
+            "tappable": true
           },
           {
             "id": "tool",
-            "label": "tool"
+            "label": "tool",
+            "tappable": true
           },
           {
             "id": "ece",
-            "label": "ece"
+            "label": "ece",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise governance requires non-repudiable audit receipts for every.",
-            "currentState": "action_id",
-            "tone": "data"
+            "caption": "Inspect enterprise updates as action_id tracks governance state.",
+            "values": {
+              "action_id": {
+                "var": "action_id",
+                "line": 4,
+                "hit": 1
+              },
+              "tool": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "action_id": "data",
+              "tool": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The generate_m9_safety_receipt function generates a cryptographic.",
-            "currentState": "tool",
-            "transition": {
-              "from": "action_id",
-              "to": "tool",
-              "label": {
-                "var": "tool",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tone": "data"
-          },
-          {
-            "at": "say14",
-            "caption": "Automated compliance engines continuously validate uncertainty gate & tool.",
-            "currentState": "ece",
-            "transition": {
-              "from": "tool",
-              "to": "ece",
-              "label": {
-                "var": "ece",
+            "caption": "Verify the receipt transition driving generate behavior.",
+            "values": {
+              "action_id": {
+                "var": "action_id",
                 "line": 4,
                 "hit": 1
+              },
+              "tool": {
+                "out": 1
               }
             },
-            "tone": "ok"
+            "tones": {
+              "action_id": "idle",
+              "tool": "ok"
+            },
+            "arrows": [
+              [
+                "action_id",
+                "tool"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Uncertainty-Gated Execution — Production Capstone & Enterprise S",
-        "states": [
+        "template": "flow",
+        "title": "SHA-256 Receipt Generation inside `generate_m9_safety_receipt`",
+        "nodes": [
           {
             "id": "action_id",
-            "label": "action_id"
+            "label": "action_id",
+            "tappable": true
           },
           {
             "id": "tool",
-            "label": "tool"
+            "label": "tool",
+            "tappable": true
           },
           {
             "id": "ece",
-            "label": "ece"
+            "label": "ece",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise governance requires non-repudiable audit receipts for every.",
-            "currentState": "action_id",
-            "tone": "data"
+            "caption": "Inspect enterprise updates as action_id tracks governance state.",
+            "values": {
+              "action_id": "'ACT-1001'",
+              "tool": ""
+            },
+            "tones": {
+              "action_id": "data",
+              "tool": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The generate_m9_safety_receipt function generates a cryptographic.",
-            "currentState": "tool",
-            "transition": {
-              "from": "action_id",
-              "to": "tool",
-              "label": "'query_db'"
+            "caption": "Verify the receipt transition driving generate behavior.",
+            "values": {
+              "action_id": "'ACT-1001'",
+              "tool": "{'action_id': 'ACT-1001', 'tool': 'query_db', 'ece': 0.035, 'status': 'APPROVED', 'cryptographic_receipt': 'db588ee4137a'}"
             },
-            "tone": "data"
-          },
-          {
-            "at": "say14",
-            "caption": "Automated compliance engines continuously validate uncertainty gate & tool.",
-            "currentState": "ece",
-            "transition": {
-              "from": "tool",
-              "to": "ece",
-              "label": "0.035"
+            "tones": {
+              "action_id": "idle",
+              "tool": "ok"
             },
-            "tone": "ok"
+            "arrows": [
+              [
+                "action_id",
+                "tool"
+              ]
+            ]
           }
         ]
       }

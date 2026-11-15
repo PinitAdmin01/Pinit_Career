@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sequence updates sequence during execution.",
+            "caption": "Verify the sequence transition driving seq2seq behavior.",
             "items": {
               "var": "source",
               "line": 5,
@@ -84,7 +84,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sequence updates sequence during execution.",
+            "caption": "Verify the sequence transition driving seq2seq behavior.",
             "items": [
               "'thank'",
               "'you'"
@@ -311,7 +311,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how step updates receives during execution.",
+            "caption": "Verify the step transition driving receives behavior.",
             "values": {
               "next_word": {
                 "var": "next_word",
@@ -347,7 +347,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how style updates models during execution.",
+            "caption": "Examine the token value produced for time processing.",
             "values": {
               "next_word": {
                 "var": "next_word",
@@ -427,7 +427,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how step updates receives during execution.",
+            "caption": "Verify the step transition driving receives behavior.",
             "values": {
               "next_word": "{'<s>': {'je': 0.7, 'moi': 0.3}, 'je': …",
               "word": "'<s>'",
@@ -451,7 +451,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how style updates models during execution.",
+            "caption": "Examine the token value produced for time processing.",
             "values": {
               "next_word": "{'<s>': {'je': 0.7, 'moi': 0.3}, 'je': …",
               "word": "'je'",
@@ -721,7 +721,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Teacher_forcing_ratio(epoch, max_epochs, decay=1.",
+            "caption": "Observe how practice shapes teacher during this step.",
             "items": {
               "var": "targets",
               "line": 4,
@@ -737,7 +737,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates epoch during execution.",
+            "caption": "Verify the checks transition driving epoch behavior.",
             "items": {
               "var": "targets",
               "line": 10,
@@ -775,7 +775,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Teacher_forcing_ratio(epoch, max_epochs, decay=1.",
+            "caption": "Observe how practice shapes teacher during this step.",
             "items": [
               "'je'",
               "'suis'",
@@ -792,7 +792,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates epoch during execution.",
+            "caption": "Verify the checks transition driving epoch behavior.",
             "items": [
               "'je'",
               "'suis'",

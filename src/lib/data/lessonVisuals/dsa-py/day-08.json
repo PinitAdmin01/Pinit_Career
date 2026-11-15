@@ -234,7 +234,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A palindrome reads the same forwards and backwards, like \"madam\" or \"A.",
+            "caption": "Observe how palindrome shapes reads during this step.",
             "bars": [
               {
                 "label": "left",
@@ -312,7 +312,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A palindrome reads the same forwards and backwards, like \"madam\" or \"A.",
+            "caption": "Observe how palindrome shapes reads during this step.",
             "bars": [
               {
                 "label": "left",

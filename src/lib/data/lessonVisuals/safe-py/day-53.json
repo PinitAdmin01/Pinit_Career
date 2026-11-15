@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Regulatory Frameworks — Foundations & Mathematical Invariants",
+      "partTitle": "Statutory Use-Case Tiering in `classify_eu_ai_act_tier`",
       "codeHash": "b8edbb1a7c8e3787452f58b5308afbc0e3058524faf862a1287517db30ae26c6",
       "spec": {
         "template": "states",
@@ -80,7 +80,7 @@
       }
     },
     {
-      "partTitle": "Regulatory Frameworks — Core Algorithm & State Representation",
+      "partTitle": "NIST AI RMF Core Coverage via `evaluate_nist_rmf_readiness`",
       "codeHash": "9c13e2525a53f7d42e0d1e3e15620e6bf334c606008f5cbcea1cb5705aabda8b",
       "spec": {
         "template": "states",
@@ -123,7 +123,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the nist value produced for core processing.",
             "currentState": "completed_functions",
             "transition": {
               "from": "completed",
@@ -175,7 +175,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the nist value produced for core processing.",
             "currentState": "completed_functions",
             "transition": {
               "from": "completed",
@@ -188,7 +188,7 @@
       }
     },
     {
-      "partTitle": "Regulatory Frameworks — Production Implementation & Boundary Mechanics",
+      "partTitle": "Mandatory High-Risk Auditing inside `HighRiskConformityAuditor`",
       "codeHash": "f139810b33ee933d69ad6d02e368e7a1e19a3b32b8678970c28240804402454c",
       "spec": {
         "template": "flow",
@@ -232,16 +232,14 @@
                 "hit": 1
               },
               "auditor": {
-                "var": "auditor",
-                "line": 15,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "audit_checks": "data",
               "self": "data",
               "checks": "data",
-              "auditor": "data"
+              "auditor": "idle"
             },
             "arrows": [
               [
@@ -306,7 +304,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for regulatory ai.",
+            "caption": "Examine the risk value produced for inside processing.",
             "values": {
               "audit_checks": {
                 "var": "audit_checks",
@@ -381,13 +379,13 @@
               "audit_checks": "{'risk_management_system': True, 'high_…",
               "self": "<HighRiskConformityAuditor>",
               "checks": "{'risk_management_system': True, 'high_…",
-              "auditor": "<HighRiskConformityAuditor>"
+              "auditor": ""
             },
             "tones": {
               "audit_checks": "data",
               "self": "data",
               "checks": "data",
-              "auditor": "data"
+              "auditor": "idle"
             },
             "arrows": [
               [
@@ -436,7 +434,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for regulatory ai.",
+            "caption": "Examine the risk value produced for inside processing.",
             "values": {
               "audit_checks": "{'risk_management_system': True, 'high_…",
               "self": "<HighRiskConformityAuditor>",
@@ -468,8 +466,8 @@
       }
     },
     {
-      "partTitle": "Regulatory Frameworks — Failure Modes, Hardware Bottlenecks & Debugging",
-      "codeHash": "96a5b50a457a94794a64741c3127ab0273d5dd47ce59318e976cc6af7e64299e",
+      "partTitle": "Article 50 Synthetic Media Notices via `transparency_disclosure_generator`",
+      "codeHash": "bdb1e4df5f51501fab07e41e1d8e38c9530b039ae9bc3d5bd508932677aae4fe",
       "spec": {
         "template": "states",
         "title": "Regulatory Frameworks — Failure Modes, Hardware Bottlenecks & De",
@@ -511,7 +509,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the article value produced for synthetic processing.",
             "currentState": "disclosure",
             "transition": {
               "from": "has_synthetic_media",
@@ -557,13 +555,13 @@
             "transition": {
               "from": "model_name",
               "to": "has_synthetic_media",
-              "label": "True"
+              "label": "False"
             },
             "tone": "data"
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the article value produced for synthetic processing.",
             "currentState": "disclosure",
             "transition": {
               "from": "has_synthetic_media",
@@ -576,7 +574,7 @@
       }
     },
     {
-      "partTitle": "Regulatory Frameworks — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "CE Conformity Declaration Export in `export_eu_ai_act_compliance_declaration`",
       "codeHash": "43acf4b934bd96ec6e3930c86827bb0c7219331b3ce2a7fbe81d52790146d6fb",
       "spec": {
         "template": "states",
@@ -604,7 +602,7 @@
           },
           {
             "at": "say2",
-            "caption": "It specifies the system name, assigned risk tier, compliance status,.",
+            "caption": "Verify the compliance transition driving specifies behavior.",
             "currentState": "tier",
             "transition": {
               "from": "system_name",
@@ -619,7 +617,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the conformity value produced for declaration processing.",
             "currentState": "certified",
             "transition": {
               "from": "tier",
@@ -660,7 +658,7 @@
           },
           {
             "at": "say2",
-            "caption": "It specifies the system name, assigned risk tier, compliance status,.",
+            "caption": "Verify the compliance transition driving specifies behavior.",
             "currentState": "tier",
             "transition": {
               "from": "system_name",
@@ -671,7 +669,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the conformity value produced for declaration processing.",
             "currentState": "certified",
             "transition": {
               "from": "tier",

@@ -714,16 +714,14 @@
                 "hit": 1
               },
               "copy": {
-                "var": "copy",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "buf": "data",
               "view": "data",
               "window": "data",
-              "copy": "data"
+              "copy": "idle"
             },
             "arrows": [
               [
@@ -860,16 +858,16 @@
             "at": "say1",
             "caption": "Every copy of a packet costs time proportional to its size, and it.",
             "values": {
-              "buf": "{'__other__': 'bytearray'}",
-              "view": "{'__other__': 'memoryview'}",
-              "window": "{'__other__': 'memoryview'}",
-              "copy": "{'__other__': 'bytes'}"
+              "buf": "<bytearray>",
+              "view": "<memoryview>",
+              "window": "<memoryview>",
+              "copy": ""
             },
             "tones": {
               "buf": "data",
               "view": "data",
               "window": "data",
-              "copy": "data"
+              "copy": "idle"
             },
             "arrows": [
               [
@@ -890,10 +888,10 @@
             "at": "say2",
             "caption": "Zero-copy designs let the program read the packet where the NIC wrote it.",
             "values": {
-              "buf": "{'__other__': 'bytearray'}",
-              "view": "{'__other__': 'memoryview'}",
-              "window": "{'__other__': 'memoryview'}",
-              "copy": "{'__other__': 'bytes'}"
+              "buf": "<bytearray>",
+              "view": "<memoryview>",
+              "window": "<memoryview>",
+              "copy": "<bytes>"
             },
             "tones": {
               "buf": "data",
@@ -920,10 +918,10 @@
             "at": "say7",
             "caption": "Zero-copy thinking extends beyond networking.",
             "values": {
-              "buf": "{'__other__': 'bytearray'}",
-              "view": "{'__other__': 'memoryview'}",
-              "window": "{'__other__': 'memoryview'}",
-              "copy": "{'__other__': 'bytes'}"
+              "buf": "<bytearray>",
+              "view": "<memoryview>",
+              "window": "<memoryview>",
+              "copy": "<bytes>"
             },
             "tones": {
               "buf": "ok",
@@ -975,6 +973,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Operating systems move threads between cores, run background tasks.",
+            "activeActor": "jittery",
+            "messages": [
+              {
+                "from": "steady",
+                "to": "jittery",
+                "label": {
+                  "var": "steady",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "jittery",
@@ -989,10 +1004,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Operating systems move threads between cores, run background tasks.",
-            "activeActor": "jittery",
+            "at": "say7",
+            "caption": "Consistency is often more valuable than a slightly lower average.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "steady",
+                "to": "jittery",
+                "label": {
+                  "var": "steady",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "jittery",
+                "to": "name",
+                "label": {
+                  "var": "jittery",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "steady",
                 "to": "jittery",
@@ -1012,14 +1047,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Consistency is often more valuable than a slightly lower average.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "steady",
                 "to": "jittery",
@@ -1062,12 +1090,6 @@
                 "to": "jittery",
                 "label": "[1000, 1000, 1000, 1000, 1000, 1000, 10…",
                 "tone": "data"
-              },
-              {
-                "from": "jittery",
-                "to": "name",
-                "label": "[800, 800, 800, 800, 800, 800, 800, 800…",
-                "tone": "ok"
               }
             ],
             "activeActor": "steady"
@@ -1095,6 +1117,30 @@
             "at": "say7",
             "caption": "Consistency is often more valuable than a slightly lower average.",
             "messages": [
+              {
+                "from": "steady",
+                "to": "jittery",
+                "label": "[1000, 1000, 1000, 1000, 1000, 1000, 10…",
+                "tone": "data"
+              },
+              {
+                "from": "jittery",
+                "to": "name",
+                "label": "[800, 800, 800, 800, 800, 800, 800, 800…",
+                "tone": "ok"
+              },
+              {
+                "from": "steady",
+                "to": "jittery",
+                "label": "[1000, 1000, 1000, 1000, 1000, 1000, 10…",
+                "tone": "data"
+              },
+              {
+                "from": "jittery",
+                "to": "name",
+                "label": "[800, 800, 800, 800, 800, 800, 800, 800…",
+                "tone": "ok"
+              },
               {
                 "from": "steady",
                 "to": "jittery",

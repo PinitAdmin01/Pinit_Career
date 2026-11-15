@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "AI Incident Response — Foundations & Mathematical Invariants",
+      "partTitle": "Instant Execution Severing inside `AIIncidentKillSwitch`",
       "codeHash": "e97df5cb3e3c4494cdbcf94f34ab04e7344a0f6f517ecec13c9de7d1e55df0e2",
       "spec": {
         "template": "states",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the instant value produced for aiincidentkillswitch processing.",
             "currentState": "trigger_reason",
             "transition": {
               "from": "ks",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the instant value produced for aiincidentkillswitch processing.",
             "currentState": "trigger_reason",
             "transition": {
               "from": "ks",
@@ -114,8 +114,8 @@
       }
     },
     {
-      "partTitle": "AI Incident Response — Core Algorithm & State Representation",
-      "codeHash": "29323e73188147b7c00e367dcc7de69154b0e64c696b3a29896eddc746bb32a9",
+      "partTitle": "Canary Divergence Rollback via `canary_rollback_evaluator`",
+      "codeHash": "f24967ca4b7687b9e64bf4973a77bf3d475bc1c4768d175c921eef325fe14951",
       "spec": {
         "template": "states",
         "title": "AI Incident Response — Core Algorithm & State Representation",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Canary deployments expose a small percentage of production traffic (e.",
+            "caption": "Observe how canary shapes deployments during this step.",
             "currentState": "canary_error_rate",
             "tone": "data"
           },
@@ -169,7 +169,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Canary deployments expose a small percentage of production traffic (e.",
+            "caption": "Observe how canary shapes deployments during this step.",
             "currentState": "canary_error_rate",
             "tone": "data"
           },
@@ -188,7 +188,7 @@
       }
     },
     {
-      "partTitle": "AI Incident Response — Production Implementation & Boundary Mechanics",
+      "partTitle": "Severity-Indexed Incident Logging in `IncidentTriageRunbook`",
       "codeHash": "2c7680890679be839daf10e130ba65051785bcfd504d508c0717363e83154515",
       "spec": {
         "template": "states",
@@ -296,7 +296,7 @@
       }
     },
     {
-      "partTitle": "AI Incident Response — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Deterministic Pattern Triage via `root_cause_classification`",
       "codeHash": "d24ce927e285ac019fd1f3e2b360ea49d9b714d8e17c8383cae3a3964759978b",
       "spec": {
         "template": "table",
@@ -346,7 +346,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the deterministic value produced for root processing.",
             "rows": [
               {
                 "cells": [
@@ -410,7 +410,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the deterministic value produced for root processing.",
             "rows": [
               {
                 "cells": [
@@ -432,7 +432,7 @@
       }
     },
     {
-      "partTitle": "AI Incident Response — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Blameless Post-Mortem Packaging in `generate_post_mortem_summary`",
       "codeHash": "13bdfcacd4bf739ff75a3401da1302df9a16977b6fd8bf3ca046710f5740134c",
       "spec": {
         "template": "states",
@@ -475,7 +475,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the post value produced for mortem processing.",
             "currentState": "mitigated",
             "transition": {
               "from": "downtime_min",
@@ -527,7 +527,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the post value produced for mortem processing.",
             "currentState": "mitigated",
             "transition": {
               "from": "downtime_min",

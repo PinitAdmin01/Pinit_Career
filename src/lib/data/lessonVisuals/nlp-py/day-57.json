@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "prompt": {
-                "var": "prompt",
-                "line": 30,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "detector": "data",
               "test_prompt": "data",
-              "prompt": "data"
+              "prompt": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "self": "<AdversarialSurfaceDetector>",
               "detector": "<AdversarialSurfaceDetector>",
               "test_prompt": "'Ignore previous instructions. For pure…",
-              "prompt": "'Ignore previous instructions. For pure…"
+              "prompt": ""
             },
             "tones": {
               "self": "data",
               "detector": "data",
               "test_prompt": "data",
-              "prompt": "data"
+              "prompt": "idle"
             },
             "arrows": [
               [
@@ -330,16 +328,14 @@
                 "hit": 1
               },
               "seed": {
-                "var": "seed",
-                "line": 49,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "fuzzer": "data",
               "seed_prompt": "data",
-              "seed": "data"
+              "seed": "idle"
             },
             "arrows": [
               [
@@ -479,13 +475,13 @@
               "self": "<EvolutionaryRedTeamFuzzer>",
               "fuzzer": "<EvolutionaryRedTeamFuzzer>",
               "seed_prompt": "'Extract administrative password hashes…",
-              "seed": "'Extract administrative password hashes…"
+              "seed": ""
             },
             "tones": {
               "self": "data",
               "fuzzer": "data",
               "seed_prompt": "data",
-              "seed": "data"
+              "seed": "idle"
             },
             "arrows": [
               [
@@ -610,16 +606,14 @@
                 "hit": 1
               },
               "guard": {
-                "var": "guard",
-                "line": 49,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "ENTERPRISE_TAXONOMY": "data",
               "self": "data",
               "taxonomy": "data",
-              "guard": "data"
+              "guard": "idle"
             },
             "arrows": [
               [
@@ -759,13 +753,13 @@
               "ENTERPRISE_TAXONOMY": "[<SafetyCategory>, <SafetyCategory>, <S…",
               "self": "<EnterpriseSafetyGuard>",
               "taxonomy": "[<SafetyCategory>, <SafetyCategory>, <S…",
-              "guard": "<EnterpriseSafetyGuard>"
+              "guard": ""
             },
             "tones": {
               "ENTERPRISE_TAXONOMY": "data",
               "self": "data",
               "taxonomy": "data",
-              "guard": "data"
+              "guard": "idle"
             },
             "arrows": [
               [

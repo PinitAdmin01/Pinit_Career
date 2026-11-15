@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how typical updates corpora during execution.",
+            "caption": "Verify the typical transition driving corpora behavior.",
             "rows": [
               {
                 "cells": [
@@ -96,7 +96,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how typical updates corpora during execution.",
+            "caption": "Verify the typical transition driving corpora behavior.",
             "rows": [
               {
                 "cells": [
@@ -198,7 +198,7 @@
           },
           {
             "at": "say11",
-            "caption": "Rigorous deduplication guarantees that models learn robust linguistic.",
+            "caption": "wait let us check exact Code Map input vs output.",
             "bars": [
               {
                 "label": "intersection",
@@ -279,7 +279,7 @@
           },
           {
             "at": "say11",
-            "caption": "Rigorous deduplication guarantees that models learn robust linguistic.",
+            "caption": "wait let us check exact Code Map input vs output.",
             "bars": [
               {
                 "label": "intersection",
@@ -358,7 +358,7 @@
           },
           {
             "at": "say11",
-            "caption": "Data mixing curricula represent the secret sauce behind the superior.",
+            "caption": "Examine the allocating value produced for exact processing.",
             "bars": [
               {
                 "label": "total_tokens_b",
@@ -420,7 +420,7 @@
           },
           {
             "at": "say11",
-            "caption": "Data mixing curricula represent the secret sauce behind the superior.",
+            "caption": "Examine the allocating value produced for exact processing.",
             "bars": [
               {
                 "label": "total_tokens_b",
@@ -439,164 +439,91 @@
     },
     {
       "partTitle": "Data Pipelines — Resilience Guardrails & Failure Recovery",
-      "codeHash": "21474eac75b2d0c273a1f32e8e8bd4e6c6548820a12d8f2172bf2b6cbda86d13",
+      "codeHash": "9a432800eea40930aaf184faa78a4458ef70dfd23ec5473e1303abc442e2cb71",
       "spec": {
         "template": "flow",
         "title": "Data Pipelines — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
             "id": "token_ids",
-            "label": "token_ids"
-          },
-          {
-            "id": "vocab_size",
-            "label": "vocab_size"
+            "label": "token_ids",
+            "tappable": true
           },
           {
             "id": "tid",
-            "label": "tid"
-          },
-          {
-            "id": "status",
-            "label": "status"
+            "label": "tid",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Data corruption in streaming training batches can cause catastrophic.",
+            "caption": "Inspect data updates as token_ids tracks corruption state.",
             "values": {
               "token_ids": {
                 "var": "token_ids",
                 "line": 2,
                 "hit": 1
               },
-              "vocab_size": {
-                "var": "vocab_size",
-                "line": 2,
-                "hit": 1
-              },
               "tid": {
-                "var": "tid",
-                "line": 2,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "token_ids": "data",
-              "vocab_size": "data",
-              "tid": "data",
-              "status": "data"
+              "tid": "idle"
             },
-            "arrows": [
-              [
-                "token_ids",
-                "vocab_size"
-              ],
-              [
-                "vocab_size",
-                "tid"
-              ],
-              [
-                "tid",
-                "status"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A corrupted token ID exceeding the vocabulary size (token_id >=.",
+            "caption": "Verify the corrupted transition driving token behavior.",
             "values": {
               "token_ids": {
                 "var": "token_ids",
-                "line": 3,
-                "hit": 1
-              },
-              "vocab_size": {
-                "var": "vocab_size",
-                "line": 3,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "tid": {
                 "var": "tid",
-                "line": 3,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 8,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
               "token_ids": "data",
-              "vocab_size": "data",
-              "tid": "data",
-              "status": "data"
+              "tid": "data"
             },
             "arrows": [
               [
                 "token_ids",
-                "vocab_size"
-              ],
-              [
-                "vocab_size",
                 "tid"
-              ],
-              [
-                "tid",
-                "status"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Rigorous data pipeline validation guarantees that scarce accelerator.",
+            "at": "say3",
+            "caption": "Examine the furthermore value produced for negative processing.",
             "values": {
               "token_ids": {
                 "var": "token_ids",
-                "line": 2,
-                "hit": 2
-              },
-              "vocab_size": {
-                "var": "vocab_size",
-                "line": 2,
-                "hit": 2
+                "line": 4,
+                "hit": 6
               },
               "tid": {
                 "var": "tid",
-                "line": 2,
-                "hit": 2
-              },
-              "status": {
-                "var": "status",
-                "line": 8,
-                "hit": 1
+                "line": 4,
+                "hit": 6
               }
             },
             "tones": {
               "token_ids": "ok",
-              "vocab_size": "ok",
-              "tid": "ok",
-              "status": "ok"
+              "tid": "ok"
             },
             "arrows": [
               [
                 "token_ids",
-                "vocab_size"
-              ],
-              [
-                "vocab_size",
                 "tid"
-              ],
-              [
-                "tid",
-                "status"
               ]
             ]
           }
@@ -608,109 +535,62 @@
         "nodes": [
           {
             "id": "token_ids",
-            "label": "token_ids"
-          },
-          {
-            "id": "vocab_size",
-            "label": "vocab_size"
+            "label": "token_ids",
+            "tappable": true
           },
           {
             "id": "tid",
-            "label": "tid"
-          },
-          {
-            "id": "status",
-            "label": "status"
+            "label": "tid",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Data corruption in streaming training batches can cause catastrophic.",
+            "caption": "Inspect data updates as token_ids tracks corruption state.",
             "values": {
-              "token_ids": "[101, 2045, 9821, 32000]",
-              "vocab_size": "32001",
-              "tid": "101",
-              "status": "'TOKEN_IDS_VALID'"
+              "token_ids": "[101, 40000]",
+              "tid": ""
             },
             "tones": {
               "token_ids": "data",
-              "vocab_size": "data",
-              "tid": "data",
-              "status": "data"
+              "tid": "idle"
             },
-            "arrows": [
-              [
-                "token_ids",
-                "vocab_size"
-              ],
-              [
-                "vocab_size",
-                "tid"
-              ],
-              [
-                "tid",
-                "status"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A corrupted token ID exceeding the vocabulary size (token_id >=.",
+            "caption": "Verify the corrupted transition driving token behavior.",
             "values": {
               "token_ids": "[101, 2045, 9821, 32000]",
-              "vocab_size": "32001",
-              "tid": "101",
-              "status": "'TOKEN_IDS_VALID'"
+              "tid": "101"
             },
             "tones": {
               "token_ids": "data",
-              "vocab_size": "data",
-              "tid": "data",
-              "status": "data"
+              "tid": "data"
             },
             "arrows": [
               [
                 "token_ids",
-                "vocab_size"
-              ],
-              [
-                "vocab_size",
                 "tid"
-              ],
-              [
-                "tid",
-                "status"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Rigorous data pipeline validation guarantees that scarce accelerator.",
+            "at": "say3",
+            "caption": "Examine the furthermore value produced for negative processing.",
             "values": {
               "token_ids": "[101, 2045, 9821, 32000]",
-              "vocab_size": "32001",
-              "tid": "2045",
-              "status": "'TOKEN_IDS_VALID'"
+              "tid": "32000"
             },
             "tones": {
               "token_ids": "ok",
-              "vocab_size": "ok",
-              "tid": "ok",
-              "status": "ok"
+              "tid": "ok"
             },
             "arrows": [
               [
                 "token_ids",
-                "vocab_size"
-              ],
-              [
-                "vocab_size",
                 "tid"
-              ],
-              [
-                "tid",
-                "status"
               ]
             ]
           }

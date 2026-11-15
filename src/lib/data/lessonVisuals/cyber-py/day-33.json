@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how legacy updates hashing during execution.",
+            "caption": "Verify the functions transition driving legacy behavior.",
             "currentState": "password",
             "transition": {
               "from": "salt",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say9",
-            "caption": "In high-security financial environments, salt generation must strictly.",
+            "caption": "Examine the argon2id value produced for balances processing.",
             "currentState": "memory_cost_kb",
             "transition": {
               "from": "password",
@@ -90,18 +90,18 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how legacy updates hashing during execution.",
+            "caption": "Verify the functions transition driving legacy behavior.",
             "currentState": "password",
             "transition": {
               "from": "salt",
               "to": "password",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
           {
             "at": "say9",
-            "caption": "In high-security financial environments, salt generation must strictly.",
+            "caption": "Examine the argon2id value produced for balances processing.",
             "currentState": "memory_cost_kb",
             "transition": {
               "from": "password",
@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how during updates initialization during execution.",
+            "caption": "Verify the during transition driving initialization behavior.",
             "currentState": "h2",
             "transition": {
               "from": "h1",
@@ -157,7 +157,7 @@
           },
           {
             "at": "say9",
-            "caption": "Cryptographic side-channel analysts frequently use high-precision software.",
+            "caption": "Examine the derivation value produced for constant processing.",
             "currentState": "h3",
             "transition": {
               "from": "h2",
@@ -198,23 +198,23 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how during updates initialization during execution.",
+            "caption": "Verify the during transition driving initialization behavior.",
             "currentState": "h2",
             "transition": {
               "from": "h1",
               "to": "h2",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
           {
             "at": "say9",
-            "caption": "Cryptographic side-channel analysts frequently use high-precision software.",
+            "caption": "Examine the derivation value produced for constant processing.",
             "currentState": "h3",
             "transition": {
               "from": "h2",
               "to": "h3",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "ok"
           }
@@ -280,7 +280,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how hash updates derivation during execution.",
+            "caption": "Verify the derivation transition driving hash behavior.",
             "values": {
               "password": {
                 "var": "password",
@@ -294,13 +294,13 @@
               },
               "results": {
                 "var": "results",
-                "line": 7,
+                "line": 9,
                 "hit": 1
               },
               "mem": {
                 "var": "mem",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -326,13 +326,13 @@
               },
               "results": {
                 "var": "results",
-                "line": 8,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "mem": {
                 "var": "mem",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -370,8 +370,8 @@
             "at": "say1",
             "caption": "Deploying memory-hard KDFs requires balancing defensive crack resistance.",
             "values": {
-              "password": "{'__other__': 'bytes'}",
-              "salt": "{'__other__': 'bytes'}",
+              "password": "<bytes>",
+              "salt": "<bytes>",
               "results": "{}",
               "mem": "16"
             },
@@ -384,12 +384,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how hash updates derivation during execution.",
+            "caption": "Verify the derivation transition driving hash behavior.",
             "values": {
-              "password": "{'__other__': 'bytes'}",
-              "salt": "{'__other__': 'bytes'}",
-              "results": "{}",
-              "mem": "16"
+              "password": "<bytes>",
+              "salt": "<bytes>",
+              "results": "{'16KB': 'OK_e6af9e27'}",
+              "mem": "32"
             },
             "tones": {
               "password": "data",
@@ -402,10 +402,10 @@
             "at": "say9",
             "caption": "Parallel lane configuration in Argon2id allows multi-threaded server.",
             "values": {
-              "password": "{'__other__': 'bytes'}",
-              "salt": "{'__other__': 'bytes'}",
-              "results": "{}",
-              "mem": "16"
+              "password": "<bytes>",
+              "salt": "<bytes>",
+              "results": "{'16KB': 'OK_e6af9e27', '32KB': 'OK_e30…",
+              "mem": "64"
             },
             "tones": {
               "password": "ok",
@@ -504,13 +504,13 @@
               },
               "stored_params": {
                 "var": "stored_params",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "mem": {
                 "var": "mem",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -536,7 +536,7 @@
           },
           {
             "at": "say9",
-            "caption": "Automated password rotation policies work in synergy with memory-hard key.",
+            "caption": "Examine the derivation value produced for checking processing.",
             "values": {
               "user_old_hash": {
                 "var": "user_old_hash",
@@ -550,13 +550,13 @@
               },
               "stored_params": {
                 "var": "stored_params",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "mem": {
                 "var": "mem",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -640,8 +640,8 @@
             "values": {
               "user_old_hash": "{'memory_kb': 32, 'iterations': 2}",
               "user_current_hash": "{'memory_kb': 64, 'iterations': 3}",
-              "stored_params": "{'memory_kb': 32, 'iterations': 2}",
-              "mem": "32"
+              "stored_params": "{'memory_kb': 64, 'iterations': 3}",
+              "mem": "64"
             },
             "tones": {
               "user_old_hash": "data",
@@ -666,12 +666,12 @@
           },
           {
             "at": "say9",
-            "caption": "Automated password rotation policies work in synergy with memory-hard key.",
+            "caption": "Examine the derivation value produced for checking processing.",
             "values": {
               "user_old_hash": "{'memory_kb': 32, 'iterations': 2}",
               "user_current_hash": "{'memory_kb': 64, 'iterations': 3}",
-              "stored_params": "{'memory_kb': 32, 'iterations': 2}",
-              "mem": "32"
+              "stored_params": "{'memory_kb': 64, 'iterations': 3}",
+              "mem": "64"
             },
             "tones": {
               "user_old_hash": "ok",
@@ -723,6 +723,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Monitoring metrics track average derivation latency, CPU utilization per.",
+            "activeActor": "timing_safe",
+            "messages": [
+              {
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": {
+                  "var": "memory_hard",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "timing_safe",
@@ -737,10 +754,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Monitoring metrics track average derivation latency, CPU utilization per.",
-            "activeActor": "timing_safe",
+            "at": "say9",
+            "caption": "Examine the production value produced for verification processing.",
+            "activeActor": "salt_entropy_valid",
             "messages": [
+              {
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": {
+                  "var": "memory_hard",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": {
+                  "var": "timing_safe",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "memory_hard",
                 "to": "timing_safe",
@@ -760,14 +797,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Benchmarking KDF execution under concurrent thread load ensures.",
-            "activeActor": "salt_entropy_valid",
-            "messages": [
+              },
               {
                 "from": "memory_hard",
                 "to": "timing_safe",
@@ -810,12 +840,6 @@
                 "to": "timing_safe",
                 "label": "True",
                 "tone": "data"
-              },
-              {
-                "from": "timing_safe",
-                "to": "salt_entropy_valid",
-                "label": "True",
-                "tone": "ok"
               }
             ],
             "activeActor": "memory_hard"
@@ -841,8 +865,32 @@
           },
           {
             "at": "say9",
-            "caption": "Benchmarking KDF execution under concurrent thread load ensures.",
+            "caption": "Examine the production value produced for verification processing.",
             "messages": [
+              {
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": "True",
+                "tone": "ok"
+              },
+              {
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": "True",
+                "tone": "ok"
+              },
               {
                 "from": "memory_hard",
                 "to": "timing_safe",

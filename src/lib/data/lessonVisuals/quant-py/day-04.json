@@ -776,7 +776,7 @@
           },
           {
             "at": "say2",
-            "caption": "It is useful when no good volume profile exists (new or thinly traded.",
+            "caption": "Verify the useful transition driving good behavior.",
             "bars": [
               {
                 "label": "qty",
@@ -892,7 +892,7 @@
           },
           {
             "at": "say2",
-            "caption": "It is useful when no good volume profile exists (new or thinly traded.",
+            "caption": "Verify the useful transition driving good behavior.",
             "bars": [
               {
                 "label": "qty",
@@ -972,7 +972,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "VWAP suits clients benchmarked to the day's VWAP and orders that are.",
+            "caption": "Inspect vwap updates as schedule tracks suits state.",
             "values": {
               "schedule": {
                 "var": "schedule",
@@ -1037,8 +1037,8 @@
               },
               "i": {
                 "var": "i",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -1083,8 +1083,8 @@
               },
               "i": {
                 "var": "i",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -1134,7 +1134,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "VWAP suits clients benchmarked to the day's VWAP and orders that are.",
+            "caption": "Inspect vwap updates as schedule tracks suits state.",
             "values": {
               "schedule": "[2000, 1000, 1000, 1500, 4500]",
               "expected_market": "[15000, 12000, 9000, 11000, 20000]",
@@ -1169,7 +1169,7 @@
               "schedule": "[2000, 1000, 1000, 1500, 4500]",
               "expected_market": "[15000, 12000, 9000, 11000, 20000]",
               "limit": "0.15",
-              "i": "0"
+              "i": "1"
             },
             "tones": {
               "schedule": "data",
@@ -1199,7 +1199,7 @@
               "schedule": "[2000, 1000, 1000, 1500, 4500]",
               "expected_market": "[15000, 12000, 9000, 11000, 20000]",
               "limit": "0.15",
-              "i": "0"
+              "i": "2"
             },
             "tones": {
               "schedule": "ok",
@@ -1251,6 +1251,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks include a clean profile, a profile where naive rounding would.",
+            "activeActor": "carry",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": {
+                  "var": "plan",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "carry",
@@ -1265,10 +1282,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include a clean profile, a profile where naive rounding would.",
-            "activeActor": "carry",
+            "at": "say7",
+            "caption": "The example shows that carry-forward loop.",
+            "activeActor": "filled_total",
             "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": {
+                  "var": "plan",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": {
+                  "var": "carry",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "plan",
                 "to": "carry",
@@ -1288,14 +1325,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows that carry-forward loop.",
-            "activeActor": "filled_total",
-            "messages": [
+              },
               {
                 "from": "plan",
                 "to": "carry",
@@ -1338,12 +1368,6 @@
                 "to": "carry",
                 "label": "[200, 200, 200, 200, 200]",
                 "tone": "data"
-              },
-              {
-                "from": "carry",
-                "to": "filled_total",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "plan"
@@ -1371,6 +1395,30 @@
             "at": "say7",
             "caption": "The example shows that carry-forward loop.",
             "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": "[200, 200, 200, 200, 200]",
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": "[200, 200, 200, 200, 200]",
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "plan",
                 "to": "carry",

@@ -74,6 +74,11 @@ function formatRaw(val: unknown): string {
       return `<${String(obj.__obj__)}>`;
     }
 
+    // Other non-primitive object serialization: {"__other__": "slice"}
+    if ('__other__' in obj) {
+      return `<${String(obj.__other__)}>`;
+    }
+
     // Standard JavaScript object treated as dict: {'a': 1}
     const entries = Object.entries(obj);
     return (

@@ -495,19 +495,273 @@
       "partTitle": "Columns or JSON: choosing well",
       "codeHash": "b7ea8da652e18db913c8bc703ce0eb6545c7ed269262852c7feac7957c08dc83",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Columns or JSON: choosing well",
+        "columns": [
+          "id",
+          "stored_as"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "JSON columns are tempting, because they never need an ALTER TABLE.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "stored_as"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "stored_as"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Inside JSON, there are no types.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "stored_as"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "stored_as"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "stored_as"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Columns or JSON: choosing well",
+        "columns": [
+          "id",
+          "stored_as"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "JSON columns are tempting, because they never need an ALTER TABLE.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "number"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2",
+                  "string"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Inside JSON, there are no types.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "number"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "string"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "3",
+                  "number"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: analysing app events",
       "codeHash": "6a6ed27882b9341a018f89d04fb540c0ea38f139f29141399230b7ddb28ec6cb",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Putting it together: analysing app events",
+        "columns": [
+          "day",
+          "revenue"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us analyse a small app's event log the way a product team would.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "revenue"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The report answers three questions.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 3,
+                    "row": 1,
+                    "col": "revenue"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 3,
+                    "row": 2,
+                    "col": "day"
+                  },
+                  {
+                    "table": 3,
+                    "row": 2,
+                    "col": "revenue"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Putting it together: analysing app events",
+        "columns": [
+          "day",
+          "revenue"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us analyse a small app's event log the way a product team would.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-01",
+                  "499"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The report answers three questions.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-01",
+                  "499"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-02",
+                  "1200"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

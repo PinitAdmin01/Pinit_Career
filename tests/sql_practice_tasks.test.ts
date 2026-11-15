@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { PGlite } from '@electric-sql/pglite';
 
 import { DATABASE_30_DAYS_CONFIGS } from '../src/lib/data/database30DayData';
+import { DATABASE_MONTH2_CONFIGS } from '../src/lib/data/databaseMonth2Tasks';
 import { runSqlPractice, splitSqlTask, SQL_TEXT_PARSERS, type SqlDatabase } from '../src/lib/code/sql/sqlCore';
 
 /** A correct answer for every practice task: [Practice 1, Practice 2] per day. */
@@ -136,6 +137,34 @@ test('every SQL practice task: the right answer passes and the starter code fail
       assert.ok(parts && t.starter, `${label}: missing starter, setup or checks`);
       const good = await runSqlPractice(db, parts.setup, t.solution, parts.checks);
       assert.ok(good.passed, `${label}: the right answer fails:\n${good.messages.join('\n')}\n${good.output}`);
+      const bad = await runSqlPractice(db, parts.setup, t.starter!, parts.checks);
+      assert.ok(!bad.passed, `${label}: the unfinished starter already passes`);
+    }
+  }
+});
+
+test('the SQL Month 2 curriculum has 30 days (Days 31-60) and 60 tasks', () => {
+  assert.equal(DATABASE_MONTH2_CONFIGS.length, 30);
+  assert.deepEqual(
+    DATABASE_MONTH2_CONFIGS.map((c) => c.day),
+    Array.from({ length: 30 }, (_, idx) => 31 + idx)
+  );
+});
+
+test('every SQL Month 2 practice task: the reference SQL passes and the starter code fails', async () => {
+  for (const cfg of DATABASE_MONTH2_CONFIGS) {
+    assert.equal(cfg.eLanguage, 'sql', `Day ${cfg.day} eLanguage must be sql`);
+    assert.equal(cfg.aLanguage, 'sql', `Day ${cfg.day} aLanguage must be sql`);
+    const tasks = [
+      { name: 'Practice 1', starter: cfg.eStarter, suite: cfg.eTest, solution: cfg.eHint },
+      { name: 'Practice 2', starter: cfg.aStarter, suite: cfg.aTest, solution: cfg.aHint },
+    ];
+    for (const t of tasks) {
+      const label = `Day ${cfg.day} ${t.name} (${cfg.title})`;
+      const parts = splitSqlTask(t.suite);
+      assert.ok(parts && t.starter && t.solution, `${label}: missing starter, hint solution, setup or checks`);
+      const good = await runSqlPractice(db, parts.setup, t.solution!, parts.checks);
+      assert.ok(good.passed, `${label}: reference SQL fails:\n${good.messages.join('\n')}\n${good.output}`);
       const bad = await runSqlPractice(db, parts.setup, t.starter!, parts.checks);
       assert.ok(!bad.passed, `${label}: the unfinished starter already passes`);
     }

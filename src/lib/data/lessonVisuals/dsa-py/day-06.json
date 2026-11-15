@@ -121,7 +121,7 @@
               {
                 "cells": [
                   "tickets",
-                  "{'__other__': 'deque'}"
+                  "<deque>"
                 ],
                 "tone": "data"
               }
@@ -134,7 +134,7 @@
               {
                 "cells": [
                   "tickets",
-                  "{'__other__': 'deque'}"
+                  "<deque>"
                 ],
                 "tone": "ok"
               }
@@ -403,8 +403,8 @@
               },
               "value": {
                 "var": "value",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -423,8 +423,8 @@
               },
               "value": {
                 "var": "value",
-                "line": 12,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               }
             },
             "tones": {
@@ -465,7 +465,7 @@
             "caption": "Keep a head index (the front) and a count.",
             "values": {
               "capacity": "3",
-              "value": "'a'"
+              "value": "'b'"
             },
             "tones": {
               "capacity": "data",
@@ -477,7 +477,7 @@
             "caption": "Circular ring buffers are ubiquitous in high-throughput network interfaces.",
             "values": {
               "capacity": "3",
-              "value": "'a'"
+              "value": "'c'"
             },
             "tones": {
               "capacity": "ok",
@@ -632,7 +632,7 @@
           },
           {
             "at": "say2",
-            "caption": "After you append a new item to the back, rotate the queue by moving every.",
+            "caption": "Now the newest item is at the front.",
             "rows": [
               {
                 "cells": [
@@ -764,7 +764,7 @@
           },
           {
             "at": "say2",
-            "caption": "After you append a new item to the back, rotate the queue by moving every.",
+            "caption": "Now the newest item is at the front.",
             "rows": [
               {
                 "cells": [

@@ -318,7 +318,7 @@
               "pos": {
                 "var": "pos",
                 "line": 6,
-                "hit": 2
+                "hit": 6
               }
             },
             "tones": {
@@ -364,7 +364,7 @@
               "pos": {
                 "var": "pos",
                 "line": 6,
-                "hit": 3
+                "hit": 11
               }
             },
             "tones": {
@@ -449,7 +449,7 @@
               "self": "<LearnedPositionEmbeddingTable>",
               "max_seq_len": "512",
               "d_model": "4",
-              "pos": "0"
+              "pos": "1"
             },
             "tones": {
               "self": "data",
@@ -479,7 +479,7 @@
               "self": "<LearnedPositionEmbeddingTable>",
               "max_seq_len": "512",
               "d_model": "4",
-              "pos": "0"
+              "pos": "2"
             },
             "tones": {
               "self": "ok",
@@ -514,7 +514,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The limitations of both absolute sinusoids (which dilute through deep.",
+            "caption": "Observe how rotary shapes position during this step.",
             "items": {
               "var": "freqs",
               "line": 22,
@@ -568,7 +568,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The limitations of both absolute sinusoids (which dilute through deep.",
+            "caption": "Observe how rotary shapes position during this step.",
             "items": [
               "1",
               "0.01"

@@ -206,7 +206,7 @@
           },
           {
             "at": "say2",
-            "caption": "Hash BOTH cluster node IDs (`shard-A`, `shard-B`,.",
+            "caption": "2^32 - 1] circle using md5_32(x).",
             "items": {
               "var": "nodes",
               "line": 9,
@@ -261,7 +261,7 @@
           },
           {
             "at": "say2",
-            "caption": "Hash BOTH cluster node IDs (`shard-A`, `shard-B`,.",
+            "caption": "2^32 - 1] circle using md5_32(x).",
             "items": [
               "'shard-0'",
               "'shard-1'",
@@ -347,7 +347,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how worse updates point during execution.",
+            "caption": "Verify the worse transition driving point behavior.",
             "bars": [
               {
                 "label": "vnodes",
@@ -389,7 +389,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect our quantitative side-by-side standard deviation comparison across.",
+            "caption": "Examine the virtual value produced for nodes processing.",
             "bars": [
               {
                 "label": "vnodes",
@@ -463,7 +463,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how worse updates point during execution.",
+            "caption": "Verify the worse transition driving point behavior.",
             "bars": [
               {
                 "label": "vnodes",
@@ -489,7 +489,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect our quantitative side-by-side standard deviation comparison across.",
+            "caption": "Examine the virtual value produced for nodes processing.",
             "bars": [
               {
                 "label": "vnodes",

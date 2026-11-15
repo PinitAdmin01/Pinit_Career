@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the laws transition driving kaplan behavior.",
+            "activeActor": "A",
+            "messages": [
+              {
+                "from": "E",
+                "to": "A",
+                "label": {
+                  "var": "E",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "A",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how kaplan updates colleagues during execution.",
-            "activeActor": "A",
+            "at": "say11",
+            "caption": "They also warn against a common mistake.",
+            "activeActor": "alpha",
             "messages": [
+              {
+                "from": "E",
+                "to": "A",
+                "label": {
+                  "var": "E",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "A",
+                "to": "alpha",
+                "label": {
+                  "var": "A",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "E",
                 "to": "A",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "They also warn against a common mistake.",
-            "activeActor": "alpha",
-            "messages": [
+              },
               {
                 "from": "E",
                 "to": "A",
@@ -118,19 +148,13 @@
                 "to": "A",
                 "label": "1.7",
                 "tone": "data"
-              },
-              {
-                "from": "A",
-                "to": "alpha",
-                "label": "400",
-                "tone": "ok"
               }
             ],
             "activeActor": "E"
           },
           {
             "at": "say2",
-            "caption": "Trace how kaplan updates colleagues during execution.",
+            "caption": "Verify the laws transition driving kaplan behavior.",
             "messages": [
               {
                 "from": "E",
@@ -162,6 +186,30 @@
                 "to": "alpha",
                 "label": "400",
                 "tone": "ok"
+              },
+              {
+                "from": "E",
+                "to": "A",
+                "label": "1.7",
+                "tone": "data"
+              },
+              {
+                "from": "A",
+                "to": "alpha",
+                "label": "400",
+                "tone": "ok"
+              },
+              {
+                "from": "E",
+                "to": "A",
+                "label": "1.7",
+                "tone": "data"
+              },
+              {
+                "from": "A",
+                "to": "alpha",
+                "label": "400",
+                "tone": "ok"
               }
             ],
             "activeActor": "alpha"
@@ -178,7 +226,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For a fixed compute budget, you can train a big model on little data or.",
+            "caption": "Observe how data shapes fixed during this step.",
             "bars": [
               {
                 "label": "budget",
@@ -202,7 +250,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how hoffmann updates colleagues during execution.",
+            "caption": "Verify the chinchilla transition driving hoffmann behavior.",
             "bars": [
               {
                 "label": "budget",
@@ -256,7 +304,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For a fixed compute budget, you can train a big model on little data or.",
+            "caption": "Observe how data shapes fixed during this step.",
             "bars": [
               {
                 "label": "budget",
@@ -272,7 +320,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how hoffmann updates colleagues during execution.",
+            "caption": "Verify the chinchilla transition driving hoffmann behavior.",
             "bars": [
               {
                 "label": "budget",
@@ -362,7 +410,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how your updates budget during execution.",
+            "caption": "Examine the budget value produced for report processing.",
             "bars": [
               {
                 "label": "requests_billi",
@@ -424,7 +472,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how your updates budget during execution.",
+            "caption": "Examine the budget value produced for report processing.",
             "bars": [
               {
                 "label": "requests_billi",
@@ -486,16 +534,14 @@
                 "hit": 1
               },
               "mfu": {
-                "var": "mfu",
-                "line": 1,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "params": "data",
               "tokens": "data",
               "peak": "data",
-              "mfu": "data"
+              "mfu": "idle"
             },
             "arrows": [
               [
@@ -635,13 +681,13 @@
               "params": "7000000000",
               "tokens": "140000000000",
               "peak": "312000000000000",
-              "mfu": "0.4"
+              "mfu": ""
             },
             "tones": {
               "params": "data",
               "tokens": "data",
               "peak": "data",
-              "mfu": "data"
+              "mfu": "idle"
             },
             "arrows": [
               [
@@ -766,16 +812,14 @@
                 "hit": 4
               },
               "mx": {
-                "var": "mx",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "runs": "data",
               "xs": "data",
               "ys": "data",
-              "mx": "data"
+              "mx": "idle"
             },
             "arrows": [
               [
@@ -915,13 +959,13 @@
               "runs": "[[100000000, 3.9], [300000000, 3.55], […",
               "xs": "[18.420680743952367, 19.519293032620475…",
               "ys": "[0.7884573603642703, 0.6151856390902334…",
-              "mx": "19.554413204506417"
+              "mx": ""
             },
             "tones": {
               "runs": "data",
               "xs": "data",
               "ys": "data",
-              "mx": "data"
+              "mx": "idle"
             },
             "arrows": [
               [
@@ -1027,6 +1071,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the checks transition driving include behavior.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": {
+                  "var": "plans",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "name",
@@ -1041,10 +1102,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
-            "activeActor": "name",
+            "at": "say10",
+            "caption": "If the cost check fails, round GPU-hours before multiplying by the price.",
+            "activeActor": "n",
             "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": {
+                  "var": "plans",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "plans",
                 "to": "name",
@@ -1064,14 +1145,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "If the cost check fails, round GPU-hours before multiplying by the price.",
-            "activeActor": "n",
-            "messages": [
+              },
               {
                 "from": "plans",
                 "to": "name",
@@ -1114,19 +1188,13 @@
                 "to": "name",
                 "label": "[['7B on 140B', 7000000000, 14000000000…",
                 "tone": "data"
-              },
-              {
-                "from": "name",
-                "to": "n",
-                "label": "'7B on 140B'",
-                "tone": "ok"
               }
             ],
             "activeActor": "plans"
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "messages": [
               {
                 "from": "plans",
@@ -1147,6 +1215,30 @@
             "at": "say10",
             "caption": "If the cost check fails, round GPU-hours before multiplying by the price.",
             "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": "[['7B on 140B', 7000000000, 14000000000…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": "'7B on 140B'",
+                "tone": "ok"
+              },
+              {
+                "from": "plans",
+                "to": "name",
+                "label": "[['7B on 140B', 7000000000, 14000000000…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": "'7B on 140B'",
+                "tone": "ok"
+              },
               {
                 "from": "plans",
                 "to": "name",

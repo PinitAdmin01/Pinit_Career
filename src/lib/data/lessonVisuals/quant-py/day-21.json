@@ -9,162 +9,154 @@
       "partTitle": "Aggregating Greeks",
       "codeHash": "043fe861974f2e620158a8b8a34c0df9f115f49dfdd165e4354d170feb8500ec",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Aggregating Greeks",
-        "actors": [
-          "positions",
-          "p",
-          ".0"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A desk holds many positions.",
-            "activeActor": "positions",
-            "messages": [
-              {
-                "from": "positions",
-                "to": "p",
-                "label": {
-                  "var": "positions",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "from": "p",
-                "to": ".0",
-                "label": {
-                  "var": "p",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Greeks add up across positions of the same underlying.",
-            "activeActor": "p",
-            "messages": [
-              {
-                "from": "positions",
-                "to": "p",
-                "label": {
-                  "var": "positions",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "from": "p",
-                "to": ".0",
-                "label": {
-                  "var": "p",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "A single net delta number replaces hundreds of positions when deciding how.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "positions",
-                "to": "p",
-                "label": {
-                  "var": "positions",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the signs value produced for matter processing.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 6,
+                "hit": 3
               },
-              {
-                "from": "p",
-                "to": ".0",
-                "label": {
-                  "var": "p",
-                  "line": 6,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "p": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Aggregating Greeks",
-        "actors": [
-          "positions",
-          "p",
-          ".0"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A desk holds many positions.",
-            "messages": [
-              {
-                "from": "positions",
-                "to": "p",
-                "label": "[{'name': '100 call', 'qty': 10, 'delta…",
-                "tone": "data"
-              },
-              {
-                "from": "p",
-                "to": ".0",
-                "label": "{'name': '100 call', 'qty': 10, 'delta'…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "positions"
+            "values": {
+              "p": "{'name': '100 call', 'qty': 10, 'delta'…",
+              "out": ""
+            },
+            "tones": {
+              "p": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Greeks add up across positions of the same underlying.",
-            "messages": [
-              {
-                "from": "positions",
-                "to": "p",
-                "label": "[{'name': '100 call', 'qty': 10, 'delta…",
-                "tone": "data"
-              },
-              {
-                "from": "p",
-                "to": ".0",
-                "label": "{'name': '100 call', 'qty': 10, 'delta'…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "p"
+            "values": {
+              "p": "{'name': '110 call', 'qty': -5, 'delta'…",
+              "out": "100 call  delta     6.0  vega   4.0"
+            },
+            "tones": {
+              "p": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say8",
-            "caption": "A single net delta number replaces hundreds of positions when deciding how.",
-            "messages": [
-              {
-                "from": "positions",
-                "to": "p",
-                "label": "[{'name': '100 call', 'qty': 10, 'delta…",
-                "tone": "data"
-              },
-              {
-                "from": "p",
-                "to": ".0",
-                "label": "{'name': '110 call', 'qty': -5, 'delta'…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Examine the signs value produced for matter processing.",
+            "values": {
+              "p": "{'name': 'stock', 'qty': 200, 'delta': …",
+              "out": "110 call  delta    -1.5  vega  -2.5"
+            },
+            "tones": {
+              "p": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "out"
+              ]
+            ]
           }
         ]
       }
@@ -398,7 +390,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Once each scenario has a portfolio P&L, VaR and ES come straight from.",
+            "caption": "Observe how once shapes scenario during this step.",
             "items": {
               "var": "tail",
               "line": 4,
@@ -452,7 +444,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Once each scenario has a portfolio P&L, VaR and ES come straight from.",
+            "caption": "Observe how once shapes scenario during this step.",
             "items": [
               "-120000",
               "-80000"
@@ -946,158 +938,110 @@
         "title": "Milestone practice: engine and hedge",
         "nodes": [
           {
-            "id": "positions",
-            "label": "positions"
-          },
-          {
-            "id": "pnl",
-            "label": "pnl"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "q",
-            "label": "q"
+            "label": "q",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Risk_engine(positions, pnl_scenarios, confidence=0.",
+            "caption": "Inspect practice updates as q tracks engine state.",
             "values": {
-              "positions": {
-                "var": "positions",
-                "line": 1,
-                "hit": 1
-              },
-              "pnl": {
-                "var": "pnl",
-                "line": 2,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
+              "q": {
+                "var": "q",
                 "line": 3,
                 "hit": 1
               },
-              "q": {
-                "var": "q",
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
                 "line": 3,
                 "hit": 1
               }
             },
             "tones": {
-              "positions": "data",
-              "pnl": "data",
-              ".0": "data",
-              "q": "data"
+              "q": "data",
+              "d": "data",
+              "v": "data"
             },
-            "arrows": [
-              [
-                "positions",
-                "pnl"
-              ],
-              [
-                "pnl",
-                ".0"
-              ],
-              [
-                ".0",
-                "q"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates three during execution.",
+            "caption": "Verify the checks transition driving three behavior.",
             "values": {
-              "positions": {
-                "var": "positions",
-                "line": 2,
-                "hit": 1
-              },
-              "pnl": {
-                "var": "pnl",
-                "line": 3,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
+              "q": {
+                "var": "q",
                 "line": 3,
                 "hit": 2
               },
-              "q": {
-                "var": "q",
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 2
+              },
+              "v": {
+                "var": "v",
                 "line": 3,
                 "hit": 2
               }
             },
             "tones": {
-              "positions": "data",
-              "pnl": "data",
-              ".0": "data",
-              "q": "data"
+              "q": "data",
+              "d": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "positions",
-                "pnl"
-              ],
-              [
-                "pnl",
-                ".0"
-              ],
-              [
-                ".0",
-                "q"
+                "q",
+                "d"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example runs the whole engine.",
+            "at": "say3",
+            "caption": "Practice 2: delta_hedge(net_delta, delta_per_unit=1.0).",
             "values": {
-              "positions": {
-                "var": "positions",
-                "line": 3,
-                "hit": 5
-              },
-              "pnl": {
-                "var": "pnl",
-                "line": 4,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
+              "q": {
+                "var": "q",
                 "line": 3,
                 "hit": 3
               },
-              "q": {
-                "var": "q",
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 3
+              },
+              "v": {
+                "var": "v",
                 "line": 3,
                 "hit": 3
               }
             },
             "tones": {
-              "positions": "ok",
-              "pnl": "ok",
-              ".0": "ok",
-              "q": "ok"
+              "q": "ok",
+              "d": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "positions",
-                "pnl"
-              ],
-              [
-                "pnl",
-                ".0"
-              ],
-              [
-                ".0",
-                "q"
+                "q",
+                "d"
               ]
             ]
           }
@@ -1108,110 +1052,74 @@
         "title": "Milestone practice: engine and hedge",
         "nodes": [
           {
-            "id": "positions",
-            "label": "positions"
-          },
-          {
-            "id": "pnl",
-            "label": "pnl"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "q",
-            "label": "q"
+            "label": "q",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Risk_engine(positions, pnl_scenarios, confidence=0.",
+            "caption": "Inspect practice updates as q tracks engine state.",
             "values": {
-              "positions": "[[10, 0.6, 0.4], [-5, 0.3, 0.5], [200, …",
-              "pnl": "[-120000, -80000, -50000, 1000, 1000, 1…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "q": "10"
+              "q": "10",
+              "d": "0.6",
+              "v": "0.4"
             },
             "tones": {
-              "positions": "data",
-              "pnl": "data",
-              ".0": "data",
-              "q": "data"
+              "q": "data",
+              "d": "data",
+              "v": "data"
             },
-            "arrows": [
-              [
-                "positions",
-                "pnl"
-              ],
-              [
-                "pnl",
-                ".0"
-              ],
-              [
-                ".0",
-                "q"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates three during execution.",
+            "caption": "Verify the checks transition driving three behavior.",
             "values": {
-              "positions": "[[10, 0.6, 0.4], [-5, 0.3, 0.5], [200, …",
-              "pnl": "[-120000, -80000, -50000, 1000, 1000, 1…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "q": "-5"
+              "q": "-5",
+              "d": "0.3",
+              "v": "0.5"
             },
             "tones": {
-              "positions": "data",
-              "pnl": "data",
-              ".0": "data",
-              "q": "data"
+              "q": "data",
+              "d": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "positions",
-                "pnl"
-              ],
-              [
-                "pnl",
-                ".0"
-              ],
-              [
-                ".0",
-                "q"
+                "q",
+                "d"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example runs the whole engine.",
+            "at": "say3",
+            "caption": "Practice 2: delta_hedge(net_delta, delta_per_unit=1.0).",
             "values": {
-              "positions": "[[10, 0.6, 0.4], [-5, 0.3, 0.5], [200, …",
-              "pnl": "[-120000, -80000, -50000, 1000, 1000, 1…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "q": "200"
+              "q": "200",
+              "d": "1",
+              "v": "0"
             },
             "tones": {
-              "positions": "ok",
-              "pnl": "ok",
-              ".0": "ok",
-              "q": "ok"
+              "q": "ok",
+              "d": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "positions",
-                "pnl"
-              ],
-              [
-                "pnl",
-                ".0"
-              ],
-              [
-                ".0",
-                "q"
+                "q",
+                "d"
               ]
             ]
           }

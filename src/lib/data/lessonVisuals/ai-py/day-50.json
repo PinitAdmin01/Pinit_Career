@@ -47,7 +47,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates begins during execution.",
+            "caption": "Verify the immutable transition driving release behavior.",
             "bars": [
               {
                 "label": "max_slice_drop",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates begins during execution.",
+            "caption": "Verify the immutable transition driving release behavior.",
             "bars": [
               {
                 "label": "max_slice_drop",
@@ -197,8 +197,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Reporting one blurred RAG Triad aggregate blurs acute outages across.",
+            "caption": "Observe how triad shapes reporting during this step.",
             "activeActor": "telemetry",
+            "messages": [
+              {
+                "from": "telemetry",
+                "to": "slice_metrics",
+                "label": {
+                  "var": "telemetry",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the triad transition driving breaking behavior.",
+            "activeActor": "slice_metrics",
             "messages": [
               {
                 "from": "telemetry",
@@ -223,10 +240,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Breaking Triad CI monitors out across normalized domain tags (`billing`.",
-            "activeActor": "slice_metrics",
+            "at": "say7",
+            "caption": "Run check_triad_slices() validating independent slice compliance cleanly.",
+            "activeActor": "floor",
             "messages": [
+              {
+                "from": "telemetry",
+                "to": "slice_metrics",
+                "label": {
+                  "var": "telemetry",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "slice_metrics",
+                "to": "floor",
+                "label": {
+                  "var": "slice_metrics",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "telemetry",
                 "to": "slice_metrics",
@@ -246,23 +283,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Run check_triad_slices() validating independent slice compliance cleanly.",
-            "activeActor": "floor",
-            "messages": [
-              {
-                "from": "telemetry",
-                "to": "slice_metrics",
-                "label": {
-                  "var": "telemetry",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "slice_metrics",
@@ -289,26 +309,20 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Reporting one blurred RAG Triad aggregate blurs acute outages across.",
+            "caption": "Observe how triad shapes reporting during this step.",
             "messages": [
               {
                 "from": "telemetry",
                 "to": "slice_metrics",
                 "label": "{'api_docs': {'ctx_rel': 0.91, 'grounde…",
                 "tone": "data"
-              },
-              {
-                "from": "slice_metrics",
-                "to": "floor",
-                "label": "{'api_docs': {'ctx_rel': 0.91, 'grounde…",
-                "tone": "ok"
               }
             ],
             "activeActor": "telemetry"
           },
           {
             "at": "say2",
-            "caption": "Breaking Triad CI monitors out across normalized domain tags (`billing`.",
+            "caption": "Verify the triad transition driving breaking behavior.",
             "messages": [
               {
                 "from": "telemetry",
@@ -334,6 +348,24 @@
                 "to": "slice_metrics",
                 "label": "{'api_docs': {'ctx_rel': 0.91, 'grounde…",
                 "tone": "data"
+              },
+              {
+                "from": "slice_metrics",
+                "to": "floor",
+                "label": "{'api_docs': {'ctx_rel': 0.91, 'grounde…",
+                "tone": "ok"
+              },
+              {
+                "from": "telemetry",
+                "to": "slice_metrics",
+                "label": "{'api_docs': {'ctx_rel': 0.91, 'grounde…",
+                "tone": "data"
+              },
+              {
+                "from": "slice_metrics",
+                "to": "floor",
+                "label": "{'api_docs': {'ctx_rel': 0.91, 'grounde…",
+                "tone": "ok"
               },
               {
                 "from": "slice_metrics",
@@ -410,22 +442,22 @@
             "values": {
               "kappa": {
                 "var": "kappa",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "swap_cons": {
                 "var": "swap_cons",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "contamination_hits": {
                 "var": "contamination_hits",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -442,22 +474,22 @@
             "values": {
               "kappa": {
                 "var": "kappa",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "swap_cons": {
                 "var": "swap_cons",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "contamination_hits": {
                 "var": "contamination_hits",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -512,10 +544,10 @@
             "at": "say2",
             "caption": "Evaluator Cohen's Kappa `>= 0.",
             "values": {
-              "kappa": "0.81",
-              "swap_cons": "0.95",
-              "contamination_hits": "0",
-              "issues": "[]"
+              "kappa": "0.76",
+              "swap_cons": "0.82",
+              "contamination_hits": "3",
+              "issues": "['POSITION_BIASED:0.82']"
             },
             "tones": {
               "kappa": "data",
@@ -528,10 +560,10 @@
             "at": "say7",
             "caption": "Inspect preflight_harness_check() blocking compromised judge setups.",
             "values": {
-              "kappa": "0.81",
-              "swap_cons": "0.95",
-              "contamination_hits": "0",
-              "issues": "[]"
+              "kappa": "0.76",
+              "swap_cons": "0.82",
+              "contamination_hits": "3",
+              "issues": "['POSITION_BIASED:0.82', 'EVAL_CONTAMIN…"
             },
             "tones": {
               "kappa": "ok",
@@ -588,16 +620,14 @@
                 "hit": 1
               },
               "max_avg_len_ratio": {
-                "var": "max_avg_len_ratio",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "clean_set": "data",
               "skewed_set": "data",
               "triplets": "data",
-              "max_avg_len_ratio": "data"
+              "max_avg_len_ratio": "idle"
             }
           },
           {
@@ -695,13 +725,13 @@
               "clean_set": "[{'chosen': 'Verify tenant namespace be…",
               "skewed_set": "[{'chosen': 'Verify tenant namespace be…",
               "triplets": "[{'chosen': 'Verify tenant namespace be…",
-              "max_avg_len_ratio": "1.6"
+              "max_avg_len_ratio": ""
             },
             "tones": {
               "clean_set": "data",
               "skewed_set": "data",
               "triplets": "data",
-              "max_avg_len_ratio": "data"
+              "max_avg_len_ratio": "idle"
             }
           },
           {
@@ -766,7 +796,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how unifying updates everything during execution.",
+            "caption": "Inspect milestone updates as harness_ok tracks release state.",
             "values": {
               "harness_ok": {
                 "var": "harness_ok",
@@ -826,8 +856,8 @@
               },
               "triad_ok": {
                 "var": "triad_ok",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "release_ok": {
                 "var": "release_ok",
@@ -858,7 +888,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how proving updates complete during execution.",
+            "caption": "Examine the release value produced for synthesizing processing.",
             "values": {
               "harness_ok": {
                 "var": "harness_ok",
@@ -872,8 +902,8 @@
               },
               "triad_ok": {
                 "var": "triad_ok",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "release_ok": {
                 "var": "release_ok",
@@ -928,7 +958,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how unifying updates everything during execution.",
+            "caption": "Inspect milestone updates as harness_ok tracks release state.",
             "values": {
               "harness_ok": "True",
               "dataset_ok": "True",
@@ -962,7 +992,7 @@
             "values": {
               "harness_ok": "True",
               "dataset_ok": "True",
-              "triad_ok": "True",
+              "triad_ok": "False",
               "release_ok": "True"
             },
             "tones": {
@@ -988,11 +1018,11 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how proving updates complete during execution.",
+            "caption": "Examine the release value produced for synthesizing processing.",
             "values": {
               "harness_ok": "True",
               "dataset_ok": "True",
-              "triad_ok": "True",
+              "triad_ok": "False",
               "release_ok": "True"
             },
             "tones": {

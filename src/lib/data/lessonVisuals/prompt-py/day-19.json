@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Hallucinations are more likely for rare facts, specific numbers.",
+            "activeActor": "year",
+            "messages": [
+              {
+                "from": "known_winners",
+                "to": "year",
+                "label": {
+                  "var": "known_winners",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "year",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Hallucinations are more likely for rare facts, specific numbers.",
-            "activeActor": "year",
+            "at": "say9",
+            "caption": "Asking the model to rate its own confidence helps a little, but its stated.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "known_winners",
+                "to": "year",
+                "label": {
+                  "var": "known_winners",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "year",
+                "to": "name",
+                "label": {
+                  "var": "year",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "known_winners",
                 "to": "year",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Asking the model to rate its own confidence helps a little, but its stated.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "known_winners",
                 "to": "year",
@@ -118,12 +148,6 @@
                 "to": "year",
                 "label": "{'2019': 'Priya', '2020': 'Arjun'}",
                 "tone": "data"
-              },
-              {
-                "from": "year",
-                "to": "name",
-                "label": "'2019'",
-                "tone": "ok"
               }
             ],
             "activeActor": "known_winners"
@@ -151,6 +175,30 @@
             "at": "say9",
             "caption": "Asking the model to rate its own confidence helps a little, but its stated.",
             "messages": [
+              {
+                "from": "known_winners",
+                "to": "year",
+                "label": "{'2019': 'Priya', '2020': 'Arjun'}",
+                "tone": "data"
+              },
+              {
+                "from": "year",
+                "to": "name",
+                "label": "'2019'",
+                "tone": "ok"
+              },
+              {
+                "from": "known_winners",
+                "to": "year",
+                "label": "{'2019': 'Priya', '2020': 'Arjun'}",
+                "tone": "data"
+              },
+              {
+                "from": "year",
+                "to": "name",
+                "label": "'2019'",
+                "tone": "ok"
+              },
               {
                 "from": "known_winners",
                 "to": "year",
@@ -261,8 +309,8 @@
               },
               "sentence": {
                 "var": "sentence",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -307,7 +355,7 @@
               },
               "sentence": {
                 "var": "sentence",
-                "line": 7,
+                "line": 6,
                 "hit": 2
               }
             },
@@ -393,7 +441,7 @@
               "sources": "['The museum opened in 1998 and holds 4…",
               "answer": "['The museum opened in 1998.', 'It was …",
               "src_words": "[{'1998', '4000', 'and', 'holds', 'in',…",
-              "sentence": "'The museum opened in 1998.'"
+              "sentence": "'It was designed by Frank Gehry in Pari…"
             },
             "tones": {
               "sources": "data",
@@ -423,7 +471,7 @@
               "sources": "['The museum opened in 1998 and holds 4…",
               "answer": "['The museum opened in 1998.', 'It was …",
               "src_words": "[{'1998', '4000', 'and', 'holds', 'in',…",
-              "sentence": "'The museum opened in 1998.'"
+              "sentence": "'It was designed by Frank Gehry in Pari…"
             },
             "tones": {
               "sources": "ok",
@@ -475,6 +523,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Bias also comes from what is missing.",
+            "activeActor": "names",
+            "messages": [
+              {
+                "from": "template",
+                "to": "names",
+                "label": {
+                  "var": "template",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "names",
@@ -489,10 +554,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Bias also comes from what is missing.",
-            "activeActor": "names",
+            "at": "say9",
+            "caption": "Recording and reviewing audit results over time shows whether model.",
+            "activeActor": "n",
             "messages": [
+              {
+                "from": "template",
+                "to": "names",
+                "label": {
+                  "var": "template",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": "n",
+                "label": {
+                  "var": "names",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "template",
                 "to": "names",
@@ -512,14 +597,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Recording and reviewing audit results over time shows whether model.",
-            "activeActor": "n",
-            "messages": [
+              },
               {
                 "from": "template",
                 "to": "names",
@@ -562,12 +640,6 @@
                 "to": "names",
                 "label": "'Write a one-line reference for {name},…",
                 "tone": "data"
-              },
-              {
-                "from": "names",
-                "to": "n",
-                "label": "['Aarav', 'Fatima', 'Priya', 'John']",
-                "tone": "ok"
               }
             ],
             "activeActor": "template"
@@ -595,6 +667,30 @@
             "at": "say9",
             "caption": "Recording and reviewing audit results over time shows whether model.",
             "messages": [
+              {
+                "from": "template",
+                "to": "names",
+                "label": "'Write a one-line reference for {name},…",
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": "n",
+                "label": "['Aarav', 'Fatima', 'Priya', 'John']",
+                "tone": "ok"
+              },
+              {
+                "from": "template",
+                "to": "names",
+                "label": "'Write a one-line reference for {name},…",
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": "n",
+                "label": "['Aarav', 'Fatima', 'Priya', 'John']",
+                "tone": "ok"
+              },
               {
                 "from": "template",
                 "to": "names",
@@ -654,7 +750,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how output updates guardrails during execution.",
+            "caption": "Verify the guardrails transition driving output behavior.",
             "activeActor": "r",
             "messages": [
               {
@@ -738,7 +834,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how output updates guardrails during execution.",
+            "caption": "Verify the guardrails transition driving output behavior.",
             "messages": [
               {
                 "from": "FALLBACK",
@@ -802,6 +898,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Are names, dates and numbers correct.",
+            "activeActor": "passed",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "passed",
@@ -816,10 +929,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Are names, dates and numbers correct.",
+            "at": "say9",
+            "caption": "Different tasks need different depth.",
             "activeActor": "passed",
             "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": {
+                  "var": "passed",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "passed",
@@ -839,14 +972,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Different tasks need different depth.",
-            "activeActor": "passed",
-            "messages": [
+              },
               {
                 "from": "checks",
                 "to": "passed",
@@ -888,12 +1014,6 @@
                 "to": "passed",
                 "label": "{'facts verified': True, 'sources exist…",
                 "tone": "data"
-              },
-              {
-                "from": "passed",
-                "to": "checks",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "checks"
@@ -921,6 +1041,30 @@
             "at": "say9",
             "caption": "Different tasks need different depth.",
             "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": "{'facts verified': True, 'sources exist…",
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": "4",
+                "tone": "ok"
+              },
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": "{'facts verified': True, 'sources exist…",
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": "4",
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "passed",
@@ -965,6 +1109,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Return the indices of unsupported sentences.",
+            "activeActor": "answer",
+            "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": {
+                  "var": "sources",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "answer",
@@ -979,10 +1140,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Return the indices of unsupported sentences.",
-            "activeActor": "answer",
+            "at": "say8",
+            "caption": "Try them on real AI answers from your own work.",
+            "activeActor": "sw",
             "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": {
+                  "var": "sources",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": {
+                  "var": "answer",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "sources",
                 "to": "answer",
@@ -1002,14 +1183,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Try them on real AI answers from your own work.",
-            "activeActor": "sw",
-            "messages": [
+              },
               {
                 "from": "sources",
                 "to": "answer",
@@ -1052,12 +1226,6 @@
                 "to": "answer",
                 "label": "['Store opens at 9 am and closes at 9 p…",
                 "tone": "data"
-              },
-              {
-                "from": "answer",
-                "to": "sw",
-                "label": "['The store opens at 9 am.', 'Parking i…",
-                "tone": "ok"
               }
             ],
             "activeActor": "sources"
@@ -1085,6 +1253,30 @@
             "at": "say8",
             "caption": "Try them on real AI answers from your own work.",
             "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": "['Store opens at 9 am and closes at 9 p…",
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": "['The store opens at 9 am.', 'Parking i…",
+                "tone": "ok"
+              },
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": "['Store opens at 9 am and closes at 9 p…",
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": "['The store opens at 9 am.', 'Parking i…",
+                "tone": "ok"
+              },
               {
                 "from": "sources",
                 "to": "answer",

@@ -730,7 +730,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a normal client, a heavy flooder, a moderate one and.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "events": {
                 "var": "events",
@@ -876,7 +876,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a normal client, a heavy flooder, a moderate one and.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "events": "[['203.0.113.9', 'SYN'], ['203.0.113.9'…",
               "half": "{}",

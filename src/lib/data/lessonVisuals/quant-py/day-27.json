@@ -19,8 +19,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how august updates knight during execution.",
+            "caption": "Observe how august shapes knight during this step.",
             "activeActor": "orders_per_second",
+            "messages": [
+              {
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": {
+                  "var": "orders_per_second",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Fat-finger errors, such as typing an extra zero or entering a price in.",
+            "activeActor": "loss_per_order",
             "messages": [
               {
                 "from": "orders_per_second",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Fat-finger errors, such as typing an extra zero or entering a price in.",
-            "activeActor": "loss_per_order",
+            "at": "say8",
+            "caption": "Risk controls are not bureaucracy.",
+            "activeActor": "seconds",
             "messages": [
+              {
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": {
+                  "var": "orders_per_second",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": {
+                  "var": "loss_per_order",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "orders_per_second",
                 "to": "loss_per_order",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Risk controls are not bureaucracy.",
-            "activeActor": "seconds",
-            "messages": [
+              },
               {
                 "from": "orders_per_second",
                 "to": "loss_per_order",
@@ -111,19 +141,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how august updates knight during execution.",
+            "caption": "Observe how august shapes knight during this step.",
             "messages": [
               {
                 "from": "orders_per_second",
                 "to": "loss_per_order",
                 "label": "1000",
                 "tone": "data"
-              },
-              {
-                "from": "loss_per_order",
-                "to": "seconds",
-                "label": "15",
-                "tone": "ok"
               }
             ],
             "activeActor": "orders_per_second"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "Risk controls are not bureaucracy.",
             "messages": [
+              {
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": "15",
+                "tone": "ok"
+              },
+              {
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": "15",
+                "tone": "ok"
+              },
               {
                 "from": "orders_per_second",
                 "to": "loss_per_order",
@@ -547,13 +595,13 @@
             "values": {
               "order": {
                 "var": "order",
-                "line": 2,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "layers": {
                 "var": "layers",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -573,13 +621,13 @@
             "values": {
               "order": {
                 "var": "order",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "layers": {
                 "var": "layers",
-                "line": 7,
-                "hit": 2
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -631,8 +679,8 @@
             "at": "say2",
             "caption": "The strategy's own checks are fastest but share its bugs.",
             "values": {
-              "order": "{'qty': 2000, 'price': 100}",
-              "layers": "{'strategy': True, 'gateway': True}"
+              "order": "{'qty': 9000, 'price': 100}",
+              "layers": "{'strategy': True, 'gateway': False}"
             },
             "tones": {
               "order": "data",
@@ -649,8 +697,8 @@
             "at": "say7",
             "caption": "Never let a performance target justify removing a safety check.",
             "values": {
-              "order": "{'qty': 2000, 'price': 100}",
-              "layers": "{'strategy': True, 'gateway': True}"
+              "order": "{'qty': 20000, 'price': 1}",
+              "layers": "{'strategy': False, 'gateway': True}"
             },
             "tones": {
               "order": "ok",
@@ -699,7 +747,7 @@
           },
           {
             "at": "say2",
-            "caption": "Unit tests cover each rule at, just below and just above its limit,.",
+            "caption": "Verify the unit transition driving tests behavior.",
             "bars": [
               {
                 "label": "cap",
@@ -769,7 +817,7 @@
           },
           {
             "at": "say2",
-            "caption": "Unit tests cover each rule at, just below and just above its limit,.",
+            "caption": "Verify the unit transition driving tests behavior.",
             "bars": [
               {
                 "label": "cap",
@@ -894,7 +942,7 @@
               },
               "decisions": {
                 "var": "decisions",
-                "line": 5,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -940,8 +988,8 @@
               },
               "decisions": {
                 "var": "decisions",
-                "line": 6,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               }
             },
             "tones": {
@@ -995,7 +1043,7 @@
             "values": {
               "timestamps_ms": "[0, 100, 200, 300, 900, 1100, 1250]",
               "max_per_second": "3",
-              "window": "{'__other__': 'deque'}",
+              "window": "<deque>",
               "decisions": "[]"
             },
             "tones": {
@@ -1025,8 +1073,8 @@
             "values": {
               "timestamps_ms": "[0, 100, 200, 300, 900, 1100, 1250]",
               "max_per_second": "3",
-              "window": "{'__other__': 'deque'}",
-              "decisions": "[]"
+              "window": "<deque>",
+              "decisions": "[True]"
             },
             "tones": {
               "timestamps_ms": "data",
@@ -1055,8 +1103,8 @@
             "values": {
               "timestamps_ms": "[0, 100, 200, 300, 900, 1100, 1250]",
               "max_per_second": "3",
-              "window": "{'__other__': 'deque'}",
-              "decisions": "[]"
+              "window": "<deque>",
+              "decisions": "[True, True]"
             },
             "tones": {
               "timestamps_ms": "ok",

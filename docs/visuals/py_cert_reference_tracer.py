@@ -38,7 +38,7 @@ def tr(frame, event, arg):
             STATE['trunc'] = True; return None
         last = STATE['last']; fid = id(frame); prev = last.get(fid)
         if prev is not None:
-            loc = {k: v for k, v in bound(frame).items() if not k.startswith('_') and not callable(v) and type(v).__name__ != 'module'}
+            loc = {k: v for k, v in bound(frame).items() if not k.startswith('_') and not k.startswith('.') and not callable(v) and type(v).__name__ != 'module' and not hasattr(v, '__next__')}
             CNT[prev] = CNT.get(prev, 0) + 1
             EV.append([prev, CNT[prev], {k: ser(v) for k, v in list(loc.items())[:20]}])
         last[fid] = frame.f_lineno if event == 'line' else None

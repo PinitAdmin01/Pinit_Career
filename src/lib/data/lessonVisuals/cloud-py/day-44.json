@@ -402,7 +402,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how high updates throughput during execution.",
+            "caption": "Observe how fifo shapes message during this step.",
             "bars": [
               {
                 "label": "daily_messages",
@@ -534,7 +534,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how high updates throughput during execution.",
+            "caption": "Observe how fifo shapes message during this step.",
             "bars": [
               {
                 "label": "daily_messages",
@@ -985,8 +985,8 @@
               },
               "depth": {
                 "var": "depth",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -1031,8 +1031,8 @@
               },
               "depth": {
                 "var": "depth",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -1117,7 +1117,7 @@
               "healthy": "{'ApproximateNumberOfMessagesVisible': …",
               "degraded": "{'ApproximateNumberOfMessagesVisible': …",
               "queue_telemetry": "{'ApproximateNumberOfMessagesVisible': …",
-              "depth": "120"
+              "depth": "8500"
             },
             "tones": {
               "healthy": "data",
@@ -1147,7 +1147,7 @@
               "healthy": "{'ApproximateNumberOfMessagesVisible': …",
               "degraded": "{'ApproximateNumberOfMessagesVisible': …",
               "queue_telemetry": "{'ApproximateNumberOfMessagesVisible': …",
-              "depth": "120"
+              "depth": "8500"
             },
             "tones": {
               "healthy": "ok",

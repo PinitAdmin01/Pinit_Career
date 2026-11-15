@@ -78,7 +78,7 @@
           },
           {
             "at": "say2",
-            "caption": "Always position an ultra-fast normalized exact hash lookup (`collapsed.",
+            "caption": "Verify the tier transition driving lookup behavior.",
             "values": {
               "exact": {
                 "var": "exact",
@@ -224,7 +224,7 @@
           },
           {
             "at": "say2",
-            "caption": "Always position an ultra-fast normalized exact hash lookup (`collapsed.",
+            "caption": "Verify the tier transition driving lookup behavior.",
             "values": {
               "exact": "{'how reset api key': 'Click Settings -…",
               "sem": "[['how reset api key', 0.94, 'Click Set…",
@@ -531,6 +531,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Bind every cache key deterministically inside a composite namespace.",
+            "activeActor": "user_scope",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "user_scope",
@@ -545,10 +562,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Bind every cache key deterministically inside a composite namespace.",
-            "activeActor": "user_scope",
+            "at": "say7",
+            "caption": "Inspect build_cache_key() producing distinct reproducible namespaces.",
+            "activeActor": "prompt_ver",
             "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_scope",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tenant_id",
                 "to": "user_scope",
@@ -568,14 +605,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect build_cache_key() producing distinct reproducible namespaces.",
-            "activeActor": "prompt_ver",
-            "messages": [
+              },
               {
                 "from": "tenant_id",
                 "to": "user_scope",
@@ -618,12 +648,6 @@
                 "to": "user_scope",
                 "label": "'acme'",
                 "tone": "data"
-              },
-              {
-                "from": "user_scope",
-                "to": "prompt_ver",
-                "label": "'public'",
-                "tone": "ok"
               }
             ],
             "activeActor": "tenant_id"
@@ -651,6 +675,30 @@
             "at": "say7",
             "caption": "Inspect build_cache_key() producing distinct reproducible namespaces.",
             "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": "'public'",
+                "tone": "ok"
+              },
+              {
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": "'public'",
+                "tone": "ok"
+              },
               {
                 "from": "tenant_id",
                 "to": "user_scope",
@@ -695,6 +743,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Event-driven dependency invalidation pairs timestamps with forward.",
+            "activeActor": "entries",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "entries",
+                "label": {
+                  "var": "cache",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "entries",
@@ -709,10 +774,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Event-driven dependency invalidation pairs timestamps with forward.",
-            "activeActor": "entries",
+            "at": "say7",
+            "caption": "Inspect sweep_cache() demonstrating simultaneous timestamp expiry.",
+            "activeActor": "now_ts",
             "messages": [
+              {
+                "from": "cache",
+                "to": "entries",
+                "label": {
+                  "var": "cache",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "now_ts",
+                "label": {
+                  "var": "entries",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cache",
                 "to": "entries",
@@ -732,23 +817,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect sweep_cache() demonstrating simultaneous timestamp expiry.",
-            "activeActor": "now_ts",
-            "messages": [
-              {
-                "from": "cache",
-                "to": "entries",
-                "label": {
-                  "var": "cache",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "entries",
@@ -782,12 +850,6 @@
                 "to": "entries",
                 "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
                 "tone": "data"
-              },
-              {
-                "from": "entries",
-                "to": "now_ts",
-                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
-                "tone": "ok"
               }
             ],
             "activeActor": "cache"
@@ -820,6 +882,24 @@
                 "to": "entries",
                 "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
                 "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "now_ts",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "ok"
+              },
+              {
+                "from": "cache",
+                "to": "entries",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "now_ts",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "ok"
               },
               {
                 "from": "entries",
@@ -901,13 +981,13 @@
               },
               "hit_rate": {
                 "var": "hit_rate",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "llm_cost_per_req": {
                 "var": "llm_cost_per_req",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "embed_cost_per_req": {
                 "var": "embed_cost_per_req",
@@ -924,7 +1004,7 @@
           },
           {
             "at": "say7",
-            "caption": "Inspect cache_roi() contrasting profitable high-volume RAG savings against.",
+            "caption": "Examine the savings value produced for financial processing.",
             "values": {
               "requests": {
                 "var": "requests",
@@ -933,13 +1013,13 @@
               },
               "hit_rate": {
                 "var": "hit_rate",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "llm_cost_per_req": {
                 "var": "llm_cost_per_req",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "embed_cost_per_req": {
                 "var": "embed_cost_per_req",
@@ -999,8 +1079,8 @@
             "caption": "Consequently, semantic caching generates strong positive financial return.",
             "values": {
               "requests": "100000",
-              "hit_rate": "0.35",
-              "llm_cost_per_req": "0.012",
+              "hit_rate": "0.04",
+              "llm_cost_per_req": "0.0004",
               "embed_cost_per_req": "0.0002"
             },
             "tones": {
@@ -1012,11 +1092,11 @@
           },
           {
             "at": "say7",
-            "caption": "Inspect cache_roi() contrasting profitable high-volume RAG savings against.",
+            "caption": "Examine the savings value produced for financial processing.",
             "values": {
               "requests": "100000",
-              "hit_rate": "0.35",
-              "llm_cost_per_req": "0.012",
+              "hit_rate": "0.04",
+              "llm_cost_per_req": "0.0004",
               "embed_cost_per_req": "0.0002"
             },
             "tones": {

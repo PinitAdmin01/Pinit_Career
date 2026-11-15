@@ -18,7 +18,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how training updates frontier during execution.",
+            "caption": "Observe how million shapes token during this step.",
             "rows": [
               {
                 "cells": [
@@ -83,7 +83,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how training updates frontier during execution.",
+            "caption": "Observe how million shapes token during this step.",
             "rows": [
               {
                 "cells": [
@@ -149,6 +149,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For sequence lengths of 128k tokens on 64 GPUs, the optimizer configures.",
+            "activeActor": "target_seq_len",
+            "messages": [
+              {
+                "from": "total_gpus",
+                "to": "target_seq_len",
+                "label": {
+                  "var": "total_gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "target_seq_len",
@@ -163,10 +180,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "For sequence lengths of 128k tokens on 64 GPUs, the optimizer configures.",
-            "activeActor": "target_seq_len",
+            "at": "say11",
+            "caption": "Automating multi-dimensional process mesh configuration eliminates manual.",
+            "activeActor": "tp",
             "messages": [
+              {
+                "from": "total_gpus",
+                "to": "target_seq_len",
+                "label": {
+                  "var": "total_gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "target_seq_len",
+                "to": "tp",
+                "label": {
+                  "var": "target_seq_len",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "total_gpus",
                 "to": "target_seq_len",
@@ -186,14 +223,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Automating multi-dimensional process mesh configuration eliminates manual.",
-            "activeActor": "tp",
-            "messages": [
+              },
               {
                 "from": "total_gpus",
                 "to": "target_seq_len",
@@ -236,12 +266,6 @@
                 "to": "target_seq_len",
                 "label": "64",
                 "tone": "data"
-              },
-              {
-                "from": "target_seq_len",
-                "to": "tp",
-                "label": "131072",
-                "tone": "ok"
               }
             ],
             "activeActor": "total_gpus"
@@ -280,6 +304,30 @@
                 "to": "tp",
                 "label": "131072",
                 "tone": "ok"
+              },
+              {
+                "from": "total_gpus",
+                "to": "target_seq_len",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "target_seq_len",
+                "to": "tp",
+                "label": "131072",
+                "tone": "ok"
+              },
+              {
+                "from": "total_gpus",
+                "to": "target_seq_len",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "target_seq_len",
+                "to": "tp",
+                "label": "131072",
+                "tone": "ok"
               }
             ],
             "activeActor": "tp"
@@ -296,7 +344,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Estimating per-GPU High Bandwidth Memory footprint ensures that the hybrid.",
+            "caption": "Observe how modeling shapes vram during this step.",
             "bars": [
               {
                 "label": "model_b",
@@ -428,7 +476,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Estimating per-GPU High Bandwidth Memory footprint ensures that the hybrid.",
+            "caption": "Observe how modeling shapes vram during this step.",
             "bars": [
               {
                 "label": "model_b",
@@ -600,7 +648,7 @@
           },
           {
             "at": "say10",
-            "caption": "Enforcing comprehensive preflight validation guarantees deterministic.",
+            "caption": "Examine the coordinating value produced for four processing.",
             "bars": [
               {
                 "label": "total_gpus",
@@ -700,7 +748,7 @@
           },
           {
             "at": "say10",
-            "caption": "Enforcing comprehensive preflight validation guarantees deterministic.",
+            "caption": "Examine the coordinating value produced for four processing.",
             "bars": [
               {
                 "label": "total_gpus",

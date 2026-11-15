@@ -495,19 +495,363 @@
       "partTitle": "When to break the rules: denormalization",
       "codeHash": "ebd221f4df6e026710e9d01f8c9be5e57663b9d2408f98b5da66cb90bec7a910",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "When to break the rules: denormalization",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "This is called denormalization, and experienced developers do it carefully.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE products (id int PRIMARY KEY, name "
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The most common reason is history.",
+            "values": {
+              "query": {
+                "text": "FROM order_items oi JOIN products p ON p.id = oi.product_id;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "table": 1,
+                "row": 1,
+                "col": "order_id"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "When to break the rules: denormalization",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "This is called denormalization, and experienced developers do it carefully.",
+            "values": {
+              "query": "CREATE TABLE products (id int PRIMARY KEY, name ",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The most common reason is history.",
+            "values": {
+              "query": "FROM order_items oi JOIN products p ON p.id = oi.product_id;",
+              "db": "SELECT",
+              "res": "101"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: splitting a flat table",
       "codeHash": "6a9f927678523a306873005cf521b9c9dedcda0462f809f1185584805a9db861",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Putting it together: splitting a flat table",
+        "columns": [
+          "id",
+          "name",
+          "total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us take a messy flat table of orders.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "total"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "total"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "SELECT DISTINCT.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "total"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "id"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "total"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Putting it together: splitting a flat table",
+        "columns": [
+          "id",
+          "name",
+          "total"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us take a messy flat table of orders.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "Asha",
+                  "280.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Asha",
+                  "60.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "SELECT DISTINCT.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "Asha",
+                  "280.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Asha",
+                  "60.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "3",
+                  "Ravi",
+                  "1200.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "4",
+                  "Priya",
+                  "760.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

@@ -214,6 +214,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert f1 == ['event: token\\ndata: Hello\\n\\n', 'event: token\\ndata: world\\n\\n']",
       "f2 = sse_chunk_stream(['line1\\nline2'], event='delta')",
       "assert f2 == ['event: delta\\ndata: line1\\ndata: line2\\n\\n'], f'Got {f2}'",
+      "assert sse_chunk_stream([]) == [] and sse_chunk_stream(['', '']) == [], 'Empty or blank-only chunks produce no frames'",
       done
     ),
     aTitle: 'Bounded WebSocket Broadcast Hub',
@@ -615,6 +616,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert u1 is u2 and u2['name'] == 'Grace' and imap.loader_calls == 1",
       "a1 = imap.get_or_load('Account', 42, lambda k: {'id': k, 'bal': 10})",
       "assert a1 is not u1 and imap.loader_calls == 2",
+      "assert imap.get_or_load('Account', 42, lambda k: {'id': k}) is a1 and imap.loader_calls == 2, 'Composite (model, pk) key stays cached'",
       done
     ),
     aTitle: 'Unit of Work Batch SQL Flush',
@@ -660,6 +662,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "ops = uow.commit()",
       "assert ops == [('INSERT', 'u1'), ('UPDATE', 'u2'), ('DELETE', 'u3')], f'Got {ops}'",
       "assert uow.commit() == [], 'Second commit on empty buffers must emit nothing'",
+      "uow.register_deleted('old'); assert uow.commit() == [('DELETE', 'old')], 'Standalone delete emits DELETE op'",
       done
     ),
   },
@@ -961,6 +964,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert out == [['t1', 't3', 't5'], ['t2', 't4']], f'Got {out}'",
       "out3 = fair_prefetch_dispatch(['a', 'b', 'c'], worker_count=3, prefetch=1)",
       "assert out3 == [['a'], ['b'], ['c']]",
+      "assert fair_prefetch_dispatch([], worker_count=3, prefetch=1) == [[], [], []], 'Empty task list returns empty worker buckets'",
       done
     ),
   },
@@ -1291,6 +1295,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert res == {'status': 'CONFIRMED', 'notifications': ['sent:sms', 'sent:mail'], 'summary': 'ord9:2'}",
       "aborted = orch.execute({'id': 'ord10', 'qty': 99, 'targets': ['sms']}, callbacks)",
       "assert aborted == {'status': 'ABORTED', 'notifications': []}",
+      "assert orch.execute({'id': 'ord11', 'qty': 0, 'targets': ['sms']}, callbacks) == {'status': 'ABORTED', 'notifications': []}, 'Validation failure aborts early'",
       done
     ),
   },
@@ -1339,6 +1344,8 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert encode_varint(1) == b'\\x01' and encode_varint(300) == b'\\xac\\x02'",
       "for num in [0, 1, 127, 128, 300, 16384, 9876543]:",
       "    assert decode_varint(encode_varint(num)) == num, f'Roundtrip failed for {num}'",
+      "assert encode_varint(0) == b'\\x00', 'Zero encodes to single null byte'",
+      "assert decode_varint(b'\\x01') == 1 and decode_varint(b'\\xac\\x02') == 300, 'Direct decode of known varints'",
       done
     ),
     aTitle: 'HTTP/2 Odd-ID Stream Multiplexer',
@@ -1414,6 +1421,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert p_a1 == p_a2 and 0 <= p_a1 < 8",
       "distinct = {partition_for_key(f'user_{i}', 6) for i in range(40)}",
       "assert len(distinct) >= 4, 'Keys should spread cleanly across partitions'",
+      "assert partition_for_key('acct_42', 1) == 0 and partition_for_key('acct_99', 1) == 0, 'Single-partition cluster routes everything to partition 0'",
       done
     ),
     aTitle: 'Bounded Manual-Commit Offset Consumer',
@@ -1876,6 +1884,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "for ms in [5, 8, 9, 12, 40, 45, 48, 80, 95, 420]: h.observe(ms)",
       "assert h.counts == {10: 3, 50: 7, 100: 9, 500: 10}",
       "assert h.quantile(0.5) == 50 and h.quantile(0.9) == 100 and h.quantile(0.99) == 500",
+      "assert HistogramMetric([10, 50]).quantile(0.5) == 0.0, 'Empty histogram quantile returns 0.0'",
       done
     ),
     aTitle: 'Metric Cardinality Explosion Guard',
@@ -1943,6 +1952,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert s1 == 'User [REDACTED_EMAIL] paid with [REDACTED_CARD] via Bearer [REDACTED_TOKEN]', f'Got {s1}'",
       "s2 = redact_pii('ok no pii: order 981245')",
       "assert s2 == 'ok no pii: order 981245'",
+      "assert redact_pii('token=Bearer tok_999 for a@b.co') == 'token=Bearer [REDACTED_TOKEN] for [REDACTED_EMAIL]', 'Multiple PII types redacted together'",
       done
     ),
     aTitle: 'JSON Structured Logger with Correlation Context',
@@ -1982,6 +1992,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "obj = json.loads(line)",
       "assert '\\n' not in line and obj['correlation_id'] == 'req-7788' and obj['service'] == 'checkout-api' and obj['order_id'] == 55",
       "assert json.loads(log.format_record('WARN', 'idle'))['correlation_id'] == 'none'",
+      "assert obj['level'] == 'INFO' and obj['msg'] == 'order created', 'Expected level and message fields'",
       done
     ),
   },
@@ -2114,6 +2125,8 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "for sc, d in [(200, 10), (200, 20), (500, 150), (200, 30), (200, 40)]: m.record(sc, d)",
       "s = m.summary(window_secs=10)",
       "assert s == {'rate': 0.5, 'error_rate': 0.2, 'p50': 30, 'p99': 150}, f'Got {s}'",
+      "assert RedMetricsAggregator().summary(window_secs=10) == {'rate': 0.0, 'error_rate': 0.0, 'p50': 0.0, 'p99': 0.0}, 'Empty aggregator returns zeroes'",
+      "assert s['p50'] <= s['p99'] and 0.0 <= s['error_rate'] <= 1.0, 'Percentile and rate invariants'",
       done
     ),
     aTitle: 'Correlated Trace + Scrubbed Log Pipeline',
@@ -2145,6 +2158,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "parsed = json.loads(raw)",
       "assert parsed['trace_id'] == 'a'*32 and parsed['span_id'] == 'b'*16",
       "assert parsed['msg'] == 'fail for [REDACTED_EMAIL]' and log_m == [(502, 'fail for [REDACTED_EMAIL]')]",
+      "assert parsed['status_code'] == 502 and log_m[0][0] == 502, 'Status code preserved in JSON and metric log'",
       done
     ),
   },
@@ -2251,6 +2265,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "assert ac.verify() is True",
       "ac.chain[0]['payload']['amt'] = '9999.00'",
       "assert ac.verify() is False, 'Historical payload tamper must fail verify()'",
+      "assert AuditHashChain().verify() is True, 'Empty hash chain verifies cleanly'",
       done
     ),
   },
@@ -2290,6 +2305,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "fb.push('u2', 10, 20); fb.push('u1', 5, 5); fb.push('u2', 14, 28)",
       "assert fb.flush() == [('u1', 5, 5), ('u2', 14, 28)]",
       "assert fb.flush() == []",
+      "fb.push('u9', 1, 2); assert fb.flush() == [('u9', 1, 2)], 'New frame works after flush'",
       done
     ),
     aTitle: 'Sliding-Window Delta Replay Ring Buffer',
@@ -2450,6 +2466,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
     eTest: lines(
       "assert calculate_capacity_model(10000, 2000, 2500, 1) == {'mbps': 160.0, 'active_nodes': 4, 'total_nodes': 5}",
       "assert calculate_capacity_model(5000, 1500, 2000, 2) == {'mbps': 60.0, 'active_nodes': 3, 'total_nodes': 5}",
+      "assert calculate_capacity_model(0, 2000, 2500, 1) == {'mbps': 0.0, 'active_nodes': 0, 'total_nodes': 1}, 'Zero RPS needs 0 active nodes plus redundancy'",
       done
     ),
     aTitle: 'SLO Error Budget Governance Gate',
@@ -2480,6 +2497,7 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "eb = ErrorBudgetTracker(slo_pct=99.9, window_minutes=10000)",
       "assert eb.evaluate(3.0) == {'remaining_minutes': 7.0, 'policy': 'ALLOW_RELEASES'}",
       "assert eb.evaluate(12.0) == {'remaining_minutes': 0.0, 'policy': 'FREEZE_RELEASES'}",
+      "assert eb.evaluate(10.0) == {'remaining_minutes': 0.0, 'policy': 'FREEZE_RELEASES'}, 'Exhausted budget triggers FREEZE_RELEASES'",
       done
     ),
   },
@@ -2565,6 +2583,8 @@ const RAW_M2_DAY_TASKS: Month2DayTasks[] = [
       "from decimal import Decimal",
       "res = failover_stress_verify([('e1', '12.50'), ('e2', '7.25'), ('e1', '12.50'), ('e3', '5.25')], lambda k: k != 'e2')",
       "assert res == {'settled_count': 3, 'total': Decimal('25.00'), 'replica_failovers': 1}, f'Got {res}'",
+      "assert failover_stress_verify([], lambda k: True) == {'settled_count': 0, 'total': Decimal('0.00'), 'replica_failovers': 0}, 'Empty entries settle to zero'",
+      "assert failover_stress_verify([('x', '1.005')], lambda k: False)['replica_failovers'] == 1, 'Down primary increments failover counter'",
       done
     ),
   },

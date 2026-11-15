@@ -46,7 +46,7 @@
           },
           {
             "at": "say2",
-            "caption": "Behind the scenes, the AI writes Python code (often using the pandas.",
+            "caption": "Verify the code transition driving behind behavior.",
             "activeActor": "totals",
             "messages": [
               {
@@ -130,7 +130,7 @@
           },
           {
             "at": "say2",
-            "caption": "Behind the scenes, the AI writes Python code (often using the pandas.",
+            "caption": "Verify the code transition driving behind behavior.",
             "messages": [
               {
                 "from": "sales",
@@ -382,7 +382,7 @@
           },
           {
             "at": "say2",
-            "caption": "Grouping means collecting rows by a key, then summing (or counting,.",
+            "caption": "Verify the grouping transition driving means behavior.",
             "activeActor": "totals",
             "messages": [
               {
@@ -466,7 +466,7 @@
           },
           {
             "at": "say2",
-            "caption": "Grouping means collecting rows by a key, then summing (or counting,.",
+            "caption": "Verify the grouping transition driving means behavior.",
             "messages": [
               {
                 "from": "expenses",
@@ -531,6 +531,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "AI tools often clean data silently, which can hide important decisions.",
+            "activeActor": "aliases",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "aliases",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "aliases",
@@ -545,10 +562,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "AI tools often clean data silently, which can hide important decisions.",
-            "activeActor": "aliases",
+            "at": "say9",
+            "caption": "Keep the original data untouched and clean a copy, so you can always.",
+            "activeActor": "totals",
             "messages": [
+              {
+                "from": "raw",
+                "to": "aliases",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "aliases",
+                "to": "totals",
+                "label": {
+                  "var": "aliases",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "aliases",
@@ -568,14 +605,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Keep the original data untouched and clean a copy, so you can always.",
-            "activeActor": "totals",
-            "messages": [
+              },
               {
                 "from": "raw",
                 "to": "aliases",
@@ -618,12 +648,6 @@
                 "to": "aliases",
                 "label": "[['North', '1,200'], ['north ', '800'],…",
                 "tone": "data"
-              },
-              {
-                "from": "aliases",
-                "to": "totals",
-                "label": "{'n': 'north'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "raw"
@@ -651,6 +675,30 @@
             "at": "say9",
             "caption": "Keep the original data untouched and clean a copy, so you can always.",
             "messages": [
+              {
+                "from": "raw",
+                "to": "aliases",
+                "label": "[['North', '1,200'], ['north ', '800'],…",
+                "tone": "data"
+              },
+              {
+                "from": "aliases",
+                "to": "totals",
+                "label": "{'n': 'north'}",
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "aliases",
+                "label": "[['North', '1,200'], ['north ', '800'],…",
+                "tone": "data"
+              },
+              {
+                "from": "aliases",
+                "to": "totals",
+                "label": "{'n': 'north'}",
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "aliases",
@@ -695,6 +743,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Which rows were filtered out.",
+            "activeActor": "ai_reported_average",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": {
+                  "var": "scores",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ai_reported_average",
@@ -709,10 +774,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Which rows were filtered out.",
-            "activeActor": "ai_reported_average",
+            "at": "say9",
+            "caption": "Charts deserve checks too.",
+            "activeActor": "valid",
             "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": {
+                  "var": "scores",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": {
+                  "var": "ai_reported_average",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "scores",
                 "to": "ai_reported_average",
@@ -732,14 +817,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Charts deserve checks too.",
-            "activeActor": "valid",
-            "messages": [
+              },
               {
                 "from": "scores",
                 "to": "ai_reported_average",
@@ -782,12 +860,6 @@
                 "to": "ai_reported_average",
                 "label": "[72, 85, None, 90, 64]",
                 "tone": "data"
-              },
-              {
-                "from": "ai_reported_average",
-                "to": "valid",
-                "label": "62.2",
-                "tone": "ok"
               }
             ],
             "activeActor": "scores"
@@ -815,6 +887,30 @@
             "at": "say9",
             "caption": "Charts deserve checks too.",
             "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": "[72, 85, None, 90, 64]",
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": "62.2",
+                "tone": "ok"
+              },
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": "[72, 85, None, 90, 64]",
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": "62.2",
+                "tone": "ok"
+              },
               {
                 "from": "scores",
                 "to": "ai_reported_average",
@@ -859,6 +955,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the checks transition driving five behavior.",
+            "activeActor": "amounts",
+            "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": {
+                  "var": "week",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "amounts",
@@ -873,10 +986,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how checks updates five during execution.",
-            "activeActor": "amounts",
+            "at": "say8",
+            "caption": "These two functions answer a surprising share of everyday business.",
+            "activeActor": "totals",
             "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": {
+                  "var": "week",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": {
+                  "var": "amounts",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
               {
                 "from": "week",
                 "to": "amounts",
@@ -896,14 +1029,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "These two functions answer a surprising share of everyday business.",
-            "activeActor": "totals",
-            "messages": [
+              },
               {
                 "from": "week",
                 "to": "amounts",
@@ -946,19 +1072,13 @@
                 "to": "amounts",
                 "label": "[{'day': 'Mon', 'cat': 'food', 'amt': 2…",
                 "tone": "data"
-              },
-              {
-                "from": "amounts",
-                "to": "totals",
-                "label": "[250, 400, 300, 900, 200]",
-                "tone": "ok"
               }
             ],
             "activeActor": "week"
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates five during execution.",
+            "caption": "Verify the checks transition driving five behavior.",
             "messages": [
               {
                 "from": "week",
@@ -979,6 +1099,30 @@
             "at": "say8",
             "caption": "These two functions answer a surprising share of everyday business.",
             "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": "[{'day': 'Mon', 'cat': 'food', 'amt': 2…",
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": "[250, 400, 300, 900, 200]",
+                "tone": "ok"
+              },
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": "[{'day': 'Mon', 'cat': 'food', 'amt': 2…",
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": "[250, 400, 300, 900, 200]",
+                "tone": "ok"
+              },
               {
                 "from": "week",
                 "to": "amounts",

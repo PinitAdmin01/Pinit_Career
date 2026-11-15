@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "HTTP APIs (sometimes called API Gateway v2) are the newer, simpler, faster.",
+            "activeActor": "monthly_calls",
+            "messages": [
+              {
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": {
+                  "var": "PRICE_PER_MILLION",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "monthly_calls",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "HTTP APIs (sometimes called API Gateway v2) are the newer, simpler, faster.",
-            "activeActor": "monthly_calls",
+            "at": "say7",
+            "caption": "At small scale the difference is small.",
+            "activeActor": "row",
             "messages": [
+              {
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": {
+                  "var": "PRICE_PER_MILLION",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "monthly_calls",
+                "to": "row",
+                "label": {
+                  "var": "monthly_calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "PRICE_PER_MILLION",
                 "to": "monthly_calls",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "At small scale the difference is small.",
-            "activeActor": "row",
-            "messages": [
+              },
               {
                 "from": "PRICE_PER_MILLION",
                 "to": "monthly_calls",
@@ -398,12 +428,6 @@
                 "to": "monthly_calls",
                 "label": "{'HTTP API': 1, 'REST API': 3.5}",
                 "tone": "data"
-              },
-              {
-                "from": "monthly_calls",
-                "to": "row",
-                "label": "1000000",
-                "tone": "ok"
               }
             ],
             "activeActor": "PRICE_PER_MILLION"
@@ -431,6 +455,30 @@
             "at": "say7",
             "caption": "At small scale the difference is small.",
             "messages": [
+              {
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": "{'HTTP API': 1, 'REST API': 3.5}",
+                "tone": "data"
+              },
+              {
+                "from": "monthly_calls",
+                "to": "row",
+                "label": "1000000",
+                "tone": "ok"
+              },
+              {
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": "{'HTTP API': 1, 'REST API': 3.5}",
+                "tone": "data"
+              },
+              {
+                "from": "monthly_calls",
+                "to": "row",
+                "label": "1000000",
+                "tone": "ok"
+              },
               {
                 "from": "PRICE_PER_MILLION",
                 "to": "monthly_calls",
@@ -836,7 +884,7 @@
           },
           {
             "at": "say2",
-            "caption": "Cross-Origin Resource Sharing (CORS) is how the API says \"this other.",
+            "caption": "It does that with response headers.",
             "values": {
               "ALLOWED": {
                 "var": "ALLOWED",
@@ -845,8 +893,8 @@
               },
               "origin": {
                 "var": "origin",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "allowed_origins": {
                 "var": "allowed_origins",
@@ -872,7 +920,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the allow-list in action for a real origin and.",
+            "caption": "Examine the example value produced for shows processing.",
             "values": {
               "ALLOWED": {
                 "var": "ALLOWED",
@@ -881,8 +929,8 @@
               },
               "origin": {
                 "var": "origin",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "allowed_origins": {
                 "var": "allowed_origins",
@@ -952,10 +1000,10 @@
           },
           {
             "at": "say2",
-            "caption": "Cross-Origin Resource Sharing (CORS) is how the API says \"this other.",
+            "caption": "It does that with response headers.",
             "values": {
               "ALLOWED": "['https://app.pinit.com', 'https://admi…",
-              "origin": "'https://app.pinit.com'",
+              "origin": "'https://evil.example'",
               "allowed_origins": "['https://app.pinit.com', 'https://admi…"
             },
             "tones": {
@@ -976,10 +1024,10 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the allow-list in action for a real origin and.",
+            "caption": "Examine the example value produced for shows processing.",
             "values": {
               "ALLOWED": "['https://app.pinit.com', 'https://admi…",
-              "origin": "'https://app.pinit.com'",
+              "origin": "'https://evil.example'",
               "allowed_origins": "['https://app.pinit.com', 'https://admi…"
             },
             "tones": {
@@ -1088,13 +1136,13 @@
               },
               "origin": {
                 "var": "origin",
-                "line": 3,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "should_allow": {
                 "var": "should_allow",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -1134,13 +1182,13 @@
               },
               "origin": {
                 "var": "origin",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               },
               "should_allow": {
                 "var": "should_allow",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -1224,8 +1272,8 @@
             "values": {
               "ALLOWED": "['https://app.pinit.com']",
               "cases": "[['https://app.pinit.com', True], ['htt…",
-              "origin": "'https://app.pinit.com'",
-              "should_allow": "True"
+              "origin": "'https://app.pinit.com.evil.io'",
+              "should_allow": "False"
             },
             "tones": {
               "ALLOWED": "data",
@@ -1254,8 +1302,8 @@
             "values": {
               "ALLOWED": "['https://app.pinit.com']",
               "cases": "[['https://app.pinit.com', True], ['htt…",
-              "origin": "'https://app.pinit.com'",
-              "should_allow": "True"
+              "origin": "''",
+              "should_allow": "False"
             },
             "tones": {
               "ALLOWED": "ok",

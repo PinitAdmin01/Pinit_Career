@@ -390,13 +390,13 @@
             "values": {
               "line": {
                 "var": "line",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "m": {
                 "var": "m",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -416,13 +416,13 @@
             "values": {
               "line": {
                 "var": "line",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "m": {
                 "var": "m",
                 "line": 4,
-                "hit": 2
+                "hit": 3
               }
             },
             "tones": {
@@ -457,7 +457,7 @@
             "caption": "Your program must reliably find the tool name and input in each Action line.",
             "values": {
               "line": "'Action: calculator[7 * 12]'",
-              "m": "{'__other__': 'Match'}"
+              "m": "<Match>"
             },
             "tones": {
               "line": "data",
@@ -474,8 +474,8 @@
             "at": "say2",
             "caption": "Practice 1 is parse_action(line), which uses a regular expression.",
             "values": {
-              "line": "'Action: calculator[7 * 12]'",
-              "m": "{'__other__': 'Match'}"
+              "line": "'action: search[ price of [gold] today …",
+              "m": "None"
             },
             "tones": {
               "line": "data",
@@ -492,8 +492,8 @@
             "at": "say9",
             "caption": "Returning None for anything unexpected is safer than guessing what.",
             "values": {
-              "line": "'Action: calculator[7 * 12]'",
-              "m": "{'__other__': 'Match'}"
+              "line": "'Thought: I should search'",
+              "m": "None"
             },
             "tones": {
               "line": "ok",
@@ -535,6 +535,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the unknown transition driving tools behavior.",
+            "activeActor": "outputs",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "outputs",
@@ -549,10 +566,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Unknown tools produce an observation such as \"unknown tool.",
-            "activeActor": "outputs",
+            "at": "say9",
+            "caption": "Recording the number of steps and tool calls per task also shows how.",
+            "activeActor": "observations",
             "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "observations",
+                "label": {
+                  "var": "outputs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tools",
                 "to": "outputs",
@@ -572,14 +609,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Recording the number of steps and tool calls per task also shows how.",
-            "activeActor": "observations",
-            "messages": [
+              },
               {
                 "from": "tools",
                 "to": "outputs",
@@ -620,26 +650,20 @@
               {
                 "from": "tools",
                 "to": "outputs",
-                "label": "{'add': {'__other__': 'function'}, 'upp…",
+                "label": "{'add': <function>, 'upper': <method_de…",
                 "tone": "data"
-              },
-              {
-                "from": "outputs",
-                "to": "observations",
-                "label": "['Thought: add first', 'Action: add[2,3…",
-                "tone": "ok"
               }
             ],
             "activeActor": "tools"
           },
           {
             "at": "say2",
-            "caption": "Unknown tools produce an observation such as \"unknown tool.",
+            "caption": "Verify the unknown transition driving tools behavior.",
             "messages": [
               {
                 "from": "tools",
                 "to": "outputs",
-                "label": "{'add': {'__other__': 'function'}, 'upp…",
+                "label": "{'add': <function>, 'upper': <method_de…",
                 "tone": "data"
               },
               {
@@ -658,7 +682,31 @@
               {
                 "from": "tools",
                 "to": "outputs",
-                "label": "{'add': {'__other__': 'function'}, 'upp…",
+                "label": "{'add': <function>, 'upper': <method_de…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "observations",
+                "label": "['Thought: add first', 'Action: add[2,3…",
+                "tone": "ok"
+              },
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'add': <function>, 'upper': <method_de…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "observations",
+                "label": "['Thought: add first', 'Action: add[2,3…",
+                "tone": "ok"
+              },
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'add': <function>, 'upper': <method_de…",
                 "tone": "data"
               },
               {
@@ -687,8 +735,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Give agents the fewest and narrowest tools possible (least privilege.",
+            "caption": "Observe how agents shapes give during this step.",
             "activeActor": "ALLOWED_DOMAINS",
+            "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": {
+                  "var": "ALLOWED_DOMAINS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Require human confirmation for irreversible or costly actions.",
+            "activeActor": "to",
             "messages": [
               {
                 "from": "ALLOWED_DOMAINS",
@@ -713,10 +778,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Require human confirmation for irreversible or costly actions.",
-            "activeActor": "to",
+            "at": "say8",
+            "caption": "Test agents with tasks designed to tempt them into mistakes, such.",
+            "activeActor": "body",
             "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": {
+                  "var": "ALLOWED_DOMAINS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": {
+                  "var": "to",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ALLOWED_DOMAINS",
                 "to": "to",
@@ -736,14 +821,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Test agents with tasks designed to tempt them into mistakes, such.",
-            "activeActor": "body",
-            "messages": [
+              },
               {
                 "from": "ALLOWED_DOMAINS",
                 "to": "to",
@@ -779,19 +857,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Give agents the fewest and narrowest tools possible (least privilege.",
+            "caption": "Observe how agents shapes give during this step.",
             "messages": [
               {
                 "from": "ALLOWED_DOMAINS",
                 "to": "to",
                 "label": "{'company.com'}",
                 "tone": "data"
-              },
-              {
-                "from": "to",
-                "to": "body",
-                "label": "'boss@company.com'",
-                "tone": "ok"
               }
             ],
             "activeActor": "ALLOWED_DOMAINS"
@@ -819,6 +891,30 @@
             "at": "say8",
             "caption": "Test agents with tasks designed to tempt them into mistakes, such.",
             "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": "{'company.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": "'boss@company.com'",
+                "tone": "ok"
+              },
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": "{'company.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": "'boss@company.com'",
+                "tone": "ok"
+              },
               {
                 "from": "ALLOWED_DOMAINS",
                 "to": "to",
@@ -863,6 +959,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the checks transition driving include behavior.",
+            "activeActor": "outputs",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "outputs",
@@ -877,10 +990,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include nested brackets, extra spaces, a thought line and.",
-            "activeActor": "outputs",
+            "at": "say8",
+            "caption": "Keeping the loop, the tools and the parser separate makes each easy.",
+            "activeActor": "obs",
             "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": {
+                  "var": "outputs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tools",
                 "to": "outputs",
@@ -900,14 +1033,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Keeping the loop, the tools and the parser separate makes each easy.",
-            "activeActor": "obs",
-            "messages": [
+              },
               {
                 "from": "tools",
                 "to": "outputs",
@@ -948,26 +1074,20 @@
               {
                 "from": "tools",
                 "to": "outputs",
-                "label": "{'c_to_f': {'__other__': 'function'}, '…",
+                "label": "{'c_to_f': <function>, 'upper': <method…",
                 "tone": "data"
-              },
-              {
-                "from": "outputs",
-                "to": "obs",
-                "label": "['Thought: convert 31 C', 'Action: c_to…",
-                "tone": "ok"
               }
             ],
             "activeActor": "tools"
           },
           {
             "at": "say2",
-            "caption": "The checks include nested brackets, extra spaces, a thought line and.",
+            "caption": "Verify the checks transition driving include behavior.",
             "messages": [
               {
                 "from": "tools",
                 "to": "outputs",
-                "label": "{'c_to_f': {'__other__': 'function'}, '…",
+                "label": "{'c_to_f': <function>, 'upper': <method…",
                 "tone": "data"
               },
               {
@@ -986,7 +1106,31 @@
               {
                 "from": "tools",
                 "to": "outputs",
-                "label": "{'c_to_f': {'__other__': 'function'}, '…",
+                "label": "{'c_to_f': <function>, 'upper': <method…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": "['Thought: convert 31 C', 'Action: c_to…",
+                "tone": "ok"
+              },
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'c_to_f': <function>, 'upper': <method…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": "['Thought: convert 31 C', 'Action: c_to…",
+                "tone": "ok"
+              },
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'c_to_f': <function>, 'upper': <method…",
                 "tone": "data"
               },
               {

@@ -49,7 +49,7 @@
           },
           {
             "at": "say10",
-            "caption": "Read the provider documentation for each service you use, because.",
+            "caption": "Read the provider documentation for each service you use.",
             "currentState": "owner",
             "transition": {
               "from": "item",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say10",
-            "caption": "Read the provider documentation for each service you use, because.",
+            "caption": "Read the provider documentation for each service you use.",
             "currentState": "owner",
             "transition": {
               "from": "item",
@@ -181,18 +181,18 @@
               },
               "st": {
                 "var": "st",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "actions": {
                 "var": "actions",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "risky": {
                 "var": "risky",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -213,17 +213,17 @@
               },
               "st": {
                 "var": "st",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "actions": {
                 "var": "actions",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "risky": {
                 "var": "risky",
-                "line": 4,
+                "line": 6,
                 "hit": 2
               }
             },
@@ -279,9 +279,9 @@
             "caption": "Allow s3:GetObject on arn:aws:s3:::reports/* lets a role read objects.",
             "values": {
               "policy": "{'Statement': [{'Sid': 'ReadReports', '…",
-              "st": "{'Sid': 'ReadReports', 'Effect': 'Allow…",
-              "actions": "['s3:GetObject']",
-              "risky": "False"
+              "st": "{'Sid': 'Everything', 'Effect': 'Allow'…",
+              "actions": "['*']",
+              "risky": "True"
             },
             "tones": {
               "policy": "data",
@@ -295,9 +295,9 @@
             "caption": "Policies generated from actual usage logs help tighten permissions to what.",
             "values": {
               "policy": "{'Statement': [{'Sid': 'ReadReports', '…",
-              "st": "{'Sid': 'ReadReports', 'Effect': 'Allow…",
-              "actions": "['s3:GetObject']",
-              "risky": "False"
+              "st": "{'Sid': 'Everything', 'Effect': 'Allow'…",
+              "actions": "['*']",
+              "risky": "True"
             },
             "tones": {
               "policy": "ok",
@@ -368,7 +368,7 @@
           },
           {
             "at": "say2",
-            "caption": "A bucket can become public through its access control list (ACL.",
+            "caption": "Verify the public transition driving bucket behavior.",
             "values": {
               "buckets": {
                 "var": "buckets",
@@ -377,13 +377,13 @@
               },
               "b": {
                 "var": "b",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "public": {
                 "var": "public",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -413,13 +413,13 @@
               },
               "b": {
                 "var": "b",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "public": {
                 "var": "public",
-                "line": 4,
-                "hit": 2
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -484,11 +484,11 @@
           },
           {
             "at": "say2",
-            "caption": "A bucket can become public through its access control list (ACL.",
+            "caption": "Verify the public transition driving bucket behavior.",
             "values": {
               "buckets": "[{'name': 'website-assets', 'block': Fa…",
-              "b": "{'name': 'website-assets', 'block': Fal…",
-              "public": "True"
+              "b": "{'name': 'customer-exports', 'block': F…",
+              "public": "False"
             },
             "tones": {
               "buckets": "data",
@@ -511,8 +511,8 @@
             "caption": "Access logging on sensitive buckets records every read, which is vital.",
             "values": {
               "buckets": "[{'name': 'website-assets', 'block': Fa…",
-              "b": "{'name': 'website-assets', 'block': Fal…",
-              "public": "True"
+              "b": "{'name': 'backups', 'block': True, 'acl…",
+              "public": "False"
             },
             "tones": {
               "buckets": "ok",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud audit logs (AWS CloudTrail, Google Cloud Audit Logs, Azure Activity.",
+            "caption": "Observe how cloud shapes audit during this step.",
             "currentState": "SENSITIVE",
             "tone": "data"
           },
@@ -776,7 +776,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud audit logs (AWS CloudTrail, Google Cloud Audit Logs, Azure Activity.",
+            "caption": "Observe how cloud shapes audit during this step.",
             "currentState": "SENSITIVE",
             "tone": "data"
           },

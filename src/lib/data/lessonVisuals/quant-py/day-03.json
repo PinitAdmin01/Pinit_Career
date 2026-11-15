@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the cross transition driving simply behavior.",
+            "activeActor": "best_ask",
+            "messages": [
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": {
+                  "var": "best_bid",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "best_ask",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how does updates cross during execution.",
-            "activeActor": "best_ask",
+            "at": "say7",
+            "caption": "The whole matching engine is just these rules, applied exactly and quickly.",
+            "activeActor": "incoming",
             "messages": [
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": {
+                  "var": "best_bid",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "best_ask",
+                "to": "incoming",
+                "label": {
+                  "var": "best_ask",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "best_bid",
                 "to": "best_ask",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The whole matching engine is just these rules, applied exactly and quickly.",
-            "activeActor": "incoming",
-            "messages": [
+              },
               {
                 "from": "best_bid",
                 "to": "best_ask",
@@ -118,19 +148,13 @@
                 "to": "best_ask",
                 "label": "99.98",
                 "tone": "data"
-              },
-              {
-                "from": "best_ask",
-                "to": "incoming",
-                "label": "100.02",
-                "tone": "ok"
               }
             ],
             "activeActor": "best_bid"
           },
           {
             "at": "say2",
-            "caption": "Trace how does updates cross during execution.",
+            "caption": "Verify the cross transition driving simply behavior.",
             "messages": [
               {
                 "from": "best_bid",
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "The whole matching engine is just these rules, applied exactly and quickly.",
             "messages": [
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": "99.98",
+                "tone": "data"
+              },
+              {
+                "from": "best_ask",
+                "to": "incoming",
+                "label": "100.02",
+                "tone": "ok"
+              },
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": "99.98",
+                "tone": "data"
+              },
+              {
+                "from": "best_ask",
+                "to": "incoming",
+                "label": "100.02",
+                "tone": "ok"
+              },
               {
                 "from": "best_bid",
                 "to": "best_ask",
@@ -422,7 +470,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how inserted updates same during execution.",
+            "caption": "Verify the inserted transition driving price behavior.",
             "bars": [
               {
                 "label": "remaining",
@@ -492,7 +540,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how inserted updates same during execution.",
+            "caption": "Verify the inserted transition driving price behavior.",
             "bars": [
               {
                 "label": "remaining",
@@ -996,7 +1044,7 @@
           },
           {
             "at": "say2",
-            "caption": "After the loop, if anything remains, insert the remainder (a copy of.",
+            "caption": "Verify the loop transition driving anything behavior.",
             "values": {
               "book_states": {
                 "var": "book_states",
@@ -1142,7 +1190,7 @@
           },
           {
             "at": "say2",
-            "caption": "After the loop, if anything remains, insert the remainder (a copy of.",
+            "caption": "Verify the loop transition driving anything behavior.",
             "values": {
               "book_states": "[[99.9, 100.1], [99.9, 100.3], [100.2, …",
               "i": "1",

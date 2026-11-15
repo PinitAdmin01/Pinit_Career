@@ -73,7 +73,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how inspect updates packed during execution.",
+            "caption": "Examine the logical value produced for physical processing.",
             "activeActor": "t1",
             "messages": [
               {
@@ -149,7 +149,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how inspect updates packed during execution.",
+            "caption": "Examine the logical value produced for physical processing.",
             "messages": [
               {
                 "from": "l_ms",
@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For any local event or outbound RPC send, save l_prev = l first.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "clock_ms",
+                "to": "self",
+                "label": {
+                  "var": "clock_ms",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "For any local event or outbound RPC send, save l_prev = l first.",
-            "activeActor": "self",
+            "at": "say8",
+            "caption": "Trace all four receive branches in the working HLC engine below.",
+            "activeActor": "hlc",
             "messages": [
+              {
+                "from": "clock_ms",
+                "to": "self",
+                "label": {
+                  "var": "clock_ms",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "hlc",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "clock_ms",
                 "to": "self",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Trace all four receive branches in the working HLC engine below.",
-            "activeActor": "hlc",
-            "messages": [
+              },
               {
                 "from": "clock_ms",
                 "to": "self",
@@ -282,12 +312,6 @@
                 "to": "self",
                 "label": "[1000]",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "hlc",
-                "label": "<HLC>",
-                "tone": "ok"
               }
             ],
             "activeActor": "clock_ms"
@@ -315,6 +339,30 @@
             "at": "say8",
             "caption": "Trace all four receive branches in the working HLC engine below.",
             "messages": [
+              {
+                "from": "clock_ms",
+                "to": "self",
+                "label": "[1000]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "hlc",
+                "label": "<HLC>",
+                "tone": "ok"
+              },
+              {
+                "from": "clock_ms",
+                "to": "self",
+                "label": "[1000]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "hlc",
+                "label": "<HLC>",
+                "tone": "ok"
+              },
               {
                 "from": "clock_ms",
                 "to": "self",
@@ -359,6 +407,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because physical clocks would take five years to catch up, logical.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "t",
+                "to": "self",
+                "label": {
+                  "var": "t",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "self",
@@ -373,10 +438,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Because physical clocks would take five years to catch up, logical.",
-            "activeActor": "self",
+            "at": "say7",
+            "caption": "Test both healthy within-tolerance skew acceptance and excessive-skew.",
+            "activeActor": "max_offset_ms",
             "messages": [
+              {
+                "from": "t",
+                "to": "self",
+                "label": {
+                  "var": "t",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "t",
                 "to": "self",
@@ -396,14 +481,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Test both healthy within-tolerance skew acceptance and excessive-skew.",
-            "activeActor": "max_offset_ms",
-            "messages": [
+              },
               {
                 "from": "t",
                 "to": "self",
@@ -446,12 +524,6 @@
                 "to": "self",
                 "label": "[5000]",
                 "tone": "data"
-              },
-              {
-                "from": "self",
-                "to": "max_offset_ms",
-                "label": "<BoundedHLC>",
-                "tone": "ok"
               }
             ],
             "activeActor": "t"
@@ -479,6 +551,30 @@
             "at": "say7",
             "caption": "Test both healthy within-tolerance skew acceptance and excessive-skew.",
             "messages": [
+              {
+                "from": "t",
+                "to": "self",
+                "label": "[5000]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": "<BoundedHLC>",
+                "tone": "ok"
+              },
+              {
+                "from": "t",
+                "to": "self",
+                "label": "[5000]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": "<BoundedHLC>",
+                "tone": "ok"
+              },
               {
                 "from": "t",
                 "to": "self",
@@ -523,6 +619,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Suppose transaction T1 writes key X at node A with HLC timestamp t_1 = 1000ms.",
+            "activeActor": "versions",
+            "messages": [
+              {
+                "from": "kv_history",
+                "to": "versions",
+                "label": {
+                  "var": "kv_history",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "versions",
@@ -537,10 +650,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Suppose transaction T1 writes key X at node A with HLC timestamp t_1 = 1000ms.",
-            "activeActor": "versions",
+            "at": "say8",
+            "caption": "Simulate an uncertainty-window scan and restart resolution step below.",
+            "activeActor": "read_ts",
             "messages": [
+              {
+                "from": "kv_history",
+                "to": "versions",
+                "label": {
+                  "var": "kv_history",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "read_ts",
+                "label": {
+                  "var": "versions",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "kv_history",
                 "to": "versions",
@@ -560,14 +693,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Simulate an uncertainty-window scan and restart resolution step below.",
-            "activeActor": "read_ts",
-            "messages": [
+              },
               {
                 "from": "kv_history",
                 "to": "versions",
@@ -610,12 +736,6 @@
                 "to": "versions",
                 "label": "[[1040, 'v2'], [900, 'v1']]",
                 "tone": "data"
-              },
-              {
-                "from": "versions",
-                "to": "read_ts",
-                "label": "[[1040, 'v2'], [900, 'v1']]",
-                "tone": "ok"
               }
             ],
             "activeActor": "kv_history"
@@ -643,6 +763,30 @@
             "at": "say8",
             "caption": "Simulate an uncertainty-window scan and restart resolution step below.",
             "messages": [
+              {
+                "from": "kv_history",
+                "to": "versions",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "read_ts",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "ok"
+              },
+              {
+                "from": "kv_history",
+                "to": "versions",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "read_ts",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "ok"
+              },
               {
                 "from": "kv_history",
                 "to": "versions",
@@ -688,7 +832,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Serving read-only queries locally from nearby geo-replicas without.",
+            "caption": "Inspect closed updates as self tracks serving state.",
             "values": {
               "self": {
                 "var": "self",
@@ -706,16 +850,14 @@
                 "hit": 1
               },
               "leader_hlc": {
-                "var": "leader_hlc",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "safety_lag_ms": "data",
               "gate": "data",
-              "leader_hlc": "data"
+              "leader_hlc": "idle"
             },
             "arrows": [
               [
@@ -850,18 +992,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Serving read-only queries locally from nearby geo-replicas without.",
+            "caption": "Inspect closed updates as self tracks serving state.",
             "values": {
               "self": "<FollowerReadGate>",
               "safety_lag_ms": "2000",
               "gate": "<FollowerReadGate>",
-              "leader_hlc": "12000"
+              "leader_hlc": ""
             },
             "tones": {
               "self": "data",
               "safety_lag_ms": "data",
               "gate": "data",
-              "leader_hlc": "data"
+              "leader_hlc": "idle"
             },
             "arrows": [
               [

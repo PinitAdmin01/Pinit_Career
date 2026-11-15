@@ -417,19 +417,447 @@
       "partTitle": "The top item per group",
       "codeHash": "12fc8478d2eff56c8371bd8e9731ac2a13bf423a245aabe91d4ded72bf64b5b8",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "The top item per group",
+        "columns": [
+          "name",
+          "order_id",
+          "latest_order"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A very common question is \"the top one (or top three) in each group\".",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "latest_order"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "latest_order"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The recipe has two steps.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "latest_order"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "latest_order"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "order_id"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "latest_order"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "The top item per group",
+        "columns": [
+          "name",
+          "order_id",
+          "latest_order"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A very common question is \"the top one (or top three) in each group\".",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "103",
+                  "2026-09-10"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Priya",
+                  "104",
+                  "2026-09-12"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The recipe has two steps.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "103",
+                  "2026-09-10"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Priya",
+                  "104",
+                  "2026-09-12"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "102",
+                  "2026-09-03"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Comparing with the previous row: LAG and LEAD",
       "codeHash": "5cfe6aca1a0e8e41c0f2f6f40b7d88cb48389a450b3306b81592a9e8d34a93ef",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Comparing with the previous row: LAG and LEAD",
+        "columns": [
+          "month",
+          "amount",
+          "previous",
+          "change"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Two more window functions look at neighbouring rows.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "change"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "change"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This makes \"compared with last time\" questions easy.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "change"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "change"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "change"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "month"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "amount"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "previous"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "change"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Comparing with the previous row: LAG and LEAD",
+        "columns": [
+          "month",
+          "amount",
+          "previous",
+          "change"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Two more window functions look at neighbouring rows.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-06-01",
+                  "12000.00",
+                  "null",
+                  "null"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2026-07-01",
+                  "15000.00",
+                  "12000.00",
+                  "3000.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This makes \"compared with last time\" questions easy.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-06-01",
+                  "12000.00",
+                  "null",
+                  "null"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-07-01",
+                  "15000.00",
+                  "12000.00",
+                  "3000.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-08-01",
+                  "13500.00",
+                  "15000.00",
+                  "-1500.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-01",
+                  "18000.00",
+                  "13500.00",
+                  "4500.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: top products per category",
@@ -538,7 +966,7 @@
           },
           {
             "at": "say2",
-            "caption": "The query uses row_number with PARTITION BY category keeping rank 1.",
+            "caption": "The query uses row_number with PARTITION BY category keeping rank one.",
             "rows": [
               {
                 "cells": [

@@ -30,6 +30,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the rigorous transition driving days behavior.",
+            "activeActor": "manifest",
+            "messages": [
+              {
+                "from": "self",
+                "to": "manifest",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "manifest",
@@ -44,10 +61,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Consensus protocols (Raft, Paxos), Sharding and Hashing (Consistent.",
+            "at": "say8",
+            "caption": "Examine the milestone value produced for represents processing.",
             "activeActor": "manifest",
             "messages": [
+              {
+                "from": "self",
+                "to": "manifest",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "manifest",
+                "to": "self",
+                "label": {
+                  "var": "manifest",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "manifest",
@@ -67,14 +104,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Trace how mastering updates these during execution.",
-            "activeActor": "manifest",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "manifest",
@@ -84,16 +114,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "manifest",
-                "to": "self",
-                "label": {
-                  "var": "manifest",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -116,19 +136,13 @@
                 "to": "manifest",
                 "label": "<CapstonePlatformManifest>",
                 "tone": "data"
-              },
-              {
-                "from": "manifest",
-                "to": "self",
-                "label": "<CapstonePlatformManifest>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Consensus protocols (Raft, Paxos), Sharding and Hashing (Consistent.",
+            "caption": "Verify the rigorous transition driving days behavior.",
             "messages": [
               {
                 "from": "self",
@@ -147,7 +161,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how mastering updates these during execution.",
+            "caption": "Examine the milestone value produced for represents processing.",
             "messages": [
               {
                 "from": "self",
@@ -160,6 +174,24 @@
                 "to": "self",
                 "label": "<CapstonePlatformManifest>",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "manifest",
+                "label": "<CapstonePlatformManifest>",
+                "tone": "data"
+              },
+              {
+                "from": "manifest",
+                "to": "self",
+                "label": "<CapstonePlatformManifest>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "manifest",
+                "label": "<CapstonePlatformManifest>",
+                "tone": "data"
               }
             ],
             "activeActor": "manifest"
@@ -254,13 +286,13 @@
               },
               "key": {
                 "var": "key",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "val": {
                 "var": "val",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -300,13 +332,13 @@
               },
               "key": {
                 "var": "key",
-                "line": 13,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "val": {
                 "var": "val",
-                "line": 13,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -390,8 +422,8 @@
             "values": {
               "self": "<GeoPlatformEngine>",
               "engine": "<GeoPlatformEngine>",
-              "key": "'user:101:balance'",
-              "val": "5000"
+              "key": "'user:102:balance'",
+              "val": "2500"
             },
             "tones": {
               "self": "data",
@@ -420,8 +452,8 @@
             "values": {
               "self": "<GeoPlatformEngine>",
               "engine": "<GeoPlatformEngine>",
-              "key": "'user:101:balance'",
-              "val": "5000"
+              "key": "'user:102:balance'",
+              "val": "2500"
             },
             "tones": {
               "self": "ok",
@@ -491,7 +523,7 @@
           },
           {
             "at": "say8",
-            "caption": "At the edge storage layer, per-SSTable Bloom filters eliminate unnecessary.",
+            "caption": "Examine the scaling value produced for platforms processing.",
             "currentState": "coord",
             "transition": {
               "from": "local_region",
@@ -543,7 +575,7 @@
           },
           {
             "at": "say8",
-            "caption": "At the edge storage layer, per-SSTable Bloom filters eliminate unnecessary.",
+            "caption": "Examine the scaling value produced for platforms processing.",
             "currentState": "coord",
             "transition": {
               "from": "local_region",
@@ -596,7 +628,7 @@
           },
           {
             "at": "say7",
-            "caption": "Every layer operates independently, ensuring that even if one defense.",
+            "caption": "Think of real cascading cloud outages.",
             "items": {
               "var": "admitted",
               "line": 23,
@@ -664,7 +696,7 @@
           },
           {
             "at": "say7",
-            "caption": "Every layer operates independently, ensuring that even if one defense.",
+            "caption": "Think of real cascading cloud outages.",
             "items": [
               "'CRITICAL_PLUS'",
               "'CRITICAL_PLUS'",
@@ -692,162 +724,182 @@
       "partTitle": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
       "codeHash": "52162c8217d905d91d47cbdc3e05c2fb68225bf50c4ad77777d9c5d5e6943076",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 12 Capstone — Production Telemetry & Verification Audi",
-        "actors": [
-          "audit_results",
-          ".0",
-          "v"
+        "nodes": [
+          {
+            "id": "audit_results",
+            "label": "audit_results",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "all_pass",
+            "label": "all_pass",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final step in your distributed systems journey is the comprehensive.",
-            "activeActor": "audit_results",
-            "messages": [
-              {
-                "from": "audit_results",
-                "to": ".0",
-                "label": {
-                  "var": "audit_results",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect milestone updates as audit_results tracks capstone state.",
+            "values": {
+              "audit_results": {
+                "var": "audit_results",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": {
-                  "var": ".0",
-                  "line": 10,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "text": ""
+              },
+              "all_pass": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "audit_results": "data",
+              "v": "idle",
+              "all_pass": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "This deterministic audit certifies the entire platform across five.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "audit_results",
-                "to": ".0",
-                "label": {
-                  "var": "audit_results",
-                  "line": 10,
-                  "hit": 7
-                },
-                "tone": "data"
+            "caption": "Verify the audit transition driving deterministic behavior.",
+            "values": {
+              "audit_results": {
+                "var": "audit_results",
+                "line": 10,
+                "hit": 7
               },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": {
-                  "var": ".0",
-                  "line": 10,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "v": {
+                "text": ""
+              },
+              "all_pass": {
+                "var": "all_pass",
+                "line": 10,
+                "hit": 7
               }
+            },
+            "tones": {
+              "audit_results": "data",
+              "v": "idle",
+              "all_pass": "data"
+            },
+            "arrows": [
+              [
+                "audit_results",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "You are now fully equipped with the theoretical foundations and hands-on.",
-            "activeActor": "v",
-            "messages": [
-              {
-                "from": "audit_results",
-                "to": ".0",
-                "label": {
-                  "var": "audit_results",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the production value produced for every processing.",
+            "values": {
+              "audit_results": {
+                "out": 1
               },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": {
-                  "var": ".0",
-                  "line": 10,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "v": {
+                "text": ""
+              },
+              "all_pass": {
+                "text": ""
               }
+            },
+            "tones": {
+              "audit_results": "data",
+              "v": "idle",
+              "all_pass": "idle"
+            },
+            "arrows": [
+              [
+                "audit_results",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Milestone 12 Capstone — Production Telemetry & Verification Audi",
-        "actors": [
-          "audit_results",
-          ".0",
-          "v"
+        "nodes": [
+          {
+            "id": "audit_results",
+            "label": "audit_results",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "all_pass",
+            "label": "all_pass",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final step in your distributed systems journey is the comprehensive.",
-            "messages": [
-              {
-                "from": "audit_results",
-                "to": ".0",
-                "label": "{'storage_linearizability': 'PASS', 'st…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "audit_results"
+            "caption": "Inspect milestone updates as audit_results tracks capstone state.",
+            "values": {
+              "audit_results": "{'storage_linearizability': 'PASS', 'st…",
+              "v": "",
+              "all_pass": ""
+            },
+            "tones": {
+              "audit_results": "data",
+              "v": "idle",
+              "all_pass": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "This deterministic audit certifies the entire platform across five.",
-            "messages": [
-              {
-                "from": "audit_results",
-                "to": ".0",
-                "label": "{'storage_linearizability': 'PASS', 'st…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the audit transition driving deterministic behavior.",
+            "values": {
+              "audit_results": "{'storage_linearizability': 'PASS', 'st…",
+              "v": "",
+              "all_pass": "True"
+            },
+            "tones": {
+              "audit_results": "data",
+              "v": "idle",
+              "all_pass": "data"
+            },
+            "arrows": [
+              [
+                "audit_results",
+                "v"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "You are now fully equipped with the theoretical foundations and hands-on.",
-            "messages": [
-              {
-                "from": "audit_results",
-                "to": ".0",
-                "label": "{'storage_linearizability': 'PASS', 'st…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "v"
+            "at": "say3",
+            "caption": "Examine the production value produced for every processing.",
+            "values": {
+              "audit_results": "Capstone Certification: {'course': 'Distributed Systems in Python', 'milestone': 12, 'days_completed': 60, 'certified': True, 'audit': {'storage_linearizability': 'PASS', 'stream_state_integrity': 'PASS', 'traffic_goodput_protection': 'PASS', 'observability_trace_continuity': 'PASS', 'chaos_self_healing_mttr': 'PASS'}}",
+              "v": "",
+              "all_pass": ""
+            },
+            "tones": {
+              "audit_results": "data",
+              "v": "idle",
+              "all_pass": "idle"
+            },
+            "arrows": [
+              [
+                "audit_results",
+                "v"
+              ]
+            ]
           }
         ]
       }

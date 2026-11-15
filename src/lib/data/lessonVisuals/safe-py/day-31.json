@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "OWASP LLM Top 10 Threat Matrix — Foundations & Mathematical Invariants",
+      "partTitle": "OWASP LLM Top 10 Threat Registry Initialization",
       "codeHash": "87cdfcf266fc25b1f28b8de8ef932c18c3468c0e1e2714f18dcb1e1f31bc6c11",
       "spec": {
         "template": "states",
@@ -80,21 +80,21 @@
       }
     },
     {
-      "partTitle": "OWASP LLM Top 10 Threat Matrix — Core Algorithm & State Representation",
-      "codeHash": "a885af6e403a491334d204db8d43ad8c3776d8b4cf75b012d34bdc8a7856e48e",
+      "partTitle": "Normalized Risk Priority Number Scoring with `calculate_risk_score`",
+      "codeHash": "1cf6728fc1ac1575a3ed8a29b9a93b0bf9f222e8a0e0d89607365f35799777a9",
       "spec": {
         "template": "bars",
-        "title": "OWASP LLM Top 10 Threat Matrix — Core Algorithm & State Represen",
+        "title": "Normalized Risk Priority Number Scoring with `calculate_risk_sco",
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantitative risk assessment models compute deterministic scores.",
+            "caption": "Observe how risk shapes quantitative during this step.",
             "bars": [
               {
                 "label": "impact",
                 "value": {
                   "var": "impact",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -103,7 +103,7 @@
                 "label": "likelihood",
                 "value": {
                   "var": "likelihood",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -112,7 +112,7 @@
                 "label": "detectability",
                 "value": {
                   "var": "detectability",
-                  "line": 3,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -120,9 +120,7 @@
               {
                 "label": "raw",
                 "value": {
-                  "var": "raw",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -130,56 +128,54 @@
           },
           {
             "at": "say2",
-            "caption": "The Risk Priority Number (RPN) formulation evaluates threat severity.",
+            "caption": "Verify the risk transition driving priority behavior.",
             "bars": [
               {
                 "label": "impact",
                 "value": {
                   "var": "impact",
-                  "line": 4,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "likelihood",
                 "value": {
                   "var": "likelihood",
-                  "line": 4,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "detectability",
                 "value": {
                   "var": "detectability",
-                  "line": 4,
-                  "hit": 1
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "raw",
                 "value": {
-                  "var": "raw",
-                  "line": 4,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "at": "say3",
+            "caption": "Examine the reflect value produced for defensive processing.",
             "bars": [
               {
                 "label": "impact",
                 "value": {
                   "var": "impact",
                   "line": 4,
-                  "hit": 1
+                  "hit": 2
                 },
                 "tone": "ok"
               },
@@ -188,7 +184,7 @@
                 "value": {
                   "var": "likelihood",
                   "line": 4,
-                  "hit": 1
+                  "hit": 2
                 },
                 "tone": "ok"
               },
@@ -197,7 +193,7 @@
                 "value": {
                   "var": "detectability",
                   "line": 4,
-                  "hit": 1
+                  "hit": 2
                 },
                 "tone": "ok"
               },
@@ -206,7 +202,7 @@
                 "value": {
                   "var": "raw",
                   "line": 4,
-                  "hit": 1
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -216,11 +212,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "OWASP LLM Top 10 Threat Matrix — Core Algorithm & State Represen",
+        "title": "Normalized Risk Priority Number Scoring with `calculate_risk_sco",
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantitative risk assessment models compute deterministic scores.",
+            "caption": "Observe how risk shapes quantitative during this step.",
             "bars": [
               {
                 "label": "impact",
@@ -239,59 +235,59 @@
               },
               {
                 "label": "raw",
-                "value": 16.875,
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The Risk Priority Number (RPN) formulation evaluates threat severity.",
+            "caption": "Verify the risk transition driving priority behavior.",
             "bars": [
               {
                 "label": "impact",
-                "value": 9,
-                "tone": "ok"
+                "value": 10,
+                "tone": "data"
               },
               {
                 "label": "likelihood",
-                "value": 7.5,
-                "tone": "ok"
+                "value": 10,
+                "tone": "data"
               },
               {
                 "label": "detectability",
-                "value": 4,
-                "tone": "ok"
+                "value": 0.5,
+                "tone": "data"
               },
               {
                 "label": "raw",
-                "value": 16.875,
-                "tone": "ok"
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "at": "say3",
+            "caption": "Examine the reflect value produced for defensive processing.",
             "bars": [
               {
                 "label": "impact",
-                "value": 9,
+                "value": 10,
                 "tone": "ok"
               },
               {
                 "label": "likelihood",
-                "value": 7.5,
+                "value": 10,
                 "tone": "ok"
               },
               {
                 "label": "detectability",
-                "value": 4,
+                "value": 0.5,
                 "tone": "ok"
               },
               {
                 "label": "raw",
-                "value": 16.875,
+                "value": 100,
                 "tone": "ok"
               }
             ]
@@ -300,7 +296,7 @@
       }
     },
     {
-      "partTitle": "OWASP LLM Top 10 Threat Matrix — Production Implementation & Boundary Mechanics",
+      "partTitle": "Deployment Blocker Categorization inside `risk_tier`",
       "codeHash": "387519d1809f0430d13e7d858b2cce4bc67e414dd12056418b7f7847fc76dac1",
       "spec": {
         "template": "states",
@@ -343,7 +339,7 @@
           },
           {
             "at": "say12",
-            "caption": "Trace how thorough updates latency during execution.",
+            "caption": "Examine the granular value produced for threshold processing.",
             "currentState": "score",
             "transition": {
               "from": "s",
@@ -395,7 +391,7 @@
           },
           {
             "at": "say12",
-            "caption": "Trace how thorough updates latency during execution.",
+            "caption": "Examine the granular value produced for threshold processing.",
             "currentState": "score",
             "transition": {
               "from": "s",
@@ -408,7 +404,7 @@
       }
     },
     {
-      "partTitle": "OWASP LLM Top 10 Threat Matrix — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Deterministic Top-Risk Heap Ranking via `RiskRegister`",
       "codeHash": "66d72dc66f664fc7a54b42328f0e9fae2e1a5dabd77987afdd7becdcbf0ec4a8",
       "spec": {
         "template": "states",
@@ -451,7 +447,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the riskregister value produced for stateful processing.",
             "currentState": "owasp_id",
             "transition": {
               "from": "reg",
@@ -503,7 +499,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the riskregister value produced for stateful processing.",
             "currentState": "owasp_id",
             "transition": {
               "from": "reg",
@@ -516,165 +512,64 @@
       }
     },
     {
-      "partTitle": "OWASP LLM Top 10 Threat Matrix — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Automated Production Gatekeeping with `audit_risk_register`",
       "codeHash": "b3adbcec840b65edbea8ce63e12fca36e7d6119d14ff4a8a6d47d7563ecfe3ba",
       "spec": {
         "template": "flow",
-        "title": "OWASP LLM Top 10 Threat Matrix — Production Capstone & Enterpris",
+        "title": "Automated Production Gatekeeping with `audit_risk_register`",
         "nodes": [
           {
-            "id": "test_reg",
-            "label": "test_reg"
+            "id": "e",
+            "label": "e",
+            "tappable": true
           },
           {
-            "id": "entries",
-            "label": "entries"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise site reliability engineering for AI platforms requires.",
+            "caption": "Inspect automated updates as e tracks risk state.",
             "values": {
-              "test_reg": {
-                "var": "test_reg",
-                "line": 7,
-                "hit": 1
-              },
-              "entries": {
-                "var": "entries",
-                "line": 2,
-                "hit": 1
-              },
-              "total": {
-                "var": "total",
-                "line": 2,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
+              "e": {
+                "var": "e",
                 "line": 3,
                 "hit": 1
+              },
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "test_reg": "data",
-              "entries": "data",
-              "total": "data",
-              ".0": "data"
+              "e": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "test_reg",
-                "entries"
-              ],
-              [
-                "entries",
-                "total"
-              ],
-              [
-                "total",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Pre-flight deployment checks evaluate whether any unmitigated critical.",
+            "caption": "Verify the flight transition driving deployment behavior.",
             "values": {
-              "test_reg": {
-                "var": "test_reg",
-                "line": 8,
-                "hit": 1
-              },
-              "entries": {
-                "var": "entries",
-                "line": 3,
-                "hit": 4
-              },
-              "total": {
-                "var": "total",
-                "line": 3,
-                "hit": 4
-              },
-              ".0": {
-                "var": ".0",
+              "e": {
+                "var": "e",
                 "line": 3,
                 "hit": 2
+              },
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "test_reg": "data",
-              "entries": "data",
-              "total": "data",
-              ".0": "data"
+              "e": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "test_reg",
-                "entries"
-              ],
-              [
-                "entries",
-                "total"
-              ],
-              [
-                "total",
-                ".0"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "values": {
-              "test_reg": {
-                "var": "test_reg",
-                "line": 9,
-                "hit": 1
-              },
-              "entries": {
-                "var": "entries",
-                "line": 4,
-                "hit": 4
-              },
-              "total": {
-                "var": "total",
-                "line": 4,
-                "hit": 4
-              },
-              ".0": {
-                "var": ".0",
-                "line": 3,
-                "hit": 3
-              }
-            },
-            "tones": {
-              "test_reg": "ok",
-              "entries": "ok",
-              "total": "ok",
-              ".0": "ok"
-            },
-            "arrows": [
-              [
-                "test_reg",
-                "entries"
-              ],
-              [
-                "entries",
-                "total"
-              ],
-              [
-                "total",
-                ".0"
+                "e",
+                "out"
               ]
             ]
           }
@@ -682,113 +577,48 @@
       },
       "filled": {
         "template": "flow",
-        "title": "OWASP LLM Top 10 Threat Matrix — Production Capstone & Enterpris",
+        "title": "Automated Production Gatekeeping with `audit_risk_register`",
         "nodes": [
           {
-            "id": "test_reg",
-            "label": "test_reg"
+            "id": "e",
+            "label": "e",
+            "tappable": true
           },
           {
-            "id": "entries",
-            "label": "entries"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise site reliability engineering for AI platforms requires.",
+            "caption": "Inspect automated updates as e tracks risk state.",
             "values": {
-              "test_reg": "[{'id': 'LLM07', 'score': 4.2}, {'id': …",
-              "entries": "[{'id': 'LLM07', 'score': 4.2}, {'id': …",
-              "total": "2",
-              ".0": "{'__other__': 'list_iterator'}"
+              "e": "{'id': 'LLM07', 'score': 4.2}",
+              "out": ""
             },
             "tones": {
-              "test_reg": "data",
-              "entries": "data",
-              "total": "data",
-              ".0": "data"
+              "e": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "test_reg",
-                "entries"
-              ],
-              [
-                "entries",
-                "total"
-              ],
-              [
-                "total",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Pre-flight deployment checks evaluate whether any unmitigated critical.",
+            "caption": "Verify the flight transition driving deployment behavior.",
             "values": {
-              "test_reg": "[{'id': 'LLM07', 'score': 4.2}, {'id': …",
-              "entries": "[{'id': 'LLM07', 'score': 4.2}, {'id': …",
-              "total": "2",
-              ".0": "{'__other__': 'list_iterator'}"
+              "e": "{'id': 'LLM09', 'score': 5.1}",
+              "out": "Risk Audit: 2 risks, Avg: 4.65, Prod Ready: True"
             },
             "tones": {
-              "test_reg": "data",
-              "entries": "data",
-              "total": "data",
-              ".0": "data"
+              "e": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "test_reg",
-                "entries"
-              ],
-              [
-                "entries",
-                "total"
-              ],
-              [
-                "total",
-                ".0"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "values": {
-              "test_reg": "[{'id': 'LLM07', 'score': 4.2}, {'id': …",
-              "entries": "[{'id': 'LLM07', 'score': 4.2}, {'id': …",
-              "total": "2",
-              ".0": "{'__other__': 'list_iterator'}"
-            },
-            "tones": {
-              "test_reg": "ok",
-              "entries": "ok",
-              "total": "ok",
-              ".0": "ok"
-            },
-            "arrows": [
-              [
-                "test_reg",
-                "entries"
-              ],
-              [
-                "entries",
-                "total"
-              ],
-              [
-                "total",
-                ".0"
+                "e",
+                "out"
               ]
             ]
           }

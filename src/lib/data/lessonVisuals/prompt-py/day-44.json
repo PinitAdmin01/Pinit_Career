@@ -7,294 +7,292 @@
   "entries": [
     {
       "partTitle": "Architectural Comparison LangGraph CrewAI AutoGen And Native AsyncIO",
-      "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
+      "codeHash": "1a311793f6411e8133ba9c0a20c16e29ebc25e37048123f0c6b456e786102bc5",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Architectural Comparison LangGraph CrewAI AutoGen And Native Asy",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "w",
+            "label": "w",
+            "tappable": true
+          },
+          {
+            "id": "fw",
+            "label": "fw",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As the artificial intelligence landscape transitions from single-prompt.",
-            "activeActor": "framework_evaluations",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect architectural updates as k tracks langgraph state.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "w": {
+                "var": "w",
+                "line": 10,
+                "hit": 2
+              },
+              "fw": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "k": "data",
+              "w": "data",
+              "fw": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Architectural paradigms in production agent frameworks dictate how swarms.",
-            "activeActor": "orchestration_metrics",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 28,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the architectural transition driving paradigms behavior.",
+            "values": {
+              "k": {
+                "text": ""
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 34,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "w": {
+                "text": ""
+              },
+              "fw": {
+                "var": "fw",
+                "line": 10,
+                "hit": 19
               }
+            },
+            "tones": {
+              "k": "idle",
+              "w": "idle",
+              "fw": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering the comparative landscape of production agent frameworks enables.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the langgraph value produced for models processing.",
+            "values": {
+              "k": {
+                "text": ""
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 35,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "w": {
+                "text": ""
+              },
+              "fw": {
+                "var": "fw",
+                "line": 13,
+                "hit": 4
               }
+            },
+            "tones": {
+              "k": "idle",
+              "w": "idle",
+              "fw": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "w"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Architectural Comparison LangGraph CrewAI AutoGen And Native Asy",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          },
+          {
+            "id": "w",
+            "label": "w",
+            "tappable": true
+          },
+          {
+            "id": "fw",
+            "label": "fw",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As the artificial intelligence landscape transitions from single-prompt.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "framework_evaluations"
+            "caption": "Inspect architectural updates as k tracks langgraph state.",
+            "values": {
+              "k": "'cyclicity'",
+              "w": "0.3",
+              "fw": ""
+            },
+            "tones": {
+              "k": "data",
+              "w": "data",
+              "fw": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Architectural paradigms in production agent frameworks dictate how swarms.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "orchestration_metrics"
+            "caption": "Verify the architectural transition driving paradigms behavior.",
+            "values": {
+              "k": "",
+              "w": "",
+              "fw": "'AutoGen'"
+            },
+            "tones": {
+              "k": "idle",
+              "w": "idle",
+              "fw": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "w"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering the comparative landscape of production agent frameworks enables.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the langgraph value produced for models processing.",
+            "values": {
+              "k": "",
+              "w": "",
+              "fw": "'CrewAI'"
+            },
+            "tones": {
+              "k": "idle",
+              "w": "idle",
+              "fw": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "w"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointers",
-      "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
+      "codeHash": "9df6eb91d62cada1477787a7d121a9fde68b5a89324c1a4a0b7ba9b80d164ec2",
       "spec": {
         "template": "flow",
         "title": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointer",
         "nodes": [
           {
-            "id": "framework_evaluations",
-            "label": "framework_evaluations"
+            "id": "state",
+            "label": "state",
+            "tappable": true
           },
           {
-            "id": "orchestration_metrics",
-            "label": "orchestration_metrics"
+            "id": "checkpoints",
+            "label": "checkpoints",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "i",
+            "label": "i",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When enterprise workflows demand deterministic state transitions, complex.",
+            "caption": "Inspect langgraph updates as state tracks computation state.",
             "values": {
-              "framework_evaluations": {
-                "var": "framework_evaluations",
-                "line": 9,
+              "state": {
+                "var": "state",
+                "line": 2,
                 "hit": 1
               },
-              "orchestration_metrics": {
-                "var": "orchestration_metrics",
-                "line": 27,
-                "hit": 1
+              "checkpoints": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 41,
-                "hit": 1
+              "i": {
+                "text": ""
               }
             },
             "tones": {
-              "framework_evaluations": "data",
-              "orchestration_metrics": "data",
-              "result": "data"
+              "state": "data",
+              "checkpoints": "idle",
+              "i": "idle"
             },
-            "arrows": [
-              [
-                "framework_evaluations",
-                "orchestration_metrics"
-              ],
-              [
-                "orchestration_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "LangGraph stateful computation graphs provide deterministic control flow.",
+            "caption": "Verify the langgraph transition driving stateful behavior.",
             "values": {
-              "framework_evaluations": {
-                "var": "framework_evaluations",
-                "line": 28,
-                "hit": 1
+              "state": {
+                "var": "state",
+                "line": 8,
+                "hit": 2
               },
-              "orchestration_metrics": {
-                "var": "orchestration_metrics",
-                "line": 34,
-                "hit": 1
+              "checkpoints": {
+                "var": "checkpoints",
+                "line": 8,
+                "hit": 2
               },
-              "result": {
-                "var": "result",
-                "line": 42,
-                "hit": 1
+              "i": {
+                "text": ""
               }
             },
             "tones": {
-              "framework_evaluations": "data",
-              "orchestration_metrics": "data",
-              "result": "data"
+              "state": "data",
+              "checkpoints": "data",
+              "i": "idle"
             },
             "arrows": [
               [
-                "framework_evaluations",
-                "orchestration_metrics"
-              ],
-              [
-                "orchestration_metrics",
-                "result"
+                "state",
+                "checkpoints"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering LangGraph equips AI engineers with the tools to construct.",
+            "at": "say3",
+            "caption": "Nodes receive the current state as input and return partial state updates.",
             "values": {
-              "framework_evaluations": {
-                "var": "framework_evaluations",
-                "line": 29,
-                "hit": 1
+              "state": {
+                "text": ""
               },
-              "orchestration_metrics": {
-                "var": "orchestration_metrics",
-                "line": 35,
-                "hit": 1
+              "checkpoints": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 42,
-                "hit": 1
+              "i": {
+                "var": "i",
+                "line": 16,
+                "hit": 5
               }
             },
             "tones": {
-              "framework_evaluations": "ok",
-              "orchestration_metrics": "ok",
-              "result": "ok"
+              "state": "idle",
+              "checkpoints": "idle",
+              "i": "ok"
             },
             "arrows": [
               [
-                "framework_evaluations",
-                "orchestration_metrics"
-              ],
-              [
-                "orchestration_metrics",
-                "result"
+                "state",
+                "checkpoints"
               ]
             ]
           }
@@ -305,88 +303,74 @@
         "title": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointer",
         "nodes": [
           {
-            "id": "framework_evaluations",
-            "label": "framework_evaluations"
+            "id": "state",
+            "label": "state",
+            "tappable": true
           },
           {
-            "id": "orchestration_metrics",
-            "label": "orchestration_metrics"
+            "id": "checkpoints",
+            "label": "checkpoints",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "i",
+            "label": "i",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When enterprise workflows demand deterministic state transitions, complex.",
+            "caption": "Inspect langgraph updates as state tracks computation state.",
             "values": {
-              "framework_evaluations": "{'LangGraph': {'architecture': 'Statefu…",
-              "orchestration_metrics": "{'graphCycleExecutionThroughputRPS': 42…",
-              "result": "{'frameworkEvaluations': {'LangGraph': …"
+              "state": "{'step': 'draft', 'attempt': 0, 'ok': F…",
+              "checkpoints": "",
+              "i": ""
             },
             "tones": {
-              "framework_evaluations": "data",
-              "orchestration_metrics": "data",
-              "result": "data"
+              "state": "data",
+              "checkpoints": "idle",
+              "i": "idle"
             },
-            "arrows": [
-              [
-                "framework_evaluations",
-                "orchestration_metrics"
-              ],
-              [
-                "orchestration_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "LangGraph stateful computation graphs provide deterministic control flow.",
+            "caption": "Verify the langgraph transition driving stateful behavior.",
             "values": {
-              "framework_evaluations": "{'LangGraph': {'architecture': 'Statefu…",
-              "orchestration_metrics": "{'graphCycleExecutionThroughputRPS': 42…",
-              "result": "{'frameworkEvaluations': {'LangGraph': …"
+              "state": "{'step': 'review', 'attempt': 2, 'ok': …",
+              "checkpoints": "[{'step': 'draft', 'attempt': 0, 'ok': …",
+              "i": ""
             },
             "tones": {
-              "framework_evaluations": "data",
-              "orchestration_metrics": "data",
-              "result": "data"
+              "state": "data",
+              "checkpoints": "data",
+              "i": "idle"
             },
             "arrows": [
               [
-                "framework_evaluations",
-                "orchestration_metrics"
-              ],
-              [
-                "orchestration_metrics",
-                "result"
+                "state",
+                "checkpoints"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering LangGraph equips AI engineers with the tools to construct.",
+            "at": "say3",
+            "caption": "Nodes receive the current state as input and return partial state updates.",
             "values": {
-              "framework_evaluations": "{'LangGraph': {'architecture': 'Statefu…",
-              "orchestration_metrics": "{'graphCycleExecutionThroughputRPS': 42…",
-              "result": "{'frameworkEvaluations': {'LangGraph': …"
+              "state": "",
+              "checkpoints": "",
+              "i": "4"
             },
             "tones": {
-              "framework_evaluations": "ok",
-              "orchestration_metrics": "ok",
-              "result": "ok"
+              "state": "idle",
+              "checkpoints": "idle",
+              "i": "ok"
             },
             "arrows": [
               [
-                "framework_evaluations",
-                "orchestration_metrics"
-              ],
-              [
-                "orchestration_metrics",
-                "result"
+                "state",
+                "checkpoints"
               ]
             ]
           }
@@ -395,492 +379,540 @@
     },
     {
       "partTitle": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestration",
-      "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
+      "codeHash": "7e65b61956caa54c9ceb6f8595793e4d331f1fdb11cdb0d0eff96dff3355b53f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestrat",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "assignments",
+            "label": "assignments",
+            "tappable": true
+          },
+          {
+            "id": "task_name",
+            "label": "task_name",
+            "tappable": true
+          },
+          {
+            "id": "req",
+            "label": "req",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While graph-based frameworks excel at strict conditional state machines.",
-            "activeActor": "framework_evaluations",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect crewai updates as assignments tracks role state.",
+            "values": {
+              "assignments": {
+                "var": "assignments",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "task_name": {
+                "text": ""
+              },
+              "req": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "assignments": "data",
+              "task_name": "idle",
+              "req": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "CrewAI role playing agent frameworks model complex enterprise business.",
-            "activeActor": "orchestration_metrics",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 28,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the crewai transition driving role behavior.",
+            "values": {
+              "assignments": {
+                "var": "assignments",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 34,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "task_name": {
+                "var": "task_name",
+                "line": 9,
+                "hit": 2
+              },
+              "req": {
+                "var": "req",
+                "line": 9,
+                "hit": 2
               }
+            },
+            "tones": {
+              "assignments": "data",
+              "task_name": "data",
+              "req": "data"
+            },
+            "arrows": [
+              [
+                "assignments",
+                "task_name"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering CrewAI enables prompt engineers to transform high-level.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "The foundational primitives of CrewAI comprise Agents, Tasks, Tools, and Crews.",
+            "values": {
+              "assignments": {
+                "var": "assignments",
+                "line": 10,
+                "hit": 12
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 35,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "task_name": {
+                "var": "task_name",
+                "line": 10,
+                "hit": 12
+              },
+              "req": {
+                "var": "req",
+                "line": 10,
+                "hit": 12
               }
+            },
+            "tones": {
+              "assignments": "ok",
+              "task_name": "ok",
+              "req": "ok"
+            },
+            "arrows": [
+              [
+                "assignments",
+                "task_name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestrat",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "assignments",
+            "label": "assignments",
+            "tappable": true
+          },
+          {
+            "id": "task_name",
+            "label": "task_name",
+            "tappable": true
+          },
+          {
+            "id": "req",
+            "label": "req",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While graph-based frameworks excel at strict conditional state machines.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "framework_evaluations"
+            "caption": "Inspect crewai updates as assignments tracks role state.",
+            "values": {
+              "assignments": "[]",
+              "task_name": "",
+              "req": ""
+            },
+            "tones": {
+              "assignments": "data",
+              "task_name": "idle",
+              "req": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "CrewAI role playing agent frameworks model complex enterprise business.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "orchestration_metrics"
+            "caption": "Verify the crewai transition driving role behavior.",
+            "values": {
+              "assignments": "[['collect_sources', 'researcher']]",
+              "task_name": "'write_brief'",
+              "req": "'markdown'"
+            },
+            "tones": {
+              "assignments": "data",
+              "task_name": "data",
+              "req": "data"
+            },
+            "arrows": [
+              [
+                "assignments",
+                "task_name"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering CrewAI enables prompt engineers to transform high-level.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "The foundational primitives of CrewAI comprise Agents, Tasks, Tools, and Crews.",
+            "values": {
+              "assignments": "[['collect_sources', 'researcher'], ['w…",
+              "task_name": "'audit_nums'",
+              "req": "'sql_check'"
+            },
+            "tones": {
+              "assignments": "ok",
+              "task_name": "ok",
+              "req": "ok"
+            },
+            "arrows": [
+              [
+                "assignments",
+                "task_name"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "AutoGen And Conversational Mesh Architectures With Code Execution",
-      "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
+      "codeHash": "7141cdff345e2c2ff86deacc1ae5b74287437fb6ff32ff4946014a5199a136a6",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "AutoGen And Conversational Mesh Architectures With Code Executio",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "transcript",
+            "label": "transcript",
+            "tappable": true
+          },
+          {
+            "id": "turn",
+            "label": "turn",
+            "tappable": true
+          },
+          {
+            "id": "speaker",
+            "label": "speaker",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When enterprise tasks require fluid, open-ended problem solving.",
-            "activeActor": "framework_evaluations",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect autogen updates as transcript tracks conversational state.",
+            "values": {
+              "transcript": {
+                "var": "transcript",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "turn": {
+                "text": ""
+              },
+              "speaker": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "transcript": "data",
+              "turn": "idle",
+              "speaker": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "AutoGen conversational multi-agent mesh architectures enable emergent.",
-            "activeActor": "orchestration_metrics",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 28,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the autogen transition driving conversational behavior.",
+            "values": {
+              "transcript": {
+                "var": "transcript",
+                "line": 7,
+                "hit": 3
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 34,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "turn": {
+                "var": "turn",
+                "line": 7,
+                "hit": 3
+              },
+              "speaker": {
+                "var": "speaker",
+                "line": 7,
+                "hit": 3
               }
+            },
+            "tones": {
+              "transcript": "data",
+              "turn": "data",
+              "speaker": "data"
+            },
+            "arrows": [
+              [
+                "transcript",
+                "turn"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering AutoGen unlocks the full potential of conversational multi-agent.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Subclasses such as AssistantAgent and UserProxyAgent specialize this behavior.",
+            "values": {
+              "transcript": {
+                "var": "transcript",
+                "line": 7,
+                "hit": 6
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 35,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "turn": {
+                "var": "turn",
+                "line": 7,
+                "hit": 6
+              },
+              "speaker": {
+                "var": "speaker",
+                "line": 7,
+                "hit": 6
               }
+            },
+            "tones": {
+              "transcript": "ok",
+              "turn": "ok",
+              "speaker": "ok"
+            },
+            "arrows": [
+              [
+                "transcript",
+                "turn"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "AutoGen And Conversational Mesh Architectures With Code Executio",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "transcript",
+            "label": "transcript",
+            "tappable": true
+          },
+          {
+            "id": "turn",
+            "label": "turn",
+            "tappable": true
+          },
+          {
+            "id": "speaker",
+            "label": "speaker",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When enterprise tasks require fluid, open-ended problem solving.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "framework_evaluations"
+            "caption": "Inspect autogen updates as transcript tracks conversational state.",
+            "values": {
+              "transcript": "[]",
+              "turn": "",
+              "speaker": ""
+            },
+            "tones": {
+              "transcript": "data",
+              "turn": "idle",
+              "speaker": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "AutoGen conversational multi-agent mesh architectures enable emergent.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "orchestration_metrics"
+            "caption": "Verify the autogen transition driving conversational behavior.",
+            "values": {
+              "transcript": "[[0, 'Planner', 'Planner_contribution_0…",
+              "turn": "2",
+              "speaker": "'Reviewer'"
+            },
+            "tones": {
+              "transcript": "data",
+              "turn": "data",
+              "speaker": "data"
+            },
+            "arrows": [
+              [
+                "transcript",
+                "turn"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering AutoGen unlocks the full potential of conversational multi-agent.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Subclasses such as AssistantAgent and UserProxyAgent specialize this behavior.",
+            "values": {
+              "transcript": "[[0, 'Planner', 'Planner_contribution_0…",
+              "turn": "5",
+              "speaker": "'Reviewer'"
+            },
+            "tones": {
+              "transcript": "ok",
+              "turn": "ok",
+              "speaker": "ok"
+            },
+            "arrows": [
+              [
+                "transcript",
+                "turn"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Production Framework Selection And Native Hybrid Async Engine",
-      "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
+      "codeHash": "9a6397189e512b86b91fe814d3dbe0451d55b02c84da766c05753b34fbb5480b",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Production Framework Selection And Native Hybrid Asyn",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "state",
+            "label": "state",
+            "tappable": true
+          },
+          {
+            "id": "restored",
+            "label": "restored",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While high-level frameworks like CrewAI, AutoGen, and LangGraph provide.",
-            "activeActor": "framework_evaluations",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as state tracks production state.",
+            "values": {
+              "state": {
+                "var": "state",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "restored": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "state": "data",
+              "restored": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production agent architectures balance strict stateful.",
-            "activeActor": "orchestration_metrics",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 28,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the enterprise transition driving production behavior.",
+            "values": {
+              "state": {
+                "text": ""
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 34,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "restored": {
+                "var": "restored",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "state": "idle",
+              "restored": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "restored"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering principles of production agent frameworks.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": {
-                  "var": "framework_evaluations",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the production value produced for framework processing.",
+            "values": {
+              "state": {
+                "text": ""
               },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": {
-                  "var": "orchestration_metrics",
-                  "line": 35,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "restored": {
+                "var": "restored",
+                "line": 17,
+                "hit": 1
               }
+            },
+            "tones": {
+              "state": "idle",
+              "restored": "ok"
+            },
+            "arrows": [
+              [
+                "state",
+                "restored"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Production Framework Selection And Native Hybrid Asyn",
-        "actors": [
-          "framework_evaluations",
-          "orchestration_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "state",
+            "label": "state",
+            "tappable": true
+          },
+          {
+            "id": "restored",
+            "label": "restored",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While high-level frameworks like CrewAI, AutoGen, and LangGraph provide.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "framework_evaluations"
+            "caption": "Inspect enterprise updates as state tracks production state.",
+            "values": {
+              "state": "{'phase': 'INIT', 'analyzed': False, 'h…",
+              "restored": ""
+            },
+            "tones": {
+              "state": "data",
+              "restored": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production agent architectures balance strict stateful.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "orchestration_metrics"
+            "caption": "Verify the enterprise transition driving production behavior.",
+            "values": {
+              "state": "",
+              "restored": "{'phase': 'AWAIT_HUMAN_APPROVAL', 'anal…"
+            },
+            "tones": {
+              "state": "idle",
+              "restored": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "restored"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering principles of production agent frameworks.",
-            "messages": [
-              {
-                "from": "framework_evaluations",
-                "to": "orchestration_metrics",
-                "label": "{'LangGraph': {'architecture': 'Statefu…",
-                "tone": "data"
-              },
-              {
-                "from": "orchestration_metrics",
-                "to": "result",
-                "label": "{'graphCycleExecutionThroughputRPS': 42…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the production value produced for framework processing.",
+            "values": {
+              "state": "",
+              "restored": "{'phase': 'DEPLOYED', 'analyzed': True,…"
+            },
+            "tones": {
+              "state": "idle",
+              "restored": "ok"
+            },
+            "arrows": [
+              [
+                "state",
+                "restored"
+              ]
+            ]
           }
         ]
       }

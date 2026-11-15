@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Version-control tools (`git diff`), DNA bioinformatics aligners,.",
+            "caption": "Observe how version shapes control during this step.",
             "items": {
               "var": "row",
               "line": 16,
@@ -68,7 +68,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Version-control tools (`git diff`), DNA bioinformatics aligners,.",
+            "caption": "Observe how version shapes control during this step.",
             "items": [
               "0",
               "0",
@@ -141,7 +141,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Computing only the scalar LCS length tells you how similar two files are.",
+            "caption": "Observe how diff shapes computing during this step.",
             "items": {
               "var": "old_cfg",
               "line": 28,
@@ -157,7 +157,7 @@
           },
           {
             "at": "say2",
-            "caption": "Just like Knapsack subset traceback, we walk backward from `(m, n)` toward.",
+            "caption": "Verify the knapsack transition driving subset behavior.",
             "items": {
               "var": "old_cfg",
               "line": 32,
@@ -195,7 +195,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Computing only the scalar LCS length tells you how similar two files are.",
+            "caption": "Observe how diff shapes computing during this step.",
             "items": [
               "'port: 8080'",
               "'workers: 4'",
@@ -213,7 +213,7 @@
           },
           {
             "at": "say2",
-            "caption": "Just like Knapsack subset traceback, we walk backward from `(m, n)` toward.",
+            "caption": "Verify the knapsack transition driving subset behavior.",
             "items": [
               "'port: 8080'",
               "'workers: 4'",
@@ -393,7 +393,7 @@
           },
           {
             "at": "say2",
-            "caption": "When you only need the scalar Edit Distance or LCS score (for fuzzy.",
+            "caption": "Verify the need transition driving scalar behavior.",
             "items": {
               "var": "dp",
               "line": 14,
@@ -451,7 +451,7 @@
           },
           {
             "at": "say2",
-            "caption": "When you only need the scalar Edit Distance or LCS score (for fuzzy.",
+            "caption": "Verify the need transition driving scalar behavior.",
             "items": [
               "1",
               "1",

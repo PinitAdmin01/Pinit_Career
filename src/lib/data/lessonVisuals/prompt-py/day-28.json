@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Practice 1 is leaderboard(results), which turns per-model lists of True.",
+            "activeActor": "outputs",
+            "messages": [
+              {
+                "from": "expected",
+                "to": "outputs",
+                "label": {
+                  "var": "expected",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "outputs",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Practice 1 is leaderboard(results), which turns per-model lists of True.",
-            "activeActor": "outputs",
+            "at": "say9",
+            "caption": "Recording the date, model version and prompt with each result makes later.",
+            "activeActor": "rows",
             "messages": [
+              {
+                "from": "expected",
+                "to": "outputs",
+                "label": {
+                  "var": "expected",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "rows",
+                "label": {
+                  "var": "outputs",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "from": "expected",
                 "to": "outputs",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Recording the date, model version and prompt with each result makes later.",
-            "activeActor": "rows",
-            "messages": [
+              },
               {
                 "from": "expected",
                 "to": "outputs",
@@ -282,12 +312,6 @@
                 "to": "outputs",
                 "label": "['delivery', 'billing', 'account', 'del…",
                 "tone": "data"
-              },
-              {
-                "from": "outputs",
-                "to": "rows",
-                "label": "{'model-a': ['Delivery', 'billing', 'ac…",
-                "tone": "ok"
               }
             ],
             "activeActor": "expected"
@@ -315,6 +339,30 @@
             "at": "say9",
             "caption": "Recording the date, model version and prompt with each result makes later.",
             "messages": [
+              {
+                "from": "expected",
+                "to": "outputs",
+                "label": "['delivery', 'billing', 'account', 'del…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "rows",
+                "label": "{'model-a': ['Delivery', 'billing', 'ac…",
+                "tone": "ok"
+              },
+              {
+                "from": "expected",
+                "to": "outputs",
+                "label": "['delivery', 'billing', 'account', 'del…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "rows",
+                "label": "{'model-a': ['Delivery', 'billing', 'ac…",
+                "tone": "ok"
+              },
               {
                 "from": "expected",
                 "to": "outputs",
@@ -415,18 +463,18 @@
               },
               "points": {
                 "var": "points",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "games": {
                 "var": "games",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "a": {
                 "var": "a",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -461,18 +509,18 @@
               },
               "points": {
                 "var": "points",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "games": {
                 "var": "games",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "a": {
                 "var": "a",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -555,9 +603,9 @@
             "caption": "Pairwise comparison shows a judge two answers to the same prompt and asks.",
             "values": {
               "judgements": "[['alpha', 'beta', 'alpha'], ['alpha', …",
-              "points": "{}",
-              "games": "{}",
-              "a": "'alpha'"
+              "points": "{'alpha': 1}",
+              "games": "{'alpha': 1}",
+              "a": "'beta'"
             },
             "tones": {
               "judgements": "data",
@@ -585,9 +633,9 @@
             "caption": "Having two judges rate the same pairs, and checking how often they agree.",
             "values": {
               "judgements": "[['alpha', 'beta', 'alpha'], ['alpha', …",
-              "points": "{}",
-              "games": "{}",
-              "a": "'alpha'"
+              "points": "{'alpha': 1, 'beta': 0}",
+              "games": "{'alpha': 1, 'beta': 1}",
+              "a": "'beta'"
             },
             "tones": {
               "judgements": "ok",
@@ -627,8 +675,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how model updates percent during execution.",
+            "caption": "Observe how model shapes percent during this step.",
             "activeActor": "models",
+            "messages": [
+              {
+                "from": "models",
+                "to": "bar",
+                "label": {
+                  "var": "models",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Compare models on cost per task and latency (how long a response takes).",
+            "activeActor": "bar",
             "messages": [
               {
                 "from": "models",
@@ -653,10 +718,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Compare models on cost per task and latency (how long a response takes).",
-            "activeActor": "bar",
+            "at": "say9",
+            "caption": "For batch jobs that run overnight, cheaper and slower models are usually fine.",
+            "activeActor": "ok",
             "messages": [
+              {
+                "from": "models",
+                "to": "bar",
+                "label": {
+                  "var": "models",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bar",
+                "to": "ok",
+                "label": {
+                  "var": "bar",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "models",
                 "to": "bar",
@@ -676,14 +761,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "For batch jobs that run overnight, cheaper and slower models are usually fine.",
-            "activeActor": "ok",
-            "messages": [
+              },
               {
                 "from": "models",
                 "to": "bar",
@@ -719,19 +797,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how model updates percent during execution.",
+            "caption": "Observe how model shapes percent during this step.",
             "messages": [
               {
                 "from": "models",
                 "to": "bar",
                 "label": "{'large': {'accuracy': 94, 'cost_per_1k…",
                 "tone": "data"
-              },
-              {
-                "from": "bar",
-                "to": "ok",
-                "label": "90",
-                "tone": "ok"
               }
             ],
             "activeActor": "models"
@@ -759,6 +831,30 @@
             "at": "say9",
             "caption": "For batch jobs that run overnight, cheaper and slower models are usually fine.",
             "messages": [
+              {
+                "from": "models",
+                "to": "bar",
+                "label": "{'large': {'accuracy': 94, 'cost_per_1k…",
+                "tone": "data"
+              },
+              {
+                "from": "bar",
+                "to": "ok",
+                "label": "90",
+                "tone": "ok"
+              },
+              {
+                "from": "models",
+                "to": "bar",
+                "label": "{'large': {'accuracy': 94, 'cost_per_1k…",
+                "tone": "data"
+              },
+              {
+                "from": "bar",
+                "to": "ok",
+                "label": "90",
+                "tone": "ok"
+              },
               {
                 "from": "models",
                 "to": "bar",
@@ -959,162 +1055,182 @@
       "partTitle": "Practice time: leaderboard and win rates",
       "codeHash": "2a80e3727619c026d06e10ab2336a7ae31ed28a52c0966a76c80281f30a7a660",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: leaderboard and win rates",
-        "actors": [
-          "results",
-          ".0",
-          "m"
+        "nodes": [
+          {
+            "id": "m",
+            "label": "m",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leaderboard(results).",
-            "activeActor": "results",
-            "messages": [
-              {
-                "from": "results",
-                "to": ".0",
-                "label": {
-                  "var": "results",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Practice 1: leaderboard(results).",
+            "values": {
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "m",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 1
+              },
+              "x": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "m": "data",
+              "r": "data",
+              "x": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "results",
-                "to": ".0",
-                "label": {
-                  "var": "results",
-                  "line": 2,
-                  "hit": 6
-                },
-                "tone": "data"
+            "caption": "Verify the checks transition driving include behavior.",
+            "values": {
+              "m": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "m",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "r": {
+                "text": ""
+              },
+              "x": {
+                "var": "x",
+                "line": 2,
+                "hit": 5
               }
+            },
+            "tones": {
+              "m": "idle",
+              "r": "idle",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "m",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Evaluation skills stay valuable whatever models appear next, because.",
-            "activeActor": "m",
-            "messages": [
-              {
-                "from": "results",
-                "to": ".0",
-                "label": {
-                  "var": "results",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the practice value produced for rates processing.",
+            "values": {
+              "m": {
+                "out": 1
               },
-              {
-                "from": ".0",
-                "to": "m",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "r": {
+                "text": ""
+              },
+              "x": {
+                "text": ""
               }
+            },
+            "tones": {
+              "m": "data",
+              "r": "idle",
+              "x": "idle"
+            },
+            "arrows": [
+              [
+                "m",
+                "r"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: leaderboard and win rates",
-        "actors": [
-          "results",
-          ".0",
-          "m"
+        "nodes": [
+          {
+            "id": "m",
+            "label": "m",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leaderboard(results).",
-            "messages": [
-              {
-                "from": "results",
-                "to": ".0",
-                "label": "{'tool-x': [True, True, False, True, Tr…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "m",
-                "label": "{'__other__': 'dict_itemiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "results"
+            "caption": "Practice 1: leaderboard(results).",
+            "values": {
+              "m": "'tool-x'",
+              "r": "[True, True, False, True, True]",
+              "x": ""
+            },
+            "tones": {
+              "m": "data",
+              "r": "data",
+              "x": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
-            "messages": [
-              {
-                "from": "results",
-                "to": ".0",
-                "label": "{'tool-x': [True, True, False, True, Tr…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "m",
-                "label": "{'__other__': 'dict_itemiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the checks transition driving include behavior.",
+            "values": {
+              "m": "",
+              "r": "",
+              "x": "['tool-y', 60]"
+            },
+            "tones": {
+              "m": "idle",
+              "r": "idle",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "m",
+                "r"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Evaluation skills stay valuable whatever models appear next, because.",
-            "messages": [
-              {
-                "from": "results",
-                "to": ".0",
-                "label": "{'tool-x': [True, True, False, True, Tr…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "m",
-                "label": "{'__other__': 'dict_itemiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "m"
+            "at": "say3",
+            "caption": "Examine the practice value produced for rates processing.",
+            "values": {
+              "m": "accuracy: [('tool-x', 80.0), ('tool-y', 60.0)]",
+              "r": "",
+              "x": ""
+            },
+            "tones": {
+              "m": "data",
+              "r": "idle",
+              "x": "idle"
+            },
+            "arrows": [
+              [
+                "m",
+                "r"
+              ]
+            ]
           }
         ]
       }

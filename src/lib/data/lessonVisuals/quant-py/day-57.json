@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Famous financial disasterssuch as the Knight Capital Group collapse.",
+            "activeActor": "nbbo_a",
+            "messages": [
+              {
+                "from": "nbbo_b",
+                "to": "nbbo_a",
+                "label": {
+                  "var": "nbbo_b",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "nbbo_a",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Famous financial disasterssuch as the Knight Capital Group collapse.",
-            "activeActor": "nbbo_a",
+            "at": "say10",
+            "caption": "Examine the finger value produced for deterministic processing.",
+            "activeActor": "order_price",
             "messages": [
+              {
+                "from": "nbbo_b",
+                "to": "nbbo_a",
+                "label": {
+                  "var": "nbbo_b",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nbbo_a",
+                "to": "order_price",
+                "label": {
+                  "var": "nbbo_a",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "nbbo_b",
                 "to": "nbbo_a",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Deterministic inline validation guarantees that algorithmic errors are.",
-            "activeActor": "order_price",
-            "messages": [
+              },
               {
                 "from": "nbbo_b",
                 "to": "nbbo_a",
@@ -118,12 +148,6 @@
                 "to": "nbbo_a",
                 "label": "150",
                 "tone": "data"
-              },
-              {
-                "from": "nbbo_a",
-                "to": "order_price",
-                "label": "150.05",
-                "tone": "ok"
               }
             ],
             "activeActor": "nbbo_b"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say10",
-            "caption": "Deterministic inline validation guarantees that algorithmic errors are.",
+            "caption": "Examine the finger value produced for deterministic processing.",
             "messages": [
+              {
+                "from": "nbbo_b",
+                "to": "nbbo_a",
+                "label": "150",
+                "tone": "data"
+              },
+              {
+                "from": "nbbo_a",
+                "to": "order_price",
+                "label": "150.05",
+                "tone": "ok"
+              },
+              {
+                "from": "nbbo_b",
+                "to": "nbbo_a",
+                "label": "150",
+                "tone": "data"
+              },
+              {
+                "from": "nbbo_a",
+                "to": "order_price",
+                "label": "150.05",
+                "tone": "ok"
+              },
               {
                 "from": "nbbo_b",
                 "to": "nbbo_a",
@@ -262,7 +310,7 @@
           },
           {
             "at": "say10",
-            "caption": "Industrial pre-trade gating guarantees that rogue trading algorithms are.",
+            "caption": "Examine the trade value produced for finger processing.",
             "bars": [
               {
                 "label": "max_single_not",
@@ -362,7 +410,7 @@
           },
           {
             "at": "say10",
-            "caption": "Industrial pre-trade gating guarantees that rogue trading algorithms are.",
+            "caption": "Examine the trade value produced for finger processing.",
             "bars": [
               {
                 "label": "max_single_not",
@@ -666,7 +714,7 @@
           },
           {
             "at": "say10",
-            "caption": "Automated fail-safe mechanisms protect institutional trading firms against.",
+            "caption": "Examine the automated value produced for fail processing.",
             "bars": [
               {
                 "label": "max_daily_gros",
@@ -728,7 +776,7 @@
           },
           {
             "at": "say10",
-            "caption": "Automated fail-safe mechanisms protect institutional trading firms against.",
+            "caption": "Examine the automated value produced for fail processing.",
             "bars": [
               {
                 "label": "max_daily_gros",
@@ -796,7 +844,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how telemetry updates pipeline during execution.",
+            "caption": "Verify the telemetry transition driving audit behavior.",
             "bars": [
               {
                 "label": "total_orders",
@@ -912,7 +960,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how telemetry updates pipeline during execution.",
+            "caption": "Verify the telemetry transition driving audit behavior.",
             "bars": [
               {
                 "label": "total_orders",

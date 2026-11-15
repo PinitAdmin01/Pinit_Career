@@ -24,7 +24,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Authentication answers \"who are you.",
+            "caption": "Inspect authentication updates as user tracks authorisation state.",
             "values": {
               "user": {
                 "var": "user",
@@ -53,8 +53,8 @@
               },
               "action": {
                 "var": "action",
-                "line": 3,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -73,8 +73,8 @@
               },
               "action": {
                 "var": "action",
-                "line": 5,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -100,7 +100,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Authentication answers \"who are you.",
+            "caption": "Inspect authentication updates as user tracks authorisation state.",
             "values": {
               "user": "{'id': 'u7', 'logged_in': True, 'permis…",
               "action": "'read_reports'"
@@ -115,7 +115,7 @@
             "caption": "It is the most common serious web vulnerability.",
             "values": {
               "user": "{'id': 'u7', 'logged_in': True, 'permis…",
-              "action": "'read_reports'"
+              "action": "'delete_reports'"
             },
             "tones": {
               "user": "data",
@@ -127,7 +127,7 @@
             "caption": "Logging authorisation failures helps detect users probing for access they.",
             "values": {
               "user": "{'id': 'u7', 'logged_in': True, 'permis…",
-              "action": "'read_reports'"
+              "action": "'delete_reports'"
             },
             "tones": {
               "user": "ok",
@@ -431,8 +431,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Attribute-based access control (ABAC) decides using attributes of.",
+            "caption": "Observe how attribute shapes based during this step.",
             "activeActor": "doc",
+            "messages": [
+              {
+                "from": "doc",
+                "to": "users",
+                "label": {
+                  "var": "doc",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A user may read a document if their clearance is at least the document's.",
+            "activeActor": "users",
             "messages": [
               {
                 "from": "doc",
@@ -457,10 +474,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A user may read a document if their clearance is at least the document's.",
-            "activeActor": "users",
+            "at": "say9",
+            "caption": "ABAC rules need tests just like code, because a small mistake can open.",
+            "activeActor": "u",
             "messages": [
+              {
+                "from": "doc",
+                "to": "users",
+                "label": {
+                  "var": "doc",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "users",
+                "to": "u",
+                "label": {
+                  "var": "users",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "from": "doc",
                 "to": "users",
@@ -480,14 +517,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "ABAC rules need tests just like code, because a small mistake can open.",
-            "activeActor": "u",
-            "messages": [
+              },
               {
                 "from": "doc",
                 "to": "users",
@@ -523,19 +553,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Attribute-based access control (ABAC) decides using attributes of.",
+            "caption": "Observe how attribute shapes based during this step.",
             "messages": [
               {
                 "from": "doc",
                 "to": "users",
                 "label": "{'classification': 2, 'department': 'fi…",
                 "tone": "data"
-              },
-              {
-                "from": "users",
-                "to": "u",
-                "label": "[{'name': 'Asha', 'clearance': 3, 'depa…",
-                "tone": "ok"
               }
             ],
             "activeActor": "doc"
@@ -563,6 +587,30 @@
             "at": "say9",
             "caption": "ABAC rules need tests just like code, because a small mistake can open.",
             "messages": [
+              {
+                "from": "doc",
+                "to": "users",
+                "label": "{'classification': 2, 'department': 'fi…",
+                "tone": "data"
+              },
+              {
+                "from": "users",
+                "to": "u",
+                "label": "[{'name': 'Asha', 'clearance': 3, 'depa…",
+                "tone": "ok"
+              },
+              {
+                "from": "doc",
+                "to": "users",
+                "label": "{'classification': 2, 'department': 'fi…",
+                "tone": "data"
+              },
+              {
+                "from": "users",
+                "to": "u",
+                "label": "[{'name': 'Asha', 'clearance': 3, 'depa…",
+                "tone": "ok"
+              },
               {
                 "from": "doc",
                 "to": "users",
@@ -718,7 +766,7 @@
           },
           {
             "at": "say2",
-            "caption": "An authorisation matrix lists every role against every action with.",
+            "caption": "Verify the authorisation transition driving matrix behavior.",
             "currentState": "expected",
             "transition": {
               "from": "perms",
@@ -774,7 +822,7 @@
           },
           {
             "at": "say2",
-            "caption": "An authorisation matrix lists every role against every action with.",
+            "caption": "Verify the authorisation transition driving matrix behavior.",
             "currentState": "expected",
             "transition": {
               "from": "perms",

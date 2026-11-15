@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Foundations & Mathematical Invariants",
+      "partTitle": "Aligning Node Records & Adjacency Blocks to 4KB SSD Pages",
       "codeHash": "362b0a25372912e00a3147f6dff68d8620d2945377d901df2c36c5831cb50f6f",
       "spec": {
         "template": "bars",
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the node value produced for adjusting processing.",
             "bars": [
               {
                 "label": "node_id",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the node value produced for adjusting processing.",
             "bars": [
               {
                 "label": "node_id",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Core Algorithm & State Representation",
+      "partTitle": "Alpha-Relaxed Vamana Pruning for Bounded-Degree Graphs",
       "codeHash": "917db51f8056b6f87d786d770e7629c3c9ecfa26351e717dc6c1080fef551e68",
       "spec": {
         "template": "cells",
@@ -266,7 +266,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the handling value produced for degenerate processing.",
             "items": {
               "var": "cand_vec",
               "line": 11,
@@ -318,7 +318,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the handling value produced for degenerate processing.",
             "items": [
               "0.12",
               "0.01"
@@ -335,7 +335,7 @@
       }
     },
     {
-      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Asynchronous Beam Traversal Over SSD-Resident Node Stores",
       "codeHash": "73c31826c334d4a46f1c07ae6acd77e21fa6d35419a137a8cfe95b5a27ff13ba",
       "spec": {
         "template": "cells",
@@ -375,7 +375,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the beam value produced for skipping processing.",
             "items": {
               "var": "query",
               "line": 9,
@@ -427,7 +427,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the beam value produced for skipping processing.",
             "items": [
               "1.9",
               "1.9"
@@ -444,8 +444,8 @@
       }
     },
     {
-      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Resilience Guardrails & Failure Recovery",
-      "codeHash": "2d0905f627a4f24c2ed0a47207007af805145ec24be049243cffa4af66b95836",
+      "partTitle": "Hard NVMe Page Read Budgets for Tail-Latency Predictability",
+      "codeHash": "8291480ab6ce760347f859dab9a1f15970f2bc728a8b106cd6cc74f3c55a2c3d",
       "spec": {
         "template": "flow",
         "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Sea",
@@ -493,7 +493,7 @@
               "hops": {
                 "var": "hops",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "max_budget": {
                 "var": "max_budget",
@@ -514,12 +514,12 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the logging value produced for budget processing.",
             "values": {
               "hops": {
                 "var": "hops",
                 "line": 2,
-                "hit": 1
+                "hit": 3
               },
               "max_budget": {
                 "var": "max_budget",
@@ -558,7 +558,7 @@
             "at": "say1",
             "caption": "Production SSD-backed search engines must enforce strict I/O budgets.",
             "values": {
-              "hops": "25",
+              "hops": "-3",
               "max_budget": "16"
             },
             "tones": {
@@ -576,7 +576,7 @@
             "at": "say2",
             "caption": "If an adversarial or complex query causes the search beam to cycle.",
             "values": {
-              "hops": "25",
+              "hops": "10",
               "max_budget": "16"
             },
             "tones": {
@@ -592,7 +592,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the logging value produced for budget processing.",
             "values": {
               "hops": "25",
               "max_budget": "16"
@@ -612,15 +612,15 @@
       }
     },
     {
-      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Production Telemetry & Verification Audit",
-      "codeHash": "dfa9f535e81e1cf74f4a8849d21f91abd29a318fb1b97d0cd08f105c25f3bbc8",
+      "partTitle": "Billion-Scale IOPS & Storage Cost Modeling on Commodity SSDs",
+      "codeHash": "ab74611c0013dfe6a590a61894bcddc7a3e25a6ade0322ae393745af91f75d7f",
       "spec": {
         "template": "bars",
-        "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Sea",
+        "title": "Billion-Scale IOPS & Storage Cost Modeling on Commodity SSDs",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cost telemetry in DiskANN systems tracks cumulative NVMe read operations.",
+            "caption": "Observe how storage shapes cost during this step.",
             "bars": [
               {
                 "label": "num_queries",
@@ -641,7 +641,7 @@
                 "tone": "data"
               },
               {
-                "label": "cost_per_milli",
+                "label": "cost_per_million_iops",
                 "value": {
                   "var": "cost_per_million_iops",
                   "line": 2,
@@ -652,9 +652,7 @@
               {
                 "label": "total_reads",
                 "value": {
-                  "var": "total_reads",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -662,49 +660,7 @@
           },
           {
             "at": "say2",
-            "caption": "Cloud service providers charge for provisioned IOPS and storage bandwidth.",
-            "bars": [
-              {
-                "label": "num_queries",
-                "value": {
-                  "var": "num_queries",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "avg_ssd_reads",
-                "value": {
-                  "var": "avg_ssd_reads",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "cost_per_milli",
-                "value": {
-                  "var": "cost_per_million_iops",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "total_reads",
-                "value": {
-                  "var": "total_reads",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the iops transition driving storage behavior.",
             "bars": [
               {
                 "label": "num_queries",
@@ -725,7 +681,7 @@
                 "tone": "ok"
               },
               {
-                "label": "cost_per_milli",
+                "label": "cost_per_million_iops",
                 "value": {
                   "var": "cost_per_million_iops",
                   "line": 4,
@@ -748,11 +704,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Sea",
+        "title": "Billion-Scale IOPS & Storage Cost Modeling on Commodity SSDs",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cost telemetry in DiskANN systems tracks cumulative NVMe read operations.",
+            "caption": "Observe how storage shapes cost during this step.",
             "bars": [
               {
                 "label": "num_queries",
@@ -765,20 +721,20 @@
                 "tone": "data"
               },
               {
-                "label": "cost_per_milli",
+                "label": "cost_per_million_iops",
                 "value": 0.35,
                 "tone": "data"
               },
               {
                 "label": "total_reads",
-                "value": 800000,
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cloud service providers charge for provisioned IOPS and storage bandwidth.",
+            "caption": "Verify the iops transition driving storage behavior.",
             "bars": [
               {
                 "label": "num_queries",
@@ -791,33 +747,7 @@
                 "tone": "ok"
               },
               {
-                "label": "cost_per_milli",
-                "value": 0.35,
-                "tone": "ok"
-              },
-              {
-                "label": "total_reads",
-                "value": 800000,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "bars": [
-              {
-                "label": "num_queries",
-                "value": 100000,
-                "tone": "ok"
-              },
-              {
-                "label": "avg_ssd_reads",
-                "value": 8,
-                "tone": "ok"
-              },
-              {
-                "label": "cost_per_milli",
+                "label": "cost_per_million_iops",
                 "value": 0.35,
                 "tone": "ok"
               },

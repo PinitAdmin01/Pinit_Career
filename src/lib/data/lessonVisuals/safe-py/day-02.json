@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Threat modelling is a structured way of asking what could go wrong with.",
+            "caption": "Observe how threat shapes modelling during this step.",
             "currentState": "flows",
             "tone": "data"
           },
@@ -84,7 +84,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Threat modelling is a structured way of asking what could go wrong with.",
+            "caption": "Observe how threat shapes modelling during this step.",
             "currentState": "flows",
             "tone": "data"
           },
@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how applications updates lists during execution.",
+            "caption": "Verify the applications transition driving lists behavior.",
             "currentState": "i",
             "transition": {
               "from": "top10",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how applications updates lists during execution.",
+            "caption": "Verify the applications transition driving lists behavior.",
             "currentState": "i",
             "transition": {
               "from": "top10",

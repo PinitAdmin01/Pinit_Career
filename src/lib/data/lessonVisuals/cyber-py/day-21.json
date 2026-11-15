@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Centralising these controls means each backend team does not have.",
+            "caption": "Verify the centralising transition driving controls behavior.",
             "currentState": "i",
             "transition": {
               "from": "checks",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say9",
-            "caption": "A gateway is also the natural place to add new protections quickly during.",
+            "caption": "Examine the gateway value produced for natural processing.",
             "currentState": "check_",
             "transition": {
               "from": "i",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "Centralising these controls means each backend team does not have.",
+            "caption": "Verify the centralising transition driving controls behavior.",
             "currentState": "i",
             "transition": {
               "from": "checks",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say9",
-            "caption": "A gateway is also the natural place to add new protections quickly during.",
+            "caption": "Examine the gateway value produced for natural processing.",
             "currentState": "check_",
             "transition": {
               "from": "i",
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates gateway during execution.",
+            "caption": "Inspect gateway updates as url tracks practice state.",
             "values": {
               "url": {
                 "var": "url",
@@ -274,13 +274,13 @@
             "values": {
               "url": {
                 "var": "url",
-                "line": 5,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               },
               "m": {
                 "var": "m",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "ip": {
                 "var": "ip",
@@ -300,13 +300,13 @@
             "values": {
               "url": {
                 "var": "url",
-                "line": 6,
-                "hit": 1
+                "line": 14,
+                "hit": 3
               },
               "m": {
                 "var": "m",
-                "line": 8,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "ip": {
                 "var": "ip",
@@ -342,11 +342,11 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates gateway during execution.",
+            "caption": "Inspect gateway updates as url tracks practice state.",
             "values": {
               "url": "'https://hooks.example.com/x'",
-              "m": "{'__other__': 'Match'}",
-              "ip": "{'__other__': 'IPv4Address'}"
+              "m": "<Match>",
+              "ip": "<IPv4Address>"
             },
             "tones": {
               "url": "data",
@@ -358,9 +358,9 @@
             "at": "say2",
             "caption": "Run the SSRF check (scheme, internal hosts, private IP ranges).",
             "values": {
-              "url": "'https://hooks.example.com/x'",
-              "m": "{'__other__': 'Match'}",
-              "ip": "{'__other__': 'IPv4Address'}"
+              "url": "'http://169.254.169.254/'",
+              "m": "None",
+              "ip": "<IPv4Address>"
             },
             "tones": {
               "url": "data",
@@ -372,9 +372,9 @@
             "at": "say9",
             "caption": "Tests with mixed traffic, good calls, abusive clients and SSRF attempts.",
             "values": {
-              "url": "'https://hooks.example.com/x'",
-              "m": "{'__other__': 'Match'}",
-              "ip": "{'__other__': 'IPv4Address'}"
+              "url": "'ftp://files.example.com'",
+              "m": "None",
+              "ip": "<IPv4Address>"
             },
             "tones": {
               "url": "ok",
@@ -458,7 +458,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates decisions during execution.",
+            "caption": "Verify the decisions transition driving practice behavior.",
             "values": {
               "decisions": {
                 "var": "decisions",
@@ -473,7 +473,7 @@
               "d": {
                 "var": "d",
                 "line": 5,
-                "hit": 2
+                "hit": 43
               },
               "blocked": {
                 "var": "blocked",
@@ -519,7 +519,7 @@
               "d": {
                 "var": "d",
                 "line": 5,
-                "hit": 3
+                "hit": 48
               },
               "blocked": {
                 "var": "blocked",
@@ -604,11 +604,11 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates decisions during execution.",
+            "caption": "Verify the decisions transition driving practice behavior.",
             "values": {
               "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
               "summary": "{'ALLOW': 42, 'BLOCKED_SSRF': 3, 'RATE_…",
-              "d": "'ALLOW'",
+              "d": "'RATE_LIMITED'",
               "blocked": "8"
             },
             "tones": {
@@ -638,7 +638,7 @@
             "values": {
               "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
               "summary": "{'ALLOW': 42, 'BLOCKED_SSRF': 3, 'RATE_…",
-              "d": "'ALLOW'",
+              "d": "'BLOCKED_SSRF'",
               "blocked": "8"
             },
             "tones": {
@@ -691,6 +691,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the front transition driving ddos behavior.",
+            "activeActor": "attack",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": {
+                  "var": "layers",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "attack",
@@ -705,10 +722,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how front updates ddos during execution.",
-            "activeActor": "attack",
+            "at": "say9",
+            "caption": "Security architecture is largely the art of arranging these layers so.",
+            "activeActor": "stoppers",
             "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": {
+                  "var": "layers",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": {
+                  "var": "attack",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "layers",
                 "to": "attack",
@@ -728,14 +765,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Security architecture is largely the art of arranging these layers so.",
-            "activeActor": "stoppers",
-            "messages": [
+              },
               {
                 "from": "layers",
                 "to": "attack",
@@ -778,19 +808,13 @@
                 "to": "attack",
                 "label": "{'WAF': {'sqli', 'xss'}, 'gateway': {'a…",
                 "tone": "data"
-              },
-              {
-                "from": "attack",
-                "to": "stoppers",
-                "label": "'sqli'",
-                "tone": "ok"
               }
             ],
             "activeActor": "layers"
           },
           {
             "at": "say2",
-            "caption": "Trace how front updates ddos during execution.",
+            "caption": "Verify the front transition driving ddos behavior.",
             "messages": [
               {
                 "from": "layers",
@@ -811,6 +835,30 @@
             "at": "say9",
             "caption": "Security architecture is largely the art of arranging these layers so.",
             "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": "{'WAF': {'sqli', 'xss'}, 'gateway': {'a…",
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": "'sqli'",
+                "tone": "ok"
+              },
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": "{'WAF': {'sqli', 'xss'}, 'gateway': {'a…",
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": "'sqli'",
+                "tone": "ok"
+              },
               {
                 "from": "layers",
                 "to": "attack",

@@ -181,12 +181,12 @@
               },
               "action": {
                 "var": "action",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "decision": {
                 "var": "decision",
-                "line": 10,
+                "line": 7,
                 "hit": 1
               }
             },
@@ -217,13 +217,13 @@
               },
               "action": {
                 "var": "action",
-                "line": 6,
-                "hit": 1
+                "line": 2,
+                "hit": 4
               },
               "decision": {
                 "var": "decision",
-                "line": 2,
-                "hit": 3
+                "line": 5,
+                "hit": 1
               }
             },
             "tones": {
@@ -291,8 +291,8 @@
             "caption": "Some tools always need approval, whatever their arguments, such.",
             "values": {
               "policy": "{'always': {'change_role', 'delete_acco…",
-              "action": "{'tool': 'refund', 'amount': 40}",
-              "decision": "[False, 'AUTO']"
+              "action": "{'tool': 'refund', 'amount': 250}",
+              "decision": "[True, 'AMOUNT']"
             },
             "tones": {
               "policy": "data",
@@ -315,8 +315,8 @@
             "caption": "Every policy change should itself be logged and approved.",
             "values": {
               "policy": "{'always': {'change_role', 'delete_acco…",
-              "action": "{'tool': 'refund', 'amount': 40}",
-              "decision": "[False, 'AUTO']"
+              "action": "{'tool': 'delete_account'}",
+              "decision": "[True, 'ALWAYS']"
             },
             "tones": {
               "policy": "ok",
@@ -468,7 +468,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates steps during execution.",
+            "caption": "Observe how plan shapes practice during this step.",
             "currentState": "steps",
             "tone": "data"
           },
@@ -524,7 +524,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates steps during execution.",
+            "caption": "Observe how plan shapes practice during this step.",
             "currentState": "steps",
             "tone": "data"
           },

@@ -139,6 +139,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Its format is version-traceid-parentid-flags, for example.",
+            "activeActor": "version",
+            "messages": [
+              {
+                "from": "header",
+                "to": "version",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "version",
@@ -153,10 +170,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Its format is version-traceid-parentid-flags, for example.",
-            "activeActor": "version",
+            "at": "say7",
+            "caption": "The example parses a real-looking header.",
+            "activeActor": "trace_id",
             "messages": [
+              {
+                "from": "header",
+                "to": "version",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "version",
+                "to": "trace_id",
+                "label": {
+                  "var": "version",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "version",
@@ -176,14 +213,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example parses a real-looking header.",
-            "activeActor": "trace_id",
-            "messages": [
+              },
               {
                 "from": "header",
                 "to": "version",
@@ -226,12 +256,6 @@
                 "to": "version",
                 "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
                 "tone": "data"
-              },
-              {
-                "from": "version",
-                "to": "trace_id",
-                "label": "'00'",
-                "tone": "ok"
               }
             ],
             "activeActor": "header"
@@ -259,6 +283,30 @@
             "at": "say7",
             "caption": "The example parses a real-looking header.",
             "messages": [
+              {
+                "from": "header",
+                "to": "version",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
+              },
+              {
+                "from": "version",
+                "to": "trace_id",
+                "label": "'00'",
+                "tone": "ok"
+              },
+              {
+                "from": "header",
+                "to": "version",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
+              },
+              {
+                "from": "version",
+                "to": "trace_id",
+                "label": "'00'",
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "version",
@@ -433,7 +481,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how fullmatch updates checks during execution.",
+            "caption": "re.fullmatch checks the whole string, not just a prefix.",
             "activeActor": "h",
             "messages": [
               {
@@ -517,7 +565,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how fullmatch updates checks during execution.",
+            "caption": "re.fullmatch checks the whole string, not just a prefix.",
             "messages": [
               {
                 "from": "tests",
@@ -597,7 +645,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how head updates based during execution.",
+            "caption": "Verify the sampling transition driving head behavior.",
             "activeActor": "tid",
             "messages": [
               {
@@ -681,7 +729,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how head updates based during execution.",
+            "caption": "Verify the sampling transition driving head behavior.",
             "messages": [
               {
                 "from": "traces",
@@ -793,8 +841,8 @@
               },
               "line": {
                 "var": "line",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -829,8 +877,8 @@
               },
               "line": {
                 "var": "line",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -899,7 +947,7 @@
             "values": {
               "logs": "[{'trace': '4bf9', 'service': 'gateway'…",
               "slow_trace": "'4bf9'",
-              "line": "{'trace': '4bf9', 'service': 'gateway',…"
+              "line": "{'trace': '0af7', 'service': 'gateway',…"
             },
             "tones": {
               "logs": "data",
@@ -923,7 +971,7 @@
             "values": {
               "logs": "[{'trace': '4bf9', 'service': 'gateway'…",
               "slow_trace": "'4bf9'",
-              "line": "{'trace': '4bf9', 'service': 'gateway',…"
+              "line": "{'trace': '4bf9', 'service': 'orders', …"
             },
             "tones": {
               "logs": "ok",

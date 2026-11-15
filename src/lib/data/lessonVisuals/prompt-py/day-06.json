@@ -403,7 +403,7 @@
           },
           {
             "at": "say2",
-            "caption": "This avoids the rare nonsense tokens that pure sampling can pick, while.",
+            "caption": "This avoids the rare nonsense tokens that pure sampling can pick.",
             "bars": [
               {
                 "label": "p",
@@ -496,7 +496,7 @@
           },
           {
             "at": "say2",
-            "caption": "This avoids the rare nonsense tokens that pure sampling can pick, while.",
+            "caption": "This avoids the rare nonsense tokens that pure sampling can pick.",
             "bars": [
               {
                 "label": "p",
@@ -565,6 +565,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A frequency penalty grows with how many times a token has appeared.",
+            "activeActor": "history",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "history",
+                "label": {
+                  "var": "scores",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "history",
@@ -579,10 +596,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A frequency penalty grows with how many times a token has appeared.",
-            "activeActor": "history",
+            "at": "say8",
+            "caption": "When a list of ideas keeps producing near-duplicates, a presence penalty.",
+            "activeActor": "freq_pen",
             "messages": [
+              {
+                "from": "scores",
+                "to": "history",
+                "label": {
+                  "var": "scores",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "history",
+                "to": "freq_pen",
+                "label": {
+                  "var": "history",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "scores",
                 "to": "history",
@@ -602,14 +639,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "When a list of ideas keeps producing near-duplicates, a presence penalty.",
-            "activeActor": "freq_pen",
-            "messages": [
+              },
               {
                 "from": "scores",
                 "to": "history",
@@ -652,12 +682,6 @@
                 "to": "history",
                 "label": "{'great': 2, 'good': 1.6, 'excellent': …",
                 "tone": "data"
-              },
-              {
-                "from": "history",
-                "to": "freq_pen",
-                "label": "{'great': 3, 'good': 1}",
-                "tone": "ok"
               }
             ],
             "activeActor": "scores"
@@ -685,6 +709,30 @@
             "at": "say8",
             "caption": "When a list of ideas keeps producing near-duplicates, a presence penalty.",
             "messages": [
+              {
+                "from": "scores",
+                "to": "history",
+                "label": "{'great': 2, 'good': 1.6, 'excellent': …",
+                "tone": "data"
+              },
+              {
+                "from": "history",
+                "to": "freq_pen",
+                "label": "{'great': 3, 'good': 1}",
+                "tone": "ok"
+              },
+              {
+                "from": "scores",
+                "to": "history",
+                "label": "{'great': 2, 'good': 1.6, 'excellent': …",
+                "tone": "data"
+              },
+              {
+                "from": "history",
+                "to": "freq_pen",
+                "label": "{'great': 3, 'good': 1}",
+                "tone": "ok"
+              },
               {
                 "from": "scores",
                 "to": "history",

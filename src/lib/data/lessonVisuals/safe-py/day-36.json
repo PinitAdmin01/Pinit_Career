@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "PII Detection & Pseudonymization — Foundations & Mathematical Invariants",
+      "partTitle": "Sub-Millisecond Pattern Scanning with `scan_pii`",
       "codeHash": "85d5cfa1bd9f0b3a303da5f58ba4b65754676bd9d302f1503b6bca451c15a82e",
       "spec": {
         "template": "states",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the pattern value produced for scanning processing.",
             "currentState": "text",
             "transition": {
               "from": "sample",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the pattern value produced for scanning processing.",
             "currentState": "text",
             "transition": {
               "from": "sample",
@@ -114,7 +114,7 @@
       }
     },
     {
-      "partTitle": "PII Detection & Pseudonymization — Core Algorithm & State Representation",
+      "partTitle": "Reversible Surrogate Mapping inside `FormatPreservingVault`",
       "codeHash": "60021a821592e3f2d139c091e3ddda3c5510063c4a24d137af773842a585a622",
       "spec": {
         "template": "states",
@@ -157,7 +157,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the reversible value produced for inside processing.",
             "currentState": "vault",
             "transition": {
               "from": "salt",
@@ -209,7 +209,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the reversible value produced for inside processing.",
             "currentState": "vault",
             "transition": {
               "from": "salt",
@@ -222,7 +222,7 @@
       }
     },
     {
-      "partTitle": "PII Detection & Pseudonymization — Production Implementation & Boundary Mechanics",
+      "partTitle": "Irreversible Egress Scrubbing via `redact_pii_in_text`",
       "codeHash": "f7a4b2c8008eee983c1adc05aa6e5ca90263a6f833e9108efb3e5c4f5e6f088e",
       "spec": {
         "template": "states",
@@ -265,7 +265,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for pii detection &.",
+            "caption": "Examine the irreversible value produced for redact processing.",
             "currentState": "email_re",
             "transition": {
               "from": "text",
@@ -317,12 +317,12 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for pii detection &.",
+            "caption": "Examine the irreversible value produced for redact processing.",
             "currentState": "email_re",
             "transition": {
               "from": "text",
               "to": "email_re",
-              "label": "{'__other__': 'Pattern'}"
+              "label": "<Pattern>"
             },
             "tone": "ok"
           }
@@ -330,7 +330,7 @@
       }
     },
     {
-      "partTitle": "PII Detection & Pseudonymization — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Regex Safety & Audit Counting in `PIIProtectionFilter`",
       "codeHash": "dbca17e69a83033236e84a7b84330f956906644b13429fae1bc2922fa68fe95b",
       "spec": {
         "template": "states",
@@ -373,7 +373,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the audit value produced for piiprotectionfilter processing.",
             "currentState": "message",
             "transition": {
               "from": "f",
@@ -425,7 +425,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the audit value produced for piiprotectionfilter processing.",
             "currentState": "message",
             "transition": {
               "from": "f",
@@ -438,33 +438,32 @@
       }
     },
     {
-      "partTitle": "PII Detection & Pseudonymization — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "edd5a8d4bf7dc0910c5ae4f8d167ad11b021eb291722e3f539c55ad82b9b5044",
+      "partTitle": "Post-Sanitization Residual Audits via `pii_audit_report`",
+      "codeHash": "7882928063b9748974dd267aa863f455d9910231072ed84a0d62b55120513e65",
       "spec": {
         "template": "flow",
-        "title": "PII Detection & Pseudonymization — Production Capstone & Enterpr",
+        "title": "Post-Sanitization Residual Audits via `pii_audit_report`",
         "nodes": [
           {
             "id": "original",
-            "label": "original"
+            "label": "original",
+            "tappable": true
           },
           {
             "id": "redacted",
-            "label": "redacted"
+            "label": "redacted",
+            "tappable": true
           },
           {
             "id": "has_remaining_at",
-            "label": "has_remaining_at"
-          },
-          {
-            "id": "rep",
-            "label": "rep"
+            "label": "has_remaining_at",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise privacy governance mandates automated auditing of all outbound.",
+            "caption": "Inspect enterprise updates as original tracks privacy state.",
             "values": {
               "original": {
                 "var": "original",
@@ -477,126 +476,75 @@
                 "hit": 1
               },
               "has_remaining_at": {
-                "var": "has_remaining_at",
-                "line": 2,
-                "hit": 1
-              },
-              "rep": {
-                "var": "rep",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "original": "data",
               "redacted": "data",
-              "has_remaining_at": "data",
-              "rep": "data"
+              "has_remaining_at": "idle"
             },
-            "arrows": [
-              [
-                "original",
-                "redacted"
-              ],
-              [
-                "redacted",
-                "has_remaining_at"
-              ],
-              [
-                "has_remaining_at",
-                "rep"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The pii_audit_report function evaluates post-sanitization strings.",
+            "caption": "Verify the post transition driving sanitization behavior.",
             "values": {
               "original": {
                 "var": "original",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "redacted": {
                 "var": "redacted",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "has_remaining_at": {
-                "var": "has_remaining_at",
-                "line": 3,
-                "hit": 1
-              },
-              "rep": {
-                "var": "rep",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "original": "data",
               "redacted": "data",
-              "has_remaining_at": "data",
-              "rep": "data"
+              "has_remaining_at": "idle"
             },
             "arrows": [
               [
                 "original",
                 "redacted"
-              ],
-              [
-                "redacted",
-                "has_remaining_at"
-              ],
-              [
-                "has_remaining_at",
-                "rep"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "at": "say3",
+            "caption": "Examine the residual value produced for secondary processing.",
             "values": {
               "original": {
                 "var": "original",
-                "line": 3,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "redacted": {
                 "var": "redacted",
-                "line": 3,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "has_remaining_at": {
                 "var": "has_remaining_at",
-                "line": 3,
-                "hit": 1
-              },
-              "rep": {
-                "var": "rep",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
               "original": "ok",
               "redacted": "ok",
-              "has_remaining_at": "ok",
-              "rep": "ok"
+              "has_remaining_at": "ok"
             },
             "arrows": [
               [
                 "original",
                 "redacted"
-              ],
-              [
-                "redacted",
-                "has_remaining_at"
-              ],
-              [
-                "has_remaining_at",
-                "rep"
               ]
             ]
           }
@@ -604,113 +552,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "PII Detection & Pseudonymization — Production Capstone & Enterpr",
+        "title": "Post-Sanitization Residual Audits via `pii_audit_report`",
         "nodes": [
           {
             "id": "original",
-            "label": "original"
+            "label": "original",
+            "tappable": true
           },
           {
             "id": "redacted",
-            "label": "redacted"
+            "label": "redacted",
+            "tappable": true
           },
           {
             "id": "has_remaining_at",
-            "label": "has_remaining_at"
-          },
-          {
-            "id": "rep",
-            "label": "rep"
+            "label": "has_remaining_at",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise privacy governance mandates automated auditing of all outbound.",
+            "caption": "Inspect enterprise updates as original tracks privacy state.",
             "values": {
               "original": "'Email me: john@company.com'",
               "redacted": "'Email me: [REDACTED_EMAIL]'",
-              "has_remaining_at": "False",
-              "rep": "{'original_len': 26, 'redacted_len': 26…"
+              "has_remaining_at": ""
             },
             "tones": {
               "original": "data",
               "redacted": "data",
-              "has_remaining_at": "data",
-              "rep": "data"
+              "has_remaining_at": "idle"
             },
-            "arrows": [
-              [
-                "original",
-                "redacted"
-              ],
-              [
-                "redacted",
-                "has_remaining_at"
-              ],
-              [
-                "has_remaining_at",
-                "rep"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The pii_audit_report function evaluates post-sanitization strings.",
+            "caption": "Verify the post transition driving sanitization behavior.",
             "values": {
-              "original": "'Email me: john@company.com'",
-              "redacted": "'Email me: [REDACTED_EMAIL]'",
-              "has_remaining_at": "False",
-              "rep": "{'original_len': 26, 'redacted_len': 26…"
+              "original": "'a@b.com'",
+              "redacted": "'a@b.com'",
+              "has_remaining_at": ""
             },
             "tones": {
               "original": "data",
               "redacted": "data",
-              "has_remaining_at": "data",
-              "rep": "data"
+              "has_remaining_at": "idle"
             },
             "arrows": [
               [
                 "original",
                 "redacted"
-              ],
-              [
-                "redacted",
-                "has_remaining_at"
-              ],
-              [
-                "has_remaining_at",
-                "rep"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "at": "say3",
+            "caption": "Examine the residual value produced for secondary processing.",
             "values": {
-              "original": "'Email me: john@company.com'",
-              "redacted": "'Email me: [REDACTED_EMAIL]'",
-              "has_remaining_at": "False",
-              "rep": "{'original_len': 26, 'redacted_len': 26…"
+              "original": "'a@b.com'",
+              "redacted": "'a@b.com'",
+              "has_remaining_at": "True"
             },
             "tones": {
               "original": "ok",
               "redacted": "ok",
-              "has_remaining_at": "ok",
-              "rep": "ok"
+              "has_remaining_at": "ok"
             },
             "arrows": [
               [
                 "original",
                 "redacted"
-              ],
-              [
-                "redacted",
-                "has_remaining_at"
-              ],
-              [
-                "has_remaining_at",
-                "rep"
               ]
             ]
           }

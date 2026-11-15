@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "fault_action": {
-                "var": "fault_action",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "name": "data",
               "hypothesis": "data",
               "targets": "data",
-              "fault_action": "data"
+              "fault_action": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "name": "'AZ_Impairment_Test'",
               "hypothesis": "'Application availability remains >= 99…",
               "targets": "{'resource_type': 'aws:ec2:subnet', 'fi…",
-              "fault_action": "'aws:network:disrupt-connectivity'"
+              "fault_action": ""
             },
             "tones": {
               "name": "data",
               "hypothesis": "data",
               "targets": "data",
-              "fault_action": "data"
+              "fault_action": "idle"
             },
             "arrows": [
               [
@@ -372,12 +370,12 @@
               },
               "cloudwatch_alarm_state": {
                 "var": "cloudwatch_alarm_state",
-                "line": 9,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "state": {
                 "var": "state",
-                "line": 10,
+                "line": 16,
                 "hit": 1
               }
             },
@@ -404,7 +402,7 @@
           },
           {
             "at": "say10",
-            "caption": "Structured experiment logs provide comprehensive documentation.",
+            "caption": "Examine the fault value produced for state processing.",
             "values": {
               "spec": {
                 "var": "spec",
@@ -418,12 +416,12 @@
               },
               "cloudwatch_alarm_state": {
                 "var": "cloudwatch_alarm_state",
-                "line": 10,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "state": {
                 "var": "state",
-                "line": 12,
+                "line": 16,
                 "hit": 1
               }
             },
@@ -508,8 +506,8 @@
             "values": {
               "spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
               "experiment_spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
-              "cloudwatch_alarm_state": "'OK'",
-              "state": "'RUNNING'"
+              "cloudwatch_alarm_state": "'ALARM'",
+              "state": "'COMPLETED'"
             },
             "tones": {
               "spec": "data",
@@ -534,12 +532,12 @@
           },
           {
             "at": "say10",
-            "caption": "Structured experiment logs provide comprehensive documentation.",
+            "caption": "Examine the fault value produced for state processing.",
             "values": {
               "spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
               "experiment_spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
-              "cloudwatch_alarm_state": "'OK'",
-              "state": "'RUNNING'"
+              "cloudwatch_alarm_state": "'ALARM'",
+              "state": "'COMPLETED'"
             },
             "tones": {
               "spec": "ok",
@@ -591,6 +589,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Simulating network packet latency and cross-region transit delays uncovers.",
+            "activeActor": "client_timeout_ms",
+            "messages": [
+              {
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": {
+                  "var": "downstream_latency_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "client_timeout_ms",
@@ -605,10 +620,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Simulating network packet latency and cross-region transit delays uncovers.",
-            "activeActor": "client_timeout_ms",
+            "at": "say10",
+            "caption": "Uncovering subtle cascading failure modes in staging environments prevents.",
+            "activeActor": "retry_count",
             "messages": [
+              {
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": {
+                  "var": "downstream_latency_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": {
+                  "var": "client_timeout_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "downstream_latency_ms",
                 "to": "client_timeout_ms",
@@ -628,14 +663,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Uncovering subtle cascading failure modes in staging environments prevents.",
-            "activeActor": "retry_count",
-            "messages": [
+              },
               {
                 "from": "downstream_latency_ms",
                 "to": "client_timeout_ms",
@@ -678,12 +706,6 @@
                 "to": "client_timeout_ms",
                 "label": "85",
                 "tone": "data"
-              },
-              {
-                "from": "client_timeout_ms",
-                "to": "retry_count",
-                "label": "200",
-                "tone": "ok"
               }
             ],
             "activeActor": "downstream_latency_ms"
@@ -711,6 +733,30 @@
             "at": "say10",
             "caption": "Uncovering subtle cascading failure modes in staging environments prevents.",
             "messages": [
+              {
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": "85",
+                "tone": "data"
+              },
+              {
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": "200",
+                "tone": "ok"
+              },
+              {
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": "85",
+                "tone": "data"
+              },
+              {
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": "200",
+                "tone": "ok"
+              },
               {
                 "from": "downstream_latency_ms",
                 "to": "client_timeout_ms",
@@ -930,7 +976,7 @@
           },
           {
             "at": "say10",
-            "caption": "Verifying self-healing mechanisms empirically guarantees that production.",
+            "caption": "Examine the gamedays value produced for chaos processing.",
             "bars": [
               {
                 "label": "total",
@@ -1030,7 +1076,7 @@
           },
           {
             "at": "say10",
-            "caption": "Verifying self-healing mechanisms empirically guarantees that production.",
+            "caption": "Examine the gamedays value produced for chaos processing.",
             "bars": [
               {
                 "label": "total",

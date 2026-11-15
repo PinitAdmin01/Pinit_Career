@@ -14,25 +14,24 @@
         "nodes": [
           {
             "id": "config",
-            "label": "config"
+            "label": "config",
+            "tappable": true
           },
           {
             "id": "self",
-            "label": "self"
+            "label": "self",
+            "tappable": true
           },
           {
             "id": "suite",
-            "label": "suite"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "suite",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "(2) Parameter-Efficient Fine-Tuning (PEFT) through Low-Rank Adaptation.",
+            "caption": "Inspect lora updates as config tracks modeling state.",
             "values": {
               "config": {
                 "var": "config",
@@ -40,131 +39,74 @@
                 "hit": 2
               },
               "self": {
-                "var": "self",
-                "line": 29,
+                "text": ""
+              },
+              "suite": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "config": "data",
+              "self": "idle",
+              "suite": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the apexalign transition driving master behavior.",
+            "values": {
+              "config": {
+                "var": "config",
+                "line": 62,
                 "hit": 1
+              },
+              "self": {
+                "text": ""
               },
               "suite": {
                 "var": "suite",
                 "line": 62,
                 "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 39,
-                "hit": 1
               }
             },
             "tones": {
               "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
+              "self": "idle",
+              "suite": "data"
             },
             "arrows": [
               [
                 "config",
                 "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
               ]
             ]
           },
           {
-            "at": "say2",
-            "caption": "In this grand milestone capstone, you step into the role of Chief AI.",
+            "at": "say3",
+            "caption": "Examine the apexalign value produced for lora processing.",
             "values": {
               "config": {
-                "var": "config",
-                "line": 29,
-                "hit": 1
+                "text": ""
               },
               "self": {
                 "var": "self",
-                "line": 31,
-                "hit": 1
+                "line": 39,
+                "hit": 7
               },
               "suite": {
-                "var": "suite",
-                "line": 63,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 39,
-                "hit": 2
+                "text": ""
               }
             },
             "tones": {
-              "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
-            },
-            "arrows": [
-              [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
-              ]
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "In the following Python script, we establish the core architectural.",
-            "values": {
-              "config": {
-                "var": "config",
-                "line": 31,
-                "hit": 1
-              },
-              "self": {
-                "var": "self",
-                "line": 32,
-                "hit": 1
-              },
-              "suite": {
-                "var": "suite",
-                "line": 64,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 39,
-                "hit": 3
-              }
-            },
-            "tones": {
-              "config": "ok",
+              "config": "idle",
               "self": "ok",
-              "suite": "ok",
-              ".0": "ok"
+              "suite": "idle"
             },
             "arrows": [
               [
                 "config",
                 "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
               ]
             ]
           }
@@ -176,109 +118,73 @@
         "nodes": [
           {
             "id": "config",
-            "label": "config"
+            "label": "config",
+            "tappable": true
           },
           {
             "id": "self",
-            "label": "self"
+            "label": "self",
+            "tappable": true
           },
           {
             "id": "suite",
-            "label": "suite"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "suite",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "(2) Parameter-Efficient Fine-Tuning (PEFT) through Low-Rank Adaptation.",
+            "caption": "Inspect lora updates as config tracks modeling state.",
             "values": {
               "config": "<ApexAlignSystemConfig>",
-              "self": "<ApexAlignMasterArchitecture>",
-              "suite": "<ApexAlignMasterArchitecture>",
-              ".0": "{'__other__': 'list_iterator'}"
+              "self": "",
+              "suite": ""
             },
             "tones": {
               "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
+              "self": "idle",
+              "suite": "idle"
             },
-            "arrows": [
-              [
-                "config",
-                "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In this grand milestone capstone, you step into the role of Chief AI.",
+            "caption": "Verify the apexalign transition driving master behavior.",
             "values": {
               "config": "<ApexAlignSystemConfig>",
-              "self": "<ApexAlignMasterArchitecture>",
-              "suite": "<ApexAlignMasterArchitecture>",
-              ".0": "{'__other__': 'list_iterator'}"
+              "self": "",
+              "suite": "<ApexAlignMasterArchitecture>"
             },
             "tones": {
               "config": "data",
-              "self": "data",
-              "suite": "data",
-              ".0": "data"
+              "self": "idle",
+              "suite": "data"
             },
             "arrows": [
               [
                 "config",
                 "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "In the following Python script, we establish the core architectural.",
+            "at": "say3",
+            "caption": "Examine the apexalign value produced for lora processing.",
             "values": {
-              "config": "<ApexAlignSystemConfig>",
+              "config": "",
               "self": "<ApexAlignMasterArchitecture>",
-              "suite": "<ApexAlignMasterArchitecture>",
-              ".0": "{'__other__': 'list_iterator'}"
+              "suite": ""
             },
             "tones": {
-              "config": "ok",
+              "config": "idle",
               "self": "ok",
-              "suite": "ok",
-              ".0": "ok"
+              "suite": "idle"
             },
             "arrows": [
               [
                 "config",
                 "self"
-              ],
-              [
-                "self",
-                "suite"
-              ],
-              [
-                "suite",
-                ".0"
               ]
             ]
           }
@@ -463,7 +369,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Mathematical Bridge from Preferences to Scalar Rewards relies upon.",
+            "caption": "Verify the subsystem transition driving bradley behavior.",
             "bars": [
               {
                 "label": "dim",
@@ -579,7 +485,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Mathematical Bridge from Preferences to Scalar Rewards relies upon.",
+            "caption": "Verify the subsystem transition driving bradley behavior.",
             "bars": [
               {
                 "label": "dim",
@@ -677,16 +583,14 @@
                 "hit": 1
               },
               "lr": {
-                "var": "lr",
-                "line": 21,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "beta": "data",
               "lambda_or": "data",
-              "lr": "data"
+              "lr": "idle"
             },
             "arrows": [
               [
@@ -826,13 +730,13 @@
               "self": "<DualPathPreferenceSubsystem>",
               "beta": "0.1",
               "lambda_or": "0.15",
-              "lr": "0.1"
+              "lr": ""
             },
             "tones": {
               "self": "data",
               "beta": "data",
               "lambda_or": "data",
-              "lr": "data"
+              "lr": "idle"
             },
             "arrows": [
               [

@@ -87,18 +87,18 @@
               },
               "n": {
                 "var": "n",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "sort_ops": {
                 "var": "sort_ops",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "heap_ops": {
                 "var": "heap_ops",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -133,18 +133,18 @@
               },
               "n": {
                 "var": "n",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "sort_ops": {
                 "var": "sort_ops",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "heap_ops": {
                 "var": "heap_ops",
-                "line": 4,
-                "hit": 2
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -227,9 +227,9 @@
             "caption": "But we only need the best k, and k is usually tiny compared with n, such.",
             "values": {
               "k": "10",
-              "n": "1000",
-              "sort_ops": "9965.784284662088",
-              "heap_ops": "3321.928094887362"
+              "n": "1000000",
+              "sort_ops": "19931568.569324173",
+              "heap_ops": "3321928.0948873623"
             },
             "tones": {
               "k": "data",
@@ -257,9 +257,9 @@
             "caption": "Language models even use it when generating text, choosing among the k.",
             "values": {
               "k": "10",
-              "n": "1000",
-              "sort_ops": "9965.784284662088",
-              "heap_ops": "3321.928094887362"
+              "n": "1000000000",
+              "sort_ops": "29897352853.986263",
+              "heap_ops": "3321928094.887362"
             },
             "tones": {
               "k": "ok",
@@ -318,7 +318,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how heapq updates heappush during execution.",
+            "caption": "heapq.heappush adds an item and heapq.heappop removes the smallest.",
             "bars": [
               {
                 "label": "i",
@@ -388,7 +388,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how heapq updates heappush during execution.",
+            "caption": "heapq.heappush adds an item and heapq.heappop removes the smallest.",
             "bars": [
               {
                 "label": "i",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how large updates collections during execution.",
+            "caption": "Observe how large shapes collections during this step.",
             "items": {
               "var": "p",
               "line": 6,
@@ -564,7 +564,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each shard returns its own top k, and a coordinator merges them into.",
+            "caption": "Verify the shard transition driving returns behavior.",
             "items": {
               "var": "p",
               "line": 6,
@@ -602,7 +602,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how large updates collections during execution.",
+            "caption": "Observe how large shapes collections during this step.",
             "items": [
               "'d1'",
               "0.91"
@@ -617,7 +617,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each shard returns its own top k, and a coordinator merges them into.",
+            "caption": "Verify the shard transition driving returns behavior.",
             "items": [
               "'d3'",
               "0.95"
@@ -707,7 +707,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how very updates large during execution.",
+            "caption": "Verify the very transition driving large behavior.",
             "values": {
               "page_size": {
                 "var": "page_size",
@@ -716,13 +716,13 @@
               },
               "page": {
                 "var": "page",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "k": {
                 "var": "k",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -752,13 +752,13 @@
               },
               "page": {
                 "var": "page",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "k": {
                 "var": "k",
-                "line": 2,
-                "hit": 2
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -823,11 +823,11 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how very updates large during execution.",
+            "caption": "Verify the very transition driving large behavior.",
             "values": {
               "page_size": "10",
-              "page": "1",
-              "k": "10"
+              "page": "5",
+              "k": "50"
             },
             "tones": {
               "page_size": "data",
@@ -850,8 +850,8 @@
             "caption": "Tomorrow introduces exactly those measurements.",
             "values": {
               "page_size": "10",
-              "page": "1",
-              "k": "10"
+              "page": "50",
+              "k": "500"
             },
             "tones": {
               "page_size": "ok",

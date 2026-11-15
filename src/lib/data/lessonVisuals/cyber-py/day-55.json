@@ -19,7 +19,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Observe how milestone shapes synthesizes during this step.",
             "activeActor": "MILESTONE_11_PILLARS",
             "messages": [
               {
@@ -73,7 +73,7 @@
           },
           {
             "at": "say10",
-            "caption": "Integrated cloud defense suites unite container runtime isolation.",
+            "caption": "Examine the subtle value produced for cross processing.",
             "activeActor": "overview",
             "messages": [
               {
@@ -111,7 +111,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Observe how milestone shapes synthesizes during this step.",
             "messages": [
               {
                 "from": "MILESTONE_11_PILLARS",
@@ -149,7 +149,7 @@
           },
           {
             "at": "say10",
-            "caption": "Integrated cloud defense suites unite container runtime isolation.",
+            "caption": "Examine the subtle value produced for cross processing.",
             "messages": [
               {
                 "from": "MILESTONE_11_PILLARS",
@@ -306,7 +306,7 @@
           },
           {
             "at": "say2",
-            "caption": "The attack path risk scorer computes an objective numerical risk score (0.",
+            "caption": "Verify the attack transition driving path behavior.",
             "currentState": "path_hops",
             "transition": {
               "from": "hops",
@@ -362,7 +362,7 @@
           },
           {
             "at": "say2",
-            "caption": "The attack path risk scorer computes an objective numerical risk score (0.",
+            "caption": "Verify the attack transition driving path behavior.",
             "currentState": "path_hops",
             "transition": {
               "from": "hops",

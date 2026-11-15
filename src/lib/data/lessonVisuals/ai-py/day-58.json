@@ -78,8 +78,8 @@
               },
               "source_code": {
                 "var": "source_code",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "tree": {
                 "var": "tree",
@@ -110,8 +110,8 @@
               },
               "source_code": {
                 "var": "source_code",
-                "line": 11,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "tree": {
                 "var": "tree",
@@ -172,7 +172,7 @@
             "values": {
               "ALLOWED_IMPORTS": "{'collections', 'json', 'math', 'statis…",
               "BANNED_NAMES": "{'__import__', 'compile', 'eval', 'exec…",
-              "source_code": "'import math\nx = math.sqrt(16)'",
+              "source_code": "\"x = ().__class__.__bases__\ny = __impor…",
               "tree": "<Module>"
             },
             "tones": {
@@ -188,7 +188,7 @@
             "values": {
               "ALLOWED_IMPORTS": "{'collections', 'json', 'math', 'statis…",
               "BANNED_NAMES": "{'__import__', 'compile', 'eval', 'exec…",
-              "source_code": "'import math\nx = math.sqrt(16)'",
+              "source_code": "\"x = ().__class__.__bases__\ny = __impor…",
               "tree": "<Module>"
             },
             "tones": {
@@ -269,8 +269,8 @@
               },
               "usage": {
                 "var": "usage",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "policy": {
                 "var": "policy",
@@ -279,7 +279,7 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 5,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -292,7 +292,7 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect check_sandbox_limits() modeling admission bounds cleanly against.",
+            "caption": "Examine the fork value produced for limits processing.",
             "values": {
               "SANDBOX_POLICY": {
                 "var": "SANDBOX_POLICY",
@@ -301,8 +301,8 @@
               },
               "usage": {
                 "var": "usage",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "policy": {
                 "var": "policy",
@@ -311,7 +311,7 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 7,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -367,9 +367,9 @@
             "caption": "Production execution runners bound resources along three independent OS.",
             "values": {
               "SANDBOX_POLICY": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
-              "usage": "{'cpu_sec': 0.4, 'mem_mb': 42, 'procs':…",
+              "usage": "{'cpu_sec': 12.1, 'mem_mb': 512, 'procs…",
               "policy": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
-              "violations": "[]"
+              "violations": "['CPU_TIMEOUT']"
             },
             "tones": {
               "SANDBOX_POLICY": "data",
@@ -380,12 +380,12 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect check_sandbox_limits() modeling admission bounds cleanly against.",
+            "caption": "Examine the fork value produced for limits processing.",
             "values": {
               "SANDBOX_POLICY": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
-              "usage": "{'cpu_sec': 0.4, 'mem_mb': 42, 'procs':…",
+              "usage": "{'cpu_sec': 12.1, 'mem_mb': 512, 'procs…",
               "policy": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
-              "violations": "[]"
+              "violations": "['CPU_TIMEOUT', 'OOM_CAP_EXCEEDED']"
             },
             "tones": {
               "SANDBOX_POLICY": "ok",

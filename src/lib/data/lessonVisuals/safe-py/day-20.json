@@ -88,7 +88,7 @@
               "c": {
                 "var": "c",
                 "line": 2,
-                "hit": 2
+                "hit": 4
               },
               "all_acc": {
                 "var": "all_acc",
@@ -134,7 +134,7 @@
               "c": {
                 "var": "c",
                 "line": 2,
-                "hit": 3
+                "hit": 5
               },
               "all_acc": {
                 "var": "all_acc",
@@ -227,7 +227,7 @@
             "caption": "Instead of guessing, it says \"I'm not sure\", asks a clarifying question.",
             "values": {
               "answers": "[[0.95, True], [0.9, True], [0.8, True]…",
-              "c": "True",
+              "c": "False",
               "all_acc": "0.5714285714285714",
               "confident": "[True, True, True]"
             },
@@ -643,7 +643,7 @@
           },
           {
             "at": "say10",
-            "caption": "Write the chosen threshold, the target and the data it came from into your.",
+            "caption": "Examine the threshold value produced for target processing.",
             "currentState": "target",
             "transition": {
               "from": "correct",
@@ -695,7 +695,7 @@
           },
           {
             "at": "say10",
-            "caption": "Write the chosen threshold, the target and the data it came from into your.",
+            "caption": "Examine the threshold value produced for target processing.",
             "currentState": "target",
             "transition": {
               "from": "correct",
@@ -902,13 +902,13 @@
               },
               "topic": {
                 "var": "topic",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "conf": {
                 "var": "conf",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -948,13 +948,13 @@
               },
               "topic": {
                 "var": "topic",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "conf": {
                 "var": "conf",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -1038,8 +1038,8 @@
             "values": {
               "THRESHOLDS": "{'medical': 0.9, 'general': 0.6}",
               "cases": "[['medical', 0.93, 1], ['medical', 0.95…",
-              "topic": "'medical'",
-              "conf": "0.93"
+              "topic": "'general'",
+              "conf": "0.95"
             },
             "tones": {
               "THRESHOLDS": "data",
@@ -1068,8 +1068,8 @@
             "values": {
               "THRESHOLDS": "{'medical': 0.9, 'general': 0.6}",
               "cases": "[['medical', 0.93, 1], ['medical', 0.95…",
-              "topic": "'medical'",
-              "conf": "0.93"
+              "topic": "'general'",
+              "conf": "0.65"
             },
             "tones": {
               "THRESHOLDS": "ok",

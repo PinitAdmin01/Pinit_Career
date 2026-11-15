@@ -455,19 +455,289 @@
       "partTitle": "Saving the reports as views",
       "codeHash": "7ba271de8846f4569aee5027ce7c178be6b55b469b656c5332131f29f15eea9e",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Saving the reports as views",
+        "columns": [
+          "day",
+          "takings"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reports the manager uses every day should not be retyped.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "takings"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The joins and calculations live in one place, written and checked once.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "takings"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "takings"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Saving the reports as views",
+        "columns": [
+          "day",
+          "takings"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reports the manager uses every day should not be retyped.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-28",
+                  "305.00"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The joins and calculations live in one place, written and checked once.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-28",
+                  "305.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-29",
+                  "105.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: the manager's dashboard query",
       "codeHash": "4cd8af77ceaecbf3e3c06e70dba9cc2800963d35ace8b171d4ff2feac1522779",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Putting it together: the manager's dashboard query",
+        "columns": [
+          "day",
+          "orders",
+          "takings",
+          "avg_order",
+          "share_percent"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Observe how manager shapes query during this step.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "orders"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "takings"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "avg_order"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "share_percent"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Step one: each order's total.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "orders"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "takings"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "avg_order"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "share_percent"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "day"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "orders"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "takings"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "avg_order"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "share_percent"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Putting it together: the manager's dashboard query",
+        "columns": [
+          "day",
+          "orders",
+          "takings",
+          "avg_order",
+          "share_percent"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Observe how manager shapes query during this step.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-28",
+                  "3",
+                  "305.00",
+                  "101.67",
+                  "74.4"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Step one: each order's total.",
+            "rows": [
+              {
+                "cells": [
+                  "2026-09-28",
+                  "3",
+                  "305.00",
+                  "101.67",
+                  "74.4"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-29",
+                  "1",
+                  "105.00",
+                  "105.00",
+                  "25.6"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

@@ -6,8 +6,8 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Invariants",
-      "codeHash": "54e46cfd493e9a3500a21367f149c0e8ed75d88ed2543e79514a1825f7996810",
+      "partTitle": "Goodhart Proxy Exploitation vs True Quality in `proxy_reward`",
+      "codeHash": "55e47da0adb4957144d6679ef3c3d7310e032768dd1d2e4995246173cd89bd24",
       "spec": {
         "template": "bars",
         "title": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Inv",
@@ -142,7 +142,7 @@
       }
     },
     {
-      "partTitle": "Reward Hacking & Goodhart's Law — Core Algorithm & State Representation",
+      "partTitle": "Reference Policy Drift Math inside `kl_divergence`",
       "codeHash": "c04136f4700c52d47baf3b4160f3d66554110f49f6f9b211c47f8f2a9f3e28bf",
       "spec": {
         "template": "states",
@@ -185,7 +185,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the drift value produced for divergence processing.",
             "currentState": "p_probs",
             "transition": {
               "from": "q",
@@ -237,7 +237,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the drift value produced for divergence processing.",
             "currentState": "p_probs",
             "transition": {
               "from": "q",
@@ -250,7 +250,7 @@
       }
     },
     {
-      "partTitle": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Feedback Beta Control Loops in `AdaptiveKLPenalty`",
       "codeHash": "646783f6c0d929d8dc33e32d784f735ec596294ccab97d999be5e7f9191e6185",
       "spec": {
         "template": "states",
@@ -293,7 +293,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for reward hacking &.",
+            "caption": "Examine the beta value produced for checkpoint processing.",
             "currentState": "target_kl",
             "transition": {
               "from": "init_beta",
@@ -345,7 +345,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for reward hacking &.",
+            "caption": "Examine the beta value produced for checkpoint processing.",
             "currentState": "target_kl",
             "transition": {
               "from": "init_beta",
@@ -358,7 +358,7 @@
       }
     },
     {
-      "partTitle": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Epistemic Uncertainty Penalties via `reward_ensemble`",
       "codeHash": "223b2e88f0822317388481453dc4f9a58d7be5384005603349d72834aa03031d",
       "spec": {
         "template": "flow",
@@ -444,13 +444,13 @@
               },
               "scores": {
                 "var": "scores",
-                "line": 5,
-                "hit": 5
+                "line": 4,
+                "hit": 2
               },
               "mean_r": {
                 "var": "mean_r",
-                "line": 5,
-                "hit": 5
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -476,7 +476,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the reward value produced for ensemble processing.",
             "values": {
               "agreement": {
                 "var": "agreement",
@@ -490,13 +490,13 @@
               },
               "scores": {
                 "var": "scores",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "mean_r": {
                 "var": "mean_r",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -580,8 +580,8 @@
             "values": {
               "agreement": "[4.2, 4.1, 4.3]",
               "conflict": "[4.8, 1.2, 3.9]",
-              "scores": "[4.2, 4.1, 4.3]",
-              "mean_r": "4.2"
+              "scores": "[4.8, 1.2, 3.9]",
+              "mean_r": "3.3000000000000003"
             },
             "tones": {
               "agreement": "data",
@@ -606,12 +606,12 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the reward value produced for ensemble processing.",
             "values": {
               "agreement": "[4.2, 4.1, 4.3]",
               "conflict": "[4.8, 1.2, 3.9]",
-              "scores": "[4.2, 4.1, 4.3]",
-              "mean_r": "4.2"
+              "scores": "[4.8, 1.2, 3.9]",
+              "mean_r": "3.3000000000000003"
             },
             "tones": {
               "agreement": "ok",
@@ -638,7 +638,7 @@
       }
     },
     {
-      "partTitle": "Reward Hacking & Goodhart's Law — Production Telemetry & Verification Audit",
+      "partTitle": "Runtime Drift Escalation Alerts inside `PolicyHealthMonitor`",
       "codeHash": "0d148a42d28c625c190e7c33db245a2a50e624d3f6282fa62a33ec420fc3a483",
       "spec": {
         "template": "bars",

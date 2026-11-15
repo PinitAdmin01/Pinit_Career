@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Kubernetes RBAC governs cluster-internal API actions.",
+            "activeActor": "iam_trust",
+            "messages": [
+              {
+                "from": "k8s_binding",
+                "to": "iam_trust",
+                "label": {
+                  "var": "k8s_binding",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "iam_trust",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Kubernetes RBAC governs cluster-internal API actions.",
-            "activeActor": "iam_trust",
+            "at": "say7",
+            "caption": "Validating namespace and ServiceAccount claims in trust policies.",
+            "activeActor": "role_binding",
             "messages": [
+              {
+                "from": "k8s_binding",
+                "to": "iam_trust",
+                "label": {
+                  "var": "k8s_binding",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "iam_trust",
+                "to": "role_binding",
+                "label": {
+                  "var": "iam_trust",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "k8s_binding",
                 "to": "iam_trust",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Validating namespace and ServiceAccount claims in trust policies.",
-            "activeActor": "role_binding",
-            "messages": [
+              },
               {
                 "from": "k8s_binding",
                 "to": "iam_trust",
@@ -398,12 +428,6 @@
                 "to": "iam_trust",
                 "label": "{'resources': ['secrets'], 'verbs': ['g…",
                 "tone": "data"
-              },
-              {
-                "from": "iam_trust",
-                "to": "role_binding",
-                "label": "{'Condition': {'StringEquals': {'sub_cl…",
-                "tone": "ok"
               }
             ],
             "activeActor": "k8s_binding"
@@ -431,6 +455,30 @@
             "at": "say7",
             "caption": "Validating namespace and ServiceAccount claims in trust policies.",
             "messages": [
+              {
+                "from": "k8s_binding",
+                "to": "iam_trust",
+                "label": "{'resources': ['secrets'], 'verbs': ['g…",
+                "tone": "data"
+              },
+              {
+                "from": "iam_trust",
+                "to": "role_binding",
+                "label": "{'Condition': {'StringEquals': {'sub_cl…",
+                "tone": "ok"
+              },
+              {
+                "from": "k8s_binding",
+                "to": "iam_trust",
+                "label": "{'resources': ['secrets'], 'verbs': ['g…",
+                "tone": "data"
+              },
+              {
+                "from": "iam_trust",
+                "to": "role_binding",
+                "label": "{'Condition': {'StringEquals': {'sub_cl…",
+                "tone": "ok"
+              },
               {
                 "from": "k8s_binding",
                 "to": "iam_trust",
@@ -493,7 +541,7 @@
           },
           {
             "at": "say7",
-            "caption": "Local agent credential vending reduces token exchange latency, ensuring.",
+            "caption": "Examine the irsa value produced for trust processing.",
             "currentState": "cluster",
             "transition": {
               "from": "mgr",
@@ -545,7 +593,7 @@
           },
           {
             "at": "say7",
-            "caption": "Local agent credential vending reduces token exchange latency, ensuring.",
+            "caption": "Examine the irsa value produced for trust processing.",
             "currentState": "cluster",
             "transition": {
               "from": "mgr",
@@ -614,7 +662,7 @@
           },
           {
             "at": "say6",
-            "caption": "Combining hop limits with Kubernetes network policies establishes.",
+            "caption": "Examine the instance value produced for metadata processing.",
             "bars": [
               {
                 "label": "ip_ttl_hops",
@@ -676,7 +724,7 @@
           },
           {
             "at": "say6",
-            "caption": "Combining hop limits with Kubernetes network policies establishes.",
+            "caption": "Examine the instance value produced for metadata processing.",
             "bars": [
               {
                 "label": "ip_ttl_hops",
@@ -780,13 +828,13 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "pod": {
                 "var": "pod",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -826,13 +874,13 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "pod": {
                 "var": "pod",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -916,8 +964,8 @@
             "values": {
               "workloads": "[{'name': 'payment-api', 'is_cluster_ad…",
               "pods_telemetry": "[{'name': 'payment-api', 'is_cluster_ad…",
-              "violations": "[]",
-              "pod": "{'name': 'payment-api', 'is_cluster_adm…"
+              "violations": "['CRITICAL_CLUSTER_ADMIN_BOUND_TO_POD_d…",
+              "pod": "{'name': 'debug-shell', 'is_cluster_adm…"
             },
             "tones": {
               "workloads": "data",
@@ -946,8 +994,8 @@
             "values": {
               "workloads": "[{'name': 'payment-api', 'is_cluster_ad…",
               "pods_telemetry": "[{'name': 'payment-api', 'is_cluster_ad…",
-              "violations": "[]",
-              "pod": "{'name': 'payment-api', 'is_cluster_adm…"
+              "violations": "['CRITICAL_CLUSTER_ADMIN_BOUND_TO_POD_d…",
+              "pod": "{'name': 'debug-shell', 'is_cluster_adm…"
             },
             "tones": {
               "workloads": "ok",

@@ -209,7 +209,7 @@
           },
           {
             "at": "say2",
-            "caption": "Cleaning them makes summaries better and cheaper, since fewer tokens are.",
+            "caption": "Cleaning them makes summaries better and cheaper, since fewer tokens are wasted.",
             "activeActor": "text",
             "messages": [
               {
@@ -292,7 +292,7 @@
           },
           {
             "at": "say2",
-            "caption": "Cleaning them makes summaries better and cheaper, since fewer tokens are.",
+            "caption": "Cleaning them makes summaries better and cheaper, since fewer tokens are wasted.",
             "messages": [
               {
                 "from": "raw",
@@ -404,7 +404,7 @@
           },
           {
             "at": "say2",
-            "caption": "Commitments often use phrases like \"I'll\", \"we will\", \"X will\",.",
+            "caption": "Verify the action transition driving commitments behavior.",
             "values": {
               "lines": {
                 "var": "lines",
@@ -413,18 +413,18 @@
               },
               "line": {
                 "var": "line",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "speaker": {
                 "var": "speaker",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "text": {
                 "var": "text",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -459,18 +459,18 @@
               },
               "line": {
                 "var": "line",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "speaker": {
                 "var": "speaker",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "text": {
                 "var": "text",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -550,12 +550,12 @@
           },
           {
             "at": "say2",
-            "caption": "Commitments often use phrases like \"I'll\", \"we will\", \"X will\",.",
+            "caption": "Verify the action transition driving commitments behavior.",
             "values": {
               "lines": "['Asha: Thanks for joining.', \"Ravi: I'…",
-              "line": "'Asha: Thanks for joining.'",
-              "speaker": "'Asha'",
-              "text": "' Thanks for joining.'"
+              "line": "\"Ravi: I'll send the budget by Friday.\"",
+              "speaker": "'Ravi'",
+              "text": "\" I'll send the budget by Friday.\""
             },
             "tones": {
               "lines": "data",
@@ -583,9 +583,9 @@
             "caption": "Checking the list against the recording for the first few meetings tells.",
             "values": {
               "lines": "['Asha: Thanks for joining.', \"Ravi: I'…",
-              "line": "'Asha: Thanks for joining.'",
-              "speaker": "'Asha'",
-              "text": "' Thanks for joining.'"
+              "line": "'Meena: The client will review it next …",
+              "speaker": "'Meena'",
+              "text": "' The client will review it next week.'"
             },
             "tones": {
               "lines": "ok",
@@ -772,6 +772,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Modern TTS can sound very human and even clone a voice from a short.",
+            "activeActor": "spoken",
+            "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": {
+                  "var": "written",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "spoken",
@@ -786,10 +803,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Modern TTS can sound very human and even clone a voice from a short.",
+            "at": "say9",
+            "caption": "Speed and pauses matter for listeners.",
             "activeActor": "spoken",
             "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": {
+                  "var": "written",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": {
+                  "var": "spoken",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "from": "written",
                 "to": "spoken",
@@ -809,14 +846,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Speed and pauses matter for listeners.",
-            "activeActor": "spoken",
-            "messages": [
+              },
               {
                 "from": "written",
                 "to": "spoken",
@@ -858,12 +888,6 @@
                 "to": "spoken",
                 "label": "'Pay ₹1,250 by 05/06; see Table 3 for d…",
                 "tone": "data"
-              },
-              {
-                "from": "spoken",
-                "to": "written",
-                "label": "'Pay one thousand two hundred and fifty…",
-                "tone": "ok"
               }
             ],
             "activeActor": "written"
@@ -891,6 +915,30 @@
             "at": "say9",
             "caption": "Speed and pauses matter for listeners.",
             "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": "'Pay ₹1,250 by 05/06; see Table 3 for d…",
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": "'Pay one thousand two hundred and fifty…",
+                "tone": "ok"
+              },
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": "'Pay ₹1,250 by 05/06; see Table 3 for d…",
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": "'Pay one thousand two hundred and fifty…",
+                "tone": "ok"
+              },
               {
                 "from": "written",
                 "to": "spoken",

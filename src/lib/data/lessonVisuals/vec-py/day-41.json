@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Foundations & Mathematical Invariants",
+      "partTitle": "Exponential Decay Level Sampling with the mL Scaling Factor",
       "codeHash": "554610697b5cd4fa4f721158b9fa0c20d89eed51a5d850f3440263befebe5900",
       "spec": {
         "template": "bars",
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the level value produced for capping processing.",
             "bars": [
               {
                 "label": "uniform_rand",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the level value produced for capping processing.",
             "bars": [
               {
                 "label": "uniform_rand",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Core Algorithm & State Representation",
+      "partTitle": "Multi-Layer Adjacency State Inside HNSW Graph Nodes",
       "codeHash": "51a5713d753d9f06ac95c603d51f8204eac7639fc1e6af5863e074af9ea4e0e6",
       "spec": {
         "template": "bars",
@@ -300,7 +300,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the layer value produced for graph processing.",
             "bars": [
               {
                 "label": "node_id",
@@ -381,7 +381,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the layer value produced for graph processing.",
             "bars": [
               {
                 "label": "node_id",
@@ -404,7 +404,7 @@
       }
     },
     {
-      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Heuristic Degree Capping & Diverse Long-Range Edge Selection",
       "codeHash": "0e302a6887c91ad4e39ef6e5cf4eb7d3da57783cca6728dc6f4ca9294ee82892",
       "spec": {
         "template": "bars",
@@ -478,7 +478,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the sorting value produced for stably processing.",
             "bars": [
               {
                 "label": "max_m",
@@ -559,7 +559,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the sorting value produced for stably processing.",
             "bars": [
               {
                 "label": "max_m",
@@ -582,8 +582,8 @@
       }
     },
     {
-      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Resilience Guardrails & Failure Recovery",
-      "codeHash": "026a916cd2665841c75136168a31329d0c6d0cf87535a9e67fadd16b17480dea",
+      "partTitle": "Empty-Graph & Entrypoint Boundary Validation Guards",
+      "codeHash": "d4fee29290885f0fe62f8ad629b3840cf5b1842bfff8694815b81c57d4716834",
       "spec": {
         "template": "flow",
         "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
@@ -652,7 +652,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the tracking value produced for sentinel processing.",
             "values": {
               "entry_id": {
                 "var": "entry_id",
@@ -696,8 +696,8 @@
             "at": "say1",
             "caption": "Graph search navigation begins at a global entrypoint node residing at.",
             "values": {
-              "entry_id": "5",
-              "total_nodes": "10"
+              "entry_id": "0",
+              "total_nodes": "0"
             },
             "tones": {
               "entry_id": "data",
@@ -714,7 +714,7 @@
             "at": "say2",
             "caption": "If the graph is empty or has suffered node deletions, attempting.",
             "values": {
-              "entry_id": "5",
+              "entry_id": "99",
               "total_nodes": "10"
             },
             "tones": {
@@ -730,9 +730,9 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the tracking value produced for sentinel processing.",
             "values": {
-              "entry_id": "5",
+              "entry_id": "99",
               "total_nodes": "10"
             },
             "tones": {
@@ -750,110 +750,156 @@
       }
     },
     {
-      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Production Telemetry & Verification Audit",
-      "codeHash": "0887e1df1aa4de6c0c00049035c4627015920a9641299cea614d48a25905530b",
+      "partTitle": "Graph Node Connectivity & Average Degree Distribution Audits",
+      "codeHash": "793d8382f5e48d0f7fd54494113704428885191cb30c98f6b0f1e4e883082e7b",
       "spec": {
-        "template": "cells",
-        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
+        "template": "flow",
+        "title": "Graph Node Connectivity & Average Degree Distribution Audits",
+        "nodes": [
+          {
+            "id": "nbrs",
+            "label": "nbrs",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Auditing graph topology metrics is critical for detecting clustering.",
-            "items": {
-              "var": "nbrs",
-              "line": 2,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
+            "caption": "Inspect graph updates as nbrs tracks degree state.",
+            "values": {
+              "nbrs": {
+                "var": "nbrs",
+                "line": 4,
+                "hit": 1
+              },
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "nbrs": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In a properly constructed HNSW graph, average node degree should remain.",
-            "items": {
-              "var": "nbrs",
-              "line": 2,
-              "hit": 2
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "caption": "Verify the graph transition driving node behavior.",
+            "values": {
+              "nbrs": {
+                "var": "nbrs",
+                "line": 4,
+                "hit": 3
+              },
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "nbrs": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "nbrs",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "items": {
-              "var": "nbrs",
-              "line": 2,
-              "hit": 3
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the graph value produced for certain processing.",
+            "values": {
+              "nbrs": {
+                "var": "nbrs",
+                "line": 4,
+                "hit": 4
+              },
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "nbrs": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "nbrs",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
+        "template": "flow",
+        "title": "Graph Node Connectivity & Average Degree Distribution Audits",
+        "nodes": [
+          {
+            "id": "nbrs",
+            "label": "nbrs",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Auditing graph topology metrics is critical for detecting clustering.",
-            "items": [
-              "2",
-              "3"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect graph updates as nbrs tracks degree state.",
+            "values": {
+              "nbrs": "[2, 3]",
+              "out": ""
+            },
+            "tones": {
+              "nbrs": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In a properly constructed HNSW graph, average node degree should remain.",
-            "items": [
-              "1",
-              "3",
-              "4"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "caption": "Verify the graph transition driving node behavior.",
+            "values": {
+              "nbrs": "[1, 2]",
+              "out": "HNSW Degree Audit: {'total_nodes': 4, 'max_degree': 3, 'avg_degree': 2.0}"
+            },
+            "tones": {
+              "nbrs": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "nbrs",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "items": [
-              "1",
-              "2"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "at": "say3",
+            "caption": "Examine the graph value produced for certain processing.",
+            "values": {
+              "nbrs": "[2]",
+              "out": "HNSW Degree Audit: {'total_nodes': 4, 'max_degree': 3, 'avg_degree': 2.0}"
+            },
+            "tones": {
+              "nbrs": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "nbrs",
+                "out"
+              ]
             ]
           }
         ]

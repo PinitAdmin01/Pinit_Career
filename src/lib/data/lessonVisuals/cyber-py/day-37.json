@@ -18,7 +18,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how json updates tokens during execution.",
+            "caption": "Observe how json shapes tokens during this step.",
             "activeActor": "tv",
             "messages": [
               {
@@ -109,7 +109,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how json updates tokens during execution.",
+            "caption": "Observe how json shapes tokens during this step.",
             "messages": [
               {
                 "from": "tv",
@@ -211,7 +211,7 @@
           },
           {
             "at": "say9",
-            "caption": "When validating asymmetric signatures, services should restrict public key.",
+            "caption": "Examine the hardened value produced for token processing.",
             "currentState": "p",
             "transition": {
               "from": "h",
@@ -263,7 +263,7 @@
           },
           {
             "at": "say9",
-            "caption": "When validating asymmetric signatures, services should restrict public key.",
+            "caption": "Examine the hardened value produced for token processing.",
             "currentState": "p",
             "transition": {
               "from": "h",
@@ -319,7 +319,7 @@
           },
           {
             "at": "say9",
-            "caption": "Microservices operating behind an API gateway should validate JWT.",
+            "caption": "Examine the combining value produced for strict processing.",
             "currentState": "trusted_key_store",
             "transition": {
               "from": "kid_header",
@@ -371,7 +371,7 @@
           },
           {
             "at": "say9",
-            "caption": "Microservices operating behind an API gateway should validate JWT.",
+            "caption": "Examine the combining value produced for strict processing.",
             "currentState": "trusted_key_store",
             "transition": {
               "from": "kid_header",
@@ -536,16 +536,14 @@
                 "hit": 1
               },
               "revocation_active": {
-                "var": "revocation_active",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "alg_none_rejected": "data",
               "confusion_blocked": "data",
               "kid_sanitized": "data",
-              "revocation_active": "data"
+              "revocation_active": "idle"
             }
           },
           {
@@ -582,7 +580,7 @@
           },
           {
             "at": "say9",
-            "caption": "Automated security fuzzing tools systematically inject malformed headers.",
+            "caption": "Examine the production value produced for verification processing.",
             "values": {
               "alg_none_rejected": {
                 "var": "alg_none_rejected",
@@ -643,13 +641,13 @@
               "alg_none_rejected": "True",
               "confusion_blocked": "True",
               "kid_sanitized": "True",
-              "revocation_active": "True"
+              "revocation_active": ""
             },
             "tones": {
               "alg_none_rejected": "data",
               "confusion_blocked": "data",
               "kid_sanitized": "data",
-              "revocation_active": "data"
+              "revocation_active": "idle"
             }
           },
           {
@@ -670,7 +668,7 @@
           },
           {
             "at": "say9",
-            "caption": "Automated security fuzzing tools systematically inject malformed headers.",
+            "caption": "Examine the production value produced for verification processing.",
             "values": {
               "alg_none_rejected": "True",
               "confusion_blocked": "True",

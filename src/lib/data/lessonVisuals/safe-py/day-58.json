@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Constitutional AI (CAI) — Foundations & Mathematical Invariants",
+      "partTitle": "Declarative Principle Modeling in `ConstitutionalRule`",
       "codeHash": "088e3ea584e6c44f0955bc10e781276a41150d23a4c5220333c3b5861ca4e059",
       "spec": {
         "template": "table",
@@ -56,7 +56,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the constitutionalrule value produced for governance processing.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the constitutionalrule value produced for governance processing.",
             "rows": [
               {
                 "cells": [
@@ -124,7 +124,7 @@
       }
     },
     {
-      "partTitle": "Constitutional AI (CAI) — Core Algorithm & State Representation",
+      "partTitle": "Violating Span Diagnostics via `generate_critique`",
       "codeHash": "250685c6d250d7efb56074512452d3f8bbb81871b2eb55719e50184cf83c1b9e",
       "spec": {
         "template": "states",
@@ -167,7 +167,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the generate value produced for critique processing.",
             "currentState": "rule_id",
             "transition": {
               "from": "response",
@@ -219,7 +219,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the generate value produced for critique processing.",
             "currentState": "rule_id",
             "transition": {
               "from": "response",
@@ -232,7 +232,7 @@
       }
     },
     {
-      "partTitle": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Helpful Security Remediation in `generate_revision`",
       "codeHash": "bbe35db9702f6b8a47224dbacc1638e0348885758985c4e455993687be8bef02",
       "spec": {
         "template": "flow",
@@ -276,16 +276,14 @@
                 "hit": 1
               },
               "critique": {
-                "var": "critique",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "orig": "data",
               "crit": "data",
               "original": "data",
-              "critique": "data"
+              "critique": "idle"
             },
             "arrows": [
               [
@@ -350,7 +348,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for constitutional.",
+            "caption": "Examine the helpful value produced for revision processing.",
             "values": {
               "orig": {
                 "var": "orig",
@@ -425,13 +423,13 @@
               "orig": "'Here is how to exploit authentication …",
               "crit": "'CRITIQUE [RULE_01]: Contains prohibite…",
               "original": "'Here is how to exploit authentication …",
-              "critique": "'CRITIQUE [RULE_01]: Contains prohibite…"
+              "critique": ""
             },
             "tones": {
               "orig": "data",
               "crit": "data",
               "original": "data",
-              "critique": "data"
+              "critique": "idle"
             },
             "arrows": [
               [
@@ -480,7 +478,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for constitutional.",
+            "caption": "Examine the helpful value produced for revision processing.",
             "values": {
               "orig": "'Here is how to exploit authentication …",
               "crit": "'CRITIQUE [RULE_01]: Contains prohibite…",
@@ -512,7 +510,7 @@
       }
     },
     {
-      "partTitle": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Bounded Self-Alignment Iteration inside `cai_loop`",
       "codeHash": "6a63706f879ae80082c1e955be33dd41e07c208afdeaa4ab4fd09a11e53b8abf",
       "spec": {
         "template": "bars",
@@ -568,7 +566,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the iteration value produced for loop processing.",
             "bars": [
               {
                 "label": "max_rounds",
@@ -630,7 +628,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the iteration value produced for loop processing.",
             "bars": [
               {
                 "label": "max_rounds",
@@ -648,7 +646,7 @@
       }
     },
     {
-      "partTitle": "Constitutional AI (CAI) — Production Telemetry & Verification Audit",
+      "partTitle": "Alignment Gain Benchmarking via `evaluate_cai_benchmark`",
       "codeHash": "fb4dd64a50bbd0634587decd936255c570cedb0f7f3337b0de93d52639fd5743",
       "spec": {
         "template": "bars",

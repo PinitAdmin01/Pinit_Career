@@ -522,7 +522,7 @@
           },
           {
             "at": "say2",
-            "caption": "Thread contention between market data feeds, strategy pricing engines,.",
+            "caption": "Verify the thread transition driving contention behavior.",
             "values": {
               "events": {
                 "var": "events",
@@ -536,12 +536,12 @@
               },
               "processed": {
                 "var": "processed",
-                "line": 6,
+                "line": 12,
                 "hit": 1
               },
               "rejected": {
                 "var": "rejected",
-                "line": 8,
+                "line": 14,
                 "hit": 1
               }
             },
@@ -582,12 +582,12 @@
               },
               "processed": {
                 "var": "processed",
-                "line": 8,
-                "hit": 1
+                "line": 12,
+                "hit": 2
               },
               "rejected": {
                 "var": "rejected",
-                "line": 10,
+                "line": 14,
                 "hit": 1
               }
             },
@@ -668,12 +668,12 @@
           },
           {
             "at": "say2",
-            "caption": "Thread contention between market data feeds, strategy pricing engines,.",
+            "caption": "Verify the thread transition driving contention behavior.",
             "values": {
               "events": "[{'price': 150, 'shares': 500}, {'price…",
               "events_batch": "[{'price': 150, 'shares': 500}, {'price…",
-              "processed": "0",
-              "rejected": "0"
+              "processed": "1",
+              "rejected": "1"
             },
             "tones": {
               "events": "data",
@@ -702,8 +702,8 @@
             "values": {
               "events": "[{'price': 150, 'shares': 500}, {'price…",
               "events_batch": "[{'price': 150, 'shares': 500}, {'price…",
-              "processed": "0",
-              "rejected": "0"
+              "processed": "2",
+              "rejected": "1"
             },
             "tones": {
               "events": "ok",
@@ -755,6 +755,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The platform implements a Triple-Redundant Watchdog System.",
+            "activeActor": "firm_capital",
+            "messages": [
+              {
+                "from": "self",
+                "to": "firm_capital",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "firm_capital",
@@ -769,10 +786,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The platform implements a Triple-Redundant Watchdog System.",
-            "activeActor": "firm_capital",
+            "at": "say10",
+            "caption": "Automated fail-safe architecture ensures that institutional capital.",
+            "activeActor": "max_daily_drawdown_pct",
             "messages": [
+              {
+                "from": "self",
+                "to": "firm_capital",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "firm_capital",
+                "to": "max_daily_drawdown_pct",
+                "label": {
+                  "var": "firm_capital",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "firm_capital",
@@ -792,14 +829,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Automated fail-safe architecture ensures that institutional capital.",
-            "activeActor": "max_daily_drawdown_pct",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "firm_capital",
@@ -842,12 +872,6 @@
                 "to": "firm_capital",
                 "label": "<CapstoneMasterResilienceGuard>",
                 "tone": "data"
-              },
-              {
-                "from": "firm_capital",
-                "to": "max_daily_drawdown_pct",
-                "label": "10000000",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -886,6 +910,30 @@
                 "to": "max_daily_drawdown_pct",
                 "label": "10000000",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "firm_capital",
+                "label": "<CapstoneMasterResilienceGuard>",
+                "tone": "data"
+              },
+              {
+                "from": "firm_capital",
+                "to": "max_daily_drawdown_pct",
+                "label": "10000000",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "firm_capital",
+                "label": "<CapstoneMasterResilienceGuard>",
+                "tone": "data"
+              },
+              {
+                "from": "firm_capital",
+                "to": "max_daily_drawdown_pct",
+                "label": "10000000",
+                "tone": "ok"
               }
             ],
             "activeActor": "max_daily_drawdown_pct"
@@ -902,7 +950,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates concludes during execution.",
+            "caption": "Observe how milestone shapes concludes during this step.",
             "bars": [
               {
                 "label": "p99_latency_us",
@@ -1007,7 +1055,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates concludes during execution.",
+            "caption": "Observe how milestone shapes concludes during this step.",
             "bars": [
               {
                 "label": "p99_latency_us",

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how dimensional updates vector during execution.",
+            "caption": "Observe how dimensional shapes float32 during this step.",
             "bars": [
               {
                 "label": "n",
@@ -56,7 +56,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how billion updates such during execution.",
+            "caption": "Verify the memory transition driving billion behavior.",
             "bars": [
               {
                 "label": "n",
@@ -146,7 +146,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how dimensional updates vector during execution.",
+            "caption": "Observe how dimensional shapes float32 during this step.",
             "bars": [
               {
                 "label": "n",
@@ -172,7 +172,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how billion updates such during execution.",
+            "caption": "Verify the memory transition driving billion behavior.",
             "bars": [
               {
                 "label": "n",
@@ -258,7 +258,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how each updates part during execution.",
+            "caption": "Verify the part transition driving position behavior.",
             "bars": [
               {
                 "label": "m",
@@ -328,7 +328,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how each updates part during execution.",
+            "caption": "Verify the part transition driving position behavior.",
             "bars": [
               {
                 "label": "m",
@@ -636,16 +636,14 @@
                 "hit": 1
               },
               "codebook": {
-                "var": "codebook",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "rng": "data",
               "data": "data",
               "size": "data",
-              "codebook": "data"
+              "codebook": "idle"
             },
             "arrows": [
               [
@@ -785,13 +783,13 @@
               "rng": "<Random>",
               "data": "[[0.9560342718892494, 0.947827487059349…",
               "size": "2",
-              "codebook": "[[0.9560342718892494, 0.947827487059349…"
+              "codebook": ""
             },
             "tones": {
               "rng": "data",
               "data": "data",
               "size": "data",
-              "codebook": "data"
+              "codebook": "idle"
             },
             "arrows": [
               [

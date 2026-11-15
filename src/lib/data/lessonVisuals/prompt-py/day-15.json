@@ -390,16 +390,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "fmt",
-                "to": "base",
-                "label": {
-                  "var": "fmt",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -413,7 +403,7 @@
                 "to": "fmt",
                 "label": {
                   "var": "base",
-                  "line": 2,
+                  "line": 1,
                   "hit": 1
                 },
                 "tone": "data"
@@ -423,7 +413,7 @@
                 "to": "base",
                 "label": {
                   "var": "fmt",
-                  "line": 4,
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -440,7 +430,27 @@
                 "to": "fmt",
                 "label": {
                   "var": "base",
-                  "line": 4,
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "base",
+                "label": {
+                  "var": "fmt",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "fmt",
+                "label": {
+                  "var": "base",
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -454,6 +464,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "fmt",
+                "label": {
+                  "var": "base",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -476,12 +496,6 @@
                 "to": "fmt",
                 "label": "'...grounded prompt from the previous s…",
                 "tone": "data"
-              },
-              {
-                "from": "fmt",
-                "to": "base",
-                "label": "'Reply with JSON only, like {\"answer\": …",
-                "tone": "ok"
               }
             ],
             "activeActor": "base"
@@ -520,6 +534,24 @@
                 "to": "base",
                 "label": "'Reply with JSON only, like {\"answer\": …",
                 "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "fmt",
+                "label": "'...grounded prompt from the previous s…",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "base",
+                "label": "'Reply with JSON only, like {\"answer\": …",
+                "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "fmt",
+                "label": "'...grounded prompt from the previous s…",
+                "tone": "data"
               }
             ],
             "activeActor": "fmt"
@@ -536,7 +568,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Practice 2 is parse_reply(text), which extracts the JSON object from.",
+            "caption": "Practice 2 is parse_reply(text).",
             "bars": [
               {
                 "label": "start",
@@ -641,7 +673,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Practice 2 is parse_reply(text), which extracts the JSON object from.",
+            "caption": "Practice 2 is parse_reply(text).",
             "bars": [
               {
                 "label": "start",
@@ -895,6 +927,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Return {\"sources\".",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "q",
@@ -909,10 +958,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Return {\"sources\".",
-            "activeActor": "q",
+            "at": "say8",
+            "caption": "Keep this pipeline code.",
+            "activeActor": "t",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "q",
@@ -932,14 +1001,7 @@
                   "hit": 8
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Keep this pipeline code.",
-            "activeActor": "t",
-            "messages": [
+              },
               {
                 "from": "chunks",
                 "to": "q",
@@ -982,12 +1044,6 @@
                 "to": "q",
                 "label": "['Fees are 5 rupees per day late.', 'Me…",
                 "tone": "data"
-              },
-              {
-                "from": "q",
-                "to": "t",
-                "label": "'How many books can members borrow?'",
-                "tone": "ok"
               }
             ],
             "activeActor": "chunks"
@@ -1015,6 +1071,30 @@
             "at": "say8",
             "caption": "Keep this pipeline code.",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Fees are 5 rupees per day late.', 'Me…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many books can members borrow?'",
+                "tone": "ok"
+              },
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Fees are 5 rupees per day late.', 'Me…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many books can members borrow?'",
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "q",

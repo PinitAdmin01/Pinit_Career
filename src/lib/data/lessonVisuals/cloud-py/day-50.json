@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Verify the milestone transition driving establishes behavior.",
             "rows": [
               {
                 "cells": [
@@ -118,7 +118,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Verify the milestone transition driving establishes behavior.",
             "rows": [
               {
                 "cells": [
@@ -560,16 +560,14 @@
                 "hit": 1
               },
               "dynamo_status": {
-                "var": "dynamo_status",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "failed_region": "data",
               "secondary_region": "data",
               "aurora_status": "data",
-              "dynamo_status": "data"
+              "dynamo_status": "idle"
             },
             "arrows": [
               [
@@ -709,13 +707,13 @@
               "failed_region": "'us-east-1'",
               "secondary_region": "'us-west-2'",
               "aurora_status": "{'action': 'PROMOTE_SECONDARY', 'region…",
-              "dynamo_status": "{'action': 'AUTOMATIC_FAILOVER', 'activ…"
+              "dynamo_status": ""
             },
             "tones": {
               "failed_region": "data",
               "secondary_region": "data",
               "aurora_status": "data",
-              "dynamo_status": "data"
+              "dynamo_status": "idle"
             },
             "arrows": [
               [
@@ -804,157 +802,97 @@
         "nodes": [
           {
             "id": "gates",
-            "label": "gates"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "gates",
+            "tappable": true
           },
           {
             "id": "g",
-            "label": "g"
+            "label": "g",
+            "tappable": true
           },
           {
-            "id": "all_passed",
-            "label": "all_passed"
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Rigorous automated gate audits provide absolute confidence that every.",
+            "caption": "Inspect rigorous updates as gates tracks automated state.",
             "values": {
               "gates": {
                 "var": "gates",
                 "line": 4,
                 "hit": 1
               },
-              ".0": {
-                "var": ".0",
-                "line": 16,
-                "hit": 1
-              },
               "g": {
-                "var": "g",
-                "line": 16,
-                "hit": 1
+                "text": ""
               },
-              "all_passed": {
-                "var": "all_passed",
-                "line": 16,
-                "hit": 7
+              "g_name": {
+                "text": ""
               }
             },
             "tones": {
               "gates": "data",
-              ".0": "data",
-              "g": "data",
-              "all_passed": "data"
+              "g": "idle",
+              "g_name": "idle"
             },
-            "arrows": [
-              [
-                "gates",
-                ".0"
-              ],
-              [
-                ".0",
-                "g"
-              ],
-              [
-                "g",
-                "all_passed"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The rigorous 5-gate certification audit validates partition write.",
+            "caption": "Verify the audit transition driving rigorous behavior.",
             "values": {
               "gates": {
-                "var": "gates",
-                "line": 6,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 16,
-                "hit": 2
+                "text": ""
               },
               "g": {
                 "var": "g",
                 "line": 16,
-                "hit": 2
+                "hit": 5
               },
-              "all_passed": {
-                "var": "all_passed",
-                "line": 17,
-                "hit": 1
+              "g_name": {
+                "text": ""
               }
             },
             "tones": {
-              "gates": "data",
-              ".0": "data",
+              "gates": "idle",
               "g": "data",
-              "all_passed": "data"
+              "g_name": "idle"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Execute the full 5-gate Milestone 10 certification test suite below.",
+            "at": "say3",
+            "caption": "Examine the continuous value produced for observability processing.",
             "values": {
               "gates": {
-                "var": "gates",
-                "line": 8,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 16,
-                "hit": 3
+                "text": ""
               },
               "g": {
-                "var": "g",
-                "line": 16,
-                "hit": 3
+                "text": ""
               },
-              "all_passed": {
-                "var": "all_passed",
-                "line": 17,
-                "hit": 1
+              "g_name": {
+                "var": "g_name",
+                "line": 21,
+                "hit": 5
               }
             },
             "tones": {
-              "gates": "ok",
-              ".0": "ok",
-              "g": "ok",
-              "all_passed": "ok"
+              "gates": "idle",
+              "g": "idle",
+              "g_name": "ok"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           }
@@ -966,109 +904,73 @@
         "nodes": [
           {
             "id": "gates",
-            "label": "gates"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "gates",
+            "tappable": true
           },
           {
             "id": "g",
-            "label": "g"
+            "label": "g",
+            "tappable": true
           },
           {
-            "id": "all_passed",
-            "label": "all_passed"
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Rigorous automated gate audits provide absolute confidence that every.",
+            "caption": "Inspect rigorous updates as gates tracks automated state.",
             "values": {
               "gates": "{}",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "g": "{'passed': True, 'skew_ratio': 1.25}",
-              "all_passed": "True"
+              "g": "",
+              "g_name": ""
             },
             "tones": {
               "gates": "data",
-              ".0": "data",
-              "g": "data",
-              "all_passed": "data"
+              "g": "idle",
+              "g_name": "idle"
             },
-            "arrows": [
-              [
-                "gates",
-                ".0"
-              ],
-              [
-                ".0",
-                "g"
-              ],
-              [
-                "g",
-                "all_passed"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The rigorous 5-gate certification audit validates partition write.",
+            "caption": "Verify the audit transition driving rigorous behavior.",
             "values": {
-              "gates": "{'GATE_1_DYNAMO_SHARDING': {'passed': T…",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "g": "{'passed': True, 'lag_seconds': 0.42}",
-              "all_passed": "True"
+              "gates": "",
+              "g": "{'passed': True, 'rto_seconds': 45}",
+              "g_name": ""
             },
             "tones": {
-              "gates": "data",
-              ".0": "data",
+              "gates": "idle",
               "g": "data",
-              "all_passed": "data"
+              "g_name": "idle"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Execute the full 5-gate Milestone 10 certification test suite below.",
+            "at": "say3",
+            "caption": "Examine the continuous value produced for observability processing.",
             "values": {
-              "gates": "{'GATE_1_DYNAMO_SHARDING': {'passed': T…",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "g": "{'passed': True, 'worm_enforced': True}",
-              "all_passed": "True"
+              "gates": "",
+              "g": "",
+              "g_name": "'GATE_5_DR_RTO'"
             },
             "tones": {
-              "gates": "ok",
-              ".0": "ok",
-              "g": "ok",
-              "all_passed": "ok"
+              "gates": "idle",
+              "g": "idle",
+              "g_name": "ok"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           }

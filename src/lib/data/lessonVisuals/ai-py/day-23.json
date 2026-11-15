@@ -461,10 +461,157 @@
       "partTitle": "LoRA: small adapters",
       "codeHash": "97dedf6bf78684c5fb7be9e9b3846e9dcaee4c8a735fe5f89db664e80dbb54a1",
       "spec": {
-        "template": "none",
-        "reason": "Concept explained cleanly in text and interactive code."
+        "template": "flow",
+        "title": "LoRA: small adapters",
+        "nodes": [
+          {
+            "id": "row",
+            "label": "row",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "For a d x d weight matrix W, it learns two thin matrices.",
+            "values": {
+              "row": {
+                "var": "row",
+                "line": 4,
+                "hit": 1
+              },
+              "out": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "row": "data",
+              "out": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the small transition driving product behavior.",
+            "values": {
+              "row": {
+                "var": "row",
+                "line": 4,
+                "hit": 3
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "row": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "row",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the idea value produced for change processing.",
+            "values": {
+              "row": {
+                "var": "row",
+                "line": 4,
+                "hit": 4
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "row": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "row",
+                "out"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "LoRA: small adapters",
+        "nodes": [
+          {
+            "id": "row",
+            "label": "row",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "For a d x d weight matrix W, it learns two thin matrices.",
+            "values": {
+              "row": "[0.5, 0, 1, 0.25]",
+              "out": ""
+            },
+            "tones": {
+              "row": "data",
+              "out": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the small transition driving product behavior.",
+            "values": {
+              "row": "[1.5, 0, 3, 0.75]",
+              "out": "[0.5, 0, 1, 0.25]"
+            },
+            "tones": {
+              "row": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "row",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the idea value produced for change processing.",
+            "values": {
+              "row": "[2, 0, 4, 1]",
+              "out": "[1.0, 0, 2, 0.5]"
+            },
+            "tones": {
+              "row": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "row",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Counting LoRA parameters",
@@ -475,7 +622,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lora_parameters(d_model, rank) returns the full matrix size d x d,.",
+            "caption": "Observe how lora shapes parameters during this step.",
             "bars": [
               {
                 "label": "d_model",
@@ -517,7 +664,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how full updates trainable during execution.",
+            "caption": "For d = 4096 and r = 16.",
             "bars": [
               {
                 "label": "d_model",
@@ -559,7 +706,7 @@
           },
           {
             "at": "say7",
-            "caption": "Format percentages with :.",
+            "caption": "Format percentages with :.2f to keep them readable.",
             "bars": [
               {
                 "label": "d_model",
@@ -607,7 +754,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lora_parameters(d_model, rank) returns the full matrix size d x d,.",
+            "caption": "Observe how lora shapes parameters during this step.",
             "bars": [
               {
                 "label": "d_model",
@@ -633,7 +780,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how full updates trainable during execution.",
+            "caption": "For d = 4096 and r = 16.",
             "bars": [
               {
                 "label": "d_model",
@@ -659,7 +806,7 @@
           },
           {
             "at": "say7",
-            "caption": "Format percentages with :.",
+            "caption": "Format percentages with :.2f to keep them readable.",
             "bars": [
               {
                 "label": "d_model",
@@ -712,6 +859,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "QLoRA loads the frozen base model in 4-bit and trains LoRA adapters on top.",
+            "activeActor": "params_billions",
+            "messages": [
+              {
+                "from": "bits",
+                "to": "params_billions",
+                "label": {
+                  "var": "bits",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "params_billions",
@@ -726,10 +890,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "QLoRA loads the frozen base model in 4-bit and trains LoRA adapters on top.",
-            "activeActor": "params_billions",
+            "at": "say6",
+            "caption": "These estimates tell you quickly which GPU you need, before renting one.",
+            "activeActor": "gb",
             "messages": [
+              {
+                "from": "bits",
+                "to": "params_billions",
+                "label": {
+                  "var": "bits",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "params_billions",
+                "to": "gb",
+                "label": {
+                  "var": "params_billions",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "bits",
                 "to": "params_billions",
@@ -749,14 +933,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "These estimates tell you quickly which GPU you need, before renting one.",
-            "activeActor": "gb",
-            "messages": [
+              },
               {
                 "from": "bits",
                 "to": "params_billions",
@@ -799,12 +976,6 @@
                 "to": "params_billions",
                 "label": "16",
                 "tone": "data"
-              },
-              {
-                "from": "params_billions",
-                "to": "gb",
-                "label": "7",
-                "tone": "ok"
               }
             ],
             "activeActor": "bits"
@@ -832,6 +1003,30 @@
             "at": "say6",
             "caption": "These estimates tell you quickly which GPU you need, before renting one.",
             "messages": [
+              {
+                "from": "bits",
+                "to": "params_billions",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "params_billions",
+                "to": "gb",
+                "label": "7",
+                "tone": "ok"
+              },
+              {
+                "from": "bits",
+                "to": "params_billions",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "params_billions",
+                "to": "gb",
+                "label": "7",
+                "tone": "ok"
+              },
               {
                 "from": "bits",
                 "to": "params_billions",

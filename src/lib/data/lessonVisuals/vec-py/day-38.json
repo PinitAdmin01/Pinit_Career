@@ -6,119 +6,195 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Foundations & Mathematical Invariants",
-      "codeHash": "8e58f35054b5acfa34f8f637688178ddd1e2807b8e32d9250827ae66bbc55bee",
+      "partTitle": "Centering Quantization Error via Centroid Residual Vectors",
+      "codeHash": "7e4627878ebdb6747e50f8a530f02d915a477edc28e0fa86cff86ad2b443dc84",
       "spec": {
-        "template": "cells",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
+        "template": "flow",
+        "title": "Centering Quantization Error via Centroid Residual Vectors",
+        "nodes": [
+          {
+            "id": "residual",
+            "label": "residual",
+            "tappable": true
+          },
+          {
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          },
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Applying Product Quantization directly to raw vector coordinates across.",
-            "items": {
-              "var": "x",
-              "line": 4,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
+            "caption": "Inspect quantization updates as residual tracks applying state.",
+            "values": {
+              "residual": {
+                "var": "residual",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "text": ""
+              },
+              "b": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "residual": "data",
+              "a": "idle",
+              "b": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Vectors distributed across a vast vector space exhibit high variance.",
-            "items": {
-              "var": "x",
-              "line": 6,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "values": {
+              "residual": {
+                "var": "residual",
+                "line": 7,
+                "hit": 2
+              },
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 2
+              },
+              "b": {
+                "var": "b",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "residual": "data",
+              "a": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "residual",
+                "a"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "items": {
-              "var": "x",
-              "line": 7,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 2,
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the vectors value produced for resolves processing.",
+            "values": {
+              "residual": {
+                "var": "residual",
+                "line": 12,
+                "hit": 1
+              },
+              "a": {
+                "text": ""
+              },
+              "b": {
+                "text": ""
               }
+            },
+            "tones": {
+              "residual": "ok",
+              "a": "idle",
+              "b": "idle"
+            },
+            "arrows": [
+              [
+                "residual",
+                "a"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
+        "template": "flow",
+        "title": "Centering Quantization Error via Centroid Residual Vectors",
+        "nodes": [
+          {
+            "id": "residual",
+            "label": "residual",
+            "tappable": true
+          },
+          {
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          },
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Applying Product Quantization directly to raw vector coordinates across.",
-            "items": [
-              "1.5",
-              "2.5",
-              "3.5"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect quantization updates as residual tracks applying state.",
+            "values": {
+              "residual": "[]",
+              "a": "",
+              "b": ""
+            },
+            "tones": {
+              "residual": "data",
+              "a": "idle",
+              "b": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Vectors distributed across a vast vector space exhibit high variance.",
-            "items": [
-              "1.5",
-              "2.5",
-              "3.5"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "values": {
+              "residual": "[0.5, 0.5]",
+              "a": "2.5",
+              "b": "2"
+            },
+            "tones": {
+              "residual": "data",
+              "a": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "residual",
+                "a"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
-            "items": [
-              "1.5",
-              "2.5",
-              "3.5"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 2,
-                "tone": "data"
-              }
+            "at": "say3",
+            "caption": "Examine the vectors value produced for resolves processing.",
+            "values": {
+              "residual": "[0.5, 0.5, 0.5]",
+              "a": "",
+              "b": ""
+            },
+            "tones": {
+              "residual": "ok",
+              "a": "idle",
+              "b": "idle"
+            },
+            "arrows": [
+              [
+                "residual",
+                "a"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Core Algorithm & State Representation",
+      "partTitle": "Composite IVF-PQ Entry Encoding: Cluster IDs & Subvector Codes",
       "codeHash": "269fc757d7d35c1ea188381cb81de0d9a550432812f5c644d8e2c9ef786193b4",
       "spec": {
         "template": "cells",
@@ -158,7 +234,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the subvector value produced for guarding processing.",
             "items": {
               "var": "vec",
               "line": 10,
@@ -210,7 +286,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the subvector value produced for guarding processing.",
             "items": [
               "2.1",
               "2.2"
@@ -227,7 +303,7 @@
       }
     },
     {
-      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Cluster-Local Residual Scanning with Precomputed ADC Tables",
       "codeHash": "f1ec8d06867db63dd59c0b5edfeb8dcb9171d75b60f89626a9b782bb78f8bd61",
       "spec": {
         "template": "flow",
@@ -271,16 +347,14 @@
                 "hit": 1
               },
               "cluster_entries": {
-                "var": "cluster_entries",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "entries": "data",
               "adc": "data",
               "query_res": "data",
-              "cluster_entries": "data"
+              "cluster_entries": "idle"
             },
             "arrows": [
               [
@@ -345,7 +419,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the collecting value produced for candidates processing.",
             "values": {
               "entries": {
                 "var": "entries",
@@ -420,13 +494,13 @@
               "entries": "[[1, [0, 1]], [2, [1, 0]]]",
               "adc": "[[0.01, 0.05], [0.02, 0.08]]",
               "query_res": "[0.1, 0.2]",
-              "cluster_entries": "[[1, [0, 1]], [2, [1, 0]]]"
+              "cluster_entries": ""
             },
             "tones": {
               "entries": "data",
               "adc": "data",
               "query_res": "data",
-              "cluster_entries": "data"
+              "cluster_entries": "idle"
             },
             "arrows": [
               [
@@ -475,7 +549,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the collecting value produced for candidates processing.",
             "values": {
               "entries": "[[1, [0, 1]], [2, [1, 0]]]",
               "adc": "[[0.01, 0.05], [0.02, 0.08]]",
@@ -507,30 +581,30 @@
       }
     },
     {
-      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c4398bad02ab9fa1460ca14d6d0ce00146473c07c76b6395791f4f279fc9cbc5",
+      "partTitle": "Dimensional Alignment & Residual Magnitude Sanity Guards",
+      "codeHash": "08a936c39a6e34ca061061e71250cd5e12dfc4fdcee419ff1a67c16976430d78",
       "spec": {
         "template": "bars",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
+        "title": "Dimensional Alignment & Residual Magnitude Sanity Guards",
         "steps": [
           {
             "at": "say1",
-            "caption": "Resilience guardrails in IVF-PQ pipelines validate residual magnitudes.",
+            "caption": "Observe how dimensional shapes alignment during this step.",
             "bars": [
               {
-                "label": "a",
+                "label": "vec",
                 "value": {
-                  "var": "a",
-                  "line": 4,
+                  "var": "vec",
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "b",
+                "label": "centroid",
                 "value": {
-                  "var": "b",
-                  "line": 4,
+                  "var": "centroid",
+                  "line": 2,
                   "hit": 1
                 },
                 "tone": "data"
@@ -538,9 +612,14 @@
               {
                 "label": "norm_sq",
                 "value": {
-                  "var": "norm_sq",
-                  "line": 4,
-                  "hit": 3
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -548,55 +627,64 @@
           },
           {
             "at": "say2",
-            "caption": "If an upstream error passes a vector with incorrect dimensionality.",
+            "caption": "Verify the residual transition driving upstream behavior.",
             "bars": [
               {
-                "label": "a",
+                "label": "vec",
                 "value": {
-                  "var": "a",
-                  "line": 4,
-                  "hit": 2
+                  "var": "vec",
+                  "line": 7,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "b",
+                "label": "centroid",
                 "value": {
-                  "var": "b",
-                  "line": 4,
-                  "hit": 2
+                  "var": "centroid",
+                  "line": 7,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "norm_sq",
                 "value": {
                   "var": "norm_sq",
-                  "line": 5,
+                  "line": 7,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the residual value produced for magnitude processing.",
             "bars": [
               {
-                "label": "a",
+                "label": "vec",
                 "value": {
-                  "var": "a",
-                  "line": 4,
+                  "var": "vec",
+                  "line": 7,
                   "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "b",
+                "label": "centroid",
                 "value": {
-                  "var": "b",
-                  "line": 4,
+                  "var": "centroid",
+                  "line": 7,
                   "hit": 2
                 },
                 "tone": "ok"
@@ -605,8 +693,17 @@
                 "label": "norm_sq",
                 "value": {
                   "var": "norm_sq",
-                  "line": 5,
-                  "hit": 1
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -616,67 +713,82 @@
       },
       "filled": {
         "template": "bars",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
+        "title": "Dimensional Alignment & Residual Magnitude Sanity Guards",
         "steps": [
           {
             "at": "say1",
-            "caption": "Resilience guardrails in IVF-PQ pipelines validate residual magnitudes.",
+            "caption": "Observe how dimensional shapes alignment during this step.",
             "bars": [
               {
-                "label": "a",
-                "value": 1,
+                "label": "vec",
+                "value": "[1, 2]",
                 "tone": "data"
               },
               {
-                "label": "b",
-                "value": 1.1,
+                "label": "centroid",
+                "value": "[1]",
                 "tone": "data"
               },
               {
                 "label": "norm_sq",
-                "value": 0.010000000000000018,
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "If an upstream error passes a vector with incorrect dimensionality.",
+            "caption": "Verify the residual transition driving upstream behavior.",
             "bars": [
               {
-                "label": "a",
-                "value": 1,
-                "tone": "ok"
+                "label": "vec",
+                "value": "[100]",
+                "tone": "data"
               },
               {
-                "label": "b",
-                "value": 1.1,
-                "tone": "ok"
+                "label": "centroid",
+                "value": "[0]",
+                "tone": "data"
               },
               {
                 "label": "norm_sq",
-                "value": 0.010000000000000018,
-                "tone": "ok"
+                "value": 10000,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 100,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the residual value produced for magnitude processing.",
             "bars": [
               {
-                "label": "a",
-                "value": 1,
+                "label": "vec",
+                "value": "[1]",
                 "tone": "ok"
               },
               {
-                "label": "b",
-                "value": 1.1,
+                "label": "centroid",
+                "value": "[1.1]",
                 "tone": "ok"
               },
               {
                 "label": "norm_sq",
                 "value": 0.010000000000000018,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -685,15 +797,15 @@
       }
     },
     {
-      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Production Telemetry & Verification Audit",
-      "codeHash": "babcc5d70cac28f95d77bb2c20333549878e8c4dec0396cef0228d930ffec88f",
+      "partTitle": "Modeling Combined Coarse Probe & Codebook Recall Penalties",
+      "codeHash": "ab7b2755d8ccf232f1923358057baafb0c3c1d353b9effdd6d2edd87aba0dcdd",
       "spec": {
         "template": "bars",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
+        "title": "Modeling Combined Coarse Probe & Codebook Recall Penalties",
         "steps": [
           {
             "at": "say1",
-            "caption": "Tuning IVF-PQ indexes in production requires balancing the trade-off.",
+            "caption": "Observe how recall shapes tuning during this step.",
             "bars": [
               {
                 "label": "nprobe",
@@ -725,9 +837,7 @@
               {
                 "label": "probe_penalty",
                 "value": {
-                  "var": "probe_penalty",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -735,49 +845,7 @@
           },
           {
             "at": "say2",
-            "caption": "Retrieval recall is influenced by both the coarse probe count (nprobe).",
-            "bars": [
-              {
-                "label": "nprobe",
-                "value": {
-                  "var": "nprobe",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "pq_m",
-                "value": {
-                  "var": "pq_m",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "base_recall",
-                "value": {
-                  "var": "base_recall",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "probe_penalty",
-                "value": {
-                  "var": "probe_penalty",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the coarse transition driving probe behavior.",
             "bars": [
               {
                 "label": "nprobe",
@@ -821,11 +889,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
+        "title": "Modeling Combined Coarse Probe & Codebook Recall Penalties",
         "steps": [
           {
             "at": "say1",
-            "caption": "Tuning IVF-PQ indexes in production requires balancing the trade-off.",
+            "caption": "Observe how recall shapes tuning during this step.",
             "bars": [
               {
                 "label": "nprobe",
@@ -844,40 +912,14 @@
               },
               {
                 "label": "probe_penalty",
-                "value": 0.08,
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Retrieval recall is influenced by both the coarse probe count (nprobe).",
-            "bars": [
-              {
-                "label": "nprobe",
-                "value": 8,
-                "tone": "ok"
-              },
-              {
-                "label": "pq_m",
-                "value": 8,
-                "tone": "ok"
-              },
-              {
-                "label": "base_recall",
-                "value": 0.95,
-                "tone": "ok"
-              },
-              {
-                "label": "probe_penalty",
-                "value": 0.08,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the coarse transition driving probe behavior.",
             "bars": [
               {
                 "label": "nprobe",

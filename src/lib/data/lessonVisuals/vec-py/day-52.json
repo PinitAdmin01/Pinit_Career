@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Foundations & Mathematical Invariants",
+      "partTitle": "Bridging Lexical Gaps via Domain Synonym Query Expansion",
       "codeHash": "141d389f79e8ec5131bf4d8f135ded5eb99a6d10cfef610bd347b62a3f9b984d",
       "spec": {
         "template": "flow",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "tokens": {
-                "var": "tokens",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "syn_map": "data",
               "raw_query": "data",
               "synonyms": "data",
-              "tokens": "data"
+              "tokens": "idle"
             },
             "arrows": [
               [
@@ -124,7 +122,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the bounding value produced for total processing.",
             "values": {
               "syn_map": {
                 "var": "syn_map",
@@ -199,13 +197,13 @@
               "syn_map": "{'vector': ['embedding', 'dense'], 'sea…",
               "raw_query": "'vector search'",
               "synonyms": "{'vector': ['embedding', 'dense'], 'sea…",
-              "tokens": "['vector', 'search']"
+              "tokens": ""
             },
             "tones": {
               "syn_map": "data",
               "raw_query": "data",
               "synonyms": "data",
-              "tokens": "data"
+              "tokens": "idle"
             },
             "arrows": [
               [
@@ -254,7 +252,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the bounding value produced for total processing.",
             "values": {
               "syn_map": "{'vector': ['embedding', 'dense'], 'sea…",
               "raw_query": "'vector search'",
@@ -286,7 +284,7 @@
       }
     },
     {
-      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Core Algorithm & State Representation",
+      "partTitle": "Token-Level Self-Attention Overlap in Cross-Encoder Scorers",
       "codeHash": "b175771e16bf8967e7e5b8ba1da4aca11fb9fc91642b3fcb4c54caf90d606e00",
       "spec": {
         "template": "bars",
@@ -342,7 +340,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the token value produced for cross processing.",
             "bars": [
               {
                 "label": "overlap",
@@ -404,7 +402,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the token value produced for cross processing.",
             "bars": [
               {
                 "label": "overlap",
@@ -422,7 +420,7 @@
       }
     },
     {
-      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Two-Stage Bi-Encoder to Cross-Encoder Reranking Cascade",
       "codeHash": "50e349a6324e1e9f72a220054b12da43f7d162c884ec15892dec64ee390049fe",
       "spec": {
         "template": "bars",
@@ -478,7 +476,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the breaking value produced for ties processing.",
             "bars": [
               {
                 "label": "overlap",
@@ -540,7 +538,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the breaking value produced for ties processing.",
             "bars": [
               {
                 "label": "overlap",
@@ -558,8 +556,8 @@
       }
     },
     {
-      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Resilience Guardrails & Failure Recovery",
-      "codeHash": "70dd9cee023552103318d1596305b3d121e0cbc165615a519689742d49ba1036",
+      "partTitle": "Whitespace & Case Normalization Before Embedding Queries",
+      "codeHash": "fc4fadb62dd09796b5d308fdd9298df96580c03625fee9050a7e6c505efbfcec",
       "spec": {
         "template": "table",
         "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
@@ -589,7 +587,7 @@
           },
           {
             "at": "say2",
-            "caption": "If a user submits text with leading spaces, trailing carriage returns,.",
+            "caption": "Verify the user transition driving submits behavior.",
             "rows": [
               {
                 "cells": [
@@ -608,7 +606,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the applying value produced for string processing.",
             "rows": [
               {
                 "cells": [
@@ -640,7 +638,7 @@
               {
                 "cells": [
                   "text",
-                  "'   Vector   Search   '"
+                  "'   '"
                 ],
                 "tone": "data"
               }
@@ -648,12 +646,12 @@
           },
           {
             "at": "say2",
-            "caption": "If a user submits text with leading spaces, trailing carriage returns,.",
+            "caption": "Verify the user transition driving submits behavior.",
             "rows": [
               {
                 "cells": [
                   "text",
-                  "'   Vector   Search   '"
+                  "'   '"
                 ],
                 "tone": "ok"
               }
@@ -661,7 +659,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the applying value produced for string processing.",
             "rows": [
               {
                 "cells": [
@@ -676,33 +674,32 @@
       }
     },
     {
-      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Production Telemetry & Verification Audit",
-      "codeHash": "e7e4108770e15a78c68aaddcea9464ac1d885542bb95cf38c5eeec3e6437c245",
+      "partTitle": "Quantifying Relative Recall@K Lift from Reranking Pipelines",
+      "codeHash": "01e45927ef4fa66aee031db58ad8e61a81b44118c8d60fd69792789c889d8a73",
       "spec": {
         "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
+        "title": "Quantifying Relative Recall@K Lift from Reranking Pipelines",
         "nodes": [
           {
             "id": "baseline_recall",
-            "label": "baseline_recall"
+            "label": "baseline_recall",
+            "tappable": true
           },
           {
             "id": "reranked_recall",
-            "label": "reranked_recall"
+            "label": "reranked_recall",
+            "tappable": true
           },
           {
-            "id": "lift_pct",
-            "label": "lift_pct"
-          },
-          {
-            "id": "lift_info",
-            "label": "lift_info"
+            "id": "delta",
+            "label": "delta",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval telemetry audits quantify the recall lift and NDCG improvement.",
+            "caption": "Inspect recall updates as baseline_recall tracks lift state.",
             "values": {
               "baseline_recall": {
                 "var": "baseline_recall",
@@ -714,127 +711,78 @@
                 "line": 2,
                 "hit": 1
               },
-              "lift_pct": {
-                "var": "lift_pct",
-                "line": 2,
-                "hit": 1
-              },
-              "lift_info": {
-                "var": "lift_info",
-                "line": 5,
-                "hit": 1
+              "delta": {
+                "text": ""
               }
             },
             "tones": {
               "baseline_recall": "data",
               "reranked_recall": "data",
-              "lift_pct": "data",
-              "lift_info": "data"
+              "delta": "idle"
             },
-            "arrows": [
-              [
-                "baseline_recall",
-                "reranked_recall"
-              ],
-              [
-                "reranked_recall",
-                "lift_pct"
-              ],
-              [
-                "lift_pct",
-                "lift_info"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates reranking during execution.",
+            "caption": "Verify the recall transition driving reranking behavior.",
             "values": {
               "baseline_recall": {
                 "var": "baseline_recall",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
               "reranked_recall": {
                 "var": "reranked_recall",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
-              "lift_pct": {
-                "var": "lift_pct",
-                "line": 3,
-                "hit": 1
-              },
-              "lift_info": {
-                "var": "lift_info",
-                "line": 6,
+              "delta": {
+                "var": "delta",
+                "line": 4,
                 "hit": 1
               }
             },
             "tones": {
               "baseline_recall": "data",
               "reranked_recall": "data",
-              "lift_pct": "data",
-              "lift_info": "data"
+              "delta": "data"
             },
             "arrows": [
               [
                 "baseline_recall",
                 "reranked_recall"
-              ],
-              [
-                "reranked_recall",
-                "lift_pct"
-              ],
-              [
-                "lift_pct",
-                "lift_info"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the lift value produced for reranking processing.",
             "values": {
               "baseline_recall": {
                 "var": "baseline_recall",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "reranked_recall": {
                 "var": "reranked_recall",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
-              "lift_pct": {
-                "var": "lift_pct",
-                "line": 3,
-                "hit": 1
-              },
-              "lift_info": {
-                "var": "lift_info",
-                "line": 6,
+              "delta": {
+                "var": "delta",
+                "line": 5,
                 "hit": 1
               }
             },
             "tones": {
               "baseline_recall": "ok",
               "reranked_recall": "ok",
-              "lift_pct": "ok",
-              "lift_info": "ok"
+              "delta": "ok"
             },
             "arrows": [
               [
                 "baseline_recall",
                 "reranked_recall"
-              ],
-              [
-                "reranked_recall",
-                "lift_pct"
-              ],
-              [
-                "lift_pct",
-                "lift_info"
               ]
             ]
           }
@@ -842,113 +790,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
+        "title": "Quantifying Relative Recall@K Lift from Reranking Pipelines",
         "nodes": [
           {
             "id": "baseline_recall",
-            "label": "baseline_recall"
+            "label": "baseline_recall",
+            "tappable": true
           },
           {
             "id": "reranked_recall",
-            "label": "reranked_recall"
+            "label": "reranked_recall",
+            "tappable": true
           },
           {
-            "id": "lift_pct",
-            "label": "lift_pct"
-          },
-          {
-            "id": "lift_info",
-            "label": "lift_info"
+            "id": "delta",
+            "label": "delta",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval telemetry audits quantify the recall lift and NDCG improvement.",
+            "caption": "Inspect recall updates as baseline_recall tracks lift state.",
             "values": {
               "baseline_recall": "0.82",
               "reranked_recall": "0.94",
-              "lift_pct": "14.63",
-              "lift_info": "{'baseline_recall': 0.82, 'reranked_rec…"
+              "delta": ""
             },
             "tones": {
               "baseline_recall": "data",
               "reranked_recall": "data",
-              "lift_pct": "data",
-              "lift_info": "data"
+              "delta": "idle"
             },
-            "arrows": [
-              [
-                "baseline_recall",
-                "reranked_recall"
-              ],
-              [
-                "reranked_recall",
-                "lift_pct"
-              ],
-              [
-                "lift_pct",
-                "lift_info"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates reranking during execution.",
+            "caption": "Verify the recall transition driving reranking behavior.",
             "values": {
               "baseline_recall": "0.82",
               "reranked_recall": "0.94",
-              "lift_pct": "14.63",
-              "lift_info": "{'baseline_recall': 0.82, 'reranked_rec…"
+              "delta": "0.12"
             },
             "tones": {
               "baseline_recall": "data",
               "reranked_recall": "data",
-              "lift_pct": "data",
-              "lift_info": "data"
+              "delta": "data"
             },
             "arrows": [
               [
                 "baseline_recall",
                 "reranked_recall"
-              ],
-              [
-                "reranked_recall",
-                "lift_pct"
-              ],
-              [
-                "lift_pct",
-                "lift_info"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the lift value produced for reranking processing.",
             "values": {
               "baseline_recall": "0.82",
               "reranked_recall": "0.94",
-              "lift_pct": "14.63",
-              "lift_info": "{'baseline_recall': 0.82, 'reranked_rec…"
+              "delta": "0.12"
             },
             "tones": {
               "baseline_recall": "ok",
               "reranked_recall": "ok",
-              "lift_pct": "ok",
-              "lift_info": "ok"
+              "delta": "ok"
             },
             "arrows": [
               [
                 "baseline_recall",
                 "reranked_recall"
-              ],
-              [
-                "reranked_recall",
-                "lift_pct"
-              ],
-              [
-                "lift_pct",
-                "lift_info"
               ]
             ]
           }

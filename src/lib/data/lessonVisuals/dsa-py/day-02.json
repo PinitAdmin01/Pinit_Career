@@ -585,7 +585,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Knowing the cost of each list operation lets you predict how fast your.",
+            "caption": "Observe how list shapes knowing during this step.",
             "items": {
               "var": "nums",
               "line": 1,
@@ -622,7 +622,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Knowing the cost of each list operation lets you predict how fast your.",
+            "caption": "Observe how list shapes knowing during this step.",
             "mode": "queue",
             "items": [
               "5",

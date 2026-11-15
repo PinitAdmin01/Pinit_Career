@@ -7,164 +7,186 @@
   "entries": [
     {
       "partTitle": "How Rare 1% Server Stalls Destroy 99% Fan-Out Tail Latency",
-      "codeHash": "b6a2cd6602c5f793a23f2f8862fe7981500ce11d079cf0fff8048c4acc89cfd0",
+      "codeHash": "460c7736887044710bb25a3a887daa02009e2eb21700364c5947240eb51374f2",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "How Rare 1% Server Stalls Destroy 99% Fan-Out Tail Latency",
-        "actors": [
-          "n",
-          "single_call_slow_p",
-          "fanout_n"
+        "nodes": [
+          {
+            "id": "rows",
+            "label": "rows",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "single_call_slow_p",
+            "label": "single_call_slow_p",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how suppose updates single during execution.",
-            "activeActor": "n",
-            "messages": [
-              {
-                "from": "n",
-                "to": "single_call_slow_p",
-                "label": {
-                  "var": "n",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect suppose updates as rows tracks single state.",
+            "values": {
+              "rows": {
+                "var": "rows",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "from": "single_call_slow_p",
-                "to": "fanout_n",
-                "label": {
-                  "var": "single_call_slow_p",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "text": ""
+              },
+              "single_call_slow_p": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "rows": "data",
+              "n": "idle",
+              "single_call_slow_p": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Look at what happens mathematically when a search page or microservice.",
-            "activeActor": "single_call_slow_p",
-            "messages": [
-              {
-                "from": "n",
-                "to": "single_call_slow_p",
-                "label": {
-                  "var": "n",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "What is the probability that ALL 100 independent calls escape that 1% stall.",
+            "values": {
+              "rows": {
+                "var": "rows",
+                "line": 7,
+                "hit": 3
               },
-              {
-                "from": "single_call_slow_p",
-                "to": "fanout_n",
-                "label": {
-                  "var": "single_call_slow_p",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 7,
+                "hit": 3
+              },
+              "single_call_slow_p": {
+                "text": ""
               }
+            },
+            "tones": {
+              "rows": "data",
+              "n": "data",
+              "single_call_slow_p": "idle"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Verify exact fan-out tail probability amplification math across N=1.",
-            "activeActor": "fanout_n",
-            "messages": [
-              {
-                "from": "n",
-                "to": "single_call_slow_p",
-                "label": {
-                  "var": "n",
-                  "line": 5,
-                  "hit": 2
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the server value produced for tail processing.",
+            "values": {
+              "rows": {
+                "text": ""
               },
-              {
-                "from": "single_call_slow_p",
-                "to": "fanout_n",
-                "label": {
-                  "var": "single_call_slow_p",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "n": {
+                "text": ""
+              },
+              "single_call_slow_p": {
+                "var": "single_call_slow_p",
+                "line": 2,
+                "hit": 10
               }
+            },
+            "tones": {
+              "rows": "idle",
+              "n": "idle",
+              "single_call_slow_p": "ok"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "How Rare 1% Server Stalls Destroy 99% Fan-Out Tail Latency",
-        "actors": [
-          "n",
-          "single_call_slow_p",
-          "fanout_n"
+        "nodes": [
+          {
+            "id": "rows",
+            "label": "rows",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "single_call_slow_p",
+            "label": "single_call_slow_p",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how suppose updates single during execution.",
-            "messages": [
-              {
-                "from": "n",
-                "to": "single_call_slow_p",
-                "label": "1",
-                "tone": "data"
-              },
-              {
-                "from": "single_call_slow_p",
-                "to": "fanout_n",
-                "label": "0.01",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "n"
+            "caption": "Inspect suppose updates as rows tracks single state.",
+            "values": {
+              "rows": "[]",
+              "n": "",
+              "single_call_slow_p": ""
+            },
+            "tones": {
+              "rows": "data",
+              "n": "idle",
+              "single_call_slow_p": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Look at what happens mathematically when a search page or microservice.",
-            "messages": [
-              {
-                "from": "n",
-                "to": "single_call_slow_p",
-                "label": "1",
-                "tone": "data"
-              },
-              {
-                "from": "single_call_slow_p",
-                "to": "fanout_n",
-                "label": "0.01",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "single_call_slow_p"
+            "caption": "What is the probability that ALL 100 independent calls escape that 1% stall.",
+            "values": {
+              "rows": "[[1, {'0.1%': 0.1, '1.0%': 1}], [10, {'…",
+              "n": "50",
+              "single_call_slow_p": ""
+            },
+            "tones": {
+              "rows": "data",
+              "n": "data",
+              "single_call_slow_p": "idle"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Verify exact fan-out tail probability amplification math across N=1.",
-            "messages": [
-              {
-                "from": "n",
-                "to": "single_call_slow_p",
-                "label": "10",
-                "tone": "data"
-              },
-              {
-                "from": "single_call_slow_p",
-                "to": "fanout_n",
-                "label": "0.01",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "fanout_n"
+            "at": "say3",
+            "caption": "Examine the server value produced for tail processing.",
+            "values": {
+              "rows": "",
+              "n": "",
+              "single_call_slow_p": "0.01"
+            },
+            "tones": {
+              "rows": "idle",
+              "n": "idle",
+              "single_call_slow_p": "ok"
+            },
+            "arrows": [
+              [
+                "rows",
+                "n"
+              ]
+            ]
           }
         ]
       }
@@ -195,16 +217,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "sec",
-                "to": "primary_rtts",
-                "label": {
-                  "var": "sec",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -218,7 +230,7 @@
                 "to": "sec",
                 "label": {
                   "var": "prim",
-                  "line": 21,
+                  "line": 20,
                   "hit": 1
                 },
                 "tone": "data"
@@ -228,7 +240,7 @@
                 "to": "primary_rtts",
                 "label": {
                   "var": "sec",
-                  "line": 22,
+                  "line": 21,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -245,7 +257,27 @@
                 "to": "sec",
                 "label": {
                   "var": "prim",
-                  "line": 22,
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": {
+                  "var": "sec",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": {
+                  "var": "prim",
+                  "line": 21,
                   "hit": 1
                 },
                 "tone": "data"
@@ -259,6 +291,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": {
+                  "var": "prim",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -282,12 +324,6 @@
                 "to": "sec",
                 "label": "[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,…",
                 "tone": "data"
-              },
-              {
-                "from": "sec",
-                "to": "primary_rtts",
-                "label": "[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,…",
-                "tone": "ok"
               }
             ],
             "activeActor": "prim"
@@ -326,6 +362,24 @@
                 "to": "primary_rtts",
                 "label": "[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,…",
                 "tone": "ok"
+              },
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": "[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,…",
+                "tone": "data"
+              },
+              {
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": "[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,…",
+                "tone": "ok"
+              },
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": "[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,…",
+                "tone": "data"
               }
             ],
             "activeActor": "primary_rtts"
@@ -360,7 +414,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Pause on the fatal failure trap inside naive hedged requests during.",
+            "caption": "Inspect hedged updates as self tracks pause state.",
             "values": {
               "self": {
                 "var": "self",
@@ -378,16 +432,14 @@
                 "hit": 1
               },
               "hb": {
-                "var": "hb",
-                "line": 16,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "max_tokens": "data",
               "earn_per_ok": "data",
-              "hb": "data"
+              "hb": "idle"
             },
             "arrows": [
               [
@@ -522,18 +574,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Pause on the fatal failure trap inside naive hedged requests during.",
+            "caption": "Inspect hedged updates as self tracks pause state.",
             "values": {
               "self": "<SafeHedgeBudget>",
               "max_tokens": "2",
               "earn_per_ok": "0.1",
-              "hb": "<SafeHedgeBudget>"
+              "hb": ""
             },
             "tones": {
               "self": "data",
               "max_tokens": "data",
               "earn_per_ok": "data",
-              "hb": "data"
+              "hb": "idle"
             },
             "arrows": [
               [

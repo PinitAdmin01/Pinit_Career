@@ -206,7 +206,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Now we attach an iterative bottom-up Segment Tree cleanly over our.",
+            "caption": "Observe how iterative shapes segment during this step.",
             "items": {
               "var": "vals",
               "line": 70,
@@ -222,7 +222,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how `query_path_max(u, v)` climbs up the chains until `u` and `v`.",
+            "caption": "Verify the chain transition driving climbing behavior.",
             "items": {
               "var": "vals",
               "line": 73,
@@ -238,7 +238,7 @@
           },
           {
             "at": "say5",
-            "caption": "Count operations carefully.",
+            "caption": "Examine the iterative value produced for segment processing.",
             "items": {
               "var": "vals",
               "line": 75,
@@ -260,7 +260,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Now we attach an iterative bottom-up Segment Tree cleanly over our.",
+            "caption": "Observe how iterative shapes segment during this step.",
             "items": [
               "10",
               "25",
@@ -281,7 +281,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how `query_path_max(u, v)` climbs up the chains until `u` and `v`.",
+            "caption": "Verify the chain transition driving climbing behavior.",
             "items": [
               "10",
               "25",
@@ -302,7 +302,7 @@
           },
           {
             "at": "say5",
-            "caption": "Count operations carefully.",
+            "caption": "Examine the iterative value produced for segment processing.",
             "items": [
               "10",
               "25",

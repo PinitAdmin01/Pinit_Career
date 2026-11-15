@@ -219,15 +219,13 @@
                 "hit": 1
               },
               "c": {
-                "var": "c",
-                "line": 11,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "task_definition": "data",
               "service": "data",
-              "c": "data"
+              "c": "idle"
             },
             "arrows": [
               [
@@ -338,12 +336,12 @@
             "values": {
               "task_definition": "{'family': 'shop-api', 'cpu': '512', 'm…",
               "service": "{'desired': 3, 'running': 2}",
-              "c": "{'name': 'api', 'image': '111122223333.…"
+              "c": ""
             },
             "tones": {
               "task_definition": "data",
               "service": "data",
-              "c": "data"
+              "c": "idle"
             },
             "arrows": [
               [
@@ -466,7 +464,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how example updates units during execution.",
+            "caption": "Verify the example transition driving units behavior.",
             "values": {
               "ALLOWED": {
                 "var": "ALLOWED",
@@ -582,7 +580,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how example updates units during execution.",
+            "caption": "Verify the example transition driving units behavior.",
             "values": {
               "ALLOWED": "{256: {1024, 2048, 512}, 512: {1024, 20…",
               "cpu": "256",
@@ -633,7 +631,7 @@
     },
     {
       "partTitle": "Configuration and secrets",
-      "codeHash": "11dce1d575949e88c70ebb2a130fb016e4f6e3bed62fdba5339e78aa1c381c95",
+      "codeHash": "2f0f559a1a4fefcfdb14f7b67b85becb969a4aeb5be88c8c2208489d509df5ab",
       "spec": {
         "template": "sequence",
         "title": "Configuration and secrets",
@@ -657,6 +655,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Secrets are different.",
+            "activeActor": "secrets",
+            "messages": [
+              {
+                "from": "plain",
+                "to": "secrets",
+                "label": {
+                  "var": "plain",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "secrets",
@@ -671,10 +686,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Secrets are different.",
-            "activeActor": "secrets",
+            "at": "say7",
+            "caption": "The example builds the two lists and shows the clash being caught.",
+            "activeActor": "clash",
             "messages": [
+              {
+                "from": "plain",
+                "to": "secrets",
+                "label": {
+                  "var": "plain",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "secrets",
+                "to": "clash",
+                "label": {
+                  "var": "secrets",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "plain",
                 "to": "secrets",
@@ -694,14 +729,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example builds the two lists and shows the clash being caught.",
-            "activeActor": "clash",
-            "messages": [
+              },
               {
                 "from": "plain",
                 "to": "secrets",
@@ -744,12 +772,6 @@
                 "to": "secrets",
                 "label": "{'PORT': '8080', 'LOG_LEVEL': 'info'}",
                 "tone": "data"
-              },
-              {
-                "from": "secrets",
-                "to": "clash",
-                "label": "{'DB_PASS': 'arn:aws:secretsmanager:ap-…",
-                "tone": "ok"
               }
             ],
             "activeActor": "plain"
@@ -777,6 +799,30 @@
             "at": "say7",
             "caption": "The example builds the two lists and shows the clash being caught.",
             "messages": [
+              {
+                "from": "plain",
+                "to": "secrets",
+                "label": "{'PORT': '8080', 'LOG_LEVEL': 'info'}",
+                "tone": "data"
+              },
+              {
+                "from": "secrets",
+                "to": "clash",
+                "label": "{'DB_PASS': 'arn:aws:secretsmanager:ap-…",
+                "tone": "ok"
+              },
+              {
+                "from": "plain",
+                "to": "secrets",
+                "label": "{'PORT': '8080', 'LOG_LEVEL': 'info'}",
+                "tone": "data"
+              },
+              {
+                "from": "secrets",
+                "to": "clash",
+                "label": "{'DB_PASS': 'arn:aws:secretsmanager:ap-…",
+                "tone": "ok"
+              },
               {
                 "from": "plain",
                 "to": "secrets",
@@ -930,14 +976,12 @@
                 "hit": 1
               },
               "with_plus_one": {
-                "var": "with_plus_one",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "without_plus_one": "data",
-              "with_plus_one": "data"
+              "with_plus_one": "idle"
             },
             "arrows": [
               [
@@ -1019,11 +1063,11 @@
             "caption": "Write the ALLOWED dictionary once at the top.",
             "values": {
               "without_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168]",
-              "with_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168, 81…"
+              "with_plus_one": ""
             },
             "tones": {
               "without_plus_one": "data",
-              "with_plus_one": "data"
+              "with_plus_one": "idle"
             },
             "arrows": [
               [

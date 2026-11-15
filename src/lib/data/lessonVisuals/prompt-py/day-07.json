@@ -30,6 +30,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "JSON (JavaScript Object Notation) is the standard format.",
+            "activeActor": "data",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "data",
+                "label": {
+                  "var": "reply",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "data",
@@ -44,10 +61,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "JSON (JavaScript Object Notation) is the standard format.",
+            "at": "say8",
+            "caption": "The json module is part of Python's standard library, so no installation.",
             "activeActor": "data",
             "messages": [
+              {
+                "from": "reply",
+                "to": "data",
+                "label": {
+                  "var": "reply",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "data",
+                "to": "reply",
+                "label": {
+                  "var": "data",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "reply",
                 "to": "data",
@@ -67,14 +104,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The json module is part of Python's standard library, so no installation.",
-            "activeActor": "data",
-            "messages": [
+              },
               {
                 "from": "reply",
                 "to": "data",
@@ -116,12 +146,6 @@
                 "to": "data",
                 "label": "'{\"name\": \"Asha\", \"age\": 31, \"tags\": [\"…",
                 "tone": "data"
-              },
-              {
-                "from": "data",
-                "to": "reply",
-                "label": "{'name': 'Asha', 'age': 31, 'tags': ['v…",
-                "tone": "ok"
               }
             ],
             "activeActor": "reply"
@@ -149,6 +173,30 @@
             "at": "say8",
             "caption": "The json module is part of Python's standard library, so no installation.",
             "messages": [
+              {
+                "from": "reply",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31, \"tags\": [\"…",
+                "tone": "data"
+              },
+              {
+                "from": "data",
+                "to": "reply",
+                "label": "{'name': 'Asha', 'age': 31, 'tags': ['v…",
+                "tone": "ok"
+              },
+              {
+                "from": "reply",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31, \"tags\": [\"…",
+                "tone": "data"
+              },
+              {
+                "from": "data",
+                "to": "reply",
+                "label": "{'name': 'Asha', 'age': 31, 'tags': ['v…",
+                "tone": "ok"
+              },
               {
                 "from": "reply",
                 "to": "data",
@@ -193,6 +241,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In prompts, a compact description works well.",
+            "activeActor": "lines",
+            "messages": [
+              {
+                "from": "schema",
+                "to": "lines",
+                "label": {
+                  "var": "schema",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "lines",
@@ -207,10 +272,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In prompts, a compact description works well.",
-            "activeActor": "lines",
+            "at": "say8",
+            "caption": "Keep field names short, descriptive and consistent, such as snake_case.",
+            "activeActor": "example",
             "messages": [
+              {
+                "from": "schema",
+                "to": "lines",
+                "label": {
+                  "var": "schema",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "example",
+                "label": {
+                  "var": "lines",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
               {
                 "from": "schema",
                 "to": "lines",
@@ -230,14 +315,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Keep field names short, descriptive and consistent, such as snake_case.",
-            "activeActor": "example",
-            "messages": [
+              },
               {
                 "from": "schema",
                 "to": "lines",
@@ -280,12 +358,6 @@
                 "to": "lines",
                 "label": "{'customer': 'string', 'issue': 'one of…",
                 "tone": "data"
-              },
-              {
-                "from": "lines",
-                "to": "example",
-                "label": "['- customer: string', '- issue: one of…",
-                "tone": "ok"
               }
             ],
             "activeActor": "schema"
@@ -313,6 +385,30 @@
             "at": "say8",
             "caption": "Keep field names short, descriptive and consistent, such as snake_case.",
             "messages": [
+              {
+                "from": "schema",
+                "to": "lines",
+                "label": "{'customer': 'string', 'issue': 'one of…",
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "example",
+                "label": "['- customer: string', '- issue: one of…",
+                "tone": "ok"
+              },
+              {
+                "from": "schema",
+                "to": "lines",
+                "label": "{'customer': 'string', 'issue': 'one of…",
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "example",
+                "label": "['- customer: string', '- issue: one of…",
+                "tone": "ok"
+              },
               {
                 "from": "schema",
                 "to": "lines",
@@ -357,6 +453,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Python's json.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "schema",
+                "to": "text",
+                "label": {
+                  "var": "schema",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "text",
@@ -371,10 +484,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Python's json.",
-            "activeActor": "text",
+            "at": "say8",
+            "caption": "A validation step between the model and the rest of your program is.",
+            "activeActor": "data",
             "messages": [
+              {
+                "from": "schema",
+                "to": "text",
+                "label": {
+                  "var": "schema",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "data",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "schema",
                 "to": "text",
@@ -394,14 +527,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "A validation step between the model and the rest of your program is.",
-            "activeActor": "data",
-            "messages": [
+              },
               {
                 "from": "schema",
                 "to": "text",
@@ -442,14 +568,8 @@
               {
                 "from": "schema",
                 "to": "text",
-                "label": "{'name': {'__other__': 'type'}, 'age': …",
+                "label": "{'name': <type>, 'age': <type>}",
                 "tone": "data"
-              },
-              {
-                "from": "text",
-                "to": "data",
-                "label": "'{\"name\": \"Asha\", \"age\": 31}'",
-                "tone": "ok"
               }
             ],
             "activeActor": "schema"
@@ -461,7 +581,7 @@
               {
                 "from": "schema",
                 "to": "text",
-                "label": "{'name': {'__other__': 'type'}, 'age': …",
+                "label": "{'name': <type>, 'age': <type>}",
                 "tone": "data"
               },
               {
@@ -480,7 +600,31 @@
               {
                 "from": "schema",
                 "to": "text",
-                "label": "{'name': {'__other__': 'type'}, 'age': …",
+                "label": "{'name': <type>, 'age': <type>}",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31}'",
+                "tone": "ok"
+              },
+              {
+                "from": "schema",
+                "to": "text",
+                "label": "{'name': <type>, 'age': <type>}",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31}'",
+                "tone": "ok"
+              },
+              {
+                "from": "schema",
+                "to": "text",
+                "label": "{'name': <type>, 'age': <type>}",
                 "tone": "data"
               },
               {
@@ -531,15 +675,13 @@
                 "hit": 1
               },
               "end": {
-                "var": "end",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "reply": "data",
               "start": "data",
-              "end": "data"
+              "end": "idle"
             },
             "arrows": [
               [
@@ -650,12 +792,12 @@
             "values": {
               "reply": "'Sure! Here you go:\n```json\n{\"city\": \"P…",
               "start": "27",
-              "end": "54"
+              "end": ""
             },
             "tones": {
               "reply": "data",
               "start": "data",
-              "end": "data"
+              "end": "idle"
             },
             "arrows": [
               [
@@ -745,6 +887,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Instead of answering directly, the model replies with a structured.",
+            "activeActor": "request",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": {
+                  "var": "tools",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "request",
@@ -759,10 +918,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Instead of answering directly, the model replies with a structured.",
-            "activeActor": "request",
+            "at": "say8",
+            "caption": "Descriptions matter.",
+            "activeActor": "city",
             "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": {
+                  "var": "tools",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": {
+                  "var": "request",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tools",
                 "to": "request",
@@ -782,14 +961,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Descriptions matter.",
-            "activeActor": "city",
-            "messages": [
+              },
               {
                 "from": "tools",
                 "to": "request",
@@ -830,14 +1002,8 @@
               {
                 "from": "tools",
                 "to": "request",
-                "label": "{'get_weather': {'__other__': 'function…",
+                "label": "{'get_weather': <function>}",
                 "tone": "data"
-              },
-              {
-                "from": "request",
-                "to": "city",
-                "label": "{'tool': 'get_weather', 'arguments': {'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "tools"
@@ -849,7 +1015,7 @@
               {
                 "from": "tools",
                 "to": "request",
-                "label": "{'get_weather': {'__other__': 'function…",
+                "label": "{'get_weather': <function>}",
                 "tone": "data"
               },
               {
@@ -868,7 +1034,31 @@
               {
                 "from": "tools",
                 "to": "request",
-                "label": "{'get_weather': {'__other__': 'function…",
+                "label": "{'get_weather': <function>}",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": "{'tool': 'get_weather', 'arguments': {'…",
+                "tone": "ok"
+              },
+              {
+                "from": "tools",
+                "to": "request",
+                "label": "{'get_weather': <function>}",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": "{'tool': 'get_weather', 'arguments': {'…",
+                "tone": "ok"
+              },
+              {
+                "from": "tools",
+                "to": "request",
+                "label": "{'get_weather': <function>}",
                 "tone": "data"
               },
               {
@@ -916,7 +1106,7 @@
           },
           {
             "at": "say2",
-            "caption": "Then, for each schema field in order, add \"missing.",
+            "caption": "Verify the schema transition driving field behavior.",
             "bars": [
               {
                 "label": "start",
@@ -986,7 +1176,7 @@
           },
           {
             "at": "say2",
-            "caption": "Then, for each schema field in order, add \"missing.",
+            "caption": "Verify the schema transition driving field behavior.",
             "bars": [
               {
                 "label": "start",

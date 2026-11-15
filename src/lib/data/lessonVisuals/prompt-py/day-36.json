@@ -7,28 +7,26 @@
   "entries": [
     {
       "partTitle": "The Failure Of Unconstrained Generation: Why Prompt Directives Cannot Guarantee Syntactic Correctness",
-      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
+      "codeHash": "901fb1d2eae3247808331339cbdbf554cab1cbee367f00821f443c766a23acdd",
       "spec": {
         "template": "table",
         "title": "The Failure Of Unconstrained Generation: Why Prompt Directives C",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In production enterprise software architectures, relying on natural.",
+            "caption": "Observe how prompt shapes production during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "import"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -37,31 +35,40 @@
           },
           {
             "at": "say2",
-            "caption": "The traditional software engineering response to this generative.",
+            "caption": "Verify the prompt transition driving traditional behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "import"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 2
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "import"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "The operational cost of unconstrained formatting errors compounds.",
+            "at": "say3",
+            "caption": "Examine the generation value produced for fundamental processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "import"
                   },
                   {
                     "out": 1
@@ -72,7 +79,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "import"
                   },
                   {
                     "out": 2
@@ -83,7 +90,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "import"
                   },
                   {
                     "out": 3
@@ -94,7 +101,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 4"
+                    "text": "import"
                   },
                   {
                     "out": 4
@@ -111,17 +118,17 @@
         "title": "The Failure Of Unconstrained Generation: Why Prompt Directives C",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In production enterprise software architectures, relying on natural.",
+            "caption": "Observe how prompt shapes production during this step.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "0"
+                  "import",
+                  "Sample 1: VALID"
                 ],
                 "tone": "data"
               }
@@ -129,46 +136,53 @@
           },
           {
             "at": "say2",
-            "caption": "The traditional software engineering response to this generative.",
+            "caption": "Verify the prompt transition driving traditional behavior.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "1"
+                  "import",
+                  "Sample 1: VALID"
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "import",
+                  "Sample 2: FAIL(Expecting value)"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "The operational cost of unconstrained formatting errors compounds.",
+            "at": "say3",
+            "caption": "Examine the generation value produced for fundamental processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "import",
+                  "Sample 1: VALID"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                  "import",
+                  "Sample 2: FAIL(Expecting value)"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                  "import",
+                  "Sample 3: FAIL(Expecting property name enclosed in double quotes)"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 4",
-                  "  \"activeAllowedTokens\": ["
+                  "import",
+                  "Sample 4: VALID"
                 ],
                 "tone": "ok"
               }
@@ -179,28 +193,26 @@
     },
     {
       "partTitle": "Automata-Driven Decoding Mechanics: Deterministic Finite Automata & Logit Masking Physics",
-      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
+      "codeHash": "56c17f69a74c231cf643a2d77404a8a6c8ac326d239b9a921ed0ef9322b0c3be",
       "spec": {
         "template": "table",
         "title": "Automata-Driven Decoding Mechanics: Deterministic Finite Automat",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational core of regex-constrained decoding lies.",
+            "caption": "Observe how decoding shapes deterministic during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "START"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -209,31 +221,40 @@
           },
           {
             "at": "say2",
-            "caption": "Intersecting a character-level DFA with a token-level language model.",
+            "caption": "Language models do not emit individual characters.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "START"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 2
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "START"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "High-throughput vector indexing integrates DFA state transitions directly.",
+            "at": "say3",
+            "caption": "Examine the decoding value produced for logit processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "START"
                   },
                   {
                     "out": 1
@@ -244,7 +265,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "START"
                   },
                   {
                     "out": 2
@@ -255,7 +276,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "START"
                   },
                   {
                     "out": 3
@@ -266,7 +287,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 4"
+                    "text": "START"
                   },
                   {
                     "out": 4
@@ -283,17 +304,17 @@
         "title": "Automata-Driven Decoding Mechanics: Deterministic Finite Automat",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational core of regex-constrained decoding lies.",
+            "caption": "Observe how decoding shapes deterministic during this step.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "0"
+                  "START",
+                  "State=START  allowed=['GET', 'POST']"
                 ],
                 "tone": "data"
               }
@@ -301,46 +322,53 @@
           },
           {
             "at": "say2",
-            "caption": "Intersecting a character-level DFA with a token-level language model.",
+            "caption": "Language models do not emit individual characters.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "1"
+                  "START",
+                  "State=START  allowed=['GET', 'POST']"
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "START",
+                  "State=METHOD allowed=[' /users', ' /orders']"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "High-throughput vector indexing integrates DFA state transitions directly.",
+            "at": "say3",
+            "caption": "Examine the decoding value produced for logit processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "START",
+                  "State=START  allowed=['GET', 'POST']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                  "START",
+                  "State=METHOD allowed=[' /users', ' /orders']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                  "START",
+                  "State=PATH   allowed=[' HTTP/1.1']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 4",
-                  "  \"activeAllowedTokens\": ["
+                  "START",
+                  "Generated valid line: GET /orders HTTP/1.1 | Final state: DONE"
                 ],
                 "tone": "ok"
               }
@@ -351,28 +379,26 @@
     },
     {
       "partTitle": "Context-Free Grammars & EBNF Parsers: Enforcing Arbitrary Hierarchical Data Schemas",
-      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
+      "codeHash": "645f92b7098a9f1fe505880aca1682abc2ab3b51e2b4f04e4342bc9757d487cb",
       "spec": {
         "template": "table",
         "title": "Context-Free Grammars & EBNF Parsers: Enforcing Arbitrary Hierar",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While Deterministic Finite Automata excel at enforcing regular languages.",
+            "caption": "Observe how context shapes free during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "class"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -381,31 +407,40 @@
           },
           {
             "at": "say2",
-            "caption": "A Context-Free Grammar is formally defined by a four-tuple comprising.",
+            "caption": "An EBNF grammar explicitly articulates the hierarchical grammar of a format.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "class"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 2
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "class"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Error localization and diagnostic feedback capabilities in incremental.",
+            "at": "say3",
+            "caption": "Examine the context value produced for free processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "class"
                   },
                   {
                     "out": 1
@@ -416,7 +451,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "class"
                   },
                   {
                     "out": 2
@@ -427,7 +462,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "class"
                   },
                   {
                     "out": 3
@@ -438,7 +473,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 4"
+                    "text": "class"
                   },
                   {
                     "out": 4
@@ -455,17 +490,17 @@
         "title": "Context-Free Grammars & EBNF Parsers: Enforcing Arbitrary Hierar",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While Deterministic Finite Automata excel at enforcing regular languages.",
+            "caption": "Observe how context shapes free during this step.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "0"
+                  "class",
+                  "step 1: tok={    valid=True  stack=['}']"
                 ],
                 "tone": "data"
               }
@@ -473,46 +508,53 @@
           },
           {
             "at": "say2",
-            "caption": "A Context-Free Grammar is formally defined by a four-tuple comprising.",
+            "caption": "An EBNF grammar explicitly articulates the hierarchical grammar of a format.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "1"
+                  "class",
+                  "step 1: tok={    valid=True  stack=['}']"
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "class",
+                  "step 2: tok=\"k\"  valid=True  stack=['}']"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Error localization and diagnostic feedback capabilities in incremental.",
+            "at": "say3",
+            "caption": "Examine the context value produced for free processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "class",
+                  "step 1: tok={    valid=True  stack=['}']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                  "class",
+                  "step 2: tok=\"k\"  valid=True  stack=['}']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                  "class",
+                  "step 3: tok=:    valid=True  stack=['}']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 4",
-                  "  \"activeAllowedTokens\": ["
+                  "class",
+                  "step 4: tok=[    valid=True  stack=['}', ']']"
                 ],
                 "tone": "ok"
               }
@@ -523,28 +565,26 @@
     },
     {
       "partTitle": "Constrained Decoding Frameworks: Outlines, Guidance, GBNF & High-Speed Token Indexers",
-      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
+      "codeHash": "6ebdcd664a9c0cde8a94e58a5ce6d82c91e30ba5a992282a5857aaf496f749f0",
       "spec": {
         "template": "table",
         "title": "Constrained Decoding Frameworks: Outlines, Guidance, GBNF & High",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the mathematical principles of automata and context-free.",
+            "caption": "Observe how constrained shapes decoding during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "import"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -553,31 +593,12 @@
           },
           {
             "at": "say2",
-            "caption": "The Outlines framework pioneered pre-compiled index-based logit masking.",
+            "caption": "Verify the outlines transition driving token behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
-                  },
-                  {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 2
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Hardware-accelerated logit masking integrates directly with custom neural.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
+                    "text": "import"
                   },
                   {
                     "out": 1
@@ -588,32 +609,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "import"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -627,17 +626,17 @@
         "title": "Constrained Decoding Frameworks: Outlines, Guidance, GBNF & High",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating the mathematical principles of automata and context-free.",
+            "caption": "Observe how constrained shapes decoding during this step.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "0"
+                  "import",
+                  "Pass 1 from 'id-': ['12(cache=False)', '42(cache=False)']"
                 ],
                 "tone": "data"
               }
@@ -645,46 +644,19 @@
           },
           {
             "at": "say2",
-            "caption": "The Outlines framework pioneered pre-compiled index-based logit masking.",
+            "caption": "Verify the outlines transition driving token behavior.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "1"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Hardware-accelerated logit masking integrates directly with custom neural.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
+                  "import",
+                  "Pass 1 from 'id-': ['12(cache=False)', '42(cache=False)']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"activeAllowedTokens\": ["
+                  "import",
+                  "Pass 2 from 'id-': ['12(cache=True)', '42(cache=True)']"
                 ],
                 "tone": "ok"
               }
@@ -695,28 +667,26 @@
     },
     {
       "partTitle": "Enterprise Grammar Engineering: Hardening Production Constrained Generation Systems In Python",
-      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
+      "codeHash": "d2c7bc1e5e35a8956553abf833da31e10fdf371702f7ba585e595bf1e42f0bc2",
       "spec": {
         "template": "table",
         "title": "Enterprise Grammar Engineering: Hardening Production Constrained",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Building an enterprise-grade constrained generation platform requires.",
+            "caption": "Observe how enterprise shapes grammar during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "validate_schema_budget"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -725,31 +695,40 @@
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production constrained generation service.",
+            "caption": "Structuring constrained generation cleanly separates five responsibilities.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "i"
+                    "text": "validate_schema_budget"
                   },
                   {
-                    "var": "i",
-                    "line": 22,
-                    "hit": 2
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "validate_schema_budget"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say11",
-            "caption": "Decentralized key management frameworks safeguard sensitive encryption.",
+            "at": "say3",
+            "caption": "Examine the enterprise value produced for grammar processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "validate_schema_budget"
                   },
                   {
                     "out": 1
@@ -760,7 +739,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "validate_schema_budget"
                   },
                   {
                     "out": 2
@@ -771,21 +750,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "validate_schema_budget"
                   },
                   {
                     "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -799,17 +767,17 @@
         "title": "Enterprise Grammar Engineering: Hardening Production Constrained",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Building an enterprise-grade constrained generation platform requires.",
+            "caption": "Observe how enterprise shapes grammar during this step.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "0"
+                  "validate_schema_budget",
+                  "Safe nodes validated: 3"
                 ],
                 "tone": "data"
               }
@@ -817,46 +785,46 @@
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production constrained generation service.",
+            "caption": "Structuring constrained generation cleanly separates five responsibilities.",
             "rows": [
               {
                 "cells": [
-                  "i",
-                  "1"
+                  "validate_schema_budget",
+                  "Safe nodes validated: 3"
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "validate_schema_budget",
+                  "Blocked adversarial schema: Schema depth 4 exceeds cap 3"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say11",
-            "caption": "Decentralized key management frameworks safeguard sensitive encryption.",
+            "at": "say3",
+            "caption": "Examine the enterprise value produced for grammar processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "validate_schema_budget",
+                  "Safe nodes validated: 3"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                  "validate_schema_budget",
+                  "Blocked adversarial schema: Schema depth 4 exceeds cap 3"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "  \"activeAllowedTokens\": ["
+                  "validate_schema_budget",
+                  "Repaired stream chunk: {\"items\": [{\"id\": 1}]}"
                 ],
                 "tone": "ok"
               }

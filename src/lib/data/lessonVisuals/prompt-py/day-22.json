@@ -775,6 +775,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Does it handle untrusted input safely, avoid hard-coded secrets, and use.",
+            "activeActor": "checks",
+            "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": {
+                  "var": "snippet",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "checks",
@@ -789,10 +806,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Does it handle untrusted input safely, avoid hard-coded secrets, and use.",
-            "activeActor": "checks",
+            "at": "say9",
+            "caption": "Reviewing AI code also teaches you.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": {
+                  "var": "snippet",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": {
+                  "var": "checks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "snippet",
                 "to": "checks",
@@ -812,14 +849,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Reviewing AI code also teaches you.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "snippet",
                 "to": "checks",
@@ -862,12 +892,6 @@
                 "to": "checks",
                 "label": "\"import requests_plus\nAPI_KEY = 'sk-123…",
                 "tone": "data"
-              },
-              {
-                "from": "checks",
-                "to": "name",
-                "label": "{'no hard-coded secrets': False, 'known…",
-                "tone": "ok"
               }
             ],
             "activeActor": "snippet"
@@ -895,6 +919,30 @@
             "at": "say9",
             "caption": "Reviewing AI code also teaches you.",
             "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": "\"import requests_plus\nAPI_KEY = 'sk-123…",
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": "{'no hard-coded secrets': False, 'known…",
+                "tone": "ok"
+              },
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": "\"import requests_plus\nAPI_KEY = 'sk-123…",
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": "{'no hard-coded secrets': False, 'known…",
+                "tone": "ok"
+              },
               {
                 "from": "snippet",
                 "to": "checks",
@@ -939,6 +987,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks include integer, string, empty and list arguments, and three.",
+            "activeActor": "issues",
+            "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": {
+                  "var": "source",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "issues",
@@ -953,10 +1018,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include integer, string, empty and list arguments, and three.",
-            "activeActor": "issues",
+            "at": "say8",
+            "caption": "These two functions show how much careful checking you can automate.",
+            "activeActor": "node",
             "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": {
+                  "var": "source",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": {
+                  "var": "issues",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "source",
                 "to": "issues",
@@ -976,14 +1061,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "These two functions show how much careful checking you can automate.",
-            "activeActor": "node",
-            "messages": [
+              },
               {
                 "from": "source",
                 "to": "issues",
@@ -1026,12 +1104,6 @@
                 "to": "issues",
                 "label": "'def load(path, cache={}):\n    try:\n   …",
                 "tone": "data"
-              },
-              {
-                "from": "issues",
-                "to": "node",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "source"
@@ -1059,6 +1131,30 @@
             "at": "say8",
             "caption": "These two functions show how much careful checking you can automate.",
             "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": "'def load(path, cache={}):\n    try:\n   …",
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "source",
+                "to": "issues",
+                "label": "'def load(path, cache={}):\n    try:\n   …",
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "source",
                 "to": "issues",

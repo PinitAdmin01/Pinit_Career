@@ -192,7 +192,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Threat modelling means systematically asking \"what could go wrong.",
+            "caption": "Observe how threat shapes modelling during this step.",
             "currentState": "STRIDE",
             "tone": "data"
           },
@@ -248,7 +248,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Threat modelling means systematically asking \"what could go wrong.",
+            "caption": "Observe how threat shapes modelling during this step.",
             "currentState": "STRIDE",
             "tone": "data"
           },
@@ -551,12 +551,12 @@
               },
               "target": {
                 "var": "target",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "verdict": {
                 "var": "verdict",
-                "line": 9,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -577,13 +577,13 @@
               },
               "target": {
                 "var": "target",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "verdict": {
                 "var": "verdict",
-                "line": 2,
-                "hit": 2
+                "line": 8,
+                "hit": 1
               }
             },
             "tones": {
@@ -631,8 +631,8 @@
             "caption": "Only test systems you own or have written permission to test.",
             "values": {
               "scope": "{'in': {'api-staging.shop.example', 'st…",
-              "target": "'staging.shop.example'",
-              "verdict": "'allowed'"
+              "target": "'payments.shop.example'",
+              "verdict": "'explicitly OUT of scope'"
             },
             "tones": {
               "scope": "data",
@@ -645,8 +645,8 @@
             "caption": "When unsure whether something is allowed, stop and ask the system owner first.",
             "values": {
               "scope": "{'in': {'api-staging.shop.example', 'st…",
-              "target": "'staging.shop.example'",
-              "verdict": "'allowed'"
+              "target": "'random-site.example'",
+              "verdict": "'not authorised'"
             },
             "tones": {
               "scope": "ok",
@@ -730,7 +730,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include two categories in one description, capital letters,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "register": {
                 "var": "register",
@@ -876,7 +876,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include two categories in one description, capital letters,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "register": "[['Admin panel exposed to the internet'…",
               "r": "['Order data modified in transit', 2, 4]",

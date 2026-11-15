@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Production Safety Drift Monitoring — Foundations & Mathematical Invariants",
+      "partTitle": "Distribution Shift Math inside `calculate_psi`",
       "codeHash": "859a8638ea530a4e65464b871ac4f15909cfbe264031f3b85607c54fe889c3e6",
       "spec": {
         "template": "states",
@@ -114,7 +114,7 @@
       }
     },
     {
-      "partTitle": "Production Safety Drift Monitoring — Core Algorithm & State Representation",
+      "partTitle": "Rolling Over-Refusal Detection via `detect_refusal_spikes`",
       "codeHash": "ffd8b4e6b67c5401e8db948c0ca606e23eab798fe3be37bfe990d0b9fdbefb37",
       "spec": {
         "template": "flow",
@@ -200,8 +200,8 @@
               },
               "window_refusals": {
                 "var": "window_refusals",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "threshold": {
                 "var": "threshold",
@@ -232,7 +232,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the refusal value produced for product processing.",
             "values": {
               "w1": {
                 "var": "w1",
@@ -246,8 +246,8 @@
               },
               "window_refusals": {
                 "var": "window_refusals",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "threshold": {
                 "var": "threshold",
@@ -336,7 +336,7 @@
             "values": {
               "w1": "[0, 0, 1, 0, 0, 0, 1, 0, 0, 0]",
               "w2": "[1, 1, 0, 1, 0, 1, 1, 0, 1, 0]",
-              "window_refusals": "[0, 0, 1, 0, 0, 0, 1, 0, 0, 0]",
+              "window_refusals": "[1, 1, 0, 1, 0, 1, 1, 0, 1, 0]",
               "threshold": "0.15"
             },
             "tones": {
@@ -362,11 +362,11 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the refusal value produced for product processing.",
             "values": {
               "w1": "[0, 0, 1, 0, 0, 0, 1, 0, 0, 0]",
               "w2": "[1, 1, 0, 1, 0, 1, 1, 0, 1, 0]",
-              "window_refusals": "[0, 0, 1, 0, 0, 0, 1, 0, 0, 0]",
+              "window_refusals": "[1, 1, 0, 1, 0, 1, 1, 0, 1, 0]",
               "threshold": "0.15"
             },
             "tones": {
@@ -394,7 +394,7 @@
       }
     },
     {
-      "partTitle": "Production Safety Drift Monitoring — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Percentile Tail Profiling in `GuardrailLatencyTracker`",
       "codeHash": "7e553fdf96a8b49ce4564a8edd5db266b939596ba429f53806493a8e9f0751f6",
       "spec": {
         "template": "bars",
@@ -614,7 +614,7 @@
       }
     },
     {
-      "partTitle": "Production Safety Drift Monitoring — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Tiered Canary & Breaker Logic inside `SafetyEscalationEngine`",
       "codeHash": "c5f659064e2363004d4ef8b91e9b7bb5da9520b50dc35ba48fca5901774eb016",
       "spec": {
         "template": "bars",
@@ -750,7 +750,7 @@
       }
     },
     {
-      "partTitle": "Production Safety Drift Monitoring — Production Telemetry & Verification Audit",
+      "partTitle": "Structured Health Serialization via `build_telemetry_snapshot`",
       "codeHash": "4f152e361c8d848e4232f59d68be5ef5b6931ce1ae4b29c955953a4817148929",
       "spec": {
         "template": "states",
@@ -793,7 +793,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the telemetry value produced for canary processing.",
             "currentState": "refusal_rate",
             "transition": {
               "from": "psi",
@@ -845,7 +845,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the telemetry value produced for canary processing.",
             "currentState": "refusal_rate",
             "transition": {
               "from": "psi",

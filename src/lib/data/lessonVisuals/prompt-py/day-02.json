@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the system transition driving user behavior.",
+            "activeActor": "user",
+            "messages": [
+              {
+                "from": "system",
+                "to": "user",
+                "label": {
+                  "var": "system",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "user",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A company building a support bot writes the system prompt once (\"You are.",
-            "activeActor": "user",
+            "at": "say8",
+            "caption": "Later in the course you will generate and check these message lists in Python.",
+            "activeActor": "messages",
             "messages": [
+              {
+                "from": "system",
+                "to": "user",
+                "label": {
+                  "var": "system",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user",
+                "to": "messages",
+                "label": {
+                  "var": "user",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "system",
                 "to": "user",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Later in the course you will generate and check these message lists in Python.",
-            "activeActor": "messages",
-            "messages": [
+              },
               {
                 "from": "system",
                 "to": "user",
@@ -118,19 +148,13 @@
                 "to": "user",
                 "label": "'You are a friendly support agent for S…",
                 "tone": "data"
-              },
-              {
-                "from": "user",
-                "to": "messages",
-                "label": "'My running shoes arrived in the wrong …",
-                "tone": "ok"
               }
             ],
             "activeActor": "system"
           },
           {
             "at": "say2",
-            "caption": "A company building a support bot writes the system prompt once (\"You are.",
+            "caption": "Verify the system transition driving user behavior.",
             "messages": [
               {
                 "from": "system",
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "Later in the course you will generate and check these message lists in Python.",
             "messages": [
+              {
+                "from": "system",
+                "to": "user",
+                "label": "'You are a friendly support agent for S…",
+                "tone": "data"
+              },
+              {
+                "from": "user",
+                "to": "messages",
+                "label": "'My running shoes arrived in the wrong …",
+                "tone": "ok"
+              },
+              {
+                "from": "system",
+                "to": "user",
+                "label": "'You are a friendly support agent for S…",
+                "tone": "data"
+              },
+              {
+                "from": "user",
+                "to": "messages",
+                "label": "'My running shoes arrived in the wrong …",
+                "tone": "ok"
+              },
               {
                 "from": "system",
                 "to": "user",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The persona the model should adopt, such as \"You are a senior tax accountant\".",
+            "activeActor": "parts",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "parts",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The persona the model should adopt, such as \"You are a senior tax accountant\".",
-            "activeActor": "parts",
+            "at": "say8",
+            "caption": "The example assembles a complete support-agent prompt.",
+            "activeActor": "key",
             "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "key",
+                "label": {
+                  "var": "parts",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ORDER",
                 "to": "parts",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The example assembles a complete support-agent prompt.",
-            "activeActor": "key",
-            "messages": [
+              },
               {
                 "from": "ORDER",
                 "to": "parts",
@@ -282,12 +360,6 @@
                 "to": "parts",
                 "label": "['context', 'role', 'instructions', 'ac…",
                 "tone": "data"
-              },
-              {
-                "from": "parts",
-                "to": "key",
-                "label": "{'context': 'We sell running shoes onli…",
-                "tone": "ok"
               }
             ],
             "activeActor": "ORDER"
@@ -315,6 +387,30 @@
             "at": "say8",
             "caption": "The example assembles a complete support-agent prompt.",
             "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "key",
+                "label": "{'context': 'We sell running shoes onli…",
+                "tone": "ok"
+              },
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "key",
+                "label": "{'context': 'We sell running shoes onli…",
+                "tone": "ok"
+              },
               {
                 "from": "ORDER",
                 "to": "parts",
@@ -359,6 +455,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Roles work because the model has seen how such people write.",
+            "activeActor": "personas",
+            "messages": [
+              {
+                "from": "question",
+                "to": "personas",
+                "label": {
+                  "var": "question",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "personas",
@@ -373,10 +486,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Roles work because the model has seen how such people write.",
-            "activeActor": "personas",
+            "at": "say8",
+            "caption": "Choosing the persona is often the fastest way to fix a prompt whose.",
+            "activeActor": "p",
             "messages": [
+              {
+                "from": "question",
+                "to": "personas",
+                "label": {
+                  "var": "question",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "personas",
+                "to": "p",
+                "label": {
+                  "var": "personas",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "question",
                 "to": "personas",
@@ -396,14 +529,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Choosing the persona is often the fastest way to fix a prompt whose.",
-            "activeActor": "p",
-            "messages": [
+              },
               {
                 "from": "question",
                 "to": "personas",
@@ -446,12 +572,6 @@
                 "to": "personas",
                 "label": "'How should I sit at my desk?'",
                 "tone": "data"
-              },
-              {
-                "from": "personas",
-                "to": "p",
-                "label": "['a physiotherapist who treats office w…",
-                "tone": "ok"
               }
             ],
             "activeActor": "question"
@@ -479,6 +599,30 @@
             "at": "say8",
             "caption": "Choosing the persona is often the fastest way to fix a prompt whose.",
             "messages": [
+              {
+                "from": "question",
+                "to": "personas",
+                "label": "'How should I sit at my desk?'",
+                "tone": "data"
+              },
+              {
+                "from": "personas",
+                "to": "p",
+                "label": "['a physiotherapist who treats office w…",
+                "tone": "ok"
+              },
+              {
+                "from": "question",
+                "to": "personas",
+                "label": "'How should I sit at my desk?'",
+                "tone": "data"
+              },
+              {
+                "from": "personas",
+                "to": "p",
+                "label": "['a physiotherapist who treats office w…",
+                "tone": "ok"
+              },
               {
                 "from": "question",
                 "to": "personas",
@@ -688,7 +832,7 @@
             "at": "say1",
             "caption": "Tell the model what NOT to do as well as what to do.",
             "values": {
-              "rules": "{'no refund promises over 5000': {'__ot…",
+              "rules": "{'no refund promises over 5000': <funct…",
               "reply": "'Good news! Your order #A1B2 qualifies …",
               "name": "'no refund promises over 5000'",
               "r": "'Good news! Your order #A1B2 qualifies …"
@@ -718,7 +862,7 @@
             "at": "say2",
             "caption": "These negative constraints reduce hallucinations and keep an assistant.",
             "values": {
-              "rules": "{'no refund promises over 5000': {'__ot…",
+              "rules": "{'no refund promises over 5000': <funct…",
               "reply": "'Good news! Your order #A1B2 qualifies …",
               "name": "'no refund promises over 5000'",
               "r": "'Good news! Your order #A1B2 qualifies …"
@@ -748,7 +892,7 @@
             "at": "say8",
             "caption": "When a constraint is broken in testing, strengthen the wording, add.",
             "values": {
-              "rules": "{'no refund promises over 5000': {'__ot…",
+              "rules": "{'no refund promises over 5000': <funct…",
               "reply": "'Good news! Your order #A1B2 qualifies …",
               "name": "'no invented order ids'",
               "r": "'Good news! Your order #A1B2 qualifies …"
@@ -803,6 +947,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If prompts use labelled lines like \"Role:\" and \"Tone:\", a script can audit.",
+            "activeActor": "prompts",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "prompts",
@@ -817,10 +978,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If prompts use labelled lines like \"Role:\" and \"Tone:\", a script can audit.",
-            "activeActor": "prompts",
+            "at": "say8",
+            "caption": "Version them too.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": {
+                  "var": "prompts",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ORDER",
                 "to": "prompts",
@@ -840,14 +1021,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Version them too.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "ORDER",
                 "to": "prompts",
@@ -890,12 +1064,6 @@
                 "to": "prompts",
                 "label": "['context', 'role', 'instructions', 'ac…",
                 "tone": "data"
-              },
-              {
-                "from": "prompts",
-                "to": "name",
-                "label": "{'support bot': 'Role: agent\nTone: warm…",
-                "tone": "ok"
               }
             ],
             "activeActor": "ORDER"
@@ -923,6 +1091,30 @@
             "at": "say8",
             "caption": "Version them too.",
             "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": "{'support bot': 'Role: agent\nTone: warm…",
+                "tone": "ok"
+              },
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": "{'support bot': 'Role: agent\nTone: warm…",
+                "tone": "ok"
+              },
               {
                 "from": "ORDER",
                 "to": "prompts",
@@ -967,6 +1159,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Return the prompt text joined with newlines, the missing list in order.",
+            "activeActor": "parts",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "parts",
@@ -981,10 +1190,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Return the prompt text joined with newlines, the missing list in order.",
-            "activeActor": "parts",
+            "at": "say7",
+            "caption": "Examples inside prompts, the most powerful pillar of all.",
+            "activeActor": "lines",
             "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": {
+                  "var": "parts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ORDER",
                 "to": "parts",
@@ -1004,14 +1233,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Examples inside prompts, the most powerful pillar of all.",
-            "activeActor": "lines",
-            "messages": [
+              },
               {
                 "from": "ORDER",
                 "to": "parts",
@@ -1054,12 +1276,6 @@
                 "to": "parts",
                 "label": "['context', 'role', 'instructions', 'ac…",
                 "tone": "data"
-              },
-              {
-                "from": "parts",
-                "to": "lines",
-                "label": "{'role': 'You are a tutor.', 'tone': 'P…",
-                "tone": "ok"
               }
             ],
             "activeActor": "ORDER"
@@ -1087,6 +1303,30 @@
             "at": "say7",
             "caption": "Examples inside prompts, the most powerful pillar of all.",
             "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": "{'role': 'You are a tutor.', 'tone': 'P…",
+                "tone": "ok"
+              },
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": "{'role': 'You are a tutor.', 'tone': 'P…",
+                "tone": "ok"
+              },
               {
                 "from": "ORDER",
                 "to": "parts",

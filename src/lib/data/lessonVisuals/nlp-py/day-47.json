@@ -270,16 +270,14 @@
                 "hit": 1
               },
               "draft_dist": {
-                "var": "draft_dist",
-                "line": 87,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "rng": "data",
               "vocab": "data",
               "target_dist": "data",
-              "draft_dist": "data"
+              "draft_dist": "idle"
             },
             "arrows": [
               [
@@ -419,13 +417,13 @@
               "rng": "<Random>",
               "vocab": "['quantum', 'neural', 'compiler', 'tens…",
               "target_dist": "[0.1, 0.55, 0.15, 0.2]",
-              "draft_dist": "[0.25, 0.35, 0.2, 0.2]"
+              "draft_dist": ""
             },
             "tones": {
               "rng": "data",
               "vocab": "data",
               "target_dist": "data",
-              "draft_dist": "data"
+              "draft_dist": "idle"
             },
             "arrows": [
               [

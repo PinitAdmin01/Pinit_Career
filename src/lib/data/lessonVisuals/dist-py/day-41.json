@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Think about why historical log entries become logically redundant.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "self",
+                "to": "n",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "n",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Think about why historical log entries become logically redundant.",
-            "activeActor": "n",
+            "at": "say6",
+            "caption": "Simulate compacting a log prefix into a durable snapshot and translating.",
+            "activeActor": "i",
             "messages": [
+              {
+                "from": "self",
+                "to": "n",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": {
+                  "var": "n",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "n",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Simulate compacting a log prefix into a durable snapshot and translating.",
-            "activeActor": "i",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "n",
@@ -118,12 +148,6 @@
                 "to": "n",
                 "label": "<CompactingRaftNode>",
                 "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": "i",
-                "label": "<CompactingRaftNode>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -151,6 +175,30 @@
             "at": "say6",
             "caption": "Simulate compacting a log prefix into a durable snapshot and translating.",
             "messages": [
+              {
+                "from": "self",
+                "to": "n",
+                "label": "<CompactingRaftNode>",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "<CompactingRaftNode>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "n",
+                "label": "<CompactingRaftNode>",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "<CompactingRaftNode>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "n",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production engines solve slow disk snapshot stalls using non-blocking.",
+            "activeActor": "st",
+            "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "st",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Production engines solve slow disk snapshot stalls using non-blocking.",
-            "activeActor": "st",
+            "at": "say5",
+            "caption": "Examine the copy value produced for write processing.",
+            "activeActor": "ver",
             "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": {
+                  "var": "st",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "st",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Verify atomic immutable checkpoint creation cleanly decoupling foreground.",
-            "activeActor": "ver",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "st",
@@ -282,12 +360,6 @@
                 "to": "st",
                 "label": "<NonBlockingMVCCStore>",
                 "tone": "data"
-              },
-              {
-                "from": "st",
-                "to": "ver",
-                "label": "<NonBlockingMVCCStore>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -313,8 +385,32 @@
           },
           {
             "at": "say5",
-            "caption": "Verify atomic immutable checkpoint creation cleanly decoupling foreground.",
+            "caption": "Examine the copy value produced for write processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "st",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "st",
@@ -378,16 +474,14 @@
                 "hit": 1
               },
               "rpc_term": {
-                "var": "rpc_term",
-                "line": 12,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "payload": "data",
               "self": "data",
               "rx": "data",
-              "rpc_term": "data"
+              "rpc_term": "idle"
             },
             "arrows": [
               [
@@ -524,16 +618,16 @@
             "at": "say1",
             "caption": "Suppose follower F stayed offline for three days while the leader.",
             "values": {
-              "payload": "{'__other__': 'bytes'}",
+              "payload": "<bytes>",
               "self": "<SnapshotReceiver>",
               "rx": "<SnapshotReceiver>",
-              "rpc_term": "4"
+              "rpc_term": ""
             },
             "tones": {
               "payload": "data",
               "self": "data",
               "rx": "data",
-              "rpc_term": "data"
+              "rpc_term": "idle"
             },
             "arrows": [
               [
@@ -554,7 +648,7 @@
             "at": "say2",
             "caption": "Because the leader deleted entries 1.",
             "values": {
-              "payload": "{'__other__': 'bytes'}",
+              "payload": "<bytes>",
               "self": "<SnapshotReceiver>",
               "rx": "<SnapshotReceiver>",
               "rpc_term": "4"
@@ -584,7 +678,7 @@
             "at": "say7",
             "caption": "Simulate bounded multi-chunk `InstallSnapshot` streaming with out-of-order.",
             "values": {
-              "payload": "{'__other__': 'bytes'}",
+              "payload": "<bytes>",
               "self": "<SnapshotReceiver>",
               "rx": "<SnapshotReceiver>",
               "rpc_term": "4"
@@ -657,7 +751,7 @@
           },
           {
             "at": "say6",
-            "caption": "Verify both anti-rewind and partial-tail-retention cases cleanly below.",
+            "caption": "Examine the snapshot value produced for receiving processing.",
             "currentState": "follower_tail",
             "transition": {
               "from": "follower_commit_idx",
@@ -709,7 +803,7 @@
           },
           {
             "at": "say6",
-            "caption": "Verify both anti-rewind and partial-tail-retention cases cleanly below.",
+            "caption": "Examine the snapshot value produced for receiving processing.",
             "currentState": "follower_tail",
             "transition": {
               "from": "follower_commit_idx",
@@ -747,6 +841,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Notice the exact dispatch decision loop a Raft leader executes per.",
+            "activeActor": "next_idx_for_peer",
+            "messages": [
+              {
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": {
+                  "var": "leader_snap_idx",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "next_idx_for_peer",
@@ -761,10 +872,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Notice the exact dispatch decision loop a Raft leader executes per.",
-            "activeActor": "next_idx_for_peer",
+            "at": "say5",
+            "caption": "Run the integrated leader dispatch simulator below handling fast live.",
+            "activeActor": "retention_lag",
             "messages": [
+              {
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": {
+                  "var": "leader_snap_idx",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": {
+                  "var": "next_idx_for_peer",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "leader_snap_idx",
                 "to": "next_idx_for_peer",
@@ -784,14 +915,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Run the integrated leader dispatch simulator below handling fast live.",
-            "activeActor": "retention_lag",
-            "messages": [
+              },
               {
                 "from": "leader_snap_idx",
                 "to": "next_idx_for_peer",
@@ -834,12 +958,6 @@
                 "to": "next_idx_for_peer",
                 "label": "500",
                 "tone": "data"
-              },
-              {
-                "from": "next_idx_for_peer",
-                "to": "retention_lag",
-                "label": "495",
-                "tone": "ok"
               }
             ],
             "activeActor": "leader_snap_idx"
@@ -867,6 +985,30 @@
             "at": "say5",
             "caption": "Run the integrated leader dispatch simulator below handling fast live.",
             "messages": [
+              {
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": "500",
+                "tone": "data"
+              },
+              {
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": "495",
+                "tone": "ok"
+              },
+              {
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": "500",
+                "tone": "data"
+              },
+              {
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": "495",
+                "tone": "ok"
+              },
               {
                 "from": "leader_snap_idx",
                 "to": "next_idx_for_peer",

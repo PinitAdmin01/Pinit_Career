@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how idea updates proposed during execution.",
+            "caption": "Verify the idea transition driving proposed behavior.",
             "currentState": "i",
             "transition": {
               "from": "sections",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how idea updates proposed during execution.",
+            "caption": "Verify the idea transition driving proposed behavior.",
             "currentState": "i",
             "transition": {
               "from": "sections",
@@ -136,7 +136,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Intended use says what the system is for and who it is for,.",
+            "caption": "Inspect intended updates as card tracks says state.",
             "values": {
               "card": {
                 "var": "card",
@@ -264,7 +264,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Intended use says what the system is for and who it is for,.",
+            "caption": "Inspect intended updates as card tracks says state.",
             "values": {
               "card": "{'intended_use': 'Answer customer quest…",
               "k": "'intended_use'",
@@ -366,7 +366,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates card during execution.",
+            "caption": "Verify the practice transition driving missing behavior.",
             "currentState": "card",
             "transition": {
               "from": "required",
@@ -422,7 +422,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates card during execution.",
+            "caption": "Verify the practice transition driving missing behavior.",
             "currentState": "card",
             "transition": {
               "from": "required",

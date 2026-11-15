@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "During single-user autoregressive decoding on a 70B-parameter model (~140.",
+            "caption": "Observe how autoregressive shapes decoding during this step.",
             "bars": [
               {
                 "label": "weight_gb",
@@ -146,7 +146,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "During single-user autoregressive decoding on a 70B-parameter model (~140.",
+            "caption": "Observe how autoregressive shapes decoding during this step.",
             "bars": [
               {
                 "label": "weight_gb",
@@ -251,6 +251,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Walk strictly left to right checking each draft prediction against Target.",
+            "activeActor": "accept_flags",
+            "messages": [
+              {
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": {
+                  "var": "draft_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "accept_flags",
@@ -265,10 +282,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Walk strictly left to right checking each draft prediction against Target.",
-            "activeActor": "accept_flags",
+            "at": "say6",
+            "caption": "Trace verify_prefix() demonstrating both mid-sequence prefix recovery.",
+            "activeActor": "target_correction",
             "messages": [
+              {
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": {
+                  "var": "draft_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": {
+                  "var": "accept_flags",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "draft_tokens",
                 "to": "accept_flags",
@@ -288,14 +325,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace verify_prefix() demonstrating both mid-sequence prefix recovery.",
-            "activeActor": "target_correction",
-            "messages": [
+              },
               {
                 "from": "draft_tokens",
                 "to": "accept_flags",
@@ -338,12 +368,6 @@
                 "to": "accept_flags",
                 "label": "['the', 'SQL', 'plan', 'is', 'fast']",
                 "tone": "data"
-              },
-              {
-                "from": "accept_flags",
-                "to": "target_correction",
-                "label": "[True, True, False, True, True]",
-                "tone": "ok"
               }
             ],
             "activeActor": "draft_tokens"
@@ -371,6 +395,30 @@
             "at": "say6",
             "caption": "Trace verify_prefix() demonstrating both mid-sequence prefix recovery.",
             "messages": [
+              {
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": "['the', 'SQL', 'plan', 'is', 'fast']",
+                "tone": "data"
+              },
+              {
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": "[True, True, False, True, True]",
+                "tone": "ok"
+              },
+              {
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": "['the', 'SQL', 'plan', 'is', 'fast']",
+                "tone": "data"
+              },
+              {
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": "[True, True, False, True, True]",
+                "tone": "ok"
+              },
               {
                 "from": "draft_tokens",
                 "to": "accept_flags",
@@ -434,16 +482,14 @@
                 "hit": 1
               },
               "q_draft": {
-                "var": "q_draft",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "p": "data",
               "q": "data",
               "p_target": "data",
-              "q_draft": "data"
+              "q_draft": "idle"
             }
           },
           {
@@ -541,13 +587,13 @@
               "p": "{'use': 0.6, 'avoid': 0.3, 'drop': 0.1}",
               "q": "{'use': 0.4, 'avoid': 0.5, 'drop': 0.1}",
               "p_target": "0.3",
-              "q_draft": "0.5"
+              "q_draft": ""
             },
             "tones": {
               "p": "data",
               "q": "data",
               "p_target": "data",
-              "q_draft": "data"
+              "q_draft": "idle"
             }
           },
           {
@@ -587,123 +633,98 @@
     },
     {
       "partTitle": "Expected Tokens Per Pass From Average Acceptance Rate Alpha",
-      "codeHash": "93cf9f8c9b5fe599ec5da4dd0d5c9237c6e3fdd168371bf98c48184f3e2d89d3",
+      "codeHash": "9a512e8075a2b07816cb9968fd93ff47d9dd48ed793c0dfa40eab255b9d646b6",
       "spec": {
         "template": "boxes",
         "title": "Expected Tokens Per Pass From Average Acceptance Rate Alpha",
         "boxes": [
           {
             "id": "domain",
-            "label": "domain"
+            "label": "domain",
+            "tappable": true
           },
           {
             "id": "alpha",
-            "label": "alpha"
+            "label": "alpha",
+            "tappable": true
           },
           {
             "id": "gamma",
-            "label": "gamma"
-          },
-          {
-            "id": "yields",
-            "label": "yields"
+            "label": "gamma",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Speculative speedups vary sharply across domains depending cleanly.",
+            "caption": "Inspect alpha updates as domain tracks speculative state.",
             "values": {
               "domain": {
                 "var": "domain",
-                "line": 6,
+                "line": 13,
                 "hit": 1
               },
               "alpha": {
                 "var": "alpha",
-                "line": 6,
+                "line": 13,
                 "hit": 1
               },
               "gamma": {
-                "var": "gamma",
-                "line": 2,
-                "hit": 1
-              },
-              "yields": {
-                "var": "yields",
-                "line": 7,
-                "hit": 4
+                "text": ""
               }
             },
             "tones": {
               "domain": "data",
               "alpha": "data",
-              "gamma": "data",
-              "yields": "data"
+              "gamma": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "With per-token acceptance probability `alpha` across `gamma` guesses plus.",
+            "caption": "Verify the expected transition driving tokens behavior.",
             "values": {
               "domain": {
-                "var": "domain",
-                "line": 7,
-                "hit": 1
+                "text": ""
               },
               "alpha": {
                 "var": "alpha",
                 "line": 2,
-                "hit": 1
+                "hit": 8
               },
               "gamma": {
                 "var": "gamma",
-                "line": 4,
-                "hit": 1
-              },
-              "yields": {
-                "var": "yields",
-                "line": 8,
-                "hit": 1
+                "line": 2,
+                "hit": 8
               }
             },
             "tones": {
-              "domain": "data",
+              "domain": "idle",
               "alpha": "data",
-              "gamma": "data",
-              "yields": "data"
+              "gamma": "data"
             }
           },
           {
-            "at": "say6",
-            "caption": "Compare creative prose, RAG summaries, and Python code across horizons.",
+            "at": "say3",
+            "caption": "Examine the tokens value produced for alpha processing.",
             "values": {
               "domain": {
                 "var": "domain",
-                "line": 7,
-                "hit": 2
+                "line": 14,
+                "hit": 12
               },
               "alpha": {
                 "var": "alpha",
-                "line": 4,
-                "hit": 1
+                "line": 14,
+                "hit": 12
               },
               "gamma": {
-                "var": "gamma",
-                "line": 2,
-                "hit": 2
-              },
-              "yields": {
-                "var": "yields",
-                "line": 6,
-                "hit": 2
+                "text": ""
               }
             },
             "tones": {
               "domain": "ok",
               "alpha": "ok",
-              "gamma": "ok",
-              "yields": "ok"
+              "gamma": "idle"
             }
           }
         ]
@@ -714,68 +735,61 @@
         "boxes": [
           {
             "id": "domain",
-            "label": "domain"
+            "label": "domain",
+            "tappable": true
           },
           {
             "id": "alpha",
-            "label": "alpha"
+            "label": "alpha",
+            "tappable": true
           },
           {
             "id": "gamma",
-            "label": "gamma"
-          },
-          {
-            "id": "yields",
-            "label": "yields"
+            "label": "gamma",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Speculative speedups vary sharply across domains depending cleanly.",
+            "caption": "Inspect alpha updates as domain tracks speculative state.",
             "values": {
               "domain": "'creative_prose'",
               "alpha": "0.45",
-              "gamma": "2",
-              "yields": "{2: 1.65, 4: 1.78, 6: 1.81}"
+              "gamma": ""
             },
             "tones": {
               "domain": "data",
               "alpha": "data",
-              "gamma": "data",
-              "yields": "data"
+              "gamma": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "With per-token acceptance probability `alpha` across `gamma` guesses plus.",
+            "caption": "Verify the expected transition driving tokens behavior.",
             "values": {
-              "domain": "'creative_prose'",
-              "alpha": "0.45",
-              "gamma": "2",
-              "yields": "{2: 1.65, 4: 1.78, 6: 1.81}"
+              "domain": "",
+              "alpha": "0.72",
+              "gamma": "4"
             },
             "tones": {
-              "domain": "data",
+              "domain": "idle",
               "alpha": "data",
-              "gamma": "data",
-              "yields": "data"
+              "gamma": "data"
             }
           },
           {
-            "at": "say6",
-            "caption": "Compare creative prose, RAG summaries, and Python code across horizons.",
+            "at": "say3",
+            "caption": "Examine the tokens value produced for alpha processing.",
             "values": {
-              "domain": "'creative_prose'",
-              "alpha": "0.45",
-              "gamma": "4",
-              "yields": "{2: 1.65, 4: 1.78, 6: 1.81}"
+              "domain": "'python_code'",
+              "alpha": "0.86",
+              "gamma": ""
             },
             "tones": {
               "domain": "ok",
               "alpha": "ok",
-              "gamma": "ok",
-              "yields": "ok"
+              "gamma": "idle"
             }
           }
         ]

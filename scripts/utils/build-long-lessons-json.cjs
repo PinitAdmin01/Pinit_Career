@@ -57,7 +57,7 @@ function sanitizeFileKey(prefix) {
   return prefix.replace(/[^a-zA-Z0-9_-]/g, '_');
 }
 
-function buildArchives() {
+async function buildArchives() {
   if (isUpToDate()) {
     console.log('[long-lessons] Prebuilt archives up-to-date.');
     return;
@@ -65,7 +65,7 @@ function buildArchives() {
 
   const t0 = Date.now();
   const entryPoint = path.join(DATA_DIR, 'longLessons.ts');
-  const result = esbuild.buildSync({
+  const result = await esbuild.build({
     entryPoints: [entryPoint],
     bundle: true,
     platform: 'node',
@@ -128,4 +128,7 @@ function buildArchives() {
   console.log(`[long-lessons] Built ${archiveCount} compressed course archives (${Object.keys(prefixes).length} prefixes, ${mb} MB) in ${elapsed}s.`);
 }
 
-buildArchives();
+buildArchives().catch((err) => {
+  console.error('[long-lessons] Archive build failed:', err);
+  process.exit(1);
+});

@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "order_id": {
-                "var": "order_id",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "model_reply": "data",
               "call": "data",
               "args": "data",
-              "order_id": "data"
+              "order_id": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "model_reply": "{'tool_call': {'name': 'get_order_statu…",
               "call": "{'name': 'get_order_status', 'arguments…",
               "args": "{'order_id': 'A-1042'}",
-              "order_id": "'A-1042'"
+              "order_id": ""
             },
             "tones": {
               "model_reply": "data",
               "call": "data",
               "args": "data",
-              "order_id": "data"
+              "order_id": "idle"
             },
             "arrows": [
               [
@@ -473,6 +471,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Check the name matches a declared tool.",
+            "activeActor": "handlers",
+            "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": {
+                  "var": "decl",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "handlers",
@@ -487,10 +502,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Check the name matches a declared tool.",
-            "activeActor": "handlers",
+            "at": "say5",
+            "caption": "Returning error codes instead of raising exceptions lets you send.",
+            "activeActor": "declaration",
             "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": {
+                  "var": "decl",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": {
+                  "var": "handlers",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "decl",
                 "to": "handlers",
@@ -510,14 +545,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Returning error codes instead of raising exceptions lets you send.",
-            "activeActor": "declaration",
-            "messages": [
+              },
               {
                 "from": "decl",
                 "to": "handlers",
@@ -560,12 +588,6 @@
                 "to": "handlers",
                 "label": "{'name': 'add', 'description': 'Add two…",
                 "tone": "data"
-              },
-              {
-                "from": "handlers",
-                "to": "declaration",
-                "label": "{'add': {'__other__': 'function'}}",
-                "tone": "ok"
               }
             ],
             "activeActor": "decl"
@@ -583,7 +605,7 @@
               {
                 "from": "handlers",
                 "to": "declaration",
-                "label": "{'add': {'__other__': 'function'}}",
+                "label": "{'add': <function>}",
                 "tone": "ok"
               }
             ],
@@ -602,7 +624,31 @@
               {
                 "from": "handlers",
                 "to": "declaration",
-                "label": "{'add': {'__other__': 'function'}}",
+                "label": "{'add': <function>}",
+                "tone": "ok"
+              },
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": "{'name': 'add', 'description': 'Add two…",
+                "tone": "data"
+              },
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": "{'add': <function>}",
+                "tone": "ok"
+              },
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": "{'name': 'add', 'description': 'Add two…",
+                "tone": "data"
+              },
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": "{'add': <function>}",
                 "tone": "ok"
               }
             ],
@@ -637,6 +683,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Then call the model again.",
+            "activeActor": "messages",
+            "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": {
+                  "var": "handlers",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "messages",
@@ -651,10 +714,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Then call the model again.",
-            "activeActor": "messages",
+            "at": "say5",
+            "caption": "The fake model below shows the two-step loop without a real API.",
+            "activeActor": "last",
             "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": {
+                  "var": "handlers",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": {
+                  "var": "messages",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "handlers",
                 "to": "messages",
@@ -674,14 +757,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The fake model below shows the two-step loop without a real API.",
-            "activeActor": "last",
-            "messages": [
+              },
               {
                 "from": "handlers",
                 "to": "messages",
@@ -722,14 +798,8 @@
               {
                 "from": "handlers",
                 "to": "messages",
-                "label": "{'get_order_status': {'__other__': 'fun…",
+                "label": "{'get_order_status': <function>}",
                 "tone": "data"
-              },
-              {
-                "from": "messages",
-                "to": "last",
-                "label": "[{'role': 'user', 'content': 'Where is …",
-                "tone": "ok"
               }
             ],
             "activeActor": "handlers"
@@ -741,7 +811,7 @@
               {
                 "from": "handlers",
                 "to": "messages",
-                "label": "{'get_order_status': {'__other__': 'fun…",
+                "label": "{'get_order_status': <function>}",
                 "tone": "data"
               },
               {
@@ -760,7 +830,31 @@
               {
                 "from": "handlers",
                 "to": "messages",
-                "label": "{'get_order_status': {'__other__': 'fun…",
+                "label": "{'get_order_status': <function>}",
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": "[{'role': 'user', 'content': 'Where is …",
+                "tone": "ok"
+              },
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": "{'get_order_status': <function>}",
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": "[{'role': 'user', 'content': 'Where is …",
+                "tone": "ok"
+              },
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": "{'get_order_status': <function>}",
                 "tone": "data"
               },
               {
@@ -828,8 +922,8 @@
             "values": {
               "args": {
                 "var": "args",
-                "line": 2,
-                "hit": 1
+                "line": 13,
+                "hit": 2
               },
               "order_total": {
                 "var": "order_total",
@@ -838,7 +932,7 @@
               },
               "problems": {
                 "var": "problems",
-                "line": 3,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -854,8 +948,8 @@
             "values": {
               "args": {
                 "var": "args",
-                "line": 3,
-                "hit": 1
+                "line": 13,
+                "hit": 3
               },
               "order_total": {
                 "var": "order_total",
@@ -864,8 +958,8 @@
               },
               "problems": {
                 "var": "problems",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -912,9 +1006,9 @@
             "at": "say2",
             "caption": "Tools that change things, like refunds, payments, deletes or emails, need.",
             "values": {
-              "args": "{'order_id': 'A-7', 'amount': 300}",
+              "args": "{'order_id': 'A-7', 'amount': 5000}",
               "order_total": "450",
-              "problems": "[]"
+              "problems": "['amount is more than the order total']"
             },
             "tones": {
               "args": "data",
@@ -926,7 +1020,7 @@
             "at": "say5",
             "caption": "Log every tool call with its arguments and result.",
             "values": {
-              "args": "{'order_id': 'A-7', 'amount': 300}",
+              "args": "{'order_id': 'Z9', 'amount': '300'}",
               "order_total": "450",
               "problems": "[]"
             },
@@ -1012,13 +1106,13 @@
               },
               "results": {
                 "var": "results",
-                "line": 10,
+                "line": 13,
                 "hit": 1
               },
               "call": {
                 "var": "call",
-                "line": 11,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -1030,7 +1124,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how will updates build during execution.",
+            "caption": "Examine the tools value produced for build processing.",
             "values": {
               "REGISTRY": {
                 "var": "REGISTRY",
@@ -1044,13 +1138,13 @@
               },
               "results": {
                 "var": "results",
-                "line": 11,
-                "hit": 1
+                "line": 13,
+                "hit": 2
               },
               "call": {
                 "var": "call",
-                "line": 12,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -1106,8 +1200,8 @@
             "values": {
               "REGISTRY": "{'convert_currency': {'description': 'C…",
               "calls": "[{'id': 'a', 'name': 'convert_currency'…",
-              "results": "[]",
-              "call": "{'id': 'a', 'name': 'convert_currency',…"
+              "results": "[{'tool_call_id': 'a', 'content': 830}]",
+              "call": "{'id': 'b', 'name': 'get_weather', 'arg…"
             },
             "tones": {
               "REGISTRY": "data",
@@ -1118,12 +1212,12 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how will updates build during execution.",
+            "caption": "Examine the tools value produced for build processing.",
             "values": {
               "REGISTRY": "{'convert_currency': {'description': 'C…",
               "calls": "[{'id': 'a', 'name': 'convert_currency'…",
-              "results": "[]",
-              "call": "{'id': 'a', 'name': 'convert_currency',…"
+              "results": "[{'tool_call_id': 'a', 'content': 830},…",
+              "call": "{'id': 'b', 'name': 'get_weather', 'arg…"
             },
             "tones": {
               "REGISTRY": "ok",

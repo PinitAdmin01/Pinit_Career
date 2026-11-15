@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Without coordination, two workers can pick up the same job.",
+            "activeActor": "payments",
+            "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": {
+                  "var": "refund_paid",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "payments",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Without coordination, two workers can pick up the same job.",
-            "activeActor": "payments",
+            "at": "say7",
+            "caption": "Everything in this lesson is about making that \"only one\" guarantee.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": {
+                  "var": "refund_paid",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": {
+                  "var": "payments",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "refund_paid",
                 "to": "payments",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Everything in this lesson is about making that \"only one\" guarantee.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "refund_paid",
                 "to": "payments",
@@ -118,12 +148,6 @@
                 "to": "payments",
                 "label": "{'order-7': False}",
                 "tone": "data"
-              },
-              {
-                "from": "payments",
-                "to": "name",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "refund_paid"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Everything in this lesson is about making that \"only one\" guarantee.",
             "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": "{'order-7': False}",
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": "{'order-7': False}",
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "refund_paid",
                 "to": "payments",
@@ -583,6 +631,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If the holder's clock runs slow, it may think its lease is still valid.",
+            "activeActor": "acquired_at",
+            "messages": [
+              {
+                "from": "now",
+                "to": "acquired_at",
+                "label": {
+                  "var": "now",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "acquired_at",
@@ -597,10 +662,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If the holder's clock runs slow, it may think its lease is still valid.",
-            "activeActor": "acquired_at",
+            "at": "say6",
+            "caption": "Examine the looks value produced for clocks processing.",
+            "activeActor": "ttl_ms",
             "messages": [
+              {
+                "from": "now",
+                "to": "acquired_at",
+                "label": {
+                  "var": "now",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": {
+                  "var": "acquired_at",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "now",
                 "to": "acquired_at",
@@ -620,14 +705,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace how looks updates clocks during execution.",
-            "activeActor": "ttl_ms",
-            "messages": [
+              },
               {
                 "from": "now",
                 "to": "acquired_at",
@@ -670,12 +748,6 @@
                 "to": "acquired_at",
                 "label": "0",
                 "tone": "data"
-              },
-              {
-                "from": "acquired_at",
-                "to": "ttl_ms",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "now"
@@ -701,8 +773,32 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how looks updates clocks during execution.",
+            "caption": "Examine the looks value produced for clocks processing.",
             "messages": [
+              {
+                "from": "now",
+                "to": "acquired_at",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "now",
+                "to": "acquired_at",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "now",
                 "to": "acquired_at",
@@ -865,6 +961,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Make repeated operations harmless, so it does not matter if two workers do.",
+            "activeActor": "seen_by_a",
+            "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": {
+                  "var": "record",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "seen_by_a",
@@ -879,10 +992,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Make repeated operations harmless, so it does not matter if two workers do.",
-            "activeActor": "seen_by_a",
+            "at": "say6",
+            "caption": "Tomorrow you will see a special kind of lock.",
+            "activeActor": "seen_by_b",
             "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": {
+                  "var": "record",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": {
+                  "var": "seen_by_a",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "record",
                 "to": "seen_by_a",
@@ -902,14 +1035,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Tomorrow you will see a special kind of lock.",
-            "activeActor": "seen_by_b",
-            "messages": [
+              },
               {
                 "from": "record",
                 "to": "seen_by_a",
@@ -952,12 +1078,6 @@
                 "to": "seen_by_a",
                 "label": "{'stock': 5, 'version': 1}",
                 "tone": "data"
-              },
-              {
-                "from": "seen_by_a",
-                "to": "seen_by_b",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "record"
@@ -985,6 +1105,30 @@
             "at": "say6",
             "caption": "Tomorrow you will see a special kind of lock.",
             "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": "{'stock': 5, 'version': 1}",
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": "{'stock': 5, 'version': 1}",
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": "1",
+                "tone": "ok"
+              },
               {
                 "from": "record",
                 "to": "seen_by_a",

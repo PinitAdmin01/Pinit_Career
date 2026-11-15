@@ -204,16 +204,14 @@
                 "hit": 1
               },
               "x_series": {
-                "var": "x_series",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "x_prices": "data",
               "y_prices": "data",
               "y_series": "data",
-              "x_series": "data"
+              "x_series": "idle"
             },
             "arrows": [
               [
@@ -353,13 +351,13 @@
               "x_prices": "[100.27885359691577, 99.55002151044533,…",
               "y_prices": "[150.22355184604896, 148.88929281182524…",
               "y_series": "[150.22355184604896, 148.88929281182524…",
-              "x_series": "[100.27885359691577, 99.55002151044533,…"
+              "x_series": ""
             },
             "tones": {
               "x_prices": "data",
               "y_prices": "data",
               "y_series": "data",
-              "x_series": "data"
+              "x_series": "idle"
             },
             "arrows": [
               [
@@ -465,6 +463,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The Johansen Cointegration Procedure generalizes cointegration to $K$.",
+            "activeActor": "ys",
+            "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ys",
@@ -479,10 +494,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The Johansen Cointegration Procedure generalizes cointegration to $K$.",
-            "activeActor": "ys",
+            "at": "say8",
+            "caption": "High-performance cointegration scanners apply online recursive least.",
+            "activeActor": "y_series",
             "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "y_series",
+                "label": {
+                  "var": "ys",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "xs",
                 "to": "ys",
@@ -502,14 +537,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "High-performance cointegration scanners apply online recursive least.",
-            "activeActor": "y_series",
-            "messages": [
+              },
               {
                 "from": "xs",
                 "to": "ys",
@@ -552,12 +580,6 @@
                 "to": "ys",
                 "label": "[100, 102, 101.5, 103, 104.5, 103.5]",
                 "tone": "data"
-              },
-              {
-                "from": "ys",
-                "to": "y_series",
-                "label": "[150, 153.2, 152, 154.8, 156.9, 155]",
-                "tone": "ok"
               }
             ],
             "activeActor": "xs"
@@ -585,6 +607,30 @@
             "at": "say8",
             "caption": "High-performance cointegration scanners apply online recursive least.",
             "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": "[100, 102, 101.5, 103, 104.5, 103.5]",
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "y_series",
+                "label": "[150, 153.2, 152, 154.8, 156.9, 155]",
+                "tone": "ok"
+              },
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": "[100, 102, 101.5, 103, 104.5, 103.5]",
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "y_series",
+                "label": "[150, 153.2, 152, 154.8, 156.9, 155]",
+                "tone": "ok"
+              },
               {
                 "from": "xs",
                 "to": "ys",
@@ -874,7 +920,7 @@
           },
           {
             "at": "say2",
-            "caption": "The primary diagnostic signal is Portfolio Beta to the Benchmark (e.",
+            "caption": "Verify the primary transition driving diagnostic behavior.",
             "bars": [
               {
                 "label": "net_market_bet",
@@ -990,7 +1036,7 @@
           },
           {
             "at": "say2",
-            "caption": "The primary diagnostic signal is Portfolio Beta to the Benchmark (e.",
+            "caption": "Verify the primary transition driving diagnostic behavior.",
             "bars": [
               {
                 "label": "net_market_bet",

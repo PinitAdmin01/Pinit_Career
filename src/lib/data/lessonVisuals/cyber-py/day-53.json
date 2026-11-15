@@ -54,7 +54,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how because updates kernel during execution.",
+            "caption": "Verify the container transition driving because behavior.",
             "values": {
               "CONTAINER_SECURITY_PILLARS": {
                 "var": "CONTAINER_SECURITY_PILLARS",
@@ -80,7 +80,7 @@
           },
           {
             "at": "say11",
-            "caption": "Cloud security architects enforce least-privilege container configurations.",
+            "caption": "Examine the cluster value produced for admission processing.",
             "values": {
               "CONTAINER_SECURITY_PILLARS": {
                 "var": "CONTAINER_SECURITY_PILLARS",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how because updates kernel during execution.",
+            "caption": "Verify the container transition driving because behavior.",
             "values": {
               "CONTAINER_SECURITY_PILLARS": "{'ROOTLESS_USER': 'Running container pr…",
               "pillar": "'CAPABILITY_DROP'",
@@ -154,7 +154,7 @@
           },
           {
             "at": "say11",
-            "caption": "Cloud security architects enforce least-privilege container configurations.",
+            "caption": "Examine the cluster value produced for admission processing.",
             "values": {
               "CONTAINER_SECURITY_PILLARS": "{'ROOTLESS_USER': 'Running container pr…",
               "pillar": "'READONLY_ROOTFS'",
@@ -196,7 +196,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The capability auditing algorithm evaluates container manifests against.",
+            "caption": "Inspect container updates as hardened_drop tracks security state.",
             "values": {
               "hardened_drop": {
                 "var": "hardened_drop",
@@ -214,16 +214,14 @@
                 "hit": 1
               },
               "insecure_add": {
-                "var": "insecure_add",
-                "line": 18,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "hardened_drop": "data",
               "hardened_add": "data",
               "insecure_drop": "data",
-              "insecure_add": "data"
+              "insecure_add": "idle"
             },
             "arrows": [
               [
@@ -242,7 +240,7 @@
           },
           {
             "at": "say2",
-            "caption": "Standard best practice dictates dropping all capabilities (`drop.",
+            "caption": "Verify the standard transition driving best behavior.",
             "values": {
               "hardened_drop": {
                 "var": "hardened_drop",
@@ -358,18 +356,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The capability auditing algorithm evaluates container manifests against.",
+            "caption": "Inspect container updates as hardened_drop tracks security state.",
             "values": {
               "hardened_drop": "['ALL']",
               "hardened_add": "['CAP_NET_BIND_SERVICE']",
               "insecure_drop": "['CAP_SYS_CHROOT']",
-              "insecure_add": "['CAP_SYS_ADMIN']"
+              "insecure_add": ""
             },
             "tones": {
               "hardened_drop": "data",
               "hardened_add": "data",
               "insecure_drop": "data",
-              "insecure_add": "data"
+              "insecure_add": "idle"
             },
             "arrows": [
               [
@@ -388,7 +386,7 @@
           },
           {
             "at": "say2",
-            "caption": "Standard best practice dictates dropping all capabilities (`drop.",
+            "caption": "Verify the standard transition driving best behavior.",
             "values": {
               "hardened_drop": "['ALL']",
               "hardened_add": "['CAP_NET_BIND_SERVICE']",
@@ -475,6 +473,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the roughly transition driving linux behavior.",
+            "activeActor": "profile_dict",
+            "messages": [
+              {
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": {
+                  "var": "hardened_profile",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "profile_dict",
@@ -489,10 +504,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how roughly updates linux during execution.",
-            "activeActor": "profile_dict",
+            "at": "say10",
+            "caption": "Hardened seccomp-BPF profiles intercept disallowed system calls at.",
+            "activeActor": "default_action",
             "messages": [
+              {
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": {
+                  "var": "hardened_profile",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": {
+                  "var": "profile_dict",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "hardened_profile",
                 "to": "profile_dict",
@@ -512,23 +547,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Hardened seccomp-BPF profiles intercept disallowed system calls at.",
-            "activeActor": "default_action",
-            "messages": [
-              {
-                "from": "hardened_profile",
-                "to": "profile_dict",
-                "label": {
-                  "var": "hardened_profile",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "profile_dict",
@@ -562,19 +580,13 @@
                 "to": "profile_dict",
                 "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
                 "tone": "data"
-              },
-              {
-                "from": "profile_dict",
-                "to": "default_action",
-                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
-                "tone": "ok"
               }
             ],
             "activeActor": "hardened_profile"
           },
           {
             "at": "say2",
-            "caption": "Trace how roughly updates linux during execution.",
+            "caption": "Verify the roughly transition driving linux behavior.",
             "messages": [
               {
                 "from": "hardened_profile",
@@ -600,6 +612,24 @@
                 "to": "profile_dict",
                 "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
                 "tone": "data"
+              },
+              {
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "ok"
+              },
+              {
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "data"
+              },
+              {
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "ok"
               },
               {
                 "from": "profile_dict",
@@ -765,7 +795,7 @@
           },
           {
             "at": "say10",
-            "caption": "Production container clusters maintain continuous telemetry monitoring.",
+            "caption": "Zero silent bypasses apply to ordinary internet-facing application pods.",
             "currentState": "rootless_ok",
             "transition": {
               "from": "seccomp_ok",
@@ -817,7 +847,7 @@
           },
           {
             "at": "say10",
-            "caption": "Production container clusters maintain continuous telemetry monitoring.",
+            "caption": "Zero silent bypasses apply to ordinary internet-facing application pods.",
             "currentState": "rootless_ok",
             "transition": {
               "from": "seccomp_ok",

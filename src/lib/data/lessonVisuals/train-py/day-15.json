@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A common formula is max_lr (step + 1) / warmup, so the very first step.",
+            "activeActor": "warmup",
+            "messages": [
+              {
+                "from": "max_lr",
+                "to": "warmup",
+                "label": {
+                  "var": "max_lr",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "warmup",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A common formula is max_lr (step + 1) / warmup, so the very first step.",
-            "activeActor": "warmup",
+            "at": "say10",
+            "caption": "Always plot the schedule before launching a long run.",
+            "activeActor": "step",
             "messages": [
+              {
+                "from": "max_lr",
+                "to": "warmup",
+                "label": {
+                  "var": "max_lr",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "warmup",
+                "to": "step",
+                "label": {
+                  "var": "warmup",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "max_lr",
                 "to": "warmup",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Always plot the schedule before launching a long run.",
-            "activeActor": "step",
-            "messages": [
+              },
               {
                 "from": "max_lr",
                 "to": "warmup",
@@ -282,12 +312,6 @@
                 "to": "warmup",
                 "label": "0.0003",
                 "tone": "data"
-              },
-              {
-                "from": "warmup",
-                "to": "step",
-                "label": "1000",
-                "tone": "ok"
               }
             ],
             "activeActor": "max_lr"
@@ -315,6 +339,30 @@
             "at": "say10",
             "caption": "Always plot the schedule before launching a long run.",
             "messages": [
+              {
+                "from": "max_lr",
+                "to": "warmup",
+                "label": "0.0003",
+                "tone": "data"
+              },
+              {
+                "from": "warmup",
+                "to": "step",
+                "label": "1000",
+                "tone": "ok"
+              },
+              {
+                "from": "max_lr",
+                "to": "warmup",
+                "label": "0.0003",
+                "tone": "data"
+              },
+              {
+                "from": "warmup",
+                "to": "step",
+                "label": "1000",
+                "tone": "ok"
+              },
               {
                 "from": "max_lr",
                 "to": "warmup",
@@ -426,7 +474,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how rounding updates rate during execution.",
+            "caption": "Examine the rounding value produced for rate processing.",
             "bars": [
               {
                 "label": "step",
@@ -526,7 +574,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how rounding updates rate during execution.",
+            "caption": "Examine the rounding value produced for rate processing.",
             "bars": [
               {
                 "label": "step",
@@ -818,7 +866,7 @@
           },
           {
             "at": "say2",
-            "caption": "After resuming from a checkpoint, the scheduler must continue from.",
+            "caption": "Verify the resuming transition driving checkpoint behavior.",
             "values": {
               "resume_step": {
                 "var": "resume_step",
@@ -904,7 +952,7 @@
           },
           {
             "at": "say2",
-            "caption": "After resuming from a checkpoint, the scheduler must continue from.",
+            "caption": "Verify the resuming transition driving checkpoint behavior.",
             "values": {
               "resume_step": "600",
               "step": "600"
@@ -968,7 +1016,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lr_at(step, max_lr, warmup, total, min_lr=0.",
+            "caption": "Warmup gives max_lr × (step + 1)/warmup.",
             "values": {
               "step": {
                 "var": "step",
@@ -1018,8 +1066,8 @@
             "values": {
               "step": {
                 "var": "step",
-                "line": 4,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "max_lr": {
                 "var": "max_lr",
@@ -1064,8 +1112,8 @@
             "values": {
               "step": {
                 "var": "step",
-                "line": 5,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "max_lr": {
                 "var": "max_lr",
@@ -1130,7 +1178,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lr_at(step, max_lr, warmup, total, min_lr=0.",
+            "caption": "Warmup gives max_lr × (step + 1)/warmup.",
             "values": {
               "step": "0",
               "max_lr": "0.1",
@@ -1162,7 +1210,7 @@
             "at": "say2",
             "caption": "The checks include the first warmup step, the end of warmup, the start.",
             "values": {
-              "step": "0",
+              "step": "49",
               "max_lr": "0.1",
               "warmup": "50",
               "total": "1000"
@@ -1192,7 +1240,7 @@
             "at": "say10",
             "caption": "If a halfway check fails, check the progress formula uses total warmup.",
             "values": {
-              "step": "0",
+              "step": "250",
               "max_lr": "0.1",
               "warmup": "50",
               "total": "1000"

@@ -6,164 +6,108 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "SPLADE & Learned Sparse Representations — Foundations & Mathematical Invariants",
-      "codeHash": "3a465b6d77f5248a192168e9839b00c2b0faafb588aa93dacee169469cf85768",
+      "partTitle": "Magnitude Threshold Pruning for Learned Sparse Vectors",
+      "codeHash": "f174cfff242f23405c8b4c83c3a74e0198142f866da760f5549b69ba0afe1c65",
       "spec": {
         "template": "flow",
-        "title": "SPLADE & Learned Sparse Representations — Foundations & Mathemat",
+        "title": "Magnitude Threshold Pruning for Learned Sparse Vectors",
         "nodes": [
           {
-            "id": "raw_splade",
-            "label": "raw_splade"
-          },
-          {
-            "id": "weights",
-            "label": "weights"
-          },
-          {
-            "id": "threshold",
-            "label": "threshold"
+            "id": "pruned",
+            "label": "pruned",
+            "tappable": true
           },
           {
             "id": "token",
-            "label": "token"
+            "label": "token",
+            "tappable": true
+          },
+          {
+            "id": "w",
+            "label": "w",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional BM25 matches only exact terms present in the query.",
+            "caption": "Inspect traditional updates as pruned tracks bm25 state.",
             "values": {
-              "raw_splade": {
-                "var": "raw_splade",
+              "pruned": {
+                "var": "pruned",
                 "line": 4,
                 "hit": 1
               },
-              "weights": {
-                "var": "weights",
-                "line": 2,
-                "hit": 1
-              },
-              "threshold": {
-                "var": "threshold",
-                "line": 2,
-                "hit": 1
-              },
               "token": {
-                "var": "token",
-                "line": 2,
-                "hit": 1
+                "text": ""
+              },
+              "w": {
+                "text": ""
               }
             },
             "tones": {
-              "raw_splade": "data",
-              "weights": "data",
-              "threshold": "data",
-              "token": "data"
+              "pruned": "data",
+              "token": "idle",
+              "w": "idle"
             },
-            "arrows": [
-              [
-                "raw_splade",
-                "weights"
-              ],
-              [
-                "weights",
-                "threshold"
-              ],
-              [
-                "threshold",
-                "token"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "SPLADE solves this by passing text through a BERT encoder and predicting.",
+            "caption": "Verify the splade transition driving solves behavior.",
             "values": {
-              "raw_splade": {
-                "var": "raw_splade",
-                "line": 5,
-                "hit": 1
-              },
-              "weights": {
-                "var": "weights",
-                "line": 2,
-                "hit": 2
-              },
-              "threshold": {
-                "var": "threshold",
-                "line": 2,
-                "hit": 2
+              "pruned": {
+                "var": "pruned",
+                "line": 6,
+                "hit": 3
               },
               "token": {
                 "var": "token",
-                "line": 2,
-                "hit": 2
+                "line": 6,
+                "hit": 3
+              },
+              "w": {
+                "var": "w",
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
-              "raw_splade": "data",
-              "weights": "data",
-              "threshold": "data",
-              "token": "data"
+              "pruned": "data",
+              "token": "data",
+              "w": "data"
             },
             "arrows": [
               [
-                "raw_splade",
-                "weights"
-              ],
-              [
-                "weights",
-                "threshold"
-              ],
-              [
-                "threshold",
+                "pruned",
                 "token"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "at": "say3",
+            "caption": "Examine the words value produced for present processing.",
             "values": {
-              "raw_splade": {
-                "var": "raw_splade",
-                "line": 6,
+              "pruned": {
+                "var": "pruned",
+                "line": 12,
                 "hit": 1
               },
-              "weights": {
-                "var": "weights",
-                "line": 2,
-                "hit": 3
-              },
-              "threshold": {
-                "var": "threshold",
-                "line": 2,
-                "hit": 3
-              },
               "token": {
-                "var": "token",
-                "line": 2,
-                "hit": 3
+                "text": ""
+              },
+              "w": {
+                "text": ""
               }
             },
             "tones": {
-              "raw_splade": "ok",
-              "weights": "ok",
-              "threshold": "ok",
-              "token": "ok"
+              "pruned": "ok",
+              "token": "idle",
+              "w": "idle"
             },
             "arrows": [
               [
-                "raw_splade",
-                "weights"
-              ],
-              [
-                "weights",
-                "threshold"
-              ],
-              [
-                "threshold",
+                "pruned",
                 "token"
               ]
             ]
@@ -172,112 +116,76 @@
       },
       "filled": {
         "template": "flow",
-        "title": "SPLADE & Learned Sparse Representations — Foundations & Mathemat",
+        "title": "Magnitude Threshold Pruning for Learned Sparse Vectors",
         "nodes": [
           {
-            "id": "raw_splade",
-            "label": "raw_splade"
-          },
-          {
-            "id": "weights",
-            "label": "weights"
-          },
-          {
-            "id": "threshold",
-            "label": "threshold"
+            "id": "pruned",
+            "label": "pruned",
+            "tappable": true
           },
           {
             "id": "token",
-            "label": "token"
+            "label": "token",
+            "tappable": true
+          },
+          {
+            "id": "w",
+            "label": "w",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional BM25 matches only exact terms present in the query.",
+            "caption": "Inspect traditional updates as pruned tracks bm25 state.",
             "values": {
-              "raw_splade": "{'database': 1.45, 'vector': 2.1, 'quer…",
-              "weights": "{'database': 1.45, 'vector': 2.1, 'quer…",
-              "threshold": "0.05",
-              "token": "'a'"
+              "pruned": "{}",
+              "token": "",
+              "w": ""
             },
             "tones": {
-              "raw_splade": "data",
-              "weights": "data",
-              "threshold": "data",
-              "token": "data"
+              "pruned": "data",
+              "token": "idle",
+              "w": "idle"
             },
-            "arrows": [
-              [
-                "raw_splade",
-                "weights"
-              ],
-              [
-                "weights",
-                "threshold"
-              ],
-              [
-                "threshold",
-                "token"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "SPLADE solves this by passing text through a BERT encoder and predicting.",
+            "caption": "Verify the splade transition driving solves behavior.",
             "values": {
-              "raw_splade": "{'database': 1.45, 'vector': 2.1, 'quer…",
-              "weights": "{'database': 1.45, 'vector': 2.1, 'quer…",
-              "threshold": "0.05",
-              "token": "'database'"
+              "pruned": "{'database': 1.45}",
+              "token": "'query'",
+              "w": "0.85"
             },
             "tones": {
-              "raw_splade": "data",
-              "weights": "data",
-              "threshold": "data",
-              "token": "data"
+              "pruned": "data",
+              "token": "data",
+              "w": "data"
             },
             "arrows": [
               [
-                "raw_splade",
-                "weights"
-              ],
-              [
-                "weights",
-                "threshold"
-              ],
-              [
-                "threshold",
+                "pruned",
                 "token"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "at": "say3",
+            "caption": "Examine the words value produced for present processing.",
             "values": {
-              "raw_splade": "{'database': 1.45, 'vector': 2.1, 'quer…",
-              "weights": "{'database': 1.45, 'vector': 2.1, 'quer…",
-              "threshold": "0.05",
-              "token": "'query'"
+              "pruned": "{'database': 1.45, 'query': 0.85, 'vect…",
+              "token": "",
+              "w": ""
             },
             "tones": {
-              "raw_splade": "ok",
-              "weights": "ok",
-              "threshold": "ok",
-              "token": "ok"
+              "pruned": "ok",
+              "token": "idle",
+              "w": "idle"
             },
             "arrows": [
               [
-                "raw_splade",
-                "weights"
-              ],
-              [
-                "weights",
-                "threshold"
-              ],
-              [
-                "threshold",
+                "pruned",
                 "token"
               ]
             ]
@@ -286,7 +194,7 @@
       }
     },
     {
-      "partTitle": "SPLADE & Learned Sparse Representations — Core Algorithm & State Representation",
+      "partTitle": "Inverted Posting Lists Mapping Vocabulary Terms to Weight Pairs",
       "codeHash": "0ffe9a48c067b82d6e3b4fbe4f6fe10366edb3e739362bbcafa3726e11d89e05",
       "spec": {
         "template": "flow",
@@ -372,13 +280,13 @@
               },
               "doc_id": {
                 "var": "doc_id",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 4
               },
               "sparse_vec": {
                 "var": "sparse_vec",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 4
               }
             },
             "tones": {
@@ -404,7 +312,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the posting value produced for storing processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -418,13 +326,13 @@
               },
               "doc_id": {
                 "var": "doc_id",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 4
               },
               "sparse_vec": {
                 "var": "sparse_vec",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 4
               }
             },
             "tones": {
@@ -508,8 +416,8 @@
             "values": {
               "self": "<InvertedPostingIndex>",
               "idx": "<InvertedPostingIndex>",
-              "doc_id": "101",
-              "sparse_vec": "{'vector': 1.5, 'ann': 0.8}"
+              "doc_id": "102",
+              "sparse_vec": "{'vector': 0.9, 'bm25': 1.2}"
             },
             "tones": {
               "self": "data",
@@ -534,12 +442,12 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the posting value produced for storing processing.",
             "values": {
               "self": "<InvertedPostingIndex>",
               "idx": "<InvertedPostingIndex>",
-              "doc_id": "101",
-              "sparse_vec": "{'vector': 1.5, 'ann': 0.8}"
+              "doc_id": "102",
+              "sparse_vec": "{'vector': 0.9, 'bm25': 1.2}"
             },
             "tones": {
               "self": "ok",
@@ -566,7 +474,7 @@
       }
     },
     {
-      "partTitle": "SPLADE & Learned Sparse Representations — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Term-at-a-Time Sparse Dot Product Accumulation",
       "codeHash": "b0ac50a3e1604b752e4fa14eb061a6c5decc87b708c90483e4d318d205e115d6",
       "spec": {
         "template": "bars",
@@ -640,7 +548,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the sparse value produced for scaling processing.",
             "bars": [
               {
                 "label": "q_w",
@@ -721,7 +629,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the sparse value produced for scaling processing.",
             "bars": [
               {
                 "label": "q_w",
@@ -744,7 +652,7 @@
       }
     },
     {
-      "partTitle": "SPLADE & Learned Sparse Representations — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Safe Key Intersection Guards for Disjoint Sparse Queries",
       "codeHash": "1487ad08d68d59bcc4269c49c688c60eb47b97969d032ecb31360e37c938fd1f",
       "spec": {
         "template": "flow",
@@ -770,7 +678,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production query parsers must handle empty queries, unmapped terms,.",
+            "caption": "Inspect disjoint updates as q_t tracks queries state.",
             "values": {
               "q_t": {
                 "var": "q_t",
@@ -788,16 +696,14 @@
                 "hit": 1
               },
               "d_terms": {
-                "var": "d_terms",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "q_t": "data",
               "d_t": "data",
               "q_terms": "data",
-              "d_terms": "data"
+              "d_terms": "idle"
             },
             "arrows": [
               [
@@ -862,7 +768,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the safe value produced for isolating processing.",
             "values": {
               "q_t": {
                 "var": "q_t",
@@ -932,18 +838,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production query parsers must handle empty queries, unmapped terms,.",
+            "caption": "Inspect disjoint updates as q_t tracks queries state.",
             "values": {
               "q_t": "{'vector': 1.2, 'search': 0.8}",
               "d_t": "{'vector': 0.5, 'database': 1}",
               "q_terms": "{'vector': 1.2, 'search': 0.8}",
-              "d_terms": "{'vector': 0.5, 'database': 1}"
+              "d_terms": ""
             },
             "tones": {
               "q_t": "data",
               "d_t": "data",
               "q_terms": "data",
-              "d_terms": "data"
+              "d_terms": "idle"
             },
             "arrows": [
               [
@@ -992,7 +898,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the safe value produced for isolating processing.",
             "values": {
               "q_t": "{'vector': 1.2, 'search': 0.8}",
               "d_t": "{'vector': 0.5, 'database': 1}",
@@ -1024,39 +930,30 @@
       }
     },
     {
-      "partTitle": "SPLADE & Learned Sparse Representations — Production Telemetry & Verification Audit",
-      "codeHash": "7e1295a5334759684686964a62b143932023e86f734e5b9ed1da2aae10290cee",
+      "partTitle": "Vocabulary Activation Density & Sparsity Health Telemetry",
+      "codeHash": "4afc4ead691ac9b863b59959d9d9f1b0e2c833379fef3d741de1a6ab78a690bc",
       "spec": {
         "template": "bars",
-        "title": "SPLADE & Learned Sparse Representations — Production Telemetry &",
+        "title": "Vocabulary Activation Density & Sparsity Health Telemetry",
         "steps": [
           {
             "at": "say1",
-            "caption": "Monitoring vector sparsity metrics is critical for verifying model.",
+            "caption": "Observe how sparsity shapes monitoring during this step.",
             "bars": [
               {
-                "label": "vocab_size",
+                "label": "k",
                 "value": {
-                  "var": "vocab_size",
-                  "line": 2,
+                  "var": "k",
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "non_zero",
+                "label": "v",
                 "value": {
-                  "var": "non_zero",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "sparsity_pct",
-                "value": {
-                  "var": "sparsity_pct",
-                  "line": 3,
+                  "var": "v",
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "data"
@@ -1065,65 +962,47 @@
           },
           {
             "at": "say2",
-            "caption": "Sparsity measures the proportion of vocabulary dimensions that contain.",
+            "caption": "Verify the vocabulary transition driving sparsity behavior.",
             "bars": [
               {
-                "label": "vocab_size",
+                "label": "k",
                 "value": {
-                  "var": "vocab_size",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "non_zero",
-                "value": {
-                  "var": "non_zero",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "sparsity_pct",
-                "value": {
-                  "var": "sparsity_pct",
+                  "var": "k",
                   "line": 4,
-                  "hit": 1
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the vocabulary value produced for standard processing.",
             "bars": [
               {
-                "label": "vocab_size",
+                "label": "k",
                 "value": {
-                  "var": "vocab_size",
+                  "var": "k",
                   "line": 4,
-                  "hit": 1
+                  "hit": 3
                 },
                 "tone": "ok"
               },
               {
-                "label": "non_zero",
+                "label": "v",
                 "value": {
-                  "var": "non_zero",
+                  "var": "v",
                   "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "sparsity_pct",
-                "value": {
-                  "var": "sparsity_pct",
-                  "line": 4,
-                  "hit": 1
+                  "hit": 3
                 },
                 "tone": "ok"
               }
@@ -1133,67 +1012,52 @@
       },
       "filled": {
         "template": "bars",
-        "title": "SPLADE & Learned Sparse Representations — Production Telemetry &",
+        "title": "Vocabulary Activation Density & Sparsity Health Telemetry",
         "steps": [
           {
             "at": "say1",
-            "caption": "Monitoring vector sparsity metrics is critical for verifying model.",
+            "caption": "Observe how sparsity shapes monitoring during this step.",
             "bars": [
               {
-                "label": "vocab_size",
-                "value": 30522,
+                "label": "k",
+                "value": "'neural'",
                 "tone": "data"
               },
               {
-                "label": "non_zero",
-                "value": 3,
-                "tone": "data"
-              },
-              {
-                "label": "sparsity_pct",
-                "value": 99.99,
+                "label": "v",
+                "value": 1.2,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sparsity measures the proportion of vocabulary dimensions that contain.",
+            "caption": "Verify the vocabulary transition driving sparsity behavior.",
             "bars": [
               {
-                "label": "vocab_size",
-                "value": 30522,
-                "tone": "ok"
+                "label": "k",
+                "value": "'index'",
+                "tone": "data"
               },
               {
-                "label": "non_zero",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "sparsity_pct",
-                "value": 99.99,
-                "tone": "ok"
+                "label": "v",
+                "value": 0.8,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the vocabulary value produced for standard processing.",
             "bars": [
               {
-                "label": "vocab_size",
-                "value": 30522,
+                "label": "k",
+                "value": "'quantization'",
                 "tone": "ok"
               },
               {
-                "label": "non_zero",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "sparsity_pct",
-                "value": 99.99,
+                "label": "v",
+                "value": 1.5,
                 "tone": "ok"
               }
             ]

@@ -903,7 +903,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "To delete a node from a singly linked list, you change the link of.",
+            "caption": "The deleted node is skipped and Python frees it later.",
             "items": {
               "var": "out",
               "line": 9,
@@ -957,7 +957,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "To delete a node from a singly linked list, you change the link of.",
+            "caption": "The deleted node is skipped and Python frees it later.",
             "items": [
               "3",
               "5"

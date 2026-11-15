@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Given `N` scattered 2D coordinates (GPS pings, radar targets, collision.",
+            "caption": "Observe how andrew shapes monotone during this step.",
             "items": {
               "var": "p",
               "line": 10,
@@ -270,7 +270,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Given `N` scattered 2D coordinates (GPS pings, radar targets, collision.",
+            "caption": "Observe how andrew shapes monotone during this step.",
             "mode": "stack",
             "items": [
               "0",

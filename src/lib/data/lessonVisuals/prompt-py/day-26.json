@@ -31,6 +31,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The key is constraints.",
+            "activeActor": "lines",
+            "messages": [
+              {
+                "from": "constraints",
+                "to": "lines",
+                "label": {
+                  "var": "constraints",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "lines",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The key is constraints.",
-            "activeActor": "lines",
+            "at": "say9",
+            "caption": "Examine the small value produced for specific processing.",
+            "activeActor": "prompt",
             "messages": [
+              {
+                "from": "constraints",
+                "to": "lines",
+                "label": {
+                  "var": "constraints",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "prompt",
+                "label": {
+                  "var": "lines",
+                  "line": 3,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
               {
                 "from": "constraints",
                 "to": "lines",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Trace how small updates specific during execution.",
-            "activeActor": "prompt",
-            "messages": [
+              },
               {
                 "from": "constraints",
                 "to": "lines",
@@ -118,12 +148,6 @@
                 "to": "lines",
                 "label": "{'work': '9 am to 6 pm on weekdays', 'g…",
                 "tone": "data"
-              },
-              {
-                "from": "lines",
-                "to": "prompt",
-                "label": "['- work: 9 am to 6 pm on weekdays', '-…",
-                "tone": "ok"
               }
             ],
             "activeActor": "constraints"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how small updates specific during execution.",
+            "caption": "Examine the small value produced for specific processing.",
             "messages": [
+              {
+                "from": "constraints",
+                "to": "lines",
+                "label": "{'work': '9 am to 6 pm on weekdays', 'g…",
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "prompt",
+                "label": "['- work: 9 am to 6 pm on weekdays', '-…",
+                "tone": "ok"
+              },
+              {
+                "from": "constraints",
+                "to": "lines",
+                "label": "{'work': '9 am to 6 pm on weekdays', 'g…",
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "prompt",
+                "label": "['- work: 9 am to 6 pm on weekdays', '-…",
+                "tone": "ok"
+              },
               {
                 "from": "constraints",
                 "to": "lines",
@@ -319,8 +367,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AI habit coaches suggest small, specific habits and encourage you, but.",
+            "caption": "Observe how habits shapes habit during this step.",
             "activeActor": "log",
+            "messages": [
+              {
+                "from": "log",
+                "to": "days",
+                "label": {
+                  "var": "log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A streak is a run of consecutive days on which the habit was done.",
+            "activeActor": "days",
             "messages": [
               {
                 "from": "log",
@@ -345,10 +410,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A streak is a run of consecutive days on which the habit was done.",
-            "activeActor": "days",
+            "at": "say9",
+            "caption": "Tracking only a few habits at once keeps the effort small enough to sustain.",
+            "activeActor": "run",
             "messages": [
+              {
+                "from": "log",
+                "to": "days",
+                "label": {
+                  "var": "log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "run",
+                "label": {
+                  "var": "days",
+                  "line": 4,
+                  "hit": 7
+                },
+                "tone": "ok"
+              },
               {
                 "from": "log",
                 "to": "days",
@@ -368,14 +453,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Tracking only a few habits at once keeps the effort small enough to sustain.",
-            "activeActor": "run",
-            "messages": [
+              },
               {
                 "from": "log",
                 "to": "days",
@@ -411,19 +489,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "AI habit coaches suggest small, specific habits and encourage you, but.",
+            "caption": "Observe how habits shapes habit during this step.",
             "messages": [
               {
                 "from": "log",
                 "to": "days",
                 "label": "['2024-05-01', '2024-05-02', '2024-05-0…",
                 "tone": "data"
-              },
-              {
-                "from": "days",
-                "to": "run",
-                "label": "[{'__other__': 'date'}, {'__other__': '…",
-                "tone": "ok"
               }
             ],
             "activeActor": "log"
@@ -441,7 +513,7 @@
               {
                 "from": "days",
                 "to": "run",
-                "label": "[{'__other__': 'date'}, {'__other__': '…",
+                "label": "[<date>, <date>, <date>, <date>, <date>]",
                 "tone": "ok"
               }
             ],
@@ -460,7 +532,31 @@
               {
                 "from": "days",
                 "to": "run",
-                "label": "[{'__other__': 'date'}, {'__other__': '…",
+                "label": "[<date>, <date>, <date>, <date>, <date>]",
+                "tone": "ok"
+              },
+              {
+                "from": "log",
+                "to": "days",
+                "label": "['2024-05-01', '2024-05-02', '2024-05-0…",
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "run",
+                "label": "[<date>, <date>, <date>, <date>, <date>]",
+                "tone": "ok"
+              },
+              {
+                "from": "log",
+                "to": "days",
+                "label": "['2024-05-01', '2024-05-02', '2024-05-0…",
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "run",
+                "label": "[<date>, <date>, <date>, <date>, <date>]",
                 "tone": "ok"
               }
             ],
@@ -473,162 +569,158 @@
       "partTitle": "Travel planning",
       "codeHash": "8ce501700d46cbefd9c3ab896d3b8b17be487df5aa11ce45dfd734d03c21775c",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Travel planning",
-        "actors": [
-          "day_plan",
-          "available",
-          ".0"
+        "nodes": [
+          {
+            "id": "h",
+            "label": "h",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AI can draft itineraries, compare transport options, suggest packing lists.",
-            "activeActor": "day_plan",
-            "messages": [
-              {
-                "from": "day_plan",
-                "to": "available",
-                "label": {
-                  "var": "day_plan",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect draft updates as h tracks itineraries state.",
+            "values": {
+              "h": {
+                "var": "h",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "from": "available",
-                "to": ".0",
-                "label": {
-                  "var": "available",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "h": "data",
+              "n": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Give dates, budget, travel style (relaxed or packed), interests and any.",
-            "activeActor": "available",
-            "messages": [
-              {
-                "from": "day_plan",
-                "to": "available",
-                "label": {
-                  "var": "day_plan",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the travel transition driving give behavior.",
+            "values": {
+              "h": {
+                "var": "h",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": "available",
-                "to": ".0",
-                "label": {
-                  "var": "available",
-                  "line": 3,
-                  "hit": 8
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "h": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "h",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Local festivals and holidays can close attractions or raise prices, so ask.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "day_plan",
-                "to": "available",
-                "label": {
-                  "var": "day_plan",
-                  "line": 3,
-                  "hit": 8
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the always value produced for verify processing.",
+            "values": {
+              "h": {
+                "var": "h",
+                "line": 5,
+                "hit": 6
               },
-              {
-                "from": "available",
-                "to": ".0",
-                "label": {
-                  "var": "available",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 6
               }
+            },
+            "tones": {
+              "h": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "h",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Travel planning",
-        "actors": [
-          "day_plan",
-          "available",
-          ".0"
+        "nodes": [
+          {
+            "id": "h",
+            "label": "h",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AI can draft itineraries, compare transport options, suggest packing lists.",
-            "messages": [
-              {
-                "from": "day_plan",
-                "to": "available",
-                "label": "[['Fort', 2.5], ['travel', 0.75], ['Mus…",
-                "tone": "data"
-              },
-              {
-                "from": "available",
-                "to": ".0",
-                "label": "9",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "day_plan"
+            "caption": "Inspect draft updates as h tracks itineraries state.",
+            "values": {
+              "h": "2.5",
+              "n": ""
+            },
+            "tones": {
+              "h": "data",
+              "n": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Give dates, budget, travel style (relaxed or packed), interests and any.",
-            "messages": [
-              {
-                "from": "day_plan",
-                "to": "available",
-                "label": "[['Fort', 2.5], ['travel', 0.75], ['Mus…",
-                "tone": "data"
-              },
-              {
-                "from": "available",
-                "to": ".0",
-                "label": "9",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "available"
+            "caption": "Verify the travel transition driving give behavior.",
+            "values": {
+              "h": "2.5",
+              "n": "'Fort'"
+            },
+            "tones": {
+              "h": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "h",
+                "n"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Local festivals and holidays can close attractions or raise prices, so ask.",
-            "messages": [
-              {
-                "from": "day_plan",
-                "to": "available",
-                "label": "[['Fort', 2.5], ['travel', 0.75], ['Mus…",
-                "tone": "data"
-              },
-              {
-                "from": "available",
-                "to": ".0",
-                "label": "9",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Examine the always value produced for verify processing.",
+            "values": {
+              "h": "2",
+              "n": "'Beach at sunset'"
+            },
+            "tones": {
+              "h": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "h",
+                "n"
+              ]
+            ]
           }
         ]
       }
@@ -678,16 +770,14 @@
                 "hit": 1
               },
               "base": {
-                "var": "base",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total": "data",
               "people": "data",
               "naive": "data",
-              "base": "data"
+              "base": "idle"
             },
             "arrows": [
               [
@@ -706,7 +796,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how dividing updates among during execution.",
+            "caption": "Verify the dividing transition driving among behavior.",
             "values": {
               "total": {
                 "var": "total",
@@ -827,13 +917,13 @@
               "total": "100",
               "people": "3",
               "naive": "[33.33, 33.33, 33.33]",
-              "base": "3333"
+              "base": ""
             },
             "tones": {
               "total": "data",
               "people": "data",
               "naive": "data",
-              "base": "data"
+              "base": "idle"
             },
             "arrows": [
               [
@@ -852,7 +942,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how dividing updates among during execution.",
+            "caption": "Verify the dividing transition driving among behavior.",
             "values": {
               "total": "100",
               "people": "3",

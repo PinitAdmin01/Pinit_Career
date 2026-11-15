@@ -56,7 +56,7 @@
           },
           {
             "at": "say11",
-            "caption": "Mastering this end-to-end synthesis certifies full-stack expertise.",
+            "caption": "Examine the milestone value produced for crowns processing.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say11",
-            "caption": "Mastering this end-to-end synthesis certifies full-stack expertise.",
+            "caption": "Examine the milestone value produced for crowns processing.",
             "rows": [
               {
                 "cells": [
@@ -168,16 +168,14 @@
                 "hit": 1
               },
               "total_steps": {
-                "var": "total_steps",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_tokens_b": "data",
               "tokens_per_step": "data",
               "num_nodes": "data",
-              "total_steps": "data"
+              "total_steps": "idle"
             },
             "arrows": [
               [
@@ -196,7 +194,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how trillion updates token during execution.",
+            "caption": "Verify the training transition driving trillion behavior.",
             "values": {
               "total_tokens_b": {
                 "var": "total_tokens_b",
@@ -242,7 +240,7 @@
           },
           {
             "at": "say11",
-            "caption": "This core algorithmic engine coordinates the execution of humanity's most.",
+            "caption": "Examine the converting value produced for trillion processing.",
             "values": {
               "total_tokens_b": {
                 "var": "total_tokens_b",
@@ -317,13 +315,13 @@
               "total_tokens_b": "2000",
               "tokens_per_step": "4194304",
               "num_nodes": "64",
-              "total_steps": "476837"
+              "total_steps": ""
             },
             "tones": {
               "total_tokens_b": "data",
               "tokens_per_step": "data",
               "num_nodes": "data",
-              "total_steps": "data"
+              "total_steps": "idle"
             },
             "arrows": [
               [
@@ -342,7 +340,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how trillion updates token during execution.",
+            "caption": "Verify the training transition driving trillion behavior.",
             "values": {
               "total_tokens_b": "2000",
               "tokens_per_step": "4194304",
@@ -372,7 +370,7 @@
           },
           {
             "at": "say11",
-            "caption": "This core algorithmic engine coordinates the execution of humanity's most.",
+            "caption": "Examine the converting value produced for trillion processing.",
             "values": {
               "total_tokens_b": "2000",
               "tokens_per_step": "4194304",
@@ -448,16 +446,14 @@
                 "hit": 1
               },
               "gpu_tflops": {
-                "var": "gpu_tflops",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_tokens_b": "data",
               "model_b": "data",
               "mfu_pct": "data",
-              "gpu_tflops": "data"
+              "gpu_tflops": "idle"
             },
             "arrows": [
               [
@@ -476,7 +472,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how training updates billion during execution.",
+            "caption": "Verify the training transition driving billion behavior.",
             "values": {
               "total_tokens_b": {
                 "var": "total_tokens_b",
@@ -597,13 +593,13 @@
               "total_tokens_b": "2000",
               "model_b": "70",
               "mfu_pct": "58.4",
-              "gpu_tflops": "989"
+              "gpu_tflops": ""
             },
             "tones": {
               "total_tokens_b": "data",
               "model_b": "data",
               "mfu_pct": "data",
-              "gpu_tflops": "data"
+              "gpu_tflops": "idle"
             },
             "arrows": [
               [
@@ -622,7 +618,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how training updates billion during execution.",
+            "caption": "Verify the training transition driving billion behavior.",
             "values": {
               "total_tokens_b": "2000",
               "model_b": "70",
@@ -697,8 +693,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates releasing during execution.",
+            "caption": "Observe how master shapes before during this step.",
             "activeActor": "invs",
+            "messages": [
+              {
+                "from": "invs",
+                "to": "invariants",
+                "label": {
+                  "var": "invs",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the master transition driving preflight behavior.",
+            "activeActor": "invariants",
             "messages": [
               {
                 "from": "invs",
@@ -723,10 +736,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The master preflight suite inspects every foundational invariant across.",
-            "activeActor": "invariants",
+            "at": "say11",
+            "caption": "Master preflight verification is the ultimate operational safeguard.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "invs",
+                "to": "invariants",
+                "label": {
+                  "var": "invs",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "invariants",
+                "to": "name",
+                "label": {
+                  "var": "invariants",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "invs",
                 "to": "invariants",
@@ -746,14 +779,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Master preflight verification is the ultimate operational safeguard.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "invs",
                 "to": "invariants",
@@ -789,26 +815,20 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates releasing during execution.",
+            "caption": "Observe how master shapes before during this step.",
             "messages": [
               {
                 "from": "invs",
                 "to": "invariants",
                 "label": "{'3D_Mesh_Topology': True, 'FP8_Scaling…",
                 "tone": "data"
-              },
-              {
-                "from": "invariants",
-                "to": "name",
-                "label": "{'3D_Mesh_Topology': True, 'FP8_Scaling…",
-                "tone": "ok"
               }
             ],
             "activeActor": "invs"
           },
           {
             "at": "say2",
-            "caption": "The master preflight suite inspects every foundational invariant across.",
+            "caption": "Verify the master transition driving preflight behavior.",
             "messages": [
               {
                 "from": "invs",
@@ -829,6 +849,30 @@
             "at": "say11",
             "caption": "Master preflight verification is the ultimate operational safeguard.",
             "messages": [
+              {
+                "from": "invs",
+                "to": "invariants",
+                "label": "{'3D_Mesh_Topology': True, 'FP8_Scaling…",
+                "tone": "data"
+              },
+              {
+                "from": "invariants",
+                "to": "name",
+                "label": "{'3D_Mesh_Topology': True, 'FP8_Scaling…",
+                "tone": "ok"
+              },
+              {
+                "from": "invs",
+                "to": "invariants",
+                "label": "{'3D_Mesh_Topology': True, 'FP8_Scaling…",
+                "tone": "data"
+              },
+              {
+                "from": "invariants",
+                "to": "name",
+                "label": "{'3D_Mesh_Topology': True, 'FP8_Scaling…",
+                "tone": "ok"
+              },
               {
                 "from": "invs",
                 "to": "invariants",

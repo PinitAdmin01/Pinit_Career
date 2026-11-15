@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Embedding Drift Detection — Foundations & Mathematical Invariants",
+      "partTitle": "Tracking Geometric Centroid Shift via Cosine Drift Distance",
       "codeHash": "44320b8441df09d6ea2a6bc19c18a4ea8a82bc88d9edc0d6c840013880371d8e",
       "spec": {
         "template": "cells",
@@ -118,7 +118,7 @@
       }
     },
     {
-      "partTitle": "Embedding Drift Detection — Core Algorithm & State Representation",
+      "partTitle": "Detecting Distributional Divergence with Histogram PSI",
       "codeHash": "08bc6353c7834c7f9237e5bc636fe2c026e46c61903a5d410c4fe8e134478934",
       "spec": {
         "template": "flow",
@@ -162,16 +162,14 @@
                 "hit": 1
               },
               "current_counts": {
-                "var": "current_counts",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "base_bins": "data",
               "curr_bins": "data",
               "baseline_counts": "data",
-              "current_counts": "data"
+              "current_counts": "idle"
             },
             "arrows": [
               [
@@ -236,7 +234,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the histogram value produced for checking processing.",
             "values": {
               "base_bins": {
                 "var": "base_bins",
@@ -311,13 +309,13 @@
               "base_bins": "[200, 300, 500]",
               "curr_bins": "[220, 290, 490]",
               "baseline_counts": "[200, 300, 500]",
-              "current_counts": "[220, 290, 490]"
+              "current_counts": ""
             },
             "tones": {
               "base_bins": "data",
               "curr_bins": "data",
               "baseline_counts": "data",
-              "current_counts": "data"
+              "current_counts": "idle"
             },
             "arrows": [
               [
@@ -366,7 +364,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the histogram value produced for checking processing.",
             "values": {
               "base_bins": "[200, 300, 500]",
               "curr_bins": "[220, 290, 490]",
@@ -398,21 +396,21 @@
       }
     },
     {
-      "partTitle": "Embedding Drift Detection — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "cb366640c4e149cf3f38c153f3b24d67b11fffd40e3dea28c51881fc585eaacd",
+      "partTitle": "Triggering Background Reindexing on Drift or PSI Thresholds",
+      "codeHash": "3efcdf7d1d94281f76075b9c2ab0325579ff6d1c7f032c7dd2f20ec607aba01e",
       "spec": {
         "template": "bars",
-        "title": "Embedding Drift Detection — Throughput Optimization & Edge-Case ",
+        "title": "Triggering Background Reindexing on Drift or PSI Thresholds",
         "steps": [
           {
             "at": "say1",
-            "caption": "Drift detection algorithms must automatically trigger proactive.",
+            "caption": "Observe how drift shapes detection during this step.",
             "bars": [
               {
                 "label": "centroid_drift",
                 "value": {
                   "var": "centroid_drift",
-                  "line": 2,
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "data"
@@ -421,26 +419,24 @@
                 "label": "psi",
                 "value": {
                   "var": "psi",
-                  "line": 2,
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "drift_thresh",
+                "label": "drift_breach",
                 "value": {
-                  "var": "drift_thresh",
-                  "line": 2,
+                  "var": "drift_breach",
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "psi_thresh",
+                "label": "action",
                 "value": {
-                  "var": "psi_thresh",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -448,56 +444,54 @@
           },
           {
             "at": "say2",
-            "caption": "Our evaluate_reindexing_trigger function evaluates both centroid drift.",
+            "caption": "Verify the reindexing transition driving drift behavior.",
             "bars": [
               {
                 "label": "centroid_drift",
                 "value": {
                   "var": "centroid_drift",
-                  "line": 3,
-                  "hit": 1
+                  "line": 7,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "psi",
                 "value": {
                   "var": "psi",
-                  "line": 3,
-                  "hit": 1
+                  "line": 7,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "drift_thresh",
+                "label": "drift_breach",
                 "value": {
-                  "var": "drift_thresh",
-                  "line": 3,
-                  "hit": 1
+                  "var": "drift_breach",
+                  "line": 7,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "psi_thresh",
+                "label": "action",
                 "value": {
-                  "var": "psi_thresh",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "at": "say3",
+            "caption": "Examine the background value produced for drift processing.",
             "bars": [
               {
                 "label": "centroid_drift",
                 "value": {
                   "var": "centroid_drift",
-                  "line": 4,
-                  "hit": 1
+                  "line": 9,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
@@ -505,26 +499,26 @@
                 "label": "psi",
                 "value": {
                   "var": "psi",
-                  "line": 4,
-                  "hit": 1
+                  "line": 9,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "drift_thresh",
+                "label": "drift_breach",
                 "value": {
-                  "var": "drift_thresh",
-                  "line": 4,
-                  "hit": 1
+                  "var": "drift_breach",
+                  "line": 9,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "psi_thresh",
+                "label": "action",
                 "value": {
-                  "var": "psi_thresh",
-                  "line": 4,
-                  "hit": 1
+                  "var": "action",
+                  "line": 9,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -534,63 +528,63 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Embedding Drift Detection — Throughput Optimization & Edge-Case ",
+        "title": "Triggering Background Reindexing on Drift or PSI Thresholds",
         "steps": [
           {
             "at": "say1",
-            "caption": "Drift detection algorithms must automatically trigger proactive.",
+            "caption": "Observe how drift shapes detection during this step.",
             "bars": [
               {
                 "label": "centroid_drift",
-                "value": 0.06,
-                "tone": "data"
-              },
-              {
-                "label": "psi",
                 "value": 0.02,
                 "tone": "data"
               },
               {
-                "label": "drift_thresh",
-                "value": 0.05,
+                "label": "psi",
+                "value": 0.04,
                 "tone": "data"
               },
               {
-                "label": "psi_thresh",
-                "value": 0.1,
+                "label": "drift_breach",
+                "value": "False",
+                "tone": "data"
+              },
+              {
+                "label": "action",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Our evaluate_reindexing_trigger function evaluates both centroid drift.",
+            "caption": "Verify the reindexing transition driving drift behavior.",
             "bars": [
               {
                 "label": "centroid_drift",
                 "value": 0.06,
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "psi",
                 "value": 0.02,
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "drift_thresh",
-                "value": 0.05,
-                "tone": "ok"
+                "label": "drift_breach",
+                "value": "True",
+                "tone": "data"
               },
               {
-                "label": "psi_thresh",
-                "value": 0.1,
-                "tone": "ok"
+                "label": "action",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "at": "say3",
+            "caption": "Examine the background value produced for drift processing.",
             "bars": [
               {
                 "label": "centroid_drift",
@@ -603,13 +597,13 @@
                 "tone": "ok"
               },
               {
-                "label": "drift_thresh",
-                "value": 0.05,
+                "label": "drift_breach",
+                "value": "True",
                 "tone": "ok"
               },
               {
-                "label": "psi_thresh",
-                "value": 0.1,
+                "label": "action",
+                "value": "'TRIGGER_BACKGROUND_REINDEX'",
                 "tone": "ok"
               }
             ]
@@ -618,8 +612,8 @@
       }
     },
     {
-      "partTitle": "Embedding Drift Detection — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7cd95bada16e166c7f1d1f89757e718858204ff832e7018063b0f1bfb8bf8ea8",
+      "partTitle": "Clamping Floating-Point Roundoff in Cosine Drift Metrics",
+      "codeHash": "3b6c9b641f749a7edaadfb686bc8604fa83c01b418f38fd2339bb1460ae2d46f",
       "spec": {
         "template": "table",
         "title": "Embedding Drift Detection — Resilience Guardrails & Failure Reco",
@@ -630,7 +624,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Defensive boundary clamping in drift calculations protects against.",
+            "caption": "Observe how clamping shapes drift during this step.",
             "rows": [
               {
                 "cells": [
@@ -668,7 +662,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the testing value produced for negative processing.",
             "rows": [
               {
                 "cells": [
@@ -695,12 +689,12 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Defensive boundary clamping in drift calculations protects against.",
+            "caption": "Observe how clamping shapes drift during this step.",
             "rows": [
               {
                 "cells": [
                   "drift_val",
-                  "-0.1"
+                  "2.4"
                 ],
                 "tone": "data"
               }
@@ -713,7 +707,7 @@
               {
                 "cells": [
                   "drift_val",
-                  "-0.1"
+                  "2.4"
                 ],
                 "tone": "ok"
               }
@@ -721,7 +715,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the testing value produced for negative processing.",
             "rows": [
               {
                 "cells": [
@@ -736,18 +730,18 @@
       }
     },
     {
-      "partTitle": "Embedding Drift Detection — Production Telemetry & Verification Audit",
-      "codeHash": "db65a200217818c9a137cd70814cfe8473d3d501de4da8dfaa252da68a573542",
+      "partTitle": "Namespace-Level Drift Surveillance & Alert Aggregation",
+      "codeHash": "edc763e13cc617a83b5d3182eaca481996d5ccfaa2b6b3a40c49135c7e03b53d",
       "spec": {
         "template": "bars",
-        "title": "Embedding Drift Detection — Production Telemetry & Verification ",
+        "title": "Namespace-Level Drift Surveillance & Alert Aggregation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Drift telemetry audits track the health and stability of vector namespaces.",
+            "caption": "Observe how drift shapes telemetry during this step.",
             "bars": [
               {
-                "label": "monitored_name",
+                "label": "monitored_namespaces",
                 "value": {
                   "var": "monitored_namespaces",
                   "line": 2,
@@ -765,11 +759,16 @@
                 "tone": "data"
               },
               {
+                "label": "bounded_drifting",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
                 "label": "drift_pct",
                 "value": {
-                  "var": "drift_pct",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -777,46 +776,53 @@
           },
           {
             "at": "say2",
-            "caption": "Our audit_drift_monitoring function monitors drift across multiple.",
+            "caption": "Verify the drift transition driving audit behavior.",
             "bars": [
               {
-                "label": "monitored_name",
+                "label": "monitored_namespaces",
                 "value": {
                   "var": "monitored_namespaces",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "drifting_count",
                 "value": {
                   "var": "drifting_count",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "bounded_drifting",
+                "value": {
+                  "var": "bounded_drifting",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "label": "drift_pct",
                 "value": {
-                  "var": "drift_pct",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the drift value produced for across processing.",
             "bars": [
               {
-                "label": "monitored_name",
+                "label": "monitored_namespaces",
                 "value": {
                   "var": "monitored_namespaces",
-                  "line": 3,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -825,7 +831,16 @@
                 "label": "drifting_count",
                 "value": {
                   "var": "drifting_count",
-                  "line": 3,
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bounded_drifting",
+                "value": {
+                  "var": "bounded_drifting",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -834,7 +849,7 @@
                 "label": "drift_pct",
                 "value": {
                   "var": "drift_pct",
-                  "line": 3,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -845,14 +860,14 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Embedding Drift Detection — Production Telemetry & Verification ",
+        "title": "Namespace-Level Drift Surveillance & Alert Aggregation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Drift telemetry audits track the health and stability of vector namespaces.",
+            "caption": "Observe how drift shapes telemetry during this step.",
             "bars": [
               {
-                "label": "monitored_name",
+                "label": "monitored_namespaces",
                 "value": 20,
                 "tone": "data"
               },
@@ -862,18 +877,49 @@
                 "tone": "data"
               },
               {
+                "label": "bounded_drifting",
+                "value": 0,
+                "tone": "data"
+              },
+              {
                 "label": "drift_pct",
-                "value": 5,
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Our audit_drift_monitoring function monitors drift across multiple.",
+            "caption": "Verify the drift transition driving audit behavior.",
             "bars": [
               {
-                "label": "monitored_name",
+                "label": "monitored_namespaces",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "drifting_count",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "bounded_drifting",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "drift_pct",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the drift value produced for across processing.",
+            "bars": [
+              {
+                "label": "monitored_namespaces",
                 "value": 20,
                 "tone": "ok"
               },
@@ -883,23 +929,7 @@
                 "tone": "ok"
               },
               {
-                "label": "drift_pct",
-                "value": 5,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "bars": [
-              {
-                "label": "monitored_name",
-                "value": 20,
-                "tone": "ok"
-              },
-              {
-                "label": "drifting_count",
+                "label": "bounded_drifting",
                 "value": 1,
                 "tone": "ok"
               },

@@ -56,7 +56,7 @@
           },
           {
             "at": "say2",
-            "caption": "Rabin-Karp treats each character cleanly as a base-B digit (`B = 131`.",
+            "caption": "Verify the polynomial transition driving rabin behavior.",
             "bars": [
               {
                 "label": "n",
@@ -172,7 +172,7 @@
           },
           {
             "at": "say2",
-            "caption": "Rabin-Karp treats each character cleanly as a base-B digit (`B = 131`.",
+            "caption": "Verify the polynomial transition driving rabin behavior.",
             "bars": [
               {
                 "label": "n",
@@ -430,7 +430,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Closely related to KMP's LPS border table is the Z-Algorithm,.",
+            "caption": "Closely related to KMP's LPS border table is the Z-Algorithm.",
             "items": {
               "var": "z",
               "line": 3,
@@ -484,7 +484,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Closely related to KMP's LPS border table is the Z-Algorithm,.",
+            "caption": "Closely related to KMP's LPS border table is the Z-Algorithm.",
             "items": [
               "0",
               "0",

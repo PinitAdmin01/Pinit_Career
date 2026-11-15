@@ -7,28 +7,26 @@
   "entries": [
     {
       "partTitle": "The Paradigm Of Self Extending Toolkits From Static APIs To Dynamic Synthesis",
-      "codeHash": "69bc278d3fb020c828e64b4d2b57bb9c734a4fa263bf6fe4a32d77d2157c2cbe",
+      "codeHash": "a3fffc26945592ad12f23f31e0e547a6c1b59b43734a7150cb4ac271c4a34aa1",
       "spec": {
         "template": "table",
         "title": "The Paradigm Of Self Extending Toolkits From Static APIs To Dyna",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional foundation model agents operate within a fixed, hardcoded.",
+            "caption": "Observe how static shapes traditional during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "REGISTERED_TOOLS"
                   },
                   {
-                    "var": "result",
-                    "line": 24,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -37,31 +35,12 @@
           },
           {
             "at": "say2",
-            "caption": "The evolution from static interfaces to autonomous dynamic tool synthesis.",
+            "caption": "Verify the moving transition driving beyond behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 25,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Mastering the paradigm of dynamic tool synthesis elevates autonomous.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
+                    "text": "REGISTERED_TOOLS"
                   },
                   {
                     "out": 1
@@ -72,32 +51,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "REGISTERED_TOOLS"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -111,17 +68,17 @@
         "title": "The Paradigm Of Self Extending Toolkits From Static APIs To Dyna",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional foundation model agents operate within a fixed, hardcoded.",
+            "caption": "Observe how static shapes traditional during this step.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
+                  "REGISTERED_TOOLS",
+                  "Matched existing: ['fetch_quote', 'calc_irr']"
                 ],
                 "tone": "data"
               }
@@ -129,46 +86,19 @@
           },
           {
             "at": "say2",
-            "caption": "The evolution from static interfaces to autonomous dynamic tool synthesis.",
+            "caption": "Verify the moving transition driving beyond behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Mastering the paradigm of dynamic tool synthesis elevates autonomous.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
+                  "REGISTERED_TOOLS",
+                  "Matched existing: ['fetch_quote', 'calc_irr']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"synthesisEngine\": \"Autonomous Dynamic Tool Generation Fabric\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"toolRegistryStatus\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"synthesizedToolsCount\": 14,"
+                  "REGISTERED_TOOLS",
+                  "Synthesize new tools for gaps: ['parse_cron_window', 'mask_iban']"
                 ],
                 "tone": "ok"
               }
@@ -179,28 +109,26 @@
     },
     {
       "partTitle": "Automated Function Generation Type Annotations Pydantic Schemas And Docstrings",
-      "codeHash": "69bc278d3fb020c828e64b4d2b57bb9c734a4fa263bf6fe4a32d77d2157c2cbe",
+      "codeHash": "90c3f07b9d7956a5a2ee76f9ac8e26d10b577ab97692a6a720e123cd8685bd4e",
       "spec": {
         "template": "table",
         "title": "Automated Function Generation Type Annotations Pydantic Schemas ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing dynamic tools requires far more than generating unannotated.",
+            "caption": "Observe how function shapes type during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "import"
                   },
                   {
-                    "var": "result",
-                    "line": 24,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -209,31 +137,40 @@
           },
           {
             "at": "say2",
-            "caption": "Automated function generation leverages typed schemas and structured specs.",
+            "caption": "Verify the automated transition driving function behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "import"
                   },
                   {
-                    "var": "result",
-                    "line": 25,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "import"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering automated function generation and typed schema synthesis ensures.",
+            "at": "say3",
+            "caption": "Examine the function value produced for type processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "import"
                   },
                   {
                     "out": 1
@@ -244,7 +181,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "import"
                   },
                   {
                     "out": 2
@@ -255,7 +192,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "import"
                   },
                   {
                     "out": 3
@@ -266,7 +203,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 4"
+                    "text": "import"
                   },
                   {
                     "out": 4
@@ -283,17 +220,17 @@
         "title": "Automated Function Generation Type Annotations Pydantic Schemas ",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing dynamic tools requires far more than generating unannotated.",
+            "caption": "Observe how function shapes type during this step.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
+                  "import",
+                  "{"
                 ],
                 "tone": "data"
               }
@@ -301,46 +238,53 @@
           },
           {
             "at": "say2",
-            "caption": "Automated function generation leverages typed schemas and structured specs.",
+            "caption": "Verify the automated transition driving function behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
+                  "import",
+                  "{"
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "import",
+                  "  \"name\": \"net_margin\","
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering automated function generation and typed schema synthesis ensures.",
+            "at": "say3",
+            "caption": "Examine the function value produced for type processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
+                  "import",
                   "{"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"synthesisEngine\": \"Autonomous Dynamic Tool Generation Fabric\","
+                  "import",
+                  "  \"name\": \"net_margin\","
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"toolRegistryStatus\": {"
+                  "import",
+                  "  \"description\": \"Compute after-tax profit margin ratio from revenue and COGS.\","
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 4",
-                  "    \"synthesizedToolsCount\": 14,"
+                  "import",
+                  "  \"parameters\": {"
                 ],
                 "tone": "ok"
               }
@@ -351,28 +295,26 @@
     },
     {
       "partTitle": "Sandbox Validation And Automated Unit Testing Of Synthesized Tools",
-      "codeHash": "69bc278d3fb020c828e64b4d2b57bb9c734a4fa263bf6fe4a32d77d2157c2cbe",
+      "codeHash": "c24b8bf70053209bca9383c97a97f65578e5074504546bfdf78ea2e2d947d5a2",
       "spec": {
         "template": "table",
         "title": "Sandbox Validation And Automated Unit Testing Of Synthesized Too",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Allowing an autonomous agent to register an unverified, dynamically.",
+            "caption": "Observe how sandbox shapes automated during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "c_to_f"
                   },
                   {
-                    "var": "result",
-                    "line": 24,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -381,31 +323,40 @@
           },
           {
             "at": "say2",
-            "caption": "Sandbox validation and automated unit testing guarantee tool reliability.",
+            "caption": "Verify the sandbox transition driving validation behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "c_to_f"
                   },
                   {
-                    "var": "result",
-                    "line": 25,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "c_to_f"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering sandbox validation and automated unit testing creates.",
+            "at": "say3",
+            "caption": "Examine the synthetic value produced for test processing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "out 1"
+                    "text": "c_to_f"
                   },
                   {
                     "out": 1
@@ -416,7 +367,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "c_to_f"
                   },
                   {
                     "out": 2
@@ -427,7 +378,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 3"
+                    "text": "c_to_f"
                   },
                   {
                     "out": 3
@@ -438,7 +389,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 4"
+                    "text": "c_to_f"
                   },
                   {
                     "out": 4
@@ -455,17 +406,17 @@
         "title": "Sandbox Validation And Automated Unit Testing Of Synthesized Too",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Allowing an autonomous agent to register an unverified, dynamically.",
+            "caption": "Observe how sandbox shapes automated during this step.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
+                  "c_to_f",
+                  "c_to_f(0.0) = 32.0 (expected 32.0) -> PASS"
                 ],
                 "tone": "data"
               }
@@ -473,46 +424,53 @@
           },
           {
             "at": "say2",
-            "caption": "Sandbox validation and automated unit testing guarantee tool reliability.",
+            "caption": "Verify the sandbox transition driving validation behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
+                  "c_to_f",
+                  "c_to_f(0.0) = 32.0 (expected 32.0) -> PASS"
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "c_to_f",
+                  "c_to_f(100.0) = 212.0 (expected 212.0) -> PASS"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering sandbox validation and automated unit testing creates.",
+            "at": "say3",
+            "caption": "Examine the synthetic value produced for test processing.",
             "rows": [
               {
                 "cells": [
-                  "out 1",
-                  "{"
+                  "c_to_f",
+                  "c_to_f(0.0) = 32.0 (expected 32.0) -> PASS"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"synthesisEngine\": \"Autonomous Dynamic Tool Generation Fabric\","
+                  "c_to_f",
+                  "c_to_f(100.0) = 212.0 (expected 212.0) -> PASS"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 3",
-                  "  \"toolRegistryStatus\": {"
+                  "c_to_f",
+                  "c_to_f(-40.0) = -40.0 (expected -40.0) -> PASS"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 4",
-                  "    \"synthesizedToolsCount\": 14,"
+                  "c_to_f",
+                  "c_to_f(37.5) = 99.5 (expected 99.5) -> PASS"
                 ],
                 "tone": "ok"
               }
@@ -523,28 +481,26 @@
     },
     {
       "partTitle": "Semantic Tool Indexing HNSW Vector Embeddings And Dynamic In Context Retrieval",
-      "codeHash": "69bc278d3fb020c828e64b4d2b57bb9c734a4fa263bf6fe4a32d77d2157c2cbe",
+      "codeHash": "076af1c1973facd99c7cb97f0b8bfabb0438f1a514bdf4c945fab4fb6185193a",
       "spec": {
         "template": "table",
         "title": "Semantic Tool Indexing HNSW Vector Embeddings And Dynamic In Con",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As an autonomous platform synthesizes dozens or hundreds of custom tools.",
+            "caption": "Observe how semantic shapes tool during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "CATALOG"
                   },
                   {
-                    "var": "result",
-                    "line": 24,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -553,31 +509,12 @@
           },
           {
             "at": "say2",
-            "caption": "Semantic tool indexing with HNSW vector registries enables rapid retrieval.",
+            "caption": "Verify the semantic transition driving tool behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 25,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Mastering semantic tool indexing and dynamic retrieval enables autonomous.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
+                    "text": "CATALOG"
                   },
                   {
                     "out": 1
@@ -588,32 +525,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "CATALOG"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -627,17 +542,17 @@
         "title": "Semantic Tool Indexing HNSW Vector Embeddings And Dynamic In Con",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As an autonomous platform synthesizes dozens or hundreds of custom tools.",
+            "caption": "Observe how semantic shapes tool during this step.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
+                  "CATALOG",
+                  "Tool rankings: [(0.6, 'mask_iban'), (0.0, 'sql_explain'), (0.0, 'parse_cron'), (0.0, 'k8s_hpa'), (0.0, 'fx_hedge')]"
                 ],
                 "tone": "data"
               }
@@ -645,46 +560,19 @@
           },
           {
             "at": "say2",
-            "caption": "Semantic tool indexing with HNSW vector registries enables rapid retrieval.",
+            "caption": "Verify the semantic transition driving tool behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Mastering semantic tool indexing and dynamic retrieval enables autonomous.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
+                  "CATALOG",
+                  "Tool rankings: [(0.6, 'mask_iban'), (0.0, 'sql_explain'), (0.0, 'parse_cron'), (0.0, 'k8s_hpa'), (0.0, 'fx_hedge')]"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"synthesisEngine\": \"Autonomous Dynamic Tool Generation Fabric\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"toolRegistryStatus\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"synthesizedToolsCount\": 14,"
+                  "CATALOG",
+                  "Injected top-K schemas: ['mask_iban']"
                 ],
                 "tone": "ok"
               }
@@ -695,28 +583,26 @@
     },
     {
       "partTitle": "Enterprise Production Dynamic Tool Synthesis Fabric In Python",
-      "codeHash": "69bc278d3fb020c828e64b4d2b57bb9c734a4fa263bf6fe4a32d77d2157c2cbe",
+      "codeHash": "88f7f2ad32a3531689c039b68bf77c2fea9b858a3d13681e5b4653c890fb8f6c",
       "spec": {
         "template": "table",
         "title": "Enterprise Production Dynamic Tool Synthesis Fabric In Python",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating dynamic tool synthesis, Pydantic schema compilation, sandboxed.",
+            "caption": "Observe how enterprise shapes production during this step.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
+                    "text": "registry"
                   },
                   {
-                    "var": "result",
-                    "line": 24,
-                    "hit": 1
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -725,31 +611,12 @@
           },
           {
             "at": "say2",
-            "caption": "Enterprise production dynamic tool synthesis fabrics automate software.",
+            "caption": "Verify the enterprise transition driving production behavior.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "result"
-                  },
-                  {
-                    "var": "result",
-                    "line": 25,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering the engineering architecture of agentic tool generation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
+                    "text": "registry"
                   },
                   {
                     "out": 1
@@ -760,32 +627,10 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "registry"
                   },
                   {
                     "out": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 3"
-                  },
-                  {
-                    "out": 3
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out 4"
-                  },
-                  {
-                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -799,17 +644,17 @@
         "title": "Enterprise Production Dynamic Tool Synthesis Fabric In Python",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating dynamic tool synthesis, Pydantic schema compilation, sandboxed.",
+            "caption": "Observe how enterprise shapes production during this step.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
+                  "registry",
+                  "Promoted registry keys: ['slugify']"
                 ],
                 "tone": "data"
               }
@@ -817,46 +662,19 @@
           },
           {
             "at": "say2",
-            "caption": "Enterprise production dynamic tool synthesis fabrics automate software.",
+            "caption": "Verify the enterprise transition driving production behavior.",
             "rows": [
               {
                 "cells": [
-                  "result",
-                  "{'synthesisEngine': 'Autonomous Dynamic…"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering the engineering architecture of agentic tool generation.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "{"
+                  "registry",
+                  "Promoted registry keys: ['slugify']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
-                  "  \"synthesisEngine\": \"Autonomous Dynamic Tool Generation Fabric\","
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 3",
-                  "  \"toolRegistryStatus\": {"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out 4",
-                  "    \"synthesizedToolsCount\": 14,"
+                  "registry",
+                  "Invoked promoted tool output: agent-tool-fabric | reuse_count: 1"
                 ],
                 "tone": "ok"
               }

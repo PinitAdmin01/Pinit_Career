@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Regulatory Ledger — Foundations & Mathematical Invariants",
+      "partTitle": "Tamper-Evident Governance Events inside `CryptographicGovernanceLedger`",
       "codeHash": "fd962f68d45c0e7c2e77d33ee9ee206a5bfe75948a578bde14770807e41cfe37",
       "spec": {
         "template": "flow",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates delivers during execution.",
+            "caption": "Inspect governance updates as self tracks milestone state.",
             "values": {
               "self": {
                 "var": "self",
@@ -92,13 +92,13 @@
               },
               "event_type": {
                 "var": "event_type",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "actor": {
                 "var": "actor",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -124,7 +124,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Verify governance behavior across cryptographicgovernanceledger state.",
             "values": {
               "self": {
                 "var": "self",
@@ -138,13 +138,13 @@
               },
               "event_type": {
                 "var": "event_type",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "actor": {
                 "var": "actor",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -194,7 +194,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates delivers during execution.",
+            "caption": "Inspect governance updates as self tracks milestone state.",
             "values": {
               "self": "<CryptographicGovernanceLedger>",
               "ledger": "<CryptographicGovernanceLedger>",
@@ -228,8 +228,8 @@
             "values": {
               "self": "<CryptographicGovernanceLedger>",
               "ledger": "<CryptographicGovernanceLedger>",
-              "event_type": "'EU_AI_ACT_AUDIT'",
-              "actor": "'ComplianceBot'"
+              "event_type": "'DATASET_HYGIENE_SIGN_OFF'",
+              "actor": "'ChiefDataOfficer'"
             },
             "tones": {
               "self": "data",
@@ -254,12 +254,12 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Verify governance behavior across cryptographicgovernanceledger state.",
             "values": {
               "self": "<CryptographicGovernanceLedger>",
               "ledger": "<CryptographicGovernanceLedger>",
-              "event_type": "'EU_AI_ACT_AUDIT'",
-              "actor": "'ComplianceBot'"
+              "event_type": "'DATASET_HYGIENE_SIGN_OFF'",
+              "actor": "'ChiefDataOfficer'"
             },
             "tones": {
               "self": "ok",
@@ -286,121 +286,117 @@
       }
     },
     {
-      "partTitle": "Regulatory Ledger — Core Algorithm & State Representation",
+      "partTitle": "Ledger Chain Continuity Checks via `verify_governance_ledger_immutability`",
       "codeHash": "29a655c4c785e42d9b5d6f10ccf7af77b49c6aab05abbec1299bf9aeebe2650f",
       "spec": {
-        "template": "table",
-        "title": "Regulatory Ledger — Core Algorithm & State Representation",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "template": "flow",
+        "title": "Ledger Chain Continuity Checks via `verify_governance_ledger_imm",
+        "nodes": [
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": false
+          },
+          {
+            "id": "output",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Verifying governance ledger immutability requires confirming that every.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Inspect ledger updates as step tracks chain state.",
+            "values": {
+              "step": {
+                "text": "def verify_governance_ledger_immutability(blocks"
+              },
+              "output": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "step": "data",
+              "output": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The verify_governance_ledger_immutability function iterates across.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Verify the ledger transition driving verify behavior.",
+            "values": {
+              "step": {
+                "text": "def verify_governance_ledger_immutability(blocks"
+              },
+              "output": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "step": "idle",
+              "output": "ok"
+            },
+            "arrows": [
+              [
+                "step",
+                "output"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Regulatory Ledger — Core Algorithm & State Representation",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "template": "flow",
+        "title": "Ledger Chain Continuity Checks via `verify_governance_ledger_imm",
+        "nodes": [
+          {
+            "id": "step",
+            "label": "step",
+            "tappable": false
+          },
+          {
+            "id": "output",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Verifying governance ledger immutability requires confirming that every.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "Governance Ledger Immutable: True"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Inspect ledger updates as step tracks chain state.",
+            "values": {
+              "step": "def verify_governance_ledger_immutability(blocks",
+              "output": ""
+            },
+            "tones": {
+              "step": "data",
+              "output": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The verify_governance_ledger_immutability function iterates across.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "Governance Ledger Immutable: True"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "Governance Ledger Immutable: True"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Verify the ledger transition driving verify behavior.",
+            "values": {
+              "step": "def verify_governance_ledger_immutability(blocks",
+              "output": "Governance Ledger Immutable: True"
+            },
+            "tones": {
+              "step": "idle",
+              "output": "ok"
+            },
+            "arrows": [
+              [
+                "step",
+                "output"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Regulatory Ledger — Production Implementation & Boundary Mechanics",
+      "partTitle": "Multi-Framework Certification inside `MultiRegulationComplianceAuditor`",
       "codeHash": "b8f37a4cdccf97338803127c7c7dd0372727942b3367e5f3c40429a1414753b1",
       "spec": {
         "template": "states",
@@ -443,7 +439,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for governance.",
+            "caption": "Verify multiregulationcomplianceauditor behavior across cross state.",
             "currentState": "eu_tier_valid",
             "transition": {
               "from": "auditor",
@@ -495,7 +491,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for governance.",
+            "caption": "Verify multiregulationcomplianceauditor behavior across cross state.",
             "currentState": "eu_tier_valid",
             "transition": {
               "from": "auditor",
@@ -508,7 +504,7 @@
       }
     },
     {
-      "partTitle": "Regulatory Ledger — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Regulatory Binder Packaging via `export_regulatory_binder`",
       "codeHash": "a0fe19791778f73f16d8c8a3ff12a26e8bfd174dd3b3d0be5f3423ea153faf40",
       "spec": {
         "template": "states",
@@ -551,7 +547,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the regulatory value produced for binder processing.",
             "currentState": "certified",
             "transition": {
               "from": "ledger_head",
@@ -603,7 +599,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the regulatory value produced for binder processing.",
             "currentState": "certified",
             "transition": {
               "from": "ledger_head",
@@ -616,7 +612,7 @@
       }
     },
     {
-      "partTitle": "Regulatory Ledger — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Verified Cryptographic Compliance Seals in `generate_m11_compliance_seal`",
       "codeHash": "025ba4f3c792c3978aff7208911395b2d1bdf3e383e603077f908ee69a3f3078",
       "spec": {
         "template": "table",
@@ -628,7 +624,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how final updates stage during execution.",
+            "caption": "Observe how compliance shapes seal during this step.",
             "rows": [
               {
                 "cells": [
@@ -666,7 +662,7 @@
           },
           {
             "at": "say13",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the cryptographic value produced for compliance processing.",
             "rows": [
               {
                 "cells": [
@@ -693,7 +689,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how final updates stage during execution.",
+            "caption": "Observe how compliance shapes seal during this step.",
             "rows": [
               {
                 "cells": [
@@ -719,7 +715,7 @@
           },
           {
             "at": "say13",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the cryptographic value produced for compliance processing.",
             "rows": [
               {
                 "cells": [

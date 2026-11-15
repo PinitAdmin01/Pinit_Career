@@ -7,130 +7,112 @@
   "entries": [
     {
       "partTitle": "ApexSwarm Architecture And Enterprise Mission Decomposition",
-      "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
+      "codeHash": "e1f86d5bc2d2fa9b85c4396d6cfc6d7cff50a040e0930e2b36d862be82118b1c",
       "spec": {
         "template": "flow",
         "title": "ApexSwarm Architecture And Enterprise Mission Decomposition",
         "nodes": [
           {
-            "id": "integrated_subsystems",
-            "label": "integrated_subsystems"
+            "id": "spent",
+            "label": "spent",
+            "tappable": true
           },
           {
-            "id": "capstone_benchmarks",
-            "label": "capstone_benchmarks"
+            "id": "ran",
+            "label": "ran",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "name",
+            "label": "name",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Across the preceding four modules of Block Nine, we mastered the core.",
+            "caption": "Inspect apexswarm updates as spent tracks enterprise state.",
             "values": {
-              "integrated_subsystems": {
-                "var": "integrated_subsystems",
-                "line": 10,
+              "spent": {
+                "var": "spent",
+                "line": 9,
                 "hit": 1
               },
-              "capstone_benchmarks": {
-                "var": "capstone_benchmarks",
-                "line": 17,
-                "hit": 1
+              "ran": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 34,
-                "hit": 1
+              "name": {
+                "text": ""
               }
             },
             "tones": {
-              "integrated_subsystems": "data",
-              "capstone_benchmarks": "data",
-              "result": "data"
+              "spent": "data",
+              "ran": "idle",
+              "name": "idle"
             },
-            "arrows": [
-              [
-                "integrated_subsystems",
-                "capstone_benchmarks"
-              ],
-              [
-                "capstone_benchmarks",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm sovereign architecture integrates hierarchical supervision.",
+            "caption": "Verify the apexswarm transition driving architecture behavior.",
             "values": {
-              "integrated_subsystems": {
-                "var": "integrated_subsystems",
-                "line": 18,
-                "hit": 1
+              "spent": {
+                "var": "spent",
+                "line": 15,
+                "hit": 2
               },
-              "capstone_benchmarks": {
-                "var": "capstone_benchmarks",
-                "line": 26,
-                "hit": 1
+              "ran": {
+                "var": "ran",
+                "line": 15,
+                "hit": 2
               },
-              "result": {
-                "var": "result",
-                "line": 35,
-                "hit": 1
+              "name": {
+                "var": "name",
+                "line": 15,
+                "hit": 2
               }
             },
             "tones": {
-              "integrated_subsystems": "data",
-              "capstone_benchmarks": "data",
-              "result": "data"
+              "spent": "data",
+              "ran": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "integrated_subsystems",
-                "capstone_benchmarks"
-              ],
-              [
-                "capstone_benchmarks",
-                "result"
+                "spent",
+                "ran"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering the supervisory and task decomposition foundations of ApexSwarm.",
+            "at": "say3",
+            "caption": "Examine the apexswarm value produced for enterprise processing.",
             "values": {
-              "integrated_subsystems": {
-                "var": "integrated_subsystems",
-                "line": 19,
-                "hit": 1
+              "spent": {
+                "var": "spent",
+                "line": 15,
+                "hit": 4
               },
-              "capstone_benchmarks": {
-                "var": "capstone_benchmarks",
-                "line": 27,
-                "hit": 1
+              "ran": {
+                "var": "ran",
+                "line": 15,
+                "hit": 4
               },
-              "result": {
-                "var": "result",
-                "line": 35,
-                "hit": 1
+              "name": {
+                "var": "name",
+                "line": 15,
+                "hit": 4
               }
             },
             "tones": {
-              "integrated_subsystems": "ok",
-              "capstone_benchmarks": "ok",
-              "result": "ok"
+              "spent": "ok",
+              "ran": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "integrated_subsystems",
-                "capstone_benchmarks"
-              ],
-              [
-                "capstone_benchmarks",
-                "result"
+                "spent",
+                "ran"
               ]
             ]
           }
@@ -141,88 +123,74 @@
         "title": "ApexSwarm Architecture And Enterprise Mission Decomposition",
         "nodes": [
           {
-            "id": "integrated_subsystems",
-            "label": "integrated_subsystems"
+            "id": "spent",
+            "label": "spent",
+            "tappable": true
           },
           {
-            "id": "capstone_benchmarks",
-            "label": "capstone_benchmarks"
+            "id": "ran",
+            "label": "ran",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "name",
+            "label": "name",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Across the preceding four modules of Block Nine, we mastered the core.",
+            "caption": "Inspect apexswarm updates as spent tracks enterprise state.",
             "values": {
-              "integrated_subsystems": "['Hierarchical Supervisor Dispatcher & …",
-              "capstone_benchmarks": "{'multiAgentSwarmScale': 32, 'consensus…",
-              "result": "{'platform': 'ApexSwarm Sovereign Multi…"
+              "spent": "0",
+              "ran": "",
+              "name": ""
             },
             "tones": {
-              "integrated_subsystems": "data",
-              "capstone_benchmarks": "data",
-              "result": "data"
+              "spent": "data",
+              "ran": "idle",
+              "name": "idle"
             },
-            "arrows": [
-              [
-                "integrated_subsystems",
-                "capstone_benchmarks"
-              ],
-              [
-                "capstone_benchmarks",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm sovereign architecture integrates hierarchical supervision.",
+            "caption": "Verify the apexswarm transition driving architecture behavior.",
             "values": {
-              "integrated_subsystems": "['Hierarchical Supervisor Dispatcher & …",
-              "capstone_benchmarks": "{'multiAgentSwarmScale': 32, 'consensus…",
-              "result": "{'platform': 'ApexSwarm Sovereign Multi…"
+              "spent": "1350",
+              "ran": "['decompose']",
+              "name": "'retrieve_docs'"
             },
             "tones": {
-              "integrated_subsystems": "data",
-              "capstone_benchmarks": "data",
-              "result": "data"
+              "spent": "data",
+              "ran": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "integrated_subsystems",
-                "capstone_benchmarks"
-              ],
-              [
-                "capstone_benchmarks",
-                "result"
+                "spent",
+                "ran"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering the supervisory and task decomposition foundations of ApexSwarm.",
+            "at": "say3",
+            "caption": "Examine the apexswarm value produced for enterprise processing.",
             "values": {
-              "integrated_subsystems": "['Hierarchical Supervisor Dispatcher & …",
-              "capstone_benchmarks": "{'multiAgentSwarmScale': 32, 'consensus…",
-              "result": "{'platform': 'ApexSwarm Sovereign Multi…"
+              "spent": "2400",
+              "ran": "['decompose', 'retrieve_docs', 'risk_au…",
+              "name": "'quorum_sign'"
             },
             "tones": {
-              "integrated_subsystems": "ok",
-              "capstone_benchmarks": "ok",
-              "result": "ok"
+              "spent": "ok",
+              "ran": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "integrated_subsystems",
-                "capstone_benchmarks"
-              ],
-              [
-                "capstone_benchmarks",
-                "result"
+                "spent",
+                "ran"
               ]
             ]
           }
@@ -231,656 +199,582 @@
     },
     {
       "partTitle": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric",
-      "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
+      "codeHash": "465b3aec7232eaae3224a5fcd15ef5fe53769563400d20a1ce6e04ca9761ae4c",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "merged",
+            "label": "merged",
+            "tappable": true
+          },
+          {
+            "id": "shard",
+            "label": "shard",
+            "tappable": true
+          },
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A sophisticated multi-agent swarm is only as effective as the memory.",
-            "activeActor": "integrated_subsystems",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 10,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect high updates as merged tracks concurrency state.",
+            "values": {
+              "merged": {
+                "var": "merged",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "shard": {
+                "text": ""
+              },
+              "k": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "merged": "data",
+              "shard": "idle",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm distributed memory fabric guarantees lock-free state.",
-            "activeActor": "capstone_benchmarks",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the working transition driving memory behavior.",
+            "values": {
+              "merged": {
+                "var": "merged",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 26,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "shard": {
+                "var": "shard",
+                "line": 6,
+                "hit": 2
+              },
+              "k": {
+                "var": "k",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "merged": "data",
+              "shard": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "merged",
+                "shard"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering the high-concurrency CRDT memory fabric empowers architects.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 19,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the crdt value produced for working processing.",
+            "values": {
+              "merged": {
+                "var": "merged",
+                "line": 6,
+                "hit": 5
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "shard": {
+                "var": "shard",
+                "line": 6,
+                "hit": 5
+              },
+              "k": {
+                "var": "k",
+                "line": 6,
+                "hit": 5
               }
+            },
+            "tones": {
+              "merged": "ok",
+              "shard": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "merged",
+                "shard"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "merged",
+            "label": "merged",
+            "tappable": true
+          },
+          {
+            "id": "shard",
+            "label": "shard",
+            "tappable": true
+          },
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A sophisticated multi-agent swarm is only as effective as the memory.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "integrated_subsystems"
+            "caption": "Inspect high updates as merged tracks concurrency state.",
+            "values": {
+              "merged": "{}",
+              "shard": "",
+              "k": ""
+            },
+            "tones": {
+              "merged": "data",
+              "shard": "idle",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm distributed memory fabric guarantees lock-free state.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "capstone_benchmarks"
+            "caption": "Verify the working transition driving memory behavior.",
+            "values": {
+              "merged": "{'status': ['BLOCKED', 14, 'sec']}",
+              "shard": "{'status': ['BLOCKED', 14, 'sec'], 'cve…",
+              "k": "'cve_count'"
+            },
+            "tones": {
+              "merged": "data",
+              "shard": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "merged",
+                "shard"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering the high-concurrency CRDT memory fabric empowers architects.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the crdt value produced for working processing.",
+            "values": {
+              "merged": "{'status': ['BLOCKED', 14, 'sec'], 'cve…",
+              "shard": "{'status': ['APPROVED', 12, 'fin'], 'co…",
+              "k": "'cost_usd'"
+            },
+            "tones": {
+              "merged": "ok",
+              "shard": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "merged",
+                "shard"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Byzantine Deliberation Socratic Debate And Quorum Certification",
-      "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
+      "codeHash": "bbc8b43e71e87b11f3a049cc61dc27d632bab0e25ca8129c5901d8466fb51aea",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Byzantine Deliberation Socratic Debate And Quorum Certification",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "agent",
+            "tappable": true
+          },
+          {
+            "id": "rationale",
+            "label": "rationale",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Even with deterministic task graphs and a synchronized memory fabric.",
-            "activeActor": "integrated_subsystems",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 10,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect byzantine updates as agent tracks deliberation state.",
+            "values": {
+              "agent": {
+                "var": "agent",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "rationale": {
+                "var": "rationale",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "agent": "data",
+              "rationale": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm Byzantine deliberation network coordinates rigorous.",
-            "activeActor": "capstone_benchmarks",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the byzantine transition driving deliberation behavior.",
+            "values": {
+              "agent": {
+                "var": "agent",
+                "line": 11,
+                "hit": 2
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 26,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "rationale": {
+                "var": "rationale",
+                "line": 11,
+                "hit": 2
               }
+            },
+            "tones": {
+              "agent": "data",
+              "rationale": "data"
+            },
+            "arrows": [
+              [
+                "agent",
+                "rationale"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering Byzantine deliberation protocols equips system architects.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 19,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the byzantine value produced for quorum processing.",
+            "values": {
+              "agent": {
+                "var": "agent",
+                "line": 11,
+                "hit": 3
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "rationale": {
+                "var": "rationale",
+                "line": 11,
+                "hit": 3
               }
+            },
+            "tones": {
+              "agent": "ok",
+              "rationale": "ok"
+            },
+            "arrows": [
+              [
+                "agent",
+                "rationale"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Byzantine Deliberation Socratic Debate And Quorum Certification",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "agent",
+            "tappable": true
+          },
+          {
+            "id": "rationale",
+            "label": "rationale",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Even with deterministic task graphs and a synchronized memory fabric.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "integrated_subsystems"
+            "caption": "Inspect byzantine updates as agent tracks deliberation state.",
+            "values": {
+              "agent": "'sec_agent'",
+              "rationale": "'Missing KMS rotation'"
+            },
+            "tones": {
+              "agent": "data",
+              "rationale": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm Byzantine deliberation network coordinates rigorous.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "capstone_benchmarks"
+            "caption": "Verify the byzantine transition driving deliberation behavior.",
+            "values": {
+              "agent": "'arch_agent'",
+              "rationale": "'Single-AZ DB failover'"
+            },
+            "tones": {
+              "agent": "data",
+              "rationale": "data"
+            },
+            "arrows": [
+              [
+                "agent",
+                "rationale"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering Byzantine deliberation protocols equips system architects.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the byzantine value produced for quorum processing.",
+            "values": {
+              "agent": "'qa_agent'",
+              "rationale": "'Load test incomplete'"
+            },
+            "tones": {
+              "agent": "ok",
+              "rationale": "ok"
+            },
+            "arrows": [
+              [
+                "agent",
+                "rationale"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Fault Tolerant Cyclical Execution Engine And Chaos Verification",
-      "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
+      "codeHash": "0ce47f64be7effb842789207a515cacc18711abac0a3f077428a3d7baf394f8c",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Fault Tolerant Cyclical Execution Engine And Chaos Verification",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "attempt",
+            "label": "attempt",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Executing long-horizon multi-agent workflows in mission-critical corporate.",
-            "activeActor": "integrated_subsystems",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 10,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect fault updates as attempt tracks cyclical state.",
+            "values": {
+              "attempt": {
+                "var": "attempt",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "attempt": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm cyclical execution engine provides deterministic control.",
-            "activeActor": "capstone_benchmarks",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the fault transition driving cyclical behavior.",
+            "values": {
+              "attempt": {
+                "var": "attempt",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 26,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say13",
-            "caption": "Mastering the cyclical execution engine and chaos verification protocols.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 19,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "attempt": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "attempt",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Fault Tolerant Cyclical Execution Engine And Chaos Verification",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "attempt",
+            "label": "attempt",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Executing long-horizon multi-agent workflows in mission-critical corporate.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "integrated_subsystems"
+            "caption": "Inspect fault updates as attempt tracks cyclical state.",
+            "values": {
+              "attempt": "1",
+              "out": ""
+            },
+            "tones": {
+              "attempt": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm cyclical execution engine provides deterministic control.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "capstone_benchmarks"
-          },
-          {
-            "at": "say13",
-            "caption": "Mastering the cyclical execution engine and chaos verification protocols.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "caption": "Verify the fault transition driving cyclical behavior.",
+            "values": {
+              "attempt": "2",
+              "out": "Attempt 1 fault injected: 429 rate limited"
+            },
+            "tones": {
+              "attempt": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "attempt",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "ApexSwarm Platform Integration Enterprise Certification And Milestone Six",
-      "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
+      "codeHash": "7b1c4276906c2504611d8da9e9afe0acae67902f6aebfa919c7b19d7cf87767a",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "ApexSwarm Platform Integration Enterprise Certification And Mile",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In this climactic capstone integration, we assemble all four core.",
-            "activeActor": "integrated_subsystems",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 10,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect apexswarm updates as x tracks platform state.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "x": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The fully integrated ApexSwarm enterprise platform coordinates thirty-two.",
-            "activeActor": "capstone_benchmarks",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the apexswarm transition driving platform behavior.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 26,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say13",
-            "caption": "Attaining the certification tier of ApexSwarm Enterprise Architect marks.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": {
-                  "var": "integrated_subsystems",
-                  "line": 19,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "capstone_benchmarks",
-                  "line": 27,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "x": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "ApexSwarm Platform Integration Enterprise Certification And Mile",
-        "actors": [
-          "integrated_subsystems",
-          "capstone_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In this climactic capstone integration, we assemble all four core.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "integrated_subsystems"
+            "caption": "Inspect apexswarm updates as x tracks platform state.",
+            "values": {
+              "x": "['status', 'APPROVED', 12]",
+              "out": ""
+            },
+            "tones": {
+              "x": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The fully integrated ApexSwarm enterprise platform coordinates thirty-two.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "capstone_benchmarks"
-          },
-          {
-            "at": "say13",
-            "caption": "Attaining the certification tier of ApexSwarm Enterprise Architect marks.",
-            "messages": [
-              {
-                "from": "integrated_subsystems",
-                "to": "capstone_benchmarks",
-                "label": "['Hierarchical Supervisor Dispatcher & …",
-                "tone": "data"
-              },
-              {
-                "from": "capstone_benchmarks",
-                "to": "result",
-                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "caption": "Verify the apexswarm transition driving platform behavior.",
+            "values": {
+              "x": "['status', 'BLOCKED', 14]",
+              "out": "ApexSwarm Integrated Audit: {\"id\": \"APEX-M6\", \"tasks_ok\": \"4/4\", \"resolved_status\": \"BLOCKED\", \"quorum_met\": true}"
+            },
+            "tones": {
+              "x": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "out"
+              ]
+            ]
           }
         ]
       }

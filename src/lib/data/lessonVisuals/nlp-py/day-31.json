@@ -472,7 +472,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Between the extremes of Multi-Head Attention (which preserves full.",
+            "caption": "Inspect grouped updates as n_query_heads tracks query state.",
             "values": {
               "n_query_heads": {
                 "var": "n_query_heads",
@@ -490,16 +490,14 @@
                 "hit": 1
               },
               "d_head": {
-                "var": "d_head",
-                "line": 15,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "n_query_heads": "data",
               "n_kv_heads": "data",
               "group_size": "data",
-              "d_head": "data"
+              "d_head": "idle"
             },
             "arrows": [
               [
@@ -634,18 +632,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Between the extremes of Multi-Head Attention (which preserves full.",
+            "caption": "Inspect grouped updates as n_query_heads tracks query state.",
             "values": {
               "n_query_heads": "8",
               "n_kv_heads": "2",
               "group_size": "4",
-              "d_head": "4"
+              "d_head": ""
             },
             "tones": {
               "n_query_heads": "data",
               "n_kv_heads": "data",
               "group_size": "data",
-              "d_head": "data"
+              "d_head": "idle"
             },
             "arrows": [
               [

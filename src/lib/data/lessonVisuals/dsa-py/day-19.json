@@ -64,7 +64,7 @@
           },
           {
             "at": "say5",
-            "caption": "Tries power the auto-complete in search boxes, spell checkers and.",
+            "caption": "Examine the tries value produced for power processing.",
             "values": {
               "word": {
                 "var": "word",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say5",
-            "caption": "Tries power the auto-complete in search boxes, spell checkers and.",
+            "caption": "Examine the tries value produced for power processing.",
             "values": {
               "word": "'car'",
               "ch": "'a'"
@@ -671,7 +671,7 @@
           },
           {
             "at": "say2",
-            "caption": "A sorted list with bisect can find the range of words starting with.",
+            "caption": "Verify the sorted transition driving list behavior.",
             "items": {
               "var": "words",
               "line": 15,
@@ -729,7 +729,7 @@
           },
           {
             "at": "say2",
-            "caption": "A sorted list with bisect can find the range of words starting with.",
+            "caption": "Verify the sorted transition driving list behavior.",
             "items": [
               "'apple'",
               "'car'",

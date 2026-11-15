@@ -270,16 +270,14 @@
                 "hit": 1
               },
               "alpha": {
-                "var": "alpha",
-                "line": 66,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "d_in": "data",
               "d_out": "data",
               "r": "data",
-              "alpha": "data"
+              "alpha": "idle"
             },
             "arrows": [
               [
@@ -419,13 +417,13 @@
               "d_in": "8",
               "d_out": "8",
               "r": "2",
-              "alpha": "4"
+              "alpha": ""
             },
             "tones": {
               "d_in": "data",
               "d_out": "data",
               "r": "data",
-              "alpha": "data"
+              "alpha": "idle"
             },
             "arrows": [
               [
@@ -514,7 +512,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While standard LoRA slashes optimizer memory by freezing base weights,.",
+            "caption": "Observe how quantized shapes lora during this step.",
             "bars": [
               {
                 "label": "block1",
@@ -646,7 +644,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While standard LoRA slashes optimizer memory by freezing base weights,.",
+            "caption": "Observe how quantized shapes lora during this step.",
             "bars": [
               {
                 "label": "block1",
@@ -750,7 +748,7 @@
           },
           {
             "at": "say2",
-            "caption": "Multi-LoRA Serving architectures (such as S-LoRA, Punica, and vLLM.",
+            "caption": "The frozen base weights $W_0$ remain shared across all inference requests.",
             "items": {
               "var": "registered_adapters",
               "line": 30,
@@ -806,7 +804,7 @@
           },
           {
             "at": "say2",
-            "caption": "Multi-LoRA Serving architectures (such as S-LoRA, Punica, and vLLM.",
+            "caption": "The frozen base weights $W_0$ remain shared across all inference requests.",
             "items": [
               "'LEGAL'",
               "'MEDICAL'",
@@ -884,7 +882,7 @@
           },
           {
             "at": "say11",
-            "caption": "As you review the code and worked example for Masterclass Synthesis.",
+            "caption": "Examine the adapter value produced for enterprise processing.",
             "items": {
               "var": "ax",
               "line": 63,
@@ -936,7 +934,7 @@
           },
           {
             "at": "say11",
-            "caption": "As you review the code and worked example for Masterclass Synthesis.",
+            "caption": "Examine the adapter value produced for enterprise processing.",
             "items": [
               "0.02034878113867726",
               "0.644773562773932"

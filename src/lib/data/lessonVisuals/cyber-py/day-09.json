@@ -136,13 +136,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The server computes HMAC-SHA256(secret, header + \".",
+            "caption": "Observe how hs256 shapes signature during this step.",
             "currentState": "secret",
             "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "If an attacker changes the payload (for example role to admin),.",
+            "caption": "Verify the signature transition driving attacker behavior.",
             "currentState": "data",
             "transition": {
               "from": "secret",
@@ -192,18 +192,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The server computes HMAC-SHA256(secret, header + \".",
+            "caption": "Observe how hs256 shapes signature during this step.",
             "currentState": "secret",
             "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "If an attacker changes the payload (for example role to admin),.",
+            "caption": "Verify the signature transition driving attacker behavior.",
             "currentState": "data",
             "transition": {
               "from": "secret",
               "to": "data",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
@@ -296,7 +296,7 @@
           },
           {
             "at": "say9",
-            "caption": "Security tests should include an \"alg.",
+            "caption": "Security tests should include an \"alg: none\" token to confirm it is rejected.",
             "values": {
               "obj": {
                 "var": "obj",
@@ -370,7 +370,7 @@
           },
           {
             "at": "say9",
-            "caption": "Security tests should include an \"alg.",
+            "caption": "Security tests should include an \"alg: none\" token to confirm it is rejected.",
             "values": {
               "obj": "{'sub': 'u42', 'role': 'admin'}",
               "forged": "'eyJhbGciOiAibm9uZSJ9.eyJzdWIiOiAidTQyI…",
@@ -408,7 +408,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how tokens updates should during execution.",
+            "caption": "Inspect tokens updates as payload tracks expire state.",
             "values": {
               "payload": {
                 "var": "payload",
@@ -453,13 +453,13 @@
               },
               "now": {
                 "var": "now",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "status": {
                 "var": "status",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -489,13 +489,13 @@
               },
               "now": {
                 "var": "now",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "status": {
                 "var": "status",
-                "line": 2,
-                "hit": 2
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -536,7 +536,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how tokens updates should during execution.",
+            "caption": "Inspect tokens updates as payload tracks expire state.",
             "values": {
               "payload": "{'sub': 'u42', 'iat': 1700000000, 'exp'…",
               "now": "1700000100",
@@ -563,8 +563,8 @@
             "caption": "Verification must reject tokens where the current time is at or after exp.",
             "values": {
               "payload": "{'sub': 'u42', 'iat': 1700000000, 'exp'…",
-              "now": "1700000100",
-              "status": "'valid'"
+              "now": "1700000899",
+              "status": "'expired'"
             },
             "tones": {
               "payload": "data",
@@ -587,8 +587,8 @@
             "caption": "Logging token identifiers (jti), not whole tokens, supports investigations.",
             "values": {
               "payload": "{'sub': 'u42', 'iat': 1700000000, 'exp'…",
-              "now": "1700000100",
-              "status": "'valid'"
+              "now": "1700000900",
+              "status": "'expired'"
             },
             "tones": {
               "payload": "ok",
@@ -802,7 +802,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks build a token with base64url and confirm both parts decode,.",
+            "caption": "Verify the decode transition driving checks behavior.",
             "currentState": "d",
             "transition": {
               "from": "secret",
@@ -858,12 +858,12 @@
           },
           {
             "at": "say2",
-            "caption": "The checks build a token with base64url and confirm both parts decode,.",
+            "caption": "Verify the decode transition driving checks behavior.",
             "currentState": "d",
             "transition": {
               "from": "secret",
               "to": "d",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },

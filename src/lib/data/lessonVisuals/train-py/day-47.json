@@ -7,117 +7,185 @@
   "entries": [
     {
       "partTitle": "FP8 Training — Foundations & Mathematical Invariants",
-      "codeHash": "ae84870c996e546010e9c678c60f1ce28c0b7edb477cb115e40634d5b7e07ace",
+      "codeHash": "506e7193b097738bb86d09d1e6e3a49240d1237eecd46b68a5ddb182315e4845",
       "spec": {
-        "template": "table",
+        "template": "flow",
         "title": "FP8 Training — Foundations & Mathematical Invariants",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "e4m3",
+            "label": "e4m3",
+            "tappable": true
+          },
+          {
+            "id": "e5m2",
+            "label": "e5m2",
+            "tappable": true
+          },
+          {
+            "id": "formats",
+            "label": "formats",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how floating updates point during execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "formats"
-                  },
-                  {
-                    "var": "formats",
-                    "line": 7,
-                    "hit": 1
-                  }
-                ],
-                "tone": "data"
+            "caption": "Inspect floating updates as e4m3 tracks point state.",
+            "values": {
+              "e4m3": {
+                "var": "e4m3",
+                "line": 2,
+                "hit": 1
+              },
+              "e5m2": {
+                "text": ""
+              },
+              "formats": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "e4m3": "data",
+              "e5m2": "idle",
+              "formats": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "E4M3 allocates 1 sign bit, 4 exponent bits, and 3 mantissa bits, offering.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "formats"
-                  },
-                  {
-                    "var": "formats",
-                    "line": 8,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Verify the e4m3 transition driving allocates behavior.",
+            "values": {
+              "e4m3": {
+                "var": "e4m3",
+                "line": 3,
+                "hit": 1
+              },
+              "e5m2": {
+                "var": "e5m2",
+                "line": 3,
+                "hit": 1
+              },
+              "formats": {
+                "text": ""
               }
+            },
+            "tones": {
+              "e4m3": "data",
+              "e5m2": "data",
+              "formats": "idle"
+            },
+            "arrows": [
+              [
+                "e4m3",
+                "e5m2"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "This instruction-level integration guarantees that numerical conversion.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
-                  },
-                  {
-                    "out": 1
-                  }
-                ],
-                "tone": "ok"
+            "at": "say3",
+            "caption": "Examine the e5m2 value produced for allocates processing.",
+            "values": {
+              "e4m3": {
+                "text": ""
+              },
+              "e5m2": {
+                "text": ""
+              },
+              "formats": {
+                "var": "formats",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "e4m3": "idle",
+              "e5m2": "idle",
+              "formats": "ok"
+            },
+            "arrows": [
+              [
+                "e4m3",
+                "e5m2"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "flow",
         "title": "FP8 Training — Foundations & Mathematical Invariants",
-        "columns": [
-          "Symbol",
-          "Executed Value"
+        "nodes": [
+          {
+            "id": "e4m3",
+            "label": "e4m3",
+            "tappable": true
+          },
+          {
+            "id": "e5m2",
+            "label": "e5m2",
+            "tappable": true
+          },
+          {
+            "id": "formats",
+            "label": "formats",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how floating updates point during execution.",
-            "rows": [
-              {
-                "cells": [
-                  "formats",
-                  "{'E4M3': {'sign': 1, 'exponent': 4, 'ma…"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect floating updates as e4m3 tracks point state.",
+            "values": {
+              "e4m3": "{'sign': 1, 'exponent': 4, 'mantissa': …",
+              "e5m2": "",
+              "formats": ""
+            },
+            "tones": {
+              "e4m3": "data",
+              "e5m2": "idle",
+              "formats": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "E4M3 allocates 1 sign bit, 4 exponent bits, and 3 mantissa bits, offering.",
-            "rows": [
-              {
-                "cells": [
-                  "formats",
-                  "{'E4M3': {'sign': 1, 'exponent': 4, 'ma…"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Verify the e4m3 transition driving allocates behavior.",
+            "values": {
+              "e4m3": "{'sign': 1, 'exponent': 4, 'mantissa': …",
+              "e5m2": "{'sign': 1, 'exponent': 5, 'mantissa': …",
+              "formats": ""
+            },
+            "tones": {
+              "e4m3": "data",
+              "e5m2": "data",
+              "formats": "idle"
+            },
+            "arrows": [
+              [
+                "e4m3",
+                "e5m2"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "This instruction-level integration guarantees that numerical conversion.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
-                  "[FP8_FORMATS] E4M3 max=448.0 (forward_activations_and_weights), E5M2 max=57344.0 (backward_gradients)"
-                ],
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "Examine the e5m2 value produced for allocates processing.",
+            "values": {
+              "e4m3": "",
+              "e5m2": "",
+              "formats": "{'E4M3': {'sign': 1, 'exponent': 4, 'ma…"
+            },
+            "tones": {
+              "e4m3": "idle",
+              "e5m2": "idle",
+              "formats": "ok"
+            },
+            "arrows": [
+              [
+                "e4m3",
+                "e5m2"
+              ]
             ]
           }
         ]
@@ -125,177 +193,113 @@
     },
     {
       "partTitle": "FP8 Training — Core Algorithm & State Representation",
-      "codeHash": "47535ebdffea26d0d8ddf1d349beb0709bdf63a6146b0983c08a0ded65a4e90d",
+      "codeHash": "022ffad6eba2b718fe4f20455dcfb91472db8d6d67576dc61d988f9cfecf54d4",
       "spec": {
-        "template": "bars",
+        "template": "flow",
         "title": "FP8 Training — Core Algorithm & State Representation",
+        "nodes": [
+          {
+            "id": "scale",
+            "label": "scale",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantizing tensors to FP8 requires scaling floating-point numbers into.",
-            "bars": [
-              {
-                "label": "fp8_max",
-                "value": {
-                  "var": "fp8_max",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect quantizing updates as scale tracks tensors state.",
+            "values": {
+              "scale": {
+                "var": "scale",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "label": "current_max",
-                "value": {
-                  "var": "current_max",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "scale",
-                "value": {
-                  "var": "scale",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "scale": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Naive per-tensor scaling requires computing the maximum absolute value.",
-            "bars": [
-              {
-                "label": "fp8_max",
-                "value": {
-                  "var": "fp8_max",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "caption": "Verify the naive transition driving tensor behavior.",
+            "values": {
+              "scale": {
+                "var": "scale",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "label": "current_max",
-                "value": {
-                  "var": "current_max",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "scale",
-                "value": {
-                  "var": "scale",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This robust mathematical stabilization enables multi-week FP8 foundation.",
-            "bars": [
-              {
-                "label": "fp8_max",
-                "value": {
-                  "var": "fp8_max",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "current_max",
-                "value": {
-                  "var": "current_max",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "scale",
-                "value": {
-                  "var": "scale",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "scale": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "scale",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
+        "template": "flow",
         "title": "FP8 Training — Core Algorithm & State Representation",
+        "nodes": [
+          {
+            "id": "scale",
+            "label": "scale",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantizing tensors to FP8 requires scaling floating-point numbers into.",
-            "bars": [
-              {
-                "label": "fp8_max",
-                "value": 448,
-                "tone": "data"
-              },
-              {
-                "label": "current_max",
-                "value": 16,
-                "tone": "data"
-              },
-              {
-                "label": "scale",
-                "value": 26.599999999999998,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect quantizing updates as scale tracks tensors state.",
+            "values": {
+              "scale": "26.599999999999998",
+              "out": ""
+            },
+            "tones": {
+              "scale": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Naive per-tensor scaling requires computing the maximum absolute value.",
-            "bars": [
-              {
-                "label": "fp8_max",
-                "value": 448,
-                "tone": "ok"
-              },
-              {
-                "label": "current_max",
-                "value": 16,
-                "tone": "ok"
-              },
-              {
-                "label": "scale",
-                "value": 26.599999999999998,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This robust mathematical stabilization enables multi-week FP8 foundation.",
-            "bars": [
-              {
-                "label": "fp8_max",
-                "value": 448,
-                "tone": "ok"
-              },
-              {
-                "label": "current_max",
-                "value": 16,
-                "tone": "ok"
-              },
-              {
-                "label": "scale",
-                "value": 26.6,
-                "tone": "ok"
-              }
+            "caption": "Verify the naive transition driving tensor behavior.",
+            "values": {
+              "scale": "26.6",
+              "out": "FP8 Delayed Scaling: Scale=26.6 (SCALE_COMPUTED_WITHOUT_SYNC_DELAY)"
+            },
+            "tones": {
+              "scale": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "scale",
+                "out"
+              ]
             ]
           }
         ]
@@ -328,7 +332,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how transitioning updates precision during execution.",
+            "caption": "Inspect transitioning updates as hbm_bandwidth_tb_s tracks precision state.",
             "values": {
               "hbm_bandwidth_tb_s": {
                 "var": "hbm_bandwidth_tb_s",
@@ -346,16 +350,14 @@
                 "hit": 1
               },
               "mem_saving_pct": {
-                "var": "mem_saving_pct",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "hbm_bandwidth_tb_s": "data",
               "tensor_core_tflops_fp16": "data",
               "fp8_tensor_core_tflops": "data",
-              "mem_saving_pct": "data"
+              "mem_saving_pct": "idle"
             },
             "arrows": [
               [
@@ -374,7 +376,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how nvidia updates hopper during execution.",
+            "caption": "Verify the hopper transition driving h100 behavior.",
             "values": {
               "hbm_bandwidth_tb_s": {
                 "var": "hbm_bandwidth_tb_s",
@@ -490,18 +492,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how transitioning updates precision during execution.",
+            "caption": "Inspect transitioning updates as hbm_bandwidth_tb_s tracks precision state.",
             "values": {
               "hbm_bandwidth_tb_s": "3.35",
               "tensor_core_tflops_fp16": "989",
               "fp8_tensor_core_tflops": "1978",
-              "mem_saving_pct": "50"
+              "mem_saving_pct": ""
             },
             "tones": {
               "hbm_bandwidth_tb_s": "data",
               "tensor_core_tflops_fp16": "data",
               "fp8_tensor_core_tflops": "data",
-              "mem_saving_pct": "data"
+              "mem_saving_pct": "idle"
             },
             "arrows": [
               [
@@ -520,7 +522,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how nvidia updates hopper during execution.",
+            "caption": "Verify the hopper transition driving h100 behavior.",
             "values": {
               "hbm_bandwidth_tb_s": "3.35",
               "tensor_core_tflops_fp16": "989",
@@ -583,163 +585,88 @@
     },
     {
       "partTitle": "FP8 Training — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b6783d427dd450cee5f126c4afca0d3b44ddcfec20557a54a979967bb2cb984d",
+      "codeHash": "f4ec6b9e99f9a047c3f0c325b834e4cb552dd0fe65c4af2a4009d4c2cb43ceb9",
       "spec": {
         "template": "flow",
         "title": "FP8 Training — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
             "id": "tensor_amax",
-            "label": "tensor_amax"
-          },
-          {
-            "id": "scale",
-            "label": "scale"
-          },
-          {
-            "id": "fp8_max",
-            "label": "fp8_max"
+            "label": "tensor_amax",
+            "tappable": true
           },
           {
             "id": "scaled_val",
-            "label": "scaled_val"
+            "label": "scaled_val",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Because E4M3 saturates at 448.",
+            "caption": "Inspect because updates as tensor_amax tracks e4m3 state.",
             "values": {
               "tensor_amax": {
                 "var": "tensor_amax",
                 "line": 2,
                 "hit": 1
               },
-              "scale": {
-                "var": "scale",
-                "line": 2,
-                "hit": 1
-              },
-              "fp8_max": {
-                "var": "fp8_max",
-                "line": 2,
-                "hit": 1
-              },
               "scaled_val": {
-                "var": "scaled_val",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "tensor_amax": "data",
-              "scale": "data",
-              "fp8_max": "data",
-              "scaled_val": "data"
+              "scaled_val": "idle"
             },
-            "arrows": [
-              [
-                "tensor_amax",
-                "scale"
-              ],
-              [
-                "scale",
-                "fp8_max"
-              ],
-              [
-                "fp8_max",
-                "scaled_val"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Severe clipping saturates activations into flat constants, destroying.",
+            "caption": "Verify the severe transition driving clipping behavior.",
             "values": {
               "tensor_amax": {
                 "var": "tensor_amax",
-                "line": 3,
-                "hit": 1
-              },
-              "scale": {
-                "var": "scale",
-                "line": 3,
-                "hit": 1
-              },
-              "fp8_max": {
-                "var": "fp8_max",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "scaled_val": {
-                "var": "scaled_val",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "tensor_amax": "data",
-              "scale": "data",
-              "fp8_max": "data",
-              "scaled_val": "data"
+              "scaled_val": "idle"
             },
             "arrows": [
               [
                 "tensor_amax",
-                "scale"
-              ],
-              [
-                "scale",
-                "fp8_max"
-              ],
-              [
-                "fp8_max",
                 "scaled_val"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Enforcing strict saturation boundaries guarantees that numerical precision.",
+            "at": "say3",
+            "caption": "Examine the scaling value produced for monitors processing.",
             "values": {
               "tensor_amax": {
                 "var": "tensor_amax",
-                "line": 5,
-                "hit": 1
-              },
-              "scale": {
-                "var": "scale",
-                "line": 5,
-                "hit": 1
-              },
-              "fp8_max": {
-                "var": "fp8_max",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "scaled_val": {
                 "var": "scaled_val",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
               "tensor_amax": "ok",
-              "scale": "ok",
-              "fp8_max": "ok",
               "scaled_val": "ok"
             },
             "arrows": [
               [
                 "tensor_amax",
-                "scale"
-              ],
-              [
-                "scale",
-                "fp8_max"
-              ],
-              [
-                "fp8_max",
                 "scaled_val"
               ]
             ]
@@ -752,108 +679,61 @@
         "nodes": [
           {
             "id": "tensor_amax",
-            "label": "tensor_amax"
-          },
-          {
-            "id": "scale",
-            "label": "scale"
-          },
-          {
-            "id": "fp8_max",
-            "label": "fp8_max"
+            "label": "tensor_amax",
+            "tappable": true
           },
           {
             "id": "scaled_val",
-            "label": "scaled_val"
+            "label": "scaled_val",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Because E4M3 saturates at 448.",
+            "caption": "Inspect because updates as tensor_amax tracks e4m3 state.",
             "values": {
-              "tensor_amax": "18.5",
-              "scale": "24",
-              "fp8_max": "448",
-              "scaled_val": "444"
+              "tensor_amax": "20",
+              "scaled_val": ""
             },
             "tones": {
               "tensor_amax": "data",
-              "scale": "data",
-              "fp8_max": "data",
-              "scaled_val": "data"
+              "scaled_val": "idle"
             },
-            "arrows": [
-              [
-                "tensor_amax",
-                "scale"
-              ],
-              [
-                "scale",
-                "fp8_max"
-              ],
-              [
-                "fp8_max",
-                "scaled_val"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Severe clipping saturates activations into flat constants, destroying.",
+            "caption": "Verify the severe transition driving clipping behavior.",
             "values": {
               "tensor_amax": "18.5",
-              "scale": "24",
-              "fp8_max": "448",
-              "scaled_val": "444"
+              "scaled_val": ""
             },
             "tones": {
               "tensor_amax": "data",
-              "scale": "data",
-              "fp8_max": "data",
-              "scaled_val": "data"
+              "scaled_val": "idle"
             },
             "arrows": [
               [
                 "tensor_amax",
-                "scale"
-              ],
-              [
-                "scale",
-                "fp8_max"
-              ],
-              [
-                "fp8_max",
                 "scaled_val"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Enforcing strict saturation boundaries guarantees that numerical precision.",
+            "at": "say3",
+            "caption": "Examine the scaling value produced for monitors processing.",
             "values": {
               "tensor_amax": "18.5",
-              "scale": "24",
-              "fp8_max": "448",
               "scaled_val": "444"
             },
             "tones": {
               "tensor_amax": "ok",
-              "scale": "ok",
-              "fp8_max": "ok",
               "scaled_val": "ok"
             },
             "arrows": [
               [
                 "tensor_amax",
-                "scale"
-              ],
-              [
-                "scale",
-                "fp8_max"
-              ],
-              [
-                "fp8_max",
                 "scaled_val"
               ]
             ]

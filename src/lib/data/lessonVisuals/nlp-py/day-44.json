@@ -234,7 +234,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Having established the conceptual breakthrough of Direct Preference.",
+            "caption": "Observe how closed shapes form during this step.",
             "bars": [
               {
                 "label": "beta",
@@ -366,7 +366,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Having established the conceptual breakthrough of Direct Preference.",
+            "caption": "Observe how closed shapes form during this step.",
             "bars": [
               {
                 "label": "beta",
@@ -819,16 +819,14 @@
                 "hit": 1
               },
               "lr": {
-                "var": "lr",
-                "line": 24,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "beta": "data",
               "lambda_or": "data",
-              "lr": "data"
+              "lr": "idle"
             },
             "arrows": [
               [
@@ -968,13 +966,13 @@
               "self": "<ApexDirectSuite>",
               "beta": "0.1",
               "lambda_or": "0.15",
-              "lr": "0.1"
+              "lr": ""
             },
             "tones": {
               "self": "data",
               "beta": "data",
               "lambda_or": "data",
-              "lr": "data"
+              "lr": "idle"
             },
             "arrows": [
               [

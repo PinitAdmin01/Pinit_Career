@@ -92,13 +92,13 @@
               },
               "bits": {
                 "var": "bits",
-                "line": 24,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               },
               "mode": {
                 "var": "mode",
-                "line": 24,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               }
             },
             "tones": {
@@ -138,13 +138,13 @@
               },
               "bits": {
                 "var": "bits",
-                "line": 25,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               },
               "mode": {
                 "var": "mode",
-                "line": 25,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               }
             },
             "tones": {
@@ -228,8 +228,8 @@
             "values": {
               "weights": "[-2.45, -1.8, -0.65, 0.12, 0.85, 1.4, 2…",
               "self": "<PurePythonUniformQuantizer>",
-              "bits": "8",
-              "mode": "'symmetric'"
+              "bits": "4",
+              "mode": "'asymmetric'"
             },
             "tones": {
               "weights": "data",
@@ -258,8 +258,8 @@
             "values": {
               "weights": "[-2.45, -1.8, -0.65, 0.12, 0.85, 1.4, 2…",
               "self": "<PurePythonUniformQuantizer>",
-              "bits": "8",
-              "mode": "'symmetric'"
+              "bits": "4",
+              "mode": "'asymmetric'"
             },
             "tones": {
               "weights": "ok",
@@ -310,7 +310,7 @@
           },
           {
             "at": "say2",
-            "caption": "The fundamental flaw of Round-to-Nearest (RTN) is that it treats every.",
+            "caption": "In a linear projection layer $Y = X W$.",
             "items": {
               "var": "W_weights",
               "line": 99,
@@ -365,7 +365,7 @@
           },
           {
             "at": "say2",
-            "caption": "The fundamental flaw of Round-to-Nearest (RTN) is that it treats every.",
+            "caption": "In a linear projection layer $Y = X W$.",
             "items": [
               "1.25",
               "-0.85",
@@ -524,7 +524,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While GPTQ and AWQ achieve breakthrough Weight-Only Quantization (W4A16.",
+            "caption": "Observe how gptq shapes achieve during this step.",
             "items": {
               "var": "act_peaks",
               "line": 53,
@@ -578,7 +578,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "While GPTQ and AWQ achieve breakthrough Weight-Only Quantization (W4A16.",
+            "caption": "Observe how gptq shapes achieve during this step.",
             "items": [
               "64",
               "2.5",

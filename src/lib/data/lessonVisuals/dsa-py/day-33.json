@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Standard Tries allocate one node and one child hash dictionary for every.",
+            "caption": "Observe how memory shapes standard during this step.",
             "items": {
               "var": "urls",
               "line": 19,
@@ -68,7 +68,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Standard Tries allocate one node and one child hash dictionary for every.",
+            "caption": "Observe how memory shapes standard during this step.",
             "items": [
               "'https://api.company.com/v1/users'",
               "'https://api.company.com/v1/orders'",
@@ -174,7 +174,7 @@
           },
           {
             "at": "say6",
-            "caption": "Run this self-contained RadixTree implementation below (with RadixNode.",
+            "caption": "Examine the prefix value produced for insertion processing.",
             "bars": [
               {
                 "label": "i",
@@ -236,7 +236,7 @@
           },
           {
             "at": "say6",
-            "caption": "Run this self-contained RadixTree implementation below (with RadixNode.",
+            "caption": "Examine the prefix value produced for insertion processing.",
             "bars": [
               {
                 "label": "i",
@@ -283,7 +283,7 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect this self-contained AhoCorasick automaton builder below.",
+            "caption": "Examine the corasick value produced for failure processing.",
             "items": {
               "var": "patterns",
               "line": 14,
@@ -324,7 +324,7 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect this self-contained AhoCorasick automaton builder below.",
+            "caption": "Examine the corasick value produced for failure processing.",
             "mode": "queue",
             "items": [
               "'he'",

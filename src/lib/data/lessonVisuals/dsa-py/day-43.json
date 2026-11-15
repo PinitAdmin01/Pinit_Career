@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Suppose a cloud autoscaler has a strict memory budget W = 50 GB and.",
+            "caption": "Every service can either be deployed once (take = 1) or skipped (leave = 0).",
             "items": {
               "var": "weights",
               "line": 26,
@@ -68,7 +68,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Suppose a cloud autoscaler has a strict memory budget W = 50 GB and.",
+            "caption": "Every service can either be deployed once (take = 1) or skipped (leave = 0).",
             "items": [
               "10",
               "20",
@@ -378,7 +378,7 @@
           },
           {
             "at": "say5",
-            "caption": "Look at the dramatic side-by-side demonstration in Python below.",
+            "caption": "Inspect why memory indexing causes this quiet corruption.",
             "items": {
               "var": "dp",
               "line": 5,
@@ -446,7 +446,7 @@
           },
           {
             "at": "say5",
-            "caption": "Look at the dramatic side-by-side demonstration in Python below.",
+            "caption": "Inspect why memory indexing causes this quiet corruption.",
             "items": [
               "0",
               "0",

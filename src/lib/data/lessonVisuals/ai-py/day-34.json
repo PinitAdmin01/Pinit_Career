@@ -96,7 +96,7 @@
           },
           {
             "at": "say8",
-            "caption": "Observe also how uppercasing predicates and replacing spaces.",
+            "caption": "Real infrastructure incidents rarely live inside one convenient wiki paragraph.",
             "values": {
               "ALIASES": {
                 "var": "ALIASES",
@@ -184,7 +184,7 @@
           },
           {
             "at": "say8",
-            "caption": "Observe also how uppercasing predicates and replacing spaces.",
+            "caption": "Real infrastructure incidents rarely live inside one convenient wiki paragraph.",
             "values": {
               "ALIASES": "{'auth svc': 'auth-service', 'auth-serv…",
               "raw": "[['Auth Svc', 'writes to', 'Postgres DB…",
@@ -246,16 +246,14 @@
                 "hit": 1
               },
               "fanout": {
-                "var": "fanout",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "edges": "data",
               "seeds": "data",
               "max_hops": "data",
-              "fanout": "data"
+              "fanout": "idle"
             }
           },
           {
@@ -353,13 +351,13 @@
               "edges": "[['api-gw', 'CALLS', 'auth', 0.9], ['au…",
               "seeds": "['api-gw']",
               "max_hops": "2",
-              "fanout": "2"
+              "fanout": ""
             },
             "tones": {
               "edges": "data",
               "seeds": "data",
               "max_hops": "data",
-              "fanout": "data"
+              "fanout": "idle"
             }
           },
           {
@@ -728,7 +726,7 @@
           },
           {
             "at": "say2",
-            "caption": "In the map phase, each community summary gets scored for relevance against.",
+            "caption": "Verify the community transition driving phase behavior.",
             "bars": [
               {
                 "label": "max_chars",
@@ -770,7 +768,7 @@
           },
           {
             "at": "say7",
-            "caption": "Watch how cleanly `comm-ui` gets filtered out ahead of prompt packing when.",
+            "caption": "Examine the reduce value produced for community processing.",
             "bars": [
               {
                 "label": "max_chars",
@@ -844,7 +842,7 @@
           },
           {
             "at": "say2",
-            "caption": "In the map phase, each community summary gets scored for relevance against.",
+            "caption": "Verify the community transition driving phase behavior.",
             "bars": [
               {
                 "label": "max_chars",
@@ -870,7 +868,7 @@
           },
           {
             "at": "say7",
-            "caption": "Watch how cleanly `comm-ui` gets filtered out ahead of prompt packing when.",
+            "caption": "Examine the reduce value produced for community processing.",
             "bars": [
               {
                 "label": "max_chars",

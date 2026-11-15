@@ -64,7 +64,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how modern updates cloud during execution.",
+            "caption": "Examine the cloud value produced for metadata processing.",
             "values": {
               "tr": {
                 "var": "tr",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say9",
-            "caption": "Trace how modern updates cloud during execution.",
+            "caption": "Examine the cloud value produced for metadata processing.",
             "values": {
               "tr": "'GCP_METADATA_FLAVOR'",
               "desc": "'http://metadata.google.internal/comput…"
@@ -196,7 +196,7 @@
           },
           {
             "at": "say2",
-            "caption": "The `SSRFMetadataFirewall` inspects resolved IP addresses before any.",
+            "caption": "Verify the socket transition driving flight behavior.",
             "values": {
               "resolved_ip": {
                 "var": "resolved_ip",
@@ -312,7 +312,7 @@
           },
           {
             "at": "say2",
-            "caption": "The `SSRFMetadataFirewall` inspects resolved IP addresses before any.",
+            "caption": "Verify the socket transition driving flight behavior.",
             "values": {
               "resolved_ip": "'93.184.216.34'",
               "prefix": "'127.'",
@@ -554,7 +554,7 @@
           },
           {
             "at": "say2",
-            "caption": "An attacker provides a public URL (e.",
+            "caption": "Verify the attacker transition driving provides behavior.",
             "currentState": "hops",
             "transition": {
               "from": "sample_hops",
@@ -610,7 +610,7 @@
           },
           {
             "at": "say2",
-            "caption": "An attacker provides a public URL (e.",
+            "caption": "Verify the attacker transition driving provides behavior.",
             "currentState": "hops",
             "transition": {
               "from": "sample_hops",

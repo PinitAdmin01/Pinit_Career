@@ -1,5 +1,5 @@
 import { runJsInSandbox } from './jsSandbox';
-import { runPythonInSandbox } from './pythonSandbox';
+import { runPythonInPyodideFallback, runPythonInSandbox } from './pythonSandbox';
 
 export interface VerifiableQuest {
   id: string;
@@ -142,59 +142,76 @@ export async function verifyQuestSubmissionServerSide(
     };
   }
 
-  // Execute Python submissions in isolated Python process sandbox when tests use Python syntax
+  // Execute Python submissions in isolated Python process sandbox, falling back to server Pyodide WASM if native Python is absent.
+  // Never auto-pass when tests contain JS markers or when runtimes are unavailable (fail-closed).
   if (lang === 'python') {
     if (hasJsTestMarkers(tests)) {
-      console.warn(
-        `[PinIT][Fix:QuestsVerify] Skipped legacy JS-formatted testSuite against Python quest=${quest.id} (client sandbox validated)`
+      console.error(
+        `[PinIT][Fix:QuestsVerify] Invalid JS test markers in Python quest=${quest.id}; failing closed`
       );
       return {
-        ok: true,
-        status: 200,
-        message: 'Verification Passed (legacy Python quest validated via non-starter check).',
-        verificationMode: 'python-legacy-js-suite-deferred',
+        ok: false,
+        status: 500,
+        error: 'INVALID_PYTHON_TEST_SUITE',
+        message: 'Verification harness contains non-Python syntax and cannot validate this submission.',
+        verificationMode: 'rejected-invalid-python-suite',
       };
     }
 
-    const pyRes = await runPythonInSandbox({
+    let pyRes = await runPythonInSandbox({
       code,
       tests,
       timeoutMs: 4500,
     });
+    let mode = 'server-python-sandbox';
 
     if (pyRes.status === 'ENVIRONMENT_ERROR') {
       console.warn(
-        `[PinIT][Fix:QuestsVerify] Python binary missing on server host for quest=${quest.id}; falling back after starter check`
+        `[PinIT][Fix:QuestsVerify] Native Python binary unavailable for quest=${quest.id}; running server Pyodide fallback`
       );
-      return {
-        ok: true,
-        status: 200,
-        message: 'Verification Passed! Validated in client Pyodide runtime (host Python unavailable).',
-        verificationMode: 'client-pyodide-host-unavailable',
-      };
+      pyRes = await runPythonInPyodideFallback({
+        code,
+        tests,
+        timeoutMs: 4500,
+      });
+      mode = 'server-pyodide-sandbox';
+
+      if (pyRes.status === 'ENVIRONMENT_ERROR') {
+        console.error(
+          `[PinIT][Fix:QuestsVerify] Both native Python and Pyodide unavailable for quest=${quest.id}: ${pyRes.stderr}`
+        );
+        return {
+          ok: false,
+          status: 503,
+          error: 'PYTHON_SANDBOX_UNAVAILABLE',
+          message: 'Server Python runtime is temporarily unavailable. Please retry in a moment.',
+          verificationMode: 'server-python-unavailable',
+          stderr: pyRes.stderr,
+        };
+      }
     }
 
     if (!pyRes.passed) {
       console.warn(
-        `[PinIT][Fix:QuestsVerify] Python judge FAILED quest=${quest.id} status=${pyRes.status}: ${pyRes.stderr}`
+        `[PinIT][Fix:QuestsVerify] Python judge FAILED quest=${quest.id} mode=${mode} status=${pyRes.status}: ${pyRes.stderr}`
       );
       return {
         ok: false,
         status: 422,
         error: pyRes.status || 'VERIFICATION_FAILED',
         message: pyRes.stderr || 'Python submission failed assertion checks.',
-        verificationMode: 'server-python-sandbox',
+        verificationMode: mode,
         stdout: pyRes.stdout,
         stderr: pyRes.stderr,
       };
     }
 
-    console.log(`[PinIT][Fix:QuestsVerify] Python judge PASSED quest=${quest.id}`);
+    console.log(`[PinIT][Fix:QuestsVerify] Python judge PASSED quest=${quest.id} mode=${mode}`);
     return {
       ok: true,
       status: 200,
       message: 'Verification Passed! Validated by authoritative Python sandbox.',
-      verificationMode: 'server-python-sandbox',
+      verificationMode: mode,
       stdout: pyRes.stdout,
     };
   }

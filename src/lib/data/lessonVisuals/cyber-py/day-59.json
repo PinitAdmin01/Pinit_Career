@@ -54,7 +54,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Common Vulnerability Scoring System (CVSS), maintained by FIRST (Forum.",
+            "caption": "Verify the cvss transition driving common behavior.",
             "values": {
               "CVSS_METRICS_TAXONOMY": {
                 "var": "CVSS_METRICS_TAXONOMY",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Common Vulnerability Scoring System (CVSS), maintained by FIRST (Forum.",
+            "caption": "Verify the cvss transition driving common behavior.",
             "values": {
               "CVSS_METRICS_TAXONOMY": "{'ATTACK_VECTOR': {'N': 'Network (1.0)'…",
               "metric": "'ATTACK_COMPLEXITY'",
@@ -214,16 +214,14 @@
                 "hit": 1
               },
               "ui": {
-                "var": "ui",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "av": "data",
               "ac": "data",
               "pr": "data",
-              "ui": "data"
+              "ui": "idle"
             },
             "arrows": [
               [
@@ -363,13 +361,13 @@
               "av": "'N'",
               "ac": "'L'",
               "pr": "'N'",
-              "ui": "'N'"
+              "ui": ""
             },
             "tones": {
               "av": "data",
               "ac": "data",
               "pr": "data",
-              "ui": "data"
+              "ui": "idle"
             },
             "arrows": [
               [
@@ -475,6 +473,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A vulnerability SLA triage router maps calculated CVSS scores.",
+            "activeActor": "severity",
+            "messages": [
+              {
+                "from": "cvss_score",
+                "to": "severity",
+                "label": {
+                  "var": "cvss_score",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "severity",
@@ -489,10 +504,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A vulnerability SLA triage router maps calculated CVSS scores.",
-            "activeActor": "severity",
+            "at": "say10",
+            "caption": "Vulnerability SLA triage routers map calculated scores to strict.",
+            "activeActor": "sla_hours",
             "messages": [
+              {
+                "from": "cvss_score",
+                "to": "severity",
+                "label": {
+                  "var": "cvss_score",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "severity",
+                "to": "sla_hours",
+                "label": {
+                  "var": "severity",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cvss_score",
                 "to": "severity",
@@ -512,14 +547,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Vulnerability SLA triage routers map calculated scores to strict.",
-            "activeActor": "sla_hours",
-            "messages": [
+              },
               {
                 "from": "cvss_score",
                 "to": "severity",
@@ -562,12 +590,6 @@
                 "to": "severity",
                 "label": "9.8",
                 "tone": "data"
-              },
-              {
-                "from": "severity",
-                "to": "sla_hours",
-                "label": "'CRITICAL'",
-                "tone": "ok"
               }
             ],
             "activeActor": "cvss_score"
@@ -595,6 +617,30 @@
             "at": "say10",
             "caption": "Vulnerability SLA triage routers map calculated scores to strict.",
             "messages": [
+              {
+                "from": "cvss_score",
+                "to": "severity",
+                "label": "9.8",
+                "tone": "data"
+              },
+              {
+                "from": "severity",
+                "to": "sla_hours",
+                "label": "'CRITICAL'",
+                "tone": "ok"
+              },
+              {
+                "from": "cvss_score",
+                "to": "severity",
+                "label": "9.8",
+                "tone": "data"
+              },
+              {
+                "from": "severity",
+                "to": "sla_hours",
+                "label": "'CRITICAL'",
+                "tone": "ok"
+              },
               {
                 "from": "cvss_score",
                 "to": "severity",
@@ -636,7 +682,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "CVSS vector strings (e.",
+            "caption": "Observe how cvss shapes vector during this step.",
             "currentState": "valid_vec",
             "tone": "data"
           },
@@ -657,7 +703,7 @@
           },
           {
             "at": "say10",
-            "caption": "Input syntax guardrails validate CVSS vector strings to guarantee that all.",
+            "caption": "Examine the strict value produced for validation processing.",
             "currentState": "vector_str",
             "transition": {
               "from": "invalid_vec",
@@ -692,7 +738,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "CVSS vector strings (e.",
+            "caption": "Observe how cvss shapes vector during this step.",
             "currentState": "valid_vec",
             "tone": "data"
           },
@@ -709,7 +755,7 @@
           },
           {
             "at": "say10",
-            "caption": "Input syntax guardrails validate CVSS vector strings to guarantee that all.",
+            "caption": "Examine the strict value produced for validation processing.",
             "currentState": "vector_str",
             "transition": {
               "from": "invalid_vec",

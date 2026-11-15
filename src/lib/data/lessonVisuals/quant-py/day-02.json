@@ -557,7 +557,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how level updates data during execution.",
+            "caption": "Verify the price transition driving levels behavior.",
             "bars": [
               {
                 "label": "price",
@@ -650,7 +650,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how level updates data during execution.",
+            "caption": "Verify the price transition driving levels behavior.",
             "bars": [
               {
                 "label": "price",

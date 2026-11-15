@@ -550,16 +550,14 @@
                 "hit": 1
               },
               "recall": {
-                "var": "recall",
-                "line": 4,
-                "hit": 4
+                "text": ""
               }
             },
             "tones": {
               "golden": "data",
               "runs": "data",
               "k": "data",
-              "recall": "data"
+              "recall": "idle"
             },
             "arrows": [
               [
@@ -578,7 +576,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates runs during execution.",
+            "caption": "Verify the practice transition driving eval behavior.",
             "values": {
               "golden": {
                 "var": "golden",
@@ -699,13 +697,13 @@
               "golden": "{'refund': {'a', 'b'}, 'shipping': {'c'…",
               "runs": "{'refund': ['b', 'x', 'a'], 'shipping':…",
               "k": "2",
-              "recall": "{'refund': 0.5, 'shipping': 1, 'warrant…"
+              "recall": ""
             },
             "tones": {
               "golden": "data",
               "runs": "data",
               "k": "data",
-              "recall": "data"
+              "recall": "idle"
             },
             "arrows": [
               [
@@ -724,7 +722,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates runs during execution.",
+            "caption": "Verify the practice transition driving eval behavior.",
             "values": {
               "golden": "{'refund': {'a', 'b'}, 'shipping': {'c'…",
               "runs": "{'refund': ['b', 'x', 'a'], 'shipping':…",

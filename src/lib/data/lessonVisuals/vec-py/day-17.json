@@ -38,7 +38,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how recall updates comes during execution.",
+            "caption": "Verify the recall transition driving comes behavior.",
             "bars": [
               {
                 "label": "recall",
@@ -108,7 +108,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how recall updates comes during execution.",
+            "caption": "Verify the recall transition driving comes behavior.",
             "bars": [
               {
                 "label": "recall",
@@ -473,13 +473,13 @@
               },
               "ef": {
                 "var": "ef",
-                "line": 4,
+                "line": 10,
                 "hit": 1
               },
               "recall": {
                 "var": "recall",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -519,13 +519,13 @@
               },
               "ef": {
                 "var": "ef",
-                "line": 5,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               },
               "recall": {
                 "var": "recall",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -609,8 +609,8 @@
             "values": {
               "measured": "{16: [0.82, 1.2], 32: [0.91, 1.9], 64: …",
               "target": "0.95",
-              "ef": "16",
-              "recall": "0.82"
+              "ef": "32",
+              "recall": "0.91"
             },
             "tones": {
               "measured": "data",
@@ -639,8 +639,8 @@
             "values": {
               "measured": "{16: [0.82, 1.2], 32: [0.91, 1.9], 64: …",
               "target": "0.95",
-              "ef": "16",
-              "recall": "0.82"
+              "ef": "64",
+              "recall": "0.96"
             },
             "tones": {
               "measured": "ok",
@@ -753,13 +753,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 6,
-                "hit": 5
+                "line": 5,
+                "hit": 2
               },
               "o": {
                 "var": "o",
-                "line": 6,
-                "hit": 5
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -799,13 +799,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "o": {
                 "var": "o",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -889,8 +889,8 @@
             "values": {
               "options": "{'hnsw-M16': {'recall': 0.96, 'ms': 3.1…",
               "weights": "{'recall': 100, 'ms': -2, 'gb': -0.5}",
-              "name": "'hnsw-M16'",
-              "o": "{'recall': 0.96, 'ms': 3.1, 'gb': 34}"
+              "name": "'hnsw-M32'",
+              "o": "{'recall': 0.98, 'ms': 3.6, 'gb': 38}"
             },
             "tones": {
               "options": "data",
@@ -919,8 +919,8 @@
             "values": {
               "options": "{'hnsw-M16': {'recall': 0.96, 'ms': 3.1…",
               "weights": "{'recall': 100, 'ms': -2, 'gb': -0.5}",
-              "name": "'hnsw-M16'",
-              "o": "{'recall': 0.96, 'ms': 3.1, 'gb': 34}"
+              "name": "'ivf-pq'",
+              "o": "{'recall': 0.93, 'ms': 2.4, 'gb': 6}"
             },
             "tones": {
               "options": "ok",
@@ -954,12 +954,12 @@
         "title": "Practice time: tuning",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pareto_front(configs).",
+            "caption": "Observe how practice shapes pareto during this step.",
             "rows": [
               {
                 "cells": [
@@ -967,35 +967,7 @@
                     "text": "configs"
                   },
                   {
-                    "var": "configs",
-                    "line": 1,
-                    "hit": 2
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": ".0"
-                  },
-                  {
-                    "var": ".0",
-                    "line": 3,
-                    "hit": 2
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "o"
-                  },
-                  {
-                    "var": "o",
-                    "line": 4,
-                    "hit": 2
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -1004,57 +976,12 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include five configurations with one dominated and a.",
+            "caption": "Verify the checks transition driving include behavior.",
             "rows": [
               {
                 "cells": [
                   {
                     "text": "configs"
-                  },
-                  {
-                    "var": "configs",
-                    "line": 3,
-                    "hit": 1
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": ".0"
-                  },
-                  {
-                    "var": ".0",
-                    "line": 4,
-                    "hit": 2
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "o"
-                  },
-                  {
-                    "var": "o",
-                    "line": 3,
-                    "hit": 3
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "If pareto_front keeps a dominated option, check the strictly-better condition.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "out 1"
                   },
                   {
                     "out": 1
@@ -1065,7 +992,7 @@
               {
                 "cells": [
                   {
-                    "text": "out 2"
+                    "text": "configs"
                   },
                   {
                     "out": 2
@@ -1082,31 +1009,17 @@
         "title": "Practice time: tuning",
         "columns": [
           "Symbol",
-          "Executed Value"
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pareto_front(configs).",
+            "caption": "Observe how practice shapes pareto during this step.",
             "rows": [
               {
                 "cells": [
                   "configs",
-                  "[{'name': 'ef16', 'recall': 0.82, 'late…"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  ".0",
-                  "{'__other__': 'list_iterator'}"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "o",
-                  "{'name': 'ef16', 'recall': 0.82, 'laten…"
+                  "front: ['ef16', 'ef32', 'ef64']"
                 ],
                 "tone": "data"
               }
@@ -1114,45 +1027,18 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include five configurations with one dominated and a.",
+            "caption": "Verify the checks transition driving include behavior.",
             "rows": [
               {
                 "cells": [
                   "configs",
-                  "[{'name': 'ef16', 'recall': 0.82, 'late…"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  ".0",
-                  "{'__other__': 'list_iterator'}"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "o",
-                  "{'name': 'ef16', 'recall': 0.82, 'laten…"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "If pareto_front keeps a dominated option, check the strictly-better condition.",
-            "rows": [
-              {
-                "cells": [
-                  "out 1",
                   "front: ['ef16', 'ef32', 'ef64']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "out 2",
+                  "configs",
                   "choice for recall 0.9: ef32"
                 ],
                 "tone": "ok"

@@ -490,16 +490,14 @@
                 "hit": 1
               },
               "max_allowed": {
-                "var": "max_allowed",
-                "line": 12,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "raw_slice": "data",
               "expected_market_vol": "data",
               "max_participation": "data",
-              "max_allowed": "data"
+              "max_allowed": "idle"
             },
             "arrows": [
               [
@@ -639,13 +637,13 @@
               "raw_slice": "12000",
               "expected_market_vol": "150000",
               "max_participation": "0.05",
-              "max_allowed": "7500"
+              "max_allowed": ""
             },
             "tones": {
               "raw_slice": "data",
               "expected_market_vol": "data",
               "max_participation": "data",
-              "max_allowed": "data"
+              "max_allowed": "idle"
             },
             "arrows": [
               [
@@ -751,6 +749,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The most critical guardrail is the Adverse Price Impact Collar, monitoring.",
+            "activeActor": "current_price",
+            "messages": [
+              {
+                "from": "initial_price",
+                "to": "current_price",
+                "label": {
+                  "var": "initial_price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "current_price",
@@ -765,10 +780,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The most critical guardrail is the Adverse Price Impact Collar, monitoring.",
-            "activeActor": "current_price",
+            "at": "say10",
+            "caption": "Dynamic circuit breakers and participation ceilings protect institutional.",
+            "activeActor": "cum_shares_traded",
             "messages": [
+              {
+                "from": "initial_price",
+                "to": "current_price",
+                "label": {
+                  "var": "initial_price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "current_price",
+                "to": "cum_shares_traded",
+                "label": {
+                  "var": "current_price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "initial_price",
                 "to": "current_price",
@@ -788,14 +823,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Dynamic circuit breakers and participation ceilings protect institutional.",
-            "activeActor": "cum_shares_traded",
-            "messages": [
+              },
               {
                 "from": "initial_price",
                 "to": "current_price",
@@ -838,12 +866,6 @@
                 "to": "current_price",
                 "label": "150",
                 "tone": "data"
-              },
-              {
-                "from": "current_price",
-                "to": "cum_shares_traded",
-                "label": "146.5",
-                "tone": "ok"
               }
             ],
             "activeActor": "initial_price"
@@ -871,6 +893,30 @@
             "at": "say10",
             "caption": "Dynamic circuit breakers and participation ceilings protect institutional.",
             "messages": [
+              {
+                "from": "initial_price",
+                "to": "current_price",
+                "label": "150",
+                "tone": "data"
+              },
+              {
+                "from": "current_price",
+                "to": "cum_shares_traded",
+                "label": "146.5",
+                "tone": "ok"
+              },
+              {
+                "from": "initial_price",
+                "to": "current_price",
+                "label": "150",
+                "tone": "data"
+              },
+              {
+                "from": "current_price",
+                "to": "cum_shares_traded",
+                "label": "146.5",
+                "tone": "ok"
+              },
               {
                 "from": "initial_price",
                 "to": "current_price",

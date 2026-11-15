@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Observe how milestone shapes synthesizes during this step.",
             "currentState": "MILESTONE_10_PILLARS",
             "tone": "data"
           },
@@ -49,7 +49,7 @@
           },
           {
             "at": "say10",
-            "caption": "Integrated threat hunting architectures correlate endpoint, identity,.",
+            "caption": "Examine the composite value produced for correlation processing.",
             "currentState": "summary",
             "transition": {
               "from": "pillar",
@@ -84,7 +84,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Observe how milestone shapes synthesizes during this step.",
             "currentState": "MILESTONE_10_PILLARS",
             "tone": "data"
           },
@@ -101,7 +101,7 @@
           },
           {
             "at": "say10",
-            "caption": "Integrated threat hunting architectures correlate endpoint, identity,.",
+            "caption": "Examine the composite value produced for correlation processing.",
             "currentState": "summary",
             "transition": {
               "from": "pillar",
@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "The engine inspects process execution telemetry for malicious arguments (e.",
+            "caption": "Verify the engine transition driving inspects behavior.",
             "currentState": "event2",
             "transition": {
               "from": "event1",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say2",
-            "caption": "The engine inspects process execution telemetry for malicious arguments (e.",
+            "caption": "Verify the engine transition driving inspects behavior.",
             "currentState": "event2",
             "transition": {
               "from": "event1",
@@ -570,16 +570,14 @@
                 "hit": 1
               },
               "report": {
-                "var": "report",
-                "line": 14,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "gates": "data",
               "all_passed": "data",
               "passed": "data",
-              "report": "data"
+              "report": "idle"
             },
             "arrows": [
               [
@@ -719,13 +717,13 @@
               "gates": "{'GATE_1_SIGMA_COMPILER': True, 'GATE_2…",
               "all_passed": "True",
               "passed": "True",
-              "report": "{'GATE_1_SIGMA_COMPILER': True, 'GATE_2…"
+              "report": ""
             },
             "tones": {
               "gates": "data",
               "all_passed": "data",
               "passed": "data",
-              "report": "data"
+              "report": "idle"
             },
             "arrows": [
               [

@@ -167,6 +167,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "First keep only docs whose metadata matches every filter key.",
+            "activeActor": "query",
+            "messages": [
+              {
+                "from": "docs",
+                "to": "query",
+                "label": {
+                  "var": "docs",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "query",
@@ -181,10 +198,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "First keep only docs whose metadata matches every filter key.",
-            "activeActor": "query",
+            "at": "say6",
+            "caption": "Examine the filters value produced for meta processing.",
+            "activeActor": "top_k",
             "messages": [
+              {
+                "from": "docs",
+                "to": "query",
+                "label": {
+                  "var": "docs",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "top_k",
+                "label": {
+                  "var": "query",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "docs",
                 "to": "query",
@@ -204,14 +241,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace how meta updates filters during execution.",
-            "activeActor": "top_k",
-            "messages": [
+              },
               {
                 "from": "docs",
                 "to": "query",
@@ -254,12 +284,6 @@
                 "to": "query",
                 "label": "[{'id': 'refund-en', 'embedding': [0.9,…",
                 "tone": "data"
-              },
-              {
-                "from": "query",
-                "to": "top_k",
-                "label": "[1, 0]",
-                "tone": "ok"
               }
             ],
             "activeActor": "docs"
@@ -285,8 +309,32 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how meta updates filters during execution.",
+            "caption": "Examine the filters value produced for meta processing.",
             "messages": [
+              {
+                "from": "docs",
+                "to": "query",
+                "label": "[{'id': 'refund-en', 'embedding': [0.9,…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "top_k",
+                "label": "[1, 0]",
+                "tone": "ok"
+              },
+              {
+                "from": "docs",
+                "to": "query",
+                "label": "[{'id': 'refund-en', 'embedding': [0.9,…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "top_k",
+                "label": "[1, 0]",
+                "tone": "ok"
+              },
               {
                 "from": "docs",
                 "to": "query",
@@ -364,7 +412,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sorted updates returns during execution.",
+            "caption": "sorted(...) returns a new list, so the input is safe.",
             "values": {
               "results": {
                 "var": "results",
@@ -468,7 +516,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sorted updates returns during execution.",
+            "caption": "sorted(...) returns a new list, so the input is safe.",
             "values": {
               "results": "[{'id': 'a', 'score': 0.61}, {'id': 'b'…",
               "it": "{'id': 'b', 'score': 0.93}",
@@ -574,13 +622,13 @@
               },
               "buckets": {
                 "var": "buckets",
-                "line": 9,
+                "line": 11,
                 "hit": 1
               },
               "pid": {
                 "var": "pid",
-                "line": 10,
-                "hit": 3
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -606,13 +654,13 @@
               },
               "buckets": {
                 "var": "buckets",
-                "line": 10,
-                "hit": 3
+                "line": 11,
+                "hit": 2
               },
               "pid": {
                 "var": "pid",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               }
             },
             "tones": {
@@ -668,8 +716,8 @@
             "values": {
               "centroids": "{'north': [0, 10], 'south': [0, -10]}",
               "points": "{'p1': [1, 9], 'p2': [-2, 11], 'p3': [1…",
-              "buckets": "{'north': [], 'south': []}",
-              "pid": "'p1'"
+              "buckets": "{'north': ['p1'], 'south': []}",
+              "pid": "'p2'"
             },
             "tones": {
               "centroids": "data",
@@ -684,8 +732,8 @@
             "values": {
               "centroids": "{'north': [0, 10], 'south': [0, -10]}",
               "points": "{'p1': [1, 9], 'p2': [-2, 11], 'p3': [1…",
-              "buckets": "{'north': [], 'south': []}",
-              "pid": "'p1'"
+              "buckets": "{'north': ['p1', 'p2'], 'south': []}",
+              "pid": "'p3'"
             },
             "tones": {
               "centroids": "ok",
@@ -742,16 +790,14 @@
                 "hit": 1
               },
               "start": {
-                "var": "start",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "points": "data",
               "links": "data",
               "query": "data",
-              "start": "data"
+              "start": "idle"
             },
             "arrows": [
               [
@@ -891,13 +937,13 @@
               "points": "{'A': [0, 0], 'B': [2, 1], 'C': [4, 2],…",
               "links": "{'A': ['B', 'F'], 'B': ['A', 'C'], 'C':…",
               "query": "[6.5, 5]",
-              "start": "'A'"
+              "start": ""
             },
             "tones": {
               "points": "data",
               "links": "data",
               "query": "data",
-              "start": "data"
+              "start": "idle"
             },
             "arrows": [
               [
@@ -979,7 +1025,7 @@
     },
     {
       "partTitle": "Measuring recall",
-      "codeHash": "3754190dd46bde5a9bb05a140e9a3962bef96e502416d1fa3b2d9e9b4736de30",
+      "codeHash": "0b3a7d1211b16ff691e3938176cb57a28300d93a5ad868490a8d44ca53bd36fd",
       "spec": {
         "template": "sequence",
         "title": "Measuring recall",
@@ -1018,7 +1064,7 @@
           },
           {
             "at": "say2",
-            "caption": "Run a sample of real questions through both brute force and the index,.",
+            "caption": "Verify the recall transition driving sample behavior.",
             "activeActor": "true_top",
             "messages": [
               {
@@ -1045,7 +1091,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will decide how to cut documents into chunks before they are.",
+            "caption": "Examine the tomorrow value produced for decide processing.",
             "activeActor": "found_top",
             "messages": [
               {
@@ -1102,7 +1148,7 @@
           },
           {
             "at": "say2",
-            "caption": "Run a sample of real questions through both brute force and the index,.",
+            "caption": "Verify the recall transition driving sample behavior.",
             "messages": [
               {
                 "from": "samples",
@@ -1121,7 +1167,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tomorrow you will decide how to cut documents into chunks before they are.",
+            "caption": "Examine the tomorrow value produced for decide processing.",
             "messages": [
               {
                 "from": "samples",

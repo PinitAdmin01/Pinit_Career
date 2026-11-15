@@ -7,786 +7,872 @@
   "entries": [
     {
       "partTitle": "The Paradigm Shift: From Heuristic Eyeballing To Programmatic LLM Evaluation",
-      "codeHash": "1207143e5ce9f2a82609eee111a65037aa9b0b14c3c340c1b78449724d6c8c33",
+      "codeHash": "67ed49a98dbff985fda623d13e2be3680341071d1a9bbd83735a24c5504bc9f0",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Paradigm Shift: From Heuristic Eyeballing To Programmatic LL",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "dp",
+            "label": "dp",
+            "tappable": true
+          },
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "new_dp",
+            "label": "new_dp",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As enterprise organizations deploy foundation models across critical.",
-            "activeActor": "metrics",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect evaluating updates as dp tracks enterprise state.",
+            "values": {
+              "dp": {
+                "var": "dp",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "x": {
+                "text": ""
+              },
+              "new_dp": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "dp": "data",
+              "x": "idle",
+              "new_dp": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The evolution from manual probing to automated evaluation establishes.",
-            "activeActor": "eval_frameworks",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the evaluation transition driving automating behavior.",
+            "values": {
+              "dp": {
+                "var": "dp",
+                "line": 5,
+                "hit": 17
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 17
+              },
+              "new_dp": {
+                "var": "new_dp",
+                "line": 5,
+                "hit": 17
               }
+            },
+            "tones": {
+              "dp": "data",
+              "x": "data",
+              "new_dp": "data"
+            },
+            "arrows": [
+              [
+                "dp",
+                "x"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering programmatic LLM evaluation equips AI engineers with.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the evaluation value produced for core processing.",
+            "values": {
+              "dp": {
+                "var": "dp",
+                "line": 7,
+                "hit": 5
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "x": {
+                "var": "x",
+                "line": 7,
+                "hit": 5
+              },
+              "new_dp": {
+                "var": "new_dp",
+                "line": 7,
+                "hit": 5
               }
+            },
+            "tones": {
+              "dp": "ok",
+              "x": "ok",
+              "new_dp": "ok"
+            },
+            "arrows": [
+              [
+                "dp",
+                "x"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Paradigm Shift: From Heuristic Eyeballing To Programmatic LL",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "dp",
+            "label": "dp",
+            "tappable": true
+          },
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "new_dp",
+            "label": "new_dp",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As enterprise organizations deploy foundation models across critical.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "metrics"
+            "caption": "Inspect evaluating updates as dp tracks enterprise state.",
+            "values": {
+              "dp": "[0, 0, 0, 0, 0, 0, 0]",
+              "x": "",
+              "new_dp": ""
+            },
+            "tones": {
+              "dp": "data",
+              "x": "idle",
+              "new_dp": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The evolution from manual probing to automated evaluation establishes.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "eval_frameworks"
+            "caption": "Verify the evaluation transition driving automating behavior.",
+            "values": {
+              "dp": "[0, 1, 2, 2, 2, 2, 2]",
+              "x": "'isolates'",
+              "new_dp": "[0, 1, 2]"
+            },
+            "tones": {
+              "dp": "data",
+              "x": "data",
+              "new_dp": "data"
+            },
+            "arrows": [
+              [
+                "dp",
+                "x"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering programmatic LLM evaluation equips AI engineers with.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the evaluation value produced for core processing.",
+            "values": {
+              "dp": "[0, 1, 2, 2, 3, 3, 4]",
+              "x": "'snapshots'",
+              "new_dp": "[0, 1, 2, 2, 3, 3, 4]"
+            },
+            "tones": {
+              "dp": "ok",
+              "x": "ok",
+              "new_dp": "ok"
+            },
+            "arrows": [
+              [
+                "dp",
+                "x"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "RAG Evaluation Mechanics: Faithfulness, Answer Relevance, And Context Metrics",
-      "codeHash": "1207143e5ce9f2a82609eee111a65037aa9b0b14c3c340c1b78449724d6c8c33",
+      "codeHash": "a94d351847f9307b3c6f155216cfca2d3750cd9c65a59ac7ecf17f7158a4133b",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "RAG Evaluation Mechanics: Faithfulness, Answer Relevance, And Co",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "ch",
+            "label": "ch",
+            "tappable": true
+          },
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "rel_hits",
+            "label": "rel_hits",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval-Augmented Generation (RAG) architectures represent.",
-            "activeActor": "metrics",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect metrics updates as ch tracks retrieval state.",
+            "values": {
+              "ch": {
+                "var": "ch",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "c": {
+                "text": ""
+              },
+              "rel_hits": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "ch": "data",
+              "c": "idle",
+              "rel_hits": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Faithfulness measures the factual groundedness of generated completions.",
-            "activeActor": "eval_frameworks",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the faithfulness transition driving answer behavior.",
+            "values": {
+              "ch": {
+                "var": "ch",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "c": {
+                "text": ""
+              },
+              "rel_hits": {
+                "var": "rel_hits",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ch": "data",
+              "c": "idle",
+              "rel_hits": "data"
+            },
+            "arrows": [
+              [
+                "ch",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering Ragas evaluation metrics provides you with an indispensable.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the answer value produced for relevance processing.",
+            "values": {
+              "ch": {
+                "var": "ch",
+                "line": 15,
+                "hit": 2
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "c": {
+                "text": ""
+              },
+              "rel_hits": {
+                "var": "rel_hits",
+                "line": 15,
+                "hit": 2
               }
+            },
+            "tones": {
+              "ch": "ok",
+              "c": "idle",
+              "rel_hits": "ok"
+            },
+            "arrows": [
+              [
+                "ch",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "RAG Evaluation Mechanics: Faithfulness, Answer Relevance, And Co",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "ch",
+            "label": "ch",
+            "tappable": true
+          },
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "rel_hits",
+            "label": "rel_hits",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval-Augmented Generation (RAG) architectures represent.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "metrics"
+            "caption": "Inspect metrics updates as ch tracks retrieval state.",
+            "values": {
+              "ch": "{'text': 'Refunds settle within 5 busin…",
+              "c": "",
+              "rel_hits": ""
+            },
+            "tones": {
+              "ch": "data",
+              "c": "idle",
+              "rel_hits": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Faithfulness measures the factual groundedness of generated completions.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "eval_frameworks"
+            "caption": "Verify the faithfulness transition driving answer behavior.",
+            "values": {
+              "ch": "{'text': 'Refunds settle within 5 busin…",
+              "c": "",
+              "rel_hits": "0"
+            },
+            "tones": {
+              "ch": "data",
+              "c": "idle",
+              "rel_hits": "data"
+            },
+            "arrows": [
+              [
+                "ch",
+                "c"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering Ragas evaluation metrics provides you with an indispensable.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the answer value produced for relevance processing.",
+            "values": {
+              "ch": "{'text': 'Wire transfers carry a $15 fe…",
+              "c": "",
+              "rel_hits": "2"
+            },
+            "tones": {
+              "ch": "ok",
+              "c": "idle",
+              "rel_hits": "ok"
+            },
+            "arrows": [
+              [
+                "ch",
+                "c"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "The Feedback Triad And DeepEval: Groundedness, Context Relevance, And Unit Testing",
-      "codeHash": "1207143e5ce9f2a82609eee111a65037aa9b0b14c3c340c1b78449724d6c8c33",
+      "codeHash": "d5d83e8fd153476a368c08e0226c02ba1e83f96e0cee84383611c8cf10fb1539",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Feedback Triad And DeepEval: Groundedness, Context Relevance",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "failed",
+            "label": "failed",
+            "tappable": true
+          },
+          {
+            "id": "status",
+            "label": "status",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While Ragas provides exceptional metrics for Retrieval-Augmented.",
-            "activeActor": "metrics",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect deepeval updates as r tracks testing state.",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "failed": {
+                "text": ""
+              },
+              "status": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "r": "data",
+              "failed": "idle",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The TruLens Feedback Triad decomposes application quality into three.",
-            "activeActor": "eval_frameworks",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Answer Relevance confirms that the response satisfies the original user query.",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 9,
+                "hit": 8
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "failed": {
+                "var": "failed",
+                "line": 9,
+                "hit": 8
+              },
+              "status": {
+                "var": "status",
+                "line": 9,
+                "hit": 8
               }
+            },
+            "tones": {
+              "r": "data",
+              "failed": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "r",
+                "failed"
+              ]
             ]
           },
           {
-            "at": "say15",
-            "caption": "Mastering the TruLens Feedback Triad and DeepEval testing batteries equips.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the deepeval value produced for relevance processing.",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 10,
+                "hit": 3
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "failed": {
+                "var": "failed",
+                "line": 10,
+                "hit": 3
+              },
+              "status": {
+                "var": "status",
+                "line": 10,
+                "hit": 3
               }
+            },
+            "tones": {
+              "r": "ok",
+              "failed": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "failed"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Feedback Triad And DeepEval: Groundedness, Context Relevance",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "failed",
+            "label": "failed",
+            "tappable": true
+          },
+          {
+            "id": "status",
+            "label": "status",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While Ragas provides exceptional metrics for Retrieval-Augmented.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "metrics"
+            "caption": "Inspect deepeval updates as r tracks testing state.",
+            "values": {
+              "r": "{'id': 'q1', 'ctx_rel': 0.92, 'grounded…",
+              "failed": "",
+              "status": ""
+            },
+            "tones": {
+              "r": "data",
+              "failed": "idle",
+              "status": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The TruLens Feedback Triad decomposes application quality into three.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "eval_frameworks"
+            "caption": "Answer Relevance confirms that the response satisfies the original user query.",
+            "values": {
+              "r": "{'id': 'q2', 'ctx_rel': 0.88, 'grounded…",
+              "failed": "['grounded']",
+              "status": "'PASS'"
+            },
+            "tones": {
+              "r": "data",
+              "failed": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "r",
+                "failed"
+              ]
+            ]
           },
           {
-            "at": "say15",
-            "caption": "Mastering the TruLens Feedback Triad and DeepEval testing batteries equips.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the deepeval value produced for relevance processing.",
+            "values": {
+              "r": "{'id': 'q3', 'ctx_rel': 0.9, 'grounded'…",
+              "failed": "[]",
+              "status": "'PASS'"
+            },
+            "tones": {
+              "r": "ok",
+              "failed": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "failed"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "G-Eval And LLM-As-A-Judge: Chain-Of-Thought Scoring And Bias Mitigation",
-      "codeHash": "1207143e5ce9f2a82609eee111a65037aa9b0b14c3c340c1b78449724d6c8c33",
+      "codeHash": "ac162cfd20e3afc02926dab0a330a55c65a38427ae56279c55e1e19f7b95f2e8",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "G-Eval And LLM-As-A-Judge: Chain-Of-Thought Scoring And Bias Mit",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "probs",
+            "label": "probs",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As the complexity of enterprise generative AI tasks increasesencompassing.",
-            "activeActor": "metrics",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect eval updates as name tracks judge state.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "probs": {
+                "var": "probs",
+                "line": 7,
+                "hit": 1
+              },
+              "s": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "probs": "data",
+              "s": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The G-Eval framework formalizes LLM-as-a-Judge evaluation using structured.",
-            "activeActor": "eval_frameworks",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the eval transition driving judge behavior.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "probs": {
+                "var": "probs",
+                "line": 7,
+                "hit": 2
+              },
+              "s": {
+                "text": ""
               }
+            },
+            "tones": {
+              "name": "data",
+              "probs": "data",
+              "s": "idle"
+            },
+            "arrows": [
+              [
+                "name",
+                "probs"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering G-Eval and LLM-as-a-Judge methodologies empowers you.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": {
-                  "var": "metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the eval value produced for judge processing.",
+            "values": {
+              "name": {
+                "text": ""
               },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": {
-                  "var": "eval_frameworks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "probs": {
+                "text": ""
+              },
+              "s": {
+                "var": "s",
+                "line": 8,
+                "hit": 12
               }
+            },
+            "tones": {
+              "name": "idle",
+              "probs": "idle",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "probs"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "G-Eval And LLM-As-A-Judge: Chain-Of-Thought Scoring And Bias Mit",
-        "actors": [
-          "metrics",
-          "eval_frameworks",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "probs",
+            "label": "probs",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As the complexity of enterprise generative AI tasks increasesencompassing.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "metrics"
+            "caption": "Inspect eval updates as name tracks judge state.",
+            "values": {
+              "name": "'output_A'",
+              "probs": "[0.02, 0.05, 0.25, 0.58, 0.1]",
+              "s": ""
+            },
+            "tones": {
+              "name": "data",
+              "probs": "data",
+              "s": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The G-Eval framework formalizes LLM-as-a-Judge evaluation using structured.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "eval_frameworks"
+            "caption": "Verify the eval transition driving judge behavior.",
+            "values": {
+              "name": "'output_B'",
+              "probs": "[0.01, 0.02, 0.12, 0.55, 0.3]",
+              "s": ""
+            },
+            "tones": {
+              "name": "data",
+              "probs": "data",
+              "s": "idle"
+            },
+            "arrows": [
+              [
+                "name",
+                "probs"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering G-Eval and LLM-as-a-Judge methodologies empowers you.",
-            "messages": [
-              {
-                "from": "metrics",
-                "to": "eval_frameworks",
-                "label": "{'faithfulnessScorePct': 94.6, 'answerR…",
-                "tone": "data"
-              },
-              {
-                "from": "eval_frameworks",
-                "to": "result",
-                "label": "['Ragas Retrieval-Augmented Generation …",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the eval value produced for judge processing.",
+            "values": {
+              "name": "",
+              "probs": "",
+              "s": "5"
+            },
+            "tones": {
+              "name": "idle",
+              "probs": "idle",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "probs"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Continuous Evaluation Mesh: Automated CI/CD Regression Pipelines",
-      "codeHash": "1207143e5ce9f2a82609eee111a65037aa9b0b14c3c340c1b78449724d6c8c33",
+      "codeHash": "36039ab729dce649ae621440e2174c65f75a49cb32ed8a7dbb735e6e14e8ccb9",
       "spec": {
         "template": "flow",
         "title": "Enterprise Continuous Evaluation Mesh: Automated CI/CD Regressio",
         "nodes": [
           {
-            "id": "metrics",
-            "label": "metrics"
+            "id": "V1",
+            "label": "V1",
+            "tappable": true
           },
           {
-            "id": "eval_frameworks",
-            "label": "eval_frameworks"
+            "id": "V2",
+            "label": "V2",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "MAX_DROP",
+            "label": "MAX_DROP",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating programmatic LLM evaluation theory, Ragas RAG metrics, TruLens.",
+            "caption": "Inspect enterprise updates as V1 tracks continuous state.",
             "values": {
-              "metrics": {
-                "var": "metrics",
-                "line": 6,
+              "V1": {
+                "var": "V1",
+                "line": 1,
                 "hit": 1
               },
-              "eval_frameworks": {
-                "var": "eval_frameworks",
-                "line": 13,
-                "hit": 1
+              "V2": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 28,
-                "hit": 1
+              "MAX_DROP": {
+                "text": ""
               }
             },
             "tones": {
-              "metrics": "data",
-              "eval_frameworks": "data",
-              "result": "data"
+              "V1": "data",
+              "V2": "idle",
+              "MAX_DROP": "idle"
             },
-            "arrows": [
-              [
-                "metrics",
-                "eval_frameworks"
-              ],
-              [
-                "eval_frameworks",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise evaluation engine integrates.",
+            "caption": "Verify the evaluation transition driving regression behavior.",
             "values": {
-              "metrics": {
-                "var": "metrics",
-                "line": 13,
+              "V1": {
+                "var": "V1",
+                "line": 3,
                 "hit": 1
               },
-              "eval_frameworks": {
-                "var": "eval_frameworks",
-                "line": 20,
+              "V2": {
+                "var": "V2",
+                "line": 3,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 29,
+              "MAX_DROP": {
+                "var": "MAX_DROP",
+                "line": 3,
                 "hit": 1
               }
             },
             "tones": {
-              "metrics": "data",
-              "eval_frameworks": "data",
-              "result": "data"
+              "V1": "data",
+              "V2": "data",
+              "MAX_DROP": "data"
             },
             "arrows": [
               [
-                "metrics",
-                "eval_frameworks"
-              ],
-              [
-                "eval_frameworks",
-                "result"
+                "V1",
+                "V2"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise continuous evaluation.",
+            "at": "say3",
+            "caption": "Examine the evaluation value produced for ragas processing.",
             "values": {
-              "metrics": {
-                "var": "metrics",
-                "line": 20,
-                "hit": 1
+              "V1": {
+                "var": "V1",
+                "line": 5,
+                "hit": 4
               },
-              "eval_frameworks": {
-                "var": "eval_frameworks",
-                "line": 21,
-                "hit": 1
+              "V2": {
+                "var": "V2",
+                "line": 5,
+                "hit": 4
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "MAX_DROP": {
+                "var": "MAX_DROP",
+                "line": 5,
+                "hit": 4
               }
             },
             "tones": {
-              "metrics": "ok",
-              "eval_frameworks": "ok",
-              "result": "ok"
+              "V1": "ok",
+              "V2": "ok",
+              "MAX_DROP": "ok"
             },
             "arrows": [
               [
-                "metrics",
-                "eval_frameworks"
-              ],
-              [
-                "eval_frameworks",
-                "result"
+                "V1",
+                "V2"
               ]
             ]
           }
@@ -797,88 +883,74 @@
         "title": "Enterprise Continuous Evaluation Mesh: Automated CI/CD Regressio",
         "nodes": [
           {
-            "id": "metrics",
-            "label": "metrics"
+            "id": "V1",
+            "label": "V1",
+            "tappable": true
           },
           {
-            "id": "eval_frameworks",
-            "label": "eval_frameworks"
+            "id": "V2",
+            "label": "V2",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "MAX_DROP",
+            "label": "MAX_DROP",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating programmatic LLM evaluation theory, Ragas RAG metrics, TruLens.",
+            "caption": "Inspect enterprise updates as V1 tracks continuous state.",
             "values": {
-              "metrics": "{'faithfulnessScorePct': 94.6, 'answerR…",
-              "eval_frameworks": "['Ragas Retrieval-Augmented Generation …",
-              "result": "{'evaluationPipeline': 'Enterprise Auto…"
+              "V1": "{'faithfulness': 0.93, 'relevance': 0.9…",
+              "V2": "",
+              "MAX_DROP": ""
             },
             "tones": {
-              "metrics": "data",
-              "eval_frameworks": "data",
-              "result": "data"
+              "V1": "data",
+              "V2": "idle",
+              "MAX_DROP": "idle"
             },
-            "arrows": [
-              [
-                "metrics",
-                "eval_frameworks"
-              ],
-              [
-                "eval_frameworks",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise evaluation engine integrates.",
+            "caption": "Verify the evaluation transition driving regression behavior.",
             "values": {
-              "metrics": "{'faithfulnessScorePct': 94.6, 'answerR…",
-              "eval_frameworks": "['Ragas Retrieval-Augmented Generation …",
-              "result": "{'evaluationPipeline': 'Enterprise Auto…"
+              "V1": "{'faithfulness': 0.93, 'relevance': 0.9…",
+              "V2": "{'faithfulness': 0.86, 'relevance': 0.9…",
+              "MAX_DROP": "0.03"
             },
             "tones": {
-              "metrics": "data",
-              "eval_frameworks": "data",
-              "result": "data"
+              "V1": "data",
+              "V2": "data",
+              "MAX_DROP": "data"
             },
             "arrows": [
               [
-                "metrics",
-                "eval_frameworks"
-              ],
-              [
-                "eval_frameworks",
-                "result"
+                "V1",
+                "V2"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise continuous evaluation.",
+            "at": "say3",
+            "caption": "Examine the evaluation value produced for ragas processing.",
             "values": {
-              "metrics": "{'faithfulnessScorePct': 94.6, 'answerR…",
-              "eval_frameworks": "['Ragas Retrieval-Augmented Generation …",
-              "result": "{'evaluationPipeline': 'Enterprise Auto…"
+              "V1": "{'faithfulness': 0.93, 'relevance': 0.9…",
+              "V2": "{'faithfulness': 0.86, 'relevance': 0.9…",
+              "MAX_DROP": "0.03"
             },
             "tones": {
-              "metrics": "ok",
-              "eval_frameworks": "ok",
-              "result": "ok"
+              "V1": "ok",
+              "V2": "ok",
+              "MAX_DROP": "ok"
             },
             "arrows": [
               [
-                "metrics",
-                "eval_frameworks"
-              ],
-              [
-                "eval_frameworks",
-                "result"
+                "V1",
+                "V2"
               ]
             ]
           }

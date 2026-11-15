@@ -82,7 +82,7 @@
             "values": {
               "broker": {
                 "var": "broker",
-                "line": 2,
+                "line": 9,
                 "hit": 1
               },
               "acks_lost": {
@@ -92,8 +92,8 @@
               },
               "attempt": {
                 "var": "attempt",
-                "line": 5,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "msg": {
                 "var": "msg",
@@ -128,8 +128,8 @@
             "values": {
               "broker": {
                 "var": "broker",
-                "line": 4,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "acks_lost": {
                 "var": "acks_lost",
@@ -138,8 +138,8 @@
               },
               "attempt": {
                 "var": "attempt",
-                "line": 6,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "msg": {
                 "var": "msg",
@@ -226,9 +226,9 @@
             "at": "say2",
             "caption": "Every message is delivered, possibly more than once.",
             "values": {
-              "broker": "[]",
+              "broker": "['pay order-7 Rs 500']",
               "acks_lost": "{1}",
-              "attempt": "1",
+              "attempt": "2",
               "msg": "'pay order-7 Rs 500'"
             },
             "tones": {
@@ -256,9 +256,9 @@
             "at": "say7",
             "caption": "The rest of the lesson is about making the receiver's effect happen once.",
             "values": {
-              "broker": "[]",
+              "broker": "['pay order-7 Rs 500', 'pay order-7 Rs …",
               "acks_lost": "{1}",
-              "attempt": "1",
+              "attempt": "2",
               "msg": "'pay order-7 Rs 500'"
             },
             "tones": {
@@ -583,6 +583,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Idempotency_key(user_id, order_id) returns \"idemp_USER_ORDER\".",
+            "activeActor": "user_id",
+            "messages": [
+              {
+                "from": "server_store",
+                "to": "user_id",
+                "label": {
+                  "var": "server_store",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "user_id",
@@ -597,10 +614,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Idempotency_key(user_id, order_id) returns \"idemp_USER_ORDER\".",
-            "activeActor": "user_id",
+            "at": "say7",
+            "caption": "The example shows a client retrying a payment call with the same key.",
+            "activeActor": "order_id",
             "messages": [
+              {
+                "from": "server_store",
+                "to": "user_id",
+                "label": {
+                  "var": "server_store",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "order_id",
+                "label": {
+                  "var": "user_id",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "server_store",
                 "to": "user_id",
@@ -620,14 +657,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows a client retrying a payment call with the same key.",
-            "activeActor": "order_id",
-            "messages": [
+              },
               {
                 "from": "server_store",
                 "to": "user_id",
@@ -637,16 +667,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "user_id",
-                "to": "order_id",
-                "label": {
-                  "var": "user_id",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -670,12 +690,6 @@
                 "to": "user_id",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "user_id",
-                "to": "order_id",
-                "label": "'u42'",
-                "tone": "ok"
               }
             ],
             "activeActor": "server_store"
@@ -714,6 +728,24 @@
                 "to": "order_id",
                 "label": "'u42'",
                 "tone": "ok"
+              },
+              {
+                "from": "server_store",
+                "to": "user_id",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "order_id",
+                "label": "'u42'",
+                "tone": "ok"
+              },
+              {
+                "from": "server_store",
+                "to": "user_id",
+                "label": "{}",
+                "tone": "data"
               }
             ],
             "activeActor": "order_id"
@@ -747,6 +779,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The cleanest fix is one database transaction that writes both the business.",
+            "activeActor": "mid",
+            "messages": [
+              {
+                "from": "db",
+                "to": "mid",
+                "label": {
+                  "var": "db",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "mid",
@@ -761,10 +810,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The cleanest fix is one database transaction that writes both the business.",
-            "activeActor": "mid",
+            "at": "say7",
+            "caption": "The code updates a balance and the processed set in one step, standing.",
+            "activeActor": "message_id",
             "messages": [
+              {
+                "from": "db",
+                "to": "mid",
+                "label": {
+                  "var": "db",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mid",
+                "to": "message_id",
+                "label": {
+                  "var": "mid",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "db",
                 "to": "mid",
@@ -784,14 +853,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The code updates a balance and the processed set in one step, standing.",
-            "activeActor": "message_id",
-            "messages": [
+              },
               {
                 "from": "db",
                 "to": "mid",
@@ -834,12 +896,6 @@
                 "to": "mid",
                 "label": "{'balance': 1000, 'processed': set()}",
                 "tone": "data"
-              },
-              {
-                "from": "mid",
-                "to": "message_id",
-                "label": "'m1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "db"
@@ -867,6 +923,30 @@
             "at": "say7",
             "caption": "The code updates a balance and the processed set in one step, standing.",
             "messages": [
+              {
+                "from": "db",
+                "to": "mid",
+                "label": "{'balance': 1000, 'processed': set()}",
+                "tone": "data"
+              },
+              {
+                "from": "mid",
+                "to": "message_id",
+                "label": "'m1'",
+                "tone": "ok"
+              },
+              {
+                "from": "db",
+                "to": "mid",
+                "label": "{'balance': 1000, 'processed': set()}",
+                "tone": "data"
+              },
+              {
+                "from": "mid",
+                "to": "message_id",
+                "label": "'m1'",
+                "tone": "ok"
+              },
               {
                 "from": "db",
                 "to": "mid",
@@ -911,6 +991,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Use upserts (insert or update by a unique key) instead of plain inserts.",
+            "activeActor": "rows",
+            "messages": [
+              {
+                "from": "orders",
+                "to": "rows",
+                "label": {
+                  "var": "orders",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "rows",
@@ -925,10 +1022,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Use upserts (insert or update by a unique key) instead of plain inserts.",
-            "activeActor": "rows",
+            "at": "say7",
+            "caption": "What to do with messages that fail every time, the poison pills.",
+            "activeActor": "order_id",
             "messages": [
+              {
+                "from": "orders",
+                "to": "rows",
+                "label": {
+                  "var": "orders",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "rows",
+                "to": "order_id",
+                "label": {
+                  "var": "rows",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "orders",
                 "to": "rows",
@@ -948,14 +1065,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "What to do with messages that fail every time, the poison pills.",
-            "activeActor": "order_id",
-            "messages": [
+              },
               {
                 "from": "orders",
                 "to": "rows",
@@ -998,12 +1108,6 @@
                 "to": "rows",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "rows",
-                "to": "order_id",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "orders"
@@ -1031,6 +1135,30 @@
             "at": "say7",
             "caption": "What to do with messages that fail every time, the poison pills.",
             "messages": [
+              {
+                "from": "orders",
+                "to": "rows",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "rows",
+                "to": "order_id",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "orders",
+                "to": "rows",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "rows",
+                "to": "order_id",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "orders",
                 "to": "rows",

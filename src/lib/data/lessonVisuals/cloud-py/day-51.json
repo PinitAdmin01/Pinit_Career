@@ -302,8 +302,8 @@
             "values": {
               "requirement": {
                 "var": "requirement",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "cf_functions_capabilities": {
                 "var": "cf_functions_capabilities",
@@ -344,12 +344,12 @@
           },
           {
             "at": "say9",
-            "caption": "Careful header normalization collapses redundant cache variants.",
+            "caption": "Examine the edge value produced for origin processing.",
             "values": {
               "requirement": {
                 "var": "requirement",
-                "line": 11,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "cf_functions_capabilities": {
                 "var": "cf_functions_capabilities",
@@ -446,7 +446,7 @@
             "at": "say2",
             "caption": "Scoping cache keys deterministically eliminates redundant cache entries.",
             "values": {
-              "requirement": "'query_strip'",
+              "requirement": "'external_api_call'",
               "cf_functions_capabilities": "['url_rewrite', 'header_normalization',…",
               "lambda_edge_capabilities": "['body_parsing', 'external_api_call', '…",
               "r1": "{'selected': 'CloudFront Functions', 'l…"
@@ -474,9 +474,9 @@
           },
           {
             "at": "say9",
-            "caption": "Careful header normalization collapses redundant cache variants.",
+            "caption": "Examine the edge value produced for origin processing.",
             "values": {
-              "requirement": "'query_strip'",
+              "requirement": "'external_api_call'",
               "cf_functions_capabilities": "['url_rewrite', 'header_normalization',…",
               "lambda_edge_capabilities": "['body_parsing', 'external_api_call', '…",
               "r1": "{'selected': 'CloudFront Functions', 'l…"
@@ -550,16 +550,14 @@
                 "hit": 1
               },
               "secret_key": {
-                "var": "secret_key",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "now": "data",
               "resource_url": "data",
               "expiry_epoch": "data",
-              "secret_key": "data"
+              "secret_key": "idle"
             },
             "arrows": [
               [
@@ -696,16 +694,16 @@
             "at": "say1",
             "caption": "Cryptographic token validation performed at network edge routers offloads.",
             "values": {
-              "now": "1794484055",
+              "now": "1794739428",
               "resource_url": "'https://cdn.example.com/premium/video.…",
-              "expiry_epoch": "1794487655",
-              "secret_key": "'super_secret_key'"
+              "expiry_epoch": "1794743028",
+              "secret_key": ""
             },
             "tones": {
               "now": "data",
               "resource_url": "data",
               "expiry_epoch": "data",
-              "secret_key": "data"
+              "secret_key": "idle"
             },
             "arrows": [
               [
@@ -726,9 +724,9 @@
             "at": "say2",
             "caption": "Configuring custom policy documents allows platform operators to enforce.",
             "values": {
-              "now": "1794484055",
+              "now": "1794739428",
               "resource_url": "'https://cdn.example.com/premium/video.…",
-              "expiry_epoch": "1794487655",
+              "expiry_epoch": "1794743028",
               "secret_key": "'super_secret_key'"
             },
             "tones": {
@@ -756,9 +754,9 @@
             "at": "say9",
             "caption": "Because verification occurs at edge locations in microseconds, legitimate.",
             "values": {
-              "now": "1794484055",
+              "now": "1794739428",
               "resource_url": "'https://cdn.example.com/premium/video.…",
-              "expiry_epoch": "1794487655",
+              "expiry_epoch": "1794743028",
               "secret_key": "'super_secret_key'"
             },
             "tones": {
@@ -904,7 +902,7 @@
           },
           {
             "at": "say9",
-            "caption": "Centralized configuration management ensures failover criteria and timeout.",
+            "caption": "Examine the origin value produced for serving processing.",
             "values": {
               "group": {
                 "var": "group",
@@ -1034,7 +1032,7 @@
           },
           {
             "at": "say9",
-            "caption": "Centralized configuration management ensures failover criteria and timeout.",
+            "caption": "Examine the origin value produced for serving processing.",
             "values": {
               "group": "{'primary': 'origin-alb.internal', 'sec…",
               "origin_group": "{'primary': 'origin-alb.internal', 'sec…",
@@ -1091,6 +1089,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Automated configuration auditing verifies that modern TLS cipher suites.",
+            "activeActor": "m_bad",
+            "messages": [
+              {
+                "from": "m_good",
+                "to": "m_bad",
+                "label": {
+                  "var": "m_good",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "m_bad",
@@ -1105,10 +1120,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Automated configuration auditing verifies that modern TLS cipher suites.",
-            "activeActor": "m_bad",
+            "at": "say9",
+            "caption": "Comprehensive telemetry auditing certifies that global edge infrastructure.",
+            "activeActor": "metrics",
             "messages": [
+              {
+                "from": "m_good",
+                "to": "m_bad",
+                "label": {
+                  "var": "m_good",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "m_bad",
+                "to": "metrics",
+                "label": {
+                  "var": "m_bad",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "m_good",
                 "to": "m_bad",
@@ -1128,14 +1163,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Comprehensive telemetry auditing certifies that global edge infrastructure.",
-            "activeActor": "metrics",
-            "messages": [
+              },
               {
                 "from": "m_good",
                 "to": "m_bad",
@@ -1178,12 +1206,6 @@
                 "to": "m_bad",
                 "label": "{'cache_hit_rate': 94.5, '5xx_error_rat…",
                 "tone": "data"
-              },
-              {
-                "from": "m_bad",
-                "to": "metrics",
-                "label": "{'cache_hit_rate': 62.1, '5xx_error_rat…",
-                "tone": "ok"
               }
             ],
             "activeActor": "m_good"
@@ -1211,6 +1233,30 @@
             "at": "say9",
             "caption": "Comprehensive telemetry auditing certifies that global edge infrastructure.",
             "messages": [
+              {
+                "from": "m_good",
+                "to": "m_bad",
+                "label": "{'cache_hit_rate': 94.5, '5xx_error_rat…",
+                "tone": "data"
+              },
+              {
+                "from": "m_bad",
+                "to": "metrics",
+                "label": "{'cache_hit_rate': 62.1, '5xx_error_rat…",
+                "tone": "ok"
+              },
+              {
+                "from": "m_good",
+                "to": "m_bad",
+                "label": "{'cache_hit_rate': 94.5, '5xx_error_rat…",
+                "tone": "data"
+              },
+              {
+                "from": "m_bad",
+                "to": "metrics",
+                "label": "{'cache_hit_rate': 62.1, '5xx_error_rat…",
+                "tone": "ok"
+              },
               {
                 "from": "m_good",
                 "to": "m_bad",

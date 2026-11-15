@@ -56,7 +56,7 @@
           },
           {
             "at": "say2",
-            "caption": "During standard mixed-precision training (using 16-bit floating point.",
+            "caption": "Verify the distributed transition driving memory behavior.",
             "bars": [
               {
                 "label": "m",
@@ -172,7 +172,7 @@
           },
           {
             "at": "say2",
-            "caption": "During standard mixed-precision training (using 16-bit floating point.",
+            "caption": "Verify the distributed transition driving memory behavior.",
             "bars": [
               {
                 "label": "m",
@@ -307,8 +307,8 @@
               },
               "gpus": {
                 "var": "gpus",
-                "line": 31,
-                "hit": 1
+                "line": 30,
+                "hit": 2
               },
               "params_b": {
                 "var": "params_b",
@@ -317,8 +317,8 @@
               },
               "num_gpus": {
                 "var": "num_gpus",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -353,8 +353,8 @@
               },
               "gpus": {
                 "var": "gpus",
-                "line": 32,
-                "hit": 1
+                "line": 30,
+                "hit": 3
               },
               "params_b": {
                 "var": "params_b",
@@ -363,8 +363,8 @@
               },
               "num_gpus": {
                 "var": "num_gpus",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -447,9 +447,9 @@
             "caption": "ZeRO organizes memory partitioning into three cumulative stages.",
             "values": {
               "cluster_sizes": "[8, 64, 512]",
-              "gpus": "8",
+              "gpus": "64",
               "params_b": "70",
-              "num_gpus": "8"
+              "num_gpus": "64"
             },
             "tones": {
               "cluster_sizes": "data",
@@ -477,9 +477,9 @@
             "caption": "In the following Python script, we will simulate the memory allocations.",
             "values": {
               "cluster_sizes": "[8, 64, 512]",
-              "gpus": "8",
+              "gpus": "512",
               "params_b": "70",
-              "num_gpus": "8"
+              "num_gpus": "512"
             },
             "tones": {
               "cluster_sizes": "ok",

@@ -228,7 +228,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Uncalibrated pairwise comparisons (`Which response wins.",
+            "caption": "Inspect bias updates as x tracks uncalibrated state.",
             "values": {
               "x": {
                 "var": "x",
@@ -348,7 +348,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Uncalibrated pairwise comparisons (`Which response wins.",
+            "caption": "Inspect bias updates as x tracks uncalibrated state.",
             "values": {
               "x": "'ans A'",
               "y": "'ans B'",
@@ -484,12 +484,12 @@
               },
               "long_wins": {
                 "var": "long_wins",
-                "line": 3,
+                "line": 10,
                 "hit": 1
               },
               "asym_cases": {
                 "var": "asym_cases",
-                "line": 4,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -516,7 +516,7 @@
           },
           {
             "at": "say8",
-            "caption": "Inspect audit_verbosity_bias() catching runaway length correlation across.",
+            "caption": "Examine the verbosity value produced for bias processing.",
             "values": {
               "sample": {
                 "var": "sample",
@@ -530,13 +530,13 @@
               },
               "long_wins": {
                 "var": "long_wins",
-                "line": 4,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               },
               "asym_cases": {
                 "var": "asym_cases",
-                "line": 5,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -620,8 +620,8 @@
             "values": {
               "sample": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
               "records": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
-              "long_wins": "0",
-              "asym_cases": "0"
+              "long_wins": "1",
+              "asym_cases": "1"
             },
             "tones": {
               "sample": "data",
@@ -646,12 +646,12 @@
           },
           {
             "at": "say8",
-            "caption": "Inspect audit_verbosity_bias() catching runaway length correlation across.",
+            "caption": "Examine the verbosity value produced for bias processing.",
             "values": {
               "sample": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
               "records": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
-              "long_wins": "0",
-              "asym_cases": "0"
+              "long_wins": "2",
+              "asym_cases": "2"
             },
             "tones": {
               "sample": "ok",

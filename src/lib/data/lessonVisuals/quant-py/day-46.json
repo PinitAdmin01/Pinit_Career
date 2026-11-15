@@ -454,7 +454,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production options market making platforms evaluate Greeks surfaces across.",
+            "caption": "Observe how production shapes options during this step.",
             "bars": [
               {
                 "label": "s",
@@ -586,7 +586,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production options market making platforms evaluate Greeks surfaces across.",
+            "caption": "Observe how production shapes options during this step.",
             "bars": [
               {
                 "label": "s",
@@ -930,16 +930,14 @@
                 "hit": 1
               },
               "theta": {
-                "var": "theta",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "delta": "data",
               "gamma": "data",
               "vega": "data",
-              "theta": "data"
+              "theta": "idle"
             },
             "arrows": [
               [
@@ -1079,13 +1077,13 @@
               "delta": "200",
               "gamma": "10",
               "vega": "50",
-              "theta": "-30"
+              "theta": ""
             },
             "tones": {
               "delta": "data",
               "gamma": "data",
               "vega": "data",
-              "theta": "data"
+              "theta": "idle"
             },
             "arrows": [
               [

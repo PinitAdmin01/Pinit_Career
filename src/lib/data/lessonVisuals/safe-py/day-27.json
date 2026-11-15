@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "To decide whether a token is green, we need a rule that anyone with.",
+            "caption": "Observe how green shapes decide during this step.",
             "currentState": "tokens",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "To decide whether a token is green, we need a rule that anyone with.",
+            "caption": "Observe how green shapes decide during this step.",
             "currentState": "tokens",
             "tone": "data"
           },
@@ -411,18 +411,18 @@
               },
               "T": {
                 "var": "T",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "G": {
                 "var": "G",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "z": {
                 "var": "z",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -457,18 +457,18 @@
               },
               "T": {
                 "var": "T",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "G": {
                 "var": "G",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "z": {
                 "var": "z",
-                "line": 4,
-                "hit": 2
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -551,9 +551,9 @@
             "caption": "With T judged tokens and a green share gamma, chance gives about gamma T.",
             "values": {
               "gamma": "0.5",
-              "T": "10",
-              "G": "7",
-              "z": "1.2649110640673518"
+              "T": "100",
+              "G": "70",
+              "z": "4"
             },
             "tones": {
               "gamma": "data",
@@ -581,9 +581,9 @@
             "caption": "The threshold is a choice.",
             "values": {
               "gamma": "0.5",
-              "T": "10",
-              "G": "7",
-              "z": "1.2649110640673518"
+              "T": "400",
+              "G": "280",
+              "z": "8"
             },
             "tones": {
               "gamma": "ok",

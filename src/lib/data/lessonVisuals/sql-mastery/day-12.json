@@ -371,19 +371,361 @@
       "partTitle": "The WHERE trap with LEFT JOIN",
       "codeHash": "8967b809eb823b41902908e6270d9118d358982bdf69e1a4d1201971efd04adc",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "The WHERE trap with LEFT JOIN",
+        "columns": [
+          "name",
+          "delivered_order"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "There is one trap with LEFT JOIN that catches almost everyone.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "delivered_order"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "delivered_order"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because WHERE runs after the join, on the joined rows.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "delivered_order"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "delivered_order"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "delivered_order"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "delivered_order"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "The WHERE trap with LEFT JOIN",
+        "columns": [
+          "name",
+          "delivered_order"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "There is one trap with LEFT JOIN that catches almost everyone.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "101"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Meera",
+                  "null"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because WHERE runs after the join, on the joined rows.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "101"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Meera",
+                  "null"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Priya",
+                  "null"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "102"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "RIGHT JOIN and FULL JOIN",
       "codeHash": "cf80737ddecc590432bd6794cd9e518fe6f52280ca8d55c27da8101271d05258",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "RIGHT JOIN and FULL JOIN",
+        "columns": [
+          "registered",
+          "attended"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "There are two more outer joins.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "registered"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "attended"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "registered"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "attended"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "It makes queries easier to read.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "registered"
+                  },
+                  {
+                    "table": 1,
+                    "row": 1,
+                    "col": "attended"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "registered"
+                  },
+                  {
+                    "table": 1,
+                    "row": 2,
+                    "col": "attended"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "registered"
+                  },
+                  {
+                    "table": 1,
+                    "row": 3,
+                    "col": "attended"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "registered"
+                  },
+                  {
+                    "table": 1,
+                    "row": 4,
+                    "col": "attended"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "RIGHT JOIN and FULL JOIN",
+        "columns": [
+          "registered",
+          "attended"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "There are two more outer joins.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "Asha"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "null",
+                  "Karan"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "It makes queries easier to read.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "Asha"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "null",
+                  "Karan"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Priya",
+                  "Priya"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "null"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a customer activity report",

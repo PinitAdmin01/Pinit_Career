@@ -98,7 +98,7 @@
           },
           {
             "at": "say8",
-            "caption": "Building and leasing tower sites is expensive, and the best locations are.",
+            "caption": "Examine the building value produced for leasing processing.",
             "bars": [
               {
                 "label": "R",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say8",
-            "caption": "Building and leasing tower sites is expensive, and the best locations are.",
+            "caption": "Examine the building value produced for leasing processing.",
             "bars": [
               {
                 "label": "R",
@@ -270,16 +270,14 @@
                 "hit": 1
               },
               "hop_ns": {
-                "var": "hop_ns",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "C": "data",
               "distance_km": "data",
               "towers": "data",
-              "hop_ns": "data"
+              "hop_ns": "idle"
             },
             "arrows": [
               [
@@ -298,7 +296,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how propagation updates distance during execution.",
+            "caption": "Propagation: distance × 1.0003 / c.",
             "values": {
               "C": {
                 "var": "C",
@@ -419,13 +417,13 @@
               "C": "299792458",
               "distance_km": "1180",
               "towers": "20",
-              "hop_ns": "300"
+              "hop_ns": ""
             },
             "tones": {
               "C": "data",
               "distance_km": "data",
               "towers": "data",
-              "hop_ns": "data"
+              "hop_ns": "idle"
             },
             "arrows": [
               [
@@ -444,7 +442,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how propagation updates distance during execution.",
+            "caption": "Propagation: distance × 1.0003 / c.",
             "values": {
               "C": "299792458",
               "distance_km": "1180",
@@ -531,6 +529,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Light rain barely matters.",
+            "activeActor": "readings",
+            "messages": [
+              {
+                "from": "rain_limit",
+                "to": "readings",
+                "label": {
+                  "var": "rain_limit",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "readings",
@@ -545,10 +560,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Light rain barely matters.",
-            "activeActor": "readings",
+            "at": "say8",
+            "caption": "A trading system must detect a failing link within microseconds and switch.",
+            "activeActor": "rain",
             "messages": [
+              {
+                "from": "rain_limit",
+                "to": "readings",
+                "label": {
+                  "var": "rain_limit",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "readings",
+                "to": "rain",
+                "label": {
+                  "var": "readings",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "rain_limit",
                 "to": "readings",
@@ -568,14 +603,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "A trading system must detect a failing link within microseconds and switch.",
-            "activeActor": "rain",
-            "messages": [
+              },
               {
                 "from": "rain_limit",
                 "to": "readings",
@@ -618,12 +646,6 @@
                 "to": "readings",
                 "label": "25",
                 "tone": "data"
-              },
-              {
-                "from": "readings",
-                "to": "rain",
-                "label": "[0, 2, 8, 16, 22, 30, 12]",
-                "tone": "ok"
               }
             ],
             "activeActor": "rain_limit"
@@ -651,6 +673,30 @@
             "at": "say8",
             "caption": "A trading system must detect a failing link within microseconds and switch.",
             "messages": [
+              {
+                "from": "rain_limit",
+                "to": "readings",
+                "label": "25",
+                "tone": "data"
+              },
+              {
+                "from": "readings",
+                "to": "rain",
+                "label": "[0, 2, 8, 16, 22, 30, 12]",
+                "tone": "ok"
+              },
+              {
+                "from": "rain_limit",
+                "to": "readings",
+                "label": "25",
+                "tone": "data"
+              },
+              {
+                "from": "readings",
+                "to": "rain",
+                "label": "[0, 2, 8, 16, 22, 30, 12]",
+                "tone": "ok"
+              },
               {
                 "from": "rain_limit",
                 "to": "readings",
@@ -692,7 +738,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how millimetre updates wave during execution.",
+            "caption": "Inspect millimetre updates as options tracks wave state.",
             "values": {
               "options": {
                 "var": "options",
@@ -728,7 +774,7 @@
           },
           {
             "at": "say2",
-            "caption": "Free-space optical (laser) links also travel at nearly vacuum speed but.",
+            "caption": "Verify the laser transition driving links behavior.",
             "values": {
               "options": {
                 "var": "options",
@@ -820,7 +866,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how millimetre updates wave during execution.",
+            "caption": "Inspect millimetre updates as options tracks wave state.",
             "values": {
               "options": "{'microwave (6-11 GHz)': {'bandwidth_mb…",
               "name": "'microwave (6-11 GHz)'",
@@ -844,7 +890,7 @@
           },
           {
             "at": "say2",
-            "caption": "Free-space optical (laser) links also travel at nearly vacuum speed but.",
+            "caption": "Verify the laser transition driving links behavior.",
             "values": {
               "options": "{'microwave (6-11 GHz)': {'bandwidth_mb…",
               "name": "'microwave (6-11 GHz)'",
@@ -944,7 +990,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how shortwave updates high during execution.",
+            "caption": "Verify the shortwave transition driving high behavior.",
             "bars": [
               {
                 "label": "C",
@@ -1060,7 +1106,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how shortwave updates high during execution.",
+            "caption": "Verify the shortwave transition driving high behavior.",
             "bars": [
               {
                 "label": "C",

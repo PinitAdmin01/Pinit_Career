@@ -543,19 +543,363 @@
       "partTitle": "Materialized views: saved results you refresh",
       "codeHash": "1a6945095ff1720625b28dc6fa1606b561840f087cb88fc6e9408684cd9523ac",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Materialized views: saved results you refresh",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A normal view reruns its query every time.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE sales (day date, amount numeric(10,"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "You create one with CREATE MATERIALIZED VIEW name AS SELECT ....",
+            "values": {
+              "query": {
+                "text": "SELECT * FROM sales_summary;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "days"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Materialized views: saved results you refresh",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A normal view reruns its query every time.",
+            "values": {
+              "query": "CREATE TABLE sales (day date, amount numeric(10,",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "You create one with CREATE MATERIALIZED VIEW name AS SELECT ....",
+            "values": {
+              "query": "SELECT * FROM sales_summary;",
+              "db": "PostgreSQL",
+              "res": "3"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: a reporting view for the shop",
       "codeHash": "7e1572d412c19f9d023ccf08c757bb81427f19b480f6573996f11a6b1ba50038",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Putting it together: a reporting view for the shop",
+        "columns": [
+          "name",
+          "price",
+          "price_with_gst"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Observe how view shapes shop during this step.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "price"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "price_with_gst"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "price"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "price_with_gst"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Everything you learned in week 2 goes inside the view.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "price"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "price_with_gst"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "price"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "price_with_gst"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "price"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "price_with_gst"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "price"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "price_with_gst"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Putting it together: a reporting view for the shop",
+        "columns": [
+          "name",
+          "price",
+          "price_with_gst"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Observe how view shapes shop during this step.",
+            "rows": [
+              {
+                "cells": [
+                  "Pen",
+                  "10.00",
+                  "11.80"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Notebook",
+                  "60.00",
+                  "70.80"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Everything you learned in week 2 goes inside the view.",
+            "rows": [
+              {
+                "cells": [
+                  "Pen",
+                  "10.00",
+                  "11.80"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Notebook",
+                  "60.00",
+                  "70.80"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Stapler",
+                  "150.00",
+                  "177.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Backpack",
+                  "1200.00",
+                  "1416.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

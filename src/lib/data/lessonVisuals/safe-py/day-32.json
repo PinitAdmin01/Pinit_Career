@@ -6,223 +6,307 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Input Guardrails — Foundations & Mathematical Invariants",
-      "codeHash": "03cbff56ca48314d62cd1c1a07f40043d83f55a7478afbee5fab92aee51398c5",
+      "partTitle": "Canonical Homoglyph Folding in `normalize_homoglyphs`",
+      "codeHash": "e2b3b80792d42590d1bc0b785f7663dd3d7aa04a329154a2db4732908eddd567",
       "spec": {
-        "template": "states",
-        "title": "Input Guardrails — Foundations & Mathematical Invariants",
-        "states": [
+        "template": "flow",
+        "title": "Canonical Homoglyph Folding in `normalize_homoglyphs`",
+        "nodes": [
           {
             "id": "raw_attack",
-            "label": "raw_attack"
+            "label": "raw_attack",
+            "tappable": true
           },
           {
             "id": "text",
-            "label": "text"
+            "label": "text",
+            "tappable": true
           },
           {
             "id": "clean",
-            "label": "clean"
+            "label": "clean",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The first line of defense in any production AI system is the deterministic.",
-            "currentState": "raw_attack",
-            "tone": "data"
+            "caption": "Inspect line updates as raw_attack tracks defense state.",
+            "values": {
+              "raw_attack": {
+                "var": "raw_attack",
+                "line": 8,
+                "hit": 1
+              },
+              "text": {
+                "text": ""
+              },
+              "clean": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "raw_attack": "data",
+              "text": "idle",
+              "clean": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Adversaries frequently employ Unicode homoglyphsvisually identical.",
-            "currentState": "text",
-            "transition": {
-              "from": "raw_attack",
-              "to": "text",
-              "label": {
+            "caption": "Verify the homoglyphs transition driving adversaries behavior.",
+            "values": {
+              "raw_attack": {
+                "text": ""
+              },
+              "text": {
                 "var": "text",
-                "line": 5,
+                "line": 4,
                 "hit": 1
+              },
+              "clean": {
+                "text": ""
               }
             },
-            "tone": "data"
+            "tones": {
+              "raw_attack": "idle",
+              "text": "data",
+              "clean": "idle"
+            },
+            "arrows": [
+              [
+                "raw_attack",
+                "text"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
-            "currentState": "clean",
-            "transition": {
-              "from": "text",
-              "to": "clean",
-              "label": {
+            "at": "say3",
+            "caption": "Examine the example value produced for cyrillic processing.",
+            "values": {
+              "raw_attack": {
+                "var": "raw_attack",
+                "line": 9,
+                "hit": 1
+              },
+              "text": {
+                "text": ""
+              },
+              "clean": {
                 "var": "clean",
-                "line": 10,
-                "hit": 1
-              }
-            },
-            "tone": "ok"
-          }
-        ]
-      },
-      "filled": {
-        "template": "states",
-        "title": "Input Guardrails — Foundations & Mathematical Invariants",
-        "states": [
-          {
-            "id": "raw_attack",
-            "label": "raw_attack"
-          },
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "clean",
-            "label": "clean"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The first line of defense in any production AI system is the deterministic.",
-            "currentState": "raw_attack",
-            "tone": "data"
-          },
-          {
-            "at": "say2",
-            "caption": "Adversaries frequently employ Unicode homoglyphsvisually identical.",
-            "currentState": "text",
-            "transition": {
-              "from": "raw_attack",
-              "to": "text",
-              "label": "'Ｐａｙｐａｌ​ Login'"
-            },
-            "tone": "data"
-          },
-          {
-            "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
-            "currentState": "clean",
-            "transition": {
-              "from": "text",
-              "to": "clean",
-              "label": "'Paypal​ Login'"
-            },
-            "tone": "ok"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Input Guardrails — Core Algorithm & State Representation",
-      "codeHash": "814d5c4c9cd7d92454cf2b4f787214c7f41aab9c0baf287357e8f24915840e92",
-      "spec": {
-        "template": "states",
-        "title": "Input Guardrails — Core Algorithm & State Representation",
-        "states": [
-          {
-            "id": "malicious_payload",
-            "label": "malicious_payload"
-          },
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "sanitized",
-            "label": "sanitized"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Beyond homoglyph deception, malicious inputs frequently embed invisible.",
-            "currentState": "malicious_payload",
-            "tone": "data"
-          },
-          {
-            "at": "say2",
-            "caption": "Null bytes, ANSI escape sequences, and backspace codes can truncate.",
-            "currentState": "text",
-            "transition": {
-              "from": "malicious_payload",
-              "to": "text",
-              "label": {
-                "var": "text",
-                "line": 5,
-                "hit": 1
-              }
-            },
-            "tone": "data"
-          },
-          {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "currentState": "sanitized",
-            "transition": {
-              "from": "text",
-              "to": "sanitized",
-              "label": {
-                "var": "sanitized",
                 "line": 9,
                 "hit": 1
               }
             },
-            "tone": "ok"
+            "tones": {
+              "raw_attack": "ok",
+              "text": "idle",
+              "clean": "ok"
+            },
+            "arrows": [
+              [
+                "raw_attack",
+                "text"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Input Guardrails — Core Algorithm & State Representation",
-        "states": [
+        "template": "flow",
+        "title": "Canonical Homoglyph Folding in `normalize_homoglyphs`",
+        "nodes": [
           {
-            "id": "malicious_payload",
-            "label": "malicious_payload"
+            "id": "raw_attack",
+            "label": "raw_attack",
+            "tappable": true
           },
           {
             "id": "text",
-            "label": "text"
+            "label": "text",
+            "tappable": true
           },
           {
-            "id": "sanitized",
-            "label": "sanitized"
+            "id": "clean",
+            "label": "clean",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Beyond homoglyph deception, malicious inputs frequently embed invisible.",
-            "currentState": "malicious_payload",
-            "tone": "data"
+            "caption": "Inspect line updates as raw_attack tracks defense state.",
+            "values": {
+              "raw_attack": "'Ｐａｙｐａｌ​ Login'",
+              "text": "",
+              "clean": ""
+            },
+            "tones": {
+              "raw_attack": "data",
+              "text": "idle",
+              "clean": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Null bytes, ANSI escape sequences, and backspace codes can truncate.",
-            "currentState": "text",
-            "transition": {
-              "from": "malicious_payload",
-              "to": "text",
-              "label": "'System: Safe\u0000\u001b[31mExploit\u0007Text'"
+            "caption": "Verify the homoglyphs transition driving adversaries behavior.",
+            "values": {
+              "raw_attack": "",
+              "text": "'Ｐａｙｐａｌ​ Login'",
+              "clean": ""
             },
-            "tone": "data"
+            "tones": {
+              "raw_attack": "idle",
+              "text": "data",
+              "clean": "idle"
+            },
+            "arrows": [
+              [
+                "raw_attack",
+                "text"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
-            "currentState": "sanitized",
-            "transition": {
-              "from": "text",
-              "to": "sanitized",
-              "label": "'System: Safe[31mExploitText'"
+            "at": "say3",
+            "caption": "Examine the example value produced for cyrillic processing.",
+            "values": {
+              "raw_attack": "'Ｐａｙｐａｌ​ Login'",
+              "text": "",
+              "clean": "'Paypal​ Login'"
             },
-            "tone": "ok"
+            "tones": {
+              "raw_attack": "ok",
+              "text": "idle",
+              "clean": "ok"
+            },
+            "arrows": [
+              [
+                "raw_attack",
+                "text"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Input Guardrails — Production Implementation & Boundary Mechanics",
+      "partTitle": "Escape & Null-Byte Filtering inside `strip_control_chars`",
+      "codeHash": "0b205f2d2c4b19b95f622a56b7ee5766ea27996142a90ae5e6882977189fe329",
+      "spec": {
+        "template": "flow",
+        "title": "Escape & Null-Byte Filtering inside `strip_control_chars`",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect control updates as text tracks beyond state.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "out": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "text": "data",
+              "out": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the escape transition driving null behavior.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 2
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "text": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Escape & Null-Byte Filtering inside `strip_control_chars`",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect control updates as text tracks beyond state.",
+            "values": {
+              "text": "'System: Safe\u0000\u001b[31mExploit\u0007Text'",
+              "out": ""
+            },
+            "tones": {
+              "text": "data",
+              "out": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the escape transition driving null behavior.",
+            "values": {
+              "text": "'Line1\nLine2'",
+              "out": "Sanitized payload: System: Safe[31mExploitText"
+            },
+            "tones": {
+              "text": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Bounding Word Count & Payloads via `enforce_token_bounds`",
       "codeHash": "8c3436fed069b844a7fa153daf4dd4a0d4f1abc49687b10c3b344b8fc7ac009b",
       "spec": {
         "template": "states",
@@ -330,7 +414,7 @@
       }
     },
     {
-      "partTitle": "Input Guardrails — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Chained Ingress Pipeline in `InputSanitizerPipeline`",
       "codeHash": "cdfc9b0d9285bb83d92b5ca8371cacc6cf379ae7ff2fac9c4ae89d70be2c6d3f",
       "spec": {
         "template": "states",
@@ -352,7 +436,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Complex enterprise applications combine multiple sanitizers into.",
+            "caption": "Observe how pipeline shapes complex during this step.",
             "currentState": "self",
             "tone": "data"
           },
@@ -373,7 +457,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the ingress value produced for pipeline processing.",
             "currentState": "pipeline",
             "transition": {
               "from": "max_words",
@@ -408,7 +492,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Complex enterprise applications combine multiple sanitizers into.",
+            "caption": "Observe how pipeline shapes complex during this step.",
             "currentState": "self",
             "tone": "data"
           },
@@ -425,7 +509,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the ingress value produced for pipeline processing.",
             "currentState": "pipeline",
             "transition": {
               "from": "max_words",
@@ -438,109 +522,189 @@
       }
     },
     {
-      "partTitle": "Input Guardrails — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "267b9cf991f25378709f4079011056bf374eb320a9d02252c46c504e4f17f44d",
+      "partTitle": "Pass/Fail Structural Hygiene Telemetry via `validate_input_firewall`",
+      "codeHash": "91dc5c858702a51ab03fe7d0ea5e5bf8a33ed33c10e6b716358f5284246c58fe",
       "spec": {
-        "template": "states",
-        "title": "Input Guardrails — Production Capstone & Enterprise SRE Integrat",
-        "states": [
+        "template": "flow",
+        "title": "Pass/Fail Structural Hygiene Telemetry via `validate_input_firew",
+        "nodes": [
           {
             "id": "text",
-            "label": "text"
+            "label": "text",
+            "tappable": true
           },
           {
             "id": "has_null",
-            "label": "has_null"
+            "label": "has_null",
+            "tappable": true
           },
           {
             "id": "word_count",
-            "label": "word_count"
+            "label": "word_count",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In enterprise SRE architectures, the input firewall serves as.",
-            "currentState": "text",
-            "tone": "data"
+            "caption": "Inspect input updates as text tracks firewall state.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
+              },
+              "has_null": {
+                "text": ""
+              },
+              "word_count": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "text": "data",
+              "has_null": "idle",
+              "word_count": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Health check endpoints verify that regex patterns compile correctly.",
-            "currentState": "has_null",
-            "transition": {
-              "from": "text",
-              "to": "has_null",
-              "label": {
-                "var": "has_null",
-                "line": 3,
-                "hit": 1
+            "caption": "Verify the health transition driving check behavior.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 2
+              },
+              "has_null": {
+                "text": ""
+              },
+              "word_count": {
+                "text": ""
               }
             },
-            "tone": "data"
+            "tones": {
+              "text": "data",
+              "has_null": "idle",
+              "word_count": "idle"
+            },
+            "arrows": [
+              [
+                "text",
+                "has_null"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "currentState": "word_count",
-            "transition": {
-              "from": "has_null",
-              "to": "word_count",
-              "label": {
+            "at": "say3",
+            "caption": "Examine the telemetry value produced for firewall processing.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 2
+              },
+              "has_null": {
+                "var": "has_null",
+                "line": 6,
+                "hit": 2
+              },
+              "word_count": {
                 "var": "word_count",
-                "line": 5,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
-            "tone": "ok"
+            "tones": {
+              "text": "ok",
+              "has_null": "ok",
+              "word_count": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "has_null"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Input Guardrails — Production Capstone & Enterprise SRE Integrat",
-        "states": [
+        "template": "flow",
+        "title": "Pass/Fail Structural Hygiene Telemetry via `validate_input_firew",
+        "nodes": [
           {
             "id": "text",
-            "label": "text"
+            "label": "text",
+            "tappable": true
           },
           {
             "id": "has_null",
-            "label": "has_null"
+            "label": "has_null",
+            "tappable": true
           },
           {
             "id": "word_count",
-            "label": "word_count"
+            "label": "word_count",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In enterprise SRE architectures, the input firewall serves as.",
-            "currentState": "text",
-            "tone": "data"
+            "caption": "Inspect input updates as text tracks firewall state.",
+            "values": {
+              "text": "'Admin prompt verification payload with…",
+              "has_null": "",
+              "word_count": ""
+            },
+            "tones": {
+              "text": "data",
+              "has_null": "idle",
+              "word_count": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Health check endpoints verify that regex patterns compile correctly.",
-            "currentState": "has_null",
-            "transition": {
-              "from": "text",
-              "to": "has_null",
-              "label": "False"
+            "caption": "Verify the health transition driving check behavior.",
+            "values": {
+              "text": "'bad\u0000'",
+              "has_null": "",
+              "word_count": ""
             },
-            "tone": "data"
+            "tones": {
+              "text": "data",
+              "has_null": "idle",
+              "word_count": "idle"
+            },
+            "arrows": [
+              [
+                "text",
+                "has_null"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "currentState": "word_count",
-            "transition": {
-              "from": "has_null",
-              "to": "word_count",
-              "label": "6"
+            "at": "say3",
+            "caption": "Examine the telemetry value produced for firewall processing.",
+            "values": {
+              "text": "'bad\u0000'",
+              "has_null": "True",
+              "word_count": "1"
             },
-            "tone": "ok"
+            "tones": {
+              "text": "ok",
+              "has_null": "ok",
+              "word_count": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "has_null"
+              ]
+            ]
           }
         ]
       }

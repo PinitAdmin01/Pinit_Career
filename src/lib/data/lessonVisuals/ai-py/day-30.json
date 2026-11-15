@@ -255,6 +255,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Otherwise try services[\"cache_get\"](query).",
+            "activeActor": "services",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": {
+                  "var": "cache",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "services",
@@ -269,10 +286,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Otherwise try services[\"cache_get\"](query).",
-            "activeActor": "services",
+            "at": "say7",
+            "caption": "Test all three paths with fake services before connecting real ones.",
+            "activeActor": "q",
             "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": {
+                  "var": "cache",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "q",
+                "label": {
+                  "var": "services",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cache",
                 "to": "services",
@@ -292,14 +329,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Test all three paths with fake services before connecting real ones.",
-            "activeActor": "q",
-            "messages": [
+              },
               {
                 "from": "cache",
                 "to": "services",
@@ -342,12 +372,6 @@
                 "to": "services",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "services",
-                "to": "q",
-                "label": "{'is_threat': {'__other__': 'function'}…",
-                "tone": "ok"
               }
             ],
             "activeActor": "cache"
@@ -365,7 +389,7 @@
               {
                 "from": "services",
                 "to": "q",
-                "label": "{'is_threat': {'__other__': 'function'}…",
+                "label": "{'is_threat': <function>, 'cache_get': …",
                 "tone": "ok"
               }
             ],
@@ -384,7 +408,31 @@
               {
                 "from": "services",
                 "to": "q",
-                "label": "{'is_threat': {'__other__': 'function'}…",
+                "label": "{'is_threat': <function>, 'cache_get': …",
+                "tone": "ok"
+              },
+              {
+                "from": "cache",
+                "to": "services",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "q",
+                "label": "{'is_threat': <function>, 'cache_get': …",
+                "tone": "ok"
+              },
+              {
+                "from": "cache",
+                "to": "services",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "q",
+                "label": "{'is_threat': <function>, 'cache_get': …",
                 "tone": "ok"
               }
             ],
@@ -419,6 +467,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A wrapper function takes a service and returns a new function that records.",
+            "activeActor": "services",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "services",
+                "label": {
+                  "var": "trace",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "services",
@@ -433,10 +498,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A wrapper function takes a service and returns a new function that records.",
-            "activeActor": "services",
+            "at": "say7",
+            "caption": "The example uses a step counter instead of real time so the output is.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "trace",
+                "to": "services",
+                "label": {
+                  "var": "trace",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "name",
+                "label": {
+                  "var": "services",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "trace",
                 "to": "services",
@@ -456,14 +541,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example uses a step counter instead of real time so the output is.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "trace",
                 "to": "services",
@@ -506,12 +584,6 @@
                 "to": "services",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "services",
-                "to": "name",
-                "label": "{'is_threat': {'__other__': 'function'}…",
-                "tone": "ok"
               }
             ],
             "activeActor": "trace"
@@ -529,7 +601,7 @@
               {
                 "from": "services",
                 "to": "name",
-                "label": "{'is_threat': {'__other__': 'function'}…",
+                "label": "{'is_threat': <function>, 'cache_get': …",
                 "tone": "ok"
               }
             ],
@@ -548,7 +620,31 @@
               {
                 "from": "services",
                 "to": "name",
-                "label": "{'is_threat': {'__other__': 'function'}…",
+                "label": "{'is_threat': <function>, 'cache_get': …",
+                "tone": "ok"
+              },
+              {
+                "from": "trace",
+                "to": "services",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "name",
+                "label": "{'is_threat': <function>, 'cache_get': …",
+                "tone": "ok"
+              },
+              {
+                "from": "trace",
+                "to": "services",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "name",
+                "label": "{'is_threat': <function>, 'cache_get': …",
                 "tone": "ok"
               }
             ],
@@ -583,6 +679,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Write tests as small functions with fake services, each asserting.",
+            "activeActor": "cached",
+            "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": {
+                  "var": "threat",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cached",
@@ -597,10 +710,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Write tests as small functions with fake services, each asserting.",
-            "activeActor": "cached",
+            "at": "say7",
+            "caption": "Tests are what let you improve the platform confidently for years.",
+            "activeActor": "calls",
             "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": {
+                  "var": "threat",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": {
+                  "var": "cached",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "threat",
                 "to": "cached",
@@ -620,14 +753,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Tests are what let you improve the platform confidently for years.",
-            "activeActor": "calls",
-            "messages": [
+              },
               {
                 "from": "threat",
                 "to": "cached",
@@ -670,12 +796,6 @@
                 "to": "cached",
                 "label": "True",
                 "tone": "data"
-              },
-              {
-                "from": "cached",
-                "to": "calls",
-                "label": "None",
-                "tone": "ok"
               }
             ],
             "activeActor": "threat"
@@ -703,6 +823,30 @@
             "at": "say7",
             "caption": "Tests are what let you improve the platform confidently for years.",
             "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": "None",
+                "tone": "ok"
+              },
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": "None",
+                "tone": "ok"
+              },
               {
                 "from": "threat",
                 "to": "cached",
@@ -884,14 +1028,12 @@
                 "hit": 1
               },
               "done": {
-                "var": "done",
-                "line": 10,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "checklist": "data",
-              "done": "data"
+              "done": "idle"
             }
           },
           {
@@ -955,11 +1097,11 @@
             "caption": "Before shipping any AI feature, walk through a checklist.",
             "values": {
               "checklist": "{'prompts with output contracts': True,…",
-              "done": "5"
+              "done": ""
             },
             "tones": {
               "checklist": "data",
-              "done": "data"
+              "done": "idle"
             }
           },
           {

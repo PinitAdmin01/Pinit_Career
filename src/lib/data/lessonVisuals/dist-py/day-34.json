@@ -119,7 +119,7 @@
     },
     {
       "partTitle": "Rumor Mongering vs Anti-Entropy: Handling Cold Replicas",
-      "codeHash": "da9d237aea32d08fd5a995871692dbc7fb232d26c89cf2d55d66a111227e3f98",
+      "codeHash": "be31f0277173656cc31c3a606cbf2eeb6cde77555fac389feb407066c15f6f2d",
       "spec": {
         "template": "sequence",
         "title": "Rumor Mongering vs Anti-Entropy: Handling Cold Replicas",
@@ -133,6 +133,23 @@
             "at": "say1",
             "caption": "Rumor mongering optimizes speed by gossiping hot recent changes for.",
             "activeActor": "local",
+            "messages": [
+              {
+                "from": "local",
+                "to": "remote",
+                "label": {
+                  "var": "local",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the rumor transition driving mongering behavior.",
+            "activeActor": "remote",
             "messages": [
               {
                 "from": "local",
@@ -157,10 +174,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "What happens if a node rebooted, suffered a temporary partition,.",
-            "activeActor": "remote",
+            "at": "say7",
+            "caption": "Trace the rumor decay counter and Scuttlebutt digest delta extraction below.",
+            "activeActor": "local_versions",
             "messages": [
+              {
+                "from": "local",
+                "to": "remote",
+                "label": {
+                  "var": "local",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "remote",
+                "to": "local_versions",
+                "label": {
+                  "var": "remote",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "local",
                 "to": "remote",
@@ -180,14 +217,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace the rumor decay counter and Scuttlebutt digest delta extraction below.",
-            "activeActor": "local_versions",
-            "messages": [
+              },
               {
                 "from": "local",
                 "to": "remote",
@@ -230,19 +260,13 @@
                 "to": "remote",
                 "label": "{'n1': 10, 'n2': 4, 'n3': 7}",
                 "tone": "data"
-              },
-              {
-                "from": "remote",
-                "to": "local_versions",
-                "label": "{'n1': 8, 'n2': 9, 'n4': 3}",
-                "tone": "ok"
               }
             ],
             "activeActor": "local"
           },
           {
             "at": "say2",
-            "caption": "What happens if a node rebooted, suffered a temporary partition,.",
+            "caption": "Verify the rumor transition driving mongering behavior.",
             "messages": [
               {
                 "from": "local",
@@ -263,6 +287,30 @@
             "at": "say7",
             "caption": "Trace the rumor decay counter and Scuttlebutt digest delta extraction below.",
             "messages": [
+              {
+                "from": "local",
+                "to": "remote",
+                "label": "{'n1': 10, 'n2': 4, 'n3': 7}",
+                "tone": "data"
+              },
+              {
+                "from": "remote",
+                "to": "local_versions",
+                "label": "{'n1': 8, 'n2': 9, 'n4': 3}",
+                "tone": "ok"
+              },
+              {
+                "from": "local",
+                "to": "remote",
+                "label": "{'n1': 10, 'n2': 4, 'n3': 7}",
+                "tone": "data"
+              },
+              {
+                "from": "remote",
+                "to": "local_versions",
+                "label": "{'n1': 8, 'n2': 9, 'n4': 3}",
+                "tone": "ok"
+              },
               {
                 "from": "local",
                 "to": "remote",
@@ -307,6 +355,23 @@
                   "hit": 33
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A Merkle tree (binary cryptographic hash tree) partitions the sorted hash.",
+            "activeActor": "data_b",
+            "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": {
+                  "var": "data_a",
+                  "line": 29,
+                  "hit": 33
+                },
+                "tone": "data"
               },
               {
                 "from": "data_b",
@@ -321,10 +386,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A Merkle tree (binary cryptographic hash tree) partitions the sorted hash.",
-            "activeActor": "data_b",
+            "at": "say8",
+            "caption": "Build two 8-leaf Merkle trees differing in one single key below and watch.",
+            "activeActor": "kv_items",
             "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": {
+                  "var": "data_a",
+                  "line": 29,
+                  "hit": 33
+                },
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": {
+                  "var": "data_b",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "data_a",
                 "to": "data_b",
@@ -344,14 +429,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Build two 8-leaf Merkle trees differing in one single key below and watch.",
-            "activeActor": "kv_items",
-            "messages": [
+              },
               {
                 "from": "data_a",
                 "to": "data_b",
@@ -394,12 +472,6 @@
                 "to": "data_b",
                 "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
                 "tone": "data"
-              },
-              {
-                "from": "data_b",
-                "to": "kv_items",
-                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
-                "tone": "ok"
               }
             ],
             "activeActor": "data_a"
@@ -438,6 +510,30 @@
                 "to": "kv_items",
                 "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
                 "tone": "ok"
+              },
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "ok"
+              },
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "ok"
               }
             ],
             "activeActor": "kv_items"
@@ -447,7 +543,7 @@
     },
     {
       "partTitle": "Dynamic Cluster Range Drift & Merkle Invalidation Cost",
-      "codeHash": "2f5878574082a65ee2c2c9dbe722bd571087253b6879c14c844327c80aed37b0",
+      "codeHash": "db7a539974169022007b3a1338ca8da65b589b3ce176193730a05efc4154584c",
       "spec": {
         "template": "flow",
         "title": "Dynamic Cluster Range Drift & Merkle Invalidation Cost",
@@ -638,7 +734,7 @@
             "values": {
               "key": "'user:1'",
               "bits": "3",
-              "digest": "{'__other__': 'bytes'}",
+              "digest": "<bytes>",
               "b_a": "{'order:9': [4, 'PAID'], 'user:1': [5, …"
             },
             "tones": {
@@ -668,7 +764,7 @@
             "values": {
               "key": "'user:1'",
               "bits": "3",
-              "digest": "{'__other__': 'bytes'}",
+              "digest": "<bytes>",
               "b_a": "{'order:9': [4, 'PAID'], 'user:1': [5, …"
             },
             "tones": {
@@ -698,7 +794,7 @@
             "values": {
               "key": "'user:2'",
               "bits": "3",
-              "digest": "{'__other__': 'bytes'}",
+              "digest": "<bytes>",
               "b_a": "{'order:9': [4, 'PAID'], 'user:1': [5, …"
             },
             "tones": {

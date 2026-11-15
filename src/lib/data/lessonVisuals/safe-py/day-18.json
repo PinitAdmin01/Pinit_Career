@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "If the system works worse for some groups of people, those people are.",
+            "caption": "Verify the system transition driving works behavior.",
             "currentState": "group",
             "transition": {
               "from": "results",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "If the system works worse for some groups of people, those people are.",
+            "caption": "Verify the system transition driving works behavior.",
             "currentState": "group",
             "transition": {
               "from": "results",
@@ -294,7 +294,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how rate updates true during execution.",
+            "caption": "Verify the rate transition driving true behavior.",
             "values": {
               "y_true": {
                 "var": "y_true",
@@ -313,8 +313,8 @@
               },
               "g": {
                 "var": "g",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -359,7 +359,7 @@
               },
               "g": {
                 "var": "g",
-                "line": 5,
+                "line": 4,
                 "hit": 2
               }
             },
@@ -440,12 +440,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how rate updates true during execution.",
+            "caption": "Verify the rate transition driving true behavior.",
             "values": {
               "y_true": "[True, True, False, True, True, True, F…",
               "y_pred": "[True, True, False, False, True, False,…",
               "groups": "['A', 'A', 'A', 'A', 'B', 'B', 'B', 'B']",
-              "g": "'A'"
+              "g": "'B'"
             },
             "tones": {
               "y_true": "data",
@@ -475,7 +475,7 @@
               "y_true": "[True, True, False, True, True, True, F…",
               "y_pred": "[True, True, False, False, True, False,…",
               "groups": "['A', 'A', 'A', 'A', 'B', 'B', 'B', 'B']",
-              "g": "'A'"
+              "g": "'B'"
             },
             "tones": {
               "y_true": "ok",

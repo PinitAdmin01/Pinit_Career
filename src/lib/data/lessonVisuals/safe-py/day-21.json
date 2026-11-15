@@ -24,7 +24,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "An evaluation harness is code that runs a fixed set of tests against.",
+            "caption": "Observe how evaluation shapes harness during this step.",
             "currentState": "changes",
             "tone": "data"
           },
@@ -61,7 +61,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "An evaluation harness is code that runs a fixed set of tests against.",
+            "caption": "Observe how evaluation shapes harness during this step.",
             "currentState": "changes",
             "tone": "data"
           },
@@ -476,7 +476,7 @@
           },
           {
             "at": "say2",
-            "caption": "Block rate on attack suites, allow rate on normal messages, and.",
+            "caption": "Verify the input transition driving side behavior.",
             "values": {
               "lower_is_better": {
                 "var": "lower_is_better",
@@ -496,7 +496,7 @@
               "d": {
                 "var": "d",
                 "line": 4,
-                "hit": 3
+                "hit": 7
               }
             },
             "tones": {
@@ -542,7 +542,7 @@
               "d": {
                 "var": "d",
                 "line": 4,
-                "hit": 4
+                "hit": 7
               }
             },
             "tones": {
@@ -622,12 +622,12 @@
           },
           {
             "at": "say2",
-            "caption": "Block rate on attack suites, allow rate on normal messages, and.",
+            "caption": "Verify the input transition driving side behavior.",
             "values": {
               "lower_is_better": "{'asr_injection', 'over_refusal', 'pari…",
               "raw_base": "{'asr_injection': 0.04, 'over_refusal':…",
               "raw_now": "{'asr_injection': 0.09, 'over_refusal':…",
-              "d": "{'asr_injection': 0.04, 'over_refusal':…"
+              "d": "{'asr_injection': 0.09, 'over_refusal':…"
             },
             "tones": {
               "lower_is_better": "data",
@@ -657,7 +657,7 @@
               "lower_is_better": "{'asr_injection', 'over_refusal', 'pari…",
               "raw_base": "{'asr_injection': 0.04, 'over_refusal':…",
               "raw_now": "{'asr_injection': 0.09, 'over_refusal':…",
-              "d": "{'asr_injection': 0.04, 'over_refusal':…"
+              "d": "{'asr_injection': 0.09, 'over_refusal':…"
             },
             "tones": {
               "lower_is_better": "ok",

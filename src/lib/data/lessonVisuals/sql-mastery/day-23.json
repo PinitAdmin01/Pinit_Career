@@ -477,19 +477,287 @@
       "partTitle": "Indexes on several columns and on expressions",
       "codeHash": "5ecf7095524773a38c409f704c78416292efc36a09304f7a4b615a69e19f4592",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Indexes on several columns and on expressions",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "An index can cover several columns.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE users (id int PRIMARY KEY, email te"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Column order matters in a multi-column index.",
+            "values": {
+              "query": {
+                "text": "INSERT INTO users VALUES (2, 'ASHA@example.com');"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "error": true
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Indexes on several columns and on expressions",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "An index can cover several columns.",
+            "values": {
+              "query": "CREATE TABLE users (id int PRIMARY KEY, email te",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Column order matters in a multi-column index.",
+            "values": {
+              "query": "INSERT INTO users VALUES (2, 'ASHA@example.com');",
+              "db": "PostgreSQL",
+              "res": "duplicate key value violates unique constraint \"idx_users_email\""
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "error"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: speeding up a slow report",
       "codeHash": "11a364eee7ced6dc8cccae7929d7790b0b98053ed62c2ea509ebba90a693d35c",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "Putting it together: speeding up a slow report",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us follow the real process of fixing a slow query.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE orders (id int PRIMARY KEY, custome"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL reads every row, keeps a few, and sorts them.",
+            "values": {
+              "query": {
+                "text": "EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE customer_id = 42 ORDER BY ordered_on DESC LIMIT 5;"
+              },
+              "db": {
+                "text": "PostgreSQL"
+              },
+              "res": {
+                "table": 2,
+                "row": 1,
+                "col": "QUERY PLAN"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "Putting it together: speeding up a slow report",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "PostgreSQL",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Let us follow the real process of fixing a slow query.",
+            "values": {
+              "query": "CREATE TABLE orders (id int PRIMARY KEY, custome",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL reads every row, keeps a few, and sorts them.",
+            "values": {
+              "query": "EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE customer_id = 42 ORDER BY ordered_on DESC LIMIT 5;",
+              "db": "PostgreSQL",
+              "res": "Limit"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     }
   ]
 }

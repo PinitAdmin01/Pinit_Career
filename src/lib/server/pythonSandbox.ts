@@ -212,3 +212,125 @@ except BaseException as ex:
     }
   }
 }
+
+type PyodideRuntime = {
+  runPython: (code: string, options?: { globals?: unknown }) => unknown;
+  setStdout: (opts: { batched: (line: string) => void }) => void;
+  setStderr: (opts: { batched: (line: string) => void }) => void;
+  globals: { get: (name: string) => any };
+};
+
+let serverPyodidePromise: Promise<PyodideRuntime> | null = null;
+
+async function getServerPyodide(): Promise<PyodideRuntime> {
+  if (!serverPyodidePromise) {
+    serverPyodidePromise = import('pyodide')
+      .then((mod) => mod.loadPyodide() as unknown as Promise<PyodideRuntime>)
+      .catch((err) => {
+        serverPyodidePromise = null;
+        throw err;
+      });
+  }
+  return serverPyodidePromise;
+}
+
+/**
+ * In-process Pyodide WASM fallback when native python/python3 binaries are absent on the server host.
+ * Executes submission code followed by test assertions inside an isolated Python namespace dict.
+ */
+export async function runPythonInPyodideFallback(
+  options: PythonSandboxOptions
+): Promise<PythonSandboxResult> {
+  const { code, tests = '', timeoutMs = 4500 } = options;
+  const combinedSource = `${code}\n${tests}`;
+  const forbiddenToken = findForbiddenPython(combinedSource);
+  if (forbiddenToken) {
+    return {
+      passed: false,
+      stdout: '',
+      stderr: `[SECURITY GUARD] Restricted Python module/call detected in code or tests: ${forbiddenToken}`,
+      timedOut: false,
+      isSecurityViolation: true,
+      status: 'SECURITY_VIOLATION',
+    };
+  }
+
+  let pyodide: PyodideRuntime;
+  try {
+    pyodide = await getServerPyodide();
+  } catch (err) {
+    return {
+      passed: false,
+      stdout: '',
+      stderr: err instanceof Error ? err.message : String(err),
+      timedOut: false,
+      status: 'ENVIRONMENT_ERROR',
+      error: err instanceof Error ? err : new Error(String(err)),
+    };
+  }
+
+  const out: string[] = [];
+  const errLines: string[] = [];
+  pyodide.setStdout({ batched: (line: string) => out.push(line) });
+  pyodide.setStderr({ batched: (line: string) => errLines.push(line) });
+
+  const g = pyodide.globals.get('dict')();
+  g.set('__name__', '__main__');
+
+  const runnerScript = [
+    'import sys',
+    '_pinit_status = "SUCCESS"',
+    '_pinit_err = ""',
+    'try:',
+    `    exec(compile(${JSON.stringify(code)}, "solution.py", "exec"), globals())`,
+    `    exec(compile(${JSON.stringify(tests.trim() ? tests : 'pass')}, "tests.py", "exec"), globals())`,
+    'except AssertionError as _ae:',
+    '    _pinit_status = "ASSERTION_FAILED"',
+    '    _pinit_err = f"AssertionError: {_ae}"',
+    'except SystemExit as _se:',
+    '    _pinit_status = "ABNORMAL_TERMINATION"',
+    '    _pinit_err = f"SystemExit: {_se}"',
+    'except BaseException as _ex:',
+    '    _pinit_status = "RUNTIME_ERROR"',
+    '    _pinit_err = f"{type(_ex).__name__}: {_ex}"',
+  ].join('\n');
+
+  const clampedTimeout = Math.min(Math.max(Number(timeoutMs) || 4500, 500), 10000);
+  let timer: NodeJS.Timeout | null = null;
+  try {
+    await Promise.race([
+      Promise.resolve().then(() => {
+        pyodide.runPython(runnerScript, { globals: g });
+      }),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error('TIMEOUT')), clampedTimeout);
+      }),
+    ]);
+
+    const statusStr = String(g.get('_pinit_status') ?? 'RUNTIME_ERROR') as PythonSandboxStatus;
+    const errStr = String(g.get('_pinit_err') ?? '');
+    const stdoutText = out.join('\n').trim();
+    const stderrText = [errLines.join('\n').trim(), errStr].filter(Boolean).join('\n');
+
+    return {
+      passed: statusStr === 'SUCCESS',
+      stdout: stdoutText,
+      stderr: stderrText,
+      timedOut: false,
+      status: statusStr,
+    };
+  } catch (err) {
+    const timedOut = err instanceof Error && err.message === 'TIMEOUT';
+    return {
+      passed: false,
+      stdout: out.join('\n').trim(),
+      stderr: err instanceof Error ? err.message : String(err),
+      timedOut,
+      status: timedOut ? 'TIMEOUT' : 'RUNTIME_ERROR',
+      error: err instanceof Error ? err : new Error(String(err)),
+    };
+  } finally {
+    if (timer) clearTimeout(timer);
+    g.destroy?.();
+  }
+}

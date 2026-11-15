@@ -257,15 +257,13 @@
                 "hit": 1
               },
               "violations": {
-                "var": "violations",
-                "line": 3,
-                "hit": 5
+                "text": ""
               }
             },
             "tones": {
               "policy": "data",
               "observed": "data",
-              "violations": "data"
+              "violations": "idle"
             }
           },
           {
@@ -346,12 +344,12 @@
             "values": {
               "policy": "{['api', 'cache', 6379], ['api', 'db', …",
               "observed": "[['web', 'api', 443], ['api', 'db', 543…",
-              "violations": "[['api', 'db', 22], ['web', 'db', 5432]]"
+              "violations": ""
             },
             "tones": {
               "policy": "data",
               "observed": "data",
-              "violations": "data"
+              "violations": "idle"
             }
           },
           {
@@ -467,8 +465,8 @@
               },
               "now": {
                 "var": "now",
-                "line": 3,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "user": {
                 "var": "user",
@@ -513,8 +511,8 @@
               },
               "now": {
                 "var": "now",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               },
               "user": {
                 "var": "user",
@@ -607,7 +605,7 @@
             "caption": "Every access decision is logged, giving rich data for detection.",
             "values": {
               "grants": "[{'user': 'asha', 'role': 'db-admin', '…",
-              "now": "50",
+              "now": "200",
               "user": "'asha'",
               "role": "'db-admin'"
             },
@@ -637,7 +635,7 @@
             "caption": "Monitoring identity events, such as new MFA devices or unusual consent.",
             "values": {
               "grants": "[{'user': 'asha', 'role': 'db-admin', '…",
-              "now": "50",
+              "now": "1800",
               "user": "'asha'",
               "role": "'db-admin'"
             },
@@ -679,8 +677,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Start by inventorying users, devices, applications and data flows, because.",
+            "caption": "Start by inventorying users, devices, applications and data flows.",
             "activeActor": "pillars",
+            "messages": [
+              {
+                "from": "pillars",
+                "to": "levels",
+                "label": {
+                  "var": "pillars",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Pick a high-value application and put it behind an identity-aware proxy.",
+            "activeActor": "levels",
             "messages": [
               {
                 "from": "pillars",
@@ -705,10 +720,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Pick a high-value application and put it behind an identity-aware proxy.",
-            "activeActor": "levels",
+            "at": "say10",
+            "caption": "Report progress in business terms, such as how many critical applications.",
+            "activeActor": "pillar",
             "messages": [
+              {
+                "from": "pillars",
+                "to": "levels",
+                "label": {
+                  "var": "pillars",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "levels",
+                "to": "pillar",
+                "label": {
+                  "var": "levels",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "pillars",
                 "to": "levels",
@@ -728,14 +763,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Report progress in business terms, such as how many critical applications.",
-            "activeActor": "pillar",
-            "messages": [
+              },
               {
                 "from": "pillars",
                 "to": "levels",
@@ -771,19 +799,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Start by inventorying users, devices, applications and data flows, because.",
+            "caption": "Start by inventorying users, devices, applications and data flows.",
             "messages": [
               {
                 "from": "pillars",
                 "to": "levels",
                 "label": "{'identity': 3, 'devices': 2, 'networks…",
                 "tone": "data"
-              },
-              {
-                "from": "levels",
-                "to": "pillar",
-                "label": "{1: 'traditional', 2: 'initial', 3: 'ad…",
-                "tone": "ok"
               }
             ],
             "activeActor": "pillars"
@@ -811,6 +833,30 @@
             "at": "say10",
             "caption": "Report progress in business terms, such as how many critical applications.",
             "messages": [
+              {
+                "from": "pillars",
+                "to": "levels",
+                "label": "{'identity': 3, 'devices': 2, 'networks…",
+                "tone": "data"
+              },
+              {
+                "from": "levels",
+                "to": "pillar",
+                "label": "{1: 'traditional', 2: 'initial', 3: 'ad…",
+                "tone": "ok"
+              },
+              {
+                "from": "pillars",
+                "to": "levels",
+                "label": "{'identity': 3, 'devices': 2, 'networks…",
+                "tone": "data"
+              },
+              {
+                "from": "levels",
+                "to": "pillar",
+                "label": "{1: 'traditional', 2: 'initial', 3: 'ad…",
+                "tone": "ok"
+              },
               {
                 "from": "pillars",
                 "to": "levels",
@@ -858,7 +904,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a healthy request, stale MFA, elevated risk,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "currentState": "dev",
             "transition": {
               "from": "reqs",
@@ -914,7 +960,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a healthy request, stale MFA, elevated risk,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "currentState": "dev",
             "transition": {
               "from": "reqs",

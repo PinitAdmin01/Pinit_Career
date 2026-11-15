@@ -9,169 +9,161 @@
       "partTitle": "Why evaluation comes first",
       "codeHash": "abc3bd15aec8d65d81dccceaa3bec318e7c0a92d87cf1ca2d1b342fab78df58f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Why evaluation comes first",
-        "actors": [
-          "golden",
-          ".0",
-          "g"
+        "nodes": [
+          {
+            "id": "g",
+            "label": "g",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An AI feature that seems to work in a demo can fail on a third of real.",
-            "activeActor": "golden",
-            "messages": [
-              {
-                "from": "golden",
-                "to": ".0",
-                "label": {
-                  "var": "golden",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Without measurement, you only find out from unhappy users.",
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "g": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Evaluate three layers.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "golden",
-                "to": ".0",
-                "label": {
-                  "var": "golden",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 7,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "g": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "The dataset becomes the most valuable asset of your AI project.",
-            "activeActor": "g",
-            "messages": [
-              {
-                "from": "golden",
-                "to": ".0",
-                "label": {
-                  "var": "golden",
-                  "line": 7,
-                  "hit": 5
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Start with a golden dataset.",
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 7,
+                "hit": 3
               },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": {
-                  "var": ".0",
-                  "line": 7,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "g": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Why evaluation comes first",
-        "actors": [
-          "golden",
-          ".0",
-          "g"
+        "nodes": [
+          {
+            "id": "g",
+            "label": "g",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An AI feature that seems to work in a demo can fail on a third of real.",
-            "messages": [
-              {
-                "from": "golden",
-                "to": ".0",
-                "label": "[{'question': 'How long do UPI refunds …",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "golden"
+            "caption": "Without measurement, you only find out from unhappy users.",
+            "values": {
+              "g": "{'question': 'How long do UPI refunds t…",
+              "out": ""
+            },
+            "tones": {
+              "g": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Evaluate three layers.",
-            "messages": [
-              {
-                "from": "golden",
-                "to": ".0",
-                "label": "[{'question': 'How long do UPI refunds …",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "values": {
+              "g": "{'question': 'Can gift cards be refunde…",
+              "out": "3 test questions"
+            },
+            "tones": {
+              "g": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "The dataset becomes the most valuable asset of your AI project.",
-            "messages": [
-              {
-                "from": "golden",
-                "to": ".0",
-                "label": "[{'question': 'How long do UPI refunds …",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "g",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "g"
+            "at": "say3",
+            "caption": "Start with a golden dataset.",
+            "values": {
+              "g": "{'question': 'What is the return window…",
+              "out": "chunks needed in total: 4"
+            },
+            "tones": {
+              "g": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Context recall",
-      "codeHash": "35fdc6a54403899c518ed05226ba17f201aac689a9e27e1262514fd650dcaf62",
+      "codeHash": "a0f608335a0969c2e6ea294baf4a9d97f186af46db693094981cf95ce2acab2a",
       "spec": {
         "template": "sequence",
         "title": "Context recall",
@@ -359,6 +351,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Evaluate_faithfulness(context, claims).",
+            "activeActor": "claims",
+            "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": {
+                  "var": "context",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "claims",
@@ -373,10 +382,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Evaluate_faithfulness(context, claims).",
-            "activeActor": "claims",
+            "at": "say6",
+            "caption": "Guard against division by zero.",
+            "activeActor": "ctx",
             "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": {
+                  "var": "context",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": {
+                  "var": "claims",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "context",
                 "to": "claims",
@@ -396,14 +425,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Guard against division by zero.",
-            "activeActor": "ctx",
-            "messages": [
+              },
               {
                 "from": "context",
                 "to": "claims",
@@ -446,12 +468,6 @@
                 "to": "claims",
                 "label": "'UPI refunds arrive in 2 days. Card ref…",
                 "tone": "data"
-              },
-              {
-                "from": "claims",
-                "to": "ctx",
-                "label": "['UPI refunds arrive in 2 days', 'card …",
-                "tone": "ok"
               }
             ],
             "activeActor": "context"
@@ -479,6 +495,30 @@
             "at": "say6",
             "caption": "Guard against division by zero.",
             "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": "'UPI refunds arrive in 2 days. Card ref…",
+                "tone": "data"
+              },
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": "['UPI refunds arrive in 2 days', 'card …",
+                "tone": "ok"
+              },
+              {
+                "from": "context",
+                "to": "claims",
+                "label": "'UPI refunds arrive in 2 days. Card ref…",
+                "tone": "data"
+              },
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": "['UPI refunds arrive in 2 days', 'card …",
+                "tone": "ok"
+              },
               {
                 "from": "context",
                 "to": "claims",
@@ -560,8 +600,8 @@
             "values": {
               "answer": {
                 "var": "answer",
-                "line": 5,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               },
               "question": {
                 "var": "question",
@@ -575,8 +615,8 @@
               },
               "verdict": {
                 "var": "verdict",
-                "line": 16,
-                "hit": 1
+                "line": 15,
+                "hit": 2
               }
             },
             "tones": {
@@ -588,12 +628,12 @@
           },
           {
             "at": "say6",
-            "caption": "Use a strong model as the judge, and keep its prompt fixed so scores are.",
+            "caption": "Examine the model value produced for strong processing.",
             "values": {
               "answer": {
                 "var": "answer",
-                "line": 7,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               },
               "question": {
                 "var": "question",
@@ -607,7 +647,7 @@
               },
               "verdict": {
                 "var": "verdict",
-                "line": 14,
+                "line": 15,
                 "hit": 2
               }
             },
@@ -662,10 +702,10 @@
             "at": "say2",
             "caption": "Answer relevance checks whether the answer addresses the question.",
             "values": {
-              "answer": "'UPI refunds arrive in 2 days.'",
+              "answer": "'Please see our refund documents.'",
               "question": "'How long do UPI refunds take?'",
               "prompt": "'Rate how well the answer addresses the…",
-              "verdict": "{'score': 5, 'reason': 'gives the time'}"
+              "verdict": "{'score': 1, 'reason': 'no time given'}"
             },
             "tones": {
               "answer": "data",
@@ -676,12 +716,12 @@
           },
           {
             "at": "say6",
-            "caption": "Use a strong model as the judge, and keep its prompt fixed so scores are.",
+            "caption": "Examine the model value produced for strong processing.",
             "values": {
-              "answer": "'UPI refunds arrive in 2 days.'",
+              "answer": "'Please see our refund documents.'",
               "question": "'How long do UPI refunds take?'",
               "prompt": "'Rate how well the answer addresses the…",
-              "verdict": "{'score': 5, 'reason': 'gives the time'}"
+              "verdict": "{'score': 1, 'reason': 'no time given'}"
             },
             "tones": {
               "answer": "ok",
@@ -934,16 +974,14 @@
                 "hit": 1
               },
               "new": {
-                "var": "new",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "baseline": "data",
               "candidate": "data",
               "base": "data",
-              "new": "data"
+              "new": "idle"
             },
             "arrows": [
               [
@@ -1083,13 +1121,13 @@
               "baseline": "{'faithfulness': 0.91, 'relevance': 0.8…",
               "candidate": "{'faithfulness': 0.86, 'relevance': 0.9…",
               "base": "{'faithfulness': 0.91, 'relevance': 0.8…",
-              "new": "{'faithfulness': 0.86, 'relevance': 0.9…"
+              "new": ""
             },
             "tones": {
               "baseline": "data",
               "candidate": "data",
               "base": "data",
-              "new": "data"
+              "new": "idle"
             },
             "arrows": [
               [

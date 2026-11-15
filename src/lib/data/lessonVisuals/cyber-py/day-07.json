@@ -18,8 +18,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A system should never store users' passwords, not even encrypted, because.",
+            "caption": "A system should never store users' passwords, not even encrypted.",
             "activeActor": "stored",
+            "messages": [
+              {
+                "from": "stored",
+                "to": "attempt",
+                "label": {
+                  "var": "stored",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Instead it stores a password hash.",
+            "activeActor": "attempt",
             "messages": [
               {
                 "from": "stored",
@@ -44,10 +61,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Instead it stores a password hash.",
+            "at": "say9",
+            "caption": "Even with perfect hashing, you should still protect the database.",
             "activeActor": "attempt",
             "messages": [
+              {
+                "from": "stored",
+                "to": "attempt",
+                "label": {
+                  "var": "stored",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "attempt",
+                "to": "stored",
+                "label": {
+                  "var": "attempt",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "stored",
                 "to": "attempt",
@@ -67,14 +104,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Even with perfect hashing, you should still protect the database.",
-            "activeActor": "attempt",
-            "messages": [
+              },
               {
                 "from": "stored",
                 "to": "attempt",
@@ -109,19 +139,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A system should never store users' passwords, not even encrypted, because.",
+            "caption": "A system should never store users' passwords, not even encrypted.",
             "messages": [
               {
                 "from": "stored",
                 "to": "attempt",
                 "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
                 "tone": "data"
-              },
-              {
-                "from": "attempt",
-                "to": "stored",
-                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
-                "tone": "ok"
               }
             ],
             "activeActor": "stored"
@@ -149,6 +173,30 @@
             "at": "say9",
             "caption": "Even with perfect hashing, you should still protect the database.",
             "messages": [
+              {
+                "from": "stored",
+                "to": "attempt",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "data"
+              },
+              {
+                "from": "attempt",
+                "to": "stored",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "ok"
+              },
+              {
+                "from": "stored",
+                "to": "attempt",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "data"
+              },
+              {
+                "from": "attempt",
+                "to": "stored",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "ok"
+              },
               {
                 "from": "stored",
                 "to": "attempt",
@@ -416,7 +464,7 @@
             "transition": {
               "from": "pw",
               "to": "h",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "ok"
           }
@@ -446,7 +494,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how modern updates guidance during execution.",
+            "caption": "Inspect modern updates as breached tracks guidance state.",
             "values": {
               "breached": {
                 "var": "breached",
@@ -472,7 +520,7 @@
           },
           {
             "at": "say2",
-            "caption": "Check new passwords against lists of breached and common passwords,.",
+            "caption": "Verify the check transition driving passwords behavior.",
             "values": {
               "breached": {
                 "var": "breached",
@@ -544,7 +592,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how modern updates guidance during execution.",
+            "caption": "Inspect modern updates as breached tracks guidance state.",
             "values": {
               "breached": "{'123456789', 'iloveyou', 'password123'…",
               "pw": "'qwerty'",
@@ -558,7 +606,7 @@
           },
           {
             "at": "say2",
-            "caption": "Check new passwords against lists of breached and common passwords,.",
+            "caption": "Verify the check transition driving passwords behavior.",
             "values": {
               "breached": "{'123456789', 'iloveyou', 'password123'…",
               "pw": "'qwerty'",
@@ -632,16 +680,14 @@
                 "hit": 1
               },
               "h": {
-                "var": "h",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "pw": "data",
               "salt": "data",
               "rounds": "data",
-              "h": "data"
+              "h": "idle"
             },
             "arrows": [
               [
@@ -781,13 +827,13 @@
               "pw": "'blue tiger river'",
               "salt": "'c0ffee00'",
               "rounds": "1000",
-              "h": "{'__other__': 'bytes'}"
+              "h": ""
             },
             "tones": {
               "pw": "data",
               "salt": "data",
               "rounds": "data",
-              "h": "data"
+              "h": "idle"
             },
             "arrows": [
               [
@@ -811,7 +857,7 @@
               "pw": "'blue tiger river'",
               "salt": "'c0ffee00'",
               "rounds": "1000",
-              "h": "{'__other__': 'bytes'}"
+              "h": "<bytes>"
             },
             "tones": {
               "pw": "data",
@@ -841,7 +887,7 @@
               "pw": "'blue tiger river'",
               "salt": "'c0ffee00'",
               "rounds": "1000",
-              "h": "{'__other__': 'bytes'}"
+              "h": "<bytes>"
             },
             "tones": {
               "pw": "ok",

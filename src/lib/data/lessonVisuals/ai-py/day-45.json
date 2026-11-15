@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Anchor every inference gateway call cleanly inside an immutable.",
+            "activeActor": "user_id",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "user_id",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Anchor every inference gateway call cleanly inside an immutable.",
-            "activeActor": "user_id",
+            "at": "say8",
+            "caption": "Run init_request_ctx() contrasting shared tenant documentation scopes.",
+            "activeActor": "prompt_ver",
             "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_id",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tenant_id",
                 "to": "user_id",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Run init_request_ctx() contrasting shared tenant documentation scopes.",
-            "activeActor": "prompt_ver",
-            "messages": [
+              },
               {
                 "from": "tenant_id",
                 "to": "user_id",
@@ -118,12 +148,6 @@
                 "to": "user_id",
                 "label": "'acme'",
                 "tone": "data"
-              },
-              {
-                "from": "user_id",
-                "to": "prompt_ver",
-                "label": "'u_42'",
-                "tone": "ok"
               }
             ],
             "activeActor": "tenant_id"
@@ -162,6 +186,30 @@
                 "to": "prompt_ver",
                 "label": "'u_42'",
                 "tone": "ok"
+              },
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": "'u_42'",
+                "tone": "ok"
+              },
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": "'u_42'",
+                "tone": "ok"
               }
             ],
             "activeActor": "prompt_ver"
@@ -171,7 +219,7 @@
     },
     {
       "partTitle": "Scoped Exact + Semantic Probe With Guardrails",
-      "codeHash": "17223827c5341a614fc4e1195d8f95f82fa70c2ad258cfe46f351375957103f8",
+      "codeHash": "56fa35c6cd0fc12ef3e1a1e303939ce4dda2ff169d372641466f194efddc77d0",
       "spec": {
         "template": "boxes",
         "title": "Scoped Exact + Semantic Probe With Guardrails",
@@ -260,7 +308,7 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect guarded_cache_probe() hitting `'fix error 502'` safely while.",
+            "caption": "Examine the semantic value produced for probe processing.",
             "values": {
               "entries": {
                 "var": "entries",
@@ -348,7 +396,7 @@
           },
           {
             "at": "say6",
-            "caption": "Inspect guarded_cache_probe() hitting `'fix error 502'` safely while.",
+            "caption": "Examine the semantic value produced for probe processing.",
             "values": {
               "entries": "[{'scope': 'acme:v7', 'norm_q': 'fix er…",
               "s": "'how fix error 504?'",
@@ -404,17 +452,17 @@
           },
           {
             "at": "say2",
-            "caption": "Notice the critical interplay.",
+            "caption": "Upfront complexity flags guide smart cascade short-circuiting.",
             "values": {
               "complexity_score": {
                 "var": "complexity_score",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "small_ok": {
                 "var": "small_ok",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -428,13 +476,13 @@
             "values": {
               "complexity_score": {
                 "var": "complexity_score",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "small_ok": {
                 "var": "small_ok",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -472,10 +520,10 @@
           },
           {
             "at": "say2",
-            "caption": "Notice the critical interplay.",
+            "caption": "Upfront complexity flags guide smart cascade short-circuiting.",
             "values": {
-              "complexity_score": "0",
-              "small_ok": "True"
+              "complexity_score": "1",
+              "small_ok": "False"
             },
             "tones": {
               "complexity_score": "data",
@@ -486,7 +534,7 @@
             "at": "say7",
             "caption": "Inspect route_cache_miss() recording explicit route path, total USD spent.",
             "values": {
-              "complexity_score": "0",
+              "complexity_score": "4",
               "small_ok": "True"
             },
             "tones": {
@@ -735,8 +783,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates closes during execution.",
+            "caption": "Observe how milestone shapes regression during this step.",
             "activeActor": "checks",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "k_a",
+                "label": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the cost transition driving cache behavior.",
+            "activeActor": "k_a",
             "messages": [
               {
                 "from": "checks",
@@ -761,10 +826,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how cache updates efficiency during execution.",
-            "activeActor": "k_a",
+            "at": "say7",
+            "caption": "Run audit_milestone9() verifying all three enterprise optimization checks.",
+            "activeActor": "k_b",
             "messages": [
+              {
+                "from": "checks",
+                "to": "k_a",
+                "label": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k_a",
+                "to": "k_b",
+                "label": {
+                  "var": "k_a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "k_a",
@@ -784,14 +869,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Run audit_milestone9() verifying all three enterprise optimization checks.",
-            "activeActor": "k_b",
-            "messages": [
+              },
               {
                 "from": "checks",
                 "to": "k_a",
@@ -827,26 +905,20 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates closes during execution.",
+            "caption": "Observe how milestone shapes regression during this step.",
             "messages": [
               {
                 "from": "checks",
                 "to": "k_a",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "k_a",
-                "to": "k_b",
-                "label": "'acme:v1:abc'",
-                "tone": "ok"
               }
             ],
             "activeActor": "checks"
           },
           {
             "at": "say2",
-            "caption": "Trace how cache updates efficiency during execution.",
+            "caption": "Verify the cost transition driving cache behavior.",
             "messages": [
               {
                 "from": "checks",
@@ -867,6 +939,30 @@
             "at": "say7",
             "caption": "Run audit_milestone9() verifying all three enterprise optimization checks.",
             "messages": [
+              {
+                "from": "checks",
+                "to": "k_a",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "k_a",
+                "to": "k_b",
+                "label": "'acme:v1:abc'",
+                "tone": "ok"
+              },
+              {
+                "from": "checks",
+                "to": "k_a",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "k_a",
+                "to": "k_b",
+                "label": "'acme:v1:abc'",
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "k_a",

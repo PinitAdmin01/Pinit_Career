@@ -7,622 +7,624 @@
   "entries": [
     {
       "partTitle": "The Data Bottleneck: From Manual Annotation To Autonomous Synthetic Generation",
-      "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
+      "codeHash": "84ff7e0dbbb853492580cc5f48cea20ad56a4c88ecc7c4c33979020f4ae8e883",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Data Bottleneck: From Manual Annotation To Autonomous Synthe",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "SEEDS",
+            "label": "SEEDS",
+            "tappable": true
+          },
+          {
+            "id": "TARGET_PER_DOMAIN",
+            "label": "TARGET_PER_DOMAIN",
+            "tappable": true
+          },
+          {
+            "id": "deficits",
+            "label": "deficits",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the lifecycle of enterprise foundation model engineering,.",
-            "activeActor": "synthesis_stages",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Scaling modern AI evaluation demands Autonomous Golden Dataset Synthesis.",
+            "values": {
+              "SEEDS": {
+                "var": "SEEDS",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "TARGET_PER_DOMAIN": {
+                "text": ""
+              },
+              "deficits": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "SEEDS": "data",
+              "TARGET_PER_DOMAIN": "idle",
+              "deficits": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The evolution from manual data curation to autonomous synthetic dataset.",
-            "activeActor": "distribution",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the manual transition driving synthetic behavior.",
+            "values": {
+              "SEEDS": {
+                "var": "SEEDS",
+                "line": 4,
+                "hit": 5
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "TARGET_PER_DOMAIN": {
+                "var": "TARGET_PER_DOMAIN",
+                "line": 4,
+                "hit": 5
+              },
+              "deficits": {
+                "var": "deficits",
+                "line": 4,
+                "hit": 5
               }
+            },
+            "tones": {
+              "SEEDS": "data",
+              "TARGET_PER_DOMAIN": "data",
+              "deficits": "data"
+            },
+            "arrows": [
+              [
+                "SEEDS",
+                "TARGET_PER_DOMAIN"
+              ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering autonomous golden dataset synthesis equips AI engineers with.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the synthetic value produced for dataset processing.",
+            "values": {
+              "SEEDS": {
+                "var": "SEEDS",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "TARGET_PER_DOMAIN": {
+                "var": "TARGET_PER_DOMAIN",
+                "line": 5,
+                "hit": 1
+              },
+              "deficits": {
+                "var": "deficits",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "SEEDS": "ok",
+              "TARGET_PER_DOMAIN": "ok",
+              "deficits": "ok"
+            },
+            "arrows": [
+              [
+                "SEEDS",
+                "TARGET_PER_DOMAIN"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Data Bottleneck: From Manual Annotation To Autonomous Synthe",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "SEEDS",
+            "label": "SEEDS",
+            "tappable": true
+          },
+          {
+            "id": "TARGET_PER_DOMAIN",
+            "label": "TARGET_PER_DOMAIN",
+            "tappable": true
+          },
+          {
+            "id": "deficits",
+            "label": "deficits",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the lifecycle of enterprise foundation model engineering,.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "synthesis_stages"
+            "caption": "Scaling modern AI evaluation demands Autonomous Golden Dataset Synthesis.",
+            "values": {
+              "SEEDS": "{'sql': 42, 'security': 12, 'rag': 38, …",
+              "TARGET_PER_DOMAIN": "",
+              "deficits": ""
+            },
+            "tones": {
+              "SEEDS": "data",
+              "TARGET_PER_DOMAIN": "idle",
+              "deficits": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The evolution from manual data curation to autonomous synthetic dataset.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "distribution"
+            "caption": "Verify the manual transition driving synthetic behavior.",
+            "values": {
+              "SEEDS": "{'sql': 42, 'security': 12, 'rag': 38, …",
+              "TARGET_PER_DOMAIN": "40",
+              "deficits": "{'sql': 0, 'security': 28, 'rag': 2, 'f…"
+            },
+            "tones": {
+              "SEEDS": "data",
+              "TARGET_PER_DOMAIN": "data",
+              "deficits": "data"
+            },
+            "arrows": [
+              [
+                "SEEDS",
+                "TARGET_PER_DOMAIN"
+              ]
+            ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering autonomous golden dataset synthesis equips AI engineers with.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the synthetic value produced for dataset processing.",
+            "values": {
+              "SEEDS": "{'sql': 42, 'security': 12, 'rag': 38, …",
+              "TARGET_PER_DOMAIN": "40",
+              "deficits": "{'sql': 0, 'security': 28, 'rag': 2, 'f…"
+            },
+            "tones": {
+              "SEEDS": "ok",
+              "TARGET_PER_DOMAIN": "ok",
+              "deficits": "ok"
+            },
+            "arrows": [
+              [
+                "SEEDS",
+                "TARGET_PER_DOMAIN"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Evol-Instruct Mechanics: In-Depth And In-Breadth Prompt Mutation",
-      "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
+      "codeHash": "a2995fa4c2fb007703b9c83b54a8dc55f6864edbcd5b782a7c8aca7b9cc4ece6",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Evol-Instruct Mechanics: In-Depth And In-Breadth Prompt Mutation",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "mode",
+            "label": "mode",
+            "tappable": true
+          },
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most influential breakthroughs in automated prompt dataset.",
-            "activeActor": "synthesis_stages",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect evol updates as mode tracks instruct state.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "mode": "data",
+              "text": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In-Depth Evolution deepens the cognitive complexity of seed instructions.",
-            "activeActor": "distribution",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the depth transition driving prompt behavior.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 10,
+                "hit": 3
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 10,
+                "hit": 3
               }
+            },
+            "tones": {
+              "mode": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "mode",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the algorithmic mechanics of Evol-Instruct empowers you.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the depth value produced for breadth processing.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 10,
+                "hit": 4
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 10,
+                "hit": 4
               }
+            },
+            "tones": {
+              "mode": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "mode",
+                "text"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Evol-Instruct Mechanics: In-Depth And In-Breadth Prompt Mutation",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "mode",
+            "label": "mode",
+            "tappable": true
+          },
+          {
+            "id": "text",
+            "label": "text",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most influential breakthroughs in automated prompt dataset.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "synthesis_stages"
+            "caption": "Inspect evol updates as mode tracks instruct state.",
+            "values": {
+              "mode": "'base'",
+              "text": "'Write a SQL query calculating monthly …"
+            },
+            "tones": {
+              "mode": "data",
+              "text": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In-Depth Evolution deepens the cognitive complexity of seed instructions.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "distribution"
+            "caption": "Verify the depth transition driving prompt behavior.",
+            "values": {
+              "mode": "'in_depth_reasoning'",
+              "text": "'Write a SQL query calculating monthly …"
+            },
+            "tones": {
+              "mode": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "mode",
+                "text"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the algorithmic mechanics of Evol-Instruct empowers you.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the depth value produced for breadth processing.",
+            "values": {
+              "mode": "'in_breadth_transfer'",
+              "text": "'Design an idempotent Python webhook ha…"
+            },
+            "tones": {
+              "mode": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "mode",
+                "text"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "UltraFeedback And Multi-Criteria Annotation: Automated Ranking And Critique",
-      "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
+      "codeHash": "d253860087793a9c847ce3ea41e6c3edceae671564c74c27087b6e5f3b87da93",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "UltraFeedback And Multi-Criteria Annotation: Automated Ranking A",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Generating diverse, complex instructions is only the first half.",
-            "activeActor": "synthesis_stages",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect ultrafeedback updates as name tracks multi state.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The UltraFeedback pipeline executes a structured four-stage evaluation.",
-            "activeActor": "distribution",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the ultrafeedback transition driving multi behavior.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 3
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 3
               }
+            },
+            "tones": {
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say15",
-            "caption": "Mastering the UltraFeedback framework equips you with an industrial-grade.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the ultrafeedback value produced for multi processing.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 4
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 4
               }
+            },
+            "tones": {
+              "name": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "UltraFeedback And Multi-Criteria Annotation: Automated Ranking A",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Generating diverse, complex instructions is only the first half.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "synthesis_stages"
+            "caption": "Inspect ultrafeedback updates as name tracks multi state.",
+            "values": {
+              "name": "'cand_A'",
+              "v": "[5, 5, 5, 4]"
+            },
+            "tones": {
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The UltraFeedback pipeline executes a structured four-stage evaluation.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "distribution"
+            "caption": "Verify the ultrafeedback transition driving multi behavior.",
+            "values": {
+              "name": "'cand_B'",
+              "v": "[4, 2, 5, 5]"
+            },
+            "tones": {
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "v"
+              ]
+            ]
           },
           {
-            "at": "say15",
-            "caption": "Mastering the UltraFeedback framework equips you with an industrial-grade.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the ultrafeedback value produced for multi processing.",
+            "values": {
+              "name": "'cand_C'",
+              "v": "[3, 4, 4, 3]"
+            },
+            "tones": {
+              "name": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "v"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Difficulty Stratification, Deduplication, And Semantic Filtering",
-      "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
+      "codeHash": "dc56d033995a89a33b51adb7334b5b65c45f318f4918f71c0574173549987332",
       "spec": {
         "template": "flow",
         "title": "Difficulty Stratification, Deduplication, And Semantic Filtering",
         "nodes": [
           {
-            "id": "synthesis_stages",
-            "label": "synthesis_stages"
+            "id": "kept",
+            "label": "kept",
+            "tappable": true
           },
           {
-            "id": "distribution",
-            "label": "distribution"
+            "id": "dropped",
+            "label": "dropped",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "p",
+            "label": "p",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Generating thousands of synthetic test cases with Evol-Instruct.",
+            "caption": "Inspect difficulty updates as kept tracks stratification state.",
             "values": {
-              "synthesis_stages": {
-                "var": "synthesis_stages",
-                "line": 6,
+              "kept": {
+                "var": "kept",
+                "line": 11,
                 "hit": 1
               },
-              "distribution": {
-                "var": "distribution",
-                "line": 13,
+              "dropped": {
+                "var": "dropped",
+                "line": 11,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "p": {
+                "text": ""
               }
             },
             "tones": {
-              "synthesis_stages": "data",
-              "distribution": "data",
-              "result": "data"
+              "kept": "data",
+              "dropped": "data",
+              "p": "idle"
             },
-            "arrows": [
-              [
-                "synthesis_stages",
-                "distribution"
-              ],
-              [
-                "distribution",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Semantic deduplication eliminates redundant instructions that consume.",
+            "caption": "Verify the deduplication transition driving semantic behavior.",
             "values": {
-              "synthesis_stages": {
-                "var": "synthesis_stages",
-                "line": 14,
-                "hit": 1
+              "kept": {
+                "var": "kept",
+                "line": 12,
+                "hit": 2
               },
-              "distribution": {
-                "var": "distribution",
-                "line": 20,
-                "hit": 1
+              "dropped": {
+                "var": "dropped",
+                "line": 12,
+                "hit": 2
               },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "p": {
+                "var": "p",
+                "line": 12,
+                "hit": 2
               }
             },
             "tones": {
-              "synthesis_stages": "data",
-              "distribution": "data",
-              "result": "data"
+              "kept": "data",
+              "dropped": "data",
+              "p": "data"
             },
             "arrows": [
               [
-                "synthesis_stages",
-                "distribution"
-              ],
-              [
-                "distribution",
-                "result"
+                "kept",
+                "dropped"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering difficulty stratification, semantic deduplication, and quality.",
+            "at": "say3",
+            "caption": "Examine the deduplication value produced for minhash processing.",
             "values": {
-              "synthesis_stages": {
-                "var": "synthesis_stages",
-                "line": 15,
-                "hit": 1
+              "kept": {
+                "out": 1
               },
-              "distribution": {
-                "var": "distribution",
-                "line": 21,
-                "hit": 1
+              "dropped": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 30,
-                "hit": 1
+              "p": {
+                "text": ""
               }
             },
             "tones": {
-              "synthesis_stages": "ok",
-              "distribution": "ok",
-              "result": "ok"
+              "kept": "data",
+              "dropped": "idle",
+              "p": "idle"
             },
             "arrows": [
               [
-                "synthesis_stages",
-                "distribution"
-              ],
-              [
-                "distribution",
-                "result"
+                "kept",
+                "dropped"
               ]
             ]
           }
@@ -633,88 +635,74 @@
         "title": "Difficulty Stratification, Deduplication, And Semantic Filtering",
         "nodes": [
           {
-            "id": "synthesis_stages",
-            "label": "synthesis_stages"
+            "id": "kept",
+            "label": "kept",
+            "tappable": true
           },
           {
-            "id": "distribution",
-            "label": "distribution"
+            "id": "dropped",
+            "label": "dropped",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "p",
+            "label": "p",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Generating thousands of synthetic test cases with Evol-Instruct.",
+            "caption": "Inspect difficulty updates as kept tracks stratification state.",
             "values": {
-              "synthesis_stages": "['Seed Prompt Ingestion & Domain Cluste…",
-              "distribution": "{'elementaryTestCount': 500, 'intermedi…",
-              "result": "{'datasetGenerator': 'Enterprise Autono…"
+              "kept": "[]",
+              "dropped": "[]",
+              "p": ""
             },
             "tones": {
-              "synthesis_stages": "data",
-              "distribution": "data",
-              "result": "data"
+              "kept": "data",
+              "dropped": "data",
+              "p": "idle"
             },
-            "arrows": [
-              [
-                "synthesis_stages",
-                "distribution"
-              ],
-              [
-                "distribution",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Semantic deduplication eliminates redundant instructions that consume.",
+            "caption": "Verify the deduplication transition driving semantic behavior.",
             "values": {
-              "synthesis_stages": "['Seed Prompt Ingestion & Domain Cluste…",
-              "distribution": "{'elementaryTestCount': 500, 'intermedi…",
-              "result": "{'datasetGenerator': 'Enterprise Autono…"
+              "kept": "['Build a rate limiter in python using …",
+              "dropped": "[]",
+              "p": "'Implement a rate limiter in python usi…"
             },
             "tones": {
-              "synthesis_stages": "data",
-              "distribution": "data",
-              "result": "data"
+              "kept": "data",
+              "dropped": "data",
+              "p": "data"
             },
             "arrows": [
               [
-                "synthesis_stages",
-                "distribution"
-              ],
-              [
-                "distribution",
-                "result"
+                "kept",
+                "dropped"
               ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering difficulty stratification, semantic deduplication, and quality.",
+            "at": "say3",
+            "caption": "Examine the deduplication value produced for minhash processing.",
             "values": {
-              "synthesis_stages": "['Seed Prompt Ingestion & Domain Cluste…",
-              "distribution": "{'elementaryTestCount': 500, 'intermedi…",
-              "result": "{'datasetGenerator': 'Enterprise Autono…"
+              "kept": "Kept unique prompts: ['Build a rate limiter in python using token bucket', 'Explain Postgres MVCC tuple visibility xmin xmax rules']",
+              "dropped": "",
+              "p": ""
             },
             "tones": {
-              "synthesis_stages": "ok",
-              "distribution": "ok",
-              "result": "ok"
+              "kept": "data",
+              "dropped": "idle",
+              "p": "idle"
             },
             "arrows": [
               [
-                "synthesis_stages",
-                "distribution"
-              ],
-              [
-                "distribution",
-                "result"
+                "kept",
+                "dropped"
               ]
             ]
           }
@@ -723,164 +711,160 @@
     },
     {
       "partTitle": "Enterprise Autonomous Golden Dataset Suite: 4,000 Verified Test Cases",
-      "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
+      "codeHash": "6ddc3c75740c15b2d44f36d091c3ffcd38e97690d94f17e01a8c0d70805ebf07",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Autonomous Golden Dataset Suite: 4,000 Verified Test ",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "tiers",
+            "label": "tiers",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating synthetic data generation theory, Evol-Instruct mutation.",
-            "activeActor": "synthesis_stages",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as tiers tracks autonomous state.",
+            "values": {
+              "tiers": {
+                "var": "tiers",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "d": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "tiers": "data",
+              "d": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise dataset synthesis engine.",
-            "activeActor": "distribution",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the golden transition driving dataset behavior.",
+            "values": {
+              "tiers": {
+                "var": "tiers",
+                "line": 11,
+                "hit": 2
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "d": {
+                "var": "d",
+                "line": 11,
+                "hit": 2
               }
+            },
+            "tones": {
+              "tiers": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "tiers",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise autonomous golden.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": {
-                  "var": "synthesis_stages",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the enterprise value produced for test processing.",
+            "values": {
+              "tiers": {
+                "var": "tiers",
+                "line": 12,
+                "hit": 3
               },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": {
-                  "var": "distribution",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "d": {
+                "var": "d",
+                "line": 12,
+                "hit": 3
               }
+            },
+            "tones": {
+              "tiers": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "tiers",
+                "d"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Autonomous Golden Dataset Suite: 4,000 Verified Test ",
-        "actors": [
-          "synthesis_stages",
-          "distribution",
-          "result"
+        "nodes": [
+          {
+            "id": "tiers",
+            "label": "tiers",
+            "tappable": true
+          },
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating synthetic data generation theory, Evol-Instruct mutation.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "synthesis_stages"
+            "caption": "Inspect enterprise updates as tiers tracks autonomous state.",
+            "values": {
+              "tiers": "{}",
+              "d": ""
+            },
+            "tones": {
+              "tiers": "data",
+              "d": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise dataset synthesis engine.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "distribution"
+            "caption": "Verify the golden transition driving dataset behavior.",
+            "values": {
+              "tiers": "{'medium': 1}",
+              "d": "'easy'"
+            },
+            "tones": {
+              "tiers": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "tiers",
+                "d"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of enterprise autonomous golden.",
-            "messages": [
-              {
-                "from": "synthesis_stages",
-                "to": "distribution",
-                "label": "['Seed Prompt Ingestion & Domain Cluste…",
-                "tone": "data"
-              },
-              {
-                "from": "distribution",
-                "to": "result",
-                "label": "{'elementaryTestCount': 500, 'intermedi…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the enterprise value produced for test processing.",
+            "values": {
+              "tiers": "{'medium': 1, 'easy': 1, 'hard': 1}",
+              "d": "'hard'"
+            },
+            "tones": {
+              "tiers": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "tiers",
+                "d"
+              ]
+            ]
           }
         ]
       }

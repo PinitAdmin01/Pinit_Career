@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Distributed tracing reconstructs the full causal graph of a distributed.",
+            "activeActor": "header",
+            "messages": [
+              {
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "header",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Distributed tracing reconstructs the full causal graph of a distributed.",
-            "activeActor": "header",
+            "at": "say8",
+            "caption": "Examine the distributed value produced for tracing processing.",
+            "activeActor": "m",
             "messages": [
+              {
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "header",
+                "to": "m",
+                "label": {
+                  "var": "header",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "h",
                 "to": "header",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Standardizing on the `traceparent` header guarantees that open-source.",
-            "activeActor": "m",
-            "messages": [
+              },
               {
                 "from": "h",
                 "to": "header",
@@ -118,12 +148,6 @@
                 "to": "header",
                 "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
                 "tone": "data"
-              },
-              {
-                "from": "header",
-                "to": "m",
-                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
-                "tone": "ok"
               }
             ],
             "activeActor": "h"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say8",
-            "caption": "Standardizing on the `traceparent` header guarantees that open-source.",
+            "caption": "Examine the distributed value produced for tracing processing.",
             "messages": [
+              {
+                "from": "h",
+                "to": "header",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
+              },
+              {
+                "from": "header",
+                "to": "m",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "ok"
+              },
+              {
+                "from": "h",
+                "to": "header",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
+              },
+              {
+                "from": "header",
+                "to": "m",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "ok"
+              },
               {
                 "from": "h",
                 "to": "header",
@@ -173,162 +221,190 @@
       "partTitle": "Distributed Tracing Context Propagation (W3C Traceparent & Critical Path) — Core Algorithm & State Representation",
       "codeHash": "888ea01dcb9ee87e6aec016b0fdf273f438dc6c900dcc61677e0b5ed3dcae7a2",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
-        "actors": [
-          "name",
-          "sampled",
-          "flags"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "trace_id",
+            "label": "trace_id",
+            "tappable": true
+          },
+          {
+            "id": "parent_id",
+            "label": "parent_id",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Context propagation requires two fundamental operations across service.",
-            "activeActor": "name",
-            "messages": [
-              {
-                "from": "name",
-                "to": "sampled",
-                "label": {
-                  "var": "name",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect context updates as name tracks propagation state.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "from": "sampled",
-                "to": "flags",
-                "label": {
-                  "var": "sampled",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "trace_id": {
+                "var": "trace_id",
+                "line": 3,
+                "hit": 1
+              },
+              "parent_id": {
+                "var": "parent_id",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "trace_id": "data",
+              "parent_id": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Inside a service runtime, tracing frameworks maintain the active trace.",
-            "activeActor": "sampled",
-            "messages": [
-              {
-                "from": "name",
-                "to": "sampled",
-                "label": {
-                  "var": "name",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the tracing transition driving context behavior.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "from": "sampled",
-                "to": "flags",
-                "label": {
-                  "var": "sampled",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "trace_id": {
+                "var": "trace_id",
+                "line": 3,
+                "hit": 2
+              },
+              "parent_id": {
+                "var": "parent_id",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "name": "data",
+              "trace_id": "data",
+              "parent_id": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "trace_id"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Production tracing middleware restricts Baggage payload size (typically.",
-            "activeActor": "flags",
-            "messages": [
-              {
-                "from": "name",
-                "to": "sampled",
-                "label": {
-                  "var": "name",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the traceparent value produced for microservice processing.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "sampled",
-                "to": "flags",
-                "label": {
-                  "var": "sampled",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "trace_id": {
+                "text": ""
+              },
+              "parent_id": {
+                "text": ""
               }
+            },
+            "tones": {
+              "name": "ok",
+              "trace_id": "idle",
+              "parent_id": "idle"
+            },
+            "arrows": [
+              [
+                "name",
+                "trace_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
-        "actors": [
-          "name",
-          "sampled",
-          "flags"
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "trace_id",
+            "label": "trace_id",
+            "tappable": true
+          },
+          {
+            "id": "parent_id",
+            "label": "parent_id",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Context propagation requires two fundamental operations across service.",
-            "messages": [
-              {
-                "from": "name",
-                "to": "sampled",
-                "label": "'API_Gateway_Auth'",
-                "tone": "data"
-              },
-              {
-                "from": "sampled",
-                "to": "flags",
-                "label": "True",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "name"
+            "caption": "Inspect context updates as name tracks propagation state.",
+            "values": {
+              "name": "'API_Gateway_Auth'",
+              "trace_id": "None",
+              "parent_id": "None"
+            },
+            "tones": {
+              "name": "data",
+              "trace_id": "data",
+              "parent_id": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Inside a service runtime, tracing frameworks maintain the active trace.",
-            "messages": [
-              {
-                "from": "name",
-                "to": "sampled",
-                "label": "'API_Gateway_Auth'",
-                "tone": "data"
-              },
-              {
-                "from": "sampled",
-                "to": "flags",
-                "label": "True",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "sampled"
+            "caption": "Verify the tracing transition driving context behavior.",
+            "values": {
+              "name": "'Billing_Charge_Card'",
+              "trace_id": "'4bf92f3577b34da6a3ce929d0e0e4736'",
+              "parent_id": "'00f067aa0ba902b7'"
+            },
+            "tones": {
+              "name": "data",
+              "trace_id": "data",
+              "parent_id": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "trace_id"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Production tracing middleware restricts Baggage payload size (typically.",
-            "messages": [
-              {
-                "from": "name",
-                "to": "sampled",
-                "label": "'API_Gateway_Auth'",
-                "tone": "data"
-              },
-              {
-                "from": "sampled",
-                "to": "flags",
-                "label": "True",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "flags"
+            "at": "say3",
+            "caption": "Examine the traceparent value produced for microservice processing.",
+            "values": {
+              "name": "'Billing_Charge_Card'",
+              "trace_id": "",
+              "parent_id": ""
+            },
+            "tones": {
+              "name": "ok",
+              "trace_id": "idle",
+              "parent_id": "idle"
+            },
+            "arrows": [
+              [
+                "name",
+                "trace_id"
+              ]
+            ]
           }
         ]
       }
@@ -359,16 +435,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "latency_threshold_ms",
-                "to": "tbs",
-                "label": {
-                  "var": "latency_threshold_ms",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -382,7 +448,7 @@
                 "to": "latency_threshold_ms",
                 "label": {
                   "var": "self",
-                  "line": 4,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "data"
@@ -392,7 +458,7 @@
                 "to": "tbs",
                 "label": {
                   "var": "latency_threshold_ms",
-                  "line": 4,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -409,7 +475,27 @@
                 "to": "latency_threshold_ms",
                 "label": {
                   "var": "self",
-                  "line": 7,
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": {
+                  "var": "latency_threshold_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": {
+                  "var": "self",
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "data"
@@ -423,6 +509,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -446,12 +542,6 @@
                 "to": "latency_threshold_ms",
                 "label": "<TailBasedSampler>",
                 "tone": "data"
-              },
-              {
-                "from": "latency_threshold_ms",
-                "to": "tbs",
-                "label": "300",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -490,6 +580,24 @@
                 "to": "tbs",
                 "label": "300",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": "<TailBasedSampler>",
+                "tone": "data"
+              },
+              {
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": "300",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": "<TailBasedSampler>",
+                "tone": "data"
               }
             ],
             "activeActor": "tbs"
@@ -570,7 +678,7 @@
           },
           {
             "at": "say2",
-            "caption": "In distributed systems featuring parallel fan-out (e.",
+            "caption": "Verify the distributed transition driving critical behavior.",
             "values": {
               "self": {
                 "var": "self",
@@ -579,18 +687,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "duration_ms": {
                 "var": "duration_ms",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "children": {
                 "var": "children",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -625,18 +733,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "duration_ms": {
                 "var": "duration_ms",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "children": {
                 "var": "children",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -716,12 +824,12 @@
           },
           {
             "at": "say2",
-            "caption": "In distributed systems featuring parallel fan-out (e.",
+            "caption": "Verify the distributed transition driving critical behavior.",
             "values": {
               "self": "<SpanNode>",
-              "name": "'Auth_Check'",
-              "duration_ms": "45",
-              "children": "None"
+              "name": "'Redis_Cache_Miss'",
+              "duration_ms": "20",
+              "children": "[<SpanNode>, <SpanNode>]"
             },
             "tones": {
               "self": "data",
@@ -749,9 +857,9 @@
             "caption": "Visualizing the critical path with Gantt-style flame graphs enables.",
             "values": {
               "self": "<SpanNode>",
-              "name": "'Auth_Check'",
-              "duration_ms": "45",
-              "children": "None"
+              "name": "'Postgres_Full_Scan'",
+              "duration_ms": "220",
+              "children": "[<SpanNode>, <SpanNode>]"
             },
             "tones": {
               "self": "ok",
@@ -821,7 +929,7 @@
           },
           {
             "at": "say7",
-            "caption": "Tracking `span_generation_rate` alongside service request volume allows.",
+            "caption": "Examine the tracing value produced for traceparent processing.",
             "currentState": "s",
             "transition": {
               "from": "spans",
@@ -873,7 +981,7 @@
           },
           {
             "at": "say7",
-            "caption": "Tracking `span_generation_rate` alongside service request volume allows.",
+            "caption": "Examine the tracing value produced for traceparent processing.",
             "currentState": "s",
             "transition": {
               "from": "spans",

@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The inverted index",
-      "codeHash": "1b65e589705e897e4ad006a64ea0f5284393fef69ef7acb114c24b88ee7b9f0f",
+      "codeHash": "627079b319f54c53309b88abb46cef82d78324b3c6a780b7136860a3dcf3d089",
       "spec": {
         "template": "cells",
         "title": "The inverted index",
@@ -46,7 +46,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how inverted updates indexes during execution.",
+            "caption": "Examine the inverted value produced for indexes processing.",
             "items": {
               "var": "docs",
               "line": 6,
@@ -100,7 +100,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how inverted updates indexes during execution.",
+            "caption": "Examine the inverted value produced for indexes processing.",
             "items": [
               "'Fast vector search'",
               "'Keyword search with BM25'",
@@ -298,16 +298,14 @@
                 "hit": 1
               },
               "doc_len": {
-                "var": "doc_len",
-                "line": 1,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "k1": "data",
               "b": "data",
               "avgdl": "data",
-              "doc_len": "data"
+              "doc_len": "idle"
             },
             "arrows": [
               [
@@ -447,13 +445,13 @@
               "k1": "1.5",
               "b": "0.75",
               "avgdl": "10",
-              "doc_len": "10"
+              "doc_len": ""
             },
             "tones": {
               "k1": "data",
               "b": "data",
               "avgdl": "data",
-              "doc_len": "data"
+              "doc_len": "idle"
             },
             "arrows": [
               [
@@ -578,16 +576,14 @@
                 "hit": 1
               },
               "idf": {
-                "var": "idf",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "k1": "data",
               "b": "data",
               "avgdl": "data",
-              "idf": "data"
+              "idf": "idle"
             },
             "arrows": [
               [
@@ -727,13 +723,13 @@
               "k1": "1.5",
               "b": "0.75",
               "avgdl": "20",
-              "idf": "1.2"
+              "idf": ""
             },
             "tones": {
               "k1": "data",
               "b": "data",
               "avgdl": "data",
-              "idf": "data"
+              "idf": "idle"
             },
             "arrows": [
               [
@@ -900,13 +896,13 @@
               },
               "q": {
                 "var": "q",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "note": {
                 "var": "note",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -946,12 +942,12 @@
               },
               "q": {
                 "var": "q",
-                "line": 4,
+                "line": 3,
                 "hit": 2
               },
               "note": {
                 "var": "note",
-                "line": 4,
+                "line": 3,
                 "hit": 2
               }
             },
@@ -1036,8 +1032,8 @@
             "values": {
               "docs": "{'d1': 'Error E4012 means the battery i…",
               "queries": "{'E4012': 'keyword wins: exact code', '…",
-              "q": "'E4012'",
-              "note": "'keyword wins: exact code'"
+              "q": "'refund'",
+              "note": "'vector wins: no shared words'"
             },
             "tones": {
               "docs": "data",
@@ -1066,8 +1062,8 @@
             "values": {
               "docs": "{'d1': 'Error E4012 means the battery i…",
               "queries": "{'E4012': 'keyword wins: exact code', '…",
-              "q": "'E4012'",
-              "note": "'keyword wins: exact code'"
+              "q": "'refund'",
+              "note": "'vector wins: no shared words'"
             },
             "tones": {
               "docs": "ok",
@@ -1102,7 +1098,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Build_index(docs) returns term sorted document indices (each once),.",
+            "caption": "Observe how practice shapes build during this step.",
             "bars": [
               {
                 "label": "N",
@@ -1144,7 +1140,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include repeated words, exact-token matching, AND queries,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "N",
@@ -1234,7 +1230,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Build_index(docs) returns term sorted document indices (each once),.",
+            "caption": "Observe how practice shapes build during this step.",
             "bars": [
               {
                 "label": "N",
@@ -1260,7 +1256,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include repeated words, exact-token matching, AND queries,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "N",

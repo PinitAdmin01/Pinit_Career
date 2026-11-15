@@ -104,7 +104,7 @@
           },
           {
             "at": "say2",
-            "caption": "& becomes &amp;, < becomes &lt;, > becomes &gt;, \" becomes &quot.",
+            "caption": "Verify the becomes transition driving quot behavior.",
             "currentState": "text",
             "transition": {
               "from": "comment",
@@ -141,7 +141,7 @@
           },
           {
             "at": "say2",
-            "caption": "& becomes &amp;, < becomes &lt;, > becomes &gt;, \" becomes &quot.",
+            "caption": "Verify the becomes transition driving quot behavior.",
             "currentState": "text",
             "transition": {
               "from": "comment",
@@ -212,7 +212,7 @@
           },
           {
             "at": "say2",
-            "caption": "A policy such as \"script-src 'self'\" means only scripts loaded from your.",
+            "caption": "Verify the policy transition driving script behavior.",
             "values": {
               "policy": {
                 "var": "policy",
@@ -316,7 +316,7 @@
           },
           {
             "at": "say2",
-            "caption": "A policy such as \"script-src 'self'\" means only scripts loaded from your.",
+            "caption": "Verify the policy transition driving script behavior.",
             "values": {
               "policy": "{'default-src': [\"'self'\"], 'script-src…",
               "name": "'script-src'",
@@ -436,13 +436,13 @@
               },
               "s": {
                 "var": "s",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "hits": {
                 "var": "hits",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 12
               }
             },
             "tones": {
@@ -482,13 +482,13 @@
               },
               "s": {
                 "var": "s",
-                "line": 4,
-                "hit": 2
+                "line": 3,
+                "hit": 3
               },
               "hits": {
                 "var": "hits",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 18
               }
             },
             "tones": {
@@ -572,8 +572,8 @@
             "values": {
               "RISKY": "['innerHTML', 'document.write', 'danger…",
               "snippets": "['el.textContent = comment', 'el.innerH…",
-              "s": "'el.textContent = comment'",
-              "hits": "[]"
+              "s": "'el.innerHTML = comment'",
+              "hits": "['innerHTML']"
             },
             "tones": {
               "RISKY": "data",
@@ -602,7 +602,7 @@
             "values": {
               "RISKY": "['innerHTML', 'document.write', 'danger…",
               "snippets": "['el.textContent = comment', 'el.innerH…",
-              "s": "'el.textContent = comment'",
+              "s": "\"<a href='{{ url }}'>\"",
               "hits": "[]"
             },
             "tones": {
@@ -654,6 +654,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Marking session cookies HttpOnly means JavaScript cannot read them, so.",
+            "activeActor": "readable",
+            "messages": [
+              {
+                "from": "cookies",
+                "to": "readable",
+                "label": {
+                  "var": "cookies",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "readable",
@@ -668,10 +685,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Marking session cookies HttpOnly means JavaScript cannot read them, so.",
+            "at": "say9",
+            "caption": "Examine the tomorrow value produced for lesson processing.",
             "activeActor": "readable",
             "messages": [
+              {
+                "from": "cookies",
+                "to": "readable",
+                "label": {
+                  "var": "cookies",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "readable",
+                "to": "cookies",
+                "label": {
+                  "var": "readable",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cookies",
                 "to": "readable",
@@ -691,14 +728,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Tomorrow's lesson covers the other cookie flags, Secure and SameSite,.",
-            "activeActor": "readable",
-            "messages": [
+              },
               {
                 "from": "cookies",
                 "to": "readable",
@@ -740,12 +770,6 @@
                 "to": "readable",
                 "label": "[{'name': 'session', 'http_only': True}…",
                 "tone": "data"
-              },
-              {
-                "from": "readable",
-                "to": "cookies",
-                "label": "['theme', 'cart']",
-                "tone": "ok"
               }
             ],
             "activeActor": "cookies"
@@ -771,8 +795,32 @@
           },
           {
             "at": "say9",
-            "caption": "Tomorrow's lesson covers the other cookie flags, Secure and SameSite,.",
+            "caption": "Examine the tomorrow value produced for lesson processing.",
             "messages": [
+              {
+                "from": "cookies",
+                "to": "readable",
+                "label": "[{'name': 'session', 'http_only': True}…",
+                "tone": "data"
+              },
+              {
+                "from": "readable",
+                "to": "cookies",
+                "label": "['theme', 'cart']",
+                "tone": "ok"
+              },
+              {
+                "from": "cookies",
+                "to": "readable",
+                "label": "[{'name': 'session', 'http_only': True}…",
+                "tone": "data"
+              },
+              {
+                "from": "readable",
+                "to": "cookies",
+                "label": "['theme', 'cart']",
+                "tone": "ok"
+              },
               {
                 "from": "cookies",
                 "to": "readable",
@@ -816,7 +864,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a script tag, quotes and ampersands, a single quote,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "currentState": "safe",
             "transition": {
               "from": "comment",
@@ -853,7 +901,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a script tag, quotes and ampersands, a single quote,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "currentState": "safe",
             "transition": {
               "from": "comment",

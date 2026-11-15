@@ -354,16 +354,14 @@
                 "hit": 1
               },
               "sha256_digest": {
-                "var": "sha256_digest",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "sample_memory_dump": "data",
               "raw_artifact_bytes": "data",
               "case_id": "data",
-              "sha256_digest": "data"
+              "sha256_digest": "idle"
             },
             "arrows": [
               [
@@ -500,16 +498,16 @@
             "at": "say1",
             "caption": "Digital evidence collected during an active breachsuch as memory dumps.",
             "values": {
-              "sample_memory_dump": "{'__other__': 'bytes'}",
-              "raw_artifact_bytes": "{'__other__': 'bytes'}",
+              "sample_memory_dump": "<bytes>",
+              "raw_artifact_bytes": "<bytes>",
               "case_id": "'CASE-2026-0914'",
-              "sha256_digest": "'8d18cea430678e1258edbb714f87f8d55281d2…"
+              "sha256_digest": ""
             },
             "tones": {
               "sample_memory_dump": "data",
               "raw_artifact_bytes": "data",
               "case_id": "data",
-              "sha256_digest": "data"
+              "sha256_digest": "idle"
             },
             "arrows": [
               [
@@ -530,8 +528,8 @@
             "at": "say2",
             "caption": "The legal standard of 'chain of custody' requires proving that digital.",
             "values": {
-              "sample_memory_dump": "{'__other__': 'bytes'}",
-              "raw_artifact_bytes": "{'__other__': 'bytes'}",
+              "sample_memory_dump": "<bytes>",
+              "raw_artifact_bytes": "<bytes>",
               "case_id": "'CASE-2026-0914'",
               "sha256_digest": "'8d18cea430678e1258edbb714f87f8d55281d2…"
             },
@@ -560,8 +558,8 @@
             "at": "say10",
             "caption": "Cryptographic evidence hashing guarantees an unbroken chain of custody.",
             "values": {
-              "sample_memory_dump": "{'__other__': 'bytes'}",
-              "raw_artifact_bytes": "{'__other__': 'bytes'}",
+              "sample_memory_dump": "<bytes>",
+              "raw_artifact_bytes": "<bytes>",
               "case_id": "'CASE-2026-0914'",
               "sha256_digest": "'8d18cea430678e1258edbb714f87f8d55281d2…"
             },
@@ -615,6 +613,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To prevent automated self-inflicted denial-of-service outages, modern SOAR.",
+            "activeActor": "domain_controller",
+            "messages": [
+              {
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": {
+                  "var": "workstation",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "domain_controller",
@@ -629,10 +644,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "To prevent automated self-inflicted denial-of-service outages, modern SOAR.",
-            "activeActor": "domain_controller",
+            "at": "say10",
+            "caption": "Protected infrastructure guardrails prevent automated containment.",
+            "activeActor": "target_host",
             "messages": [
+              {
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": {
+                  "var": "workstation",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": {
+                  "var": "domain_controller",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "workstation",
                 "to": "domain_controller",
@@ -652,14 +687,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Protected infrastructure guardrails prevent automated containment.",
-            "activeActor": "target_host",
-            "messages": [
+              },
               {
                 "from": "workstation",
                 "to": "domain_controller",
@@ -702,12 +730,6 @@
                 "to": "domain_controller",
                 "label": "'HOST-CORP-LPT-84'",
                 "tone": "data"
-              },
-              {
-                "from": "domain_controller",
-                "to": "target_host",
-                "label": "'DC-PRIMARY-01'",
-                "tone": "ok"
               }
             ],
             "activeActor": "workstation"
@@ -735,6 +757,30 @@
             "at": "say10",
             "caption": "Protected infrastructure guardrails prevent automated containment.",
             "messages": [
+              {
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": "'HOST-CORP-LPT-84'",
+                "tone": "data"
+              },
+              {
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": "'DC-PRIMARY-01'",
+                "tone": "ok"
+              },
+              {
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": "'HOST-CORP-LPT-84'",
+                "tone": "data"
+              },
+              {
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": "'DC-PRIMARY-01'",
+                "tone": "ok"
+              },
               {
                 "from": "workstation",
                 "to": "domain_controller",

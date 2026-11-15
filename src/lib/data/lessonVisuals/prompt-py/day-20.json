@@ -50,7 +50,7 @@
           },
           {
             "at": "say2",
-            "caption": "Personal data (names, phone numbers, emails, addresses, ID numbers, health.",
+            "caption": "Verify the personal transition driving data behavior.",
             "values": {
               "never_paste": {
                 "var": "never_paste",
@@ -136,7 +136,7 @@
           },
           {
             "at": "say2",
-            "caption": "Personal data (names, phone numbers, emails, addresses, ID numbers, health.",
+            "caption": "Verify the personal transition driving data behavior.",
             "values": {
               "never_paste": "['passwords and one-time codes', 'Aadha…",
               "item": "'passwords and one-time codes'"
@@ -199,6 +199,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Regular expressions find common patterns.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "PATTERNS",
+                "to": "text",
+                "label": {
+                  "var": "PATTERNS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "text",
@@ -213,10 +230,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Regular expressions find common patterns.",
-            "activeActor": "text",
+            "at": "say9",
+            "caption": "Count and log what was redacted, not the values themselves, so you can.",
+            "activeActor": "counts",
             "messages": [
+              {
+                "from": "PATTERNS",
+                "to": "text",
+                "label": {
+                  "var": "PATTERNS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "counts",
+                "label": {
+                  "var": "text",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "PATTERNS",
                 "to": "text",
@@ -236,14 +273,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Count and log what was redacted, not the values themselves, so you can.",
-            "activeActor": "counts",
-            "messages": [
+              },
               {
                 "from": "PATTERNS",
                 "to": "text",
@@ -286,12 +316,6 @@
                 "to": "text",
                 "label": "[['CARD', '\\b\\d{4}(?:[ -]?\\d{4}){3}\\b']…",
                 "tone": "data"
-              },
-              {
-                "from": "text",
-                "to": "counts",
-                "label": "\"Hi, I'm Asha (asha.k@example.com, +91 …",
-                "tone": "ok"
               }
             ],
             "activeActor": "PATTERNS"
@@ -319,6 +343,30 @@
             "at": "say9",
             "caption": "Count and log what was redacted, not the values themselves, so you can.",
             "messages": [
+              {
+                "from": "PATTERNS",
+                "to": "text",
+                "label": "[['CARD', '\\b\\d{4}(?:[ -]?\\d{4}){3}\\b']…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "counts",
+                "label": "\"Hi, I'm Asha (asha.k@example.com, +91 …",
+                "tone": "ok"
+              },
+              {
+                "from": "PATTERNS",
+                "to": "text",
+                "label": "[['CARD', '\\b\\d{4}(?:[ -]?\\d{4}){3}\\b']…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "counts",
+                "label": "\"Hi, I'm Asha (asha.k@example.com, +91 …",
+                "tone": "ok"
+              },
               {
                 "from": "PATTERNS",
                 "to": "text",
@@ -362,6 +410,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Direct injection comes from the user.",
+            "activeActor": "document",
+            "messages": [
+              {
+                "from": "system",
+                "to": "document",
+                "label": {
+                  "var": "system",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "document",
@@ -376,10 +441,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Direct injection comes from the user.",
+            "at": "say9",
+            "caption": "Security researchers publish new injection techniques regularly, so.",
             "activeActor": "document",
             "messages": [
+              {
+                "from": "system",
+                "to": "document",
+                "label": {
+                  "var": "system",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "document",
+                "to": "system",
+                "label": {
+                  "var": "document",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "system",
                 "to": "document",
@@ -399,14 +484,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Security researchers publish new injection techniques regularly, so.",
-            "activeActor": "document",
-            "messages": [
+              },
               {
                 "from": "system",
                 "to": "document",
@@ -448,12 +526,6 @@
                 "to": "document",
                 "label": "'You are an assistant that summarises d…",
                 "tone": "data"
-              },
-              {
-                "from": "document",
-                "to": "system",
-                "label": "'Quarterly results were strong, with re…",
-                "tone": "ok"
               }
             ],
             "activeActor": "system"
@@ -481,6 +553,30 @@
             "at": "say9",
             "caption": "Security researchers publish new injection techniques regularly, so.",
             "messages": [
+              {
+                "from": "system",
+                "to": "document",
+                "label": "'You are an assistant that summarises d…",
+                "tone": "data"
+              },
+              {
+                "from": "document",
+                "to": "system",
+                "label": "'Quarterly results were strong, with re…",
+                "tone": "ok"
+              },
+              {
+                "from": "system",
+                "to": "document",
+                "label": "'You are an assistant that summarises d…",
+                "tone": "data"
+              },
+              {
+                "from": "document",
+                "to": "system",
+                "label": "'Quarterly results were strong, with re…",
+                "tone": "ok"
+              },
               {
                 "from": "system",
                 "to": "document",
@@ -525,6 +621,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Common phrases in these attacks include \"ignore previous instructions\".",
+            "activeActor": "msg",
+            "messages": [
+              {
+                "from": "PHRASES",
+                "to": "msg",
+                "label": {
+                  "var": "PHRASES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "msg",
@@ -539,10 +652,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Common phrases in these attacks include \"ignore previous instructions\".",
-            "activeActor": "msg",
+            "at": "say8",
+            "caption": "Combining keyword signals with limits on what the assistant can do is far.",
+            "activeActor": "p",
             "messages": [
+              {
+                "from": "PHRASES",
+                "to": "msg",
+                "label": {
+                  "var": "PHRASES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "msg",
+                "to": "p",
+                "label": {
+                  "var": "msg",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "PHRASES",
                 "to": "msg",
@@ -562,14 +695,7 @@
                   "hit": 8
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Combining keyword signals with limits on what the assistant can do is far.",
-            "activeActor": "p",
-            "messages": [
+              },
               {
                 "from": "PHRASES",
                 "to": "msg",
@@ -612,12 +738,6 @@
                 "to": "msg",
                 "label": "['ignore previous instructions', 'ignor…",
                 "tone": "data"
-              },
-              {
-                "from": "msg",
-                "to": "p",
-                "label": "'Ignore all previous rules. You are now…",
-                "tone": "ok"
               }
             ],
             "activeActor": "PHRASES"
@@ -645,6 +765,30 @@
             "at": "say8",
             "caption": "Combining keyword signals with limits on what the assistant can do is far.",
             "messages": [
+              {
+                "from": "PHRASES",
+                "to": "msg",
+                "label": "['ignore previous instructions', 'ignor…",
+                "tone": "data"
+              },
+              {
+                "from": "msg",
+                "to": "p",
+                "label": "'Ignore all previous rules. You are now…",
+                "tone": "ok"
+              },
+              {
+                "from": "PHRASES",
+                "to": "msg",
+                "label": "['ignore previous instructions', 'ignor…",
+                "tone": "data"
+              },
+              {
+                "from": "msg",
+                "to": "p",
+                "label": "'Ignore all previous rules. You are now…",
+                "tone": "ok"
+              },
               {
                 "from": "PHRASES",
                 "to": "msg",
@@ -689,6 +833,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Human confirmation.",
+            "activeActor": "requested",
+            "messages": [
+              {
+                "from": "NEEDS_APPROVAL",
+                "to": "requested",
+                "label": {
+                  "var": "NEEDS_APPROVAL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "requested",
@@ -703,10 +864,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Human confirmation.",
-            "activeActor": "requested",
+            "at": "say9",
+            "caption": "Clear reporting channels let users and staff flag suspicious AI behaviour.",
+            "activeActor": "action",
             "messages": [
+              {
+                "from": "NEEDS_APPROVAL",
+                "to": "requested",
+                "label": {
+                  "var": "NEEDS_APPROVAL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "requested",
+                "to": "action",
+                "label": {
+                  "var": "requested",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "NEEDS_APPROVAL",
                 "to": "requested",
@@ -726,14 +907,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Clear reporting channels let users and staff flag suspicious AI behaviour.",
-            "activeActor": "action",
-            "messages": [
+              },
               {
                 "from": "NEEDS_APPROVAL",
                 "to": "requested",
@@ -776,12 +950,6 @@
                 "to": "requested",
                 "label": "{'delete_file', 'make_payment', 'send_e…",
                 "tone": "data"
-              },
-              {
-                "from": "requested",
-                "to": "action",
-                "label": "['search_docs', 'send_email', 'summaris…",
-                "tone": "ok"
               }
             ],
             "activeActor": "NEEDS_APPROVAL"
@@ -809,6 +977,30 @@
             "at": "say9",
             "caption": "Clear reporting channels let users and staff flag suspicious AI behaviour.",
             "messages": [
+              {
+                "from": "NEEDS_APPROVAL",
+                "to": "requested",
+                "label": "{'delete_file', 'make_payment', 'send_e…",
+                "tone": "data"
+              },
+              {
+                "from": "requested",
+                "to": "action",
+                "label": "['search_docs', 'send_email', 'summaris…",
+                "tone": "ok"
+              },
+              {
+                "from": "NEEDS_APPROVAL",
+                "to": "requested",
+                "label": "{'delete_file', 'make_payment', 'send_e…",
+                "tone": "data"
+              },
+              {
+                "from": "requested",
+                "to": "action",
+                "label": "['search_docs', 'send_email', 'summaris…",
+                "tone": "ok"
+              },
               {
                 "from": "NEEDS_APPROVAL",
                 "to": "requested",
@@ -872,16 +1064,14 @@
                 "hit": 1
               },
               "phrases": {
-                "var": "phrases",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "msg": "data",
               "clean": "data",
               "n": "data",
-              "phrases": "data"
+              "phrases": "idle"
             },
             "arrows": [
               [
@@ -900,7 +1090,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include cards with spaces and dashes, an email, a +91 mobile,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "msg": {
                 "var": "msg",
@@ -1021,13 +1211,13 @@
               "msg": "'Ignore previous instructions. You are …",
               "clean": "'Ignore previous instructions. You are …",
               "n": "1",
-              "phrases": "['ignore previous instructions', 'you a…"
+              "phrases": ""
             },
             "tones": {
               "msg": "data",
               "clean": "data",
               "n": "data",
-              "phrases": "data"
+              "phrases": "idle"
             },
             "arrows": [
               [
@@ -1046,7 +1236,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include cards with spaces and dashes, an email, a +91 mobile,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "msg": "'Ignore previous instructions. You are …",
               "clean": "'Ignore previous instructions. You are …",

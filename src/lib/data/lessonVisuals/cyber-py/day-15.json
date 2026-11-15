@@ -460,23 +460,23 @@
             "values": {
               "failed": {
                 "var": "failed",
-                "line": 11,
-                "hit": 1
+                "line": 10,
+                "hit": 3
               },
               "pw_ok": {
                 "var": "pw_ok",
-                "line": 2,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               },
               "code_ok": {
                 "var": "code_ok",
-                "line": 2,
-                "hit": 1
+                "line": 10,
+                "hit": 3
               },
               "user": {
                 "var": "user",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -507,22 +507,22 @@
               "failed": {
                 "var": "failed",
                 "line": 10,
-                "hit": 2
+                "hit": 4
               },
               "pw_ok": {
                 "var": "pw_ok",
-                "line": 4,
-                "hit": 1
+                "line": 10,
+                "hit": 3
               },
               "code_ok": {
                 "var": "code_ok",
-                "line": 4,
-                "hit": 1
+                "line": 10,
+                "hit": 4
               },
               "user": {
                 "var": "user",
-                "line": 6,
-                "hit": 1
+                "line": 2,
+                "hit": 4
               }
             },
             "tones": {
@@ -604,10 +604,10 @@
             "at": "say2",
             "caption": "Keeping each piece as a small, tested helper function makes the combined.",
             "values": {
-              "failed": "0",
-              "pw_ok": "True",
-              "code_ok": "True",
-              "user": "{'failed': 0}"
+              "failed": "2",
+              "pw_ok": "False",
+              "code_ok": "False",
+              "user": "{'failed': 2}"
             },
             "tones": {
               "failed": "data",
@@ -634,10 +634,10 @@
             "at": "say9",
             "caption": "Audit logs of logins, failures and lockouts are the raw material.",
             "values": {
-              "failed": "0",
+              "failed": "5",
               "pw_ok": "True",
               "code_ok": "True",
-              "user": "{'failed': 0}"
+              "user": "{'failed': 5}"
             },
             "tones": {
               "failed": "ok",
@@ -677,7 +677,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how applying updates stride during execution.",
+            "caption": "Observe how login shapes page during this step.",
             "activeActor": "controls",
             "messages": [
               {
@@ -769,7 +769,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how applying updates stride during execution.",
+            "caption": "Observe how login shapes page during this step.",
             "messages": [
               {
                 "from": "controls",

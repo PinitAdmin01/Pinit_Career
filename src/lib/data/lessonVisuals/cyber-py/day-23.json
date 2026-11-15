@@ -395,6 +395,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "You can model the same idea.",
+            "activeActor": "state",
+            "messages": [
+              {
+                "from": "events",
+                "to": "state",
+                "label": {
+                  "var": "events",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "state",
@@ -409,10 +426,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "You can model the same idea.",
-            "activeActor": "state",
+            "at": "say9",
+            "caption": "Reports that name the event index make bugs easy to locate, just like line.",
+            "activeActor": "problems",
             "messages": [
+              {
+                "from": "events",
+                "to": "state",
+                "label": {
+                  "var": "events",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "state",
+                "to": "problems",
+                "label": {
+                  "var": "state",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "events",
                 "to": "state",
@@ -432,14 +469,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Reports that name the event index make bugs easy to locate, just like line.",
-            "activeActor": "problems",
-            "messages": [
+              },
               {
                 "from": "events",
                 "to": "state",
@@ -482,12 +512,6 @@
                 "to": "state",
                 "label": "[['alloc', 'p1'], ['alloc', 'p2'], ['fr…",
                 "tone": "data"
-              },
-              {
-                "from": "state",
-                "to": "problems",
-                "label": "{}",
-                "tone": "ok"
               }
             ],
             "activeActor": "events"
@@ -515,6 +539,30 @@
             "at": "say9",
             "caption": "Reports that name the event index make bugs easy to locate, just like line.",
             "messages": [
+              {
+                "from": "events",
+                "to": "state",
+                "label": "[['alloc', 'p1'], ['alloc', 'p2'], ['fr…",
+                "tone": "data"
+              },
+              {
+                "from": "state",
+                "to": "problems",
+                "label": "{}",
+                "tone": "ok"
+              },
+              {
+                "from": "events",
+                "to": "state",
+                "label": "[['alloc', 'p1'], ['alloc', 'p2'], ['fr…",
+                "tone": "data"
+              },
+              {
+                "from": "state",
+                "to": "problems",
+                "label": "{}",
+                "tone": "ok"
+              },
               {
                 "from": "events",
                 "to": "state",

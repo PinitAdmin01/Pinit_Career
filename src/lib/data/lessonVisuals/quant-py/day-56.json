@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "First, the standard Sharpe ratio is annualized.",
+            "activeActor": "t_samples",
+            "messages": [
+              {
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": {
+                  "var": "observed_sr",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "t_samples",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "First, the standard Sharpe ratio is annualized.",
-            "activeActor": "t_samples",
+            "at": "say10",
+            "caption": "Examine the deflated value produced for sharpe processing.",
+            "activeActor": "n_trials",
             "messages": [
+              {
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": {
+                  "var": "observed_sr",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": {
+                  "var": "t_samples",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "observed_sr",
                 "to": "t_samples",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Standardized DSR reporting provides fiduciary transparency during.",
-            "activeActor": "n_trials",
-            "messages": [
+              },
               {
                 "from": "observed_sr",
                 "to": "t_samples",
@@ -398,12 +428,6 @@
                 "to": "t_samples",
                 "label": "2.5",
                 "tone": "data"
-              },
-              {
-                "from": "t_samples",
-                "to": "n_trials",
-                "label": "252",
-                "tone": "ok"
               }
             ],
             "activeActor": "observed_sr"
@@ -429,8 +453,32 @@
           },
           {
             "at": "say10",
-            "caption": "Standardized DSR reporting provides fiduciary transparency during.",
+            "caption": "Examine the deflated value produced for sharpe processing.",
             "messages": [
+              {
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": "2.5",
+                "tone": "data"
+              },
+              {
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": "252",
+                "tone": "ok"
+              },
+              {
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": "2.5",
+                "tone": "data"
+              },
+              {
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": "252",
+                "tone": "ok"
+              },
               {
                 "from": "observed_sr",
                 "to": "t_samples",
@@ -500,7 +548,7 @@
           },
           {
             "at": "say2",
-            "caption": "Computing numerical integration or iterative root finding for every.",
+            "caption": "Verify the computing transition driving numerical behavior.",
             "bars": [
               {
                 "label": "nom_trials",
@@ -616,7 +664,7 @@
           },
           {
             "at": "say2",
-            "caption": "Computing numerical integration or iterative root finding for every.",
+            "caption": "Verify the computing transition driving numerical behavior.",
             "bars": [
               {
                 "label": "nom_trials",

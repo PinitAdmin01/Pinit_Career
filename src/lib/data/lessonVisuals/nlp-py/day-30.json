@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A user asks a question in plain language, and the system answers from.",
+            "caption": "Inspect goal updates as stages tracks user state.",
             "values": {
               "stages": {
                 "var": "stages",
@@ -194,7 +194,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A user asks a question in plain language, and the system answers from.",
+            "caption": "Inspect goal updates as stages tracks user state.",
             "values": {
               "stages": "[['prepare: clean, split, index', '1, 2…",
               "n": "1",
@@ -514,7 +514,7 @@
           },
           {
             "at": "say2",
-            "caption": "Tokenise the question and each passage (lowercase, keep letters, digits.",
+            "caption": "Verify the passages transition driving tokenise behavior.",
             "bars": [
               {
                 "label": "dot",
@@ -630,7 +630,7 @@
           },
           {
             "at": "say2",
-            "caption": "Tokenise the question and each passage (lowercase, keep letters, digits.",
+            "caption": "Verify the passages transition driving tokenise behavior.",
             "bars": [
               {
                 "label": "dot",
@@ -996,7 +996,7 @@
           },
           {
             "at": "say2",
-            "caption": "Recall at k (is a relevant passage in the top k.",
+            "caption": "Verify the retrieval transition driving recall behavior.",
             "bars": [
               {
                 "label": "score",
@@ -1066,7 +1066,7 @@
           },
           {
             "at": "say2",
-            "caption": "Recall at k (is a relevant passage in the top k.",
+            "caption": "Verify the retrieval transition driving recall behavior.",
             "bars": [
               {
                 "label": "score",

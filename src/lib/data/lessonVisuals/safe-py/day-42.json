@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Selective Prediction — Foundations & Mathematical Invariants",
+      "partTitle": "Shannon Entropy Bounds in `calculate_predictive_entropy`",
       "codeHash": "b2dd19a126508cb9fa6d7a07e005c8a7dd6a8afe0e3f4ee8276427143394d09a",
       "spec": {
         "template": "bars",
@@ -47,7 +47,7 @@
           },
           {
             "at": "say2",
-            "caption": "In high-stakes domains such as clinical diagnosis or legal analysis,.",
+            "caption": "Verify the high transition driving stakes behavior.",
             "bars": [
               {
                 "label": "p",
@@ -80,7 +80,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the entropy value produced for calculate processing.",
             "bars": [
               {
                 "label": "p",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "In high-stakes domains such as clinical diagnosis or legal analysis,.",
+            "caption": "Verify the high transition driving stakes behavior.",
             "bars": [
               {
                 "label": "p",
@@ -161,7 +161,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the entropy value produced for calculate processing.",
             "bars": [
               {
                 "label": "p",
@@ -184,8 +184,8 @@
       }
     },
     {
-      "partTitle": "Selective Prediction — Core Algorithm & State Representation",
-      "codeHash": "e47e0f40c2a6d60e45051950851e02e218e68ca6b98bc8d59d8b80f6ae288bb2",
+      "partTitle": "Top-Two Margin Separation via `calculate_margin_confidence`",
+      "codeHash": "901728852e4fd7c88809119de0624cb7a63923a9fcaaf10792b089f503802a41",
       "spec": {
         "template": "states",
         "title": "Selective Prediction — Core Algorithm & State Representation",
@@ -258,7 +258,7 @@
       }
     },
     {
-      "partTitle": "Selective Prediction — Production Implementation & Boundary Mechanics",
+      "partTitle": "Dual Uncertainty Gating inside `SelectivePredictionGate`",
       "codeHash": "e9a6e46862b9adb02987c26b3530cfe6c320b257dd52d1d730661519612da0a7",
       "spec": {
         "template": "states",
@@ -301,7 +301,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for selective.",
+            "caption": "Examine the uncertainty value produced for inside processing.",
             "currentState": "min_margin",
             "transition": {
               "from": "max_entropy",
@@ -353,7 +353,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for selective.",
+            "caption": "Examine the uncertainty value produced for inside processing.",
             "currentState": "min_margin",
             "transition": {
               "from": "max_entropy",
@@ -366,8 +366,8 @@
       }
     },
     {
-      "partTitle": "Selective Prediction — Failure Modes, Hardware Bottlenecks & Debugging",
-      "codeHash": "f117395c817b758a639517a9b33b34e4300812fbe8f213972822476e36040609",
+      "partTitle": "Human Handoff Formatting with `routing_decision_for_abstention`",
+      "codeHash": "76d669358b5a9ea2f00fd01515ae4bb8ef2156a608f452046f29e1f930fae8af",
       "spec": {
         "template": "flow",
         "title": "Selective Prediction — Failure Modes, Hardware Bottlenecks & Deb",
@@ -436,7 +436,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the human value produced for routing processing.",
             "values": {
               "action": {
                 "var": "action",
@@ -480,8 +480,8 @@
             "at": "say1",
             "caption": "When an abstention gate triggers, the orchestration layer must execute.",
             "values": {
-              "action": "'PREDICT'",
-              "primary_response": "'The answer is 42.'"
+              "action": "'ABSTAIN'",
+              "primary_response": "'x'"
             },
             "tones": {
               "action": "data",
@@ -498,8 +498,8 @@
             "at": "say2",
             "caption": "The routing_decision_for_abstention function replaces unverified primary.",
             "values": {
-              "action": "'PREDICT'",
-              "primary_response": "'The answer is 42.'"
+              "action": "'ABSTAIN'",
+              "primary_response": "'x'"
             },
             "tones": {
               "action": "data",
@@ -514,10 +514,10 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the human value produced for routing processing.",
             "values": {
-              "action": "'ABSTAIN'",
-              "primary_response": "'Unused draft answer.'"
+              "action": "'PREDICT'",
+              "primary_response": "'The answer is 42.'"
             },
             "tones": {
               "action": "ok",
@@ -534,7 +534,7 @@
       }
     },
     {
-      "partTitle": "Selective Prediction — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Coverage-Accuracy Frontier Mapping via `coverage_accuracy_tradeoff`",
       "codeHash": "da06d38c2091383a74d187eab097ecd8ee855dea3a696d0d80fd848dabdb75bb",
       "spec": {
         "template": "bars",

@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Every neural network, from a tiny line fit to a giant language model,.",
+            "caption": "Inspect loop updates as steps tracks every state.",
             "values": {
               "steps": {
                 "var": "steps",
@@ -156,7 +156,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Every neural network, from a tiny line fit to a giant language model,.",
+            "caption": "Inspect loop updates as steps tracks every state.",
             "values": {
               "steps": "['forward: predictions from current wei…",
               "i": "1",
@@ -367,6 +367,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For MSE with y = wx + b, the error on one point is e = wx + b y.",
+            "activeActor": "ys",
+            "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "ys",
@@ -381,10 +398,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "For MSE with y = wx + b, the error on one point is e = wx + b y.",
-            "activeActor": "ys",
+            "at": "say10",
+            "caption": "Checking gradients by hand on tiny examples is a real debugging technique.",
+            "activeActor": "w",
             "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "w",
+                "label": {
+                  "var": "ys",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "xs",
                 "to": "ys",
@@ -404,14 +441,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Checking gradients by hand on tiny examples is a real debugging technique.",
-            "activeActor": "w",
-            "messages": [
+              },
               {
                 "from": "xs",
                 "to": "ys",
@@ -454,12 +484,6 @@
                 "to": "ys",
                 "label": "[1, 2, 3]",
                 "tone": "data"
-              },
-              {
-                "from": "ys",
-                "to": "w",
-                "label": "[3, 5, 7]",
-                "tone": "ok"
               }
             ],
             "activeActor": "xs"
@@ -487,6 +511,30 @@
             "at": "say10",
             "caption": "Checking gradients by hand on tiny examples is a real debugging technique.",
             "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": "[1, 2, 3]",
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "w",
+                "label": "[3, 5, 7]",
+                "tone": "ok"
+              },
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": "[1, 2, 3]",
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "w",
+                "label": "[3, 5, 7]",
+                "tone": "ok"
+              },
               {
                 "from": "xs",
                 "to": "ys",
@@ -1032,12 +1080,12 @@
               },
               "w": {
                 "var": "w",
-                "line": 3,
+                "line": 7,
                 "hit": 1
               },
               "b": {
                 "var": "b",
-                "line": 3,
+                "line": 7,
                 "hit": 1
               }
             },
@@ -1078,13 +1126,13 @@
               },
               "w": {
                 "var": "w",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "b": {
                 "var": "b",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -1168,8 +1216,8 @@
             "values": {
               "xs": "[0, 1, 2, 3, 4]",
               "ys": "[1, 3, 5, 7, 9]",
-              "w": "0",
-              "b": "0"
+              "w": "1.4000000000000001",
+              "b": "0.5"
             },
             "tones": {
               "xs": "data",
@@ -1198,8 +1246,8 @@
             "values": {
               "xs": "[0, 1, 2, 3, 4]",
               "ys": "[1, 3, 5, 7, 9]",
-              "w": "0",
-              "b": "0"
+              "w": "1.86",
+              "b": "0.6699999999999999"
             },
             "tones": {
               "xs": "ok",

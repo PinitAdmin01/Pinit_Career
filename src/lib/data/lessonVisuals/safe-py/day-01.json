@@ -49,7 +49,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how will updates join during execution.",
+            "caption": "Examine the safety value produced for join processing.",
             "currentState": "name",
             "transition": {
               "from": "number",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how will updates join during execution.",
+            "caption": "Examine the safety value produced for join processing.",
             "currentState": "name",
             "transition": {
               "from": "number",
@@ -250,7 +250,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how likelihood updates says during execution.",
+            "caption": "Verify the likelihood transition driving says behavior.",
             "currentState": "likelihood",
             "transition": {
               "from": "name",
@@ -306,7 +306,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how likelihood updates says during execution.",
+            "caption": "Verify the likelihood transition driving says behavior.",
             "currentState": "likelihood",
             "transition": {
               "from": "name",
@@ -524,13 +524,13 @@
               },
               "remaining": {
                 "var": "remaining",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "e": {
                 "var": "e",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -570,13 +570,13 @@
               },
               "remaining": {
                 "var": "remaining",
-                "line": 5,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "e": {
                 "var": "e",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -660,8 +660,8 @@
             "values": {
               "score": "20",
               "effects": "[0.6, 0.5, 0.3]",
-              "remaining": "20",
-              "e": "0.6"
+              "remaining": "8",
+              "e": "0.5"
             },
             "tones": {
               "score": "data",
@@ -690,8 +690,8 @@
             "values": {
               "score": "20",
               "effects": "[0.6, 0.5, 0.3]",
-              "remaining": "20",
-              "e": "0.6"
+              "remaining": "4",
+              "e": "0.3"
             },
             "tones": {
               "score": "ok",

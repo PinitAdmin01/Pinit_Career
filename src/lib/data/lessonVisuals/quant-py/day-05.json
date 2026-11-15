@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "Downstream, a market data publisher sends out book updates and trades,.",
+            "caption": "Verify the downstream transition driving market behavior.",
             "items": {
               "var": "stages",
               "line": 5,
@@ -86,7 +86,7 @@
           },
           {
             "at": "say2",
-            "caption": "Downstream, a market data publisher sends out book updates and trades,.",
+            "caption": "Verify the downstream transition driving market behavior.",
             "items": [
               "'gateway: validate the order'",
               "'sequencer: assign sequence number 1042'",
@@ -375,7 +375,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how orders updates take during execution.",
+            "caption": "Verify the throughput transition driving orders behavior.",
             "rows": [
               {
                 "cells": [
@@ -434,7 +434,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how orders updates take during execution.",
+            "caption": "Verify the throughput transition driving orders behavior.",
             "rows": [
               {
                 "cells": [
@@ -497,15 +497,13 @@
                 "hit": 1
               },
               "p99": {
-                "var": "p99",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "latencies": "data",
               "s": "data",
-              "p99": "data"
+              "p99": "idle"
             },
             "arrows": [
               [
@@ -616,12 +614,12 @@
             "values": {
               "latencies": "[400, 400, 400, 400, 400, 400, 400, 400…",
               "s": "[400, 400, 400, 400, 400, 400, 400, 400…",
-              "p99": "3000"
+              "p99": ""
             },
             "tones": {
               "latencies": "data",
               "s": "data",
-              "p99": "data"
+              "p99": "idle"
             },
             "arrows": [
               [
@@ -711,6 +709,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Exchanges publish incremental updates with sequence numbers.",
+            "activeActor": "gaps",
+            "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": {
+                  "var": "received",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "gaps",
@@ -725,10 +740,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Exchanges publish incremental updates with sequence numbers.",
-            "activeActor": "gaps",
+            "at": "say7",
+            "caption": "Examine the market value produced for data processing.",
+            "activeActor": "prev",
             "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": {
+                  "var": "received",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": {
+                  "var": "gaps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "received",
                 "to": "gaps",
@@ -748,14 +783,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Gap detection is one of the simplest and most important checks in any.",
-            "activeActor": "prev",
-            "messages": [
+              },
               {
                 "from": "received",
                 "to": "gaps",
@@ -798,12 +826,6 @@
                 "to": "gaps",
                 "label": "[1038, 1039, 1040, 1041, 1043, 1044, 10…",
                 "tone": "data"
-              },
-              {
-                "from": "gaps",
-                "to": "prev",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "received"
@@ -829,8 +851,32 @@
           },
           {
             "at": "say7",
-            "caption": "Gap detection is one of the simplest and most important checks in any.",
+            "caption": "Examine the market value produced for data processing.",
             "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": "[1038, 1039, 1040, 1041, 1043, 1044, 10…",
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": "[1038, 1039, 1040, 1041, 1043, 1044, 10…",
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "received",
                 "to": "gaps",

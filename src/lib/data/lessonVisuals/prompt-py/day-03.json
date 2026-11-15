@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If you show three examples of product reviews labelled positive.",
+            "activeActor": "examples",
+            "messages": [
+              {
+                "from": "task",
+                "to": "examples",
+                "label": {
+                  "var": "task",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "examples",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If you show three examples of product reviews labelled positive.",
-            "activeActor": "examples",
+            "at": "say8",
+            "caption": "In-context learning works for surprisingly unusual tasks, such as.",
+            "activeActor": "query",
             "messages": [
+              {
+                "from": "task",
+                "to": "examples",
+                "label": {
+                  "var": "task",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "query",
+                "label": {
+                  "var": "examples",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "from": "task",
                 "to": "examples",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "In-context learning works for surprisingly unusual tasks, such as.",
-            "activeActor": "query",
-            "messages": [
+              },
               {
                 "from": "task",
                 "to": "examples",
@@ -118,12 +148,6 @@
                 "to": "examples",
                 "label": "'Label the sentiment as positive or neg…",
                 "tone": "data"
-              },
-              {
-                "from": "examples",
-                "to": "query",
-                "label": "[['Delivery was quick and the food was …",
-                "tone": "ok"
               }
             ],
             "activeActor": "task"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "In-context learning works for surprisingly unusual tasks, such as.",
             "messages": [
+              {
+                "from": "task",
+                "to": "examples",
+                "label": "'Label the sentiment as positive or neg…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "query",
+                "label": "[['Delivery was quick and the food was …",
+                "tone": "ok"
+              },
+              {
+                "from": "task",
+                "to": "examples",
+                "label": "'Label the sentiment as positive or neg…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "query",
+                "label": "[['Delivery was quick and the food was …",
+                "tone": "ok"
+              },
               {
                 "from": "task",
                 "to": "examples",
@@ -637,6 +685,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A simple similarity measure is word overlap.",
+            "activeActor": "query",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "query",
@@ -651,10 +716,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A simple similarity measure is word overlap.",
-            "activeActor": "query",
+            "at": "say8",
+            "caption": "Word overlap has limits.",
+            "activeActor": "ex",
             "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "ex",
+                "label": {
+                  "var": "query",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "pool",
                 "to": "query",
@@ -674,14 +759,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Word overlap has limits.",
-            "activeActor": "ex",
-            "messages": [
+              },
               {
                 "from": "pool",
                 "to": "query",
@@ -724,12 +802,6 @@
                 "to": "query",
                 "label": "['Refund for a broken phone', 'Where is…",
                 "tone": "data"
-              },
-              {
-                "from": "query",
-                "to": "ex",
-                "label": "'My phone arrived broken!'",
-                "tone": "ok"
               }
             ],
             "activeActor": "pool"
@@ -757,6 +829,30 @@
             "at": "say8",
             "caption": "Word overlap has limits.",
             "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": "['Refund for a broken phone', 'Where is…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "ex",
+                "label": "'My phone arrived broken!'",
+                "tone": "ok"
+              },
+              {
+                "from": "pool",
+                "to": "query",
+                "label": "['Refund for a broken phone', 'Where is…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "ex",
+                "label": "'My phone arrived broken!'",
+                "tone": "ok"
+              },
               {
                 "from": "pool",
                 "to": "query",
@@ -801,6 +897,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the real transition driving data behavior.",
+            "activeActor": "label",
+            "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": {
+                  "var": "examples",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "label",
@@ -815,10 +928,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Real data is often imbalanced too, but examples should still show every.",
-            "activeActor": "label",
+            "at": "say9",
+            "caption": "A good habit is to ask a colleague to label your examples independently.",
+            "activeActor": "counts",
             "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": {
+                  "var": "examples",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": {
+                  "var": "label",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "examples",
                 "to": "label",
@@ -838,14 +971,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "A good habit is to ask a colleague to label your examples independently.",
-            "activeActor": "counts",
-            "messages": [
+              },
               {
                 "from": "examples",
                 "to": "label",
@@ -888,19 +1014,13 @@
                 "to": "label",
                 "label": "[['Loved it', 'positive'], ['Great valu…",
                 "tone": "data"
-              },
-              {
-                "from": "label",
-                "to": "counts",
-                "label": "'positive'",
-                "tone": "ok"
               }
             ],
             "activeActor": "examples"
           },
           {
             "at": "say2",
-            "caption": "Real data is often imbalanced too, but examples should still show every.",
+            "caption": "Verify the real transition driving data behavior.",
             "messages": [
               {
                 "from": "examples",
@@ -921,6 +1041,30 @@
             "at": "say9",
             "caption": "A good habit is to ask a colleague to label your examples independently.",
             "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": "[['Loved it', 'positive'], ['Great valu…",
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": "'positive'",
+                "tone": "ok"
+              },
+              {
+                "from": "examples",
+                "to": "label",
+                "label": "[['Loved it', 'positive'], ['Great valu…",
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": "'positive'",
+                "tone": "ok"
+              },
               {
                 "from": "examples",
                 "to": "label",
@@ -965,6 +1109,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Return the prompt and the kind.",
+            "activeActor": "query",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "query",
@@ -979,10 +1140,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Return the prompt and the kind.",
-            "activeActor": "query",
+            "at": "say7",
+            "caption": "Tomorrow you will get the model to show its reasoning, and check it with code.",
+            "activeActor": "t",
             "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": {
+                  "var": "query",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "pool",
                 "to": "query",
@@ -1002,14 +1183,7 @@
                   "hit": 5
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Tomorrow you will get the model to show its reasoning, and check it with code.",
-            "activeActor": "t",
-            "messages": [
+              },
               {
                 "from": "pool",
                 "to": "query",
@@ -1052,12 +1226,6 @@
                 "to": "query",
                 "label": "[['Refund for a broken phone', 'REFUND'…",
                 "tone": "data"
-              },
-              {
-                "from": "query",
-                "to": "t",
-                "label": "'The screen on my new phone is broken'",
-                "tone": "ok"
               }
             ],
             "activeActor": "pool"
@@ -1085,6 +1253,30 @@
             "at": "say7",
             "caption": "Tomorrow you will get the model to show its reasoning, and check it with code.",
             "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": "[['Refund for a broken phone', 'REFUND'…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": "'The screen on my new phone is broken'",
+                "tone": "ok"
+              },
+              {
+                "from": "pool",
+                "to": "query",
+                "label": "[['Refund for a broken phone', 'REFUND'…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": "'The screen on my new phone is broken'",
+                "tone": "ok"
+              },
               {
                 "from": "pool",
                 "to": "query",

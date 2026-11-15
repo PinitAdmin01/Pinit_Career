@@ -64,7 +64,7 @@
           },
           {
             "at": "say2",
-            "caption": "A re-ranker scores only the top candidates, perhaps 50 to 200, with.",
+            "caption": "Verify the ranker transition driving scores behavior.",
             "values": {
               "docs": {
                 "var": "docs",
@@ -180,7 +180,7 @@
           },
           {
             "at": "say2",
-            "caption": "A re-ranker scores only the top candidates, perhaps 50 to 200, with.",
+            "caption": "Verify the ranker transition driving scores behavior.",
             "values": {
               "docs": "5000000",
               "per_doc_ms": "5",
@@ -542,7 +542,7 @@
           },
           {
             "at": "say2",
-            "caption": "Showing five nearly identical results wastes the user's attention and,.",
+            "caption": "Verify the showing transition driving five behavior.",
             "bars": [
               {
                 "label": "x",
@@ -612,7 +612,7 @@
           },
           {
             "at": "say2",
-            "caption": "Showing five nearly identical results wastes the user's attention and,.",
+            "caption": "Verify the showing transition driving five behavior.",
             "bars": [
               {
                 "label": "x",
@@ -985,7 +985,7 @@
           },
           {
             "at": "say10",
-            "caption": "If mmr picks the same document twice, remove each choice from.",
+            "caption": "Examine the picks value produced for document processing.",
             "items": {
               "var": "q",
               "line": 9,
@@ -1037,7 +1037,7 @@
           },
           {
             "at": "say10",
-            "caption": "If mmr picks the same document twice, remove each choice from.",
+            "caption": "Examine the picks value produced for document processing.",
             "items": [
               "1",
               "0.3"

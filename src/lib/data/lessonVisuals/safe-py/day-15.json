@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "limit_per_minute": {
-                "var": "limit_per_minute",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "cost_per_call": "data",
               "calls_per_minute": "data",
               "minutes": "data",
-              "limit_per_minute": "data"
+              "limit_per_minute": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "cost_per_call": "0.02",
               "calls_per_minute": "600",
               "minutes": "480",
-              "limit_per_minute": "20"
+              "limit_per_minute": ""
             },
             "tones": {
               "cost_per_call": "data",
               "calls_per_minute": "data",
               "minutes": "data",
-              "limit_per_minute": "data"
+              "limit_per_minute": "idle"
             },
             "arrows": [
               [
@@ -336,7 +334,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how limit updates minute during execution.",
+            "caption": "Verify the limit transition driving minute behavior.",
             "bars": [
               {
                 "label": "limit",
@@ -452,7 +450,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how limit updates minute during execution.",
+            "caption": "Verify the limit transition driving minute behavior.",
             "bars": [
               {
                 "label": "limit",
@@ -514,7 +512,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Practice 1 is a class, SlidingWindowLimiter(limit, window_seconds), with.",
+            "caption": "Observe how window shapes practice during this step.",
             "bars": [
               {
                 "label": "limit",
@@ -619,7 +617,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Practice 1 is a class, SlidingWindowLimiter(limit, window_seconds), with.",
+            "caption": "Observe how window shapes practice during this step.",
             "bars": [
               {
                 "label": "limit",
@@ -784,7 +782,7 @@
             "transition": {
               "from": "window",
               "to": "history",
-              "label": "{'ana': {'__other__': 'deque'}}"
+              "label": "{'ana': <deque>}"
             },
             "tone": "ok"
           }
@@ -1153,7 +1151,7 @@
               "limits": "{'normal': 5, 'strict': 2}",
               "tier": "{}",
               "blocked": "{}",
-              "history": "{'eve': {'__other__': 'deque'}}"
+              "history": "{'eve': <deque>}"
             },
             "tones": {
               "limits": "ok",

@@ -171,162 +171,194 @@
     },
     {
       "partTitle": "Privacy-Preserving Cache Keys: Hashing Sanitized Over Raw PII",
-      "codeHash": "af5f940afdd2c30e17bbba9066fc1fe3dbae5d421a7d9e92b4606e74a9e0f3b1",
+      "codeHash": "a5cc7e4fb2a7e5e792093f17a4daa4a863d1aebc978d4ba4015b9a186b02007a",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Privacy-Preserving Cache Keys: Hashing Sanitized Over Raw PII",
-        "actors": [
-          "had_pii",
-          "personalized"
+        "nodes": [
+          {
+            "id": "had_pii",
+            "label": "had_pii",
+            "tappable": true
+          },
+          {
+            "id": "personalized",
+            "label": "personalized",
+            "tappable": true
+          },
+          {
+            "id": "sanitized_query",
+            "label": "sanitized_query",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Watch how subtle cross-module security flaws sneak into poorly integrated.",
-            "activeActor": "had_pii",
-            "messages": [
-              {
-                "from": "had_pii",
-                "to": "personalized",
-                "label": {
-                  "var": "had_pii",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect cache updates as had_pii tracks watch state.",
+            "values": {
+              "had_pii": {
+                "var": "had_pii",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "personalized",
-                "to": "had_pii",
-                "label": {
-                  "var": "personalized",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "personalized": {
+                "var": "personalized",
+                "line": 4,
+                "hit": 1
+              },
+              "sanitized_query": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "had_pii": "data",
+              "personalized": "data",
+              "sanitized_query": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Storing rehydrated outputs back into shared tenant caches leaks User A's.",
-            "activeActor": "personalized",
-            "messages": [
-              {
-                "from": "had_pii",
-                "to": "personalized",
-                "label": {
-                  "var": "had_pii",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the equally transition driving subtle behavior.",
+            "values": {
+              "had_pii": {
+                "var": "had_pii",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "from": "personalized",
-                "to": "had_pii",
-                "label": {
-                  "var": "personalized",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "personalized": {
+                "var": "personalized",
+                "line": 10,
+                "hit": 2
+              },
+              "sanitized_query": {
+                "var": "sanitized_query",
+                "line": 10,
+                "hit": 2
               }
+            },
+            "tones": {
+              "had_pii": "data",
+              "personalized": "data",
+              "sanitized_query": "data"
+            },
+            "arrows": [
+              [
+                "had_pii",
+                "personalized"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Inspect check_cache_privacy_rule() proving clean block guards whenever.",
-            "activeActor": "personalized",
-            "messages": [
-              {
-                "from": "had_pii",
-                "to": "personalized",
-                "label": {
-                  "var": "had_pii",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Fixing cache composition cleanly enforces a golden rule.",
+            "values": {
+              "had_pii": {
+                "var": "had_pii",
+                "line": 10,
+                "hit": 3
               },
-              {
-                "from": "personalized",
-                "to": "had_pii",
-                "label": {
-                  "var": "personalized",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "personalized": {
+                "var": "personalized",
+                "line": 10,
+                "hit": 3
+              },
+              "sanitized_query": {
+                "var": "sanitized_query",
+                "line": 10,
+                "hit": 3
               }
+            },
+            "tones": {
+              "had_pii": "ok",
+              "personalized": "ok",
+              "sanitized_query": "ok"
+            },
+            "arrows": [
+              [
+                "had_pii",
+                "personalized"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Privacy-Preserving Cache Keys: Hashing Sanitized Over Raw PII",
-        "actors": [
-          "had_pii",
-          "personalized"
+        "nodes": [
+          {
+            "id": "had_pii",
+            "label": "had_pii",
+            "tappable": true
+          },
+          {
+            "id": "personalized",
+            "label": "personalized",
+            "tappable": true
+          },
+          {
+            "id": "sanitized_query",
+            "label": "sanitized_query",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Watch how subtle cross-module security flaws sneak into poorly integrated.",
-            "messages": [
-              {
-                "from": "had_pii",
-                "to": "personalized",
-                "label": "False",
-                "tone": "data"
-              },
-              {
-                "from": "personalized",
-                "to": "had_pii",
-                "label": "False",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "had_pii"
+            "caption": "Inspect cache updates as had_pii tracks watch state.",
+            "values": {
+              "had_pii": "False",
+              "personalized": "False",
+              "sanitized_query": ""
+            },
+            "tones": {
+              "had_pii": "data",
+              "personalized": "data",
+              "sanitized_query": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Storing rehydrated outputs back into shared tenant caches leaks User A's.",
-            "messages": [
-              {
-                "from": "had_pii",
-                "to": "personalized",
-                "label": "False",
-                "tone": "data"
-              },
-              {
-                "from": "personalized",
-                "to": "had_pii",
-                "label": "False",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "personalized"
+            "caption": "Verify the equally transition driving subtle behavior.",
+            "values": {
+              "had_pii": "True",
+              "personalized": "False",
+              "sanitized_query": "'mail <EMAIL_1>'"
+            },
+            "tones": {
+              "had_pii": "data",
+              "personalized": "data",
+              "sanitized_query": "data"
+            },
+            "arrows": [
+              [
+                "had_pii",
+                "personalized"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Inspect check_cache_privacy_rule() proving clean block guards whenever.",
-            "messages": [
-              {
-                "from": "had_pii",
-                "to": "personalized",
-                "label": "True",
-                "tone": "data"
-              },
-              {
-                "from": "personalized",
-                "to": "had_pii",
-                "label": "False",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "personalized"
+            "at": "say3",
+            "caption": "Fixing cache composition cleanly enforces a golden rule.",
+            "values": {
+              "had_pii": "False",
+              "personalized": "True",
+              "sanitized_query": "'my last invoice'"
+            },
+            "tones": {
+              "had_pii": "ok",
+              "personalized": "ok",
+              "sanitized_query": "ok"
+            },
+            "arrows": [
+              [
+                "had_pii",
+                "personalized"
+              ]
+            ]
           }
         ]
       }
@@ -540,16 +572,14 @@
                 "hit": 1
               },
               "taint": {
-                "var": "taint",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "trace_id": "data",
               "tenant": "data",
               "pii_counts": "data",
-              "taint": "data"
+              "taint": "idle"
             }
           },
           {
@@ -647,13 +677,13 @@
               "trace_id": "'tr_812'",
               "tenant": "'acme'",
               "pii_counts": "{'EMAIL': 2, 'CARD': 1}",
-              "taint": "True"
+              "taint": ""
             },
             "tones": {
               "trace_id": "data",
               "tenant": "data",
               "pii_counts": "data",
-              "taint": "data"
+              "taint": "idle"
             }
           },
           {
@@ -704,7 +734,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates completes during execution.",
+            "caption": "Observe how milestone shapes adversarial during this step.",
             "rows": [
               {
                 "cells": [
@@ -769,7 +799,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates completes during execution.",
+            "caption": "Observe how milestone shapes adversarial during this step.",
             "rows": [
               {
                 "cells": [

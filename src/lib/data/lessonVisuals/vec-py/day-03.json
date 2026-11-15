@@ -122,20 +122,19 @@
         "title": "Normalise once, dot many times",
         "nodes": [
           {
-            "id": "raw",
-            "label": "raw"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
           },
           {
             "id": "v",
-            "label": "v"
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
           }
         ],
         "steps": [
@@ -143,88 +142,49 @@
             "at": "say1",
             "caption": "Cosine similarity needs two lengths for every comparison.",
             "values": {
-              "raw": {
-                "var": "raw",
-                "line": 7,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 1
-              },
               "x": {
                 "var": "x",
                 "line": 4,
                 "hit": 1
               },
               "v": {
-                "var": "v",
-                "line": 4,
-                "hit": 4
+                "text": ""
+              },
+              "n": {
+                "text": ""
               }
             },
             "tones": {
-              "raw": "data",
-              ".0": "data",
               "x": "data",
-              "v": "data"
+              "v": "idle",
+              "n": "idle"
             },
-            "arrows": [
-              [
-                "raw",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ],
-              [
-                "x",
-                "v"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If every stored vector is normalised to unit length when inserted,.",
+            "caption": "Verify the every transition driving stored behavior.",
             "values": {
-              "raw": {
-                "var": "raw",
-                "line": 8,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 2
-              },
               "x": {
-                "var": "x",
-                "line": 4,
-                "hit": 2
+                "text": ""
               },
               "v": {
                 "var": "v",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 12
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 12
               }
             },
             "tones": {
-              "raw": "data",
-              ".0": "data",
-              "x": "data",
-              "v": "data"
+              "x": "idle",
+              "v": "data",
+              "n": "data"
             },
             "arrows": [
-              [
-                "raw",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ],
               [
                 "x",
                 "v"
@@ -232,45 +192,25 @@
             ]
           },
           {
-            "at": "say10",
-            "caption": "This small optimisation is the first of many that make vector search fast.",
+            "at": "say3",
+            "caption": "Examine the once value produced for normalising processing.",
             "values": {
-              "raw": {
-                "var": "raw",
-                "line": 8,
-                "hit": 2
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 3
-              },
               "x": {
-                "var": "x",
-                "line": 4,
-                "hit": 3
+                "out": 1
               },
               "v": {
-                "var": "v",
-                "line": 5,
-                "hit": 2
+                "text": ""
+              },
+              "n": {
+                "text": ""
               }
             },
             "tones": {
-              "raw": "ok",
-              ".0": "ok",
-              "x": "ok",
-              "v": "ok"
+              "x": "data",
+              "v": "idle",
+              "n": "idle"
             },
             "arrows": [
-              [
-                "raw",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ],
               [
                 "x",
                 "v"
@@ -284,20 +224,19 @@
         "title": "Normalise once, dot many times",
         "nodes": [
           {
-            "id": "raw",
-            "label": "raw"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
           },
           {
             "id": "v",
-            "label": "v"
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
           }
         ],
         "steps": [
@@ -305,56 +244,31 @@
             "at": "say1",
             "caption": "Cosine similarity needs two lengths for every comparison.",
             "values": {
-              "raw": "[[3, 4], [0, 2], [1, 1], [5, 0]]",
-              ".0": "{'__other__': 'list_iterator'}",
               "x": "3",
-              "v": "[3, 4]"
+              "v": "",
+              "n": ""
             },
             "tones": {
-              "raw": "data",
-              ".0": "data",
               "x": "data",
-              "v": "data"
+              "v": "idle",
+              "n": "idle"
             },
-            "arrows": [
-              [
-                "raw",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ],
-              [
-                "x",
-                "v"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If every stored vector is normalised to unit length when inserted,.",
+            "caption": "Verify the every transition driving stored behavior.",
             "values": {
-              "raw": "[[3, 4], [0, 2], [1, 1], [5, 0]]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "4",
-              "v": "[3, 4]"
+              "x": "",
+              "v": "[1, 1]",
+              "n": "1.4142135623730951"
             },
             "tones": {
-              "raw": "data",
-              ".0": "data",
-              "x": "data",
-              "v": "data"
+              "x": "idle",
+              "v": "data",
+              "n": "data"
             },
             "arrows": [
-              [
-                "raw",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ],
               [
                 "x",
                 "v"
@@ -362,29 +276,19 @@
             ]
           },
           {
-            "at": "say10",
-            "caption": "This small optimisation is the first of many that make vector search fast.",
+            "at": "say3",
+            "caption": "Examine the once value produced for normalising processing.",
             "values": {
-              "raw": "[[3, 4], [0, 2], [1, 1], [5, 0]]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "4",
-              "v": "[3, 4]"
+              "x": "ranking by dot on unit vectors: [2, 3, 0, 1]",
+              "v": "",
+              "n": ""
             },
             "tones": {
-              "raw": "ok",
-              ".0": "ok",
-              "x": "ok",
-              "v": "ok"
+              "x": "data",
+              "v": "idle",
+              "n": "idle"
             },
             "arrows": [
-              [
-                "raw",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ],
               [
                 "x",
                 "v"
@@ -581,7 +485,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how million updates vectors during execution.",
+            "caption": "Verify the million transition driving vectors behavior.",
             "bars": [
               {
                 "label": "d",
@@ -697,7 +601,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how million updates vectors during execution.",
+            "caption": "Verify the million transition driving vectors behavior.",
             "bars": [
               {
                 "label": "d",

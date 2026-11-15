@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Plan-and-Solve agents generate an explicit structured task plan upfront.",
+            "activeActor": "bad",
+            "messages": [
+              {
+                "from": "good",
+                "to": "bad",
+                "label": {
+                  "var": "good",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bad",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Plan-and-Solve agents generate an explicit structured task plan upfront.",
-            "activeActor": "bad",
+            "at": "say7",
+            "caption": "Static validation ahead of dispatch catches structural bugs in microseconds.",
+            "activeActor": "tasks",
             "messages": [
+              {
+                "from": "good",
+                "to": "bad",
+                "label": {
+                  "var": "good",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bad",
+                "to": "tasks",
+                "label": {
+                  "var": "bad",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "good",
                 "to": "bad",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Compare the printed dictionaries below.",
-            "activeActor": "tasks",
-            "messages": [
+              },
               {
                 "from": "good",
                 "to": "bad",
@@ -118,12 +148,6 @@
                 "to": "bad",
                 "label": "[{'id': 'fetch', 'deps': []}, {'id': 'm…",
                 "tone": "data"
-              },
-              {
-                "from": "bad",
-                "to": "tasks",
-                "label": "[{'id': 'a', 'deps': ['a']}, {'id': 'b'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "good"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say7",
-            "caption": "Compare the printed dictionaries below.",
+            "caption": "Static validation ahead of dispatch catches structural bugs in microseconds.",
             "messages": [
+              {
+                "from": "good",
+                "to": "bad",
+                "label": "[{'id': 'fetch', 'deps': []}, {'id': 'm…",
+                "tone": "data"
+              },
+              {
+                "from": "bad",
+                "to": "tasks",
+                "label": "[{'id': 'a', 'deps': ['a']}, {'id': 'b'…",
+                "tone": "ok"
+              },
+              {
+                "from": "good",
+                "to": "bad",
+                "label": "[{'id': 'fetch', 'deps': []}, {'id': 'm…",
+                "tone": "data"
+              },
+              {
+                "from": "bad",
+                "to": "tasks",
+                "label": "[{'id': 'a', 'deps': ['a']}, {'id': 'b'…",
+                "tone": "ok"
+              },
               {
                 "from": "good",
                 "to": "bad",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Kahn's algorithm resolves execution order cleanly while doubling as.",
+            "activeActor": "cyc",
+            "messages": [
+              {
+                "from": "dag",
+                "to": "cyc",
+                "label": {
+                  "var": "dag",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cyc",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Kahn's algorithm resolves execution order cleanly while doubling as.",
-            "activeActor": "cyc",
+            "at": "say7",
+            "caption": "Notice how deterministic alphabetical sorting inside Kahn's queue.",
+            "activeActor": "tasks",
             "messages": [
+              {
+                "from": "dag",
+                "to": "cyc",
+                "label": {
+                  "var": "dag",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cyc",
+                "to": "tasks",
+                "label": {
+                  "var": "cyc",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "dag",
                 "to": "cyc",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Notice how deterministic alphabetical sorting inside Kahn's queue.",
-            "activeActor": "tasks",
-            "messages": [
+              },
               {
                 "from": "dag",
                 "to": "cyc",
@@ -282,12 +360,6 @@
                 "to": "cyc",
                 "label": "[{'id': 'a', 'deps': []}, {'id': 'b', '…",
                 "tone": "data"
-              },
-              {
-                "from": "cyc",
-                "to": "tasks",
-                "label": "[{'id': 'x', 'deps': ['y']}, {'id': 'y'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "dag"
@@ -315,6 +387,30 @@
             "at": "say7",
             "caption": "Notice how deterministic alphabetical sorting inside Kahn's queue.",
             "messages": [
+              {
+                "from": "dag",
+                "to": "cyc",
+                "label": "[{'id': 'a', 'deps': []}, {'id': 'b', '…",
+                "tone": "data"
+              },
+              {
+                "from": "cyc",
+                "to": "tasks",
+                "label": "[{'id': 'x', 'deps': ['y']}, {'id': 'y'…",
+                "tone": "ok"
+              },
+              {
+                "from": "dag",
+                "to": "cyc",
+                "label": "[{'id': 'a', 'deps': []}, {'id': 'b', '…",
+                "tone": "data"
+              },
+              {
+                "from": "cyc",
+                "to": "tasks",
+                "label": "[{'id': 'x', 'deps': ['y']}, {'id': 'y'…",
+                "tone": "ok"
+              },
               {
                 "from": "dag",
                 "to": "cyc",
@@ -812,12 +908,12 @@
               },
               "ef": {
                 "var": "ef",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "t": {
                 "var": "t",
-                "line": 4,
+                "line": 3,
                 "hit": 2
               }
             },
@@ -858,13 +954,13 @@
               },
               "ef": {
                 "var": "ef",
-                "line": 4,
+                "line": 5,
                 "hit": 2
               },
               "t": {
                 "var": "t",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -948,8 +1044,8 @@
             "values": {
               "dag": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
               "tasks": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
-              "ef": "{}",
-              "t": "{'id': 'db', 'deps': [], 'ms': 300}"
+              "ef": "{'db': 300}",
+              "t": "{'id': 'api', 'deps': [], 'ms': 450}"
             },
             "tones": {
               "dag": "data",
@@ -978,8 +1074,8 @@
             "values": {
               "dag": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
               "tasks": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
-              "ef": "{}",
-              "t": "{'id': 'db', 'deps': [], 'ms': 300}"
+              "ef": "{'db': 300, 'api': 450}",
+              "t": "{'id': 'vec', 'deps': [], 'ms': 250}"
             },
             "tones": {
               "dag": "ok",

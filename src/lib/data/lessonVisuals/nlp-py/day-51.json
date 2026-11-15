@@ -171,7 +171,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each image I_i is processed by a Vision Encoder f_V (such as a Vision.",
+            "caption": "Verify the encoders transition driving image behavior.",
             "bars": [
               {
                 "label": "x",
@@ -287,7 +287,7 @@
           },
           {
             "at": "say2",
-            "caption": "Each image I_i is processed by a Vision Encoder f_V (such as a Vision.",
+            "caption": "Verify the encoders transition driving image behavior.",
             "bars": [
               {
                 "label": "x",
@@ -432,7 +432,7 @@
               },
               "class_prototypes": {
                 "var": "class_prototypes",
-                "line": 39,
+                "line": 45,
                 "hit": 1
               }
             },
@@ -478,7 +478,7 @@
               },
               "class_prototypes": {
                 "var": "class_prototypes",
-                "line": 41,
+                "line": 45,
                 "hit": 1
               }
             },
@@ -564,7 +564,7 @@
               "templates": "['A photo of a {c}', 'A centered portra…",
               "classes": "['African Elephant', 'Monarch Butterfly…",
               "simulated_text_encoder_db": "{['African Elephant', 0]: [0.72, 0.6, 0…",
-              "class_prototypes": "[]"
+              "class_prototypes": "[[0.7547449787732176, 0.626103872751488…"
             },
             "tones": {
               "templates": "data",
@@ -594,7 +594,7 @@
               "templates": "['A photo of a {c}', 'A centered portra…",
               "classes": "['African Elephant', 'Monarch Butterfly…",
               "simulated_text_encoder_db": "{['African Elephant', 0]: [0.72, 0.6, 0…",
-              "class_prototypes": "[]"
+              "class_prototypes": "[[0.7547449787732176, 0.626103872751488…"
             },
             "tones": {
               "templates": "ok",

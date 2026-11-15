@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "tb": {
-                "var": "tb",
-                "line": 18,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "cap_tokens": "data",
               "refill_per_sec": "data",
-              "tb": "data"
+              "tb": "idle"
             }
           },
           {
@@ -157,13 +155,13 @@
               "self": "<TokenBucket>",
               "cap_tokens": "1000",
               "refill_per_sec": "100",
-              "tb": "<TokenBucket>"
+              "tb": ""
             },
             "tones": {
               "self": "data",
               "cap_tokens": "data",
               "refill_per_sec": "data",
-              "tb": "data"
+              "tb": "idle"
             }
           },
           {
@@ -288,8 +286,8 @@
               },
               "cached_in": {
                 "var": "cached_in",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "out_tokens": {
                 "var": "out_tokens",
@@ -334,8 +332,8 @@
               },
               "cached_in": {
                 "var": "cached_in",
-                "line": 11,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "out_tokens": {
                 "var": "out_tokens",
@@ -424,7 +422,7 @@
             "values": {
               "PRICING_PER_1M": "{'in': 3, 'cached_in': 0.3, 'out': 15}",
               "total_in": "20000",
-              "cached_in": "0",
+              "cached_in": "18000",
               "out_tokens": "800"
             },
             "tones": {
@@ -454,7 +452,7 @@
             "values": {
               "PRICING_PER_1M": "{'in': 3, 'cached_in': 0.3, 'out': 15}",
               "total_in": "20000",
-              "cached_in": "0",
+              "cached_in": "18000",
               "out_tokens": "800"
             },
             "tones": {
@@ -947,6 +945,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the feature transition driving chargeback behavior.",
+            "activeActor": "events",
+            "messages": [
+              {
+                "from": "ledger_events",
+                "to": "events",
+                "label": {
+                  "var": "ledger_events",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "events",
@@ -961,10 +976,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Attaching mandatory attribution tags (`tenant_id`, `feature_tag`.",
-            "activeActor": "events",
+            "at": "say7",
+            "caption": "Inspect summarize_chargeback() rolling raw immutable ledger events.",
+            "activeActor": "totals",
             "messages": [
+              {
+                "from": "ledger_events",
+                "to": "events",
+                "label": {
+                  "var": "ledger_events",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "totals",
+                "label": {
+                  "var": "events",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ledger_events",
                 "to": "events",
@@ -984,14 +1019,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect summarize_chargeback() rolling raw immutable ledger events.",
-            "activeActor": "totals",
-            "messages": [
+              },
               {
                 "from": "ledger_events",
                 "to": "events",
@@ -1034,19 +1062,13 @@
                 "to": "events",
                 "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
                 "tone": "data"
-              },
-              {
-                "from": "events",
-                "to": "totals",
-                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
-                "tone": "ok"
               }
             ],
             "activeActor": "ledger_events"
           },
           {
             "at": "say2",
-            "caption": "Attaching mandatory attribution tags (`tenant_id`, `feature_tag`.",
+            "caption": "Verify the feature transition driving chargeback behavior.",
             "messages": [
               {
                 "from": "ledger_events",
@@ -1067,6 +1089,30 @@
             "at": "say7",
             "caption": "Inspect summarize_chargeback() rolling raw immutable ledger events.",
             "messages": [
+              {
+                "from": "ledger_events",
+                "to": "events",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "totals",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "ok"
+              },
+              {
+                "from": "ledger_events",
+                "to": "events",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "totals",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "ok"
+              },
               {
                 "from": "ledger_events",
                 "to": "events",

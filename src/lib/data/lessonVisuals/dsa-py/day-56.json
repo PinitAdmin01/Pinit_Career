@@ -660,7 +660,7 @@
           },
           {
             "at": "say2",
-            "caption": "Rather than spawning background timer threads per key (which thrash locks.",
+            "caption": "Verify the logical transition driving clock behavior.",
             "bars": [
               {
                 "label": "capacity",
@@ -776,7 +776,7 @@
           },
           {
             "at": "say2",
-            "caption": "Rather than spawning background timer threads per key (which thrash locks.",
+            "caption": "Verify the logical transition driving clock behavior.",
             "bars": [
               {
                 "label": "capacity",

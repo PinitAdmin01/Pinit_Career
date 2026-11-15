@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "Think cleanly about 0/1 combinatorial optimization (`items sorted.",
+            "caption": "Verify the combinatorial transition driving branch behavior.",
             "items": {
               "var": "x",
               "line": 21,
@@ -83,7 +83,7 @@
           },
           {
             "at": "say2",
-            "caption": "Think cleanly about 0/1 combinatorial optimization (`items sorted.",
+            "caption": "Verify the combinatorial transition driving branch behavior.",
             "items": [
               "2",
               "11"
@@ -155,7 +155,7 @@
           },
           {
             "at": "say5",
-            "caption": "Watch all three algorithms Dijkstra, Greedy Best-First, and A* race across.",
+            "caption": "Examine the dijkstra value produced for greedy processing.",
             "items": {
               "var": "u_wall",
               "line": 44,
@@ -215,7 +215,7 @@
           },
           {
             "at": "say5",
-            "caption": "Watch all three algorithms Dijkstra, Greedy Best-First, and A* race across.",
+            "caption": "Examine the dijkstra value produced for greedy processing.",
             "items": [
               "'.........'",
               "'..#####..'",
@@ -347,7 +347,7 @@
           },
           {
             "at": "say2",
-            "caption": "Watch how crisp deterministic tie-breaking upgrades A* cleanly without.",
+            "caption": "Verify the deterministic transition driving breaking behavior.",
             "items": {
               "var": "warehouse",
               "line": 41,
@@ -390,7 +390,7 @@
           },
           {
             "at": "say2",
-            "caption": "Watch how crisp deterministic tie-breaking upgrades A* cleanly without.",
+            "caption": "Verify the deterministic transition driving breaking behavior.",
             "items": [
               "'............'",
               "'..###..###..'",
@@ -437,7 +437,7 @@
           },
           {
             "at": "say2",
-            "caption": "An automated fulfillment robot accepts two tightly coupled jobs every.",
+            "caption": "Verify the warehouse transition driving automated behavior.",
             "items": {
               "var": "wh",
               "line": 83,
@@ -495,7 +495,7 @@
           },
           {
             "at": "say2",
-            "caption": "An automated fulfillment robot accepts two tightly coupled jobs every.",
+            "caption": "Verify the warehouse transition driving automated behavior.",
             "items": [
               "'..........'",
               "'.###..###.'",

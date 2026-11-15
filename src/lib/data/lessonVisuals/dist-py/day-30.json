@@ -73,7 +73,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example lists the steps and the lesson each comes from.",
+            "caption": "Examine the example value produced for lists processing.",
             "activeActor": "what",
             "messages": [
               {
@@ -149,7 +149,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example lists the steps and the lesson each comes from.",
+            "caption": "Examine the example value produced for lists processing.",
             "messages": [
               {
                 "from": "steps",
@@ -246,12 +246,12 @@
             "values": {
               "released": {
                 "var": "released",
-                "line": 19,
+                "line": 25,
                 "hit": 1
               },
               "replicas": {
                 "var": "replicas",
-                "line": 19,
+                "line": 25,
                 "hit": 1
               },
               "services": {
@@ -292,12 +292,12 @@
             "values": {
               "released": {
                 "var": "released",
-                "line": 20,
+                "line": 25,
                 "hit": 1
               },
               "replicas": {
                 "var": "replicas",
-                "line": 20,
+                "line": 25,
                 "hit": 1
               },
               "services": {
@@ -362,7 +362,7 @@
             "values": {
               "released": "[]",
               "replicas": "[]",
-              "services": "{'is_allowed': {'__other__': 'function'…",
+              "services": "{'is_allowed': <function>, 'acquire': <…",
               "order": "{'id': 'T1', 'account': 'ACC-9', 'amoun…"
             },
             "tones": {
@@ -390,9 +390,9 @@
             "at": "say2",
             "caption": "Then replicate {\"order_id\", \"amount\", \"fencing_token\"} and commit.",
             "values": {
-              "released": "[]",
-              "replicas": "[]",
-              "services": "{'is_allowed': {'__other__': 'function'…",
+              "released": "[['ACC-9', 'lock_7']]",
+              "replicas": "[{'order_id': 'T1', 'amount': 5000, 'fe…",
+              "services": "{'is_allowed': <function>, 'acquire': <…",
               "order": "{'id': 'T1', 'account': 'ACC-9', 'amoun…"
             },
             "tones": {
@@ -420,9 +420,9 @@
             "at": "say8",
             "caption": "The example runs one successful trade with fake services.",
             "values": {
-              "released": "[]",
-              "replicas": "[]",
-              "services": "{'is_allowed': {'__other__': 'function'…",
+              "released": "[['ACC-9', 'lock_7']]",
+              "replicas": "[{'order_id': 'T1', 'amount': 5000, 'fe…",
+              "services": "{'is_allowed': <function>, 'acquire': <…",
               "order": "{'id': 'T1', 'account': 'ACC-9', 'amoun…"
             },
             "tones": {
@@ -953,7 +953,7 @@
           },
           {
             "at": "say7",
-            "caption": "The cheat sheet below maps common problems to the tools you now have.",
+            "caption": "Examine the cheat value produced for sheet processing.",
             "activeActor": "tool",
             "messages": [
               {
@@ -1029,7 +1029,7 @@
           },
           {
             "at": "say7",
-            "caption": "The cheat sheet below maps common problems to the tools you now have.",
+            "caption": "Examine the cheat value produced for sheet processing.",
             "messages": [
               {
                 "from": "toolbox",

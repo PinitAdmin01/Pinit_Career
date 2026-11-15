@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Sending raw customer Social Security numbers, personal cell numbers,.",
+            "caption": "Inspect sending updates as msg tracks customer state.",
             "values": {
               "msg": {
                 "var": "msg",
@@ -96,7 +96,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run compare_masking_vs_vault() observing how surrogate placeholders retain.",
+            "caption": "Examine the naive value produced for multi processing.",
             "values": {
               "msg": {
                 "var": "msg",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Sending raw customer Social Security numbers, personal cell numbers,.",
+            "caption": "Inspect sending updates as msg tracks customer state.",
             "values": {
               "msg": "'Alice (alice@acme.io) transfers $500 t…",
               "text": "'Alice (alice@acme.io) transfers $500 t…",
@@ -184,7 +184,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run compare_masking_vs_vault() observing how surrogate placeholders retain.",
+            "caption": "Examine the naive value produced for multi processing.",
             "values": {
               "msg": "'Alice (alice@acme.io) transfers $500 t…",
               "text": "'Alice (alice@acme.io) transfers $500 t…",
@@ -274,8 +274,8 @@
               },
               "session_id": {
                 "var": "session_id",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "kind": {
                 "var": "kind",
@@ -306,8 +306,8 @@
               },
               "session_id": {
                 "var": "session_id",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "kind": {
                 "var": "kind",
@@ -368,7 +368,7 @@
             "values": {
               "sec": "'kms_ephemeral_key_91'",
               "vault_secret": "'kms_ephemeral_key_91'",
-              "session_id": "'sess_A'",
+              "session_id": "'sess_B'",
               "kind": "'EMAIL'"
             },
             "tones": {
@@ -384,7 +384,7 @@
             "values": {
               "sec": "'kms_ephemeral_key_91'",
               "vault_secret": "'kms_ephemeral_key_91'",
-              "session_id": "'sess_A'",
+              "session_id": "'sess_B'",
               "kind": "'EMAIL'"
             },
             "tones": {
@@ -516,7 +516,7 @@
           },
           {
             "at": "say7",
-            "caption": "Test passes_luhn() cleanly approving real format card strings while.",
+            "caption": "Examine the contextual value produced for false processing.",
             "values": {
               "digits_str": {
                 "var": "digits_str",
@@ -646,7 +646,7 @@
           },
           {
             "at": "say7",
-            "caption": "Test passes_luhn() cleanly approving real format card strings while.",
+            "caption": "Examine the contextual value produced for false processing.",
             "values": {
               "digits_str": "'4532-0151-1283-0366'",
               "c": "'3'",
@@ -703,6 +703,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Look closely for two sneaky security bugs during response rehydration.",
+            "activeActor": "vault",
+            "messages": [
+              {
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": {
+                  "var": "SURROGATE_RE",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "vault",
@@ -717,10 +734,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Look closely for two sneaky security bugs during response rehydration.",
-            "activeActor": "vault",
+            "at": "say7",
+            "caption": "Using a naive sequential for k, v in vault.items().",
+            "activeActor": "reply_text",
             "messages": [
+              {
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": {
+                  "var": "SURROGATE_RE",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "vault",
+                "to": "reply_text",
+                "label": {
+                  "var": "vault",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "SURROGATE_RE",
                 "to": "vault",
@@ -740,14 +777,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace safe_rehydrate() cleanly swapping legitimate session tokens while.",
-            "activeActor": "reply_text",
-            "messages": [
+              },
               {
                 "from": "SURROGATE_RE",
                 "to": "vault",
@@ -757,16 +787,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "vault",
-                "to": "reply_text",
-                "label": {
-                  "var": "vault",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -788,14 +808,8 @@
               {
                 "from": "SURROGATE_RE",
                 "to": "vault",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
                 "tone": "data"
-              },
-              {
-                "from": "vault",
-                "to": "reply_text",
-                "label": "{'<EMAIL_4c91f2>': 'alice@acme.io'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "SURROGATE_RE"
@@ -807,7 +821,7 @@
               {
                 "from": "SURROGATE_RE",
                 "to": "vault",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
                 "tone": "data"
               },
               {
@@ -821,12 +835,12 @@
           },
           {
             "at": "say7",
-            "caption": "Trace safe_rehydrate() cleanly swapping legitimate session tokens while.",
+            "caption": "Using a naive sequential for k, v in vault.items().",
             "messages": [
               {
                 "from": "SURROGATE_RE",
                 "to": "vault",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
                 "tone": "data"
               },
               {
@@ -834,6 +848,24 @@
                 "to": "reply_text",
                 "label": "{'<EMAIL_4c91f2>': 'alice@acme.io'}",
                 "tone": "ok"
+              },
+              {
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": "<Pattern>",
+                "tone": "data"
+              },
+              {
+                "from": "vault",
+                "to": "reply_text",
+                "label": "{'<EMAIL_4c91f2>': 'alice@acme.io'}",
+                "tone": "ok"
+              },
+              {
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": "<Pattern>",
+                "tone": "data"
               }
             ],
             "activeActor": "reply_text"
@@ -867,6 +899,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production privacy vaults tie every temporary surrogate mapping to crisp.",
+            "activeActor": "vault_store",
+            "messages": [
+              {
+                "from": "store",
+                "to": "vault_store",
+                "label": {
+                  "var": "store",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "vault_store",
@@ -881,10 +930,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Production privacy vaults tie every temporary surrogate mapping to crisp.",
-            "activeActor": "vault_store",
+            "at": "say6",
+            "caption": "Run purge_expired_vaults() verifying deterministic cleanup once timestamps.",
+            "activeActor": "now_ts",
             "messages": [
+              {
+                "from": "store",
+                "to": "vault_store",
+                "label": {
+                  "var": "store",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": {
+                  "var": "vault_store",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "store",
                 "to": "vault_store",
@@ -904,23 +973,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Run purge_expired_vaults() verifying deterministic cleanup once timestamps.",
-            "activeActor": "now_ts",
-            "messages": [
-              {
-                "from": "store",
-                "to": "vault_store",
-                "label": {
-                  "var": "store",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "vault_store",
@@ -954,12 +1006,6 @@
                 "to": "vault_store",
                 "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
                 "tone": "data"
-              },
-              {
-                "from": "vault_store",
-                "to": "now_ts",
-                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
-                "tone": "ok"
               }
             ],
             "activeActor": "store"
@@ -992,6 +1038,24 @@
                 "to": "vault_store",
                 "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
                 "tone": "data"
+              },
+              {
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "ok"
+              },
+              {
+                "from": "store",
+                "to": "vault_store",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "data"
+              },
+              {
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "ok"
               },
               {
                 "from": "vault_store",

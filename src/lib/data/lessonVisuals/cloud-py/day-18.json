@@ -97,8 +97,8 @@
               },
               "second": {
                 "var": "second",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -124,7 +124,7 @@
           },
           {
             "at": "say7",
-            "caption": "Queues change the question from \"is the other service up right now.",
+            "caption": "Examine the queues value produced for change processing.",
             "values": {
               "queue": {
                 "var": "queue",
@@ -143,8 +143,8 @@
               },
               "second": {
                 "var": "second",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -196,7 +196,7 @@
             "at": "say1",
             "caption": "A message queue sits between a producer (who sends work) and a consumer.",
             "values": {
-              "queue": "{'__other__': 'deque'}",
+              "queue": "<deque>",
               "arrivals": "[50, 0, 0, 0, 0, 0]",
               "per_second": "10",
               "second": "0"
@@ -226,10 +226,10 @@
             "at": "say2",
             "caption": "This decoupling gives three big benefits.",
             "values": {
-              "queue": "{'__other__': 'deque'}",
+              "queue": "<deque>",
               "arrivals": "[50, 0, 0, 0, 0, 0]",
               "per_second": "10",
-              "second": "0"
+              "second": "1"
             },
             "tones": {
               "queue": "data",
@@ -254,12 +254,12 @@
           },
           {
             "at": "say7",
-            "caption": "Queues change the question from \"is the other service up right now.",
+            "caption": "Examine the queues value produced for change processing.",
             "values": {
-              "queue": "{'__other__': 'deque'}",
+              "queue": "<deque>",
               "arrivals": "[50, 0, 0, 0, 0, 0]",
               "per_second": "10",
-              "second": "0"
+              "second": "2"
             },
             "tones": {
               "queue": "ok",
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The consumer processes the message and then deletes it explicitly.",
+            "activeActor": "TIMEOUT",
+            "messages": [
+              {
+                "from": "messages",
+                "to": "TIMEOUT",
+                "label": {
+                  "var": "messages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "TIMEOUT",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The consumer processes the message and then deletes it explicitly.",
-            "activeActor": "TIMEOUT",
+            "at": "say7",
+            "caption": "The example runs a worker that crashes on its first attempt, and shows.",
+            "activeActor": "now",
             "messages": [
+              {
+                "from": "messages",
+                "to": "TIMEOUT",
+                "label": {
+                  "var": "messages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT",
+                "to": "now",
+                "label": {
+                  "var": "TIMEOUT",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "messages",
                 "to": "TIMEOUT",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example runs a worker that crashes on its first attempt, and shows.",
-            "activeActor": "now",
-            "messages": [
+              },
               {
                 "from": "messages",
                 "to": "TIMEOUT",
@@ -398,12 +428,6 @@
                 "to": "TIMEOUT",
                 "label": "[{'id': 'm1', 'body': 'charge order 17'…",
                 "tone": "data"
-              },
-              {
-                "from": "TIMEOUT",
-                "to": "now",
-                "label": "30",
-                "tone": "ok"
               }
             ],
             "activeActor": "messages"
@@ -431,6 +455,30 @@
             "at": "say7",
             "caption": "The example runs a worker that crashes on its first attempt, and shows.",
             "messages": [
+              {
+                "from": "messages",
+                "to": "TIMEOUT",
+                "label": "[{'id': 'm1', 'body': 'charge order 17'…",
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT",
+                "to": "now",
+                "label": "30",
+                "tone": "ok"
+              },
+              {
+                "from": "messages",
+                "to": "TIMEOUT",
+                "label": "[{'id': 'm1', 'body': 'charge order 17'…",
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT",
+                "to": "now",
+                "label": "30",
+                "tone": "ok"
+              },
               {
                 "from": "messages",
                 "to": "TIMEOUT",
@@ -949,15 +997,13 @@
                 "hit": 1
               },
               "safe": {
-                "var": "safe",
-                "line": 4,
-                "hit": 4
+                "text": ""
               }
             },
             "tones": {
               "internal": "data",
               "leaky": "data",
-              "safe": "data"
+              "safe": "idle"
             },
             "arrows": [
               [
@@ -1068,12 +1114,12 @@
             "values": {
               "internal": "{'id': 'm1', 'body': 'hello', 'visible_…",
               "leaky": "{'id': 'm1', 'body': 'hello', 'visible_…",
-              "safe": "{'id': 'm1', 'body': 'hello', 'receive_…"
+              "safe": ""
             },
             "tones": {
               "internal": "data",
               "leaky": "data",
-              "safe": "data"
+              "safe": "idle"
             },
             "arrows": [
               [

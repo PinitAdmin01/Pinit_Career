@@ -210,13 +210,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates prompt during execution.",
+            "caption": "Observe how audit shapes entry during this step.",
             "currentState": "uid",
             "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Trace how user updates field during execution.",
+            "caption": "Verify the user transition driving field behavior.",
             "currentState": "prompt",
             "transition": {
               "from": "uid",
@@ -266,13 +266,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates prompt during execution.",
+            "caption": "Observe how audit shapes entry during this step.",
             "currentState": "uid",
             "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Trace how user updates field during execution.",
+            "caption": "Verify the user transition driving field behavior.",
             "currentState": "prompt",
             "transition": {
               "from": "uid",
@@ -349,8 +349,8 @@
               },
               "e": {
                 "var": "e",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -375,8 +375,8 @@
               },
               "e": {
                 "var": "e",
-                "line": 8,
-                "hit": 2
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -429,7 +429,7 @@
             "caption": "Which tool, the result of validation, and a hash or summary of the arguments.",
             "values": {
               "events": "[{'type': 'guard', 'decision': 'BLOCK',…",
-              "e": "{'type': 'guard', 'decision': 'BLOCK', …"
+              "e": "{'type': 'tool_call', 'tool': 'refund',…"
             },
             "tones": {
               "events": "data",
@@ -447,7 +447,7 @@
             "caption": "Test that logging works.",
             "values": {
               "events": "[{'type': 'guard', 'decision': 'BLOCK',…",
-              "e": "{'type': 'guard', 'decision': 'BLOCK', …"
+              "e": "{'type': 'approval', 'step': 'p3', 'app…"
             },
             "tones": {
               "events": "ok",
@@ -467,106 +467,184 @@
       "partTitle": "Summarising the log",
       "codeHash": "bb56899984869b6bba79a059463a2ef9fb90c7a433cf397a1365dfd4b6732339",
       "spec": {
-        "template": "states",
+        "template": "flow",
         "title": "Summarising the log",
-        "states": [
-          {
-            "id": "entries",
-            "label": "entries"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
+        "nodes": [
           {
             "id": "e",
-            "label": "e"
+            "label": "e",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "kv",
+            "label": "kv",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A log with millions of entries is only useful if you can summarise it.",
-            "currentState": "entries",
-            "tone": "data"
+            "values": {
+              "e": {
+                "var": "e",
+                "line": 5,
+                "hit": 1
+              },
+              "r": {
+                "text": ""
+              },
+              "kv": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "e": "data",
+              "r": "idle",
+              "kv": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates entries during execution.",
-            "currentState": ".0",
-            "transition": {
-              "from": "entries",
-              "to": ".0",
-              "label": {
-                "var": ".0",
-                "line": 5,
+            "caption": "Verify the practice transition driving audit behavior.",
+            "values": {
+              "e": {
+                "var": "e",
+                "line": 6,
+                "hit": 3
+              },
+              "r": {
+                "var": "r",
+                "line": 6,
+                "hit": 3
+              },
+              "kv": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "e": "data",
+              "r": "data",
+              "kv": "idle"
+            },
+            "arrows": [
+              [
+                "e",
+                "r"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The decision counts use sorted keys so the output is stable.",
+            "values": {
+              "e": {
+                "text": ""
+              },
+              "r": {
+                "text": ""
+              },
+              "kv": {
+                "var": "kv",
+                "line": 7,
                 "hit": 2
               }
             },
-            "tone": "data"
-          },
-          {
-            "at": "say10",
-            "caption": "Keep summaries at several time scales, such as hourly and daily, to see.",
-            "currentState": "e",
-            "transition": {
-              "from": ".0",
-              "to": "e",
-              "label": {
-                "var": "e",
-                "line": 5,
-                "hit": 3
-              }
+            "tones": {
+              "e": "idle",
+              "r": "idle",
+              "kv": "ok"
             },
-            "tone": "ok"
+            "arrows": [
+              [
+                "e",
+                "r"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
+        "template": "flow",
         "title": "Summarising the log",
-        "states": [
-          {
-            "id": "entries",
-            "label": "entries"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
+        "nodes": [
           {
             "id": "e",
-            "label": "e"
+            "label": "e",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "kv",
+            "label": "kv",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A log with millions of entries is only useful if you can summarise it.",
-            "currentState": "entries",
-            "tone": "data"
+            "values": {
+              "e": "{'decision': 'BLOCK', 'reasons': ['inje…",
+              "r": "",
+              "kv": ""
+            },
+            "tones": {
+              "e": "data",
+              "r": "idle",
+              "kv": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates entries during execution.",
-            "currentState": ".0",
-            "transition": {
-              "from": "entries",
-              "to": ".0",
-              "label": "{'__other__': 'list_iterator'}"
+            "caption": "Verify the practice transition driving audit behavior.",
+            "values": {
+              "e": "{'decision': 'ALLOW', 'reasons': []}",
+              "r": "'injection'",
+              "kv": ""
             },
-            "tone": "data"
+            "tones": {
+              "e": "data",
+              "r": "data",
+              "kv": "idle"
+            },
+            "arrows": [
+              [
+                "e",
+                "r"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Keep summaries at several time scales, such as hourly and daily, to see.",
-            "currentState": "e",
-            "transition": {
-              "from": ".0",
-              "to": "e",
-              "label": "{'decision': 'BLOCK', 'reasons': ['card…"
+            "at": "say3",
+            "caption": "The decision counts use sorted keys so the output is stable.",
+            "values": {
+              "e": "",
+              "r": "",
+              "kv": "['card_number', 2]"
             },
-            "tone": "ok"
+            "tones": {
+              "e": "idle",
+              "r": "idle",
+              "kv": "ok"
+            },
+            "arrows": [
+              [
+                "e",
+                "r"
+              ]
+            ]
           }
         ]
       }

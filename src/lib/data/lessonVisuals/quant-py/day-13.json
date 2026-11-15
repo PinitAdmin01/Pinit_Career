@@ -303,6 +303,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Logically they share nothing, but the hardware sees one line being written.",
+            "activeActor": "LINE",
+            "messages": [
+              {
+                "from": "fields",
+                "to": "LINE",
+                "label": {
+                  "var": "fields",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "LINE",
@@ -317,10 +334,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Logically they share nothing, but the hardware sees one line being written.",
-            "activeActor": "LINE",
+            "at": "say7",
+            "caption": "The example lays out a structure and lists which fields share lines.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "fields",
+                "to": "LINE",
+                "label": {
+                  "var": "fields",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "LINE",
+                "to": "name",
+                "label": {
+                  "var": "LINE",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "fields",
                 "to": "LINE",
@@ -340,14 +377,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example lays out a structure and lists which fields share lines.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "fields",
                 "to": "LINE",
@@ -390,12 +420,6 @@
                 "to": "LINE",
                 "label": "[['producer_head', 0, 8, 0], ['consumer…",
                 "tone": "data"
-              },
-              {
-                "from": "LINE",
-                "to": "name",
-                "label": "64",
-                "tone": "ok"
               }
             ],
             "activeActor": "fields"
@@ -423,6 +447,30 @@
             "at": "say7",
             "caption": "The example lays out a structure and lists which fields share lines.",
             "messages": [
+              {
+                "from": "fields",
+                "to": "LINE",
+                "label": "[['producer_head', 0, 8, 0], ['consumer…",
+                "tone": "data"
+              },
+              {
+                "from": "LINE",
+                "to": "name",
+                "label": "64",
+                "tone": "ok"
+              },
+              {
+                "from": "fields",
+                "to": "LINE",
+                "label": "[['producer_head', 0, 8, 0], ['consumer…",
+                "tone": "data"
+              },
+              {
+                "from": "LINE",
+                "to": "name",
+                "label": "64",
+                "tone": "ok"
+              },
               {
                 "from": "fields",
                 "to": "LINE",

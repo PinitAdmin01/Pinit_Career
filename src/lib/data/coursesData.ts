@@ -32,6 +32,18 @@ import { IOT_SECURITY_30_DAYS_QUESTS } from './iotSecurity30DayData';
 import { PYTHON_30_DAYS_QUESTS } from './python30DayData';
 // [FIX-STAGE: phase2d-m2-practice] Wire 60 runnable Python Month 2 practice tasks (Days 31-60)
 import { PYTHON_MONTH2_QUESTS } from './pythonMonth2Tasks';
+import { DSA_PYTHON_MONTH2_QUESTS } from './dsaPythonMonth2Tasks';
+import { AI_PYTHON_MONTH2_QUESTS } from './aiPythonMonth2Tasks';
+import { CYBER_PYTHON_MONTH2_QUESTS } from './cyberPythonMonth2Tasks';
+import { CLOUD_PYTHON_MONTH2_QUESTS } from './cloudPythonMonth2Tasks';
+import { QUANT_PYTHON_MONTH2_QUESTS } from './quantPythonMonth2Tasks';
+import { DIST_PYTHON_MONTH2_QUESTS } from './distPythonMonth2Tasks';
+import { NLP_PYTHON_MONTH2_QUESTS } from './nlpPythonMonth2Tasks';
+import { PROMPT_PYTHON_MONTH2_QUESTS } from './promptPythonMonth2Tasks';
+import { TRAIN_PYTHON_MONTH2_QUESTS } from './trainPythonMonth2Tasks';
+import { VECTOR_PYTHON_MONTH2_QUESTS } from './vectorPythonMonth2Tasks';
+import { SAFETY_PYTHON_MONTH2_QUESTS } from './safetyPythonMonth2Tasks';
+import { DATABASE_MONTH2_QUESTS } from './databaseMonth2Tasks';
 import { QUANT_SYSTEMS_30_DAYS_QUESTS } from './quant30DayData';
 import { BCOM_ACCOUNTING_30_DAYS_QUESTS } from './bcomAccounting30DayData';
 import { BCOM_FINANCE_30_DAYS_QUESTS } from './bcomFinance30DayData';
@@ -162,7 +174,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '☁️',
-    quests: CLOUD_PYTHON_30_DAYS_QUESTS as any
+    quests: [...CLOUD_PYTHON_30_DAYS_QUESTS, ...CLOUD_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-vector-python',
@@ -171,7 +183,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '🔍',
-    quests: VECTOR_PYTHON_30_DAYS_QUESTS as any
+    quests: [...VECTOR_PYTHON_30_DAYS_QUESTS, ...VECTOR_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-safety-python',
@@ -180,7 +192,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '🛡️',
-    quests: SAFETY_PYTHON_30_DAYS_QUESTS as any
+    quests: [...SAFETY_PYTHON_30_DAYS_QUESTS, ...SAFETY_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-devops-cicd',
@@ -216,7 +228,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Intermediate',
     durationWeeks: 8,
     icon: '🐍',
-    quests: DSA_PYTHON_30_DAYS_QUESTS as any
+    quests: [...DSA_PYTHON_30_DAYS_QUESTS, ...DSA_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-mobile-dev',
@@ -243,7 +255,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '🛡️',
-    quests: CYBER_PYTHON_30_DAYS_QUESTS as any
+    quests: [...CYBER_PYTHON_30_DAYS_QUESTS, ...CYBER_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-database-eng',
@@ -252,7 +264,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 5,
     icon: '💾',
-    quests: DATABASE_30_DAYS_QUESTS as any
+    quests: [...DATABASE_30_DAYS_QUESTS, ...DATABASE_MONTH2_QUESTS] as any
   },
   {
     id: 'course-distributed-sys',
@@ -270,7 +282,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '🌐',
-    quests: DIST_PYTHON_30_DAYS_QUESTS as any
+    quests: [...DIST_PYTHON_30_DAYS_QUESTS, ...DIST_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-train-python',
@@ -279,7 +291,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '🔥',
-    quests: TRAIN_PYTHON_30_DAYS_QUESTS as any
+    quests: [...TRAIN_PYTHON_30_DAYS_QUESTS, ...TRAIN_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-ai-eng',
@@ -297,7 +309,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Intermediate',
     durationWeeks: 8,
     icon: '🤖',
-    quests: AI_PYTHON_30_DAYS_QUESTS as any
+    quests: [...AI_PYTHON_30_DAYS_QUESTS, ...AI_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-fullstack-js',
@@ -388,7 +400,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '📈',
-    quests: QUANT_PYTHON_30_DAYS_QUESTS as any
+    quests: [...QUANT_PYTHON_30_DAYS_QUESTS, ...QUANT_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-digital-accounting',
@@ -542,7 +554,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Beginner',
     durationWeeks: 8,
     icon: '🤖',
-    quests: PROMPT_PYTHON_30_DAYS_QUESTS as any
+    quests: [...PROMPT_PYTHON_30_DAYS_QUESTS, ...PROMPT_PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-excel-data-viz',
@@ -587,7 +599,7 @@ const RAW_COURSES: Course[] = [
     difficulty: 'Advanced',
     durationWeeks: 8,
     icon: '📚',
-    quests: NLP_PYTHON_30_DAYS_QUESTS as any
+    quests: [...NLP_PYTHON_30_DAYS_QUESTS, ...NLP_PYTHON_MONTH2_QUESTS] as any
   }
 ];
 

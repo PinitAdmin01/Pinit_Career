@@ -399,19 +399,335 @@
       "partTitle": "DELETE: removing rows",
       "codeHash": "7f159154c76ba68e8ed9597e0f199c49393c02c61a29544b92428eb8e7335c69",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "DELETE: removing rows",
+        "columns": [
+          "name",
+          "stock",
+          "is_active"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "DELETE FROM removes rows from a table.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "is_active"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "is_active"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "DELETE removes whole rows, never single values.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "is_active"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "is_active"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "stock"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "is_active"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "DELETE: removing rows",
+        "columns": [
+          "name",
+          "stock",
+          "is_active"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "DELETE FROM removes rows from a table.",
+            "rows": [
+              {
+                "cells": [
+                  "Notebook",
+                  "120",
+                  "true"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Pen",
+                  "500",
+                  "true"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "DELETE removes whole rows, never single values.",
+            "rows": [
+              {
+                "cells": [
+                  "Notebook",
+                  "120",
+                  "true"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Pen",
+                  "500",
+                  "true"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Desk lamp",
+                  "0",
+                  "false"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "The most dangerous mistake: forgetting WHERE",
       "codeHash": "56b2408db28208f7a981ca5252a590534022c2f12b1838d8819fd2995803e22f",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "The most dangerous mistake: forgetting WHERE",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Here is the most important safety lesson in this course.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id serial PRIMARY KEY, n"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This mistake has happened at real companies, and it has caused real outages.",
+            "values": {
+              "query": {
+                "text": "SELECT count(*) AS left_after_no_where FROM customers;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "table": 3,
+                "row": 1,
+                "col": "left_after_no_where"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "The most dangerous mistake: forgetting WHERE",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Here is the most important safety lesson in this course.",
+            "values": {
+              "query": "CREATE TABLE customers (id serial PRIMARY KEY, n",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "This mistake has happened at real companies, and it has caused real outages.",
+            "values": {
+              "query": "SELECT count(*) AS left_after_no_where FROM customers;",
+              "db": "SELECT",
+              "res": "0"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: keeping the shop up to date",

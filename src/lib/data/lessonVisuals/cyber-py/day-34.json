@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how certificate updates binds during execution.",
+            "caption": "Verify the certificate transition driving binds behavior.",
             "currentState": "subject",
             "transition": {
               "from": "self",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how certificate updates binds during execution.",
+            "caption": "Verify the certificate transition driving binds behavior.",
             "currentState": "subject",
             "transition": {
               "from": "self",
@@ -181,18 +181,18 @@
               },
               "subject": {
                 "var": "subject",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "issuer": {
                 "var": "issuer",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "is_ca": {
                 "var": "is_ca",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -213,18 +213,18 @@
               },
               "subject": {
                 "var": "subject",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "issuer": {
                 "var": "issuer",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "is_ca": {
                 "var": "is_ca",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -279,9 +279,9 @@
             "caption": "The chain validation algorithm enforces three mandatory structural.",
             "values": {
               "self": "<X509Cert>",
-              "subject": "'CN=Root CA'",
-              "issuer": "'CN=Root CA'",
-              "is_ca": "True"
+              "subject": "'CN=Inter CA'",
+              "issuer": "'CN=Inter CA'",
+              "is_ca": "False"
             },
             "tones": {
               "self": "data",
@@ -295,9 +295,9 @@
             "caption": "Validating certificate path length constraints prevents intermediate.",
             "values": {
               "self": "<X509Cert>",
-              "subject": "'CN=Root CA'",
-              "issuer": "'CN=Root CA'",
-              "is_ca": "True"
+              "subject": "'CN=app.sec.internal'",
+              "issuer": "'CN=Inter CA'",
+              "is_ca": "False"
             },
             "tones": {
               "self": "ok",
@@ -354,16 +354,14 @@
                 "hit": 1
               },
               "valid": {
-                "var": "valid",
-                "line": 11,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "resp": "data",
               "ocsp_response": "data",
               "expected_nonce": "data",
-              "valid": "data"
+              "valid": "idle"
             },
             "arrows": [
               [
@@ -503,13 +501,13 @@
               "resp": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
               "ocsp_response": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
               "expected_nonce": "'NONCE_SESSION_84920482'",
-              "valid": "True"
+              "valid": ""
             },
             "tones": {
               "resp": "data",
               "ocsp_response": "data",
               "expected_nonce": "data",
-              "valid": "data"
+              "valid": "idle"
             },
             "arrows": [
               [
@@ -615,6 +613,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Public Key Pinning establishes an unyielding resilience guardrail.",
+            "activeActor": "pin",
+            "messages": [
+              {
+                "from": "valid_key",
+                "to": "pin",
+                "label": {
+                  "var": "valid_key",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "pin",
@@ -629,10 +644,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Public Key Pinning establishes an unyielding resilience guardrail.",
-            "activeActor": "pin",
+            "at": "say8",
+            "caption": "Public key pinning protects high-value mobile and enterprise applications.",
+            "activeActor": "self",
             "messages": [
+              {
+                "from": "valid_key",
+                "to": "pin",
+                "label": {
+                  "var": "valid_key",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pin",
+                "to": "self",
+                "label": {
+                  "var": "pin",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "valid_key",
                 "to": "pin",
@@ -652,14 +687,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Public key pinning protects high-value mobile and enterprise applications.",
-            "activeActor": "self",
-            "messages": [
+              },
               {
                 "from": "valid_key",
                 "to": "pin",
@@ -702,12 +730,6 @@
                 "to": "pin",
                 "label": "'AUTHENTIC_PUB_KEY_INSTITUTIONAL'",
                 "tone": "data"
-              },
-              {
-                "from": "pin",
-                "to": "self",
-                "label": "'b82f0bd4e666113ec7d8a5175a0bc0d75a2fcd…",
-                "tone": "ok"
               }
             ],
             "activeActor": "valid_key"
@@ -735,6 +757,30 @@
             "at": "say8",
             "caption": "Public key pinning protects high-value mobile and enterprise applications.",
             "messages": [
+              {
+                "from": "valid_key",
+                "to": "pin",
+                "label": "'AUTHENTIC_PUB_KEY_INSTITUTIONAL'",
+                "tone": "data"
+              },
+              {
+                "from": "pin",
+                "to": "self",
+                "label": "'b82f0bd4e666113ec7d8a5175a0bc0d75a2fcd…",
+                "tone": "ok"
+              },
+              {
+                "from": "valid_key",
+                "to": "pin",
+                "label": "'AUTHENTIC_PUB_KEY_INSTITUTIONAL'",
+                "tone": "data"
+              },
+              {
+                "from": "pin",
+                "to": "self",
+                "label": "'b82f0bd4e666113ec7d8a5175a0bc0d75a2fcd…",
+                "tone": "ok"
+              },
               {
                 "from": "valid_key",
                 "to": "pin",
@@ -797,7 +843,7 @@
           },
           {
             "at": "say8",
-            "caption": "Automated PKI telemetry alerts infrastructure engineering teams weeks.",
+            "caption": "Transport layer compromises exploit weak links.",
             "currentState": "pin_matched",
             "transition": {
               "from": "ocsp_stapled",
@@ -849,7 +895,7 @@
           },
           {
             "at": "say8",
-            "caption": "Automated PKI telemetry alerts infrastructure engineering teams weeks.",
+            "caption": "Transport layer compromises exploit weak links.",
             "currentState": "pin_matched",
             "transition": {
               "from": "ocsp_stapled",

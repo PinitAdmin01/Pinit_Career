@@ -98,7 +98,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how note updates also during execution.",
+            "caption": "Examine the bm25 value produced for term processing.",
             "bars": [
               {
                 "label": "k1",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how note updates also during execution.",
+            "caption": "Examine the bm25 value produced for term processing.",
             "bars": [
               {
                 "label": "k1",
@@ -471,6 +471,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Even min-max normalization within one query fluctuates wildly when the top.",
+            "activeActor": "vec_top",
+            "messages": [
+              {
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": {
+                  "var": "bm25_top",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "vec_top",
@@ -485,10 +502,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Even min-max normalization within one query fluctuates wildly when the top.",
-            "activeActor": "vec_top",
+            "at": "say7",
+            "caption": "Examine the fusion value produced for combining processing.",
+            "activeActor": "rankings",
             "messages": [
+              {
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": {
+                  "var": "bm25_top",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "vec_top",
+                "to": "rankings",
+                "label": {
+                  "var": "vec_top",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "bm25_top",
                 "to": "vec_top",
@@ -508,14 +545,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Observe how 'doc_b' ranks 2nd in both lists yet overtakes 'doc_a' (1st.",
-            "activeActor": "rankings",
-            "messages": [
+              },
               {
                 "from": "bm25_top",
                 "to": "vec_top",
@@ -558,12 +588,6 @@
                 "to": "vec_top",
                 "label": "['doc_a', 'doc_b', 'doc_c']",
                 "tone": "data"
-              },
-              {
-                "from": "vec_top",
-                "to": "rankings",
-                "label": "['doc_d', 'doc_b', 'doc_e']",
-                "tone": "ok"
               }
             ],
             "activeActor": "bm25_top"
@@ -589,8 +613,32 @@
           },
           {
             "at": "say7",
-            "caption": "Observe how 'doc_b' ranks 2nd in both lists yet overtakes 'doc_a' (1st.",
+            "caption": "Examine the fusion value produced for combining processing.",
             "messages": [
+              {
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": "['doc_a', 'doc_b', 'doc_c']",
+                "tone": "data"
+              },
+              {
+                "from": "vec_top",
+                "to": "rankings",
+                "label": "['doc_d', 'doc_b', 'doc_e']",
+                "tone": "ok"
+              },
+              {
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": "['doc_a', 'doc_b', 'doc_c']",
+                "tone": "data"
+              },
+              {
+                "from": "vec_top",
+                "to": "rankings",
+                "label": "['doc_d', 'doc_b', 'doc_e']",
+                "tone": "ok"
+              },
               {
                 "from": "bm25_top",
                 "to": "vec_top",
@@ -654,16 +702,14 @@
                 "hit": 1
               },
               "bm25_order": {
-                "var": "bm25_order",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "catalog": "data",
               "tenant": "data",
               "docs": "data",
-              "bm25_order": "data"
+              "bm25_order": "idle"
             }
           },
           {
@@ -761,13 +807,13 @@
               "catalog": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
               "tenant": "'acme'",
               "docs": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
-              "bm25_order": "['d1', 'd2', 'd3']"
+              "bm25_order": ""
             },
             "tones": {
               "catalog": "data",
               "tenant": "data",
               "docs": "data",
-              "bm25_order": "data"
+              "bm25_order": "idle"
             }
           },
           {
@@ -868,7 +914,7 @@
             "values": {
               "gold": {
                 "var": "gold",
-                "line": 16,
+                "line": 3,
                 "hit": 1
               },
               "bm25": {
@@ -900,8 +946,8 @@
             "values": {
               "gold": {
                 "var": "gold",
-                "line": 17,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "bm25": {
                 "var": "bm25",
@@ -970,7 +1016,7 @@
             "at": "say2",
             "caption": "Recall@K asks whether at least one gold relevant document enters the top K.",
             "values": {
-              "gold": "{'q1': {'id_doc'}, 'q2': {'sem_doc'}, '…",
+              "gold": "{'id_doc'}",
               "bm25": "{'q1': ['id_doc', 'other'], 'q2': ['oth…",
               "vec": "{'q1': ['noise', 'other'], 'q2': ['sem_…",
               "hyb": "{'q1': ['id_doc', 'noise'], 'q2': ['sem…"
@@ -986,7 +1032,7 @@
             "at": "say6",
             "caption": "Hybrid RRF recovers high Recall@2 and jumps MRR across the combined.",
             "values": {
-              "gold": "{'q1': {'id_doc'}, 'q2': {'sem_doc'}, '…",
+              "gold": "{'sem_doc'}",
               "bm25": "{'q1': ['id_doc', 'other'], 'q2': ['oth…",
               "vec": "{'q1': ['noise', 'other'], 'q2': ['sem_…",
               "hyb": "{'q1': ['id_doc', 'noise'], 'q2': ['sem…"

@@ -62,7 +62,7 @@
           },
           {
             "at": "say7",
-            "caption": "Think of gates as learned rules like \"when you see a new sentence subject.",
+            "caption": "Examine the gates value produced for learned processing.",
             "bars": [
               {
                 "label": "z",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say7",
-            "caption": "Think of gates as learned rules like \"when you see a new sentence subject.",
+            "caption": "Examine the gates value produced for learned processing.",
             "bars": [
               {
                 "label": "z",
@@ -590,7 +590,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how gated updates recurrent during execution.",
+            "caption": "Observe how gated shapes recurrent during this step.",
             "bars": [
               {
                 "label": "z",
@@ -722,7 +722,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how gated updates recurrent during execution.",
+            "caption": "Observe how gated shapes recurrent during this step.",
             "bars": [
               {
                 "label": "z",
@@ -837,15 +837,13 @@
                 "hit": 1
               },
               "forget_gate": {
-                "var": "forget_gate",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "steps": "data",
               "rnn_factor": "data",
-              "forget_gate": "data"
+              "forget_gate": "idle"
             },
             "arrows": [
               [
@@ -956,12 +954,12 @@
             "values": {
               "steps": "30",
               "rnn_factor": "0.5",
-              "forget_gate": "0.97"
+              "forget_gate": ""
             },
             "tones": {
               "steps": "data",
               "rnn_factor": "data",
-              "forget_gate": "data"
+              "forget_gate": "idle"
             },
             "arrows": [
               [
@@ -1034,7 +1032,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates line during execution.",
+            "caption": "Observe how practice shapes lstm during this step.",
             "items": {
               "var": "value",
               "line": 1,
@@ -1050,7 +1048,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates cover during execution.",
+            "caption": "Verify the checks transition driving cover behavior.",
             "items": {
               "var": "value",
               "line": 2,
@@ -1088,7 +1086,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates line during execution.",
+            "caption": "Observe how practice shapes lstm during this step.",
             "items": [
               "0.5",
               "0.2"
@@ -1103,7 +1101,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates cover during execution.",
+            "caption": "Verify the checks transition driving cover behavior.",
             "items": [
               "0.5",
               "0.2"

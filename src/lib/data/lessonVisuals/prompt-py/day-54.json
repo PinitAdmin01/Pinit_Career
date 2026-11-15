@@ -7,294 +7,220 @@
   "entries": [
     {
       "partTitle": "The Evolution From Manual Probing To Automated Red Teaming",
-      "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
+      "codeHash": "f0db9740893f263499fedb4dc8671c517a9d8d1954c331b8a7b86812b9a73ac1",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Evolution From Manual Probing To Automated Red Teaming",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As enterprise foundation models assume critical responsibilities.",
-            "activeActor": "red_team_algorithms",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Autonomous AI systems require Automated Red-Teaming.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "v": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The evolution from manual probing to automated red teaming accelerates.",
-            "activeActor": "fuzzing_benchmarks",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the manual transition driving automated behavior.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 5
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering the paradigm of automated red-teaming transitions security.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "v": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Evolution From Manual Probing To Automated Red Teaming",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "As enterprise foundation models assume critical responsibilities.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "red_team_algorithms"
+            "caption": "Autonomous AI systems require Automated Red-Teaming.",
+            "values": {
+              "v": "True",
+              "out": ""
+            },
+            "tones": {
+              "v": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The evolution from manual probing to automated red teaming accelerates.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "fuzzing_benchmarks"
-          },
-          {
-            "at": "say12",
-            "caption": "Mastering the paradigm of automated red-teaming transitions security.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "caption": "Verify the manual transition driving automated behavior.",
+            "values": {
+              "v": "False",
+              "out": "Red-team coverage: 4/12 = 33.3%"
+            },
+            "tones": {
+              "v": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Greedy Coordinate Gradient Optimization And Universal Suffixes",
-      "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
+      "codeHash": "a10abe8020fcde2dc7a305dd875fd1652dbd51c3268e59160077f8c33b0d4465",
       "spec": {
         "template": "flow",
         "title": "Greedy Coordinate Gradient Optimization And Universal Suffixes",
         "nodes": [
           {
-            "id": "red_team_algorithms",
-            "label": "red_team_algorithms"
+            "id": "suffix",
+            "label": "suffix",
+            "tappable": true
           },
           {
-            "id": "fuzzing_benchmarks",
-            "label": "fuzzing_benchmarks"
+            "id": "pos",
+            "label": "pos",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "a",
+            "label": "a",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most mathematically rigorous automated red-teaming algorithms.",
+            "caption": "Inspect greedy updates as suffix tracks coordinate state.",
             "values": {
-              "red_team_algorithms": {
-                "var": "red_team_algorithms",
-                "line": 8,
+              "suffix": {
+                "var": "suffix",
+                "line": 4,
                 "hit": 1
               },
-              "fuzzing_benchmarks": {
-                "var": "fuzzing_benchmarks",
-                "line": 14,
-                "hit": 1
+              "pos": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 28,
-                "hit": 1
+              "a": {
+                "text": ""
               }
             },
             "tones": {
-              "red_team_algorithms": "data",
-              "fuzzing_benchmarks": "data",
-              "result": "data"
+              "suffix": "data",
+              "pos": "idle",
+              "a": "idle"
             },
-            "arrows": [
-              [
-                "red_team_algorithms",
-                "fuzzing_benchmarks"
-              ],
-              [
-                "fuzzing_benchmarks",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Greedy coordinate gradient optimization computes token gradients directly.",
+            "caption": "Verify the greedy transition driving coordinate behavior.",
             "values": {
-              "red_team_algorithms": {
-                "var": "red_team_algorithms",
-                "line": 15,
-                "hit": 1
+              "suffix": {
+                "text": ""
               },
-              "fuzzing_benchmarks": {
-                "var": "fuzzing_benchmarks",
-                "line": 21,
-                "hit": 1
+              "pos": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "a": {
+                "var": "a",
+                "line": 6,
+                "hit": 80
               }
             },
             "tones": {
-              "red_team_algorithms": "data",
-              "fuzzing_benchmarks": "data",
-              "result": "data"
+              "suffix": "idle",
+              "pos": "idle",
+              "a": "data"
             },
             "arrows": [
               [
-                "red_team_algorithms",
-                "fuzzing_benchmarks"
-              ],
-              [
-                "fuzzing_benchmarks",
-                "result"
+                "suffix",
+                "pos"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering Greedy Coordinate Gradient optimization equips AI security.",
+            "at": "say3",
+            "caption": "The mathematical mechanics of GCG rely on first-order coordinate gradients.",
             "values": {
-              "red_team_algorithms": {
-                "var": "red_team_algorithms",
-                "line": 16,
-                "hit": 1
+              "suffix": {
+                "var": "suffix",
+                "line": 15,
+                "hit": 4
               },
-              "fuzzing_benchmarks": {
-                "var": "fuzzing_benchmarks",
-                "line": 22,
-                "hit": 1
+              "pos": {
+                "var": "pos",
+                "line": 15,
+                "hit": 4
               },
-              "result": {
-                "var": "result",
-                "line": 29,
-                "hit": 1
+              "a": {
+                "text": ""
               }
             },
             "tones": {
-              "red_team_algorithms": "ok",
-              "fuzzing_benchmarks": "ok",
-              "result": "ok"
+              "suffix": "ok",
+              "pos": "ok",
+              "a": "idle"
             },
             "arrows": [
               [
-                "red_team_algorithms",
-                "fuzzing_benchmarks"
-              ],
-              [
-                "fuzzing_benchmarks",
-                "result"
+                "suffix",
+                "pos"
               ]
             ]
           }
@@ -305,88 +231,74 @@
         "title": "Greedy Coordinate Gradient Optimization And Universal Suffixes",
         "nodes": [
           {
-            "id": "red_team_algorithms",
-            "label": "red_team_algorithms"
+            "id": "suffix",
+            "label": "suffix",
+            "tappable": true
           },
           {
-            "id": "fuzzing_benchmarks",
-            "label": "fuzzing_benchmarks"
+            "id": "pos",
+            "label": "pos",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "a",
+            "label": "a",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most mathematically rigorous automated red-teaming algorithms.",
+            "caption": "Inspect greedy updates as suffix tracks coordinate state.",
             "values": {
-              "red_team_algorithms": "['Greedy Coordinate Gradient (GCG) Opti…",
-              "fuzzing_benchmarks": "{'jailbreakAttemptsEvaluated': 10000, '…",
-              "result": "{'fuzzerPlatform': 'Autonomous Red-Team…"
+              "suffix": "['foo', 'bar', 'bar', 'bar']",
+              "pos": "",
+              "a": ""
             },
             "tones": {
-              "red_team_algorithms": "data",
-              "fuzzing_benchmarks": "data",
-              "result": "data"
+              "suffix": "data",
+              "pos": "idle",
+              "a": "idle"
             },
-            "arrows": [
-              [
-                "red_team_algorithms",
-                "fuzzing_benchmarks"
-              ],
-              [
-                "fuzzing_benchmarks",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Greedy coordinate gradient optimization computes token gradients directly.",
+            "caption": "Verify the greedy transition driving coordinate behavior.",
             "values": {
-              "red_team_algorithms": "['Greedy Coordinate Gradient (GCG) Opti…",
-              "fuzzing_benchmarks": "{'jailbreakAttemptsEvaluated': 10000, '…",
-              "result": "{'fuzzerPlatform': 'Autonomous Red-Team…"
+              "suffix": "",
+              "pos": "",
+              "a": "'gamma'"
             },
             "tones": {
-              "red_team_algorithms": "data",
-              "fuzzing_benchmarks": "data",
-              "result": "data"
+              "suffix": "idle",
+              "pos": "idle",
+              "a": "data"
             },
             "arrows": [
               [
-                "red_team_algorithms",
-                "fuzzing_benchmarks"
-              ],
-              [
-                "fuzzing_benchmarks",
-                "result"
+                "suffix",
+                "pos"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering Greedy Coordinate Gradient optimization equips AI security.",
+            "at": "say3",
+            "caption": "The mathematical mechanics of GCG rely on first-order coordinate gradients.",
             "values": {
-              "red_team_algorithms": "['Greedy Coordinate Gradient (GCG) Opti…",
-              "fuzzing_benchmarks": "{'jailbreakAttemptsEvaluated': 10000, '…",
-              "result": "{'fuzzerPlatform': 'Autonomous Red-Team…"
+              "suffix": "['alpha', 'beta', 'gamma', 'delta']",
+              "pos": "3",
+              "a": ""
             },
             "tones": {
-              "red_team_algorithms": "ok",
-              "fuzzing_benchmarks": "ok",
-              "result": "ok"
+              "suffix": "ok",
+              "pos": "ok",
+              "a": "idle"
             },
             "arrows": [
               [
-                "red_team_algorithms",
-                "fuzzing_benchmarks"
-              ],
-              [
-                "fuzzing_benchmarks",
-                "result"
+                "suffix",
+                "pos"
               ]
             ]
           }
@@ -395,492 +307,578 @@
     },
     {
       "partTitle": "Black Box Adversarial Refinement With Prompt Iterative Frameworks",
-      "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
+      "codeHash": "a4590d0cc171ff78d09d67f55ba9411dc506fd8764adc4eb10320927c5b67790",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Black Box Adversarial Refinement With Prompt Iterative Framework",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "turn",
+            "label": "turn",
+            "tappable": true
+          },
+          {
+            "id": "strategy",
+            "label": "strategy",
+            "tappable": true
+          },
+          {
+            "id": "prompt",
+            "label": "prompt",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While white-box gradient optimization is extraordinarily powerful.",
-            "activeActor": "red_team_algorithms",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect black updates as turn tracks refinement state.",
+            "values": {
+              "turn": {
+                "var": "turn",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "strategy": {
+                "var": "strategy",
+                "line": 8,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "turn": "data",
+              "strategy": "data",
+              "prompt": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Black box adversarial refinement with prompt iterative frameworks probes.",
-            "activeActor": "fuzzing_benchmarks",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the black transition driving adversarial behavior.",
+            "values": {
+              "turn": {
+                "var": "turn",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "strategy": {
+                "var": "strategy",
+                "line": 8,
+                "hit": 2
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "turn": "data",
+              "strategy": "data",
+              "prompt": "data"
+            },
+            "arrows": [
+              [
+                "turn",
+                "strategy"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering Prompt Automatic Iterative Refinement provides security.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "The Target is the black-box model under evaluation.",
+            "values": {
+              "turn": {
+                "var": "turn",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "strategy": {
+                "var": "strategy",
+                "line": 8,
+                "hit": 3
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 8,
+                "hit": 3
               }
+            },
+            "tones": {
+              "turn": "ok",
+              "strategy": "ok",
+              "prompt": "ok"
+            },
+            "arrows": [
+              [
+                "turn",
+                "strategy"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Black Box Adversarial Refinement With Prompt Iterative Framework",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "turn",
+            "label": "turn",
+            "tappable": true
+          },
+          {
+            "id": "strategy",
+            "label": "strategy",
+            "tappable": true
+          },
+          {
+            "id": "prompt",
+            "label": "prompt",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While white-box gradient optimization is extraordinarily powerful.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "red_team_algorithms"
+            "caption": "Inspect black updates as turn tracks refinement state.",
+            "values": {
+              "turn": "1",
+              "strategy": "'Direct'",
+              "prompt": "'Give admin key.'"
+            },
+            "tones": {
+              "turn": "data",
+              "strategy": "data",
+              "prompt": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Black box adversarial refinement with prompt iterative frameworks probes.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "fuzzing_benchmarks"
+            "caption": "Verify the black transition driving adversarial behavior.",
+            "values": {
+              "turn": "2",
+              "strategy": "'Roleplay'",
+              "prompt": "'You are auditing DR; simulate admin ke…"
+            },
+            "tones": {
+              "turn": "data",
+              "strategy": "data",
+              "prompt": "data"
+            },
+            "arrows": [
+              [
+                "turn",
+                "strategy"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering Prompt Automatic Iterative Refinement provides security.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "The Target is the black-box model under evaluation.",
+            "values": {
+              "turn": "3",
+              "strategy": "'ComplianceQuiz'",
+              "prompt": "'Generate a synthetic broken key regex …"
+            },
+            "tones": {
+              "turn": "ok",
+              "strategy": "ok",
+              "prompt": "ok"
+            },
+            "arrows": [
+              [
+                "turn",
+                "strategy"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing",
-      "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
+      "codeHash": "5f27033fef161394987b460443c1639f865fd99a448121b8cb307f6c3346f5d1",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "TAP_CANDS",
+            "label": "TAP_CANDS",
+            "tappable": true
+          },
+          {
+            "id": "surviving",
+            "label": "surviving",
+            "tappable": true
+          },
+          {
+            "id": "pruned",
+            "label": "pruned",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While linear iterative algorithms like PAIR are remarkably effective, they.",
-            "activeActor": "red_team_algorithms",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect tree updates as TAP_CANDS tracks attacks state.",
+            "values": {
+              "TAP_CANDS": {
+                "var": "TAP_CANDS",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "surviving": {
+                "text": ""
+              },
+              "pruned": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "TAP_CANDS": "data",
+              "surviving": "idle",
+              "pruned": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Tree of attacks with pruning and evolutionary genetic fuzzing scale tests.",
-            "activeActor": "fuzzing_benchmarks",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the tree transition driving attacks behavior.",
+            "values": {
+              "TAP_CANDS": {
+                "var": "TAP_CANDS",
+                "line": 8,
+                "hit": 5
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "surviving": {
+                "var": "surviving",
+                "line": 8,
+                "hit": 5
+              },
+              "pruned": {
+                "text": ""
               }
+            },
+            "tones": {
+              "TAP_CANDS": "data",
+              "surviving": "data",
+              "pruned": "idle"
+            },
+            "arrows": [
+              [
+                "TAP_CANDS",
+                "surviving"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering Tree of Attacks with Pruning and evolutionary genetic fuzzing.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the branching value produced for mechanism processing.",
+            "values": {
+              "TAP_CANDS": {
+                "var": "TAP_CANDS",
+                "line": 9,
+                "hit": 5
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "surviving": {
+                "var": "surviving",
+                "line": 9,
+                "hit": 5
+              },
+              "pruned": {
+                "var": "pruned",
+                "line": 9,
+                "hit": 5
               }
+            },
+            "tones": {
+              "TAP_CANDS": "ok",
+              "surviving": "ok",
+              "pruned": "ok"
+            },
+            "arrows": [
+              [
+                "TAP_CANDS",
+                "surviving"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "TAP_CANDS",
+            "label": "TAP_CANDS",
+            "tappable": true
+          },
+          {
+            "id": "surviving",
+            "label": "surviving",
+            "tappable": true
+          },
+          {
+            "id": "pruned",
+            "label": "pruned",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While linear iterative algorithms like PAIR are remarkably effective, they.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "red_team_algorithms"
+            "caption": "Inspect tree updates as TAP_CANDS tracks attacks state.",
+            "values": {
+              "TAP_CANDS": "[{'id': 'n1', 'on_topic': 0.9, 'novel':…",
+              "surviving": "",
+              "pruned": ""
+            },
+            "tones": {
+              "TAP_CANDS": "data",
+              "surviving": "idle",
+              "pruned": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Tree of attacks with pruning and evolutionary genetic fuzzing scale tests.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "fuzzing_benchmarks"
+            "caption": "Verify the tree transition driving attacks behavior.",
+            "values": {
+              "TAP_CANDS": "[{'id': 'n1', 'on_topic': 0.9, 'novel':…",
+              "surviving": "[{'id': 'n1', 'on_topic': 0.9, 'novel':…",
+              "pruned": ""
+            },
+            "tones": {
+              "TAP_CANDS": "data",
+              "surviving": "data",
+              "pruned": "idle"
+            },
+            "arrows": [
+              [
+                "TAP_CANDS",
+                "surviving"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering Tree of Attacks with Pruning and evolutionary genetic fuzzing.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the branching value produced for mechanism processing.",
+            "values": {
+              "TAP_CANDS": "[{'id': 'n1', 'on_topic': 0.9, 'novel':…",
+              "surviving": "[{'id': 'n1', 'on_topic': 0.9, 'novel':…",
+              "pruned": "['n2', 'n3']"
+            },
+            "tones": {
+              "TAP_CANDS": "ok",
+              "surviving": "ok",
+              "pruned": "ok"
+            },
+            "arrows": [
+              [
+                "TAP_CANDS",
+                "surviving"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh",
-      "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
+      "codeHash": "7ea071070749b72c024090bc8c3f11c4d0303d2d905f911393d360c6a20dabf0",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "regression_suite",
+            "label": "regression_suite",
+            "tappable": true
+          },
+          {
+            "id": "new_bypasses",
+            "label": "new_bypasses",
+            "tappable": true
+          },
+          {
+            "id": "probe",
+            "label": "probe",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating automated red-teaming theory, Greedy Coordinate Gradient.",
-            "activeActor": "red_team_algorithms",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as regression_suite tracks autonomous state.",
+            "values": {
+              "regression_suite": {
+                "var": "regression_suite",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "new_bypasses": {
+                "text": ""
+              },
+              "probe": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "regression_suite": "data",
+              "new_bypasses": "idle",
+              "probe": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise autonomous red teaming and adversarial fuzzing meshes verify.",
-            "activeActor": "fuzzing_benchmarks",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the enterprise transition driving autonomous behavior.",
+            "values": {
+              "regression_suite": {
+                "var": "regression_suite",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "new_bypasses": {
+                "var": "new_bypasses",
+                "line": 8,
+                "hit": 2
+              },
+              "probe": {
+                "var": "probe",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "regression_suite": "data",
+              "new_bypasses": "data",
+              "probe": "data"
+            },
+            "arrows": [
+              [
+                "regression_suite",
+                "new_bypasses"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of autonomous red-teaming.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": {
-                  "var": "red_team_algorithms",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the unifying value produced for coordinate processing.",
+            "values": {
+              "regression_suite": {
+                "var": "regression_suite",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": {
-                  "var": "fuzzing_benchmarks",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "new_bypasses": {
+                "var": "new_bypasses",
+                "line": 8,
+                "hit": 3
+              },
+              "probe": {
+                "var": "probe",
+                "line": 8,
+                "hit": 3
               }
+            },
+            "tones": {
+              "regression_suite": "ok",
+              "new_bypasses": "ok",
+              "probe": "ok"
+            },
+            "arrows": [
+              [
+                "regression_suite",
+                "new_bypasses"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh",
-        "actors": [
-          "red_team_algorithms",
-          "fuzzing_benchmarks",
-          "result"
+        "nodes": [
+          {
+            "id": "regression_suite",
+            "label": "regression_suite",
+            "tappable": true
+          },
+          {
+            "id": "new_bypasses",
+            "label": "new_bypasses",
+            "tappable": true
+          },
+          {
+            "id": "probe",
+            "label": "probe",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating automated red-teaming theory, Greedy Coordinate Gradient.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "red_team_algorithms"
+            "caption": "Inspect enterprise updates as regression_suite tracks autonomous state.",
+            "values": {
+              "regression_suite": "{'base64:secret', 'ignore rules'}",
+              "new_bypasses": "",
+              "probe": ""
+            },
+            "tones": {
+              "regression_suite": "data",
+              "new_bypasses": "idle",
+              "probe": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise autonomous red teaming and adversarial fuzzing meshes verify.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "fuzzing_benchmarks"
+            "caption": "Verify the enterprise transition driving autonomous behavior.",
+            "values": {
+              "regression_suite": "{'base64:secret', 'ignore rules'}",
+              "new_bypasses": "[]",
+              "probe": "'r0t13 hidden override'"
+            },
+            "tones": {
+              "regression_suite": "data",
+              "new_bypasses": "data",
+              "probe": "data"
+            },
+            "arrows": [
+              [
+                "regression_suite",
+                "new_bypasses"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of autonomous red-teaming.",
-            "messages": [
-              {
-                "from": "red_team_algorithms",
-                "to": "fuzzing_benchmarks",
-                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
-                "tone": "data"
-              },
-              {
-                "from": "fuzzing_benchmarks",
-                "to": "result",
-                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the unifying value produced for coordinate processing.",
+            "values": {
+              "regression_suite": "{'base64:secret', 'ignore rules', 'r0t1…",
+              "new_bypasses": "['r0t13 hidden override']",
+              "probe": "'clean billing query'"
+            },
+            "tones": {
+              "regression_suite": "ok",
+              "new_bypasses": "ok",
+              "probe": "ok"
+            },
+            "arrows": [
+              [
+                "regression_suite",
+                "new_bypasses"
+              ]
+            ]
           }
         ]
       }

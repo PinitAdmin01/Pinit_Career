@@ -210,7 +210,7 @@
           },
           {
             "at": "say2",
-            "caption": "Vision_tokens(width, height, patch) returns patches across (ceil(width /.",
+            "caption": "Verify the patch transition driving tokens behavior.",
             "activeActor": "height",
             "messages": [
               {
@@ -294,7 +294,7 @@
           },
           {
             "at": "say2",
-            "caption": "Vision_tokens(width, height, patch) returns patches across (ceil(width /.",
+            "caption": "Verify the patch transition driving tokens behavior.",
             "messages": [
               {
                 "from": "width",
@@ -401,13 +401,13 @@
               },
               "w": {
                 "var": "w",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "h": {
                 "var": "h",
-                "line": 4,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "patch": {
                 "var": "patch",
@@ -433,13 +433,13 @@
               },
               "w": {
                 "var": "w",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "h": {
                 "var": "h",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "patch": {
                 "var": "patch",
@@ -499,8 +499,8 @@
             "caption": "Many APIs offer a detail setting.",
             "values": {
               "price_per_million": "2.5",
-              "w": "4000",
-              "h": "3000",
+              "w": "2000",
+              "h": "1500",
               "patch": "14"
             },
             "tones": {
@@ -515,8 +515,8 @@
             "caption": "These savings add up quickly in apps that process thousands of photos a day.",
             "values": {
               "price_per_million": "2.5",
-              "w": "4000",
-              "h": "3000",
+              "w": "1000",
+              "h": "750",
               "patch": "14"
             },
             "tones": {
@@ -556,7 +556,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "When resizing, keep the aspect ratio (width.",
+            "caption": "Inspect aspect updates as width tracks ratio state.",
             "values": {
               "width": {
                 "var": "width",
@@ -676,7 +676,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "When resizing, keep the aspect ratio (width.",
+            "caption": "Inspect aspect updates as width tracks ratio state.",
             "values": {
               "width": "1920",
               "height": "1080",
@@ -1030,6 +1030,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the specific transition driving read behavior.",
+            "activeActor": "reply",
+            "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": {
+                  "var": "message",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "reply",
@@ -1044,10 +1061,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "\"Read the total amount on this receipt and return JSON with total.",
+            "at": "say7",
+            "caption": "Tomorrow moves to operations.",
             "activeActor": "reply",
             "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": {
+                  "var": "message",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": {
+                  "var": "reply",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "message",
                 "to": "reply",
@@ -1067,14 +1104,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Tomorrow moves to operations.",
-            "activeActor": "reply",
-            "messages": [
+              },
               {
                 "from": "message",
                 "to": "reply",
@@ -1084,16 +1114,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "reply",
-                "to": "message",
-                "label": {
-                  "var": "reply",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -1116,19 +1136,13 @@
                 "to": "reply",
                 "label": "{'role': 'user', 'content': [{'type': '…",
                 "tone": "data"
-              },
-              {
-                "from": "reply",
-                "to": "message",
-                "label": "{'total': 450, 'currency': 'INR', 'item…",
-                "tone": "ok"
               }
             ],
             "activeActor": "message"
           },
           {
             "at": "say2",
-            "caption": "\"Read the total amount on this receipt and return JSON with total.",
+            "caption": "Verify the specific transition driving read behavior.",
             "messages": [
               {
                 "from": "message",
@@ -1160,6 +1174,24 @@
                 "to": "message",
                 "label": "{'total': 450, 'currency': 'INR', 'item…",
                 "tone": "ok"
+              },
+              {
+                "from": "message",
+                "to": "reply",
+                "label": "{'role': 'user', 'content': [{'type': '…",
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": "{'total': 450, 'currency': 'INR', 'item…",
+                "tone": "ok"
+              },
+              {
+                "from": "message",
+                "to": "reply",
+                "label": "{'role': 'user', 'content': [{'type': '…",
+                "tone": "data"
               }
             ],
             "activeActor": "reply"

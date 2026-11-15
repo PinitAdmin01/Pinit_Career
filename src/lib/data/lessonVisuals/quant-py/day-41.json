@@ -496,7 +496,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how portfolio updates trades during execution.",
+            "caption": "Verify the portfolio transition driving trades behavior.",
             "bars": [
               {
                 "label": "sum_eigen",
@@ -612,7 +612,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how portfolio updates trades during execution.",
+            "caption": "Verify the portfolio transition driving trades behavior.",
             "bars": [
               {
                 "label": "sum_eigen",
@@ -692,7 +692,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantitative risk controllers must enforce strict guardrails against.",
+            "caption": "Inspect guardrails updates as backtest_ic tracks quantitative state.",
             "values": {
               "backtest_ic": {
                 "var": "backtest_ic",
@@ -710,16 +710,14 @@
                 "hit": 1
               },
               "max_cost_drag": {
-                "var": "max_cost_drag",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "backtest_ic": "data",
               "nominal_breadth": "data",
               "tc": "data",
-              "max_cost_drag": "data"
+              "max_cost_drag": "idle"
             },
             "arrows": [
               [
@@ -854,18 +852,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantitative risk controllers must enforce strict guardrails against.",
+            "caption": "Inspect guardrails updates as backtest_ic tracks quantitative state.",
             "values": {
               "backtest_ic": "0.08",
               "nominal_breadth": "250",
               "tc": "0.75",
-              "max_cost_drag": "0.2"
+              "max_cost_drag": ""
             },
             "tones": {
               "backtest_ic": "data",
               "nominal_breadth": "data",
               "tc": "data",
-              "max_cost_drag": "data"
+              "max_cost_drag": "idle"
             },
             "arrows": [
               [
@@ -971,6 +969,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every trading quarter, the quantitative risk telemetry pipeline compares.",
+            "activeActor": "effective_breadth",
+            "messages": [
+              {
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": {
+                  "var": "realized_ic",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "effective_breadth",
@@ -985,10 +1000,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Every trading quarter, the quantitative risk telemetry pipeline compares.",
-            "activeActor": "effective_breadth",
+            "at": "say11",
+            "caption": "Real-time attribution verifies that excess returns stem from persistent.",
+            "activeActor": "realized_tc",
             "messages": [
+              {
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": {
+                  "var": "realized_ic",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": {
+                  "var": "effective_breadth",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "realized_ic",
                 "to": "effective_breadth",
@@ -1008,14 +1043,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Real-time attribution verifies that excess returns stem from persistent.",
-            "activeActor": "realized_tc",
-            "messages": [
+              },
               {
                 "from": "realized_ic",
                 "to": "effective_breadth",
@@ -1058,12 +1086,6 @@
                 "to": "effective_breadth",
                 "label": "0.045",
                 "tone": "data"
-              },
-              {
-                "from": "effective_breadth",
-                "to": "realized_tc",
-                "label": "180",
-                "tone": "ok"
               }
             ],
             "activeActor": "realized_ic"
@@ -1091,6 +1113,30 @@
             "at": "say11",
             "caption": "Real-time attribution verifies that excess returns stem from persistent.",
             "messages": [
+              {
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": "0.045",
+                "tone": "data"
+              },
+              {
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": "180",
+                "tone": "ok"
+              },
+              {
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": "0.045",
+                "tone": "data"
+              },
+              {
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": "180",
+                "tone": "ok"
+              },
               {
                 "from": "realized_ic",
                 "to": "effective_breadth",

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The simplest version of the idea counts, in some example text, which word.",
+            "activeActor": "words",
+            "messages": [
+              {
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "words",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The simplest version of the idea counts, in some example text, which word.",
-            "activeActor": "words",
+            "at": "say5",
+            "caption": "Keep this picture in mind all course.",
+            "activeActor": "follows",
             "messages": [
+              {
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": {
+                  "var": "words",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "text",
                 "to": "words",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Keep this picture in mind all course.",
-            "activeActor": "follows",
-            "messages": [
+              },
               {
                 "from": "text",
                 "to": "words",
@@ -118,12 +148,6 @@
                 "to": "words",
                 "label": "'good morning . good morning team . goo…",
                 "tone": "data"
-              },
-              {
-                "from": "words",
-                "to": "follows",
-                "label": "['good', 'morning', '.', 'good', 'morni…",
-                "tone": "ok"
               }
             ],
             "activeActor": "text"
@@ -151,6 +175,30 @@
             "at": "say5",
             "caption": "Keep this picture in mind all course.",
             "messages": [
+              {
+                "from": "text",
+                "to": "words",
+                "label": "'good morning . good morning team . goo…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": "['good', 'morning', '.', 'good', 'morni…",
+                "tone": "ok"
+              },
+              {
+                "from": "text",
+                "to": "words",
+                "label": "'good morning . good morning team . goo…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": "['good', 'morning', '.', 'good', 'morni…",
+                "tone": "ok"
+              },
               {
                 "from": "text",
                 "to": "words",
@@ -1056,13 +1104,13 @@
               },
               "i": {
                 "var": "i",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "row": {
                 "var": "row",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -1102,13 +1150,13 @@
               },
               "i": {
                 "var": "i",
-                "line": 6,
-                "hit": 2
+                "line": 5,
+                "hit": 3
               },
               "row": {
                 "var": "row",
-                "line": 6,
-                "hit": 2
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -1192,8 +1240,8 @@
             "values": {
               "scores": "[[2, 1, 0.5], [1, 2, 0.5], [0.5, 1, 2]]",
               "tokens": "['I', 'love', 'chai']",
-              "i": "0",
-              "row": "[2, 1, 0.5]"
+              "i": "1",
+              "row": "[1, 2, 0.5]"
             },
             "tones": {
               "scores": "data",
@@ -1222,8 +1270,8 @@
             "values": {
               "scores": "[[2, 1, 0.5], [1, 2, 0.5], [0.5, 1, 2]]",
               "tokens": "['I', 'love', 'chai']",
-              "i": "0",
-              "row": "[2, 1, 0.5]"
+              "i": "2",
+              "row": "[0.5, 1, 2]"
             },
             "tones": {
               "scores": "ok",

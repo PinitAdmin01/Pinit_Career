@@ -274,16 +274,14 @@
                 "hit": 1
               },
               "strategy_vols": {
-                "var": "strategy_vols",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "alphas": "data",
               "vols": "data",
               "strategy_alphas": "data",
-              "strategy_vols": "data"
+              "strategy_vols": "idle"
             },
             "arrows": [
               [
@@ -423,13 +421,13 @@
               "alphas": "[0.08, 0.06, 0.05]",
               "vols": "[0.18, 0.12, 0.14]",
               "strategy_alphas": "[0.08, 0.06, 0.05]",
-              "strategy_vols": "[0.18, 0.12, 0.14]"
+              "strategy_vols": ""
             },
             "tones": {
               "alphas": "data",
               "vols": "data",
               "strategy_alphas": "data",
-              "strategy_vols": "data"
+              "strategy_vols": "idle"
             },
             "arrows": [
               [
@@ -523,8 +521,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates institutional during execution.",
+            "caption": "Observe how scaling shapes institutional during this step.",
             "activeActor": "base",
+            "messages": [
+              {
+                "from": "base",
+                "to": "clients",
+                "label": {
+                  "var": "base",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Evaluating high-dimensional matrix operations and recursive tree.",
+            "activeActor": "clients",
             "messages": [
               {
                 "from": "base",
@@ -549,10 +564,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Evaluating high-dimensional matrix operations and recursive tree.",
-            "activeActor": "clients",
+            "at": "say11",
+            "caption": "High-throughput vector operations ensure that enterprise wealth platforms.",
+            "activeActor": "base_weights",
             "messages": [
+              {
+                "from": "base",
+                "to": "clients",
+                "label": {
+                  "var": "base",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "clients",
+                "to": "base_weights",
+                "label": {
+                  "var": "clients",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "base",
                 "to": "clients",
@@ -572,14 +607,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "High-throughput vector operations ensure that enterprise wealth platforms.",
-            "activeActor": "base_weights",
-            "messages": [
+              },
               {
                 "from": "base",
                 "to": "clients",
@@ -615,19 +643,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how scaling updates institutional during execution.",
+            "caption": "Observe how scaling shapes institutional during this step.",
             "messages": [
               {
                 "from": "base",
                 "to": "clients",
                 "label": "[0.4, 0.35, 0.25]",
                 "tone": "data"
-              },
-              {
-                "from": "clients",
-                "to": "base_weights",
-                "label": "[['CLIENT_001', 1000000, 0.02], ['CLIEN…",
-                "tone": "ok"
               }
             ],
             "activeActor": "base"
@@ -666,6 +688,30 @@
                 "to": "base_weights",
                 "label": "[['CLIENT_001', 1000000, 0.02], ['CLIEN…",
                 "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "clients",
+                "label": "[0.4, 0.35, 0.25]",
+                "tone": "data"
+              },
+              {
+                "from": "clients",
+                "to": "base_weights",
+                "label": "[['CLIENT_001', 1000000, 0.02], ['CLIEN…",
+                "tone": "ok"
+              },
+              {
+                "from": "base",
+                "to": "clients",
+                "label": "[0.4, 0.35, 0.25]",
+                "tone": "data"
+              },
+              {
+                "from": "clients",
+                "to": "base_weights",
+                "label": "[['CLIENT_001', 1000000, 0.02], ['CLIEN…",
+                "tone": "ok"
               }
             ],
             "activeActor": "base_weights"
@@ -682,7 +728,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operational updates risk during execution.",
+            "caption": "Observe how milestone shapes operational during this step.",
             "bars": [
               {
                 "label": "current_dd",
@@ -814,7 +860,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how operational updates risk during execution.",
+            "caption": "Observe how milestone shapes operational during this step.",
             "bars": [
               {
                 "label": "current_dd",

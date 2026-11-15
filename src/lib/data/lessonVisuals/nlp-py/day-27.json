@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "samples": {
-                "var": "samples",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "probs": "data",
               "greedy": "data",
               "rng": "data",
-              "samples": "data"
+              "samples": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "probs": "{'the': 0.45, 'a': 0.25, 'one': 0.15, '…",
               "greedy": "'the'",
               "rng": "<Random>",
-              "samples": "['a', 'the', 'the', 'the', 'one', 'a', …"
+              "samples": ""
             },
             "tones": {
               "probs": "data",
               "greedy": "data",
               "rng": "data",
-              "samples": "data"
+              "samples": "idle"
             },
             "arrows": [
               [
@@ -686,7 +684,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how nucleus updates sampling during execution.",
+            "caption": "Observe how nucleus shapes sampling during this step.",
             "bars": [
               {
                 "label": "p",
@@ -764,7 +762,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how nucleus updates sampling during execution.",
+            "caption": "Observe how nucleus shapes sampling during this step.",
             "bars": [
               {
                 "label": "p",
@@ -826,7 +824,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For tasks with one correct answer (extraction, classification.",
+            "caption": "Observe how decoding shapes tasks during this step.",
             "rows": [
               {
                 "cells": [
@@ -924,7 +922,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For tasks with one correct answer (extraction, classification.",
+            "caption": "Observe how decoding shapes tasks during this step.",
             "rows": [
               {
                 "cells": [

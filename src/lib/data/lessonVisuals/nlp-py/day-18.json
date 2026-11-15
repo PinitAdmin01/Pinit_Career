@@ -78,17 +78,17 @@
           },
           {
             "at": "say2",
-            "caption": "Because no position waits for the previous one, all positions are.",
+            "caption": "Verify the because transition driving position behavior.",
             "values": {
               "n": {
                 "var": "n",
-                "line": 2,
-                "hit": 1
+                "line": 1,
+                "hit": 2
               },
               "rnn_sequential_steps": {
                 "var": "rnn_sequential_steps",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "transformer_sequential_steps": {
                 "var": "transformer_sequential_steps",
@@ -97,8 +97,8 @@
               },
               "attention_pairs": {
                 "var": "attention_pairs",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -128,13 +128,13 @@
             "values": {
               "n": {
                 "var": "n",
-                "line": 3,
-                "hit": 1
+                "line": 1,
+                "hit": 3
               },
               "rnn_sequential_steps": {
                 "var": "rnn_sequential_steps",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "transformer_sequential_steps": {
                 "var": "transformer_sequential_steps",
@@ -143,8 +143,8 @@
               },
               "attention_pairs": {
                 "var": "attention_pairs",
-                "line": 1,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -224,12 +224,12 @@
           },
           {
             "at": "say2",
-            "caption": "Because no position waits for the previous one, all positions are.",
+            "caption": "Verify the because transition driving position behavior.",
             "values": {
-              "n": "10",
-              "rnn_sequential_steps": "10",
+              "n": "100",
+              "rnn_sequential_steps": "100",
               "transformer_sequential_steps": "1",
-              "attention_pairs": "100"
+              "attention_pairs": "10000"
             },
             "tones": {
               "n": "data",
@@ -256,10 +256,10 @@
             "at": "say7",
             "caption": "The price is that attention compares every pair of positions, so cost.",
             "values": {
-              "n": "10",
-              "rnn_sequential_steps": "10",
+              "n": "1000",
+              "rnn_sequential_steps": "1000",
               "transformer_sequential_steps": "1",
-              "attention_pairs": "100"
+              "attention_pairs": "1000000"
             },
             "tones": {
               "n": "ok",
@@ -648,7 +648,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how transformer updates encoder during execution.",
+            "caption": "Inspect encoder updates as x tracks transformer state.",
             "values": {
               "x": {
                 "var": "x",
@@ -666,16 +666,14 @@
                 "hit": 4
               },
               "v": {
-                "var": "v",
-                "line": 4,
-                "hit": 2
+                "text": ""
               }
             },
             "tones": {
               "x": "data",
               "attention_out": "data",
               "after_attention": "data",
-              "v": "data"
+              "v": "idle"
             },
             "arrows": [
               [
@@ -810,18 +808,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how transformer updates encoder during execution.",
+            "caption": "Inspect encoder updates as x tracks transformer state.",
             "values": {
               "x": "[0.5, -1, 2]",
               "attention_out": "[0.2, 0.1, -0.3]",
               "after_attention": "[0.7, -0.9, 1.7]",
-              "v": "[0.7, -0.9, 1.7]"
+              "v": ""
             },
             "tones": {
               "x": "data",
               "attention_out": "data",
               "after_attention": "data",
-              "v": "data"
+              "v": "idle"
             },
             "arrows": [
               [
@@ -909,158 +907,98 @@
         "title": "Practice time: scores and attention",
         "nodes": [
           {
-            "id": "Q",
-            "label": "Q"
-          },
-          {
-            "id": "K",
-            "label": "K"
-          },
-          {
             "id": "q",
-            "label": "q"
+            "label": "q",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          },
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sum(a * b for a, b in zip(q, k)) divided by math.",
+            "caption": "Inspect practice updates as q tracks scaled state.",
             "values": {
-              "Q": {
-                "var": "Q",
-                "line": 3,
-                "hit": 1
-              },
-              "K": {
-                "var": "K",
-                "line": 4,
-                "hit": 1
-              },
               "q": {
                 "var": "q",
                 "line": 5,
                 "hit": 1
               },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 1
+              "a": {
+                "text": ""
+              },
+              "b": {
+                "text": ""
               }
             },
             "tones": {
-              "Q": "data",
-              "K": "data",
               "q": "data",
-              ".0": "data"
+              "a": "idle",
+              "b": "idle"
             },
-            "arrows": [
-              [
-                "Q",
-                "K"
-              ],
-              [
-                "K",
-                "q"
-              ],
-              [
-                "q",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "[1, 0, 1, 0] with [1, 1, 1, 1] gives 2 / 2 = 1.",
+            "caption": "Verify the checks transition driving gives behavior.",
             "values": {
-              "Q": {
-                "var": "Q",
-                "line": 4,
-                "hit": 1
-              },
-              "K": {
-                "var": "K",
-                "line": 5,
-                "hit": 1
-              },
               "q": {
                 "var": "q",
                 "line": 6,
-                "hit": 4
+                "hit": 13
               },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 2
+              "a": {
+                "text": ""
+              },
+              "b": {
+                "text": ""
               }
             },
             "tones": {
-              "Q": "data",
-              "K": "data",
               "q": "data",
-              ".0": "data"
+              "a": "idle",
+              "b": "idle"
             },
             "arrows": [
               [
-                "Q",
-                "K"
-              ],
-              [
-                "K",
-                "q"
-              ],
-              [
                 "q",
-                ".0"
+                "a"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example checks a key property.",
+            "at": "say3",
+            "caption": "Practice 2: self_attention(Q, K, V).",
             "values": {
-              "Q": {
-                "var": "Q",
-                "line": 5,
-                "hit": 1
-              },
-              "K": {
-                "var": "K",
-                "line": 6,
-                "hit": 4
-              },
               "q": {
                 "var": "q",
                 "line": 6,
-                "hit": 8
+                "hit": 26
               },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 3
+              "a": {
+                "text": ""
+              },
+              "b": {
+                "text": ""
               }
             },
             "tones": {
-              "Q": "ok",
-              "K": "ok",
               "q": "ok",
-              ".0": "ok"
+              "a": "idle",
+              "b": "idle"
             },
             "arrows": [
               [
-                "Q",
-                "K"
-              ],
-              [
-                "K",
-                "q"
-              ],
-              [
                 "q",
-                ".0"
+                "a"
               ]
             ]
           }
@@ -1071,110 +1009,74 @@
         "title": "Practice time: scores and attention",
         "nodes": [
           {
-            "id": "Q",
-            "label": "Q"
-          },
-          {
-            "id": "K",
-            "label": "K"
-          },
-          {
             "id": "q",
-            "label": "q"
+            "label": "q",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          },
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sum(a * b for a, b in zip(q, k)) divided by math.",
+            "caption": "Inspect practice updates as q tracks scaled state.",
             "values": {
-              "Q": "[[1, 0], [0.5, 0.5]]",
-              "K": "[[1, 0], [0, 1], [0.6, 0.8]]",
               "q": "[1, 0]",
-              ".0": "{'__other__': 'zip'}"
+              "a": "",
+              "b": ""
             },
             "tones": {
-              "Q": "data",
-              "K": "data",
               "q": "data",
-              ".0": "data"
+              "a": "idle",
+              "b": "idle"
             },
-            "arrows": [
-              [
-                "Q",
-                "K"
-              ],
-              [
-                "K",
-                "q"
-              ],
-              [
-                "q",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "[1, 0, 1, 0] with [1, 1, 1, 1] gives 2 / 2 = 1.",
+            "caption": "Verify the checks transition driving gives behavior.",
             "values": {
-              "Q": "[[1, 0], [0.5, 0.5]]",
-              "K": "[[1, 0], [0, 1], [0.6, 0.8]]",
               "q": "[1, 0]",
-              ".0": "{'__other__': 'zip'}"
+              "a": "",
+              "b": ""
             },
             "tones": {
-              "Q": "data",
-              "K": "data",
               "q": "data",
-              ".0": "data"
+              "a": "idle",
+              "b": "idle"
             },
             "arrows": [
               [
-                "Q",
-                "K"
-              ],
-              [
-                "K",
-                "q"
-              ],
-              [
                 "q",
-                ".0"
+                "a"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example checks a key property.",
+            "at": "say3",
+            "caption": "Practice 2: self_attention(Q, K, V).",
             "values": {
-              "Q": "[[1, 0], [0.5, 0.5]]",
-              "K": "[[1, 0], [0, 1], [0.6, 0.8]]",
-              "q": "[1, 0]",
-              ".0": "{'__other__': 'zip'}"
+              "q": "[0.5, 0.5]",
+              "a": "",
+              "b": ""
             },
             "tones": {
-              "Q": "ok",
-              "K": "ok",
               "q": "ok",
-              ".0": "ok"
+              "a": "idle",
+              "b": "idle"
             },
             "arrows": [
               [
-                "Q",
-                "K"
-              ],
-              [
-                "K",
-                "q"
-              ],
-              [
                 "q",
-                ".0"
+                "a"
               ]
             ]
           }

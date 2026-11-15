@@ -292,18 +292,18 @@
             "values": {
               "word": {
                 "var": "word",
-                "line": 2,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "w": {
                 "var": "w",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "suf": {
                 "var": "suf",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -324,22 +324,22 @@
           },
           {
             "at": "say7",
-            "caption": "The example runs the simple stemmer over a list of words, including some.",
+            "caption": "Examine the example value produced for runs processing.",
             "values": {
               "word": {
                 "var": "word",
-                "line": 3,
-                "hit": 1
+                "line": 11,
+                "hit": 3
               },
               "w": {
                 "var": "w",
-                "line": 4,
+                "line": 8,
                 "hit": 1
               },
               "suf": {
                 "var": "suf",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -406,9 +406,9 @@
             "at": "say2",
             "caption": "Stems are not always real words.",
             "values": {
-              "word": "'running'",
-              "w": "'running'",
-              "suf": "'ing'"
+              "word": "'stopped'",
+              "w": "'runn'",
+              "suf": "'ed'"
             },
             "tones": {
               "word": "data",
@@ -428,10 +428,10 @@
           },
           {
             "at": "say7",
-            "caption": "The example runs the simple stemmer over a list of words, including some.",
+            "caption": "Examine the example value produced for runs processing.",
             "values": {
-              "word": "'running'",
-              "w": "'running'",
+              "word": "'quickly'",
+              "w": "'run'",
               "suf": "'ing'"
             },
             "tones": {

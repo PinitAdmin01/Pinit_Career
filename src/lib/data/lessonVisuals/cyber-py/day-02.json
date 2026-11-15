@@ -592,13 +592,13 @@
               },
               "account": {
                 "var": "account",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "statement": {
                 "var": "statement",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -638,13 +638,13 @@
               },
               "account": {
                 "var": "account",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "statement": {
                 "var": "statement",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -728,8 +728,8 @@
             "values": {
               "granted": "{'app_user': {'INSERT', 'SELECT', 'UPDA…",
               "attempts": "[['app_user', 'SELECT'], ['app_user', '…",
-              "account": "'app_user'",
-              "statement": "'SELECT'"
+              "account": "'report_user'",
+              "statement": "'DROP'"
             },
             "tones": {
               "granted": "data",
@@ -758,8 +758,8 @@
             "values": {
               "granted": "{'app_user': {'INSERT', 'SELECT', 'UPDA…",
               "attempts": "[['app_user', 'SELECT'], ['app_user', '…",
-              "account": "'app_user'",
-              "statement": "'SELECT'"
+              "account": "'report_user'",
+              "statement": "'UPDATE'"
             },
             "tones": {
               "granted": "ok",
@@ -789,162 +789,112 @@
       "partTitle": "Practice time: build and detect",
       "codeHash": "c6eb6a79d121e30db4f27ddd1db727ef93ec14114443395524e5b168f9140c8c",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: build and detect",
-        "actors": [
-          "IDENT",
-          "filters",
-          ".0"
+        "nodes": [
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Build_query(table, filters).",
-            "activeActor": "IDENT",
-            "messages": [
-              {
-                "from": "IDENT",
-                "to": "filters",
-                "label": {
-                  "var": "IDENT",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Practice 1: build_query(table, filters).",
+            "values": {
+              "c": {
+                "var": "c",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": "filters",
-                "to": ".0",
-                "label": {
-                  "var": "filters",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "c": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include an injection string as a value (which must stay.",
-            "activeActor": "filters",
-            "messages": [
-              {
-                "from": "IDENT",
-                "to": "filters",
-                "label": {
-                  "var": "IDENT",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the checks transition driving include behavior.",
+            "values": {
+              "c": {
+                "var": "c",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "from": "filters",
-                "to": ".0",
-                "label": {
-                  "var": "filters",
-                  "line": 5,
-                  "hit": 4
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "In code reviews, search for SQL built with + or f-strings.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "IDENT",
-                "to": "filters",
-                "label": {
-                  "var": "IDENT",
-                  "line": 5,
-                  "hit": 4
-                },
-                "tone": "data"
-              },
-              {
-                "from": "filters",
-                "to": ".0",
-                "label": {
-                  "var": "filters",
-                  "line": 6,
-                  "hit": 4
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "c": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "c",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: build and detect",
-        "actors": [
-          "IDENT",
-          "filters",
-          ".0"
+        "nodes": [
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Build_query(table, filters).",
-            "messages": [
-              {
-                "from": "IDENT",
-                "to": "filters",
-                "label": "'[A-Za-z_][A-Za-z0-9_]*'",
-                "tone": "data"
-              },
-              {
-                "from": "filters",
-                "to": ".0",
-                "label": "{'city': 'Pune', 'name': \"x' OR 1=1 --\"}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "IDENT"
+            "caption": "Practice 1: build_query(table, filters).",
+            "values": {
+              "c": "'city'",
+              "out": ""
+            },
+            "tones": {
+              "c": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include an injection string as a value (which must stay.",
-            "messages": [
-              {
-                "from": "IDENT",
-                "to": "filters",
-                "label": "'[A-Za-z_][A-Za-z0-9_]*'",
-                "tone": "data"
-              },
-              {
-                "from": "filters",
-                "to": ".0",
-                "label": "{'city': 'Pune', 'name': \"x' OR 1=1 --\"}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "filters"
-          },
-          {
-            "at": "say9",
-            "caption": "In code reviews, search for SQL built with + or f-strings.",
-            "messages": [
-              {
-                "from": "IDENT",
-                "to": "filters",
-                "label": "'[A-Za-z_][A-Za-z0-9_]*'",
-                "tone": "data"
-              },
-              {
-                "from": "filters",
-                "to": ".0",
-                "label": "{'city': 'Pune', 'name': \"x' OR 1=1 --\"}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the checks transition driving include behavior.",
+            "values": {
+              "c": "'name'",
+              "out": "SELECT * FROM customers WHERE city = ? AND name = ? ('Pune', \"x' OR 1=1 --\")"
+            },
+            "tones": {
+              "c": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "c",
+                "out"
+              ]
+            ]
           }
         ]
       }

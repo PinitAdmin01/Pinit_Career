@@ -311,6 +311,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A scorecard lists key controls, such as MFA, patching, backups, logging.",
+            "activeActor": "score",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": {
+                  "var": "controls",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "score",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A scorecard lists key controls, such as MFA, patching, backups, logging.",
-            "activeActor": "score",
+            "at": "say10",
+            "caption": "Be honest when scoring.",
+            "activeActor": "grade",
             "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": {
+                  "var": "controls",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": {
+                  "var": "score",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "controls",
                 "to": "score",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Be honest when scoring.",
-            "activeActor": "grade",
-            "messages": [
+              },
               {
                 "from": "controls",
                 "to": "score",
@@ -398,12 +428,6 @@
                 "to": "score",
                 "label": "{'mfa': True, 'patching': True, 'backup…",
                 "tone": "data"
-              },
-              {
-                "from": "score",
-                "to": "grade",
-                "label": "75",
-                "tone": "ok"
               }
             ],
             "activeActor": "controls"
@@ -431,6 +455,30 @@
             "at": "say10",
             "caption": "Be honest when scoring.",
             "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": "{'mfa': True, 'patching': True, 'backup…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": "75",
+                "tone": "ok"
+              },
+              {
+                "from": "controls",
+                "to": "score",
+                "label": "{'mfa': True, 'patching': True, 'backup…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": "75",
+                "tone": "ok"
+              },
               {
                 "from": "controls",
                 "to": "score",

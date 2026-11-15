@@ -92,13 +92,13 @@
               },
               "order_id": {
                 "var": "order_id",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "amount": {
                 "var": "amount",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -138,13 +138,13 @@
               },
               "order_id": {
                 "var": "order_id",
-                "line": 11,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "amount": {
                 "var": "amount",
-                "line": 11,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -228,8 +228,8 @@
             "values": {
               "self": "<DbWithOutbox>",
               "db": "<DbWithOutbox>",
-              "order_id": "'ord-1'",
-              "amount": "120"
+              "order_id": "'ord-2'",
+              "amount": "-5"
             },
             "tones": {
               "self": "data",
@@ -258,8 +258,8 @@
             "values": {
               "self": "<DbWithOutbox>",
               "db": "<DbWithOutbox>",
-              "order_id": "'ord-1'",
-              "amount": "120"
+              "order_id": "'ord-2'",
+              "amount": "-5"
             },
             "tones": {
               "self": "ok",
@@ -419,6 +419,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "On restart, the relay resumes conservatively from its last saved.",
+            "activeActor": "consumer",
+            "messages": [
+              {
+                "from": "self",
+                "to": "consumer",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "consumer",
@@ -433,10 +450,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "On restart, the relay resumes conservatively from its last saved.",
-            "activeActor": "consumer",
+            "at": "say7",
+            "caption": "Test the duplicate crash-replay outbox consumer guard below proving zero.",
+            "activeActor": "ev",
             "messages": [
+              {
+                "from": "self",
+                "to": "consumer",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "consumer",
+                "to": "ev",
+                "label": {
+                  "var": "consumer",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "consumer",
@@ -456,14 +493,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Test the duplicate crash-replay outbox consumer guard below proving zero.",
-            "activeActor": "ev",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "consumer",
@@ -506,12 +536,6 @@
                 "to": "consumer",
                 "label": "<IdempotentBillingConsumer>",
                 "tone": "data"
-              },
-              {
-                "from": "consumer",
-                "to": "ev",
-                "label": "<IdempotentBillingConsumer>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -539,6 +563,30 @@
             "at": "say7",
             "caption": "Test the duplicate crash-replay outbox consumer guard below proving zero.",
             "messages": [
+              {
+                "from": "self",
+                "to": "consumer",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "data"
+              },
+              {
+                "from": "consumer",
+                "to": "ev",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "consumer",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "data"
+              },
+              {
+                "from": "consumer",
+                "to": "ev",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "consumer",
@@ -598,7 +646,7 @@
           },
           {
             "at": "say7",
-            "caption": "Demonstrate the concurrent T1/T2 uncommitted-ID gap trap vs safe CDC.",
+            "caption": "Examine the ordering value produced for scaling processing.",
             "items": {
               "var": "row",
               "line": 20,
@@ -654,7 +702,7 @@
           },
           {
             "at": "say7",
-            "caption": "Demonstrate the concurrent T1/T2 uncommitted-ID gap trap vs safe CDC.",
+            "caption": "Examine the ordering value produced for scaling processing.",
             "items": [
               "15",
               "'ord-9'",
@@ -698,6 +746,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Clean outbox architectures prune acknowledged rows sustainably using two.",
+            "activeActor": "wal",
+            "messages": [
+              {
+                "from": "orders",
+                "to": "wal",
+                "label": {
+                  "var": "orders",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "wal",
@@ -712,10 +777,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Clean outbox architectures prune acknowledged rows sustainably using two.",
-            "activeActor": "wal",
+            "at": "say5",
+            "caption": "Run the full end-to-end Transactional Outbox + WAL CDC + Idempotent.",
+            "activeActor": "broker",
             "messages": [
+              {
+                "from": "orders",
+                "to": "wal",
+                "label": {
+                  "var": "orders",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "broker",
+                "label": {
+                  "var": "wal",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "orders",
                 "to": "wal",
@@ -735,14 +820,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Run the full end-to-end Transactional Outbox + WAL CDC + Idempotent.",
-            "activeActor": "broker",
-            "messages": [
+              },
               {
                 "from": "orders",
                 "to": "wal",
@@ -785,12 +863,6 @@
                 "to": "wal",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "wal",
-                "to": "broker",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "orders"
@@ -818,6 +890,30 @@
             "at": "say5",
             "caption": "Run the full end-to-end Transactional Outbox + WAL CDC + Idempotent.",
             "messages": [
+              {
+                "from": "orders",
+                "to": "wal",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "broker",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "orders",
+                "to": "wal",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "broker",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "orders",
                 "to": "wal",

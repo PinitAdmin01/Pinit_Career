@@ -204,16 +204,14 @@
                 "hit": 1
               },
               "plaintext_dek": {
-                "var": "plaintext_dek",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "ctx": "data",
               "kms_key_id": "data",
               "context": "data",
-              "plaintext_dek": "data"
+              "plaintext_dek": "idle"
             },
             "arrows": [
               [
@@ -353,13 +351,13 @@
               "ctx": "{'tenant_id': 'cust_404', 'data_class':…",
               "kms_key_id": "'arn:aws:kms:us-east-1:key-99'",
               "context": "{'tenant_id': 'cust_404', 'data_class':…",
-              "plaintext_dek": "{'__other__': 'bytes'}"
+              "plaintext_dek": ""
             },
             "tones": {
               "ctx": "data",
               "kms_key_id": "data",
               "context": "data",
-              "plaintext_dek": "data"
+              "plaintext_dek": "idle"
             },
             "arrows": [
               [
@@ -383,7 +381,7 @@
               "ctx": "{'tenant_id': 'cust_404', 'data_class':…",
               "kms_key_id": "'arn:aws:kms:us-east-1:key-99'",
               "context": "{'tenant_id': 'cust_404', 'data_class':…",
-              "plaintext_dek": "{'__other__': 'bytes'}"
+              "plaintext_dek": "<bytes>"
             },
             "tones": {
               "ctx": "data",
@@ -413,7 +411,7 @@
               "ctx": "{'tenant_id': 'cust_404', 'data_class':…",
               "kms_key_id": "'arn:aws:kms:us-east-1:key-99'",
               "context": "{'tenant_id': 'cust_404', 'data_class':…",
-              "plaintext_dek": "{'__other__': 'bytes'}"
+              "plaintext_dek": "<bytes>"
             },
             "tones": {
               "ctx": "ok",
@@ -484,16 +482,14 @@
                 "hit": 1
               },
               "base_id": {
-                "var": "base_id",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "mrk_primary": "data",
               "primary_key_arn": "data",
               "target_regions": "data",
-              "base_id": "data"
+              "base_id": "idle"
             },
             "arrows": [
               [
@@ -558,7 +554,7 @@
           },
           {
             "at": "say9",
-            "caption": "Decoupled regional key policies ensure that security administrators.",
+            "caption": "Examine the cross value produced for region processing.",
             "values": {
               "mrk_primary": {
                 "var": "mrk_primary",
@@ -633,13 +629,13 @@
               "mrk_primary": "'arn:aws:kms:us-east-1:123456789012:key…",
               "primary_key_arn": "'arn:aws:kms:us-east-1:123456789012:key…",
               "target_regions": "['eu-west-1', 'ap-southeast-1']",
-              "base_id": "'mrk-4bf92f3577b34da6'"
+              "base_id": ""
             },
             "tones": {
               "mrk_primary": "data",
               "primary_key_arn": "data",
               "target_regions": "data",
-              "base_id": "data"
+              "base_id": "idle"
             },
             "arrows": [
               [
@@ -688,7 +684,7 @@
           },
           {
             "at": "say9",
-            "caption": "Decoupled regional key policies ensure that security administrators.",
+            "caption": "Examine the cross value produced for region processing.",
             "values": {
               "mrk_primary": "'arn:aws:kms:us-east-1:123456789012:key…",
               "primary_key_arn": "'arn:aws:kms:us-east-1:123456789012:key…",
@@ -745,6 +741,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the mandatory transition driving deletion behavior.",
+            "activeActor": "key_metadata",
+            "messages": [
+              {
+                "from": "km",
+                "to": "key_metadata",
+                "label": {
+                  "var": "km",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "key_metadata",
@@ -759,10 +772,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Mandatory key deletion waiting periods safeguard organizations against.",
-            "activeActor": "key_metadata",
+            "at": "say9",
+            "caption": "Examine the rotation value produced for long processing.",
+            "activeActor": "current_year",
             "messages": [
+              {
+                "from": "km",
+                "to": "key_metadata",
+                "label": {
+                  "var": "km",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": {
+                  "var": "key_metadata",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "km",
                 "to": "key_metadata",
@@ -782,14 +815,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Carefully structured key policies ensure that administrative roles can.",
-            "activeActor": "current_year",
-            "messages": [
+              },
               {
                 "from": "km",
                 "to": "key_metadata",
@@ -832,19 +858,13 @@
                 "to": "key_metadata",
                 "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
                 "tone": "data"
-              },
-              {
-                "from": "key_metadata",
-                "to": "current_year",
-                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
-                "tone": "ok"
               }
             ],
             "activeActor": "km"
           },
           {
             "at": "say2",
-            "caption": "Mandatory key deletion waiting periods safeguard organizations against.",
+            "caption": "Verify the mandatory transition driving deletion behavior.",
             "messages": [
               {
                 "from": "km",
@@ -863,8 +883,32 @@
           },
           {
             "at": "say9",
-            "caption": "Carefully structured key policies ensure that administrative roles can.",
+            "caption": "Examine the rotation value produced for long processing.",
             "messages": [
+              {
+                "from": "km",
+                "to": "key_metadata",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "data"
+              },
+              {
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "ok"
+              },
+              {
+                "from": "km",
+                "to": "key_metadata",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "data"
+              },
+              {
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "ok"
+              },
               {
                 "from": "km",
                 "to": "key_metadata",

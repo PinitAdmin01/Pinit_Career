@@ -98,7 +98,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how instance updates note during execution.",
+            "caption": "Examine the instance value produced for note processing.",
             "bars": [
               {
                 "label": "billions",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how instance updates note during execution.",
+            "caption": "Examine the instance value produced for note processing.",
             "bars": [
               {
                 "label": "billions",
@@ -284,7 +284,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how model updates size during execution.",
+            "caption": "Verify the model transition driving size behavior.",
             "values": {
               "plan": {
                 "var": "plan",
@@ -400,7 +400,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how model updates size during execution.",
+            "caption": "Verify the model transition driving size behavior.",
             "values": {
               "plan": "[['model', '7B dense transformer'], ['d…",
               "key": "'model'",
@@ -457,20 +457,14 @@
         "title": "Reporting a training run",
         "nodes": [
           {
-            "id": "log",
-            "label": "log"
-          },
-          {
-            "id": "good",
-            "label": "good"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "e",
-            "label": "e"
+            "label": "e",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
@@ -478,137 +472,66 @@
             "at": "say1",
             "caption": "During and after a run, a report summarises what actually happened.",
             "values": {
-              "log": {
-                "var": "log",
-                "line": 3,
-                "hit": 2
-              },
-              "good": {
-                "var": "good",
-                "line": 7,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
-                "line": 10,
-                "hit": 1
-              },
               "e": {
                 "var": "e",
                 "line": 10,
                 "hit": 1
+              },
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "log": "data",
-              "good": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "log",
-                "good"
-              ],
-              [
-                "good",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Steps completed, final and best loss, any NaN or unstable steps,.",
+            "caption": "Verify the facts transition driving steps behavior.",
             "values": {
-              "log": {
-                "var": "log",
-                "line": 7,
-                "hit": 1
-              },
-              "good": {
-                "var": "good",
-                "line": 8,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 10,
-                "hit": 2
-              },
               "e": {
                 "var": "e",
                 "line": 10,
-                "hit": 2
+                "hit": 3
+              },
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "log": "data",
-              "good": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "good"
-              ],
-              [
-                "good",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Automating the report from the training log, as Practice 2 does, means it.",
+            "at": "say3",
+            "caption": "Practice 2 is run_report(log).",
             "values": {
-              "log": {
-                "var": "log",
-                "line": 7,
-                "hit": 2
-              },
-              "good": {
-                "var": "good",
-                "line": 9,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 10,
-                "hit": 3
-              },
               "e": {
                 "var": "e",
                 "line": 10,
-                "hit": 3
+                "hit": 4
+              },
+              "out": {
+                "out": 2
               }
             },
             "tones": {
-              "log": "ok",
-              "good": "ok",
-              ".0": "ok",
-              "e": "ok"
+              "e": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "good"
-              ],
-              [
-                "good",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           }
@@ -619,20 +542,14 @@
         "title": "Reporting a training run",
         "nodes": [
           {
-            "id": "log",
-            "label": "log"
-          },
-          {
-            "id": "good",
-            "label": "good"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "e",
-            "label": "e"
+            "label": "e",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
@@ -640,89 +557,48 @@
             "at": "say1",
             "caption": "During and after a run, a report summarises what actually happened.",
             "values": {
-              "log": "[{'step': 1, 'loss': 4.2, 'tokens': 400…",
-              "good": "[4.2, 3.61234, 3.7]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "e": "{'step': 1, 'loss': 4.2, 'tokens': 4000…"
+              "e": "{'step': 1, 'loss': 4.2, 'tokens': 4000…",
+              "out": ""
             },
             "tones": {
-              "log": "data",
-              "good": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "log",
-                "good"
-              ],
-              [
-                "good",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Steps completed, final and best loss, any NaN or unstable steps,.",
+            "caption": "Verify the facts transition driving steps behavior.",
             "values": {
-              "log": "[{'step': 1, 'loss': 4.2, 'tokens': 400…",
-              "good": "[4.2, 3.61234, 3.7]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "e": "{'step': 2, 'loss': nan, 'tokens': 4000…"
+              "e": "{'step': 3, 'loss': 3.61234, 'tokens': …",
+              "out": "final loss: 3.7 | best loss: 3.6123"
             },
             "tones": {
-              "log": "data",
-              "good": "data",
-              ".0": "data",
-              "e": "data"
+              "e": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "good"
-              ],
-              [
-                "good",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Automating the report from the training log, as Practice 2 does, means it.",
+            "at": "say3",
+            "caption": "Practice 2 is run_report(log).",
             "values": {
-              "log": "[{'step': 1, 'loss': 4.2, 'tokens': 400…",
-              "good": "[4.2, 3.61234, 3.7]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "e": "{'step': 3, 'loss': 3.61234, 'tokens': …"
+              "e": "{'step': 4, 'loss': 3.7, 'tokens': 4000…",
+              "out": "NaN steps: [2]"
             },
             "tones": {
-              "log": "ok",
-              "good": "ok",
-              ".0": "ok",
-              "e": "ok"
+              "e": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "log",
-                "good"
-              ],
-              [
-                "good",
-                ".0"
-              ],
-              [
-                ".0",
-                "e"
+                "e",
+                "out"
               ]
             ]
           }
@@ -1083,7 +959,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "plan": {
                 "var": "plan",
@@ -1097,13 +973,13 @@
               },
               "key": {
                 "var": "key",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "diff": {
                 "var": "diff",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -1143,13 +1019,13 @@
               },
               "key": {
                 "var": "key",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "diff": {
                 "var": "diff",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -1229,12 +1105,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "plan": "{'GPU-hours': 13100, 'cost': 29000, 'fi…",
               "actual": "{'GPU-hours': 14250, 'cost': 31500, 'fi…",
-              "key": "'GPU-hours'",
-              "diff": "0.08778625954198473"
+              "key": "'cost'",
+              "diff": "0.08620689655172414"
             },
             "tones": {
               "plan": "data",
@@ -1263,8 +1139,8 @@
             "values": {
               "plan": "{'GPU-hours': 13100, 'cost': 29000, 'fi…",
               "actual": "{'GPU-hours': 14250, 'cost': 31500, 'fi…",
-              "key": "'GPU-hours'",
-              "diff": "0.08778625954198473"
+              "key": "'final loss'",
+              "diff": "-0.014285714285714403"
             },
             "tones": {
               "plan": "ok",

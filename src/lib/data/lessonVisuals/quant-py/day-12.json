@@ -275,8 +275,8 @@
               },
               "item": {
                 "var": "item",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -321,8 +321,8 @@
               },
               "item": {
                 "var": "item",
-                "line": 11,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -407,7 +407,7 @@
               "self": "<SpscQueue>",
               "capacity": "4",
               "q": "<SpscQueue>",
-              "item": "'a'"
+              "item": "'b'"
             },
             "tones": {
               "self": "data",
@@ -437,7 +437,7 @@
               "self": "<SpscQueue>",
               "capacity": "4",
               "q": "<SpscQueue>",
-              "item": "'a'"
+              "item": "'c'"
             },
             "tones": {
               "self": "ok",
@@ -769,6 +769,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "That is our design.",
+            "activeActor": "depth",
+            "messages": [
+              {
+                "from": "capacity",
+                "to": "depth",
+                "label": {
+                  "var": "capacity",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "depth",
@@ -783,10 +800,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Enqueue returns False and the producer decides what to do (drop, retry.",
-            "activeActor": "depth",
+            "at": "say7",
+            "caption": "Choose the full-queue policy deliberately for each queue.",
+            "activeActor": "alerts",
             "messages": [
+              {
+                "from": "capacity",
+                "to": "depth",
+                "label": {
+                  "var": "capacity",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "depth",
+                "to": "alerts",
+                "label": {
+                  "var": "depth",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "capacity",
                 "to": "depth",
@@ -806,14 +843,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Choose the full-queue policy deliberately for each queue.",
-            "activeActor": "alerts",
-            "messages": [
+              },
               {
                 "from": "capacity",
                 "to": "depth",
@@ -856,19 +886,13 @@
                 "to": "depth",
                 "label": "16",
                 "tone": "data"
-              },
-              {
-                "from": "depth",
-                "to": "alerts",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "capacity"
           },
           {
             "at": "say2",
-            "caption": "Enqueue returns False and the producer decides what to do (drop, retry.",
+            "caption": "That is our design.",
             "messages": [
               {
                 "from": "capacity",
@@ -889,6 +913,30 @@
             "at": "say7",
             "caption": "Choose the full-queue policy deliberately for each queue.",
             "messages": [
+              {
+                "from": "capacity",
+                "to": "depth",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "depth",
+                "to": "alerts",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "capacity",
+                "to": "depth",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "depth",
+                "to": "alerts",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "capacity",
                 "to": "depth",

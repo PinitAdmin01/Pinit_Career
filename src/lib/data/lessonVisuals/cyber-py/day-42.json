@@ -199,6 +199,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the cspnoncegenerator transition driving utilizes behavior.",
+            "activeActor": "nonce",
+            "messages": [
+              {
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": {
+                  "var": "random_bytes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "nonce",
@@ -213,10 +230,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The `CSPNonceGenerator` utilizes kernel-level randomness (`secrets.",
-            "activeActor": "nonce",
+            "at": "say9",
+            "caption": "Dynamic cryptographic nonce generation guarantees that inline scripts.",
+            "activeActor": "csp",
             "messages": [
+              {
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": {
+                  "var": "random_bytes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nonce",
+                "to": "csp",
+                "label": {
+                  "var": "nonce",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "random_bytes",
                 "to": "nonce",
@@ -236,23 +273,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Dynamic cryptographic nonce generation guarantees that inline scripts.",
-            "activeActor": "csp",
-            "messages": [
-              {
-                "from": "random_bytes",
-                "to": "nonce",
-                "label": {
-                  "var": "random_bytes",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "nonce",
@@ -284,26 +304,20 @@
               {
                 "from": "random_bytes",
                 "to": "nonce",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
-              },
-              {
-                "from": "nonce",
-                "to": "csp",
-                "label": "'ZGV0ZXJtaW5pc3RpY19ubw=='",
-                "tone": "ok"
               }
             ],
             "activeActor": "random_bytes"
           },
           {
             "at": "say2",
-            "caption": "The `CSPNonceGenerator` utilizes kernel-level randomness (`secrets.",
+            "caption": "Verify the cspnoncegenerator transition driving utilizes behavior.",
             "messages": [
               {
                 "from": "random_bytes",
                 "to": "nonce",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
@@ -322,8 +336,26 @@
               {
                 "from": "random_bytes",
                 "to": "nonce",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
+              },
+              {
+                "from": "nonce",
+                "to": "csp",
+                "label": "'ZGV0ZXJtaW5pc3RpY19ubw=='",
+                "tone": "ok"
+              },
+              {
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "nonce",
+                "to": "csp",
+                "label": "'ZGV0ZXJtaW5pc3RpY19ubw=='",
+                "tone": "ok"
               },
               {
                 "from": "nonce",
@@ -582,7 +614,7 @@
           },
           {
             "at": "say2",
-            "caption": "Content Security Policy provides real-time violation reporting via.",
+            "caption": "Verify the content transition driving security behavior.",
             "currentState": "trusted_types_enforced",
             "transition": {
               "from": "strict_csp_active",
@@ -638,7 +670,7 @@
           },
           {
             "at": "say2",
-            "caption": "Content Security Policy provides real-time violation reporting via.",
+            "caption": "Verify the content transition driving security behavior.",
             "currentState": "trusted_types_enforced",
             "transition": {
               "from": "strict_csp_active",

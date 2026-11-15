@@ -270,16 +270,14 @@
                 "hit": 1
               },
               "vpin": {
-                "var": "vpin",
-                "line": 35,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "bucket_volume": "data",
               "num_buckets": "data",
-              "vpin": "data"
+              "vpin": "idle"
             },
             "arrows": [
               [
@@ -419,13 +417,13 @@
               "self": "<VPINCalculator>",
               "bucket_volume": "1000",
               "num_buckets": "3",
-              "vpin": "<VPINCalculator>"
+              "vpin": ""
             },
             "tones": {
               "self": "data",
               "bucket_volume": "data",
               "num_buckets": "data",
-              "vpin": "data"
+              "vpin": "idle"
             },
             "arrows": [
               [
@@ -531,6 +529,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the high transition driving frequency behavior.",
+            "activeActor": "capacity",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "capacity",
@@ -545,10 +560,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how high updates frequency during execution.",
-            "activeActor": "capacity",
+            "at": "say8",
+            "caption": "Quantitative execution algorithms utilize rolling OFI metrics.",
+            "activeActor": "ring",
             "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "ring",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "capacity",
@@ -568,14 +603,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Quantitative execution algorithms utilize rolling OFI metrics.",
-            "activeActor": "ring",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "capacity",
@@ -618,19 +646,13 @@
                 "to": "capacity",
                 "label": "<FastCircularRingBuffer>",
                 "tone": "data"
-              },
-              {
-                "from": "capacity",
-                "to": "ring",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Trace how high updates frequency during execution.",
+            "caption": "Verify the high transition driving frequency behavior.",
             "messages": [
               {
                 "from": "self",
@@ -651,6 +673,30 @@
             "at": "say8",
             "caption": "Quantitative execution algorithms utilize rolling OFI metrics.",
             "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<FastCircularRingBuffer>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "ring",
+                "label": "4",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<FastCircularRingBuffer>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "ring",
+                "label": "4",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "capacity",

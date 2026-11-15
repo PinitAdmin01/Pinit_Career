@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Foundations & Mathematical Invariants",
+      "partTitle": "Monotonic LSN Sequencing for Write-Ahead Log Durability",
       "codeHash": "427e6c8b3d3b48a2c2d1092dd612dc7a772e4dfcd9a612b30d17c7c7bba08663",
       "spec": {
         "template": "cells",
@@ -46,7 +46,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the remembering value produced for validate processing.",
             "items": {
               "var": "vector",
               "line": 4,
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the remembering value produced for validate processing.",
             "items": [
               "0.1",
               "0.2"
@@ -115,7 +115,7 @@
       }
     },
     {
-      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Core Algorithm & State Representation",
+      "partTitle": "Checkpoint-Anchored WAL Replay for Deterministic Crash Recovery",
       "codeHash": "502468e4947e4f22aadb1fb675a3b97f9d41494c5c9af91418bf1d58303489eb",
       "spec": {
         "template": "flow",
@@ -206,7 +206,7 @@
               },
               "reconstructed_state": {
                 "var": "reconstructed_state",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -233,7 +233,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the checkpoint value produced for deleting processing.",
             "values": {
               "logs": {
                 "var": "logs",
@@ -252,7 +252,7 @@
               },
               "reconstructed_state": {
                 "var": "reconstructed_state",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -338,7 +338,7 @@
               "logs": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
               "wal_records": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
               "snapshot_lsn": "1",
-              "reconstructed_state": "{}"
+              "reconstructed_state": "{2: [0.2]}"
             },
             "tones": {
               "logs": "data",
@@ -363,12 +363,12 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the checkpoint value produced for deleting processing.",
             "values": {
               "logs": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
               "wal_records": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
               "snapshot_lsn": "1",
-              "reconstructed_state": "{}"
+              "reconstructed_state": "{2: [0.2]}"
             },
             "tones": {
               "logs": "ok",
@@ -395,7 +395,7 @@
       }
     },
     {
-      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Non-Blocking Point-in-Time Reads via MVCC Snapshots",
       "codeHash": "efc5c61c0d7204c02fdaf486ad325b0d8c65ba5bf442c57df91fa8681f16907a",
       "spec": {
         "template": "bars",
@@ -451,7 +451,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the snapshots value produced for handling processing.",
             "bars": [
               {
                 "label": "commit_lsn",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the snapshots value produced for handling processing.",
             "bars": [
               {
                 "label": "commit_lsn",
@@ -531,29 +531,32 @@
       }
     },
     {
-      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a85f6b33e261007f03feed6843c3a43511bfd240736317a645e1ec0655e2169d",
+      "partTitle": "CRC32 Polynomial Integrity Verification on Log Payloads",
+      "codeHash": "116ec15e907c60989c6349c48dd7a1016d37f96c91172c761b5249ca5cfbc92d",
       "spec": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
+        "title": "CRC32 Polynomial Integrity Verification on Log Payloads",
         "nodes": [
           {
             "id": "payload",
-            "label": "payload"
+            "label": "payload",
+            "tappable": true
           },
           {
             "id": "crc",
-            "label": "crc"
+            "label": "crc",
+            "tappable": true
           },
           {
             "id": "ch",
-            "label": "ch"
+            "label": "ch",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Persistent storage media can suffer from bit rot, partial sector writes.",
+            "caption": "Inspect persistent updates as payload tracks storage state.",
             "values": {
               "payload": {
                 "var": "payload",
@@ -561,50 +564,37 @@
                 "hit": 1
               },
               "crc": {
-                "var": "crc",
-                "line": 2,
-                "hit": 1
+                "text": ""
               },
               "ch": {
-                "var": "ch",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "payload": "data",
-              "crc": "data",
-              "ch": "data"
+              "crc": "idle",
+              "ch": "idle"
             },
-            "arrows": [
-              [
-                "payload",
-                "crc"
-              ],
-              [
-                "crc",
-                "ch"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Replaying a corrupted WAL record would inject corrupted coordinate data.",
+            "caption": "Verify the replaying transition driving corrupted behavior.",
             "values": {
               "payload": {
                 "var": "payload",
-                "line": 3,
-                "hit": 1
+                "line": 5,
+                "hit": 5
               },
               "crc": {
                 "var": "crc",
-                "line": 3,
-                "hit": 1
+                "line": 5,
+                "hit": 5
               },
               "ch": {
                 "var": "ch",
-                "line": 4,
-                "hit": 1
+                "line": 5,
+                "hit": 5
               }
             },
             "tones": {
@@ -616,31 +606,27 @@
               [
                 "payload",
                 "crc"
-              ],
-              [
-                "crc",
-                "ch"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the crc32 value produced for detect processing.",
             "values": {
               "payload": {
                 "var": "payload",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 10
               },
               "crc": {
                 "var": "crc",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 10
               },
               "ch": {
                 "var": "ch",
-                "line": 3,
-                "hit": 2
+                "line": 6,
+                "hit": 10
               }
             },
             "tones": {
@@ -652,10 +638,6 @@
               [
                 "payload",
                 "crc"
-              ],
-              [
-                "crc",
-                "ch"
               ]
             ]
           }
@@ -663,53 +645,47 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
+        "title": "CRC32 Polynomial Integrity Verification on Log Payloads",
         "nodes": [
           {
             "id": "payload",
-            "label": "payload"
+            "label": "payload",
+            "tappable": true
           },
           {
             "id": "crc",
-            "label": "crc"
+            "label": "crc",
+            "tappable": true
           },
           {
             "id": "ch",
-            "label": "ch"
+            "label": "ch",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Persistent storage media can suffer from bit rot, partial sector writes.",
+            "caption": "Inspect persistent updates as payload tracks storage state.",
             "values": {
-              "payload": "'UPSERT:101'",
-              "crc": "0",
-              "ch": "'U'"
+              "payload": "''",
+              "crc": "",
+              "ch": ""
             },
             "tones": {
               "payload": "data",
-              "crc": "data",
-              "ch": "data"
+              "crc": "idle",
+              "ch": "idle"
             },
-            "arrows": [
-              [
-                "payload",
-                "crc"
-              ],
-              [
-                "crc",
-                "ch"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Replaying a corrupted WAL record would inject corrupted coordinate data.",
+            "caption": "Verify the replaying transition driving corrupted behavior.",
             "values": {
               "payload": "'UPSERT:101'",
-              "crc": "0",
-              "ch": "'U'"
+              "crc": "9827",
+              "ch": "'R'"
             },
             "tones": {
               "payload": "data",
@@ -720,20 +696,16 @@
               [
                 "payload",
                 "crc"
-              ],
-              [
-                "crc",
-                "ch"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the crc32 value produced for detect processing.",
             "values": {
               "payload": "'UPSERT:101'",
-              "crc": "2635",
-              "ch": "'P'"
+              "crc": "21297",
+              "ch": "'1'"
             },
             "tones": {
               "payload": "ok",
@@ -744,10 +716,6 @@
               [
                 "payload",
                 "crc"
-              ],
-              [
-                "crc",
-                "ch"
               ]
             ]
           }
@@ -755,33 +723,32 @@
       }
     },
     {
-      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Production Telemetry & Verification Audit",
-      "codeHash": "e532026a82370f67424c52c9affce62798f83d3cd2225090dd9f466d6c5f3477",
+      "partTitle": "MTTR Recovery Latency Modeling & Checkpoint Lag SLAs",
+      "codeHash": "53f7f1bc18e0b1280205b3c6c855a088838822a11da4255cb39da29bcf98c1d3",
       "spec": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
+        "title": "MTTR Recovery Latency Modeling & Checkpoint Lag SLAs",
         "nodes": [
           {
             "id": "log_count",
-            "label": "log_count"
+            "label": "log_count",
+            "tappable": true
           },
           {
             "id": "replay_rate_per_sec",
-            "label": "replay_rate_per_sec"
+            "label": "replay_rate_per_sec",
+            "tappable": true
           },
           {
-            "id": "recovery_ms",
-            "label": "recovery_ms"
-          },
-          {
-            "id": "rep_info",
-            "label": "rep_info"
+            "id": "recovery_sec",
+            "label": "recovery_sec",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Operational SLAs dictate strict bounds on Mean Time to Recovery (MTTR).",
+            "caption": "Inspect mttr updates as log_count tracks recovery state.",
             "values": {
               "log_count": {
                 "var": "log_count",
@@ -793,127 +760,78 @@
                 "line": 2,
                 "hit": 1
               },
-              "recovery_ms": {
-                "var": "recovery_ms",
-                "line": 2,
-                "hit": 1
-              },
-              "rep_info": {
-                "var": "rep_info",
-                "line": 5,
-                "hit": 1
+              "recovery_sec": {
+                "text": ""
               }
             },
             "tones": {
               "log_count": "data",
               "replay_rate_per_sec": "data",
-              "recovery_ms": "data",
-              "rep_info": "data"
+              "recovery_sec": "idle"
             },
-            "arrows": [
-              [
-                "log_count",
-                "replay_rate_per_sec"
-              ],
-              [
-                "replay_rate_per_sec",
-                "recovery_ms"
-              ],
-              [
-                "recovery_ms",
-                "rep_info"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If an index accumulates millions of uncheckpointed WAL records, reboot.",
+            "caption": "Verify the recovery transition driving slas behavior.",
             "values": {
               "log_count": {
                 "var": "log_count",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
               "replay_rate_per_sec": {
                 "var": "replay_rate_per_sec",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
-              "recovery_ms": {
-                "var": "recovery_ms",
-                "line": 3,
-                "hit": 1
-              },
-              "rep_info": {
-                "var": "rep_info",
-                "line": 6,
+              "recovery_sec": {
+                "var": "recovery_sec",
+                "line": 4,
                 "hit": 1
               }
             },
             "tones": {
               "log_count": "data",
               "replay_rate_per_sec": "data",
-              "recovery_ms": "data",
-              "rep_info": "data"
+              "recovery_sec": "data"
             },
             "arrows": [
               [
                 "log_count",
                 "replay_rate_per_sec"
-              ],
-              [
-                "replay_rate_per_sec",
-                "recovery_ms"
-              ],
-              [
-                "recovery_ms",
-                "rep_info"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the recovery value produced for latency processing.",
             "values": {
               "log_count": {
                 "var": "log_count",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
               "replay_rate_per_sec": {
                 "var": "replay_rate_per_sec",
-                "line": 3,
+                "line": 5,
                 "hit": 1
               },
-              "recovery_ms": {
-                "var": "recovery_ms",
-                "line": 3,
-                "hit": 1
-              },
-              "rep_info": {
-                "var": "rep_info",
-                "line": 6,
+              "recovery_sec": {
+                "var": "recovery_sec",
+                "line": 5,
                 "hit": 1
               }
             },
             "tones": {
               "log_count": "ok",
               "replay_rate_per_sec": "ok",
-              "recovery_ms": "ok",
-              "rep_info": "ok"
+              "recovery_sec": "ok"
             },
             "arrows": [
               [
                 "log_count",
                 "replay_rate_per_sec"
-              ],
-              [
-                "replay_rate_per_sec",
-                "recovery_ms"
-              ],
-              [
-                "recovery_ms",
-                "rep_info"
               ]
             ]
           }
@@ -921,113 +839,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
+        "title": "MTTR Recovery Latency Modeling & Checkpoint Lag SLAs",
         "nodes": [
           {
             "id": "log_count",
-            "label": "log_count"
+            "label": "log_count",
+            "tappable": true
           },
           {
             "id": "replay_rate_per_sec",
-            "label": "replay_rate_per_sec"
+            "label": "replay_rate_per_sec",
+            "tappable": true
           },
           {
-            "id": "recovery_ms",
-            "label": "recovery_ms"
-          },
-          {
-            "id": "rep_info",
-            "label": "rep_info"
+            "id": "recovery_sec",
+            "label": "recovery_sec",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Operational SLAs dictate strict bounds on Mean Time to Recovery (MTTR).",
+            "caption": "Inspect mttr updates as log_count tracks recovery state.",
             "values": {
               "log_count": "15000",
               "replay_rate_per_sec": "50000",
-              "recovery_ms": "300",
-              "rep_info": "{'log_count': 15000, 'recovery_ms': 300…"
+              "recovery_sec": ""
             },
             "tones": {
               "log_count": "data",
               "replay_rate_per_sec": "data",
-              "recovery_ms": "data",
-              "rep_info": "data"
+              "recovery_sec": "idle"
             },
-            "arrows": [
-              [
-                "log_count",
-                "replay_rate_per_sec"
-              ],
-              [
-                "replay_rate_per_sec",
-                "recovery_ms"
-              ],
-              [
-                "recovery_ms",
-                "rep_info"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If an index accumulates millions of uncheckpointed WAL records, reboot.",
+            "caption": "Verify the recovery transition driving slas behavior.",
             "values": {
               "log_count": "15000",
               "replay_rate_per_sec": "50000",
-              "recovery_ms": "300",
-              "rep_info": "{'log_count': 15000, 'recovery_ms': 300…"
+              "recovery_sec": "0.3"
             },
             "tones": {
               "log_count": "data",
               "replay_rate_per_sec": "data",
-              "recovery_ms": "data",
-              "rep_info": "data"
+              "recovery_sec": "data"
             },
             "arrows": [
               [
                 "log_count",
                 "replay_rate_per_sec"
-              ],
-              [
-                "replay_rate_per_sec",
-                "recovery_ms"
-              ],
-              [
-                "recovery_ms",
-                "rep_info"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the recovery value produced for latency processing.",
             "values": {
               "log_count": "15000",
               "replay_rate_per_sec": "50000",
-              "recovery_ms": "300",
-              "rep_info": "{'log_count': 15000, 'recovery_ms': 300…"
+              "recovery_sec": "0.3"
             },
             "tones": {
               "log_count": "ok",
               "replay_rate_per_sec": "ok",
-              "recovery_ms": "ok",
-              "rep_info": "ok"
+              "recovery_sec": "ok"
             },
             "arrows": [
               [
                 "log_count",
                 "replay_rate_per_sec"
-              ],
-              [
-                "replay_rate_per_sec",
-                "recovery_ms"
-              ],
-              [
-                "recovery_ms",
-                "rep_info"
               ]
             ]
           }

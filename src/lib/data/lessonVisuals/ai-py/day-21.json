@@ -19,7 +19,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The user gives a goal, such as \"Summarise the growth of electric.",
+            "caption": "Observe how user shapes gives during this step.",
             "activeActor": "roles",
             "messages": [
               {
@@ -111,7 +111,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The user gives a goal, such as \"Summarise the growth of electric.",
+            "caption": "Observe how user shapes gives during this step.",
             "messages": [
               {
                 "from": "roles",
@@ -438,7 +438,7 @@
               },
               "logs": {
                 "var": "logs",
-                "line": 11,
+                "line": 13,
                 "hit": 1
               },
               "self": {
@@ -470,7 +470,7 @@
               },
               "logs": {
                 "var": "logs",
-                "line": 12,
+                "line": 13,
                 "hit": 1
               },
               "self": {
@@ -532,7 +532,7 @@
             "values": {
               "goal": "'EV two-wheelers'",
               "supervisor": "<FakeSupervisor>",
-              "logs": "[]",
+              "logs": "[{'step': 1, 'agent': 'Researcher', 'ou…",
               "self": "<FakeSupervisor>"
             },
             "tones": {
@@ -548,7 +548,7 @@
             "values": {
               "goal": "'EV two-wheelers'",
               "supervisor": "<FakeSupervisor>",
-              "logs": "[]",
+              "logs": "[{'step': 1, 'agent': 'Researcher', 'ou…",
               "self": "<FakeSupervisor>"
             },
             "tones": {
@@ -634,7 +634,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how result updates report during execution.",
+            "caption": "Verify the report transition driving result behavior.",
             "values": {
               "result": {
                 "var": "result",
@@ -780,7 +780,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how result updates report during execution.",
+            "caption": "Verify the report transition driving result behavior.",
             "values": {
               "result": "{'report': '   short  '}",
               "report": "'   short  '",
@@ -850,7 +850,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The researcher's search tool should return results with a source ID,.",
+            "caption": "Observe how researcher shapes search during this step.",
             "bars": [
               {
                 "label": "old",
@@ -955,7 +955,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The researcher's search tool should return results with a source ID,.",
+            "caption": "Observe how researcher shapes search during this step.",
             "bars": [
               {
                 "label": "old",
@@ -1028,7 +1028,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how budget updates whole during execution.",
+            "caption": "Observe how budget shapes whole during this step.",
             "bars": [
               {
                 "label": "max_steps",
@@ -1106,7 +1106,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how budget updates whole during execution.",
+            "caption": "Observe how budget shapes whole during this step.",
             "bars": [
               {
                 "label": "max_steps",

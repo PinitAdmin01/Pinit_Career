@@ -56,7 +56,7 @@
           },
           {
             "at": "say11",
-            "caption": "Engineering teams validate that top-K selection preserves.",
+            "caption": "Examine the routing value produced for mixture processing.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say11",
-            "caption": "Engineering teams validate that top-K selection preserves.",
+            "caption": "Examine the routing value produced for mixture processing.",
             "rows": [
               {
                 "cells": [
@@ -149,6 +149,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To maintain static tensor shapes, distributed MoE implementations define.",
+            "activeActor": "num_experts",
+            "messages": [
+              {
+                "from": "num_tokens",
+                "to": "num_experts",
+                "label": {
+                  "var": "num_tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "num_experts",
@@ -163,10 +180,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "To maintain static tensor shapes, distributed MoE implementations define.",
-            "activeActor": "num_experts",
+            "at": "say11",
+            "caption": "Examine the core value produced for fixed processing.",
+            "activeActor": "top_k",
             "messages": [
+              {
+                "from": "num_tokens",
+                "to": "num_experts",
+                "label": {
+                  "var": "num_tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "num_experts",
+                "to": "top_k",
+                "label": {
+                  "var": "num_experts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "num_tokens",
                 "to": "num_experts",
@@ -186,14 +223,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This structural predictability ensures that distributed MoE layers achieve.",
-            "activeActor": "top_k",
-            "messages": [
+              },
               {
                 "from": "num_tokens",
                 "to": "num_experts",
@@ -236,12 +266,6 @@
                 "to": "num_experts",
                 "label": "2048",
                 "tone": "data"
-              },
-              {
-                "from": "num_experts",
-                "to": "top_k",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "num_tokens"
@@ -267,8 +291,32 @@
           },
           {
             "at": "say11",
-            "caption": "This structural predictability ensures that distributed MoE layers achieve.",
+            "caption": "Examine the core value produced for fixed processing.",
             "messages": [
+              {
+                "from": "num_tokens",
+                "to": "num_experts",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "num_experts",
+                "to": "top_k",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "num_tokens",
+                "to": "num_experts",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "num_experts",
+                "to": "top_k",
+                "label": "8",
+                "tone": "ok"
+              },
               {
                 "from": "num_tokens",
                 "to": "num_experts",
@@ -509,7 +557,7 @@
     },
     {
       "partTitle": "MoE Routing — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a892884be5005758857ac9c14ca16ea63202cff237250f26bdaa11dff5a1d84f",
+      "codeHash": "145bd22a3458df19692a7fbeaedbc2a1481052175452fb51eda29d6a49b122ba",
       "spec": {
         "template": "bars",
         "title": "MoE Routing — Resilience Guardrails & Failure Recovery",
@@ -540,7 +588,7 @@
           },
           {
             "at": "say2",
-            "caption": "If the dropped token percentage exceeds a safety threshold (e.",
+            "caption": "5.0%), the guardrail flags a routing capacity violation.",
             "bars": [
               {
                 "label": "drop_pct",
@@ -564,7 +612,7 @@
           },
           {
             "at": "say11",
-            "caption": "These automated guardrails are an essential prerequisite.",
+            "caption": "Examine the routing value produced for production processing.",
             "bars": [
               {
                 "label": "drop_pct",
@@ -598,7 +646,7 @@
             "bars": [
               {
                 "label": "drop_pct",
-                "value": 2.45,
+                "value": 8.5,
                 "tone": "data"
               },
               {
@@ -610,11 +658,11 @@
           },
           {
             "at": "say2",
-            "caption": "If the dropped token percentage exceeds a safety threshold (e.",
+            "caption": "5.0%), the guardrail flags a routing capacity violation.",
             "bars": [
               {
                 "label": "drop_pct",
-                "value": 2.45,
+                "value": 8.5,
                 "tone": "ok"
               },
               {
@@ -626,11 +674,11 @@
           },
           {
             "at": "say11",
-            "caption": "These automated guardrails are an essential prerequisite.",
+            "caption": "Examine the routing value produced for production processing.",
             "bars": [
               {
                 "label": "drop_pct",
-                "value": 2.45,
+                "value": 8.5,
                 "tone": "ok"
               },
               {
@@ -694,7 +742,7 @@
           },
           {
             "at": "say11",
-            "caption": "This certification confirms that sparse MoE gating is operating at peak.",
+            "caption": "Reported metrics read 'status'.",
             "rows": [
               {
                 "cells": [
@@ -747,7 +795,7 @@
           },
           {
             "at": "say11",
-            "caption": "This certification confirms that sparse MoE gating is operating at peak.",
+            "caption": "Reported metrics read 'status'.",
             "rows": [
               {
                 "cells": [

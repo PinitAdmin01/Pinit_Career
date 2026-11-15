@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
+      "partTitle": "Tenant Policy Separation inside `SovereignSafetyConfig`",
       "codeHash": "f5e1c1f460988f8eda975a5589e8aa01fbc84bdc0ce2281140883430dcc06160",
       "spec": {
         "template": "table",
@@ -56,7 +56,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the deployment value produced for admission processing.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the deployment value produced for admission processing.",
             "rows": [
               {
                 "cells": [
@@ -124,7 +124,7 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Core Algorithm & State Representation",
+      "partTitle": "Pre-Inference Guardrails via `inbound_safety_gateway`",
       "codeHash": "e1ecab051f87d85a0fa6fc29cf892f09fb5c320c5b9b820227850b6393da9ee7",
       "spec": {
         "template": "states",
@@ -232,7 +232,7 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Streaming Token Budget Halts inside `InFlightGovernance`",
       "codeHash": "8aadda235ba375479c2f01ca20acbae6ede91b3ec70993a366a86ebe5f87b343",
       "spec": {
         "template": "bars",
@@ -288,7 +288,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for sovereign ai.",
+            "caption": "Examine the observability value produced for gauges processing.",
             "bars": [
               {
                 "label": "max_accumulate",
@@ -350,7 +350,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for sovereign ai.",
+            "caption": "Examine the observability value produced for gauges processing.",
             "bars": [
               {
                 "label": "max_accumulate",
@@ -368,7 +368,7 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Egress Credential Redaction via `outbound_sanitizer`",
       "codeHash": "b039bbcaa8046b9fc0fc015cde4f7df775fa0409b273e12dbd8985e1274c514a",
       "spec": {
         "template": "states",
@@ -411,7 +411,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the audit value produced for trails processing.",
             "currentState": "secret_pat",
             "transition": {
               "from": "text",
@@ -463,7 +463,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the audit value produced for trails processing.",
             "currentState": "secret_pat",
             "transition": {
               "from": "text",
@@ -476,7 +476,7 @@
       }
     },
     {
-      "partTitle": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
+      "partTitle": "Full-Lifecycle Chained Dispatch inside `SovereignSafetyControlPlane`",
       "codeHash": "b9c776a3c052d63ebc168881a30450e2f77df7127c7e4de0b287d35390acd769",
       "spec": {
         "template": "states",
@@ -504,7 +504,7 @@
           },
           {
             "at": "say2",
-            "caption": "Every request is routed through inbound validation, policy dispatch,.",
+            "caption": "Verify the dispatch transition driving every behavior.",
             "currentState": "tenant",
             "transition": {
               "from": "self",
@@ -560,7 +560,7 @@
           },
           {
             "at": "say2",
-            "caption": "Every request is routed through inbound validation, policy dispatch,.",
+            "caption": "Verify the dispatch transition driving every behavior.",
             "currentState": "tenant",
             "transition": {
               "from": "self",

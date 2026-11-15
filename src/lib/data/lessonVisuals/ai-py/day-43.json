@@ -62,7 +62,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run classify_complexity() assigning deterministic routing tiers across.",
+            "caption": "Scoring structural surface cues deterministically adds near-zero overhead.",
             "bars": [
               {
                 "label": "words",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run classify_complexity() assigning deterministic routing tiers across.",
+            "caption": "Scoring structural surface cues deterministically adds near-zero overhead.",
             "bars": [
               {
                 "label": "words",
@@ -307,164 +307,192 @@
     },
     {
       "partTitle": "Margin Confidence Calibration for Escalation Triggers",
-      "codeHash": "3399fa6de7a813701dd794723e131b4790d1edb3e5a0f7d34b838ad6e582eec2",
+      "codeHash": "9af9a628d90c06827ae02ebefca948951efd47676cd4f9583fae9fcd1028f7c9",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Margin Confidence Calibration for Escalation Triggers",
-        "actors": [
-          "label",
-          "p1",
-          "p2"
+        "nodes": [
+          {
+            "id": "esc_count",
+            "label": "esc_count",
+            "tappable": true
+          },
+          {
+            "id": "label",
+            "label": "label",
+            "tappable": true
+          },
+          {
+            "id": "p1",
+            "label": "p1",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how inspecting updates probability during execution.",
-            "activeActor": "label",
-            "messages": [
-              {
-                "from": "label",
-                "to": "p1",
-                "label": {
-                  "var": "label",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect inspecting updates as esc_count tracks probability state.",
+            "values": {
+              "esc_count": {
+                "var": "esc_count",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "p1",
-                "to": "p2",
-                "label": {
-                  "var": "p1",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "label": {
+                "text": ""
+              },
+              "p1": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "esc_count": "data",
+              "label": "idle",
+              "p1": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how measuring updates minus during execution.",
-            "activeActor": "p1",
-            "messages": [
-              {
-                "from": "label",
-                "to": "p1",
-                "label": {
-                  "var": "label",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the margin transition driving measuring behavior.",
+            "values": {
+              "esc_count": {
+                "var": "esc_count",
+                "line": 11,
+                "hit": 3
               },
-              {
-                "from": "p1",
-                "to": "p2",
-                "label": {
-                  "var": "p1",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "label": {
+                "var": "label",
+                "line": 11,
+                "hit": 3
+              },
+              "p1": {
+                "var": "p1",
+                "line": 11,
+                "hit": 3
               }
+            },
+            "tones": {
+              "esc_count": "data",
+              "label": "data",
+              "p1": "data"
+            },
+            "arrows": [
+              [
+                "esc_count",
+                "label"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Verify should_escalate_margin() catching both coin_flip and low_peak cases.",
-            "activeActor": "p2",
-            "messages": [
-              {
-                "from": "label",
-                "to": "p1",
-                "label": {
-                  "var": "label",
-                  "line": 6,
-                  "hit": 2
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the margin value produced for escalating processing.",
+            "values": {
+              "esc_count": {
+                "var": "esc_count",
+                "line": 13,
+                "hit": 4
               },
-              {
-                "from": "p1",
-                "to": "p2",
-                "label": {
-                  "var": "p1",
-                  "line": 6,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "label": {
+                "var": "label",
+                "line": 13,
+                "hit": 4
+              },
+              "p1": {
+                "var": "p1",
+                "line": 13,
+                "hit": 4
               }
+            },
+            "tones": {
+              "esc_count": "ok",
+              "label": "ok",
+              "p1": "ok"
+            },
+            "arrows": [
+              [
+                "esc_count",
+                "label"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Margin Confidence Calibration for Escalation Triggers",
-        "actors": [
-          "label",
-          "p1",
-          "p2"
+        "nodes": [
+          {
+            "id": "esc_count",
+            "label": "esc_count",
+            "tappable": true
+          },
+          {
+            "id": "label",
+            "label": "label",
+            "tappable": true
+          },
+          {
+            "id": "p1",
+            "label": "p1",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how inspecting updates probability during execution.",
-            "messages": [
-              {
-                "from": "label",
-                "to": "p1",
-                "label": "'clear'",
-                "tone": "data"
-              },
-              {
-                "from": "p1",
-                "to": "p2",
-                "label": "0.88",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "label"
+            "caption": "Inspect inspecting updates as esc_count tracks probability state.",
+            "values": {
+              "esc_count": "0",
+              "label": "",
+              "p1": ""
+            },
+            "tones": {
+              "esc_count": "data",
+              "label": "idle",
+              "p1": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how measuring updates minus during execution.",
-            "messages": [
-              {
-                "from": "label",
-                "to": "p1",
-                "label": "'clear'",
-                "tone": "data"
-              },
-              {
-                "from": "p1",
-                "to": "p2",
-                "label": "0.88",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "p1"
+            "caption": "Verify the margin transition driving measuring behavior.",
+            "values": {
+              "esc_count": "1",
+              "label": "'low_peak'",
+              "p1": "0.6"
+            },
+            "tones": {
+              "esc_count": "data",
+              "label": "data",
+              "p1": "data"
+            },
+            "arrows": [
+              [
+                "esc_count",
+                "label"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Verify should_escalate_margin() catching both coin_flip and low_peak cases.",
-            "messages": [
-              {
-                "from": "label",
-                "to": "p1",
-                "label": "'coin_flip'",
-                "tone": "data"
-              },
-              {
-                "from": "p1",
-                "to": "p2",
-                "label": "0.52",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "p2"
+            "at": "say3",
+            "caption": "Examine the margin value produced for escalating processing.",
+            "values": {
+              "esc_count": "3",
+              "label": "'ambiguous'",
+              "p1": "0.68"
+            },
+            "tones": {
+              "esc_count": "ok",
+              "label": "ok",
+              "p1": "ok"
+            },
+            "arrows": [
+              [
+                "esc_count",
+                "label"
+              ]
+            ]
           }
         ]
       }
@@ -560,7 +588,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how analyze updates contrasting during execution.",
+            "caption": "Examine the blended value produced for unit processing.",
             "values": {
               "esc": {
                 "var": "esc",
@@ -648,7 +676,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how analyze updates contrasting during execution.",
+            "caption": "Examine the blended value produced for unit processing.",
             "values": {
               "esc": "0.4",
               "total_reqs": "10000",
@@ -733,8 +761,8 @@
               },
               "small_ms": {
                 "var": "small_ms",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "large_ms": {
                 "var": "large_ms",
@@ -765,8 +793,8 @@
               },
               "small_ms": {
                 "var": "small_ms",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "large_ms": {
                 "var": "large_ms",
@@ -831,7 +859,7 @@
             "caption": "If your small tier spends 700 ms generating full prose before discovering.",
             "values": {
               "esc_rate": "0.2",
-              "small_ms": "220",
+              "small_ms": "700",
               "large_ms": "1100",
               "sla_ms": "1500"
             },
@@ -847,7 +875,7 @@
             "caption": "Audit estimate_cascade_latency() showing how trimming `small_ms`.",
             "values": {
               "esc_rate": "0.2",
-              "small_ms": "220",
+              "small_ms": "700",
               "large_ms": "1100",
               "sla_ms": "1500"
             },

@@ -7,622 +7,646 @@
   "entries": [
     {
       "partTitle": "The Architecture Of Multi Tier Pre Flight Input Guardrails",
-      "codeHash": "7bb4c24c974553144b9b9b7f83f05ccbcc713678fba9824dae95a3d92e811232",
+      "codeHash": "13d96a9d8646a58520041a81ca3bd48fed9576dd7f23eb470ca3fc6cc2df454a",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Architecture Of Multi Tier Pre Flight Input Guardrails",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Relying on system prompts alone to defend foundation models against.",
-            "activeActor": "guardrail_pipeline",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect flight updates as n tracks input state.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "n": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The architecture of pre flight input guardrails establishes defense.",
-            "activeActor": "filtering_metrics",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the architecture transition driving multi behavior.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "n": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering the architecture of pre-flight guardrails transitions AI.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the input value produced for layering processing.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 8,
+                "hit": 4
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "n": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Architecture Of Multi Tier Pre Flight Input Guardrails",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Relying on system prompts alone to defend foundation models against.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "guardrail_pipeline"
+            "caption": "Inspect flight updates as n tracks input state.",
+            "values": {
+              "n": "1000",
+              "out": ""
+            },
+            "tones": {
+              "n": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The architecture of pre flight input guardrails establishes defense.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "filtering_metrics"
+            "caption": "Verify the architecture transition driving multi behavior.",
+            "values": {
+              "n": "45",
+              "out": "Naive full-scan latency sum=21.6s vs Short-circuit funnel=18.80s"
+            },
+            "tones": {
+              "n": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering the architecture of pre-flight guardrails transitions AI.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the input value produced for layering processing.",
+            "values": {
+              "n": "35",
+              "out": "Heavy neural scans avoided: 13.8%"
+            },
+            "tones": {
+              "n": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Neural Moderation And Safety Taxonomy Classification With Llama Guard",
-      "codeHash": "7bb4c24c974553144b9b9b7f83f05ccbcc713678fba9824dae95a3d92e811232",
+      "codeHash": "880702263ac1ba77df45a760a52ec3c4aabf47d6772b1def62ecc96be5863046",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Neural Moderation And Safety Taxonomy Classification With Llama ",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "toks",
+            "label": "toks",
+            "tappable": true
+          },
+          {
+            "id": "violated",
+            "label": "violated",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While heuristic keyword filters are easily bypassed by synonyms.",
-            "activeActor": "guardrail_pipeline",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect moderation updates as p tracks safety state.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "toks": {
+                "text": ""
+              },
+              "violated": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "toks": "idle",
+              "violated": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Neural moderation and safety taxonomy classification categorize prompts.",
-            "activeActor": "filtering_metrics",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the neural transition driving moderation behavior.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 12,
+                "hit": 2
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "toks": {
+                "var": "toks",
+                "line": 12,
+                "hit": 2
+              },
+              "violated": {
+                "var": "violated",
+                "line": 12,
+                "hit": 2
               }
+            },
+            "tones": {
+              "p": "data",
+              "toks": "data",
+              "violated": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "toks"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering neural safety classification with Llama Guard provides platform.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Each category is delineated by formal, unambiguous definition boundaries.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 15,
+                "hit": 2
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "toks": {
+                "var": "toks",
+                "line": 15,
+                "hit": 2
+              },
+              "violated": {
+                "var": "violated",
+                "line": 15,
+                "hit": 2
               }
+            },
+            "tones": {
+              "p": "ok",
+              "toks": "ok",
+              "violated": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "toks"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Neural Moderation And Safety Taxonomy Classification With Llama ",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "toks",
+            "label": "toks",
+            "tappable": true
+          },
+          {
+            "id": "violated",
+            "label": "violated",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While heuristic keyword filters are easily bypassed by synonyms.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "guardrail_pipeline"
+            "caption": "Inspect moderation updates as p tracks safety state.",
+            "values": {
+              "p": "'Explain TLS 1.3 handshake key exchange…",
+              "toks": "",
+              "violated": ""
+            },
+            "tones": {
+              "p": "data",
+              "toks": "idle",
+              "violated": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Neural moderation and safety taxonomy classification categorize prompts.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "filtering_metrics"
+            "caption": "Verify the neural transition driving moderation behavior.",
+            "values": {
+              "p": "'Write a silent keylogger and ransomwar…",
+              "toks": "{'1.3', 'exchange', 'explain', 'handsha…",
+              "violated": "[]"
+            },
+            "tones": {
+              "p": "data",
+              "toks": "data",
+              "violated": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "toks"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering neural safety classification with Llama Guard provides platform.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Each category is delineated by formal, unambiguous definition boundaries.",
+            "values": {
+              "p": "'Write a silent keylogger and ransomwar…",
+              "toks": "{'a', 'and', 'in', 'keylogger', 'payloa…",
+              "violated": "['O7_Cyber']"
+            },
+            "tones": {
+              "p": "ok",
+              "toks": "ok",
+              "violated": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "toks"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Programmable Conversational Guardrails With NeMo Colang Flows",
-      "codeHash": "7bb4c24c974553144b9b9b7f83f05ccbcc713678fba9824dae95a3d92e811232",
+      "codeHash": "61a509c847ebdaf3c227af3bc08202ed219b93c77501e2aa4ba843dee4a0b706",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Programmable Conversational Guardrails With NeMo Colang Flows",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "state",
+            "label": "state",
+            "tappable": true
+          },
+          {
+            "id": "intent",
+            "label": "intent",
+            "tappable": true
+          },
+          {
+            "id": "nxt",
+            "label": "nxt",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While classification models determine whether a given text snippet is safe.",
-            "activeActor": "guardrail_pipeline",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect programmable updates as state tracks conversational state.",
+            "values": {
+              "state": {
+                "var": "state",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "intent": {
+                "text": ""
+              },
+              "nxt": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "state": "data",
+              "intent": "idle",
+              "nxt": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Programmable conversational guardrails with NeMo Colang flows direct paths.",
-            "activeActor": "filtering_metrics",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the programmable transition driving conversational behavior.",
+            "values": {
+              "state": {
+                "var": "state",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "intent": {
+                "var": "intent",
+                "line": 8,
+                "hit": 2
+              },
+              "nxt": {
+                "var": "nxt",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "state": "data",
+              "intent": "data",
+              "nxt": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "intent"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering programmable guardrails with NeMo Colang elevates conversational.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the conversational value produced for colang processing.",
+            "values": {
+              "state": {
+                "var": "state",
+                "line": 16,
+                "hit": 2
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "intent": {
+                "var": "intent",
+                "line": 16,
+                "hit": 2
+              },
+              "nxt": {
+                "text": ""
               }
+            },
+            "tones": {
+              "state": "ok",
+              "intent": "ok",
+              "nxt": "idle"
+            },
+            "arrows": [
+              [
+                "state",
+                "intent"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Programmable Conversational Guardrails With NeMo Colang Flows",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "state",
+            "label": "state",
+            "tappable": true
+          },
+          {
+            "id": "intent",
+            "label": "intent",
+            "tappable": true
+          },
+          {
+            "id": "nxt",
+            "label": "nxt",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While classification models determine whether a given text snippet is safe.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "guardrail_pipeline"
+            "caption": "Inspect programmable updates as state tracks conversational state.",
+            "values": {
+              "state": "'GREETING'",
+              "intent": "",
+              "nxt": ""
+            },
+            "tones": {
+              "state": "data",
+              "intent": "idle",
+              "nxt": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Programmable conversational guardrails with NeMo Colang flows direct paths.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "filtering_metrics"
+            "caption": "Verify the programmable transition driving conversational behavior.",
+            "values": {
+              "state": "'GREETING'",
+              "intent": "'verify_identity'",
+              "nxt": "'AUTH_OK'"
+            },
+            "tones": {
+              "state": "data",
+              "intent": "data",
+              "nxt": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "intent"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering programmable guardrails with NeMo Colang elevates conversational.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the conversational value produced for colang processing.",
+            "values": {
+              "state": "'BAL_DONE'",
+              "intent": "'check_balance'",
+              "nxt": ""
+            },
+            "tones": {
+              "state": "ok",
+              "intent": "ok",
+              "nxt": "idle"
+            },
+            "arrows": [
+              [
+                "state",
+                "intent"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Perplexity Classifiers And Semantic Vector Boundary Scanners",
-      "codeHash": "7bb4c24c974553144b9b9b7f83f05ccbcc713678fba9824dae95a3d92e811232",
+      "codeHash": "ecacfb97e228d720e6fff219a72e929e9c98be5948352f84fe484cc449090a7b",
       "spec": {
         "template": "flow",
         "title": "Perplexity Classifiers And Semantic Vector Boundary Scanners",
         "nodes": [
           {
-            "id": "guardrail_pipeline",
-            "label": "guardrail_pipeline"
+            "id": "name",
+            "label": "name",
+            "tappable": true
           },
           {
-            "id": "filtering_metrics",
-            "label": "filtering_metrics"
+            "id": "s",
+            "label": "s",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "text",
+            "label": "text",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most dangerous adversarial threats facing modern foundation.",
+            "caption": "Inspect semantic updates as name tracks gradient state.",
             "values": {
-              "guardrail_pipeline": {
-                "var": "guardrail_pipeline",
-                "line": 8,
+              "name": {
+                "var": "name",
+                "line": 13,
                 "hit": 1
               },
-              "filtering_metrics": {
-                "var": "filtering_metrics",
-                "line": 14,
+              "s": {
+                "var": "s",
+                "line": 13,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 27,
-                "hit": 1
+              "text": {
+                "text": ""
               }
             },
             "tones": {
-              "guardrail_pipeline": "data",
-              "filtering_metrics": "data",
-              "result": "data"
+              "name": "data",
+              "s": "data",
+              "text": "idle"
             },
-            "arrows": [
-              [
-                "guardrail_pipeline",
-                "filtering_metrics"
-              ],
-              [
-                "filtering_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Perplexity classifiers and semantic vector boundary scanners flag anomaly.",
+            "caption": "Verify the perplexity transition driving classifiers behavior.",
             "values": {
-              "guardrail_pipeline": {
-                "var": "guardrail_pipeline",
-                "line": 15,
-                "hit": 1
+              "name": {
+                "var": "name",
+                "line": 13,
+                "hit": 2
               },
-              "filtering_metrics": {
-                "var": "filtering_metrics",
-                "line": 20,
-                "hit": 1
+              "s": {
+                "var": "s",
+                "line": 13,
+                "hit": 2
               },
-              "result": {
-                "var": "result",
-                "line": 28,
-                "hit": 1
+              "text": {
+                "text": ""
               }
             },
             "tones": {
-              "guardrail_pipeline": "data",
-              "filtering_metrics": "data",
-              "result": "data"
+              "name": "data",
+              "s": "data",
+              "text": "idle"
             },
             "arrows": [
               [
-                "guardrail_pipeline",
-                "filtering_metrics"
-              ],
-              [
-                "filtering_metrics",
-                "result"
+                "name",
+                "s"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering perplexity classification and semantic boundary scanning equips.",
+            "at": "say3",
+            "caption": "Examine the perplexity value produced for mathematical processing.",
             "values": {
-              "guardrail_pipeline": {
-                "var": "guardrail_pipeline",
-                "line": 16,
-                "hit": 1
+              "name": {
+                "text": ""
               },
-              "filtering_metrics": {
-                "var": "filtering_metrics",
-                "line": 21,
-                "hit": 1
+              "s": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 28,
-                "hit": 1
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
-              "guardrail_pipeline": "ok",
-              "filtering_metrics": "ok",
-              "result": "ok"
+              "name": "idle",
+              "s": "idle",
+              "text": "ok"
             },
             "arrows": [
               [
-                "guardrail_pipeline",
-                "filtering_metrics"
-              ],
-              [
-                "filtering_metrics",
-                "result"
+                "name",
+                "s"
               ]
             ]
           }
@@ -633,88 +657,74 @@
         "title": "Perplexity Classifiers And Semantic Vector Boundary Scanners",
         "nodes": [
           {
-            "id": "guardrail_pipeline",
-            "label": "guardrail_pipeline"
+            "id": "name",
+            "label": "name",
+            "tappable": true
           },
           {
-            "id": "filtering_metrics",
-            "label": "filtering_metrics"
+            "id": "s",
+            "label": "s",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "text",
+            "label": "text",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Among the most dangerous adversarial threats facing modern foundation.",
+            "caption": "Inspect semantic updates as name tracks gradient state.",
             "values": {
-              "guardrail_pipeline": "['Dual-Model Perplexity Anomaly Gate', …",
-              "filtering_metrics": "{'adversarialSuffixFilterRatePct': 99.2…",
-              "result": "{'pipeline': 'Multi-Layer Defensive Inp…"
+              "name": "'normal_english'",
+              "s": "'Please summarize Q3 enterprise SaaS ch…",
+              "text": ""
             },
             "tones": {
-              "guardrail_pipeline": "data",
-              "filtering_metrics": "data",
-              "result": "data"
+              "name": "data",
+              "s": "data",
+              "text": "idle"
             },
-            "arrows": [
-              [
-                "guardrail_pipeline",
-                "filtering_metrics"
-              ],
-              [
-                "filtering_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Perplexity classifiers and semantic vector boundary scanners flag anomaly.",
+            "caption": "Verify the perplexity transition driving classifiers behavior.",
             "values": {
-              "guardrail_pipeline": "['Dual-Model Perplexity Anomaly Gate', …",
-              "filtering_metrics": "{'adversarialSuffixFilterRatePct': 99.2…",
-              "result": "{'pipeline': 'Multi-Layer Defensive Inp…"
+              "name": "'gcg_adversarial_suffix'",
+              "s": "'Explain firewalls !zQ9$#kL2@pX8^vR0*mN…",
+              "text": ""
             },
             "tones": {
-              "guardrail_pipeline": "data",
-              "filtering_metrics": "data",
-              "result": "data"
+              "name": "data",
+              "s": "data",
+              "text": "idle"
             },
             "arrows": [
               [
-                "guardrail_pipeline",
-                "filtering_metrics"
-              ],
-              [
-                "filtering_metrics",
-                "result"
+                "name",
+                "s"
               ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering perplexity classification and semantic boundary scanning equips.",
+            "at": "say3",
+            "caption": "Examine the perplexity value produced for mathematical processing.",
             "values": {
-              "guardrail_pipeline": "['Dual-Model Perplexity Anomaly Gate', …",
-              "filtering_metrics": "{'adversarialSuffixFilterRatePct': 99.2…",
-              "result": "{'pipeline': 'Multi-Layer Defensive Inp…"
+              "name": "",
+              "s": "",
+              "text": "'Explain firewalls !zQ9$#kL2@pX8^vR0*mN…"
             },
             "tones": {
-              "guardrail_pipeline": "ok",
-              "filtering_metrics": "ok",
-              "result": "ok"
+              "name": "idle",
+              "s": "idle",
+              "text": "ok"
             },
             "arrows": [
               [
-                "guardrail_pipeline",
-                "filtering_metrics"
-              ],
-              [
-                "filtering_metrics",
-                "result"
+                "name",
+                "s"
               ]
             ]
           }
@@ -723,164 +733,182 @@
     },
     {
       "partTitle": "Enterprise Multi Layer Defensive Input Filtering Engine In Python",
-      "codeHash": "7bb4c24c974553144b9b9b7f83f05ccbcc713678fba9824dae95a3d92e811232",
+      "codeHash": "14476fbb1814721fbe440174f8da30cd32054cb6e787e91ac96dfc61cc97db14",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Multi Layer Defensive Input Filtering Engine In Pytho",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "ch",
+            "label": "ch",
+            "tappable": true
+          },
+          {
+            "id": "prompt",
+            "label": "prompt",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating pre-flight defense-in-depth, Llama Guard neural.",
-            "activeActor": "guardrail_pipeline",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect enterprise updates as p tracks multi state.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 14,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ch": {
+                "text": ""
+              },
+              "prompt": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "ch": "idle",
+              "prompt": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise multi layer defensive input filtering engines automate checks.",
-            "activeActor": "filtering_metrics",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 15,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the enterprise transition driving multi behavior.",
+            "values": {
+              "p": {
+                "text": ""
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 20,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ch": {
+                "var": "ch",
+                "line": 2,
+                "hit": 28
+              },
+              "prompt": {
+                "text": ""
               }
+            },
+            "tones": {
+              "p": "idle",
+              "ch": "data",
+              "prompt": "idle"
+            },
+            "arrows": [
+              [
+                "p",
+                "ch"
+              ]
             ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of multi-layer defensive input.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": {
-                  "var": "guardrail_pipeline",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the input value produced for modular processing.",
+            "values": {
+              "p": {
+                "out": 1
               },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": {
-                  "var": "filtering_metrics",
-                  "line": 21,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "ch": {
+                "text": ""
+              },
+              "prompt": {
+                "text": ""
               }
+            },
+            "tones": {
+              "p": "data",
+              "ch": "idle",
+              "prompt": "idle"
+            },
+            "arrows": [
+              [
+                "p",
+                "ch"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Enterprise Multi Layer Defensive Input Filtering Engine In Pytho",
-        "actors": [
-          "guardrail_pipeline",
-          "filtering_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p",
+            "tappable": true
+          },
+          {
+            "id": "ch",
+            "label": "ch",
+            "tappable": true
+          },
+          {
+            "id": "prompt",
+            "label": "prompt",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating pre-flight defense-in-depth, Llama Guard neural.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "guardrail_pipeline"
+            "caption": "Inspect enterprise updates as p tracks multi state.",
+            "values": {
+              "p": "'Compute P95 latency delta'",
+              "ch": "",
+              "prompt": ""
+            },
+            "tones": {
+              "p": "data",
+              "ch": "idle",
+              "prompt": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise multi layer defensive input filtering engines automate checks.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "filtering_metrics"
+            "caption": "Verify the enterprise transition driving multi behavior.",
+            "values": {
+              "p": "",
+              "ch": "'S'",
+              "prompt": ""
+            },
+            "tones": {
+              "p": "idle",
+              "ch": "data",
+              "prompt": "idle"
+            },
+            "arrows": [
+              [
+                "p",
+                "ch"
+              ]
+            ]
           },
           {
-            "at": "say14",
-            "caption": "Mastering the engineering architecture of multi-layer defensive input.",
-            "messages": [
-              {
-                "from": "guardrail_pipeline",
-                "to": "filtering_metrics",
-                "label": "['Dual-Model Perplexity Anomaly Gate', …",
-                "tone": "data"
-              },
-              {
-                "from": "filtering_metrics",
-                "to": "result",
-                "label": "{'adversarialSuffixFilterRatePct': 99.2…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the input value produced for modular processing.",
+            "values": {
+              "p": "Compute P95 latency delta          -> ADMIT",
+              "ch": "",
+              "prompt": ""
+            },
+            "tones": {
+              "p": "data",
+              "ch": "idle",
+              "prompt": "idle"
+            },
+            "arrows": [
+              [
+                "p",
+                "ch"
+              ]
+            ]
           }
         ]
       }

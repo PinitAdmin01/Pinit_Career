@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Instead of one context vector, the decoder gets a fresh context at every.",
+            "caption": "Inspect bahdanau updates as source tracks bengio state.",
             "values": {
               "source": {
                 "var": "source",
@@ -92,13 +92,13 @@
               },
               "target": {
                 "var": "target",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "weights": {
                 "var": "weights",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -138,13 +138,13 @@
               },
               "target": {
                 "var": "target",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "weights": {
                 "var": "weights",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -194,7 +194,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Instead of one context vector, the decoder gets a fresh context at every.",
+            "caption": "Inspect bahdanau updates as source tracks bengio state.",
             "values": {
               "source": "['i', 'am', 'very', 'happy']",
               "attention": "{'je': [0.9, 0.05, 0.03, 0.02], 'suis':…",
@@ -228,8 +228,8 @@
             "values": {
               "source": "['i', 'am', 'very', 'happy']",
               "attention": "{'je': [0.9, 0.05, 0.03, 0.02], 'suis':…",
-              "target": "'je'",
-              "weights": "[0.9, 0.05, 0.03, 0.02]"
+              "target": "'suis'",
+              "weights": "[0.1, 0.8, 0.05, 0.05]"
             },
             "tones": {
               "source": "data",
@@ -258,8 +258,8 @@
             "values": {
               "source": "['i', 'am', 'very', 'happy']",
               "attention": "{'je': [0.9, 0.05, 0.03, 0.02], 'suis':…",
-              "target": "'je'",
-              "weights": "[0.9, 0.05, 0.03, 0.02]"
+              "target": "'très'",
+              "weights": "[0.02, 0.08, 0.85, 0.05]"
             },
             "tones": {
               "source": "ok",
@@ -574,7 +574,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "With weights in hand, the context vector is the weighted sum of.",
+            "caption": "Observe how context shapes vector during this step.",
             "items": {
               "var": "v",
               "line": 2,
@@ -606,7 +606,7 @@
           },
           {
             "at": "say8",
-            "caption": "In Transformers the same operation appears as \"attention output = weights.",
+            "caption": "Examine the transformers value produced for operation processing.",
             "items": {
               "var": "v",
               "line": 2,
@@ -628,7 +628,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "With weights in hand, the context vector is the weighted sum of.",
+            "caption": "Observe how context shapes vector during this step.",
             "items": [
               "1",
               "0"
@@ -658,7 +658,7 @@
           },
           {
             "at": "say8",
-            "caption": "In Transformers the same operation appears as \"attention output = weights.",
+            "caption": "Examine the transformers value produced for operation processing.",
             "items": [
               "1",
               "1"

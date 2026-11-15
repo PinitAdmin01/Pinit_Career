@@ -73,13 +73,13 @@
               },
               "key": {
                 "var": "key",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "value": {
                 "var": "value",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "old_key": {
                 "var": "old_key",
@@ -105,13 +105,13 @@
               },
               "key": {
                 "var": "key",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "value": {
                 "var": "value",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "old_key": {
                 "var": "old_key",
@@ -171,8 +171,8 @@
             "caption": "Memory is limited, so a cache has a capacity.",
             "values": {
               "capacity": "2",
-              "key": "'home'",
-              "value": "'<html>home</html>'",
+              "key": "'about'",
+              "value": "'<html>about</html>'",
               "old_key": "'home'"
             },
             "tones": {
@@ -187,8 +187,8 @@
             "caption": "That needs two data structures working together.",
             "values": {
               "capacity": "2",
-              "key": "'home'",
-              "value": "'<html>home</html>'",
+              "key": "'contact'",
+              "value": "'<html>contact</html>'",
               "old_key": "'home'"
             },
             "tones": {
@@ -751,7 +751,7 @@
           },
           {
             "at": "say4",
-            "caption": "This milestone ties together Big-O (O(1) operations), linked lists (O(1).",
+            "caption": "It is a real interview question at many product companies.",
             "items": {
               "var": "op",
               "line": 10,
@@ -805,7 +805,7 @@
           },
           {
             "at": "say4",
-            "caption": "This milestone ties together Big-O (O(1) operations), linked lists (O(1).",
+            "caption": "It is a real interview question at many product companies.",
             "items": [
               "'put'",
               "2",

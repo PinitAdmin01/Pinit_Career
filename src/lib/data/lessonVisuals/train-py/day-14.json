@@ -82,12 +82,12 @@
             "values": {
               "x": {
                 "var": "x",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               },
               "y": {
                 "var": "y",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               },
               "lr": {
@@ -97,8 +97,8 @@
               },
               "step": {
                 "var": "step",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -128,13 +128,13 @@
             "values": {
               "x": {
                 "var": "x",
-                "line": 2,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "y": {
                 "var": "y",
-                "line": 2,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "lr": {
                 "var": "lr",
@@ -143,8 +143,8 @@
               },
               "step": {
                 "var": "step",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -226,10 +226,10 @@
             "at": "say2",
             "caption": "It needs no extra memory beyond the gradients, which is attractive.",
             "values": {
-              "x": "1",
-              "y": "10",
+              "x": "-0.7999999999999998",
+              "y": "9.64",
               "lr": "0.18",
-              "step": "1"
+              "step": "2"
             },
             "tones": {
               "x": "data",
@@ -256,10 +256,10 @@
             "at": "say10",
             "caption": "We use a simple two-parameter function so every number can be followed.",
             "values": {
-              "x": "1",
-              "y": "10",
+              "x": "0.6399999999999999",
+              "y": "9.29296",
               "lr": "0.18",
-              "step": "1"
+              "step": "3"
             },
             "tones": {
               "x": "ok",
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Consistent gradient directions build up speed.",
+            "activeActor": "x",
+            "messages": [
+              {
+                "from": "beta",
+                "to": "x",
+                "label": {
+                  "var": "beta",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "x",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Consistent gradient directions build up speed.",
-            "activeActor": "x",
+            "at": "say10",
+            "caption": "For transformers, adaptive methods like Adam usually work better.",
+            "activeActor": "y",
             "messages": [
+              {
+                "from": "beta",
+                "to": "x",
+                "label": {
+                  "var": "beta",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "beta",
                 "to": "x",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "For transformers, adaptive methods like Adam usually work better.",
-            "activeActor": "y",
-            "messages": [
+              },
               {
                 "from": "beta",
                 "to": "x",
@@ -398,12 +428,6 @@
                 "to": "x",
                 "label": "0",
                 "tone": "data"
-              },
-              {
-                "from": "x",
-                "to": "y",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "beta"
@@ -431,6 +455,30 @@
             "at": "say10",
             "caption": "For transformers, adaptive methods like Adam usually work better.",
             "messages": [
+              {
+                "from": "beta",
+                "to": "x",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "beta",
+                "to": "x",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": "1",
+                "tone": "ok"
+              },
               {
                 "from": "beta",
                 "to": "x",
@@ -475,6 +523,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The update divides m by the square root of v, so each parameter gets its.",
+            "activeActor": "m",
+            "messages": [
+              {
+                "from": "p",
+                "to": "m",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "m",
@@ -489,10 +554,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The update divides m by the square root of v, so each parameter gets its.",
-            "activeActor": "m",
+            "at": "say10",
+            "caption": "Adam's two states are why it needs 8 extra bytes per parameter in FP32.",
+            "activeActor": "v",
             "messages": [
+              {
+                "from": "p",
+                "to": "m",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "m",
+                "to": "v",
+                "label": {
+                  "var": "m",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "p",
                 "to": "m",
@@ -512,14 +597,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Adam's two states are why it needs 8 extra bytes per parameter in FP32.",
-            "activeActor": "v",
-            "messages": [
+              },
               {
                 "from": "p",
                 "to": "m",
@@ -562,12 +640,6 @@
                 "to": "m",
                 "label": "[1, 10]",
                 "tone": "data"
-              },
-              {
-                "from": "m",
-                "to": "v",
-                "label": "[0, 0]",
-                "tone": "ok"
               }
             ],
             "activeActor": "p"
@@ -595,6 +667,30 @@
             "at": "say10",
             "caption": "Adam's two states are why it needs 8 extra bytes per parameter in FP32.",
             "messages": [
+              {
+                "from": "p",
+                "to": "m",
+                "label": "[1, 10]",
+                "tone": "data"
+              },
+              {
+                "from": "m",
+                "to": "v",
+                "label": "[0, 0]",
+                "tone": "ok"
+              },
+              {
+                "from": "p",
+                "to": "m",
+                "label": "[1, 10]",
+                "tone": "data"
+              },
+              {
+                "from": "m",
+                "to": "v",
+                "label": "[0, 0]",
+                "tone": "ok"
+              },
               {
                 "from": "p",
                 "to": "m",
@@ -1056,12 +1152,12 @@
               },
               "w": {
                 "var": "w",
-                "line": 5,
+                "line": 12,
                 "hit": 1
               },
               "m": {
                 "var": "m",
-                "line": 6,
+                "line": 10,
                 "hit": 1
               }
             },
@@ -1102,13 +1198,13 @@
               },
               "w": {
                 "var": "w",
-                "line": 6,
-                "hit": 1
+                "line": 12,
+                "hit": 2
               },
               "m": {
                 "var": "m",
-                "line": 7,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -1192,8 +1288,8 @@
             "values": {
               "xs": "[0, 1, 2, 3, 4]",
               "ys": "[1, 3, 5, 7, 9]",
-              "w": "[0, 0]",
-              "m": "[0, 0]"
+              "w": "[0.0999999999642858, 0]",
+              "m": "[-2.8000000000000003, 0]"
             },
             "tones": {
               "xs": "data",
@@ -1222,8 +1318,8 @@
             "values": {
               "xs": "[0, 1, 2, 3, 4]",
               "ys": "[1, 3, 5, 7, 9]",
-              "w": "[0, 0]",
-              "m": "[0, 0]"
+              "w": "[0.0999999999642858, 0.0999999999000000…",
+              "m": "[-2.8000000000000003, -1]"
             },
             "tones": {
               "xs": "ok",

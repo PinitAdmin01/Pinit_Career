@@ -7,328 +7,262 @@
   "entries": [
     {
       "partTitle": "The Collapse Of Monolithic Omniprompts: Why Single Prompts Fail Across Multi-Domain Systems",
-      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
+      "codeHash": "5a67370943bf21e9091184b8e66d1ab1e3722e999c8771a5f350a35de62a4595",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Collapse Of Monolithic Omniprompts: Why Single Prompts Fail ",
-        "actors": [
-          "categories",
-          ".0",
-          "data"
+        "nodes": [
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the early architectural evolution of enterprise language model.",
-            "activeActor": "categories",
-            "messages": [
-              {
-                "from": "categories",
-                "to": ".0",
-                "label": {
-                  "var": "categories",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect prompts updates as d tracks across state.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "data",
-                "label": {
-                  "var": ".0",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "d": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The primary failure pathology of the Omniprompt is prompt interference.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "categories",
-                "to": ".0",
-                "label": {
-                  "var": "categories",
-                  "line": 11,
-                  "hit": 5
-                },
-                "tone": "data"
+            "caption": "Verify the collapse transition driving primary behavior.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "from": ".0",
-                "to": "data",
-                "label": {
-                  "var": ".0",
-                  "line": 11,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "d": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Mastering hierarchical prompt routing and omniprompt decomposition.",
-            "activeActor": "data",
-            "messages": [
-              {
-                "from": "categories",
-                "to": ".0",
-                "label": {
-                  "var": "categories",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the monolithic value produced for omniprompts processing.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 8,
+                "hit": 4
               },
-              {
-                "from": ".0",
-                "to": "data",
-                "label": {
-                  "var": ".0",
-                  "line": 11,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "d": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Collapse Of Monolithic Omniprompts: Why Single Prompts Fail ",
-        "actors": [
-          "categories",
-          ".0",
-          "data"
+        "nodes": [
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the early architectural evolution of enterprise language model.",
-            "messages": [
-              {
-                "from": "categories",
-                "to": ".0",
-                "label": "{'Tier 1: Fast FAQ & Status': {'model':…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "data",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "categories"
+            "caption": "Inspect prompts updates as d tracks across state.",
+            "values": {
+              "d": "{'tokens': 420, 'rules': {'currency_usd…",
+              "out": ""
+            },
+            "tones": {
+              "d": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The primary failure pathology of the Omniprompt is prompt interference.",
-            "messages": [
-              {
-                "from": "categories",
-                "to": ".0",
-                "label": "{'Tier 1: Fast FAQ & Status': {'model':…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "data",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the collapse transition driving primary behavior.",
+            "values": {
+              "d": "{'tokens': 380, 'rules': {'cite_lines',…",
+              "out": "Omniprompt: 1800 sys tokens across 8 competing rules per call"
+            },
+            "tones": {
+              "d": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Mastering hierarchical prompt routing and omniprompt decomposition.",
-            "messages": [
-              {
-                "from": "categories",
-                "to": ".0",
-                "label": "{'Tier 1: Fast FAQ & Status': {'model':…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "data",
-                "label": "{'__other__': 'dict_valueiterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "data"
+            "at": "say3",
+            "caption": "Examine the monolithic value produced for omniprompts processing.",
+            "values": {
+              "d": "{'tokens': 490, 'rules': {'cite_statute…",
+              "out": "Modular:    ~450.0 sys tokens and 2 focused rules per routed domain"
+            },
+            "tones": {
+              "d": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Semantic Intent Classification & Vector Routers: Fast Embeddings & Lightweight Classifiers",
-      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
+      "codeHash": "29cd9ff31bfc9924af197b2f29159ea26c6a6a6cea4e7300bc2ef3dbdf339c5d",
       "spec": {
         "template": "flow",
         "title": "Semantic Intent Classification & Vector Routers: Fast Embeddings",
         "nodes": [
           {
-            "id": "categories",
-            "label": "categories"
+            "id": "query",
+            "label": "query",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "vec",
+            "label": "vec",
+            "tappable": true
           },
           {
-            "id": "data",
-            "label": "data"
-          },
-          {
-            "id": "blended_cost",
-            "label": "blended_cost"
+            "id": "k",
+            "label": "k",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational entrance of the hierarchical prompt architecture lies.",
+            "caption": "Inspect semantic updates as query tracks intent state.",
             "values": {
-              "categories": {
-                "var": "categories",
-                "line": 5,
+              "query": {
+                "var": "query",
+                "line": 15,
                 "hit": 1
               },
-              ".0": {
-                "var": ".0",
-                "line": 11,
-                "hit": 1
+              "vec": {
+                "text": ""
               },
-              "data": {
-                "var": "data",
-                "line": 11,
-                "hit": 1
-              },
-              "blended_cost": {
-                "var": "blended_cost",
-                "line": 11,
-                "hit": 5
+              "k": {
+                "text": ""
               }
             },
             "tones": {
-              "categories": "data",
-              ".0": "data",
-              "data": "data",
-              "blended_cost": "data"
+              "query": "data",
+              "vec": "idle",
+              "k": "idle"
             },
-            "arrows": [
-              [
-                "categories",
-                ".0"
-              ],
-              [
-                ".0",
-                "data"
-              ],
-              [
-                "data",
-                "blended_cost"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Vector embedding routers represent the foundational mechanism.",
+            "caption": "Verify the semantic transition driving intent behavior.",
             "values": {
-              "categories": {
-                "var": "categories",
-                "line": 11,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
-                "line": 11,
+              "query": {
+                "var": "query",
+                "line": 15,
                 "hit": 2
               },
-              "data": {
-                "var": "data",
-                "line": 11,
+              "vec": {
+                "var": "vec",
+                "line": 15,
                 "hit": 2
               },
-              "blended_cost": {
-                "var": "blended_cost",
-                "line": 12,
-                "hit": 1
+              "k": {
+                "text": ""
               }
             },
             "tones": {
-              "categories": "data",
-              ".0": "data",
-              "data": "data",
-              "blended_cost": "data"
+              "query": "data",
+              "vec": "data",
+              "k": "idle"
             },
             "arrows": [
               [
-                "categories",
-                ".0"
-              ],
-              [
-                ".0",
-                "data"
-              ],
-              [
-                "data",
-                "blended_cost"
+                "query",
+                "vec"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Semantic intent classification establishes the intelligent traffic.",
+            "at": "say3",
+            "caption": "Examine the intent value produced for user processing.",
             "values": {
-              "categories": {
-                "var": "categories",
-                "line": 12,
-                "hit": 1
+              "query": {
+                "text": ""
               },
-              ".0": {
-                "var": ".0",
-                "line": 11,
-                "hit": 3
+              "vec": {
+                "text": ""
               },
-              "data": {
-                "var": "data",
-                "line": 11,
-                "hit": 3
-              },
-              "blended_cost": {
-                "var": "blended_cost",
-                "line": 13,
-                "hit": 1
+              "k": {
+                "var": "k",
+                "line": 10,
+                "hit": 40
               }
             },
             "tones": {
-              "categories": "ok",
-              ".0": "ok",
-              "data": "ok",
-              "blended_cost": "ok"
+              "query": "idle",
+              "vec": "idle",
+              "k": "ok"
             },
             "arrows": [
               [
-                "categories",
-                ".0"
-              ],
-              [
-                ".0",
-                "data"
-              ],
-              [
-                "data",
-                "blended_cost"
+                "query",
+                "vec"
               ]
             ]
           }
@@ -339,110 +273,74 @@
         "title": "Semantic Intent Classification & Vector Routers: Fast Embeddings",
         "nodes": [
           {
-            "id": "categories",
-            "label": "categories"
+            "id": "query",
+            "label": "query",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "vec",
+            "label": "vec",
+            "tappable": true
           },
           {
-            "id": "data",
-            "label": "data"
-          },
-          {
-            "id": "blended_cost",
-            "label": "blended_cost"
+            "id": "k",
+            "label": "k",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At the operational entrance of the hierarchical prompt architecture lies.",
+            "caption": "Inspect semantic updates as query tracks intent state.",
             "values": {
-              "categories": "{'Tier 1: Fast FAQ & Status': {'model':…",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "data": "{'model': 'In-Memory Semantic Cache / 8…",
-              "blended_cost": "0.765"
+              "query": "'refund duplicate card charge'",
+              "vec": "",
+              "k": ""
             },
             "tones": {
-              "categories": "data",
-              ".0": "data",
-              "data": "data",
-              "blended_cost": "data"
+              "query": "data",
+              "vec": "idle",
+              "k": "idle"
             },
-            "arrows": [
-              [
-                "categories",
-                ".0"
-              ],
-              [
-                ".0",
-                "data"
-              ],
-              [
-                "data",
-                "blended_cost"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Vector embedding routers represent the foundational mechanism.",
+            "caption": "Verify the semantic transition driving intent behavior.",
             "values": {
-              "categories": "{'Tier 1: Fast FAQ & Status': {'model':…",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "data": "{'model': 'Domain-Specific Modular Prom…",
-              "blended_cost": "0.765"
+              "query": "'kubernetes pod latency timeout'",
+              "vec": "{'refund': 1, 'duplicate': 1, 'card': 1…",
+              "k": ""
             },
             "tones": {
-              "categories": "data",
-              ".0": "data",
-              "data": "data",
-              "blended_cost": "data"
+              "query": "data",
+              "vec": "data",
+              "k": "idle"
             },
             "arrows": [
               [
-                "categories",
-                ".0"
-              ],
-              [
-                ".0",
-                "data"
-              ],
-              [
-                "data",
-                "blended_cost"
+                "query",
+                "vec"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Semantic intent classification establishes the intelligent traffic.",
+            "at": "say3",
+            "caption": "Examine the intent value produced for user processing.",
             "values": {
-              "categories": "{'Tier 1: Fast FAQ & Status': {'model':…",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "data": "{'model': 'Frontier Flagship Reasoning …",
-              "blended_cost": "0.765"
+              "query": "",
+              "vec": "",
+              "k": "'audit'"
             },
             "tones": {
-              "categories": "ok",
-              ".0": "ok",
-              "data": "ok",
-              "blended_cost": "ok"
+              "query": "idle",
+              "vec": "idle",
+              "k": "ok"
             },
             "arrows": [
               [
-                "categories",
-                ".0"
-              ],
-              [
-                ".0",
-                "data"
-              ],
-              [
-                "data",
-                "blended_cost"
+                "query",
+                "vec"
               ]
             ]
           }
@@ -451,177 +349,155 @@
     },
     {
       "partTitle": "Hierarchical Dispatch Architecture: Dynamic Schema Injection & Multi-Tier Model Serving",
-      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
+      "codeHash": "88bfd6660dacf304f69d6b12dbca6f4d4a0fed0649bee8084aee94e2b5a556f3",
       "spec": {
-        "template": "bars",
+        "template": "flow",
         "title": "Hierarchical Dispatch Architecture: Dynamic Schema Injection & M",
+        "nodes": [
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hierarchical dispatch architecture governs the dynamic assembly, context.",
-            "bars": [
-              {
-                "label": "blended_cost",
-                "value": {
-                  "var": "blended_cost",
-                  "line": 11,
-                  "hit": 5
-                },
-                "tone": "data"
+            "caption": "Inspect hierarchical updates as t tracks dispatch state.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "label": "monolithic_cos",
-                "value": {
-                  "var": "monolithic_cost",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "cost_reduction",
-                "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "data"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "t": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Dynamic schema and tool injection represents the first major operational.",
-            "bars": [
-              {
-                "label": "blended_cost",
-                "value": {
-                  "var": "blended_cost",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "caption": "Verify the hierarchical transition driving dynamic behavior.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "label": "monolithic_cos",
-                "value": {
-                  "var": "monolithic_cost",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "cost_reduction",
-                "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "t": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Hierarchical dispatch architecture transforms fragmented AI tools into.",
-            "bars": [
-              {
-                "label": "blended_cost",
-                "value": {
-                  "var": "blended_cost",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "at": "say3",
+            "caption": "The router maintains a tiered fleet of foundation models.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 7,
+                "hit": 3
               },
-              {
-                "label": "monolithic_cos",
-                "value": {
-                  "var": "monolithic_cost",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "cost_reduction",
-                "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "t": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
+        "template": "flow",
         "title": "Hierarchical Dispatch Architecture: Dynamic Schema Injection & M",
+        "nodes": [
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hierarchical dispatch architecture governs the dynamic assembly, context.",
-            "bars": [
-              {
-                "label": "blended_cost",
-                "value": 0.765,
-                "tone": "data"
-              },
-              {
-                "label": "monolithic_cos",
-                "value": 5,
-                "tone": "data"
-              },
-              {
-                "label": "cost_reduction",
-                "value": 84.7,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect hierarchical updates as t tracks dispatch state.",
+            "values": {
+              "t": "{'cost_per_m': 0.1, 'share': 0.65}",
+              "out": ""
+            },
+            "tones": {
+              "t": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Dynamic schema and tool injection represents the first major operational.",
-            "bars": [
-              {
-                "label": "blended_cost",
-                "value": 0.765,
-                "tone": "ok"
-              },
-              {
-                "label": "monolithic_cos",
-                "value": 5,
-                "tone": "ok"
-              },
-              {
-                "label": "cost_reduction",
-                "value": 84.7,
-                "tone": "ok"
-              }
+            "caption": "Verify the hierarchical transition driving dynamic behavior.",
+            "values": {
+              "t": "{'cost_per_m': 0.8, 'share': 0.25}",
+              "out": "Monolithic frontier cost/1M: $5.00"
+            },
+            "tones": {
+              "t": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Hierarchical dispatch architecture transforms fragmented AI tools into.",
-            "bars": [
-              {
-                "label": "blended_cost",
-                "value": 0.765,
-                "tone": "ok"
-              },
-              {
-                "label": "monolithic_cos",
-                "value": 5,
-                "tone": "ok"
-              },
-              {
-                "label": "cost_reduction",
-                "value": 84.7,
-                "tone": "ok"
-              }
+            "at": "say3",
+            "caption": "The router maintains a tiered fleet of foundation models.",
+            "values": {
+              "t": "{'cost_per_m': 5, 'share': 0.1}",
+              "out": "Hierarchical blended cost/1M: $0.765"
+            },
+            "tones": {
+              "t": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "out"
+              ]
             ]
           }
         ]
@@ -629,39 +505,42 @@
     },
     {
       "partTitle": "Omniprompt Decomposition & Modular Prompts: Negative Constraint Specialization & Context Isolation",
-      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
+      "codeHash": "c439d37fb93c567476f8ce59f70972c9869209b087ea07235cc98bc082f86c21",
       "spec": {
         "template": "bars",
         "title": "Omniprompt Decomposition & Modular Prompts: Negative Constraint ",
         "steps": [
           {
             "at": "say1",
-            "caption": "Decomposing a sprawling monolithic Omniprompt into a modular prompt.",
+            "caption": "Observe how omniprompt shapes modular during this step.",
             "bars": [
               {
-                "label": "blended_cost",
+                "label": "intent",
                 "value": {
-                  "var": "blended_cost",
-                  "line": 11,
-                  "hit": 5
-                },
-                "tone": "data"
-              },
-              {
-                "label": "monolithic_cos",
-                "value": {
-                  "var": "monolithic_cost",
-                  "line": 12,
+                  "var": "intent",
+                  "line": 17,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "cost_reduction",
+                "label": "spec",
                 "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 13,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rules",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "prompt",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -669,65 +548,75 @@
           },
           {
             "at": "say2",
-            "caption": "The first step in omniprompt decomposition is Domain Responsibility.",
+            "caption": "The first step in omniprompt decomposition is Domain Responsibility Segregation.",
             "bars": [
               {
-                "label": "blended_cost",
+                "label": "intent",
                 "value": {
-                  "var": "blended_cost",
-                  "line": 12,
-                  "hit": 1
+                  "var": "intent",
+                  "line": 17,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "monolithic_cos",
+                "label": "spec",
                 "value": {
-                  "var": "monolithic_cost",
-                  "line": 13,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "cost_reduction",
+                "label": "rules",
                 "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 16,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "prompt",
+                "value": {
+                  "var": "prompt",
+                  "line": 17,
+                  "hit": 2
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say11",
-            "caption": "Modular prompt decomposition establishes the foundation for scalable.",
+            "at": "say3",
+            "caption": "Examine the modular value produced for negative processing.",
             "bars": [
               {
-                "label": "blended_cost",
+                "label": "intent",
                 "value": {
-                  "var": "blended_cost",
-                  "line": 13,
-                  "hit": 1
+                  "var": "intent",
+                  "line": 18,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "monolithic_cos",
+                "label": "spec",
                 "value": {
-                  "var": "monolithic_cost",
-                  "line": 16,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "cost_reduction",
+                "label": "rules",
                 "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 17,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "prompt",
+                "value": {
+                  "var": "prompt",
+                  "line": 18,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -741,63 +630,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Decomposing a sprawling monolithic Omniprompt into a modular prompt.",
+            "caption": "Observe how omniprompt shapes modular during this step.",
             "bars": [
               {
-                "label": "blended_cost",
-                "value": 0.765,
+                "label": "intent",
+                "value": "'refund_ops'",
                 "tone": "data"
               },
               {
-                "label": "monolithic_cos",
-                "value": 5,
+                "label": "spec",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "cost_reduction",
-                "value": 84.7,
+                "label": "rules",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "prompt",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The first step in omniprompt decomposition is Domain Responsibility.",
+            "caption": "The first step in omniprompt decomposition is Domain Responsibility Segregation.",
             "bars": [
               {
-                "label": "blended_cost",
-                "value": 0.765,
-                "tone": "ok"
+                "label": "intent",
+                "value": "'sql_ops'",
+                "tone": "data"
               },
               {
-                "label": "monolithic_cos",
-                "value": 5,
-                "tone": "ok"
+                "label": "spec",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "label": "cost_reduction",
-                "value": 84.7,
-                "tone": "ok"
+                "label": "rules",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "prompt",
+                "value": "'[INTENT=refund_ops] Rules: Verify orde…",
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say11",
-            "caption": "Modular prompt decomposition establishes the foundation for scalable.",
+            "at": "say3",
+            "caption": "Examine the modular value produced for negative processing.",
             "bars": [
               {
-                "label": "blended_cost",
-                "value": 0.765,
+                "label": "intent",
+                "value": "'sql_ops'",
                 "tone": "ok"
               },
               {
-                "label": "monolithic_cos",
-                "value": 5,
+                "label": "spec",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "cost_reduction",
-                "value": 84.7,
+                "label": "rules",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "prompt",
+                "value": "'[INTENT=sql_ops] Rules: Use parameteri…",
                 "tone": "ok"
               }
             ]
@@ -807,39 +711,42 @@
     },
     {
       "partTitle": "Enterprise Routing Engineering: Implementing A Sub-50ms Dynamic Prompt Dispatcher In Python",
-      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
+      "codeHash": "8a292155df525a1cc91dde450ff0c8c988f3f392b0c3def89742172fae9bedc4",
       "spec": {
         "template": "bars",
         "title": "Enterprise Routing Engineering: Implementing A Sub-50ms Dynamic ",
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating hierarchical routing and modular prompt architectures.",
+            "caption": "Observe how enterprise shapes routing during this step.",
             "bars": [
               {
-                "label": "blended_cost",
+                "label": "x",
                 "value": {
-                  "var": "blended_cost",
-                  "line": 11,
-                  "hit": 5
-                },
-                "tone": "data"
-              },
-              {
-                "label": "monolithic_cos",
-                "value": {
-                  "var": "monolithic_cost",
-                  "line": 12,
+                  "var": "x",
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "cost_reduction",
+                "label": "scores",
                 "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 13,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "margin_threshold",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ranked",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -847,65 +754,75 @@
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production prompt routing service comprises.",
+            "caption": "Verify the routing transition driving prompt behavior.",
             "bars": [
               {
-                "label": "blended_cost",
+                "label": "x",
                 "value": {
-                  "var": "blended_cost",
-                  "line": 12,
-                  "hit": 1
+                  "var": "x",
+                  "line": 4,
+                  "hit": 5
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "monolithic_cos",
+                "label": "scores",
                 "value": {
-                  "var": "monolithic_cost",
-                  "line": 13,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "cost_reduction",
+                "label": "margin_threshold",
                 "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 16,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "ranked",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering hierarchical prompt routing and modular prompt engineering.",
+            "at": "say3",
+            "caption": "Examine the semantic value produced for intent processing.",
             "bars": [
               {
-                "label": "blended_cost",
+                "label": "x",
                 "value": {
-                  "var": "blended_cost",
-                  "line": 13,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "monolithic_cos",
+                "label": "scores",
                 "value": {
-                  "var": "monolithic_cost",
-                  "line": 16,
-                  "hit": 1
+                  "var": "scores",
+                  "line": 4,
+                  "hit": 8
                 },
                 "tone": "ok"
               },
               {
-                "label": "cost_reduction",
+                "label": "margin_threshold",
                 "value": {
-                  "var": "cost_reduction_pct",
-                  "line": 17,
-                  "hit": 1
+                  "var": "margin_threshold",
+                  "line": 4,
+                  "hit": 8
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ranked",
+                "value": {
+                  "var": "ranked",
+                  "line": 4,
+                  "hit": 8
                 },
                 "tone": "ok"
               }
@@ -919,63 +836,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating hierarchical routing and modular prompt architectures.",
+            "caption": "Observe how enterprise shapes routing during this step.",
             "bars": [
               {
-                "label": "blended_cost",
-                "value": 0.765,
+                "label": "x",
+                "value": "['billing', 0.72]",
                 "tone": "data"
               },
               {
-                "label": "monolithic_cos",
-                "value": 5,
+                "label": "scores",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "cost_reduction",
-                "value": 84.7,
+                "label": "margin_threshold",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "ranked",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture of a production prompt routing service comprises.",
+            "caption": "Verify the routing transition driving prompt behavior.",
             "bars": [
               {
-                "label": "blended_cost",
-                "value": 0.765,
-                "tone": "ok"
+                "label": "x",
+                "value": "['faq_cache', 0.85]",
+                "tone": "data"
               },
               {
-                "label": "monolithic_cos",
-                "value": 5,
-                "tone": "ok"
+                "label": "scores",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "label": "cost_reduction",
-                "value": 84.7,
-                "tone": "ok"
+                "label": "margin_threshold",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "ranked",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Mastering hierarchical prompt routing and modular prompt engineering.",
+            "at": "say3",
+            "caption": "Examine the semantic value produced for intent processing.",
             "bars": [
               {
-                "label": "blended_cost",
-                "value": 0.765,
+                "label": "x",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "monolithic_cos",
-                "value": 5,
+                "label": "scores",
+                "value": "{'faq_cache': 0.85, 'sql_tier2': 0.82, …",
                 "tone": "ok"
               },
               {
-                "label": "cost_reduction",
-                "value": 84.7,
+                "label": "margin_threshold",
+                "value": 0.02,
+                "tone": "ok"
+              },
+              {
+                "label": "ranked",
+                "value": "[['faq_cache', 0.85], ['sql_tier2', 0.8…",
                 "tone": "ok"
               }
             ]

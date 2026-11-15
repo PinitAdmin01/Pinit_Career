@@ -210,6 +210,13 @@ export function LessonContentRenderer({
 
   // Parse quest identity for 2.5D puzzle & rapid-fire battle synthesis
   const parsedQuest = useMemo(() => parseQuestId(questId || ''), [questId]);
+  const fallbackMeta = useMemo(() => {
+    if (parsedQuest) return parsedQuest;
+    const match = (questId || '').match(/^(.+?)-(?:d|day-)(\d+)(?:-q\d+)?$/i);
+    if (match) return { prefix: match[1], dayNum: parseInt(match[2], 10) || 1 };
+    return { prefix: '', dayNum: 1 };
+  }, [parsedQuest, questId]);
+
   const [longLesson, setLongLesson] = useState<import('@/lib/data/longLessonTypes').LongLesson | null>(null);
   useEffect(() => {
     let cancelled = false;
@@ -220,17 +227,37 @@ export function LessonContentRenderer({
     return () => { cancelled = true; };
   }, [parsedQuest]);
 
+  const effectiveLessonData = useMemo(() => {
+    if (longLesson) return longLesson;
+    if (Array.isArray(slides) && slides.length > 0) {
+      return {
+        title: questData?.title || 'Interactive Lesson',
+        parts: slides.map((s: any) => ({
+          title: s.title,
+          say: Array.isArray(s.explain) ? s.explain : [],
+          analogy: s.example,
+          code: s.codeExample,
+          check: s.mcq
+            ? {
+                question: s.mcq.question,
+                options: s.mcq.options,
+                answer: s.mcq.answerIndex,
+                why: s.mcq.explanation,
+              }
+            : undefined,
+        })),
+      };
+    }
+    return questData;
+  }, [longLesson, slides, questData]);
+
   const puzzleSpec = useMemo(() => {
-    const prefix = parsedQuest?.prefix || '';
-    const dayNum = parsedQuest?.dayNum || 1;
-    return generateLessonPuzzle(questId, prefix, dayNum, longLesson || questData);
-  }, [questId, parsedQuest, longLesson, questData]);
+    return generateLessonPuzzle(questId, fallbackMeta.prefix, fallbackMeta.dayNum, effectiveLessonData);
+  }, [questId, fallbackMeta, effectiveLessonData]);
 
   const battleSpec = useMemo(() => {
-    const prefix = parsedQuest?.prefix || '';
-    const dayNum = parsedQuest?.dayNum || 1;
-    return generateRapidFireBattle(questId, prefix, dayNum, longLesson || questData);
-  }, [questId, parsedQuest, longLesson, questData]);
+    return generateRapidFireBattle(questId, fallbackMeta.prefix, fallbackMeta.dayNum, effectiveLessonData);
+  }, [questId, fallbackMeta, effectiveLessonData]);
   const [selectedSlideAnswers, setSelectedSlideAnswers] = useState<Record<number, number>>({});
   const [slideAnswerFeedback, setSlideAnswerFeedback] = useState<Record<number, { isCorrect: boolean; feedback: string }>>({});
   const highlightTimerRef = useRef<NodeJS.Timeout | null>(null);

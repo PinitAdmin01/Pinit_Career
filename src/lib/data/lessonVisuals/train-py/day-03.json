@@ -193,6 +193,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The last batch is often smaller when the dataset size is not a multiple.",
+            "activeActor": "size",
+            "messages": [
+              {
+                "from": "n",
+                "to": "size",
+                "label": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "size",
@@ -207,10 +224,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The last batch is often smaller when the dataset size is not a multiple.",
-            "activeActor": "size",
+            "at": "say10",
+            "caption": "Losing a few examples per epoch is usually harmless on large datasets.",
+            "activeActor": "drop_last",
             "messages": [
+              {
+                "from": "n",
+                "to": "size",
+                "label": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "drop_last",
+                "label": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "n",
                 "to": "size",
@@ -230,14 +267,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Losing a few examples per epoch is usually harmless on large datasets.",
-            "activeActor": "drop_last",
-            "messages": [
+              },
               {
                 "from": "n",
                 "to": "size",
@@ -280,12 +310,6 @@
                 "to": "size",
                 "label": "10",
                 "tone": "data"
-              },
-              {
-                "from": "size",
-                "to": "drop_last",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "n"
@@ -313,6 +337,30 @@
             "at": "say10",
             "caption": "Losing a few examples per epoch is usually harmless on large datasets.",
             "messages": [
+              {
+                "from": "n",
+                "to": "size",
+                "label": "10",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "drop_last",
+                "label": "4",
+                "tone": "ok"
+              },
+              {
+                "from": "n",
+                "to": "size",
+                "label": "10",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "drop_last",
+                "label": "4",
+                "tone": "ok"
+              },
               {
                 "from": "n",
                 "to": "size",
@@ -538,7 +586,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how goyal updates colleagues during execution.",
+            "caption": "Verify the goyal transition driving colleagues behavior.",
             "bars": [
               {
                 "label": "base_lr",
@@ -654,7 +702,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how goyal updates colleagues during execution.",
+            "caption": "Verify the goyal transition driving colleagues behavior.",
             "bars": [
               {
                 "label": "base_lr",
@@ -794,13 +842,13 @@
               },
               "w": {
                 "var": "w",
-                "line": 5,
-                "hit": 1
+                "line": 12,
+                "hit": 4
               },
               "b": {
                 "var": "b",
-                "line": 5,
-                "hit": 1
+                "line": 13,
+                "hit": 4
               }
             },
             "tones": {
@@ -840,13 +888,13 @@
               },
               "w": {
                 "var": "w",
-                "line": 6,
-                "hit": 1
+                "line": 12,
+                "hit": 8
               },
               "b": {
                 "var": "b",
-                "line": 6,
-                "hit": 1
+                "line": 13,
+                "hit": 8
               }
             },
             "tones": {
@@ -930,8 +978,8 @@
             "values": {
               "xs": "[0, 1, 2, 3, 4, 5]",
               "ys": "[1, 3, 5, 7, 9, 11]",
-              "w": "0",
-              "b": "0"
+              "w": "0.48",
+              "b": "0.2"
             },
             "tones": {
               "xs": "data",
@@ -960,8 +1008,8 @@
             "values": {
               "xs": "[0, 1, 2, 3, 4, 5]",
               "ys": "[1, 3, 5, 7, 9, 11]",
-              "w": "0",
-              "b": "0"
+              "w": "1.1840000000000002",
+              "b": "0.4144"
             },
             "tones": {
               "xs": "ok",
@@ -1060,7 +1108,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include ten items in batches of four, with and without.",
+            "caption": "Verify the batches transition driving checks behavior.",
             "values": {
               "n": {
                 "var": "n",
@@ -1079,8 +1127,8 @@
               },
               "batch": {
                 "var": "batch",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -1125,8 +1173,8 @@
               },
               "batch": {
                 "var": "batch",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -1206,12 +1254,12 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include ten items in batches of four, with and without.",
+            "caption": "Verify the batches transition driving checks behavior.",
             "values": {
               "n": "1000000",
               "base_lr": "0.001",
               "base_batch": "256",
-              "batch": "256"
+              "batch": "1024"
             },
             "tones": {
               "n": "data",
@@ -1241,7 +1289,7 @@
               "n": "1000000",
               "base_lr": "0.001",
               "base_batch": "256",
-              "batch": "256"
+              "batch": "4096"
             },
             "tones": {
               "n": "ok",

@@ -54,7 +54,7 @@
           },
           {
             "at": "say2",
-            "caption": "Observability means recording enough about every call to answer \"what.",
+            "caption": "Verify the observability transition driving means behavior.",
             "values": {
               "record": {
                 "var": "record",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "Observability means recording enough about every call to answer \"what.",
+            "caption": "Verify the observability transition driving means behavior.",
             "values": {
               "record": "{'trace_id': 't-001', 'model': 'small-v…",
               "key": "'trace_id'",
@@ -227,13 +227,13 @@
               },
               "span": {
                 "var": "span",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "bar": {
                 "var": "bar",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -253,13 +253,13 @@
               },
               "span": {
                 "var": "span",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               },
               "bar": {
                 "var": "bar",
-                "line": 6,
-                "hit": 2
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -307,8 +307,8 @@
             "caption": "Spans have a name, a start and end time (or latency), and details like.",
             "values": {
               "trace": "{'trace_id': 't-042', 'spans': [{'name'…",
-              "span": "{'name': 'retrieve', 'prompt_tokens': 0…",
-              "bar": "'#'"
+              "span": "{'name': 'rerank', 'prompt_tokens': 0, …",
+              "bar": "'###################'"
             },
             "tones": {
               "trace": "data",
@@ -321,8 +321,8 @@
             "caption": "The example builds a small trace with three spans.",
             "values": {
               "trace": "{'trace_id': 't-042', 'spans': [{'name'…",
-              "span": "{'name': 'retrieve', 'prompt_tokens': 0…",
-              "bar": "'#'"
+              "span": "{'name': 'generate', 'prompt_tokens': 1…",
+              "bar": "'###################'"
             },
             "tones": {
               "trace": "ok",
@@ -342,67 +342,43 @@
         "nodes": [
           {
             "id": "spans",
-            "label": "spans"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "spans",
+            "tappable": true
           },
           {
             "id": "s",
-            "label": "s"
+            "label": "s",
+            "tappable": true
           },
           {
             "id": "tokens",
-            "label": "tokens"
+            "label": "tokens",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregate_traces(spans) returns total tokens (prompt plus completion.",
+            "caption": "Inspect practice updates as spans tracks aggregate state.",
             "values": {
               "spans": {
                 "var": "spans",
                 "line": 7,
                 "hit": 1
               },
-              ".0": {
-                "var": ".0",
-                "line": 2,
-                "hit": 1
-              },
               "s": {
-                "var": "s",
-                "line": 2,
-                "hit": 1
+                "text": ""
               },
               "tokens": {
-                "var": "tokens",
-                "line": 2,
-                "hit": 5
+                "text": ""
               }
             },
             "tones": {
               "spans": "data",
-              ".0": "data",
-              "s": "data",
-              "tokens": "data"
+              "s": "idle",
+              "tokens": "idle"
             },
-            "arrows": [
-              [
-                "spans",
-                ".0"
-              ],
-              [
-                ".0",
-                "s"
-              ],
-              [
-                "s",
-                "tokens"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
@@ -413,86 +389,54 @@
                 "line": 2,
                 "hit": 5
               },
-              ".0": {
-                "var": ".0",
-                "line": 2,
-                "hit": 2
-              },
               "s": {
-                "var": "s",
-                "line": 2,
-                "hit": 2
+                "text": ""
               },
               "tokens": {
                 "var": "tokens",
-                "line": 3,
+                "line": 2,
                 "hit": 5
               }
             },
             "tones": {
               "spans": "data",
-              ".0": "data",
-              "s": "data",
+              "s": "idle",
               "tokens": "data"
             },
             "arrows": [
               [
                 "spans",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
-              ],
-              [
-                "s",
-                "tokens"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Grouping them by feature or by model shows where to optimise.",
+            "at": "say3",
+            "caption": "Parallel work is common in agents and hybrid search.",
             "values": {
               "spans": {
                 "var": "spans",
                 "line": 3,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
-                "line": 2,
-                "hit": 3
+                "hit": 7
               },
               "s": {
-                "var": "s",
-                "line": 2,
-                "hit": 3
+                "text": ""
               },
               "tokens": {
                 "var": "tokens",
-                "line": 4,
-                "hit": 5
+                "line": 3,
+                "hit": 7
               }
             },
             "tones": {
               "spans": "ok",
-              ".0": "ok",
-              "s": "ok",
+              "s": "idle",
               "tokens": "ok"
             },
             "arrows": [
               [
                 "spans",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
-              ],
-              [
-                "s",
-                "tokens"
               ]
             ]
           }
@@ -504,109 +448,73 @@
         "nodes": [
           {
             "id": "spans",
-            "label": "spans"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "spans",
+            "tappable": true
           },
           {
             "id": "s",
-            "label": "s"
+            "label": "s",
+            "tappable": true
           },
           {
             "id": "tokens",
-            "label": "tokens"
+            "label": "tokens",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregate_traces(spans) returns total tokens (prompt plus completion.",
+            "caption": "Inspect practice updates as spans tracks aggregate state.",
             "values": {
               "spans": "[{'prompt_tokens': 0, 'completion_token…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "s": "{'prompt_tokens': 0, 'completion_tokens…",
-              "tokens": "1770"
+              "s": "",
+              "tokens": ""
             },
             "tones": {
               "spans": "data",
-              ".0": "data",
-              "s": "data",
-              "tokens": "data"
+              "s": "idle",
+              "tokens": "idle"
             },
-            "arrows": [
-              [
-                "spans",
-                ".0"
-              ],
-              [
-                ".0",
-                "s"
-              ],
-              [
-                "s",
-                "tokens"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Summing latency is correct here because the spans ran one after another.",
             "values": {
               "spans": "[{'prompt_tokens': 0, 'completion_token…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "s": "{'prompt_tokens': 300, 'completion_toke…",
+              "s": "",
               "tokens": "1770"
             },
             "tones": {
               "spans": "data",
-              ".0": "data",
-              "s": "data",
+              "s": "idle",
               "tokens": "data"
             },
             "arrows": [
               [
                 "spans",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
-              ],
-              [
-                "s",
-                "tokens"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Grouping them by feature or by model shows where to optimise.",
+            "at": "say3",
+            "caption": "Parallel work is common in agents and hybrid search.",
             "values": {
-              "spans": "[{'prompt_tokens': 0, 'completion_token…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "s": "{'prompt_tokens': 1200, 'completion_tok…",
-              "tokens": "1770"
+              "spans": "[]",
+              "s": "",
+              "tokens": "0"
             },
             "tones": {
               "spans": "ok",
-              ".0": "ok",
-              "s": "ok",
+              "s": "idle",
               "tokens": "ok"
             },
             "arrows": [
               [
                 "spans",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
-              ],
-              [
-                "s",
-                "tokens"
               ]
             ]
           }
@@ -859,6 +767,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Set alerts on thresholds that matter.",
+            "activeActor": "last_week",
+            "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": {
+                  "var": "today",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "last_week",
@@ -873,10 +798,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Set alerts on thresholds that matter.",
-            "activeActor": "last_week",
+            "at": "say7",
+            "caption": "Every alert should link to example traces, so the person on call can start.",
+            "activeActor": "alerts",
             "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": {
+                  "var": "today",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": {
+                  "var": "last_week",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "today",
                 "to": "last_week",
@@ -896,14 +841,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Every alert should link to example traces, so the person on call can start.",
-            "activeActor": "alerts",
-            "messages": [
+              },
               {
                 "from": "today",
                 "to": "last_week",
@@ -946,12 +884,6 @@
                 "to": "last_week",
                 "label": "{'p95_ms': 5400, 'error_rate': 0.011, '…",
                 "tone": "data"
-              },
-              {
-                "from": "last_week",
-                "to": "alerts",
-                "label": "{'p95_ms': 3100, 'error_rate': 0.009, '…",
-                "tone": "ok"
               }
             ],
             "activeActor": "today"
@@ -979,6 +911,30 @@
             "at": "say7",
             "caption": "Every alert should link to example traces, so the person on call can start.",
             "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": "{'p95_ms': 5400, 'error_rate': 0.011, '…",
+                "tone": "data"
+              },
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": "{'p95_ms': 3100, 'error_rate': 0.009, '…",
+                "tone": "ok"
+              },
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": "{'p95_ms': 5400, 'error_rate': 0.011, '…",
+                "tone": "data"
+              },
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": "{'p95_ms': 3100, 'error_rate': 0.009, '…",
+                "tone": "ok"
+              },
               {
                 "from": "today",
                 "to": "last_week",
@@ -1023,6 +979,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Mask personal data before storing.",
+            "activeActor": "PHONE",
+            "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": {
+                  "var": "EMAIL",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "PHONE",
@@ -1037,10 +1010,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Mask personal data before storing.",
-            "activeActor": "PHONE",
+            "at": "say7",
+            "caption": "Tomorrow you will connect RAG to knowledge graphs for questions that need.",
+            "activeActor": "text",
             "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": {
+                  "var": "EMAIL",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": {
+                  "var": "PHONE",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "EMAIL",
                 "to": "PHONE",
@@ -1060,14 +1053,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Tomorrow you will connect RAG to knowledge graphs for questions that need.",
-            "activeActor": "text",
-            "messages": [
+              },
               {
                 "from": "EMAIL",
                 "to": "PHONE",
@@ -1108,14 +1094,8 @@
               {
                 "from": "EMAIL",
                 "to": "PHONE",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
                 "tone": "data"
-              },
-              {
-                "from": "PHONE",
-                "to": "text",
-                "label": "{'__other__': 'Pattern'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "EMAIL"
@@ -1127,13 +1107,13 @@
               {
                 "from": "EMAIL",
                 "to": "PHONE",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
                 "tone": "data"
               },
               {
                 "from": "PHONE",
                 "to": "text",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
                 "tone": "ok"
               }
             ],
@@ -1146,13 +1126,37 @@
               {
                 "from": "EMAIL",
                 "to": "PHONE",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
                 "tone": "data"
               },
               {
                 "from": "PHONE",
                 "to": "text",
-                "label": "{'__other__': 'Pattern'}",
+                "label": "<Pattern>",
+                "tone": "ok"
+              },
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": "<Pattern>",
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": "<Pattern>",
+                "tone": "ok"
+              },
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": "<Pattern>",
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": "<Pattern>",
                 "tone": "ok"
               }
             ],

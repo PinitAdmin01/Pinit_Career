@@ -38,7 +38,7 @@
           },
           {
             "at": "say2",
-            "caption": "PyTorch Profiler and NVIDIA Nsight Systems produce timelines showing every.",
+            "caption": "Verify the pytorch transition driving profiler behavior.",
             "bars": [
               {
                 "label": "total",
@@ -108,7 +108,7 @@
           },
           {
             "at": "say2",
-            "caption": "PyTorch Profiler and NVIDIA Nsight Systems produce timelines showing every.",
+            "caption": "Verify the pytorch transition driving profiler behavior.",
             "bars": [
               {
                 "label": "total",
@@ -516,7 +516,7 @@
           },
           {
             "at": "say11",
-            "caption": "Most of these fixes cost nothing but a configuration change, so they are.",
+            "caption": "Examine the fixes value produced for cost processing.",
             "values": {
               "fixes": {
                 "var": "fixes",
@@ -620,7 +620,7 @@
           },
           {
             "at": "say11",
-            "caption": "Most of these fixes cost nothing but a configuration change, so they are.",
+            "caption": "Examine the fixes value produced for cost processing.",
             "values": {
               "fixes": "{'INPUT_BOUND': 'add data loader worker…",
               "kind": "'COMM_BOUND'",
@@ -670,7 +670,7 @@
           },
           {
             "at": "say2",
-            "caption": "A straggler may be caused by thermal throttling, a failing component,.",
+            "caption": "Verify the straggler transition driving caused behavior.",
             "items": {
               "var": "rank_ms",
               "line": 5,
@@ -729,7 +729,7 @@
           },
           {
             "at": "say2",
-            "caption": "A straggler may be caused by thermal throttling, a failing component,.",
+            "caption": "Verify the straggler transition driving caused behavior.",
             "items": [
               "402",
               "398",
@@ -798,6 +798,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Profile a few steps and summarise by phase.",
+            "activeActor": "fixes",
+            "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": {
+                  "var": "state",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "fixes",
@@ -812,10 +829,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Profile a few steps and summarise by phase.",
-            "activeActor": "fixes",
+            "at": "say11",
+            "caption": "Writing each iteration down, with the measured step time before and after.",
+            "activeActor": "it",
             "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": {
+                  "var": "state",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": {
+                  "var": "fixes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "state",
                 "to": "fixes",
@@ -835,14 +872,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Writing each iteration down, with the measured step time before and after.",
-            "activeActor": "it",
-            "messages": [
+              },
               {
                 "from": "state",
                 "to": "fixes",
@@ -885,12 +915,6 @@
                 "to": "fixes",
                 "label": "{'data': 60, 'compute': 200, 'comm': 15…",
                 "tone": "data"
-              },
-              {
-                "from": "fixes",
-                "to": "it",
-                "label": "{'data': ['prefetch', 0.2], 'comm': ['o…",
-                "tone": "ok"
               }
             ],
             "activeActor": "state"
@@ -918,6 +942,30 @@
             "at": "say11",
             "caption": "Writing each iteration down, with the measured step time before and after.",
             "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": "{'data': 60, 'compute': 200, 'comm': 15…",
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": "{'data': ['prefetch', 0.2], 'comm': ['o…",
+                "tone": "ok"
+              },
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": "{'data': 60, 'compute': 200, 'comm': 15…",
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": "{'data': ['prefetch', 0.2], 'comm': ['o…",
+                "tone": "ok"
+              },
               {
                 "from": "state",
                 "to": "fixes",

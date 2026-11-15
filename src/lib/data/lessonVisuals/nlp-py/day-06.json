@@ -46,7 +46,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example compares straight-line distance and cosine for a short and.",
+            "caption": "Examine the example value produced for compares processing.",
             "items": {
               "var": "short",
               "line": 9,
@@ -100,7 +100,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example compares straight-line distance and cosine for a short and.",
+            "caption": "Examine the example value produced for compares processing.",
             "items": [
               "2",
               "1",
@@ -346,19 +346,18 @@
         "nodes": [
           {
             "id": "a",
-            "label": "a"
+            "label": "a",
+            "tappable": true
           },
           {
             "id": "b",
-            "label": "b"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "b",
+            "tappable": true
           },
           {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
           }
         ],
         "steps": [
@@ -376,127 +375,72 @@
                 "line": 10,
                 "hit": 1
               },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 1
-              },
               "x": {
-                "var": "x",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "a": "data",
               "b": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "idle"
             },
-            "arrows": [
-              [
-                "a",
-                "b"
-              ],
-              [
-                "b",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "One edge case needs care.",
             "values": {
               "a": {
-                "var": "a",
-                "line": 4,
-                "hit": 4
+                "text": ""
               },
               "b": {
-                "var": "b",
-                "line": 4,
-                "hit": 4
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 2
+                "text": ""
               },
               "x": {
                 "var": "x",
                 "line": 4,
-                "hit": 2
+                "hit": 11
               }
             },
             "tones": {
-              "a": "data",
-              "b": "data",
-              ".0": "data",
+              "a": "idle",
+              "b": "idle",
               "x": "data"
             },
             "arrows": [
               [
                 "a",
                 "b"
-              ],
-              [
-                "b",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example shows the zero-vector crash and the safe version side by side.",
+            "at": "say3",
+            "caption": "The sensible answer is 0.0: an empty vector is not similar to anything.",
             "values": {
               "a": {
                 "var": "a",
-                "line": 5,
-                "hit": 4
+                "line": 4,
+                "hit": 21
               },
               "b": {
                 "var": "b",
-                "line": 5,
-                "hit": 4
-              },
-              ".0": {
-                "var": ".0",
                 "line": 4,
-                "hit": 3
+                "hit": 21
               },
               "x": {
-                "var": "x",
-                "line": 4,
-                "hit": 3
+                "text": ""
               }
             },
             "tones": {
               "a": "ok",
               "b": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "idle"
             },
             "arrows": [
               [
                 "a",
                 "b"
-              ],
-              [
-                "b",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
               ]
             ]
           }
@@ -508,19 +452,18 @@
         "nodes": [
           {
             "id": "a",
-            "label": "a"
+            "label": "a",
+            "tappable": true
           },
           {
             "id": "b",
-            "label": "b"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "b",
+            "tappable": true
           },
           {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
           }
         ],
         "steps": [
@@ -530,87 +473,52 @@
             "values": {
               "a": "[1, 0]",
               "b": "[1, 0]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "1"
+              "x": ""
             },
             "tones": {
               "a": "data",
               "b": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "idle"
             },
-            "arrows": [
-              [
-                "a",
-                "b"
-              ],
-              [
-                "b",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "One edge case needs care.",
             "values": {
-              "a": "[1, 0]",
-              "b": "[1, 0]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "0"
+              "a": "",
+              "b": "",
+              "x": "3"
             },
             "tones": {
-              "a": "data",
-              "b": "data",
-              ".0": "data",
+              "a": "idle",
+              "b": "idle",
               "x": "data"
             },
             "arrows": [
               [
                 "a",
                 "b"
-              ],
-              [
-                "b",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example shows the zero-vector crash and the safe version side by side.",
+            "at": "say3",
+            "caption": "The sensible answer is 0.0: an empty vector is not similar to anything.",
             "values": {
-              "a": "[1, 0]",
-              "b": "[1, 0]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "0"
+              "a": "[0, 0]",
+              "b": "[1, 2]",
+              "x": ""
             },
             "tones": {
               "a": "ok",
               "b": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "idle"
             },
             "arrows": [
               [
                 "a",
                 "b"
-              ],
-              [
-                "b",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
               ]
             ]
           }
@@ -731,7 +639,7 @@
     },
     {
       "partTitle": "TF-IDF vectors and semantic limits",
-      "codeHash": "8e7961e93dd28e97e17921529cda2dec4260c94a05f34b85988d843c825288b6",
+      "codeHash": "273bef8e0495cd5596a6c0f714061ab56996ac680ae6954f58e0cd6b02c0e4eb",
       "spec": {
         "template": "cells",
         "title": "TF-IDF vectors and semantic limits",
@@ -853,7 +761,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates compute during execution.",
+            "caption": "Observe how practice shapes similarity during this step.",
             "items": {
               "var": "ranked",
               "line": 2,
@@ -869,7 +777,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how remember updates possible during execution.",
+            "caption": "Verify the remember transition driving possible behavior.",
             "items": {
               "var": "ranked",
               "line": 3,
@@ -907,7 +815,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates compute during execution.",
+            "caption": "Observe how practice shapes similarity during this step.",
             "items": [
               "'a'",
               "'b'",
@@ -923,7 +831,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how remember updates possible during execution.",
+            "caption": "Verify the remember transition driving possible behavior.",
             "items": [
               "'a'",
               "'b'",

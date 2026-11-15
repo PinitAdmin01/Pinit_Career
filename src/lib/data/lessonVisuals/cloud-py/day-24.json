@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "rtype": {
-                "var": "rtype",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "hcl": "data",
               "first": "data",
               "kind": "data",
-              "rtype": "data"
+              "rtype": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "hcl": "'resource \"aws_s3_bucket\" \"media\" {\n  b…",
               "first": "['resource', '\"aws_s3_bucket\"', '\"media…",
               "kind": "'resource'",
-              "rtype": "'aws_s3_bucket'"
+              "rtype": ""
             },
             "tones": {
               "hcl": "data",
               "first": "data",
               "kind": "data",
-              "rtype": "data"
+              "rtype": "idle"
             },
             "arrows": [
               [
@@ -634,7 +632,7 @@
             "values": {
               "lock_table": {
                 "var": "lock_table",
-                "line": 3,
+                "line": 13,
                 "hit": 1
               },
               "LOCK": {
@@ -649,8 +647,8 @@
               },
               "who": {
                 "var": "who",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -680,7 +678,7 @@
             "values": {
               "lock_table": {
                 "var": "lock_table",
-                "line": 9,
+                "line": 15,
                 "hit": 1
               },
               "LOCK": {
@@ -695,8 +693,8 @@
               },
               "who": {
                 "var": "who",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -778,10 +776,10 @@
             "at": "say2",
             "caption": "State locking prevents this.",
             "values": {
-              "lock_table": "{}",
+              "lock_table": "{'pinit-tf-state/prod/terraform.tfstate…",
               "LOCK": "'pinit-tf-state/prod/terraform.tfstate'",
               "lock_id": "'pinit-tf-state/prod/terraform.tfstate'",
-              "who": "'asha'"
+              "who": "'ravi'"
             },
             "tones": {
               "lock_table": "data",
@@ -811,7 +809,7 @@
               "lock_table": "{}",
               "LOCK": "'pinit-tf-state/prod/terraform.tfstate'",
               "lock_id": "'pinit-tf-state/prod/terraform.tfstate'",
-              "who": "'asha'"
+              "who": "'ravi'"
             },
             "tones": {
               "lock_table": "ok",
@@ -1051,15 +1049,13 @@
                 "hit": 1
               },
               "blocked": {
-                "var": "blocked",
-                "line": 3,
-                "hit": 3
+                "text": ""
               }
             },
             "tones": {
               "PROTECTED": "data",
               "replacements": "data",
-              "blocked": "data"
+              "blocked": "idle"
             },
             "arrows": [
               [
@@ -1170,12 +1166,12 @@
             "values": {
               "PROTECTED": "['aws_db_instance', 'aws_s3_bucket', 'a…",
               "replacements": "['aws_instance.web', 'aws_db_instance.m…",
-              "blocked": "['aws_db_instance.main']"
+              "blocked": ""
             },
             "tones": {
               "PROTECTED": "data",
               "replacements": "data",
-              "blocked": "data"
+              "blocked": "idle"
             },
             "arrows": [
               [

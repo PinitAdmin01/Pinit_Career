@@ -32,14 +32,12 @@
                 "hit": 1
               },
               "contract": {
-                "var": "contract",
-                "line": 18,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
-              "contract": "data"
+              "contract": "idle"
             },
             "arrows": [
               [
@@ -121,11 +119,11 @@
             "caption": "Establishing rigorous architectural boundaries across asynchronous event.",
             "values": {
               "self": "<Milestone9ArchitectureContract>",
-              "contract": "<Milestone9ArchitectureContract>"
+              "contract": ""
             },
             "tones": {
               "self": "data",
-              "contract": "data"
+              "contract": "idle"
             },
             "arrows": [
               [
@@ -218,16 +216,14 @@
                 "hit": 1
               },
               "ev2": {
-                "var": "ev2",
-                "line": 25,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "pipeline": "data",
               "ev1": "data",
-              "ev2": "data"
+              "ev2": "idle"
             },
             "arrows": [
               [
@@ -367,13 +363,13 @@
               "self": "<UnifiedEventPipeline>",
               "pipeline": "<UnifiedEventPipeline>",
               "ev1": "{'source': 'com.ecommerce.orders', 'det…",
-              "ev2": "{'source': 'com.ecommerce.orders', 'det…"
+              "ev2": ""
             },
             "tones": {
               "self": "data",
               "pipeline": "data",
               "ev1": "data",
-              "ev2": "data"
+              "ev2": "idle"
             },
             "arrows": [
               [
@@ -545,7 +541,7 @@
               },
               "batch_item_failures": {
                 "var": "batch_item_failures",
-                "line": 6,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -591,7 +587,7 @@
               },
               "batch_item_failures": {
                 "var": "batch_item_failures",
-                "line": 8,
+                "line": 11,
                 "hit": 1
               }
             },
@@ -677,7 +673,7 @@
               "batch": "[{'messageId': 'msg-1'}, {'messageId': …",
               "records": "[{'messageId': 'msg-1'}, {'messageId': …",
               "poison_id": "'msg-4'",
-              "batch_item_failures": "[]"
+              "batch_item_failures": "[{'itemIdentifier': 'msg-4'}]"
             },
             "tones": {
               "batch": "data",
@@ -707,7 +703,7 @@
               "batch": "[{'messageId': 'msg-1'}, {'messageId': …",
               "records": "[{'messageId': 'msg-1'}, {'messageId': …",
               "poison_id": "'msg-4'",
-              "batch_item_failures": "[]"
+              "batch_item_failures": "[{'itemIdentifier': 'msg-4'}]"
             },
             "tones": {
               "batch": "ok",
@@ -983,6 +979,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the telemetry transition driving serverless behavior.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "gates",
+                "to": "v",
+                "label": {
+                  "var": "gates",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "v",
@@ -997,10 +1010,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how gate updates certification during execution.",
-            "activeActor": "v",
+            "at": "say7",
+            "caption": "Run the Milestone 9 Certification Suite below to certify the Event-Driven.",
+            "activeActor": "all_pass",
             "messages": [
+              {
+                "from": "gates",
+                "to": "v",
+                "label": {
+                  "var": "gates",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "all_pass",
+                "label": {
+                  "var": "v",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "gates",
                 "to": "v",
@@ -1020,14 +1053,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Run the Milestone 9 Certification Suite below to certify the Event-Driven.",
-            "activeActor": "all_pass",
-            "messages": [
+              },
               {
                 "from": "gates",
                 "to": "v",
@@ -1070,19 +1096,13 @@
                 "to": "v",
                 "label": "{'gate_1_serverless_cold_start_optimiza…",
                 "tone": "data"
-              },
-              {
-                "from": "v",
-                "to": "all_pass",
-                "label": "'PASS'",
-                "tone": "ok"
               }
             ],
             "activeActor": "gates"
           },
           {
             "at": "say2",
-            "caption": "Trace how gate updates certification during execution.",
+            "caption": "Verify the telemetry transition driving serverless behavior.",
             "messages": [
               {
                 "from": "gates",
@@ -1103,6 +1123,30 @@
             "at": "say7",
             "caption": "Run the Milestone 9 Certification Suite below to certify the Event-Driven.",
             "messages": [
+              {
+                "from": "gates",
+                "to": "v",
+                "label": "{'gate_1_serverless_cold_start_optimiza…",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "all_pass",
+                "label": "'PASS'",
+                "tone": "ok"
+              },
+              {
+                "from": "gates",
+                "to": "v",
+                "label": "{'gate_1_serverless_cold_start_optimiza…",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "all_pass",
+                "label": "'PASS'",
+                "tone": "ok"
+              },
               {
                 "from": "gates",
                 "to": "v",

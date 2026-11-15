@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Classifier Calibration — Foundations & Mathematical Invariants",
+      "partTitle": "Binary Outcome Accounting in `calculate_confusion_matrix`",
       "codeHash": "4fcf3a08522795def26fc3187dd85192673b859bd70862f4206bd385549691cb",
       "spec": {
         "template": "bars",
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the binary value produced for calculate processing.",
             "bars": [
               {
                 "label": "p",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the binary value produced for calculate processing.",
             "bars": [
               {
                 "label": "p",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "partTitle": "Classifier Calibration — Core Algorithm & State Representation",
+      "partTitle": "Precision vs Recall Mechanics via `calculate_precision_recall`",
       "codeHash": "381066f325607576e76e5686d2d1700734ccbe0115ceb0e23aa304f443a91606",
       "spec": {
         "template": "bars",
@@ -318,7 +318,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the precision value produced for recall processing.",
             "bars": [
               {
                 "label": "tp",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the precision value produced for recall processing.",
             "bars": [
               {
                 "label": "tp",
@@ -446,7 +446,7 @@
       }
     },
     {
-      "partTitle": "Classifier Calibration — Production Implementation & Boundary Mechanics",
+      "partTitle": "Recall-Biased Asymmetric Harm Weighting in `calculate_f_beta`",
       "codeHash": "9c9d7f5239239a0095b1957305d5af839db86000680bb5fd6c5b94c8e5ee0898",
       "spec": {
         "template": "states",
@@ -474,7 +474,7 @@
           },
           {
             "at": "say2",
-            "caption": "Standard F1 score weights precision and recall equally (beta = 1.",
+            "caption": "Standard F1 score weights precision and recall equally (beta = 1.0).",
             "currentState": "recall",
             "transition": {
               "from": "precision",
@@ -530,7 +530,7 @@
           },
           {
             "at": "say2",
-            "caption": "Standard F1 score weights precision and recall equally (beta = 1.",
+            "caption": "Standard F1 score weights precision and recall equally (beta = 1.0).",
             "currentState": "recall",
             "transition": {
               "from": "precision",
@@ -554,7 +554,7 @@
       }
     },
     {
-      "partTitle": "Classifier Calibration — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Dollar Cost Optimization via `compute_cost_weighted_loss`",
       "codeHash": "1d615ce37f66569bb252e76b5ffe6bf8093615476c8caa62b5512decc3038142",
       "spec": {
         "template": "states",
@@ -597,7 +597,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the dollar value produced for cost processing.",
             "currentState": "cm",
             "transition": {
               "from": "cm_model_b",
@@ -649,7 +649,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the dollar value produced for cost processing.",
             "currentState": "cm",
             "transition": {
               "from": "cm_model_b",
@@ -662,7 +662,7 @@
       }
     },
     {
-      "partTitle": "Classifier Calibration — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Minimum-Loss Operating Selection in `optimal_threshold_picker`",
       "codeHash": "01d579317c3c6972744c6ab8088813e45b4084cd74e44aa80495aafb9fe48d85",
       "spec": {
         "template": "flow",
@@ -780,7 +780,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the loss value produced for operating processing.",
             "values": {
               "trials": {
                 "var": "trials",
@@ -910,7 +910,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the loss value produced for operating processing.",
             "values": {
               "trials": "[{'threshold': 0.3, 'cost': 120}, {'thr…",
               "x": "{'threshold': 0.7, 'cost': 95}",

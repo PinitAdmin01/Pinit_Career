@@ -149,6 +149,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the storing transition driving every behavior.",
+            "activeActor": "seq_len",
+            "messages": [
+              {
+                "from": "num_layers",
+                "to": "seq_len",
+                "label": {
+                  "var": "num_layers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "seq_len",
@@ -163,10 +180,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how layer updates transformer during execution.",
-            "activeActor": "seq_len",
+            "at": "say11",
+            "caption": "This selective retention strategy reclaims the vast majority of activation.",
+            "activeActor": "hidden_dim",
             "messages": [
+              {
+                "from": "num_layers",
+                "to": "seq_len",
+                "label": {
+                  "var": "num_layers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "num_layers",
                 "to": "seq_len",
@@ -186,14 +223,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This selective retention strategy reclaims the vast majority of activation.",
-            "activeActor": "hidden_dim",
-            "messages": [
+              },
               {
                 "from": "num_layers",
                 "to": "seq_len",
@@ -236,19 +266,13 @@
                 "to": "seq_len",
                 "label": "32",
                 "tone": "data"
-              },
-              {
-                "from": "seq_len",
-                "to": "hidden_dim",
-                "label": "4096",
-                "tone": "ok"
               }
             ],
             "activeActor": "num_layers"
           },
           {
             "at": "say2",
-            "caption": "Trace how layer updates transformer during execution.",
+            "caption": "Verify the storing transition driving every behavior.",
             "messages": [
               {
                 "from": "num_layers",
@@ -269,6 +293,30 @@
             "at": "say11",
             "caption": "This selective retention strategy reclaims the vast majority of activation.",
             "messages": [
+              {
+                "from": "num_layers",
+                "to": "seq_len",
+                "label": "32",
+                "tone": "data"
+              },
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": "4096",
+                "tone": "ok"
+              },
+              {
+                "from": "num_layers",
+                "to": "seq_len",
+                "label": "32",
+                "tone": "data"
+              },
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": "4096",
+                "tone": "ok"
+              },
               {
                 "from": "num_layers",
                 "to": "seq_len",
@@ -313,6 +361,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Under standard training without checkpointing, total computation equals 3.",
+            "activeActor": "strategy",
+            "messages": [
+              {
+                "from": "forward_flops",
+                "to": "strategy",
+                "label": {
+                  "var": "forward_flops",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "strategy",
@@ -327,10 +392,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Under standard training without checkpointing, total computation equals 3.",
-            "activeActor": "strategy",
+            "at": "say11",
+            "caption": "Distributed training frameworks implement selective checkpointing as.",
+            "activeActor": "recompute_flops",
             "messages": [
+              {
+                "from": "forward_flops",
+                "to": "strategy",
+                "label": {
+                  "var": "forward_flops",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "strategy",
+                "to": "recompute_flops",
+                "label": {
+                  "var": "strategy",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "forward_flops",
                 "to": "strategy",
@@ -350,14 +435,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Distributed training frameworks implement selective checkpointing as.",
-            "activeActor": "recompute_flops",
-            "messages": [
+              },
               {
                 "from": "forward_flops",
                 "to": "strategy",
@@ -400,12 +478,6 @@
                 "to": "strategy",
                 "label": "120",
                 "tone": "data"
-              },
-              {
-                "from": "strategy",
-                "to": "recompute_flops",
-                "label": "'SELECTIVE_CHECKPOINTING'",
-                "tone": "ok"
               }
             ],
             "activeActor": "forward_flops"
@@ -444,6 +516,30 @@
                 "to": "recompute_flops",
                 "label": "'SELECTIVE_CHECKPOINTING'",
                 "tone": "ok"
+              },
+              {
+                "from": "forward_flops",
+                "to": "strategy",
+                "label": "120",
+                "tone": "data"
+              },
+              {
+                "from": "strategy",
+                "to": "recompute_flops",
+                "label": "'SELECTIVE_CHECKPOINTING'",
+                "tone": "ok"
+              },
+              {
+                "from": "forward_flops",
+                "to": "strategy",
+                "label": "120",
+                "tone": "data"
+              },
+              {
+                "from": "strategy",
+                "to": "recompute_flops",
+                "label": "'SELECTIVE_CHECKPOINTING'",
+                "tone": "ok"
               }
             ],
             "activeActor": "recompute_flops"
@@ -453,135 +549,113 @@
     },
     {
       "partTitle": "Selective Activation Checkpointing — Resilience Guardrails & Failure Recovery",
-      "codeHash": "230fad47d1bba06b8901f3efa86a9e35a3c91648e462fdb876a4ebed38111e78",
+      "codeHash": "451a8b19ce95cb3cdf922fc6f6127dc22edf28c931a168406f9b674aa60e653d",
       "spec": {
-        "template": "bars",
+        "template": "flow",
         "title": "Selective Activation Checkpointing — Resilience Guardrails & Fai",
+        "nodes": [
+          {
+            "id": "peak_vram_gb",
+            "label": "peak_vram_gb",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic policy guardrails prevent catastrophic Out-Of-Memory (OOM).",
-            "bars": [
-              {
-                "label": "peak_vram_gb",
-                "value": {
-                  "var": "peak_vram_gb",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect checkpointing updates as peak_vram_gb tracks guardrails state.",
+            "values": {
+              "peak_vram_gb": {
+                "var": "peak_vram_gb",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "vram_limit_gb",
-                "value": {
-                  "var": "vram_limit_gb",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "peak_vram_gb": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If peak VRAM allocation is projected to exceed physical device limits,.",
-            "bars": [
-              {
-                "label": "peak_vram_gb",
-                "value": {
-                  "var": "peak_vram_gb",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+            "caption": "Verify the selective transition driving checkpointing behavior.",
+            "values": {
+              "peak_vram_gb": {
+                "var": "peak_vram_gb",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "label": "vram_limit_gb",
-                "value": {
-                  "var": "vram_limit_gb",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing proactive memory bounds ensures high cluster reliability.",
-            "bars": [
-              {
-                "label": "peak_vram_gb",
-                "value": {
-                  "var": "peak_vram_gb",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "vram_limit_gb",
-                "value": {
-                  "var": "vram_limit_gb",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "peak_vram_gb": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "peak_vram_gb",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
+        "template": "flow",
         "title": "Selective Activation Checkpointing — Resilience Guardrails & Fai",
+        "nodes": [
+          {
+            "id": "peak_vram_gb",
+            "label": "peak_vram_gb",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic policy guardrails prevent catastrophic Out-Of-Memory (OOM).",
-            "bars": [
-              {
-                "label": "peak_vram_gb",
-                "value": 92,
-                "tone": "data"
-              },
-              {
-                "label": "vram_limit_gb",
-                "value": 80,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect checkpointing updates as peak_vram_gb tracks guardrails state.",
+            "values": {
+              "peak_vram_gb": "64",
+              "out": ""
+            },
+            "tones": {
+              "peak_vram_gb": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If peak VRAM allocation is projected to exceed physical device limits,.",
-            "bars": [
-              {
-                "label": "peak_vram_gb",
-                "value": 92,
-                "tone": "ok"
-              },
-              {
-                "label": "vram_limit_gb",
-                "value": 80,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing proactive memory bounds ensures high cluster reliability.",
-            "bars": [
-              {
-                "label": "peak_vram_gb",
-                "value": 92,
-                "tone": "ok"
-              },
-              {
-                "label": "vram_limit_gb",
-                "value": 80,
-                "tone": "ok"
-              }
+            "caption": "Verify the selective transition driving checkpointing behavior.",
+            "values": {
+              "peak_vram_gb": "92",
+              "out": "Checkpointing Policy Guardrail: OOM_PREVENTED_TRIGGER_SELECTIVE -> Recommended: SELECTIVE_CHECKPOINTING"
+            },
+            "tones": {
+              "peak_vram_gb": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "peak_vram_gb",
+                "out"
+              ]
             ]
           }
         ]
@@ -600,7 +674,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production telemetry auditing validates the empirical effectiveness.",
+            "caption": "Observe how checkpointing shapes monitors during this step.",
             "rows": [
               {
                 "cells": [
@@ -665,7 +739,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production telemetry auditing validates the empirical effectiveness.",
+            "caption": "Observe how checkpointing shapes monitors during this step.",
             "rows": [
               {
                 "cells": [

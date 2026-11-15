@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "Key fields include the subject names (in the Subject Alternative Name.",
+            "caption": "Verify the fields transition driving include behavior.",
             "currentState": "today",
             "transition": {
               "from": "cert",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say2",
-            "caption": "Key fields include the subject names (in the Subject Alternative Name.",
+            "caption": "Verify the fields transition driving include behavior.",
             "currentState": "today",
             "transition": {
               "from": "cert",
@@ -250,7 +250,7 @@
           },
           {
             "at": "say2",
-            "caption": "Matching is case-insensitive, because domain names are.",
+            "caption": "Matching is case-insensitive.",
             "currentState": "name",
             "transition": {
               "from": "host",
@@ -306,7 +306,7 @@
           },
           {
             "at": "say2",
-            "caption": "Matching is case-insensitive, because domain names are.",
+            "caption": "Matching is case-insensitive.",
             "currentState": "name",
             "transition": {
               "from": "host",
@@ -374,16 +374,14 @@
                 "hit": 1
               },
               "b": {
-                "var": "b",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "chain": "data",
               "roots": "data",
               "a": "data",
-              "b": "data"
+              "b": "idle"
             }
           },
           {
@@ -481,13 +479,13 @@
               "chain": "[{'subject': 'shop.example.com', 'issue…",
               "roots": "{'Root CA X1'}",
               "a": "{'subject': 'shop.example.com', 'issuer…",
-              "b": "{'subject': 'Intermediate R3', 'issuer'…"
+              "b": ""
             },
             "tones": {
               "chain": "data",
               "roots": "data",
               "a": "data",
-              "b": "data"
+              "b": "idle"
             }
           },
           {
@@ -612,13 +610,13 @@
               },
               "c": {
                 "var": "c",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -644,7 +642,7 @@
           },
           {
             "at": "say9",
-            "caption": "Keeping an inventory of every certificate, with owner and expiry date,.",
+            "caption": "Examine the certificate value produced for keeping processing.",
             "values": {
               "inventory": {
                 "var": "inventory",
@@ -658,13 +656,13 @@
               },
               "c": {
                 "var": "c",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "issues": {
                 "var": "issues",
-                "line": 5,
-                "hit": 2
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -748,8 +746,8 @@
             "values": {
               "inventory": "[{'host': 'shop.example.com', 'expires'…",
               "today": "'2026-09-20'",
-              "c": "{'host': 'shop.example.com', 'expires':…",
-              "issues": "[]"
+              "c": "{'host': 'api.example.com', 'expires': …",
+              "issues": "['EXPIRED']"
             },
             "tones": {
               "inventory": "data",
@@ -774,12 +772,12 @@
           },
           {
             "at": "say9",
-            "caption": "Keeping an inventory of every certificate, with owner and expiry date,.",
+            "caption": "Examine the certificate value produced for keeping processing.",
             "values": {
               "inventory": "[{'host': 'shop.example.com', 'expires'…",
               "today": "'2026-09-20'",
-              "c": "{'host': 'shop.example.com', 'expires':…",
-              "issues": "[]"
+              "c": "{'host': 'legacy.example.com', 'expires…",
+              "issues": "['VERIFY_DISABLED']"
             },
             "tones": {
               "inventory": "ok",
@@ -831,6 +829,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the checks transition driving include behavior.",
+            "activeActor": "chain",
+            "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": {
+                  "var": "cert",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "chain",
@@ -845,10 +860,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include a valid wildcard match, a capitalised hostname,.",
-            "activeActor": "chain",
+            "at": "say9",
+            "caption": "Real code should always rely on the TLS library's verification.",
+            "activeActor": "host",
             "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": {
+                  "var": "cert",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": {
+                  "var": "chain",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cert",
                 "to": "chain",
@@ -868,14 +903,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Real code should always rely on the TLS library's verification.",
-            "activeActor": "host",
-            "messages": [
+              },
               {
                 "from": "cert",
                 "to": "chain",
@@ -918,19 +946,13 @@
                 "to": "chain",
                 "label": "{'names': ['*.bank.example'], 'not_befo…",
                 "tone": "data"
-              },
-              {
-                "from": "chain",
-                "to": "host",
-                "label": "[{'subject': 'www.bank.example', 'issue…",
-                "tone": "ok"
               }
             ],
             "activeActor": "cert"
           },
           {
             "at": "say2",
-            "caption": "The checks include a valid wildcard match, a capitalised hostname,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "messages": [
               {
                 "from": "cert",
@@ -951,6 +973,30 @@
             "at": "say9",
             "caption": "Real code should always rely on the TLS library's verification.",
             "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": "{'names': ['*.bank.example'], 'not_befo…",
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": "[{'subject': 'www.bank.example', 'issue…",
+                "tone": "ok"
+              },
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": "{'names': ['*.bank.example'], 'not_befo…",
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": "[{'subject': 'www.bank.example', 'issue…",
+                "tone": "ok"
+              },
               {
                 "from": "cert",
                 "to": "chain",

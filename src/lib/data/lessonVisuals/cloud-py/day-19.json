@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Amazon Simple Notification Service (SNS) provides topics.",
+            "activeActor": "message",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "message",
+                "label": {
+                  "var": "topic",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "message",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Amazon Simple Notification Service (SNS) provides topics.",
-            "activeActor": "message",
+            "at": "say7",
+            "caption": "Pub/sub is how large systems stay loosely coupled.",
+            "activeActor": "m",
             "messages": [
+              {
+                "from": "topic",
+                "to": "message",
+                "label": {
+                  "var": "topic",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "message",
+                "to": "m",
+                "label": {
+                  "var": "message",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "topic",
                 "to": "message",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Pub/sub is how large systems stay loosely coupled.",
-            "activeActor": "m",
-            "messages": [
+              },
               {
                 "from": "topic",
                 "to": "message",
@@ -118,12 +148,6 @@
                 "to": "message",
                 "label": "{'name': 'order-events', 'subscribers':…",
                 "tone": "data"
-              },
-              {
-                "from": "message",
-                "to": "m",
-                "label": "{'event': 'ORDER_PLACED', 'order_id': '…",
-                "tone": "ok"
               }
             ],
             "activeActor": "topic"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Pub/sub is how large systems stay loosely coupled.",
             "messages": [
+              {
+                "from": "topic",
+                "to": "message",
+                "label": "{'name': 'order-events', 'subscribers':…",
+                "tone": "data"
+              },
+              {
+                "from": "message",
+                "to": "m",
+                "label": "{'event': 'ORDER_PLACED', 'order_id': '…",
+                "tone": "ok"
+              },
+              {
+                "from": "topic",
+                "to": "message",
+                "label": "{'name': 'order-events', 'subscribers':…",
+                "tone": "data"
+              },
+              {
+                "from": "message",
+                "to": "m",
+                "label": "{'event': 'ORDER_PLACED', 'order_id': '…",
+                "tone": "ok"
+              },
               {
                 "from": "topic",
                 "to": "message",
@@ -369,8 +417,8 @@
               },
               "m": {
                 "var": "m",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -415,8 +463,8 @@
               },
               "m": {
                 "var": "m",
-                "line": 10,
-                "hit": 2
+                "line": 9,
+                "hit": 3
               }
             },
             "tones": {
@@ -501,7 +549,7 @@
               "vip_support": "{'customer': ['VIP', 'ENTERPRISE']}",
               "india_warehouse": "{'country': ['IN']}",
               "msgs": "[{'customer': 'VIP', 'country': 'IN'}, …",
-              "m": "{'customer': 'VIP', 'country': 'IN'}"
+              "m": "{'customer': 'BASIC', 'country': 'IN'}"
             },
             "tones": {
               "vip_support": "data",
@@ -531,7 +579,7 @@
               "vip_support": "{'customer': ['VIP', 'ENTERPRISE']}",
               "india_warehouse": "{'country': ['IN']}",
               "msgs": "[{'customer': 'VIP', 'country': 'IN'}, …",
-              "m": "{'customer': 'VIP', 'country': 'IN'}"
+              "m": "{'customer': 'ENTERPRISE', 'country': '…"
             },
             "tones": {
               "vip_support": "ok",
@@ -804,14 +852,12 @@
                 "hit": 1
               },
               "a": {
-                "var": "a",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "alert": "data",
-              "a": "data"
+              "a": "idle"
             },
             "arrows": [
               [
@@ -893,11 +939,11 @@
             "caption": "SNS also delivers straight to people.",
             "values": {
               "alert": "{'service': 'checkout-api', 'metric': '…",
-              "a": "{'service': 'checkout-api', 'metric': '…"
+              "a": ""
             },
             "tones": {
               "alert": "data",
-              "a": "data"
+              "a": "idle"
             },
             "arrows": [
               [
@@ -972,14 +1018,12 @@
                 "hit": 1
               },
               "allowed": {
-                "var": "allowed",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "attrs": "data",
-              "allowed": "data"
+              "allowed": "idle"
             },
             "arrows": [
               [
@@ -1061,11 +1105,11 @@
             "caption": "Fanout(subscriptions, message, deliver).",
             "values": {
               "attrs": "{'customer': {'Type': 'String', 'Value'…",
-              "allowed": "['VIP', 'ENTERPRISE']"
+              "allowed": ""
             },
             "tones": {
               "attrs": "data",
-              "allowed": "data"
+              "allowed": "idle"
             },
             "arrows": [
               [

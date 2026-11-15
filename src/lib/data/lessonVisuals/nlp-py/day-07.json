@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "\"You shall know a word by the company it keeps.",
+            "caption": "Observe how shall shapes know during this step.",
             "bars": [
               {
                 "label": "window",
@@ -92,7 +92,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "\"You shall know a word by the company it keeps.",
+            "caption": "Observe how shall shapes know during this step.",
             "bars": [
               {
                 "label": "window",
@@ -168,7 +168,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how published updates tomas during execution.",
+            "caption": "Inspect word2vec updates as tokens tracks published state.",
             "values": {
               "tokens": {
                 "var": "tokens",
@@ -228,13 +228,13 @@
               },
               "pairs": {
                 "var": "pairs",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "i": {
                 "var": "i",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -274,13 +274,13 @@
               },
               "pairs": {
                 "var": "pairs",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "i": {
                 "var": "i",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -330,7 +330,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how published updates tomas during execution.",
+            "caption": "Inspect word2vec updates as tokens tracks published state.",
             "values": {
               "tokens": "['i', 'drink', 'hot', 'coffee']",
               "window": "1",
@@ -364,8 +364,8 @@
             "values": {
               "tokens": "['i', 'drink', 'hot', 'coffee']",
               "window": "1",
-              "pairs": "[]",
-              "i": "0"
+              "pairs": "[['i', 'drink']]",
+              "i": "1"
             },
             "tones": {
               "tokens": "data",
@@ -394,8 +394,8 @@
             "values": {
               "tokens": "['i', 'drink', 'hot', 'coffee']",
               "window": "1",
-              "pairs": "[]",
-              "i": "0"
+              "pairs": "[['i', 'drink'], ['drink', 'i']]",
+              "i": "2"
             },
             "tones": {
               "tokens": "ok",
@@ -558,7 +558,7 @@
           },
           {
             "at": "say2",
-            "caption": "The difference king - man captures something like \"royalty without.",
+            "caption": "Verify the difference transition driving king behavior.",
             "items": {
               "var": "king",
               "line": 6,
@@ -612,7 +612,7 @@
           },
           {
             "at": "say2",
-            "caption": "The difference king - man captures something like \"royalty without.",
+            "caption": "Verify the difference transition driving king behavior.",
             "items": [
               "0.8",
               "0.9",
@@ -793,15 +793,13 @@
                 "hit": 1
               },
               "raw": {
-                "var": "raw",
-                "line": 3,
-                "hit": 3
+                "text": ""
               }
             },
             "tones": {
               "a": "data",
               "c": "data",
-              "raw": "data"
+              "raw": "idle"
             },
             "arrows": [
               [
@@ -912,12 +910,12 @@
             "values": {
               "a": "[0.1, 0.2]",
               "c": "[0.7, 0.3]",
-              "raw": "[0.7, 0.3]"
+              "raw": ""
             },
             "tones": {
               "a": "data",
               "c": "data",
-              "raw": "data"
+              "raw": "idle"
             },
             "arrows": [
               [

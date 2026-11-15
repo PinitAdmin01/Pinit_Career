@@ -78,7 +78,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how billion updates parameter during execution.",
+            "caption": "Verify the billion transition driving parameter behavior.",
             "values": {
               "BYTES": {
                 "var": "BYTES",
@@ -224,7 +224,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how billion updates parameter during execution.",
+            "caption": "Verify the billion transition driving parameter behavior.",
             "values": {
               "BYTES": "{'fp32': 4, 'fp16': 2, 'int8': 1, 'int4…",
               "name": "'1.3B'",
@@ -367,18 +367,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "params": {
                 "var": "params",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "tokens": {
                 "var": "tokens",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -404,7 +404,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how scientific updates notation during execution.",
+            "caption": "Examine the scientific value produced for notation processing.",
             "values": {
               "runs": {
                 "var": "runs",
@@ -413,18 +413,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "params": {
                 "var": "params",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "tokens": {
                 "var": "tokens",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -507,9 +507,9 @@
             "caption": "A very useful rule of thumb says that training a dense transformer costs.",
             "values": {
               "runs": "[['125M on 300B tokens', 125000000, 300…",
-              "name": "'125M on 300B tokens'",
-              "params": "125000000",
-              "tokens": "300000000000"
+              "name": "'7B on 1T tokens'",
+              "params": "7000000000",
+              "tokens": "1000000000000"
             },
             "tones": {
               "runs": "data",
@@ -534,12 +534,12 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how scientific updates notation during execution.",
+            "caption": "Examine the scientific value produced for notation processing.",
             "values": {
               "runs": "[['125M on 300B tokens', 125000000, 300…",
-              "name": "'125M on 300B tokens'",
-              "params": "125000000",
-              "tokens": "300000000000"
+              "name": "'70B on 2T tokens'",
+              "params": "70000000000",
+              "tokens": "2000000000000"
             },
             "tones": {
               "runs": "ok",
@@ -579,8 +579,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how modern updates data during execution.",
+            "caption": "Observe how flops shapes modern during this step.",
             "activeActor": "flops",
+            "messages": [
+              {
+                "from": "flops",
+                "to": "peak",
+                "label": {
+                  "var": "flops",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Real training never reaches the peak.",
+            "activeActor": "peak",
             "messages": [
               {
                 "from": "flops",
@@ -605,10 +622,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Real training never reaches the peak.",
-            "activeActor": "peak",
+            "at": "say10",
+            "caption": "Planning numbers like these are what engineers present when asking for.",
+            "activeActor": "mfu",
             "messages": [
+              {
+                "from": "flops",
+                "to": "peak",
+                "label": {
+                  "var": "flops",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "peak",
+                "to": "mfu",
+                "label": {
+                  "var": "peak",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "flops",
                 "to": "peak",
@@ -628,14 +665,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Planning numbers like these are what engineers present when asking for.",
-            "activeActor": "mfu",
-            "messages": [
+              },
               {
                 "from": "flops",
                 "to": "peak",
@@ -671,19 +701,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how modern updates data during execution.",
+            "caption": "Observe how flops shapes modern during this step.",
             "messages": [
               {
                 "from": "flops",
                 "to": "peak",
                 "label": "4.2e+22",
                 "tone": "data"
-              },
-              {
-                "from": "peak",
-                "to": "mfu",
-                "label": "312000000000000",
-                "tone": "ok"
               }
             ],
             "activeActor": "flops"
@@ -711,6 +735,30 @@
             "at": "say10",
             "caption": "Planning numbers like these are what engineers present when asking for.",
             "messages": [
+              {
+                "from": "flops",
+                "to": "peak",
+                "label": "4.2e+22",
+                "tone": "data"
+              },
+              {
+                "from": "peak",
+                "to": "mfu",
+                "label": "312000000000000",
+                "tone": "ok"
+              },
+              {
+                "from": "flops",
+                "to": "peak",
+                "label": "4.2e+22",
+                "tone": "data"
+              },
+              {
+                "from": "peak",
+                "to": "mfu",
+                "label": "312000000000000",
+                "tone": "ok"
+              },
               {
                 "from": "flops",
                 "to": "peak",
@@ -755,6 +803,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The memory wall means the model and its training data structures do not.",
+            "activeActor": "cases",
+            "messages": [
+              {
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": {
+                  "var": "gpu_gb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cases",
@@ -769,10 +834,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The memory wall means the model and its training data structures do not.",
-            "activeActor": "cases",
+            "at": "say10",
+            "caption": "Very large models need memory sharding even before speed becomes the concern.",
+            "activeActor": "name",
             "messages": [
+              {
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": {
+                  "var": "gpu_gb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cases",
+                "to": "name",
+                "label": {
+                  "var": "cases",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "gpu_gb",
                 "to": "cases",
@@ -792,14 +877,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Very large models need memory sharding even before speed becomes the concern.",
-            "activeActor": "name",
-            "messages": [
+              },
               {
                 "from": "gpu_gb",
                 "to": "cases",
@@ -842,12 +920,6 @@
                 "to": "cases",
                 "label": "80",
                 "tone": "data"
-              },
-              {
-                "from": "cases",
-                "to": "name",
-                "label": "[['350M model, 20 GPU-days of work', 35…",
-                "tone": "ok"
               }
             ],
             "activeActor": "gpu_gb"
@@ -875,6 +947,30 @@
             "at": "say10",
             "caption": "Very large models need memory sharding even before speed becomes the concern.",
             "messages": [
+              {
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": "80",
+                "tone": "data"
+              },
+              {
+                "from": "cases",
+                "to": "name",
+                "label": "[['350M model, 20 GPU-days of work', 35…",
+                "tone": "ok"
+              },
+              {
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": "80",
+                "tone": "data"
+              },
+              {
+                "from": "cases",
+                "to": "name",
+                "label": "[['350M model, 20 GPU-days of work', 35…",
+                "tone": "ok"
+              },
               {
                 "from": "gpu_gb",
                 "to": "cases",
@@ -975,18 +1071,18 @@
               },
               "args": {
                 "var": "args",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "params": {
                 "var": "params",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "precision": {
                 "var": "precision",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -1021,18 +1117,18 @@
               },
               "args": {
                 "var": "args",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "params": {
                 "var": "params",
-                "line": 7,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "precision": {
                 "var": "precision",
-                "line": 7,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -1115,9 +1211,9 @@
             "caption": "Unknown precision names, zero or negative parameter counts and impossible.",
             "values": {
               "BYTES": "{'fp32': 4, 'fp16': 2, 'bf16': 2, 'int8…",
-              "args": "[7000000000, 'bf16']",
-              "params": "7000000000",
-              "precision": "'bf16'"
+              "args": "[7000000000, 'fp64']",
+              "params": "0",
+              "precision": "'fp64'"
             },
             "tones": {
               "BYTES": "data",
@@ -1145,9 +1241,9 @@
             "caption": "Tests that feed bad inputs deliberately, as today's checks do, protect.",
             "values": {
               "BYTES": "{'fp32': 4, 'fp16': 2, 'bf16': 2, 'int8…",
-              "args": "[7000000000, 'bf16']",
-              "params": "7000000000",
-              "precision": "'bf16'"
+              "args": "[0, 'fp16']",
+              "params": "0",
+              "precision": "'fp16'"
             },
             "tones": {
               "BYTES": "ok",
@@ -1224,7 +1320,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a 7B model in FP16 and FP32, a 70B model in INT4,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "params",
@@ -1340,7 +1436,7 @@
           },
           {
             "at": "say2",
-            "caption": "The checks include a 7B model in FP16 and FP32, a 70B model in INT4,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "bars": [
               {
                 "label": "params",

@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Foundations & Mathematical Invariants",
+      "partTitle": "Bitmap-First Metadata Pre-Filtering & Exact Brute-Force Scans",
       "codeHash": "ff1271ff56968f376f05860b4a850eb4a8c254f14e61f003ff227bdb773f2012",
       "spec": {
         "template": "cells",
@@ -115,7 +115,7 @@
       }
     },
     {
-      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Core Algorithm & State Representation",
+      "partTitle": "Over-Fetching kNN Candidates Before Post-Filter Pruning",
       "codeHash": "0d370dbbf21ffff3a97dae9f6789d3f4118b259b18df1271cc17d0493277d37c",
       "spec": {
         "template": "flow",
@@ -159,16 +159,14 @@
                 "hit": 1
               },
               "metadata_db": {
-                "var": "metadata_db",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "knn": "data",
               "meta": "data",
               "knn_results": "data",
-              "metadata_db": "data"
+              "metadata_db": "idle"
             },
             "arrows": [
               [
@@ -233,7 +231,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the post value produced for monitoring processing.",
             "values": {
               "knn": {
                 "var": "knn",
@@ -308,13 +306,13 @@
               "knn": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
               "meta": "{101: {'tenant_id': 99}, 102: {'tenant_…",
               "knn_results": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
-              "metadata_db": "{101: {'tenant_id': 99}, 102: {'tenant_…"
+              "metadata_db": ""
             },
             "tones": {
               "knn": "data",
               "meta": "data",
               "knn_results": "data",
-              "metadata_db": "data"
+              "metadata_db": "idle"
             },
             "arrows": [
               [
@@ -363,7 +361,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the post value produced for monitoring processing.",
             "values": {
               "knn": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
               "meta": "{101: {'tenant_id': 99}, 102: {'tenant_…",
@@ -395,7 +393,7 @@
       }
     },
     {
-      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Single-Stage Predicate-Aware HNSW Graph Traversal",
       "codeHash": "718a4cb0df8ff6c1264e266abdeba5b9b47ffa33e550dcb58f2562a7a7230f7c",
       "spec": {
         "template": "flow",
@@ -439,16 +437,14 @@
                 "hit": 1
               },
               "query": {
-                "var": "query",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "graph_edges": "data",
               "nodes_meta": "data",
               "entry": "data",
-              "query": "data"
+              "query": "idle"
             },
             "arrows": [
               [
@@ -513,7 +509,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the guarding value produced for unreachable processing.",
             "values": {
               "graph_edges": {
                 "var": "graph_edges",
@@ -588,13 +584,13 @@
               "graph_edges": "{1: [2, 3], 2: [4], 3: [4], 4: []}",
               "nodes_meta": "{1: {'tenant_id': 99, 'vec': [0]}, 2: {…",
               "entry": "1",
-              "query": "[1.8]"
+              "query": ""
             },
             "tones": {
               "graph_edges": "data",
               "nodes_meta": "data",
               "entry": "data",
-              "query": "data"
+              "query": "idle"
             },
             "arrows": [
               [
@@ -643,7 +639,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the guarding value produced for unreachable processing.",
             "values": {
               "graph_edges": "{1: [2, 3], 2: [4], 3: [4], 4: []}",
               "nodes_meta": "{1: {'tenant_id': 99, 'vec': [0]}, 2: {…",
@@ -675,165 +671,64 @@
       }
     },
     {
-      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Resilience Guardrails & Failure Recovery",
-      "codeHash": "bf1e4903fbd32a5cc6b096cf283949b501c2b9f627af0720a1e994ffdf548e74",
+      "partTitle": "Missing Document & Predicate Evaluation Safety Wrappers",
+      "codeHash": "ee2564f9cd224a83ee57c118c49a33d033f4aa445c0e4de23e149e8dd714e46d",
       "spec": {
         "template": "flow",
-        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
+        "title": "Missing Document & Predicate Evaluation Safety Wrappers",
         "nodes": [
           {
-            "id": "db",
-            "label": "db"
-          },
-          {
             "id": "doc_id",
-            "label": "doc_id"
+            "label": "doc_id",
+            "tappable": true
           },
           {
-            "id": "meta_db",
-            "label": "meta_db"
-          },
-          {
-            "id": "m",
-            "label": "m"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production metadata engines must guard against missing metadata records.",
+            "caption": "Inspect missing updates as doc_id tracks production state.",
             "values": {
-              "db": {
-                "var": "db",
-                "line": 6,
-                "hit": 1
-              },
               "doc_id": {
                 "var": "doc_id",
                 "line": 2,
                 "hit": 1
               },
-              "meta_db": {
-                "var": "meta_db",
-                "line": 2,
-                "hit": 1
-              },
-              "m": {
-                "var": "m",
-                "line": 7,
-                "hit": 1
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "db": "data",
               "doc_id": "data",
-              "meta_db": "data",
-              "m": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "db",
-                "doc_id"
-              ],
-              [
-                "doc_id",
-                "meta_db"
-              ],
-              [
-                "meta_db",
-                "m"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If a document vector exists in the graph but its metadata record was.",
+            "caption": "Verify the document transition driving predicate behavior.",
             "values": {
-              "db": {
-                "var": "db",
-                "line": 7,
-                "hit": 2
-              },
               "doc_id": {
                 "var": "doc_id",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
-              "meta_db": {
-                "var": "meta_db",
-                "line": 4,
-                "hit": 1
-              },
-              "m": {
-                "var": "m",
-                "line": 7,
-                "hit": 1
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "db": "data",
-              "doc_id": "data",
-              "meta_db": "data",
-              "m": "data"
-            },
-            "arrows": [
-              [
-                "db",
-                "doc_id"
-              ],
-              [
-                "doc_id",
-                "meta_db"
-              ],
-              [
-                "meta_db",
-                "m"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
-            "values": {
-              "db": {
-                "var": "db",
-                "line": 7,
-                "hit": 2
-              },
-              "doc_id": {
-                "var": "doc_id",
-                "line": 4,
-                "hit": 1
-              },
-              "meta_db": {
-                "var": "meta_db",
-                "line": 4,
-                "hit": 1
-              },
-              "m": {
-                "var": "m",
-                "line": 7,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "db": "ok",
               "doc_id": "ok",
-              "meta_db": "ok",
-              "m": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
-                "db",
-                "doc_id"
-              ],
-              [
                 "doc_id",
-                "meta_db"
-              ],
-              [
-                "meta_db",
-                "m"
+                "out"
               ]
             ]
           }
@@ -841,113 +736,48 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
+        "title": "Missing Document & Predicate Evaluation Safety Wrappers",
         "nodes": [
           {
-            "id": "db",
-            "label": "db"
-          },
-          {
             "id": "doc_id",
-            "label": "doc_id"
+            "label": "doc_id",
+            "tappable": true
           },
           {
-            "id": "meta_db",
-            "label": "meta_db"
-          },
-          {
-            "id": "m",
-            "label": "m"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production metadata engines must guard against missing metadata records.",
+            "caption": "Inspect missing updates as doc_id tracks production state.",
             "values": {
-              "db": "{1: {'active': True}}",
-              "doc_id": "1",
-              "meta_db": "{1: {'active': True}}",
-              "m": "{'active': True}"
+              "doc_id": "999",
+              "out": ""
             },
             "tones": {
-              "db": "data",
               "doc_id": "data",
-              "meta_db": "data",
-              "m": "data"
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "db",
-                "doc_id"
-              ],
-              [
-                "doc_id",
-                "meta_db"
-              ],
-              [
-                "meta_db",
-                "m"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If a document vector exists in the graph but its metadata record was.",
+            "caption": "Verify the document transition driving predicate behavior.",
             "values": {
-              "db": "{1: {'active': True}}",
               "doc_id": "1",
-              "meta_db": "{1: {'active': True}}",
-              "m": "{'active': True}"
+              "out": "Predicate Check Valid: True"
             },
             "tones": {
-              "db": "data",
-              "doc_id": "data",
-              "meta_db": "data",
-              "m": "data"
-            },
-            "arrows": [
-              [
-                "db",
-                "doc_id"
-              ],
-              [
-                "doc_id",
-                "meta_db"
-              ],
-              [
-                "meta_db",
-                "m"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
-            "values": {
-              "db": "{1: {'active': True}}",
-              "doc_id": "1",
-              "meta_db": "{1: {'active': True}}",
-              "m": "{'active': True}"
-            },
-            "tones": {
-              "db": "ok",
               "doc_id": "ok",
-              "meta_db": "ok",
-              "m": "ok"
+              "out": "ok"
             },
             "arrows": [
               [
-                "db",
-                "doc_id"
-              ],
-              [
                 "doc_id",
-                "meta_db"
-              ],
-              [
-                "meta_db",
-                "m"
+                "out"
               ]
             ]
           }
@@ -955,15 +785,15 @@
       }
     },
     {
-      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Production Telemetry & Verification Audit",
-      "codeHash": "805e2ef2f6983a794ad1f943827068f5bd222090bbeaeca4bef84978bbb6f8db",
+      "partTitle": "Selectivity Threshold Routing Between Filter Execution Plans",
+      "codeHash": "c5d622bfa392b04e15e05063db9273200060b9ace5eca99ed91b842b51b77d6e",
       "spec": {
         "template": "bars",
-        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
+        "title": "Selectivity Threshold Routing Between Filter Execution Plans",
         "steps": [
           {
             "at": "say1",
-            "caption": "Optimizing filtered search requires continuous telemetry on predicate.",
+            "caption": "Observe how selectivity shapes execution during this step.",
             "bars": [
               {
                 "label": "total_docs",
@@ -984,11 +814,16 @@
                 "tone": "data"
               },
               {
+                "label": "bounded_match",
+                "value": {
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
                 "label": "selectivity",
                 "value": {
-                  "var": "selectivity",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -996,46 +831,53 @@
           },
           {
             "at": "say2",
-            "caption": "Selectivity measures the ratio of documents matching the metadata.",
+            "caption": "Verify the selectivity transition driving measures behavior.",
             "bars": [
               {
                 "label": "total_docs",
                 "value": {
                   "var": "total_docs",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "matching_docs",
                 "value": {
                   "var": "matching_docs",
-                  "line": 3,
+                  "line": 4,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "bounded_match",
+                "value": {
+                  "var": "bounded_match",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "label": "selectivity",
                 "value": {
-                  "var": "selectivity",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "at": "say3",
+            "caption": "Examine the selectivity value produced for below processing.",
             "bars": [
               {
                 "label": "total_docs",
                 "value": {
                   "var": "total_docs",
-                  "line": 4,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -1044,7 +886,16 @@
                 "label": "matching_docs",
                 "value": {
                   "var": "matching_docs",
-                  "line": 4,
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bounded_match",
+                "value": {
+                  "var": "bounded_match",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -1053,7 +904,7 @@
                 "label": "selectivity",
                 "value": {
                   "var": "selectivity",
-                  "line": 4,
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -1064,11 +915,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
+        "title": "Selectivity Threshold Routing Between Filter Execution Plans",
         "steps": [
           {
             "at": "say1",
-            "caption": "Optimizing filtered search requires continuous telemetry on predicate.",
+            "caption": "Observe how selectivity shapes execution during this step.",
             "bars": [
               {
                 "label": "total_docs",
@@ -1081,15 +932,46 @@
                 "tone": "data"
               },
               {
+                "label": "bounded_match",
+                "value": 0,
+                "tone": "data"
+              },
+              {
                 "label": "selectivity",
-                "value": 0.02,
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Selectivity measures the ratio of documents matching the metadata.",
+            "caption": "Verify the selectivity transition driving measures behavior.",
+            "bars": [
+              {
+                "label": "total_docs",
+                "value": 100000,
+                "tone": "data"
+              },
+              {
+                "label": "matching_docs",
+                "value": 2000,
+                "tone": "data"
+              },
+              {
+                "label": "bounded_match",
+                "value": 2000,
+                "tone": "data"
+              },
+              {
+                "label": "selectivity",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the selectivity value produced for below processing.",
             "bars": [
               {
                 "label": "total_docs",
@@ -1102,23 +984,7 @@
                 "tone": "ok"
               },
               {
-                "label": "selectivity",
-                "value": 0.02,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "bars": [
-              {
-                "label": "total_docs",
-                "value": 100000,
-                "tone": "ok"
-              },
-              {
-                "label": "matching_docs",
+                "label": "bounded_match",
                 "value": 2000,
                 "tone": "ok"
               },

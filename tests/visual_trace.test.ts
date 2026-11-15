@@ -23,6 +23,7 @@ import { PROMPT_PYTHON_LONG_LESSONS } from '../src/lib/data/promptPythonLongLess
 import { TRAIN_PYTHON_LONG_LESSONS } from '../src/lib/data/trainPythonLongLessons';
 import { VECTOR_PYTHON_LONG_LESSONS } from '../src/lib/data/vectorPythonLongLessons';
 import { SAFETY_PYTHON_LONG_LESSONS } from '../src/lib/data/safetyPythonLongLessons';
+import { CYBER_PYTHON_LONG_LESSONS } from '../src/lib/data/cyberPythonLongLessons';
 import type { LongLesson } from '../src/lib/data/longLessons';
 
 let pyodide: PyodideInterface;
@@ -126,8 +127,8 @@ test('7. an infinite loop returns truncated: true and the run still ends', async
   assert.equal(res.truncated, true, 'infinite loop or >=2000 events marked truncated');
 });
 
-// Test 8: all 1,980 Python lesson parts print exactly their output under tracing
-test('8. all 1,980 Python lesson parts print exactly their output under tracing', async () => {
+// Test 8: all 2,160 Month-1 Python lesson parts print exactly their output under tracing
+test('8. all 2,160 Month-1 Python lesson parts print exactly their output under tracing', async () => {
   const courses: { name: string; lessons: LongLesson[] }[] = [
     { name: 'python', lessons: PYTHON_LONG_LESSONS },
     { name: 'dsa-py', lessons: DSA_PYTHON_LONG_LESSONS },
@@ -140,6 +141,7 @@ test('8. all 1,980 Python lesson parts print exactly their output under tracing'
     { name: 'train-py', lessons: TRAIN_PYTHON_LONG_LESSONS },
     { name: 'vec-py', lessons: VECTOR_PYTHON_LONG_LESSONS },
     { name: 'safe-py', lessons: SAFETY_PYTHON_LONG_LESSONS },
+    { name: 'cyber-py', lessons: CYBER_PYTHON_LONG_LESSONS },
   ];
 
   let totalPartsTested = 0;
@@ -160,7 +162,7 @@ test('8. all 1,980 Python lesson parts print exactly their output under tracing'
     }
   }
 
-  assert.equal(totalPartsTested, 1980, 'exactly 1,980 parts verified');
+  assert.equal(totalPartsTested, 2160, 'exactly 2,160 parts verified');
 });
 
 // Test 9: formatValue turns values into Python repr cut at 40 chars with …

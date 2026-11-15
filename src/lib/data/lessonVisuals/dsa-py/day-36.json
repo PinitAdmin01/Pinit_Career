@@ -96,7 +96,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Computing all-pairs reachability via DFS from each vertex costs O(V * (V +.",
+            "caption": "Observe how kosaraju shapes algorithm during this step.",
             "items": {
               "var": "visited",
               "line": 8,
@@ -133,7 +133,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Computing all-pairs reachability via DFS from each vertex costs O(V * (V +.",
+            "caption": "Observe how kosaraju shapes algorithm during this step.",
             "mode": "stack",
             "items": [
               "False",
@@ -375,7 +375,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Let us synthesize Tarjan's SCC and Condensation DAG decomposition into.",
+            "caption": "Observe how microservice shapes dependency during this step.",
             "items": {
               "var": "services",
               "line": 74,
@@ -395,7 +395,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how self updates contained during execution.",
+            "caption": "Examine the microservice value produced for circular processing.",
             "items": {
               "var": "services",
               "line": 6,
@@ -412,7 +412,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Let us synthesize Tarjan's SCC and Condensation DAG decomposition into.",
+            "caption": "Observe how microservice shapes dependency during this step.",
             "mode": "queue",
             "items": [
               "'gateway'",
@@ -444,7 +444,7 @@
           },
           {
             "at": "say5",
-            "caption": "Trace how self updates contained during execution.",
+            "caption": "Examine the microservice value produced for circular processing.",
             "mode": "queue",
             "items": [
               "'gateway'",

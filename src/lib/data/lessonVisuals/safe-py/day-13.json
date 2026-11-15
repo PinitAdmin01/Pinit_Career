@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "An agent is a system where the model decides which tools to call and.",
+            "caption": "Observe how agent shapes system during this step.",
             "currentState": "proposed",
             "tone": "data"
           },
@@ -84,7 +84,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "An agent is a system where the model decides which tools to call and.",
+            "caption": "Observe how agent shapes system during this step.",
             "currentState": "proposed",
             "tone": "data"
           },
@@ -294,7 +294,7 @@
           },
           {
             "at": "say2",
-            "caption": "If the tool is not registered, the only error is unknown_tool, because.",
+            "caption": "If the tool is not registered, the only error is unknown_tool.",
             "values": {
               "TYPES": {
                 "var": "TYPES",
@@ -308,13 +308,13 @@
               },
               "args": {
                 "var": "args",
-                "line": 5,
-                "hit": 1
+                "line": 13,
+                "hit": 2
               },
               "a": {
                 "var": "a",
                 "line": 6,
-                "hit": 1
+                "hit": 3
               }
             },
             "tones": {
@@ -354,13 +354,13 @@
               },
               "args": {
                 "var": "args",
-                "line": 5,
-                "hit": 2
+                "line": 13,
+                "hit": 3
               },
               "a": {
                 "var": "a",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 5
               }
             },
             "tones": {
@@ -412,7 +412,7 @@
             "at": "say1",
             "caption": "Practice 1 is check_tool_call(call, registry), which returns a sorted list.",
             "values": {
-              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "TYPES": "{'str': <type>, 'int': <type>, 'bool': …",
               "spec": "{'args': {'customer_id': 'str', 'limit'…",
               "args": "{'customer_id': 'c-1'}",
               "a": "'customer_id'"
@@ -440,12 +440,12 @@
           },
           {
             "at": "say2",
-            "caption": "If the tool is not registered, the only error is unknown_tool, because.",
+            "caption": "If the tool is not registered, the only error is unknown_tool.",
             "values": {
-              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "TYPES": "{'str': <type>, 'int': <type>, 'bool': …",
               "spec": "{'args': {'customer_id': 'str', 'limit'…",
-              "args": "{'customer_id': 'c-1'}",
-              "a": "'customer_id'"
+              "args": "{'limit': True}",
+              "a": "'limit'"
             },
             "tones": {
               "TYPES": "data",
@@ -472,9 +472,9 @@
             "at": "say10",
             "caption": "Always validate on the server side, never trusting any check the model.",
             "values": {
-              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "TYPES": "{'str': <type>, 'int': <type>, 'bool': …",
               "spec": "{'args': {'customer_id': 'str', 'limit'…",
-              "args": "{'customer_id': 'c-1'}",
+              "args": "{'customer_id': 'c-1', 'admin': True}",
               "a": "'customer_id'"
             },
             "tones": {
@@ -632,7 +632,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates base during execution.",
+            "caption": "Observe how safe shapes join during this step.",
             "currentState": "p",
             "tone": "data"
           },
@@ -688,7 +688,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how practice updates base during execution.",
+            "caption": "Observe how safe shapes join during this step.",
             "currentState": "p",
             "tone": "data"
           },

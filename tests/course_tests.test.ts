@@ -120,9 +120,9 @@ test('F-21 / E-38: Python course tests are unaffected by long-lesson changes in 
     assert.equal(questions.length, 10, `python test ${start}-${start + 4} has 10 questions`);
     for (const q of questions) {
       assert.ok(q.question && q.question.length > 0, 'question prompt exists');
-      assert.equal(q.options.length, 3, 'each python check has 3 options');
+      assert.equal(q.options.length, 4, 'each python check has 4 options');
       assert.ok(!q.options.includes('undefined'), 'no undefined filler options');
-      assert.ok(q.answerIndex >= 0 && q.answerIndex < 3, 'valid answer index');
+      assert.ok(q.answerIndex >= 0 && q.answerIndex < 4, 'valid answer index');
     }
   }
 });

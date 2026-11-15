@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A Causal Epidemic Membership & State Replication Node that discovers.",
+            "activeActor": "node_id",
+            "messages": [
+              {
+                "from": "self",
+                "to": "node_id",
+                "label": {
+                  "var": "self",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "node_id",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A Causal Epidemic Membership & State Replication Node that discovers.",
-            "activeActor": "node_id",
+            "at": "say7",
+            "caption": "Wire the core Engine State schema below cleanly before implementing gossip.",
+            "activeActor": "now_ms",
             "messages": [
+              {
+                "from": "self",
+                "to": "node_id",
+                "label": {
+                  "var": "self",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "node_id",
+                "to": "now_ms",
+                "label": {
+                  "var": "node_id",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "node_id",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Wire the core Engine State schema below cleanly before implementing gossip.",
-            "activeActor": "now_ms",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "node_id",
@@ -118,12 +148,6 @@
                 "to": "node_id",
                 "label": "<ClusterNode>",
                 "tone": "data"
-              },
-              {
-                "from": "node_id",
-                "to": "now_ms",
-                "label": "'n1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Wire the core Engine State schema below cleanly before implementing gossip.",
             "messages": [
+              {
+                "from": "self",
+                "to": "node_id",
+                "label": "<ClusterNode>",
+                "tone": "data"
+              },
+              {
+                "from": "node_id",
+                "to": "now_ms",
+                "label": "'n1'",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "node_id",
+                "label": "<ClusterNode>",
+                "tone": "data"
+              },
+              {
+                "from": "node_id",
+                "to": "now_ms",
+                "label": "'n1'",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "node_id",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A peer only yields to a higher incarnation number.",
+            "activeActor": "cur",
+            "messages": [
+              {
+                "from": "RANK",
+                "to": "cur",
+                "label": {
+                  "var": "RANK",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cur",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Consul and SWIM enforce strict deterministic merge precedence across.",
-            "activeActor": "cur",
+            "at": "say6",
+            "caption": "Run the membership table merge below proving order-independent convergence.",
+            "activeActor": "old_alive",
             "messages": [
+              {
+                "from": "RANK",
+                "to": "cur",
+                "label": {
+                  "var": "RANK",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cur",
+                "to": "old_alive",
+                "label": {
+                  "var": "cur",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "RANK",
                 "to": "cur",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Run the membership table merge below proving order-independent convergence.",
-            "activeActor": "old_alive",
-            "messages": [
+              },
               {
                 "from": "RANK",
                 "to": "cur",
@@ -282,19 +360,13 @@
                 "to": "cur",
                 "label": "{'ALIVE': 1, 'SUSPECT': 2, 'DEAD': 3}",
                 "tone": "data"
-              },
-              {
-                "from": "cur",
-                "to": "old_alive",
-                "label": "{'node': 'C', 'status': 'SUSPECT', 'inc…",
-                "tone": "ok"
               }
             ],
             "activeActor": "RANK"
           },
           {
             "at": "say2",
-            "caption": "Consul and SWIM enforce strict deterministic merge precedence across.",
+            "caption": "A peer only yields to a higher incarnation number.",
             "messages": [
               {
                 "from": "RANK",
@@ -326,6 +398,30 @@
                 "to": "old_alive",
                 "label": "{'node': 'C', 'status': 'SUSPECT', 'inc…",
                 "tone": "ok"
+              },
+              {
+                "from": "RANK",
+                "to": "cur",
+                "label": "{'ALIVE': 1, 'SUSPECT': 2, 'DEAD': 3}",
+                "tone": "data"
+              },
+              {
+                "from": "cur",
+                "to": "old_alive",
+                "label": "{'node': 'C', 'status': 'SUSPECT', 'inc…",
+                "tone": "ok"
+              },
+              {
+                "from": "RANK",
+                "to": "cur",
+                "label": "{'ALIVE': 1, 'SUSPECT': 2, 'DEAD': 3}",
+                "tone": "data"
+              },
+              {
+                "from": "cur",
+                "to": "old_alive",
+                "label": "{'node': 'C', 'status': 'SUSPECT', 'inc…",
+                "tone": "ok"
               }
             ],
             "activeActor": "old_alive"
@@ -335,7 +431,7 @@
     },
     {
       "partTitle": "Causal KV Write Path With Sibling Detection & Client Read Context",
-      "codeHash": "067abc1189c22dba916e3b4b7eb1a9364c4ef302b91a5b571c7c62cccea5341e",
+      "codeHash": "41b08191c29158975e0b5710dab5971c9a9cba357bb177af35aed16e144dd68e",
       "spec": {
         "template": "flow",
         "title": "Causal KV Write Path With Sibling Detection & Client Read Contex",
@@ -425,8 +521,8 @@
               },
               "list_b": {
                 "var": "list_b",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -452,7 +548,7 @@
           },
           {
             "at": "say6",
-            "caption": "Verify client multi-branch concurrent updates and server-side set.",
+            "caption": "Examine the causal value produced for write processing.",
             "values": {
               "s_a": {
                 "var": "s_a",
@@ -471,8 +567,8 @@
               },
               "list_b": {
                 "var": "list_b",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -557,7 +653,7 @@
               "s_a": "[{'vc': {'n1': 1}, 'val': 'red'}, {'vc'…",
               "s_b": "[{'vc': {'n1': 1, 'n2': 2}, 'val': 'pur…",
               "list_a": "[{'vc': {'n1': 1}, 'val': 'red'}, {'vc'…",
-              "list_b": "[{'vc': {'n1': 1, 'n2': 2}, 'val': 'pur…"
+              "list_b": "[{'vc': {'n1': 2}, 'val': 'green'}]"
             },
             "tones": {
               "s_a": "data",
@@ -582,12 +678,12 @@
           },
           {
             "at": "say6",
-            "caption": "Verify client multi-branch concurrent updates and server-side set.",
+            "caption": "Examine the causal value produced for write processing.",
             "values": {
               "s_a": "[{'vc': {'n1': 1}, 'val': 'red'}, {'vc'…",
               "s_b": "[{'vc': {'n1': 1, 'n2': 2}, 'val': 'pur…",
               "list_a": "[{'vc': {'n1': 1}, 'val': 'red'}, {'vc'…",
-              "list_b": "[{'vc': {'n1': 1, 'n2': 2}, 'val': 'pur…"
+              "list_b": "[{'vc': {'n1': 2}, 'val': 'green'}]"
             },
             "tones": {
               "s_a": "ok",
@@ -615,115 +711,191 @@
     },
     {
       "partTitle": "End-to-End Partition Healing via Push-Pull + Merkle Sync",
-      "codeHash": "e9159e75c476421df5100a9e8edbade112ac22cb0303bcddb09fd383bf1e2e8a",
+      "codeHash": "d9eac4bcefe8bca48772e98462c1c1ae8fbbe8c1147a99d7351934abc4e24425",
       "spec": {
-        "template": "states",
+        "template": "flow",
         "title": "End-to-End Partition Healing via Push-Pull + Merkle Sync",
-        "states": [
-          {
-            "id": "p1_store",
-            "label": "p1_store"
-          },
+        "nodes": [
           {
             "id": "p2_store",
-            "label": "p2_store"
+            "label": "p2_store",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Now compose the full partitioned cluster test combining Push-Pull.",
-            "currentState": "p1_store",
-            "tone": "data"
+            "caption": "Inspect partition updates as p2_store tracks healing state.",
+            "values": {
+              "p2_store": {
+                "var": "p2_store",
+                "line": 9,
+                "hit": 1
+              },
+              "x": {
+                "text": ""
+              },
+              "k": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "p2_store": "data",
+              "x": "idle",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "While partitioned, a client updates key 'inventory:gpu' on n0 in P1,.",
-            "currentState": "p2_store",
-            "transition": {
-              "from": "p1_store",
-              "to": "p2_store",
-              "label": {
-                "var": "p2_store",
-                "line": 10,
-                "hit": 1
+            "caption": "Verify the partition transition driving consider behavior.",
+            "values": {
+              "p2_store": {
+                "text": ""
+              },
+              "x": {
+                "text": ""
+              },
+              "k": {
+                "var": "k",
+                "line": 20,
+                "hit": 2
               }
             },
-            "tone": "data"
+            "tones": {
+              "p2_store": "idle",
+              "x": "idle",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "p2_store",
+                "x"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Trace how verify updates deterministic during execution.",
-            "currentState": ".0",
-            "transition": {
-              "from": "p2_store",
-              "to": ".0",
-              "label": {
-                "var": ".0",
+            "at": "say3",
+            "caption": "Independently, P2 nodes replicate P2's write across {n3, n4, n5}.",
+            "values": {
+              "p2_store": {
+                "text": ""
+              },
+              "x": {
+                "text": ""
+              },
+              "k": {
+                "var": "k",
                 "line": 4,
-                "hit": 3
+                "hit": 14
               }
             },
-            "tone": "ok"
+            "tones": {
+              "p2_store": "idle",
+              "x": "idle",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "p2_store",
+                "x"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
+        "template": "flow",
         "title": "End-to-End Partition Healing via Push-Pull + Merkle Sync",
-        "states": [
-          {
-            "id": "p1_store",
-            "label": "p1_store"
-          },
+        "nodes": [
           {
             "id": "p2_store",
-            "label": "p2_store"
+            "label": "p2_store",
+            "tappable": true
           },
           {
-            "id": ".0",
-            "label": ".0"
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "k",
+            "label": "k",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Now compose the full partitioned cluster test combining Push-Pull.",
-            "currentState": "p1_store",
-            "tone": "data"
+            "caption": "Inspect partition updates as p2_store tracks healing state.",
+            "values": {
+              "p2_store": "{'inventory:gpu': [{'vc': {'n3': 1}, 'v…",
+              "x": "",
+              "k": ""
+            },
+            "tones": {
+              "p2_store": "data",
+              "x": "idle",
+              "k": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "While partitioned, a client updates key 'inventory:gpu' on n0 in P1,.",
-            "currentState": "p2_store",
-            "transition": {
-              "from": "p1_store",
-              "to": "p2_store",
-              "label": "{'inventory:gpu': [{'vc': {'n3': 1}, 'v…"
+            "caption": "Verify the partition transition driving consider behavior.",
+            "values": {
+              "p2_store": "",
+              "x": "",
+              "k": "'n0'"
             },
-            "tone": "data"
+            "tones": {
+              "p2_store": "idle",
+              "x": "idle",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "p2_store",
+                "x"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Trace how verify updates deterministic during execution.",
-            "currentState": ".0",
-            "transition": {
-              "from": "p2_store",
-              "to": ".0",
-              "label": "{'__other__': 'list_iterator'}"
+            "at": "say3",
+            "caption": "Independently, P2 nodes replicate P2's write across {n3, n4, n5}.",
+            "values": {
+              "p2_store": "",
+              "x": "",
+              "k": "'inventory:gpu'"
             },
-            "tone": "ok"
+            "tones": {
+              "p2_store": "idle",
+              "x": "idle",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "p2_store",
+                "x"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Milestone Certification Checklist: Determinism & Zero Silent Loss",
-      "codeHash": "ff508ab426663c6a7e1993848797f1003ff82e11d6afe5855d74ed0a730698d3",
+      "codeHash": "d22362b5203373d51092de71a9d59712cf7f8b47824d30aa9b9f87b8033f70be",
       "spec": {
         "template": "sequence",
         "title": "Milestone Certification Checklist: Determinism & Zero Silent Los",
@@ -735,8 +907,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates signing during execution.",
+            "caption": "Observe how milestone shapes before during this step.",
             "activeActor": "checks",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "l",
+                "label": {
+                  "var": "checks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Check 1 verifies Lamport and HLC monotonicity plus bounded max_offset.",
+            "activeActor": "l",
             "messages": [
               {
                 "from": "checks",
@@ -761,10 +950,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Check 1 verifies Lamport and HLC monotonicity plus bounded max_offset.",
-            "activeActor": "l",
+            "at": "say6",
+            "caption": "Never mark a distributed engine green solely on happy-path ping outputsrun.",
+            "activeActor": "c",
             "messages": [
+              {
+                "from": "checks",
+                "to": "l",
+                "label": {
+                  "var": "checks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "l",
+                "to": "c",
+                "label": {
+                  "var": "l",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "l",
@@ -784,14 +993,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Never mark a distributed engine green solely on happy-path ping outputsrun.",
-            "activeActor": "c",
-            "messages": [
+              },
               {
                 "from": "checks",
                 "to": "l",
@@ -827,19 +1029,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how before updates signing during execution.",
+            "caption": "Observe how milestone shapes before during this step.",
             "messages": [
               {
                 "from": "checks",
                 "to": "l",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "l",
-                "to": "c",
-                "label": "2000",
-                "tone": "ok"
               }
             ],
             "activeActor": "checks"
@@ -867,6 +1063,30 @@
             "at": "say6",
             "caption": "Never mark a distributed engine green solely on happy-path ping outputsrun.",
             "messages": [
+              {
+                "from": "checks",
+                "to": "l",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "l",
+                "to": "c",
+                "label": "2000",
+                "tone": "ok"
+              },
+              {
+                "from": "checks",
+                "to": "l",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "l",
+                "to": "c",
+                "label": "2000",
+                "tone": "ok"
+              },
               {
                 "from": "checks",
                 "to": "l",

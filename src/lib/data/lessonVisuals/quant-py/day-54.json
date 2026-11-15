@@ -490,16 +490,14 @@
                 "hit": 1
               },
               "purge_len": {
-                "var": "purge_len",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "total_n": "data",
               "test_start": "data",
               "test_end": "data",
-              "purge_len": "data"
+              "purge_len": "idle"
             },
             "arrows": [
               [
@@ -639,13 +637,13 @@
               "total_n": "1000",
               "test_start": "400",
               "test_end": "600",
-              "purge_len": "20"
+              "purge_len": ""
             },
             "tones": {
               "total_n": "data",
               "test_start": "data",
               "test_end": "data",
-              "purge_len": "data"
+              "purge_len": "idle"
             },
             "arrows": [
               [
@@ -751,6 +749,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The most insidious failure in financial ML is accidental backtest.",
+            "activeActor": "test_start",
+            "messages": [
+              {
+                "from": "events_end",
+                "to": "test_start",
+                "label": {
+                  "var": "events_end",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "test_start",
@@ -765,10 +780,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The most insidious failure in financial ML is accidental backtest.",
-            "activeActor": "test_start",
+            "at": "say10",
+            "caption": "Automated audit trails protect hedge funds from allocating investor.",
+            "activeActor": "train_good",
             "messages": [
+              {
+                "from": "events_end",
+                "to": "test_start",
+                "label": {
+                  "var": "events_end",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "test_start",
+                "to": "train_good",
+                "label": {
+                  "var": "test_start",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "events_end",
                 "to": "test_start",
@@ -788,14 +823,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Automated audit trails protect hedge funds from allocating investor.",
-            "activeActor": "train_good",
-            "messages": [
+              },
               {
                 "from": "events_end",
                 "to": "test_start",
@@ -838,12 +866,6 @@
                 "to": "test_start",
                 "label": "[10, 15, 22, 28, 32]",
                 "tone": "data"
-              },
-              {
-                "from": "test_start",
-                "to": "train_good",
-                "label": "25",
-                "tone": "ok"
               }
             ],
             "activeActor": "events_end"
@@ -871,6 +893,30 @@
             "at": "say10",
             "caption": "Automated audit trails protect hedge funds from allocating investor.",
             "messages": [
+              {
+                "from": "events_end",
+                "to": "test_start",
+                "label": "[10, 15, 22, 28, 32]",
+                "tone": "data"
+              },
+              {
+                "from": "test_start",
+                "to": "train_good",
+                "label": "25",
+                "tone": "ok"
+              },
+              {
+                "from": "events_end",
+                "to": "test_start",
+                "label": "[10, 15, 22, 28, 32]",
+                "tone": "data"
+              },
+              {
+                "from": "test_start",
+                "to": "train_good",
+                "label": "25",
+                "tone": "ok"
+              },
               {
                 "from": "events_end",
                 "to": "test_start",
@@ -914,7 +960,7 @@
           },
           {
             "at": "say2",
-            "caption": "The telemetry pipeline compares in-sample (train) score against.",
+            "caption": "Verify the purged transition driving walk behavior.",
             "items": {
               "var": "train_scores",
               "line": 15,
@@ -968,7 +1014,7 @@
           },
           {
             "at": "say2",
-            "caption": "The telemetry pipeline compares in-sample (train) score against.",
+            "caption": "Verify the purged transition driving walk behavior.",
             "items": [
               "1.8",
               "1.9",

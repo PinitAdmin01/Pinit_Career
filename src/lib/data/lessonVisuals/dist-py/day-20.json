@@ -303,16 +303,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "threshold",
-                "to": "reset_timeout_ms",
-                "label": {
-                  "var": "threshold",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -326,7 +316,7 @@
                 "to": "threshold",
                 "label": {
                   "var": "self",
-                  "line": 7,
+                  "line": 6,
                   "hit": 1
                 },
                 "tone": "data"
@@ -336,7 +326,7 @@
                 "to": "reset_timeout_ms",
                 "label": {
                   "var": "threshold",
-                  "line": 7,
+                  "line": 6,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -353,7 +343,27 @@
                 "to": "threshold",
                 "label": {
                   "var": "self",
-                  "line": 10,
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": {
+                  "var": "threshold",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": {
+                  "var": "self",
+                  "line": 7,
                   "hit": 1
                 },
                 "tone": "data"
@@ -367,6 +377,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": {
+                  "var": "self",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -390,12 +410,6 @@
                 "to": "threshold",
                 "label": "<CircuitBreaker>",
                 "tone": "data"
-              },
-              {
-                "from": "threshold",
-                "to": "reset_timeout_ms",
-                "label": "3",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -434,6 +448,24 @@
                 "to": "reset_timeout_ms",
                 "label": "3",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": "<CircuitBreaker>",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": "3",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": "<CircuitBreaker>",
+                "tone": "data"
               }
             ],
             "activeActor": "reset_timeout_ms"
@@ -455,8 +487,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Format_circuit_status(state) returns \"[CIRCUIT].",
+            "caption": "Observe how status shapes practice during this step.",
             "activeActor": "STATE_METRIC",
+            "messages": [
+              {
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": {
+                  "var": "STATE_METRIC",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Log every state change with the dependency name and the reason.",
+            "activeActor": "breakers",
             "messages": [
               {
                 "from": "STATE_METRIC",
@@ -481,10 +530,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Log every state change with the dependency name and the reason.",
-            "activeActor": "breakers",
+            "at": "say7",
+            "caption": "The example logs transitions for three dependencies.",
+            "activeActor": "dep",
             "messages": [
+              {
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": {
+                  "var": "STATE_METRIC",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "breakers",
+                "to": "dep",
+                "label": {
+                  "var": "breakers",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "STATE_METRIC",
                 "to": "breakers",
@@ -504,14 +573,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example logs transitions for three dependencies.",
-            "activeActor": "dep",
-            "messages": [
+              },
               {
                 "from": "STATE_METRIC",
                 "to": "breakers",
@@ -547,19 +609,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Format_circuit_status(state) returns \"[CIRCUIT].",
+            "caption": "Observe how status shapes practice during this step.",
             "messages": [
               {
                 "from": "STATE_METRIC",
                 "to": "breakers",
                 "label": "{'CLOSED': 0, 'HALF_OPEN': 1, 'OPEN': 2}",
                 "tone": "data"
-              },
-              {
-                "from": "breakers",
-                "to": "dep",
-                "label": "{'payments': 'OPEN', 'inventory': 'CLOS…",
-                "tone": "ok"
               }
             ],
             "activeActor": "STATE_METRIC"
@@ -587,6 +643,30 @@
             "at": "say7",
             "caption": "The example logs transitions for three dependencies.",
             "messages": [
+              {
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": "{'CLOSED': 0, 'HALF_OPEN': 1, 'OPEN': 2}",
+                "tone": "data"
+              },
+              {
+                "from": "breakers",
+                "to": "dep",
+                "label": "{'payments': 'OPEN', 'inventory': 'CLOS…",
+                "tone": "ok"
+              },
+              {
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": "{'CLOSED': 0, 'HALF_OPEN': 1, 'OPEN': 2}",
+                "tone": "data"
+              },
+              {
+                "from": "breakers",
+                "to": "dep",
+                "label": "{'payments': 'OPEN', 'inventory': 'CLOS…",
+                "tone": "ok"
+              },
               {
                 "from": "STATE_METRIC",
                 "to": "breakers",
@@ -631,6 +711,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Give each dependency its own limited pool of threads or connections.",
+            "activeActor": "in_use",
+            "messages": [
+              {
+                "from": "pools",
+                "to": "in_use",
+                "label": {
+                  "var": "pools",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "in_use",
@@ -645,10 +742,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Give each dependency its own limited pool of threads or connections.",
-            "activeActor": "in_use",
+            "at": "say7",
+            "caption": "The example gives each dependency its own pool.",
+            "activeActor": "dep",
             "messages": [
+              {
+                "from": "pools",
+                "to": "in_use",
+                "label": {
+                  "var": "pools",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "in_use",
+                "to": "dep",
+                "label": {
+                  "var": "in_use",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
               {
                 "from": "pools",
                 "to": "in_use",
@@ -668,14 +785,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example gives each dependency its own pool.",
-            "activeActor": "dep",
-            "messages": [
+              },
               {
                 "from": "pools",
                 "to": "in_use",
@@ -718,12 +828,6 @@
                 "to": "in_use",
                 "label": "{'payments': 4, 'inventory': 4, 'search…",
                 "tone": "data"
-              },
-              {
-                "from": "in_use",
-                "to": "dep",
-                "label": "{'payments': 0, 'inventory': 0, 'search…",
-                "tone": "ok"
               }
             ],
             "activeActor": "pools"
@@ -751,6 +855,30 @@
             "at": "say7",
             "caption": "The example gives each dependency its own pool.",
             "messages": [
+              {
+                "from": "pools",
+                "to": "in_use",
+                "label": "{'payments': 4, 'inventory': 4, 'search…",
+                "tone": "data"
+              },
+              {
+                "from": "in_use",
+                "to": "dep",
+                "label": "{'payments': 0, 'inventory': 0, 'search…",
+                "tone": "ok"
+              },
+              {
+                "from": "pools",
+                "to": "in_use",
+                "label": "{'payments': 4, 'inventory': 4, 'search…",
+                "tone": "data"
+              },
+              {
+                "from": "in_use",
+                "to": "dep",
+                "label": "{'payments': 0, 'inventory': 0, 'search…",
+                "tone": "ok"
+              },
               {
                 "from": "pools",
                 "to": "in_use",
@@ -814,16 +942,14 @@
                 "hit": 1
               },
               "amount": {
-                "var": "amount",
-                "line": 9,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "cache": "data",
               "user": "data",
               "breaker_open": "data",
-              "amount": "data"
+              "amount": "idle"
             },
             "arrows": [
               [
@@ -888,7 +1014,7 @@
           },
           {
             "at": "say7",
-            "caption": "Tomorrow's milestone combines rate limiting and circuit breakers into.",
+            "caption": "Examine the tomorrow value produced for milestone processing.",
             "values": {
               "cache": {
                 "var": "cache",
@@ -963,13 +1089,13 @@
               "cache": "{'recs:u1': ['popular item A', 'popular…",
               "user": "'u1'",
               "breaker_open": "True",
-              "amount": "499"
+              "amount": ""
             },
             "tones": {
               "cache": "data",
               "user": "data",
               "breaker_open": "data",
-              "amount": "data"
+              "amount": "idle"
             },
             "arrows": [
               [
@@ -1018,7 +1144,7 @@
           },
           {
             "at": "say7",
-            "caption": "Tomorrow's milestone combines rate limiting and circuit breakers into.",
+            "caption": "Examine the tomorrow value produced for milestone processing.",
             "values": {
               "cache": "{'recs:u1': ['popular item A', 'popular…",
               "user": "'u1'",

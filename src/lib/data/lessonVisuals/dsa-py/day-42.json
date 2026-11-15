@@ -143,7 +143,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how john updates hopcroft during execution.",
+            "caption": "Verify the hopcroft transition driving karp behavior.",
             "items": {
               "var": "pair_u",
               "line": 9,
@@ -183,7 +183,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how john updates hopcroft during execution.",
+            "caption": "Verify the hopcroft transition driving karp behavior.",
             "mode": "queue",
             "items": [
               "-1",

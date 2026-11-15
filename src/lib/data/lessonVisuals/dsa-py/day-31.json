@@ -80,7 +80,7 @@
           },
           {
             "at": "say5",
-            "caption": "Take a look at the self-contained Python demonstration below.",
+            "caption": "Examine the complement value produced for arithmetic processing.",
             "bars": [
               {
                 "label": "i",
@@ -161,7 +161,7 @@
           },
           {
             "at": "say5",
-            "caption": "Take a look at the self-contained Python demonstration below.",
+            "caption": "Examine the complement value produced for arithmetic processing.",
             "bars": [
               {
                 "label": "i",
@@ -224,7 +224,7 @@
           },
           {
             "at": "say5",
-            "caption": "Observe the complete FenwickTree class below.",
+            "caption": "Examine the updates value produced for walking processing.",
             "items": {
               "var": "values",
               "line": 23,
@@ -288,7 +288,7 @@
           },
           {
             "at": "say5",
-            "caption": "Observe the complete FenwickTree class below.",
+            "caption": "Examine the updates value produced for walking processing.",
             "items": [
               "3",
               "2",
@@ -623,7 +623,7 @@
           },
           {
             "at": "say5",
-            "caption": "Review the complete 2D FenwickTree2D matrix processor below calculating.",
+            "caption": "Examine the fenwick value produced for bounding processing.",
             "bars": [
               {
                 "label": "rows",
@@ -723,7 +723,7 @@
           },
           {
             "at": "say5",
-            "caption": "Review the complete 2D FenwickTree2D matrix processor below calculating.",
+            "caption": "Examine the fenwick value produced for bounding processing.",
             "bars": [
               {
                 "label": "rows",
@@ -801,7 +801,7 @@
           },
           {
             "at": "say2",
-            "caption": "By wrapping a Fenwick Tree around a Difference Array D, where A[i] = sum(D[1.",
+            "caption": "By wrapping a Fenwick Tree around a Difference Array D.",
             "bars": [
               {
                 "label": "size",
@@ -843,7 +843,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect this self-contained RangeUpdatePointQueryBIT implementation below.",
+            "caption": "Examine the range value produced for point processing.",
             "bars": [
               {
                 "label": "size",
@@ -917,7 +917,7 @@
           },
           {
             "at": "say2",
-            "caption": "By wrapping a Fenwick Tree around a Difference Array D, where A[i] = sum(D[1.",
+            "caption": "By wrapping a Fenwick Tree around a Difference Array D.",
             "bars": [
               {
                 "label": "size",
@@ -943,7 +943,7 @@
           },
           {
             "at": "say5",
-            "caption": "Inspect this self-contained RangeUpdatePointQueryBIT implementation below.",
+            "caption": "Examine the range value produced for point processing.",
             "bars": [
               {
                 "label": "size",

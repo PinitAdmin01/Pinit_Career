@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Gossip protocols instead have each node talk to a few random peers per round.",
+            "activeActor": "nodes",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "nodes",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Gossip protocols instead have each node talk to a few random peers per round.",
-            "activeActor": "nodes",
+            "at": "say8",
+            "caption": "The simulation spreads one update through 100 nodes with a fan-out of 3.",
+            "activeActor": "informed",
             "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": {
+                  "var": "nodes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "rng",
                 "to": "nodes",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The simulation spreads one update through 100 nodes with a fan-out of 3.",
-            "activeActor": "informed",
-            "messages": [
+              },
               {
                 "from": "rng",
                 "to": "nodes",
@@ -118,12 +148,6 @@
                 "to": "nodes",
                 "label": "<Random>",
                 "tone": "data"
-              },
-              {
-                "from": "nodes",
-                "to": "informed",
-                "label": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …",
-                "tone": "ok"
               }
             ],
             "activeActor": "rng"
@@ -162,6 +186,30 @@
                 "to": "informed",
                 "label": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …",
                 "tone": "ok"
+              },
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …",
+                "tone": "ok"
+              },
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …",
+                "tone": "ok"
               }
             ],
             "activeActor": "informed"
@@ -183,8 +231,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Each round, a node picks k peers to gossip with.",
+            "caption": "Observe how gossip shapes peers during this step.",
             "activeActor": "peers",
+            "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": {
+                  "var": "peers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Real protocols pick peers randomly (or shuffle the list each round) so.",
+            "activeActor": "k",
             "messages": [
               {
                 "from": "peers",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Real protocols pick peers randomly (or shuffle the list each round) so.",
-            "activeActor": "k",
+            "at": "say7",
+            "caption": "The example chooses peers from a shuffled list with a seeded generator.",
+            "activeActor": "me",
             "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": {
+                  "var": "peers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "peers",
                 "to": "k",
@@ -232,14 +317,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example chooses peers from a shuffled list with a seeded generator.",
-            "activeActor": "me",
-            "messages": [
+              },
               {
                 "from": "peers",
                 "to": "k",
@@ -275,19 +353,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Each round, a node picks k peers to gossip with.",
+            "caption": "Observe how gossip shapes peers during this step.",
             "messages": [
               {
                 "from": "peers",
                 "to": "k",
                 "label": "['n1', 'n2', 'n3', 'n4', 'n5', 'n6']",
                 "tone": "data"
-              },
-              {
-                "from": "k",
-                "to": "me",
-                "label": "3",
-                "tone": "ok"
               }
             ],
             "activeActor": "peers"
@@ -315,6 +387,30 @@
             "at": "say7",
             "caption": "The example chooses peers from a shuffled list with a seeded generator.",
             "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5', 'n6']",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": "3",
+                "tone": "ok"
+              },
+              {
+                "from": "peers",
+                "to": "k",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5', 'n6']",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": "3",
+                "tone": "ok"
+              },
               {
                 "from": "peers",
                 "to": "k",
@@ -910,6 +1006,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "It is not a replacement for consensus.",
+            "activeActor": "exact",
+            "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": {
+                  "var": "info",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "exact",
@@ -924,10 +1037,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "It is not a replacement for consensus.",
+            "at": "say7",
+            "caption": "The helper compares gossip and consensus for different kinds of information.",
             "activeActor": "exact",
             "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": {
+                  "var": "info",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "exact",
+                "to": "info",
+                "label": {
+                  "var": "exact",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "info",
                 "to": "exact",
@@ -947,14 +1080,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The helper compares gossip and consensus for different kinds of information.",
-            "activeActor": "exact",
-            "messages": [
+              },
               {
                 "from": "info",
                 "to": "exact",
@@ -996,12 +1122,6 @@
                 "to": "exact",
                 "label": "'node health'",
                 "tone": "data"
-              },
-              {
-                "from": "exact",
-                "to": "info",
-                "label": "{'configuration version', 'leader ident…",
-                "tone": "ok"
               }
             ],
             "activeActor": "info"
@@ -1029,6 +1149,30 @@
             "at": "say7",
             "caption": "The helper compares gossip and consensus for different kinds of information.",
             "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": "'node health'",
+                "tone": "data"
+              },
+              {
+                "from": "exact",
+                "to": "info",
+                "label": "{'configuration version', 'leader ident…",
+                "tone": "ok"
+              },
+              {
+                "from": "info",
+                "to": "exact",
+                "label": "'node health'",
+                "tone": "data"
+              },
+              {
+                "from": "exact",
+                "to": "info",
+                "label": "{'configuration version', 'leader ident…",
+                "tone": "ok"
+              },
               {
                 "from": "info",
                 "to": "exact",

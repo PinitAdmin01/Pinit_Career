@@ -136,7 +136,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Not every incident needs everyone out of bed at 3 a.",
+            "caption": "Observe how severity shapes every during this step.",
             "currentState": "case",
             "tone": "data"
           },
@@ -192,7 +192,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Not every incident needs everyone out of bed at 3 a.",
+            "caption": "Observe how severity shapes every during this step.",
             "currentState": "case",
             "tone": "data"
           },

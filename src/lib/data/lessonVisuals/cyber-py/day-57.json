@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Traditional anonymization techniques (such as stripping names or social.",
+            "caption": "Verify the traditional transition driving anonymization behavior.",
             "currentState": "concept",
             "transition": {
               "from": "DP_FOUNDATIONS_TAXONOMY",
@@ -90,7 +90,7 @@
           },
           {
             "at": "say2",
-            "caption": "Traditional anonymization techniques (such as stripping names or social.",
+            "caption": "Verify the traditional transition driving anonymization behavior.",
             "currentState": "concept",
             "transition": {
               "from": "DP_FOUNDATIONS_TAXONOMY",
@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "To privatize a query result, the mechanism draws random noise from.",
+            "caption": "Verify the privatize transition driving query behavior.",
             "currentState": "sensitivity",
             "transition": {
               "from": "true_patient_count",
@@ -157,7 +157,7 @@
           },
           {
             "at": "say10",
-            "caption": "Calibrated Laplace perturbation ensures that external observers cannot.",
+            "caption": "Examine the implementation value produced for pitfalls processing.",
             "currentState": "epsilon",
             "transition": {
               "from": "sensitivity",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say2",
-            "caption": "To privatize a query result, the mechanism draws random noise from.",
+            "caption": "Verify the privatize transition driving query behavior.",
             "currentState": "sensitivity",
             "transition": {
               "from": "true_patient_count",
@@ -209,7 +209,7 @@
           },
           {
             "at": "say10",
-            "caption": "Calibrated Laplace perturbation ensures that external observers cannot.",
+            "caption": "Examine the implementation value produced for pitfalls processing.",
             "currentState": "epsilon",
             "transition": {
               "from": "sensitivity",
@@ -248,7 +248,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A single differentially private query provides strong guarantees, but.",
+            "caption": "Inspect privacy updates as self tracks single state.",
             "values": {
               "self": {
                 "var": "self",
@@ -299,8 +299,8 @@
               },
               "query_name": {
                 "var": "query_name",
-                "line": 11,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -312,7 +312,7 @@
           },
           {
             "at": "say10",
-            "caption": "Privacy budget ledgers track cumulative epsilon consumption across.",
+            "caption": "Examine the defensive value produced for accounting processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -331,8 +331,8 @@
               },
               "query_name": {
                 "var": "query_name",
-                "line": 12,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               }
             },
             "tones": {
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A single differentially private query provides strong guarantees, but.",
+            "caption": "Inspect privacy updates as self tracks single state.",
             "values": {
               "self": "<PrivacyBudgetLedger>",
               "max_epsilon_budget": "1",
@@ -389,7 +389,7 @@
               "self": "<PrivacyBudgetLedger>",
               "max_epsilon_budget": "1",
               "ledger": "<PrivacyBudgetLedger>",
-              "query_name": "'Salary Mean Query'"
+              "query_name": "'Age Distribution Query'"
             },
             "tones": {
               "self": "data",
@@ -400,12 +400,12 @@
           },
           {
             "at": "say10",
-            "caption": "Privacy budget ledgers track cumulative epsilon consumption across.",
+            "caption": "Examine the defensive value produced for accounting processing.",
             "values": {
               "self": "<PrivacyBudgetLedger>",
               "max_epsilon_budget": "1",
               "ledger": "<PrivacyBudgetLedger>",
-              "query_name": "'Salary Mean Query'"
+              "query_name": "'Zipcode Correlation Query'"
             },
             "tones": {
               "self": "ok",
@@ -444,7 +444,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For sum or average queries on numerical attributes (such as employee.",
+            "caption": "Inspect average updates as raw_donations tracks queries state.",
             "values": {
               "raw_donations": {
                 "var": "raw_donations",
@@ -462,16 +462,14 @@
                 "hit": 1
               },
               "upper_bound": {
-                "var": "upper_bound",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "raw_donations": "data",
               "numeric_list": "data",
               "lower_bound": "data",
-              "upper_bound": "data"
+              "upper_bound": "idle"
             },
             "arrows": [
               [
@@ -490,7 +488,7 @@
           },
           {
             "at": "say2",
-            "caption": "If an unconstrained dataset contains an extreme outlier (e.",
+            "caption": "Verify the unconstrained transition driving dataset behavior.",
             "values": {
               "raw_donations": {
                 "var": "raw_donations",
@@ -606,18 +604,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For sum or average queries on numerical attributes (such as employee.",
+            "caption": "Inspect average updates as raw_donations tracks queries state.",
             "values": {
               "raw_donations": "[15, 50, 25, 100000, 5]",
               "numeric_list": "[15, 50, 25, 100000, 5]",
               "lower_bound": "0",
-              "upper_bound": "500"
+              "upper_bound": ""
             },
             "tones": {
               "raw_donations": "data",
               "numeric_list": "data",
               "lower_bound": "data",
-              "upper_bound": "data"
+              "upper_bound": "idle"
             },
             "arrows": [
               [
@@ -636,7 +634,7 @@
           },
           {
             "at": "say2",
-            "caption": "If an unconstrained dataset contains an extreme outlier (e.",
+            "caption": "Verify the unconstrained transition driving dataset behavior.",
             "values": {
               "raw_donations": "[15, 50, 25, 100000, 5]",
               "numeric_list": "[15, 50, 25, 100000, 5]",
@@ -723,6 +721,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A differential privacy auditor asserts the operational health of Laplace.",
+            "activeActor": "budget_ledger_active",
+            "messages": [
+              {
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": {
+                  "var": "laplace_calibrated",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "budget_ledger_active",
@@ -737,10 +752,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A differential privacy auditor asserts the operational health of Laplace.",
-            "activeActor": "budget_ledger_active",
+            "at": "say10",
+            "caption": "Continuous differential privacy auditing verifies that noise calibration.",
+            "activeActor": "clamping_enforced",
             "messages": [
+              {
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": {
+                  "var": "laplace_calibrated",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": {
+                  "var": "budget_ledger_active",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "laplace_calibrated",
                 "to": "budget_ledger_active",
@@ -760,14 +795,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Continuous differential privacy auditing verifies that noise calibration.",
-            "activeActor": "clamping_enforced",
-            "messages": [
+              },
               {
                 "from": "laplace_calibrated",
                 "to": "budget_ledger_active",
@@ -810,12 +838,6 @@
                 "to": "budget_ledger_active",
                 "label": "True",
                 "tone": "data"
-              },
-              {
-                "from": "budget_ledger_active",
-                "to": "clamping_enforced",
-                "label": "True",
-                "tone": "ok"
               }
             ],
             "activeActor": "laplace_calibrated"
@@ -843,6 +865,30 @@
             "at": "say10",
             "caption": "Continuous differential privacy auditing verifies that noise calibration.",
             "messages": [
+              {
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": "True",
+                "tone": "ok"
+              },
+              {
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": "True",
+                "tone": "ok"
+              },
               {
                 "from": "laplace_calibrated",
                 "to": "budget_ledger_active",

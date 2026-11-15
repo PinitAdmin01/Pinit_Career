@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "AWS Organizations establishes a hierarchical tree of Organizational Units.",
+            "activeActor": "scp_allow",
+            "messages": [
+              {
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": {
+                  "var": "identity_allow",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "scp_allow",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "AWS Organizations establishes a hierarchical tree of Organizational Units.",
-            "activeActor": "scp_allow",
+            "at": "say9",
+            "caption": "By enforcing strict OU boundaries, security teams ensure that compliance.",
+            "activeActor": "boundary_allow",
             "messages": [
+              {
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": {
+                  "var": "identity_allow",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": {
+                  "var": "scp_allow",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "identity_allow",
                 "to": "scp_allow",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "By enforcing strict OU boundaries, security teams ensure that compliance.",
-            "activeActor": "boundary_allow",
-            "messages": [
+              },
               {
                 "from": "identity_allow",
                 "to": "scp_allow",
@@ -118,12 +148,6 @@
                 "to": "scp_allow",
                 "label": "True",
                 "tone": "data"
-              },
-              {
-                "from": "scp_allow",
-                "to": "boundary_allow",
-                "label": "True",
-                "tone": "ok"
               }
             ],
             "activeActor": "identity_allow"
@@ -151,6 +175,30 @@
             "at": "say9",
             "caption": "By enforcing strict OU boundaries, security teams ensure that compliance.",
             "messages": [
+              {
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": "True",
+                "tone": "ok"
+              },
+              {
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": "True",
+                "tone": "ok"
+              },
               {
                 "from": "identity_allow",
                 "to": "scp_allow",
@@ -213,7 +261,7 @@
           },
           {
             "at": "say8",
-            "caption": "Traversing the OU tree guarantees that security policies compound defensively.",
+            "caption": "Examine the account value produced for organizations processing.",
             "currentState": "scp_denies",
             "transition": {
               "from": "name",
@@ -265,7 +313,7 @@
           },
           {
             "at": "say8",
-            "caption": "Traversing the OU tree guarantees that security policies compound defensively.",
+            "caption": "Examine the account value produced for organizations processing.",
             "currentState": "scp_denies",
             "transition": {
               "from": "name",
@@ -322,16 +370,14 @@
                 "hit": 1
               },
               "stmt": {
-                "var": "stmt",
-                "line": 21,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "allowed_regions": "data",
               "exempt_role_arns": "data",
               "policy": "data",
-              "stmt": "data"
+              "stmt": "idle"
             },
             "arrows": [
               [
@@ -471,13 +517,13 @@
               "allowed_regions": "['us-east-1', 'eu-west-1']",
               "exempt_role_arns": "['arn:aws:iam::*:role/BreakGlassAdmin']",
               "policy": "{'Version': '2012-10-17', 'Statement': …",
-              "stmt": "{'Sid': 'DenyUnapprovedRegionsExceptEme…"
+              "stmt": ""
             },
             "tones": {
               "allowed_regions": "data",
               "exempt_role_arns": "data",
               "policy": "data",
-              "stmt": "data"
+              "stmt": "idle"
             },
             "arrows": [
               [
@@ -602,16 +648,14 @@
                 "hit": 1
               },
               "stmt": {
-                "var": "stmt",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "bad_policy": "data",
               "safe_policy": "data",
               "policy_doc": "data",
-              "stmt": "data"
+              "stmt": "idle"
             },
             "arrows": [
               [
@@ -676,7 +720,7 @@
           },
           {
             "at": "say8",
-            "caption": "Guaranteeing break-glass role exemptions across all Deny statements.",
+            "caption": "Examine the scps value produced for failure processing.",
             "values": {
               "bad_policy": {
                 "var": "bad_policy",
@@ -751,13 +795,13 @@
               "bad_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
               "safe_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
               "policy_doc": "{'Statement': [{'Effect': 'Deny', 'Acti…",
-              "stmt": "{'Effect': 'Deny', 'Action': '*', 'Reso…"
+              "stmt": ""
             },
             "tones": {
               "bad_policy": "data",
               "safe_policy": "data",
               "policy_doc": "data",
-              "stmt": "data"
+              "stmt": "idle"
             },
             "arrows": [
               [
@@ -806,7 +850,7 @@
           },
           {
             "at": "say8",
-            "caption": "Guaranteeing break-glass role exemptions across all Deny statements.",
+            "caption": "Examine the scps value produced for failure processing.",
             "values": {
               "bad_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
               "safe_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
@@ -910,7 +954,7 @@
           },
           {
             "at": "say2",
-            "caption": "AWS CloudTrail aggregates API audit logs across all member accounts into.",
+            "caption": "Verify the account transition driving audit behavior.",
             "values": {
               "telemetry": {
                 "var": "telemetry",
@@ -924,13 +968,13 @@
               },
               "drift_alerts": {
                 "var": "drift_alerts",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "acct": {
                 "var": "acct",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -970,13 +1014,13 @@
               },
               "drift_alerts": {
                 "var": "drift_alerts",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "acct": {
                 "var": "acct",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -1056,12 +1100,12 @@
           },
           {
             "at": "say2",
-            "caption": "AWS CloudTrail aggregates API audit logs across all member accounts into.",
+            "caption": "Verify the account transition driving audit behavior.",
             "values": {
               "telemetry": "[{'account_id': '111122223333', 'scp_gu…",
               "accounts_telemetry": "[{'account_id': '111122223333', 'scp_gu…",
-              "drift_alerts": "[]",
-              "acct": "{'account_id': '111122223333', 'scp_gua…"
+              "drift_alerts": "['CRITICAL_DRIFT_NO_SCP_ON_444455556666…",
+              "acct": "{'account_id': '444455556666', 'scp_gua…"
             },
             "tones": {
               "telemetry": "data",
@@ -1090,8 +1134,8 @@
             "values": {
               "telemetry": "[{'account_id': '111122223333', 'scp_gu…",
               "accounts_telemetry": "[{'account_id': '111122223333', 'scp_gu…",
-              "drift_alerts": "[]",
-              "acct": "{'account_id': '111122223333', 'scp_gua…"
+              "drift_alerts": "['CRITICAL_DRIFT_NO_SCP_ON_444455556666…",
+              "acct": "{'account_id': '444455556666', 'scp_gua…"
             },
             "tones": {
               "telemetry": "ok",

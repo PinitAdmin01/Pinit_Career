@@ -149,6 +149,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When a batch of sequences with length S enters a transformer layer on TP.",
+            "activeActor": "hidden_dim",
+            "messages": [
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "hidden_dim",
@@ -163,10 +180,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When a batch of sequences with length S enters a transformer layer on TP.",
-            "activeActor": "hidden_dim",
+            "at": "say11",
+            "caption": "Examine the sequence value produced for implementing processing.",
+            "activeActor": "tp_size",
             "messages": [
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hidden_dim",
+                "to": "tp_size",
+                "label": {
+                  "var": "hidden_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "seq_len",
                 "to": "hidden_dim",
@@ -186,14 +223,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This alternating communication rhythm matches the computational tempo.",
-            "activeActor": "tp_size",
-            "messages": [
+              },
               {
                 "from": "seq_len",
                 "to": "hidden_dim",
@@ -236,12 +266,6 @@
                 "to": "hidden_dim",
                 "label": "8192",
                 "tone": "data"
-              },
-              {
-                "from": "hidden_dim",
-                "to": "tp_size",
-                "label": "4096",
-                "tone": "ok"
               }
             ],
             "activeActor": "seq_len"
@@ -267,8 +291,32 @@
           },
           {
             "at": "say11",
-            "caption": "This alternating communication rhythm matches the computational tempo.",
+            "caption": "Examine the sequence value produced for implementing processing.",
             "messages": [
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": "8192",
+                "tone": "data"
+              },
+              {
+                "from": "hidden_dim",
+                "to": "tp_size",
+                "label": "4096",
+                "tone": "ok"
+              },
+              {
+                "from": "seq_len",
+                "to": "hidden_dim",
+                "label": "8192",
+                "tone": "data"
+              },
+              {
+                "from": "hidden_dim",
+                "to": "tp_size",
+                "label": "4096",
+                "tone": "ok"
+              },
               {
                 "from": "seq_len",
                 "to": "hidden_dim",
@@ -338,7 +386,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how layer updates transformer during execution.",
+            "caption": "Verify the across transition driving layers behavior.",
             "bars": [
               {
                 "label": "num_layers",
@@ -380,7 +428,7 @@
           },
           {
             "at": "say11",
-            "caption": "Consequently, Sequence Parallelism serves as a cornerstone optimization.",
+            "caption": "Examine the extending value produced for tensor processing.",
             "bars": [
               {
                 "label": "num_layers",
@@ -454,7 +502,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how layer updates transformer during execution.",
+            "caption": "Verify the across transition driving layers behavior.",
             "bars": [
               {
                 "label": "num_layers",
@@ -480,7 +528,7 @@
           },
           {
             "at": "say11",
-            "caption": "Consequently, Sequence Parallelism serves as a cornerstone optimization.",
+            "caption": "Examine the extending value produced for tensor processing.",
             "bars": [
               {
                 "label": "num_layers",
@@ -509,7 +557,7 @@
     },
     {
       "partTitle": "Sequence Parallelism — Resilience Guardrails & Failure Recovery",
-      "codeHash": "95cd2668821ab34ae4694046f921119bfaa772eb9913e04ad67031cfb2e7c523",
+      "codeHash": "6813d99862390be5af5447b88c6012bf14ace35c0f587baba004d6a2c932a7dc",
       "spec": {
         "template": "bars",
         "title": "Sequence Parallelism — Resilience Guardrails & Failure Recovery",
@@ -564,7 +612,7 @@
           },
           {
             "at": "say11",
-            "caption": "Robust exception handling within distributed data loaders guarantees.",
+            "caption": "Examine the checking value produced for divisibility processing.",
             "bars": [
               {
                 "label": "seq_len",
@@ -598,7 +646,7 @@
             "bars": [
               {
                 "label": "seq_len",
-                "value": 8192,
+                "value": 8190,
                 "tone": "data"
               },
               {
@@ -614,7 +662,7 @@
             "bars": [
               {
                 "label": "seq_len",
-                "value": 8192,
+                "value": 8190,
                 "tone": "ok"
               },
               {
@@ -626,11 +674,11 @@
           },
           {
             "at": "say11",
-            "caption": "Robust exception handling within distributed data loaders guarantees.",
+            "caption": "Examine the checking value produced for divisibility processing.",
             "bars": [
               {
                 "label": "seq_len",
-                "value": 8192,
+                "value": 8190,
                 "tone": "ok"
               },
               {

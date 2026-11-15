@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Storage engines powering RocksDB, Cassandra, LevelDB, and Pebble flip.",
+            "activeActor": "mem_limit",
+            "messages": [
+              {
+                "from": "self",
+                "to": "mem_limit",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "mem_limit",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Storage engines powering RocksDB, Cassandra, LevelDB, and Pebble flip.",
-            "activeActor": "mem_limit",
+            "at": "say6",
+            "caption": "Examine the trees value produced for random processing.",
+            "activeActor": "lsm",
             "messages": [
+              {
+                "from": "self",
+                "to": "mem_limit",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": {
+                  "var": "mem_limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "mem_limit",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Implement the dual WAL + sorted MemTable + immutable flush into SSTables below.",
-            "activeActor": "lsm",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "mem_limit",
@@ -118,12 +148,6 @@
                 "to": "mem_limit",
                 "label": "<SimpleLSM>",
                 "tone": "data"
-              },
-              {
-                "from": "mem_limit",
-                "to": "lsm",
-                "label": "3",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say6",
-            "caption": "Implement the dual WAL + sorted MemTable + immutable flush into SSTables below.",
+            "caption": "Examine the trees value produced for random processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "mem_limit",
+                "label": "<SimpleLSM>",
+                "tone": "data"
+              },
+              {
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": "3",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "mem_limit",
+                "label": "<SimpleLSM>",
+                "tone": "data"
+              },
+              {
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": "3",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "mem_limit",
@@ -196,7 +244,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "High write speed in LSM-Trees creates a symmetrical read cost unless.",
+            "caption": "Inspect read updates as mem tracks memtable state.",
             "values": {
               "mem": {
                 "var": "mem",
@@ -358,7 +406,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "High write speed in LSM-Trees creates a symmetrical read cost unless.",
+            "caption": "Inspect read updates as mem tracks memtable state.",
             "values": {
               "mem": "{'k2': 'latest_in_mem'}",
               "ssts": "[[['k1', '__TOMBSTONE__'], ['k3', 'v3_n…",
@@ -692,6 +740,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the uncompacted transition driving file behavior.",
+            "activeActor": "wal_entries",
+            "messages": [
+              {
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": {
+                  "var": "wal_disk",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "wal_entries",
@@ -706,10 +771,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how uncompacted updates file during execution.",
-            "activeActor": "wal_entries",
+            "at": "say5",
+            "caption": "Execute both WAL crash-replay recovery and L0 stall throttle checks below.",
+            "activeActor": "recovered_mem",
             "messages": [
+              {
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": {
+                  "var": "wal_disk",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": {
+                  "var": "wal_entries",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "wal_disk",
                 "to": "wal_entries",
@@ -729,14 +814,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Execute both WAL crash-replay recovery and L0 stall throttle checks below.",
-            "activeActor": "recovered_mem",
-            "messages": [
+              },
               {
                 "from": "wal_disk",
                 "to": "wal_entries",
@@ -779,19 +857,13 @@
                 "to": "wal_entries",
                 "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
                 "tone": "data"
-              },
-              {
-                "from": "wal_entries",
-                "to": "recovered_mem",
-                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
-                "tone": "ok"
               }
             ],
             "activeActor": "wal_disk"
           },
           {
             "at": "say2",
-            "caption": "Trace how uncompacted updates file during execution.",
+            "caption": "Verify the uncompacted transition driving file behavior.",
             "messages": [
               {
                 "from": "wal_disk",
@@ -812,6 +884,30 @@
             "at": "say5",
             "caption": "Execute both WAL crash-replay recovery and L0 stall throttle checks below.",
             "messages": [
+              {
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "data"
+              },
+              {
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "ok"
+              },
+              {
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "data"
+              },
+              {
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "ok"
+              },
               {
                 "from": "wal_disk",
                 "to": "wal_entries",

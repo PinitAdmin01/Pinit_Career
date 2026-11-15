@@ -124,7 +124,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how local ticks and receive max-updates propagate scalar causal.",
+            "caption": "Examine the before value produced for wall processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -254,7 +254,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how local ticks and receive max-updates propagate scalar causal.",
+            "caption": "Examine the before value produced for wall processing.",
             "values": {
               "self": "<LamportNode>",
               "node_id": "'n2'",
@@ -329,7 +329,7 @@
           },
           {
             "at": "say8",
-            "caption": "Examine how independent updates from three nodes converge.",
+            "caption": "Examine the total value produced for node processing.",
             "currentState": "events",
             "transition": {
               "from": "e",
@@ -381,7 +381,7 @@
           },
           {
             "at": "say8",
-            "caption": "Examine how independent updates from three nodes converge.",
+            "caption": "Examine the total value produced for node processing.",
             "currentState": "events",
             "transition": {
               "from": "e",
@@ -531,6 +531,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Whenever node B receives its next message from node A, node B's Lamport.",
+            "activeActor": "MAX_JUMP",
+            "messages": [
+              {
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": {
+                  "var": "MAX_U64",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "MAX_JUMP",
@@ -545,10 +562,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Whenever node B receives its next message from node A, node B's Lamport.",
-            "activeActor": "MAX_JUMP",
+            "at": "say8",
+            "caption": "Examine the idle value produced for nodes processing.",
+            "activeActor": "self",
             "messages": [
+              {
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": {
+                  "var": "MAX_U64",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": {
+                  "var": "MAX_JUMP",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "MAX_U64",
                 "to": "MAX_JUMP",
@@ -568,14 +605,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Inspect the guard logic below catching negative timestamps and forged.",
-            "activeActor": "self",
-            "messages": [
+              },
               {
                 "from": "MAX_U64",
                 "to": "MAX_JUMP",
@@ -618,12 +648,6 @@
                 "to": "MAX_JUMP",
                 "label": "18446744073709551615",
                 "tone": "data"
-              },
-              {
-                "from": "MAX_JUMP",
-                "to": "self",
-                "label": "100000",
-                "tone": "ok"
               }
             ],
             "activeActor": "MAX_U64"
@@ -649,8 +673,32 @@
           },
           {
             "at": "say8",
-            "caption": "Inspect the guard logic below catching negative timestamps and forged.",
+            "caption": "Examine the idle value produced for nodes processing.",
             "messages": [
+              {
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": "18446744073709551615",
+                "tone": "data"
+              },
+              {
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": "100000",
+                "tone": "ok"
+              },
+              {
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": "18446744073709551615",
+                "tone": "data"
+              },
+              {
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": "100000",
+                "tone": "ok"
+              },
               {
                 "from": "MAX_U64",
                 "to": "MAX_JUMP",
@@ -695,6 +743,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "An audit harness must verify two distinct invariants across arbitrary.",
+            "activeActor": "events",
+            "messages": [
+              {
+                "from": "good_events",
+                "to": "events",
+                "label": {
+                  "var": "good_events",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "events",
@@ -709,10 +774,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "An audit harness must verify two distinct invariants across arbitrary.",
-            "activeActor": "events",
+            "at": "say8",
+            "caption": "Run the full multi-node trace verifier below and inspect clean invariant.",
+            "activeActor": "edges",
             "messages": [
+              {
+                "from": "good_events",
+                "to": "events",
+                "label": {
+                  "var": "good_events",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "edges",
+                "label": {
+                  "var": "events",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "good_events",
                 "to": "events",
@@ -732,14 +817,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Run the full multi-node trace verifier below and inspect clean invariant.",
-            "activeActor": "edges",
-            "messages": [
+              },
               {
                 "from": "good_events",
                 "to": "events",
@@ -782,12 +860,6 @@
                 "to": "events",
                 "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
                 "tone": "data"
-              },
-              {
-                "from": "events",
-                "to": "edges",
-                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
-                "tone": "ok"
               }
             ],
             "activeActor": "good_events"
@@ -815,6 +887,30 @@
             "at": "say8",
             "caption": "Run the full multi-node trace verifier below and inspect clean invariant.",
             "messages": [
+              {
+                "from": "good_events",
+                "to": "events",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "edges",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "ok"
+              },
+              {
+                "from": "good_events",
+                "to": "events",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "edges",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "ok"
+              },
               {
                 "from": "good_events",
                 "to": "events",

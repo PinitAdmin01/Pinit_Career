@@ -100,7 +100,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how rnns updates were during execution.",
+            "caption": "Examine the rnns value produced for leading processing.",
             "values": {
               "words": {
                 "var": "words",
@@ -204,7 +204,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how rnns updates were during execution.",
+            "caption": "Examine the rnns value produced for leading processing.",
             "values": {
               "words": "['the', 'movie', 'was', 'not', 'good']",
               "memory": "['the']",
@@ -280,7 +280,7 @@
           },
           {
             "at": "say2",
-            "caption": "H_{t-1} is the previous hidden state, x_t is the current input (for text.",
+            "caption": "Verify the previous transition driving hidden behavior.",
             "bars": [
               {
                 "label": "z",
@@ -396,7 +396,7 @@
           },
           {
             "at": "say2",
-            "caption": "H_{t-1} is the previous hidden state, x_t is the current input (for text.",
+            "caption": "Verify the previous transition driving hidden behavior.",
             "bars": [
               {
                 "label": "z",
@@ -865,157 +865,80 @@
         "title": "Practice time: RNN steps and gradients",
         "nodes": [
           {
-            "id": "factor",
-            "label": "factor"
-          },
-          {
             "id": "steps",
-            "label": "steps"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "steps",
+            "tappable": true
           },
           {
             "id": "s",
-            "label": "s"
+            "label": "s",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compute the weighted sum, apply math.",
+            "caption": "Practice 1: rnn_step(w_hh, h_prev, w_xh, x, b).",
             "values": {
-              "factor": {
-                "var": "factor",
-                "line": 1,
-                "hit": 1
-              },
               "steps": {
                 "var": "steps",
                 "line": 1,
                 "hit": 1
               },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 1
-              },
               "s": {
-                "var": "s",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
-              "factor": "data",
               "steps": "data",
-              ".0": "data",
-              "s": "data"
+              "s": "idle"
             },
-            "arrows": [
-              [
-                "factor",
-                "steps"
-              ],
-              [
-                "steps",
-                ".0"
-              ],
-              [
-                ".0",
-                "s"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include all zeros (giving 0.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
-              "factor": {
-                "var": "factor",
-                "line": 2,
-                "hit": 1
-              },
               "steps": {
                 "var": "steps",
-                "line": 2,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 2
+                "line": 3,
+                "hit": 38
               },
               "s": {
-                "var": "s",
-                "line": 5,
-                "hit": 2
+                "text": ""
               }
             },
             "tones": {
-              "factor": "data",
               "steps": "data",
-              ".0": "data",
-              "s": "data"
+              "s": "idle"
             },
             "arrows": [
               [
-                "factor",
-                "steps"
-              ],
-              [
                 "steps",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example finds that number with a loop.",
+            "at": "say3",
+            "caption": "Examine the practice value produced for steps processing.",
             "values": {
-              "factor": {
-                "var": "factor",
-                "line": 3,
-                "hit": 1
-              },
               "steps": {
-                "var": "steps",
-                "line": 3,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 5,
-                "hit": 3
+                "text": ""
               },
               "s": {
                 "var": "s",
                 "line": 5,
-                "hit": 3
+                "hit": 10
               }
             },
             "tones": {
-              "factor": "ok",
-              "steps": "ok",
-              ".0": "ok",
+              "steps": "idle",
               "s": "ok"
             },
             "arrows": [
               [
-                "factor",
-                "steps"
-              ],
-              [
                 "steps",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
               ]
             ]
@@ -1027,109 +950,62 @@
         "title": "Practice time: RNN steps and gradients",
         "nodes": [
           {
-            "id": "factor",
-            "label": "factor"
-          },
-          {
             "id": "steps",
-            "label": "steps"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "steps",
+            "tappable": true
           },
           {
             "id": "s",
-            "label": "s"
+            "label": "s",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compute the weighted sum, apply math.",
+            "caption": "Practice 1: rnn_step(w_hh, h_prev, w_xh, x, b).",
             "values": {
-              "factor": "0.9",
               "steps": "0",
-              ".0": "{'__other__': 'range_iterator'}",
-              "s": "1"
+              "s": ""
             },
             "tones": {
-              "factor": "data",
               "steps": "data",
-              ".0": "data",
-              "s": "data"
+              "s": "idle"
             },
-            "arrows": [
-              [
-                "factor",
-                "steps"
-              ],
-              [
-                "steps",
-                ".0"
-              ],
-              [
-                ".0",
-                "s"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include all zeros (giving 0.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
-              "factor": "0.9",
-              "steps": "0",
-              ".0": "{'__other__': 'range_iterator'}",
-              "s": "2"
+              "steps": "38",
+              "s": ""
             },
             "tones": {
-              "factor": "data",
               "steps": "data",
-              ".0": "data",
-              "s": "data"
+              "s": "idle"
             },
             "arrows": [
               [
-                "factor",
-                "steps"
-              ],
-              [
                 "steps",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example finds that number with a loop.",
+            "at": "say3",
+            "caption": "Examine the practice value produced for steps processing.",
             "values": {
-              "factor": "0.9",
-              "steps": "1",
-              ".0": "{'__other__': 'range_iterator'}",
-              "s": "3"
+              "steps": "",
+              "s": "10"
             },
             "tones": {
-              "factor": "ok",
-              "steps": "ok",
-              ".0": "ok",
+              "steps": "idle",
               "s": "ok"
             },
             "arrows": [
               [
-                "factor",
-                "steps"
-              ],
-              [
                 "steps",
-                ".0"
-              ],
-              [
-                ".0",
                 "s"
               ]
             ]

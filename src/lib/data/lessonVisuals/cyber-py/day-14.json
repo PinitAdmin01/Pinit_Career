@@ -388,7 +388,7 @@
           },
           {
             "at": "say2",
-            "caption": "Practice 1 is header_audit(headers), which reports HSTS (missing.",
+            "caption": "Practice 1 is header_audit(headers).",
             "values": {
               "headers": {
                 "var": "headers",
@@ -492,7 +492,7 @@
           },
           {
             "at": "say2",
-            "caption": "Practice 1 is header_audit(headers), which reports HSTS (missing.",
+            "caption": "Practice 1 is header_audit(headers).",
             "values": {
               "headers": "{'Strict-Transport-Security': 'max-age=…",
               "k": "'strict-transport-security'",
@@ -607,18 +607,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "value": {
                 "var": "value",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "leaks": {
                 "var": "leaks",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -653,18 +653,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "value": {
                 "var": "value",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "leaks": {
                 "var": "leaks",
-                "line": 4,
-                "hit": 2
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -747,9 +747,9 @@
             "caption": "Set Cache-Control.",
             "values": {
               "response": "{'Server': 'nginx/1.18.0', 'X-Powered-B…",
-              "name": "'Server'",
-              "value": "'nginx/1.18.0'",
-              "leaks": "True"
+              "name": "'X-Powered-By'",
+              "value": "'Express'",
+              "leaks": "False"
             },
             "tones": {
               "response": "data",
@@ -777,9 +777,9 @@
             "caption": "Security baselines, such as the CIS benchmarks, list recommended settings.",
             "values": {
               "response": "{'Server': 'nginx/1.18.0', 'X-Powered-B…",
-              "name": "'Server'",
-              "value": "'nginx/1.18.0'",
-              "leaks": "True"
+              "name": "'Cache-Control'",
+              "value": "'no-store'",
+              "leaks": "False"
             },
             "tones": {
               "response": "ok",
@@ -831,6 +831,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks include a strong configuration, a weak one with lower-case.",
+            "activeActor": "current",
+            "messages": [
+              {
+                "from": "recommended",
+                "to": "current",
+                "label": {
+                  "var": "recommended",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "current",
@@ -845,10 +862,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include a strong configuration, a weak one with lower-case.",
-            "activeActor": "current",
+            "at": "say9",
+            "caption": "Keep the audit in your toolkit.",
+            "activeActor": "missing",
             "messages": [
+              {
+                "from": "recommended",
+                "to": "current",
+                "label": {
+                  "var": "recommended",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "current",
+                "to": "missing",
+                "label": {
+                  "var": "current",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "recommended",
                 "to": "current",
@@ -868,14 +905,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Keep the audit in your toolkit.",
-            "activeActor": "missing",
-            "messages": [
+              },
               {
                 "from": "recommended",
                 "to": "current",
@@ -918,12 +948,6 @@
                 "to": "current",
                 "label": "{'Strict-Transport-Security': 'max-age=…",
                 "tone": "data"
-              },
-              {
-                "from": "current",
-                "to": "missing",
-                "label": "{'x-content-type-options': 'nosniff'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "recommended"
@@ -951,6 +975,30 @@
             "at": "say9",
             "caption": "Keep the audit in your toolkit.",
             "messages": [
+              {
+                "from": "recommended",
+                "to": "current",
+                "label": "{'Strict-Transport-Security': 'max-age=…",
+                "tone": "data"
+              },
+              {
+                "from": "current",
+                "to": "missing",
+                "label": "{'x-content-type-options': 'nosniff'}",
+                "tone": "ok"
+              },
+              {
+                "from": "recommended",
+                "to": "current",
+                "label": "{'Strict-Transport-Security': 'max-age=…",
+                "tone": "data"
+              },
+              {
+                "from": "current",
+                "to": "missing",
+                "label": "{'x-content-type-options': 'nosniff'}",
+                "tone": "ok"
+              },
               {
                 "from": "recommended",
                 "to": "current",

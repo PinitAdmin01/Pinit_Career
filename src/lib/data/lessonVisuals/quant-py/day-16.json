@@ -150,7 +150,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how fischer updates black during execution.",
+            "caption": "Observe how black shapes scholes during this step.",
             "items": {
               "var": "finals",
               "line": 9,
@@ -204,7 +204,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how fischer updates black during execution.",
+            "caption": "Observe how black shapes scholes during this step.",
             "items": [
               "97.9",
               "114.14"
@@ -261,7 +261,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Black-Scholes prices a European call as C = S N(d1) - K e^(-rT) N(d2),.",
+            "caption": "Observe how black shapes scholes during this step.",
             "bars": [
               {
                 "label": "S",
@@ -393,7 +393,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Black-Scholes prices a European call as C = S N(d1) - K e^(-rT) N(d2),.",
+            "caption": "Observe how black shapes scholes during this step.",
             "bars": [
               {
                 "label": "S",
@@ -811,7 +811,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how example updates checks during execution.",
+            "caption": "Examine the call value produced for parity processing.",
             "values": {
               "C": {
                 "var": "C",
@@ -941,7 +941,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how example updates checks during execution.",
+            "caption": "Examine the call value produced for parity processing.",
             "values": {
               "C": "11",
               "P": "5.5735",
@@ -1013,7 +1013,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how round updates each during execution.",
+            "caption": "Verify the round transition driving output behavior.",
             "activeActor": "T",
             "messages": [
               {
@@ -1097,7 +1097,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how round updates each during execution.",
+            "caption": "Verify the round transition driving output behavior.",
             "messages": [
               {
                 "from": "S",

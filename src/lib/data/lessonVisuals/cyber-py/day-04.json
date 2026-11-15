@@ -140,14 +140,12 @@
                 "hit": 1
               },
               "form_forged": {
-                "var": "form_forged",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "form_ok": "data",
-              "form_forged": "data"
+              "form_forged": "idle"
             }
           },
           {
@@ -211,11 +209,11 @@
             "caption": "The classic defence is a CSRF token.",
             "values": {
               "form_ok": "True",
-              "form_forged": "False"
+              "form_forged": ""
             },
             "tones": {
               "form_ok": "data",
-              "form_forged": "data"
+              "form_forged": "idle"
             }
           },
           {
@@ -551,6 +549,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "HttpOnly means JavaScript cannot read it, which protects session cookies.",
+            "activeActor": "value",
+            "messages": [
+              {
+                "from": "name",
+                "to": "value",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "value",
@@ -565,10 +580,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "HttpOnly means JavaScript cannot read it, which protects session cookies.",
-            "activeActor": "value",
+            "at": "say9",
+            "caption": "Examine the remember value produced for flags processing.",
+            "activeActor": "same_site",
             "messages": [
+              {
+                "from": "name",
+                "to": "value",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "same_site",
+                "label": {
+                  "var": "value",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "name",
                 "to": "value",
@@ -588,14 +623,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Remember to set the same flags when you delete or refresh a cookie, or.",
-            "activeActor": "same_site",
-            "messages": [
+              },
               {
                 "from": "name",
                 "to": "value",
@@ -638,12 +666,6 @@
                 "to": "value",
                 "label": "'session'",
                 "tone": "data"
-              },
-              {
-                "from": "value",
-                "to": "same_site",
-                "label": "'c9f2a1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "name"
@@ -669,8 +691,32 @@
           },
           {
             "at": "say9",
-            "caption": "Remember to set the same flags when you delete or refresh a cookie, or.",
+            "caption": "Examine the remember value produced for flags processing.",
             "messages": [
+              {
+                "from": "name",
+                "to": "value",
+                "label": "'session'",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "same_site",
+                "label": "'c9f2a1'",
+                "tone": "ok"
+              },
+              {
+                "from": "name",
+                "to": "value",
+                "label": "'session'",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "same_site",
+                "label": "'c9f2a1'",
+                "tone": "ok"
+              },
               {
                 "from": "name",
                 "to": "value",

@@ -20,11 +20,12 @@ export function getSharedPyodide(): Promise<PyodideInterface> {
 export function detectLanguage(part: LongLessonPart, options?: FillOptions): 'python' | 'sql' {
   if (options?.language) return options.language;
   const code = part.code ?? '';
-  // Check for SQL keywords or common SQL patterns
+  // Check for SQL statements (avoid matching Python `update = ...` or `with ...:`)
   if (
-    /^\s*(SELECT|INSERT\s+INTO|CREATE\s+TABLE|UPDATE|DELETE\s+FROM|DROP\s+TABLE|ALTER\s+TABLE|WITH)\b/im.test(
+    /^\s*(SELECT\s+|INSERT\s+INTO\s+|CREATE\s+(?:TEMP\s+|TEMPORARY\s+|UNIQUE\s+)?(?:TABLE|VIEW|INDEX|TRIGGER)\b|UPDATE\s+[A-Za-z_]\w*\s+SET\b|DELETE\s+FROM\s+|DROP\s+(?:TABLE|VIEW|INDEX|TRIGGER)\b|ALTER\s+TABLE\s+|WITH\s+(?:RECURSIVE\s+)?[A-Za-z_]\w*\s+AS\s*\(|BEGIN\s*(?:TRANSACTION|;)|COMMIT\b|ROLLBACK\b|PRAGMA\b|EXPLAIN\b)/im.test(
       code
-    )
+    ) &&
+    !/^\s*(def |class |import |from\s+\w+\s+import\b|print\s*\(|for\s+\w+\s+in\b)/m.test(code)
   ) {
     return 'sql';
   }

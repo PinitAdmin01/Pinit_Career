@@ -381,19 +381,325 @@
       "partTitle": "More uses of self joins",
       "codeHash": "7f80e399b46a30b5a7fbb6c16e75baa730efe1a537cdecd53aadb51c588cb5d7",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "flow",
+        "title": "More uses of self joins",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Self joins are not only for managers.",
+            "values": {
+              "query": {
+                "text": "CREATE TABLE customers (id int PRIMARY KEY, name"
+              },
+              "db": {
+                "text": ""
+              },
+              "res": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For example, finding pairs of customers who live in the same city.",
+            "values": {
+              "query": {
+                "text": "ORDER BY a.city;"
+              },
+              "db": {
+                "text": "SELECT"
+              },
+              "res": {
+                "table": 1,
+                "row": 1,
+                "col": "customer_1"
+              }
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "flow",
+        "title": "More uses of self joins",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "SQL",
+            "tappable": false
+          },
+          {
+            "id": "db",
+            "label": "Engine",
+            "tappable": false
+          },
+          {
+            "id": "res",
+            "label": "Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Self joins are not only for managers.",
+            "values": {
+              "query": "CREATE TABLE customers (id int PRIMARY KEY, name",
+              "db": "",
+              "res": ""
+            },
+            "tones": {
+              "query": "data",
+              "db": "idle",
+              "res": "idle"
+            },
+            "arrows": [
+              [
+                "query",
+                "db"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For example, finding pairs of customers who live in the same city.",
+            "values": {
+              "query": "ORDER BY a.city;",
+              "db": "SELECT",
+              "res": "Asha"
+            },
+            "tones": {
+              "query": "idle",
+              "db": "data",
+              "res": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "res"
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Choosing the right join at each step",
       "codeHash": "597052818d9c2574bd96d53443f1fe536fe53f72c46758de939920888c791ec2",
       "spec": {
-        "template": "none",
-        "reason": "SQL syntax and schema operation demonstrated via code sample"
+        "template": "table",
+        "title": "Choosing the right join at each step",
+        "columns": [
+          "name",
+          "lines"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In a chain of joins, each JOIN can be INNER or LEFT, and the choice matters.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "lines"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "lines"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Why every step.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 1,
+                    "col": "lines"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 2,
+                    "col": "lines"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 3,
+                    "col": "lines"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "name"
+                  },
+                  {
+                    "table": 2,
+                    "row": 4,
+                    "col": "lines"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
       },
-      "filled": {}
+      "filled": {
+        "template": "table",
+        "title": "Choosing the right join at each step",
+        "columns": [
+          "name",
+          "lines"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In a chain of joins, each JOIN can be INNER or LEFT, and the choice matters.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "3"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Meera",
+                  "0"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Why every step.",
+            "rows": [
+              {
+                "cells": [
+                  "Asha",
+                  "3"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Meera",
+                  "0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Priya",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Ravi",
+                  "1"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "partTitle": "Putting it together: who bought what",

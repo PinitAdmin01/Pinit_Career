@@ -46,7 +46,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Verify the milestone transition driving establishes behavior.",
             "activeActor": "tier",
             "messages": [
               {
@@ -130,7 +130,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Verify the milestone transition driving establishes behavior.",
             "messages": [
               {
                 "from": "summary",
@@ -370,7 +370,7 @@
           },
           {
             "at": "say11",
-            "caption": "These performance optimizations ensure that security and availability.",
+            "caption": "Examine the throughput value produced for edge processing.",
             "bars": [
               {
                 "label": "cache_hits",
@@ -470,7 +470,7 @@
           },
           {
             "at": "say11",
-            "caption": "These performance optimizations ensure that security and availability.",
+            "caption": "Examine the throughput value produced for edge processing.",
             "bars": [
               {
                 "label": "cache_hits",
@@ -548,7 +548,7 @@
           },
           {
             "at": "say2",
-            "caption": "Automated failover coordination guarantees that cellular impairments are.",
+            "caption": "Verify the automated transition driving failover behavior.",
             "bars": [
               {
                 "label": "num_cells",
@@ -664,7 +664,7 @@
           },
           {
             "at": "say2",
-            "caption": "Automated failover coordination guarantees that cellular impairments are.",
+            "caption": "Verify the automated transition driving failover behavior.",
             "bars": [
               {
                 "label": "num_cells",
@@ -726,157 +726,97 @@
         "nodes": [
           {
             "id": "gates",
-            "label": "gates"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "gates",
+            "tappable": true
           },
           {
             "id": "g",
-            "label": "g"
+            "label": "g",
+            "tappable": true
           },
           {
-            "id": "all_passed",
-            "label": "all_passed"
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "End-to-end architecture audits confirm that all cellular routing, caching.",
+            "caption": "Inspect production updates as gates tracks holistic state.",
             "values": {
               "gates": {
                 "var": "gates",
                 "line": 4,
                 "hit": 1
               },
-              ".0": {
-                "var": ".0",
-                "line": 16,
-                "hit": 1
-              },
               "g": {
-                "var": "g",
-                "line": 16,
-                "hit": 1
+                "text": ""
               },
-              "all_passed": {
-                "var": "all_passed",
-                "line": 16,
-                "hit": 7
+              "g_name": {
+                "text": ""
               }
             },
             "tones": {
               "gates": "data",
-              ".0": "data",
-              "g": "data",
-              "all_passed": "data"
+              "g": "idle",
+              "g_name": "idle"
             },
-            "arrows": [
-              [
-                "gates",
-                ".0"
-              ],
-              [
-                ".0",
-                "g"
-              ],
-              [
-                "g",
-                "all_passed"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The comprehensive 5-gate certification suite validates edge caching.",
+            "caption": "Verify the production transition driving comprehensive behavior.",
             "values": {
               "gates": {
-                "var": "gates",
-                "line": 6,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 16,
-                "hit": 2
+                "text": ""
               },
               "g": {
                 "var": "g",
                 "line": 16,
-                "hit": 2
+                "hit": 5
               },
-              "all_passed": {
-                "var": "all_passed",
-                "line": 17,
-                "hit": 1
+              "g_name": {
+                "text": ""
               }
             },
             "tones": {
-              "gates": "data",
-              ".0": "data",
+              "gates": "idle",
               "g": "data",
-              "all_passed": "data"
+              "g_name": "idle"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Execute the full 5-gate Milestone 11 certification test suite below.",
+            "at": "say3",
+            "caption": "Examine the production value produced for telemetry processing.",
             "values": {
               "gates": {
-                "var": "gates",
-                "line": 8,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 16,
-                "hit": 3
+                "text": ""
               },
               "g": {
-                "var": "g",
-                "line": 16,
-                "hit": 3
+                "text": ""
               },
-              "all_passed": {
-                "var": "all_passed",
-                "line": 17,
-                "hit": 1
+              "g_name": {
+                "var": "g_name",
+                "line": 21,
+                "hit": 5
               }
             },
             "tones": {
-              "gates": "ok",
-              ".0": "ok",
-              "g": "ok",
-              "all_passed": "ok"
+              "gates": "idle",
+              "g": "idle",
+              "g_name": "ok"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           }
@@ -888,109 +828,73 @@
         "nodes": [
           {
             "id": "gates",
-            "label": "gates"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "label": "gates",
+            "tappable": true
           },
           {
             "id": "g",
-            "label": "g"
+            "label": "g",
+            "tappable": true
           },
           {
-            "id": "all_passed",
-            "label": "all_passed"
+            "id": "g_name",
+            "label": "g_name",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "End-to-end architecture audits confirm that all cellular routing, caching.",
+            "caption": "Inspect production updates as gates tracks holistic state.",
             "values": {
               "gates": "{}",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "g": "{'passed': True, 'cache_hit_rate': 92.4}",
-              "all_passed": "True"
+              "g": "",
+              "g_name": ""
             },
             "tones": {
               "gates": "data",
-              ".0": "data",
-              "g": "data",
-              "all_passed": "data"
+              "g": "idle",
+              "g_name": "idle"
             },
-            "arrows": [
-              [
-                "gates",
-                ".0"
-              ],
-              [
-                ".0",
-                "g"
-              ],
-              [
-                "g",
-                "all_passed"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The comprehensive 5-gate certification suite validates edge caching.",
+            "caption": "Verify the production transition driving comprehensive behavior.",
             "values": {
-              "gates": "{'GATE_1_EDGE_CHR': {'passed': True, 'c…",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "g": "{'passed': True, 'virtual_shards': 4845…",
-              "all_passed": "True"
+              "gates": "",
+              "g": "{'passed': True, 'reroute_success_pct':…",
+              "g_name": ""
             },
             "tones": {
-              "gates": "data",
-              ".0": "data",
+              "gates": "idle",
               "g": "data",
-              "all_passed": "data"
+              "g_name": "idle"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Execute the full 5-gate Milestone 11 certification test suite below.",
+            "at": "say3",
+            "caption": "Examine the production value produced for telemetry processing.",
             "values": {
-              "gates": "{'GATE_1_EDGE_CHR': {'passed': True, 'c…",
-              ".0": "{'__other__': 'dict_valueiterator'}",
-              "g": "{'passed': True, 'locking_enforced': Tr…",
-              "all_passed": "True"
+              "gates": "",
+              "g": "",
+              "g_name": "'GATE_5_CELLULAR_RESILIENCE'"
             },
             "tones": {
-              "gates": "ok",
-              ".0": "ok",
-              "g": "ok",
-              "all_passed": "ok"
+              "gates": "idle",
+              "g": "idle",
+              "g_name": "ok"
             },
             "arrows": [
               [
                 "gates",
-                ".0"
-              ],
-              [
-                ".0",
                 "g"
-              ],
-              [
-                "g",
-                "all_passed"
               ]
             ]
           }

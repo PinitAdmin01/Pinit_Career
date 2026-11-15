@@ -149,16 +149,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "capacity",
-                "to": "refill_per_sec",
-                "label": {
-                  "var": "capacity",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -172,7 +162,7 @@
                 "to": "capacity",
                 "label": {
                   "var": "self",
-                  "line": 6,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "data"
@@ -199,7 +189,7 @@
                 "to": "capacity",
                 "label": {
                   "var": "self",
-                  "line": 7,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "data"
@@ -213,6 +203,26 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -236,12 +246,6 @@
                 "to": "capacity",
                 "label": "<ClientLimiter>",
                 "tone": "data"
-              },
-              {
-                "from": "capacity",
-                "to": "refill_per_sec",
-                "label": "3",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -280,6 +284,18 @@
                 "to": "refill_per_sec",
                 "label": "3",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<ClientLimiter>",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<ClientLimiter>",
+                "tone": "data"
               }
             ],
             "activeActor": "refill_per_sec"
@@ -313,6 +329,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Otherwise run breaker_call(backend).",
+            "activeActor": "client_id",
+            "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": {
+                  "var": "c",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "client_id",
@@ -327,10 +360,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Otherwise run breaker_call(backend).",
-            "activeActor": "client_id",
+            "at": "say7",
+            "caption": "The example exercises all four outcomes.",
+            "activeActor": "err",
             "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": {
+                  "var": "c",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": {
+                  "var": "client_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "c",
                 "to": "client_id",
@@ -350,14 +403,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example exercises all four outcomes.",
-            "activeActor": "err",
-            "messages": [
+              },
               {
                 "from": "c",
                 "to": "client_id",
@@ -400,12 +446,6 @@
                 "to": "client_id",
                 "label": "'c1'",
                 "tone": "data"
-              },
-              {
-                "from": "client_id",
-                "to": "err",
-                "label": "'c1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "c"
@@ -444,6 +484,30 @@
                 "to": "err",
                 "label": "'c1'",
                 "tone": "ok"
+              },
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": "'c1'",
+                "tone": "data"
+              },
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": "'c1'",
+                "tone": "ok"
+              },
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": "'c1'",
+                "tone": "data"
+              },
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": "'c1'",
+                "tone": "ok"
               }
             ],
             "activeActor": "err"
@@ -455,162 +519,184 @@
       "partTitle": "Timing headers",
       "codeHash": "1e0565a7c1509a4c41428ef5b07daa90b3abb285b3b5a3ab9d1e11ff02b60d4e",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Timing headers",
-        "actors": [
-          "clock",
-          "request_id",
-          "start"
+        "nodes": [
+          {
+            "id": "request_id",
+            "label": "request_id",
+            "tappable": true
+          },
+          {
+            "id": "start",
+            "label": "start",
+            "tappable": true
+          },
+          {
+            "id": "end",
+            "label": "end",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Response_time_header(ms) returns \"X-Response-Time.",
-            "activeActor": "clock",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "request_id",
-                "label": {
-                  "var": "clock",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Practice 2: response_time_header(ms) returns \"X-Response-Time: 12ms\".",
+            "values": {
+              "request_id": {
+                "var": "request_id",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": "request_id",
-                "to": "start",
-                "label": {
-                  "var": "request_id",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "start": {
+                "text": ""
+              },
+              "end": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "request_id": "data",
+              "start": "idle",
+              "end": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Measure time at the gateway.",
-            "activeActor": "request_id",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "request_id",
-                "label": {
-                  "var": "clock",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "request_id": {
+                "var": "request_id",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "from": "request_id",
-                "to": "start",
-                "label": {
-                  "var": "request_id",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "start": {
+                "var": "start",
+                "line": 5,
+                "hit": 2
+              },
+              "end": {
+                "var": "end",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "request_id": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "request_id",
+                "start"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example measures and formats timings with a fake clock.",
-            "activeActor": "start",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "request_id",
-                "label": {
-                  "var": "clock",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the timing value produced for comparing processing.",
+            "values": {
+              "request_id": {
+                "out": 1
               },
-              {
-                "from": "request_id",
-                "to": "start",
-                "label": {
-                  "var": "request_id",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "start": {
+                "text": ""
+              },
+              "end": {
+                "text": ""
               }
+            },
+            "tones": {
+              "request_id": "data",
+              "start": "idle",
+              "end": "idle"
+            },
+            "arrows": [
+              [
+                "request_id",
+                "start"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Timing headers",
-        "actors": [
-          "clock",
-          "request_id",
-          "start"
+        "nodes": [
+          {
+            "id": "request_id",
+            "label": "request_id",
+            "tappable": true
+          },
+          {
+            "id": "start",
+            "label": "start",
+            "tappable": true
+          },
+          {
+            "id": "end",
+            "label": "end",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Response_time_header(ms) returns \"X-Response-Time.",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "request_id",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "request_id",
-                "to": "start",
-                "label": "'req-1'",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "clock"
+            "caption": "Practice 2: response_time_header(ms) returns \"X-Response-Time: 12ms\".",
+            "values": {
+              "request_id": "'req-1'",
+              "start": "",
+              "end": ""
+            },
+            "tones": {
+              "request_id": "data",
+              "start": "idle",
+              "end": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Measure time at the gateway.",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "request_id",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "request_id",
-                "to": "start",
-                "label": "'req-1'",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "request_id"
+            "values": {
+              "request_id": "'req-2'",
+              "start": "1000",
+              "end": "1012"
+            },
+            "tones": {
+              "request_id": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "request_id",
+                "start"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The example measures and formats timings with a fake clock.",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "request_id",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "request_id",
-                "to": "start",
-                "label": "'req-1'",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "start"
+            "at": "say3",
+            "caption": "Examine the timing value produced for comparing processing.",
+            "values": {
+              "request_id": "req-1 X-Response-Time: 12ms X-Request-Id: req-1",
+              "start": "",
+              "end": ""
+            },
+            "tones": {
+              "request_id": "data",
+              "start": "idle",
+              "end": "idle"
+            },
+            "arrows": [
+              [
+                "request_id",
+                "start"
+              ]
+            ]
           }
         ]
       }
@@ -678,8 +764,8 @@
             "values": {
               "calls": {
                 "var": "calls",
-                "line": 15,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               },
               "c": {
                 "var": "c",
@@ -714,8 +800,8 @@
             "values": {
               "calls": {
                 "var": "calls",
-                "line": 18,
-                "hit": 1
+                "line": 23,
+                "hit": 2
               },
               "c": {
                 "var": "c",
@@ -792,7 +878,7 @@
             "at": "say2",
             "caption": "Also test the order.",
             "values": {
-              "calls": "[]",
+              "calls": "['breaker', 'backend']",
               "c": "'c'",
               "client_id": "'c'"
             },
@@ -816,7 +902,7 @@
             "at": "say7",
             "caption": "The example checks the order of calls for a rate-limited request.",
             "values": {
-              "calls": "[]",
+              "calls": "['breaker', 'backend']",
               "c": "'c'",
               "client_id": "'c'"
             },
@@ -862,7 +948,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how several updates gateway during execution.",
+            "caption": "Observe how several shapes gateway during this step.",
             "currentState": "statuses",
             "tone": "data"
           },
@@ -918,7 +1004,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how several updates gateway during execution.",
+            "caption": "Observe how several shapes gateway during this step.",
             "currentState": "statuses",
             "tone": "data"
           },

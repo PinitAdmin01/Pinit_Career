@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "Encryption in transit protects data moving over networks, using TLS (the S.",
+            "caption": "Verify the encryption transition driving transit behavior.",
             "currentState": "key",
             "transition": {
               "from": "plaintext",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say7",
-            "caption": "Encryption moves the problem from protecting data to protecting keys,.",
+            "caption": "Examine the encryption value produced for remember processing.",
             "currentState": "i",
             "transition": {
               "from": "key",
@@ -90,18 +90,18 @@
           },
           {
             "at": "say2",
-            "caption": "Encryption in transit protects data moving over networks, using TLS (the S.",
+            "caption": "Verify the encryption transition driving transit behavior.",
             "currentState": "key",
             "transition": {
               "from": "plaintext",
               "to": "key",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "Encryption moves the problem from protecting data to protecting keys,.",
+            "caption": "Examine the encryption value produced for remember processing.",
             "currentState": "i",
             "transition": {
               "from": "key",
@@ -200,13 +200,13 @@
               },
               "action": {
                 "var": "action",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 6
               },
               "via": {
                 "var": "via",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -247,12 +247,12 @@
               "action": {
                 "var": "action",
                 "line": 7,
-                "hit": 2
+                "hit": 6
               },
               "via": {
                 "var": "via",
                 "line": 7,
-                "hit": 2
+                "hit": 3
               }
             },
             "tones": {
@@ -336,8 +336,8 @@
             "values": {
               "policy": "[{'principal': 'arn:aws:iam::1111222233…",
               "principal": "'role/media-app'",
-              "action": "'kms:Decrypt'",
-              "via": "'s3.ap-south-1.amazonaws.com'"
+              "action": "'kms:ScheduleKeyDeletion'",
+              "via": "None"
             },
             "tones": {
               "policy": "data",
@@ -366,8 +366,8 @@
             "values": {
               "policy": "[{'principal': 'arn:aws:iam::1111222233…",
               "principal": "'role/media-app'",
-              "action": "'kms:Decrypt'",
-              "via": "'s3.ap-south-1.amazonaws.com'"
+              "action": "'kms:ScheduleKeyDeletion'",
+              "via": "None"
             },
             "tones": {
               "policy": "ok",
@@ -402,7 +402,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how encrypt updates most during execution.",
+            "caption": "Observe how encrypt shapes data during this step.",
             "bars": [
               {
                 "label": "i",
@@ -480,7 +480,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how encrypt updates most during execution.",
+            "caption": "Observe how encrypt shapes data during this step.",
             "bars": [
               {
                 "label": "i",
@@ -616,13 +616,13 @@
               },
               "risks": {
                 "var": "risks",
-                "line": 3,
+                "line": 11,
                 "hit": 1
               },
               "s": {
                 "var": "s",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -662,13 +662,13 @@
               },
               "risks": {
                 "var": "risks",
-                "line": 4,
+                "line": 9,
                 "hit": 1
               },
               "s": {
                 "var": "s",
-                "line": 6,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -752,8 +752,8 @@
             "values": {
               "pol": "{'Statement': [{'Effect': 'Allow', 'Pri…",
               "policy": "{'Statement': [{'Effect': 'Allow', 'Pri…",
-              "risks": "set()",
-              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+              "risks": "{'KMS_WILDCARD'}",
+              "s": "{'Effect': 'Allow', 'Principal': '*', '…"
             },
             "tones": {
               "pol": "data",
@@ -782,8 +782,8 @@
             "values": {
               "pol": "{'Statement': [{'Effect': 'Allow', 'Pri…",
               "policy": "{'Statement': [{'Effect': 'Allow', 'Pri…",
-              "risks": "set()",
-              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+              "risks": "{'KMS_WILDCARD', 'PUBLIC_PRINCIPAL'}",
+              "s": "{'Effect': 'Allow', 'Principal': '*', '…"
             },
             "tones": {
               "pol": "ok",
@@ -896,8 +896,8 @@
               },
               "alias": {
                 "var": "alias",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "last": {
                 "var": "last",
@@ -942,8 +942,8 @@
               },
               "alias": {
                 "var": "alias",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "last": {
                 "var": "last",
@@ -1000,10 +1000,10 @@
             "at": "say1",
             "caption": "Key rotation limits how much data any one key version protects.",
             "values": {
-              "keys": "{'alias/pinit-pii': {'__other__': 'date…",
-              "today": "{'__other__': 'date'}",
+              "keys": "{'alias/pinit-pii': <date>, 'alias/pini…",
+              "today": "<date>",
               "alias": "'alias/pinit-pii'",
-              "last": "{'__other__': 'date'}"
+              "last": "<date>"
             },
             "tones": {
               "keys": "data",
@@ -1030,10 +1030,10 @@
             "at": "say2",
             "caption": "Rotation keeps the same key id and ARN.",
             "values": {
-              "keys": "{'alias/pinit-pii': {'__other__': 'date…",
-              "today": "{'__other__': 'date'}",
-              "alias": "'alias/pinit-pii'",
-              "last": "{'__other__': 'date'}"
+              "keys": "{'alias/pinit-pii': <date>, 'alias/pini…",
+              "today": "<date>",
+              "alias": "'alias/pinit-logs'",
+              "last": "<date>"
             },
             "tones": {
               "keys": "data",
@@ -1060,10 +1060,10 @@
             "at": "say7",
             "caption": "Good key hygiene is boring by design.",
             "values": {
-              "keys": "{'alias/pinit-pii': {'__other__': 'date…",
-              "today": "{'__other__': 'date'}",
-              "alias": "'alias/pinit-pii'",
-              "last": "{'__other__': 'date'}"
+              "keys": "{'alias/pinit-pii': <date>, 'alias/pini…",
+              "today": "<date>",
+              "alias": "'alias/legacy'",
+              "last": "<date>"
             },
             "tones": {
               "keys": "ok",
@@ -1103,8 +1103,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Xor_bytes(data, key) is one line with enumerate and a bytes(.",
+            "caption": "Observe how practice shapes three during this step.",
             "activeActor": "raw",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Envelope_encrypt returns three fields.",
+            "activeActor": "as_hex",
             "messages": [
               {
                 "from": "raw",
@@ -1129,10 +1146,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Envelope_encrypt returns three fields.",
-            "activeActor": "as_hex",
+            "at": "say7",
+            "caption": "The example shows the hex round trip that trips people up.",
+            "activeActor": "back",
             "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": {
+                  "var": "as_hex",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "as_hex",
@@ -1152,14 +1189,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows the hex round trip that trips people up.",
-            "activeActor": "back",
-            "messages": [
+              },
               {
                 "from": "raw",
                 "to": "as_hex",
@@ -1195,19 +1225,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Xor_bytes(data, key) is one line with enumerate and a bytes(.",
+            "caption": "Observe how practice shapes three during this step.",
             "messages": [
               {
                 "from": "raw",
                 "to": "as_hex",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
-              },
-              {
-                "from": "as_hex",
-                "to": "back",
-                "label": "'000ff0ff'",
-                "tone": "ok"
               }
             ],
             "activeActor": "raw"
@@ -1219,7 +1243,7 @@
               {
                 "from": "raw",
                 "to": "as_hex",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
@@ -1238,7 +1262,31 @@
               {
                 "from": "raw",
                 "to": "as_hex",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": "'000ff0ff'",
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": "'000ff0ff'",
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {

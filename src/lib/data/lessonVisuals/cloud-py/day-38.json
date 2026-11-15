@@ -170,7 +170,7 @@
           },
           {
             "at": "say7",
-            "caption": "Respecting container termination grace periods allows workloads to flush.",
+            "caption": "Examine the spot value produced for interruption processing.",
             "bars": [
               {
                 "label": "event_time_sec",
@@ -232,7 +232,7 @@
           },
           {
             "at": "say7",
-            "caption": "Respecting container termination grace periods allows workloads to flush.",
+            "caption": "Examine the spot value produced for interruption processing.",
             "bars": [
               {
                 "label": "event_time_sec",
@@ -540,7 +540,7 @@
           },
           {
             "at": "say8",
-            "caption": "Enforcing progressive shutdown timers (SIGTERM at 0s, force flush at 100s.",
+            "caption": "Examine the spot value produced for even processing.",
             "values": {
               "seconds_elapsed": {
                 "var": "seconds_elapsed",
@@ -618,7 +618,7 @@
           },
           {
             "at": "say8",
-            "caption": "Enforcing progressive shutdown timers (SIGTERM at 0s, force flush at 100s.",
+            "caption": "Examine the spot value produced for even processing.",
             "values": {
               "seconds_elapsed": "105",
               "pod_state_saved": "False"
@@ -724,13 +724,13 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 3,
+                "line": 10,
                 "hit": 1
               },
               "dep": {
                 "var": "dep",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -770,13 +770,13 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 4,
+                "line": 10,
                 "hit": 1
               },
               "dep": {
                 "var": "dep",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -860,8 +860,8 @@
             "values": {
               "deps": "[{'name': 'checkout-svc', 'zone_skew': …",
               "deployments_telemetry": "[{'name': 'checkout-svc', 'zone_skew': …",
-              "violations": "[]",
-              "dep": "{'name': 'checkout-svc', 'zone_skew': 1…"
+              "violations": "['TOPOLOGY_SKEW_VIOLATION_IN_analytics-…",
+              "dep": "{'name': 'analytics-svc', 'zone_skew': …"
             },
             "tones": {
               "deps": "data",
@@ -890,8 +890,8 @@
             "values": {
               "deps": "[{'name': 'checkout-svc', 'zone_skew': …",
               "deployments_telemetry": "[{'name': 'checkout-svc', 'zone_skew': …",
-              "violations": "[]",
-              "dep": "{'name': 'checkout-svc', 'zone_skew': 1…"
+              "violations": "['TOPOLOGY_SKEW_VIOLATION_IN_analytics-…",
+              "dep": "{'name': 'analytics-svc', 'zone_skew': …"
             },
             "tones": {
               "deps": "ok",

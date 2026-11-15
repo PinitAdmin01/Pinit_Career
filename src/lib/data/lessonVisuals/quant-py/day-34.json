@@ -496,7 +496,7 @@
           },
           {
             "at": "say2",
-            "caption": "When an exchange publishes market depth via aggregate price levels (L2.",
+            "caption": "Verify the exchange transition driving publishes behavior.",
             "bars": [
               {
                 "label": "order_ref",
@@ -612,7 +612,7 @@
           },
           {
             "at": "say2",
-            "caption": "When an exchange publishes market depth via aggregate price levels (L2.",
+            "caption": "Verify the exchange transition driving publishes behavior.",
             "bars": [
               {
                 "label": "order_ref",
@@ -716,7 +716,7 @@
           },
           {
             "at": "say2",
-            "caption": "When fair value shifts away from a quoted price (e.",
+            "caption": "Verify the fair transition driving value behavior.",
             "bars": [
               {
                 "label": "current_fair_v",
@@ -832,7 +832,7 @@
           },
           {
             "at": "say2",
-            "caption": "When fair value shifts away from a quoted price (e.",
+            "caption": "Verify the fair transition driving value behavior.",
             "bars": [
               {
                 "label": "current_fair_v",
@@ -958,26 +958,26 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how financial updates regulators during execution.",
+            "caption": "Verify the financial transition driving regulators behavior.",
             "values": {
               "otr_ratio": {
                 "var": "otr_ratio",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "p99_cancel_latency_us": {
                 "var": "p99_cancel_latency_us",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "prediction_accuracy_pct": {
                 "var": "prediction_accuracy_pct",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 5,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -1008,22 +1008,22 @@
             "values": {
               "otr_ratio": {
                 "var": "otr_ratio",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "p99_cancel_latency_us": {
                 "var": "p99_cancel_latency_us",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "prediction_accuracy_pct": {
                 "var": "prediction_accuracy_pct",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "issues": {
                 "var": "issues",
-                "line": 7,
+                "line": 6,
                 "hit": 1
               }
             },
@@ -1104,12 +1104,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how financial updates regulators during execution.",
+            "caption": "Verify the financial transition driving regulators behavior.",
             "values": {
-              "otr_ratio": "45",
-              "p99_cancel_latency_us": "185",
-              "prediction_accuracy_pct": "84.5",
-              "issues": "[]"
+              "otr_ratio": "120",
+              "p99_cancel_latency_us": "650",
+              "prediction_accuracy_pct": "68",
+              "issues": "['HIGH_OTR_REGULATORY_RISK: OTR=120.0 (…"
             },
             "tones": {
               "otr_ratio": "data",
@@ -1136,10 +1136,10 @@
             "at": "say8",
             "caption": "Quantitative risk engines stream two-scale realized volatility metrics.",
             "values": {
-              "otr_ratio": "45",
-              "p99_cancel_latency_us": "185",
-              "prediction_accuracy_pct": "84.5",
-              "issues": "[]"
+              "otr_ratio": "120",
+              "p99_cancel_latency_us": "650",
+              "prediction_accuracy_pct": "68",
+              "issues": "['HIGH_OTR_REGULATORY_RISK: OTR=120.0 (…"
             },
             "tones": {
               "otr_ratio": "ok",

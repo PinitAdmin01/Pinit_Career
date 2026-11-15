@@ -314,7 +314,7 @@
           },
           {
             "at": "say2",
-            "caption": "If a follower hears nothing for longer than an election timeout,.",
+            "caption": "Verify the follower transition driving hears behavior.",
             "currentState": "heartbeats_at",
             "transition": {
               "from": "ELECTION_TIMEOUT_MS",
@@ -329,7 +329,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how covers updates gossip during execution.",
+            "caption": "Examine the failure value produced for covers processing.",
             "currentState": "now",
             "transition": {
               "from": "heartbeats_at",
@@ -370,7 +370,7 @@
           },
           {
             "at": "say2",
-            "caption": "If a follower hears nothing for longer than an election timeout,.",
+            "caption": "Verify the follower transition driving hears behavior.",
             "currentState": "heartbeats_at",
             "transition": {
               "from": "ELECTION_TIMEOUT_MS",
@@ -381,7 +381,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how covers updates gossip during execution.",
+            "caption": "Examine the failure value produced for covers processing.",
             "currentState": "now",
             "transition": {
               "from": "heartbeats_at",
@@ -575,7 +575,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how code updates counts during execution.",
+            "caption": "Examine the code value produced for counts processing.",
             "activeActor": "voter",
             "messages": [
               {
@@ -651,7 +651,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how code updates counts during execution.",
+            "caption": "Examine the code value produced for counts processing.",
             "messages": [
               {
                 "from": "votes_by_node",
@@ -697,6 +697,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the node transition driving grants behavior.",
+            "activeActor": "round_no",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "round_no",
@@ -711,10 +728,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A node grants its vote if it has not voted in this term and.",
-            "activeActor": "round_no",
+            "at": "say7",
+            "caption": "Randomness here is a tool for breaking ties, as jitter was for retries.",
+            "activeActor": "timeouts",
             "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": {
+                  "var": "round_no",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "rng",
                 "to": "round_no",
@@ -734,14 +771,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Randomness here is a tool for breaking ties, as jitter was for retries.",
-            "activeActor": "timeouts",
-            "messages": [
+              },
               {
                 "from": "rng",
                 "to": "round_no",
@@ -784,19 +814,13 @@
                 "to": "round_no",
                 "label": "<Random>",
                 "tone": "data"
-              },
-              {
-                "from": "round_no",
-                "to": "timeouts",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "rng"
           },
           {
             "at": "say2",
-            "caption": "A node grants its vote if it has not voted in this term and.",
+            "caption": "Verify the node transition driving grants behavior.",
             "messages": [
               {
                 "from": "rng",
@@ -817,6 +841,30 @@
             "at": "say7",
             "caption": "Randomness here is a tool for breaking ties, as jitter was for retries.",
             "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": "1",
+                "tone": "ok"
+              },
               {
                 "from": "rng",
                 "to": "round_no",
@@ -861,6 +909,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "During a partition, the side with a majority can elect a leader.",
+            "activeActor": "side_a",
+            "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": {
+                  "var": "cluster",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "side_a",
@@ -875,10 +940,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "During a partition, the side with a majority can elect a leader.",
-            "activeActor": "side_a",
+            "at": "say6",
+            "caption": "Examine the simulation value produced for shows processing.",
+            "activeActor": "side_b",
             "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": {
+                  "var": "cluster",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": {
+                  "var": "side_a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cluster",
                 "to": "side_a",
@@ -898,14 +983,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Trace how simulation updates shows during execution.",
-            "activeActor": "side_b",
-            "messages": [
+              },
               {
                 "from": "cluster",
                 "to": "side_a",
@@ -948,12 +1026,6 @@
                 "to": "side_a",
                 "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
                 "tone": "data"
-              },
-              {
-                "from": "side_a",
-                "to": "side_b",
-                "label": "['n3', 'n4', 'n5']",
-                "tone": "ok"
               }
             ],
             "activeActor": "cluster"
@@ -979,8 +1051,32 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how simulation updates shows during execution.",
+            "caption": "Examine the simulation value produced for shows processing.",
             "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": "['n3', 'n4', 'n5']",
+                "tone": "ok"
+              },
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": "['n3', 'n4', 'n5']",
+                "tone": "ok"
+              },
               {
                 "from": "cluster",
                 "to": "side_a",

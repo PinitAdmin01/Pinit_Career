@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Foundations & Mathematical Invariants",
+      "partTitle": "Dual-Write Mutation Mirroring Across Old and New Indexes",
       "codeHash": "93d22f965e5e3b01c000707b74e6996f87deebcc71aaa01afb9f434adc506dbb",
       "spec": {
         "template": "flow",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "vec": {
-                "var": "vec",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "router": "data",
               "doc_id": "data",
-              "vec": "data"
+              "vec": "idle"
             },
             "arrows": [
               [
@@ -124,7 +122,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the dual value produced for write processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -199,13 +197,13 @@
               "self": "<DualWriteRouter>",
               "router": "<DualWriteRouter>",
               "doc_id": "101",
-              "vec": "[0.5, 0.5]"
+              "vec": ""
             },
             "tones": {
               "self": "data",
               "router": "data",
               "doc_id": "data",
-              "vec": "data"
+              "vec": "idle"
             },
             "arrows": [
               [
@@ -254,7 +252,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the dual value produced for write processing.",
             "values": {
               "self": "<DualWriteRouter>",
               "router": "<DualWriteRouter>",
@@ -286,7 +284,7 @@
       }
     },
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Core Algorithm & State Representation",
+      "partTitle": "Measuring Primary vs Shadow kNN Overlap Before Traffic Shift",
       "codeHash": "e206d193cc83fabef52ad083f9b3c9a2b01983f0293ad031906bb7e6affd2569",
       "spec": {
         "template": "bars",
@@ -342,7 +340,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the before value produced for investigating processing.",
             "bars": [
               {
                 "label": "overlap",
@@ -404,7 +402,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the before value produced for investigating processing.",
             "bars": [
               {
                 "label": "overlap",
@@ -422,7 +420,7 @@
       }
     },
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Automated Zero-Downtime Cutover State Machine Progression",
       "codeHash": "e3d732b0f0d55a8f4a4036b6746ae81c950396e737a708c59a4744d99835262a",
       "spec": {
         "template": "flow",
@@ -457,15 +455,13 @@
                 "hit": 1
               },
               "shadow_agreement": {
-                "var": "shadow_agreement",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "cutover": "data",
-              "shadow_agreement": "data"
+              "shadow_agreement": "idle"
             },
             "arrows": [
               [
@@ -480,7 +476,7 @@
           },
           {
             "at": "say2",
-            "caption": "Cutover can execute progressively (canary rollouts.",
+            "caption": "Verify the cutover transition driving execute behavior.",
             "values": {
               "self": {
                 "var": "self",
@@ -516,7 +512,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the handling value produced for boundary processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -576,12 +572,12 @@
             "values": {
               "self": "<ZeroDowntimeTrafficCutover>",
               "cutover": "<ZeroDowntimeTrafficCutover>",
-              "shadow_agreement": "0.98"
+              "shadow_agreement": ""
             },
             "tones": {
               "self": "data",
               "cutover": "data",
-              "shadow_agreement": "data"
+              "shadow_agreement": "idle"
             },
             "arrows": [
               [
@@ -596,7 +592,7 @@
           },
           {
             "at": "say2",
-            "caption": "Cutover can execute progressively (canary rollouts.",
+            "caption": "Verify the cutover transition driving execute behavior.",
             "values": {
               "self": "<ZeroDowntimeTrafficCutover>",
               "cutover": "<ZeroDowntimeTrafficCutover>",
@@ -620,7 +616,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the handling value produced for boundary processing.",
             "values": {
               "self": "<ZeroDowntimeTrafficCutover>",
               "cutover": "<ZeroDowntimeTrafficCutover>",
@@ -646,8 +642,8 @@
       }
     },
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Resilience Guardrails & Failure Recovery",
-      "codeHash": "2ababdfc52afa0d7254501f1b3a93d22d826a2d6bab090d59817f9ef22f9ea6f",
+      "partTitle": "Instant Cutover Rollback Triggers on Elevated Error Rates",
+      "codeHash": "ce524eb6d6a376f6362e6a7950fbbf7f4d4efff1243234d2d303daf56c602396",
       "spec": {
         "template": "bars",
         "title": "Zero-Downtime Dual-Write Index Migrations — Resilience Guardrail",
@@ -702,7 +698,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the rollback value produced for asserting processing.",
             "bars": [
               {
                 "label": "error_rate",
@@ -736,7 +732,7 @@
             "bars": [
               {
                 "label": "error_rate",
-                "value": 0.05,
+                "value": 0.02,
                 "tone": "data"
               },
               {
@@ -752,7 +748,7 @@
             "bars": [
               {
                 "label": "error_rate",
-                "value": 0.002,
+                "value": 0.01,
                 "tone": "ok"
               },
               {
@@ -764,11 +760,11 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the rollback value produced for asserting processing.",
             "bars": [
               {
                 "label": "error_rate",
-                "value": 0.002,
+                "value": 0.01,
                 "tone": "ok"
               },
               {
@@ -782,33 +778,32 @@
       }
     },
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry & Verification Audit",
-      "codeHash": "e3ef64e783c4c353fb426b617c3db9f3d59dcb78bc7aa1d17d57dbf4596b2846",
+      "partTitle": "Backfill Sync Completeness & Shadow Agreement Readiness Gates",
+      "codeHash": "399adcdeefbd16f8c0c784e171021a18f1ef6b168327a1cfc34769ddfd7686b7",
       "spec": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry",
+        "title": "Backfill Sync Completeness & Shadow Agreement Readiness Gates",
         "nodes": [
           {
             "id": "replicated_docs",
-            "label": "replicated_docs"
+            "label": "replicated_docs",
+            "tappable": true
           },
           {
             "id": "total_docs",
-            "label": "total_docs"
+            "label": "total_docs",
+            "tappable": true
           },
           {
             "id": "shadow_queries",
-            "label": "shadow_queries"
-          },
-          {
-            "id": "agreement",
-            "label": "agreement"
+            "label": "shadow_queries",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Migration telemetry tracks historical backfill progress, replicated.",
+            "caption": "Inspect backfill updates as replicated_docs tracks shadow state.",
             "values": {
               "replicated_docs": {
                 "var": "replicated_docs",
@@ -816,131 +811,36 @@
                 "hit": 1
               },
               "total_docs": {
-                "var": "total_docs",
-                "line": 2,
-                "hit": 1
-              },
-              "shadow_queries": {
-                "var": "shadow_queries",
-                "line": 2,
-                "hit": 1
-              },
-              "agreement": {
-                "var": "agreement",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "replicated_docs": "data",
-              "total_docs": "data",
-              "shadow_queries": "data",
-              "agreement": "data"
+              "total_docs": "idle"
             },
-            "arrows": [
-              [
-                "replicated_docs",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "shadow_queries"
-              ],
-              [
-                "shadow_queries",
-                "agreement"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates migration during execution.",
+            "caption": "Verify the backfill transition driving sync behavior.",
             "values": {
               "replicated_docs": {
                 "var": "replicated_docs",
-                "line": 3,
+                "line": 2,
                 "hit": 1
               },
               "total_docs": {
-                "var": "total_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "shadow_queries": {
-                "var": "shadow_queries",
-                "line": 3,
-                "hit": 1
-              },
-              "agreement": {
-                "var": "agreement",
-                "line": 3,
-                "hit": 1
+                "out": 1
               }
             },
             "tones": {
-              "replicated_docs": "data",
-              "total_docs": "data",
-              "shadow_queries": "data",
-              "agreement": "data"
+              "replicated_docs": "idle",
+              "total_docs": "ok"
             },
             "arrows": [
               [
                 "replicated_docs",
                 "total_docs"
-              ],
-              [
-                "total_docs",
-                "shadow_queries"
-              ],
-              [
-                "shadow_queries",
-                "agreement"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "replicated_docs": {
-                "var": "replicated_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "total_docs": {
-                "var": "total_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "shadow_queries": {
-                "var": "shadow_queries",
-                "line": 3,
-                "hit": 1
-              },
-              "agreement": {
-                "var": "agreement",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "replicated_docs": "ok",
-              "total_docs": "ok",
-              "shadow_queries": "ok",
-              "agreement": "ok"
-            },
-            "arrows": [
-              [
-                "replicated_docs",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "shadow_queries"
-              ],
-              [
-                "shadow_queries",
-                "agreement"
               ]
             ]
           }
@@ -948,113 +848,53 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry",
+        "title": "Backfill Sync Completeness & Shadow Agreement Readiness Gates",
         "nodes": [
           {
             "id": "replicated_docs",
-            "label": "replicated_docs"
+            "label": "replicated_docs",
+            "tappable": true
           },
           {
             "id": "total_docs",
-            "label": "total_docs"
+            "label": "total_docs",
+            "tappable": true
           },
           {
             "id": "shadow_queries",
-            "label": "shadow_queries"
-          },
-          {
-            "id": "agreement",
-            "label": "agreement"
+            "label": "shadow_queries",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Migration telemetry tracks historical backfill progress, replicated.",
+            "caption": "Inspect backfill updates as replicated_docs tracks shadow state.",
             "values": {
               "replicated_docs": "100000",
-              "total_docs": "100000",
-              "shadow_queries": "5000",
-              "agreement": "0.982"
+              "total_docs": ""
             },
             "tones": {
               "replicated_docs": "data",
-              "total_docs": "data",
-              "shadow_queries": "data",
-              "agreement": "data"
+              "total_docs": "idle"
             },
-            "arrows": [
-              [
-                "replicated_docs",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "shadow_queries"
-              ],
-              [
-                "shadow_queries",
-                "agreement"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how production updates migration during execution.",
+            "caption": "Verify the backfill transition driving sync behavior.",
             "values": {
               "replicated_docs": "100000",
-              "total_docs": "100000",
-              "shadow_queries": "5000",
-              "agreement": "0.982"
+              "total_docs": "Migration Audit: {'sync_pct': 100.0, 'shadow_queries': 5000, 'agreement': 0.982, 'ready_for_cutover': True}"
             },
             "tones": {
-              "replicated_docs": "data",
-              "total_docs": "data",
-              "shadow_queries": "data",
-              "agreement": "data"
+              "replicated_docs": "idle",
+              "total_docs": "ok"
             },
             "arrows": [
               [
                 "replicated_docs",
                 "total_docs"
-              ],
-              [
-                "total_docs",
-                "shadow_queries"
-              ],
-              [
-                "shadow_queries",
-                "agreement"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "replicated_docs": "100000",
-              "total_docs": "100000",
-              "shadow_queries": "5000",
-              "agreement": "0.982"
-            },
-            "tones": {
-              "replicated_docs": "ok",
-              "total_docs": "ok",
-              "shadow_queries": "ok",
-              "agreement": "ok"
-            },
-            "arrows": [
-              [
-                "replicated_docs",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "shadow_queries"
-              ],
-              [
-                "shadow_queries",
-                "agreement"
               ]
             ]
           }

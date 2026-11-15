@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how billion updates parameter during execution.",
+            "caption": "Verify the checkpointing transition driving billion behavior.",
             "rows": [
               {
                 "cells": [
@@ -96,7 +96,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how billion updates parameter during execution.",
+            "caption": "Verify the checkpointing transition driving billion behavior.",
             "rows": [
               {
                 "cells": [
@@ -164,7 +164,7 @@
           },
           {
             "at": "say11",
-            "caption": "This algorithmic vigilance is essential for sustaining optimal Model FLOPs.",
+            "caption": "Examine the synchronous value produced for reduce processing.",
             "items": {
               "var": "durations",
               "line": 8,
@@ -228,7 +228,7 @@
           },
           {
             "at": "say11",
-            "caption": "This algorithmic vigilance is essential for sustaining optimal Model FLOPs.",
+            "caption": "Examine the synchronous value produced for reduce processing.",
             "items": [
               "1.21",
               "1.23",
@@ -276,6 +276,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Saving checkpoints too frequently wastes compute time on IO.",
+            "activeActor": "save_duration_mins",
+            "messages": [
+              {
+                "from": "mtbf_hours",
+                "to": "save_duration_mins",
+                "label": {
+                  "var": "mtbf_hours",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "save_duration_mins",
@@ -290,10 +307,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Saving checkpoints too frequently wastes compute time on IO.",
-            "activeActor": "save_duration_mins",
+            "at": "say11",
+            "caption": "Young's formula serves as the theoretical benchmark for resilience.",
+            "activeActor": "m_mins",
             "messages": [
+              {
+                "from": "mtbf_hours",
+                "to": "save_duration_mins",
+                "label": {
+                  "var": "mtbf_hours",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "save_duration_mins",
+                "to": "m_mins",
+                "label": {
+                  "var": "save_duration_mins",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "mtbf_hours",
                 "to": "save_duration_mins",
@@ -313,14 +350,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Young's formula serves as the theoretical benchmark for resilience.",
-            "activeActor": "m_mins",
-            "messages": [
+              },
               {
                 "from": "mtbf_hours",
                 "to": "save_duration_mins",
@@ -363,12 +393,6 @@
                 "to": "save_duration_mins",
                 "label": "48",
                 "tone": "data"
-              },
-              {
-                "from": "save_duration_mins",
-                "to": "m_mins",
-                "label": "2",
-                "tone": "ok"
               }
             ],
             "activeActor": "mtbf_hours"
@@ -396,6 +420,30 @@
             "at": "say11",
             "caption": "Young's formula serves as the theoretical benchmark for resilience.",
             "messages": [
+              {
+                "from": "mtbf_hours",
+                "to": "save_duration_mins",
+                "label": "48",
+                "tone": "data"
+              },
+              {
+                "from": "save_duration_mins",
+                "to": "m_mins",
+                "label": "2",
+                "tone": "ok"
+              },
+              {
+                "from": "mtbf_hours",
+                "to": "save_duration_mins",
+                "label": "48",
+                "tone": "data"
+              },
+              {
+                "from": "save_duration_mins",
+                "to": "m_mins",
+                "label": "2",
+                "tone": "ok"
+              },
               {
                 "from": "mtbf_hours",
                 "to": "save_duration_mins",

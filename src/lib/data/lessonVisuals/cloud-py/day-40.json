@@ -32,14 +32,12 @@
                 "hit": 1
               },
               "contract": {
-                "var": "contract",
-                "line": 18,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
-              "contract": "data"
+              "contract": "idle"
             },
             "arrows": [
               [
@@ -50,7 +48,7 @@
           },
           {
             "at": "say2",
-            "caption": "Milestone 8 unifies all advanced container engineering, autoscaling,.",
+            "caption": "Verify the milestone transition driving unifies behavior.",
             "values": {
               "self": {
                 "var": "self",
@@ -121,11 +119,11 @@
             "caption": "Production clusters enforce rigorous admission control webhooks.",
             "values": {
               "self": "<Milestone8ArchitectureContract>",
-              "contract": "<Milestone8ArchitectureContract>"
+              "contract": ""
             },
             "tones": {
               "self": "data",
-              "contract": "data"
+              "contract": "idle"
             },
             "arrows": [
               [
@@ -136,7 +134,7 @@
           },
           {
             "at": "say2",
-            "caption": "Milestone 8 unifies all advanced container engineering, autoscaling,.",
+            "caption": "Verify the milestone transition driving unifies behavior.",
             "values": {
               "self": "<Milestone8ArchitectureContract>",
               "contract": "<Milestone8ArchitectureContract>"
@@ -246,7 +244,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how core updates engine during execution.",
+            "caption": "Verify the milestone transition driving core behavior.",
             "values": {
               "self": {
                 "var": "self",
@@ -292,7 +290,7 @@
           },
           {
             "at": "say9",
-            "caption": "Balancing replicas across availability zones dynamically eliminates.",
+            "caption": "Examine the unified value produced for admission processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -392,7 +390,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how core updates engine during execution.",
+            "caption": "Verify the milestone transition driving core behavior.",
             "values": {
               "self": "<Milestone8ControlPlane>",
               "active_zones": "['us-east-1a', 'us-east-1b', 'us-east-1…",
@@ -422,7 +420,7 @@
           },
           {
             "at": "say9",
-            "caption": "Balancing replicas across availability zones dynamically eliminates.",
+            "caption": "Examine the unified value produced for admission processing.",
             "values": {
               "self": "<Milestone8ControlPlane>",
               "active_zones": "['us-east-1a', 'us-east-1b', 'us-east-1…",
@@ -498,16 +496,14 @@
                 "hit": 1
               },
               "running_low_priority_pods": {
-                "var": "running_low_priority_pods",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "high_pod": "data",
               "low_pods": "data",
               "pending_high_priority_pod": "data",
-              "running_low_priority_pods": "data"
+              "running_low_priority_pods": "idle"
             },
             "arrows": [
               [
@@ -647,13 +643,13 @@
               "high_pod": "{'name': 'payment-api', 'cpu': 4, 'prio…",
               "low_pods": "[{'name': 'report-worker-1', 'cpu': 2, …",
               "pending_high_priority_pod": "{'name': 'payment-api', 'cpu': 4, 'prio…",
-              "running_low_priority_pods": "[{'name': 'report-worker-1', 'cpu': 2, …"
+              "running_low_priority_pods": ""
             },
             "tones": {
               "high_pod": "data",
               "low_pods": "data",
               "pending_high_priority_pod": "data",
-              "running_low_priority_pods": "data"
+              "running_low_priority_pods": "idle"
             },
             "arrows": [
               [
@@ -774,7 +770,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how subject updates complete during execution.",
+            "caption": "Verify the milestone transition driving subject behavior.",
             "activeActor": "mitigations",
             "messages": [
               {
@@ -858,7 +854,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how subject updates complete during execution.",
+            "caption": "Verify the milestone transition driving subject behavior.",
             "messages": [
               {
                 "from": "disasters",
@@ -926,7 +922,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how final updates step during execution.",
+            "caption": "Verify the milestone transition driving audit behavior.",
             "currentState": "v",
             "transition": {
               "from": "gates",
@@ -982,7 +978,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how final updates step during execution.",
+            "caption": "Verify the milestone transition driving audit behavior.",
             "currentState": "v",
             "transition": {
               "from": "gates",

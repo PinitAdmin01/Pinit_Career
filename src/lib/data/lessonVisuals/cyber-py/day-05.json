@@ -54,7 +54,7 @@
           },
           {
             "at": "say2",
-            "caption": "Commercial and open-source WAFs (for example Cloudflare, AWS WAF.",
+            "caption": "Verify the commercial transition driving open behavior.",
             "values": {
               "rules": {
                 "var": "rules",
@@ -80,7 +80,7 @@
           },
           {
             "at": "say9",
-            "caption": "Virtual patching, blocking a specific known attack at the WAF while.",
+            "caption": "Examine the virtual value produced for patching processing.",
             "values": {
               "rules": {
                 "var": "rules",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "Commercial and open-source WAFs (for example Cloudflare, AWS WAF.",
+            "caption": "Verify the commercial transition driving open behavior.",
             "values": {
               "rules": "{'SQLI': [\"' or \", 'union select', '--'…",
               "name": "'SQLI'",
@@ -154,7 +154,7 @@
           },
           {
             "at": "say9",
-            "caption": "Virtual patching, blocking a specific known attack at the WAF while.",
+            "caption": "Examine the virtual value produced for patching processing.",
             "values": {
               "rules": "{'SQLI': [\"' or \", 'union select', '--'…",
               "name": "'XSS'",
@@ -251,18 +251,18 @@
               },
               "name": {
                 "var": "name",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "full": {
                 "var": "full",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "inside": {
                 "var": "inside",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -297,17 +297,17 @@
               },
               "name": {
                 "var": "name",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "full": {
                 "var": "full",
-                "line": 7,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "inside": {
                 "var": "inside",
-                "line": 4,
+                "line": 6,
                 "hit": 2
               }
             },
@@ -391,9 +391,9 @@
             "caption": "An app that serves files with open(\"uploads/\" + name) is vulnerable if.",
             "values": {
               "base": "'/srv/app/uploads'",
-              "name": "'report.pdf'",
-              "full": "'/srv/app/uploads/report.pdf'",
-              "inside": "True"
+              "name": "'../../etc/passwd'",
+              "full": "'/srv/etc/passwd'",
+              "inside": "False"
             },
             "tones": {
               "base": "data",
@@ -421,9 +421,9 @@
             "caption": "Storing uploaded files under random generated names, with the original.",
             "values": {
               "base": "'/srv/app/uploads'",
-              "name": "'report.pdf'",
-              "full": "'/srv/app/uploads/report.pdf'",
-              "inside": "True"
+              "name": "'photos/../../../secrets.txt'",
+              "full": "'/srv/secrets.txt'",
+              "inside": "False"
             },
             "tones": {
               "base": "ok",
@@ -642,7 +642,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates name during execution.",
+            "caption": "Verify the safe transition driving practice behavior.",
             "currentState": "name",
             "transition": {
               "from": "n",
@@ -698,7 +698,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates name during execution.",
+            "caption": "Verify the safe transition driving practice behavior.",
             "currentState": "name",
             "transition": {
               "from": "n",

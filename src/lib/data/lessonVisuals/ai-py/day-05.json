@@ -32,14 +32,12 @@
                 "hit": 1
               },
               "data": {
-                "var": "data",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "reply": "data",
-              "data": "data"
+              "data": "idle"
             }
           },
           {
@@ -103,11 +101,11 @@
             "caption": "A chat answer is for people.",
             "values": {
               "reply": "'{\"merchant\": \"Chai Point\", \"amount\": 1…",
-              "data": "{'merchant': 'Chai Point', 'amount': 12…"
+              "data": ""
             },
             "tones": {
               "reply": "data",
-              "data": "data"
+              "data": "idle"
             }
           },
           {
@@ -443,6 +441,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Practice 1 returns {\"valid\".",
+            "activeActor": "required_keys",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "required_keys",
+                "label": {
+                  "var": "raw",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "required_keys",
@@ -457,10 +472,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Practice 1 returns {\"valid\".",
-            "activeActor": "required_keys",
+            "at": "say6",
+            "caption": "Returning a small result dict instead of raising exceptions makes.",
+            "activeActor": "text",
             "messages": [
+              {
+                "from": "raw",
+                "to": "required_keys",
+                "label": {
+                  "var": "raw",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required_keys",
+                "to": "text",
+                "label": {
+                  "var": "required_keys",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "required_keys",
@@ -480,14 +515,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Returning a small result dict instead of raising exceptions makes.",
-            "activeActor": "text",
-            "messages": [
+              },
               {
                 "from": "raw",
                 "to": "required_keys",
@@ -530,12 +558,6 @@
                 "to": "required_keys",
                 "label": "'```json\n{\"name\": \"Asha\", \"age\": 30}\n``…",
                 "tone": "data"
-              },
-              {
-                "from": "required_keys",
-                "to": "text",
-                "label": "['name', 'age']",
-                "tone": "ok"
               }
             ],
             "activeActor": "raw"
@@ -563,6 +585,30 @@
             "at": "say6",
             "caption": "Returning a small result dict instead of raising exceptions makes.",
             "messages": [
+              {
+                "from": "raw",
+                "to": "required_keys",
+                "label": "'```json\n{\"name\": \"Asha\", \"age\": 30}\n``…",
+                "tone": "data"
+              },
+              {
+                "from": "required_keys",
+                "to": "text",
+                "label": "['name', 'age']",
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "required_keys",
+                "label": "'```json\n{\"name\": \"Asha\", \"age\": 30}\n``…",
+                "tone": "data"
+              },
+              {
+                "from": "required_keys",
+                "to": "text",
+                "label": "['name', 'age']",
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "required_keys",
@@ -607,6 +653,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Use isinstance, with one Python trap.",
+            "activeActor": "value",
+            "messages": [
+              {
+                "from": "TYPES",
+                "to": "value",
+                "label": {
+                  "var": "TYPES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "value",
@@ -621,10 +684,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Use isinstance, with one Python trap.",
-            "activeActor": "value",
+            "at": "say6",
+            "caption": "When in doubt, reject and retry.",
+            "activeActor": "expected",
             "messages": [
+              {
+                "from": "TYPES",
+                "to": "value",
+                "label": {
+                  "var": "TYPES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "expected",
+                "label": {
+                  "var": "value",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "TYPES",
                 "to": "value",
@@ -644,14 +727,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Some teams gently convert near-misses, such as the text \"120\" into.",
-            "activeActor": "expected",
-            "messages": [
+              },
               {
                 "from": "TYPES",
                 "to": "value",
@@ -692,14 +768,8 @@
               {
                 "from": "TYPES",
                 "to": "value",
-                "label": "{'str': {'__other__': 'type'}, 'int': {…",
+                "label": "{'str': <type>, 'int': <type>, 'float':…",
                 "tone": "data"
-              },
-              {
-                "from": "value",
-                "to": "expected",
-                "label": "120",
-                "tone": "ok"
               }
             ],
             "activeActor": "TYPES"
@@ -711,7 +781,7 @@
               {
                 "from": "TYPES",
                 "to": "value",
-                "label": "{'str': {'__other__': 'type'}, 'int': {…",
+                "label": "{'str': <type>, 'int': <type>, 'float':…",
                 "tone": "data"
               },
               {
@@ -725,12 +795,36 @@
           },
           {
             "at": "say6",
-            "caption": "Some teams gently convert near-misses, such as the text \"120\" into.",
+            "caption": "When in doubt, reject and retry.",
             "messages": [
               {
                 "from": "TYPES",
                 "to": "value",
-                "label": "{'str': {'__other__': 'type'}, 'int': {…",
+                "label": "{'str': <type>, 'int': <type>, 'float':…",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "expected",
+                "label": "120",
+                "tone": "ok"
+              },
+              {
+                "from": "TYPES",
+                "to": "value",
+                "label": "{'str': <type>, 'int': <type>, 'float':…",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "expected",
+                "label": "120",
+                "tone": "ok"
+              },
+              {
+                "from": "TYPES",
+                "to": "value",
+                "label": "{'str': <type>, 'int': <type>, 'float':…",
                 "tone": "data"
               },
               {
@@ -771,6 +865,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Put a limit on retries (two or three).",
+            "activeActor": "prompt",
+            "messages": [
+              {
+                "from": "attempts",
+                "to": "prompt",
+                "label": {
+                  "var": "attempts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "prompt",
@@ -785,10 +896,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Put a limit on retries (two or three).",
-            "activeActor": "prompt",
+            "at": "say6",
+            "caption": "This validate-and-retry loop is the core of reliable structured output.",
+            "activeActor": "required",
             "messages": [
+              {
+                "from": "attempts",
+                "to": "prompt",
+                "label": {
+                  "var": "attempts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "required",
+                "label": {
+                  "var": "prompt",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "attempts",
                 "to": "prompt",
@@ -808,14 +939,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "This validate-and-retry loop is the core of reliable structured output.",
-            "activeActor": "required",
-            "messages": [
+              },
               {
                 "from": "attempts",
                 "to": "prompt",
@@ -858,12 +982,6 @@
                 "to": "prompt",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "prompt",
-                "to": "required",
-                "label": "'Extract name and age as JSON.'",
-                "tone": "ok"
               }
             ],
             "activeActor": "attempts"
@@ -891,6 +1009,30 @@
             "at": "say6",
             "caption": "This validate-and-retry loop is the core of reliable structured output.",
             "messages": [
+              {
+                "from": "attempts",
+                "to": "prompt",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "required",
+                "label": "'Extract name and age as JSON.'",
+                "tone": "ok"
+              },
+              {
+                "from": "attempts",
+                "to": "prompt",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "required",
+                "label": "'Extract name and age as JSON.'",
+                "tone": "ok"
+              },
               {
                 "from": "attempts",
                 "to": "prompt",
@@ -982,13 +1124,13 @@
               },
               "raw": {
                 "var": "raw",
-                "line": 15,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               },
               "data": {
                 "var": "data",
-                "line": 15,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               }
             },
             "tones": {
@@ -1014,13 +1156,13 @@
               },
               "raw": {
                 "var": "raw",
-                "line": 16,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               },
               "data": {
                 "var": "data",
-                "line": 16,
-                "hit": 1
+                "line": 14,
+                "hit": 2
               }
             },
             "tones": {
@@ -1059,7 +1201,7 @@
             "caption": "Your milestone combines everything.",
             "values": {
               "SCHEMA": "{'merchant': 'str', 'amount': 'int', 'p…",
-              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "TYPES": "{'str': <type>, 'int': <type>, 'bool': …",
               "raw": "'```json\n{\"merchant\": \"Chai Point\", \"am…",
               "data": "{'merchant': 'Chai Point', 'amount': 12…"
             },
@@ -1075,9 +1217,9 @@
             "caption": "A schema here is a dict of field name to type name.",
             "values": {
               "SCHEMA": "{'merchant': 'str', 'amount': 'int', 'p…",
-              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
-              "raw": "'```json\n{\"merchant\": \"Chai Point\", \"am…",
-              "data": "{'merchant': 'Chai Point', 'amount': 12…"
+              "TYPES": "{'str': <type>, 'int': <type>, 'bool': …",
+              "raw": "'{\"merchant\": \"Chai Point\", \"amount\": \"…",
+              "data": "{'merchant': 'Chai Point', 'amount': '1…"
             },
             "tones": {
               "SCHEMA": "data",
@@ -1091,9 +1233,9 @@
             "caption": "Next week you will let the model call your own functions, which uses.",
             "values": {
               "SCHEMA": "{'merchant': 'str', 'amount': 'int', 'p…",
-              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
-              "raw": "'```json\n{\"merchant\": \"Chai Point\", \"am…",
-              "data": "{'merchant': 'Chai Point', 'amount': 12…"
+              "TYPES": "{'str': <type>, 'int': <type>, 'bool': …",
+              "raw": "'{\"merchant\": \"Chai Point\", \"amount\": \"…",
+              "data": "{'merchant': 'Chai Point', 'amount': '1…"
             },
             "tones": {
               "SCHEMA": "ok",

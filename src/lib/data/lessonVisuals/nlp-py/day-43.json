@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "votes_2": {
-                "var": "votes_2",
-                "line": 117,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "evaluator": "data",
               "candidates": "data",
               "votes_1": "data",
-              "votes_2": "data"
+              "votes_2": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "evaluator": "<AlignmentTrilemmaEvaluator>",
               "candidates": "[<CandidateResponse>, <CandidateRespons…",
               "votes_1": "[1, 1, 1, 1, 1, 1, 1, 1, 0, 1]",
-              "votes_2": "[1, 1, 1, 1, 1, 1, 1, 0, 0, 1]"
+              "votes_2": ""
             },
             "tones": {
               "evaluator": "data",
               "candidates": "data",
               "votes_1": "data",
-              "votes_2": "data"
+              "votes_2": "idle"
             },
             "arrows": [
               [
@@ -425,7 +423,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Architectural Anatomy of a Reward Model builds directly upon.",
+            "caption": "the final end-of-sequence token <|eot_id|> or [EOS]).",
             "items": {
               "var": "p",
               "line": 45,
@@ -478,7 +476,7 @@
           },
           {
             "at": "say2",
-            "caption": "The Architectural Anatomy of a Reward Model builds directly upon.",
+            "caption": "the final end-of-sequence token <|eot_id|> or [EOS]).",
             "items": [
               "0.83",
               "1"

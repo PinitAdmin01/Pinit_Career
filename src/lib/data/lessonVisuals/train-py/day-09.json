@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "With 64 GPUs, that means 64 copies of the same numbers.",
+            "activeActor": "gpus",
+            "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "gpus",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "With 64 GPUs, that means 64 copies of the same numbers.",
-            "activeActor": "gpus",
+            "at": "say10",
+            "caption": "Examine the zero value produced for paper processing.",
+            "activeActor": "per_gpu",
             "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "params",
                 "to": "gpus",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Trace how zero updates paper during execution.",
-            "activeActor": "per_gpu",
-            "messages": [
+              },
               {
                 "from": "params",
                 "to": "gpus",
@@ -118,12 +148,6 @@
                 "to": "gpus",
                 "label": "7500000000",
                 "tone": "data"
-              },
-              {
-                "from": "gpus",
-                "to": "per_gpu",
-                "label": "64",
-                "tone": "ok"
               }
             ],
             "activeActor": "params"
@@ -149,8 +173,32 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how zero updates paper during execution.",
+            "caption": "Examine the zero value produced for paper processing.",
             "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "64",
+                "tone": "ok"
+              },
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "64",
+                "tone": "ok"
+              },
               {
                 "from": "params",
                 "to": "gpus",
@@ -183,8 +231,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how optimizer updates states during execution.",
+            "caption": "Observe how optimizer shapes states during this step.",
             "activeActor": "params",
+            "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "ZeRO stage 1 shards only these.",
+            "activeActor": "gpus",
             "messages": [
               {
                 "from": "params",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "ZeRO stage 1 shards only these.",
-            "activeActor": "gpus",
+            "at": "say10",
+            "caption": "Examine the remaining value produced for stages processing.",
+            "activeActor": "per_gpu",
             "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "params",
                 "to": "gpus",
@@ -232,14 +317,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Trace how remaining updates stages during execution.",
-            "activeActor": "per_gpu",
-            "messages": [
+              },
               {
                 "from": "params",
                 "to": "gpus",
@@ -275,19 +353,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how optimizer updates states during execution.",
+            "caption": "Observe how optimizer shapes states during this step.",
             "messages": [
               {
                 "from": "params",
                 "to": "gpus",
                 "label": "7500000000",
                 "tone": "data"
-              },
-              {
-                "from": "gpus",
-                "to": "per_gpu",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "params"
@@ -313,8 +385,32 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how remaining updates stages during execution.",
+            "caption": "Examine the remaining value produced for stages processing.",
             "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "1",
+                "tone": "ok"
+              },
               {
                 "from": "params",
                 "to": "gpus",
@@ -860,13 +956,13 @@
               },
               "stage": {
                 "var": "stage",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "factor": {
                 "var": "factor",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -906,13 +1002,13 @@
               },
               "stage": {
                 "var": "stage",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "factor": {
                 "var": "factor",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 4
               }
             },
             "tones": {
@@ -996,8 +1092,8 @@
             "values": {
               "params_b": "7.5",
               "volumes": "{'stage 0 (DDP)': 2, 'stage 1': 2, 'sta…",
-              "stage": "'stage 0 (DDP)'",
-              "factor": "2"
+              "stage": "'stage 1'",
+              "factor": "3"
             },
             "tones": {
               "params_b": "data",
@@ -1026,8 +1122,8 @@
             "values": {
               "params_b": "7.5",
               "volumes": "{'stage 0 (DDP)': 2, 'stage 1': 2, 'sta…",
-              "stage": "'stage 0 (DDP)'",
-              "factor": "2"
+              "stage": "'stage 2'",
+              "factor": "3"
             },
             "tones": {
               "params_b": "ok",
@@ -1126,7 +1222,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates reproduce during execution.",
+            "caption": "Verify the checks transition driving reproduce behavior.",
             "values": {
               "gpus": {
                 "var": "gpus",
@@ -1145,8 +1241,8 @@
               },
               "billions": {
                 "var": "billions",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -1172,7 +1268,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how check updates fails during execution.",
+            "caption": "Examine the check value produced for fails processing.",
             "values": {
               "gpus": {
                 "var": "gpus",
@@ -1191,8 +1287,8 @@
               },
               "billions": {
                 "var": "billions",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -1272,12 +1368,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates reproduce during execution.",
+            "caption": "Verify the checks transition driving reproduce behavior.",
             "values": {
               "gpus": "64",
               "gpu_gb": "80",
               "reserve": "20",
-              "billions": "3"
+              "billions": "10"
             },
             "tones": {
               "gpus": "data",
@@ -1302,12 +1398,12 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how check updates fails during execution.",
+            "caption": "Examine the check value produced for fails processing.",
             "values": {
               "gpus": "64",
               "gpu_gb": "80",
               "reserve": "20",
-              "billions": "3"
+              "billions": "30"
             },
             "tones": {
               "gpus": "ok",

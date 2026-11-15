@@ -92,12 +92,12 @@
               },
               "buf": {
                 "var": "buf",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               },
               "events": {
                 "var": "events",
-                "line": 6,
+                "line": 18,
                 "hit": 1
               }
             },
@@ -138,13 +138,13 @@
               },
               "buf": {
                 "var": "buf",
-                "line": 6,
+                "line": 10,
                 "hit": 1
               },
               "events": {
                 "var": "events",
-                "line": 7,
-                "hit": 1
+                "line": 18,
+                "hit": 2
               }
             },
             "tones": {
@@ -228,8 +228,8 @@
             "values": {
               "tcp_reads": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
               "raw_chunks": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
-              "buf": "''",
-              "events": "[]"
+              "buf": "': ping\ndata: {\"tok\": \"Hel'",
+              "events": "[{'tok': 'Hello '}]"
             },
             "tones": {
               "tcp_reads": "data",
@@ -258,8 +258,8 @@
             "values": {
               "tcp_reads": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
               "raw_chunks": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
-              "buf": "''",
-              "events": "[]"
+              "buf": "'data: {\"tok\": \"Hel'",
+              "events": "[{'tok': 'Hello '}, {'tok': 'world'}]"
             },
             "tones": {
               "tcp_reads": "ok",
@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the tool transition driving stream behavior.",
+            "activeActor": "deltas",
+            "messages": [
+              {
+                "from": "stream",
+                "to": "deltas",
+                "label": {
+                  "var": "stream",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "deltas",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Parallel tool calling interleaves **multiple concurrent indices (`index=0`.",
-            "activeActor": "deltas",
+            "at": "say6",
+            "caption": "Inspect merge_tool_deltas() reconstructing two parallel interleaved API.",
+            "activeActor": "slots",
             "messages": [
+              {
+                "from": "stream",
+                "to": "deltas",
+                "label": {
+                  "var": "stream",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "deltas",
+                "to": "slots",
+                "label": {
+                  "var": "deltas",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "stream",
                 "to": "deltas",
@@ -348,23 +385,6 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Inspect merge_tool_deltas() reconstructing two parallel interleaved API.",
-            "activeActor": "slots",
-            "messages": [
-              {
-                "from": "stream",
-                "to": "deltas",
-                "label": {
-                  "var": "stream",
-                  "line": 26,
-                  "hit": 1
-                },
-                "tone": "data"
               },
               {
                 "from": "deltas",
@@ -398,19 +418,13 @@
                 "to": "deltas",
                 "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
                 "tone": "data"
-              },
-              {
-                "from": "deltas",
-                "to": "slots",
-                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
-                "tone": "ok"
               }
             ],
             "activeActor": "stream"
           },
           {
             "at": "say2",
-            "caption": "Parallel tool calling interleaves **multiple concurrent indices (`index=0`.",
+            "caption": "Verify the tool transition driving stream behavior.",
             "messages": [
               {
                 "from": "stream",
@@ -436,6 +450,24 @@
                 "to": "deltas",
                 "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
                 "tone": "data"
+              },
+              {
+                "from": "deltas",
+                "to": "slots",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "ok"
+              },
+              {
+                "from": "stream",
+                "to": "deltas",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "data"
+              },
+              {
+                "from": "deltas",
+                "to": "slots",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "ok"
               },
               {
                 "from": "deltas",
@@ -475,22 +507,12 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "split_chunks",
-                "to": "byte_chunks",
-                "label": {
-                  "var": "split_chunks",
-                  "line": 13,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Trace how calling updates decode during execution.",
+            "caption": "Verify the calling transition driving decode behavior.",
             "activeActor": "split_chunks",
             "messages": [
               {
@@ -498,7 +520,7 @@
                 "to": "split_chunks",
                 "label": {
                   "var": "raw",
-                  "line": 13,
+                  "line": 11,
                   "hit": 1
                 },
                 "tone": "data"
@@ -508,7 +530,7 @@
                 "to": "byte_chunks",
                 "label": {
                   "var": "split_chunks",
-                  "line": 14,
+                  "line": 13,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -525,7 +547,27 @@
                 "to": "split_chunks",
                 "label": {
                   "var": "raw",
-                  "line": 14,
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": {
+                  "var": "split_chunks",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "split_chunks",
+                "label": {
+                  "var": "raw",
+                  "line": 13,
                   "hit": 1
                 },
                 "tone": "data"
@@ -539,6 +581,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "split_chunks",
+                "label": {
+                  "var": "raw",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -560,32 +612,26 @@
               {
                 "from": "raw",
                 "to": "split_chunks",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
-              },
-              {
-                "from": "split_chunks",
-                "to": "byte_chunks",
-                "label": "[{'__other__': 'bytes'}, {'__other__': …",
-                "tone": "ok"
               }
             ],
             "activeActor": "raw"
           },
           {
             "at": "say2",
-            "caption": "Trace how calling updates decode during execution.",
+            "caption": "Verify the calling transition driving decode behavior.",
             "messages": [
               {
                 "from": "raw",
                 "to": "split_chunks",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
                 "from": "split_chunks",
                 "to": "byte_chunks",
-                "label": "[{'__other__': 'bytes'}, {'__other__': …",
+                "label": "[<bytes>, <bytes>, <bytes>]",
                 "tone": "ok"
               }
             ],
@@ -598,14 +644,32 @@
               {
                 "from": "raw",
                 "to": "split_chunks",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
                 "from": "split_chunks",
                 "to": "byte_chunks",
-                "label": "[{'__other__': 'bytes'}, {'__other__': …",
+                "label": "[<bytes>, <bytes>, <bytes>]",
                 "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "split_chunks",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": "[<bytes>, <bytes>, <bytes>]",
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "split_chunks",
+                "label": "<bytes>",
+                "tone": "data"
               }
             ],
             "activeActor": "byte_chunks"
@@ -627,7 +691,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how streaming updates tokens during execution.",
+            "caption": "Observe how consumer shapes slow during this step.",
             "activeActor": "produced_tokens",
             "messages": [
               {
@@ -639,6 +703,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the clients transition driving using behavior.",
+            "activeActor": "drain_per_step",
+            "messages": [
+              {
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": {
+                  "var": "produced_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "drain_per_step",
@@ -653,10 +734,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Using an **unbounded queue (`asyncio.",
-            "activeActor": "drain_per_step",
+            "at": "say7",
+            "caption": "Simulate handle_bounded_stream() testing smooth healthy drains vs clean.",
+            "activeActor": "max_queue",
             "messages": [
+              {
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": {
+                  "var": "produced_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": {
+                  "var": "drain_per_step",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "produced_tokens",
                 "to": "drain_per_step",
@@ -676,14 +777,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Simulate handle_bounded_stream() testing smooth healthy drains vs clean.",
-            "activeActor": "max_queue",
-            "messages": [
+              },
               {
                 "from": "produced_tokens",
                 "to": "drain_per_step",
@@ -719,26 +813,20 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how streaming updates tokens during execution.",
+            "caption": "Observe how consumer shapes slow during this step.",
             "messages": [
               {
                 "from": "produced_tokens",
                 "to": "drain_per_step",
                 "label": "['t1', 't2', 't3', 't4', 't5']",
                 "tone": "data"
-              },
-              {
-                "from": "drain_per_step",
-                "to": "max_queue",
-                "label": "1",
-                "tone": "ok"
               }
             ],
             "activeActor": "produced_tokens"
           },
           {
             "at": "say2",
-            "caption": "Using an **unbounded queue (`asyncio.",
+            "caption": "Verify the clients transition driving using behavior.",
             "messages": [
               {
                 "from": "produced_tokens",
@@ -759,6 +847,30 @@
             "at": "say7",
             "caption": "Simulate handle_bounded_stream() testing smooth healthy drains vs clean.",
             "messages": [
+              {
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": "['t1', 't2', 't3', 't4', 't5']",
+                "tone": "data"
+              },
+              {
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": "1",
+                "tone": "ok"
+              },
+              {
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": "['t1', 't2', 't3', 't4', 't5']",
+                "tone": "data"
+              },
+              {
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": "1",
+                "tone": "ok"
+              },
               {
                 "from": "produced_tokens",
                 "to": "drain_per_step",
@@ -822,16 +934,14 @@
                 "hit": 1
               },
               "cache_write_ok": {
-                "var": "cache_write_ok",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "reserved_usd": "data",
               "cost_per_tok": "data",
               "emitted_tokens": "data",
-              "cache_write_ok": "data"
+              "cache_write_ok": "idle"
             }
           },
           {
@@ -929,13 +1039,13 @@
               "reserved_usd": "0.05",
               "cost_per_tok": "0.00002",
               "emitted_tokens": "180",
-              "cache_write_ok": "True"
+              "cache_write_ok": ""
             },
             "tones": {
               "reserved_usd": "data",
               "cost_per_tok": "data",
               "emitted_tokens": "data",
-              "cache_write_ok": "data"
+              "cache_write_ok": "idle"
             }
           },
           {

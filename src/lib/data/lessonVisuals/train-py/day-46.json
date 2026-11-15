@@ -18,7 +18,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how full updates precision during execution.",
+            "caption": "Observe how precision shapes full during this step.",
             "rows": [
               {
                 "cells": [
@@ -83,7 +83,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how full updates precision during execution.",
+            "caption": "Observe how precision shapes full during this step.",
             "rows": [
               {
                 "cells": [
@@ -174,7 +174,7 @@
           },
           {
             "at": "say2",
-            "caption": "The scaled loss generates proportionally larger gradients during.",
+            "caption": "Verify the scaled transition driving loss behavior.",
             "bars": [
               {
                 "label": "current_scale",
@@ -216,7 +216,7 @@
           },
           {
             "at": "say11",
-            "caption": "Conversely, when training proceeds without overflows for thousands.",
+            "caption": "Examine the mixed value produced for precision processing.",
             "bars": [
               {
                 "label": "current_scale",
@@ -290,7 +290,7 @@
           },
           {
             "at": "say2",
-            "caption": "The scaled loss generates proportionally larger gradients during.",
+            "caption": "Verify the scaled transition driving loss behavior.",
             "bars": [
               {
                 "label": "current_scale",
@@ -316,7 +316,7 @@
           },
           {
             "at": "say11",
-            "caption": "Conversely, when training proceeds without overflows for thousands.",
+            "caption": "Examine the mixed value produced for precision processing.",
             "bars": [
               {
                 "label": "current_scale",
@@ -385,7 +385,7 @@
           },
           {
             "at": "say2",
-            "caption": "This memory consists of.",
+            "caption": "Verify the memory transition driving consists behavior.",
             "bars": [
               {
                 "label": "params_b",
@@ -478,7 +478,7 @@
           },
           {
             "at": "say2",
-            "caption": "This memory consists of.",
+            "caption": "Verify the memory transition driving consists behavior.",
             "bars": [
               {
                 "label": "params_b",
@@ -523,32 +523,26 @@
     },
     {
       "partTitle": "Mixed Precision Training — Resilience Guardrails & Failure Recovery",
-      "codeHash": "80844e17b7da453f68e257ad4c35e2670bb7fc88fcd54bf19d32c12dfac216f2",
+      "codeHash": "8c88985ac2cd14bd2c742b3ddef14e5dce3b0bfeda3b85f07ce6f3e1b0b7dd7a",
       "spec": {
         "template": "flow",
         "title": "Mixed Precision Training — Resilience Guardrails & Failure Recov",
         "nodes": [
           {
             "id": "grads",
-            "label": "grads"
+            "label": "grads",
+            "tappable": true
           },
           {
             "id": "g",
-            "label": "g"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "ok",
-            "label": "ok"
+            "label": "g",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Numerical resilience guardrails inspect gradient buffers for non-finite.",
+            "caption": "Inspect gradient updates as grads tracks finiteness state.",
             "values": {
               "grads": {
                 "var": "grads",
@@ -556,131 +550,62 @@
                 "hit": 1
               },
               "g": {
-                "var": "g",
-                "line": 2,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 7,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 7,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "grads": "data",
-              "g": "data",
-              "status": "data",
-              "ok": "data"
+              "g": "idle"
             },
-            "arrows": [
-              [
-                "grads",
-                "g"
-              ],
-              [
-                "g",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A single NaN or Inf value in a gradient tensor can permanently corrupt.",
+            "caption": "Verify the lone transition driving entry behavior.",
             "values": {
               "grads": {
                 "var": "grads",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "g": {
-                "var": "g",
-                "line": 3,
-                "hit": 1
-              },
-              "status": {
-                "var": "status",
-                "line": 8,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "grads": "data",
-              "g": "data",
-              "status": "data",
-              "ok": "data"
+              "g": "idle"
             },
             "arrows": [
               [
                 "grads",
                 "g"
-              ],
-              [
-                "g",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
               ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "If non-finite gradients are detected, the optimizer step is bypassed,.",
+            "at": "say3",
+            "caption": "Examine the guardrail value produced for scans processing.",
             "values": {
               "grads": {
                 "var": "grads",
-                "line": 2,
-                "hit": 2
+                "line": 4,
+                "hit": 7
               },
               "g": {
                 "var": "g",
-                "line": 2,
-                "hit": 2
-              },
-              "status": {
-                "var": "status",
-                "line": 8,
-                "hit": 1
-              },
-              "ok": {
-                "var": "ok",
-                "line": 8,
-                "hit": 1
+                "line": 4,
+                "hit": 7
               }
             },
             "tones": {
               "grads": "ok",
-              "g": "ok",
-              "status": "ok",
-              "ok": "ok"
+              "g": "ok"
             },
             "arrows": [
               [
                 "grads",
                 "g"
-              ],
-              [
-                "g",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
               ]
             ]
           }
@@ -692,109 +617,62 @@
         "nodes": [
           {
             "id": "grads",
-            "label": "grads"
+            "label": "grads",
+            "tappable": true
           },
           {
             "id": "g",
-            "label": "g"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "ok",
-            "label": "ok"
+            "label": "g",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Numerical resilience guardrails inspect gradient buffers for non-finite.",
+            "caption": "Inspect gradient updates as grads tracks finiteness state.",
             "values": {
-              "grads": "[0.012, 0.045, nan, 0.003]",
-              "g": "0.012",
-              "status": "'GRADIENT_OVERFLOW_DETECTED_SKIP_STEP'",
-              "ok": "False"
+              "grads": "[0.01, -0.02, 0.03]",
+              "g": ""
             },
             "tones": {
               "grads": "data",
-              "g": "data",
-              "status": "data",
-              "ok": "data"
+              "g": "idle"
             },
-            "arrows": [
-              [
-                "grads",
-                "g"
-              ],
-              [
-                "g",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A single NaN or Inf value in a gradient tensor can permanently corrupt.",
+            "caption": "Verify the lone transition driving entry behavior.",
             "values": {
               "grads": "[0.012, 0.045, nan, 0.003]",
-              "g": "0.012",
-              "status": "'GRADIENT_OVERFLOW_DETECTED_SKIP_STEP'",
-              "ok": "False"
+              "g": ""
             },
             "tones": {
               "grads": "data",
-              "g": "data",
-              "status": "data",
-              "ok": "data"
+              "g": "idle"
             },
             "arrows": [
               [
                 "grads",
                 "g"
-              ],
-              [
-                "g",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
               ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "If non-finite gradients are detected, the optimizer step is bypassed,.",
+            "at": "say3",
+            "caption": "Examine the guardrail value produced for scans processing.",
             "values": {
               "grads": "[0.012, 0.045, nan, 0.003]",
-              "g": "0.045",
-              "status": "'GRADIENT_OVERFLOW_DETECTED_SKIP_STEP'",
-              "ok": "False"
+              "g": "nan"
             },
             "tones": {
               "grads": "ok",
-              "g": "ok",
-              "status": "ok",
-              "ok": "ok"
+              "g": "ok"
             },
             "arrows": [
               [
                 "grads",
                 "g"
-              ],
-              [
-                "g",
-                "status"
-              ],
-              [
-                "status",
-                "ok"
               ]
             ]
           }
@@ -833,7 +711,7 @@
           },
           {
             "at": "say2",
-            "caption": "Auditors record 99th-percentile gradient norms, loss scale values, and.",
+            "caption": "Verify the auditors transition driving record behavior.",
             "rows": [
               {
                 "cells": [
@@ -892,7 +770,7 @@
           },
           {
             "at": "say2",
-            "caption": "Auditors record 99th-percentile gradient norms, loss scale values, and.",
+            "caption": "Verify the auditors transition driving record behavior.",
             "rows": [
               {
                 "cells": [

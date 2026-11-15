@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the hinton transition driving vinyals behavior.",
+            "activeActor": "label",
+            "messages": [
+              {
+                "from": "words",
+                "to": "label",
+                "label": {
+                  "var": "words",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "label",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how hinton updates vinyals during execution.",
-            "activeActor": "label",
+            "at": "say10",
+            "caption": "Distilling in a distributed setting means running the teacher at scale.",
+            "activeActor": "teacher",
             "messages": [
+              {
+                "from": "words",
+                "to": "label",
+                "label": {
+                  "var": "words",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "teacher",
+                "label": {
+                  "var": "label",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "words",
                 "to": "label",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Distilling in a distributed setting means running the teacher at scale.",
-            "activeActor": "teacher",
-            "messages": [
+              },
               {
                 "from": "words",
                 "to": "label",
@@ -118,19 +148,13 @@
                 "to": "label",
                 "label": "['cat', 'kitten', 'dog', 'car']",
                 "tone": "data"
-              },
-              {
-                "from": "label",
-                "to": "teacher",
-                "label": "[1, 0, 0, 0]",
-                "tone": "ok"
               }
             ],
             "activeActor": "words"
           },
           {
             "at": "say2",
-            "caption": "Trace how hinton updates vinyals during execution.",
+            "caption": "Verify the hinton transition driving vinyals behavior.",
             "messages": [
               {
                 "from": "words",
@@ -151,6 +175,30 @@
             "at": "say10",
             "caption": "Distilling in a distributed setting means running the teacher at scale.",
             "messages": [
+              {
+                "from": "words",
+                "to": "label",
+                "label": "['cat', 'kitten', 'dog', 'car']",
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "teacher",
+                "label": "[1, 0, 0, 0]",
+                "tone": "ok"
+              },
+              {
+                "from": "words",
+                "to": "label",
+                "label": "['cat', 'kitten', 'dog', 'car']",
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "teacher",
+                "label": "[1, 0, 0, 0]",
+                "tone": "ok"
+              },
               {
                 "from": "words",
                 "to": "label",
@@ -1178,7 +1226,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Softmax_t(logits, temperature=1.",
+            "caption": "Practice 1: softmax_t(logits, temperature=1.0).",
             "items": {
               "var": "l",
               "line": 4,
@@ -1194,7 +1242,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": {
               "var": "l",
               "line": 6,
@@ -1232,7 +1280,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Softmax_t(logits, temperature=1.",
+            "caption": "Practice 1: softmax_t(logits, temperature=1.0).",
             "items": [
               "3",
               "1",
@@ -1248,7 +1296,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "items": [
               "3",
               "1",

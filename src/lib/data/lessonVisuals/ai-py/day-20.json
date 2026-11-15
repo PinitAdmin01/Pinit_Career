@@ -166,6 +166,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "LLM APIs put a small JSON object in each data line.",
+            "activeActor": "line",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "line",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "line",
@@ -180,10 +197,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "LLM APIs put a small JSON object in each data line.",
+            "at": "say7",
+            "caption": "Browsers support SSE natively with EventSource, and fetch can read streams too.",
             "activeActor": "line",
             "messages": [
+              {
+                "from": "raw",
+                "to": "line",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "raw",
+                "label": {
+                  "var": "line",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "line",
@@ -203,14 +240,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Browsers support SSE natively with EventSource, and fetch can read streams too.",
-            "activeActor": "line",
-            "messages": [
+              },
               {
                 "from": "raw",
                 "to": "line",
@@ -252,12 +282,6 @@
                 "to": "line",
                 "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
                 "tone": "data"
-              },
-              {
-                "from": "line",
-                "to": "raw",
-                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
-                "tone": "ok"
               }
             ],
             "activeActor": "raw"
@@ -285,6 +309,30 @@
             "at": "say7",
             "caption": "Browsers support SSE natively with EventSource, and fetch can read streams too.",
             "messages": [
+              {
+                "from": "raw",
+                "to": "line",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "raw",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "ok"
+              },
+              {
+                "from": "raw",
+                "to": "line",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "raw",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "ok"
+              },
               {
                 "from": "raw",
                 "to": "line",
@@ -367,22 +415,22 @@
               "chunk": {
                 "var": "chunk",
                 "line": 4,
-                "hit": 1
+                "hit": 2
               },
               "pieces": {
                 "var": "pieces",
-                "line": 5,
+                "line": 11,
                 "hit": 1
               },
               "done": {
                 "var": "done",
-                "line": 5,
+                "line": 7,
                 "hit": 1
               },
               "line": {
                 "var": "line",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -398,23 +446,23 @@
             "values": {
               "chunk": {
                 "var": "chunk",
-                "line": 5,
+                "line": 16,
                 "hit": 1
               },
               "pieces": {
                 "var": "pieces",
-                "line": 6,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "done": {
                 "var": "done",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "line": {
                 "var": "line",
-                "line": 8,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -468,10 +516,10 @@
             "at": "say2",
             "caption": "Loop over the lines.",
             "values": {
-              "chunk": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
-              "pieces": "[]",
-              "done": "False",
-              "line": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…"
+              "chunk": "'data: {\"choices\":[{\"delta\":{\"content\":…",
+              "pieces": "['Hi']",
+              "done": "True",
+              "line": "''"
             },
             "tones": {
               "chunk": "data",
@@ -485,9 +533,9 @@
             "caption": "Test with chunks that include role-only events, comments and the DONE.",
             "values": {
               "chunk": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
-              "pieces": "[]",
+              "pieces": "['Hi', ' there']",
               "done": "False",
-              "line": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…"
+              "line": "'data: {\"choices\":[{\"delta\":{\"content\":…"
             },
             "tones": {
               "chunk": "ok",
@@ -814,7 +862,7 @@
           },
           {
             "at": "say6",
-            "caption": "Test with deliberately awkward splits, like cutting every 7 characters,.",
+            "caption": "Examine the test value produced for deliberately processing.",
             "values": {
               "stream": {
                 "var": "stream",
@@ -944,7 +992,7 @@
           },
           {
             "at": "say6",
-            "caption": "Test with deliberately awkward splits, like cutting every 7 characters,.",
+            "caption": "Examine the test value produced for deliberately processing.",
             "values": {
               "stream": "'data: {\"choices\":[{\"delta\":{\"content\":…",
               "pieces": "['data: {', '\"choice', 's\":[{\"d', 'elta…",
@@ -1032,7 +1080,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how tomorrow updates milestone during execution.",
+            "caption": "Examine the streaming value produced for tomorrow processing.",
             "bars": [
               {
                 "label": "stop_after",
@@ -1094,7 +1142,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how tomorrow updates milestone during execution.",
+            "caption": "Examine the streaming value produced for tomorrow processing.",
             "bars": [
               {
                 "label": "stop_after",

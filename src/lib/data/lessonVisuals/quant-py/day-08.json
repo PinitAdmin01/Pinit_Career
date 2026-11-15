@@ -299,7 +299,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how marco updates avellaneda during execution.",
+            "caption": "Observe how marco shapes avellaneda during this step.",
             "activeActor": "mid",
             "messages": [
               {
@@ -311,16 +311,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "gamma",
-                "to": "sigma",
-                "label": {
-                  "var": "gamma",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -334,6 +324,53 @@
                 "to": "gamma",
                 "label": {
                   "var": "mid",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gamma",
+                "to": "sigma",
+                "label": {
+                  "var": "gamma",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example computes reservation prices for several inventories.",
+            "activeActor": "sigma",
+            "messages": [
+              {
+                "from": "mid",
+                "to": "gamma",
+                "label": {
+                  "var": "mid",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gamma",
+                "to": "sigma",
+                "label": {
+                  "var": "gamma",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "mid",
+                "to": "gamma",
+                "label": {
+                  "var": "mid",
                   "line": 2,
                   "hit": 1
                 },
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example computes reservation prices for several inventories.",
-            "activeActor": "sigma",
-            "messages": [
+              },
               {
                 "from": "mid",
                 "to": "gamma",
@@ -391,19 +421,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how marco updates avellaneda during execution.",
+            "caption": "Observe how marco shapes avellaneda during this step.",
             "messages": [
               {
                 "from": "mid",
                 "to": "gamma",
                 "label": "100",
                 "tone": "data"
-              },
-              {
-                "from": "gamma",
-                "to": "sigma",
-                "label": "0.1",
-                "tone": "ok"
               }
             ],
             "activeActor": "mid"
@@ -431,6 +455,30 @@
             "at": "say7",
             "caption": "The example computes reservation prices for several inventories.",
             "messages": [
+              {
+                "from": "mid",
+                "to": "gamma",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "gamma",
+                "to": "sigma",
+                "label": "0.1",
+                "tone": "ok"
+              },
+              {
+                "from": "mid",
+                "to": "gamma",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "gamma",
+                "to": "sigma",
+                "label": "0.1",
+                "tone": "ok"
+              },
               {
                 "from": "mid",
                 "to": "gamma",

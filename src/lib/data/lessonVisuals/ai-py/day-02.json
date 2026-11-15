@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In \"low lower lowest\", the pair (\"l\", \"o\") is very common, so \"lo\" becomes.",
+            "activeActor": "pairs",
+            "messages": [
+              {
+                "from": "words",
+                "to": "pairs",
+                "label": {
+                  "var": "words",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "pairs",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In \"low lower lowest\", the pair (\"l\", \"o\") is very common, so \"lo\" becomes.",
-            "activeActor": "pairs",
+            "at": "say6",
+            "caption": "The first step, counting neighbouring pairs, is a simple Counter job.",
+            "activeActor": "w",
             "messages": [
+              {
+                "from": "words",
+                "to": "pairs",
+                "label": {
+                  "var": "words",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pairs",
+                "to": "w",
+                "label": {
+                  "var": "pairs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "words",
                 "to": "pairs",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The first step, counting neighbouring pairs, is a simple Counter job.",
-            "activeActor": "w",
-            "messages": [
+              },
               {
                 "from": "words",
                 "to": "pairs",
@@ -282,12 +312,6 @@
                 "to": "pairs",
                 "label": "[['l', 'o', 'w'], ['l', 'o', 'w', 'e', …",
                 "tone": "data"
-              },
-              {
-                "from": "pairs",
-                "to": "w",
-                "label": "{}",
-                "tone": "ok"
               }
             ],
             "activeActor": "words"
@@ -315,6 +339,30 @@
             "at": "say6",
             "caption": "The first step, counting neighbouring pairs, is a simple Counter job.",
             "messages": [
+              {
+                "from": "words",
+                "to": "pairs",
+                "label": "[['l', 'o', 'w'], ['l', 'o', 'w', 'e', …",
+                "tone": "data"
+              },
+              {
+                "from": "pairs",
+                "to": "w",
+                "label": "{}",
+                "tone": "ok"
+              },
+              {
+                "from": "words",
+                "to": "pairs",
+                "label": "[['l', 'o', 'w'], ['l', 'o', 'w', 'e', …",
+                "tone": "data"
+              },
+              {
+                "from": "pairs",
+                "to": "w",
+                "label": "{}",
+                "tone": "ok"
+              },
               {
                 "from": "words",
                 "to": "pairs",
@@ -401,18 +449,18 @@
               },
               "tokens": {
                 "var": "tokens",
-                "line": 3,
+                "line": 11,
                 "hit": 1
               },
               "merge_rules": {
                 "var": "merge_rules",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 9
               },
               "left": {
                 "var": "left",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -433,18 +481,18 @@
               },
               "tokens": {
                 "var": "tokens",
-                "line": 4,
-                "hit": 1
+                "line": 11,
+                "hit": 2
               },
               "merge_rules": {
                 "var": "merge_rules",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 9
               },
               "left": {
                 "var": "left",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -499,9 +547,9 @@
             "caption": "For each rule, walk through the list with an index.",
             "values": {
               "rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
-              "tokens": "['l', 'o', 'w', 'e', 'r']",
-              "merge_rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
-              "left": "'l'"
+              "tokens": "['lo', 'w', 'e', 'r']",
+              "merge_rules": "[['a', 'a', 'aa']]",
+              "left": "'e'"
             },
             "tones": {
               "rules": "data",
@@ -515,9 +563,9 @@
             "caption": "The order of rules matters too.",
             "values": {
               "rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
-              "tokens": "['l', 'o', 'w', 'e', 'r']",
-              "merge_rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
-              "left": "'l'"
+              "tokens": "['lo', 'w', 'er']",
+              "merge_rules": "[['a', 'a', 'aa']]",
+              "left": "'lo'"
             },
             "tones": {
               "rules": "ok",
@@ -574,16 +622,14 @@
                 "hit": 1
               },
               "window": {
-                "var": "window",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "history": "data",
               "system": "data",
               "messages": "data",
-              "window": "data"
+              "window": "idle"
             }
           },
           {
@@ -620,7 +666,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how will updates learn during execution.",
+            "caption": "Examine the learn value produced for smarter processing.",
             "values": {
               "history": {
                 "var": "history",
@@ -681,13 +727,13 @@
               "history": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
               "system": "'You are helpful.You are helpful.You ar…",
               "messages": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
-              "window": "250"
+              "window": ""
             },
             "tones": {
               "history": "data",
               "system": "data",
               "messages": "data",
-              "window": "data"
+              "window": "idle"
             }
           },
           {
@@ -708,7 +754,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how will updates learn during execution.",
+            "caption": "Examine the learn value produced for smarter processing.",
             "values": {
               "history": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
               "system": "'You are helpful.You are helpful.You ar…",
@@ -770,16 +816,14 @@
                 "hit": 1
               },
               "output_per_million": {
-                "var": "output_per_million",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "input_tokens": "data",
               "output_tokens": "data",
               "input_per_million": "data",
-              "output_per_million": "data"
+              "output_per_million": "idle"
             },
             "arrows": [
               [
@@ -798,7 +842,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how cost updates input during execution.",
+            "caption": "Verify the cost transition driving input behavior.",
             "values": {
               "input_tokens": {
                 "var": "input_tokens",
@@ -919,13 +963,13 @@
               "input_tokens": "1500",
               "output_tokens": "300",
               "input_per_million": "2.5",
-              "output_per_million": "10"
+              "output_per_million": ""
             },
             "tones": {
               "input_tokens": "data",
               "output_tokens": "data",
               "input_per_million": "data",
-              "output_per_million": "data"
+              "output_per_million": "idle"
             },
             "arrows": [
               [
@@ -944,7 +988,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how cost updates input during execution.",
+            "caption": "Verify the cost transition driving input behavior.",
             "values": {
               "input_tokens": "1500",
               "output_tokens": "300",
@@ -1098,7 +1142,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how days updates return during execution.",
+            "caption": "Examine the days value produced for return processing.",
             "bars": [
               {
                 "label": "pin",
@@ -1198,7 +1242,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how days updates return during execution.",
+            "caption": "Examine the days value produced for return processing.",
             "bars": [
               {
                 "label": "pin",

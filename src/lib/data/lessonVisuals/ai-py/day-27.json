@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Your own app needs limits too.",
+            "activeActor": "burst",
+            "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": {
+                  "var": "limits",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "burst",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Your own app needs limits too.",
-            "activeActor": "burst",
+            "at": "say7",
+            "caption": "Today you will build one, then add retries and budgets around it.",
+            "activeActor": "tokens_needed",
             "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": {
+                  "var": "limits",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": {
+                  "var": "burst",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "limits",
                 "to": "burst",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Today you will build one, then add retries and budgets around it.",
-            "activeActor": "tokens_needed",
-            "messages": [
+              },
               {
                 "from": "limits",
                 "to": "burst",
@@ -118,12 +148,6 @@
                 "to": "burst",
                 "label": "{'calls per minute': 500, 'tokens per m…",
                 "tone": "data"
-              },
-              {
-                "from": "burst",
-                "to": "tokens_needed",
-                "label": "{'calls': 40, 'tokens_each': 6000}",
-                "tone": "ok"
               }
             ],
             "activeActor": "limits"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Today you will build one, then add retries and budgets around it.",
             "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": "{'calls per minute': 500, 'tokens per m…",
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": "{'calls': 40, 'tokens_each': 6000}",
+                "tone": "ok"
+              },
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": "{'calls per minute': 500, 'tokens per m…",
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": "{'calls': 40, 'tokens_each': 6000}",
+                "tone": "ok"
+              },
               {
                 "from": "limits",
                 "to": "burst",
@@ -214,16 +262,14 @@
                 "hit": 1
               },
               "bucket": {
-                "var": "bucket",
-                "line": 14,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "capacity": "data",
               "refill_per_sec": "data",
-              "bucket": "data"
+              "bucket": "idle"
             }
           },
           {
@@ -321,13 +367,13 @@
               "self": "<TokenBucket>",
               "capacity": "10000",
               "refill_per_sec": "1000",
-              "bucket": "<TokenBucket>"
+              "bucket": ""
             },
             "tones": {
               "self": "data",
               "capacity": "data",
               "refill_per_sec": "data",
-              "bucket": "data"
+              "bucket": "idle"
             }
           },
           {
@@ -414,17 +460,17 @@
           },
           {
             "at": "say2",
-            "caption": "Otherwise, if requested is more than available, return 429 with.",
+            "caption": "Verify the otherwise transition driving requested behavior.",
             "values": {
               "requested": {
                 "var": "requested",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "available": {
                 "var": "available",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "capacity": {
                 "var": "capacity",
@@ -444,13 +490,13 @@
             "values": {
               "requested": {
                 "var": "requested",
-                "line": 6,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "available": {
                 "var": "available",
-                "line": 6,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "capacity": {
                 "var": "capacity",
@@ -500,10 +546,10 @@
           },
           {
             "at": "say2",
-            "caption": "Otherwise, if requested is more than available, return 429 with.",
+            "caption": "Verify the otherwise transition driving requested behavior.",
             "values": {
-              "requested": "5000",
-              "available": "20000",
+              "requested": "25000",
+              "available": "100000",
               "capacity": "100000"
             },
             "tones": {
@@ -516,8 +562,8 @@
             "at": "say7",
             "caption": "Include a Retry-After header with 429 responses in real APIs, telling.",
             "values": {
-              "requested": "5000",
-              "available": "20000",
+              "requested": "150000",
+              "available": "100000",
               "capacity": "100000"
             },
             "tones": {
@@ -720,7 +766,7 @@
             "at": "say1",
             "caption": "Rpm_exceeded(count, max_rpm) returns True when the number of calls this.",
             "values": {
-              "window": "{'__other__': 'deque'}",
+              "window": "<deque>",
               "t": "0",
               "now": "0",
               "max_rpm": "3"
@@ -750,7 +796,7 @@
             "at": "say2",
             "caption": "To get the count, keep the timestamps of recent calls and drop those older.",
             "values": {
-              "window": "{'__other__': 'deque'}",
+              "window": "<deque>",
               "t": "0",
               "now": "0",
               "max_rpm": "3"
@@ -780,7 +826,7 @@
             "at": "say7",
             "caption": "Tell users kindly when they hit a limit, with how long to wait.",
             "values": {
-              "window": "{'__other__': 'deque'}",
+              "window": "<deque>",
               "t": "10",
               "now": "0",
               "max_rpm": "3"

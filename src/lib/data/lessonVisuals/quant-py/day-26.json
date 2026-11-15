@@ -9,162 +9,156 @@
       "partTitle": "Why backtests lie",
       "codeHash": "57543202590ee66ac819443c3b0f267c2176529fa56f68ea1c6e47a8e69ff337",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Why backtests lie",
-        "actors": [
-          "returns",
-          ".0",
-          "i"
+        "nodes": [
+          {
+            "id": "i",
+            "label": "i",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A backtest replays history to estimate how a strategy would have performed.",
-            "activeActor": "returns",
-            "messages": [
-              {
-                "from": "returns",
-                "to": ".0",
-                "label": {
-                  "var": "returns",
-                  "line": 4,
-                  "hit": 251
-                },
-                "tone": "data"
+            "values": {
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "i",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "r": {
+                "var": "r",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "i": "data",
+              "r": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Common sins include using information that was not available at the time.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "returns",
-                "to": ".0",
-                "label": {
-                  "var": "returns",
-                  "line": 5,
-                  "hit": 251
-                },
-                "tone": "data"
+            "caption": "Verify the common transition driving sins behavior.",
+            "values": {
+              "i": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "i",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "r": {
+                "var": "r",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "i": "idle",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "i",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "If a backtest looks too good to be true, it almost certainly is.",
-            "activeActor": "i",
-            "messages": [
-              {
-                "from": "returns",
-                "to": ".0",
-                "label": {
-                  "var": "returns",
-                  "line": 6,
-                  "hit": 252
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Each of these makes results look better than reality.",
+            "values": {
+              "i": {
+                "text": ""
               },
-              {
-                "from": ".0",
-                "to": "i",
-                "label": {
-                  "var": ".0",
-                  "line": 5,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "r": {
+                "var": "r",
+                "line": 6,
+                "hit": 250
               }
+            },
+            "tones": {
+              "i": "idle",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "i",
+                "r"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Why backtests lie",
-        "actors": [
-          "returns",
-          ".0",
-          "i"
+        "nodes": [
+          {
+            "id": "i",
+            "label": "i",
+            "tappable": true
+          },
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A backtest replays history to estimate how a strategy would have performed.",
-            "messages": [
-              {
-                "from": "returns",
-                "to": ".0",
-                "label": "[-0.011788417512306717, -0.011481606807…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "i",
-                "label": "{'__other__': 'enumerate'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "returns"
+            "values": {
+              "i": "0",
+              "r": "-0.011481606807908017"
+            },
+            "tones": {
+              "i": "data",
+              "r": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Common sins include using information that was not available at the time.",
-            "messages": [
-              {
-                "from": "returns",
-                "to": ".0",
-                "label": "[-0.011788417512306717, -0.011481606807…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "i",
-                "label": "{'__other__': 'enumerate'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the common transition driving sins behavior.",
+            "values": {
+              "i": "",
+              "r": "-0.011788417512306717"
+            },
+            "tones": {
+              "i": "idle",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "i",
+                "r"
+              ]
+            ]
           },
           {
-            "at": "say8",
-            "caption": "If a backtest looks too good to be true, it almost certainly is.",
-            "messages": [
-              {
-                "from": "returns",
-                "to": ".0",
-                "label": "[-0.011788417512306717, -0.011481606807…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "i",
-                "label": "{'__other__': 'enumerate'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "i"
+            "at": "say3",
+            "caption": "Each of these makes results look better than reality.",
+            "values": {
+              "i": "",
+              "r": "-0.0036462338356196213"
+            },
+            "tones": {
+              "i": "idle",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "i",
+                "r"
+              ]
+            ]
           }
         ]
       }
@@ -195,6 +189,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Classic examples.",
+            "activeActor": "full_mean",
+            "messages": [
+              {
+                "from": "prices",
+                "to": "full_mean",
+                "label": {
+                  "var": "prices",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "full_mean",
@@ -209,10 +220,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Classic examples.",
-            "activeActor": "full_mean",
+            "at": "say7",
+            "caption": "The example shows the whole-dataset normalisation mistake and its fix.",
+            "activeActor": "past",
             "messages": [
+              {
+                "from": "prices",
+                "to": "full_mean",
+                "label": {
+                  "var": "prices",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "full_mean",
+                "to": "past",
+                "label": {
+                  "var": "full_mean",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "prices",
                 "to": "full_mean",
@@ -232,14 +263,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shows the whole-dataset normalisation mistake and its fix.",
-            "activeActor": "past",
-            "messages": [
+              },
               {
                 "from": "prices",
                 "to": "full_mean",
@@ -282,12 +306,6 @@
                 "to": "full_mean",
                 "label": "[100, 102, 101, 105, 110, 120]",
                 "tone": "data"
-              },
-              {
-                "from": "full_mean",
-                "to": "past",
-                "label": "106.33333333333333",
-                "tone": "ok"
               }
             ],
             "activeActor": "prices"
@@ -315,6 +333,30 @@
             "at": "say7",
             "caption": "The example shows the whole-dataset normalisation mistake and its fix.",
             "messages": [
+              {
+                "from": "prices",
+                "to": "full_mean",
+                "label": "[100, 102, 101, 105, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "full_mean",
+                "to": "past",
+                "label": "106.33333333333333",
+                "tone": "ok"
+              },
+              {
+                "from": "prices",
+                "to": "full_mean",
+                "label": "[100, 102, 101, 105, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "full_mean",
+                "to": "past",
+                "label": "106.33333333333333",
+                "tone": "ok"
+              },
               {
                 "from": "prices",
                 "to": "full_mean",
@@ -392,7 +434,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how backtest updates stocks during execution.",
+            "caption": "Verify the backtest transition driving stocks behavior.",
             "values": {
               "companies": {
                 "var": "companies",
@@ -508,7 +550,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how backtest updates stocks during execution.",
+            "caption": "Verify the backtest transition driving stocks behavior.",
             "values": {
               "companies": "{'A': 0.12, 'B': 0.08, 'C': 0.15, 'D (b…",
               "survivors": "{'A': 0.12, 'B': 0.08, 'C': 0.15}",

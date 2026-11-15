@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sequence updates length during execution.",
+            "caption": "Verify the sequence transition driving length behavior.",
             "rows": [
               {
                 "cells": [
@@ -56,7 +56,7 @@
           },
           {
             "at": "say11",
-            "caption": "This hardware-level IO optimization transforms standard attention from.",
+            "caption": "Examine the flashattention value produced for standard processing.",
             "rows": [
               {
                 "cells": [
@@ -96,7 +96,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how sequence updates length during execution.",
+            "caption": "Verify the sequence transition driving length behavior.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say11",
-            "caption": "This hardware-level IO optimization transforms standard attention from.",
+            "caption": "Examine the flashattention value produced for standard processing.",
             "rows": [
               {
                 "cells": [
@@ -210,12 +210,12 @@
               },
               "m": {
                 "var": "m",
-                "line": 4,
+                "line": 8,
                 "hit": 1
               },
               "l": {
                 "var": "l",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -256,13 +256,13 @@
               },
               "m": {
                 "var": "m",
-                "line": 5,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "l": {
                 "var": "l",
-                "line": 6,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               }
             },
             "tones": {
@@ -346,8 +346,8 @@
             "values": {
               "block_maxes": "[4.2, 5.8, 3.9]",
               "block_sums": "[12.5, 18.2, 10.1]",
-              "m": "-inf",
-              "l": "0"
+              "m": "4.2",
+              "l": "12.5"
             },
             "tones": {
               "block_maxes": "data",
@@ -376,8 +376,8 @@
             "values": {
               "block_maxes": "[4.2, 5.8, 3.9]",
               "block_sums": "[12.5, 18.2, 10.1]",
-              "m": "-inf",
-              "l": "0"
+              "m": "5.8",
+              "l": "24.45"
             },
             "tones": {
               "block_maxes": "ok",
@@ -435,7 +435,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how flashattention updates introduced during execution.",
+            "caption": "Verify the flashattention transition driving introduced behavior.",
             "rows": [
               {
                 "cells": [
@@ -454,7 +454,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how flashattention updates leverages during execution.",
+            "caption": "Examine the comparing value produced for three processing.",
             "rows": [
               {
                 "cells": [
@@ -494,7 +494,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how flashattention updates introduced during execution.",
+            "caption": "Verify the flashattention transition driving introduced behavior.",
             "rows": [
               {
                 "cells": [
@@ -507,7 +507,7 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how flashattention updates leverages during execution.",
+            "caption": "Examine the comparing value produced for three processing.",
             "rows": [
               {
                 "cells": [
@@ -547,6 +547,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the flashattention transition driving kernels behavior.",
+            "activeActor": "sram_bytes",
+            "messages": [
+              {
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": {
+                  "var": "head_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "sram_bytes",
@@ -561,10 +578,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "FlashAttention kernels require head dimensions to be a multiple of 8 (e.",
-            "activeActor": "sram_bytes",
+            "at": "say11",
+            "caption": "Enforcing these hardware constraints guarantees that FlashAttention.",
+            "activeActor": "status",
             "messages": [
+              {
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": {
+                  "var": "head_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sram_bytes",
+                "to": "status",
+                "label": {
+                  "var": "sram_bytes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "head_dim",
                 "to": "sram_bytes",
@@ -584,14 +621,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing these hardware constraints guarantees that FlashAttention.",
-            "activeActor": "status",
-            "messages": [
+              },
               {
                 "from": "head_dim",
                 "to": "sram_bytes",
@@ -634,19 +664,13 @@
                 "to": "sram_bytes",
                 "label": "128",
                 "tone": "data"
-              },
-              {
-                "from": "sram_bytes",
-                "to": "status",
-                "label": "233472",
-                "tone": "ok"
               }
             ],
             "activeActor": "head_dim"
           },
           {
             "at": "say2",
-            "caption": "FlashAttention kernels require head dimensions to be a multiple of 8 (e.",
+            "caption": "Verify the flashattention transition driving kernels behavior.",
             "messages": [
               {
                 "from": "head_dim",
@@ -667,6 +691,30 @@
             "at": "say11",
             "caption": "Enforcing these hardware constraints guarantees that FlashAttention.",
             "messages": [
+              {
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": "128",
+                "tone": "data"
+              },
+              {
+                "from": "sram_bytes",
+                "to": "status",
+                "label": "233472",
+                "tone": "ok"
+              },
+              {
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": "128",
+                "tone": "data"
+              },
+              {
+                "from": "sram_bytes",
+                "to": "status",
+                "label": "233472",
+                "tone": "ok"
+              },
               {
                 "from": "head_dim",
                 "to": "sram_bytes",

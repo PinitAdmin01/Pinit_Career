@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Each Raft log slot stores three exact fields.",
+            "activeActor": "nid",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "nid",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each Raft log slot stores three exact fields.",
-            "activeActor": "nid",
+            "at": "say7",
+            "caption": "Construct the term-stamped LogEntry model and stale-term leader rejection.",
+            "activeActor": "term",
             "messages": [
+              {
+                "from": "self",
+                "to": "nid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nid",
+                "to": "term",
+                "label": {
+                  "var": "nid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "nid",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Construct the term-stamped LogEntry model and stale-term leader rejection.",
-            "activeActor": "term",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "nid",
@@ -118,12 +148,6 @@
                 "to": "nid",
                 "label": "<RaftFollowerBase>",
                 "tone": "data"
-              },
-              {
-                "from": "nid",
-                "to": "term",
-                "label": "'f1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "Construct the term-stamped LogEntry model and stale-term leader rejection.",
             "messages": [
+              {
+                "from": "self",
+                "to": "nid",
+                "label": "<RaftFollowerBase>",
+                "tone": "data"
+              },
+              {
+                "from": "nid",
+                "to": "term",
+                "label": "'f1'",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "nid",
+                "label": "<RaftFollowerBase>",
+                "tone": "data"
+              },
+              {
+                "from": "nid",
+                "to": "term",
+                "label": "'f1'",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "nid",
@@ -210,7 +258,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace both stale-conflict truncation and idempotent out-of-order retry.",
+            "caption": "Examine the enforcing value produced for raft processing.",
             "items": {
               "var": "entry",
               "line": 16,
@@ -262,7 +310,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace both stale-conflict truncation and idempotent out-of-order retry.",
+            "caption": "Examine the enforcing value produced for raft processing.",
             "items": [
               "1",
               "'a'"
@@ -304,6 +352,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If follower F crashed ten minutes earlier or holds divergent uncommitted.",
+            "activeActor": "leader_log",
+            "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "leader_log",
@@ -318,10 +383,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If follower F crashed ten minutes earlier or holds divergent uncommitted.",
-            "activeActor": "leader_log",
+            "at": "say7",
+            "caption": "Examine the next value produced for index processing.",
+            "activeActor": "rejection_info",
             "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": {
+                  "var": "leader_log",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "l_log",
                 "to": "leader_log",
@@ -341,14 +426,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Trace how watch updates dramatically during execution.",
-            "activeActor": "rejection_info",
-            "messages": [
+              },
               {
                 "from": "l_log",
                 "to": "leader_log",
@@ -391,12 +469,6 @@
                 "to": "leader_log",
                 "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
                 "tone": "data"
-              },
-              {
-                "from": "leader_log",
-                "to": "rejection_info",
-                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
-                "tone": "ok"
               }
             ],
             "activeActor": "l_log"
@@ -422,8 +494,32 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how watch updates dramatically during execution.",
+            "caption": "Examine the next value produced for index processing.",
             "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "ok"
+              },
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "ok"
+              },
               {
                 "from": "l_log",
                 "to": "leader_log",
@@ -468,6 +564,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Look closely at one of the most famous subtle correctness traps.",
+            "activeActor": "leader_log",
+            "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "leader_log",
@@ -482,10 +595,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Look closely at one of the most famous subtle correctness traps.",
-            "activeActor": "leader_log",
+            "at": "say8",
+            "caption": "Verify the Figure 8 commit guard below rejecting direct commit promotion.",
+            "activeActor": "current_term",
             "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "current_term",
+                "label": {
+                  "var": "leader_log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "l_log",
                 "to": "leader_log",
@@ -505,14 +638,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Verify the Figure 8 commit guard below rejecting direct commit promotion.",
-            "activeActor": "current_term",
-            "messages": [
+              },
               {
                 "from": "l_log",
                 "to": "leader_log",
@@ -555,12 +681,6 @@
                 "to": "leader_log",
                 "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
                 "tone": "data"
-              },
-              {
-                "from": "leader_log",
-                "to": "current_term",
-                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
-                "tone": "ok"
               }
             ],
             "activeActor": "l_log"
@@ -588,6 +708,30 @@
             "at": "say8",
             "caption": "Verify the Figure 8 commit guard below rejecting direct commit promotion.",
             "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "current_term",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "ok"
+              },
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "current_term",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "ok"
+              },
               {
                 "from": "l_log",
                 "to": "leader_log",
@@ -679,7 +823,7 @@
           },
           {
             "at": "say2",
-            "caption": "Notice carefully that exact clamping formula `min(leader_commit.",
+            "caption": "Verify the notice transition driving carefully behavior.",
             "values": {
               "logs": {
                 "var": "logs",
@@ -688,13 +832,13 @@
               },
               "states": {
                 "var": "states",
-                "line": 18,
+                "line": 20,
                 "hit": 1
               },
               "n": {
                 "var": "n",
-                "line": 19,
-                "hit": 1
+                "line": 18,
+                "hit": 2
               },
               "lg": {
                 "var": "lg",
@@ -734,13 +878,13 @@
               },
               "states": {
                 "var": "states",
-                "line": 19,
+                "line": 20,
                 "hit": 1
               },
               "n": {
                 "var": "n",
-                "line": 20,
-                "hit": 1
+                "line": 18,
+                "hit": 3
               },
               "lg": {
                 "var": "lg",
@@ -825,11 +969,11 @@
           },
           {
             "at": "say2",
-            "caption": "Notice carefully that exact clamping formula `min(leader_commit.",
+            "caption": "Verify the notice transition driving carefully behavior.",
             "values": {
               "logs": "{'leader': [[0, None], [1, 'set x 10'],…",
-              "states": "{'leader': {}, 'f1': {}, 'f2': {}}",
-              "n": "'leader'",
+              "states": "{'leader': {'x': '99', 'y': '20'}, 'f1'…",
+              "n": "'f1'",
               "lg": "[[0, None], [1, 'set x 10'], [2, 'set y…"
             },
             "tones": {
@@ -858,8 +1002,8 @@
             "caption": "Step through the follower commit clamping and end-to-end multi-node Raft.",
             "values": {
               "logs": "{'leader': [[0, None], [1, 'set x 10'],…",
-              "states": "{'leader': {}, 'f1': {}, 'f2': {}}",
-              "n": "'leader'",
+              "states": "{'leader': {'x': '99', 'y': '20'}, 'f1'…",
+              "n": "'f2'",
               "lg": "[[0, None], [1, 'set x 10'], [2, 'set y…"
             },
             "tones": {

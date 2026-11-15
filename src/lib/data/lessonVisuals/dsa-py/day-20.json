@@ -64,7 +64,7 @@
           },
           {
             "at": "say2",
-            "caption": "Edges can be undirected (a friendship goes both ways) or directed (a.",
+            "caption": "They can also have weights, like distances.",
             "values": {
               "a": {
                 "var": "a",
@@ -168,7 +168,7 @@
           },
           {
             "at": "say2",
-            "caption": "Edges can be undirected (a friendship goes both ways) or directed (a.",
+            "caption": "They can also have weights, like distances.",
             "values": {
               "a": "'Majestic'",
               "b": "'MG Road'",
@@ -264,23 +264,23 @@
             "values": {
               "start": {
                 "var": "start",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "target": {
                 "var": "target",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "node": {
                 "var": "node",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "dist": {
                 "var": "dist",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -296,23 +296,23 @@
             "values": {
               "start": {
                 "var": "start",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "target": {
                 "var": "target",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "node": {
                 "var": "node",
-                "line": 10,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "dist": {
                 "var": "dist",
-                "line": 10,
-                "hit": 1
+                "line": 7,
+                "hit": 4
               }
             },
             "tones": {
@@ -366,10 +366,10 @@
             "at": "say2",
             "caption": "Use a queue of (node, distance) pairs and a visited set.",
             "values": {
-              "start": "'A'",
-              "target": "'F'",
-              "node": "'A'",
-              "dist": "0"
+              "start": "'F'",
+              "target": "'A'",
+              "node": "'B'",
+              "dist": "1"
             },
             "tones": {
               "start": "data",
@@ -382,10 +382,10 @@
             "at": "say5",
             "caption": "BFS visits every node and edge at most once.",
             "values": {
-              "start": "'A'",
-              "target": "'F'",
-              "node": "'A'",
-              "dist": "0"
+              "start": "'F'",
+              "target": "'A'",
+              "node": "'C'",
+              "dist": "2"
             },
             "tones": {
               "start": "ok",
@@ -417,7 +417,7 @@
           },
           {
             "at": "say2",
-            "caption": "DFS does not find shortest paths, but it is ideal for \"can I reach this.",
+            "caption": "Verify the find transition driving shortest behavior.",
             "items": {
               "var": "visited",
               "line": 3,
@@ -453,7 +453,7 @@
           },
           {
             "at": "say2",
-            "caption": "DFS does not find shortest paths, but it is ideal for \"can I reach this.",
+            "caption": "Verify the find transition driving shortest behavior.",
             "mode": "queue",
             "items": [],
             "action": "enqueue"
@@ -565,7 +565,7 @@
           },
           {
             "at": "say5",
-            "caption": "Component counting finds friend circles, separate islands on a map,.",
+            "caption": "Examine the counting value produced for component processing.",
             "bars": [
               {
                 "label": "n",
@@ -665,7 +665,7 @@
           },
           {
             "at": "say5",
-            "caption": "Component counting finds friend circles, separate islands on a map,.",
+            "caption": "Examine the counting value produced for component processing.",
             "bars": [
               {
                 "label": "n",
@@ -785,7 +785,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For any graph problem, first decide what the nodes and edges are.",
+            "caption": "Sometimes they are given.",
             "bars": [
               {
                 "label": "steps",
@@ -863,7 +863,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "For any graph problem, first decide what the nodes and edges are.",
+            "caption": "Sometimes they are given.",
             "bars": [
               {
                 "label": "steps",

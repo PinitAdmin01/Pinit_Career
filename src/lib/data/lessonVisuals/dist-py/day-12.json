@@ -19,7 +19,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In event-driven systems, services publish events (\"OrderPlaced\".",
+            "caption": "Observe how events shapes event during this step.",
             "activeActor": "topic",
             "messages": [
               {
@@ -73,7 +73,7 @@
           },
           {
             "at": "say7",
-            "caption": "The rest of the lesson explains how Kafka splits a topic for scale without.",
+            "caption": "Examine the rest value produced for lesson processing.",
             "activeActor": "event",
             "messages": [
               {
@@ -111,7 +111,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In event-driven systems, services publish events (\"OrderPlaced\".",
+            "caption": "Observe how events shapes event during this step.",
             "messages": [
               {
                 "from": "topic",
@@ -149,7 +149,7 @@
           },
           {
             "at": "say7",
-            "caption": "The rest of the lesson explains how Kafka splits a topic for scale without.",
+            "caption": "Examine the rest value produced for lesson processing.",
             "messages": [
               {
                 "from": "topic",
@@ -493,7 +493,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how example updates assigns during execution.",
+            "caption": "Examine the example value produced for assigns processing.",
             "currentState": "c",
             "transition": {
               "from": "consumers",
@@ -545,7 +545,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how example updates assigns during execution.",
+            "caption": "Examine the example value produced for assigns processing.",
             "currentState": "c",
             "transition": {
               "from": "consumers",
@@ -816,6 +816,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Rising lag means consumers cannot keep up.",
+            "activeActor": "committed",
+            "messages": [
+              {
+                "from": "latest",
+                "to": "committed",
+                "label": {
+                  "var": "latest",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "committed",
@@ -830,10 +847,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Rising lag means consumers cannot keep up.",
-            "activeActor": "committed",
+            "at": "say7",
+            "caption": "Making sure each message has its effect exactly once, even though it may.",
+            "activeActor": "p",
             "messages": [
+              {
+                "from": "latest",
+                "to": "committed",
+                "label": {
+                  "var": "latest",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "committed",
+                "to": "p",
+                "label": {
+                  "var": "committed",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "latest",
                 "to": "committed",
@@ -853,14 +890,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Making sure each message has its effect exactly once, even though it may.",
-            "activeActor": "p",
-            "messages": [
+              },
               {
                 "from": "latest",
                 "to": "committed",
@@ -903,12 +933,6 @@
                 "to": "committed",
                 "label": "{0: 1500, 1: 1480, 2: 9200, 3: 1510}",
                 "tone": "data"
-              },
-              {
-                "from": "committed",
-                "to": "p",
-                "label": "{0: 1490, 1: 1480, 2: 3100, 3: 1500}",
-                "tone": "ok"
               }
             ],
             "activeActor": "latest"
@@ -936,6 +960,30 @@
             "at": "say7",
             "caption": "Making sure each message has its effect exactly once, even though it may.",
             "messages": [
+              {
+                "from": "latest",
+                "to": "committed",
+                "label": "{0: 1500, 1: 1480, 2: 9200, 3: 1510}",
+                "tone": "data"
+              },
+              {
+                "from": "committed",
+                "to": "p",
+                "label": "{0: 1490, 1: 1480, 2: 3100, 3: 1500}",
+                "tone": "ok"
+              },
+              {
+                "from": "latest",
+                "to": "committed",
+                "label": "{0: 1500, 1: 1480, 2: 9200, 3: 1510}",
+                "tone": "data"
+              },
+              {
+                "from": "committed",
+                "to": "p",
+                "label": "{0: 1490, 1: 1480, 2: 3100, 3: 1500}",
+                "tone": "ok"
+              },
               {
                 "from": "latest",
                 "to": "committed",

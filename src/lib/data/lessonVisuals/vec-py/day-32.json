@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invariants",
+      "partTitle": "Range-Stabilizing Sparse Scores with Min-Max Scaling",
       "codeHash": "b15f48bcee47ce3caae9eaa34a0390c5959673b35a65b9110617a48e4c9754b3",
       "spec": {
         "template": "cells",
@@ -46,7 +46,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the scaling value produced for outlier processing.",
             "items": {
               "var": "vals",
               "line": 8,
@@ -100,7 +100,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the scaling value produced for outlier processing.",
             "items": [
               "12.5",
               "4",
@@ -118,7 +118,7 @@
       }
     },
     {
-      "partTitle": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representation",
+      "partTitle": "Linear Convex Score Blending with Tunable Alpha Weights",
       "codeHash": "76eab2cbd498491be7dcea4f67b2584a1076d0e5c73b9e12a1601973aade7150",
       "spec": {
         "template": "cells",
@@ -158,7 +158,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the score value produced for inspecting processing.",
             "items": {
               "var": "x",
               "line": 9,
@@ -210,7 +210,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the score value produced for inspecting processing.",
             "items": [
               "103",
               "0.77"
@@ -227,7 +227,7 @@
       }
     },
     {
-      "partTitle": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Calibration-Free Rank Aggregation via Reciprocal Rank Fusion",
       "codeHash": "8b045df889ba7e43feede21b1045b4aa8739a4859ed31eba09a98a1ff8990c99",
       "spec": {
         "template": "flow",
@@ -271,16 +271,14 @@
                 "hit": 1
               },
               "sparse_rank": {
-                "var": "sparse_rank",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "dense_top": "data",
               "sparse_top": "data",
               "dense_rank": "data",
-              "sparse_rank": "data"
+              "sparse_rank": "idle"
             },
             "arrows": [
               [
@@ -345,7 +343,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the rank value produced for breaking processing.",
             "values": {
               "dense_top": {
                 "var": "dense_top",
@@ -420,13 +418,13 @@
               "dense_top": "[101, 102, 103, 104]",
               "sparse_top": "[103, 101, 105, 102]",
               "dense_rank": "[101, 102, 103, 104]",
-              "sparse_rank": "[103, 101, 105, 102]"
+              "sparse_rank": ""
             },
             "tones": {
               "dense_top": "data",
               "sparse_top": "data",
               "dense_rank": "data",
-              "sparse_rank": "data"
+              "sparse_rank": "idle"
             },
             "arrows": [
               [
@@ -475,7 +473,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the rank value produced for breaking processing.",
             "values": {
               "dense_top": "[101, 102, 103, 104]",
               "sparse_top": "[103, 101, 105, 102]",
@@ -507,7 +505,7 @@
       }
     },
     {
-      "partTitle": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Recovery",
+      "partTitle": "Graceful Single-Modality Degradation & Candidate Deduplication",
       "codeHash": "a58a3078e74abc1387d4800697f4cc4a6f44620fad5fd973ffb1625db9456b5d",
       "spec": {
         "template": "bars",
@@ -539,7 +537,7 @@
           },
           {
             "at": "say2",
-            "caption": "If the dense vector search service encounters an out-of-memory crash,.",
+            "caption": "Verify the dense transition driving vector behavior.",
             "bars": [
               {
                 "label": "d",
@@ -563,7 +561,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the resilience value produced for patterns processing.",
             "bars": [
               {
                 "label": "d",
@@ -609,7 +607,7 @@
           },
           {
             "at": "say2",
-            "caption": "If the dense vector search service encounters an out-of-memory crash,.",
+            "caption": "Verify the dense transition driving vector behavior.",
             "bars": [
               {
                 "label": "d",
@@ -625,7 +623,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the resilience value produced for patterns processing.",
             "bars": [
               {
                 "label": "d",
@@ -643,7 +641,7 @@
       }
     },
     {
-      "partTitle": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verification Audit",
+      "partTitle": "Dual-Retriever Candidate Pool Overlap & Jaccard Auditing",
       "codeHash": "7ca7b68d147124f0b72baaffa55e5a0ce5f0dfcb4b82ed04652683ab8a85903b",
       "spec": {
         "template": "cells",
@@ -683,7 +681,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the overlap value produced for jaccard processing.",
             "items": {
               "var": "dense_ids",
               "line": 7,
@@ -741,7 +739,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the overlap value produced for jaccard processing.",
             "items": [
               "1",
               "2",

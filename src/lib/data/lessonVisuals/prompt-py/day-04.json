@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because the model generates one token at a time, writing intermediate.",
+            "activeActor": "direct",
+            "messages": [
+              {
+                "from": "problem",
+                "to": "direct",
+                "label": {
+                  "var": "problem",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "direct",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Because the model generates one token at a time, writing intermediate.",
-            "activeActor": "direct",
+            "at": "say9",
+            "caption": "You can also ask the model to check its own work at the end, for example.",
+            "activeActor": "cot",
             "messages": [
+              {
+                "from": "problem",
+                "to": "direct",
+                "label": {
+                  "var": "problem",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "direct",
+                "to": "cot",
+                "label": {
+                  "var": "direct",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "problem",
                 "to": "direct",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "You can also ask the model to check its own work at the end, for example.",
-            "activeActor": "cot",
-            "messages": [
+              },
               {
                 "from": "problem",
                 "to": "direct",
@@ -118,12 +148,6 @@
                 "to": "direct",
                 "label": "'A shop sells pens at 12 rupees each. A…",
                 "tone": "data"
-              },
-              {
-                "from": "direct",
-                "to": "cot",
-                "label": "'A shop sells pens at 12 rupees each. A…",
-                "tone": "ok"
               }
             ],
             "activeActor": "problem"
@@ -151,6 +175,30 @@
             "at": "say9",
             "caption": "You can also ask the model to check its own work at the end, for example.",
             "messages": [
+              {
+                "from": "problem",
+                "to": "direct",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "data"
+              },
+              {
+                "from": "direct",
+                "to": "cot",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "ok"
+              },
+              {
+                "from": "problem",
+                "to": "direct",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "data"
+              },
+              {
+                "from": "direct",
+                "to": "cot",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "ok"
+              },
               {
                 "from": "problem",
                 "to": "direct",
@@ -463,8 +511,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how models updates random during execution.",
+            "caption": "Observe how models shapes random during this step.",
             "activeActor": "answers",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "norm",
+                "label": {
+                  "var": "answers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Self-consistency exploits this.",
+            "activeActor": "norm",
             "messages": [
               {
                 "from": "answers",
@@ -489,10 +554,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Self-consistency exploits this.",
-            "activeActor": "norm",
+            "at": "say8",
+            "caption": "Normalising answers before voting matters.",
+            "activeActor": "winner",
             "messages": [
+              {
+                "from": "answers",
+                "to": "norm",
+                "label": {
+                  "var": "answers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "norm",
+                "to": "winner",
+                "label": {
+                  "var": "norm",
+                  "line": 2,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
               {
                 "from": "answers",
                 "to": "norm",
@@ -512,14 +597,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Normalising answers before voting matters.",
-            "activeActor": "winner",
-            "messages": [
+              },
               {
                 "from": "answers",
                 "to": "norm",
@@ -555,19 +633,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how models updates random during execution.",
+            "caption": "Observe how models shapes random during this step.",
             "messages": [
               {
                 "from": "answers",
                 "to": "norm",
                 "label": "['16', ' 16', '26', '16 ', '16']",
                 "tone": "data"
-              },
-              {
-                "from": "norm",
-                "to": "winner",
-                "label": "['16', '16', '26', '16', '16']",
-                "tone": "ok"
               }
             ],
             "activeActor": "answers"
@@ -595,6 +667,30 @@
             "at": "say8",
             "caption": "Normalising answers before voting matters.",
             "messages": [
+              {
+                "from": "answers",
+                "to": "norm",
+                "label": "['16', ' 16', '26', '16 ', '16']",
+                "tone": "data"
+              },
+              {
+                "from": "norm",
+                "to": "winner",
+                "label": "['16', '16', '26', '16', '16']",
+                "tone": "ok"
+              },
+              {
+                "from": "answers",
+                "to": "norm",
+                "label": "['16', ' 16', '26', '16 ', '16']",
+                "tone": "data"
+              },
+              {
+                "from": "norm",
+                "to": "winner",
+                "label": "['16', '16', '26', '16', '16']",
+                "tone": "ok"
+              },
               {
                 "from": "answers",
                 "to": "norm",
@@ -803,6 +899,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If you would need scrap paper to solve it yourself, ask the model.",
+            "activeActor": "line",
+            "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": {
+                  "var": "reasoning",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "line",
@@ -817,10 +930,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "If you would need scrap paper to solve it yourself, ask the model.",
-            "activeActor": "line",
+            "at": "say9",
+            "caption": "The model is good at choosing the steps.",
+            "activeActor": "a",
             "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": {
+                  "var": "reasoning",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": {
+                  "var": "line",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "reasoning",
                 "to": "line",
@@ -840,14 +973,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "The model is good at choosing the steps.",
-            "activeActor": "a",
-            "messages": [
+              },
               {
                 "from": "reasoning",
                 "to": "line",
@@ -890,12 +1016,6 @@
                 "to": "line",
                 "label": "'7 x 12 = 84\n100 - 84 = 16\n16 x 3 = 58'",
                 "tone": "data"
-              },
-              {
-                "from": "line",
-                "to": "a",
-                "label": "'7 x 12 = 84'",
-                "tone": "ok"
               }
             ],
             "activeActor": "reasoning"
@@ -923,6 +1043,30 @@
             "at": "say9",
             "caption": "The model is good at choosing the steps.",
             "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": "'7 x 12 = 84\n100 - 84 = 16\n16 x 3 = 58'",
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": "'7 x 12 = 84'",
+                "tone": "ok"
+              },
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": "'7 x 12 = 84\n100 - 84 = 16\n16 x 3 = 58'",
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": "'7 x 12 = 84'",
+                "tone": "ok"
+              },
               {
                 "from": "reasoning",
                 "to": "line",
@@ -967,6 +1111,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the vote transition driving checks behavior.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": {
+                  "var": "replies",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "text",
@@ -981,10 +1142,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
-            "activeActor": "text",
+            "at": "say7",
+            "caption": "Milestone 1 tomorrow brings together tokens, costs and everything.",
+            "activeActor": "l",
             "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": {
+                  "var": "replies",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": {
+                  "var": "text",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "replies",
                 "to": "text",
@@ -1004,14 +1185,7 @@
                   "hit": 2
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Milestone 1 tomorrow brings together tokens, costs and everything.",
-            "activeActor": "l",
-            "messages": [
+              },
               {
                 "from": "replies",
                 "to": "text",
@@ -1054,19 +1228,13 @@
                 "to": "text",
                 "label": "['... Answer: 16', '... so 16 rupees', …",
                 "tone": "data"
-              },
-              {
-                "from": "text",
-                "to": "l",
-                "label": "'... Answer: 16'",
-                "tone": "ok"
               }
             ],
             "activeActor": "replies"
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the vote transition driving checks behavior.",
             "messages": [
               {
                 "from": "replies",
@@ -1087,6 +1255,30 @@
             "at": "say7",
             "caption": "Milestone 1 tomorrow brings together tokens, costs and everything.",
             "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": "['... Answer: 16', '... so 16 rupees', …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": "'... Answer: 16'",
+                "tone": "ok"
+              },
+              {
+                "from": "replies",
+                "to": "text",
+                "label": "['... Answer: 16', '... so 16 rupees', …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": "'... Answer: 16'",
+                "tone": "ok"
+              },
               {
                 "from": "replies",
                 "to": "text",

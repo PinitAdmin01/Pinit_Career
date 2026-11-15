@@ -87,18 +87,18 @@
               },
               "i": {
                 "var": "i",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "line": {
                 "var": "line",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "suspicious": {
                 "var": "suspicious",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -133,18 +133,18 @@
               },
               "i": {
                 "var": "i",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "line": {
                 "var": "line",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "suspicious": {
                 "var": "suspicious",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -227,9 +227,9 @@
             "caption": "Once committed, secrets live forever in version control history, even if.",
             "values": {
               "lines": "['DB_HOST = \"db.internal\"', 'DB_PASSWOR…",
-              "i": "1",
-              "line": "'DB_HOST = \"db.internal\"'",
-              "suspicious": "False"
+              "i": "2",
+              "line": "'DB_PASSWORD = \"Sup3r$ecretPassw0rd!\"'",
+              "suspicious": "True"
             },
             "tones": {
               "lines": "data",
@@ -257,8 +257,8 @@
             "caption": "Pre-commit hooks can scan changes before they ever leave a developer's machine.",
             "values": {
               "lines": "['DB_HOST = \"db.internal\"', 'DB_PASSWOR…",
-              "i": "1",
-              "line": "'DB_HOST = \"db.internal\"'",
+              "i": "3",
+              "line": "'API_KEY = os_env_lookup(\"API_KEY\")'",
               "suspicious": "False"
             },
             "tones": {
@@ -289,162 +289,184 @@
       "partTitle": "Shannon entropy",
       "codeHash": "60ac40cfd0e8801e1bfcb6b279fe990d77b81445b9d0b6fa58eb97f5b1f84d23",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Shannon entropy",
-        "actors": [
-          "s",
-          "n",
-          ".0"
+        "nodes": [
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real secrets are usually random-looking strings, while ordinary words.",
-            "activeActor": "s",
-            "messages": [
-              {
-                "from": "s",
-                "to": "n",
-                "label": {
-                  "var": "s",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Real secrets are usually random-looking strings.",
+            "values": {
+              "s": {
+                "var": "s",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "n",
-                "to": ".0",
-                "label": {
-                  "var": "n",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "n": {
+                "text": ""
+              },
+              "c": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "s": "data",
+              "n": "idle",
+              "c": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "That difference is measurable, which lets a program find secrets it has.",
-            "activeActor": "n",
-            "messages": [
-              {
-                "from": "s",
-                "to": "n",
-                "label": {
-                  "var": "s",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "That difference is measurable.",
+            "values": {
+              "s": {
+                "text": ""
               },
-              {
-                "from": "n",
-                "to": ".0",
-                "label": {
-                  "var": "n",
-                  "line": 6,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "n": {
+                "text": ""
+              },
+              "c": {
+                "var": "c",
+                "line": 6,
+                "hit": 4
               }
+            },
+            "tones": {
+              "s": "idle",
+              "n": "idle",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "s",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Password strength meters use related ideas to estimate how hard a password.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "s",
-                "to": "n",
-                "label": {
-                  "var": "s",
-                  "line": 6,
-                  "hit": 3
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Shannon entropy measures unpredictability.",
+            "values": {
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 4
               },
-              {
-                "from": "n",
-                "to": ".0",
-                "label": {
-                  "var": "n",
-                  "line": 5,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 4
+              },
+              "c": {
+                "text": ""
               }
+            },
+            "tones": {
+              "s": "ok",
+              "n": "ok",
+              "c": "idle"
+            },
+            "arrows": [
+              [
+                "s",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Shannon entropy",
-        "actors": [
-          "s",
-          "n",
-          ".0"
+        "nodes": [
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
+          },
+          {
+            "id": "c",
+            "label": "c",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real secrets are usually random-looking strings, while ordinary words.",
-            "messages": [
-              {
-                "from": "s",
-                "to": "n",
-                "label": "'aaaaaaaa'",
-                "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": ".0",
-                "label": "8",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "s"
+            "caption": "Real secrets are usually random-looking strings.",
+            "values": {
+              "s": "'aaaaaaaa'",
+              "n": "",
+              "c": ""
+            },
+            "tones": {
+              "s": "data",
+              "n": "idle",
+              "c": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "That difference is measurable, which lets a program find secrets it has.",
-            "messages": [
-              {
-                "from": "s",
-                "to": "n",
-                "label": "'aaaaaaaa'",
-                "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": ".0",
-                "label": "8",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "n"
+            "caption": "That difference is measurable.",
+            "values": {
+              "s": "",
+              "n": "",
+              "c": "1"
+            },
+            "tones": {
+              "s": "idle",
+              "n": "idle",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "s",
+                "n"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Password strength meters use related ideas to estimate how hard a password.",
-            "messages": [
-              {
-                "from": "s",
-                "to": "n",
-                "label": "'aaaaaaaa'",
-                "tone": "data"
-              },
-              {
-                "from": "n",
-                "to": ".0",
-                "label": "8",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Shannon entropy measures unpredictability.",
+            "values": {
+              "s": "'Xq7!vR2#pL9@zK4$'",
+              "n": "16",
+              "c": ""
+            },
+            "tones": {
+              "s": "ok",
+              "n": "ok",
+              "c": "idle"
+            },
+            "arrows": [
+              [
+                "s",
+                "n"
+              ]
+            ]
           }
         ]
       }
@@ -478,7 +500,7 @@
           },
           {
             "at": "say2",
-            "caption": "Known formats include AWS access keys (AKIA followed by 16 uppercase.",
+            "caption": "Verify the known transition driving formats behavior.",
             "currentState": "i",
             "transition": {
               "from": "config",
@@ -534,7 +556,7 @@
           },
           {
             "at": "say2",
-            "caption": "Known formats include AWS access keys (AKIA followed by 16 uppercase.",
+            "caption": "Verify the known transition driving formats behavior.",
             "currentState": "i",
             "transition": {
               "from": "config",
@@ -586,7 +608,7 @@
           },
           {
             "at": "say2",
-            "caption": "Secrets managers control who can read each secret, log every access,.",
+            "caption": "Verify the secrets transition driving managers behavior.",
             "currentState": "name",
             "transition": {
               "from": "fake_environment",
@@ -642,7 +664,7 @@
           },
           {
             "at": "say2",
-            "caption": "Secrets managers control who can read each secret, log every access,.",
+            "caption": "Verify the secrets transition driving managers behavior.",
             "currentState": "name",
             "transition": {
               "from": "fake_environment",
@@ -832,7 +854,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates character during execution.",
+            "caption": "Verify the checks transition driving character behavior.",
             "values": {
               "text": {
                 "var": "text",
@@ -841,18 +863,18 @@
               },
               "i": {
                 "var": "i",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "line": {
                 "var": "line",
-                "line": 10,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "m": {
                 "var": "m",
-                "line": 11,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -864,7 +886,7 @@
           },
           {
             "at": "say9",
-            "caption": "Tune thresholds using your own code base, balancing missed secrets against.",
+            "caption": "Examine the tune value produced for thresholds processing.",
             "values": {
               "text": {
                 "var": "text",
@@ -873,17 +895,17 @@
               },
               "i": {
                 "var": "i",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "line": {
                 "var": "line",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "m": {
                 "var": "m",
-                "line": 9,
+                "line": 10,
                 "hit": 2
               }
             },
@@ -936,12 +958,12 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates character during execution.",
+            "caption": "Verify the checks transition driving character behavior.",
             "values": {
               "text": "'debug = true\nsecret_key = \"Zx8#qP2!mW7…",
-              "i": "1",
-              "line": "'debug = true'",
-              "m": "None"
+              "i": "2",
+              "line": "'secret_key = \"Zx8#qP2!mW7vL4@tR9sY\"'",
+              "m": "<Match>"
             },
             "tones": {
               "text": "data",
@@ -952,12 +974,12 @@
           },
           {
             "at": "say9",
-            "caption": "Tune thresholds using your own code base, balancing missed secrets against.",
+            "caption": "Examine the tune value produced for thresholds processing.",
             "values": {
               "text": "'debug = true\nsecret_key = \"Zx8#qP2!mW7…",
-              "i": "1",
-              "line": "'debug = true'",
-              "m": "None"
+              "i": "3",
+              "line": "'password = \"aaaaaaaaaaaaaaaaaaaa\"'",
+              "m": "<Match>"
             },
             "tones": {
               "text": "ok",

@@ -311,6 +311,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "So its time is 2(p 1) (latency + (size / p) / bandwidth).",
+            "activeActor": "size_mb",
+            "messages": [
+              {
+                "from": "p",
+                "to": "size_mb",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "size_mb",
@@ -325,10 +342,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "So its time is 2(p 1) (latency + (size / p) / bandwidth).",
-            "activeActor": "size_mb",
+            "at": "say10",
+            "caption": "This formula lets you predict whether communication will be a bottleneck.",
+            "activeActor": "lat_us",
             "messages": [
+              {
+                "from": "p",
+                "to": "size_mb",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": {
+                  "var": "size_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "p",
                 "to": "size_mb",
@@ -348,14 +385,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "This formula lets you predict whether communication will be a bottleneck.",
-            "activeActor": "lat_us",
-            "messages": [
+              },
               {
                 "from": "p",
                 "to": "size_mb",
@@ -398,12 +428,6 @@
                 "to": "size_mb",
                 "label": "8",
                 "tone": "data"
-              },
-              {
-                "from": "size_mb",
-                "to": "lat_us",
-                "label": "1000",
-                "tone": "ok"
               }
             ],
             "activeActor": "p"
@@ -431,6 +455,30 @@
             "at": "say10",
             "caption": "This formula lets you predict whether communication will be a bottleneck.",
             "messages": [
+              {
+                "from": "p",
+                "to": "size_mb",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": "1000",
+                "tone": "ok"
+              },
+              {
+                "from": "p",
+                "to": "size_mb",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": "1000",
+                "tone": "ok"
+              },
               {
                 "from": "p",
                 "to": "size_mb",
@@ -664,7 +712,7 @@
           },
           {
             "at": "say2",
-            "caption": "Compute time per step is about 6 parameters tokens per step (GPU FLOPs.",
+            "caption": "Verify the compute transition driving time behavior.",
             "bars": [
               {
                 "label": "params",
@@ -780,7 +828,7 @@
           },
           {
             "at": "say2",
-            "caption": "Compute time per step is about 6 parameters tokens per step (GPU FLOPs.",
+            "caption": "Verify the compute transition driving time behavior.",
             "bars": [
               {
                 "label": "params",
@@ -875,7 +923,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how gradient updates accumulation during execution.",
+            "caption": "Verify the gradient transition driving accumulation behavior.",
             "bars": [
               {
                 "label": "base_mb",
@@ -968,7 +1016,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how gradient updates accumulation during execution.",
+            "caption": "Verify the gradient transition driving accumulation behavior.",
             "bars": [
               {
                 "label": "base_mb",
@@ -1084,7 +1132,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "name": {
                 "var": "name",
@@ -1230,7 +1278,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates include during execution.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
               "name": "'1.3B'",
               "params": "1300000000",

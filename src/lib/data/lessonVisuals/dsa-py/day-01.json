@@ -726,7 +726,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how quadratic updates time during execution.",
+            "caption": "Observe how quadratic shapes time during this step.",
             "bars": [
               {
                 "label": "i",
@@ -804,7 +804,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how quadratic updates time during execution.",
+            "caption": "Observe how quadratic shapes time during this step.",
             "bars": [
               {
                 "label": "i",

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the shard transition driving sharding behavior.",
+            "activeActor": "bytes_per_row",
+            "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": {
+                  "var": "rows_per_day",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bytes_per_row",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Sharding (horizontal partitioning) splits the rows of a table across.",
-            "activeActor": "bytes_per_row",
+            "at": "say7",
+            "caption": "The example estimates when a single server runs out of room.",
+            "activeActor": "server_capacity_tb",
             "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": {
+                  "var": "rows_per_day",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": {
+                  "var": "bytes_per_row",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "rows_per_day",
                 "to": "bytes_per_row",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example estimates when a single server runs out of room.",
-            "activeActor": "server_capacity_tb",
-            "messages": [
+              },
               {
                 "from": "rows_per_day",
                 "to": "bytes_per_row",
@@ -118,19 +148,13 @@
                 "to": "bytes_per_row",
                 "label": "2000000",
                 "tone": "data"
-              },
-              {
-                "from": "bytes_per_row",
-                "to": "server_capacity_tb",
-                "label": "1000",
-                "tone": "ok"
               }
             ],
             "activeActor": "rows_per_day"
           },
           {
             "at": "say2",
-            "caption": "Sharding (horizontal partitioning) splits the rows of a table across.",
+            "caption": "Verify the shard transition driving sharding behavior.",
             "messages": [
               {
                 "from": "rows_per_day",
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "The example estimates when a single server runs out of room.",
             "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": "2000000",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": "1000",
+                "tone": "ok"
+              },
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": "2000000",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": "1000",
+                "tone": "ok"
+              },
               {
                 "from": "rows_per_day",
                 "to": "bytes_per_row",
@@ -285,7 +333,7 @@
             "caption": "Range sharding assigns contiguous key ranges to shards.",
             "values": {
               "user_id": "1",
-              "new_signups": "{'__other__': 'range'}"
+              "new_signups": "<range>"
             },
             "tones": {
               "user_id": "data",
@@ -303,7 +351,7 @@
             "caption": "Range_shard(user_id) returns shard_1 for up to 1000, shard_2 for up.",
             "values": {
               "user_id": "1",
-              "new_signups": "{'__other__': 'range'}"
+              "new_signups": "<range>"
             },
             "tones": {
               "user_id": "data",
@@ -321,7 +369,7 @@
             "caption": "The example routes a few ids and shows how new users pile onto the last range.",
             "values": {
               "user_id": "1000",
-              "new_signups": "{'__other__': 'range'}"
+              "new_signups": "<range>"
             },
             "tones": {
               "user_id": "ok",
@@ -598,6 +646,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Consistent hashing or a fixed large number of logical shards avoids that.",
+            "activeActor": "placement",
+            "messages": [
+              {
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": {
+                  "var": "LOGICAL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "placement",
@@ -612,10 +677,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Consistent hashing or a fixed large number of logical shards avoids that.",
-            "activeActor": "placement",
+            "at": "say7",
+            "caption": "The example maps logical shards to servers and moves some to a new server.",
+            "activeActor": "ls",
             "messages": [
+              {
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": {
+                  "var": "LOGICAL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": {
+                  "var": "placement",
+                  "line": 2,
+                  "hit": 17
+                },
+                "tone": "ok"
+              },
               {
                 "from": "LOGICAL",
                 "to": "placement",
@@ -635,14 +720,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example maps logical shards to servers and moves some to a new server.",
-            "activeActor": "ls",
-            "messages": [
+              },
               {
                 "from": "LOGICAL",
                 "to": "placement",
@@ -685,12 +763,6 @@
                 "to": "placement",
                 "label": "16",
                 "tone": "data"
-              },
-              {
-                "from": "placement",
-                "to": "ls",
-                "label": "{0: 'server-0', 1: 'server-1', 2: 'serv…",
-                "tone": "ok"
               }
             ],
             "activeActor": "LOGICAL"
@@ -718,6 +790,30 @@
             "at": "say7",
             "caption": "The example maps logical shards to servers and moves some to a new server.",
             "messages": [
+              {
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": "{0: 'server-0', 1: 'server-1', 2: 'serv…",
+                "tone": "ok"
+              },
+              {
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": "{0: 'server-0', 1: 'server-1', 2: 'serv…",
+                "tone": "ok"
+              },
               {
                 "from": "LOGICAL",
                 "to": "placement",
@@ -777,7 +873,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how query updates without during execution.",
+            "caption": "Verify the across transition driving query behavior.",
             "activeActor": "r",
             "messages": [
               {
@@ -861,7 +957,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how query updates without during execution.",
+            "caption": "Verify the across transition driving query behavior.",
             "messages": [
               {
                 "from": "shards",

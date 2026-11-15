@@ -19,7 +19,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how event updates arrives during execution.",
+            "caption": "Observe how event shapes arrives during this step.",
             "activeActor": "flow",
             "messages": [
               {
@@ -111,7 +111,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how event updates arrives during execution.",
+            "caption": "Observe how event shapes arrives during this step.",
             "messages": [
               {
                 "from": "flow",
@@ -194,6 +194,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Return DUPLICATE_DROPPED straight away, without running any step.",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": {
+                  "var": "store",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "event",
@@ -208,10 +225,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Return DUPLICATE_DROPPED straight away, without running any step.",
+            "at": "say7",
+            "caption": "The example sends the same event twice.",
             "activeActor": "event",
             "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": {
+                  "var": "store",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "store",
+                "label": {
+                  "var": "event",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "store",
                 "to": "event",
@@ -231,14 +268,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example sends the same event twice.",
-            "activeActor": "event",
-            "messages": [
+              },
               {
                 "from": "store",
                 "to": "event",
@@ -280,12 +310,6 @@
                 "to": "event",
                 "label": "{}",
                 "tone": "data"
-              },
-              {
-                "from": "event",
-                "to": "store",
-                "label": "{'key': 'idemp_u42_order-7', 'amount': …",
-                "tone": "ok"
               }
             ],
             "activeActor": "store"
@@ -313,6 +337,30 @@
             "at": "say7",
             "caption": "The example sends the same event twice.",
             "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "store",
+                "label": "{'key': 'idemp_u42_order-7', 'amount': …",
+                "tone": "ok"
+              },
+              {
+                "from": "store",
+                "to": "event",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "store",
+                "label": "{'key': 'idemp_u42_order-7', 'amount': …",
+                "tone": "ok"
+              },
               {
                 "from": "store",
                 "to": "event",
@@ -357,6 +405,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Otherwise run each step's execute(), remembering finished steps.",
+            "activeActor": "store",
+            "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": {
+                  "var": "log",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "store",
@@ -371,10 +436,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Otherwise run each step's execute(), remembering finished steps.",
-            "activeActor": "store",
+            "at": "say7",
+            "caption": "The example runs a successful order, a duplicate, and an order whose.",
+            "activeActor": "dlq",
             "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": {
+                  "var": "log",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": {
+                  "var": "store",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "log",
                 "to": "store",
@@ -394,14 +479,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example runs a successful order, a duplicate, and an order whose.",
-            "activeActor": "dlq",
-            "messages": [
+              },
               {
                 "from": "log",
                 "to": "store",
@@ -444,12 +522,6 @@
                 "to": "store",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "store",
-                "to": "dlq",
-                "label": "{}",
-                "tone": "ok"
               }
             ],
             "activeActor": "log"
@@ -488,6 +560,30 @@
                 "to": "dlq",
                 "label": "{}",
                 "tone": "ok"
+              },
+              {
+                "from": "log",
+                "to": "store",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": "{}",
+                "tone": "ok"
+              },
+              {
+                "from": "log",
+                "to": "store",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": "{}",
+                "tone": "ok"
               }
             ],
             "activeActor": "dlq"
@@ -499,162 +595,190 @@
       "partTitle": "Measuring duration",
       "codeHash": "fade56ccb3b826096637a8cb8ebcc7532b5041d0228ff8d180ebc1980a207058",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Measuring duration",
-        "actors": [
-          "clock",
-          "durations",
-          "tx"
+        "nodes": [
+          {
+            "id": "durations",
+            "label": "durations",
+            "tappable": true
+          },
+          {
+            "id": "tx",
+            "label": "tx",
+            "tappable": true
+          },
+          {
+            "id": "start",
+            "label": "start",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tx_duration(start_ms, end_ms) returns the time taken as a string like \"125ms\".",
-            "activeActor": "clock",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "durations",
-                "label": {
-                  "var": "clock",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect duration updates as durations tracks practice state.",
+            "values": {
+              "durations": {
+                "var": "durations",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "from": "durations",
-                "to": "tx",
-                "label": {
-                  "var": "durations",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "tx": {
+                "text": ""
+              },
+              "start": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "durations": "data",
+              "tx": "idle",
+              "start": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Measure each transaction and each step.",
-            "activeActor": "durations",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "durations",
-                "label": {
-                  "var": "clock",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "values": {
+              "durations": {
+                "var": "durations",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "from": "durations",
-                "to": "tx",
-                "label": {
-                  "var": "durations",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "tx": {
+                "var": "tx",
+                "line": 7,
+                "hit": 2
+              },
+              "start": {
+                "var": "start",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "durations": "data",
+              "tx": "data",
+              "start": "data"
+            },
+            "arrows": [
+              [
+                "durations",
+                "tx"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example times three transactions with a fake clock.",
-            "activeActor": "tx",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "durations",
-                "label": {
-                  "var": "clock",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the measurement value produced for step processing.",
+            "values": {
+              "durations": {
+                "var": "durations",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "from": "durations",
-                "to": "tx",
-                "label": {
-                  "var": "durations",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "tx": {
+                "var": "tx",
+                "line": 8,
+                "hit": 3
+              },
+              "start": {
+                "var": "start",
+                "line": 8,
+                "hit": 3
               }
+            },
+            "tones": {
+              "durations": "ok",
+              "tx": "ok",
+              "start": "ok"
+            },
+            "arrows": [
+              [
+                "durations",
+                "tx"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Measuring duration",
-        "actors": [
-          "clock",
-          "durations",
-          "tx"
+        "nodes": [
+          {
+            "id": "durations",
+            "label": "durations",
+            "tappable": true
+          },
+          {
+            "id": "tx",
+            "label": "tx",
+            "tappable": true
+          },
+          {
+            "id": "start",
+            "label": "start",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tx_duration(start_ms, end_ms) returns the time taken as a string like \"125ms\".",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "durations",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "durations",
-                "to": "tx",
-                "label": "[]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "clock"
+            "caption": "Inspect duration updates as durations tracks practice state.",
+            "values": {
+              "durations": "[]",
+              "tx": "",
+              "start": ""
+            },
+            "tones": {
+              "durations": "data",
+              "tx": "idle",
+              "start": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Measure each transaction and each step.",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "durations",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "durations",
-                "to": "tx",
-                "label": "[]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "durations"
+            "values": {
+              "durations": "[125]",
+              "tx": "'k2'",
+              "start": "2000"
+            },
+            "tones": {
+              "durations": "data",
+              "tx": "data",
+              "start": "data"
+            },
+            "arrows": [
+              [
+                "durations",
+                "tx"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The example times three transactions with a fake clock.",
-            "messages": [
-              {
-                "from": "clock",
-                "to": "durations",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "data"
-              },
-              {
-                "from": "durations",
-                "to": "tx",
-                "label": "[]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "tx"
+            "at": "say3",
+            "caption": "Examine the measurement value produced for step processing.",
+            "values": {
+              "durations": "[125, 90, 700]",
+              "tx": "'k3'",
+              "start": "3000"
+            },
+            "tones": {
+              "durations": "ok",
+              "tx": "ok",
+              "start": "ok"
+            },
+            "arrows": [
+              [
+                "durations",
+                "tx"
+              ]
+            ]
           }
         ]
       }
@@ -736,12 +860,12 @@
             "values": {
               "store": {
                 "var": "store",
-                "line": 15,
+                "line": 10,
                 "hit": 1
               },
               "dlq": {
                 "var": "dlq",
-                "line": 15,
+                "line": 7,
                 "hit": 1
               },
               "cases": {
@@ -751,8 +875,8 @@
               },
               "key": {
                 "var": "key",
-                "line": 21,
-                "hit": 1
+                "line": 20,
+                "hit": 2
               }
             },
             "tones": {
@@ -782,13 +906,13 @@
             "values": {
               "store": {
                 "var": "store",
-                "line": 16,
+                "line": 10,
                 "hit": 1
               },
               "dlq": {
                 "var": "dlq",
-                "line": 16,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "cases": {
                 "var": "cases",
@@ -797,8 +921,8 @@
               },
               "key": {
                 "var": "key",
-                "line": 22,
-                "hit": 1
+                "line": 20,
+                "hit": 3
               }
             },
             "tones": {
@@ -880,10 +1004,10 @@
             "at": "say2",
             "caption": "Write each test as a small table row.",
             "values": {
-              "store": "{'done-key': 'COMMITTED'}",
-              "dlq": "[]",
+              "store": "{'done-key': 'COMMITTED', 'new': 'COMMI…",
+              "dlq": "['fail-first']",
               "cases": "[['new', [['a', False], ['b', False]], …",
-              "key": "'new'"
+              "key": "'done-key'"
             },
             "tones": {
               "store": "data",
@@ -910,10 +1034,10 @@
             "at": "say7",
             "caption": "The example runs four scenarios and asserts the results.",
             "values": {
-              "store": "{'done-key': 'COMMITTED'}",
-              "dlq": "[]",
+              "store": "{'done-key': 'COMMITTED', 'new': 'COMMI…",
+              "dlq": "['fail-first', 'fail-last']",
               "cases": "[['new', [['a', False], ['b', False]], …",
-              "key": "'new'"
+              "key": "'fail-first'"
             },
             "tones": {
               "store": "ok",

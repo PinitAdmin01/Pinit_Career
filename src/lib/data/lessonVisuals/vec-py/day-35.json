@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 7 — Foundations & Mathematical Invariants",
+      "partTitle": "Stage-One Coarse Filtering Using 64D Matryoshka Prefixes",
       "codeHash": "8b58228f7d2c69f9f1503d4891819fea2d32589fe9a433d45450cb55b68e8ef5",
       "spec": {
         "template": "bars",
@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production search architectures must solve the fundamental tradeoff.",
+            "caption": "Observe how high shapes volume during this step.",
             "bars": [
               {
                 "label": "top_k",
@@ -98,7 +98,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the stage value produced for prefixes processing.",
             "bars": [
               {
                 "label": "top_k",
@@ -146,7 +146,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Production search architectures must solve the fundamental tradeoff.",
+            "caption": "Observe how high shapes volume during this step.",
             "bars": [
               {
                 "label": "top_k",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the stage value produced for prefixes processing.",
             "bars": [
               {
                 "label": "top_k",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "partTitle": "Milestone 7 — Core Algorithm & State Representation",
+      "partTitle": "Stage-Two Precision Reranking with ColBERT Token Sequences",
       "codeHash": "5568feba261a00a9b35fd5bd8f4566a758bc73579f0e749b28f38cd6ddd529ca",
       "spec": {
         "template": "bars",
@@ -276,7 +276,7 @@
           },
           {
             "at": "say2",
-            "caption": "Because stage one reduces candidate counts by ninety-nine percent,.",
+            "caption": "Verify the stage transition driving because behavior.",
             "bars": [
               {
                 "label": "doc_id",
@@ -318,7 +318,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the stage value produced for comparing processing.",
             "bars": [
               {
                 "label": "doc_id",
@@ -392,7 +392,7 @@
           },
           {
             "at": "say2",
-            "caption": "Because stage one reduces candidate counts by ninety-nine percent,.",
+            "caption": "Verify the stage transition driving because behavior.",
             "bars": [
               {
                 "label": "doc_id",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the stage value produced for comparing processing.",
             "bars": [
               {
                 "label": "doc_id",
@@ -446,7 +446,7 @@
       }
     },
     {
-      "partTitle": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Orchestrating the Unified MRL-ColBERT Retrieval Cascade",
       "codeHash": "8c3e9c40403a42a710e8802e0e948c77ab00f36ee5db8cc628f9e5fb5f52436c",
       "spec": {
         "template": "bars",
@@ -538,7 +538,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the propagating value produced for request processing.",
             "bars": [
               {
                 "label": "a",
@@ -638,7 +638,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the propagating value produced for request processing.",
             "bars": [
               {
                 "label": "a",
@@ -666,33 +666,32 @@
       }
     },
     {
-      "partTitle": "Milestone 7 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a466c10d9e9f39569f083d4fadb59e9d2f7282ddd0de2e62b87292153eabe2bb",
+      "partTitle": "Coarse Survivor Fallback When Stage-Two Scoring Degrades",
+      "codeHash": "c9e07ab99a6f883eb60a278767d42a9b64250466bebfe44f6fa0a69687faa686",
       "spec": {
         "template": "flow",
-        "title": "Milestone 7 — Resilience Guardrails & Failure Recovery",
+        "title": "Coarse Survivor Fallback When Stage-Two Scoring Degrades",
         "nodes": [
           {
             "id": "candidates",
-            "label": "candidates"
+            "label": "candidates",
+            "tappable": true
           },
           {
             "id": "fallback_limit",
-            "label": "fallback_limit"
+            "label": "fallback_limit",
+            "tappable": true
           },
           {
-            "id": "c",
-            "label": "c"
-          },
-          {
-            "id": "fallback_res",
-            "label": "fallback_res"
+            "id": "selected",
+            "label": "selected",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In high-traffic cloud environments, unexpected surges or temporary data.",
+            "caption": "Inspect stage updates as candidates tracks high state.",
             "values": {
               "candidates": {
                 "var": "candidates",
@@ -704,127 +703,76 @@
                 "line": 2,
                 "hit": 1
               },
-              "c": {
-                "var": "c",
-                "line": 4,
-                "hit": 1
-              },
-              "fallback_res": {
-                "var": "fallback_res",
-                "line": 6,
-                "hit": 1
+              "selected": {
+                "text": ""
               }
             },
             "tones": {
               "candidates": "data",
               "fallback_limit": "data",
-              "c": "data",
-              "fallback_res": "data"
+              "selected": "idle"
             },
-            "arrows": [
-              [
-                "candidates",
-                "fallback_limit"
-              ],
-              [
-                "fallback_limit",
-                "c"
-              ],
-              [
-                "c",
-                "fallback_res"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If the document token store experiences a timeout, the pipeline must.",
+            "caption": "Verify the document transition driving token behavior.",
             "values": {
               "candidates": {
                 "var": "candidates",
-                "line": 4,
+                "line": 9,
                 "hit": 1
               },
               "fallback_limit": {
                 "var": "fallback_limit",
-                "line": 4,
+                "line": 9,
                 "hit": 1
               },
-              "c": {
-                "var": "c",
-                "line": 4,
-                "hit": 1
-              },
-              "fallback_res": {
-                "var": "fallback_res",
-                "line": 7,
+              "selected": {
+                "var": "selected",
+                "line": 9,
                 "hit": 1
               }
             },
             "tones": {
               "candidates": "data",
               "fallback_limit": "data",
-              "c": "data",
-              "fallback_res": "data"
+              "selected": "data"
             },
             "arrows": [
               [
                 "candidates",
                 "fallback_limit"
-              ],
-              [
-                "fallback_limit",
-                "c"
-              ],
-              [
-                "c",
-                "fallback_res"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the fallback value produced for stage processing.",
             "values": {
               "candidates": {
                 "var": "candidates",
-                "line": 4,
+                "line": 2,
                 "hit": 2
               },
               "fallback_limit": {
                 "var": "fallback_limit",
-                "line": 4,
+                "line": 2,
                 "hit": 2
               },
-              "c": {
-                "var": "c",
-                "line": 4,
-                "hit": 1
-              },
-              "fallback_res": {
-                "var": "fallback_res",
-                "line": 7,
-                "hit": 1
+              "selected": {
+                "text": ""
               }
             },
             "tones": {
               "candidates": "ok",
               "fallback_limit": "ok",
-              "c": "ok",
-              "fallback_res": "ok"
+              "selected": "idle"
             },
             "arrows": [
               [
                 "candidates",
                 "fallback_limit"
-              ],
-              [
-                "fallback_limit",
-                "c"
-              ],
-              [
-                "c",
-                "fallback_res"
               ]
             ]
           }
@@ -832,113 +780,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone 7 — Resilience Guardrails & Failure Recovery",
+        "title": "Coarse Survivor Fallback When Stage-Two Scoring Degrades",
         "nodes": [
           {
             "id": "candidates",
-            "label": "candidates"
+            "label": "candidates",
+            "tappable": true
           },
           {
             "id": "fallback_limit",
-            "label": "fallback_limit"
+            "label": "fallback_limit",
+            "tappable": true
           },
           {
-            "id": "c",
-            "label": "c"
-          },
-          {
-            "id": "fallback_res",
-            "label": "fallback_res"
+            "id": "selected",
+            "label": "selected",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In high-traffic cloud environments, unexpected surges or temporary data.",
+            "caption": "Inspect stage updates as candidates tracks high state.",
             "values": {
               "candidates": "[{'id': 10}, {'id': 20}]",
               "fallback_limit": "1",
-              "c": "{'id': 10}",
-              "fallback_res": "[10]"
+              "selected": ""
             },
             "tones": {
               "candidates": "data",
               "fallback_limit": "data",
-              "c": "data",
-              "fallback_res": "data"
+              "selected": "idle"
             },
-            "arrows": [
-              [
-                "candidates",
-                "fallback_limit"
-              ],
-              [
-                "fallback_limit",
-                "c"
-              ],
-              [
-                "c",
-                "fallback_res"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "If the document token store experiences a timeout, the pipeline must.",
+            "caption": "Verify the document transition driving token behavior.",
             "values": {
               "candidates": "[{'id': 10}, {'id': 20}]",
               "fallback_limit": "1",
-              "c": "{'id': 10}",
-              "fallback_res": "[10]"
+              "selected": "[]"
             },
             "tones": {
               "candidates": "data",
               "fallback_limit": "data",
-              "c": "data",
-              "fallback_res": "data"
+              "selected": "data"
             },
             "arrows": [
               [
                 "candidates",
                 "fallback_limit"
-              ],
-              [
-                "fallback_limit",
-                "c"
-              ],
-              [
-                "c",
-                "fallback_res"
               ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "at": "say3",
+            "caption": "Examine the fallback value produced for stage processing.",
             "values": {
-              "candidates": "[{'id': 10}, {'id': 20}]",
-              "fallback_limit": "1",
-              "c": "{'id': 10}",
-              "fallback_res": "[10]"
+              "candidates": "[]",
+              "fallback_limit": "3",
+              "selected": ""
             },
             "tones": {
               "candidates": "ok",
               "fallback_limit": "ok",
-              "c": "ok",
-              "fallback_res": "ok"
+              "selected": "idle"
             },
             "arrows": [
               [
                 "candidates",
                 "fallback_limit"
-              ],
-              [
-                "fallback_limit",
-                "c"
-              ],
-              [
-                "c",
-                "fallback_res"
               ]
             ]
           }
@@ -946,33 +858,32 @@
       }
     },
     {
-      "partTitle": "Milestone 7 — Production Telemetry & Verification Audit",
-      "codeHash": "ae2be95e0af6fac6f7bc4e5cd97c33c4fefa37af06f2864837a6d8cb63b77c34",
+      "partTitle": "Per-Stage Latency Budgeting Across Hybrid Search Cascades",
+      "codeHash": "26a8b3399c1d4da14bbe673ceb2e2d6f2215d5c323e7ab9c2d3b24e03518858f",
       "spec": {
         "template": "flow",
-        "title": "Milestone 7 — Production Telemetry & Verification Audit",
+        "title": "Per-Stage Latency Budgeting Across Hybrid Search Cascades",
         "nodes": [
           {
             "id": "stage1_ms",
-            "label": "stage1_ms"
+            "label": "stage1_ms",
+            "tappable": true
           },
           {
             "id": "stage2_ms",
-            "label": "stage2_ms"
+            "label": "stage2_ms",
+            "tappable": true
           },
           {
             "id": "total_docs",
-            "label": "total_docs"
-          },
-          {
-            "id": "total_ms",
-            "label": "total_ms"
+            "label": "total_docs",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Operating multi-stage retrieval pipelines requires real-time latency.",
+            "caption": "Inspect stage updates as stage1_ms tracks latency state.",
             "values": {
               "stage1_ms": {
                 "var": "stage1_ms",
@@ -985,126 +896,45 @@
                 "hit": 1
               },
               "total_docs": {
-                "var": "total_docs",
-                "line": 2,
-                "hit": 1
-              },
-              "total_ms": {
-                "var": "total_ms",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "stage1_ms": "data",
               "stage2_ms": "data",
-              "total_docs": "data",
-              "total_ms": "data"
+              "total_docs": "idle"
             },
-            "arrows": [
-              [
-                "stage1_ms",
-                "stage2_ms"
-              ],
-              [
-                "stage2_ms",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "total_ms"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Latency telemetry tracks the duration of stage one MRL filtering, stage.",
+            "caption": "Verify the stage transition driving latency behavior.",
             "values": {
               "stage1_ms": {
                 "var": "stage1_ms",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
               "stage2_ms": {
                 "var": "stage2_ms",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               },
               "total_docs": {
                 "var": "total_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "total_ms": {
-                "var": "total_ms",
-                "line": 3,
-                "hit": 1
-              }
-            },
-            "tones": {
-              "stage1_ms": "data",
-              "stage2_ms": "data",
-              "total_docs": "data",
-              "total_ms": "data"
-            },
-            "arrows": [
-              [
-                "stage1_ms",
-                "stage2_ms"
-              ],
-              [
-                "stage2_ms",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "total_ms"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "stage1_ms": {
-                "var": "stage1_ms",
-                "line": 3,
-                "hit": 1
-              },
-              "stage2_ms": {
-                "var": "stage2_ms",
-                "line": 3,
-                "hit": 1
-              },
-              "total_docs": {
-                "var": "total_docs",
-                "line": 3,
-                "hit": 1
-              },
-              "total_ms": {
-                "var": "total_ms",
-                "line": 3,
+                "line": 4,
                 "hit": 1
               }
             },
             "tones": {
               "stage1_ms": "ok",
               "stage2_ms": "ok",
-              "total_docs": "ok",
-              "total_ms": "ok"
+              "total_docs": "ok"
             },
             "arrows": [
               [
                 "stage1_ms",
                 "stage2_ms"
-              ],
-              [
-                "stage2_ms",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "total_ms"
               ]
             ]
           }
@@ -1112,113 +942,57 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone 7 — Production Telemetry & Verification Audit",
+        "title": "Per-Stage Latency Budgeting Across Hybrid Search Cascades",
         "nodes": [
           {
             "id": "stage1_ms",
-            "label": "stage1_ms"
+            "label": "stage1_ms",
+            "tappable": true
           },
           {
             "id": "stage2_ms",
-            "label": "stage2_ms"
+            "label": "stage2_ms",
+            "tappable": true
           },
           {
             "id": "total_docs",
-            "label": "total_docs"
-          },
-          {
-            "id": "total_ms",
-            "label": "total_ms"
+            "label": "total_docs",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Operating multi-stage retrieval pipelines requires real-time latency.",
+            "caption": "Inspect stage updates as stage1_ms tracks latency state.",
             "values": {
               "stage1_ms": "1.45",
               "stage2_ms": "3.82",
-              "total_docs": "50000",
-              "total_ms": "5.27"
+              "total_docs": ""
             },
             "tones": {
               "stage1_ms": "data",
               "stage2_ms": "data",
-              "total_docs": "data",
-              "total_ms": "data"
+              "total_docs": "idle"
             },
-            "arrows": [
-              [
-                "stage1_ms",
-                "stage2_ms"
-              ],
-              [
-                "stage2_ms",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "total_ms"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Latency telemetry tracks the duration of stage one MRL filtering, stage.",
+            "caption": "Verify the stage transition driving latency behavior.",
             "values": {
               "stage1_ms": "1.45",
               "stage2_ms": "3.82",
-              "total_docs": "50000",
-              "total_ms": "5.27"
-            },
-            "tones": {
-              "stage1_ms": "data",
-              "stage2_ms": "data",
-              "total_docs": "data",
-              "total_ms": "data"
-            },
-            "arrows": [
-              [
-                "stage1_ms",
-                "stage2_ms"
-              ],
-              [
-                "stage2_ms",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "total_ms"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
-            "values": {
-              "stage1_ms": "1.45",
-              "stage2_ms": "3.82",
-              "total_docs": "50000",
-              "total_ms": "5.27"
+              "total_docs": "50000"
             },
             "tones": {
               "stage1_ms": "ok",
               "stage2_ms": "ok",
-              "total_docs": "ok",
-              "total_ms": "ok"
+              "total_docs": "ok"
             },
             "arrows": [
               [
                 "stage1_ms",
                 "stage2_ms"
-              ],
-              [
-                "stage2_ms",
-                "total_docs"
-              ],
-              [
-                "total_docs",
-                "total_ms"
               ]
             ]
           }

@@ -226,7 +226,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Before provisioning an All-Pairs Shortest Path forwarding table, our.",
+            "caption": "Observe how cost shapes before during this step.",
             "items": {
               "var": "nodes",
               "line": 55,
@@ -246,7 +246,7 @@
           },
           {
             "at": "say6",
-            "caption": "Test Stage 2 below on both a clean weighted policy configuration and.",
+            "caption": "Examine the stage value produced for spfa processing.",
             "items": {
               "var": "nodes",
               "line": 8,
@@ -263,7 +263,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Before provisioning an All-Pairs Shortest Path forwarding table, our.",
+            "caption": "Observe how cost shapes before during this step.",
             "mode": "queue",
             "items": [
               "'gw'",
@@ -289,7 +289,7 @@
           },
           {
             "at": "say6",
-            "caption": "Test Stage 2 below on both a clean weighted policy configuration and.",
+            "caption": "Examine the stage value produced for spfa processing.",
             "mode": "queue",
             "items": [
               "'gw'",
@@ -312,7 +312,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how once updates stage during execution.",
+            "caption": "Observe how stage shapes matrix during this step.",
             "items": {
               "var": "nodes",
               "line": 49,
@@ -344,7 +344,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how stage updates below during execution.",
+            "caption": "Examine the stage value produced for once processing.",
             "items": {
               "var": "nodes",
               "line": 7,
@@ -366,7 +366,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how once updates stage during execution.",
+            "caption": "Observe how stage shapes matrix during this step.",
             "items": [
               "'hub-a'",
               "'hub-b'",
@@ -402,7 +402,7 @@
           },
           {
             "at": "say6",
-            "caption": "Trace how stage updates below during execution.",
+            "caption": "Examine the stage value produced for once processing.",
             "items": [
               "'hub-a'",
               "'hub-b'",
@@ -431,7 +431,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Now we integrate all three stages Structural Inspection (Tarjan SCC &.",
+            "caption": "Now we integrate all three stages.",
             "items": {
               "var": "nodes",
               "line": 149,
@@ -468,7 +468,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Now we integrate all three stages Structural Inspection (Tarjan SCC &.",
+            "caption": "Now we integrate all three stages.",
             "mode": "queue",
             "items": [
               "'dc-east'",

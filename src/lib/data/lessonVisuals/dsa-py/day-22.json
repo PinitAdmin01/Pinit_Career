@@ -184,13 +184,13 @@
             "values": {
               "nb": {
                 "var": "nb",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "w": {
                 "var": "w",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -204,12 +204,12 @@
             "values": {
               "nb": {
                 "var": "nb",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               },
               "w": {
                 "var": "w",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -250,8 +250,8 @@
             "at": "say2",
             "caption": "Repeatedly pick the unsettled node with the smallest known distance.",
             "values": {
-              "nb": "'B'",
-              "w": "4"
+              "nb": "'C'",
+              "w": "2"
             },
             "tones": {
               "nb": "data",
@@ -263,7 +263,7 @@
             "caption": "Picking the smallest distance quickly is exactly what a min-heap does.",
             "values": {
               "nb": "'B'",
-              "w": "4"
+              "w": "1"
             },
             "tones": {
               "nb": "ok",

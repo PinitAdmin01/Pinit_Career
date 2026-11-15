@@ -149,15 +149,13 @@
                 "hit": 4
               },
               "total": {
-                "var": "total",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "decisions": "data",
               "counts": "data",
-              "total": "data"
+              "total": "idle"
             },
             "arrows": [
               [
@@ -172,7 +170,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates dashboard during execution.",
+            "caption": "Verify the dashboard transition driving practice behavior.",
             "values": {
               "decisions": {
                 "var": "decisions",
@@ -268,12 +266,12 @@
             "values": {
               "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
               "counts": "{'ALLOW': 930, 'REVIEW': 45, 'BLOCK': 2…",
-              "total": "1000"
+              "total": ""
             },
             "tones": {
               "decisions": "data",
               "counts": "data",
-              "total": "data"
+              "total": "idle"
             },
             "arrows": [
               [
@@ -288,7 +286,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates dashboard during execution.",
+            "caption": "Verify the dashboard transition driving practice behavior.",
             "values": {
               "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
               "counts": "{'ALLOW': 930, 'REVIEW': 45, 'BLOCK': 2…",
@@ -566,7 +564,7 @@
           },
           {
             "at": "say2",
-            "caption": "Practice 2 is spike_days(rates, factor=2.",
+            "caption": "Practice 2 is spike_days(rates, factor=2.0, window=7).",
             "bars": [
               {
                 "label": "window",
@@ -682,7 +680,7 @@
           },
           {
             "at": "say2",
-            "caption": "Practice 2 is spike_days(rates, factor=2.",
+            "caption": "Practice 2 is spike_days(rates, factor=2.0, window=7).",
             "bars": [
               {
                 "label": "window",

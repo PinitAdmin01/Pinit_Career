@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A refusal is when the model declines to help, for example \"I can't help.",
+            "caption": "Observe how refusal shapes model during this step.",
             "currentState": "prompts",
             "tone": "data"
           },
@@ -84,7 +84,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A refusal is when the model declines to help, for example \"I can't help.",
+            "caption": "Observe how refusal shapes model during this step.",
             "currentState": "prompts",
             "tone": "data"
           },
@@ -416,13 +416,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "r": {
                 "var": "r",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -462,12 +462,12 @@
               },
               "name": {
                 "var": "name",
-                "line": 4,
+                "line": 3,
                 "hit": 2
               },
               "r": {
                 "var": "r",
-                "line": 4,
+                "line": 3,
                 "hit": 2
               }
             },
@@ -552,8 +552,8 @@
             "values": {
               "versions": "{'A': {'over': 0.03, 'under': 0.06}, 'B…",
               "targets": "{'over': 0.05, 'under': 0.02}",
-              "name": "'A'",
-              "r": "{'over': 0.03, 'under': 0.06}"
+              "name": "'B'",
+              "r": "{'over': 0.21, 'under': 0.01}"
             },
             "tones": {
               "versions": "data",
@@ -582,8 +582,8 @@
             "values": {
               "versions": "{'A': {'over': 0.03, 'under': 0.06}, 'B…",
               "targets": "{'over': 0.05, 'under': 0.02}",
-              "name": "'A'",
-              "r": "{'over': 0.03, 'under': 0.06}"
+              "name": "'B'",
+              "r": "{'over': 0.21, 'under': 0.01}"
             },
             "tones": {
               "versions": "ok",

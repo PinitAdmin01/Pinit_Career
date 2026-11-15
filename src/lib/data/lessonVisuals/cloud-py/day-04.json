@@ -684,7 +684,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the same two rules giving opposite results when their.",
+            "caption": "Examine the numbers value produced for example processing.",
             "values": {
               "a": {
                 "var": "a",
@@ -814,7 +814,7 @@
           },
           {
             "at": "say7",
-            "caption": "The example shows the same two rules giving opposite results when their.",
+            "caption": "Examine the numbers value produced for example processing.",
             "values": {
               "a": "[{'rule_number': 100, 'port': 22, 'acti…",
               "b": "[{'rule_number': 200, 'port': 22, 'acti…",
@@ -1190,7 +1190,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how watch updates edges during execution.",
+            "caption": "Verify the watch transition driving edges behavior.",
             "values": {
               "nacl": {
                 "var": "nacl",
@@ -1336,7 +1336,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how watch updates edges during execution.",
+            "caption": "Verify the watch transition driving edges behavior.",
             "values": {
               "nacl": "[{'rule_number': 100, 'port': 23, 'acti…",
               "sg_ports": "{443, 80}",

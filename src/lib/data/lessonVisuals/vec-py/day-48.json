@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Foundations & Mathematical Invariants",
+      "partTitle": "Deterministic Modulo Shard Placement with FNV-1a Hashing",
       "codeHash": "761c9b49e7bbcdfdfc93b51654b2b3f1ab7cf6397243fe03508419b1ae0ab262",
       "spec": {
         "template": "bars",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Core Algorithm & State Representation",
+      "partTitle": "Virtual-Node Consistent Hash Rings Minimizing Key Churn",
       "codeHash": "e12698911e06adff00d9c56b92c95eedfc98d30d210f250220a93bb65e64ee50",
       "spec": {
         "template": "bars",
@@ -318,7 +318,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the node value produced for validating processing.",
             "bars": [
               {
                 "label": "vnodes",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the node value produced for validating processing.",
             "bars": [
               {
                 "label": "vnodes",
@@ -446,117 +446,166 @@
       }
     },
     {
-      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "983a3aaff03ae71d0587bc66be25680b0ce5571550ae2b833bb1cb19b54e6f76",
+      "partTitle": "Dedicated Multi-Shard Isolation via Tenant-Key Routing Maps",
+      "codeHash": "5da4ed6fa02698fff1dacb7f0195d72b129a887f77db607432917336e0d0c077",
       "spec": {
-        "template": "cells",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
+        "template": "flow",
+        "title": "Dedicated Multi-Shard Isolation via Tenant-Key Routing Maps",
+        "nodes": [
+          {
+            "id": "tenant_id",
+            "label": "tenant_id",
+            "tappable": true
+          },
+          {
+            "id": "assigned",
+            "label": "assigned",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While consistent hashing balances generic documents, multi-tenant.",
-            "items": {
-              "var": "shards",
-              "line": 5,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
+            "caption": "Inspect multi updates as tenant_id tracks isolation state.",
+            "values": {
+              "tenant_id": {
+                "var": "tenant_id",
+                "line": 2,
+                "hit": 1
+              },
+              "assigned": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "tenant_id": "data",
+              "assigned": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Scattering a single tenant's vectors across dozens of cluster nodes forces.",
-            "items": {
-              "var": "shards",
-              "line": 6,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "caption": "Verify the tenant transition driving scattering behavior.",
+            "values": {
+              "tenant_id": {
+                "var": "tenant_id",
+                "line": 2,
+                "hit": 2
+              },
+              "assigned": {
+                "text": ""
               }
+            },
+            "tones": {
+              "tenant_id": "data",
+              "assigned": "idle"
+            },
+            "arrows": [
+              [
+                "tenant_id",
+                "assigned"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
-            "items": {
-              "var": "shards",
-              "line": 6,
-              "hit": 1
-            },
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the dedicated value produced for shard processing.",
+            "values": {
+              "tenant_id": {
+                "var": "tenant_id",
+                "line": 4,
+                "hit": 2
+              },
+              "assigned": {
+                "var": "assigned",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "tenant_id": "ok",
+              "assigned": "ok"
+            },
+            "arrows": [
+              [
+                "tenant_id",
+                "assigned"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
+        "template": "flow",
+        "title": "Dedicated Multi-Shard Isolation via Tenant-Key Routing Maps",
+        "nodes": [
+          {
+            "id": "tenant_id",
+            "label": "tenant_id",
+            "tappable": true
+          },
+          {
+            "id": "assigned",
+            "label": "assigned",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "While consistent hashing balances generic documents, multi-tenant.",
-            "items": [
-              "'node_us_east_1'",
-              "'node_us_east_2'"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 0,
-                "tone": "data"
-              }
-            ]
+            "caption": "Inspect multi updates as tenant_id tracks isolation state.",
+            "values": {
+              "tenant_id": "999",
+              "assigned": ""
+            },
+            "tones": {
+              "tenant_id": "data",
+              "assigned": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Scattering a single tenant's vectors across dozens of cluster nodes forces.",
-            "items": [
-              "'node_us_east_1'",
-              "'node_us_east_2'"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "caption": "Verify the tenant transition driving scattering behavior.",
+            "values": {
+              "tenant_id": "101",
+              "assigned": ""
+            },
+            "tones": {
+              "tenant_id": "data",
+              "assigned": "idle"
+            },
+            "arrows": [
+              [
+                "tenant_id",
+                "assigned"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
-            "items": [
-              "'node_us_east_1'",
-              "'node_us_east_2'"
-            ],
-            "pointers": [
-              {
-                "name": "idx",
-                "index": 1,
-                "tone": "data"
-              }
+            "at": "say3",
+            "caption": "Examine the dedicated value produced for shard processing.",
+            "values": {
+              "tenant_id": "101",
+              "assigned": "['node_us_east_1', 'node_us_east_2']"
+            },
+            "tones": {
+              "tenant_id": "ok",
+              "assigned": "ok"
+            },
+            "arrows": [
+              [
+                "tenant_id",
+                "assigned"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Resilience Guardrails & Failure Recovery",
-      "codeHash": "59d387f21016a855edaa587859451fd317abaaaa0a24bff189b4d74dce475783",
+      "partTitle": "Fallback Target Resolution When Hash Rings Degrade",
+      "codeHash": "cbfa55ea276d4ad0f54a3d206f7e398304a326dd3884b391d61ad43383988a48",
       "spec": {
         "template": "flow",
         "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
@@ -625,7 +674,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the fallback value produced for resolution processing.",
             "values": {
               "ring_nodes": {
                 "var": "ring_nodes",
@@ -669,7 +718,7 @@
             "at": "say1",
             "caption": "Cluster routers must handle transient partition failures, network splits.",
             "values": {
-              "ring_nodes": "[]",
+              "ring_nodes": "['']",
               "default_node": "'fallback_node'"
             },
             "tones": {
@@ -703,7 +752,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the fallback value produced for resolution processing.",
             "values": {
               "ring_nodes": "[]",
               "default_node": "'fallback_node'"
@@ -723,7 +772,7 @@
       }
     },
     {
-      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Production Telemetry & Verification Audit",
+      "partTitle": "Detecting Hot Partitions Through Shard Balance Skew Ratios",
       "codeHash": "338d4103ff08bd815ed43dd11056163e839c9a2d0e43f549524202ae82442507",
       "spec": {
         "template": "flow",
@@ -767,16 +816,14 @@
                 "hit": 1
               },
               "max_c": {
-                "var": "max_c",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "shard_counts": "data",
               "counts": "data",
               "avg_c": "data",
-              "max_c": "data"
+              "max_c": "idle"
             },
             "arrows": [
               [
@@ -841,7 +888,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the shard value produced for skew processing.",
             "values": {
               "shard_counts": {
                 "var": "shard_counts",
@@ -916,13 +963,13 @@
               "shard_counts": "{0: 25000, 1: 27000, 2: 24000, 3: 24000}",
               "counts": "[25000, 27000, 24000, 24000]",
               "avg_c": "25000",
-              "max_c": "27000"
+              "max_c": ""
             },
             "tones": {
               "shard_counts": "data",
               "counts": "data",
               "avg_c": "data",
-              "max_c": "data"
+              "max_c": "idle"
             },
             "arrows": [
               [
@@ -971,7 +1018,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Examine the shard value produced for skew processing.",
             "values": {
               "shard_counts": "{0: 25000, 1: 27000, 2: 24000, 3: 24000}",
               "counts": "[25000, 27000, 24000, 24000]",

@@ -149,6 +149,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "On NVIDIA Hopper H100 GPUs, the pipeline enables Hybrid FP8.",
+            "activeActor": "model_b",
+            "messages": [
+              {
+                "from": "gpu_arch",
+                "to": "model_b",
+                "label": {
+                  "var": "gpu_arch",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "model_b",
@@ -163,10 +180,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "On NVIDIA Hopper H100 GPUs, the pipeline enables Hybrid FP8.",
-            "activeActor": "model_b",
+            "at": "say11",
+            "caption": "Examine the milestone value produced for selecting processing.",
+            "activeActor": "precision",
             "messages": [
+              {
+                "from": "gpu_arch",
+                "to": "model_b",
+                "label": {
+                  "var": "gpu_arch",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "model_b",
+                "to": "precision",
+                "label": {
+                  "var": "model_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "gpu_arch",
                 "to": "model_b",
@@ -186,14 +223,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "The resulting configuration guarantees peak performance while preserving.",
-            "activeActor": "precision",
-            "messages": [
+              },
               {
                 "from": "gpu_arch",
                 "to": "model_b",
@@ -236,12 +266,6 @@
                 "to": "model_b",
                 "label": "'Hopper_H100'",
                 "tone": "data"
-              },
-              {
-                "from": "model_b",
-                "to": "precision",
-                "label": "70",
-                "tone": "ok"
               }
             ],
             "activeActor": "gpu_arch"
@@ -267,8 +291,32 @@
           },
           {
             "at": "say11",
-            "caption": "The resulting configuration guarantees peak performance while preserving.",
+            "caption": "Examine the milestone value produced for selecting processing.",
             "messages": [
+              {
+                "from": "gpu_arch",
+                "to": "model_b",
+                "label": "'Hopper_H100'",
+                "tone": "data"
+              },
+              {
+                "from": "model_b",
+                "to": "precision",
+                "label": "70",
+                "tone": "ok"
+              },
+              {
+                "from": "gpu_arch",
+                "to": "model_b",
+                "label": "'Hopper_H100'",
+                "tone": "data"
+              },
+              {
+                "from": "model_b",
+                "to": "precision",
+                "label": "70",
+                "tone": "ok"
+              },
               {
                 "from": "gpu_arch",
                 "to": "model_b",
@@ -313,6 +361,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Theoretical FLOPs per token is calculated as 6 multiplied by the model.",
+            "activeActor": "tokens_per_sec",
+            "messages": [
+              {
+                "from": "model_b",
+                "to": "tokens_per_sec",
+                "label": {
+                  "var": "model_b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "tokens_per_sec",
@@ -327,10 +392,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Theoretical FLOPs per token is calculated as 6 multiplied by the model.",
-            "activeActor": "tokens_per_sec",
+            "at": "say11",
+            "caption": "These quantitative efficiency gains translate directly into significant.",
+            "activeActor": "gpu_peak_tflops",
             "messages": [
+              {
+                "from": "model_b",
+                "to": "tokens_per_sec",
+                "label": {
+                  "var": "model_b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tokens_per_sec",
+                "to": "gpu_peak_tflops",
+                "label": {
+                  "var": "tokens_per_sec",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "model_b",
                 "to": "tokens_per_sec",
@@ -350,14 +435,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "These quantitative efficiency gains translate directly into significant.",
-            "activeActor": "gpu_peak_tflops",
-            "messages": [
+              },
               {
                 "from": "model_b",
                 "to": "tokens_per_sec",
@@ -400,12 +478,6 @@
                 "to": "tokens_per_sec",
                 "label": "70",
                 "tone": "data"
-              },
-              {
-                "from": "tokens_per_sec",
-                "to": "gpu_peak_tflops",
-                "label": "1400",
-                "tone": "ok"
               }
             ],
             "activeActor": "model_b"
@@ -433,6 +505,30 @@
             "at": "say11",
             "caption": "These quantitative efficiency gains translate directly into significant.",
             "messages": [
+              {
+                "from": "model_b",
+                "to": "tokens_per_sec",
+                "label": "70",
+                "tone": "data"
+              },
+              {
+                "from": "tokens_per_sec",
+                "to": "gpu_peak_tflops",
+                "label": "1400",
+                "tone": "ok"
+              },
+              {
+                "from": "model_b",
+                "to": "tokens_per_sec",
+                "label": "70",
+                "tone": "data"
+              },
+              {
+                "from": "tokens_per_sec",
+                "to": "gpu_peak_tflops",
+                "label": "1400",
+                "tone": "ok"
+              },
               {
                 "from": "model_b",
                 "to": "tokens_per_sec",
@@ -496,16 +592,14 @@
                 "hit": 1
               },
               "status": {
-                "var": "status",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "gpu_arch": "data",
               "precision": "data",
               "grad_clip": "data",
-              "status": "data"
+              "status": "idle"
             },
             "arrows": [
               [
@@ -524,7 +618,7 @@
           },
           {
             "at": "say2",
-            "caption": "If a user requests Hybrid FP8 on an architecture lacking FP8 Tensor Cores (e.",
+            "caption": "Ampere A100), the validator blocks the job with a descriptive error.",
             "values": {
               "gpu_arch": {
                 "var": "gpu_arch",
@@ -645,13 +739,13 @@
               "gpu_arch": "'Hopper_H100'",
               "precision": "'HYBRID_FP8'",
               "grad_clip": "1",
-              "status": "'NUMERICS_CONFIG_APPROVED'"
+              "status": ""
             },
             "tones": {
               "gpu_arch": "data",
               "precision": "data",
               "grad_clip": "data",
-              "status": "data"
+              "status": "idle"
             },
             "arrows": [
               [
@@ -670,7 +764,7 @@
           },
           {
             "at": "say2",
-            "caption": "If a user requests Hybrid FP8 on an architecture lacking FP8 Tensor Cores (e.",
+            "caption": "Ampere A100), the validator blocks the job with a descriptive error.",
             "values": {
               "gpu_arch": "'Hopper_H100'",
               "precision": "'HYBRID_FP8'",

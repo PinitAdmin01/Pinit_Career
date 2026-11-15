@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how ultra updates long during execution.",
+            "caption": "Verify the context transition driving scaling behavior.",
             "rows": [
               {
                 "cells": [
@@ -96,7 +96,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how ultra updates long during execution.",
+            "caption": "Verify the context transition driving scaling behavior.",
             "rows": [
               {
                 "cells": [
@@ -210,13 +210,13 @@
               },
               "steps": {
                 "var": "steps",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "step": {
                 "var": "step",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -256,13 +256,13 @@
               },
               "steps": {
                 "var": "steps",
-                "line": 5,
+                "line": 6,
                 "hit": 1
               },
               "step": {
                 "var": "step",
-                "line": 5,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -346,8 +346,8 @@
             "values": {
               "cp_size": "4",
               "num_blocks": "4",
-              "steps": "[]",
-              "step": "0"
+              "steps": "[{'step': 0, 'pairs': [[0, 0], [1, 1], …",
+              "step": "1"
             },
             "tones": {
               "cp_size": "data",
@@ -376,8 +376,8 @@
             "values": {
               "cp_size": "4",
               "num_blocks": "4",
-              "steps": "[]",
-              "step": "0"
+              "steps": "[{'step': 0, 'pairs': [[0, 0], [1, 1], …",
+              "step": "2"
             },
             "tones": {
               "cp_size": "ok",
@@ -429,6 +429,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In a 64k sequence length model with 32 attention heads, un-sharded.",
+            "activeActor": "num_heads",
+            "messages": [
+              {
+                "from": "seq_len",
+                "to": "num_heads",
+                "label": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "num_heads",
@@ -443,10 +460,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In a 64k sequence length model with 32 attention heads, un-sharded.",
-            "activeActor": "num_heads",
+            "at": "say11",
+            "caption": "Consequently, Context Parallelism serves as a cornerstone architecture.",
+            "activeActor": "head_dim",
             "messages": [
+              {
+                "from": "seq_len",
+                "to": "num_heads",
+                "label": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "num_heads",
+                "to": "head_dim",
+                "label": {
+                  "var": "num_heads",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "seq_len",
                 "to": "num_heads",
@@ -466,14 +503,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Consequently, Context Parallelism serves as a cornerstone architecture.",
-            "activeActor": "head_dim",
-            "messages": [
+              },
               {
                 "from": "seq_len",
                 "to": "num_heads",
@@ -516,12 +546,6 @@
                 "to": "num_heads",
                 "label": "65536",
                 "tone": "data"
-              },
-              {
-                "from": "num_heads",
-                "to": "head_dim",
-                "label": "32",
-                "tone": "ok"
               }
             ],
             "activeActor": "seq_len"
@@ -549,6 +573,30 @@
             "at": "say11",
             "caption": "Consequently, Context Parallelism serves as a cornerstone architecture.",
             "messages": [
+              {
+                "from": "seq_len",
+                "to": "num_heads",
+                "label": "65536",
+                "tone": "data"
+              },
+              {
+                "from": "num_heads",
+                "to": "head_dim",
+                "label": "32",
+                "tone": "ok"
+              },
+              {
+                "from": "seq_len",
+                "to": "num_heads",
+                "label": "65536",
+                "tone": "data"
+              },
+              {
+                "from": "num_heads",
+                "to": "head_dim",
+                "label": "32",
+                "tone": "ok"
+              },
               {
                 "from": "seq_len",
                 "to": "num_heads",
@@ -593,6 +641,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The total input sequence length must be evenly divisible by the Context.",
+            "activeActor": "cp_size",
+            "messages": [
+              {
+                "from": "seq_len",
+                "to": "cp_size",
+                "label": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cp_size",
@@ -607,10 +672,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The total input sequence length must be evenly divisible by the Context.",
-            "activeActor": "cp_size",
+            "at": "say11",
+            "caption": "Enforcing structural divisibility and network stability guarantees.",
+            "activeActor": "num_heads",
             "messages": [
+              {
+                "from": "seq_len",
+                "to": "cp_size",
+                "label": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cp_size",
+                "to": "num_heads",
+                "label": {
+                  "var": "cp_size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "seq_len",
                 "to": "cp_size",
@@ -630,14 +715,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Enforcing structural divisibility and network stability guarantees.",
-            "activeActor": "num_heads",
-            "messages": [
+              },
               {
                 "from": "seq_len",
                 "to": "cp_size",
@@ -680,12 +758,6 @@
                 "to": "cp_size",
                 "label": "131072",
                 "tone": "data"
-              },
-              {
-                "from": "cp_size",
-                "to": "num_heads",
-                "label": "8",
-                "tone": "ok"
               }
             ],
             "activeActor": "seq_len"
@@ -713,6 +785,30 @@
             "at": "say11",
             "caption": "Enforcing structural divisibility and network stability guarantees.",
             "messages": [
+              {
+                "from": "seq_len",
+                "to": "cp_size",
+                "label": "131072",
+                "tone": "data"
+              },
+              {
+                "from": "cp_size",
+                "to": "num_heads",
+                "label": "8",
+                "tone": "ok"
+              },
+              {
+                "from": "seq_len",
+                "to": "cp_size",
+                "label": "131072",
+                "tone": "data"
+              },
+              {
+                "from": "cp_size",
+                "to": "num_heads",
+                "label": "8",
+                "tone": "ok"
+              },
               {
                 "from": "seq_len",
                 "to": "cp_size",

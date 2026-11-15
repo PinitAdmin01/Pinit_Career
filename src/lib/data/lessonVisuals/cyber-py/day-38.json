@@ -265,7 +265,7 @@
           },
           {
             "at": "say10",
-            "caption": "Topological ordering and memoization enable relationship engines.",
+            "caption": "Examine the edge value produced for critical processing.",
             "currentState": "node",
             "transition": {
               "from": "adj_list",
@@ -317,7 +317,7 @@
           },
           {
             "at": "say10",
-            "caption": "Topological ordering and memoization enable relationship engines.",
+            "caption": "Examine the edge value produced for critical processing.",
             "currentState": "node",
             "transition": {
               "from": "adj_list",
@@ -402,8 +402,8 @@
               },
               "context": {
                 "var": "context",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "allowed_subnets": {
                 "var": "allowed_subnets",
@@ -434,7 +434,7 @@
               },
               "context": {
                 "var": "context",
-                "line": 8,
+                "line": 4,
                 "hit": 2
               },
               "allowed_subnets": {
@@ -496,7 +496,7 @@
             "values": {
               "ctx_safe": "{'ip': '10.0.4.15', 'risk_score': 25}",
               "ctx_risky": "{'ip': '198.51.100.4', 'risk_score': 85}",
-              "context": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "context": "{'ip': '198.51.100.4', 'risk_score': 85}",
               "allowed_subnets": "['10.0.']"
             },
             "tones": {
@@ -512,7 +512,7 @@
             "values": {
               "ctx_safe": "{'ip': '10.0.4.15', 'risk_score': 25}",
               "ctx_risky": "{'ip': '198.51.100.4', 'risk_score': 85}",
-              "context": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "context": "{'ip': '198.51.100.4', 'risk_score': 85}",
               "allowed_subnets": "['10.0.']"
             },
             "tones": {
@@ -570,16 +570,14 @@
                 "hit": 1
               },
               "default_deny": {
-                "var": "default_deny",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "rebac_hierarchical": "data",
               "cycle_prevented": "data",
               "abac_context_enforced": "data",
-              "default_deny": "data"
+              "default_deny": "idle"
             },
             "arrows": [
               [
@@ -598,7 +596,7 @@
           },
           {
             "at": "say2",
-            "caption": "Telemetry systems track evaluation latency percentiles (targeting P99 <.",
+            "caption": "Verify the evaluation transition driving telemetry behavior.",
             "values": {
               "rebac_hierarchical": {
                 "var": "rebac_hierarchical",
@@ -719,13 +717,13 @@
               "rebac_hierarchical": "True",
               "cycle_prevented": "True",
               "abac_context_enforced": "True",
-              "default_deny": "True"
+              "default_deny": ""
             },
             "tones": {
               "rebac_hierarchical": "data",
               "cycle_prevented": "data",
               "abac_context_enforced": "data",
-              "default_deny": "data"
+              "default_deny": "idle"
             },
             "arrows": [
               [
@@ -744,7 +742,7 @@
           },
           {
             "at": "say2",
-            "caption": "Telemetry systems track evaluation latency percentiles (targeting P99 <.",
+            "caption": "Verify the evaluation transition driving telemetry behavior.",
             "values": {
               "rebac_hierarchical": "True",
               "cycle_prevented": "True",

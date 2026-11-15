@@ -410,7 +410,7 @@
             "values": {
               "log": {
                 "var": "log",
-                "line": 14,
+                "line": 21,
                 "hit": 1
               },
               "steps": {
@@ -420,13 +420,13 @@
               },
               "finished": {
                 "var": "finished",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "step": {
                 "var": "step",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -456,7 +456,7 @@
             "values": {
               "log": {
                 "var": "log",
-                "line": 17,
+                "line": 21,
                 "hit": 1
               },
               "steps": {
@@ -466,13 +466,13 @@
               },
               "finished": {
                 "var": "finished",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "step": {
                 "var": "step",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -525,9 +525,9 @@
             "caption": "Run_saga(steps).",
             "values": {
               "log": "[]",
-              "steps": "[{'name': 'flight', 'action': {'__other…",
+              "steps": "[{'name': 'flight', 'action': <function…",
               "finished": "[]",
-              "step": "{'name': 'flight', 'action': {'__other_…"
+              "step": "{'name': 'flight', 'action': <function>…"
             },
             "tones": {
               "log": "data",
@@ -554,10 +554,10 @@
             "at": "say2",
             "caption": "If an action raises, run compensate() for every finished step, newest.",
             "values": {
-              "log": "[]",
-              "steps": "[{'name': 'flight', 'action': {'__other…",
-              "finished": "[]",
-              "step": "{'name': 'flight', 'action': {'__other_…"
+              "log": "['book flight', 'book hotel', 'cancel h…",
+              "steps": "[{'name': 'flight', 'action': <function…",
+              "finished": "[{'name': 'flight', 'action': <function…",
+              "step": "{'name': 'hotel', 'action': <function>,…"
             },
             "tones": {
               "log": "data",
@@ -584,10 +584,10 @@
             "at": "say7",
             "caption": "The example books a trip where the payment step fails.",
             "values": {
-              "log": "[]",
-              "steps": "[{'name': 'flight', 'action': {'__other…",
-              "finished": "[]",
-              "step": "{'name': 'flight', 'action': {'__other_…"
+              "log": "['book flight', 'book hotel', 'cancel h…",
+              "steps": "[{'name': 'flight', 'action': <function…",
+              "finished": "[{'name': 'flight', 'action': <function…",
+              "step": "{'name': 'payment', 'action': <function…"
             },
             "tones": {
               "log": "ok",

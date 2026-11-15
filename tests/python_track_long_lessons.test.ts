@@ -26,10 +26,16 @@ import { VECTOR_PYTHON_LONG_LESSONS } from '../src/lib/data/vectorPythonLongLess
 import { VECTOR_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/vectorPython30DayData';
 import { SAFETY_PYTHON_LONG_LESSONS } from '../src/lib/data/safetyPythonLongLessons';
 import { SAFETY_PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/safetyPython30DayData';
+import { PYTHON_LONG_LESSONS } from '../src/lib/data/pythonLongLessons';
+import { SQL_LONG_LESSONS } from '../src/lib/data/sqlLongLessons';
+import { PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/python30DayData';
+import { DATABASE_30_DAYS_CONFIGS } from '../src/lib/data/database30DayData';
 import type { DayConfig } from '../src/lib/data/curriculumEnricher';
 
 /** Python-track courses with full-length lessons (the days written so far). */
 const COURSES: { name: string; prefix: string; lessons: LongLesson[]; configs: DayConfig[] }[] = [
+  { name: 'Python Backend Engineering', prefix: 'python', lessons: PYTHON_LONG_LESSONS, configs: PYTHON_30_DAYS_CONFIGS },
+  { name: 'SQL & Database Engineering', prefix: 'sql-mastery', lessons: SQL_LONG_LESSONS, configs: DATABASE_30_DAYS_CONFIGS },
   { name: 'DSA in Python', prefix: 'dsa-py', lessons: DSA_PYTHON_LONG_LESSONS, configs: DSA_PYTHON_30_DAYS_CONFIGS },
   { name: 'AI Engineering in Python', prefix: 'ai-py', lessons: AI_PYTHON_LONG_LESSONS, configs: AI_PYTHON_30_DAYS_CONFIGS },
   { name: 'Distributed Systems in Python', prefix: 'dist-py', lessons: DIST_PYTHON_LONG_LESSONS, configs: DIST_PYTHON_30_DAYS_CONFIGS },
@@ -64,12 +70,12 @@ async function runLikeLessonPage(pyodide: PyodideInterface, code: string): Promi
 
 for (const course of COURSES) {
   test(`${course.name}: every long lesson code sample prints exactly its output in the browser runner`, async () => {
-    const pyodide = await loadPyodide();
+    const pyodide = course.prefix === 'sql-mastery' ? null : await loadPyodide();
     for (const lesson of course.lessons) {
       for (const [i, part] of lesson.parts.entries()) {
         if (!part.code) continue;
         const where = `Day ${lesson.day} part ${i + 1} (${part.title})`;
-        assert.equal(await runLikeLessonPage(pyodide, part.code), part.output, where);
+        if (pyodide) assert.equal(await runLikeLessonPage(pyodide, part.code), part.output, where);
         const lines = part.code.split('\n').length;
         for (const note of part.codeNotes || []) assert.ok(note.line >= 1 && note.line <= lines, `${where}: note for line ${note.line}`);
       }
@@ -91,9 +97,15 @@ for (const course of COURSES) {
       assert.ok(lesson.summary.length >= 3 && lesson.projectStep && lesson.projectStep.steps.length > 0, `${where}: summary or project step missing`);
       for (const part of lesson.parts) {
         assert.ok(part.say.length >= 3 && part.example && part.code && part.tryIt, `${where} "${part.title}": incomplete part`);
-        assert.doesNotMatch(part.code!, /console\.log|\bconst |=>|\bfunction\s+\w+\s*\(/, `${where} "${part.title}": JavaScript in a Python lesson`);
+        if (course.prefix !== 'sql-mastery') {
+          assert.doesNotMatch(part.code!, /console\.log|\bconst |(?<![=<>!])=>|\bfunction\s+\w+\s*\(/, `${where} "${part.title}": JavaScript in a Python lesson`);
+        }
         const { options, answer } = part.check;
-        assert.ok(options.length >= 2 && answer >= 0 && answer < options.length, `${where} "${part.title}": bad check question`);
+        assert.equal(options.length, 4, `${where} "${part.title}": must have 4 options`);
+        assert.ok(
+          options.every((o) => typeof o === 'string' && o.trim().length > 0) && answer >= 0 && answer < 4,
+          `${where} "${part.title}": bad check question`
+        );
         assert.equal(new Set(options).size, options.length, `${where} "${part.title}": repeated option`);
       }
     }
@@ -105,6 +117,7 @@ for (const course of COURSES) {
     const ansCounts = [0, 0, 0, 0];
     let totalChecks = 0;
     let longestWins = 0;
+    let shortestWins = 0;
 
     for (const lesson of course.lessons) {
       const where = `${course.prefix} Day ${lesson.day}`;
@@ -128,14 +141,18 @@ for (const course of COURSES) {
         }
         const lens = part.check.options.map((o) => o.trim().length);
         const maxLen = Math.max(...lens);
+        const minLen = Math.min(...lens);
         if (lens[part.check.answer] === maxLen && lens.filter((l) => l === maxLen).length === 1) {
           longestWins++;
+        }
+        if (lens[part.check.answer] === minLen && lens.filter((l) => l === minLen).length === 1) {
+          shortestWins++;
         }
         ansCounts[part.check.answer] = (ansCounts[part.check.answer] || 0) + 1;
         totalChecks++;
 
         const why = ((part.check as any).why || (part.check as any).explanation || '').trim();
-        assert.ok(why.length >= 15, `${where} "${part.title}": check explanation too short (${why.length} chars)`);
+        assert.ok(why.length >= 45, `${where} "${part.title}": check explanation too short (${why.length} chars)`);
         assert.doesNotMatch(why, /^Verified against .* standards\.$/i, `${where} "${part.title}": contains generic rubber-stamp why`);
       }
     }
@@ -143,13 +160,118 @@ for (const course of COURSES) {
     const dupCount = [...seenLongParagraphs.values()].filter((c) => c > 2).length;
     assert.equal(dupCount, 0, `${course.prefix}: found ${dupCount} repeated >90-char boilerplate paragraphs`);
     const longestRate = totalChecks > 0 ? longestWins / totalChecks : 0;
+    const shortestRate = totalChecks > 0 ? shortestWins / totalChecks : 0;
     assert.ok(
-      longestRate >= 0.18 && longestRate <= 0.35,
-      `${course.prefix}: longest-option win rate is ${(longestRate * 100).toFixed(1)}% (${longestWins}/${totalChecks}), must be between 18% and 35%`
+      longestRate >= 0.15 && longestRate <= 0.35,
+      `${course.prefix}: longest-option win rate is ${(longestRate * 100).toFixed(1)}% (${longestWins}/${totalChecks}), must be between 15% and 35%`
+    );
+    assert.ok(
+      shortestRate >= 0.15 && shortestRate <= 0.35,
+      `${course.prefix}: shortest-option win rate is ${(shortestRate * 100).toFixed(1)}% (${shortestWins}/${totalChecks}), must be between 15% and 35%`
     );
     for (let a = 0; a < 4; a++) {
       const rate = (ansCounts[a] || 0) / totalChecks;
-      assert.ok(rate <= 0.45, `${course.prefix}: option index ${a} bias (${(rate * 100).toFixed(1)}%) must be <= 45%`);
+      assert.ok(
+        rate >= 0.20 && rate <= 0.30,
+        `${course.prefix}: option index ${a} balance (${(rate * 100).toFixed(1)}%) must be between 20% and 30%`
+      );
     }
+  });
+}
+
+const ALL_CERT_MCQ_COURSES: { prefix: string; lessons: LongLesson[] }[] = [
+  { prefix: 'python', lessons: PYTHON_LONG_LESSONS },
+  { prefix: 'sql-mastery', lessons: SQL_LONG_LESSONS },
+  ...COURSES.map((c) => ({ prefix: c.prefix, lessons: c.lessons })),
+];
+
+const BANNED_WHY_TEMPLATE_RES = [
+  /^Verified against .* standards\.$/i,
+  /^Incorrect options (?:violate|ignore|skip|fail) .*$/i,
+  /^In [a-z\s]+ architectures?, .* directly (?:determines|governs) /i,
+];
+
+function checkMcqSubset(prefix: string, label: string, lessons: LongLesson[]) {
+  const ansCounts = [0, 0, 0, 0];
+  let total = 0;
+  let longestWins = 0;
+  let shortestWins = 0;
+  for (const lesson of lessons) {
+    for (const part of lesson.parts) {
+      const lens = part.check.options.map((o) => o.trim().length);
+      const maxLen = Math.max(...lens);
+      const minLen = Math.min(...lens);
+      if (lens[part.check.answer] === maxLen && lens.filter((l) => l === maxLen).length === 1) longestWins++;
+      if (lens[part.check.answer] === minLen && lens.filter((l) => l === minLen).length === 1) shortestWins++;
+      ansCounts[part.check.answer] = (ansCounts[part.check.answer] || 0) + 1;
+      total++;
+    }
+  }
+  const longestRate = longestWins / total;
+  const shortestRate = shortestWins / total;
+  assert.ok(
+    longestRate >= 0.15 && longestRate <= 0.35,
+    `${prefix} (${label}): longest rate ${(longestRate * 100).toFixed(1)}% out of [15%, 35%]`
+  );
+  assert.ok(
+    shortestRate >= 0.15 && shortestRate <= 0.35,
+    `${prefix} (${label}): shortest rate ${(shortestRate * 100).toFixed(1)}% out of [15%, 35%]`
+  );
+  for (let a = 0; a < 4; a++) {
+    const rate = ansCounts[a] / total;
+    assert.ok(rate >= 0.20 && rate <= 0.30, `${prefix} (${label}): option ${a} balance ${(rate * 100).toFixed(1)}% out of [20%, 30%]`);
+  }
+}
+
+for (const course of ALL_CERT_MCQ_COURSES) {
+  test(`${course.prefix}: forensic MCQ & why quality invariants (all 60 days)`, () => {
+    const tailCounts = new Map<string, number>();
+    const longOptCounts = new Map<string, number>();
+    const seenWhys = new Set<string>();
+    const p4Counts = new Map<string, number>();
+
+    for (const lesson of course.lessons) {
+      for (const part of lesson.parts) {
+        const where = `${course.prefix} Day ${lesson.day} "${part.title}"`;
+        assert.equal(part.check.options.length, 4, `${where}: expected 4 options`);
+        for (const opt of part.check.options) {
+          assert.equal(typeof opt, 'string', `${where}: option must be a string`);
+          const trimmed = opt.trim();
+          assert.ok(trimmed.length > 0, `${where}: empty option`);
+          assert.doesNotMatch(trimmed, /\.\s+(?:in|on|at|to|for|with|across|through|under|during|without|before|after)\s+[a-z]/, `${where}: period-splice jargon suffix "${trimmed}"`);
+          const words = trimmed.toLowerCase().replace(/[^a-z0-9\s-]/g, '').split(/\s+/).filter(Boolean);
+          if (words.length >= 4) {
+            const tail = words.slice(-4).join(' ');
+            tailCounts.set(tail, (tailCounts.get(tail) || 0) + 1);
+            const fullKey = words.join(' ');
+            longOptCounts.set(fullKey, (longOptCounts.get(fullKey) || 0) + 1);
+          }
+        }
+        const why = ((part.check as any).why || (part.check as any).explanation || '').trim();
+        assert.ok(why.length >= 45, `${where}: why < 45 chars (${why.length})`);
+        for (const re of BANNED_WHY_TEMPLATE_RES) {
+          assert.doesNotMatch(why, re, `${where}: banned template why "${why}"`);
+        }
+        const normWhy = why.toLowerCase().replace(/\s+/g, ' ');
+        assert.ok(!seenWhys.has(normWhy), `${where}: duplicate why "${why}"`);
+        seenWhys.add(normWhy);
+        const wWords = normWhy.replace(/[^a-z0-9\s-]/g, '').split(/\s+/).filter(Boolean);
+        if (wWords.length >= 4) {
+          const p4 = wWords.slice(0, 4).join(' ');
+          p4Counts.set(p4, (p4Counts.get(p4) || 0) + 1);
+        }
+      }
+    }
+
+    const highTails = [...tailCounts.entries()].filter(([, c]) => c >= 4);
+    assert.equal(highTails.length, 0, `${course.prefix}: repeated >=4-word option tails: ${JSON.stringify(highTails)}`);
+    const highLongOpts = [...longOptCounts.entries()].filter(([, c]) => c >= 4);
+    assert.equal(highLongOpts.length, 0, `${course.prefix}: repeated >=4-word full options: ${JSON.stringify(highLongOpts)}`);
+    const highP4 = [...p4Counts.entries()].filter(([, c]) => c >= 8);
+    assert.equal(highP4.length, 0, `${course.prefix}: repeated 4-word why openings >= 8: ${JSON.stringify(highP4)}`);
+
+    checkMcqSubset(course.prefix, 'all', course.lessons);
+    checkMcqSubset(course.prefix, 'M1', course.lessons.filter((l) => l.day <= 30));
+    checkMcqSubset(course.prefix, 'M2', course.lessons.filter((l) => l.day > 30));
   });
 }

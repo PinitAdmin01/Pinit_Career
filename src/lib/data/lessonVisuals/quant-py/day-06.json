@@ -276,7 +276,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how simple updates version during execution.",
+            "caption": "In a simple version, permanent impact cost is 0.5 × gamma × X².",
             "bars": [
               {
                 "label": "rate",
@@ -392,7 +392,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how simple updates version during execution.",
+            "caption": "In a simple version, permanent impact cost is 0.5 × gamma × X².",
             "bars": [
               {
                 "label": "rate",
@@ -490,16 +490,14 @@
                 "hit": 1
               },
               "risk_aversion": {
-                "var": "risk_aversion",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "shares": "data",
               "eta": "data",
               "sigma": "data",
-              "risk_aversion": "data"
+              "risk_aversion": "idle"
             },
             "arrows": [
               [
@@ -639,13 +637,13 @@
               "shares": "100000",
               "eta": "0.000002",
               "sigma": "0.8",
-              "risk_aversion": "0.02"
+              "risk_aversion": ""
             },
             "tones": {
               "shares": "data",
               "eta": "data",
               "sigma": "data",
-              "risk_aversion": "data"
+              "risk_aversion": "idle"
             },
             "arrows": [
               [
@@ -751,6 +749,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Paying more than the decision price is a positive cost.",
+            "activeActor": "fill",
+            "messages": [
+              {
+                "from": "decision",
+                "to": "fill",
+                "label": {
+                  "var": "decision",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "fill",
@@ -765,10 +780,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Paying more than the decision price is a positive cost.",
-            "activeActor": "fill",
+            "at": "say7",
+            "caption": "The example computes slippage for a few fills on both sides.",
+            "activeActor": "side",
             "messages": [
+              {
+                "from": "decision",
+                "to": "fill",
+                "label": {
+                  "var": "decision",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fill",
+                "to": "side",
+                "label": {
+                  "var": "fill",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "decision",
                 "to": "fill",
@@ -788,14 +823,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example computes slippage for a few fills on both sides.",
-            "activeActor": "side",
-            "messages": [
+              },
               {
                 "from": "decision",
                 "to": "fill",
@@ -838,12 +866,6 @@
                 "to": "fill",
                 "label": "100",
                 "tone": "data"
-              },
-              {
-                "from": "fill",
-                "to": "side",
-                "label": "100.05",
-                "tone": "ok"
               }
             ],
             "activeActor": "decision"
@@ -871,6 +893,30 @@
             "at": "say7",
             "caption": "The example computes slippage for a few fills on both sides.",
             "messages": [
+              {
+                "from": "decision",
+                "to": "fill",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "fill",
+                "to": "side",
+                "label": "100.05",
+                "tone": "ok"
+              },
+              {
+                "from": "decision",
+                "to": "fill",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "fill",
+                "to": "side",
+                "label": "100.05",
+                "tone": "ok"
+              },
               {
                 "from": "decision",
                 "to": "fill",

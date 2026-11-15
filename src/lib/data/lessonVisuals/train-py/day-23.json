@@ -41,15 +41,13 @@
                 "hit": 1
               },
               "steady": {
-                "var": "steady",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "tokens_per_step": "data",
               "step_seconds": "data",
-              "steady": "data"
+              "steady": "idle"
             },
             "arrows": [
               [
@@ -100,7 +98,7 @@
           },
           {
             "at": "say11",
-            "caption": "Some teams also track throughput per dollar, which combines speed with.",
+            "caption": "Some teams also track throughput per dollar.",
             "values": {
               "tokens_per_step": {
                 "var": "tokens_per_step",
@@ -160,12 +158,12 @@
             "values": {
               "tokens_per_step": "8388608",
               "step_seconds": "[2.9, 2.1, 2, 2.05, 1.98, 2.02]",
-              "steady": "[2.1, 2, 2.05, 1.98, 2.02]"
+              "steady": ""
             },
             "tones": {
               "tokens_per_step": "data",
               "step_seconds": "data",
-              "steady": "data"
+              "steady": "idle"
             },
             "arrows": [
               [
@@ -204,7 +202,7 @@
           },
           {
             "at": "say11",
-            "caption": "Some teams also track throughput per dollar, which combines speed with.",
+            "caption": "Some teams also track throughput per dollar.",
             "values": {
               "tokens_per_step": "8388608",
               "step_seconds": "[2.9, 2.1, 2, 2.05, 1.98, 2.02]",
@@ -322,7 +320,7 @@
           },
           {
             "at": "say12",
-            "caption": "Trace how example updates percent during execution.",
+            "caption": "Examine the example value produced for percent processing.",
             "bars": [
               {
                 "label": "params",
@@ -422,7 +420,7 @@
           },
           {
             "at": "say12",
-            "caption": "Trace how example updates percent during execution.",
+            "caption": "Examine the example value produced for percent processing.",
             "bars": [
               {
                 "label": "params",
@@ -485,15 +483,13 @@
                 "hit": 1
               },
               "slow": {
-                "var": "slow",
-                "line": 5,
-                "hit": 11
+                "text": ""
               }
             },
             "tones": {
               "steps": "data",
               "median": "data",
-              "slow": "data"
+              "slow": "idle"
             },
             "arrows": [
               [
@@ -604,12 +600,12 @@
             "values": {
               "steps": "[1, 1.1, 0.9, 1, 3, 1, 1.05, 0.95, 2.4,…",
               "median": "1",
-              "slow": "[4, 8]"
+              "slow": ""
             },
             "tones": {
               "steps": "data",
               "median": "data",
-              "slow": "data"
+              "slow": "idle"
             },
             "arrows": [
               [
@@ -700,7 +696,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how percent updates where during execution.",
+            "caption": "Inspect percent updates as step tracks execution state.",
             "values": {
               "step": {
                 "var": "step",
@@ -862,7 +858,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how percent updates where during execution.",
+            "caption": "Inspect percent updates as step tracks execution state.",
             "values": {
               "step": "{'matrix multiplications': 520, 'attent…",
               "total": "1000",
@@ -979,16 +975,6 @@
                   "hit": 2
                 },
                 "tone": "data"
-              },
-              {
-                "from": "mfu",
-                "to": "k",
-                "label": {
-                  "var": "mfu",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -1002,8 +988,8 @@
                 "to": "mfu",
                 "label": {
                   "var": "report",
-                  "line": 3,
-                  "hit": 1
+                  "line": 1,
+                  "hit": 2
                 },
                 "tone": "data"
               },
@@ -1012,8 +998,8 @@
                 "to": "k",
                 "label": {
                   "var": "mfu",
-                  "line": 4,
-                  "hit": 9
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -1029,8 +1015,28 @@
                 "to": "mfu",
                 "label": {
                   "var": "report",
-                  "line": 4,
-                  "hit": 9
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mfu",
+                "to": "k",
+                "label": {
+                  "var": "mfu",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "report",
+                "to": "mfu",
+                "label": {
+                  "var": "report",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "data"
               },
@@ -1043,6 +1049,16 @@
                   "hit": 9
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "report",
+                "to": "mfu",
+                "label": {
+                  "var": "report",
+                  "line": 4,
+                  "hit": 9
+                },
+                "tone": "data"
               }
             ]
           }
@@ -1066,12 +1082,6 @@
                 "to": "mfu",
                 "label": "{'model': '7B', 'seq_len': 4096, 'globa…",
                 "tone": "data"
-              },
-              {
-                "from": "mfu",
-                "to": "k",
-                "label": "0.28921274038461536",
-                "tone": "ok"
               }
             ],
             "activeActor": "report"
@@ -1110,6 +1120,24 @@
                 "to": "k",
                 "label": "0.28921274038461536",
                 "tone": "ok"
+              },
+              {
+                "from": "report",
+                "to": "mfu",
+                "label": "{'model': '7B', 'seq_len': 4096, 'globa…",
+                "tone": "data"
+              },
+              {
+                "from": "mfu",
+                "to": "k",
+                "label": "0.28921274038461536",
+                "tone": "ok"
+              },
+              {
+                "from": "report",
+                "to": "mfu",
+                "label": "{'model': '7B', 'seq_len': 4096, 'globa…",
+                "tone": "data"
               }
             ],
             "activeActor": "k"
@@ -1143,6 +1171,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks include a single GPU, a 512-GPU cluster and zero throughput.",
+            "activeActor": "tokens",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "tokens",
+                "label": {
+                  "var": "steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "tokens",
@@ -1157,10 +1202,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include a single GPU, a 512-GPU cluster and zero throughput.",
-            "activeActor": "tokens",
+            "at": "say11",
+            "caption": "Examine the above value produced for always processing.",
+            "activeActor": "tps",
             "messages": [
+              {
+                "from": "steps",
+                "to": "tokens",
+                "label": {
+                  "var": "steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tokens",
+                "to": "tps",
+                "label": {
+                  "var": "tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "steps",
                 "to": "tokens",
@@ -1180,14 +1245,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Trace how above updates always during execution.",
-            "activeActor": "tps",
-            "messages": [
+              },
               {
                 "from": "steps",
                 "to": "tokens",
@@ -1230,12 +1288,6 @@
                 "to": "tokens",
                 "label": "[2, 2.1, 1.9, 2, 4.5, 2, 2.05, 1.95]",
                 "tone": "data"
-              },
-              {
-                "from": "tokens",
-                "to": "tps",
-                "label": "2097152",
-                "tone": "ok"
               }
             ],
             "activeActor": "steps"
@@ -1261,8 +1313,32 @@
           },
           {
             "at": "say11",
-            "caption": "Trace how above updates always during execution.",
+            "caption": "Examine the above value produced for always processing.",
             "messages": [
+              {
+                "from": "steps",
+                "to": "tokens",
+                "label": "[2, 2.1, 1.9, 2, 4.5, 2, 2.05, 1.95]",
+                "tone": "data"
+              },
+              {
+                "from": "tokens",
+                "to": "tps",
+                "label": "2097152",
+                "tone": "ok"
+              },
+              {
+                "from": "steps",
+                "to": "tokens",
+                "label": "[2, 2.1, 1.9, 2, 4.5, 2, 2.05, 1.95]",
+                "tone": "data"
+              },
+              {
+                "from": "tokens",
+                "to": "tps",
+                "label": "2097152",
+                "tone": "ok"
+              },
               {
                 "from": "steps",
                 "to": "tokens",

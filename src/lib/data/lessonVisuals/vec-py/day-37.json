@@ -6,30 +6,21 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Product Quantization (PQ) — Foundations & Mathematical Invariants",
-      "codeHash": "5f5d512954b724a20e9c11d56a3a5871d61361c5b4f9db31282d728bc394e084",
+      "partTitle": "Orthogonal Subspace Decomposition into Equi-Sized Subvectors",
+      "codeHash": "66ac46527719308af49819f06f832378620a3f64643e555c704d106f0ec6bb5d",
       "spec": {
         "template": "bars",
-        "title": "Product Quantization (PQ) — Foundations & Mathematical Invariant",
+        "title": "Orthogonal Subspace Decomposition into Equi-Sized Subvectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Storing millions of high-dimensional floating-point vectors in RAM creates.",
+            "caption": "Observe how storing shapes millions during this step.",
             "bars": [
               {
-                "label": "m",
+                "label": "chunks",
                 "value": {
-                  "var": "m",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "sub_dim",
-                "value": {
-                  "var": "sub_dim",
-                  "line": 2,
+                  "var": "chunks",
+                  "line": 5,
                   "hit": 1
                 },
                 "tone": "data"
@@ -37,9 +28,14 @@
               {
                 "label": "i",
                 "value": {
-                  "var": "i",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -47,56 +43,47 @@
           },
           {
             "at": "say2",
-            "caption": "Scalar quantization compresses each floating-point dimension.",
+            "caption": "Verify the scalar transition driving quantization behavior.",
             "bars": [
               {
-                "label": "m",
+                "label": "chunks",
                 "value": {
-                  "var": "m",
-                  "line": 3,
-                  "hit": 1
+                  "var": "chunks",
+                  "line": 8,
+                  "hit": 2
                 },
-                "tone": "ok"
-              },
-              {
-                "label": "sub_dim",
-                "value": {
-                  "var": "sub_dim",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "i",
                 "value": {
                   "var": "i",
-                  "line": 3,
+                  "line": 8,
                   "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "at": "say3",
+            "caption": "Examine the orthogonal value produced for subvectors processing.",
             "bars": [
               {
-                "label": "m",
+                "label": "chunks",
                 "value": {
-                  "var": "m",
-                  "line": 3,
-                  "hit": 2
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "sub_dim",
-                "value": {
-                  "var": "sub_dim",
-                  "line": 3,
-                  "hit": 2
+                  "var": "chunks",
+                  "line": 8,
+                  "hit": 4
                 },
                 "tone": "ok"
               },
@@ -104,8 +91,17 @@
                 "label": "i",
                 "value": {
                   "var": "i",
-                  "line": 3,
-                  "hit": 3
+                  "line": 8,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 8,
+                  "hit": 4
                 },
                 "tone": "ok"
               }
@@ -115,24 +111,24 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Product Quantization (PQ) — Foundations & Mathematical Invariant",
+        "title": "Orthogonal Subspace Decomposition into Equi-Sized Subvectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Storing millions of high-dimensional floating-point vectors in RAM creates.",
+            "caption": "Observe how storing shapes millions during this step.",
             "bars": [
               {
-                "label": "m",
-                "value": 4,
-                "tone": "data"
-              },
-              {
-                "label": "sub_dim",
-                "value": 2,
+                "label": "chunks",
+                "value": "[]",
                 "tone": "data"
               },
               {
                 "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "start",
                 "value": 0,
                 "tone": "data"
               }
@@ -140,42 +136,42 @@
           },
           {
             "at": "say2",
-            "caption": "Scalar quantization compresses each floating-point dimension.",
+            "caption": "Verify the scalar transition driving quantization behavior.",
             "bars": [
               {
-                "label": "m",
-                "value": 4,
-                "tone": "ok"
-              },
-              {
-                "label": "sub_dim",
-                "value": 2,
-                "tone": "ok"
+                "label": "chunks",
+                "value": "[[0.1, 0.2], [0.3, 0.4]]",
+                "tone": "data"
               },
               {
                 "label": "i",
                 "value": 1,
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": 2,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "at": "say3",
+            "caption": "Examine the orthogonal value produced for subvectors processing.",
             "bars": [
               {
-                "label": "m",
-                "value": 4,
-                "tone": "ok"
-              },
-              {
-                "label": "sub_dim",
-                "value": 2,
+                "label": "chunks",
+                "value": "[[0.1, 0.2], [0.3, 0.4], [0.5, 0.6], [0…",
                 "tone": "ok"
               },
               {
                 "label": "i",
-                "value": 2,
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 6,
                 "tone": "ok"
               }
             ]
@@ -184,7 +180,7 @@
       }
     },
     {
-      "partTitle": "Product Quantization (PQ) — Core Algorithm & State Representation",
+      "partTitle": "Nearest Centroid Codebook Quantization per Subspace",
       "codeHash": "87f60f906c054816bd90011379be49dd63150a3989636df32da6cbb40f8baf75",
       "spec": {
         "template": "cells",
@@ -208,7 +204,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how codebook updates each during execution.",
+            "caption": "Verify the codebook transition driving subspace behavior.",
             "items": {
               "var": "sub",
               "line": 13,
@@ -224,7 +220,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the subspace value produced for training processing.",
             "items": {
               "var": "sub",
               "line": 13,
@@ -261,7 +257,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how codebook updates each during execution.",
+            "caption": "Verify the codebook transition driving subspace behavior.",
             "items": [
               "0.48",
               "0.52"
@@ -276,7 +272,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the subspace value produced for training processing.",
             "items": [
               "0.48",
               "0.52"
@@ -293,7 +289,7 @@
       }
     },
     {
-      "partTitle": "Product Quantization (PQ) — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Precomputing Asymmetric Distance Computation Lookup Tables",
       "codeHash": "458934d50f8a00cf60d0b8712067f8e46a03dd5da96cf7ff5eba7274edf831fd",
       "spec": {
         "template": "cells",
@@ -333,7 +329,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the checking value produced for matching processing.",
             "items": {
               "var": "q_sub",
               "line": 5,
@@ -385,7 +381,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the checking value produced for matching processing.",
             "items": [
               "1",
               "1"
@@ -402,165 +398,113 @@
       }
     },
     {
-      "partTitle": "Product Quantization (PQ) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "5022adaa164afc32a753130796cf879c96f9d633bc98ddeb30607b459a58959d",
+      "partTitle": "Fast Approximate Distances via Constant-Time Table Indexing",
+      "codeHash": "0f72c75f660286747e4dd3078254933466c03308d5acaf116d8761493d23591d",
       "spec": {
         "template": "flow",
-        "title": "Product Quantization (PQ) — Resilience Guardrails & Failure Reco",
+        "title": "Fast Approximate Distances via Constant-Time Table Indexing",
         "nodes": [
           {
-            "id": "sample_table",
-            "label": "sample_table"
-          },
-          {
-            "id": "sample_codes",
-            "label": "sample_codes"
+            "id": "total_dist",
+            "label": "total_dist",
+            "tappable": true
           },
           {
             "id": "m",
-            "label": "m"
+            "label": "m",
+            "tappable": true
           },
           {
             "id": "code",
-            "label": "code"
+            "label": "code",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distance evaluation in ADC computes approximate distances by summing.",
+            "caption": "Inspect approximate updates as total_dist tracks distances state.",
             "values": {
-              "sample_table": {
-                "var": "sample_table",
-                "line": 5,
-                "hit": 1
-              },
-              "sample_codes": {
-                "var": "sample_codes",
-                "line": 6,
+              "total_dist": {
+                "var": "total_dist",
+                "line": 4,
                 "hit": 1
               },
               "m": {
-                "var": "m",
-                "line": 2,
-                "hit": 1
+                "text": ""
               },
               "code": {
-                "var": "code",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
-              "sample_table": "data",
-              "sample_codes": "data",
-              "m": "data",
-              "code": "data"
+              "total_dist": "data",
+              "m": "idle",
+              "code": "idle"
             },
-            "arrows": [
-              [
-                "sample_table",
-                "sample_codes"
-              ],
-              [
-                "sample_codes",
-                "m"
-              ],
-              [
-                "m",
-                "code"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "For a database vector encoded as [c0, c1,.",
+            "caption": "+ table[m-1][cm-1].",
             "values": {
-              "sample_table": {
-                "var": "sample_table",
-                "line": 6,
-                "hit": 1
-              },
-              "sample_codes": {
-                "var": "sample_codes",
-                "line": 7,
-                "hit": 1
-              },
-              "m": {
-                "var": "m",
-                "line": 2,
-                "hit": 2
-              },
-              "code": {
-                "var": "code",
-                "line": 2,
-                "hit": 2
-              }
-            },
-            "tones": {
-              "sample_table": "data",
-              "sample_codes": "data",
-              "m": "data",
-              "code": "data"
-            },
-            "arrows": [
-              [
-                "sample_table",
-                "sample_codes"
-              ],
-              [
-                "sample_codes",
-                "m"
-              ],
-              [
-                "m",
-                "code"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
-            "values": {
-              "sample_table": {
-                "var": "sample_table",
-                "line": 7,
-                "hit": 1
-              },
-              "sample_codes": {
-                "var": "sample_codes",
+              "total_dist": {
+                "var": "total_dist",
                 "line": 8,
                 "hit": 1
               },
               "m": {
                 "var": "m",
-                "line": 2,
-                "hit": 3
+                "line": 8,
+                "hit": 1
               },
               "code": {
                 "var": "code",
-                "line": 2,
-                "hit": 3
+                "line": 8,
+                "hit": 1
               }
             },
             "tones": {
-              "sample_table": "ok",
-              "sample_codes": "ok",
+              "total_dist": "data",
+              "m": "data",
+              "code": "data"
+            },
+            "arrows": [
+              [
+                "total_dist",
+                "m"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Examine the lookup value produced for loop processing.",
+            "values": {
+              "total_dist": {
+                "var": "total_dist",
+                "line": 8,
+                "hit": 2
+              },
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 2
+              },
+              "code": {
+                "var": "code",
+                "line": 8,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "total_dist": "ok",
               "m": "ok",
               "code": "ok"
             },
             "arrows": [
               [
-                "sample_table",
-                "sample_codes"
-              ],
-              [
-                "sample_codes",
+                "total_dist",
                 "m"
-              ],
-              [
-                "m",
-                "code"
               ]
             ]
           }
@@ -568,113 +512,77 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Product Quantization (PQ) — Resilience Guardrails & Failure Reco",
+        "title": "Fast Approximate Distances via Constant-Time Table Indexing",
         "nodes": [
           {
-            "id": "sample_table",
-            "label": "sample_table"
-          },
-          {
-            "id": "sample_codes",
-            "label": "sample_codes"
+            "id": "total_dist",
+            "label": "total_dist",
+            "tappable": true
           },
           {
             "id": "m",
-            "label": "m"
+            "label": "m",
+            "tappable": true
           },
           {
             "id": "code",
-            "label": "code"
+            "label": "code",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distance evaluation in ADC computes approximate distances by summing.",
+            "caption": "Inspect approximate updates as total_dist tracks distances state.",
             "values": {
-              "sample_table": "[[0.05, 0.15], [0.02, 0.08]]",
-              "sample_codes": "[0, 1]",
+              "total_dist": "0",
+              "m": "",
+              "code": ""
+            },
+            "tones": {
+              "total_dist": "data",
+              "m": "idle",
+              "code": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "+ table[m-1][cm-1].",
+            "values": {
+              "total_dist": "0.05",
               "m": "0",
               "code": "0"
             },
             "tones": {
-              "sample_table": "data",
-              "sample_codes": "data",
+              "total_dist": "data",
               "m": "data",
               "code": "data"
             },
             "arrows": [
               [
-                "sample_table",
-                "sample_codes"
-              ],
-              [
-                "sample_codes",
+                "total_dist",
                 "m"
-              ],
-              [
-                "m",
-                "code"
               ]
             ]
           },
           {
-            "at": "say2",
-            "caption": "For a database vector encoded as [c0, c1,.",
+            "at": "say3",
+            "caption": "Examine the lookup value produced for loop processing.",
             "values": {
-              "sample_table": "[[0.05, 0.15], [0.02, 0.08]]",
-              "sample_codes": "[0, 1]",
+              "total_dist": "0.13",
               "m": "1",
               "code": "1"
             },
             "tones": {
-              "sample_table": "data",
-              "sample_codes": "data",
-              "m": "data",
-              "code": "data"
-            },
-            "arrows": [
-              [
-                "sample_table",
-                "sample_codes"
-              ],
-              [
-                "sample_codes",
-                "m"
-              ],
-              [
-                "m",
-                "code"
-              ]
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
-            "values": {
-              "sample_table": "[[0.05, 0.15], [0.02, 0.08]]",
-              "sample_codes": "[0, 1]",
-              "m": "1",
-              "code": "1"
-            },
-            "tones": {
-              "sample_table": "ok",
-              "sample_codes": "ok",
+              "total_dist": "ok",
               "m": "ok",
               "code": "ok"
             },
             "arrows": [
               [
-                "sample_table",
-                "sample_codes"
-              ],
-              [
-                "sample_codes",
+                "total_dist",
                 "m"
-              ],
-              [
-                "m",
-                "code"
               ]
             ]
           }
@@ -682,15 +590,15 @@
       }
     },
     {
-      "partTitle": "Product Quantization (PQ) — Production Telemetry & Verification Audit",
-      "codeHash": "e91e9c9c0caf5cceb1d4160f51931dacf40e6f3222c34ba4c1e82a97a2f86fac",
+      "partTitle": "Byte-Level PQ Compression Ratios Against FP32 Vectors",
+      "codeHash": "357ca98b2ddf34bf65f78cbe5c56aa849b948631a3c5d359172f2689dd1c18e0",
       "spec": {
         "template": "bars",
-        "title": "Product Quantization (PQ) — Production Telemetry & Verification ",
+        "title": "Byte-Level PQ Compression Ratios Against FP32 Vectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Production capacity audits measure the physical memory savings achieved.",
+            "caption": "Observe how production shapes capacity during this step.",
             "bars": [
               {
                 "label": "num_docs",
@@ -722,9 +630,7 @@
               {
                 "label": "orig_bytes",
                 "value": {
-                  "var": "orig_bytes",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -732,49 +638,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how million updates dimensional during execution.",
-            "bars": [
-              {
-                "label": "num_docs",
-                "value": {
-                  "var": "num_docs",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "orig_dim",
-                "value": {
-                  "var": "orig_dim",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "m",
-                "value": {
-                  "var": "m",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "orig_bytes",
-                "value": {
-                  "var": "orig_bytes",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the fp32 transition driving vectors behavior.",
             "bars": [
               {
                 "label": "num_docs",
@@ -818,11 +682,11 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Product Quantization (PQ) — Production Telemetry & Verification ",
+        "title": "Byte-Level PQ Compression Ratios Against FP32 Vectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Production capacity audits measure the physical memory savings achieved.",
+            "caption": "Observe how production shapes capacity during this step.",
             "bars": [
               {
                 "label": "num_docs",
@@ -841,40 +705,14 @@
               },
               {
                 "label": "orig_bytes",
-                "value": 512000000,
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Trace how million updates dimensional during execution.",
-            "bars": [
-              {
-                "label": "num_docs",
-                "value": 1000000,
-                "tone": "ok"
-              },
-              {
-                "label": "orig_dim",
-                "value": 128,
-                "tone": "ok"
-              },
-              {
-                "label": "m",
-                "value": 8,
-                "tone": "ok"
-              },
-              {
-                "label": "orig_bytes",
-                "value": 512000000,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "caption": "Verify the fp32 transition driving vectors behavior.",
             "bars": [
               {
                 "label": "num_docs",

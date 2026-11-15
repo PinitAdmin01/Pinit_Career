@@ -18,7 +18,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates brings during execution.",
+            "caption": "Observe how milestone shapes brings during this step.",
             "rows": [
               {
                 "cells": [
@@ -105,7 +105,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates brings during execution.",
+            "caption": "Observe how milestone shapes brings during this step.",
             "rows": [
               {
                 "cells": [
@@ -762,7 +762,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates concludes during execution.",
+            "caption": "Inspect milestone updates as adf_p_val tracks production state.",
             "values": {
               "adf_p_val": {
                 "var": "adf_p_val",
@@ -780,16 +780,14 @@
                 "hit": 1
               },
               "max_leg_latency": {
-                "var": "max_leg_latency",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "adf_p_val": "data",
               "kalman_p_bounded": "data",
               "net_beta": "data",
-              "max_leg_latency": "data"
+              "max_leg_latency": "idle"
             },
             "arrows": [
               [
@@ -924,18 +922,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates concludes during execution.",
+            "caption": "Inspect milestone updates as adf_p_val tracks production state.",
             "values": {
               "adf_p_val": "0.018",
               "kalman_p_bounded": "True",
               "net_beta": "0.012",
-              "max_leg_latency": "85"
+              "max_leg_latency": ""
             },
             "tones": {
               "adf_p_val": "data",
               "kalman_p_bounded": "data",
               "net_beta": "data",
-              "max_leg_latency": "data"
+              "max_leg_latency": "idle"
             },
             "arrows": [
               [

@@ -545,17 +545,17 @@
               },
               "queue": {
                 "var": "queue",
-                "line": 4,
+                "line": 6,
                 "hit": 1
               },
               "dlq": {
                 "var": "dlq",
-                "line": 5,
+                "line": 11,
                 "hit": 1
               },
               "done": {
                 "var": "done",
-                "line": 5,
+                "line": 9,
                 "hit": 1
               }
             },
@@ -591,18 +591,18 @@
               },
               "queue": {
                 "var": "queue",
-                "line": 5,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "dlq": {
                 "var": "dlq",
-                "line": 6,
+                "line": 11,
                 "hit": 1
               },
               "done": {
                 "var": "done",
-                "line": 6,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               }
             },
             "tones": {
@@ -685,9 +685,9 @@
             "caption": "Without protection, a poison message comes back after every visibility.",
             "values": {
               "MAX_RECEIVES": "3",
-              "queue": "[{'id': 'ok-1', 'receives': 0, 'poison'…",
-              "dlq": "[]",
-              "done": "[]"
+              "queue": "[{'id': 'bad-7', 'receives': 0, 'poison…",
+              "dlq": "['bad-7']",
+              "done": "['ok-1']"
             },
             "tones": {
               "MAX_RECEIVES": "data",
@@ -715,9 +715,9 @@
             "caption": "The example processes a queue containing one poison message and shows it.",
             "values": {
               "MAX_RECEIVES": "3",
-              "queue": "[{'id': 'ok-1', 'receives': 0, 'poison'…",
-              "dlq": "[]",
-              "done": "[]"
+              "queue": "[{'id': 'ok-2', 'receives': 0, 'poison'…",
+              "dlq": "['bad-7']",
+              "done": "['ok-1', 'ok-2']"
             },
             "tones": {
               "MAX_RECEIVES": "ok",
@@ -820,12 +820,12 @@
             "values": {
               "processed_ids": {
                 "var": "processed_ids",
-                "line": 2,
+                "line": 17,
                 "hit": 1
               },
               "charges": {
                 "var": "charges",
-                "line": 4,
+                "line": 17,
                 "hit": 1
               },
               "ev": {
@@ -862,16 +862,16 @@
           },
           {
             "at": "say7",
-            "caption": "Payment providers support the same idea with idempotency keys on their.",
+            "caption": "Examine the payment value produced for providers processing.",
             "values": {
               "processed_ids": {
                 "var": "processed_ids",
-                "line": 4,
+                "line": 17,
                 "hit": 1
               },
               "charges": {
                 "var": "charges",
-                "line": 10,
+                "line": 17,
                 "hit": 1
               },
               "ev": {
@@ -964,8 +964,8 @@
             "at": "say2",
             "caption": "The payment service is the classic case.",
             "values": {
-              "processed_ids": "set()",
-              "charges": "[]",
+              "processed_ids": "{'evt-555'}",
+              "charges": "[1499]",
               "ev": "{'id': 'evt-555', 'detail': {'order_id'…",
               "event_id": "'evt-555'"
             },
@@ -992,10 +992,10 @@
           },
           {
             "at": "say7",
-            "caption": "Payment providers support the same idea with idempotency keys on their.",
+            "caption": "Examine the payment value produced for providers processing.",
             "values": {
-              "processed_ids": "set()",
-              "charges": "[]",
+              "processed_ids": "{'evt-555'}",
+              "charges": "[1499]",
               "ev": "{'id': 'evt-555', 'detail': {'order_id'…",
               "event_id": "'evt-555'"
             },
@@ -1027,162 +1027,154 @@
       "partTitle": "Tracing an order through the system",
       "codeHash": "b3e9f69dfb5b779116cce014fc2df9175c65551bb814fc0e2c8692c10460d612",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Tracing an order through the system",
-        "actors": [
-          "logs",
-          ".0",
-          "l"
+        "nodes": [
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a system of many services, \"where is order 981.",
-            "activeActor": "logs",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": {
-                  "var": "logs",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Each service has its own logs on its own machines.",
+            "values": {
+              "l": {
+                "var": "l",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": {
-                  "var": ".0",
-                  "line": 8,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "l": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Correlation ids solve it.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": {
-                  "var": "logs",
-                  "line": 8,
-                  "hit": 11
-                },
-                "tone": "data"
+            "values": {
+              "l": {
+                "var": "l",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": {
-                  "var": ".0",
-                  "line": 8,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "l": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Trace how will updates query during execution.",
-            "activeActor": "l",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": {
-                  "var": "logs",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Then a single search across all logs for that id shows the whole journey.",
+            "values": {
+              "l": {
+                "var": "l",
+                "line": 8,
+                "hit": 5
               },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": {
-                  "var": ".0",
-                  "line": 8,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "l": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Tracing an order through the system",
-        "actors": [
-          "logs",
-          ".0",
-          "l"
+        "nodes": [
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a system of many services, \"where is order 981.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": "[{'t': 3, 'service': 'payments', 'event…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "logs"
+            "caption": "Each service has its own logs on its own machines.",
+            "values": {
+              "l": "{'t': 3, 'service': 'payments', 'event'…",
+              "out": ""
+            },
+            "tones": {
+              "l": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Correlation ids solve it.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": "[{'t': 3, 'service': 'payments', 'event…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "values": {
+              "l": "{'t': 2, 'service': 'orders', 'event': …",
+              "out": "t=1  orders     OrderCreated"
+            },
+            "tones": {
+              "l": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Trace how will updates query during execution.",
-            "messages": [
-              {
-                "from": "logs",
-                "to": ".0",
-                "label": "[{'t': 3, 'service': 'payments', 'event…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "l",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "l"
+            "at": "say3",
+            "caption": "Then a single search across all logs for that id shows the whole journey.",
+            "values": {
+              "l": "{'t': 5, 'service': 'inventory', 'event…",
+              "out": "t=3  payments   PaymentSucceeded"
+            },
+            "tones": {
+              "l": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "l",
+                "out"
+              ]
+            ]
           }
         ]
       }

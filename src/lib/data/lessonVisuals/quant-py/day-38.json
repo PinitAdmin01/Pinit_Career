@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how engineer updates chooses during execution.",
+            "caption": "Verify the matter transition driving carefully behavior.",
             "rows": [
               {
                 "cells": [
@@ -118,7 +118,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how engineer updates chooses during execution.",
+            "caption": "Verify the matter transition driving carefully behavior.",
             "rows": [
               {
                 "cells": [
@@ -185,6 +185,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In the Predict Stage, the filter projects the state estimate and error.",
+            "activeActor": "delta_q",
+            "messages": [
+              {
+                "from": "self",
+                "to": "delta_q",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "delta_q",
@@ -199,10 +216,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In the Predict Stage, the filter projects the state estimate and error.",
-            "activeActor": "delta_q",
+            "at": "say8",
+            "caption": "The state transition matrix models hedge ratio evolution as a random walk.",
+            "activeActor": "r_noise",
             "messages": [
+              {
+                "from": "self",
+                "to": "delta_q",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "delta_q",
+                "to": "r_noise",
+                "label": {
+                  "var": "delta_q",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "delta_q",
@@ -222,14 +259,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The state transition matrix models hedge ratio evolution as a random walk.",
-            "activeActor": "r_noise",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "delta_q",
@@ -272,12 +302,6 @@
                 "to": "delta_q",
                 "label": "<KalmanFilterPairsTracker>",
                 "tone": "data"
-              },
-              {
-                "from": "delta_q",
-                "to": "r_noise",
-                "label": "0.0001",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -305,6 +329,30 @@
             "at": "say8",
             "caption": "The state transition matrix models hedge ratio evolution as a random walk.",
             "messages": [
+              {
+                "from": "self",
+                "to": "delta_q",
+                "label": "<KalmanFilterPairsTracker>",
+                "tone": "data"
+              },
+              {
+                "from": "delta_q",
+                "to": "r_noise",
+                "label": "0.0001",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "delta_q",
+                "label": "<KalmanFilterPairsTracker>",
+                "tone": "data"
+              },
+              {
+                "from": "delta_q",
+                "to": "r_noise",
+                "label": "0.0001",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "delta_q",
@@ -552,7 +600,7 @@
           },
           {
             "at": "say2",
-            "caption": "Due to floating-point rounding errors in recursive updates ($P = (I.",
+            "caption": "Verify the because transition driving floating behavior.",
             "bars": [
               {
                 "label": "p_prior",
@@ -668,7 +716,7 @@
           },
           {
             "at": "say2",
-            "caption": "Due to floating-point rounding errors in recursive updates ($P = (I.",
+            "caption": "Verify the because transition driving floating behavior.",
             "bars": [
               {
                 "label": "p_prior",

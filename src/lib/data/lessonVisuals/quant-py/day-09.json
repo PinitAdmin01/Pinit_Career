@@ -9,162 +9,160 @@
       "partTitle": "The Financial Information eXchange protocol",
       "codeHash": "0a12055d7d1314956a45da03d7b5e53007d6adb96e0d7f31d18ce73e128764fc",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Financial Information eXchange protocol",
-        "actors": [
-          "fields",
-          "names",
-          ".0"
+        "nodes": [
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "FIX (Financial Information eXchange) is the standard messaging protocol.",
-            "activeActor": "fields",
-            "messages": [
-              {
-                "from": "fields",
-                "to": "names",
-                "label": {
-                  "var": "fields",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect financial updates as t tracks information state.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "from": "names",
-                "to": ".0",
-                "label": {
-                  "var": "names",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "t": "data",
+              "v": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A FIX message is a list of fields written as tag=value, separated by.",
-            "activeActor": "names",
-            "messages": [
-              {
-                "from": "fields",
-                "to": "names",
-                "label": {
-                  "var": "fields",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the message transition driving list behavior.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 4
               },
-              {
-                "from": "names",
-                "to": ".0",
-                "label": {
-                  "var": "names",
-                  "line": 3,
-                  "hit": 9
-                },
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 3,
+                "hit": 4
               }
+            },
+            "tones": {
+              "t": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "t",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Almost every broker, trading platform and exchange gateway speaks FIX, so.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "fields",
-                "to": "names",
-                "label": {
-                  "var": "fields",
-                  "line": 3,
-                  "hit": 9
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Tags are numbers with standard meanings.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 7
               },
-              {
-                "from": "names",
-                "to": ".0",
-                "label": {
-                  "var": "names",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 3,
+                "hit": 7
               }
+            },
+            "tones": {
+              "t": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Financial Information eXchange protocol",
-        "actors": [
-          "fields",
-          "names",
-          ".0"
+        "nodes": [
+          {
+            "id": "t",
+            "label": "t",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "FIX (Financial Information eXchange) is the standard messaging protocol.",
-            "messages": [
-              {
-                "from": "fields",
-                "to": "names",
-                "label": "[[35, 'D'], [11, 'ORD-1001'], [55, 'INF…",
-                "tone": "data"
-              },
-              {
-                "from": "names",
-                "to": ".0",
-                "label": "{35: 'MsgType', 11: 'ClOrdID', 55: 'Sym…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "fields"
+            "caption": "Inspect financial updates as t tracks information state.",
+            "values": {
+              "t": "35",
+              "v": "'D'"
+            },
+            "tones": {
+              "t": "data",
+              "v": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A FIX message is a list of fields written as tag=value, separated by.",
-            "messages": [
-              {
-                "from": "fields",
-                "to": "names",
-                "label": "[[35, 'D'], [11, 'ORD-1001'], [55, 'INF…",
-                "tone": "data"
-              },
-              {
-                "from": "names",
-                "to": ".0",
-                "label": "{35: 'MsgType', 11: 'ClOrdID', 55: 'Sym…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "names"
+            "caption": "Verify the message transition driving list behavior.",
+            "values": {
+              "t": "54",
+              "v": "1"
+            },
+            "tones": {
+              "t": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "t",
+                "v"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Almost every broker, trading platform and exchange gateway speaks FIX, so.",
-            "messages": [
-              {
-                "from": "fields",
-                "to": "names",
-                "label": "[[35, 'D'], [11, 'ORD-1001'], [55, 'INF…",
-                "tone": "data"
-              },
-              {
-                "from": "names",
-                "to": ".0",
-                "label": "{35: 'MsgType', 11: 'ClOrdID', 55: 'Sym…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Tags are numbers with standard meanings.",
+            "values": {
+              "t": "44",
+              "v": "'1520.50'"
+            },
+            "tones": {
+              "t": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "v"
+              ]
+            ]
           }
         ]
       }
@@ -195,6 +193,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "BodyLength (tag 9) is the number of characters from the start of tag 35 up.",
+            "activeActor": "body",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "body",
@@ -209,10 +224,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "BodyLength (tag 9) is the number of characters from the start of tag 35 up.",
-            "activeActor": "body",
+            "at": "say7",
+            "caption": "The example builds a heartbeat message and prints its parts.",
+            "activeActor": "head",
             "messages": [
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "SOH",
                 "to": "body",
@@ -232,14 +267,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example builds a heartbeat message and prints its parts.",
-            "activeActor": "head",
-            "messages": [
+              },
               {
                 "from": "SOH",
                 "to": "body",
@@ -282,12 +310,6 @@
                 "to": "body",
                 "label": "'\u0001'",
                 "tone": "data"
-              },
-              {
-                "from": "body",
-                "to": "head",
-                "label": "'35=0\u0001'",
-                "tone": "ok"
               }
             ],
             "activeActor": "SOH"
@@ -315,6 +337,30 @@
             "at": "say7",
             "caption": "The example builds a heartbeat message and prints its parts.",
             "messages": [
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": "'35=0\u0001'",
+                "tone": "ok"
+              },
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": "'35=0\u0001'",
+                "tone": "ok"
+              },
               {
                 "from": "SOH",
                 "to": "body",
@@ -359,6 +405,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Find the last \"\\x0110=\" in the message, recompute the checksum.",
+            "activeActor": "body",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "body",
@@ -373,10 +436,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Find the last \"\\x0110=\" in the message, recompute the checksum.",
-            "activeActor": "body",
+            "at": "say7",
+            "caption": "The example corrupts one character of a valid message and shows.",
+            "activeActor": "head",
             "messages": [
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "SOH",
                 "to": "body",
@@ -396,14 +479,7 @@
                   "hit": 37
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example corrupts one character of a valid message and shows.",
-            "activeActor": "head",
-            "messages": [
+              },
               {
                 "from": "SOH",
                 "to": "body",
@@ -413,16 +489,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "body",
-                "to": "head",
-                "label": {
-                  "var": "body",
-                  "line": 4,
-                  "hit": 37
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -446,12 +512,6 @@
                 "to": "body",
                 "label": "'\u0001'",
                 "tone": "data"
-              },
-              {
-                "from": "body",
-                "to": "head",
-                "label": "'35=D\u000155=INFY\u000138=100\u0001'",
-                "tone": "ok"
               }
             ],
             "activeActor": "SOH"
@@ -490,6 +550,24 @@
                 "to": "head",
                 "label": "'35=D\u000155=INFY\u000138=100\u0001'",
                 "tone": "ok"
+              },
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": "'35=D\u000155=INFY\u000138=100\u0001'",
+                "tone": "ok"
+              },
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
+                "tone": "data"
               }
             ],
             "activeActor": "head"
@@ -530,7 +608,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how session updates starts during execution.",
+            "caption": "Verify the logon transition driving session behavior.",
             "bars": [
               {
                 "label": "expected",
@@ -600,7 +678,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how session updates starts during execution.",
+            "caption": "Verify the logon transition driving session behavior.",
             "bars": [
               {
                 "label": "expected",
@@ -684,7 +762,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how fields updates ordstatus during execution.",
+            "caption": "Verify the fields transition driving ordstatus behavior.",
             "bars": [
               {
                 "label": "last_qty",
@@ -800,7 +878,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how fields updates ordstatus during execution.",
+            "caption": "Verify the fields transition driving ordstatus behavior.",
             "bars": [
               {
                 "label": "last_qty",
@@ -857,162 +935,154 @@
       "partTitle": "Practice time: build and validate",
       "codeHash": "b9f978ef322353cd000b4eed4c9152fafebc91b8cc9ba36509458a6808355fc5",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: build and validate",
-        "actors": [
-          "SOH",
-          "raw",
-          ".0"
+        "nodes": [
+          {
+            "id": "f",
+            "label": "f",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fix_message(msg_type, fields).",
-            "activeActor": "SOH",
-            "messages": [
-              {
-                "from": "SOH",
-                "to": "raw",
-                "label": {
-                  "var": "SOH",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Practice 1: fix_message(msg_type, fields).",
+            "values": {
+              "f": {
+                "var": "f",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "from": "raw",
-                "to": ".0",
-                "label": {
-                  "var": "raw",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "f": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks verify the header fields, the exact checksum for a new order.",
-            "activeActor": "raw",
-            "messages": [
-              {
-                "from": "SOH",
-                "to": "raw",
-                "label": {
-                  "var": "SOH",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the checks transition driving verify behavior.",
+            "values": {
+              "f": {
+                "var": "f",
+                "line": 3,
+                "hit": 5
               },
-              {
-                "from": "raw",
-                "to": ".0",
-                "label": {
-                  "var": "raw",
-                  "line": 3,
-                  "hit": 10
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "f": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "f",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The example does that in one line.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "SOH",
-                "to": "raw",
-                "label": {
-                  "var": "SOH",
-                  "line": 3,
-                  "hit": 10
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Practice 2: valid_fix_checksum(raw).",
+            "values": {
+              "f": {
+                "var": "f",
+                "line": 3,
+                "hit": 8
               },
-              {
-                "from": "raw",
-                "to": ".0",
-                "label": {
-                  "var": "raw",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "f": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "f",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: build and validate",
-        "actors": [
-          "SOH",
-          "raw",
-          ".0"
+        "nodes": [
+          {
+            "id": "f",
+            "label": "f",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fix_message(msg_type, fields).",
-            "messages": [
-              {
-                "from": "SOH",
-                "to": "raw",
-                "label": "'\u0001'",
-                "tone": "data"
-              },
-              {
-                "from": "raw",
-                "to": ".0",
-                "label": "'8=FIX.4.4\u00019=31\u000135=D\u000155=INFY\u000154=1\u000138=10…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "SOH"
+            "caption": "Practice 1: fix_message(msg_type, fields).",
+            "values": {
+              "f": "'8=FIX.4.4'",
+              "out": ""
+            },
+            "tones": {
+              "f": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks verify the header fields, the exact checksum for a new order.",
-            "messages": [
-              {
-                "from": "SOH",
-                "to": "raw",
-                "label": "'\u0001'",
-                "tone": "data"
-              },
-              {
-                "from": "raw",
-                "to": ".0",
-                "label": "'8=FIX.4.4\u00019=31\u000135=D\u000155=INFY\u000154=1\u000138=10…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "raw"
+            "caption": "Verify the checks transition driving verify behavior.",
+            "values": {
+              "f": "'54=1'",
+              "out": "{'8': 'FIX.4.4', '9': '31', '35': 'D', '55': 'INFY', '54': '1', '38': '100', '10': '123'}"
+            },
+            "tones": {
+              "f": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "f",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The example does that in one line.",
-            "messages": [
-              {
-                "from": "SOH",
-                "to": "raw",
-                "label": "'\u0001'",
-                "tone": "data"
-              },
-              {
-                "from": "raw",
-                "to": ".0",
-                "label": "'8=FIX.4.4\u00019=31\u000135=D\u000155=INFY\u000154=1\u000138=10…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Practice 2: valid_fix_checksum(raw).",
+            "values": {
+              "f": "''",
+              "out": "symbol: INFY | side: BUY"
+            },
+            "tones": {
+              "f": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "f",
+                "out"
+              ]
+            ]
           }
         ]
       }

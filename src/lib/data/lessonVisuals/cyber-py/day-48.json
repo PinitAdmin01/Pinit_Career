@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "lon2": {
-                "var": "lon2",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "lat1": "data",
               "lon1": "data",
               "lat2": "data",
-              "lon2": "data"
+              "lon2": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "lat1": "40.7128",
               "lon1": "-74.006",
               "lat2": "51.5074",
-              "lon2": "-0.1278"
+              "lon2": ""
             },
             "tones": {
               "lat1": "data",
               "lon1": "data",
               "lat2": "data",
-              "lon2": "data"
+              "lon2": "idle"
             },
             "arrows": [
               [
@@ -311,6 +309,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When a new authentication event is ingested, the engine queries the user's.",
+            "activeActor": "login_london",
+            "messages": [
+              {
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": {
+                  "var": "login_nyc",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "login_london",
@@ -325,10 +340,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When a new authentication event is ingested, the engine queries the user's.",
-            "activeActor": "login_london",
+            "at": "say9",
+            "caption": "Deploying this algorithm across corporate identity providers protects.",
+            "activeActor": "login1",
             "messages": [
+              {
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": {
+                  "var": "login_nyc",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "login_london",
+                "to": "login1",
+                "label": {
+                  "var": "login_london",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "login_nyc",
                 "to": "login_london",
@@ -348,14 +383,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Deploying this algorithm across corporate identity providers protects.",
-            "activeActor": "login1",
-            "messages": [
+              },
               {
                 "from": "login_nyc",
                 "to": "login_london",
@@ -398,12 +426,6 @@
                 "to": "login_london",
                 "label": "{'user': 'bob', 'lat': 40.7128, 'lon': …",
                 "tone": "data"
-              },
-              {
-                "from": "login_london",
-                "to": "login1",
-                "label": "{'user': 'bob', 'lat': 51.5074, 'lon': …",
-                "tone": "ok"
               }
             ],
             "activeActor": "login_nyc"
@@ -431,6 +453,30 @@
             "at": "say9",
             "caption": "Deploying this algorithm across corporate identity providers protects.",
             "messages": [
+              {
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": "{'user': 'bob', 'lat': 40.7128, 'lon': …",
+                "tone": "data"
+              },
+              {
+                "from": "login_london",
+                "to": "login1",
+                "label": "{'user': 'bob', 'lat': 51.5074, 'lon': …",
+                "tone": "ok"
+              },
+              {
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": "{'user': 'bob', 'lat': 40.7128, 'lon': …",
+                "tone": "data"
+              },
+              {
+                "from": "login_london",
+                "to": "login1",
+                "label": "{'user': 'bob', 'lat': 51.5074, 'lon': …",
+                "tone": "ok"
+              },
               {
                 "from": "login_nyc",
                 "to": "login_london",
@@ -493,7 +539,7 @@
           },
           {
             "at": "say9",
-            "caption": "Continuous baseline updating ensures that behavioral models adapt.",
+            "caption": "Examine the incremental value produced for streaming processing.",
             "currentState": "malicious_exfiltration",
             "transition": {
               "from": "normal_activity",
@@ -545,7 +591,7 @@
           },
           {
             "at": "say9",
-            "caption": "Continuous baseline updating ensures that behavioral models adapt.",
+            "caption": "Examine the incremental value produced for streaming processing.",
             "currentState": "malicious_exfiltration",
             "transition": {
               "from": "normal_activity",
@@ -586,7 +632,7 @@
           },
           {
             "at": "say2",
-            "caption": "If an upstream Geo-IP service fails or returns corrupted coordinates,.",
+            "caption": "Verify the detection transition driving upstream behavior.",
             "currentState": "invalid_geo",
             "transition": {
               "from": "valid_geo",
@@ -601,7 +647,7 @@
           },
           {
             "at": "say9",
-            "caption": "Building fault-tolerant analytics pipelines ensures continuous behavioral.",
+            "caption": "Examine the scalar value produced for range processing.",
             "currentState": "geo_dict",
             "transition": {
               "from": "invalid_geo",
@@ -642,7 +688,7 @@
           },
           {
             "at": "say2",
-            "caption": "If an upstream Geo-IP service fails or returns corrupted coordinates,.",
+            "caption": "Verify the detection transition driving upstream behavior.",
             "currentState": "invalid_geo",
             "transition": {
               "from": "valid_geo",
@@ -653,7 +699,7 @@
           },
           {
             "at": "say9",
-            "caption": "Building fault-tolerant analytics pipelines ensures continuous behavioral.",
+            "caption": "Examine the scalar value produced for range processing.",
             "currentState": "geo_dict",
             "transition": {
               "from": "invalid_geo",
@@ -709,7 +755,7 @@
           },
           {
             "at": "say9",
-            "caption": "Organizations with mature UEBA programs achieve significantly faster.",
+            "caption": "Examine the production value produced for periodic processing.",
             "currentState": "min_baseline_enforced",
             "transition": {
               "from": "zscore_threshold_set",
@@ -761,7 +807,7 @@
           },
           {
             "at": "say9",
-            "caption": "Organizations with mature UEBA programs achieve significantly faster.",
+            "caption": "Examine the production value produced for periodic processing.",
             "currentState": "min_baseline_enforced",
             "transition": {
               "from": "zscore_threshold_set",

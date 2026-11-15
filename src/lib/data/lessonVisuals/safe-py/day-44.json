@@ -6,8 +6,8 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Safe Tool Sandboxes — Foundations & Mathematical Invariants",
-      "codeHash": "c2bec16e2244d013cb4122ed661fc656d51f4d875b7be0092e9b5c41ee54dd3e",
+      "partTitle": "Strict Allowlist Gating via `validate_tool_name`",
+      "codeHash": "ff311031e883ca5cc5ac44ea6b23afbec06496b0ca9f8f0518fb3ca6eeb19aba",
       "spec": {
         "template": "states",
         "title": "Safe Tool Sandboxes — Foundations & Mathematical Invariants",
@@ -95,7 +95,7 @@
             "transition": {
               "from": "allowed",
               "to": "requested_tool",
-              "label": "'execute_bash'"
+              "label": "'../bash'"
             },
             "tone": "data"
           },
@@ -114,7 +114,7 @@
       }
     },
     {
-      "partTitle": "Safe Tool Sandboxes — Core Algorithm & State Representation",
+      "partTitle": "Directory Escape Detection in `detect_path_traversal`",
       "codeHash": "ae296b80489e0e66056ac09c19014f786319bffb45191481e67588673884fdc0",
       "spec": {
         "template": "table",
@@ -164,7 +164,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the directory value produced for detect processing.",
             "rows": [
               {
                 "cells": [
@@ -239,7 +239,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the directory value produced for detect processing.",
             "rows": [
               {
                 "cells": [
@@ -268,7 +268,7 @@
       }
     },
     {
-      "partTitle": "Safe Tool Sandboxes — Production Implementation & Boundary Mechanics",
+      "partTitle": "Typed Parameter Enforcement inside `SafeToolArgumentValidator`",
       "codeHash": "e123c5ab91dee9b8d31b0362e49f7b85cfe6aefafb19fc1a98664a6883ea9901",
       "spec": {
         "template": "states",
@@ -376,7 +376,7 @@
       }
     },
     {
-      "partTitle": "Safe Tool Sandboxes — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Side-Effect Simulation via `dry_run_tool_action`",
       "codeHash": "9b731721bb773df283ab192e5e787b7aa1459fb60e9e74c1365f6dba0f5cd47d",
       "spec": {
         "template": "states",
@@ -419,7 +419,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the side value produced for tool processing.",
             "currentState": "is_destructive",
             "transition": {
               "from": "params",
@@ -471,7 +471,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the side value produced for tool processing.",
             "currentState": "is_destructive",
             "transition": {
               "from": "params",
@@ -484,7 +484,7 @@
       }
     },
     {
-      "partTitle": "Safe Tool Sandboxes — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Audited Sandbox Execution in `ZeroTrustToolSandbox`",
       "codeHash": "23eac1155ae716663a7ffbe9e9f320f7157fa2d62ad0d8554f89c78798ab0b23",
       "spec": {
         "template": "states",

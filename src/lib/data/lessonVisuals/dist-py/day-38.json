@@ -154,7 +154,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how worker updates receives during execution.",
+            "caption": "Verify the worker transition driving receives behavior.",
             "activeActor": "lock",
             "messages": [
               {
@@ -238,7 +238,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how worker updates receives during execution.",
+            "caption": "Verify the worker transition driving receives behavior.",
             "messages": [
               {
                 "from": "self",
@@ -303,6 +303,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the quorum transition driving leases behavior.",
+            "activeActor": "lease_ms",
+            "messages": [
+              {
+                "from": "self",
+                "to": "lease_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "lease_ms",
@@ -317,10 +334,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Quorum Leases (used in etcd `ReadIndex` vs `LeaseRead`, TiKV,.",
-            "activeActor": "lease_ms",
+            "at": "say7",
+            "caption": "Implement safe drift-discounted quorum lease expiry arithmetic below.",
+            "activeActor": "max_drift_ratio",
             "messages": [
+              {
+                "from": "self",
+                "to": "lease_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "lease_ms",
+                "to": "max_drift_ratio",
+                "label": {
+                  "var": "lease_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "lease_ms",
@@ -340,14 +377,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Implement safe drift-discounted quorum lease expiry arithmetic below.",
-            "activeActor": "max_drift_ratio",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "lease_ms",
@@ -390,19 +420,13 @@
                 "to": "lease_ms",
                 "label": "<QuorumLease>",
                 "tone": "data"
-              },
-              {
-                "from": "lease_ms",
-                "to": "max_drift_ratio",
-                "label": "1000",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Quorum Leases (used in etcd `ReadIndex` vs `LeaseRead`, TiKV,.",
+            "caption": "Verify the quorum transition driving leases behavior.",
             "messages": [
               {
                 "from": "self",
@@ -423,6 +447,30 @@
             "at": "say7",
             "caption": "Implement safe drift-discounted quorum lease expiry arithmetic below.",
             "messages": [
+              {
+                "from": "self",
+                "to": "lease_ms",
+                "label": "<QuorumLease>",
+                "tone": "data"
+              },
+              {
+                "from": "lease_ms",
+                "to": "max_drift_ratio",
+                "label": "1000",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "lease_ms",
+                "label": "<QuorumLease>",
+                "tone": "data"
+              },
+              {
+                "from": "lease_ms",
+                "to": "max_drift_ratio",
+                "label": "1000",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "lease_ms",
@@ -467,6 +515,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the storage transition driving epoch behavior.",
+            "activeActor": "bid",
+            "messages": [
+              {
+                "from": "self",
+                "to": "bid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "bid",
@@ -481,10 +546,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Distributed storage engines (HDFS NameNode, BookKeeper ledgers, PostgreSQL.",
-            "activeActor": "bid",
+            "at": "say7",
+            "caption": "Model deterministic quorum storage fencing below verifying overlapping.",
+            "activeActor": "bookies",
             "messages": [
+              {
+                "from": "self",
+                "to": "bid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "bookies",
+                "label": {
+                  "var": "bid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "bid",
@@ -504,14 +589,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Model deterministic quorum storage fencing below verifying overlapping.",
-            "activeActor": "bookies",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "bid",
@@ -554,19 +632,13 @@
                 "to": "bid",
                 "label": "<BookieReplica>",
                 "tone": "data"
-              },
-              {
-                "from": "bid",
-                "to": "bookies",
-                "label": "0",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Distributed storage engines (HDFS NameNode, BookKeeper ledgers, PostgreSQL.",
+            "caption": "Verify the storage transition driving epoch behavior.",
             "messages": [
               {
                 "from": "self",
@@ -587,6 +659,30 @@
             "at": "say7",
             "caption": "Model deterministic quorum storage fencing below verifying overlapping.",
             "messages": [
+              {
+                "from": "self",
+                "to": "bid",
+                "label": "<BookieReplica>",
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "bookies",
+                "label": "0",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "bid",
+                "label": "<BookieReplica>",
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "bookies",
+                "label": "0",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "bid",
@@ -631,6 +727,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A rigorous split-brain chaos test orchestrates five exact phases.",
+            "activeActor": "accepted",
+            "messages": [
+              {
+                "from": "epoch",
+                "to": "accepted",
+                "label": {
+                  "var": "epoch",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "accepted",
@@ -645,10 +758,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A rigorous split-brain chaos test orchestrates five exact phases.",
-            "activeActor": "accepted",
+            "at": "say5",
+            "caption": "Verify in the deterministic 5-phase partition chaos runner below.",
+            "activeActor": "high_fence",
             "messages": [
+              {
+                "from": "epoch",
+                "to": "accepted",
+                "label": {
+                  "var": "epoch",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "accepted",
+                "to": "high_fence",
+                "label": {
+                  "var": "accepted",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "epoch",
                 "to": "accepted",
@@ -668,14 +801,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Verify in the deterministic 5-phase partition chaos runner below.",
-            "activeActor": "high_fence",
-            "messages": [
+              },
               {
                 "from": "epoch",
                 "to": "accepted",
@@ -718,12 +844,6 @@
                 "to": "accepted",
                 "label": "1",
                 "tone": "data"
-              },
-              {
-                "from": "accepted",
-                "to": "high_fence",
-                "label": "[]",
-                "tone": "ok"
               }
             ],
             "activeActor": "epoch"
@@ -751,6 +871,30 @@
             "at": "say5",
             "caption": "Verify in the deterministic 5-phase partition chaos runner below.",
             "messages": [
+              {
+                "from": "epoch",
+                "to": "accepted",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "accepted",
+                "to": "high_fence",
+                "label": "[]",
+                "tone": "ok"
+              },
+              {
+                "from": "epoch",
+                "to": "accepted",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "accepted",
+                "to": "high_fence",
+                "label": "[]",
+                "tone": "ok"
+              },
               {
                 "from": "epoch",
                 "to": "accepted",

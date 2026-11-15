@@ -82,13 +82,13 @@
             "values": {
               "healthy_nodes": {
                 "var": "healthy_nodes",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 2
               },
               "can_write": {
                 "var": "can_write",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "can_read": {
                 "var": "can_read",
@@ -128,13 +128,13 @@
             "values": {
               "healthy_nodes": {
                 "var": "healthy_nodes",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "can_write": {
                 "var": "can_write",
-                "line": 10,
-                "hit": 1
+                "line": 8,
+                "hit": 3
               },
               "can_read": {
                 "var": "can_read",
@@ -226,8 +226,8 @@
             "at": "say2",
             "caption": "By continuously streaming low-level redo log records directly.",
             "values": {
-              "healthy_nodes": "6",
-              "can_write": "True",
+              "healthy_nodes": "4",
+              "can_write": "False",
               "can_read": "True",
               "can_repair": "True"
             },
@@ -256,8 +256,8 @@
             "at": "say9",
             "caption": "Analyze the Aurora quorum storage model and global cross-region.",
             "values": {
-              "healthy_nodes": "6",
-              "can_write": "True",
+              "healthy_nodes": "3",
+              "can_write": "False",
               "can_read": "True",
               "can_repair": "True"
             },
@@ -311,16 +311,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "primary_region",
-                "to": "tracker",
-                "label": {
-                  "var": "primary_region",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -334,7 +324,7 @@
                 "to": "primary_region",
                 "label": {
                   "var": "self",
-                  "line": 4,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "data"
@@ -344,7 +334,7 @@
                 "to": "tracker",
                 "label": {
                   "var": "primary_region",
-                  "line": 4,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -361,7 +351,27 @@
                 "to": "primary_region",
                 "label": {
                   "var": "self",
-                  "line": 7,
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "primary_region",
+                "to": "tracker",
+                "label": {
+                  "var": "primary_region",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "primary_region",
+                "label": {
+                  "var": "self",
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "data"
@@ -375,6 +385,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "primary_region",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -398,12 +418,6 @@
                 "to": "primary_region",
                 "label": "<AuroraReplicaLagTracker>",
                 "tone": "data"
-              },
-              {
-                "from": "primary_region",
-                "to": "tracker",
-                "label": "'us-east-1'",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -442,6 +456,24 @@
                 "to": "tracker",
                 "label": "'us-east-1'",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "primary_region",
+                "label": "<AuroraReplicaLagTracker>",
+                "tone": "data"
+              },
+              {
+                "from": "primary_region",
+                "to": "tracker",
+                "label": "'us-east-1'",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "primary_region",
+                "label": "<AuroraReplicaLagTracker>",
+                "tone": "data"
               }
             ],
             "activeActor": "tracker"
@@ -632,7 +664,7 @@
           },
           {
             "at": "say9",
-            "caption": "Observe the automated failover state machine and RPO/RTO calculation.",
+            "caption": "Examine the recovery value produced for disaster processing.",
             "bars": [
               {
                 "label": "current_lsn_la",
@@ -713,7 +745,7 @@
           },
           {
             "at": "say9",
-            "caption": "Observe the automated failover state machine and RPO/RTO calculation.",
+            "caption": "Examine the recovery value produced for disaster processing.",
             "bars": [
               {
                 "label": "current_lsn_la",

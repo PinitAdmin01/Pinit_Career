@@ -550,16 +550,14 @@
                 "hit": 1
               },
               "tokens": {
-                "var": "tokens",
-                "line": 38,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "ignore_index": "data",
               "engine": "data",
-              "tokens": "data"
+              "tokens": "idle"
             },
             "arrows": [
               [
@@ -699,13 +697,13 @@
               "self": "<PromptLossMaskingEngine>",
               "ignore_index": "-100",
               "engine": "<PromptLossMaskingEngine>",
-              "tokens": "[10, 25, 42, 88, 105, 202, 305]"
+              "tokens": ""
             },
             "tones": {
               "self": "data",
               "ignore_index": "data",
               "engine": "data",
-              "tokens": "data"
+              "tokens": "idle"
             },
             "arrows": [
               [

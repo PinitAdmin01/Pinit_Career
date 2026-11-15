@@ -209,7 +209,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how length updates sqrt during execution.",
+            "caption": "Verify the length transition driving sqrt behavior.",
             "activeActor": "v",
             "messages": [
               {
@@ -292,7 +292,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how length updates sqrt during execution.",
+            "caption": "Verify the length transition driving sqrt behavior.",
             "messages": [
               {
                 "from": "x",
@@ -335,162 +335,184 @@
       "partTitle": "Cosine similarity",
       "codeHash": "97277e8f70d73f8b925f7fd34361df9e33ef0a21800122a92fcad15c2f0a36b8",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Cosine similarity",
-        "actors": [
-          ".0",
-          "x",
-          "y"
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "y",
+            "label": "y",
+            "tappable": true
+          },
+          {
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine_similarity(a, b) = dot(a, b) / (|a| x |b|), rounded to 4 decimals.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "x",
-                "label": {
-                  "var": ".0",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "It measures the angle between two vectors, ignoring their lengths.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "from": "x",
-                "to": "y",
-                "label": {
-                  "var": "x",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "y": {
+                "var": "y",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "a": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The result runs from -1 to 1.",
-            "activeActor": "x",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "x",
-                "label": {
-                  "var": ".0",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "data"
+            "values": {
+              "x": {
+                "text": ""
               },
-              {
-                "from": "x",
-                "to": "y",
-                "label": {
-                  "var": "x",
-                  "line": 4,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "y": {
+                "text": ""
+              },
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 12
               }
+            },
+            "tones": {
+              "x": "idle",
+              "y": "idle",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "This single function is the heart of semantic search.",
-            "activeActor": "y",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "x",
-                "label": {
-                  "var": ".0",
-                  "line": 4,
-                  "hit": 3
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "In practice, what counts as a \"good\" score depends on the embedding model.",
+            "values": {
+              "x": {
+                "text": ""
               },
-              {
-                "from": "x",
-                "to": "y",
-                "label": {
-                  "var": "x",
-                  "line": 4,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "y": {
+                "text": ""
+              },
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 21
               }
+            },
+            "tones": {
+              "x": "idle",
+              "y": "idle",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Cosine similarity",
-        "actors": [
-          ".0",
-          "x",
-          "y"
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "y",
+            "label": "y",
+            "tappable": true
+          },
+          {
+            "id": "a",
+            "label": "a",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine_similarity(a, b) = dot(a, b) / (|a| x |b|), rounded to 4 decimals.",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "x",
-                "label": "{'__other__': 'zip'}",
-                "tone": "data"
-              },
-              {
-                "from": "x",
-                "to": "y",
-                "label": "1",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "It measures the angle between two vectors, ignoring their lengths.",
+            "values": {
+              "x": "1",
+              "y": "2",
+              "a": ""
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "a": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The result runs from -1 to 1.",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "x",
-                "label": "{'__other__': 'zip'}",
-                "tone": "data"
-              },
-              {
-                "from": "x",
-                "to": "y",
-                "label": "0",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "x"
+            "values": {
+              "x": "",
+              "y": "",
+              "a": "[1, 0]"
+            },
+            "tones": {
+              "x": "idle",
+              "y": "idle",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "This single function is the heart of semantic search.",
-            "messages": [
-              {
-                "from": ".0",
-                "to": "x",
-                "label": "{'__other__': 'zip'}",
-                "tone": "data"
-              },
-              {
-                "from": "x",
-                "to": "y",
-                "label": "0",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "y"
+            "at": "say3",
+            "caption": "In practice, what counts as a \"good\" score depends on the embedding model.",
+            "values": {
+              "x": "",
+              "y": "",
+              "a": "[0, 0]"
+            },
+            "tones": {
+              "x": "idle",
+              "y": "idle",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ]
+            ]
           }
         ]
       }
@@ -503,20 +525,19 @@
         "title": "Ranking documents by meaning",
         "boxes": [
           {
-            "id": "docs",
-            "label": "docs"
-          },
-          {
-            "id": "question",
-            "label": "question"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "y",
+            "label": "y",
+            "tappable": true
+          },
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
           }
         ],
         "steps": [
@@ -524,96 +545,68 @@
             "at": "say1",
             "caption": "Semantic search is now simple.",
             "values": {
-              "docs": {
-                "var": "docs",
-                "line": 7,
-                "hit": 1
-              },
-              "question": {
-                "var": "question",
-                "line": 13,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 1
-              },
               "x": {
                 "var": "x",
                 "line": 4,
                 "hit": 1
+              },
+              "y": {
+                "var": "y",
+                "line": 4,
+                "hit": 1
+              },
+              "b": {
+                "text": ""
               }
             },
             "tones": {
-              "docs": "data",
-              "question": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "y": "data",
+              "b": "idle"
             }
           },
           {
             "at": "say2",
             "caption": "Show the top few results with their scores.",
             "values": {
-              "docs": {
-                "var": "docs",
-                "line": 13,
-                "hit": 1
-              },
-              "question": {
-                "var": "question",
-                "line": 14,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 2
-              },
               "x": {
-                "var": "x",
+                "text": ""
+              },
+              "y": {
+                "text": ""
+              },
+              "b": {
+                "var": "b",
                 "line": 4,
-                "hit": 2
+                "hit": 10
               }
             },
             "tones": {
-              "docs": "data",
-              "question": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "idle",
+              "y": "idle",
+              "b": "data"
             }
           },
           {
-            "at": "say6",
-            "caption": "In a real app, the document vectors are computed once and stored.",
+            "at": "say3",
+            "caption": "This brute-force approach checks every document.",
             "values": {
-              "docs": {
-                "var": "docs",
-                "line": 14,
-                "hit": 5
-              },
-              "question": {
-                "var": "question",
-                "line": 15,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 3
-              },
               "x": {
-                "var": "x",
+                "text": ""
+              },
+              "y": {
+                "text": ""
+              },
+              "b": {
+                "var": "b",
                 "line": 4,
-                "hit": 3
+                "hit": 20
               }
             },
             "tones": {
-              "docs": "ok",
-              "question": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "idle",
+              "y": "idle",
+              "b": "ok"
             }
           }
         ]
@@ -623,20 +616,19 @@
         "title": "Ranking documents by meaning",
         "boxes": [
           {
-            "id": "docs",
-            "label": "docs"
-          },
-          {
-            "id": "question",
-            "label": "question"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "y",
+            "label": "y",
+            "tappable": true
+          },
+          {
+            "id": "b",
+            "label": "b",
+            "tappable": true
           }
         ],
         "steps": [
@@ -644,48 +636,42 @@
             "at": "say1",
             "caption": "Semantic search is now simple.",
             "values": {
-              "docs": "{'How to reset your password': [0.9, 0.…",
-              "question": "[0.85, 0.2, 0.05]",
-              ".0": "{'__other__': 'zip'}",
-              "x": "0.85"
+              "x": "0.85",
+              "y": "0.9",
+              "b": ""
             },
             "tones": {
-              "docs": "data",
-              "question": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "y": "data",
+              "b": "idle"
             }
           },
           {
             "at": "say2",
             "caption": "Show the top few results with their scores.",
             "values": {
-              "docs": "{'How to reset your password': [0.9, 0.…",
-              "question": "[0.85, 0.2, 0.05]",
-              ".0": "{'__other__': 'zip'}",
-              "x": "0.2"
+              "x": "",
+              "y": "",
+              "b": "[0.3, 0.9, 0.1]"
             },
             "tones": {
-              "docs": "data",
-              "question": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "idle",
+              "y": "idle",
+              "b": "data"
             }
           },
           {
-            "at": "say6",
-            "caption": "In a real app, the document vectors are computed once and stored.",
+            "at": "say3",
+            "caption": "This brute-force approach checks every document.",
             "values": {
-              "docs": "{'How to reset your password': [0.9, 0.…",
-              "question": "[0.85, 0.2, 0.05]",
-              ".0": "{'__other__': 'zip'}",
-              "x": "0.05"
+              "x": "",
+              "y": "",
+              "b": "[0.8, 0.3, 0.1]"
             },
             "tones": {
-              "docs": "ok",
-              "question": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "idle",
+              "y": "idle",
+              "b": "ok"
             }
           }
         ]
@@ -718,7 +704,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how vector updates scaled during execution.",
+            "caption": "Inspect every updates as a tracks vector state.",
             "values": {
               "a": {
                 "var": "a",
@@ -764,13 +750,13 @@
               },
               "v": {
                 "var": "v",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "n": {
                 "var": "n",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -796,12 +782,12 @@
               },
               "v": {
                 "var": "v",
-                "line": 5,
+                "line": 4,
                 "hit": 2
               },
               "n": {
                 "var": "n",
-                "line": 5,
+                "line": 4,
                 "hit": 2
               }
             },
@@ -838,7 +824,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how vector updates scaled during execution.",
+            "caption": "Inspect every updates as a tracks vector state.",
             "values": {
               "a": "[3, 4]",
               "b": "[6, 8]",
@@ -858,8 +844,8 @@
             "values": {
               "a": "[3, 4]",
               "b": "[6, 8]",
-              "v": "[3, 4]",
-              "n": "5"
+              "v": "[6, 8]",
+              "n": "10"
             },
             "tones": {
               "a": "data",
@@ -874,8 +860,8 @@
             "values": {
               "a": "[3, 4]",
               "b": "[6, 8]",
-              "v": "[3, 4]",
-              "n": "5"
+              "v": "[6, 8]",
+              "n": "10"
             },
             "tones": {
               "a": "ok",

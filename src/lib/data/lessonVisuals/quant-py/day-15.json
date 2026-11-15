@@ -31,6 +31,23 @@
                   "hit": 2
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The NIC receives the packet.",
+            "activeActor": "total",
+            "messages": [
+              {
+                "from": "budget_ns",
+                "to": "total",
+                "label": {
+                  "var": "budget_ns",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
                 "from": "total",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The NIC receives the packet.",
-            "activeActor": "total",
+            "at": "say8",
+            "caption": "Budgets turn a vague goal (\"be fast\") into numbers each team can own.",
+            "activeActor": "stage",
             "messages": [
+              {
+                "from": "budget_ns",
+                "to": "total",
+                "label": {
+                  "var": "budget_ns",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total",
+                "to": "stage",
+                "label": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "budget_ns",
                 "to": "total",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Budgets turn a vague goal (\"be fast\") into numbers each team can own.",
-            "activeActor": "stage",
-            "messages": [
+              },
               {
                 "from": "budget_ns",
                 "to": "total",
@@ -118,12 +148,6 @@
                 "to": "total",
                 "label": "{'NIC receive (bypass)': 900, 'decode +…",
                 "tone": "data"
-              },
-              {
-                "from": "total",
-                "to": "stage",
-                "label": "3700",
-                "tone": "ok"
               }
             ],
             "activeActor": "budget_ns"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "Budgets turn a vague goal (\"be fast\") into numbers each team can own.",
             "messages": [
+              {
+                "from": "budget_ns",
+                "to": "total",
+                "label": "{'NIC receive (bypass)': 900, 'decode +…",
+                "tone": "data"
+              },
+              {
+                "from": "total",
+                "to": "stage",
+                "label": "3700",
+                "tone": "ok"
+              },
+              {
+                "from": "budget_ns",
+                "to": "total",
+                "label": "{'NIC receive (bypass)': 900, 'decode +…",
+                "tone": "data"
+              },
+              {
+                "from": "total",
+                "to": "stage",
+                "label": "3700",
+                "tone": "ok"
+              },
               {
                 "from": "budget_ns",
                 "to": "total",
@@ -819,7 +867,7 @@
           },
           {
             "at": "say2",
-            "caption": "Timestamp at a few points using the cheapest clock available (such as.",
+            "caption": "Verify the timestamp transition driving points behavior.",
             "values": {
               "records": {
                 "var": "records",
@@ -833,13 +881,13 @@
               },
               "r": {
                 "var": "r",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "parts": {
                 "var": "parts",
-                "line": 9,
-                "hit": 1
+                "line": 8,
+                "hit": 8
               }
             },
             "tones": {
@@ -879,13 +927,13 @@
               },
               "r": {
                 "var": "r",
-                "line": 8,
-                "hit": 2
+                "line": 7,
+                "hit": 3
               },
               "parts": {
                 "var": "parts",
-                "line": 7,
-                "hit": 2
+                "line": 8,
+                "hit": 12
               }
             },
             "tones": {
@@ -965,12 +1013,12 @@
           },
           {
             "at": "say2",
-            "caption": "Timestamp at a few points using the cheapest clock available (such as.",
+            "caption": "Verify the timestamp transition driving points behavior.",
             "values": {
               "records": "[{'rx': 0, 'decoded': 420, 'decided': 1…",
               "stages": "['rx', 'decoded', 'decided', 'sent']",
-              "r": "{'rx': 0, 'decoded': 420, 'decided': 15…",
-              "parts": "{'rx->decoded': 420, 'decoded->decided'…"
+              "r": "{'rx': 0, 'decoded': 450, 'decided': 14…",
+              "parts": "{'rx->decoded': 450, 'decoded->decided'…"
             },
             "tones": {
               "records": "data",
@@ -999,8 +1047,8 @@
             "values": {
               "records": "[{'rx': 0, 'decoded': 420, 'decided': 1…",
               "stages": "['rx', 'decoded', 'decided', 'sent']",
-              "r": "{'rx': 0, 'decoded': 420, 'decided': 15…",
-              "parts": "{'rx->decoded': 420, 'decoded->decided'…"
+              "r": "{'rx': 0, 'decoded': 430, 'decided': 49…",
+              "parts": "{'rx->decoded': 430, 'decoded->decided'…"
             },
             "tones": {
               "records": "ok",
@@ -1099,7 +1147,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates easy during execution.",
+            "caption": "Verify the checks transition driving easy behavior.",
             "values": {
               "arrivals": {
                 "var": "arrivals",
@@ -1245,7 +1293,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates easy during execution.",
+            "caption": "Verify the checks transition driving easy behavior.",
             "values": {
               "arrivals": "[3, 3, 12, 12, 3, 3, 0, 0, 3, 3]",
               "capacity": "16",

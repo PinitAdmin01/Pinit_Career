@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Calibrated Refusal — Foundations & Mathematical Invariants",
+      "partTitle": "Context-Aware Dual-Use Routing in `classify_intent_heuristic`",
       "codeHash": "c05c113a14d78a27f8cc1c42e0f8b559d22e29bf5bf04986c42fa589712c0689",
       "spec": {
         "template": "states",
@@ -49,7 +49,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the classify value produced for intent processing.",
             "currentState": "cat",
             "transition": {
               "from": "q",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the classify value produced for intent processing.",
             "currentState": "cat",
             "transition": {
               "from": "q",
@@ -114,7 +114,7 @@
       }
     },
     {
-      "partTitle": "Calibrated Refusal — Core Algorithm & State Representation",
+      "partTitle": "Over-Refusal Quantification with `calculate_refusal_calibration`",
       "codeHash": "463ff28d142fb676f5969526193da8068a03ab33e414607af48dfe9ae3a043bb",
       "spec": {
         "template": "bars",
@@ -206,7 +206,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the refusal value produced for calculate processing.",
             "bars": [
               {
                 "label": "s",
@@ -306,7 +306,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the refusal value produced for calculate processing.",
             "bars": [
               {
                 "label": "s",
@@ -334,7 +334,7 @@
       }
     },
     {
-      "partTitle": "Calibrated Refusal — Production Implementation & Boundary Mechanics",
+      "partTitle": "Sensitive Boundary Scoring via `ContextualRefusalClassifier`",
       "codeHash": "d12f3d071e422c86919bf428fbb6d5519eb2a4e9b5583b5230f18f33444a9c65",
       "spec": {
         "template": "bars",
@@ -426,7 +426,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for calibrated.",
+            "caption": "Verify contextualrefusalclassifier behavior across contextual state.",
             "bars": [
               {
                 "label": "sensitivity",
@@ -526,7 +526,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for calibrated.",
+            "caption": "Verify contextualrefusalclassifier behavior across contextual state.",
             "bars": [
               {
                 "label": "sensitivity",
@@ -554,217 +554,339 @@
       }
     },
     {
-      "partTitle": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debugging",
-      "codeHash": "13f776cc94daad3673a94885d4ad5de8af3ef8e3b7efdcb08b877c695ba117d2",
+      "partTitle": "Non-Hostile Educational Pivots in `format_calibrated_refusal`",
+      "codeHash": "53a2b79cd56823c302c8f7e6515cd3a1d2b3061ea8a40796a4111aac5e474289",
       "spec": {
-        "template": "states",
-        "title": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debug",
-        "states": [
+        "template": "flow",
+        "title": "Non-Hostile Educational Pivots in `format_calibrated_refusal`",
+        "nodes": [
           {
             "id": "category",
-            "label": "category"
+            "label": "category",
+            "tappable": true
           },
           {
             "id": "allowed_alternative",
-            "label": "allowed_alternative"
+            "label": "allowed_alternative",
+            "tappable": true
           },
           {
-            "id": "msg",
-            "label": "msg"
+            "id": "safe_cat",
+            "label": "safe_cat",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When a refusal is strictly necessary, the phrasing of the refusal response.",
-            "currentState": "category",
-            "tone": "data"
+            "caption": "Inspect refusal updates as category tracks strictly state.",
+            "values": {
+              "category": {
+                "var": "category",
+                "line": 2,
+                "hit": 1
+              },
+              "allowed_alternative": {
+                "var": "allowed_alternative",
+                "line": 2,
+                "hit": 1
+              },
+              "safe_cat": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "category": "data",
+              "allowed_alternative": "data",
+              "safe_cat": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Blunt, preachy, or moralizing refusals (e.",
-            "currentState": "allowed_alternative",
-            "transition": {
-              "from": "category",
-              "to": "allowed_alternative",
-              "label": {
+            "caption": "Verify the blunt transition driving preachy behavior.",
+            "values": {
+              "category": {
+                "var": "category",
+                "line": 3,
+                "hit": 1
+              },
+              "allowed_alternative": {
                 "var": "allowed_alternative",
-                "line": 4,
+                "line": 3,
+                "hit": 1
+              },
+              "safe_cat": {
+                "var": "safe_cat",
+                "line": 3,
                 "hit": 1
               }
             },
-            "tone": "data"
-          },
-          {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
-            "currentState": "msg",
-            "transition": {
-              "from": "allowed_alternative",
-              "to": "msg",
-              "label": {
-                "var": "msg",
-                "line": 8,
-                "hit": 1
-              }
+            "tones": {
+              "category": "ok",
+              "allowed_alternative": "ok",
+              "safe_cat": "ok"
             },
-            "tone": "ok"
+            "arrows": [
+              [
+                "category",
+                "allowed_alternative"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debug",
-        "states": [
+        "template": "flow",
+        "title": "Non-Hostile Educational Pivots in `format_calibrated_refusal`",
+        "nodes": [
           {
             "id": "category",
-            "label": "category"
+            "label": "category",
+            "tappable": true
           },
           {
             "id": "allowed_alternative",
-            "label": "allowed_alternative"
+            "label": "allowed_alternative",
+            "tappable": true
           },
           {
-            "id": "msg",
-            "label": "msg"
+            "id": "safe_cat",
+            "label": "safe_cat",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When a refusal is strictly necessary, the phrasing of the refusal response.",
-            "currentState": "category",
-            "tone": "data"
+            "caption": "Inspect refusal updates as category tracks strictly state.",
+            "values": {
+              "category": "'weapon creation'",
+              "allowed_alternative": "'the physics of combustion and safety g…",
+              "safe_cat": ""
+            },
+            "tones": {
+              "category": "data",
+              "allowed_alternative": "data",
+              "safe_cat": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Blunt, preachy, or moralizing refusals (e.",
-            "currentState": "allowed_alternative",
-            "transition": {
-              "from": "category",
-              "to": "allowed_alternative",
-              "label": "'the physics of combustion and safety g…"
+            "caption": "Verify the blunt transition driving preachy behavior.",
+            "values": {
+              "category": "'weapon creation'",
+              "allowed_alternative": "'the physics of combustion and safety g…",
+              "safe_cat": "'weapon creation'"
             },
-            "tone": "data"
-          },
-          {
-            "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
-            "currentState": "msg",
-            "transition": {
-              "from": "allowed_alternative",
-              "to": "msg",
-              "label": "'I cannot provide instructions for weap…"
+            "tones": {
+              "category": "ok",
+              "allowed_alternative": "ok",
+              "safe_cat": "ok"
             },
-            "tone": "ok"
+            "arrows": [
+              [
+                "category",
+                "allowed_alternative"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Calibrated Refusal — Production Capstone & Enterprise SRE Integration",
-      "codeHash": "5e304972edf951b4e3d80a2a5a26d09b5ab3e17fdf668502eaa476243e06cece",
+      "partTitle": "Balanced Appeal & Rejection Monitoring via `audit_refusal_telemetry`",
+      "codeHash": "89e3eac9c8c06d2020e480f858b062600f4192f9e619bff10505d9080f394ffa",
       "spec": {
-        "template": "states",
-        "title": "Calibrated Refusal — Production Capstone & Enterprise SRE Integr",
-        "states": [
+        "template": "flow",
+        "title": "Balanced Appeal & Rejection Monitoring via `audit_refusal_teleme",
+        "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "total_refusals",
-            "label": "total_refusals"
+            "label": "total_refusals",
+            "tappable": true
           },
           {
             "id": "user_appeals",
-            "label": "user_appeals"
+            "label": "user_appeals",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production refusal telemetry tracks real-time refusal rates and user.",
-            "currentState": "total_queries",
-            "tone": "data"
+            "caption": "Inspect appeal updates as total_queries tracks refusal state.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 2,
+                "hit": 1
+              },
+              "total_refusals": {
+                "var": "total_refusals",
+                "line": 2,
+                "hit": 1
+              },
+              "user_appeals": {
+                "var": "user_appeals",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "total_queries": "data",
+              "total_refusals": "data",
+              "user_appeals": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The audit_refusal_telemetry function calculates overall refusal.",
-            "currentState": "total_refusals",
-            "transition": {
-              "from": "total_queries",
-              "to": "total_refusals",
-              "label": {
+            "caption": "Verify the audit transition driving refusal behavior.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 2,
+                "hit": 2
+              },
+              "total_refusals": {
                 "var": "total_refusals",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
+              },
+              "user_appeals": {
+                "var": "user_appeals",
+                "line": 2,
+                "hit": 2
               }
             },
-            "tone": "data"
+            "tones": {
+              "total_queries": "data",
+              "total_refusals": "data",
+              "user_appeals": "data"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "total_refusals"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "currentState": "user_appeals",
-            "transition": {
-              "from": "total_refusals",
-              "to": "user_appeals",
-              "label": {
+            "at": "say3",
+            "caption": "Examine the balanced value produced for refusal processing.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 4,
+                "hit": 2
+              },
+              "total_refusals": {
+                "var": "total_refusals",
+                "line": 4,
+                "hit": 2
+              },
+              "user_appeals": {
                 "var": "user_appeals",
                 "line": 4,
-                "hit": 1
+                "hit": 2
               }
             },
-            "tone": "ok"
+            "tones": {
+              "total_queries": "ok",
+              "total_refusals": "ok",
+              "user_appeals": "ok"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "total_refusals"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Calibrated Refusal — Production Capstone & Enterprise SRE Integr",
-        "states": [
+        "template": "flow",
+        "title": "Balanced Appeal & Rejection Monitoring via `audit_refusal_teleme",
+        "nodes": [
           {
             "id": "total_queries",
-            "label": "total_queries"
+            "label": "total_queries",
+            "tappable": true
           },
           {
             "id": "total_refusals",
-            "label": "total_refusals"
+            "label": "total_refusals",
+            "tappable": true
           },
           {
             "id": "user_appeals",
-            "label": "user_appeals"
+            "label": "user_appeals",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production refusal telemetry tracks real-time refusal rates and user.",
-            "currentState": "total_queries",
-            "tone": "data"
+            "caption": "Inspect appeal updates as total_queries tracks refusal state.",
+            "values": {
+              "total_queries": "10000",
+              "total_refusals": "420",
+              "user_appeals": "12"
+            },
+            "tones": {
+              "total_queries": "data",
+              "total_refusals": "data",
+              "user_appeals": "data"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The audit_refusal_telemetry function calculates overall refusal.",
-            "currentState": "total_refusals",
-            "transition": {
-              "from": "total_queries",
-              "to": "total_refusals",
-              "label": "420"
+            "caption": "Verify the audit transition driving refusal behavior.",
+            "values": {
+              "total_queries": "100",
+              "total_refusals": "20",
+              "user_appeals": "2"
             },
-            "tone": "data"
+            "tones": {
+              "total_queries": "data",
+              "total_refusals": "data",
+              "user_appeals": "data"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "total_refusals"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
-            "currentState": "user_appeals",
-            "transition": {
-              "from": "total_refusals",
-              "to": "user_appeals",
-              "label": "12"
+            "at": "say3",
+            "caption": "Examine the balanced value produced for refusal processing.",
+            "values": {
+              "total_queries": "100",
+              "total_refusals": "20",
+              "user_appeals": "2"
             },
-            "tone": "ok"
+            "tones": {
+              "total_queries": "ok",
+              "total_refusals": "ok",
+              "user_appeals": "ok"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "total_refusals"
+              ]
+            ]
           }
         ]
       }

@@ -195,6 +195,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Medical answers should also mention what to do in an emergency, so no one.",
+            "activeActor": "answers",
+            "messages": [
+              {
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": {
+                  "var": "REQUIRED",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "answers",
@@ -209,10 +226,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Medical answers should also mention what to do in an emergency, so no one.",
-            "activeActor": "answers",
+            "at": "say9",
+            "caption": "A missing disclaimer can be added automatically before the answer.",
+            "activeActor": "domain",
             "messages": [
+              {
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": {
+                  "var": "REQUIRED",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "answers",
+                "to": "domain",
+                "label": {
+                  "var": "answers",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
               {
                 "from": "REQUIRED",
                 "to": "answers",
@@ -232,14 +269,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "A missing disclaimer can be added automatically before the answer.",
-            "activeActor": "domain",
-            "messages": [
+              },
               {
                 "from": "REQUIRED",
                 "to": "answers",
@@ -282,12 +312,6 @@
                 "to": "answers",
                 "label": "{'medical': ['consult a doctor', 'emerg…",
                 "tone": "data"
-              },
-              {
-                "from": "answers",
-                "to": "domain",
-                "label": "{'medical': 'Rest and fluids help. Cons…",
-                "tone": "ok"
               }
             ],
             "activeActor": "REQUIRED"
@@ -315,6 +339,30 @@
             "at": "say9",
             "caption": "A missing disclaimer can be added automatically before the answer.",
             "messages": [
+              {
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": "{'medical': ['consult a doctor', 'emerg…",
+                "tone": "data"
+              },
+              {
+                "from": "answers",
+                "to": "domain",
+                "label": "{'medical': 'Rest and fluids help. Cons…",
+                "tone": "ok"
+              },
+              {
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": "{'medical': ['consult a doctor', 'emerg…",
+                "tone": "data"
+              },
+              {
+                "from": "answers",
+                "to": "domain",
+                "label": "{'medical': 'Rest and fluids help. Cons…",
+                "tone": "ok"
+              },
               {
                 "from": "REQUIRED",
                 "to": "answers",
@@ -359,6 +407,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Famous cases have shown lawyers submitting AI-invented case citations.",
+            "activeActor": "contract",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "contract",
+                "label": {
+                  "var": "RISKY",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "contract",
@@ -373,10 +438,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Famous cases have shown lawyers submitting AI-invented case citations.",
-            "activeActor": "contract",
+            "at": "say9",
+            "caption": "Comparing a contract with a standard template highlights unusual clauses.",
+            "activeActor": "line",
             "messages": [
+              {
+                "from": "RISKY",
+                "to": "contract",
+                "label": {
+                  "var": "RISKY",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "contract",
+                "to": "line",
+                "label": {
+                  "var": "contract",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "RISKY",
                 "to": "contract",
@@ -396,14 +481,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Comparing a contract with a standard template highlights unusual clauses.",
-            "activeActor": "line",
-            "messages": [
+              },
               {
                 "from": "RISKY",
                 "to": "contract",
@@ -446,12 +524,6 @@
                 "to": "contract",
                 "label": "['indemnify', 'unlimited liability', 'a…",
                 "tone": "data"
-              },
-              {
-                "from": "contract",
-                "to": "line",
-                "label": "'1. Rent is due on the 5th.\n2. Late pay…",
-                "tone": "ok"
               }
             ],
             "activeActor": "RISKY"
@@ -479,6 +551,30 @@
             "at": "say9",
             "caption": "Comparing a contract with a standard template highlights unusual clauses.",
             "messages": [
+              {
+                "from": "RISKY",
+                "to": "contract",
+                "label": "['indemnify', 'unlimited liability', 'a…",
+                "tone": "data"
+              },
+              {
+                "from": "contract",
+                "to": "line",
+                "label": "'1. Rent is due on the 5th.\n2. Late pay…",
+                "tone": "ok"
+              },
+              {
+                "from": "RISKY",
+                "to": "contract",
+                "label": "['indemnify', 'unlimited liability', 'a…",
+                "tone": "data"
+              },
+              {
+                "from": "contract",
+                "to": "line",
+                "label": "'1. Rent is due on the 5th.\n2. Late pay…",
+                "tone": "ok"
+              },
               {
                 "from": "RISKY",
                 "to": "contract",
@@ -803,6 +899,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Advertising rules still apply.",
+            "activeActor": "drafts",
+            "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": {
+                  "var": "ABSOLUTE",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "drafts",
@@ -817,10 +930,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Advertising rules still apply.",
-            "activeActor": "drafts",
+            "at": "say9",
+            "caption": "Keeping a library of approved claims and phrases lets AI drafts reuse.",
+            "activeActor": "d",
             "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": {
+                  "var": "ABSOLUTE",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": {
+                  "var": "drafts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "ABSOLUTE",
                 "to": "drafts",
@@ -840,14 +973,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Keeping a library of approved claims and phrases lets AI drafts reuse.",
-            "activeActor": "d",
-            "messages": [
+              },
               {
                 "from": "ABSOLUTE",
                 "to": "drafts",
@@ -890,12 +1016,6 @@
                 "to": "drafts",
                 "label": "['guaranteed', 'best in india', '100% s…",
                 "tone": "data"
-              },
-              {
-                "from": "drafts",
-                "to": "d",
-                "label": "['Guaranteed returns of 20% every year!…",
-                "tone": "ok"
               }
             ],
             "activeActor": "ABSOLUTE"
@@ -923,6 +1043,30 @@
             "at": "say9",
             "caption": "Keeping a library of approved claims and phrases lets AI drafts reuse.",
             "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": "['guaranteed', 'best in india', '100% s…",
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": "['Guaranteed returns of 20% every year!…",
+                "tone": "ok"
+              },
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": "['guaranteed', 'best in india', '100% s…",
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": "['Guaranteed returns of 20% every year!…",
+                "tone": "ok"
+              },
               {
                 "from": "ABSOLUTE",
                 "to": "drafts",
@@ -967,6 +1111,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the checks transition driving include behavior.",
+            "activeActor": "required",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": {
+                  "var": "answer",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "required",
@@ -981,10 +1142,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include a medical answer missing the emergency phrase,.",
-            "activeActor": "required",
+            "at": "say9",
+            "caption": "Examine the pattern value produced for domain processing.",
+            "activeActor": "missing",
             "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": {
+                  "var": "answer",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": {
+                  "var": "required",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "answer",
                 "to": "required",
@@ -1004,14 +1185,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "The same pattern, domain rules as data plus a small checker, works for any.",
-            "activeActor": "missing",
-            "messages": [
+              },
               {
                 "from": "answer",
                 "to": "required",
@@ -1054,19 +1228,13 @@
                 "to": "required",
                 "label": "'Clause 4 says the lease will auto-rene…",
                 "tone": "data"
-              },
-              {
-                "from": "required",
-                "to": "missing",
-                "label": "['not legal advice']",
-                "tone": "ok"
               }
             ],
             "activeActor": "answer"
           },
           {
             "at": "say2",
-            "caption": "The checks include a medical answer missing the emergency phrase,.",
+            "caption": "Verify the checks transition driving include behavior.",
             "messages": [
               {
                 "from": "answer",
@@ -1085,8 +1253,32 @@
           },
           {
             "at": "say9",
-            "caption": "The same pattern, domain rules as data plus a small checker, works for any.",
+            "caption": "Examine the pattern value produced for domain processing.",
             "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": "'Clause 4 says the lease will auto-rene…",
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": "['not legal advice']",
+                "tone": "ok"
+              },
+              {
+                "from": "answer",
+                "to": "required",
+                "label": "'Clause 4 says the lease will auto-rene…",
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": "['not legal advice']",
+                "tone": "ok"
+              },
               {
                 "from": "answer",
                 "to": "required",

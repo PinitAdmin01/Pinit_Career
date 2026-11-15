@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "However, market makers face Inventory Risk.",
+            "activeActor": "vol",
+            "messages": [
+              {
+                "from": "s",
+                "to": "vol",
+                "label": {
+                  "var": "s",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "vol",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "However, market makers face Inventory Risk.",
-            "activeActor": "vol",
+            "at": "say8",
+            "caption": "The Avellaneda-Stoikov framework formulates optimal market making as.",
+            "activeActor": "gam",
             "messages": [
+              {
+                "from": "s",
+                "to": "vol",
+                "label": {
+                  "var": "s",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "vol",
+                "to": "gam",
+                "label": {
+                  "var": "vol",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "s",
                 "to": "vol",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The Avellaneda-Stoikov framework formulates optimal market making as.",
-            "activeActor": "gam",
-            "messages": [
+              },
               {
                 "from": "s",
                 "to": "vol",
@@ -118,12 +148,6 @@
                 "to": "vol",
                 "label": "100",
                 "tone": "data"
-              },
-              {
-                "from": "vol",
-                "to": "gam",
-                "label": "0.02",
-                "tone": "ok"
               }
             ],
             "activeActor": "s"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "The Avellaneda-Stoikov framework formulates optimal market making as.",
             "messages": [
+              {
+                "from": "s",
+                "to": "vol",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "vol",
+                "to": "gam",
+                "label": "0.02",
+                "tone": "ok"
+              },
+              {
+                "from": "s",
+                "to": "vol",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "vol",
+                "to": "gam",
+                "label": "0.02",
+                "tone": "ok"
+              },
               {
                 "from": "s",
                 "to": "vol",
@@ -702,7 +750,7 @@
           },
           {
             "at": "say8",
-            "caption": "Risk management constraints superimpose hard inventory collars onto.",
+            "caption": "Examine the market value produced for recovery processing.",
             "bars": [
               {
                 "label": "max_inventory",
@@ -802,7 +850,7 @@
           },
           {
             "at": "say8",
-            "caption": "Risk management constraints superimpose hard inventory collars onto.",
+            "caption": "Examine the market value produced for recovery processing.",
             "bars": [
               {
                 "label": "max_inventory",

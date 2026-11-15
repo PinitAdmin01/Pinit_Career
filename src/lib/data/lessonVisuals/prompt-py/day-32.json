@@ -7,656 +7,636 @@
   "entries": [
     {
       "partTitle": "The Principle Of Directional Stimulus Prompting: Guiding Autoregressive Focus With Semantic Anchors",
-      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
+      "codeHash": "b0c7e661c660ff0787fb2be90f8318ad3ca9c47b3991965bd447d1c8117c6d12",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Principle Of Directional Stimulus Prompting: Guiding Autoreg",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "mode",
+            "label": "mode",
+            "tappable": true
+          },
+          {
+            "id": "raw",
+            "label": "raw",
+            "tappable": true
+          },
+          {
+            "id": "logits",
+            "label": "logits",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Directional stimulus prompting guides attention toward desired focal areas.",
-            "activeActor": "self",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect autoregressive updates as mode tracks focus state.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "raw": {
+                "var": "raw",
+                "line": 15,
+                "hit": 1
+              },
+              "logits": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "mode": "data",
+              "raw": "data",
+              "logits": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Standard foundation prompts often emphasize irrelevant peripheral details.",
-            "activeActor": "engine",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the standard transition driving foundation behavior.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 15,
+                "hit": 2
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "raw": {
+                "var": "raw",
+                "line": 15,
+                "hit": 2
+              },
+              "logits": {
+                "text": ""
               }
+            },
+            "tones": {
+              "mode": "data",
+              "raw": "data",
+              "logits": "idle"
+            },
+            "arrows": [
+              [
+                "mode",
+                "raw"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Contextual entropy modulation further enhances the precision.",
-            "activeActor": "domain_key",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the stimulus value produced for semantic processing.",
+            "values": {
+              "mode": {
+                "text": ""
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "raw": {
+                "text": ""
+              },
+              "logits": {
+                "var": "logits",
+                "line": 10,
+                "hit": 2
               }
+            },
+            "tones": {
+              "mode": "idle",
+              "raw": "idle",
+              "logits": "ok"
+            },
+            "arrows": [
+              [
+                "mode",
+                "raw"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Principle Of Directional Stimulus Prompting: Guiding Autoreg",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "mode",
+            "label": "mode",
+            "tappable": true
+          },
+          {
+            "id": "raw",
+            "label": "raw",
+            "tappable": true
+          },
+          {
+            "id": "logits",
+            "label": "logits",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Directional stimulus prompting guides attention toward desired focal areas.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "self"
+            "caption": "Inspect autoregressive updates as mode tracks focus state.",
+            "values": {
+              "mode": "'negative_instruction'",
+              "raw": "{'revenue': 1.4, 'ebitda': 1.1, 'margin…",
+              "logits": ""
+            },
+            "tones": {
+              "mode": "data",
+              "raw": "data",
+              "logits": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Standard foundation prompts often emphasize irrelevant peripheral details.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "engine"
+            "caption": "Verify the standard transition driving foundation behavior.",
+            "values": {
+              "mode": "'directional_stimulus'",
+              "raw": "{'revenue': 3.4, 'ebitda': 3.1, 'margin…",
+              "logits": ""
+            },
+            "tones": {
+              "mode": "data",
+              "raw": "data",
+              "logits": "idle"
+            },
+            "arrows": [
+              [
+                "mode",
+                "raw"
+              ]
+            ]
           },
           {
-            "at": "say8",
-            "caption": "Contextual entropy modulation further enhances the precision.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "domain_key"
+            "at": "say3",
+            "caption": "Examine the stimulus value produced for semantic processing.",
+            "values": {
+              "mode": "",
+              "raw": "",
+              "logits": "{'revenue': 3.4, 'ebitda': 3.1, 'margin…"
+            },
+            "tones": {
+              "mode": "idle",
+              "raw": "idle",
+              "logits": "ok"
+            },
+            "arrows": [
+              [
+                "mode",
+                "raw"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "The Policy Language Model Architecture: Decoupling Lightweight Hint Generators From Heavy Task Models",
-      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
+      "codeHash": "198748ba3a745a7e5c6f2cce21de574cbacfa71ede55ff24ef2156eddcf70c0b",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Policy Language Model Architecture: Decoupling Lightweight H",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "cand",
+            "label": "cand",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "spec",
+            "label": "spec",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The policy model architecture decouples hint generation from generation.",
-            "activeActor": "self",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect policy updates as cand tracks language state.",
+            "values": {
+              "cand": {
+                "var": "cand",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "name": {
+                "text": ""
+              },
+              "spec": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "cand": "data",
+              "name": "idle",
+              "spec": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Lightweight policy models generate compact directional hints in parallel.",
-            "activeActor": "engine",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the policy transition driving language behavior.",
+            "values": {
+              "cand": {
+                "out": 1
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "name": {
+                "text": ""
+              },
+              "spec": {
+                "text": ""
               }
+            },
+            "tones": {
+              "cand": "data",
+              "name": "idle",
+              "spec": "idle"
+            },
+            "arrows": [
+              [
+                "cand",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Empirical ablation studies demonstrate that directional stimulus hints.",
-            "activeActor": "domain_key",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the policy value produced for model processing.",
+            "values": {
+              "cand": {
+                "text": ""
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 15,
+                "hit": 3
+              },
+              "spec": {
+                "text": ""
               }
+            },
+            "tones": {
+              "cand": "idle",
+              "name": "ok",
+              "spec": "idle"
+            },
+            "arrows": [
+              [
+                "cand",
+                "name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Policy Language Model Architecture: Decoupling Lightweight H",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "cand",
+            "label": "cand",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          },
+          {
+            "id": "spec",
+            "label": "spec",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The policy model architecture decouples hint generation from generation.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "self"
+            "caption": "Inspect policy updates as cand tracks language state.",
+            "values": {
+              "cand": "{'hint': 'Focus: ARR, NRR, gross margin…",
+              "name": "",
+              "spec": ""
+            },
+            "tones": {
+              "cand": "data",
+              "name": "idle",
+              "spec": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Lightweight policy models generate compact directional hints in parallel.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "engine"
+            "caption": "Verify the policy transition driving language behavior.",
+            "values": {
+              "cand": "concise_kpi      reward=0.7780 hint_tokens=6",
+              "name": "",
+              "spec": ""
+            },
+            "tones": {
+              "cand": "data",
+              "name": "idle",
+              "spec": "idle"
+            },
+            "arrows": [
+              [
+                "cand",
+                "name"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Empirical ablation studies demonstrate that directional stimulus hints.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "domain_key"
+            "at": "say3",
+            "caption": "Examine the policy value produced for model processing.",
+            "values": {
+              "cand": "",
+              "name": "'generic_ask'",
+              "spec": ""
+            },
+            "tones": {
+              "cand": "idle",
+              "name": "ok",
+              "spec": "idle"
+            },
+            "arrows": [
+              [
+                "cand",
+                "name"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Meta-Prompting & Recursive Prompt Rewriting: Automated Prompt Optimization Loops",
-      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
+      "codeHash": "52b52a8916b22e9bbf47b9e2bc353102c74633f93fbb387c91b20701cfbfcbbd",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Meta-Prompting & Recursive Prompt Rewriting: Automated Prompt Op",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "counts",
+            "label": "counts",
+            "tappable": true
+          },
+          {
+            "id": "row",
+            "label": "row",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Meta prompting architectures utilize recursive reflection to optimize text.",
-            "activeActor": "self",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect meta updates as counts tracks prompting state.",
+            "values": {
+              "counts": {
+                "var": "counts",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "row": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "counts": "data",
+              "row": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Evaluator models critique generated drafts and output refined instructions.",
-            "activeActor": "engine",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the meta transition driving prompting behavior.",
+            "values": {
+              "counts": {
+                "var": "counts",
+                "line": 16,
+                "hit": 3
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "row": {
+                "var": "row",
+                "line": 16,
+                "hit": 3
               }
+            },
+            "tones": {
+              "counts": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "counts",
+                "row"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Automated prompt versioning and semantic drift tracking ensure.",
-            "activeActor": "domain_key",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the meta value produced for recursive processing.",
+            "values": {
+              "counts": {
+                "var": "counts",
+                "line": 17,
+                "hit": 5
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "row": {
+                "var": "row",
+                "line": 17,
+                "hit": 5
               }
+            },
+            "tones": {
+              "counts": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "counts",
+                "row"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Meta-Prompting & Recursive Prompt Rewriting: Automated Prompt Op",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "counts",
+            "label": "counts",
+            "tappable": true
+          },
+          {
+            "id": "row",
+            "label": "row",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Meta prompting architectures utilize recursive reflection to optimize text.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "self"
+            "caption": "Inspect meta updates as counts tracks prompting state.",
+            "values": {
+              "counts": "{}",
+              "row": ""
+            },
+            "tones": {
+              "counts": "data",
+              "row": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Evaluator models critique generated drafts and output refined instructions.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "engine"
+            "caption": "Verify the meta transition driving prompting behavior.",
+            "values": {
+              "counts": "{'format_violation': 1, 'conceptual_dri…",
+              "row": "{'id': 'q3', 'err': 'format_violation'}"
+            },
+            "tones": {
+              "counts": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "counts",
+                "row"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Automated prompt versioning and semantic drift tracking ensure.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "domain_key"
+            "at": "say3",
+            "caption": "Examine the meta value produced for recursive processing.",
+            "values": {
+              "counts": "{'format_violation': 3, 'conceptual_dri…",
+              "row": "{'id': 'q5', 'err': 'format_violation'}"
+            },
+            "tones": {
+              "counts": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "counts",
+                "row"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Gradient-Free Prompt Tuning Algorithms: Automatic Prompt Engineer (APE) & Evolutionary Mutation",
-      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
+      "codeHash": "cb8ac797afd0fd4e4098f516311a537c47fd3eca1bd8f841673ae7db3e8c33a6",
       "spec": {
         "template": "flow",
         "title": "Gradient-Free Prompt Tuning Algorithms: Automatic Prompt Enginee",
         "nodes": [
           {
-            "id": "self",
-            "label": "self"
+            "id": "population",
+            "label": "population",
+            "tappable": true
           },
           {
-            "id": "engine",
-            "label": "engine"
+            "id": "gen",
+            "label": "gen",
+            "tappable": true
           },
           {
-            "id": "domain_key",
-            "label": "domain_key"
-          },
-          {
-            "id": "hint",
-            "label": "hint"
+            "id": "text",
+            "label": "text",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Gradient free prompt tuning algorithms explore vast linguistic spaces.",
+            "caption": "Inspect gradient updates as population tracks free state.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 5,
+              "population": {
+                "var": "population",
+                "line": 12,
                 "hit": 1
               },
-              "engine": {
-                "var": "engine",
-                "line": 16,
-                "hit": 1
+              "gen": {
+                "text": ""
               },
-              "domain_key": {
-                "var": "domain_key",
-                "line": 11,
-                "hit": 1
-              },
-              "hint": {
-                "var": "hint",
-                "line": 17,
-                "hit": 1
+              "text": {
+                "text": ""
               }
             },
             "tones": {
-              "self": "data",
-              "engine": "data",
-              "domain_key": "data",
-              "hint": "data"
+              "population": "data",
+              "gen": "idle",
+              "text": "idle"
             },
-            "arrows": [
-              [
-                "self",
-                "engine"
-              ],
-              [
-                "engine",
-                "domain_key"
-              ],
-              [
-                "domain_key",
-                "hint"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Automatic prompt engineers mutate candidate prompts using fitness scores.",
+            "caption": "Verify the prompt transition driving automatic behavior.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 6,
+              "population": {
+                "var": "population",
+                "line": 21,
                 "hit": 1
               },
-              "engine": {
-                "var": "engine",
-                "line": 17,
+              "gen": {
+                "var": "gen",
+                "line": 21,
                 "hit": 1
               },
-              "domain_key": {
-                "var": "domain_key",
-                "line": 11,
-                "hit": 1
-              },
-              "hint": {
-                "var": "hint",
-                "line": 14,
-                "hit": 1
+              "text": {
+                "text": ""
               }
             },
             "tones": {
-              "self": "data",
-              "engine": "data",
-              "domain_key": "data",
-              "hint": "data"
+              "population": "data",
+              "gen": "data",
+              "text": "idle"
             },
             "arrows": [
               [
-                "self",
-                "engine"
-              ],
-              [
-                "engine",
-                "domain_key"
-              ],
-              [
-                "domain_key",
-                "hint"
+                "population",
+                "gen"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Statistical fitness tracking maintains strict historical records.",
+            "at": "say3",
+            "caption": "Examine the prompt value produced for evolutionary processing.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 7,
-                "hit": 1
+              "population": {
+                "text": ""
               },
-              "engine": {
-                "var": "engine",
-                "line": 18,
-                "hit": 1
+              "gen": {
+                "text": ""
               },
-              "domain_key": {
-                "var": "domain_key",
-                "line": 11,
-                "hit": 1
-              },
-              "hint": {
-                "var": "hint",
-                "line": 18,
-                "hit": 1
+              "text": {
+                "var": "text",
+                "line": 8,
+                "hit": 11
               }
             },
             "tones": {
-              "self": "ok",
-              "engine": "ok",
-              "domain_key": "ok",
-              "hint": "ok"
+              "population": "idle",
+              "gen": "idle",
+              "text": "ok"
             },
             "arrows": [
               [
-                "self",
-                "engine"
-              ],
-              [
-                "engine",
-                "domain_key"
-              ],
-              [
-                "domain_key",
-                "hint"
+                "population",
+                "gen"
               ]
             ]
           }
@@ -667,110 +647,74 @@
         "title": "Gradient-Free Prompt Tuning Algorithms: Automatic Prompt Enginee",
         "nodes": [
           {
-            "id": "self",
-            "label": "self"
+            "id": "population",
+            "label": "population",
+            "tappable": true
           },
           {
-            "id": "engine",
-            "label": "engine"
+            "id": "gen",
+            "label": "gen",
+            "tappable": true
           },
           {
-            "id": "domain_key",
-            "label": "domain_key"
-          },
-          {
-            "id": "hint",
-            "label": "hint"
+            "id": "text",
+            "label": "text",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Gradient free prompt tuning algorithms explore vast linguistic spaces.",
+            "caption": "Inspect gradient updates as population tracks free state.",
             "values": {
-              "self": "<DirectionalStimulusEngine>",
-              "engine": "<DirectionalStimulusEngine>",
-              "domain_key": "'financial_forecast'",
-              "hint": "'Focus strictly on recurring subscripti…"
+              "population": "['Answer clearly.', 'Solve step by step…",
+              "gen": "",
+              "text": ""
             },
             "tones": {
-              "self": "data",
-              "engine": "data",
-              "domain_key": "data",
-              "hint": "data"
+              "population": "data",
+              "gen": "idle",
+              "text": "idle"
             },
-            "arrows": [
-              [
-                "self",
-                "engine"
-              ],
-              [
-                "engine",
-                "domain_key"
-              ],
-              [
-                "domain_key",
-                "hint"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Automatic prompt engineers mutate candidate prompts using fitness scores.",
+            "caption": "Verify the prompt transition driving automatic behavior.",
             "values": {
-              "self": "<DirectionalStimulusEngine>",
-              "engine": "<DirectionalStimulusEngine>",
-              "domain_key": "'financial_forecast'",
-              "hint": "'Focus strictly on recurring subscripti…"
+              "population": "['Solve step by step and emit json.', '…",
+              "gen": "1",
+              "text": ""
             },
             "tones": {
-              "self": "data",
-              "engine": "data",
-              "domain_key": "data",
-              "hint": "data"
+              "population": "data",
+              "gen": "data",
+              "text": "idle"
             },
             "arrows": [
               [
-                "self",
-                "engine"
-              ],
-              [
-                "engine",
-                "domain_key"
-              ],
-              [
-                "domain_key",
-                "hint"
+                "population",
+                "gen"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Statistical fitness tracking maintains strict historical records.",
+            "at": "say3",
+            "caption": "Examine the prompt value produced for evolutionary processing.",
             "values": {
-              "self": "<DirectionalStimulusEngine>",
-              "engine": "<DirectionalStimulusEngine>",
-              "domain_key": "'financial_forecast'",
-              "hint": "'Focus strictly on recurring subscripti…"
+              "population": "",
+              "gen": "",
+              "text": "'Think step by step, emit exact json st…"
             },
             "tones": {
-              "self": "ok",
-              "engine": "ok",
-              "domain_key": "ok",
-              "hint": "ok"
+              "population": "idle",
+              "gen": "idle",
+              "text": "ok"
             },
             "arrows": [
               [
-                "self",
-                "engine"
-              ],
-              [
-                "engine",
-                "domain_key"
-              ],
-              [
-                "domain_key",
-                "hint"
+                "population",
+                "gen"
               ]
             ]
           }
@@ -779,164 +723,188 @@
     },
     {
       "partTitle": "Production Implementation: Building An Adaptive Directional Stimulus Engine In Python",
-      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
+      "codeHash": "36ea82a15690eff5519bb4307e029c931a5cd8666e1189b095e5c6d4fb949a06",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Production Implementation: Building An Adaptive Directional Stim",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "q",
+            "label": "q",
+            "tappable": true
+          },
+          {
+            "id": "domain",
+            "label": "domain",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production directional stimulus engines require hardened python pipelines.",
-            "activeActor": "self",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 5,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect production updates as d tracks building state.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 16,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "q": {
+                "var": "q",
+                "line": 22,
+                "hit": 1
+              },
+              "domain": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "d": "data",
+              "q": "data",
+              "domain": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Dynamic hint injection operates through cached domain guidance libraries.",
-            "activeActor": "engine",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 6,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the directional transition driving stimulus behavior.",
+            "values": {
+              "d": {
+                "var": "d",
+                "line": 22,
+                "hit": 3
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 17,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "q": {
+                "var": "q",
+                "line": 22,
+                "hit": 3
+              },
+              "domain": {
+                "text": ""
               }
+            },
+            "tones": {
+              "d": "data",
+              "q": "data",
+              "domain": "idle"
+            },
+            "arrows": [
+              [
+                "d",
+                "q"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Continuous telemetry emission and automated SLA alerting monitor hint.",
-            "activeActor": "domain_key",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": {
-                  "var": "self",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the directional value produced for stimulus processing.",
+            "values": {
+              "d": {
+                "text": ""
               },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": {
-                  "var": "engine",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "q": {
+                "text": ""
+              },
+              "domain": {
+                "var": "domain",
+                "line": 11,
+                "hit": 3
               }
+            },
+            "tones": {
+              "d": "idle",
+              "q": "idle",
+              "domain": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "q"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Production Implementation: Building An Adaptive Directional Stim",
-        "actors": [
-          "self",
-          "engine",
-          "domain_key"
+        "nodes": [
+          {
+            "id": "d",
+            "label": "d",
+            "tappable": true
+          },
+          {
+            "id": "q",
+            "label": "q",
+            "tappable": true
+          },
+          {
+            "id": "domain",
+            "label": "domain",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production directional stimulus engines require hardened python pipelines.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "self"
+            "caption": "Inspect production updates as d tracks building state.",
+            "values": {
+              "d": "'earnings'",
+              "q": "'Review Q4 SaaS metrics'",
+              "domain": ""
+            },
+            "tones": {
+              "d": "data",
+              "q": "data",
+              "domain": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Dynamic hint injection operates through cached domain guidance libraries.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "engine"
+            "caption": "Verify the directional transition driving stimulus behavior.",
+            "values": {
+              "d": "'security'",
+              "q": "'Audit IAM exposure'",
+              "domain": ""
+            },
+            "tones": {
+              "d": "data",
+              "q": "data",
+              "domain": "idle"
+            },
+            "arrows": [
+              [
+                "d",
+                "q"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Continuous telemetry emission and automated SLA alerting monitor hint.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "engine",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "data"
-              },
-              {
-                "from": "engine",
-                "to": "domain_key",
-                "label": "<DirectionalStimulusEngine>",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "domain_key"
+            "at": "say3",
+            "caption": "Examine the directional value produced for stimulus processing.",
+            "values": {
+              "d": "",
+              "q": "",
+              "domain": "'security'"
+            },
+            "tones": {
+              "d": "idle",
+              "q": "idle",
+              "domain": "ok"
+            },
+            "arrows": [
+              [
+                "d",
+                "q"
+              ]
+            ]
           }
         ]
       }

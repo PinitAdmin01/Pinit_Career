@@ -7,20 +7,20 @@
   "entries": [
     {
       "partTitle": "Coarse-to-Fine Funnel Economics and Latency Budgets",
-      "codeHash": "579215e74479dd18f8692be4344a3663c91f25915aad187d05f3695db84a2993",
+      "codeHash": "aa8f91caeb9593e0b69dad5c756fdd72ee0166898d364c8bda49aa1d283d904a",
       "spec": {
         "template": "bars",
         "title": "Coarse-to-Fine Funnel Economics and Latency Budgets",
         "steps": [
           {
             "at": "say1",
-            "caption": "Bi-encoders encode queries and documents separately, enabling millisecond.",
+            "caption": "Observe how encoders shapes encode during this step.",
             "bars": [
               {
                 "label": "sla",
                 "value": {
                   "var": "sla",
-                  "line": 7,
+                  "line": 11,
                   "hit": 1
                 },
                 "tone": "data"
@@ -28,27 +28,21 @@
               {
                 "label": "sla_ms",
                 "value": {
-                  "var": "sla_ms",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "base_retrieval",
+                "label": "remaining",
                 "value": {
-                  "var": "base_retrieval_ms",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "ms_per_chunk",
+                "label": "feasible",
                 "value": {
-                  "var": "ms_per_chunk",
-                  "line": 2,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -56,56 +50,48 @@
           },
           {
             "at": "say2",
-            "caption": "Cross-encoders feed '[CLS] query [SEP] document' jointly through every.",
+            "caption": "Verify the cross transition driving encoders behavior.",
             "bars": [
               {
                 "label": "sla",
                 "value": {
                   "var": "sla",
-                  "line": 8,
-                  "hit": 1
+                  "line": 11,
+                  "hit": 3
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "sla_ms",
                 "value": {
-                  "var": "sla_ms",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "base_retrieval",
+                "label": "remaining",
                 "value": {
-                  "var": "base_retrieval_ms",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "ms_per_chunk",
+                "label": "feasible",
                 "value": {
-                  "var": "ms_per_chunk",
-                  "line": 3,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Inspect plan_rerank_budget() below computing exact feasible pool size.",
+            "at": "say3",
+            "caption": "The production answer is a two-stage funnel.",
             "bars": [
               {
                 "label": "sla",
                 "value": {
-                  "var": "sla",
-                  "line": 7,
-                  "hit": 2
+                  "text": "0"
                 },
                 "tone": "ok"
               },
@@ -113,26 +99,26 @@
                 "label": "sla_ms",
                 "value": {
                   "var": "sla_ms",
-                  "line": 4,
-                  "hit": 1
+                  "line": 5,
+                  "hit": 4
                 },
                 "tone": "ok"
               },
               {
-                "label": "base_retrieval",
+                "label": "remaining",
                 "value": {
-                  "var": "base_retrieval_ms",
-                  "line": 4,
-                  "hit": 1
+                  "var": "remaining",
+                  "line": 5,
+                  "hit": 4
                 },
                 "tone": "ok"
               },
               {
-                "label": "ms_per_chunk",
+                "label": "feasible",
                 "value": {
-                  "var": "ms_per_chunk",
-                  "line": 4,
-                  "hit": 1
+                  "var": "feasible",
+                  "line": 5,
+                  "hit": 4
                 },
                 "tone": "ok"
               }
@@ -146,78 +132,78 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Bi-encoders encode queries and documents separately, enabling millisecond.",
+            "caption": "Observe how encoders shapes encode during this step.",
             "bars": [
               {
                 "label": "sla",
-                "value": 30,
+                "value": 10,
                 "tone": "data"
               },
               {
                 "label": "sla_ms",
-                "value": 30,
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "base_retrieval",
-                "value": 11,
+                "label": "remaining",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "ms_per_chunk",
-                "value": 1.6,
+                "label": "feasible",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cross-encoders feed '[CLS] query [SEP] document' jointly through every.",
-            "bars": [
-              {
-                "label": "sla",
-                "value": 30,
-                "tone": "ok"
-              },
-              {
-                "label": "sla_ms",
-                "value": 30,
-                "tone": "ok"
-              },
-              {
-                "label": "base_retrieval",
-                "value": 11,
-                "tone": "ok"
-              },
-              {
-                "label": "ms_per_chunk",
-                "value": 1.6,
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Inspect plan_rerank_budget() below computing exact feasible pool size.",
+            "caption": "Verify the cross transition driving encoders behavior.",
             "bars": [
               {
                 "label": "sla",
                 "value": 65,
+                "tone": "data"
+              },
+              {
+                "label": "sla_ms",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "remaining",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "feasible",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The production answer is a two-stage funnel.",
+            "bars": [
+              {
+                "label": "sla",
+                "value": 0,
                 "tone": "ok"
               },
               {
                 "label": "sla_ms",
-                "value": 30,
+                "value": 120,
                 "tone": "ok"
               },
               {
-                "label": "base_retrieval",
-                "value": 11,
+                "label": "remaining",
+                "value": 109,
                 "tone": "ok"
               },
               {
-                "label": "ms_per_chunk",
-                "value": 1.6,
+                "label": "feasible",
+                "value": 50,
                 "tone": "ok"
               }
             ]
@@ -239,7 +225,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how cross updates encoder during execution.",
+            "caption": "Observe how cross shapes encoder during this step.",
             "activeActor": "candidates",
             "messages": [
               {
@@ -251,16 +237,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "threshold",
-                "to": "calibrated",
-                "label": {
-                  "var": "threshold",
-                  "line": 10,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -274,6 +250,53 @@
                 "to": "threshold",
                 "label": {
                   "var": "candidates",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "calibrated",
+                "label": {
+                  "var": "threshold",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Examine the sigmoid value produced for calibrating processing.",
+            "activeActor": "calibrated",
+            "messages": [
+              {
+                "from": "candidates",
+                "to": "threshold",
+                "label": {
+                  "var": "candidates",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "calibrated",
+                "label": {
+                  "var": "threshold",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "candidates",
+                "to": "threshold",
+                "label": {
+                  "var": "candidates",
                   "line": 11,
                   "hit": 1
                 },
@@ -288,14 +311,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Run the calibration filter below on both an on-topic billing question.",
-            "activeActor": "calibrated",
-            "messages": [
+              },
               {
                 "from": "candidates",
                 "to": "threshold",
@@ -331,19 +347,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how cross updates encoder during execution.",
+            "caption": "Observe how cross shapes encoder during this step.",
             "messages": [
               {
                 "from": "candidates",
                 "to": "threshold",
                 "label": "[['faq_1', 2.8], ['faq_2', 0.3], ['faq_…",
                 "tone": "data"
-              },
-              {
-                "from": "threshold",
-                "to": "calibrated",
-                "label": "0.45",
-                "tone": "ok"
               }
             ],
             "activeActor": "candidates"
@@ -369,8 +379,32 @@
           },
           {
             "at": "say7",
-            "caption": "Run the calibration filter below on both an on-topic billing question.",
+            "caption": "Examine the sigmoid value produced for calibrating processing.",
             "messages": [
+              {
+                "from": "candidates",
+                "to": "threshold",
+                "label": "[['faq_1', 2.8], ['faq_2', 0.3], ['faq_…",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "calibrated",
+                "label": "0.45",
+                "tone": "ok"
+              },
+              {
+                "from": "candidates",
+                "to": "threshold",
+                "label": "[['faq_1', 2.8], ['faq_2', 0.3], ['faq_…",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "calibrated",
+                "label": "0.45",
+                "tone": "ok"
+              },
               {
                 "from": "candidates",
                 "to": "threshold",
@@ -416,7 +450,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how often updates token during execution.",
+            "caption": "Inspect often updates as chunk tracks token state.",
             "values": {
               "chunk": {
                 "var": "chunk",
@@ -434,16 +468,14 @@
                 "hit": 1
               },
               "max_words": {
-                "var": "max_words",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "chunk": "data",
               "query": "data",
               "chunk_text": "data",
-              "max_words": "data"
+              "max_words": "idle"
             }
           },
           {
@@ -536,18 +568,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how often updates token during execution.",
+            "caption": "Inspect often updates as chunk tracks token state.",
             "values": {
               "chunk": "'Welcome to Acme Cloud. Regions reset e…",
               "query": "'API keys expire revoked'",
               "chunk_text": "'Welcome to Acme Cloud. Regions reset e…",
-              "max_words": "20"
+              "max_words": ""
             },
             "tones": {
               "chunk": "data",
               "query": "data",
               "chunk_text": "data",
-              "max_words": "data"
+              "max_words": "idle"
             }
           },
           {
@@ -630,16 +662,14 @@
                 "hit": 1
               },
               "lam": {
-                "var": "lam",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "cands": "data",
               "candidates": "data",
               "k": "data",
-              "lam": "data"
+              "lam": "idle"
             }
           },
           {
@@ -737,13 +767,13 @@
               "cands": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
               "candidates": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
               "k": "3",
-              "lam": "0.6"
+              "lam": ""
             },
             "tones": {
               "cands": "data",
               "candidates": "data",
               "k": "data",
-              "lam": "data"
+              "lam": "idle"
             }
           },
           {
@@ -789,158 +819,81 @@
         "title": "Reranking Telemetry: Token Reduction and Precision Gains",
         "nodes": [
           {
-            "id": "batch",
-            "label": "batch"
+            "id": "t",
+            "label": "t",
+            "tappable": true
           },
           {
-            "id": "traces",
-            "label": "traces"
-          },
-          {
-            "id": "n",
-            "label": "n"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reranking and compression sit on the hot path of every RAG query, so.",
+            "caption": "Inspect reranking updates as t tracks compression state.",
             "values": {
-              "batch": {
-                "var": "batch",
-                "line": 15,
-                "hit": 1
-              },
-              "traces": {
-                "var": "traces",
-                "line": 2,
-                "hit": 1
-              },
-              "n": {
-                "var": "n",
-                "line": 2,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
+              "t": {
+                "var": "t",
                 "line": 3,
                 "hit": 1
+              },
+              "out": {
+                "text": ""
               }
             },
             "tones": {
-              "batch": "data",
-              "traces": "data",
-              "n": "data",
-              ".0": "data"
+              "t": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "batch",
-                "traces"
-              ],
-              [
-                "traces",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Four lightweight numbers capture stage health clearly.",
             "values": {
-              "batch": {
-                "var": "batch",
-                "line": 20,
-                "hit": 1
-              },
-              "traces": {
-                "var": "traces",
-                "line": 3,
-                "hit": 5
-              },
-              "n": {
-                "var": "n",
-                "line": 3,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
+              "t": {
+                "var": "t",
                 "line": 3,
                 "hit": 2
+              },
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "batch": "data",
-              "traces": "data",
-              "n": "data",
-              ".0": "data"
+              "t": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "batch",
-                "traces"
-              ],
-              [
-                "traces",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
+                "t",
+                "out"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Inspect summarize_stage() below aggregating a batch of traced queries.",
+            "at": "say3",
+            "caption": "Watch out for Goodhart's Law when tuning thresholds.",
             "values": {
-              "batch": {
-                "var": "batch",
-                "line": 20,
-                "hit": 1
-              },
-              "traces": {
-                "var": "traces",
-                "line": 4,
-                "hit": 5
-              },
-              "n": {
-                "var": "n",
-                "line": 4,
-                "hit": 5
-              },
-              ".0": {
-                "var": ".0",
+              "t": {
+                "var": "t",
                 "line": 3,
                 "hit": 3
+              },
+              "out": {
+                "out": 1
               }
             },
             "tones": {
-              "batch": "ok",
-              "traces": "ok",
-              "n": "ok",
-              ".0": "ok"
+              "t": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "batch",
-                "traces"
-              ],
-              [
-                "traces",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
+                "t",
+                "out"
               ]
             ]
           }
@@ -951,110 +904,63 @@
         "title": "Reranking Telemetry: Token Reduction and Precision Gains",
         "nodes": [
           {
-            "id": "batch",
-            "label": "batch"
+            "id": "t",
+            "label": "t",
+            "tappable": true
           },
           {
-            "id": "traces",
-            "label": "traces"
-          },
-          {
-            "id": "n",
-            "label": "n"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reranking and compression sit on the hot path of every RAG query, so.",
+            "caption": "Inspect reranking updates as t tracks compression state.",
             "values": {
-              "batch": "[{'orig_words': 420, 'kept_words': 150,…",
-              "traces": "[{'orig_words': 420, 'kept_words': 150,…",
-              "n": "3",
-              ".0": "{'__other__': 'list_iterator'}"
+              "t": "{'orig_words': 420, 'kept_words': 150, …",
+              "out": ""
             },
             "tones": {
-              "batch": "data",
-              "traces": "data",
-              "n": "data",
-              ".0": "data"
+              "t": "data",
+              "out": "idle"
             },
-            "arrows": [
-              [
-                "batch",
-                "traces"
-              ],
-              [
-                "traces",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Four lightweight numbers capture stage health clearly.",
             "values": {
-              "batch": "[{'orig_words': 420, 'kept_words': 150,…",
-              "traces": "[{'orig_words': 420, 'kept_words': 150,…",
-              "n": "3",
-              ".0": "{'__other__': 'list_iterator'}"
+              "t": "{'orig_words': 380, 'kept_words': 130, …",
+              "out": "{'queries': 3, 'word_reduction_pct': 74.8, 'avg_rerank_ms': 43.7, 'abstain_rate': 0.33}"
             },
             "tones": {
-              "batch": "data",
-              "traces": "data",
-              "n": "data",
-              ".0": "data"
+              "t": "data",
+              "out": "ok"
             },
             "arrows": [
               [
-                "batch",
-                "traces"
-              ],
-              [
-                "traces",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
+                "t",
+                "out"
               ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Inspect summarize_stage() below aggregating a batch of traced queries.",
+            "at": "say3",
+            "caption": "Watch out for Goodhart's Law when tuning thresholds.",
             "values": {
-              "batch": "[{'orig_words': 420, 'kept_words': 150,…",
-              "traces": "[{'orig_words': 420, 'kept_words': 150,…",
-              "n": "3",
-              ".0": "{'__other__': 'list_iterator'}"
+              "t": "{'orig_words': 310, 'kept_words': 0, 'r…",
+              "out": "{'queries': 3, 'word_reduction_pct': 74.8, 'avg_rerank_ms': 43.7, 'abstain_rate': 0.33}"
             },
             "tones": {
-              "batch": "ok",
-              "traces": "ok",
-              "n": "ok",
-              ".0": "ok"
+              "t": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "batch",
-                "traces"
-              ],
-              [
-                "traces",
-                "n"
-              ],
-              [
-                "n",
-                ".0"
+                "t",
+                "out"
               ]
             ]
           }

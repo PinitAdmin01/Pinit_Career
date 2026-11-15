@@ -698,7 +698,7 @@
           },
           {
             "at": "say2",
-            "caption": "In traditional web applications, performance is characterized by a.",
+            "caption": "TTFT is dominated by queuing delay and prefill computation time.",
             "bars": [
               {
                 "label": "ttft_limit_ms",
@@ -768,7 +768,7 @@
           },
           {
             "at": "say2",
-            "caption": "In traditional web applications, performance is characterized by a.",
+            "caption": "TTFT is dominated by queuing delay and prefill computation time.",
             "bars": [
               {
                 "label": "ttft_limit_ms",
@@ -846,16 +846,14 @@
                 "hit": 1
               },
               "engine": {
-                "var": "engine",
-                "line": 48,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "max_batch_size": "data",
               "chunk_size": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [
@@ -995,13 +993,13 @@
               "self": "<ApexContinuousServingEngine>",
               "max_batch_size": "4",
               "chunk_size": "1000",
-              "engine": "<ApexContinuousServingEngine>"
+              "engine": ""
             },
             "tones": {
               "self": "data",
               "max_batch_size": "data",
               "chunk_size": "data",
-              "engine": "data"
+              "engine": "idle"
             },
             "arrows": [
               [

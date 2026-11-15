@@ -45,7 +45,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how each updates weight during execution.",
+            "caption": "Verify the int8 transition driving weight behavior.",
             "activeActor": "bits",
             "messages": [
               {
@@ -128,7 +128,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how each updates weight during execution.",
+            "caption": "Verify the int8 transition driving weight behavior.",
             "messages": [
               {
                 "from": "params",
@@ -171,162 +171,154 @@
       "partTitle": "Symmetric INT8 quantisation",
       "codeHash": "02af7a60cd88e64ff5064552324f95a8a7a41337a5e86a7be7c6841982e74f89",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Symmetric INT8 quantisation",
-        "actors": [
-          "values",
-          ".0",
-          "v"
+        "nodes": [
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Symmetric quantisation uses one scale.",
-            "activeActor": "values",
-            "messages": [
-              {
-                "from": "values",
-                "to": ".0",
-                "label": {
-                  "var": "values",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Symmetric quantisation uses one scale: scale = the largest absolute value ÷ 127.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "v": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Each value is quantised as q = round(v scale), clamped to the range 127 to 127.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "values",
-                "to": ".0",
-                "label": {
-                  "var": "values",
-                  "line": 2,
-                  "hit": 7
-                },
-                "tone": "data"
+            "caption": "Verify the value transition driving quantised behavior.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "v": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "This simple scheme is the foundation of most practical quantisation methods.",
-            "activeActor": "v",
-            "messages": [
-              {
-                "from": "values",
-                "to": ".0",
-                "label": {
-                  "var": "values",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Dequantising multiplies back: v ≈ q × scale.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 2,
+                "hit": 5
               },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 3
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "v": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Symmetric INT8 quantisation",
-        "actors": [
-          "values",
-          ".0",
-          "v"
+        "nodes": [
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Symmetric quantisation uses one scale.",
-            "messages": [
-              {
-                "from": "values",
-                "to": ".0",
-                "label": "[0.5, -1.27, 0, 1, 0.333]",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "values"
+            "caption": "Symmetric quantisation uses one scale: scale = the largest absolute value ÷ 127.",
+            "values": {
+              "v": "0.5",
+              "out": ""
+            },
+            "tones": {
+              "v": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Each value is quantised as q = round(v scale), clamped to the range 127 to 127.",
-            "messages": [
-              {
-                "from": "values",
-                "to": ".0",
-                "label": "[0.5, -1.27, 0, 1, 0.333]",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "caption": "Verify the value transition driving quantised behavior.",
+            "values": {
+              "v": "0",
+              "out": "scale 0.010000"
+            },
+            "tones": {
+              "v": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "This simple scheme is the foundation of most practical quantisation methods.",
-            "messages": [
-              {
-                "from": "values",
-                "to": ".0",
-                "label": "[0.5, -1.27, 0, 1, 0.333]",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "v",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "v"
+            "at": "say3",
+            "caption": "Dequantising multiplies back: v ≈ q × scale.",
+            "values": {
+              "v": "0.333",
+              "out": "quantised:   [50, -127, 0, 100, 33]"
+            },
+            "tones": {
+              "v": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "out"
+              ]
+            ]
           }
         ]
       }
@@ -476,7 +468,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how quantisation updates stores during execution.",
+            "caption": "Observe how quantisation shapes stores during this step.",
             "bars": [
               {
                 "label": "bits",
@@ -608,7 +600,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how quantisation updates stores during execution.",
+            "caption": "Observe how quantisation shapes stores during this step.",
             "bars": [
               {
                 "label": "bits",
@@ -774,13 +766,13 @@
               },
               "bits": {
                 "var": "bits",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "per_model": {
                 "var": "per_model",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -820,13 +812,13 @@
               },
               "bits": {
                 "var": "bits",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "per_model": {
                 "var": "per_model",
-                "line": 2,
-                "hit": 2
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -910,8 +902,8 @@
             "values": {
               "server_gb": "640",
               "params": "70000000000",
-              "bits": "16",
-              "per_model": "168"
+              "bits": "8",
+              "per_model": "84"
             },
             "tones": {
               "server_gb": "data",
@@ -940,8 +932,8 @@
             "values": {
               "server_gb": "640",
               "params": "70000000000",
-              "bits": "16",
-              "per_model": "168"
+              "bits": "4",
+              "per_model": "42"
             },
             "tones": {
               "server_gb": "ok",
@@ -975,158 +967,81 @@
         "title": "Practice time: quantisation",
         "nodes": [
           {
-            "id": "rng",
-            "label": "rng"
-          },
-          {
-            "id": "weights",
-            "label": "weights"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "v",
-            "label": "v"
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantize(values) returns the INT8 values and the scale (max |v| 127.",
+            "caption": "Inspect practice updates as v tracks quantize state.",
             "values": {
-              "rng": {
-                "var": "rng",
-                "line": 3,
-                "hit": 1
-              },
-              "weights": {
-                "var": "weights",
-                "line": 4,
-                "hit": 129
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 1
-              },
               "v": {
                 "var": "v",
                 "line": 6,
                 "hit": 1
+              },
+              "s": {
+                "text": ""
               }
             },
             "tones": {
-              "rng": "data",
-              "weights": "data",
-              ".0": "data",
-              "v": "data"
+              "v": "data",
+              "s": "idle"
             },
-            "arrows": [
-              [
-                "rng",
-                "weights"
-              ],
-              [
-                "weights",
-                ".0"
-              ],
-              [
-                ".0",
-                "v"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include a round trip, the all-zero case and a case where values.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
-              "rng": {
-                "var": "rng",
-                "line": 4,
-                "hit": 1
-              },
-              "weights": {
-                "var": "weights",
-                "line": 5,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 2
-              },
               "v": {
                 "var": "v",
                 "line": 6,
-                "hit": 2
+                "hit": 66
+              },
+              "s": {
+                "text": ""
               }
             },
             "tones": {
-              "rng": "data",
-              "weights": "data",
-              ".0": "data",
-              "v": "data"
+              "v": "data",
+              "s": "idle"
             },
             "arrows": [
               [
-                "rng",
-                "weights"
-              ],
-              [
-                "weights",
-                ".0"
-              ],
-              [
-                ".0",
-                "v"
+                "v",
+                "s"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "If quantize gives the wrong integers, check that you use the unrounded.",
+            "at": "say3",
+            "caption": "Examine the practice value produced for model processing.",
             "values": {
-              "rng": {
-                "var": "rng",
-                "line": 4,
-                "hit": 2
-              },
-              "weights": {
-                "var": "weights",
-                "line": 8,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 6,
-                "hit": 3
-              },
               "v": {
-                "var": "v",
+                "text": ""
+              },
+              "s": {
+                "var": "s",
                 "line": 6,
-                "hit": 3
+                "hit": 261
               }
             },
             "tones": {
-              "rng": "ok",
-              "weights": "ok",
-              ".0": "ok",
-              "v": "ok"
+              "v": "idle",
+              "s": "ok"
             },
             "arrows": [
               [
-                "rng",
-                "weights"
-              ],
-              [
-                "weights",
-                ".0"
-              ],
-              [
-                ".0",
-                "v"
+                "v",
+                "s"
               ]
             ]
           }
@@ -1137,110 +1052,63 @@
         "title": "Practice time: quantisation",
         "nodes": [
           {
-            "id": "rng",
-            "label": "rng"
-          },
-          {
-            "id": "weights",
-            "label": "weights"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "v",
-            "label": "v"
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "s",
+            "label": "s",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantize(values) returns the INT8 values and the scale (max |v| 127.",
+            "caption": "Inspect practice updates as v tracks quantize state.",
             "values": {
-              "rng": "<Random>",
-              "weights": "[0.0018941607657460846, 0.0250004876216…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "v": "0.0018941607657460846"
+              "v": "0.0018941607657460846",
+              "s": ""
             },
             "tones": {
-              "rng": "data",
-              "weights": "data",
-              ".0": "data",
-              "v": "data"
+              "v": "data",
+              "s": "idle"
             },
-            "arrows": [
-              [
-                "rng",
-                "weights"
-              ],
-              [
-                "weights",
-                ".0"
-              ],
-              [
-                ".0",
-                "v"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The checks include a round trip, the all-zero case and a case where values.",
+            "caption": "Verify the checks transition driving include behavior.",
             "values": {
-              "rng": "<Random>",
-              "weights": "[0.0018941607657460846, 0.0250004876216…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "v": "0.025000487621671008"
+              "v": "0.007068305338530724",
+              "s": ""
             },
             "tones": {
-              "rng": "data",
-              "weights": "data",
-              ".0": "data",
-              "v": "data"
+              "v": "data",
+              "s": "idle"
             },
             "arrows": [
               [
-                "rng",
-                "weights"
-              ],
-              [
-                "weights",
-                ".0"
-              ],
-              [
-                ".0",
-                "v"
+                "v",
+                "s"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "If quantize gives the wrong integers, check that you use the unrounded.",
+            "at": "say3",
+            "caption": "Examine the practice value produced for model processing.",
             "values": {
-              "rng": "<Random>",
-              "weights": "[0.0018941607657460846, 0.0250004876216…",
-              ".0": "{'__other__': 'list_iterator'}",
-              "v": "-0.01862756735441414"
+              "v": "",
+              "s": "0.006299212598425198"
             },
             "tones": {
-              "rng": "ok",
-              "weights": "ok",
-              ".0": "ok",
-              "v": "ok"
+              "v": "idle",
+              "s": "ok"
             },
             "arrows": [
               [
-                "rng",
-                "weights"
-              ],
-              [
-                "weights",
-                ".0"
-              ],
-              [
-                ".0",
-                "v"
+                "v",
+                "s"
               ]
             ]
           }

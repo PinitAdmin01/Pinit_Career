@@ -37,7 +37,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates unifies during execution.",
+            "caption": "Verify the milestone transition driving unifies behavior.",
             "rows": [
               {
                 "cells": [
@@ -56,7 +56,7 @@
           },
           {
             "at": "say11",
-            "caption": "Understanding these integrated systems is the hallmark of advanced.",
+            "caption": "Examine the milestone value produced for unifies processing.",
             "rows": [
               {
                 "cells": [
@@ -96,7 +96,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how milestone updates unifies during execution.",
+            "caption": "Verify the milestone transition driving unifies behavior.",
             "rows": [
               {
                 "cells": [
@@ -109,7 +109,7 @@
           },
           {
             "at": "say11",
-            "caption": "Understanding these integrated systems is the hallmark of advanced.",
+            "caption": "Examine the milestone value produced for unifies processing.",
             "rows": [
               {
                 "cells": [
@@ -168,16 +168,14 @@
                 "hit": 1
               },
               "rank": {
-                "var": "rank",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "num_tokens": "data",
               "num_experts": "data",
               "top_k": "data",
-              "rank": "data"
+              "rank": "idle"
             },
             "arrows": [
               [
@@ -196,7 +194,7 @@
           },
           {
             "at": "say2",
-            "caption": "During the forward pass, input tokens are routed to top-K experts while.",
+            "caption": "Verify the during transition driving forward behavior.",
             "values": {
               "num_tokens": {
                 "var": "num_tokens",
@@ -317,13 +315,13 @@
               "num_tokens": "2048",
               "num_experts": "8",
               "top_k": "2",
-              "rank": "16"
+              "rank": ""
             },
             "tones": {
               "num_tokens": "data",
               "num_experts": "data",
               "top_k": "data",
-              "rank": "data"
+              "rank": "idle"
             },
             "arrows": [
               [
@@ -342,7 +340,7 @@
           },
           {
             "at": "say2",
-            "caption": "During the forward pass, input tokens are routed to top-K experts while.",
+            "caption": "Verify the during transition driving forward behavior.",
             "values": {
               "num_tokens": "2048",
               "num_experts": "8",
@@ -429,6 +427,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In a Mixtral-style 8x7B model, the total sparse parameter count across all.",
+            "activeActor": "active_params_per_token_b",
+            "messages": [
+              {
+                "from": "total_sparse_params_b",
+                "to": "active_params_per_token_b",
+                "label": {
+                  "var": "total_sparse_params_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "active_params_per_token_b",
@@ -443,10 +458,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In a Mixtral-style 8x7B model, the total sparse parameter count across all.",
-            "activeActor": "active_params_per_token_b",
+            "at": "say11",
+            "caption": "This quantitative efficiency advantage cements sparse MoE as the dominant.",
+            "activeActor": "sparsity_ratio",
             "messages": [
+              {
+                "from": "total_sparse_params_b",
+                "to": "active_params_per_token_b",
+                "label": {
+                  "var": "total_sparse_params_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "active_params_per_token_b",
+                "to": "sparsity_ratio",
+                "label": {
+                  "var": "active_params_per_token_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "total_sparse_params_b",
                 "to": "active_params_per_token_b",
@@ -466,14 +501,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "This quantitative efficiency advantage cements sparse MoE as the dominant.",
-            "activeActor": "sparsity_ratio",
-            "messages": [
+              },
               {
                 "from": "total_sparse_params_b",
                 "to": "active_params_per_token_b",
@@ -516,12 +544,6 @@
                 "to": "active_params_per_token_b",
                 "label": "47",
                 "tone": "data"
-              },
-              {
-                "from": "active_params_per_token_b",
-                "to": "sparsity_ratio",
-                "label": "13",
-                "tone": "ok"
               }
             ],
             "activeActor": "total_sparse_params_b"
@@ -560,6 +582,30 @@
                 "to": "sparsity_ratio",
                 "label": "13",
                 "tone": "ok"
+              },
+              {
+                "from": "total_sparse_params_b",
+                "to": "active_params_per_token_b",
+                "label": "47",
+                "tone": "data"
+              },
+              {
+                "from": "active_params_per_token_b",
+                "to": "sparsity_ratio",
+                "label": "13",
+                "tone": "ok"
+              },
+              {
+                "from": "total_sparse_params_b",
+                "to": "active_params_per_token_b",
+                "label": "47",
+                "tone": "data"
+              },
+              {
+                "from": "active_params_per_token_b",
+                "to": "sparsity_ratio",
+                "label": "13",
+                "tone": "ok"
               }
             ],
             "activeActor": "sparsity_ratio"
@@ -581,7 +627,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Preflight validation guardrails verify that all integrated subsystems.",
+            "caption": "Observe how milestone shapes guards during this step.",
             "activeActor": "num_experts",
             "messages": [
               {
@@ -593,16 +639,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "top_k",
-                "to": "lora_rank",
-                "label": {
-                  "var": "top_k",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -616,6 +652,53 @@
                 "to": "top_k",
                 "label": {
                   "var": "num_experts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "top_k",
+                "to": "lora_rank",
+                "label": {
+                  "var": "top_k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Examine the guardrails value produced for enforcing processing.",
+            "activeActor": "lora_rank",
+            "messages": [
+              {
+                "from": "num_experts",
+                "to": "top_k",
+                "label": {
+                  "var": "num_experts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "top_k",
+                "to": "lora_rank",
+                "label": {
+                  "var": "top_k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "num_experts",
+                "to": "top_k",
+                "label": {
+                  "var": "num_experts",
                   "line": 4,
                   "hit": 1
                 },
@@ -630,14 +713,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "Rigorous preflight validation is an essential prerequisite.",
-            "activeActor": "lora_rank",
-            "messages": [
+              },
               {
                 "from": "num_experts",
                 "to": "top_k",
@@ -673,19 +749,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Preflight validation guardrails verify that all integrated subsystems.",
+            "caption": "Observe how milestone shapes guards during this step.",
             "messages": [
               {
                 "from": "num_experts",
                 "to": "top_k",
                 "label": "8",
                 "tone": "data"
-              },
-              {
-                "from": "top_k",
-                "to": "lora_rank",
-                "label": "2",
-                "tone": "ok"
               }
             ],
             "activeActor": "num_experts"
@@ -711,8 +781,32 @@
           },
           {
             "at": "say11",
-            "caption": "Rigorous preflight validation is an essential prerequisite.",
+            "caption": "Examine the guardrails value produced for enforcing processing.",
             "messages": [
+              {
+                "from": "num_experts",
+                "to": "top_k",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "top_k",
+                "to": "lora_rank",
+                "label": "2",
+                "tone": "ok"
+              },
+              {
+                "from": "num_experts",
+                "to": "top_k",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "top_k",
+                "to": "lora_rank",
+                "label": "2",
+                "tone": "ok"
+              },
               {
                 "from": "num_experts",
                 "to": "top_k",

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Asked about them anyway, it may hallucinate a plausible but wrong answer.",
+            "activeActor": "question",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "question",
+                "label": {
+                  "var": "policy",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "question",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Asked about them anyway, it may hallucinate a plausible but wrong answer.",
-            "activeActor": "question",
+            "at": "say8",
+            "caption": "It also keeps information current.",
+            "activeActor": "ungrounded",
             "messages": [
+              {
+                "from": "policy",
+                "to": "question",
+                "label": {
+                  "var": "policy",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "question",
+                "to": "ungrounded",
+                "label": {
+                  "var": "question",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "policy",
                 "to": "question",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "It also keeps information current.",
-            "activeActor": "ungrounded",
-            "messages": [
+              },
               {
                 "from": "policy",
                 "to": "question",
@@ -118,12 +148,6 @@
                 "to": "question",
                 "label": "{'returns': 'Items can be returned with…",
                 "tone": "data"
-              },
-              {
-                "from": "question",
-                "to": "ungrounded",
-                "label": "'How long do I have to return an item?'",
-                "tone": "ok"
               }
             ],
             "activeActor": "policy"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "It also keeps information current.",
             "messages": [
+              {
+                "from": "policy",
+                "to": "question",
+                "label": "{'returns': 'Items can be returned with…",
+                "tone": "data"
+              },
+              {
+                "from": "question",
+                "to": "ungrounded",
+                "label": "'How long do I have to return an item?'",
+                "tone": "ok"
+              },
+              {
+                "from": "policy",
+                "to": "question",
+                "label": "{'returns': 'Items can be returned with…",
+                "tone": "data"
+              },
+              {
+                "from": "question",
+                "to": "ungrounded",
+                "label": "'How long do I have to return an item?'",
+                "tone": "ok"
+              },
               {
                 "from": "policy",
                 "to": "question",
@@ -475,6 +523,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the chunks transition driving practice behavior.",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "q",
@@ -489,10 +554,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how practice updates retrieve during execution.",
-            "activeActor": "q",
+            "at": "say8",
+            "caption": "Measuring retrieval separately, by checking whether the right chunk.",
+            "activeActor": "t",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "q",
@@ -512,14 +597,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Measuring retrieval separately, by checking whether the right chunk.",
-            "activeActor": "t",
-            "messages": [
+              },
               {
                 "from": "chunks",
                 "to": "q",
@@ -562,19 +640,13 @@
                 "to": "q",
                 "label": "['Returns are accepted within 30 days.'…",
                 "tone": "data"
-              },
-              {
-                "from": "q",
-                "to": "t",
-                "label": "'How many days to get a refund?'",
-                "tone": "ok"
               }
             ],
             "activeActor": "chunks"
           },
           {
             "at": "say2",
-            "caption": "Trace how practice updates retrieve during execution.",
+            "caption": "Verify the chunks transition driving practice behavior.",
             "messages": [
               {
                 "from": "chunks",
@@ -595,6 +667,30 @@
             "at": "say8",
             "caption": "Measuring retrieval separately, by checking whether the right chunk.",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Returns are accepted within 30 days.'…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many days to get a refund?'",
+                "tone": "ok"
+              },
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Returns are accepted within 30 days.'…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many days to get a refund?'",
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "q",
@@ -639,6 +735,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The instructions say to answer only from the sources, to cite them like.",
+            "activeActor": "sources",
+            "messages": [
+              {
+                "from": "header",
+                "to": "sources",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "sources",
@@ -653,10 +766,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The instructions say to answer only from the sources, to cite them like.",
-            "activeActor": "sources",
+            "at": "say8",
+            "caption": "If no chunk is relevant, it is often better to skip the model entirely.",
+            "activeActor": "question",
             "messages": [
+              {
+                "from": "header",
+                "to": "sources",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sources",
+                "to": "question",
+                "label": {
+                  "var": "sources",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "sources",
@@ -676,14 +809,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "If no chunk is relevant, it is often better to skip the model entirely.",
-            "activeActor": "question",
-            "messages": [
+              },
               {
                 "from": "header",
                 "to": "sources",
@@ -726,12 +852,6 @@
                 "to": "sources",
                 "label": "'Answer using only the sources below. C…",
                 "tone": "data"
-              },
-              {
-                "from": "sources",
-                "to": "question",
-                "label": "['Refunds go to the original card withi…",
-                "tone": "ok"
               }
             ],
             "activeActor": "header"
@@ -759,6 +879,30 @@
             "at": "say8",
             "caption": "If no chunk is relevant, it is often better to skip the model entirely.",
             "messages": [
+              {
+                "from": "header",
+                "to": "sources",
+                "label": "'Answer using only the sources below. C…",
+                "tone": "data"
+              },
+              {
+                "from": "sources",
+                "to": "question",
+                "label": "['Refunds go to the original card withi…",
+                "tone": "ok"
+              },
+              {
+                "from": "header",
+                "to": "sources",
+                "label": "'Answer using only the sources below. C…",
+                "tone": "data"
+              },
+              {
+                "from": "sources",
+                "to": "question",
+                "label": "['Refunds go to the original card withi…",
+                "tone": "ok"
+              },
               {
                 "from": "header",
                 "to": "sources",
@@ -939,6 +1083,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The checks include a question where small words like \"to\" cause a chunk.",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "q",
@@ -953,10 +1114,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The checks include a question where small words like \"to\" cause a chunk.",
-            "activeActor": "q",
+            "at": "say8",
+            "caption": "These two functions, retrieve and check, are the skeleton of every RAG.",
+            "activeActor": "t",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "q",
@@ -976,14 +1157,7 @@
                   "hit": 8
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "These two functions, retrieve and check, are the skeleton of every RAG.",
-            "activeActor": "t",
-            "messages": [
+              },
               {
                 "from": "chunks",
                 "to": "q",
@@ -1026,12 +1200,6 @@
                 "to": "q",
                 "label": "['The gym opens at 6 am.', 'Lockers cos…",
                 "tone": "data"
-              },
-              {
-                "from": "q",
-                "to": "t",
-                "label": "'When does the pool close?'",
-                "tone": "ok"
               }
             ],
             "activeActor": "chunks"
@@ -1059,6 +1227,30 @@
             "at": "say8",
             "caption": "These two functions, retrieve and check, are the skeleton of every RAG.",
             "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['The gym opens at 6 am.', 'Lockers cos…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'When does the pool close?'",
+                "tone": "ok"
+              },
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['The gym opens at 6 am.', 'Lockers cos…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'When does the pool close?'",
+                "tone": "ok"
+              },
               {
                 "from": "chunks",
                 "to": "q",

@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Event Time is the exact wall-clock timestamp at which an action occurred.",
+            "activeActor": "sim",
+            "messages": [
+              {
+                "from": "self",
+                "to": "sim",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "sim",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Event Time is the exact wall-clock timestamp at which an action occurred.",
-            "activeActor": "sim",
+            "at": "say8",
+            "caption": "If event processing logic mistakenly queries local system wall-clock time.",
+            "activeActor": "event_time",
             "messages": [
+              {
+                "from": "self",
+                "to": "sim",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sim",
+                "to": "event_time",
+                "label": {
+                  "var": "sim",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "sim",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "If event processing logic mistakenly queries local system wall-clock time.",
-            "activeActor": "event_time",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "sim",
@@ -118,12 +148,6 @@
                 "to": "sim",
                 "label": "<TimeDomainSimulator>",
                 "tone": "data"
-              },
-              {
-                "from": "sim",
-                "to": "event_time",
-                "label": "<TimeDomainSimulator>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "If event processing logic mistakenly queries local system wall-clock time.",
             "messages": [
+              {
+                "from": "self",
+                "to": "sim",
+                "label": "<TimeDomainSimulator>",
+                "tone": "data"
+              },
+              {
+                "from": "sim",
+                "to": "event_time",
+                "label": "<TimeDomainSimulator>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "sim",
+                "label": "<TimeDomainSimulator>",
+                "tone": "data"
+              },
+              {
+                "from": "sim",
+                "to": "event_time",
+                "label": "<TimeDomainSimulator>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "sim",
@@ -210,7 +258,7 @@
           },
           {
             "at": "say8",
-            "caption": "Production watermark trackers prevent watermark regression by enforcing.",
+            "caption": "Examine the data value produced for event processing.",
             "items": {
               "var": "channels",
               "line": 4,
@@ -264,7 +312,7 @@
           },
           {
             "at": "say8",
-            "caption": "Production watermark trackers prevent watermark regression by enforcing.",
+            "caption": "Examine the data value produced for event processing.",
             "items": [
               "'part_0'",
               "'part_1'",
@@ -307,6 +355,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When the watermark advances past the window end timestamp `WindowEnd <=.",
+            "activeActor": "size_sec",
+            "messages": [
+              {
+                "from": "self",
+                "to": "size_sec",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "size_sec",
@@ -321,10 +386,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When the watermark advances past the window end timestamp `WindowEnd <=.",
-            "activeActor": "size_sec",
+            "at": "say7",
+            "caption": "Side outputs provide decoupling between real-time downstream consumers.",
+            "activeActor": "allowed_lateness_sec",
             "messages": [
+              {
+                "from": "self",
+                "to": "size_sec",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": {
+                  "var": "size_sec",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "size_sec",
@@ -344,14 +429,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Side outputs provide decoupling between real-time downstream consumers.",
-            "activeActor": "allowed_lateness_sec",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "size_sec",
@@ -394,12 +472,6 @@
                 "to": "size_sec",
                 "label": "<TumblingEventWindow>",
                 "tone": "data"
-              },
-              {
-                "from": "size_sec",
-                "to": "allowed_lateness_sec",
-                "label": "60",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -427,6 +499,30 @@
             "at": "say7",
             "caption": "Side outputs provide decoupling between real-time downstream consumers.",
             "messages": [
+              {
+                "from": "self",
+                "to": "size_sec",
+                "label": "<TumblingEventWindow>",
+                "tone": "data"
+              },
+              {
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": "60",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "size_sec",
+                "label": "<TumblingEventWindow>",
+                "tone": "data"
+              },
+              {
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": "60",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "size_sec",
@@ -471,6 +567,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In production environments, stream engineers implement.",
+            "activeActor": "out_of_orderness_sec",
+            "messages": [
+              {
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "out_of_orderness_sec",
@@ -485,10 +598,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "In production environments, stream engineers implement.",
-            "activeActor": "out_of_orderness_sec",
+            "at": "say8",
+            "caption": "Examine the watermark value produced for real processing.",
+            "activeActor": "max_future_skew_sec",
             "messages": [
+              {
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": {
+                  "var": "out_of_orderness_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "out_of_orderness_sec",
@@ -508,14 +641,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Robust generators track out-of-order bounds dynamically, adapting.",
-            "activeActor": "max_future_skew_sec",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "out_of_orderness_sec",
@@ -558,12 +684,6 @@
                 "to": "out_of_orderness_sec",
                 "label": "<ResilientWatermarkGenerator>",
                 "tone": "data"
-              },
-              {
-                "from": "out_of_orderness_sec",
-                "to": "max_future_skew_sec",
-                "label": "5",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -589,8 +709,32 @@
           },
           {
             "at": "say8",
-            "caption": "Robust generators track out-of-order bounds dynamically, adapting.",
+            "caption": "Examine the watermark value produced for real processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": "<ResilientWatermarkGenerator>",
+                "tone": "data"
+              },
+              {
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": "5",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": "<ResilientWatermarkGenerator>",
+                "tone": "data"
+              },
+              {
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": "5",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "out_of_orderness_sec",
@@ -696,13 +840,13 @@
               },
               "metrics": {
                 "var": "metrics",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "lag": {
                 "var": "lag",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -728,7 +872,7 @@
           },
           {
             "at": "say7",
-            "caption": "SRE teams configure automated runbooks that scale consumer task.",
+            "caption": "Examine the watermark value produced for late processing.",
             "values": {
               "healthy_met": {
                 "var": "healthy_met",
@@ -742,13 +886,13 @@
               },
               "metrics": {
                 "var": "metrics",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "lag": {
                 "var": "lag",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -832,8 +976,8 @@
             "values": {
               "healthy_met": "{'watermark_lag_sec': 8, 'late_data_dro…",
               "degraded_met": "{'watermark_lag_sec': 240, 'late_data_d…",
-              "metrics": "{'watermark_lag_sec': 8, 'late_data_dro…",
-              "lag": "8"
+              "metrics": "{'watermark_lag_sec': 240, 'late_data_d…",
+              "lag": "240"
             },
             "tones": {
               "healthy_met": "data",
@@ -858,12 +1002,12 @@
           },
           {
             "at": "say7",
-            "caption": "SRE teams configure automated runbooks that scale consumer task.",
+            "caption": "Examine the watermark value produced for late processing.",
             "values": {
               "healthy_met": "{'watermark_lag_sec': 8, 'late_data_dro…",
               "degraded_met": "{'watermark_lag_sec': 240, 'late_data_d…",
-              "metrics": "{'watermark_lag_sec': 8, 'late_data_dro…",
-              "lag": "8"
+              "metrics": "{'watermark_lag_sec': 240, 'late_data_d…",
+              "lag": "240"
             },
             "tones": {
               "healthy_met": "ok",

@@ -49,7 +49,7 @@
           },
           {
             "at": "say11",
-            "caption": "AI safety engineers implement multi-layered defense perimeters to ensure.",
+            "caption": "Examine the enterprise value produced for gateway processing.",
             "currentState": "desc",
             "transition": {
               "from": "cat",
@@ -101,7 +101,7 @@
           },
           {
             "at": "say11",
-            "caption": "AI safety engineers implement multi-layered defense perimeters to ensure.",
+            "caption": "Examine the enterprise value produced for gateway processing.",
             "currentState": "desc",
             "transition": {
               "from": "cat",
@@ -374,16 +374,14 @@
                 "hit": 1
               },
               "alt": {
-                "var": "alt",
-                "line": 10,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "llm_output": "data",
               "response_text": "data",
               "match": "data",
-              "alt": "data"
+              "alt": "idle"
             }
           },
           {
@@ -480,14 +478,14 @@
             "values": {
               "llm_output": "'Here is your summary.\n![Click for char…",
               "response_text": "'Here is your summary.\n![Click for char…",
-              "match": "{'__other__': 'Match'}",
-              "alt": "'Click for chart'"
+              "match": "<Match>",
+              "alt": ""
             },
             "tones": {
               "llm_output": "data",
               "response_text": "data",
               "match": "data",
-              "alt": "data"
+              "alt": "idle"
             }
           },
           {
@@ -496,7 +494,7 @@
             "values": {
               "llm_output": "'Here is your summary.\n![Click for char…",
               "response_text": "'Here is your summary.\n![Click for char…",
-              "match": "{'__other__': 'Match'}",
+              "match": "<Match>",
               "alt": "'Click for chart'"
             },
             "tones": {
@@ -512,7 +510,7 @@
             "values": {
               "llm_output": "'Here is your summary.\n![Click for char…",
               "response_text": "'Here is your summary.\n![Click for char…",
-              "match": "{'__other__': 'Match'}",
+              "match": "<Match>",
               "alt": "'Click for chart'"
             },
             "tones": {
@@ -570,16 +568,14 @@
                 "hit": 1
               },
               "checks": {
-                "var": "checks",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "injection_filter_ok": "data",
               "tool_sandbox_ok": "data",
               "output_sanitizer_ok": "data",
-              "checks": "data"
+              "checks": "idle"
             },
             "arrows": [
               [
@@ -719,13 +715,13 @@
               "injection_filter_ok": "True",
               "tool_sandbox_ok": "True",
               "output_sanitizer_ok": "True",
-              "checks": "{'PROMPT_INJECTION_DEFENSE': True, 'TOO…"
+              "checks": ""
             },
             "tones": {
               "injection_filter_ok": "data",
               "tool_sandbox_ok": "data",
               "output_sanitizer_ok": "data",
-              "checks": "data"
+              "checks": "idle"
             },
             "arrows": [
               [

@@ -7,786 +7,830 @@
   "entries": [
     {
       "partTitle": "The CodeAct Paradigm Transcending JSON Schemas With Python Actions",
-      "codeHash": "75c6131df93fe7738d137d844ba95423cdaafec7232a80b2beef6ec1834410a9",
+      "codeHash": "ee784ca1f5621c0f80475584c3bacb98dc810cfbe6f64b1d3e16260c425d95c1",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The CodeAct Paradigm Transcending JSON Schemas With Python Actio",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the early evolution of LLM tool augmentation, function calling was.",
-            "activeActor": "action_evaluation",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect codeact updates as r tracks json state.",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The CodeAct paradigm empowers autonomous agents to interact.",
-            "activeActor": "performance_metrics",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the codeact transition driving paradigm behavior.",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
+            },
+            "tones": {
+              "r": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering the CodeAct paradigm equips AI architects to build agents.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the codeact value produced for json processing.",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 9,
+                "hit": 3
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 30,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "out": 2
               }
+            },
+            "tones": {
+              "r": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The CodeAct Paradigm Transcending JSON Schemas With Python Actio",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In the early evolution of LLM tool augmentation, function calling was.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "action_evaluation"
+            "caption": "Inspect codeact updates as r tracks json state.",
+            "values": {
+              "r": "{'acct': 'EU-1', 'spend': 1200, 'active…",
+              "out": ""
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The CodeAct paradigm empowers autonomous agents to interact.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "performance_metrics"
+            "caption": "Verify the codeact transition driving paradigm behavior.",
+            "values": {
+              "r": "{'acct': 'US-2', 'spend': 450, 'active'…",
+              "out": "JSON serial turns=5 vs CodeAct single turn=1"
+            },
+            "tones": {
+              "r": "data",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "say10",
-            "caption": "Mastering the CodeAct paradigm equips AI architects to build agents.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the codeact value produced for json processing.",
+            "values": {
+              "r": "{'acct': 'EU-3', 'spend': 3800, 'active…",
+              "out": "Computed active EU spend in 1 Python action: 5000"
+            },
+            "tones": {
+              "r": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Interactive REPL Environments And Runtime State Persistence",
-      "codeHash": "75c6131df93fe7738d137d844ba95423cdaafec7232a80b2beef6ec1834410a9",
+      "codeHash": "030357a103e94f1e0d9ec0007e137d7aaa8ccbaa0ef3b9c7171d65673288dd91",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Interactive REPL Environments And Runtime State Persistence",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "repl_env",
+            "label": "repl_env",
+            "tappable": true
+          },
+          {
+            "id": "stmt",
+            "label": "stmt",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Executing independent Python scripts in stateless, ephemeral subprocesses.",
-            "activeActor": "action_evaluation",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect repl updates as repl_env tracks environments state.",
+            "values": {
+              "repl_env": {
+                "var": "repl_env",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "stmt": {
+                "text": ""
+              },
+              "name": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "repl_env": "data",
+              "stmt": "idle",
+              "name": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Interactive Read Eval Print Loop environments preserve memory namespaces.",
-            "activeActor": "performance_metrics",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the interactive transition driving environments behavior.",
+            "values": {
+              "repl_env": {
+                "var": "repl_env",
+                "line": 19,
+                "hit": 2
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "stmt": {
+                "var": "stmt",
+                "line": 19,
+                "hit": 2
+              },
+              "name": {
+                "var": "name",
+                "line": 19,
+                "hit": 2
               }
+            },
+            "tones": {
+              "repl_env": "data",
+              "stmt": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "repl_env",
+                "stmt"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering stateful REPL runtime environments transforms fleeting prompt.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the persistence value produced for stateful processing.",
+            "values": {
+              "repl_env": {
+                "var": "repl_env",
+                "line": 20,
+                "hit": 3
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 30,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "stmt": {
+                "var": "stmt",
+                "line": 20,
+                "hit": 3
+              },
+              "name": {
+                "var": "name",
+                "line": 20,
+                "hit": 3
               }
+            },
+            "tones": {
+              "repl_env": "ok",
+              "stmt": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "repl_env",
+                "stmt"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Interactive REPL Environments And Runtime State Persistence",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "repl_env",
+            "label": "repl_env",
+            "tappable": true
+          },
+          {
+            "id": "stmt",
+            "label": "stmt",
+            "tappable": true
+          },
+          {
+            "id": "name",
+            "label": "name",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Executing independent Python scripts in stateless, ephemeral subprocesses.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "action_evaluation"
+            "caption": "Inspect repl updates as repl_env tracks environments state.",
+            "values": {
+              "repl_env": "{}",
+              "stmt": "",
+              "name": ""
+            },
+            "tones": {
+              "repl_env": "data",
+              "stmt": "idle",
+              "name": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Interactive Read Eval Print Loop environments preserve memory namespaces.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "performance_metrics"
+            "caption": "Verify the interactive transition driving environments behavior.",
+            "values": {
+              "repl_env": "{'tax': 18}",
+              "stmt": "'subtotal = 200'",
+              "name": "'subtotal'"
+            },
+            "tones": {
+              "repl_env": "data",
+              "stmt": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "repl_env",
+                "stmt"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering stateful REPL runtime environments transforms fleeting prompt.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the persistence value produced for stateful processing.",
+            "values": {
+              "repl_env": "{'tax': 18, 'subtotal': 200, 'total': 2…",
+              "stmt": "'total = subtotal + tax * 2'",
+              "name": "'total'"
+            },
+            "tones": {
+              "repl_env": "ok",
+              "stmt": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "repl_env",
+                "stmt"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Algorithmic Compositionality Multi Tool Chaining In Unified Code",
-      "codeHash": "75c6131df93fe7738d137d844ba95423cdaafec7232a80b2beef6ec1834410a9",
+      "codeHash": "23639dd57db7085fa8f513dfe7be4c2c3750c6e01a5d5f00067be3af3f8ba48f",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Algorithmic Compositionality Multi Tool Chaining In Unified Code",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "INVENTORY",
+            "label": "INVENTORY",
+            "tappable": true
+          },
+          {
+            "id": "sku",
+            "label": "sku",
+            "tappable": true
+          },
+          {
+            "id": "qty",
+            "label": "qty",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In traditional tool-augmented pipelines, executing a multi-step analytical.",
-            "activeActor": "action_evaluation",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect algorithmic updates as INVENTORY tracks compositionality state.",
+            "values": {
+              "INVENTORY": {
+                "var": "INVENTORY",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "sku": {
+                "text": ""
+              },
+              "qty": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "INVENTORY": "data",
+              "sku": "idle",
+              "qty": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Algorithmic compositionality enables autonomous agents to chain disparate.",
-            "activeActor": "performance_metrics",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the algorithmic transition driving compositionality behavior.",
+            "values": {
+              "INVENTORY": {
+                "var": "INVENTORY",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "sku": {
+                "text": ""
+              },
+              "qty": {
+                "text": ""
               }
+            },
+            "tones": {
+              "INVENTORY": "data",
+              "sku": "idle",
+              "qty": "idle"
+            },
+            "arrows": [
+              [
+                "INVENTORY",
+                "sku"
+              ]
             ]
           },
           {
-            "at": "say12",
-            "caption": "Algorithmic compositionality transforms the foundation model from a simple.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the tool value produced for direct processing.",
+            "values": {
+              "INVENTORY": {
+                "text": ""
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 30,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "sku": {
+                "var": "sku",
+                "line": 5,
+                "hit": 2
+              },
+              "qty": {
+                "var": "qty",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "INVENTORY": "idle",
+              "sku": "ok",
+              "qty": "ok"
+            },
+            "arrows": [
+              [
+                "INVENTORY",
+                "sku"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Algorithmic Compositionality Multi Tool Chaining In Unified Code",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "INVENTORY",
+            "label": "INVENTORY",
+            "tappable": true
+          },
+          {
+            "id": "sku",
+            "label": "sku",
+            "tappable": true
+          },
+          {
+            "id": "qty",
+            "label": "qty",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In traditional tool-augmented pipelines, executing a multi-step analytical.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "action_evaluation"
+            "caption": "Inspect algorithmic updates as INVENTORY tracks compositionality state.",
+            "values": {
+              "INVENTORY": "{'gpu-a100': 4, 'gpu-h100': 2}",
+              "sku": "",
+              "qty": ""
+            },
+            "tones": {
+              "INVENTORY": "data",
+              "sku": "idle",
+              "qty": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Algorithmic compositionality enables autonomous agents to chain disparate.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "performance_metrics"
+            "caption": "Verify the algorithmic transition driving compositionality behavior.",
+            "values": {
+              "INVENTORY": "{'gpu-a100': 1, 'gpu-h100': 2}",
+              "sku": "",
+              "qty": ""
+            },
+            "tones": {
+              "INVENTORY": "data",
+              "sku": "idle",
+              "qty": "idle"
+            },
+            "arrows": [
+              [
+                "INVENTORY",
+                "sku"
+              ]
+            ]
           },
           {
-            "at": "say12",
-            "caption": "Algorithmic compositionality transforms the foundation model from a simple.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the tool value produced for direct processing.",
+            "values": {
+              "INVENTORY": "",
+              "sku": "'gpu-h100'",
+              "qty": "4"
+            },
+            "tones": {
+              "INVENTORY": "idle",
+              "sku": "ok",
+              "qty": "ok"
+            },
+            "arrows": [
+              [
+                "INVENTORY",
+                "sku"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Dynamic Observation Processing And Structured Stream Filtering",
-      "codeHash": "75c6131df93fe7738d137d844ba95423cdaafec7232a80b2beef6ec1834410a9",
+      "codeHash": "c11a87f39cf73721913743cb3abec607405e670de1ec262530bb27fe074e9d27",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Dynamic Observation Processing And Structured Stream Filtering",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "warns",
+            "label": "warns",
+            "tappable": true
+          },
+          {
+            "id": "i",
+            "label": "i",
+            "tappable": true
+          },
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When an autonomous agent executes a Python script, the resulting runtime.",
-            "activeActor": "action_evaluation",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 9,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect dynamic updates as warns tracks observation state.",
+            "values": {
+              "warns": {
+                "var": "warns",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 22,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "i": {
+                "text": ""
+              },
+              "l": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "warns": "data",
+              "i": "idle",
+              "l": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Dynamic observation processing filters and summarizes raw execution.",
-            "activeActor": "performance_metrics",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 23,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the dynamic transition driving observation behavior.",
+            "values": {
+              "warns": {
+                "var": "warns",
+                "line": 12,
+                "hit": 26
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "i": {
+                "text": ""
+              },
+              "l": {
+                "var": "l",
+                "line": 12,
+                "hit": 26
               }
+            },
+            "tones": {
+              "warns": "data",
+              "i": "idle",
+              "l": "data"
+            },
+            "arrows": [
+              [
+                "warns",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering dynamic observation processing completes the feedback loop.",
-            "activeActor": "result",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": {
-                  "var": "action_evaluation",
-                  "line": 24,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the structured value produced for stream processing.",
+            "values": {
+              "warns": {
+                "out": 1
               },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": {
-                  "var": "performance_metrics",
-                  "line": 30,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "i": {
+                "text": ""
+              },
+              "l": {
+                "text": ""
               }
+            },
+            "tones": {
+              "warns": "data",
+              "i": "idle",
+              "l": "idle"
+            },
+            "arrows": [
+              [
+                "warns",
+                "i"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Dynamic Observation Processing And Structured Stream Filtering",
-        "actors": [
-          "action_evaluation",
-          "performance_metrics",
-          "result"
+        "nodes": [
+          {
+            "id": "warns",
+            "label": "warns",
+            "tappable": true
+          },
+          {
+            "id": "i",
+            "label": "i",
+            "tappable": true
+          },
+          {
+            "id": "l",
+            "label": "l",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When an autonomous agent executes a Python script, the resulting runtime.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "action_evaluation"
+            "caption": "Inspect dynamic updates as warns tracks observation state.",
+            "values": {
+              "warns": "{}",
+              "i": "",
+              "l": ""
+            },
+            "tones": {
+              "warns": "data",
+              "i": "idle",
+              "l": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Dynamic observation processing filters and summarizes raw execution.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "performance_metrics"
+            "caption": "Verify the dynamic transition driving observation behavior.",
+            "values": {
+              "warns": "{}",
+              "i": "",
+              "l": "'INFO step 25: cache warmed'"
+            },
+            "tones": {
+              "warns": "data",
+              "i": "idle",
+              "l": "data"
+            },
+            "arrows": [
+              [
+                "warns",
+                "i"
+              ]
+            ]
           },
           {
-            "at": "say11",
-            "caption": "Mastering dynamic observation processing completes the feedback loop.",
-            "messages": [
-              {
-                "from": "action_evaluation",
-                "to": "performance_metrics",
-                "label": "{'jsonToolCalling': {'efficiency': 'Low…",
-                "tone": "data"
-              },
-              {
-                "from": "performance_metrics",
-                "to": "result",
-                "label": "{'executionSuccessRatePct': 98.7, 'tool…",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "result"
+            "at": "say3",
+            "caption": "Examine the structured value produced for stream processing.",
+            "values": {
+              "warns": "INFO_COUNT=40",
+              "i": "",
+              "l": ""
+            },
+            "tones": {
+              "warns": "data",
+              "i": "idle",
+              "l": "idle"
+            },
+            "arrows": [
+              [
+                "warns",
+                "i"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "Enterprise Production CodeAct Engine In Asynchronous Python",
-      "codeHash": "75c6131df93fe7738d137d844ba95423cdaafec7232a80b2beef6ec1834410a9",
+      "codeHash": "80fe270065d64b12b5a34ca77bd7fb3d9e5915b6de731b76c94d97efef86d256",
       "spec": {
         "template": "flow",
         "title": "Enterprise Production CodeAct Engine In Asynchronous Python",
         "nodes": [
           {
-            "id": "action_evaluation",
-            "label": "action_evaluation"
+            "id": "LLM_REPLY",
+            "label": "LLM_REPLY",
+            "tappable": true
           },
           {
-            "id": "performance_metrics",
-            "label": "performance_metrics"
+            "id": "match",
+            "label": "match",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "code_block",
+            "label": "code_block",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing the CodeAct paradigm, stateful REPL persistence, algorithmic.",
+            "caption": "Inspect enterprise updates as LLM_REPLY tracks production state.",
             "values": {
-              "action_evaluation": {
-                "var": "action_evaluation",
-                "line": 9,
+              "LLM_REPLY": {
+                "var": "LLM_REPLY",
+                "line": 4,
                 "hit": 1
               },
-              "performance_metrics": {
-                "var": "performance_metrics",
-                "line": 22,
-                "hit": 1
+              "match": {
+                "text": ""
               },
-              "result": {
-                "var": "result",
-                "line": 36,
-                "hit": 1
+              "code_block": {
+                "text": ""
               }
             },
             "tones": {
-              "action_evaluation": "data",
-              "performance_metrics": "data",
-              "result": "data"
+              "LLM_REPLY": "data",
+              "match": "idle",
+              "code_block": "idle"
             },
-            "arrows": [
-              [
-                "action_evaluation",
-                "performance_metrics"
-              ],
-              [
-                "performance_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production CodeAct engines coordinate code execution across.",
+            "caption": "Verify the enterprise transition driving production behavior.",
             "values": {
-              "action_evaluation": {
-                "var": "action_evaluation",
-                "line": 23,
+              "LLM_REPLY": {
+                "var": "LLM_REPLY",
+                "line": 12,
                 "hit": 1
               },
-              "performance_metrics": {
-                "var": "performance_metrics",
-                "line": 29,
+              "match": {
+                "var": "match",
+                "line": 12,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 37,
+              "code_block": {
+                "var": "code_block",
+                "line": 12,
                 "hit": 1
               }
             },
             "tones": {
-              "action_evaluation": "data",
-              "performance_metrics": "data",
-              "result": "data"
+              "LLM_REPLY": "data",
+              "match": "data",
+              "code_block": "data"
             },
             "arrows": [
               [
-                "action_evaluation",
-                "performance_metrics"
-              ],
-              [
-                "performance_metrics",
-                "result"
+                "LLM_REPLY",
+                "match"
               ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering architecture of CodeAct and executable reasoning.",
+            "at": "say3",
+            "caption": "Examine the codeact value produced for clean processing.",
             "values": {
-              "action_evaluation": {
-                "var": "action_evaluation",
-                "line": 24,
+              "LLM_REPLY": {
+                "var": "LLM_REPLY",
+                "line": 13,
                 "hit": 1
               },
-              "performance_metrics": {
-                "var": "performance_metrics",
-                "line": 30,
+              "match": {
+                "var": "match",
+                "line": 13,
                 "hit": 1
               },
-              "result": {
-                "var": "result",
-                "line": 37,
+              "code_block": {
+                "var": "code_block",
+                "line": 13,
                 "hit": 1
               }
             },
             "tones": {
-              "action_evaluation": "ok",
-              "performance_metrics": "ok",
-              "result": "ok"
+              "LLM_REPLY": "ok",
+              "match": "ok",
+              "code_block": "ok"
             },
             "arrows": [
               [
-                "action_evaluation",
-                "performance_metrics"
-              ],
-              [
-                "performance_metrics",
-                "result"
+                "LLM_REPLY",
+                "match"
               ]
             ]
           }
@@ -797,88 +841,74 @@
         "title": "Enterprise Production CodeAct Engine In Asynchronous Python",
         "nodes": [
           {
-            "id": "action_evaluation",
-            "label": "action_evaluation"
+            "id": "LLM_REPLY",
+            "label": "LLM_REPLY",
+            "tappable": true
           },
           {
-            "id": "performance_metrics",
-            "label": "performance_metrics"
+            "id": "match",
+            "label": "match",
+            "tappable": true
           },
           {
-            "id": "result",
-            "label": "result"
+            "id": "code_block",
+            "label": "code_block",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synthesizing the CodeAct paradigm, stateful REPL persistence, algorithmic.",
+            "caption": "Inspect enterprise updates as LLM_REPLY tracks production state.",
             "values": {
-              "action_evaluation": "{'jsonToolCalling': {'efficiency': 'Low…",
-              "performance_metrics": "{'executionSuccessRatePct': 98.7, 'tool…",
-              "result": "{'actionSpaceParadigm': 'CodeAct Python…"
+              "LLM_REPLY": "'Plan complete. Executing verified snip…",
+              "match": "",
+              "code_block": ""
             },
             "tones": {
-              "action_evaluation": "data",
-              "performance_metrics": "data",
-              "result": "data"
+              "LLM_REPLY": "data",
+              "match": "idle",
+              "code_block": "idle"
             },
-            "arrows": [
-              [
-                "action_evaluation",
-                "performance_metrics"
-              ],
-              [
-                "performance_metrics",
-                "result"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Enterprise production CodeAct engines coordinate code execution across.",
+            "caption": "Verify the enterprise transition driving production behavior.",
             "values": {
-              "action_evaluation": "{'jsonToolCalling': {'efficiency': 'Low…",
-              "performance_metrics": "{'executionSuccessRatePct': 98.7, 'tool…",
-              "result": "{'actionSpaceParadigm': 'CodeAct Python…"
+              "LLM_REPLY": "'Plan complete. Executing verified snip…",
+              "match": "<Match>",
+              "code_block": "'values = [12, 18, 30]\nmean_val = sum(v…"
             },
             "tones": {
-              "action_evaluation": "data",
-              "performance_metrics": "data",
-              "result": "data"
+              "LLM_REPLY": "data",
+              "match": "data",
+              "code_block": "data"
             },
             "arrows": [
               [
-                "action_evaluation",
-                "performance_metrics"
-              ],
-              [
-                "performance_metrics",
-                "result"
+                "LLM_REPLY",
+                "match"
               ]
             ]
           },
           {
-            "at": "say13",
-            "caption": "Mastering the engineering architecture of CodeAct and executable reasoning.",
+            "at": "say3",
+            "caption": "Examine the codeact value produced for clean processing.",
             "values": {
-              "action_evaluation": "{'jsonToolCalling': {'efficiency': 'Low…",
-              "performance_metrics": "{'executionSuccessRatePct': 98.7, 'tool…",
-              "result": "{'actionSpaceParadigm': 'CodeAct Python…"
+              "LLM_REPLY": "'Plan complete. Executing verified snip…",
+              "match": "<Match>",
+              "code_block": "'values = [12, 18, 30]\nmean_val = sum(v…"
             },
             "tones": {
-              "action_evaluation": "ok",
-              "performance_metrics": "ok",
-              "result": "ok"
+              "LLM_REPLY": "ok",
+              "match": "ok",
+              "code_block": "ok"
             },
             "arrows": [
               [
-                "action_evaluation",
-                "performance_metrics"
-              ],
-              [
-                "performance_metrics",
-                "result"
+                "LLM_REPLY",
+                "match"
               ]
             ]
           }

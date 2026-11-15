@@ -254,7 +254,7 @@
           },
           {
             "at": "say2",
-            "caption": "Read-your-own-writes (RYW) consistency guarantees a user always sees their.",
+            "caption": "Verify the read transition driving writes behavior.",
             "currentState": "replica",
             "transition": {
               "from": "primary",
@@ -291,7 +291,7 @@
           },
           {
             "at": "say2",
-            "caption": "Read-your-own-writes (RYW) consistency guarantees a user always sees their.",
+            "caption": "Verify the read transition driving writes behavior.",
             "currentState": "replica",
             "transition": {
               "from": "primary",
@@ -421,7 +421,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lag is measured as time (seconds behind the primary) or as position (bytes.",
+            "caption": "Observe how measured shapes time during this step.",
             "items": {
               "var": "healthy",
               "line": 5,
@@ -475,7 +475,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lag is measured as time (seconds behind the primary) or as position (bytes.",
+            "caption": "Observe how measured shapes time during this step.",
             "items": [
               "'replica-1'",
               "'replica-3'"
@@ -547,6 +547,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Asynchronous replication acknowledges immediately.",
+            "activeActor": "modes",
+            "messages": [
+              {
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": {
+                  "var": "replica_ack_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "modes",
@@ -561,10 +578,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Asynchronous replication acknowledges immediately.",
-            "activeActor": "modes",
+            "at": "say7",
+            "caption": "The example compares write latency and potential data loss for the three modes.",
+            "activeActor": "mode",
             "messages": [
+              {
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": {
+                  "var": "replica_ack_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "modes",
+                "to": "mode",
+                "label": {
+                  "var": "modes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "replica_ack_ms",
                 "to": "modes",
@@ -584,14 +621,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example compares write latency and potential data loss for the three modes.",
-            "activeActor": "mode",
-            "messages": [
+              },
               {
                 "from": "replica_ack_ms",
                 "to": "modes",
@@ -634,12 +664,6 @@
                 "to": "modes",
                 "label": "[4, 6, 90]",
                 "tone": "data"
-              },
-              {
-                "from": "modes",
-                "to": "mode",
-                "label": "{'synchronous (all)': 90, 'semi-synchro…",
-                "tone": "ok"
               }
             ],
             "activeActor": "replica_ack_ms"
@@ -667,6 +691,30 @@
             "at": "say7",
             "caption": "The example compares write latency and potential data loss for the three modes.",
             "messages": [
+              {
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": "[4, 6, 90]",
+                "tone": "data"
+              },
+              {
+                "from": "modes",
+                "to": "mode",
+                "label": "{'synchronous (all)': 90, 'semi-synchro…",
+                "tone": "ok"
+              },
+              {
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": "[4, 6, 90]",
+                "tone": "data"
+              },
+              {
+                "from": "modes",
+                "to": "mode",
+                "label": "{'synchronous (all)': 90, 'semi-synchro…",
+                "tone": "ok"
+              },
               {
                 "from": "replica_ack_ms",
                 "to": "modes",

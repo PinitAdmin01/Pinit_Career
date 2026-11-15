@@ -302,7 +302,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how function updates runs during execution.",
+            "caption": "Verify the function transition driving runs behavior.",
             "values": {
               "memory": {
                 "var": "memory",
@@ -448,7 +448,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how function updates runs during execution.",
+            "caption": "Verify the function transition driving runs behavior.",
             "values": {
               "memory": "128",
               "duration": "1600",
@@ -535,6 +535,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "After that, the environment stays around for a while and handles further.",
+            "activeActor": "env",
+            "messages": [
+              {
+                "from": "environments",
+                "to": "env",
+                "label": {
+                  "var": "environments",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "env",
@@ -549,10 +566,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "After that, the environment stays around for a while and handles further.",
-            "activeActor": "env",
+            "at": "say7",
+            "caption": "For most background work, cold starts do not matter.",
+            "activeActor": "e1",
             "messages": [
+              {
+                "from": "environments",
+                "to": "env",
+                "label": {
+                  "var": "environments",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "env",
+                "to": "e1",
+                "label": {
+                  "var": "env",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "environments",
                 "to": "env",
@@ -572,14 +609,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "For most background work, cold starts do not matter.",
-            "activeActor": "e1",
-            "messages": [
+              },
               {
                 "from": "environments",
                 "to": "env",
@@ -622,12 +652,6 @@
                 "to": "env",
                 "label": "[]",
                 "tone": "data"
-              },
-              {
-                "from": "env",
-                "to": "e1",
-                "label": "{'id': 1, 'db': 'connected', 'calls': 0}",
-                "tone": "ok"
               }
             ],
             "activeActor": "environments"
@@ -655,6 +679,30 @@
             "at": "say7",
             "caption": "For most background work, cold starts do not matter.",
             "messages": [
+              {
+                "from": "environments",
+                "to": "env",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "env",
+                "to": "e1",
+                "label": "{'id': 1, 'db': 'connected', 'calls': 0}",
+                "tone": "ok"
+              },
+              {
+                "from": "environments",
+                "to": "env",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "env",
+                "to": "e1",
+                "label": "{'id': 1, 'db': 'connected', 'calls': 0}",
+                "tone": "ok"
+              },
               {
                 "from": "environments",
                 "to": "env",
@@ -702,7 +750,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how example updates calls during execution.",
+            "caption": "Verify the example transition driving calls behavior.",
             "currentState": "workloads",
             "transition": {
               "from": "LIMIT",
@@ -758,7 +806,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how example updates calls during execution.",
+            "caption": "Verify the example transition driving calls behavior.",
             "currentState": "workloads",
             "transition": {
               "from": "LIMIT",

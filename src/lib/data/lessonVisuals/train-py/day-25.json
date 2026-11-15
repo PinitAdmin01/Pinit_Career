@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "shared": {
-                "var": "shared",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "dense_params": "data",
               "experts": "data",
               "expert_params": "data",
-              "shared": "data"
+              "shared": "idle"
             },
             "arrows": [
               [
@@ -78,7 +76,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how each updates token during execution.",
+            "caption": "Verify the token transition driving router behavior.",
             "values": {
               "dense_params": {
                 "var": "dense_params",
@@ -199,13 +197,13 @@
               "dense_params": "13000000000",
               "experts": "8",
               "expert_params": "5600000000",
-              "shared": "2000000000"
+              "shared": ""
             },
             "tones": {
               "dense_params": "data",
               "experts": "data",
               "expert_params": "data",
-              "shared": "data"
+              "shared": "idle"
             },
             "arrows": [
               [
@@ -224,7 +222,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how each updates token during execution.",
+            "caption": "Verify the token transition driving router behavior.",
             "values": {
               "dense_params": "13000000000",
               "experts": "8",
@@ -715,6 +713,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the load transition driving balancing behavior.",
+            "activeActor": "skewed",
+            "messages": [
+              {
+                "from": "balanced",
+                "to": "skewed",
+                "label": {
+                  "var": "balanced",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "skewed",
@@ -729,10 +744,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "An auxiliary load-balancing loss adds a small penalty when tokens are.",
-            "activeActor": "skewed",
+            "at": "say11",
+            "caption": "The weight of the balancing loss is kept small, so it guides routing.",
+            "activeActor": "fraction",
             "messages": [
+              {
+                "from": "balanced",
+                "to": "skewed",
+                "label": {
+                  "var": "balanced",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "skewed",
+                "to": "fraction",
+                "label": {
+                  "var": "skewed",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "balanced",
                 "to": "skewed",
@@ -752,14 +787,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say11",
-            "caption": "The weight of the balancing loss is kept small, so it guides routing.",
-            "activeActor": "fraction",
-            "messages": [
+              },
               {
                 "from": "balanced",
                 "to": "skewed",
@@ -802,19 +830,13 @@
                 "to": "skewed",
                 "label": "[[0.25, 0.25, 0.25, 0.25], [0.25, 0.25,…",
                 "tone": "data"
-              },
-              {
-                "from": "skewed",
-                "to": "fraction",
-                "label": "[[0.7, 0.1, 0.1, 0.1], [0.6, 0.15, 0.15…",
-                "tone": "ok"
               }
             ],
             "activeActor": "balanced"
           },
           {
             "at": "say2",
-            "caption": "An auxiliary load-balancing loss adds a small penalty when tokens are.",
+            "caption": "Verify the load transition driving balancing behavior.",
             "messages": [
               {
                 "from": "balanced",
@@ -835,6 +857,30 @@
             "at": "say11",
             "caption": "The weight of the balancing loss is kept small, so it guides routing.",
             "messages": [
+              {
+                "from": "balanced",
+                "to": "skewed",
+                "label": "[[0.25, 0.25, 0.25, 0.25], [0.25, 0.25,…",
+                "tone": "data"
+              },
+              {
+                "from": "skewed",
+                "to": "fraction",
+                "label": "[[0.7, 0.1, 0.1, 0.1], [0.6, 0.15, 0.15…",
+                "tone": "ok"
+              },
+              {
+                "from": "balanced",
+                "to": "skewed",
+                "label": "[[0.25, 0.25, 0.25, 0.25], [0.25, 0.25,…",
+                "tone": "data"
+              },
+              {
+                "from": "skewed",
+                "to": "fraction",
+                "label": "[[0.7, 0.1, 0.1, 0.1], [0.6, 0.15, 0.15…",
+                "tone": "ok"
+              },
               {
                 "from": "balanced",
                 "to": "skewed",
@@ -895,7 +941,7 @@
           },
           {
             "at": "say2",
-            "caption": "After routing, each token must be sent to the GPU holding its expert,.",
+            "caption": "Verify the expert transition driving routing behavior.",
             "bars": [
               {
                 "label": "gpus",
@@ -988,7 +1034,7 @@
           },
           {
             "at": "say2",
-            "caption": "After routing, each token must be sent to the GPU holding its expert,.",
+            "caption": "Verify the expert transition driving routing behavior.",
             "bars": [
               {
                 "label": "gpus",

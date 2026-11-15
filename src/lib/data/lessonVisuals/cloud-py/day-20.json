@@ -156,23 +156,23 @@
             "values": {
               "pattern": {
                 "var": "pattern",
-                "line": 13,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "ev": {
                 "var": "ev",
-                "line": 16,
-                "hit": 1
+                "line": 13,
+                "hit": 4
               },
               "event": {
                 "var": "event",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "key": {
                 "var": "key",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -202,23 +202,23 @@
             "values": {
               "pattern": {
                 "var": "pattern",
-                "line": 14,
+                "line": 6,
                 "hit": 1
               },
               "ev": {
                 "var": "ev",
                 "line": 13,
-                "hit": 3
+                "hit": 4
               },
               "event": {
                 "var": "event",
-                "line": 5,
+                "line": 6,
                 "hit": 1
               },
               "key": {
                 "var": "key",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               }
             },
             "tones": {
@@ -300,10 +300,10 @@
             "at": "say2",
             "caption": "For example {\"source\".",
             "values": {
-              "pattern": "{'source': ['pinit.billing'], 'detail':…",
-              "ev": "{'source': 'pinit.billing', 'detail': {…",
-              "event": "{'source': 'pinit.billing', 'detail': {…",
-              "key": "'source'"
+              "pattern": "{'currency': ['USD', 'EUR']}",
+              "ev": "{'source': 'pinit.auth', 'detail': {'cu…",
+              "event": "{'currency': 'EUR', 'amount': 5}",
+              "key": "'detail'"
             },
             "tones": {
               "pattern": "data",
@@ -331,9 +331,9 @@
             "caption": "The example tests one pattern against several events.",
             "values": {
               "pattern": "{'source': ['pinit.billing'], 'detail':…",
-              "ev": "{'source': 'pinit.billing', 'detail': {…",
+              "ev": "{'source': 'pinit.auth', 'detail': {'cu…",
               "event": "{'source': 'pinit.billing', 'detail': {…",
-              "key": "'source'"
+              "key": "'currency'"
             },
             "tones": {
               "pattern": "ok",
@@ -432,27 +432,27 @@
           },
           {
             "at": "say2",
-            "caption": "Choose sources like \"company.",
+            "caption": "Choose sources like \"company.service\", for example \"pinit.orders\".",
             "values": {
               "source": {
                 "var": "source",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "detail_type": {
                 "var": "detail_type",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "detail": {
                 "var": "detail",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "event_id": {
                 "var": "event_id",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -482,23 +482,23 @@
             "values": {
               "source": {
                 "var": "source",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 3
               },
               "detail_type": {
                 "var": "detail_type",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "detail": {
                 "var": "detail",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "event_id": {
                 "var": "event_id",
-                "line": 5,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -578,12 +578,12 @@
           },
           {
             "at": "say2",
-            "caption": "Choose sources like \"company.",
+            "caption": "Choose sources like \"company.service\", for example \"pinit.orders\".",
             "values": {
-              "source": "'pinit.orders'",
-              "detail_type": "'OrderPlaced'",
-              "detail": "{'order_id': 'ord-1'}",
-              "event_id": "'ev-1'"
+              "source": "'orders'",
+              "detail_type": "'X'",
+              "detail": "{}",
+              "event_id": "'ev-2'"
             },
             "tones": {
               "source": "data",
@@ -610,10 +610,10 @@
             "at": "say7",
             "caption": "The example builds a valid event and shows the validation catching.",
             "values": {
-              "source": "'pinit.orders'",
-              "detail_type": "'OrderPlaced'",
-              "detail": "{'order_id': 'ord-1'}",
-              "event_id": "'ev-1'"
+              "source": "'aws.s3'",
+              "detail_type": "'X'",
+              "detail": "{}",
+              "event_id": "'ev-2'"
             },
             "tones": {
               "source": "ok",
@@ -731,7 +731,7 @@
               },
               "processed_ok": {
                 "var": "processed_ok",
-                "line": 6,
+                "line": 10,
                 "hit": 1
               }
             },
@@ -777,8 +777,8 @@
               },
               "processed_ok": {
                 "var": "processed_ok",
-                "line": 8,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               }
             },
             "tones": {
@@ -863,7 +863,7 @@
               "start": "0",
               "every": "15",
               "archive": "[{'id': 1, 'detail-type': 'OrderPlaced'…",
-              "processed_ok": "{1, 2}"
+              "processed_ok": "{1, 2, 3}"
             },
             "tones": {
               "start": "data",
@@ -893,7 +893,7 @@
               "start": "0",
               "every": "15",
               "archive": "[{'id': 1, 'detail-type': 'OrderPlaced'…",
-              "processed_ok": "{1, 2}"
+              "processed_ok": "{1, 2, 3, 4}"
             },
             "tones": {
               "start": "ok",

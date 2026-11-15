@@ -377,7 +377,7 @@
               },
               "problems": {
                 "var": "problems",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -423,8 +423,8 @@
               },
               "problems": {
                 "var": "problems",
-                "line": 6,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -509,7 +509,7 @@
               "VALID": "{'Choice', 'Fail', 'Map', 'Parallel', '…",
               "defn": "{'StartAt': 'Charge', 'States': {'Charg…",
               "states": "{'Charge': {'Type': 'Task', 'Next': 'Sh…",
-              "problems": "[]"
+              "problems": "['BAD_NEXT:Charge']"
             },
             "tones": {
               "VALID": "data",
@@ -539,7 +539,7 @@
               "VALID": "{'Choice', 'Fail', 'Map', 'Parallel', '…",
               "defn": "{'StartAt': 'Charge', 'States': {'Charg…",
               "states": "{'Charge': {'Type': 'Task', 'Next': 'Sh…",
-              "problems": "[]"
+              "problems": "['BAD_NEXT:Charge', 'BAD_TYPE:Done']"
             },
             "tones": {
               "VALID": "ok",

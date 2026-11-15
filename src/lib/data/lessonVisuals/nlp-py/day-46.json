@@ -490,16 +490,14 @@
                 "hit": 1
               },
               "system_prompt": {
-                "var": "system_prompt",
-                "line": 80,
-                "hit": 49
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "block_size": "data",
               "cache": "data",
-              "system_prompt": "data"
+              "system_prompt": "idle"
             },
             "arrows": [
               [
@@ -639,13 +637,13 @@
               "self": "<RadixTreePrefixCache>",
               "block_size": "16",
               "cache": "<RadixTreePrefixCache>",
-              "system_prompt": "['sys_0', 'sys_1', 'sys_2', 'sys_3', 's…"
+              "system_prompt": ""
             },
             "tones": {
               "self": "data",
               "block_size": "data",
               "cache": "data",
-              "system_prompt": "data"
+              "system_prompt": "idle"
             },
             "arrows": [
               [

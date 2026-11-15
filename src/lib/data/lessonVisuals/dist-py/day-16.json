@@ -444,7 +444,7 @@
     },
     {
       "partTitle": "Vector clocks",
-      "codeHash": "4f73f0f9bfac241c91031288289d5003cb5ac933f07d90a215d4fb93ff8405e6",
+      "codeHash": "9f5284241b337955f9690b22386deee3f20de80dc417c1208c702496da9f1845",
       "spec": {
         "template": "flow",
         "title": "Vector clocks",
@@ -487,16 +487,14 @@
                 "hit": 1
               },
               "a": {
-                "var": "a",
-                "line": 2,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "base": "data",
               "edit_on_n1": "data",
               "edit_on_n2": "data",
-              "a": "data"
+              "a": "idle"
             },
             "arrows": [
               [
@@ -636,13 +634,13 @@
               "base": "{'N1': 1, 'N2': 1}",
               "edit_on_n1": "{'N1': 2, 'N2': 1}",
               "edit_on_n2": "{'N1': 1, 'N2': 2}",
-              "a": "{'N1': 2, 'N2': 1}"
+              "a": ""
             },
             "tones": {
               "base": "data",
               "edit_on_n1": "data",
               "edit_on_n2": "data",
-              "a": "data"
+              "a": "idle"
             },
             "arrows": [
               [
@@ -724,7 +722,7 @@
     },
     {
       "partTitle": "Comparing vector clocks",
-      "codeHash": "28f50947d76cad90e3c822a06eee67b57b5510efe032d29836c32b0aba53ef74",
+      "codeHash": "40e51573217c2f1d91b4cb7ee7cec86a132d52c533e44794023d2f8df053d1d9",
       "spec": {
         "template": "states",
         "title": "Comparing vector clocks",
@@ -823,7 +821,7 @@
             "transition": {
               "from": "b",
               "to": "nodes",
-              "label": "{'N1', 'N2'}"
+              "label": "['N1', 'N2']"
             },
             "tone": "ok"
           }
@@ -856,6 +854,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Shopping carts in Amazon's original Dynamo kept both versions and merged.",
+            "activeActor": "cart_laptop",
+            "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": {
+                  "var": "cart_phone",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "cart_laptop",
@@ -870,10 +885,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Shopping carts in Amazon's original Dynamo kept both versions and merged.",
-            "activeActor": "cart_laptop",
+            "at": "say7",
+            "caption": "The example merges two concurrent carts by union.",
+            "activeActor": "merged",
             "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": {
+                  "var": "cart_phone",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": {
+                  "var": "cart_laptop",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "cart_phone",
                 "to": "cart_laptop",
@@ -893,14 +928,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example merges two concurrent carts by union.",
-            "activeActor": "merged",
-            "messages": [
+              },
               {
                 "from": "cart_phone",
                 "to": "cart_laptop",
@@ -943,12 +971,6 @@
                 "to": "cart_laptop",
                 "label": "{'dal', 'ghee', 'rice'}",
                 "tone": "data"
-              },
-              {
-                "from": "cart_laptop",
-                "to": "merged",
-                "label": "{'dal', 'jaggery', 'rice'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "cart_phone"
@@ -976,6 +998,30 @@
             "at": "say7",
             "caption": "The example merges two concurrent carts by union.",
             "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": "{'dal', 'ghee', 'rice'}",
+                "tone": "data"
+              },
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": "{'dal', 'jaggery', 'rice'}",
+                "tone": "ok"
+              },
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": "{'dal', 'ghee', 'rice'}",
+                "tone": "data"
+              },
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": "{'dal', 'jaggery', 'rice'}",
+                "tone": "ok"
+              },
               {
                 "from": "cart_phone",
                 "to": "cart_laptop",

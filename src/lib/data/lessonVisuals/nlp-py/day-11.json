@@ -78,7 +78,7 @@
           },
           {
             "at": "say2",
-            "caption": "In \"Sundar Pichai visited New Delhi on Monday\", NER should find \"Sundar.",
+            "caption": "Verify the sundar transition driving pichai behavior.",
             "values": {
               "sentence": {
                 "var": "sentence",
@@ -92,13 +92,13 @@
               },
               "etype": {
                 "var": "etype",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "text": {
                 "var": "text",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -138,13 +138,13 @@
               },
               "etype": {
                 "var": "etype",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "text": {
                 "var": "text",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -224,12 +224,12 @@
           },
           {
             "at": "say2",
-            "caption": "In \"Sundar Pichai visited New Delhi on Monday\", NER should find \"Sundar.",
+            "caption": "Verify the sundar transition driving pichai behavior.",
             "values": {
               "sentence": "'Sundar Pichai visited New Delhi on Mon…",
               "entities": "[['PER', 'Sundar Pichai'], ['LOC', 'New…",
-              "etype": "'PER'",
-              "text": "'Sundar Pichai'"
+              "etype": "'LOC'",
+              "text": "'New Delhi'"
             },
             "tones": {
               "sentence": "data",
@@ -258,8 +258,8 @@
             "values": {
               "sentence": "'Sundar Pichai visited New Delhi on Mon…",
               "entities": "[['PER', 'Sundar Pichai'], ['LOC', 'New…",
-              "etype": "'PER'",
-              "text": "'Sundar Pichai'"
+              "etype": "'DATE'",
+              "text": "'Monday'"
             },
             "tones": {
               "sentence": "ok",
@@ -294,7 +294,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The standard trick is to turn entity spans into one tag per token with.",
+            "caption": "Observe how scheme shapes standard during this step.",
             "bars": [
               {
                 "label": "first",
@@ -399,7 +399,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The standard trick is to turn entity spans into one tag per token with.",
+            "caption": "Observe how scheme shapes standard during this step.",
             "bars": [
               {
                 "label": "first",
@@ -540,23 +540,23 @@
             "values": {
               "tags": {
                 "var": "tags",
-                "line": 2,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "prev": {
                 "var": "prev",
-                "line": 3,
+                "line": 6,
                 "hit": 1
               },
               "i": {
                 "var": "i",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "t": {
                 "var": "t",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -586,23 +586,23 @@
             "values": {
               "tags": {
                 "var": "tags",
-                "line": 3,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "prev": {
                 "var": "prev",
-                "line": 4,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "i": {
                 "var": "i",
-                "line": 6,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "t": {
                 "var": "t",
-                "line": 6,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               }
             },
             "tones": {
@@ -684,10 +684,10 @@
             "at": "say2",
             "caption": "O followed by I-PER is invalid.",
             "values": {
-              "tags": "['B-PER', 'I-PER', 'O']",
-              "prev": "'O'",
-              "i": "0",
-              "t": "'B-PER'"
+              "tags": "['O', 'I-PER']",
+              "prev": "'B-PER'",
+              "i": "1",
+              "t": "'I-PER'"
             },
             "tones": {
               "tags": "data",
@@ -714,10 +714,10 @@
             "at": "say7",
             "caption": "The example checks several sequences and names the first problem it finds.",
             "values": {
-              "tags": "['B-PER', 'I-PER', 'O']",
-              "prev": "'O'",
-              "i": "0",
-              "t": "'B-PER'"
+              "tags": "['B-PER', 'I-LOC']",
+              "prev": "'I-PER'",
+              "i": "2",
+              "t": "'O'"
             },
             "tones": {
               "tags": "ok",

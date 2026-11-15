@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Kubernetes provides two complementary pod autoscaling controllers.",
+            "activeActor": "current_metric",
+            "messages": [
+              {
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": {
+                  "var": "current_replicas",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "current_metric",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Kubernetes provides two complementary pod autoscaling controllers.",
-            "activeActor": "current_metric",
+            "at": "say8",
+            "caption": "Separating scaling metrics prevents dangerous feedback loops where.",
+            "activeActor": "target_metric",
             "messages": [
+              {
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": {
+                  "var": "current_replicas",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": {
+                  "var": "current_metric",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "current_replicas",
                 "to": "current_metric",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Separating scaling metrics prevents dangerous feedback loops where.",
-            "activeActor": "target_metric",
-            "messages": [
+              },
               {
                 "from": "current_replicas",
                 "to": "current_metric",
@@ -118,12 +148,6 @@
                 "to": "current_metric",
                 "label": "2",
                 "tone": "data"
-              },
-              {
-                "from": "current_metric",
-                "to": "target_metric",
-                "label": "80",
-                "tone": "ok"
               }
             ],
             "activeActor": "current_replicas"
@@ -151,6 +175,30 @@
             "at": "say8",
             "caption": "Separating scaling metrics prevents dangerous feedback loops where.",
             "messages": [
+              {
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": "2",
+                "tone": "data"
+              },
+              {
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": "80",
+                "tone": "ok"
+              },
+              {
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": "2",
+                "tone": "data"
+              },
+              {
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": "80",
+                "tone": "ok"
+              },
               {
                 "from": "current_replicas",
                 "to": "current_metric",
@@ -720,13 +768,13 @@
               },
               "telemetry": {
                 "var": "telemetry",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "alloc_eff": {
                 "var": "alloc_eff",
-                "line": 3,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -766,13 +814,13 @@
               },
               "telemetry": {
                 "var": "telemetry",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               },
               "alloc_eff": {
                 "var": "alloc_eff",
-                "line": 4,
-                "hit": 1
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
@@ -856,8 +904,8 @@
             "values": {
               "metrics_healthy": "{'allocation_efficiency_pct': 84.5, 'av…",
               "metrics_degraded": "{'allocation_efficiency_pct': 52, 'avg_…",
-              "telemetry": "{'allocation_efficiency_pct': 84.5, 'av…",
-              "alloc_eff": "84.5"
+              "telemetry": "{'allocation_efficiency_pct': 52, 'avg_…",
+              "alloc_eff": "52"
             },
             "tones": {
               "metrics_healthy": "data",
@@ -886,8 +934,8 @@
             "values": {
               "metrics_healthy": "{'allocation_efficiency_pct': 84.5, 'av…",
               "metrics_degraded": "{'allocation_efficiency_pct': 52, 'avg_…",
-              "telemetry": "{'allocation_efficiency_pct': 84.5, 'av…",
-              "alloc_eff": "84.5"
+              "telemetry": "{'allocation_efficiency_pct': 52, 'avg_…",
+              "alloc_eff": "52"
             },
             "tones": {
               "metrics_healthy": "ok",

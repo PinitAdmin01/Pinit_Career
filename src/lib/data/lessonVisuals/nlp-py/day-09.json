@@ -165,7 +165,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The key insight of GloVe (Global Vectors, Pennington, Socher and Manning.",
+            "caption": "Inspect ratios updates as p_given_ice tracks meaning state.",
             "values": {
               "p_given_ice": {
                 "var": "p_given_ice",
@@ -225,13 +225,13 @@
               },
               "k": {
                 "var": "k",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               },
               "ratio": {
                 "var": "ratio",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -271,13 +271,13 @@
               },
               "k": {
                 "var": "k",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 3
               },
               "ratio": {
                 "var": "ratio",
-                "line": 3,
-                "hit": 2
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -327,7 +327,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The key insight of GloVe (Global Vectors, Pennington, Socher and Manning.",
+            "caption": "Inspect ratios updates as p_given_ice tracks meaning state.",
             "values": {
               "p_given_ice": "{'solid': 0.019, 'gas': 0.0007, 'water'…",
               "p_given_steam": "{'solid': 0.0022, 'gas': 0.0078, 'water…",
@@ -361,8 +361,8 @@
             "values": {
               "p_given_ice": "{'solid': 0.019, 'gas': 0.0007, 'water'…",
               "p_given_steam": "{'solid': 0.0022, 'gas': 0.0078, 'water…",
-              "k": "'solid'",
-              "ratio": "8.636363636363635"
+              "k": "'gas'",
+              "ratio": "0.08974358974358974"
             },
             "tones": {
               "p_given_ice": "data",
@@ -391,8 +391,8 @@
             "values": {
               "p_given_ice": "{'solid': 0.019, 'gas': 0.0007, 'water'…",
               "p_given_steam": "{'solid': 0.0022, 'gas': 0.0078, 'water…",
-              "k": "'solid'",
-              "ratio": "8.636363636363635"
+              "k": "'water'",
+              "ratio": "1.3636363636363638"
             },
             "tones": {
               "p_given_ice": "ok",
@@ -963,16 +963,14 @@
                 "hit": 10
               },
               "missing": {
-                "var": "missing",
-                "line": 4,
-                "hit": 10
+                "text": ""
               }
             },
             "tones": {
               "embeddings": "data",
               "tokens": "data",
               "covered": "data",
-              "missing": "data"
+              "missing": "idle"
             },
             "arrows": [
               [
@@ -1112,13 +1110,13 @@
               "embeddings": "{'the': [0.1], 'patient': [0.4], 'has':…",
               "tokens": "['the', 'patient', 'has', 'a', 'fever',…",
               "covered": "['the', 'patient', 'has', 'a', 'fever',…",
-              "missing": "['tachycardia', 'with', 'dyspnoea']"
+              "missing": ""
             },
             "tones": {
               "embeddings": "data",
               "tokens": "data",
               "covered": "data",
-              "missing": "data"
+              "missing": "idle"
             },
             "arrows": [
               [
@@ -1207,7 +1205,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Otherwise round(min(1.",
+            "caption": "Observe how practice shapes glove during this step.",
             "items": {
               "var": "tokens",
               "line": 1,
@@ -1261,7 +1259,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Otherwise round(min(1.",
+            "caption": "Observe how practice shapes glove during this step.",
             "items": [
               "'a'",
               "'b'",

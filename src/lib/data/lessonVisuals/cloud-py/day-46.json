@@ -312,7 +312,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Composite sort keys structured with hierarchical delimiters (`USER#100`.",
+            "caption": "Inspect single updates as self tracks composite state.",
             "values": {
               "self": {
                 "var": "self",
@@ -372,13 +372,13 @@
               },
               "pk": {
                 "var": "pk",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "sk": {
                 "var": "sk",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -418,13 +418,13 @@
               },
               "pk": {
                 "var": "pk",
-                "line": 10,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "sk": {
                 "var": "sk",
-                "line": 10,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -474,7 +474,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Composite sort keys structured with hierarchical delimiters (`USER#100`.",
+            "caption": "Inspect single updates as self tracks composite state.",
             "values": {
               "self": "<DynamoDBTableWithGSI>",
               "table": "<DynamoDBTableWithGSI>",
@@ -508,8 +508,8 @@
             "values": {
               "self": "<DynamoDBTableWithGSI>",
               "table": "<DynamoDBTableWithGSI>",
-              "pk": "'USER#1'",
-              "sk": "'ORD#1'"
+              "pk": "'USER#2'",
+              "sk": "'ORD#2'"
             },
             "tones": {
               "self": "data",
@@ -538,8 +538,8 @@
             "values": {
               "self": "<DynamoDBTableWithGSI>",
               "table": "<DynamoDBTableWithGSI>",
-              "pk": "'USER#1'",
-              "sk": "'ORD#1'"
+              "pk": "'USER#3'",
+              "sk": "'ORD#3'"
             },
             "tones": {
               "self": "ok",
@@ -610,16 +610,14 @@
                 "hit": 1
               },
               "operations": {
-                "var": "operations",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "tx_engine": "data",
               "transfer_ops": "data",
-              "operations": "data"
+              "operations": "idle"
             },
             "arrows": [
               [
@@ -684,7 +682,7 @@
           },
           {
             "at": "say7",
-            "caption": "Implement the ACID transaction coordinator and attribute projection.",
+            "caption": "Examine the distributed value produced for workflows processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -759,13 +757,13 @@
               "self": "<DynamoDBTransactionEngine>",
               "tx_engine": "<DynamoDBTransactionEngine>",
               "transfer_ops": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …",
-              "operations": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …"
+              "operations": ""
             },
             "tones": {
               "self": "data",
               "tx_engine": "data",
               "transfer_ops": "data",
-              "operations": "data"
+              "operations": "idle"
             },
             "arrows": [
               [
@@ -814,7 +812,7 @@
           },
           {
             "at": "say7",
-            "caption": "Implement the ACID transaction coordinator and attribute projection.",
+            "caption": "Examine the distributed value produced for workflows processing.",
             "values": {
               "self": "<DynamoDBTransactionEngine>",
               "tx_engine": "<DynamoDBTransactionEngine>",
@@ -871,16 +869,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "num_shards",
-                "to": "router",
-                "label": {
-                  "var": "num_shards",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -894,8 +882,8 @@
                 "to": "num_shards",
                 "label": {
                   "var": "self",
-                  "line": 7,
-                  "hit": 10
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "data"
               },
@@ -921,7 +909,7 @@
                 "to": "num_shards",
                 "label": {
                   "var": "self",
-                  "line": 8,
+                  "line": 3,
                   "hit": 1
                 },
                 "tone": "data"
@@ -935,6 +923,26 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "num_shards",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 10
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "num_shards",
+                "label": {
+                  "var": "self",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -958,12 +966,6 @@
                 "to": "num_shards",
                 "label": "<ShardedPartitionRouter>",
                 "tone": "data"
-              },
-              {
-                "from": "num_shards",
-                "to": "router",
-                "label": "4",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -1002,6 +1004,18 @@
                 "to": "router",
                 "label": "4",
                 "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "num_shards",
+                "label": "<ShardedPartitionRouter>",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "num_shards",
+                "label": "<ShardedPartitionRouter>",
+                "tone": "data"
               }
             ],
             "activeActor": "router"
@@ -1032,7 +1046,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Monitoring ConsumedReadCapacityUnits, ConsumedWriteCapacityUnits,.",
+            "caption": "Observe how monitoring shapes consumedreadcapacityunits during this step.",
             "currentState": "healthy",
             "tone": "data"
           },
@@ -1088,7 +1102,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Monitoring ConsumedReadCapacityUnits, ConsumedWriteCapacityUnits,.",
+            "caption": "Observe how monitoring shapes consumedreadcapacityunits during this step.",
             "currentState": "healthy",
             "tone": "data"
           },

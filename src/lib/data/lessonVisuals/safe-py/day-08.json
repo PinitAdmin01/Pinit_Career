@@ -142,7 +142,7 @@
           },
           {
             "at": "say2",
-            "caption": "Different categories deserve different thresholds, because the cost of.",
+            "caption": "Different categories deserve different thresholds.",
             "currentState": "policies",
             "transition": {
               "from": "scores",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say2",
-            "caption": "Different categories deserve different thresholds, because the cost of.",
+            "caption": "Different categories deserve different thresholds.",
             "currentState": "policies",
             "transition": {
               "from": "scores",
@@ -308,13 +308,13 @@
               },
               "counts": {
                 "var": "counts",
-                "line": 4,
+                "line": 7,
                 "hit": 1
               },
               "score": {
                 "var": "score",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -354,13 +354,13 @@
               },
               "counts": {
                 "var": "counts",
-                "line": 5,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "score": {
                 "var": "score",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               }
             },
             "tones": {
@@ -444,8 +444,8 @@
             "values": {
               "examples": "[[0.9, True], [0.7, True], [0.4, True],…",
               "threshold": "0.5",
-              "counts": "{'caught': 0, 'missed': 0, 'false_alarm…",
-              "score": "0.9"
+              "counts": "{'caught': 1, 'missed': 0, 'false_alarm…",
+              "score": "0.7"
             },
             "tones": {
               "examples": "data",
@@ -474,8 +474,8 @@
             "values": {
               "examples": "[[0.9, True], [0.7, True], [0.4, True],…",
               "threshold": "0.5",
-              "counts": "{'caught': 0, 'missed': 0, 'false_alarm…",
-              "score": "0.9"
+              "counts": "{'caught': 2, 'missed': 0, 'false_alarm…",
+              "score": "0.4"
             },
             "tones": {
               "examples": "ok",

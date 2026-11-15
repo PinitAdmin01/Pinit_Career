@@ -28,7 +28,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Inspect milestone updates as MILESTONE_7_PILLARS tracks synthesizes state.",
             "values": {
               "MILESTONE_7_PILLARS": {
                 "var": "MILESTONE_7_PILLARS",
@@ -156,7 +156,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates synthesizes during execution.",
+            "caption": "Inspect milestone updates as MILESTONE_7_PILLARS tracks synthesizes state.",
             "values": {
               "MILESTONE_7_PILLARS": "{'VRAM_ACCOUNTING': 'Rigorous profiling…",
               "pillar": "'CHINCHILLA_FRONTIER'",
@@ -280,7 +280,7 @@
           },
           {
             "at": "say2",
-            "caption": "Given model parameter count (in billions), training token volume (in.",
+            "caption": "Verify the given transition driving model behavior.",
             "bars": [
               {
                 "label": "model_params_b",
@@ -396,7 +396,7 @@
           },
           {
             "at": "say2",
-            "caption": "Given model parameter count (in billions), training token volume (in.",
+            "caption": "Verify the given transition driving model behavior.",
             "bars": [
               {
                 "label": "model_params_b",
@@ -494,16 +494,14 @@
                 "hit": 1
               },
               "max_samples": {
-                "var": "max_samples",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "vram_available_gb": "data",
               "activation_per_sample_gb": "data",
               "allreduce_bandwidth_gbps": "data",
-              "max_samples": "data"
+              "max_samples": "idle"
             },
             "arrows": [
               [
@@ -643,13 +641,13 @@
               "vram_available_gb": "24",
               "activation_per_sample_gb": "3.2",
               "allreduce_bandwidth_gbps": "300",
-              "max_samples": "7"
+              "max_samples": ""
             },
             "tones": {
               "vram_available_gb": "data",
               "activation_per_sample_gb": "data",
               "allreduce_bandwidth_gbps": "data",
-              "max_samples": "data"
+              "max_samples": "idle"
             },
             "arrows": [
               [
@@ -806,8 +804,8 @@
             "values": {
               "static_vram_gb": {
                 "var": "static_vram_gb",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "local_batch_size": {
                 "var": "local_batch_size",
@@ -852,8 +850,8 @@
             "values": {
               "static_vram_gb": {
                 "var": "static_vram_gb",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "local_batch_size": {
                 "var": "local_batch_size",
@@ -950,7 +948,7 @@
             "at": "say2",
             "caption": "The OOM pre-flight safety gate evaluates total projected VRAM consumption.",
             "values": {
-              "static_vram_gb": "40",
+              "static_vram_gb": "60",
               "local_batch_size": "4",
               "activation_per_batch_gb": "6",
               "h100_limit_gb": "80"
@@ -980,7 +978,7 @@
             "at": "say10",
             "caption": "Enforcing pre-flight verification eliminates out-of-memory crashes.",
             "values": {
-              "static_vram_gb": "40",
+              "static_vram_gb": "60",
               "local_batch_size": "4",
               "activation_per_batch_gb": "6",
               "h100_limit_gb": "80"
@@ -1035,16 +1033,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "all_passed",
-                "to": "passed",
-                "label": {
-                  "var": "all_passed",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           },
@@ -1058,7 +1046,7 @@
                 "to": "all_passed",
                 "label": {
                   "var": "gates",
-                  "line": 11,
+                  "line": 4,
                   "hit": 1
                 },
                 "tone": "data"
@@ -1068,7 +1056,7 @@
                 "to": "passed",
                 "label": {
                   "var": "all_passed",
-                  "line": 12,
+                  "line": 11,
                   "hit": 1
                 },
                 "tone": "ok"
@@ -1085,7 +1073,27 @@
                 "to": "all_passed",
                 "label": {
                   "var": "gates",
-                  "line": 12,
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_passed",
+                "to": "passed",
+                "label": {
+                  "var": "all_passed",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "from": "gates",
+                "to": "all_passed",
+                "label": {
+                  "var": "gates",
+                  "line": 11,
                   "hit": 1
                 },
                 "tone": "data"
@@ -1099,6 +1107,16 @@
                   "hit": 1
                 },
                 "tone": "ok"
+              },
+              {
+                "from": "gates",
+                "to": "all_passed",
+                "label": {
+                  "var": "gates",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           }
@@ -1122,12 +1140,6 @@
                 "to": "all_passed",
                 "label": "{'GATE_1_MEMORY_ACCOUNTANT': True, 'GAT…",
                 "tone": "data"
-              },
-              {
-                "from": "all_passed",
-                "to": "passed",
-                "label": "True",
-                "tone": "ok"
               }
             ],
             "activeActor": "gates"
@@ -1166,6 +1178,24 @@
                 "to": "passed",
                 "label": "True",
                 "tone": "ok"
+              },
+              {
+                "from": "gates",
+                "to": "all_passed",
+                "label": "{'GATE_1_MEMORY_ACCOUNTANT': True, 'GAT…",
+                "tone": "data"
+              },
+              {
+                "from": "all_passed",
+                "to": "passed",
+                "label": "True",
+                "tone": "ok"
+              },
+              {
+                "from": "gates",
+                "to": "all_passed",
+                "label": "{'GATE_1_MEMORY_ACCOUNTANT': True, 'GAT…",
+                "tone": "data"
               }
             ],
             "activeActor": "passed"

@@ -98,7 +98,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how mathematical updates derivation during execution.",
+            "caption": "Examine the kelly value produced for fractional processing.",
             "bars": [
               {
                 "label": "mu",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how mathematical updates derivation during execution.",
+            "caption": "Examine the kelly value produced for fractional processing.",
             "bars": [
               {
                 "label": "mu",
@@ -496,7 +496,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how recalculating updates covariance during execution.",
+            "caption": "Verify the recalculating transition driving full behavior.",
             "bars": [
               {
                 "label": "kelly_fraction",
@@ -612,7 +612,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how recalculating updates covariance during execution.",
+            "caption": "Verify the recalculating transition driving full behavior.",
             "bars": [
               {
                 "label": "kelly_fraction",
@@ -752,8 +752,8 @@
               },
               "current_drawdown_pct": {
                 "var": "current_drawdown_pct",
-                "line": 8,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               },
               "max_tolerated_dd": {
                 "var": "max_tolerated_dd",
@@ -798,8 +798,8 @@
               },
               "current_drawdown_pct": {
                 "var": "current_drawdown_pct",
-                "line": 9,
-                "hit": 1
+                "line": 5,
+                "hit": 3
               },
               "max_tolerated_dd": {
                 "var": "max_tolerated_dd",
@@ -888,7 +888,7 @@
             "values": {
               "f0": "2",
               "base_kelly_leverage": "2",
-              "current_drawdown_pct": "0.04",
+              "current_drawdown_pct": "0.1",
               "max_tolerated_dd": "0.2"
             },
             "tones": {
@@ -918,7 +918,7 @@
             "values": {
               "f0": "2",
               "base_kelly_leverage": "2",
-              "current_drawdown_pct": "0.04",
+              "current_drawdown_pct": "0.2",
               "max_tolerated_dd": "0.2"
             },
             "tones": {
@@ -971,6 +971,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The telemetry pipeline computes realized log wealth trajectory.",
+            "activeActor": "total_notional_positions",
+            "messages": [
+              {
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": {
+                  "var": "equity_capital",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "total_notional_positions",
@@ -985,10 +1002,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The telemetry pipeline computes realized log wealth trajectory.",
-            "activeActor": "total_notional_positions",
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency to chief.",
+            "activeActor": "maintenance_margin_req_pct",
             "messages": [
+              {
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": {
+                  "var": "equity_capital",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": {
+                  "var": "total_notional_positions",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "equity_capital",
                 "to": "total_notional_positions",
@@ -1008,14 +1045,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Continuous metric tracking provides full operational transparency to chief.",
-            "activeActor": "maintenance_margin_req_pct",
-            "messages": [
+              },
               {
                 "from": "equity_capital",
                 "to": "total_notional_positions",
@@ -1058,12 +1088,6 @@
                 "to": "total_notional_positions",
                 "label": "5000000",
                 "tone": "data"
-              },
-              {
-                "from": "total_notional_positions",
-                "to": "maintenance_margin_req_pct",
-                "label": "12000000",
-                "tone": "ok"
               }
             ],
             "activeActor": "equity_capital"
@@ -1091,6 +1115,30 @@
             "at": "say10",
             "caption": "Continuous metric tracking provides full operational transparency to chief.",
             "messages": [
+              {
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": "5000000",
+                "tone": "data"
+              },
+              {
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": "12000000",
+                "tone": "ok"
+              },
+              {
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": "5000000",
+                "tone": "data"
+              },
+              {
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": "12000000",
+                "tone": "ok"
+              },
               {
                 "from": "equity_capital",
                 "to": "total_notional_positions",

@@ -50,7 +50,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how uses updates bytes during execution.",
+            "caption": "Verify the bytes transition driving float32 behavior.",
             "values": {
               "n": {
                 "var": "n",
@@ -136,7 +136,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how uses updates bytes during execution.",
+            "caption": "Verify the bytes transition driving float32 behavior.",
             "values": {
               "n": "1000000",
               "d": "384"
@@ -906,7 +906,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how plan updates capacity during execution.",
+            "caption": "Verify the plan transition driving capacity behavior.",
             "values": {
               "gb": {
                 "var": "gb",
@@ -1052,7 +1052,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how plan updates capacity during execution.",
+            "caption": "Verify the plan transition driving capacity behavior.",
             "values": {
               "gb": "40",
               "growth": "0.08",

@@ -30,7 +30,7 @@
           },
           {
             "at": "say2",
-            "caption": "This reliance creates an extensive supply chain attack surface,.",
+            "caption": "Verify the reliance transition driving creates behavior.",
             "currentState": "desc",
             "transition": {
               "from": "s",
@@ -67,7 +67,7 @@
           },
           {
             "at": "say2",
-            "caption": "This reliance creates an extensive supply chain attack surface,.",
+            "caption": "Verify the reliance transition driving creates behavior.",
             "currentState": "desc",
             "transition": {
               "from": "s",
@@ -123,7 +123,7 @@
           },
           {
             "at": "say9",
-            "caption": "Integrating SBOM parsers with internal dependency management portals.",
+            "caption": "Examine the cyclonedx value produced for graph processing.",
             "currentState": "components",
             "transition": {
               "from": "cyclonedx_json_dict",
@@ -175,7 +175,7 @@
           },
           {
             "at": "say9",
-            "caption": "Integrating SBOM parsers with internal dependency management portals.",
+            "caption": "Examine the cyclonedx value produced for graph processing.",
             "currentState": "components",
             "transition": {
               "from": "cyclonedx_json_dict",
@@ -368,12 +368,12 @@
               },
               "components": {
                 "var": "components",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "violations": {
                 "var": "violations",
-                "line": 7,
+                "line": 10,
                 "hit": 1
               }
             },
@@ -400,12 +400,12 @@
               },
               "components": {
                 "var": "components",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "violations": {
                 "var": "violations",
-                "line": 8,
+                "line": 10,
                 "hit": 1
               }
             },
@@ -462,8 +462,8 @@
             "values": {
               "comps_safe": "[{'name': 'fastapi', 'license': 'MIT'}]",
               "comps_violating": "[{'name': 'copyleft_lib', 'license': 'G…",
-              "components": "[{'name': 'fastapi', 'license': 'MIT'}]",
-              "violations": "[]"
+              "components": "[{'name': 'copyleft_lib', 'license': 'G…",
+              "violations": "['copyleft_lib (GPL-3.0)']"
             },
             "tones": {
               "comps_safe": "data",
@@ -478,8 +478,8 @@
             "values": {
               "comps_safe": "[{'name': 'fastapi', 'license': 'MIT'}]",
               "comps_violating": "[{'name': 'copyleft_lib', 'license': 'G…",
-              "components": "[{'name': 'fastapi', 'license': 'MIT'}]",
-              "violations": "[]"
+              "components": "[{'name': 'copyleft_lib', 'license': 'G…",
+              "violations": "['copyleft_lib (GPL-3.0)']"
             },
             "tones": {
               "comps_safe": "ok",
@@ -536,16 +536,14 @@
                 "hit": 1
               },
               "critical_cve_blocked": {
-                "var": "critical_cve_blocked",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "cyclonedx_valid": "data",
               "transitive_cves_scored": "data",
               "license_compliant": "data",
-              "critical_cve_blocked": "data"
+              "critical_cve_blocked": "idle"
             },
             "arrows": [
               [
@@ -685,13 +683,13 @@
               "cyclonedx_valid": "True",
               "transitive_cves_scored": "True",
               "license_compliant": "True",
-              "critical_cve_blocked": "True"
+              "critical_cve_blocked": ""
             },
             "tones": {
               "cyclonedx_valid": "data",
               "transitive_cves_scored": "data",
               "license_compliant": "data",
-              "critical_cve_blocked": "data"
+              "critical_cve_blocked": "idle"
             },
             "arrows": [
               [

@@ -158,16 +158,14 @@
                 "hit": 1
               },
               "trust_policy": {
-                "var": "trust_policy",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "policy": "data",
               "claims_valid": "data",
               "claims_attacker": "data",
-              "trust_policy": "data"
+              "trust_policy": "idle"
             },
             "arrows": [
               [
@@ -307,13 +305,13 @@
               "policy": "{'Effect': 'Allow', 'Principal': {'Fede…",
               "claims_valid": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
               "claims_attacker": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
-              "trust_policy": "{'Effect': 'Allow', 'Principal': {'Fede…"
+              "trust_policy": ""
             },
             "tones": {
               "policy": "data",
               "claims_valid": "data",
               "claims_attacker": "data",
-              "trust_policy": "data"
+              "trust_policy": "idle"
             },
             "arrows": [
               [
@@ -486,7 +484,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how refreshing updates temporary during execution.",
+            "caption": "Examine the zero value produced for calling processing.",
             "bars": [
               {
                 "label": "ttl_sec",
@@ -586,7 +584,7 @@
           },
           {
             "at": "say8",
-            "caption": "Trace how refreshing updates temporary during execution.",
+            "caption": "Examine the zero value produced for calling processing.",
             "bars": [
               {
                 "label": "ttl_sec",
@@ -658,16 +656,14 @@
                 "hit": 1
               },
               "token": {
-                "var": "token",
-                "line": 8,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "jwks_cache_ttl_sec": "data",
               "mgr": "data",
-              "token": "data"
+              "token": "idle"
             },
             "arrows": [
               [
@@ -732,7 +728,7 @@
           },
           {
             "at": "say8",
-            "caption": "Configuring emergency MFA break-glass roles ensures that operations teams.",
+            "caption": "Examine the identity value produced for external processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -807,13 +803,13 @@
               "self": "<OIDCResilienceManager>",
               "jwks_cache_ttl_sec": "86400",
               "mgr": "<OIDCResilienceManager>",
-              "token": "'tok'"
+              "token": ""
             },
             "tones": {
               "self": "data",
               "jwks_cache_ttl_sec": "data",
               "mgr": "data",
-              "token": "data"
+              "token": "idle"
             },
             "arrows": [
               [
@@ -862,7 +858,7 @@
           },
           {
             "at": "say8",
-            "caption": "Configuring emergency MFA break-glass roles ensures that operations teams.",
+            "caption": "Examine the identity value produced for external processing.",
             "values": {
               "self": "<OIDCResilienceManager>",
               "jwks_cache_ttl_sec": "86400",
@@ -980,13 +976,13 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 3,
+                "line": 8,
                 "hit": 1
               },
               "ev": {
                 "var": "ev",
-                "line": 4,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -1012,7 +1008,7 @@
           },
           {
             "at": "say8",
-            "caption": "Tracking STS token duration distributions ensures that microservices.",
+            "caption": "Examine the cloudtrail value produced for logs processing.",
             "values": {
               "events": {
                 "var": "events",
@@ -1026,13 +1022,13 @@
               },
               "violations": {
                 "var": "violations",
-                "line": 4,
+                "line": 8,
                 "hit": 1
               },
               "ev": {
                 "var": "ev",
-                "line": 5,
-                "hit": 1
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
@@ -1116,8 +1112,8 @@
             "values": {
               "events": "[{'principal': 'github_ci_deployer', 'u…",
               "cloudtrail_events": "[{'principal': 'github_ci_deployer', 'u…",
-              "violations": "[]",
-              "ev": "{'principal': 'github_ci_deployer', 'us…"
+              "violations": "['VIOLATION_STATIC_CREDENTIAL_USED_BY_l…",
+              "ev": "{'principal': 'legacy_billing_cron', 'u…"
             },
             "tones": {
               "events": "data",
@@ -1142,12 +1138,12 @@
           },
           {
             "at": "say8",
-            "caption": "Tracking STS token duration distributions ensures that microservices.",
+            "caption": "Examine the cloudtrail value produced for logs processing.",
             "values": {
               "events": "[{'principal': 'github_ci_deployer', 'u…",
               "cloudtrail_events": "[{'principal': 'github_ci_deployer', 'u…",
-              "violations": "[]",
-              "ev": "{'principal': 'github_ci_deployer', 'us…"
+              "violations": "['VIOLATION_STATIC_CREDENTIAL_USED_BY_l…",
+              "ev": "{'principal': 'legacy_billing_cron', 'u…"
             },
             "tones": {
               "events": "ok",

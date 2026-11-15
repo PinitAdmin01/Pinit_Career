@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "pl": {
-                "var": "pl",
-                "line": 17,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "self": "data",
               "service_name": "data",
               "provider_nlb_ip": "data",
-              "pl": "data"
+              "pl": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "self": "<PrivateLinkModel>",
               "service_name": "'com.amazonaws.us-east-1.s3'",
               "provider_nlb_ip": "'10.200.0.1'",
-              "pl": "<PrivateLinkModel>"
+              "pl": ""
             },
             "tones": {
               "self": "data",
               "service_name": "data",
               "provider_nlb_ip": "data",
-              "pl": "data"
+              "pl": "idle"
             },
             "arrows": [
               [
@@ -372,8 +370,8 @@
               },
               "direction": {
                 "var": "direction",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "rule_num": {
                 "var": "rule_num",
@@ -418,8 +416,8 @@
               },
               "direction": {
                 "var": "direction",
-                "line": 9,
-                "hit": 2
+                "line": 12,
+                "hit": 1
               },
               "rule_num": {
                 "var": "rule_num",
@@ -508,7 +506,7 @@
             "values": {
               "self": "<StatelessNACL>",
               "nacl": "<StatelessNACL>",
-              "direction": "'in'",
+              "direction": "'out'",
               "rule_num": "100"
             },
             "tones": {
@@ -647,13 +645,13 @@
               },
               "line": {
                 "var": "line",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "parts": {
                 "var": "parts",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "parsed": {
                 "var": "parsed",
@@ -693,13 +691,13 @@
               },
               "line": {
                 "var": "line",
-                "line": 8,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "parts": {
                 "var": "parts",
-                "line": 8,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "parsed": {
                 "var": "parsed",
@@ -787,8 +785,8 @@
             "caption": "VPC Flow Logs capture metadata for all IP traffic passing through network.",
             "values": {
               "raw_log": "'2 123456789010 eni-1235b8ca123456789 1…",
-              "line": "'2 123456789010 eni-1235b8ca123456789 1…",
-              "parts": "['2', '123456789010', 'eni-1235b8ca1234…",
+              "line": "'2 111 eni-1 198.51.100.4 10.0.1.10 500…",
+              "parts": "['2', '111', 'eni-1', '198.51.100.4', '…",
               "parsed": "{'interface_id': 'eni-1235b8ca123456789…"
             },
             "tones": {
@@ -817,8 +815,8 @@
             "caption": "Correlating flow log action fields (ACCEPT vs REJECT) with protocol.",
             "values": {
               "raw_log": "'2 123456789010 eni-1235b8ca123456789 1…",
-              "line": "'2 123456789010 eni-1235b8ca123456789 1…",
-              "parts": "['2', '123456789010', 'eni-1235b8ca1234…",
+              "line": "'2 111 eni-1 198.51.100.4 10.0.1.10 500…",
+              "parts": "['2', '111', 'eni-1', '198.51.100.4', '…",
               "parsed": "{'interface_id': 'eni-1235b8ca123456789…"
             },
             "tones": {
@@ -871,6 +869,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When Private DNS is enabled on an Interface Endpoint, AWS dynamically.",
+            "activeActor": "safe_policy",
+            "messages": [
+              {
+                "from": "bad_policy",
+                "to": "safe_policy",
+                "label": {
+                  "var": "bad_policy",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "safe_policy",
@@ -885,10 +900,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When Private DNS is enabled on an Interface Endpoint, AWS dynamically.",
-            "activeActor": "safe_policy",
+            "at": "say8",
+            "caption": "Attaching restrictive Endpoint Policies to VPC endpoints prevents.",
+            "activeActor": "enis_single",
             "messages": [
+              {
+                "from": "bad_policy",
+                "to": "safe_policy",
+                "label": {
+                  "var": "bad_policy",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safe_policy",
+                "to": "enis_single",
+                "label": {
+                  "var": "safe_policy",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "bad_policy",
                 "to": "safe_policy",
@@ -908,14 +943,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Attaching restrictive Endpoint Policies to VPC endpoints prevents.",
-            "activeActor": "enis_single",
-            "messages": [
+              },
               {
                 "from": "bad_policy",
                 "to": "safe_policy",
@@ -958,12 +986,6 @@
                 "to": "safe_policy",
                 "label": "{'Statement': [{'Effect': 'Allow', 'Act…",
                 "tone": "data"
-              },
-              {
-                "from": "safe_policy",
-                "to": "enis_single",
-                "label": "{'Statement': [{'Effect': 'Allow', 'Act…",
-                "tone": "ok"
               }
             ],
             "activeActor": "bad_policy"
@@ -991,6 +1013,30 @@
             "at": "say8",
             "caption": "Attaching restrictive Endpoint Policies to VPC endpoints prevents.",
             "messages": [
+              {
+                "from": "bad_policy",
+                "to": "safe_policy",
+                "label": "{'Statement': [{'Effect': 'Allow', 'Act…",
+                "tone": "data"
+              },
+              {
+                "from": "safe_policy",
+                "to": "enis_single",
+                "label": "{'Statement': [{'Effect': 'Allow', 'Act…",
+                "tone": "ok"
+              },
+              {
+                "from": "bad_policy",
+                "to": "safe_policy",
+                "label": "{'Statement': [{'Effect': 'Allow', 'Act…",
+                "tone": "data"
+              },
+              {
+                "from": "safe_policy",
+                "to": "enis_single",
+                "label": "{'Statement': [{'Effect': 'Allow', 'Act…",
+                "tone": "ok"
+              },
               {
                 "from": "bad_policy",
                 "to": "safe_policy",
@@ -1053,7 +1099,7 @@
           },
           {
             "at": "say7",
-            "caption": "Monitoring PrivateLink bytes processed and connection metrics warns.",
+            "caption": "Examine the subnet value produced for route processing.",
             "currentState": "findings",
             "transition": {
               "from": "network_telemetry",
@@ -1105,7 +1151,7 @@
           },
           {
             "at": "say7",
-            "caption": "Monitoring PrivateLink bytes processed and connection metrics warns.",
+            "caption": "Examine the subnet value produced for route processing.",
             "currentState": "findings",
             "transition": {
               "from": "network_telemetry",

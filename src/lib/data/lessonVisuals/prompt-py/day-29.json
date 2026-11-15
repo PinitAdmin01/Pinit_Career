@@ -949,162 +949,190 @@
       "partTitle": "Practice time: fit and quantise",
       "codeHash": "31dae55750be6ed01bae1e4f9ecde565892d9d207fd53622861481fb381e8731",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: fit and quantise",
-        "actors": [
-          "gpus",
-          "models",
-          ".0"
+        "nodes": [
+          {
+            "id": "m",
+            "label": "m",
+            "tappable": true
+          },
+          {
+            "id": "vram",
+            "label": "vram",
+            "tappable": true
+          },
+          {
+            "id": "row",
+            "label": "row",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Return needed_gb and fits.",
-            "activeActor": "gpus",
-            "messages": [
-              {
-                "from": "gpus",
-                "to": "models",
-                "label": {
-                  "var": "gpus",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect practice updates as m tracks fits state.",
+            "values": {
+              "m": {
+                "var": "m",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "from": "models",
-                "to": ".0",
-                "label": {
-                  "var": "models",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "vram": {
+                "text": ""
+              },
+              "row": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "m": "data",
+              "vram": "idle",
+              "row": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates model during execution.",
-            "activeActor": "models",
-            "messages": [
-              {
-                "from": "gpus",
-                "to": "models",
-                "label": {
-                  "var": "gpus",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the checks transition driving model behavior.",
+            "values": {
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 8
               },
-              {
-                "from": "models",
-                "to": ".0",
-                "label": {
-                  "var": "models",
-                  "line": 3,
-                  "hit": 6
-                },
-                "tone": "ok"
+              "vram": {
+                "var": "vram",
+                "line": 6,
+                "hit": 8
+              },
+              "row": {
+                "var": "row",
+                "line": 6,
+                "hit": 8
               }
+            },
+            "tones": {
+              "m": "data",
+              "vram": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "m",
+                "vram"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Knowing the numbers lets you have informed conversations about AI hardware.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "gpus",
-                "to": "models",
-                "label": {
-                  "var": "gpus",
-                  "line": 3,
-                  "hit": 6
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Try 16, 8 and 4 in order and return the first that fits, or None.",
+            "values": {
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 16
               },
-              {
-                "from": "models",
-                "to": ".0",
-                "label": {
-                  "var": "models",
-                  "line": 4,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "vram": {
+                "var": "vram",
+                "line": 8,
+                "hit": 16
+              },
+              "row": {
+                "var": "row",
+                "line": 8,
+                "hit": 16
               }
+            },
+            "tones": {
+              "m": "ok",
+              "vram": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "m",
+                "vram"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Practice time: fit and quantise",
-        "actors": [
-          "gpus",
-          "models",
-          ".0"
+        "nodes": [
+          {
+            "id": "m",
+            "label": "m",
+            "tappable": true
+          },
+          {
+            "id": "vram",
+            "label": "vram",
+            "tappable": true
+          },
+          {
+            "id": "row",
+            "label": "row",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Return needed_gb and fits.",
-            "messages": [
-              {
-                "from": "gpus",
-                "to": "models",
-                "label": "[6, 12, 24, 48]",
-                "tone": "data"
-              },
-              {
-                "from": "models",
-                "to": ".0",
-                "label": "[3, 8, 13, 70]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "gpus"
+            "caption": "Inspect practice updates as m tracks fits state.",
+            "values": {
+              "m": "3",
+              "vram": "",
+              "row": ""
+            },
+            "tones": {
+              "m": "data",
+              "vram": "idle",
+              "row": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates model during execution.",
-            "messages": [
-              {
-                "from": "gpus",
-                "to": "models",
-                "label": "[6, 12, 24, 48]",
-                "tone": "data"
-              },
-              {
-                "from": "models",
-                "to": ".0",
-                "label": "[3, 8, 13, 70]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "models"
+            "caption": "Verify the checks transition driving model behavior.",
+            "values": {
+              "m": "13",
+              "vram": "12",
+              "row": "['  16', '   8']"
+            },
+            "tones": {
+              "m": "data",
+              "vram": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "m",
+                "vram"
+              ]
+            ]
           },
           {
-            "at": "say9",
-            "caption": "Knowing the numbers lets you have informed conversations about AI hardware.",
-            "messages": [
-              {
-                "from": "gpus",
-                "to": "models",
-                "label": "[6, 12, 24, 48]",
-                "tone": "data"
-              },
-              {
-                "from": "models",
-                "to": ".0",
-                "label": "[3, 8, 13, 70]",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
+            "at": "say3",
+            "caption": "Try 16, 8 and 4 in order and return the first that fits, or None.",
+            "values": {
+              "m": "70",
+              "vram": "48",
+              "row": "['  16', '  16', '  16', '   4']"
+            },
+            "tones": {
+              "m": "ok",
+              "vram": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "m",
+                "vram"
+              ]
+            ]
           }
         ]
       }

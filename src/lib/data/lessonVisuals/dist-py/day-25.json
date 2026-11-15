@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A mobile profile screen may need the user, their recent orders and their.",
+            "caption": "Inspect mobile updates as mobile_round_trip_ms tracks profile state.",
             "values": {
               "mobile_round_trip_ms": {
                 "var": "mobile_round_trip_ms",
@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "direct": {
-                "var": "direct",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "mobile_round_trip_ms": "data",
               "internal_call_ms": "data",
               "services": "data",
-              "direct": "data"
+              "direct": "idle"
             },
             "arrows": [
               [
@@ -194,18 +192,18 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A mobile profile screen may need the user, their recent orders and their.",
+            "caption": "Inspect mobile updates as mobile_round_trip_ms tracks profile state.",
             "values": {
               "mobile_round_trip_ms": "250",
               "internal_call_ms": "15",
               "services": "['users', 'orders', 'reviews']",
-              "direct": "750"
+              "direct": ""
             },
             "tones": {
               "mobile_round_trip_ms": "data",
               "internal_call_ms": "data",
               "services": "data",
-              "direct": "data"
+              "direct": "idle"
             },
             "arrows": [
               [
@@ -605,6 +603,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A BFF per client type lets each evolve independently, owned by the team.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": {
+                  "var": "profile",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "p",
@@ -619,10 +634,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A BFF per client type lets each evolve independently, owned by the team.",
+            "at": "say7",
+            "caption": "The example shapes the same data for mobile and web.",
             "activeActor": "p",
             "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": {
+                  "var": "profile",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "profile",
+                "label": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "profile",
                 "to": "p",
@@ -642,14 +677,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example shapes the same data for mobile and web.",
-            "activeActor": "p",
-            "messages": [
+              },
               {
                 "from": "profile",
                 "to": "p",
@@ -659,16 +687,6 @@
                   "hit": 1
                 },
                 "tone": "data"
-              },
-              {
-                "from": "p",
-                "to": "profile",
-                "label": {
-                  "var": "p",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
               }
             ]
           }
@@ -691,12 +709,6 @@
                 "to": "p",
                 "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
                 "tone": "data"
-              },
-              {
-                "from": "p",
-                "to": "profile",
-                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
-                "tone": "ok"
               }
             ],
             "activeActor": "profile"
@@ -735,6 +747,24 @@
                 "to": "profile",
                 "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
                 "tone": "ok"
+              },
+              {
+                "from": "profile",
+                "to": "p",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "profile",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "ok"
+              },
+              {
+                "from": "profile",
+                "to": "p",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "data"
               }
             ],
             "activeActor": "p"
@@ -746,162 +776,112 @@
       "partTitle": "Operating the edge",
       "codeHash": "de41d2107975e44b3f5dd4392ba019c09fe29cc74b2cf851f6f5a2560cd9df90",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Operating the edge",
-        "actors": [
-          "responses",
-          ".0",
-          "r"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every request passes through the gateway and a BFF, so they must be fast.",
-            "activeActor": "responses",
-            "messages": [
-              {
-                "from": "responses",
-                "to": ".0",
-                "label": {
-                  "var": "responses",
-                  "line": 1,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect every updates as r tracks request state.",
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "from": ".0",
-                "to": "r",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "out": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Cache aggregated responses briefly when possible.",
-            "activeActor": ".0",
-            "messages": [
-              {
-                "from": "responses",
-                "to": ".0",
-                "label": {
-                  "var": "responses",
-                  "line": 2,
-                  "hit": 102
-                },
-                "tone": "data"
+            "values": {
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 91
               },
-              {
-                "from": ".0",
-                "to": "r",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 2
-                },
-                "tone": "ok"
+              "out": {
+                "out": 1
               }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example counts partial responses in a sample of BFF logs.",
-            "activeActor": "r",
-            "messages": [
-              {
-                "from": "responses",
-                "to": ".0",
-                "label": {
-                  "var": "responses",
-                  "line": 3,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "r",
-                "label": {
-                  "var": ".0",
-                  "line": 2,
-                  "hit": 3
-                },
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "r": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "Operating the edge",
-        "actors": [
-          "responses",
-          ".0",
-          "r"
+        "nodes": [
+          {
+            "id": "r",
+            "label": "r",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every request passes through the gateway and a BFF, so they must be fast.",
-            "messages": [
-              {
-                "from": "responses",
-                "to": ".0",
-                "label": "[{'partial': False}, {'partial': False}…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "r",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "responses"
+            "caption": "Inspect every updates as r tracks request state.",
+            "values": {
+              "r": "{'partial': False}",
+              "out": ""
+            },
+            "tones": {
+              "r": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "Cache aggregated responses briefly when possible.",
-            "messages": [
-              {
-                "from": "responses",
-                "to": ".0",
-                "label": "[{'partial': False}, {'partial': False}…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "r",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": ".0"
-          },
-          {
-            "at": "say7",
-            "caption": "The example counts partial responses in a sample of BFF logs.",
-            "messages": [
-              {
-                "from": "responses",
-                "to": ".0",
-                "label": "[{'partial': False}, {'partial': False}…",
-                "tone": "data"
-              },
-              {
-                "from": ".0",
-                "to": "r",
-                "label": "{'__other__': 'list_iterator'}",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "r"
+            "values": {
+              "r": "{'partial': True}",
+              "out": "partial responses: 10%"
+            },
+            "tones": {
+              "r": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "r",
+                "out"
+              ]
+            ]
           }
         ]
       }

@@ -622,8 +622,8 @@ export function generateRapidFireBattle(
 
   // [FIX-STAGE: phase2-rapidfire-shuffle] Shuffle fallback domain reflex options so ans is never stuck at index 0
   let rIdx = 0;
-  if (questions.length === 0) {
-    console.info('[PinIT][Fix:RapidFireBattle] No valid part checks found; using shuffled domain reflexes', {
+  if (questions.length === 0 && parts.length > 0) {
+    console.info('[PinIT][Fix:RapidFireBattle] Lesson parts contained no valid check objects; using domain reflexes', {
       questId,
       prefix,
       dayNum,

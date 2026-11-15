@@ -79,7 +79,7 @@
               "name": {
                 "var": "name",
                 "line": 9,
-                "hit": 1
+                "hit": 2
               },
               "max_limit": {
                 "var": "max_limit",
@@ -110,8 +110,8 @@
               },
               "name": {
                 "var": "name",
-                "line": 11,
-                "hit": 1
+                "line": 9,
+                "hit": 3
               },
               "max_limit": {
                 "var": "max_limit",
@@ -172,7 +172,7 @@
             "values": {
               "self": "<ToolKernel>",
               "tk": "<ToolKernel>",
-              "name": "'search_docs'",
+              "name": "'drop_table'",
               "max_limit": "20"
             },
             "tones": {
@@ -516,7 +516,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how trace updates below during execution.",
+            "caption": "Examine the verified value produced for waves processing.",
             "values": {
               "plan": {
                 "var": "plan",
@@ -646,7 +646,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how trace updates below during execution.",
+            "caption": "Examine the verified value produced for waves processing.",
             "values": {
               "plan": "[{'id': 's1', 'deps': [], 'cost': 30}, …",
               "steps": "[{'id': 's1', 'deps': [], 'cost': 30}, …",
@@ -745,7 +745,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run reconcile_notes() contrasting clean unanimous health verdicts against.",
+            "caption": "Examine the reconciling value produced for conflicting processing.",
             "activeActor": "oks",
             "messages": [
               {
@@ -821,7 +821,7 @@
           },
           {
             "at": "say7",
-            "caption": "Run reconcile_notes() contrasting clean unanimous health verdicts against.",
+            "caption": "Examine the reconciling value produced for conflicting processing.",
             "messages": [
               {
                 "from": "findings",
@@ -855,7 +855,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Happy-path unit checks rarely catch autonomous agent meltdowns because.",
+            "caption": "Observe how happy shapes path during this step.",
             "activeActor": "name",
             "messages": [
               {
@@ -947,7 +947,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Happy-path unit checks rarely catch autonomous agent meltdowns because.",
+            "caption": "Observe how happy shapes path during this step.",
             "messages": [
               {
                 "from": "name",

@@ -430,13 +430,13 @@
               },
               "cancel_results": {
                 "var": "cancel_results",
-                "line": 6,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "venue": {
                 "var": "venue",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -476,13 +476,13 @@
               },
               "cancel_results": {
                 "var": "cancel_results",
-                "line": 8,
-                "hit": 1
+                "line": 9,
+                "hit": 2
               },
               "venue": {
                 "var": "venue",
-                "line": 9,
-                "hit": 1
+                "line": 6,
+                "hit": 3
               }
             },
             "tones": {
@@ -566,8 +566,8 @@
             "values": {
               "venues": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
               "venue_connections": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
-              "cancel_results": "[]",
-              "venue": "{'name': 'NASDAQ', 'protocol': 'OUCH_4.…"
+              "cancel_results": "[{'venue': 'NASDAQ', 'protocol': 'OUCH_…",
+              "venue": "{'name': 'NYSE', 'protocol': 'FIX_4.4',…"
             },
             "tones": {
               "venues": "data",
@@ -596,8 +596,8 @@
             "values": {
               "venues": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
               "venue_connections": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
-              "cancel_results": "[]",
-              "venue": "{'name': 'NASDAQ', 'protocol': 'OUCH_4.…"
+              "cancel_results": "[{'venue': 'NASDAQ', 'protocol': 'OUCH_…",
+              "venue": "{'name': 'BATS', 'protocol': 'BOE_2.0',…"
             },
             "tones": {
               "venues": "ok",
@@ -668,16 +668,14 @@
                 "hit": 1
               },
               "guard": {
-                "var": "guard",
-                "line": 26,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "signers": "data",
               "self": "data",
               "authorized_signers": "data",
-              "guard": "data"
+              "guard": "idle"
             },
             "arrows": [
               [
@@ -817,13 +815,13 @@
               "signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
               "self": "<MultiSigResetGuard>",
               "authorized_signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
-              "guard": "<MultiSigResetGuard>"
+              "guard": ""
             },
             "tones": {
               "signers": "data",
               "self": "data",
               "authorized_signers": "data",
-              "guard": "data"
+              "guard": "idle"
             },
             "arrows": [
               [
@@ -995,8 +993,8 @@
               },
               "all_cancels_confirmed_ms": {
                 "var": "all_cancels_confirmed_ms",
-                "line": 5,
-                "hit": 5
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -1041,8 +1039,8 @@
               },
               "all_cancels_confirmed_ms": {
                 "var": "all_cancels_confirmed_ms",
-                "line": 7,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               }
             },
             "tones": {
@@ -1127,7 +1125,7 @@
               "rem_pos_clean": "{'AAPL': 0, 'MSFT': 0, 'GOOG': 0}",
               "rem_pos_dirty": "{'AAPL': 200, 'MSFT': 0}",
               "trip_timestamp_ms": "1000",
-              "all_cancels_confirmed_ms": "1028"
+              "all_cancels_confirmed_ms": "1085"
             },
             "tones": {
               "rem_pos_clean": "data",
@@ -1157,7 +1155,7 @@
               "rem_pos_clean": "{'AAPL': 0, 'MSFT': 0, 'GOOG': 0}",
               "rem_pos_dirty": "{'AAPL': 200, 'MSFT': 0}",
               "trip_timestamp_ms": "1000",
-              "all_cancels_confirmed_ms": "1028"
+              "all_cancels_confirmed_ms": "1085"
             },
             "tones": {
               "rem_pos_clean": "ok",

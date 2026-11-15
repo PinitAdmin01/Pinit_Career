@@ -62,7 +62,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how will updates built during execution.",
+            "caption": "Examine the built value produced for small processing.",
             "bars": [
               {
                 "label": "i",
@@ -124,7 +124,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how will updates built during execution.",
+            "caption": "Examine the built value produced for small processing.",
             "bars": [
               {
                 "label": "i",
@@ -182,7 +182,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how using updates findall during execution.",
+            "caption": "Examine the using value produced for findall processing.",
             "items": {
               "var": "vocab",
               "line": 6,
@@ -238,7 +238,7 @@
           },
           {
             "at": "say10",
-            "caption": "Trace how using updates findall during execution.",
+            "caption": "Examine the using value produced for findall processing.",
             "items": [
               "'vector'",
               "'search'",
@@ -324,13 +324,13 @@
               },
               "word": {
                 "var": "word",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
               },
               "bucket": {
                 "var": "bucket",
-                "line": 6,
-                "hit": 1
+                "line": 5,
+                "hit": 2
               }
             },
             "tones": {
@@ -360,13 +360,13 @@
               },
               "word": {
                 "var": "word",
-                "line": 6,
-                "hit": 1
+                "line": 4,
+                "hit": 3
               },
               "bucket": {
                 "var": "bucket",
-                "line": 4,
-                "hit": 2
+                "line": 5,
+                "hit": 3
               }
             },
             "tones": {
@@ -434,8 +434,8 @@
             "caption": "The hashing trick removes the vocabulary.",
             "values": {
               "dims": "8",
-              "word": "'vector'",
-              "bucket": "7"
+              "word": "'search'",
+              "bucket": "5"
             },
             "tones": {
               "dims": "data",
@@ -458,7 +458,7 @@
             "caption": "The same idea appears in feature hashing for machine learning models.",
             "values": {
               "dims": "8",
-              "word": "'vector'",
+              "word": "'engine'",
               "bucket": "7"
             },
             "tones": {
@@ -488,158 +488,100 @@
         "title": "Unit-length vectors",
         "nodes": [
           {
-            "id": "short",
-            "label": "short"
-          },
-          {
-            "id": "long",
-            "label": "long"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Long documents have bigger word counts than short ones, even when they are.",
+            "caption": "Inspect long updates as x tracks documents state.",
             "values": {
-              "short": {
-                "var": "short",
-                "line": 7,
-                "hit": 1
-              },
-              "long": {
-                "var": "long",
-                "line": 8,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 1
-              },
               "x": {
                 "var": "x",
                 "line": 4,
                 "hit": 1
+              },
+              "v": {
+                "text": ""
+              },
+              "n": {
+                "text": ""
               }
             },
             "tones": {
-              "short": "data",
-              "long": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "v": "idle",
+              "n": "idle"
             },
-            "arrows": [
-              [
-                "short",
-                "long"
-              ],
-              [
-                "long",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "To compare direction rather than size, we scale each vector to length 1.",
+            "caption": "Verify the length transition driving compare behavior.",
             "values": {
-              "short": {
-                "var": "short",
-                "line": 8,
-                "hit": 1
-              },
-              "long": {
-                "var": "long",
-                "line": 9,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 2
-              },
               "x": {
                 "var": "x",
                 "line": 4,
-                "hit": 2
+                "hit": 7
+              },
+              "v": {
+                "text": ""
+              },
+              "n": {
+                "text": ""
               }
             },
             "tones": {
-              "short": "data",
-              "long": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "v": "idle",
+              "n": "idle"
             },
             "arrows": [
               [
-                "short",
-                "long"
-              ],
-              [
-                "long",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
+                "x",
+                "v"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Rounding values for display is fine.",
+            "at": "say3",
+            "caption": "The length, or norm, is the square root of the sum of squared values.",
             "values": {
-              "short": {
-                "var": "short",
-                "line": 9,
-                "hit": 1
-              },
-              "long": {
-                "var": "long",
-                "line": 10,
-                "hit": 1
-              },
-              ".0": {
-                "var": ".0",
-                "line": 4,
-                "hit": 3
-              },
               "x": {
-                "var": "x",
+                "text": ""
+              },
+              "v": {
+                "var": "v",
                 "line": 4,
-                "hit": 3
+                "hit": 15
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 15
               }
             },
             "tones": {
-              "short": "ok",
-              "long": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "idle",
+              "v": "ok",
+              "n": "ok"
             },
             "arrows": [
               [
-                "short",
-                "long"
-              ],
-              [
-                "long",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
+                "x",
+                "v"
               ]
             ]
           }
@@ -650,110 +592,74 @@
         "title": "Unit-length vectors",
         "nodes": [
           {
-            "id": "short",
-            "label": "short"
-          },
-          {
-            "id": "long",
-            "label": "long"
-          },
-          {
-            "id": ".0",
-            "label": ".0"
-          },
-          {
             "id": "x",
-            "label": "x"
+            "label": "x",
+            "tappable": true
+          },
+          {
+            "id": "v",
+            "label": "v",
+            "tappable": true
+          },
+          {
+            "id": "n",
+            "label": "n",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Long documents have bigger word counts than short ones, even when they are.",
+            "caption": "Inspect long updates as x tracks documents state.",
             "values": {
-              "short": "[1, 1, 0]",
-              "long": "[5, 4, 1]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "1"
+              "x": "1",
+              "v": "",
+              "n": ""
             },
             "tones": {
-              "short": "data",
-              "long": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "v": "idle",
+              "n": "idle"
             },
-            "arrows": [
-              [
-                "short",
-                "long"
-              ],
-              [
-                "long",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "To compare direction rather than size, we scale each vector to length 1.",
+            "caption": "Verify the length transition driving compare behavior.",
             "values": {
-              "short": "[1, 1, 0]",
-              "long": "[5, 4, 1]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "1"
+              "x": "4",
+              "v": "",
+              "n": ""
             },
             "tones": {
-              "short": "data",
-              "long": "data",
-              ".0": "data",
-              "x": "data"
+              "x": "data",
+              "v": "idle",
+              "n": "idle"
             },
             "arrows": [
               [
-                "short",
-                "long"
-              ],
-              [
-                "long",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
+                "x",
+                "v"
               ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Rounding values for display is fine.",
+            "at": "say3",
+            "caption": "The length, or norm, is the square root of the sum of squared values.",
             "values": {
-              "short": "[1, 1, 0]",
-              "long": "[5, 4, 1]",
-              ".0": "{'__other__': 'list_iterator'}",
-              "x": "0"
+              "x": "",
+              "v": "[0, 0, 0]",
+              "n": "0"
             },
             "tones": {
-              "short": "ok",
-              "long": "ok",
-              ".0": "ok",
-              "x": "ok"
+              "x": "idle",
+              "v": "ok",
+              "n": "ok"
             },
             "arrows": [
               [
-                "short",
-                "long"
-              ],
-              [
-                "long",
-                ".0"
-              ],
-              [
-                ".0",
-                "x"
+                "x",
+                "v"
               ]
             ]
           }
@@ -989,7 +895,7 @@
           },
           {
             "at": "say10",
-            "caption": "If your hashed vector is not unit length, check that you divide every.",
+            "caption": "Examine the hashed value produced for vector processing.",
             "bars": [
               {
                 "label": "dims",
@@ -1089,7 +995,7 @@
           },
           {
             "at": "say10",
-            "caption": "If your hashed vector is not unit length, check that you divide every.",
+            "caption": "Examine the hashed value produced for vector processing.",
             "bars": [
               {
                 "label": "dims",

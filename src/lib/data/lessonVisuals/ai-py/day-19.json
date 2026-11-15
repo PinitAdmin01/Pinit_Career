@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A plan makes the agent's intention visible.",
+            "activeActor": "plan",
+            "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": {
+                  "var": "plan_text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "plan",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "A plan makes the agent's intention visible.",
-            "activeActor": "plan",
+            "at": "say7",
+            "caption": "A small model can often follow a plan written by a larger one, which saves.",
+            "activeActor": "i",
             "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": {
+                  "var": "plan_text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": {
+                  "var": "plan",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "plan_text",
                 "to": "plan",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "A small model can often follow a plan written by a larger one, which saves.",
-            "activeActor": "i",
-            "messages": [
+              },
               {
                 "from": "plan_text",
                 "to": "plan",
@@ -118,12 +148,6 @@
                 "to": "plan",
                 "label": "'[{\"step\": \"Find 3 hotels in Goa under …",
                 "tone": "data"
-              },
-              {
-                "from": "plan",
-                "to": "i",
-                "label": "[{'step': 'Find 3 hotels in Goa under 5…",
-                "tone": "ok"
               }
             ],
             "activeActor": "plan_text"
@@ -151,6 +175,30 @@
             "at": "say7",
             "caption": "A small model can often follow a plan written by a larger one, which saves.",
             "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": "'[{\"step\": \"Find 3 hotels in Goa under …",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": "[{'step': 'Find 3 hotels in Goa under 5…",
+                "tone": "ok"
+              },
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": "'[{\"step\": \"Find 3 hotels in Goa under …",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": "[{'step': 'Find 3 hotels in Goa under 5…",
+                "tone": "ok"
+              },
               {
                 "from": "plan_text",
                 "to": "plan",
@@ -195,6 +243,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Use round(done / total x 100) and an f-string.",
+            "activeActor": "steps",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "steps",
+                "label": {
+                  "var": "plan",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "steps",
@@ -209,10 +274,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Use round(done / total x 100) and an f-string.",
-            "activeActor": "steps",
+            "at": "say7",
+            "caption": "A step that fails should be visible too, not hidden inside a percentage.",
+            "activeActor": "s",
             "messages": [
+              {
+                "from": "plan",
+                "to": "steps",
+                "label": {
+                  "var": "plan",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "steps",
+                "to": "s",
+                "label": {
+                  "var": "steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "plan",
                 "to": "steps",
@@ -232,14 +317,7 @@
                   "hit": 5
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "A step that fails should be visible too, not hidden inside a percentage.",
-            "activeActor": "s",
-            "messages": [
+              },
               {
                 "from": "plan",
                 "to": "steps",
@@ -282,12 +360,6 @@
                 "to": "steps",
                 "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
                 "tone": "data"
-              },
-              {
-                "from": "steps",
-                "to": "s",
-                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
-                "tone": "ok"
               }
             ],
             "activeActor": "plan"
@@ -315,6 +387,30 @@
             "at": "say7",
             "caption": "A step that fails should be visible too, not hidden inside a percentage.",
             "messages": [
+              {
+                "from": "plan",
+                "to": "steps",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "data"
+              },
+              {
+                "from": "steps",
+                "to": "s",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "ok"
+              },
+              {
+                "from": "plan",
+                "to": "steps",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "data"
+              },
+              {
+                "from": "steps",
+                "to": "s",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "ok"
+              },
               {
                 "from": "plan",
                 "to": "steps",
@@ -359,6 +455,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The review produces feedback, and a second pass uses that feedback.",
+            "activeActor": "requirements",
+            "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": {
+                  "var": "draft",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "requirements",
@@ -373,10 +486,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "The review produces feedback, and a second pass uses that feedback.",
-            "activeActor": "requirements",
+            "at": "say7",
+            "caption": "The code below uses simple checks to generate reflection feedback.",
+            "activeActor": "answer",
             "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": {
+                  "var": "draft",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": {
+                  "var": "requirements",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "draft",
                 "to": "requirements",
@@ -396,14 +529,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The code below uses simple checks to generate reflection feedback.",
-            "activeActor": "answer",
-            "messages": [
+              },
               {
                 "from": "draft",
                 "to": "requirements",
@@ -446,12 +572,6 @@
                 "to": "requirements",
                 "label": "'Stay at Sea Breeze Inn in Goa, rated 4…",
                 "tone": "data"
-              },
-              {
-                "from": "requirements",
-                "to": "answer",
-                "label": "['price', 'Goa', 'rated']",
-                "tone": "ok"
               }
             ],
             "activeActor": "draft"
@@ -479,6 +599,30 @@
             "at": "say7",
             "caption": "The code below uses simple checks to generate reflection feedback.",
             "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": "'Stay at Sea Breeze Inn in Goa, rated 4…",
+                "tone": "data"
+              },
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": "['price', 'Goa', 'rated']",
+                "tone": "ok"
+              },
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": "'Stay at Sea Breeze Inn in Goa, rated 4…",
+                "tone": "data"
+              },
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": "['price', 'Goa', 'rated']",
+                "tone": "ok"
+              },
               {
                 "from": "draft",
                 "to": "requirements",
@@ -566,7 +710,7 @@
               "error": {
                 "var": "error",
                 "line": 2,
-                "hit": 1
+                "hit": 2
               },
               "code": {
                 "var": "code",
@@ -597,7 +741,7 @@
               },
               "error": {
                 "var": "error",
-                "line": 4,
+                "line": 10,
                 "hit": 1
               },
               "code": {
@@ -663,7 +807,7 @@
             "caption": "If error is empty, return {\"needs_correction\".",
             "values": {
               "broken": "'total = 0\nfor x in range(5)\n    total …",
-              "error": "\"SyntaxError: expected ':' (line 2)\"",
+              "error": "''",
               "code": "'total = 0\nfor x in range(5)\n    total …",
               "prompt": "\"The code failed with this error: Synta…"
             },
@@ -701,117 +845,90 @@
         "title": "A write, test, repair loop",
         "boxes": [
           {
-            "id": "attempts",
-            "label": "attempts"
-          },
-          {
             "id": "attempt",
-            "label": "attempt"
+            "label": "attempt",
+            "tappable": true
           },
           {
             "id": "body",
-            "label": "body"
+            "label": "body",
+            "tappable": true
           },
           {
-            "id": "w",
-            "label": "w"
+            "id": "result",
+            "label": "result",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The agent writes code, your program runs the tests, and if they fail,.",
+            "caption": "Repeat until the tests pass or the limit is reached.",
             "values": {
-              "attempts": {
-                "var": "attempts",
-                "line": 1,
-                "hit": 2
-              },
               "attempt": {
                 "var": "attempt",
                 "line": 10,
                 "hit": 1
               },
               "body": {
-                "var": "body",
-                "line": 11,
-                "hit": 1
+                "text": ""
               },
-              "w": {
-                "var": "w",
-                "line": 2,
-                "hit": 2
+              "result": {
+                "text": ""
               }
             },
             "tones": {
-              "attempts": "data",
               "attempt": "data",
-              "body": "data",
-              "w": "data"
+              "body": "idle",
+              "result": "idle"
             }
           },
           {
             "at": "say2",
             "caption": "Running real code needs a sandbox.",
             "values": {
-              "attempts": {
-                "var": "attempts",
-                "line": 6,
-                "hit": 1
-              },
               "attempt": {
                 "var": "attempt",
-                "line": 11,
-                "hit": 1
+                "line": 10,
+                "hit": 2
               },
               "body": {
                 "var": "body",
-                "line": 12,
-                "hit": 1
-              },
-              "w": {
-                "var": "w",
-                "line": 3,
+                "line": 10,
                 "hit": 2
+              },
+              "result": {
+                "text": ""
               }
             },
             "tones": {
-              "attempts": "data",
               "attempt": "data",
               "body": "data",
-              "w": "data"
+              "result": "idle"
             }
           },
           {
-            "at": "say7",
-            "caption": "The same loop idea powers data-cleaning agents, SQL generators and more.",
+            "at": "say3",
+            "caption": "Examine the test value produced for example processing.",
             "values": {
-              "attempts": {
-                "var": "attempts",
-                "line": 10,
-                "hit": 1
-              },
               "attempt": {
                 "var": "attempt",
                 "line": 12,
-                "hit": 1
+                "hit": 2
               },
               "body": {
                 "var": "body",
-                "line": 13,
-                "hit": 1
-              },
-              "w": {
-                "var": "w",
-                "line": 3,
+                "line": 12,
                 "hit": 2
+              },
+              "result": {
+                "text": ""
               }
             },
             "tones": {
-              "attempts": "ok",
               "attempt": "ok",
               "body": "ok",
-              "w": "ok"
+              "result": "idle"
             }
           }
         ]
@@ -821,69 +938,62 @@
         "title": "A write, test, repair loop",
         "boxes": [
           {
-            "id": "attempts",
-            "label": "attempts"
-          },
-          {
             "id": "attempt",
-            "label": "attempt"
+            "label": "attempt",
+            "tappable": true
           },
           {
             "id": "body",
-            "label": "body"
+            "label": "body",
+            "tappable": true
           },
           {
-            "id": "w",
-            "label": "w"
+            "id": "result",
+            "label": "result",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The agent writes code, your program runs the tests, and if they fail,.",
+            "caption": "Repeat until the tests pass or the limit is reached.",
             "values": {
-              "attempts": "{'__other__': 'list_iterator'}",
               "attempt": "1",
-              "body": "'return w + h'",
-              "w": "3"
+              "body": "",
+              "result": ""
             },
             "tones": {
-              "attempts": "data",
               "attempt": "data",
-              "body": "data",
-              "w": "data"
+              "body": "idle",
+              "result": "idle"
             }
           },
           {
             "at": "say2",
             "caption": "Running real code needs a sandbox.",
             "values": {
-              "attempts": "{'__other__': 'list_iterator'}",
-              "attempt": "1",
+              "attempt": "2",
               "body": "'return w + h'",
-              "w": "3"
+              "result": ""
             },
             "tones": {
-              "attempts": "data",
               "attempt": "data",
               "body": "data",
-              "w": "data"
+              "result": "idle"
             }
           },
           {
-            "at": "say7",
-            "caption": "The same loop idea powers data-cleaning agents, SQL generators and more.",
+            "at": "say3",
+            "caption": "Examine the test value produced for example processing.",
             "values": {
-              "attempts": "{'__other__': 'list_iterator'}",
-              "attempt": "1",
-              "body": "'return w + h'",
-              "w": "3"
+              "attempt": "2",
+              "body": "'return w * h'",
+              "result": ""
             },
             "tones": {
-              "attempts": "ok",
               "attempt": "ok",
               "body": "ok",
-              "w": "ok"
+              "result": "idle"
             }
           }
         ]
@@ -976,13 +1086,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               },
               "calls": {
                 "var": "calls",
-                "line": 8,
-                "hit": 1
+                "line": 7,
+                "hit": 2
               }
             },
             "tones": {
@@ -1022,13 +1132,13 @@
               },
               "name": {
                 "var": "name",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               },
               "calls": {
                 "var": "calls",
-                "line": 9,
-                "hit": 1
+                "line": 7,
+                "hit": 3
               }
             },
             "tones": {
@@ -1112,8 +1222,8 @@
             "values": {
               "setups": "{'act only': [1, 0.72], 'plan + act': […",
               "price_per_call": "0.003",
-              "name": "'act only'",
-              "calls": "1"
+              "name": "'plan + act'",
+              "calls": "2"
             },
             "tones": {
               "setups": "data",
@@ -1142,8 +1252,8 @@
             "values": {
               "setups": "{'act only': [1, 0.72], 'plan + act': […",
               "price_per_call": "0.003",
-              "name": "'act only'",
-              "calls": "1"
+              "name": "'plan + act + reflect'",
+              "calls": "4"
             },
             "tones": {
               "setups": "ok",

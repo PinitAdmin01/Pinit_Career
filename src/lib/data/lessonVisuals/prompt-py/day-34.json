@@ -7,328 +7,292 @@
   "entries": [
     {
       "partTitle": "The Physics Of Transformer Context Windows: Rotary Positional Embeddings & Attention Dynamics",
-      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
+      "codeHash": "5bf812c14d5d1f3d5032604da643ec65770d9f83e7d6fd0202698f25b3ff0d5c",
       "spec": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Physics Of Transformer Context Windows: Rotary Positional Em",
-        "actors": [
-          "self",
-          "context_tokens",
-          "optimizer"
+        "nodes": [
+          {
+            "id": "ctx",
+            "label": "ctx",
+            "tappable": true
+          },
+          {
+            "id": "total_tokens",
+            "label": "total_tokens",
+            "tappable": true
+          },
+          {
+            "id": "total_denom",
+            "label": "total_denom",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The advent of million-token context windows in modern foundation models.",
-            "activeActor": "self",
-            "messages": [
-              {
-                "from": "self",
-                "to": "context_tokens",
-                "label": {
-                  "var": "self",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Inspect physics updates as ctx tracks transformer state.",
+            "values": {
+              "ctx": {
+                "var": "ctx",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "from": "context_tokens",
-                "to": "optimizer",
-                "label": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "total_tokens": {
+                "text": ""
+              },
+              "total_denom": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "ctx": "data",
+              "total_tokens": "idle",
+              "total_denom": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "At the mathematical core of transformer attention lies the scaled.",
-            "activeActor": "context_tokens",
-            "messages": [
-              {
-                "from": "self",
-                "to": "context_tokens",
-                "label": {
-                  "var": "self",
-                  "line": 11,
-                  "hit": 1
-                },
-                "tone": "data"
+            "caption": "Verify the transformer transition driving context behavior.",
+            "values": {
+              "ctx": {
+                "text": ""
               },
-              {
-                "from": "context_tokens",
-                "to": "optimizer",
-                "label": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "total_tokens": {
+                "var": "total_tokens",
+                "line": 7,
+                "hit": 3
+              },
+              "total_denom": {
+                "var": "total_denom",
+                "line": 7,
+                "hit": 3
               }
+            },
+            "tones": {
+              "ctx": "idle",
+              "total_tokens": "data",
+              "total_denom": "data"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "total_tokens"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "The distinction between context capacity and effective reasoning horizon.",
-            "activeActor": "optimizer",
-            "messages": [
-              {
-                "from": "self",
-                "to": "context_tokens",
-                "label": {
-                  "var": "self",
-                  "line": 12,
-                  "hit": 1
-                },
-                "tone": "data"
+            "at": "say3",
+            "caption": "Examine the context value produced for rotary processing.",
+            "values": {
+              "ctx": {
+                "var": "ctx",
+                "line": 11,
+                "hit": 5
               },
-              {
-                "from": "context_tokens",
-                "to": "optimizer",
-                "label": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
+              "total_tokens": {
+                "text": ""
+              },
+              "total_denom": {
+                "text": ""
               }
+            },
+            "tones": {
+              "ctx": "ok",
+              "total_tokens": "idle",
+              "total_denom": "idle"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "total_tokens"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
+        "template": "flow",
         "title": "The Physics Of Transformer Context Windows: Rotary Positional Em",
-        "actors": [
-          "self",
-          "context_tokens",
-          "optimizer"
+        "nodes": [
+          {
+            "id": "ctx",
+            "label": "ctx",
+            "tappable": true
+          },
+          {
+            "id": "total_tokens",
+            "label": "total_tokens",
+            "tappable": true
+          },
+          {
+            "id": "total_denom",
+            "label": "total_denom",
+            "tappable": true
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The advent of million-token context windows in modern foundation models.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "context_tokens",
-                "label": "<ContextHygieneOptimizer>",
-                "tone": "data"
-              },
-              {
-                "from": "context_tokens",
-                "to": "optimizer",
-                "label": "128000",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "self"
+            "caption": "Inspect physics updates as ctx tracks transformer state.",
+            "values": {
+              "ctx": "32",
+              "total_tokens": "",
+              "total_denom": ""
+            },
+            "tones": {
+              "ctx": "data",
+              "total_tokens": "idle",
+              "total_denom": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "At the mathematical core of transformer attention lies the scaled.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "context_tokens",
-                "label": "<ContextHygieneOptimizer>",
-                "tone": "data"
-              },
-              {
-                "from": "context_tokens",
-                "to": "optimizer",
-                "label": "128000",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "context_tokens"
+            "caption": "Verify the transformer transition driving context behavior.",
+            "values": {
+              "ctx": "",
+              "total_tokens": "1024",
+              "total_denom": "1138.9573379124872"
+            },
+            "tones": {
+              "ctx": "idle",
+              "total_tokens": "data",
+              "total_denom": "data"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "total_tokens"
+              ]
+            ]
           },
           {
-            "at": "say8",
-            "caption": "The distinction between context capacity and effective reasoning horizon.",
-            "messages": [
-              {
-                "from": "self",
-                "to": "context_tokens",
-                "label": "<ContextHygieneOptimizer>",
-                "tone": "data"
-              },
-              {
-                "from": "context_tokens",
-                "to": "optimizer",
-                "label": "128000",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "optimizer"
+            "at": "say3",
+            "caption": "Examine the context value produced for rotary processing.",
+            "values": {
+              "ctx": "65536",
+              "total_tokens": "",
+              "total_denom": ""
+            },
+            "tones": {
+              "ctx": "ok",
+              "total_tokens": "idle",
+              "total_denom": "idle"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "total_tokens"
+              ]
+            ]
           }
         ]
       }
     },
     {
       "partTitle": "The Lost-In-The-Middle Phenomenon: Primacy, Recency & The U-Shaped Attention Dip",
-      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
+      "codeHash": "dffa5340e3fe363603f6133da5879950e792adf202ba4fa50160eba972c1c802",
       "spec": {
         "template": "flow",
         "title": "The Lost-In-The-Middle Phenomenon: Primacy, Recency & The U-Shap",
         "nodes": [
           {
-            "id": "self",
-            "label": "self"
+            "id": "depth_pct",
+            "label": "depth_pct",
+            "tappable": true
           },
           {
-            "id": "context_tokens",
-            "label": "context_tokens"
+            "id": "center_dist",
+            "label": "center_dist",
+            "tappable": true
           },
           {
-            "id": "optimizer",
-            "label": "optimizer"
-          },
-          {
-            "id": "relative_depth_pct",
-            "label": "relative_depth_pct"
+            "id": "d",
+            "label": "d",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Lost-in-the-Middle phenomenon represents one of the most consistent.",
+            "caption": "Inspect lost updates as depth_pct tracks middle state.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 7,
+              "depth_pct": {
+                "var": "depth_pct",
+                "line": 4,
                 "hit": 1
               },
-              "context_tokens": {
-                "var": "context_tokens",
-                "line": 7,
+              "center_dist": {
+                "var": "center_dist",
+                "line": 4,
                 "hit": 1
               },
-              "optimizer": {
-                "var": "optimizer",
-                "line": 28,
-                "hit": 1
-              },
-              "relative_depth_pct": {
-                "var": "relative_depth_pct",
-                "line": 11,
-                "hit": 1
+              "d": {
+                "text": ""
               }
             },
             "tones": {
-              "self": "data",
-              "context_tokens": "data",
-              "optimizer": "data",
-              "relative_depth_pct": "data"
+              "depth_pct": "data",
+              "center_dist": "data",
+              "d": "idle"
             },
-            "arrows": [
-              [
-                "self",
-                "context_tokens"
-              ],
-              [
-                "context_tokens",
-                "optimizer"
-              ],
-              [
-                "optimizer",
-                "relative_depth_pct"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The root cause of the primacy effect is architectural and historical.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 11,
-                "hit": 1
+              "depth_pct": {
+                "text": ""
               },
-              "context_tokens": {
-                "var": "context_tokens",
-                "line": 7,
-                "hit": 1
+              "center_dist": {
+                "text": ""
               },
-              "optimizer": {
-                "var": "optimizer",
-                "line": 29,
-                "hit": 1
-              },
-              "relative_depth_pct": {
-                "var": "relative_depth_pct",
-                "line": 12,
-                "hit": 1
+              "d": {
+                "var": "d",
+                "line": 8,
+                "hit": 5
               }
             },
             "tones": {
-              "self": "data",
-              "context_tokens": "data",
-              "optimizer": "data",
-              "relative_depth_pct": "data"
+              "depth_pct": "idle",
+              "center_dist": "idle",
+              "d": "data"
             },
             "arrows": [
               [
-                "self",
-                "context_tokens"
-              ],
-              [
-                "context_tokens",
-                "optimizer"
-              ],
-              [
-                "optimizer",
-                "relative_depth_pct"
+                "depth_pct",
+                "center_dist"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Multi-document summarization pipelines that ignore context topology suffer.",
+            "at": "say3",
+            "caption": "Examine the recency value produced for attention processing.",
             "values": {
-              "self": {
-                "var": "self",
-                "line": 12,
-                "hit": 1
+              "depth_pct": {
+                "text": ""
               },
-              "context_tokens": {
-                "var": "context_tokens",
-                "line": 7,
-                "hit": 1
+              "center_dist": {
+                "text": ""
               },
-              "optimizer": {
-                "var": "optimizer",
-                "line": 30,
-                "hit": 1
-              },
-              "relative_depth_pct": {
-                "var": "relative_depth_pct",
-                "line": 11,
-                "hit": 2
+              "d": {
+                "var": "d",
+                "line": 8,
+                "hit": 19
               }
             },
             "tones": {
-              "self": "ok",
-              "context_tokens": "ok",
-              "optimizer": "ok",
-              "relative_depth_pct": "ok"
+              "depth_pct": "idle",
+              "center_dist": "idle",
+              "d": "ok"
             },
             "arrows": [
               [
-                "self",
-                "context_tokens"
-              ],
-              [
-                "context_tokens",
-                "optimizer"
-              ],
-              [
-                "optimizer",
-                "relative_depth_pct"
+                "depth_pct",
+                "center_dist"
               ]
             ]
           }
@@ -339,110 +303,74 @@
         "title": "The Lost-In-The-Middle Phenomenon: Primacy, Recency & The U-Shap",
         "nodes": [
           {
-            "id": "self",
-            "label": "self"
+            "id": "depth_pct",
+            "label": "depth_pct",
+            "tappable": true
           },
           {
-            "id": "context_tokens",
-            "label": "context_tokens"
+            "id": "center_dist",
+            "label": "center_dist",
+            "tappable": true
           },
           {
-            "id": "optimizer",
-            "label": "optimizer"
-          },
-          {
-            "id": "relative_depth_pct",
-            "label": "relative_depth_pct"
+            "id": "d",
+            "label": "d",
+            "tappable": true
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Lost-in-the-Middle phenomenon represents one of the most consistent.",
+            "caption": "Inspect lost updates as depth_pct tracks middle state.",
             "values": {
-              "self": "<ContextHygieneOptimizer>",
-              "context_tokens": "128000",
-              "optimizer": "<ContextHygieneOptimizer>",
-              "relative_depth_pct": "5"
+              "depth_pct": "0",
+              "center_dist": "1",
+              "d": ""
             },
             "tones": {
-              "self": "data",
-              "context_tokens": "data",
-              "optimizer": "data",
-              "relative_depth_pct": "data"
+              "depth_pct": "data",
+              "center_dist": "data",
+              "d": "idle"
             },
-            "arrows": [
-              [
-                "self",
-                "context_tokens"
-              ],
-              [
-                "context_tokens",
-                "optimizer"
-              ],
-              [
-                "optimizer",
-                "relative_depth_pct"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
             "caption": "The root cause of the primacy effect is architectural and historical.",
             "values": {
-              "self": "<ContextHygieneOptimizer>",
-              "context_tokens": "128000",
-              "optimizer": "<ContextHygieneOptimizer>",
-              "relative_depth_pct": "5"
+              "depth_pct": "",
+              "center_dist": "",
+              "d": "50"
             },
             "tones": {
-              "self": "data",
-              "context_tokens": "data",
-              "optimizer": "data",
-              "relative_depth_pct": "data"
+              "depth_pct": "idle",
+              "center_dist": "idle",
+              "d": "data"
             },
             "arrows": [
               [
-                "self",
-                "context_tokens"
-              ],
-              [
-                "context_tokens",
-                "optimizer"
-              ],
-              [
-                "optimizer",
-                "relative_depth_pct"
+                "depth_pct",
+                "center_dist"
               ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Multi-document summarization pipelines that ignore context topology suffer.",
+            "at": "say3",
+            "caption": "Examine the recency value produced for attention processing.",
             "values": {
-              "self": "<ContextHygieneOptimizer>",
-              "context_tokens": "128000",
-              "optimizer": "<ContextHygieneOptimizer>",
-              "relative_depth_pct": "50"
+              "depth_pct": "",
+              "center_dist": "",
+              "d": "100"
             },
             "tones": {
-              "self": "ok",
-              "context_tokens": "ok",
-              "optimizer": "ok",
-              "relative_depth_pct": "ok"
+              "depth_pct": "idle",
+              "center_dist": "idle",
+              "d": "ok"
             },
             "arrows": [
               [
-                "self",
-                "context_tokens"
-              ],
-              [
-                "context_tokens",
-                "optimizer"
-              ],
-              [
-                "optimizer",
-                "relative_depth_pct"
+                "depth_pct",
+                "center_dist"
               ]
             ]
           }
@@ -451,48 +379,35 @@
     },
     {
       "partTitle": "Needle-In-A-Haystack Benchmarking: Multi-Hop Retrieval, Reasoning Horizons & Distractor Testing",
-      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
+      "codeHash": "30bd8e8dfa8fade50e49369d77f75997b767563316f5c945aebfa722073582d1",
       "spec": {
         "template": "bars",
         "title": "Needle-In-A-Haystack Benchmarking: Multi-Hop Retrieval, Reasonin",
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating long-context performance requires rigorous, quantitative.",
+            "caption": "Observe how needle shapes haystack during this step.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "depth",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
+                  "var": "depth",
+                  "line": 9,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "relative_depth",
+                "label": "joint_chain_prob",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 11,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "fidelity_start",
+                "label": "p",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 29,
-                  "hit": 1
-                },
-                "tone": "data"
-              },
-              {
-                "label": "distance_from_",
-                "value": {
-                  "var": "distance_from_center",
-                  "line": 17,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -500,83 +415,61 @@
           },
           {
             "at": "say2",
-            "caption": "A comprehensive Needle-in-a-Haystack evaluation generates.",
+            "caption": "Production workflows present far more challenging cognitive hurdles.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "depth",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "relative_depth",
+                "label": "joint_chain_prob",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 12,
+                  "var": "joint_chain_prob",
+                  "line": 14,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "fidelity_start",
+                "label": "p",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 30,
+                  "var": "p",
+                  "line": 14,
                   "hit": 1
                 },
-                "tone": "ok"
-              },
-              {
-                "label": "distance_from_",
-                "value": {
-                  "var": "distance_from_center",
-                  "line": 18,
-                  "hit": 1
-                },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Cross-attention heat map visualization tools convert abstract attention.",
+            "at": "say3",
+            "caption": "Examine the needle value produced for multi processing.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "depth",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "relative_depth",
+                "label": "joint_chain_prob",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 11,
-                  "hit": 2
+                  "var": "joint_chain_prob",
+                  "line": 14,
+                  "hit": 3
                 },
                 "tone": "ok"
               },
               {
-                "label": "fidelity_start",
+                "label": "p",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 31,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "distance_from_",
-                "value": {
-                  "var": "distance_from_center",
-                  "line": 18,
-                  "hit": 1
+                  "var": "p",
+                  "line": 14,
+                  "hit": 3
                 },
                 "tone": "ok"
               }
@@ -590,25 +483,20 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating long-context performance requires rigorous, quantitative.",
+            "caption": "Observe how needle shapes haystack during this step.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
+                "label": "depth",
+                "value": 8,
                 "tone": "data"
               },
               {
-                "label": "relative_depth",
-                "value": 5,
+                "label": "joint_chain_prob",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "fidelity_start",
-                "value": 0.955,
-                "tone": "data"
-              },
-              {
-                "label": "distance_from_",
+                "label": "p",
                 "value": 0,
                 "tone": "data"
               }
@@ -616,52 +504,42 @@
           },
           {
             "at": "say2",
-            "caption": "A comprehensive Needle-in-a-Haystack evaluation generates.",
+            "caption": "Production workflows present far more challenging cognitive hurdles.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
-                "tone": "ok"
-              },
-              {
-                "label": "relative_depth",
-                "value": 5,
-                "tone": "ok"
-              },
-              {
-                "label": "fidelity_start",
-                "value": 0.955,
-                "tone": "ok"
-              },
-              {
-                "label": "distance_from_",
+                "label": "depth",
                 "value": 0,
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "joint_chain_prob",
+                "value": 0.96,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0.96,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Cross-attention heat map visualization tools convert abstract attention.",
+            "at": "say3",
+            "caption": "Examine the needle value produced for multi processing.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
-                "tone": "ok"
-              },
-              {
-                "label": "relative_depth",
-                "value": 50,
-                "tone": "ok"
-              },
-              {
-                "label": "fidelity_start",
-                "value": 0.955,
-                "tone": "ok"
-              },
-              {
-                "label": "distance_from_",
+                "label": "depth",
                 "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "joint_chain_prob",
+                "value": 0.5160960000000001,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.96,
                 "tone": "ok"
               }
             ]
@@ -671,48 +549,42 @@
     },
     {
       "partTitle": "Long-Context Architecture & Layout Hygiene: Placement Optimization & Structured Tagging",
-      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
+      "codeHash": "795592bff0e4d473bb7aac4a96d0303fcc2a97f8b6f97332566f9ba732afb18a",
       "spec": {
         "template": "bars",
         "title": "Long-Context Architecture & Layout Hygiene: Placement Optimizati",
         "steps": [
           {
             "at": "say1",
-            "caption": "Long-context architecture and layout hygiene encompass the systematic.",
+            "caption": "Observe how long shapes context during this step.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "x",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
+                  "var": "x",
+                  "line": 10,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "relative_depth",
+                "label": "front",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 11,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "fidelity_start",
+                "label": "back",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 29,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "distance_from_",
+                "label": "idx",
                 "value": {
-                  "var": "distance_from_center",
-                  "line": 17,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -720,83 +592,79 @@
           },
           {
             "at": "say2",
-            "caption": "The Primacy-Recency Sandwich represents the foundational layout pattern.",
+            "caption": "Verify the layout transition driving primacy behavior.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "x",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "relative_depth",
+                "label": "front",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 12,
+                  "var": "front",
+                  "line": 13,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "fidelity_start",
+                "label": "back",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 30,
+                  "var": "back",
+                  "line": 13,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "distance_from_",
+                "label": "idx",
                 "value": {
-                  "var": "distance_from_center",
-                  "line": 18,
+                  "var": "idx",
+                  "line": 13,
                   "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Context pruning filters powered by small local cross-encoders eliminate.",
+            "at": "say3",
+            "caption": "Examine the context value produced for tagging processing.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "x",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "ok"
               },
               {
-                "label": "relative_depth",
+                "label": "front",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 11,
-                  "hit": 2
+                  "var": "front",
+                  "line": 12,
+                  "hit": 6
                 },
                 "tone": "ok"
               },
               {
-                "label": "fidelity_start",
+                "label": "back",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 31,
-                  "hit": 1
+                  "var": "back",
+                  "line": 12,
+                  "hit": 6
                 },
                 "tone": "ok"
               },
               {
-                "label": "distance_from_",
+                "label": "idx",
                 "value": {
-                  "var": "distance_from_center",
-                  "line": 18,
-                  "hit": 1
+                  "var": "idx",
+                  "line": 12,
+                  "hit": 6
                 },
                 "tone": "ok"
               }
@@ -810,25 +678,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Long-context architecture and layout hygiene encompass the systematic.",
+            "caption": "Observe how long shapes context during this step.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
+                "label": "x",
+                "value": "['Policy Rules', 0.98]",
                 "tone": "data"
               },
               {
-                "label": "relative_depth",
-                "value": 5,
+                "label": "front",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "fidelity_start",
-                "value": 0.955,
+                "label": "back",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "distance_from_",
+                "label": "idx",
                 "value": 0,
                 "tone": "data"
               }
@@ -836,52 +704,52 @@
           },
           {
             "at": "say2",
-            "caption": "The Primacy-Recency Sandwich represents the foundational layout pattern.",
+            "caption": "Verify the layout transition driving primacy behavior.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
-                "tone": "ok"
-              },
-              {
-                "label": "relative_depth",
-                "value": 5,
-                "tone": "ok"
-              },
-              {
-                "label": "fidelity_start",
-                "value": 0.955,
-                "tone": "ok"
-              },
-              {
-                "label": "distance_from_",
+                "label": "x",
                 "value": 0,
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "front",
+                "value": "[['Policy Rules', 0.98]]",
+                "tone": "data"
+              },
+              {
+                "label": "back",
+                "value": "[]",
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Context pruning filters powered by small local cross-encoders eliminate.",
+            "at": "say3",
+            "caption": "Examine the context value produced for tagging processing.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
-                "tone": "ok"
-              },
-              {
-                "label": "relative_depth",
-                "value": 50,
-                "tone": "ok"
-              },
-              {
-                "label": "fidelity_start",
-                "value": 0.955,
-                "tone": "ok"
-              },
-              {
-                "label": "distance_from_",
+                "label": "x",
                 "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "front",
+                "value": "[['Policy Rules', 0.98], ['API Schema',…",
+                "tone": "ok"
+              },
+              {
+                "label": "back",
+                "value": "[['User SLA Mandate', 0.95], ['Quarterl…",
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -891,48 +759,42 @@
     },
     {
       "partTitle": "Enterprise Context Engineering: Implementing A Production Context Hygiene Controller In Python",
-      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
+      "codeHash": "1c0d265ac3c07b658ccf1096e2df9a4d52933d36253a70d7b96163e1d901887b",
       "spec": {
         "template": "bars",
         "title": "Enterprise Context Engineering: Implementing A Production Contex",
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating theoretical context physics into enterprise production systems.",
+            "caption": "Observe how enterprise shapes context during this step.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "deduped",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
+                  "var": "deduped",
+                  "line": 9,
                   "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "relative_depth",
+                "label": "seen_lines",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 11,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "fidelity_start",
+                "label": "name",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 29,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               },
               {
-                "label": "distance_from_",
+                "label": "toks",
                 "value": {
-                  "var": "distance_from_center",
-                  "line": 17,
-                  "hit": 1
+                  "text": "0"
                 },
                 "tone": "data"
               }
@@ -940,83 +802,83 @@
           },
           {
             "at": "say2",
-            "caption": "The core Python architecture comprises five specialized modules.",
+            "caption": "Verify the context transition driving controller behavior.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "deduped",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
+                  "var": "deduped",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "relative_depth",
+                "label": "seen_lines",
                 "value": {
-                  "var": "relative_depth_pct",
-                  "line": 12,
-                  "hit": 1
+                  "var": "seen_lines",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "fidelity_start",
+                "label": "name",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 30,
-                  "hit": 1
+                  "var": "name",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "distance_from_",
+                "label": "toks",
                 "value": {
-                  "var": "distance_from_center",
-                  "line": 18,
-                  "hit": 1
+                  "var": "toks",
+                  "line": 15,
+                  "hit": 2
                 },
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Comprehensive synthetic regression testing suites run continuous automated.",
+            "at": "say3",
+            "caption": "Examine the context value produced for salience processing.",
             "bars": [
               {
-                "label": "context_tokens",
+                "label": "deduped",
                 "value": {
-                  "var": "context_tokens",
-                  "line": 7,
-                  "hit": 1
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "relative_depth",
-                "value": {
-                  "var": "relative_depth_pct",
-                  "line": 11,
+                  "var": "deduped",
+                  "line": 25,
                   "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "fidelity_start",
+                "label": "seen_lines",
                 "value": {
-                  "var": "fidelity_start",
-                  "line": 31,
-                  "hit": 1
+                  "var": "seen_lines",
+                  "line": 25,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "distance_from_",
+                "label": "name",
                 "value": {
-                  "var": "distance_from_center",
-                  "line": 18,
-                  "hit": 1
+                  "var": "name",
+                  "line": 25,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "toks",
+                "value": {
+                  "var": "toks",
+                  "line": 25,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -1030,25 +892,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Translating theoretical context physics into enterprise production systems.",
+            "caption": "Observe how enterprise shapes context during this step.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
+                "label": "deduped",
+                "value": "[]",
                 "tone": "data"
               },
               {
-                "label": "relative_depth",
-                "value": 5,
+                "label": "seen_lines",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "fidelity_start",
-                "value": 0.955,
+                "label": "name",
+                "value": 0,
                 "tone": "data"
               },
               {
-                "label": "distance_from_",
+                "label": "toks",
                 "value": 0,
                 "tone": "data"
               }
@@ -1056,52 +918,52 @@
           },
           {
             "at": "say2",
-            "caption": "The core Python architecture comprises five specialized modules.",
+            "caption": "Verify the context transition driving controller behavior.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
-                "tone": "ok"
+                "label": "deduped",
+                "value": "[['system_rules', 420, 'CRITICAL: Never…",
+                "tone": "data"
               },
               {
-                "label": "relative_depth",
-                "value": 5,
-                "tone": "ok"
+                "label": "seen_lines",
+                "value": "{'CRITICAL: Never emit raw SSN tokens.'…",
+                "tone": "data"
               },
               {
-                "label": "fidelity_start",
-                "value": 0.955,
-                "tone": "ok"
+                "label": "name",
+                "value": "'rag_chunk_a'",
+                "tone": "data"
               },
               {
-                "label": "distance_from_",
-                "value": 0,
-                "tone": "ok"
+                "label": "toks",
+                "value": 1100,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Comprehensive synthetic regression testing suites run continuous automated.",
+            "at": "say3",
+            "caption": "Examine the context value produced for salience processing.",
             "bars": [
               {
-                "label": "context_tokens",
-                "value": 128000,
+                "label": "deduped",
+                "value": "[['system_rules', 420, 'CRITICAL: Never…",
                 "tone": "ok"
               },
               {
-                "label": "relative_depth",
-                "value": 50,
+                "label": "seen_lines",
+                "value": "{'Audit failover SLA compliance.', 'CRI…",
                 "tone": "ok"
               },
               {
-                "label": "fidelity_start",
-                "value": 0.955,
+                "label": "name",
+                "value": "'rag_chunk_a'",
                 "tone": "ok"
               },
               {
-                "label": "distance_from_",
-                "value": 0,
+                "label": "toks",
+                "value": 180,
                 "tone": "ok"
               }
             ]

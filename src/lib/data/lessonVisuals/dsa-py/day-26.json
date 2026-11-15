@@ -596,7 +596,7 @@
           },
           {
             "at": "say2",
-            "caption": "Put them behind clear function names, validate the inputs (no negative.",
+            "caption": "Verify the behind transition driving clear behavior.",
             "items": {
               "var": "coins",
               "line": 6,
@@ -650,7 +650,7 @@
           },
           {
             "at": "say2",
-            "caption": "Put them behind clear function names, validate the inputs (no negative.",
+            "caption": "Verify the behind transition driving clear behavior.",
             "items": [
               "4",
               "6",

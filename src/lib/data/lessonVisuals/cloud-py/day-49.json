@@ -31,6 +31,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because Intelligent-Tiering monitors byte-level access frequency.",
+            "activeActor": "gb_stored",
+            "messages": [
+              {
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": {
+                  "var": "tiers",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "gb_stored",
@@ -45,10 +62,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Because Intelligent-Tiering monitors byte-level access frequency.",
-            "activeActor": "gb_stored",
+            "at": "say9",
+            "caption": "Examine the S3 Intelligent-Tiering access tier state model and cost.",
+            "activeActor": "tier_distribution",
             "messages": [
+              {
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": {
+                  "var": "tiers",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": {
+                  "var": "gb_stored",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "tiers",
                 "to": "gb_stored",
@@ -68,14 +105,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say9",
-            "caption": "Examine the S3 Intelligent-Tiering access tier state model and cost.",
-            "activeActor": "tier_distribution",
-            "messages": [
+              },
               {
                 "from": "tiers",
                 "to": "gb_stored",
@@ -118,12 +148,6 @@
                 "to": "gb_stored",
                 "label": "{'INTEL_FREQUENT': 0.2, 'INTEL_INFREQUE…",
                 "tone": "data"
-              },
-              {
-                "from": "gb_stored",
-                "to": "tier_distribution",
-                "label": "100000",
-                "tone": "ok"
               }
             ],
             "activeActor": "tiers"
@@ -151,6 +175,30 @@
             "at": "say9",
             "caption": "Examine the S3 Intelligent-Tiering access tier state model and cost.",
             "messages": [
+              {
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": "{'INTEL_FREQUENT': 0.2, 'INTEL_INFREQUE…",
+                "tone": "data"
+              },
+              {
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": "100000",
+                "tone": "ok"
+              },
+              {
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": "{'INTEL_FREQUENT': 0.2, 'INTEL_INFREQUE…",
+                "tone": "data"
+              },
+              {
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": "100000",
+                "tone": "ok"
+              },
               {
                 "from": "tiers",
                 "to": "gb_stored",
@@ -322,16 +370,14 @@
                 "hit": 1
               },
               "p3_hash": {
-                "var": "p3_hash",
-                "line": 20,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "data_bytes": "data",
               "p1_hash": "data",
               "p2_hash": "data",
-              "p3_hash": "data"
+              "p3_hash": "idle"
             },
             "arrows": [
               [
@@ -396,7 +442,7 @@
           },
           {
             "at": "say8",
-            "caption": "Review the S3 multipart upload coordinator and composite checksum.",
+            "caption": "Examine the uploading value produced for multi processing.",
             "values": {
               "data_bytes": {
                 "var": "data_bytes",
@@ -468,16 +514,16 @@
             "at": "say1",
             "caption": "High-performance multipart upload pipelines dynamically adjust part sizes.",
             "values": {
-              "data_bytes": "{'__other__': 'bytes'}",
+              "data_bytes": "<bytes>",
               "p1_hash": "'32e3e876dc248ef448d523cf9e79cb9ce105a3…",
               "p2_hash": "'e4c0db82822b157a23c482cabe68875eb0f0a3…",
-              "p3_hash": "'7704c7805172bce4aee6461d869a42e621d547…"
+              "p3_hash": ""
             },
             "tones": {
               "data_bytes": "data",
               "p1_hash": "data",
               "p2_hash": "data",
-              "p3_hash": "data"
+              "p3_hash": "idle"
             },
             "arrows": [
               [
@@ -498,7 +544,7 @@
             "at": "say2",
             "caption": "Calculating mathematical checksums inline during transmission detects.",
             "values": {
-              "data_bytes": "{'__other__': 'bytes'}",
+              "data_bytes": "<bytes>",
               "p1_hash": "'32e3e876dc248ef448d523cf9e79cb9ce105a3…",
               "p2_hash": "'e4c0db82822b157a23c482cabe68875eb0f0a3…",
               "p3_hash": "'7704c7805172bce4aee6461d869a42e621d547…"
@@ -526,9 +572,9 @@
           },
           {
             "at": "say8",
-            "caption": "Review the S3 multipart upload coordinator and composite checksum.",
+            "caption": "Examine the uploading value produced for multi processing.",
             "values": {
-              "data_bytes": "{'__other__': 'bytes'}",
+              "data_bytes": "<bytes>",
               "p1_hash": "'32e3e876dc248ef448d523cf9e79cb9ce105a3…",
               "p2_hash": "'e4c0db82822b157a23c482cabe68875eb0f0a3…",
               "p3_hash": "'7704c7805172bce4aee6461d869a42e621d547…"
@@ -602,16 +648,14 @@
                 "hit": 1
               },
               "target_key": {
-                "var": "target_key",
-                "line": 4,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "versions": "data",
               "bucket_versioned": "data",
               "object_versions": "data",
-              "target_key": "data"
+              "target_key": "idle"
             },
             "arrows": [
               [
@@ -751,13 +795,13 @@
               "versions": "[{'version_id': 'v1_init', 'is_delete_m…",
               "bucket_versioned": "True",
               "object_versions": "[{'version_id': 'v1_init', 'is_delete_m…",
-              "target_key": "'report.pdf'"
+              "target_key": ""
             },
             "tones": {
               "versions": "data",
               "bucket_versioned": "data",
               "object_versions": "data",
-              "target_key": "data"
+              "target_key": "idle"
             },
             "arrows": [
               [
@@ -929,7 +973,7 @@
               },
               "issues": {
                 "var": "issues",
-                "line": 5,
+                "line": 8,
                 "hit": 1
               }
             },
@@ -975,7 +1019,7 @@
               },
               "issues": {
                 "var": "issues",
-                "line": 7,
+                "line": 10,
                 "hit": 1
               }
             },
@@ -1061,7 +1105,7 @@
               "b_compliant": "{'encryption_enabled': True, 'block_pub…",
               "b_risky": "{'encryption_enabled': True, 'block_pub…",
               "bucket_config": "{'encryption_enabled': True, 'block_pub…",
-              "issues": "[]"
+              "issues": "['PUBLIC_ACCESS_ALLOWED']"
             },
             "tones": {
               "b_compliant": "data",
@@ -1091,7 +1135,7 @@
               "b_compliant": "{'encryption_enabled': True, 'block_pub…",
               "b_risky": "{'encryption_enabled': True, 'block_pub…",
               "bucket_config": "{'encryption_enabled': True, 'block_pub…",
-              "issues": "[]"
+              "issues": "['PUBLIC_ACCESS_ALLOWED', 'VERSIONING_D…"
             },
             "tones": {
               "b_compliant": "ok",

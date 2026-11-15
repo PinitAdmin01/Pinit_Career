@@ -248,6 +248,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the stream transition driving modern behavior.",
+            "activeActor": "sink",
+            "messages": [
+              {
+                "from": "self",
+                "to": "sink",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "sink",
@@ -262,10 +279,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how modern updates high during execution.",
-            "activeActor": "sink",
+            "at": "say8",
+            "caption": "When integrating transactional sinks, coordinators must enforce write timeouts.",
+            "activeActor": "tx_id",
             "messages": [
+              {
+                "from": "self",
+                "to": "sink",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sink",
+                "to": "tx_id",
+                "label": {
+                  "var": "sink",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "sink",
@@ -285,14 +322,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "When integrating transactional sinks, coordinators must enforce write timeouts.",
-            "activeActor": "tx_id",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "sink",
@@ -335,19 +365,13 @@
                 "to": "sink",
                 "label": "<TwoPhaseCommitSink>",
                 "tone": "data"
-              },
-              {
-                "from": "sink",
-                "to": "tx_id",
-                "label": "<TwoPhaseCommitSink>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Trace how modern updates high during execution.",
+            "caption": "Verify the stream transition driving modern behavior.",
             "messages": [
               {
                 "from": "self",
@@ -368,6 +392,30 @@
             "at": "say8",
             "caption": "When integrating transactional sinks, coordinators must enforce write timeouts.",
             "messages": [
+              {
+                "from": "self",
+                "to": "sink",
+                "label": "<TwoPhaseCommitSink>",
+                "tone": "data"
+              },
+              {
+                "from": "sink",
+                "to": "tx_id",
+                "label": "<TwoPhaseCommitSink>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "sink",
+                "label": "<TwoPhaseCommitSink>",
+                "tone": "data"
+              },
+              {
+                "from": "sink",
+                "to": "tx_id",
+                "label": "<TwoPhaseCommitSink>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "sink",
@@ -412,6 +460,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When a task manager or worker node dies, the JobManager coordinator.",
+            "activeActor": "coord",
+            "messages": [
+              {
+                "from": "self",
+                "to": "coord",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "coord",
@@ -426,10 +491,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "When a task manager or worker node dies, the JobManager coordinator.",
-            "activeActor": "coord",
+            "at": "say8",
+            "caption": "Examine the once value produced for processing processing.",
+            "activeActor": "writer_epoch",
             "messages": [
+              {
+                "from": "self",
+                "to": "coord",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "coord",
+                "to": "writer_epoch",
+                "label": {
+                  "var": "coord",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "coord",
@@ -449,14 +534,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Modern streaming architectures employ incremental checkpointing.",
-            "activeActor": "writer_epoch",
-            "messages": [
+              },
               {
                 "from": "self",
                 "to": "coord",
@@ -499,12 +577,6 @@
                 "to": "coord",
                 "label": "<StreamCoordinator>",
                 "tone": "data"
-              },
-              {
-                "from": "coord",
-                "to": "writer_epoch",
-                "label": "<StreamCoordinator>",
-                "tone": "ok"
               }
             ],
             "activeActor": "self"
@@ -530,8 +602,32 @@
           },
           {
             "at": "say8",
-            "caption": "Modern streaming architectures employ incremental checkpointing.",
+            "caption": "Examine the once value produced for processing processing.",
             "messages": [
+              {
+                "from": "self",
+                "to": "coord",
+                "label": "<StreamCoordinator>",
+                "tone": "data"
+              },
+              {
+                "from": "coord",
+                "to": "writer_epoch",
+                "label": "<StreamCoordinator>",
+                "tone": "ok"
+              },
+              {
+                "from": "self",
+                "to": "coord",
+                "label": "<StreamCoordinator>",
+                "tone": "data"
+              },
+              {
+                "from": "coord",
+                "to": "writer_epoch",
+                "label": "<StreamCoordinator>",
+                "tone": "ok"
+              },
               {
                 "from": "self",
                 "to": "coord",
@@ -576,6 +672,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Platform site reliability engineers track four golden streaming telemetry.",
+            "activeActor": "skewed",
+            "messages": [
+              {
+                "from": "healthy",
+                "to": "skewed",
+                "label": {
+                  "var": "healthy",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "skewed",
@@ -590,10 +703,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Platform site reliability engineers track four golden streaming telemetry.",
-            "activeActor": "skewed",
+            "at": "say7",
+            "caption": "Examine the stream value produced for processing processing.",
+            "activeActor": "telemetry",
             "messages": [
+              {
+                "from": "healthy",
+                "to": "skewed",
+                "label": {
+                  "var": "healthy",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "skewed",
+                "to": "telemetry",
+                "label": {
+                  "var": "skewed",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "healthy",
                 "to": "skewed",
@@ -613,14 +746,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Synthetic canary tracer messages should be injected at regular intervals.",
-            "activeActor": "telemetry",
-            "messages": [
+              },
               {
                 "from": "healthy",
                 "to": "skewed",
@@ -663,12 +789,6 @@
                 "to": "skewed",
                 "label": "{'checkpoint_duration_ms': 450, 'alignm…",
                 "tone": "data"
-              },
-              {
-                "from": "skewed",
-                "to": "telemetry",
-                "label": "{'checkpoint_duration_ms': 2200, 'align…",
-                "tone": "ok"
               }
             ],
             "activeActor": "healthy"
@@ -694,8 +814,32 @@
           },
           {
             "at": "say7",
-            "caption": "Synthetic canary tracer messages should be injected at regular intervals.",
+            "caption": "Examine the stream value produced for processing processing.",
             "messages": [
+              {
+                "from": "healthy",
+                "to": "skewed",
+                "label": "{'checkpoint_duration_ms': 450, 'alignm…",
+                "tone": "data"
+              },
+              {
+                "from": "skewed",
+                "to": "telemetry",
+                "label": "{'checkpoint_duration_ms': 2200, 'align…",
+                "tone": "ok"
+              },
+              {
+                "from": "healthy",
+                "to": "skewed",
+                "label": "{'checkpoint_duration_ms': 450, 'alignm…",
+                "tone": "data"
+              },
+              {
+                "from": "skewed",
+                "to": "telemetry",
+                "label": "{'checkpoint_duration_ms': 2200, 'align…",
+                "tone": "ok"
+              },
               {
                 "from": "healthy",
                 "to": "skewed",

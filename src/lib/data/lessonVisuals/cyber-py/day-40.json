@@ -124,16 +124,14 @@
                 "hit": 1
               },
               "s": {
-                "var": "s",
-                "line": 40,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "secret": "data",
               "h": "data",
               "p": "data",
-              "s": "data"
+              "s": "idle"
             }
           },
           {
@@ -170,7 +168,7 @@
           },
           {
             "at": "say9",
-            "caption": "Edge security gateways maintain synchronized session states across.",
+            "caption": "Examine the ordering value produced for cheap processing.",
             "values": {
               "secret": {
                 "var": "secret",
@@ -228,23 +226,23 @@
             "at": "say1",
             "caption": "The `UnifiedZeroTrustGateway` processes inbound HTTP requests through.",
             "values": {
-              "secret": "{'__other__': 'bytes'}",
+              "secret": "<bytes>",
               "h": "'eyJhbGciOiAiSFMyNTYifQ'",
               "p": "'eyJzdWIiOiAidXNlcjphbGljZSJ9'",
-              "s": "'JqHHCFAjZJGiLoc7Na-g8TXWm94qHRCQDplTFs…"
+              "s": ""
             },
             "tones": {
               "secret": "data",
               "h": "data",
               "p": "data",
-              "s": "data"
+              "s": "idle"
             }
           },
           {
             "at": "say2",
             "caption": "In Stage 1 (Identity), the gateway extracts the Bearer token, validates.",
             "values": {
-              "secret": "{'__other__': 'bytes'}",
+              "secret": "<bytes>",
               "h": "'eyJhbGciOiAiSFMyNTYifQ'",
               "p": "'eyJzdWIiOiAidXNlcjphbGljZSJ9'",
               "s": "'JqHHCFAjZJGiLoc7Na-g8TXWm94qHRCQDplTFs…"
@@ -258,9 +256,9 @@
           },
           {
             "at": "say9",
-            "caption": "Edge security gateways maintain synchronized session states across.",
+            "caption": "Examine the ordering value produced for cheap processing.",
             "values": {
-              "secret": "{'__other__': 'bytes'}",
+              "secret": "<bytes>",
               "h": "'eyJhbGciOiAiSFMyNTYifQ'",
               "p": "'eyJzdWIiOiAidXNlcjphbGljZSJ9'",
               "s": "'JqHHCFAjZJGiLoc7Na-g8TXWm94qHRCQDplTFs…"
@@ -362,8 +360,8 @@
               },
               "user": {
                 "var": "user",
-                "line": 11,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "action": {
                 "var": "action",
@@ -394,7 +392,7 @@
           },
           {
             "at": "say9",
-            "caption": "Granular authorization caching policies prevent duplicate graph traversals.",
+            "caption": "Examine the highthroughputpolicycache value produced for holds processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -409,7 +407,7 @@
               "user": {
                 "var": "user",
                 "line": 6,
-                "hit": 1
+                "hit": 2
               },
               "action": {
                 "var": "action",
@@ -498,7 +496,7 @@
             "values": {
               "self": "<HighThroughputPolicyCache>",
               "cache": "<HighThroughputPolicyCache>",
-              "user": "'user:alice'",
+              "user": "'user:bob'",
               "action": "'read'"
             },
             "tones": {
@@ -524,11 +522,11 @@
           },
           {
             "at": "say9",
-            "caption": "Granular authorization caching policies prevent duplicate graph traversals.",
+            "caption": "Examine the highthroughputpolicycache value produced for holds processing.",
             "values": {
               "self": "<HighThroughputPolicyCache>",
               "cache": "<HighThroughputPolicyCache>",
-              "user": "'user:alice'",
+              "user": "'user:bob'",
               "action": "'read'"
             },
             "tones": {
@@ -763,7 +761,7 @@
           },
           {
             "at": "say8",
-            "caption": "Passing Milestone 8 proves that the application layer provides.",
+            "caption": "Adversarial simulation suites test full attack chains—combining forged alg.",
             "currentState": "rebac_abac",
             "transition": {
               "from": "jwt_valid",
@@ -815,7 +813,7 @@
           },
           {
             "at": "say8",
-            "caption": "Passing Milestone 8 proves that the application layer provides.",
+            "caption": "Adversarial simulation suites test full attack chains—combining forged alg.",
             "currentState": "rebac_abac",
             "transition": {
               "from": "jwt_valid",

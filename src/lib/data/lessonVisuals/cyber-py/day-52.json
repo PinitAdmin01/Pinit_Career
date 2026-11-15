@@ -106,7 +106,7 @@
             "transition": {
               "from": "name",
               "to": "meta",
-              "label": "{'magic': {'__other__': 'bytes'}, 'offs…"
+              "label": "{'magic': <bytes>, 'offset': 0, 'desc':…"
             },
             "tone": "ok"
           }
@@ -158,16 +158,14 @@
                 "hit": 1
               },
               "claimed_extension": {
-                "var": "claimed_extension",
-                "line": 11,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "legit_pdf": "data",
               "spoofed_pdf": "data",
               "raw_bytes": "data",
-              "claimed_extension": "data"
+              "claimed_extension": "idle"
             }
           },
           {
@@ -262,25 +260,25 @@
             "at": "say1",
             "caption": "The magic header verification algorithm extracts the leading slice of raw.",
             "values": {
-              "legit_pdf": "{'__other__': 'bytes'}",
-              "spoofed_pdf": "{'__other__': 'bytes'}",
-              "raw_bytes": "{'__other__': 'bytes'}",
-              "claimed_extension": "'pdf'"
+              "legit_pdf": "<bytes>",
+              "spoofed_pdf": "<bytes>",
+              "raw_bytes": "<bytes>",
+              "claimed_extension": ""
             },
             "tones": {
               "legit_pdf": "data",
               "spoofed_pdf": "data",
               "raw_bytes": "data",
-              "claimed_extension": "data"
+              "claimed_extension": "idle"
             }
           },
           {
             "at": "say2",
             "caption": "The table maps canonical file extensions to their expected magic byte.",
             "values": {
-              "legit_pdf": "{'__other__': 'bytes'}",
-              "spoofed_pdf": "{'__other__': 'bytes'}",
-              "raw_bytes": "{'__other__': 'bytes'}",
+              "legit_pdf": "<bytes>",
+              "spoofed_pdf": "<bytes>",
+              "raw_bytes": "<bytes>",
               "claimed_extension": "'pdf'"
             },
             "tones": {
@@ -294,9 +292,9 @@
             "at": "say10",
             "caption": "API gateways enforce strict magic byte validation across all multipart.",
             "values": {
-              "legit_pdf": "{'__other__': 'bytes'}",
-              "spoofed_pdf": "{'__other__': 'bytes'}",
-              "raw_bytes": "{'__other__': 'bytes'}",
+              "legit_pdf": "<bytes>",
+              "spoofed_pdf": "<bytes>",
+              "raw_bytes": "<bytes>",
               "claimed_extension": "'pdf'"
             },
             "tones": {
@@ -354,16 +352,14 @@
                 "hit": 1
               },
               "signatures": {
-                "var": "signatures",
-                "line": 6,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "sample_binary": "data",
               "yara_rules": "data",
               "raw_bytes": "data",
-              "signatures": "data"
+              "signatures": "idle"
             },
             "arrows": [
               [
@@ -500,16 +496,16 @@
             "at": "say1",
             "caption": "Beyond file headers, threat hunters inspect the entire binary body.",
             "values": {
-              "sample_binary": "{'__other__': 'bytes'}",
-              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…",
-              "raw_bytes": "{'__other__': 'bytes'}",
-              "signatures": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…"
+              "sample_binary": "<bytes>",
+              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': <bytes>, 'CM…",
+              "raw_bytes": "<bytes>",
+              "signatures": ""
             },
             "tones": {
               "sample_binary": "data",
               "yara_rules": "data",
               "raw_bytes": "data",
-              "signatures": "data"
+              "signatures": "idle"
             },
             "arrows": [
               [
@@ -530,10 +526,10 @@
             "at": "say2",
             "caption": "YARA-style pattern matching scans contiguous binary buffers for strings.",
             "values": {
-              "sample_binary": "{'__other__': 'bytes'}",
-              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…",
-              "raw_bytes": "{'__other__': 'bytes'}",
-              "signatures": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…"
+              "sample_binary": "<bytes>",
+              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': <bytes>, 'CM…",
+              "raw_bytes": "<bytes>",
+              "signatures": "{'SUSPICIOUS_EVAL_DECODE': <bytes>, 'CM…"
             },
             "tones": {
               "sample_binary": "data",
@@ -560,10 +556,10 @@
             "at": "say10",
             "caption": "Incident responders deploy YARA byte signatures across memory dumps.",
             "values": {
-              "sample_binary": "{'__other__': 'bytes'}",
-              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…",
-              "raw_bytes": "{'__other__': 'bytes'}",
-              "signatures": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…"
+              "sample_binary": "<bytes>",
+              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': <bytes>, 'CM…",
+              "raw_bytes": "<bytes>",
+              "signatures": "{'SUSPICIOUS_EVAL_DECODE': <bytes>, 'CM…"
             },
             "tones": {
               "sample_binary": "ok",
@@ -615,6 +611,23 @@
                   "hit": 1
                 },
                 "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify the byte transition driving attackers behavior.",
+            "activeActor": "truncated_header",
+            "messages": [
+              {
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": {
+                  "var": "valid_header",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
                 "from": "truncated_header",
@@ -629,10 +642,30 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Trace how attackers updates frequently during execution.",
-            "activeActor": "truncated_header",
+            "at": "say10",
+            "caption": "Examine the byte value produced for failure processing.",
+            "activeActor": "raw_bytes",
             "messages": [
+              {
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": {
+                  "var": "valid_header",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": {
+                  "var": "truncated_header",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
               {
                 "from": "valid_header",
                 "to": "truncated_header",
@@ -652,14 +685,7 @@
                   "hit": 1
                 },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say10",
-            "caption": "Fuzz testing file ingestion pipelines ensures that malformed, empty,.",
-            "activeActor": "raw_bytes",
-            "messages": [
+              },
               {
                 "from": "valid_header",
                 "to": "truncated_header",
@@ -700,32 +726,26 @@
               {
                 "from": "valid_header",
                 "to": "truncated_header",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
-              },
-              {
-                "from": "truncated_header",
-                "to": "raw_bytes",
-                "label": "{'__other__': 'bytes'}",
-                "tone": "ok"
               }
             ],
             "activeActor": "valid_header"
           },
           {
             "at": "say2",
-            "caption": "Trace how attackers updates frequently during execution.",
+            "caption": "Verify the byte transition driving attackers behavior.",
             "messages": [
               {
                 "from": "valid_header",
                 "to": "truncated_header",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
                 "from": "truncated_header",
                 "to": "raw_bytes",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "ok"
               }
             ],
@@ -733,18 +753,42 @@
           },
           {
             "at": "say10",
-            "caption": "Fuzz testing file ingestion pipelines ensures that malformed, empty,.",
+            "caption": "Examine the byte value produced for failure processing.",
             "messages": [
               {
                 "from": "valid_header",
                 "to": "truncated_header",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
                 "tone": "data"
               },
               {
                 "from": "truncated_header",
                 "to": "raw_bytes",
-                "label": "{'__other__': 'bytes'}",
+                "label": "<bytes>",
+                "tone": "ok"
+              },
+              {
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": "<bytes>",
+                "tone": "ok"
+              },
+              {
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": "<bytes>",
+                "tone": "data"
+              },
+              {
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": "<bytes>",
                 "tone": "ok"
               }
             ],

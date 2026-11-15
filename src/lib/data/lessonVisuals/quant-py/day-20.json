@@ -50,16 +50,14 @@
                 "hit": 1
               },
               "mu_b": {
-                "var": "mu_b",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "w": "data",
               "mu_a": "data",
               "sig_a": "data",
-              "mu_b": "data"
+              "mu_b": "idle"
             },
             "arrows": [
               [
@@ -199,13 +197,13 @@
               "w": "0.5",
               "mu_a": "0.1",
               "sig_a": "0.2",
-              "mu_b": "0.06"
+              "mu_b": ""
             },
             "tones": {
               "w": "data",
               "mu_a": "data",
               "sig_a": "data",
-              "mu_b": "data"
+              "mu_b": "idle"
             },
             "arrows": [
               [
@@ -724,7 +722,7 @@
           },
           {
             "at": "say2",
-            "caption": "Small changes in estimated returns can swing optimal weights wildly,.",
+            "caption": "Verify the error transition driving small behavior.",
             "bars": [
               {
                 "label": "mu_a",
@@ -840,7 +838,7 @@
           },
           {
             "at": "say2",
-            "caption": "Small changes in estimated returns can swing optimal weights wildly,.",
+            "caption": "Verify the error transition driving small behavior.",
             "bars": [
               {
                 "label": "mu_a",
@@ -944,7 +942,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates zero during execution.",
+            "caption": "Verify the checks transition driving zero behavior.",
             "bars": [
               {
                 "label": "sa",
@@ -986,7 +984,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how tomorrow updates milestone during execution.",
+            "caption": "Examine the tomorrow value produced for milestone processing.",
             "bars": [
               {
                 "label": "sa",
@@ -1060,7 +1058,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how checks updates zero during execution.",
+            "caption": "Verify the checks transition driving zero behavior.",
             "bars": [
               {
                 "label": "sa",
@@ -1086,7 +1084,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace how tomorrow updates milestone during execution.",
+            "caption": "Examine the tomorrow value produced for milestone processing.",
             "bars": [
               {
                 "label": "sa",

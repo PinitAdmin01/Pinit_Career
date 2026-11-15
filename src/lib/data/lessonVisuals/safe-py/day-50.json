@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Governance Control Plane — Foundations & Mathematical Invariants",
+      "partTitle": "Stateful Attack Ledger inside `RedTeamHarnessM10`",
       "codeHash": "6cf72407217943d4c2012bdd8a78b3333ef04f36cb60abb3bdeaad7ddc5ce337",
       "spec": {
         "template": "flow",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Inspect milestone updates as self tracks establishes state.",
             "values": {
               "self": {
                 "var": "self",
@@ -78,7 +78,7 @@
           },
           {
             "at": "say2",
-            "caption": "Production models must simultaneously demonstrate high robustness against.",
+            "caption": "Verify the production transition driving models behavior.",
             "values": {
               "self": {
                 "var": "self",
@@ -92,13 +92,13 @@
               },
               "attack_name": {
                 "var": "attack_name",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "guardrail_active": {
                 "var": "guardrail_active",
-                "line": 7,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -124,7 +124,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the attack value produced for inside processing.",
             "values": {
               "self": {
                 "var": "self",
@@ -138,13 +138,13 @@
               },
               "attack_name": {
                 "var": "attack_name",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               },
               "guardrail_active": {
                 "var": "guardrail_active",
-                "line": 8,
-                "hit": 1
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
@@ -194,7 +194,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Trace how milestone updates establishes during execution.",
+            "caption": "Inspect milestone updates as self tracks establishes state.",
             "values": {
               "self": "<RedTeamHarnessM10>",
               "harness": "<RedTeamHarnessM10>",
@@ -224,12 +224,12 @@
           },
           {
             "at": "say2",
-            "caption": "Production models must simultaneously demonstrate high robustness against.",
+            "caption": "Verify the production transition driving models behavior.",
             "values": {
               "self": "<RedTeamHarnessM10>",
               "harness": "<RedTeamHarnessM10>",
-              "attack_name": "'Jailbreak_ROT13'",
-              "guardrail_active": "True"
+              "attack_name": "'Jailbreak_Base64'",
+              "guardrail_active": "False"
             },
             "tones": {
               "self": "data",
@@ -254,12 +254,12 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
+            "caption": "Examine the attack value produced for inside processing.",
             "values": {
               "self": "<RedTeamHarnessM10>",
               "harness": "<RedTeamHarnessM10>",
-              "attack_name": "'Jailbreak_ROT13'",
-              "guardrail_active": "True"
+              "attack_name": "'Jailbreak_Base64'",
+              "guardrail_active": "False"
             },
             "tones": {
               "self": "ok",
@@ -286,8 +286,8 @@
       }
     },
     {
-      "partTitle": "Governance Control Plane — Core Algorithm & State Representation",
-      "codeHash": "d0c8facfe5e1cc9ca06fb14199ab15c7d745387c2d77deda2a1dad4336a88726",
+      "partTitle": "Dual Safety-Fairness Gating in `evaluate_dual_fairness_and_safety`",
+      "codeHash": "1c6ef5e8abf3897fcd6e534de7950e1670318568da117ff47f1688fd151e3b70",
       "spec": {
         "template": "bars",
         "title": "Governance Control Plane — Core Algorithm & State Representation",
@@ -342,7 +342,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Joint gating stops one dimension's improvement from silently breaking its twin.",
             "bars": [
               {
                 "label": "asr",
@@ -404,7 +404,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Joint gating stops one dimension's improvement from silently breaking its twin.",
             "bars": [
               {
                 "label": "asr",
@@ -422,7 +422,7 @@
       }
     },
     {
-      "partTitle": "Governance Control Plane — Production Implementation & Boundary Mechanics",
+      "partTitle": "True & False Positive Equality via `EqualizedOddsEvaluator`",
       "codeHash": "79dde2254cda39282df46aeccf0e9e797accb908bd30e9d104a5fab8d75c285d",
       "spec": {
         "template": "bars",
@@ -514,7 +514,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for red-team harness.",
+            "caption": "Auditing both error channels directly prevents hidden accuracy inequality.",
             "bars": [
               {
                 "label": "tpr_a",
@@ -614,7 +614,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for red-team harness.",
+            "caption": "Auditing both error channels directly prevents hidden accuracy inequality.",
             "bars": [
               {
                 "label": "tpr_a",
@@ -642,7 +642,7 @@
       }
     },
     {
-      "partTitle": "Governance Control Plane — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "SHA-256 Governance Snapshots in `export_m10_governance_snapshot`",
       "codeHash": "02d817a4e238ce848bcb78b418e166f8a64ff0365527bdd57801b0cae4d29b14",
       "spec": {
         "template": "states",
@@ -685,7 +685,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the governance value produced for snapshots processing.",
             "currentState": "passes",
             "transition": {
               "from": "di",
@@ -737,7 +737,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the governance value produced for snapshots processing.",
             "currentState": "passes",
             "transition": {
               "from": "di",
@@ -750,7 +750,7 @@
       }
     },
     {
-      "partTitle": "Governance Control Plane — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "Automated Executive Release Signoff via `generate_m10_executive_signoff`",
       "codeHash": "666436c6f71e4c7c443a490608758e88bc7cc7d72e8b41c17fb28323061489e3",
       "spec": {
         "template": "states",

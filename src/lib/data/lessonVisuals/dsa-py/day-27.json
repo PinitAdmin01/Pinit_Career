@@ -54,7 +54,7 @@
           },
           {
             "at": "say2",
-            "caption": "A subsequence keeps letters in their order but may skip some.",
+            "caption": "\"ace\" is a subsequence of \"abcde\"; \"aec\" is not, because the order changed.",
             "values": {
               "small": {
                 "var": "small",
@@ -140,7 +140,7 @@
           },
           {
             "at": "say2",
-            "caption": "A subsequence keeps letters in their order but may skip some.",
+            "caption": "\"ace\" is a subsequence of \"abcde\"; \"aec\" is not, because the order changed.",
             "values": {
               "small": "'ace'",
               "big": "'abcde'",
@@ -413,7 +413,7 @@
           },
           {
             "at": "say2",
-            "caption": "Dp[i][j] is the edit distance between the first i letters of word1 and.",
+            "caption": "Verify the edit transition driving distance behavior.",
             "bars": [
               {
                 "label": "m",
@@ -529,7 +529,7 @@
           },
           {
             "at": "say2",
-            "caption": "Dp[i][j] is the edit distance between the first i letters of word1 and.",
+            "caption": "Verify the edit transition driving distance behavior.",
             "bars": [
               {
                 "label": "m",

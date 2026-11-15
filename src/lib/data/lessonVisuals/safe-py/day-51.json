@@ -6,115 +6,121 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Immutable Audit Logs — Foundations & Mathematical Invariants",
-      "codeHash": "4a42fe9fbcfbe9c1c3dbc3c080c74c29d853aa17f164f8dc4275f17a501e9acd",
+      "partTitle": "Genesis & Chained Block Hashing in `calculate_block_hash`",
+      "codeHash": "c9179f037f0a516bdb8bc098dc36e28b6b4128966ffa22af54ea9c28de913785",
       "spec": {
-        "template": "states",
-        "title": "Immutable Audit Logs — Foundations & Mathematical Invariants",
-        "states": [
-          {
-            "id": "genesis_hash",
-            "label": "genesis_hash"
-          },
-          {
-            "id": "prev_hash",
-            "label": "prev_hash"
-          },
+        "template": "flow",
+        "title": "Genesis & Chained Block Hashing in `calculate_block_hash`",
+        "nodes": [
           {
             "id": "payload",
-            "label": "payload"
+            "label": "payload",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "In enterprise safety governance, logging what happened is not enough.",
-            "currentState": "genesis_hash",
-            "tone": "data"
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 4,
+                "hit": 1
+              },
+              "out": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "payload": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Traditional database rows can be altered, truncated, or deleted.",
-            "currentState": "prev_hash",
-            "transition": {
-              "from": "genesis_hash",
-              "to": "prev_hash",
-              "label": {
-                "var": "prev_hash",
-                "line": 5,
-                "hit": 1
-              }
-            },
-            "tone": "data"
-          },
-          {
-            "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
-            "currentState": "payload",
-            "transition": {
-              "from": "prev_hash",
-              "to": "payload",
-              "label": {
+            "caption": "Verify the traditional transition driving database behavior.",
+            "values": {
+              "payload": {
                 "var": "payload",
-                "line": 5,
-                "hit": 1
+                "line": 4,
+                "hit": 2
+              },
+              "out": {
+                "out": 1
               }
             },
-            "tone": "ok"
+            "tones": {
+              "payload": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Immutable Audit Logs — Foundations & Mathematical Invariants",
-        "states": [
-          {
-            "id": "genesis_hash",
-            "label": "genesis_hash"
-          },
-          {
-            "id": "prev_hash",
-            "label": "prev_hash"
-          },
+        "template": "flow",
+        "title": "Genesis & Chained Block Hashing in `calculate_block_hash`",
+        "nodes": [
           {
             "id": "payload",
-            "label": "payload"
+            "label": "payload",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "output",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "In enterprise safety governance, logging what happened is not enough.",
-            "currentState": "genesis_hash",
-            "tone": "data"
+            "values": {
+              "payload": "'UserLogin: alice'",
+              "out": ""
+            },
+            "tones": {
+              "payload": "data",
+              "out": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "Traditional database rows can be altered, truncated, or deleted.",
-            "currentState": "prev_hash",
-            "transition": {
-              "from": "genesis_hash",
-              "to": "prev_hash",
-              "label": "'00000000000000000000000000000000000000…"
+            "caption": "Verify the traditional transition driving database behavior.",
+            "values": {
+              "payload": "'UserLogin: bob'",
+              "out": "Block 1 Hash: 5623a0d898893757... (SHA-256 Chain Verified)"
             },
-            "tone": "data"
-          },
-          {
-            "at": "say12",
-            "caption": "Validating these foundational guarantees early protects downstream.",
-            "currentState": "payload",
-            "transition": {
-              "from": "prev_hash",
-              "to": "payload",
-              "label": "'UserLogin: alice'"
+            "tones": {
+              "payload": "ok",
+              "out": "ok"
             },
-            "tone": "ok"
+            "arrows": [
+              [
+                "payload",
+                "out"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Immutable Audit Logs — Core Algorithm & State Representation",
+      "partTitle": "Append-Only Ledger Mechanics inside `AuditLogChain`",
       "codeHash": "9e3c70ec3bc6c0dce8342c9d437a106637195d6fc25f692eb53f09a5c4b71f41",
       "spec": {
         "template": "states",
@@ -157,7 +163,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the append value produced for inside processing.",
             "currentState": "action",
             "transition": {
               "from": "log",
@@ -209,7 +215,7 @@
           },
           {
             "at": "say12",
-            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "caption": "Examine the append value produced for inside processing.",
             "currentState": "action",
             "transition": {
               "from": "log",
@@ -222,7 +228,7 @@
       }
     },
     {
-      "partTitle": "Immutable Audit Logs — Production Implementation & Boundary Mechanics",
+      "partTitle": "Dual Chain & Hash Verification via `verify_chain_integrity`",
       "codeHash": "183e313c1b1fba2a2e318fdc10a16f93e75e86d0d0876bcbc5a4f44736e33fc5",
       "spec": {
         "template": "states",
@@ -265,7 +271,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for immutable audit.",
+            "caption": "Examine the chain value produced for hash processing.",
             "currentState": "prev",
             "transition": {
               "from": "chain",
@@ -317,7 +323,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough latency profiling confirms that P99 overhead for immutable audit.",
+            "caption": "Examine the chain value produced for hash processing.",
             "currentState": "prev",
             "transition": {
               "from": "chain",
@@ -330,7 +336,7 @@
       }
     },
     {
-      "partTitle": "Immutable Audit Logs — Failure Modes, Hardware Bottlenecks & Debugging",
+      "partTitle": "Exact Corrupt Index Localization in `detect_tampered_entry`",
       "codeHash": "fae137d96ed5fc9def214bacaf9a0871c4751eded45d6f4cab820a7b3f2752cd",
       "spec": {
         "template": "states",
@@ -373,7 +379,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the exact value produced for index processing.",
             "currentState": "i",
             "transition": {
               "from": "chain",
@@ -425,7 +431,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating adversarial penetration and node failover validates.",
+            "caption": "Examine the exact value produced for index processing.",
             "currentState": "i",
             "transition": {
               "from": "chain",
@@ -438,7 +444,7 @@
       }
     },
     {
-      "partTitle": "Immutable Audit Logs — Production Capstone & Enterprise SRE Integration",
+      "partTitle": "External Transparency Manifests via `generate_audit_export_manifest`",
       "codeHash": "b9d734d1d26ce5b66b5938236c1ca91d74c00c96711d47f56f8212c26acbb4fc",
       "spec": {
         "template": "flow",
@@ -464,14 +470,12 @@
                 "hit": 1
               },
               "head_hash": {
-                "var": "head_hash",
-                "line": 3,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "chain_len": "data",
-              "head_hash": "data"
+              "head_hash": "idle"
             },
             "arrows": [
               [
@@ -482,7 +486,7 @@
           },
           {
             "at": "say2",
-            "caption": "The manifest includes the ledger type, total record count, and.",
+            "caption": "Verify the manifest transition driving includes behavior.",
             "values": {
               "chain_len": {
                 "var": "chain_len",
@@ -508,7 +512,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the external value produced for manifests processing.",
             "values": {
               "chain_len": {
                 "var": "chain_len",
@@ -553,11 +557,11 @@
             "caption": "The generate_audit_export_manifest function packages ledger metadata.",
             "values": {
               "chain_len": "542",
-              "head_hash": "'e3b0c44298fc1c149afbf4c8996fb92427ae41…"
+              "head_hash": ""
             },
             "tones": {
               "chain_len": "data",
-              "head_hash": "data"
+              "head_hash": "idle"
             },
             "arrows": [
               [
@@ -568,7 +572,7 @@
           },
           {
             "at": "say2",
-            "caption": "The manifest includes the ledger type, total record count, and.",
+            "caption": "Verify the manifest transition driving includes behavior.",
             "values": {
               "chain_len": "542",
               "head_hash": "'e3b0c44298fc1c149afbf4c8996fb92427ae41…"
@@ -586,7 +590,7 @@
           },
           {
             "at": "say12",
-            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "caption": "Examine the external value produced for manifests processing.",
             "values": {
               "chain_len": "542",
               "head_hash": "'e3b0c44298fc1c149afbf4c8996fb92427ae41…"

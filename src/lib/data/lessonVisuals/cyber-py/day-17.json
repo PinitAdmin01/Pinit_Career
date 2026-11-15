@@ -522,7 +522,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how yaml updates yaml during execution.",
+            "caption": "Verify the yaml transition driving safe behavior.",
             "activeActor": "fn",
             "messages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how yaml updates yaml during execution.",
+            "caption": "Verify the yaml transition driving safe behavior.",
             "messages": [
               {
                 "from": "loaders",
@@ -820,7 +820,7 @@
             "transition": {
               "from": "published",
               "to": "tampered",
-              "label": "{'__other__': 'bytes'}"
+              "label": "<bytes>"
             },
             "tone": "ok"
           }

@@ -6,7 +6,7 @@
   "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Retrieval Evaluation Suite — Foundations & Mathematical Invariants",
+      "partTitle": "Measuring Coverage Ratios Across Cutoffs with Recall@K",
       "codeHash": "9f7e364f678f67c8366b7577c1704da4dfad1b21d3653a252604bb39a9cc3cfb",
       "spec": {
         "template": "cells",
@@ -46,7 +46,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the across value produced for recall processing.",
             "items": {
               "var": "ret",
               "line": 9,
@@ -104,7 +104,7 @@
           },
           {
             "at": "say12",
-            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "caption": "Examine the across value produced for recall processing.",
             "items": [
               "10",
               "20",
@@ -124,7 +124,7 @@
       }
     },
     {
-      "partTitle": "Retrieval Evaluation Suite — Core Algorithm & State Representation",
+      "partTitle": "First Relevant Rank Evaluation via Mean Reciprocal Rank",
       "codeHash": "5c7de3550dd883db071c246620ad5962d3343fbaff5fae04e76da2c3d3cb9b5e",
       "spec": {
         "template": "cells",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In navigational and known-item search scenarios, users seek a.",
+            "caption": "Observe how navigational shapes known during this step.",
             "items": {
               "var": "docs",
               "line": 7,
@@ -164,7 +164,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the rank value produced for using processing.",
             "items": {
               "var": "docs",
               "line": 9,
@@ -186,7 +186,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "In navigational and known-item search scenarios, users seek a.",
+            "caption": "Observe how navigational shapes known during this step.",
             "items": [
               "101",
               "102",
@@ -218,7 +218,7 @@
           },
           {
             "at": "say12",
-            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "caption": "Examine the rank value produced for using processing.",
             "items": [
               "101",
               "102",
@@ -236,7 +236,7 @@
       }
     },
     {
-      "partTitle": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case Handling",
+      "partTitle": "Graded Relevance Ranking Quality with Discounted nDCG@K",
       "codeHash": "c60ba395fdf3820c9c5b8b0781d1455ea6db76f6d0d330388d6caf153265b950",
       "spec": {
         "template": "flow",
@@ -280,16 +280,14 @@
                 "hit": 1
               },
               "relevance_map": {
-                "var": "relevance_map",
-                "line": 5,
-                "hit": 1
+                "text": ""
               }
             },
             "tones": {
               "ret_list": "data",
               "rel_scores": "data",
               "retrieved_ids": "data",
-              "relevance_map": "data"
+              "relevance_map": "idle"
             },
             "arrows": [
               [
@@ -354,7 +352,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the ndcg value produced for watching processing.",
             "values": {
               "ret_list": {
                 "var": "ret_list",
@@ -429,13 +427,13 @@
               "ret_list": "[1, 2, 3]",
               "rel_scores": "{1: 3, 2: 1, 3: 2}",
               "retrieved_ids": "[1, 2, 3]",
-              "relevance_map": "{1: 3, 2: 1, 3: 2}"
+              "relevance_map": ""
             },
             "tones": {
               "ret_list": "data",
               "rel_scores": "data",
               "retrieved_ids": "data",
-              "relevance_map": "data"
+              "relevance_map": "idle"
             },
             "arrows": [
               [
@@ -484,7 +482,7 @@
           },
           {
             "at": "say12",
-            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "caption": "Examine the ndcg value produced for watching processing.",
             "values": {
               "ret_list": "[1, 2, 3]",
               "rel_scores": "{1: 3, 2: 1, 3: 2}",
@@ -516,8 +514,8 @@
       }
     },
     {
-      "partTitle": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Recovery",
-      "codeHash": "43e54b60981eef6afa937a4f3c8735c1bfe177fb2eca10c4de8f3270dae73fbc",
+      "partTitle": "Normalized Metric Range Validation in Automated Eval Pipelines",
+      "codeHash": "1b2983503f7d4776c5a16fb92dcf30b6f54fd9e1b4ec0b156d9ddad16eac619c",
       "spec": {
         "template": "bars",
         "title": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Rec",
@@ -590,7 +588,7 @@
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the testing value produced for endpoints processing.",
             "bars": [
               {
                 "label": "recall",
@@ -633,17 +631,17 @@
             "bars": [
               {
                 "label": "recall",
-                "value": 0.95,
+                "value": 1.05,
                 "tone": "data"
               },
               {
                 "label": "mrr",
-                "value": 0.85,
+                "value": 0.8,
                 "tone": "data"
               },
               {
                 "label": "ndcg",
-                "value": 0.92,
+                "value": 0.9,
                 "tone": "data"
               }
             ]
@@ -654,38 +652,38 @@
             "bars": [
               {
                 "label": "recall",
-                "value": 0.95,
+                "value": 1.05,
                 "tone": "ok"
               },
               {
                 "label": "mrr",
-                "value": 0.85,
+                "value": 0.8,
                 "tone": "ok"
               },
               {
                 "label": "ndcg",
-                "value": 0.92,
+                "value": 0.9,
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say12",
-            "caption": "Simulating network partitions and node crashes under load validates.",
+            "caption": "Examine the testing value produced for endpoints processing.",
             "bars": [
               {
                 "label": "recall",
-                "value": 0.95,
+                "value": 1.05,
                 "tone": "ok"
               },
               {
                 "label": "mrr",
-                "value": 0.85,
+                "value": 0.8,
                 "tone": "ok"
               },
               {
                 "label": "ndcg",
-                "value": 0.92,
+                "value": 0.9,
                 "tone": "ok"
               }
             ]
@@ -694,7 +692,7 @@
       }
     },
     {
-      "partTitle": "Retrieval Evaluation Suite — Production Telemetry & Verification Audit",
+      "partTitle": "Offline Golden-Set Release Gates for Index Promotion",
       "codeHash": "3094eda97513e29073f4bfeb37edec8878458c4accc51375cb1c50ed12c83951",
       "spec": {
         "template": "bars",
@@ -744,7 +742,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how certification updates criteria during execution.",
+            "caption": "Verify the certification transition driving criteria behavior.",
             "bars": [
               {
                 "label": "test_queries",
@@ -860,7 +858,7 @@
           },
           {
             "at": "say2",
-            "caption": "Trace how certification updates criteria during execution.",
+            "caption": "Verify the certification transition driving criteria behavior.",
             "bars": [
               {
                 "label": "test_queries",
