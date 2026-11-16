@@ -9,161 +9,241 @@
       "partTitle": "The Boolean Explosion Problem: Why Multiple useState Flags Cause Corrupted UI",
       "codeHash": "d583ce87342ced84a22869bbbd5d38a3fe73c7a78acfa0f54786548a6d533edd",
       "spec": {
-        "template": "compare",
-        "title": "Boolean Explosion vs Deterministic Finite State Machine",
-        "leftLabel": "Boolean Explosion (Multiple useStates)",
-        "rightLabel": "Finite State Machine (useReducer)",
+        "template": "boxes",
+        "title": "The Boolean Explosion Problem: Independent State Flags",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "isLoading"
+          },
+          {
+            "id": "b2",
+            "label": "isError"
+          },
+          {
+            "id": "b3",
+            "label": "errorMessage"
+          },
+          {
+            "id": "b4",
+            "label": "data"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Independent booleans allow two^N state combinations, creating impossible.",
-            "left": {
-              "code": "isLoading && isError && data",
-              "result": {
-                "text": "\"true && true && data (BUG!)\""
+            "caption": "Independent boolean flags create impossible state combinations.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "error"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "state.status === 'ERROR'",
-              "result": {
-                "text": "\"Single active state\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Adding features with boolean flags exponentially increases branching complexity.",
-            "left": {
-              "code": "if (isSubmitting && !isValid && isDirty)",
-              "result": {
-                "text": "\"Fragile condition soup\""
+            "caption": "Four booleans yield sixteen possible combinatorial states.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "error"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "switch(action.type)",
-              "result": {
-                "text": "\"Exhaustive transitions\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "error",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "FSM encodes exact legal transitions, ignoring invalid actions during conflicting phases.",
-            "left": {
-              "code": "fetchAgain(); // races with abort",
-              "result": {
-                "text": "\"Race conditions!\""
+            "caption": "Conflicting flags cause interface to display spinner and error banner.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "error"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "case 'FETCH': if (status !== 'IDLE')",
-              "result": {
-                "text": "\"Safely ignored\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "error",
+              "b4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "TypeScript discriminated unions enforce type safety across distinct state variants.",
-            "left": {
-              "code": "state.data?.items?.[0]",
-              "result": {
-                "text": "\"Unsafe optional chaining\""
+            "caption": "Race conditions trigger double submit bugs during retry requests.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "data"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "state.status === 'SUCCESS' && state.data",
-              "result": {
-                "text": "\"Strictly typed payload\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Boolean Explosion vs Deterministic Finite State Machine",
-        "leftLabel": "Boolean Explosion (Multiple useStates)",
-        "rightLabel": "Finite State Machine (useReducer)",
+        "template": "boxes",
+        "title": "The Boolean Explosion Problem: Independent State Flags",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "isLoading"
+          },
+          {
+            "id": "b2",
+            "label": "isError"
+          },
+          {
+            "id": "b3",
+            "label": "errorMessage"
+          },
+          {
+            "id": "b4",
+            "label": "data"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Independent booleans allow 2^N state combinations, creating impossible UI states.",
-            "left": {
-              "code": "isLoading && isError && data",
-              "result": {
-                "text": "\"true && true && data (BUG!)\""
+            "caption": "Independent boolean flags create impossible state combinations.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "error"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "state.status === 'ERROR'",
-              "result": {
-                "text": "\"Single active state\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Adding features with boolean flags exponentially increases branching complexity.",
-            "left": {
-              "code": "if (isSubmitting && !isValid && isDirty)",
-              "result": {
-                "text": "\"Fragile condition soup\""
+            "caption": "Four booleans yield sixteen possible combinatorial states.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "error"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "switch(action.type)",
-              "result": {
-                "text": "\"Exhaustive transitions\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "error",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "FSM encodes exact legal transitions, ignoring invalid actions during conflicting phases.",
-            "left": {
-              "code": "fetchAgain(); // races with abort",
-              "result": {
-                "text": "\"Race conditions!\""
+            "caption": "Conflicting flags cause interface to display spinner and error banner.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "error"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "case 'FETCH': if (status !== 'IDLE')",
-              "result": {
-                "text": "\"Safely ignored\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "error",
+              "b4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "TypeScript discriminated unions enforce type safety across distinct state variants.",
-            "left": {
-              "code": "state.data?.items?.[0]",
-              "result": {
-                "text": "\"Unsafe optional chaining\""
+            "caption": "Race conditions trigger double submit bugs during retry requests.",
+            "values": {
+              "b1": {
+                "text": "isLoading"
               },
-              "tone": "data"
+              "b2": {
+                "text": "isError"
+              },
+              "b3": {
+                "text": "errorMessage"
+              },
+              "b4": {
+                "text": "data"
+              }
             },
-            "right": {
-              "code": "state.status === 'SUCCESS' && state.data",
-              "result": {
-                "text": "\"Strictly typed payload\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
             }
           }
         ]
@@ -174,97 +254,241 @@
       "codeHash": "e2bf39b7c46e1e3e53dfc44b95e013a652e5b526701288c25e80e85e92318196",
       "spec": {
         "template": "states",
-        "title": "Finite State Machine Lifecycle Diagram",
+        "title": "Finite State Machine Declarative Transition Table",
         "states": [
           {
-            "id": "m1",
-            "label": "IDLE"
+            "id": "s1",
+            "label": "idle"
           },
           {
-            "id": "m2",
-            "label": "LOADING"
+            "id": "s2",
+            "label": "loading"
           },
           {
-            "id": "m3",
-            "label": "SUCCESS"
+            "id": "s3",
+            "label": "success"
           },
           {
-            "id": "m4",
-            "label": "ERROR"
+            "id": "s4",
+            "label": "error"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "FSM initializes in IDLE state awaiting initial user or lifecycle event.",
-            "activeId": "m1",
-            "tone": "idle"
+            "caption": "Finite state machine guarantees exactly one active discrete state.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "FETCH_INIT action triggers transition from IDLE to LOADING state.",
-            "activeId": "m2",
-            "tone": "data"
+            "caption": "Machine exists in exactly one discrete mutually exclusive state.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "FETCH_SUCCESS action transitions LOADING into SUCCESS state with resolved data.",
-            "activeId": "m3",
-            "tone": "ok"
+            "caption": "Outside stimuli and user interactions trigger event evaluation.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "If network request fails, FETCH_FAILURE transitions LOADING into ERROR state.",
-            "activeId": "m4",
-            "tone": "error"
+            "caption": "Undeclared events are safely ignored preventing illegal transitions.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "error"
+            }
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Finite State Machine Lifecycle Diagram",
+        "title": "Finite State Machine Declarative Transition Table",
         "states": [
           {
-            "id": "m1",
-            "label": "IDLE"
+            "id": "s1",
+            "label": "idle"
           },
           {
-            "id": "m2",
-            "label": "LOADING"
+            "id": "s2",
+            "label": "loading"
           },
           {
-            "id": "m3",
-            "label": "SUCCESS"
+            "id": "s3",
+            "label": "success"
           },
           {
-            "id": "m4",
-            "label": "ERROR"
+            "id": "s4",
+            "label": "error"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "FSM initializes in IDLE state awaiting initial user or lifecycle event.",
-            "activeId": "m1",
-            "tone": "idle"
+            "caption": "Finite state machine guarantees exactly one active discrete state.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "FETCH_INIT action triggers transition from IDLE to LOADING state.",
-            "activeId": "m2",
-            "tone": "data"
+            "caption": "Machine exists in exactly one discrete mutually exclusive state.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "FETCH_SUCCESS action transitions LOADING into SUCCESS state with resolved data.",
-            "activeId": "m3",
-            "tone": "ok"
+            "caption": "Outside stimuli and user interactions trigger event evaluation.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "If network request fails, FETCH_FAILURE transitions LOADING into ERROR state.",
-            "activeId": "m4",
-            "tone": "error"
+            "caption": "Undeclared events are safely ignored preventing illegal transitions.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "error"
+            }
           }
         ]
       }
@@ -274,147 +498,143 @@
       "codeHash": "30c227596895e20da27931646381bfbcd2a08a221429629eb2e7cf1aa3c59c15",
       "spec": {
         "template": "flow",
-        "title": "useReducer with Discriminated Unions Execution Flow",
+        "title": "useReducer Finite State Machine Status First Switching",
         "nodes": [
           {
-            "id": "d1",
-            "label": "Dispatch Action",
-            "tappable": false
+            "id": "n1",
+            "label": "gridReducer"
           },
           {
-            "id": "d2",
-            "label": "Reducer Switch",
-            "tappable": false
+            "id": "n2",
+            "label": "status"
           },
           {
-            "id": "d3",
-            "label": "Transition Matrix",
-            "tappable": false
+            "id": "n3",
+            "label": "data"
           },
           {
-            "id": "d4",
-            "label": "New Immutable State",
-            "tappable": false
+            "id": "n4",
+            "label": "error"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Component dispatches a tagged union action with type and contextual payload.",
+            "caption": "Hook useReducer provides native state transition execution engine.",
             "values": {
-              "d1": {
-                "text": "\"DISPATCH 'START'\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Waiting\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Idle\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"State v1\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "ok",
-              "d2": "idle",
-              "d3": "idle",
-              "d4": "idle"
+              "n1": "ok",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "d1",
-                "d2"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Reducer matches action.type against current state.status.",
+            "caption": "Reducer switches on state status first enforcing valid event gates.",
             "values": {
-              "d1": {
-                "text": "\"Sent\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Evaluating\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Legal check\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"State v1\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "idle",
-              "d2": "data",
-              "d3": "data",
-              "d4": "idle"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "d2",
-                "d3"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Transition table validates transition; illegal events safely return previous state.",
+            "caption": "Actions arriving in invalid states are cleanly discarded.",
             "values": {
-              "d1": {
-                "text": "\"Verified\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Matched\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Transition Allowed\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"Drafting v2\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "idle",
-              "d2": "ok",
-              "d3": "ok",
-              "d4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "d3",
-                "d4"
+                "n2",
+                "n4"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Pure reducer returns new immutable state object, prompting component re-render.",
+            "caption": "Discriminated union guarantees payload exists when state succeeds.",
             "values": {
-              "d1": {
-                "text": "\"Done\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Applied\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Committed\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"State v2 (LOADING)\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "idle",
-              "d2": "ok",
-              "d3": "ok",
-              "d4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "d3",
-                "d4"
+                "n3",
+                "n1"
               ]
             ]
           }
@@ -422,147 +642,143 @@
       },
       "filled": {
         "template": "flow",
-        "title": "useReducer with Discriminated Unions Execution Flow",
+        "title": "useReducer Finite State Machine Status First Switching",
         "nodes": [
           {
-            "id": "d1",
-            "label": "Dispatch Action",
-            "tappable": false
+            "id": "n1",
+            "label": "gridReducer"
           },
           {
-            "id": "d2",
-            "label": "Reducer Switch",
-            "tappable": false
+            "id": "n2",
+            "label": "status"
           },
           {
-            "id": "d3",
-            "label": "Transition Matrix",
-            "tappable": false
+            "id": "n3",
+            "label": "data"
           },
           {
-            "id": "d4",
-            "label": "New Immutable State",
-            "tappable": false
+            "id": "n4",
+            "label": "error"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Component dispatches a tagged union action with type and contextual payload.",
+            "caption": "Hook useReducer provides native state transition execution engine.",
             "values": {
-              "d1": {
-                "text": "\"DISPATCH 'START'\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Waiting\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Idle\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"State v1\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "ok",
-              "d2": "idle",
-              "d3": "idle",
-              "d4": "idle"
+              "n1": "ok",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "d1",
-                "d2"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Reducer matches action.type against current state.status.",
+            "caption": "Reducer switches on state status first enforcing valid event gates.",
             "values": {
-              "d1": {
-                "text": "\"Sent\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Evaluating\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Legal check\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"State v1\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "idle",
-              "d2": "data",
-              "d3": "data",
-              "d4": "idle"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "d2",
-                "d3"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Transition table validates transition; illegal events safely return previous state.",
+            "caption": "Actions arriving in invalid states are cleanly discarded.",
             "values": {
-              "d1": {
-                "text": "\"Verified\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Matched\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Transition Allowed\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"Drafting v2\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "idle",
-              "d2": "ok",
-              "d3": "ok",
-              "d4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "d3",
-                "d4"
+                "n2",
+                "n4"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Pure reducer returns new immutable state object, prompting component re-render.",
+            "caption": "Discriminated union guarantees payload exists when state succeeds.",
             "values": {
-              "d1": {
-                "text": "\"Done\""
+              "n1": {
+                "text": "gridReducer"
               },
-              "d2": {
-                "text": "\"Applied\""
+              "n2": {
+                "text": "status"
               },
-              "d3": {
-                "text": "\"Committed\""
+              "n3": {
+                "text": "data"
               },
-              "d4": {
-                "text": "\"State v2 (LOADING)\""
+              "n4": {
+                "text": "error"
               }
             },
             "tones": {
-              "d1": "idle",
-              "d2": "ok",
-              "d3": "ok",
-              "d4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "d3",
-                "d4"
+                "n3",
+                "n1"
               ]
             ]
           }
@@ -574,147 +790,143 @@
       "codeHash": "a8dd2809b20370edf76587dd2be33205804caa9976884548043f9d5f83a08f9a",
       "spec": {
         "template": "flow",
-        "title": "Side Effects & Action Dispatch Coordination",
+        "title": "Separation of Concerns: Entry and Exit Side Effects",
         "nodes": [
           {
-            "id": "e1",
-            "label": "State Transition",
-            "tappable": false
+            "id": "n1",
+            "label": "onEnterState"
           },
           {
-            "id": "e2",
-            "label": "useEffect Trigger",
-            "tappable": false
+            "id": "n2",
+            "label": "onExitState"
           },
           {
-            "id": "e3",
-            "label": "Side Effect Execution",
-            "tappable": false
+            "id": "n3",
+            "label": "orchestrator"
           },
           {
-            "id": "e4",
-            "label": "Next Action Dispatch",
-            "tappable": false
+            "id": "n4",
+            "label": "logs"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reducers remain one hundred% pure, delegating side effects to external.",
+            "caption": "Separation of concerns isolates pure transitions from side effects.",
             "values": {
-              "e1": {
-                "text": "\"Pure State v2\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Listening\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Idle\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "ok",
-              "e2": "idle",
-              "e3": "idle",
-              "e4": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "e1",
-                "e2"
+                "n3",
+                "n1"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "useEffect observes status change and executes side-effect (e.g., fetch API, audio).",
+            "caption": "State transitions remain strictly pure functions with zero mutations.",
             "values": {
-              "e1": {
-                "text": "\"Mounted\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Triggered\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Calling API\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"Waiting\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "ok",
-              "e2": "data",
-              "e3": "data",
-              "e4": "idle"
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "e2",
-                "e3"
+                "n1",
+                "n4"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Side effect runs asynchronously and handles cancellation if unmounted.",
+            "caption": "Hook useEffect executes entry actions when entering target state.",
             "values": {
-              "e1": {
-                "text": "\"Active\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Monitoring\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Data Received\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"Preparing payload\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "idle",
-              "e2": "idle",
-              "e3": "ok",
-              "e4": "data"
+              "n1": "ok",
+              "n2": "data",
+              "n3": "ok",
+              "n4": "data"
             },
             "arrows": [
               [
-                "e3",
-                "e4"
+                "n3",
+                "n2"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Asynchronous response dispatches next event into the reducer.",
+            "caption": "Cleanup function runs as exit action aborting active network sockets.",
             "values": {
-              "e1": {
-                "text": "\"Ready for v3\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Cleanup\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Complete\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"Dispatched SUCCESS\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "ok",
-              "e2": "ok",
-              "e3": "ok",
-              "e4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "e3",
-                "e4"
+                "n2",
+                "n4"
               ]
             ]
           }
@@ -722,147 +934,143 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Side Effects & Action Dispatch Coordination",
+        "title": "Separation of Concerns: Entry and Exit Side Effects",
         "nodes": [
           {
-            "id": "e1",
-            "label": "State Transition",
-            "tappable": false
+            "id": "n1",
+            "label": "onEnterState"
           },
           {
-            "id": "e2",
-            "label": "useEffect Trigger",
-            "tappable": false
+            "id": "n2",
+            "label": "onExitState"
           },
           {
-            "id": "e3",
-            "label": "Side Effect Execution",
-            "tappable": false
+            "id": "n3",
+            "label": "orchestrator"
           },
           {
-            "id": "e4",
-            "label": "Next Action Dispatch",
-            "tappable": false
+            "id": "n4",
+            "label": "logs"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reducers remain 100% pure, delegating side effects to external orchestration.",
+            "caption": "Separation of concerns isolates pure transitions from side effects.",
             "values": {
-              "e1": {
-                "text": "\"Pure State v2\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Listening\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Idle\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "ok",
-              "e2": "idle",
-              "e3": "idle",
-              "e4": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "e1",
-                "e2"
+                "n3",
+                "n1"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "useEffect observes status change and executes side-effect (e.g., fetch API, audio).",
+            "caption": "State transitions remain strictly pure functions with zero mutations.",
             "values": {
-              "e1": {
-                "text": "\"Mounted\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Triggered\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Calling API\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"Waiting\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "ok",
-              "e2": "data",
-              "e3": "data",
-              "e4": "idle"
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "e2",
-                "e3"
+                "n1",
+                "n4"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Side effect runs asynchronously and handles cancellation if unmounted.",
+            "caption": "Hook useEffect executes entry actions when entering target state.",
             "values": {
-              "e1": {
-                "text": "\"Active\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Monitoring\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Data Received\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"Preparing payload\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "idle",
-              "e2": "idle",
-              "e3": "ok",
-              "e4": "data"
+              "n1": "ok",
+              "n2": "data",
+              "n3": "ok",
+              "n4": "data"
             },
             "arrows": [
               [
-                "e3",
-                "e4"
+                "n3",
+                "n2"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Asynchronous response dispatches next event into the reducer.",
+            "caption": "Cleanup function runs as exit action aborting active network sockets.",
             "values": {
-              "e1": {
-                "text": "\"Ready for v3\""
+              "n1": {
+                "text": "onEnterState"
               },
-              "e2": {
-                "text": "\"Cleanup\""
+              "n2": {
+                "text": "onExitState"
               },
-              "e3": {
-                "text": "\"Complete\""
+              "n3": {
+                "text": "orchestrator"
               },
-              "e4": {
-                "text": "\"Dispatched SUCCESS\""
+              "n4": {
+                "text": "logs"
               }
             },
             "tones": {
-              "e1": "ok",
-              "e2": "ok",
-              "e3": "ok",
-              "e4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "e3",
-                "e4"
+                "n2",
+                "n4"
               ]
             ]
           }
@@ -874,97 +1082,241 @@
       "codeHash": "20901b0dbacf391606ef851220fac361cc874eab6562a8320bf70a83490e1ee4",
       "spec": {
         "template": "states",
-        "title": "Async Data Machine with Token Cancellation",
+        "title": "Complete Async Data Fetching State Machine Lifecycle",
         "states": [
           {
-            "id": "t1",
-            "label": "IDLE (Token 0)"
+            "id": "s1",
+            "label": "idle"
           },
           {
-            "id": "t2",
-            "label": "FETCHING (Token N)"
+            "id": "s2",
+            "label": "loading"
           },
           {
-            "id": "t3",
-            "label": "SUCCESS (Token N)"
+            "id": "s3",
+            "label": "success"
           },
           {
-            "id": "t4",
-            "label": "DISCARDED (Token Stale)"
+            "id": "s4",
+            "label": "empty"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Machine starts in IDLE state with monotonic token counter initialized to zero.",
-            "activeId": "t1",
-            "tone": "idle"
+            "caption": "Async data fetching state machine models five discrete conditions.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Search query triggers FETCHING with incremented token #one.",
-            "activeId": "t2",
-            "tone": "data"
+            "caption": "Dedicated empty state prevents premature zero row messages during load.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "A second keystroke increments active token to #two, leaving token #one.",
-            "activeId": "t2",
-            "tone": "data"
+            "caption": "Discrete empty state prevents misleading zero row messages.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Late response for token #one is discarded safely; token #two commits to.",
-            "activeId": "t3",
-            "tone": "ok"
+            "caption": "Queries returning zero records cleanly enter discrete empty state.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "ok"
+            }
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Async Data Machine with Token Cancellation",
+        "title": "Complete Async Data Fetching State Machine Lifecycle",
         "states": [
           {
-            "id": "t1",
-            "label": "IDLE (Token 0)"
+            "id": "s1",
+            "label": "idle"
           },
           {
-            "id": "t2",
-            "label": "FETCHING (Token N)"
+            "id": "s2",
+            "label": "loading"
           },
           {
-            "id": "t3",
-            "label": "SUCCESS (Token N)"
+            "id": "s3",
+            "label": "success"
           },
           {
-            "id": "t4",
-            "label": "DISCARDED (Token Stale)"
+            "id": "s4",
+            "label": "empty"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Machine starts in IDLE state with monotonic token counter initialized to zero.",
-            "activeId": "t1",
-            "tone": "idle"
+            "caption": "Async data fetching state machine models five discrete conditions.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Search query triggers FETCHING with incremented token #1.",
-            "activeId": "t2",
-            "tone": "data"
+            "caption": "Dedicated empty state prevents premature zero row messages during load.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "A second keystroke increments active token to #2, leaving token #1 obsolete.",
-            "activeId": "t2",
-            "tone": "data"
+            "caption": "Discrete empty state prevents misleading zero row messages.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Late response for token #1 is discarded safely; token #2 commits to SUCCESS.",
-            "activeId": "t3",
-            "tone": "ok"
+            "caption": "Queries returning zero records cleanly enter discrete empty state.",
+            "values": {
+              "s1": {
+                "text": "idle"
+              },
+              "s2": {
+                "text": "loading"
+              },
+              "s3": {
+                "text": "success"
+              },
+              "s4": {
+                "text": "empty"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "ok"
+            }
           }
         ]
       }

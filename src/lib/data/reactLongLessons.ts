@@ -12478,8 +12478,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing The Boolean Explosion Problem: Why Multiple useState Flags Cause Corrupted UI, an engineering or financial team first captures Boolean and validates Explosion against Problem before committing Multiple. Independent booleans multiply exponentially (2^N), creating impossible states that cause corrupted, glitchy UI rendering.",
         check: {
           question: "What is the primary danger of managing component status with multiple independent boolean flags (e.g. isLoading, isError)?",
-          options: ["It causes boolean explosion, allowing impossible states like loading and error simultaneously", "It consumes all available RAM on the student's laptop", "It prevents CSS colors from displaying properly"],
-          answer: 0,
+          options: [
+            "It consumes all available physical random access memory on the user client machine.",
+            "It causes boolean explosion, allowing impossible states like loading and error jointly.",
+            "It prevents browser layout rendering engines from applying style sheet rules cleanly.",
+            "It blocks network socket connections across all parallel http request channels completely."
+          ],
+          answer: 1,
           why: "Independent booleans multiply exponentially (2^N), creating impossible states that cause corrupted, glitchy UI rendering."
         }
       },
@@ -12508,8 +12513,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Anatomy of a Finite State Machine: States, Events, Guards, and Transition Tables, an engineering or financial team first captures Anatomy and validates Finite against State before committing Machine. FSMs are deterministic: undeclared transitions are no-ops, automatically safeguarding your UI against unwanted or out-of-order events.",
         check: {
           question: "What happens in a Finite State Machine when an event is received that has no transition defined for the current state?",
-          options: ["The event is safely ignored, and the machine remains in its current state", "The machine crashes and restarts the operating system", "The machine randomly picks another state"],
-          answer: 0,
+          options: [
+            "The machine terminates script execution and forces the browser into a hard crash loop.",
+            "The machine randomly transitions to another active state without user notification.",
+            "The machine restarts the host operating system kernel to purge internal memory buffers.",
+            "The event is safely ignored, and the machine remains deterministically in current state."
+          ],
+          answer: 3,
           why: "FSMs are deterministic: undeclared transitions are no-ops, automatically safeguarding your UI against unwanted or out-of-order events."
         }
       },
@@ -12539,7 +12549,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Implementing FSMs with useReducer: Discriminated Union Actions and Context Payloads, an engineering or financial team first captures Implementing and validates useReducer against Discriminated before committing Union. Switching on state.status first enforces statechart transition rules, ensuring illegal or out-of-order actions are ignored.",
         check: {
           question: "Why does a State Machine reducer switch on state.status before action.type?",
-          options: ["To ensure that events are only processed if the machine is currently in a state that permits that transition", "Because JavaScript does not allow switching on action.type", "To make the code execute 10 times slower"],
+          options: [
+            "To ensure that events are only processed if machine is currently in a permitting state.",
+            "Because JavaScript language specifications prohibit developers from switching on action.",
+            "To force the browser JavaScript engine to slow down state evaluation loops deliberately.",
+            "To prevent external web worker processes from accessing private component memory heaps."
+          ],
           answer: 0,
           why: "Switching on state.status first enforces statechart transition rules, ensuring illegal or out-of-order actions are ignored."
         }
@@ -12570,8 +12585,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Side Effects and Entry/Exit Actions: Decoupling State Evolution from Network I/O, an engineering or financial team first captures Effects and validates Entry against Actions before committing Decoupling. useEffect serves as the declarative bridge for state machine side effects: the effect body is the entry action, and the cleanup function is the exit action.",
         check: {
           question: "In React FSM architecture, what is the role of useEffect in relation to state transitions?",
-          options: ["It acts as the entry and exit action coordinator, executing real-world side effects when states change", "It replaces JavaScript functions with HTML templates", "It forces the browser to bypass HTTPS security certificates"],
-          answer: 0,
+          options: [
+            "It replaces standard JavaScript functions with static precompiled HTML document strings.",
+            "It forces the browser network layer to bypass external TLS cryptographic certificates.",
+            "It acts as the entry and exit action coordinator, executing side effects on state change.",
+            "It serializes component state variables into indexedDB storage to bypass future rendering."
+          ],
+          answer: 2,
           why: "useEffect serves as the declarative bridge for state machine side effects: the effect body is the entry action, and the cleanup function is the exit action."
         }
       },
@@ -12602,8 +12622,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Building a Robust Async Data Fetching State Machine with Strict Transition Tables, an engineering or financial team first captures Building and validates Robust against Async before committing Fetching. A discrete 'empty' state can only be entered after a completed query, preventing premature or misleading empty flashes.",
         check: {
           question: "What is the primary benefit of having a dedicated 'empty' state in a data grid state machine?",
-          options: ["It prevents the UI from accidentally flashing a 'No rows found' message while data is still actively loading", "It deletes empty rows from the backend SQL database", "It converts empty strings to null values automatically"],
-          answer: 0,
+          options: [
+            "It permanently deletes vacant row records from the remote database schema automatically.",
+            "It prevents UI from flashing zero rows found messages while data is still actively loading.",
+            "It automatically converts empty string values into null pointers before SQL serialization.",
+            "It disables all interactive user input controls until new search queries are dispatched."
+          ],
+          answer: 1,
           why: "A discrete 'empty' state can only be entered after a completed query, preventing premature or misleading empty flashes."
         }
       }
