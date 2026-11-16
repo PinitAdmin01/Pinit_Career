@@ -15173,15 +15173,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a RETRY event to the FSM and verify that it only transitions when currently in the FAILURE state.",
       example: "An FSM restricts the application to a finite set of mutually exclusive states and transitions, making impossible combinations (like simultaneous loading and error) structurally impossible.",
         "check": {
-        "question": "Why do finite state machines eliminate impossible states compared to multiple boolean flags?",
+        "question": "Why do finite state machines eliminate impossible UI states?",
         "options": [
-          "Because an FSM mathematically guarantees that a system can only exist in exactly one state at a time, ignoring invalid event transitions",
-          "Because state machines convert boolean values into numbers",
-          "Because state machines automatically delete unmounted components",
-          "Because state machines require less CSS"
+          "By overclocking device CPU processor clocks during state calculations, ensuring that layout paint cycles complete before events trigger.",
+          "By modeling valid states and transitions in a deterministic state table, preventing unexpected combinations of scattered boolean flags.",
+          "By wiping all component state records whenever a user submits an action, forcing the client to re-fetch clean data over network sockets.",
+          "By converting all CSS style rules into WebAssembly bytecode filters, preventing conflicting layout classes from rendering across DOM views."
         ],
-        "answer": 0,
-        "why": "An FSM restricts the application to a finite set of mutually exclusive states and transitions, making impossible combinations (like simultaneous loading and error) structurally impossible."
+        "answer": 1,
+        "why": "State machines replace exponential combinations of boolean flags with mutually exclusive discrete states and explicit transition paths."
       }
     },
     {
@@ -15219,13 +15219,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the role of a Transition Guard in a state machine?",
         "options": [
-          "A deterministic predicate function that evaluates runtime context to permit or deny a state transition",
-          "A CSS animation that fades in a modal window",
-          "An HTTP interceptor that refreshes JWT tokens",
-          "A database backup script"
+          "A network firewall layer that filters unauthorized incoming HTTP packets before they reach frontend state subscription event listeners.",
+          "A CSS hardware property that disables pointer clicks and touch inputs while an asynchronous macro-task executes on the main browser thread.",
+          "A cryptographic token verification mechanism that signs client mutation requests before transmitting them to remote cloud database hosts.",
+          "A deterministic predicate function that must evaluate to true before an event transition is permitted to change the active machine state."
         ],
-        "answer": 0,
-        "why": "Transition guards check preconditions (such as form validation or authorization) before allowing a state machine to transition to the target state."
+        "answer": 3,
+        "why": "Guards are conditional predicate functions that evaluate context and event data to allow or deny state transitions deterministically."
       }
     },
     {
@@ -15261,15 +15261,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a third parallel region for Subtitles (ENABLED/DISABLED) and verify multi-region event routing.",
       example: "Parallel statecharts allow orthogonal features (like video playback and audio volume) to operate independently without creating a Cartesian product of states.",
         "check": {
-        "question": "What major problem is solved by Parallel (Orthogonal) Statecharts?",
+        "question": "What major problem is solved by Parallel (Orthogonal) States in statecharts?",
         "options": [
-          "They prevent combinatorial state explosion by allowing independent sub-regions to track state concurrently without multiplying states",
-          "They prevent browsers from running out of disk space",
-          "They allow React to compile into WebAssembly",
-          "They convert JavaScript into SQL"
+          "They eliminate state explosion by allowing machines to exist in independent sub-states simultaneously without combinatorial inflation.",
+          "They execute JavaScript threads in parallel across multiple GPU compute cores, bypassing the single-threaded browser event loop model.",
+          "They split client database tables across dual cloud server regions, providing automated failover during distributed network socket drops.",
+          "They reduce network latency by fifty percent by compressing all outgoing HTTP requests using hardware gzip compression stream buffers."
         ],
         "answer": 0,
-        "why": "Parallel statecharts allow orthogonal features (like video playback and audio volume) to operate independently without creating a Cartesian product of states."
+        "why": "Parallel states allow orthogonal features (such as audio mute and video playback) to evolve independently without multiplying state combinations."
       }
     },
     {
@@ -15305,15 +15305,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a CANCEL_CHECKOUT event that transitions from SHIPPING_STEP back to CART_VIEW.",
       example: "Synchronous event execution in the dispatch handler guarantees that UI state transitions happen atomically, preventing visual flashing and intermediate torn frames.",
         "check": {
-        "question": "Why should statechart event dispatching execute synchronously in a custom hook rather than inside useEffect?",
+        "question": "Why should statechart event dispatching execute via a pure reducer rather than scattered useEffect hooks?",
         "options": [
-          "Synchronous dispatching eliminates layout shifts, race conditions, and visual latency by updating state before paint",
-          "Because useEffect cannot access JavaScript variables",
-          "Because useEffect is deprecated in React 19",
-          "Because statecharts cannot run in modern browsers"
+          "Because useEffect is deprecated in modern React versions and triggers severe memory leaks when handling asynchronous component lifecycles.",
+          "Because pure reducers execute directly inside device hardware CPU caches, avoiding JavaScript garbage collection pauses on mobile devices.",
+          "To guarantee deterministic transitions with zero race conditions, predictable side-effect execution, and complete structural observability.",
+          "To allow the browser runtime to execute state transitions without requiring an internet connection or local storage memory persistence."
         ],
-        "answer": 0,
-        "why": "Synchronous event execution in the dispatch handler guarantees that UI state transitions happen atomically, preventing visual flashing and intermediate torn frames."
+        "answer": 2,
+        "why": "Pure reducer architectures guarantee that given identical states and events, transitions execute identically without race conditions."
       }
     },
     {
@@ -15350,15 +15350,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Simulate an invalid ZIP code and verify that the machine refuses to transition to PAYMENT_SELECTION.",
       example: "Because state transitions are instantaneous and mutually exclusive, the first click moves the machine into PROCESSING_TRANSACTION where duplicate SUBMIT events are ignored.",
         "check": {
-        "question": "How does an e-commerce state machine protect against double-charging a user when they double-click Submit?",
+        "question": "How does an e-commerce state machine protect against double charges during checkout?",
         "options": [
-          "The machine transitions out of the submittable state on the very first event, automatically ignoring the duplicate second click",
-          "It disconnects the user from the internet",
-          "It shuts down the payment gateway server",
-          "It prompts the user to solve a CAPTCHA"
+          "By disconnecting the user's internet connection immediately upon receiving a checkout tap to prevent duplicate network request dispatches.",
+          "By transitioning into a PROCESSING state that rejects duplicate SUBMIT events until the authoritative payment transaction completes or fails.",
+          "By purging the customer's credit card details from memory after the initial click, causing subsequent submit events to throw type errors.",
+          "By terminating the browser window automatically the instant the user presses the submit button to ensure only one transaction reaches Stripe."
         ],
-        "answer": 0,
-        "why": "Because state transitions are instantaneous and mutually exclusive, the first click moves the machine into PROCESSING_TRANSACTION where duplicate SUBMIT events are ignored."
+        "answer": 1,
+        "why": "Finite state machines reject unhandled events, ensuring that clicking submit repeatedly during an active payment transition has zero effect."
       }
     }
   ],

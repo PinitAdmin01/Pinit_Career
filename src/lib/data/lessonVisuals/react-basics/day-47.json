@@ -1,674 +1,625 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 47,
-  "promptSha": "block10_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Beyond Boolean Flag Spaghetti: Why Complex Multi-Step UIs Demand Deterministic State Transition Tables",
       "codeHash": "41bc00181094ec1e1a560fc52c2113b246513efc1707592145d5f8fcd0e45788",
       "spec": {
         "template": "compare",
-        "title": "Boolean Flag Spaghetti vs Deterministic Finite State Automata",
+        "title": "Boolean Flags vs State Machine",
         "left": {
-          "label": "Scattered Boolean Flags",
+          "title": "Boolean Flags",
+          "subtitle": "Exponential States",
           "items": [
-            "2^N exponential combinatorial explosion",
-            "Impossible states (isLoading && isError)",
-            "Silent edge-case bugs in production",
-            "Unmaintainable cascading if-else statements"
+            {
+              "label": "Impossible States",
+              "text": "boolean",
+              "tone": "error"
+            },
+            {
+              "label": "Fragile Logic",
+              "text": "fragile",
+              "tone": "error"
+            }
           ]
         },
         "right": {
-          "label": "Finite State Machine (FSM)",
+          "title": "State Machine",
+          "subtitle": "Discrete States",
           "items": [
-            "Strict mutually exclusive state set",
-            "Mathematical impossibility of invalid states",
-            "Deterministic state transition matrix",
-            "Self-documenting architectural clarity"
+            {
+              "label": "Deterministic States",
+              "text": "deterministic",
+              "tone": "ok"
+            },
+            {
+              "label": "Explicit Transitions",
+              "text": "transition",
+              "tone": "ok"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Boolean state management creates two^N potential states, inviting.",
-            "values": {
-              "left": {
-                "items": [
-                  "8 Flags = 256 States",
-                  "Hidden Combinations",
-                  "Spaghetti Conditionals",
-                  "Race Conditions"
-                ]
-              },
-              "right": {
-                "items": [
-                  "4 Explicit States",
-                  "Zero Hidden Modes",
-                  "Declarative Transitions",
-                  "100% Predictable"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Stale network responses can set isSuccess and isError to true at the exact same time.",
-            "values": {
-              "left": {
-                "items": [
-                  "isSuccess = true",
-                  "isError = true",
-                  "Broken UI Spinner",
-                  "Angry User Tickets"
-                ]
-              },
-              "right": {
-                "items": [
-                  "State: SUCCESS",
-                  "Ignores Stale Errors",
-                  "Clean Consistent UI",
-                  "Rock-Solid UX"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
             "at": "say3",
-            "caption": "FSM transition guards structurally block invalid actions based on mathematical logic.",
-            "values": {
-              "left": {
-                "items": [
-                  "Unvalidated Actions",
-                  "Duplicate Submissions",
-                  "Ghost Mutations",
-                  "Corrupted DB"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Guarded Transitions",
-                  "Blocked Double Clicks",
-                  "Clean Event Audit",
-                  "Protected Database"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Boolean flags multiply exponentially, causing impossible state bugs."
           },
           {
             "at": "say4",
-            "caption": "Statecharts reduce production edge-case bug reports by over multiple% in.",
-            "values": {
-              "left": {
-                "items": [
-                  "High Bug Churn",
-                  "Fragile Hotfixes",
-                  "Fear of Refactoring",
-                  "Flaky Test Suite"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Zero State Bugs",
-                  "Robust Refactoring",
-                  "High Confidence",
-                  "Deterministic Tests"
-                ]
-              }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Finite state machines restrict execution to valid discrete states."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Deterministic state tables eliminate scattered and fragile logic."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Boolean Flags vs State Machine",
+        "left": {
+          "title": "Boolean Flags",
+          "subtitle": "Exponential States",
+          "items": [
+            {
+              "label": "Impossible States",
+              "text": "boolean",
+              "tone": "error"
             },
-            "tones": {
-              "left": "error",
-              "right": "ok"
+            {
+              "label": "Fragile Logic",
+              "text": "fragile",
+              "tone": "error"
             }
+          ]
+        },
+        "right": {
+          "title": "State Machine",
+          "subtitle": "Discrete States",
+          "items": [
+            {
+              "label": "Deterministic States",
+              "text": "deterministic",
+              "tone": "ok"
+            },
+            {
+              "label": "Explicit Transitions",
+              "text": "transition",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Boolean flags multiply exponentially, causing impossible state bugs."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Finite state machines restrict execution to valid discrete states."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Deterministic state tables eliminate scattered and fragile logic."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Mathematical Formalism of Finite State Automata: States, Events, Transitions, Guards & Extended Context",
       "codeHash": "5e8b244b677025b03855ef77f6e6ec4fde5f6827bcbc37745c599a631ceefde1",
       "spec": {
-        "template": "states",
-        "title": "Multi-Factor Authentication (MFA) Deterministic Statechart",
-        "states": [
+        "template": "boxes",
+        "title": "Statechart Formalism Primitives",
+        "boxes": [
           {
-            "id": "enter_cred",
-            "label": "ENTER_CREDENTIALS (Awaiting Email/Pass)",
-            "active": true
+            "id": "b1",
+            "title": "Discrete State",
+            "desc": "states",
+            "tone": "idle"
           },
           {
-            "id": "verify_mfa",
-            "label": "VERIFY_MFA (Awaiting 6-digit OTP)",
-            "active": false
+            "id": "b2",
+            "title": "Transition Guard",
+            "desc": "guards",
+            "tone": "data"
           },
           {
-            "id": "authenticated",
-            "label": "AUTHENTICATED (Session Token Active)",
-            "active": false
+            "id": "b3",
+            "title": "Extended Context",
+            "desc": "context",
+            "tone": "ok"
           },
           {
-            "id": "account_locked",
-            "label": "ACCOUNT_LOCKED (Too Many Attempts)",
-            "active": false
+            "id": "b4",
+            "title": "Action Effect",
+            "desc": "actions",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The auth machine starts in ENTER_CREDENTIALS awaiting user email and password.",
-            "values": {
-              "enter_cred": {
-                "text": "\"Awaiting Input\""
-              },
-              "verify_mfa": {
-                "text": "\"Inactive\""
-              },
-              "authenticated": {
-                "text": "\"Inactive\""
-              },
-              "account_locked": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "enter_cred": "data",
-              "verify_mfa": "idle",
-              "authenticated": "idle",
-              "account_locked": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Password validation guard rejects short passwords and stays in ENTER_CREDENTIALS.",
-            "values": {
-              "enter_cred": {
-                "text": "\"Guard Denied: < 8 chars\""
-              },
-              "verify_mfa": {
-                "text": "\"Inactive\""
-              },
-              "authenticated": {
-                "text": "\"Inactive\""
-              },
-              "account_locked": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "enter_cred": "error",
-              "verify_mfa": "idle",
-              "authenticated": "idle",
-              "account_locked": "idle"
-            }
-          },
-          {
             "at": "say3",
-            "caption": "Valid credentials transition to VERIFY_MFA, dispatching an SMS or authenticator challenge.",
-            "values": {
-              "enter_cred": {
-                "text": "\"Exited\""
-              },
-              "verify_mfa": {
-                "text": "\"Awaiting OTP\""
-              },
-              "authenticated": {
-                "text": "\"Inactive\""
-              },
-              "account_locked": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "enter_cred": "idle",
-              "verify_mfa": "data",
-              "authenticated": "idle",
-              "account_locked": "idle"
-            }
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Transition guards evaluate conditions before state changes occur."
           },
           {
             "at": "say4",
-            "caption": "Valid OTP token transitions to AUTHENTICATED, unlocking the trading platform.",
-            "values": {
-              "enter_cred": {
-                "text": "\"Exited\""
-              },
-              "verify_mfa": {
-                "text": "\"Exited\""
-              },
-              "authenticated": {
-                "text": "\"Session Active\""
-              },
-              "account_locked": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "enter_cred": "idle",
-              "verify_mfa": "idle",
-              "authenticated": "ok",
-              "account_locked": "idle"
-            }
+            "highlight": [
+              "b4"
+            ],
+            "caption": "Actions execute side-effects deterministically during transitions."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "b1",
+              "b3"
+            ],
+            "caption": "Separating discrete modes from quantitative context prevents explosion."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Statechart Formalism Primitives",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Discrete State",
+            "desc": "states",
+            "tone": "idle"
+          },
+          {
+            "id": "b2",
+            "title": "Transition Guard",
+            "desc": "guards",
+            "tone": "data"
+          },
+          {
+            "id": "b3",
+            "title": "Extended Context",
+            "desc": "context",
+            "tone": "ok"
+          },
+          {
+            "id": "b4",
+            "title": "Action Effect",
+            "desc": "actions",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Transition guards evaluate conditions before state changes occur."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "b4"
+            ],
+            "caption": "Actions execute side-effects deterministically during transitions."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "b1",
+              "b3"
+            ],
+            "caption": "Separating discrete modes from quantitative context prevents explosion."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "Hierarchical & Parallel Statecharts: Compound States, History States & Decoupled State Coordination",
       "codeHash": "31455beb98e4aea40ae962412083d12c8f00619ca425a320bedccc3254ebe6bd",
       "spec": {
-        "template": "flow",
-        "title": "Hierarchical Nested Statechart Execution Flow",
-        "nodes": [
+        "template": "states",
+        "title": "Hierarchical & Parallel States",
+        "states": [
           {
-            "id": "parent_active",
-            "label": "Parent: TRADING_DESK_ACTIVE",
-            "tappable": false
+            "id": "s1",
+            "title": "Compound State",
+            "desc": "compound",
+            "tone": "idle"
           },
           {
-            "id": "child_idle",
-            "label": "Child: ORDER_TICKET_IDLE",
-            "tappable": false
+            "id": "s2",
+            "title": "Parallel Region",
+            "desc": "parallel",
+            "tone": "data"
           },
           {
-            "id": "child_submitting",
-            "label": "Child: SUBMITTING_EXCHANGE",
-            "tappable": false
+            "id": "s3",
+            "title": "History State",
+            "desc": "history",
+            "tone": "ok"
           },
           {
-            "id": "parent_aborted",
-            "label": "Parent: EMERGENCY_HALT",
-            "tappable": false
+            "id": "s4",
+            "title": "Active Machine",
+            "desc": "machine",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Parent state manages global session while child state manages individual order ticket.",
-            "values": {
-              "parent_active": {
-                "text": "\"Active Session\""
-              },
-              "child_idle": {
-                "text": "\"Awaiting Symbol\""
-              },
-              "child_submitting": {
-                "text": "\"Idle\""
-              },
-              "parent_aborted": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "parent_active": "ok",
-              "child_idle": "data",
-              "child_submitting": "idle",
-              "parent_aborted": "idle"
-            },
-            "arrows": [
-              [
-                "parent_active",
-                "child_idle"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Submitting order transitions child state to SUBMITTING_EXCHANGE inside parent context.",
-            "values": {
-              "parent_active": {
-                "text": "\"Active Session\""
-              },
-              "child_idle": {
-                "text": "\"Exited\""
-              },
-              "child_submitting": {
-                "text": "\"Routing Order\""
-              },
-              "parent_aborted": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "parent_active": "ok",
-              "child_idle": "idle",
-              "child_submitting": "data",
-              "parent_aborted": "idle"
-            },
-            "arrows": [
-              [
-                "child_idle",
-                "child_submitting"
-              ]
-            ]
+            "highlight": [
+              "s1"
+            ],
+            "caption": "Compound states group related child sub-states in nested trees."
           },
           {
             "at": "say3",
-            "caption": "High-priority parent event (CIRCUIT_BREAKER) preempts child state instantly.",
-            "values": {
-              "parent_active": {
-                "text": "\"Preempted\""
-              },
-              "child_idle": {
-                "text": "\"Terminated\""
-              },
-              "child_submitting": {
-                "text": "\"Aborted\""
-              },
-              "parent_aborted": {
-                "text": "\"Emergency Halt Active\""
-              }
-            },
-            "tones": {
-              "parent_active": "error",
-              "child_idle": "idle",
-              "child_submitting": "error",
-              "parent_aborted": "error"
-            },
-            "arrows": [
-              [
-                "parent_active",
-                "parent_aborted"
-              ]
-            ]
+            "highlight": [
+              "s2"
+            ],
+            "caption": "Parallel orthogonal regions manage independent features simultaneously."
           },
           {
             "at": "say4",
-            "caption": "Hierarchical statecharts prevent orphaned asynchronous requests during emergencies.",
-            "values": {
-              "parent_active": {
-                "text": "\"Clean Shutdown\""
-              },
-              "child_idle": {
-                "text": "\"Safe Reset\""
-              },
-              "child_submitting": {
-                "text": "\"Canceled\""
-              },
-              "parent_aborted": {
-                "text": "\"Capital Protected\""
-              }
-            },
-            "tones": {
-              "parent_active": "ok",
-              "child_idle": "ok",
-              "child_submitting": "ok",
-              "parent_aborted": "ok"
-            },
-            "arrows": [
-              [
-                "parent_aborted",
-                "parent_active"
-              ]
-            ]
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "History states restore previous sub-state configurations seamlessly."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Hierarchical & Parallel States",
+        "states": [
+          {
+            "id": "s1",
+            "title": "Compound State",
+            "desc": "compound",
+            "tone": "idle"
+          },
+          {
+            "id": "s2",
+            "title": "Parallel Region",
+            "desc": "parallel",
+            "tone": "data"
+          },
+          {
+            "id": "s3",
+            "title": "History State",
+            "desc": "history",
+            "tone": "ok"
+          },
+          {
+            "id": "s4",
+            "title": "Active Machine",
+            "desc": "machine",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "s1"
+            ],
+            "caption": "Compound states group related child sub-states in nested trees."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "s2"
+            ],
+            "caption": "Parallel orthogonal regions manage independent features simultaneously."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "History states restore previous sub-state configurations seamlessly."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Building a Production Statechart Interpreter & React Hook (useMachine) in Pure JavaScript",
       "codeHash": "2611d8ba1465fb6595b85486706ab96b5b6f2db915fa2b0bc58f216746241432",
       "spec": {
         "template": "boxes",
-        "title": "Actor Model Architecture: Mailboxes & Sequential Message Processing",
+        "title": "useMachine Hook Architecture",
         "boxes": [
           {
-            "id": "actor_market",
-            "label": "MarketData Actor (Private Heap)",
-            "tappable": false
+            "id": "m1",
+            "title": "Machine State",
+            "desc": "state",
+            "tone": "idle"
           },
           {
-            "id": "mailbox_queue",
-            "label": "Actor Mailbox (FIFO Message Queue)",
-            "tappable": false
+            "id": "m2",
+            "title": "Event Dispatcher",
+            "desc": "send",
+            "tone": "data"
           },
           {
-            "id": "actor_risk",
-            "label": "RiskCalculator Actor (Zero Shared Memory)",
-            "tappable": false
+            "id": "m3",
+            "title": "Pattern Matcher",
+            "desc": "matches",
+            "tone": "ok"
           },
           {
-            "id": "actor_exec",
-            "label": "OrderGateway Actor (Independent Crash Domain)",
-            "tappable": false
+            "id": "m4",
+            "title": "Actor Model",
+            "desc": "spawnChild",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Each actor maintains completely encapsulated private state and a dedicated mailbox.",
-            "values": {
-              "actor_market": {
-                "text": "\"Ticks Buffered\""
-              },
-              "mailbox_queue": {
-                "text": "\"Empty (0 msgs)\""
-              },
-              "actor_risk": {
-                "text": "\"VaR Clean\""
-              },
-              "actor_exec": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "actor_market": "ok",
-              "mailbox_queue": "idle",
-              "actor_risk": "ok",
-              "actor_exec": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "MarketData Actor pushes price updates into RiskCalculator Actor mailbox.",
-            "values": {
-              "actor_market": {
-                "text": "\"Sending Tick\""
-              },
-              "mailbox_queue": {
-                "text": "\"Queued: MSG_TICK\""
-              },
-              "actor_risk": {
-                "text": "\"Awaiting Read\""
-              },
-              "actor_exec": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "actor_market": "data",
-              "mailbox_queue": "data",
-              "actor_risk": "idle",
-              "actor_exec": "ok"
-            }
-          },
-          {
             "at": "say3",
-            "caption": "RiskCalculator Actor processes messages strictly one-by-one with zero mutex locks.",
-            "values": {
-              "actor_market": {
-                "text": "\"Idle\""
-              },
-              "mailbox_queue": {
-                "text": "\"Processing MSG_TICK\""
-              },
-              "actor_risk": {
-                "text": "\"Recalculating VaR\""
-              },
-              "actor_exec": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "actor_market": "idle",
-              "mailbox_queue": "data",
-              "actor_risk": "data",
-              "actor_exec": "ok"
-            }
+            "highlight": [
+              "m1",
+              "m2"
+            ],
+            "caption": "The useMachine hook initializes state tuples and event dispatchers."
           },
           {
             "at": "say4",
-            "caption": "Zero shared memory eliminates multi-threaded race conditions and deadlocks forever.",
-            "values": {
-              "actor_market": {
-                "text": "\"Autonomous\""
-              },
-              "mailbox_queue": {
-                "text": "Flushed\""
-              },
-              "actor_risk": {
-                "text": "\"VaR: 4.2% Passed\""
-              },
-              "actor_exec": {
-                "text": "\"Approved\""
-              }
-            },
-            "tones": {
-              "actor_market": "ok",
-              "mailbox_queue": "ok",
-              "actor_risk": "ok",
-              "actor_exec": "ok"
-            }
+            "highlight": [
+              "m3"
+            ],
+            "caption": "state.matches provides an idiomatic API for conditional rendering."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "m4"
+            ],
+            "caption": "The actor model coordinates distributed sub-machines independently."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "useMachine Hook Architecture",
+        "boxes": [
+          {
+            "id": "m1",
+            "title": "Machine State",
+            "desc": "state",
+            "tone": "idle"
+          },
+          {
+            "id": "m2",
+            "title": "Event Dispatcher",
+            "desc": "send",
+            "tone": "data"
+          },
+          {
+            "id": "m3",
+            "title": "Pattern Matcher",
+            "desc": "matches",
+            "tone": "ok"
+          },
+          {
+            "id": "m4",
+            "title": "Actor Model",
+            "desc": "spawnChild",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "m1",
+              "m2"
+            ],
+            "caption": "The useMachine hook initializes state tuples and event dispatchers."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "m3"
+            ],
+            "caption": "state.matches provides an idiomatic API for conditional rendering."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "m4"
+            ],
+            "caption": "The actor model coordinates distributed sub-machines independently."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Complete E-Commerce Multi-Step Checkout State Machine: Form Validation, Gateway Tokenization & Fallback Recovery",
       "codeHash": "90bdd4b6a61aea13afb86d5b79bf40499a40f99ff54a2ca1183ae52b5c85ddf5",
       "spec": {
-        "template": "states",
-        "title": "Actor Supervision Tree & Crash Fault Tolerance",
-        "states": [
+        "template": "flow",
+        "title": "E-Commerce Checkout Pipeline",
+        "nodes": [
           {
-            "id": "healthy",
-            "label": "SUPERVISOR_HEALTHY (All Children Active)",
-            "active": true
+            "id": "f1",
+            "label": "Address Valid",
+            "desc": "ADDRESS_VALIDATION",
+            "tone": "idle",
+            "tappable": false
           },
           {
-            "id": "child_fault",
-            "label": "CHILD_FAULT (Risk Actor Division-by-Zero)",
-            "active": false
+            "id": "f2",
+            "label": "Payment Process",
+            "desc": "PROCESSING_PAYMENT",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "restarting",
-            "label": "RESTARTING_ACTOR (One-For-One Strategy)",
-            "active": false
+            "id": "f3",
+            "label": "Gateway Token",
+            "desc": "GATEWAY_TIMEOUT",
+            "tone": "error",
+            "tappable": false
           },
           {
-            "id": "recovered",
-            "label": "SYSTEM_RECOVERED (State Restored from Snapshot)",
-            "active": false
+            "id": "f4",
+            "label": "Order Complete",
+            "desc": "SUCCESS",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "f1",
+            "to": "f2",
+            "label": "VALIDATE_ADDRESS"
+          },
+          {
+            "from": "f2",
+            "to": "f3",
+            "label": "GATEWAY_TIMEOUT"
+          },
+          {
+            "from": "f2",
+            "to": "f4",
+            "label": "PAYMENT_CONFIRMED"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Supervisor process monitors health of MarketData, Risk, and Execution actors.",
-            "values": {
-              "healthy": {
-                "text": "\"All Actors Green\""
-              },
-              "child_fault": {
-                "text": "\"None\""
-              },
-              "restarting": {
-                "text": "\"Inactive\""
-              },
-              "recovered": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "healthy": "ok",
-              "child_fault": "idle",
-              "restarting": "idle",
-              "recovered": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Risk actor crashes on corrupted market feed; supervisor catches fault instantly.",
-            "values": {
-              "healthy": {
-                "text": "\"Fault Trapped\""
-              },
-              "child_fault": {
-                "text": "\"Actor Crashed!\""
-              },
-              "restarting": {
-                "text": "\"Evaluating Strategy\""
-              },
-              "recovered": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "healthy": "data",
-              "child_fault": "error",
-              "restarting": "data",
-              "recovered": "idle"
-            }
-          },
-          {
             "at": "say3",
-            "caption": "Supervisor applies 'One-For-One' policy: restarts only the crashed Risk actor.",
-            "values": {
-              "healthy": {
-                "text": "\"Market/Exec Intact\""
-              },
-              "child_fault": {
-                "text": "\"Terminated\""
-              },
-              "restarting": {
-                "text": "\"Re-initializing Heap\""
-              },
-              "recovered": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "healthy": "ok",
-              "child_fault": "idle",
-              "restarting": "data",
-              "recovered": "idle"
-            }
+            "highlight": [
+              "f1"
+            ],
+            "caption": "The checkout machine models complete lifecycles across discrete states."
           },
           {
             "at": "say4",
-            "caption": "Risk actor recovers in fourms, restoring state while trading desk runs.",
-            "values": {
-              "healthy": {
-                "text": "\"All Actors Green\""
-              },
-              "child_fault": {
-                "text": "\"Resolved\""
-              },
-              "restarting": {
-                "text": "\"Done\""
-              },
-              "recovered": {
-                "text": "\"100% Uptime Preserved\""
-              }
-            },
-            "tones": {
-              "healthy": "ok",
-              "child_fault": "ok",
-              "restarting": "ok",
-              "recovered": "ok"
-            }
+            "highlight": [
+              "f2",
+              "f3"
+            ],
+            "caption": "Payment gateway timeouts transition into retryable error states."
+          },
+          {
+            "at": "say7",
+            "highlight": [
+              "f2",
+              "f4"
+            ],
+            "caption": "Processing states reject duplicate submit events to prevent double charges."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "E-Commerce Checkout Pipeline",
+        "nodes": [
+          {
+            "id": "f1",
+            "label": "Address Valid",
+            "desc": "ADDRESS_VALIDATION",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "f2",
+            "label": "Payment Process",
+            "desc": "PROCESSING_PAYMENT",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "f3",
+            "label": "Gateway Token",
+            "desc": "GATEWAY_TIMEOUT",
+            "tone": "error",
+            "tappable": false
+          },
+          {
+            "id": "f4",
+            "label": "Order Complete",
+            "desc": "SUCCESS",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "f1",
+            "to": "f2",
+            "label": "VALIDATE_ADDRESS"
+          },
+          {
+            "from": "f2",
+            "to": "f3",
+            "label": "GATEWAY_TIMEOUT"
+          },
+          {
+            "from": "f2",
+            "to": "f4",
+            "label": "PAYMENT_CONFIRMED"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "f1"
+            ],
+            "caption": "The checkout machine models complete lifecycles across discrete states."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "f2",
+              "f3"
+            ],
+            "caption": "Payment gateway timeouts transition into retryable error states."
+          },
+          {
+            "at": "say7",
+            "highlight": [
+              "f2",
+              "f4"
+            ],
+            "caption": "Processing states reject duplicate submit events to prevent double charges."
           }
         ]
       }
