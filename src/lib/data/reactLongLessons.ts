@@ -13859,12 +13859,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary difference between traditional SSR and React Server Components regarding client bundle payloads?",
           options: [
-            "Server Components execute exclusively on the server and emit a serialized wire stream, sending 0 KB of component code or dependencies to the client bundle",
-            "Server Components send their full JavaScript source code to the client for local execution",
-            "Server Components only run on mobile web browsers",
-            "Server Components replace CSS style sheets with JSON arrays"
+            "Traditional SSR eliminates all client JavaScript bundles completely, while Server Components stream full component source code for client execution.",
+            "Server Components run exclusively on the server and emit serialized virtual trees, contributing zero kilobytes of component code to the client bundle.",
+            "Traditional SSR compiles all component closures into WebAssembly binaries on disk, whereas Server Components only execute inside active web workers.",
+            "Server Components transpile server-side React hooks into static CSS style sheets, requiring client browser engines to execute layout recalculations."
           ],
-          answer: 0,
+          answer: 1,
           why: "RSC renders component trees on the server and streams serialized virtual DOM nodes, eliminating all component code and backend library dependencies from the client bundle."
         }
       },
@@ -13894,12 +13894,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why can a Server Component be passed as a child prop to a Client Component without entering the client bundle?",
           options: [
-            "Because the Server Component is executed on the server first, and only its serialized JSX output is passed as a child slot into the Client Component",
-            "Because Client Components automatically transpile server code into WebAssembly",
-            "Because React strips all child props before client hydration",
-            "Because parent components always overwrite child components"
+            "Because Client Components automatically transpile server-side JavaScript closures into WebAssembly modules prior to dispatching network requests.",
+            "Because modern web browsers automatically strip all child component props from the DOM tree before running the synchronous hydration lifecycle.",
+            "Because parent client components always overwrite their children with pre-rendered SVG canvas nodes, discarding underlying component definitions.",
+            "Because the Server Component evaluates on the server first, passing its pre-rendered virtual element slot to the Client Component across the wire."
           ],
-          answer: 0,
+          answer: 3,
           why: "Composition allows Server Components to evaluate on the server and pass their rendered element slots to Client Components without leaking server dependencies into the client bundle."
         }
       },
@@ -13929,10 +13929,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does moving a markdown parser to a Server Component eliminate the hydration cost on the client device?",
           options: [
-            "The heavy parser library executes exclusively on the server, outputting pure static HTML/JSX and adding 0 KB to client bundle and 0ms to client hydration",
-            "The browser uses native C++ markdown parsers built into the HTML parser",
-            "Markdown parsing is deferred until the user scrolls to the bottom of the page",
-            "Hydration only runs for image tags"
+            "The heavy parser executes exclusively on the server, outputting pure virtual DOM elements and adding zero kilobytes to the client hydration bundle.",
+            "The client browser relies on native C++ markdown parsing utilities embedded directly within modern Blink and WebKit HTML document rendering engines.",
+            "Markdown syntax tokenization is deferred until the user scrolls past the viewport, offloading AST generation to background browser worker threads.",
+            "The React reconciler converts markdown source files into compressed binary textures and renders them onto hardware-accelerated WebGL canvas surfaces."
           ],
           answer: 0,
           why: "Server Components offload expensive tokenization and transformation libraries to the server runtime, completely freeing the client browser from downloading or hydrating them."
@@ -13967,12 +13967,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What do the control characters \"M\" and \"J\" signify in the RSC wire protocol?",
           options: [
-            "'M' defines a Client Component module reference (chunk ID and export name), while 'J' defines a serialized UI element tree",
-            "'M' stands for Memory allocation and 'J' stands for JavaScript minification",
-            "'M' signifies Mutation events and 'J' signifies JSON database records",
-            "'M' indicates Mobile viewport and 'J' indicates Java backend"
+            "'M' allocates memory buffers inside backend Node.js runtimes, while 'J' triggers JavaScript minification algorithms on the client device.",
+            "'M' defines database mutation queries executed on backend clusters, while 'J' outputs raw JSON table records for indexed browser storage.",
+            "'M' declares a Client Component module reference with chunk paths, while 'J' emits the serialized virtual element tree with layout nodes.",
+            "'M' configures dynamic viewport constraints for mobile client browsers, while 'J' establishes Java backend microservice network routes."
           ],
-          answer: 0,
+          answer: 2,
           why: "In the RSC wire protocol stream, 'M' declares client module boundary imports and 'J' describes virtual element hierarchies containing HTML tags and module references."
         }
       },
@@ -14005,12 +14005,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "How does the client deserializer reconstruct interactive event handlers without executing server component code?",
           options: [
-            "The client runtime matches 'M' client module references from the stream to local client bundles, instantiating interactive handlers only at declared client leaf nodes",
-            "The server transmits compiled machine code via WebSockets",
-            "The browser eval()s raw strings inside the HTML body",
-            "All event handlers are stored in cookies"
+            "The server transmits raw compiled machine code over WebSocket streams, allowing client browser runtimes to execute event callbacks in native threads.",
+            "The client matches 'M' module references from the stream to local bundles, instantiating interactive handlers only at declared client leaf islands.",
+            "The client browser executes dynamic string evaluation over raw HTML attributes, converting unparsed markup strings into executable JavaScript blocks.",
+            "The server stores all interactive event listeners in encrypted HTTP cookies, enabling browser engines to dispatch user actions without local scripts."
           ],
-          answer: 0,
+          answer: 1,
           why: "The RSC runtime replaces Server Components with pure serialized element data and references Client Components via module chunks, hydrating interactivity only at client leaf boundaries."
         }
       }
