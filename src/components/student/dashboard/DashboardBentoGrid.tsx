@@ -75,78 +75,24 @@ export default function DashboardBentoGrid({
   }, [careerScore, dnaScore, activeTrack, cOS?.onboardingAnswers, cOS?.completedQuests?.length, cOS?.vaultItems?.length, cOS?.trustScore]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
-      {/* Row 1: Evolution Timeline (full width) */}
-      <div className="db-glass" style={{ padding: '18px 24px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
-          <div>
-            <span className="db-label">ENGINEERING GROWTH TRACK</span>
-            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              Stage: <span style={{ color: 'var(--accent)' }}>{EVO_STAGES[activeStageIndex]?.name}</span> &middot; Level {activeStageIndex + 1} of 5
-            </h3>
-          </div>
-          <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)', background: 'var(--bg3)', padding: '4px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
-            DNA Mastery: <strong style={{ color: 'var(--accent)' }}>{careerScore}</strong>/100
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', padding: '12px 0', margin: '4px 0' }}>
-          {/* Base Track line */}
-          <div style={{ position: 'absolute', left: '6%', right: '6%', height: 3, background: 'rgba(255,255,255,0.06)', zIndex: 0, borderRadius: 2 }} />
-          {/* Active Progress line */}
-          <div style={{ position: 'absolute', left: '6%', width: `${Math.min(88, activeStageIndex * 22)}%`, height: 3, background: 'linear-gradient(90deg, var(--accent), #10b981)', zIndex: 0, transition: 'width 0.6s ease', boxShadow: '0 0 10px rgba(99,102,241,0.5)', borderRadius: 2 }} />
-          
-          {EVO_STAGES.map((step, idx) => {
-            const active = idx <= activeStageIndex;
-            const current = idx === activeStageIndex;
-            return (
-              <div key={step.stage} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '18%', textAlign: 'center' }}>
-                <div style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: '50%',
-                  background: current ? 'linear-gradient(135deg, var(--accent), #4f46e5)' : active ? 'rgba(99,102,241,0.2)' : 'var(--bg3)',
-                  border: `2px solid ${current ? '#fff' : active ? 'var(--accent)' : 'var(--border)'}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 18,
-                  boxShadow: current ? '0 0 16px rgba(99,102,241,0.6)' : 'none',
-                  transition: 'all 0.3s ease',
-                  cursor: 'default'
-                }}>
-                  {step.icon}
-                </div>
-                <div style={{ fontSize: 11, fontWeight: current ? 800 : active ? 700 : 500, color: current ? 'var(--accent)' : active ? 'var(--t1)' : 'var(--t4)', marginTop: 8, whiteSpace: 'nowrap' }}>
-                  {step.name}
-                </div>
-                <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 3, display: current ? 'block' : 'none', maxWidth: 110, lineHeight: 1.3, fontFamily: 'var(--font-mono)' }}>
-                  {step.desc}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: '8px 0 0', lineHeight: 1.5 }}>
-          Clear coding quests, pass lab experiments, verify vault credentials, and pass mock interviews to rank up to Placement Ready.
-        </p>
-      </div>
-
-      {/* Row 2: Left 50% What to do today (vertical) + Right 50% Competencies Radar */}
+      {/* Row 1: Tactical Split — What to do today (Left 60%) + Competencies Radar (Right 40%) */}
       <div
         data-testid="dashboard-action-radar-row"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
           gap: 16,
           alignItems: 'stretch',
         }}
       >
-        {/* Left Column (50%): What to do today (Vertical) */}
-        <WhatToDoToday profile={actionProfile} layout="vertical" />
+        {/* Left Column: What to do today (Vertical) */}
+        <div style={{ flex: '1 1 55%', minWidth: 320 }}>
+          <WhatToDoToday profile={actionProfile} layout="vertical" />
+        </div>
 
-        {/* Right Column (50%): Socratic Competencies Radar card */}
+        {/* Right Column: Socratic Competencies Radar card */}
         <div
           data-testid="competencies-radar-card"
           className="db-glass"
@@ -156,7 +102,8 @@ export default function DashboardBentoGrid({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            height: '100%',
+            flex: '1 1 45%',
+            minWidth: 320,
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
@@ -206,6 +153,222 @@ export default function DashboardBentoGrid({
               <text x="24" y="112" fill="var(--t2, #94a3b8)" fontSize="6" fontWeight="700" fontFamily="var(--font-mono)" textAnchor="middle">SOCRATIC</text>
               <text x="10" y="44" fill="var(--t2, #94a3b8)" fontSize="6" fontWeight="700" fontFamily="var(--font-mono)" textAnchor="middle">IoT</text>
             </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 2: Engineering Growth Track (Placed BELOW What To Do Today & Competency Matrix, 100% Full Width) */}
+      <div className="db-glass" style={{ padding: '20px 24px', borderRadius: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
+          <div>
+            <span className="db-label">ENGINEERING GROWTH TRACK</span>
+            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
+              Stage: <span style={{ color: 'var(--accent)' }}>{EVO_STAGES[activeStageIndex]?.name}</span> &middot; Level {activeStageIndex + 1} of 5
+            </h3>
+          </div>
+          <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)', background: 'var(--bg3)', padding: '4px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
+            DNA Mastery: <strong style={{ color: 'var(--accent)' }}>{careerScore}</strong>/100
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', padding: '14px 0', margin: '4px 0' }}>
+          {/* Base Track line */}
+          <div style={{ position: 'absolute', left: '6%', right: '6%', height: 3, background: 'rgba(255,255,255,0.06)', zIndex: 0, borderRadius: 2 }} />
+          {/* Active Progress line */}
+          <div style={{ position: 'absolute', left: '6%', width: `${Math.min(88, activeStageIndex * 22)}%`, height: 3, background: 'linear-gradient(90deg, var(--accent), #10b981)', zIndex: 0, transition: 'width 0.6s ease', boxShadow: '0 0 10px rgba(99,102,241,0.5)', borderRadius: 2 }} />
+          
+          {EVO_STAGES.map((step, idx) => {
+            const active = idx <= activeStageIndex;
+            const current = idx === activeStageIndex;
+            return (
+              <div key={step.stage} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '18%', textAlign: 'center' }}>
+                <div style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: '50%',
+                  background: current ? 'linear-gradient(135deg, var(--accent), #4f46e5)' : active ? 'rgba(99,102,241,0.2)' : 'var(--bg3)',
+                  border: `2px solid ${current ? '#fff' : active ? 'var(--accent)' : 'var(--border)'}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 16,
+                  fontWeight: 800,
+                  color: current ? '#ffffff' : active ? 'var(--accent)' : 'var(--t3)',
+                  boxShadow: current ? '0 0 16px rgba(99,102,241,0.6)' : 'none',
+                  transition: 'all 0.3s ease',
+                  cursor: 'default'
+                }}>
+                  {step.icon}
+                </div>
+                <div style={{ fontSize: 11, fontWeight: current ? 800 : active ? 700 : 500, color: current ? 'var(--accent)' : active ? 'var(--t1)' : 'var(--t4)', marginTop: 8, whiteSpace: 'nowrap' }}>
+                  {step.name}
+                </div>
+                <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 3, display: current ? 'block' : 'none', maxWidth: 110, lineHeight: 1.3, fontFamily: 'var(--font-mono)' }}>
+                  {step.desc}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: '8px 0 0', lineHeight: 1.5 }}>
+          Clear coding quests, pass lab experiments, verify vault credentials, and pass mock interviews to rank up to Placement Ready.
+        </p>
+      </div>
+
+      {/* Row 3: Arena & League Telemetry (50%) + Proof Vault & Credentials (50%) */}
+      <div
+        data-testid="dashboard-telemetry-row"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+          gap: 16,
+          alignItems: 'stretch',
+        }}
+      >
+        {/* Left (50%): Arena & League Telemetry */}
+        <div className="db-glass" style={{ padding: '20px 22px', borderRadius: 16 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <div>
+              <span className="db-label">CHALLENGING ARENA &amp; LEAGUES</span>
+              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
+                Competitive Standing
+              </h3>
+            </div>
+            <a href="/arena" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+              Enter Arena &rarr;
+            </a>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ fontSize: 24 }}>💎</div>
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>Diamond League &bull; Rank #42</p>
+                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>Top 4% of 1,240 active cohort engineers</p>
+              </div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <span style={{ fontSize: 10, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: 0.5 }}>Next Clash</span>
+              <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>02:48:10</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right (50%): Proof Vault & Verified Credentials */}
+        <div className="db-glass" style={{ padding: '20px 22px', borderRadius: 16 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <div>
+              <span className="db-label">PROOF VAULT &amp; CREDENTIALS</span>
+              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
+                Cryptographic Work Proofs
+              </h3>
+            </div>
+            <a href="/vault" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+              View Vault &rarr;
+            </a>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 34, height: 34, borderRadius: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
+                🔒
+              </div>
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>SHA-256 Capstone Verification</p>
+                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>hash: 9f8a...c32d &bull; Git PR #48</p>
+              </div>
+            </div>
+            <a
+              href="/vault"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '6px 12px',
+                borderRadius: 8,
+                fontSize: 11.5,
+                fontWeight: 700,
+                background: 'rgba(255,255,255,0.05)',
+                color: 'var(--t1)',
+                border: '1px solid var(--border)',
+                textDecoration: 'none',
+              }}
+            >
+              Verify &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 4: Active & Capstone Projects (100% Full Width, matching Engineering Growth Track) */}
+      <div className="db-glass" style={{ padding: '20px 24px', borderRadius: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 14 }}>
+          <div>
+            <span className="db-label">ACTIVE &amp; CAPSTONE PROJECTS</span>
+            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
+              Engineering Workspaces &amp; Production Repositories
+            </h3>
+          </div>
+          <a href="/projects" style={{ fontSize: 12, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+            + New Project Workspace &rarr;
+          </a>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div
+            style={{
+              padding: '14px 18px',
+              borderRadius: 12,
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--border)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: 14,
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 220 }}>
+              <div style={{ width: 38, height: 38, borderRadius: 10, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>
+                TQ
+              </div>
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>Distributed Task Queue Engine</p>
+                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>Go &bull; Redis &bull; Docker &bull; 18 Verified Commits</p>
+              </div>
+            </div>
+
+            {/* Horizontal Milestone Timeline Bar */}
+            <div style={{ flex: '1 1 240px', minWidth: 200, padding: '0 12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10.5, color: 'var(--t3)', marginBottom: 4, fontFamily: 'var(--font-mono)' }}>
+                <span>Architecture</span>
+                <span style={{ color: 'var(--accent)', fontWeight: 700 }}>Worker Pool (Active)</span>
+                <span>Benchmarking</span>
+              </div>
+              <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2 }}>
+                <div style={{ width: '72%', height: '100%', background: 'linear-gradient(90deg, var(--accent), #10b981)', borderRadius: 2 }} />
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, fontSize: 11, fontWeight: 700, background: 'rgba(16,185,129,0.12)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)' }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#10b981' }} />
+                Active
+              </span>
+              <a
+                href="/projects"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '7px 14px',
+                  borderRadius: 8,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  background: 'var(--accent, #6366f1)',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                }}
+              >
+                Open Workspace &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </div>

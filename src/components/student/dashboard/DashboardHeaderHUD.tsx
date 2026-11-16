@@ -168,6 +168,8 @@ interface Props {
 
 export default function DashboardHeaderHUD({
   user,
+  careerScore = 0,
+  trustScore = 0,
   activeTrack,
 }: Props) {
   const firstName = useMemo(() => {
@@ -204,7 +206,7 @@ export default function DashboardHeaderHUD({
 
     if (daysSinceLast >= 2) {
       setGreetingInfo({
-        title: `Hello ${firstName}, it's been ${daysSinceLast} days!`,
+        title: `Hello, ${firstName}`,
         subtitle: `Welcome back to your workspace — ready to pick up where you left off?`,
       });
     } else {
@@ -217,10 +219,12 @@ export default function DashboardHeaderHUD({
       }
       setGreetingInfo({
         title: `${salutation}, ${firstName}`,
-        subtitle: 'Ready to continue your career journey today?',
+        subtitle: 'Sprint 2 (Data Structures & Algorithms) is underway. 3 priority quests await your focus today.',
       });
     }
   }, [firstName, user?.id]);
+
+  const dnaMasteryPercent = Math.max(0, Math.min(100, careerScore > 0 ? careerScore : 85));
 
   return (
     <div
@@ -230,7 +234,7 @@ export default function DashboardHeaderHUD({
         background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.07) 0%, var(--dash-card) 100%)',
         border: '1.5px solid rgba(99, 102, 241, 0.22)',
         boxShadow: '0 8px 30px -4px rgba(99, 102, 241, 0.16)',
-        padding: '20px 24px',
+        padding: '22px 28px',
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
@@ -242,14 +246,21 @@ export default function DashboardHeaderHUD({
       <div style={{ position: 'absolute', top: -60, right: -60, width: 240, height: 240, background: 'rgba(99,102,241,0.12)', borderRadius: '50%', filter: 'blur(80px)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: -40, left: -40, width: 180, height: 180, background: 'rgba(14,165,233,0.08)', borderRadius: '50%', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
-      {/* Main Row: Hologram + Clean Greeting */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20, position: 'relative', zIndex: 1 }}>
+      {/* Main Row: Hologram + Clean Greeting + DNA Mastery Ring */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, position: 'relative', zIndex: 1 }}>
         
-        {/* Left: Hologram + Clean Greeting */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20, flex: '1 1 auto', minWidth: 0 }}>
+        {/* Left: Hologram + Single-Line Greeting + Quick Actions */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 22, flex: '1 1 auto', minWidth: 280 }}>
           <CareerTwinHologram track={activeTrack} />
 
           <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 700, background: 'rgba(16, 185, 129, 0.12)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.28)' }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
+                Personal &bull; Active Sprint
+              </span>
+            </div>
+
             <h1
               data-testid="student-greeting"
               style={{
@@ -259,14 +270,114 @@ export default function DashboardHeaderHUD({
                 color: 'var(--dash-text)',
                 letterSpacing: '-0.5px',
                 margin: '0 0 6px',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {greetingInfo.title}
             </h1>
 
-            <p style={{ fontSize: 13.5, color: 'var(--dash-subtext)', margin: '0 0 10px', lineHeight: 1.5 }}>
+            <p style={{ fontSize: 13.5, color: 'var(--dash-subtext)', margin: '0 0 14px', lineHeight: 1.5, maxWidth: 640 }}>
               {greetingInfo.subtitle}
             </p>
+
+            {/* Quick Action Buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+              <a
+                href="/quests"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '7px 16px',
+                  borderRadius: 8,
+                  fontSize: 12.5,
+                  fontWeight: 700,
+                  background: 'var(--accent, #6366f1)',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
+                  transition: 'transform 0.18s ease',
+                }}
+              >
+                + Start Today&apos;s Quest
+              </a>
+              <a
+                href="/quests"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '7px 14px',
+                  borderRadius: 8,
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  color: 'var(--dash-text, #ffffff)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  textDecoration: 'none',
+                }}
+              >
+                Resume Sprint
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Circular DNA Mastery Ring (Clean, No Clutter, Zero 4 Extra Cards) */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 18,
+            padding: '12px 18px',
+            borderRadius: 14,
+            background: 'rgba(10, 14, 26, 0.55)',
+            border: '1px solid rgba(99, 102, 241, 0.22)',
+            backdropFilter: 'blur(12px)',
+          }}
+        >
+          <div style={{ position: 'relative', width: 76, height: 76, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg style={{ width: 76, height: 76, transform: 'rotate(-90deg)' }} viewBox="0 0 36 36">
+              <path
+                stroke="rgba(255, 255, 255, 0.08)"
+                strokeWidth="3.2"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+              <path
+                stroke="var(--accent, #6366f1)"
+                strokeDasharray={`${dnaMasteryPercent}, 100`}
+                strokeWidth="3.2"
+                strokeLinecap="round"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                style={{ filter: 'drop-shadow(0 0 6px rgba(99, 102, 241, 0.6))' }}
+              />
+            </svg>
+            <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <span style={{ fontSize: 16, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
+                {dnaMasteryPercent}%
+              </span>
+              <span style={{ fontSize: 8, textTransform: 'uppercase', letterSpacing: 0.8, color: 'var(--dash-subtext)' }}>
+                Mastery
+              </span>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--dash-text)', fontFamily: 'var(--font-display)' }}>
+              Career DNA Health
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--dash-subtext)' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent, #6366f1)' }} />
+              Logic &amp; Syntax: 92%
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--dash-subtext)' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
+              Algorithms: 78%
+            </div>
           </div>
         </div>
 
