@@ -1,681 +1,636 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 43,
-  "promptSha": "block9_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "The Hydration Uncanny Valley: Static HTML Visible While Main Thread Freezes During Monolithic Tree Traversal",
       "codeHash": "6e2d90fffea227599bd6cfd66890779d0b1d6e02ee9c1d9a2e888ab33f3e26b7",
       "spec": {
-        "template": "states",
-        "title": "The Hydration Uncanny Valley: Monolithic vs Concurrent Hydration",
-        "states": [
-          {
-            "id": "html_paint",
-            "label": "HTML Rendered on Screen",
-            "desc": "Visual elements visible but event listeners not yet attached."
-          },
-          {
-            "id": "mono_freeze",
-            "label": "Monolithic Hydration Lock",
-            "desc": "Main thread locked in single 160ms synchronous task."
-          },
-          {
-            "id": "dropped_event",
-            "label": "Uncanny Valley / Dropped Clicks",
-            "desc": "User taps button; clicks swallowed or delayed."
-          },
-          {
-            "id": "selective_fix",
-            "label": "Selective Hydration Resolution",
-            "desc": "React 18 segments tree into independent cooperative islands."
-          }
-        ],
-        "current": "html_paint",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "In traditional SSR, HTML paints quickly, but the main thread freezes during monolithic hydration.",
-            "values": {
-              "html_paint": {
-                "text": "\"Painted\""
-              },
-              "mono_freeze": {
-                "text": "\"160ms Long Task\""
-              },
-              "dropped_event": {
-                "text": "\"Pending\""
-              },
-              "selective_fix": {
-                "text": "\"Disabled\""
-              }
-            },
-            "tones": {
-              "html_paint": "ok",
-              "mono_freeze": "error",
-              "dropped_event": "idle",
-              "selective_fix": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "The page looks completely ready, but clicks and gestures are completely unresponsive.",
-            "values": {
-              "html_paint": {
-                "text": "\"Deceptive UI\""
-              },
-              "mono_freeze": {
-                "text": "\"Main Thread 100%\""
-              },
-              "dropped_event": {
-                "text": "\"Clicks Swallowed\""
-              },
-              "selective_fix": {
-                "text": "\"Disabled\""
-              }
-            },
-            "tones": {
-              "html_paint": "ok",
-              "mono_freeze": "error",
-              "dropped_event": "error",
-              "selective_fix": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Total Blocking Time (TBT) spikes past one hundredms, severely degrading.",
-            "values": {
-              "html_paint": {
-                "text": "\"TBT: 113.2ms\""
-              },
-              "mono_freeze": {
-                "text": "\"Uncanny Valley\""
-              },
-              "dropped_event": {
-                "text": "\"High Bounce Rate\""
-              },
-              "selective_fix": {
-                "text": "\"Disabled\""
-              }
-            },
-            "tones": {
-              "html_paint": "error",
-              "mono_freeze": "error",
-              "dropped_event": "error",
-              "selective_fix": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Selective Hydration eliminates the lockup by breaking the page into independent Suspense islands.",
-            "values": {
-              "html_paint": {
-                "text": "\"Painted\""
-              },
-              "mono_freeze": {
-                "text": "\"Zero Long Tasks\""
-              },
-              "dropped_event": {
-                "text": "\"TBT: 0ms\""
-              },
-              "selective_fix": {
-                "text": "\"Active & Responsive\""
-              }
-            },
-            "tones": {
-              "html_paint": "ok",
-              "mono_freeze": "ok",
-              "dropped_event": "ok",
-              "selective_fix": "ok"
-            }
-          }
-        ]
-      },
-      "filled": true
-    },
-    {
-      "partTitle": "React 18 hydrateRoot & Suspense Subtree Segmentation: Breaking the Monolithic Hydration Graph into Independent Concurrent Hydration Islands",
-      "codeHash": "4e9564114e1fdab5cb8a9a80a8818dcabfda82bb423173a1d07a043c832533d6",
-      "spec": {
-        "template": "component-tree",
-        "title": "React 18 hydrateRoot & Suspense Subtree Segmentation",
-        "items": [
-          {
-            "id": "shell_root",
-            "label": "App Shell (Immediate Hydration)",
-            "depth": 0,
-            "status": "active"
-          },
-          {
-            "id": "hero_node",
-            "label": "ProductHero (Immediate Hydration)",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "cart_island",
-            "label": "InteractiveAddToCart (Suspense Island - High Priority)",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "reviews_island",
-            "label": "CustomerReviews (Suspense Island - Deferred Priority)",
-            "depth": 1,
-            "status": "active"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "hydrateRoot uses Suspense boundaries as natural architectural fault lines.",
-            "values": {
-              "shell_root": {
-                "text": "\"Hydrating\""
-              },
-              "hero_node": {
-                "text": "\"Queued\""
-              },
-              "cart_island": {
-                "text": "\"Independent\""
-              },
-              "reviews_island": {
-                "text": "\"Independent\""
-              }
-            },
-            "tones": {
-              "shell_root": "data",
-              "hero_node": "idle",
-              "cart_island": "ok",
-              "reviews_island": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "The application shell and critical product hero hydrate immediately.",
-            "values": {
-              "shell_root": {
-                "text": "\"Hydrated\""
-              },
-              "hero_node": {
-                "text": "\"Hydrated\""
-              },
-              "cart_island": {
-                "text": "\"High Priority\""
-              },
-              "reviews_island": {
-                "text": "\"Deferred\""
-              }
-            },
-            "tones": {
-              "shell_root": "ok",
-              "hero_node": "ok",
-              "cart_island": "data",
-              "reviews_island": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Heavy subtrees like customer reviews are deferred to lower priority lanes.",
-            "values": {
-              "shell_root": {
-                "text": "\"Hydrated\""
-              },
-              "hero_node": {
-                "text": "\"Hydrated\""
-              },
-              "cart_island": {
-                "text": "\"Hydrated\""
-              },
-              "reviews_island": {
-                "text": "\"Idle Lane\""
-              }
-            },
-            "tones": {
-              "shell_root": "ok",
-              "hero_node": "ok",
-              "cart_island": "ok",
-              "reviews_island": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Hydration failures in one island are strictly isolated, preventing site-wide re-renders.",
-            "values": {
-              "shell_root": {
-                "text": "\"Protected\""
-              },
-              "hero_node": {
-                "text": "\"Protected\""
-              },
-              "cart_island": {
-                "text": "\"Protected\""
-              },
-              "reviews_island": {
-                "text": "\"Isolated Error\""
-              }
-            },
-            "tones": {
-              "shell_root": "ok",
-              "hero_node": "ok",
-              "cart_island": "ok",
-              "reviews_island": "ok"
-            }
-          }
-        ]
-      },
-      "filled": true
-    },
-    {
-      "partTitle": "Event Replay & User-Driven Hydration Priority Promotion: Intercepting Clicks on Unhydrated Islands and Replaying Queued Events",
-      "codeHash": "4fe1dac302408b4c6705fdabb02e0622c0a5bb35444eed2dd17236f50342b8fb",
-      "spec": {
-        "template": "flow",
-        "title": "User-Driven Hydration Priority Promotion & Event Replay",
-        "nodes": [
-          {
-            "id": "user_tap",
-            "label": "User Clicks Unhydrated Button",
-            "tappable": false
-          },
-          {
-            "id": "event_capture",
-            "label": "Capture Phase Interception",
-            "tappable": false
-          },
-          {
-            "id": "priority_promote",
-            "label": "Promote Island to SyncLane",
-            "tappable": false
-          },
-          {
-            "id": "replay_event",
-            "label": "Synchronous Hydration & Event Replay",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The user clicks the AddToCart button before its JavaScript has finished hydrating.",
-            "values": {
-              "user_tap": {
-                "text": "\"Click Dispatched\""
-              },
-              "event_capture": {
-                "text": "\"Listening\""
-              },
-              "priority_promote": {
-                "text": "\"Normal Queue\""
-              },
-              "replay_event": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "user_tap": "data",
-              "event_capture": "ok",
-              "priority_promote": "idle",
-              "replay_event": "idle"
-            },
-            "arrows": [
-              [
-                "user_tap",
-                "event_capture"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "React's top-level continuous listener intercepts the event during the capture phase.",
-            "values": {
-              "user_tap": {
-                "text": "\"Intercepted\""
-              },
-              "event_capture": {
-                "text": "\"Event Buffered\""
-              },
-              "priority_promote": {
-                "text": "\"Promoting\""
-              },
-              "replay_event": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "user_tap": "ok",
-              "event_capture": "ok",
-              "priority_promote": "data",
-              "replay_event": "idle"
-            },
-            "arrows": [
-              [
-                "event_capture",
-                "priority_promote"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "React interrupts background hydration and elevates the target island to URGENT_SYNC_LANE.",
-            "values": {
-              "user_tap": {
-                "text": "\"Intercepted\""
-              },
-              "event_capture": {
-                "text": "\"Buffered\""
-              },
-              "priority_promote": {
-                "text": "\"SYNC_LANE Elevated\""
-              },
-              "replay_event": {
-                "text": "\"Hydrating Target\""
-              }
-            },
-            "tones": {
-              "user_tap": "ok",
-              "event_capture": "ok",
-              "priority_promote": "ok",
-              "replay_event": "data"
-            },
-            "arrows": [
-              [
-                "priority_promote",
-                "replay_event"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The island hydrates instantly, and the original click event is replayed against the live handler.",
-            "values": {
-              "user_tap": {
-                "text": "\"Completed\""
-              },
-              "event_capture": {
-                "text": "\"Cleared\""
-              },
-              "priority_promote": {
-                "text": "\"Committed\""
-              },
-              "replay_event": {
-                "text": "\"Event Replayed: Success\""
-              }
-            },
-            "tones": {
-              "user_tap": "ok",
-              "event_capture": "ok",
-              "priority_promote": "ok",
-              "replay_event": "ok"
-            }
-          }
-        ]
-      },
-      "filled": true
-    },
-    {
-      "partTitle": "Selective Hydration Scheduling Internals: Lane Bitmask Allocation during Hydration and Viewport-Driven Deferred Hydration",
-      "codeHash": "f7f5a1189f320149b4a351864058f1631f42cd5de2491b1929ea27cd5f1822f0",
-      "spec": {
         "template": "compare",
-        "title": "Viewport-Driven Hydration: Above-the-Fold vs Below-the-Fold",
+        "title": "Monolithic vs Selective Hydration",
         "left": {
-          "label": "Above-the-Fold Islands (<800px)",
+          "title": "Monolithic Hydration",
+          "subtitle": "ReactDOM.hydrate",
           "items": [
-            "Continuous Immediate Lane",
-            "Hydrates in first 50ms",
-            "Directly accessible to user",
-            "Instant interactive controls"
+            {
+              "label": "Main Thread",
+              "text": "totalHydrationTimeMs",
+              "tone": "error"
+            },
+            {
+              "label": "Blocking Penalty",
+              "text": "tbtPenaltyMs",
+              "tone": "error"
+            }
           ]
         },
         "right": {
-          "label": "Below-the-Fold Islands (>800px)",
+          "title": "Selective Hydration",
+          "subtitle": "Selective Hydration",
           "items": [
-            "Idle Offscreen Lane",
-            "Deferred until main thread idle",
-            "IntersectionObserver triggered",
-            "Saves mobile CPU & battery"
+            {
+              "label": "Island Slices",
+              "text": "Suspense",
+              "tone": "ok"
+            },
+            {
+              "label": "Zero Penalty",
+              "text": "Total Blocking Time",
+              "tone": "ok"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Components visible in the initial viewport are allocated to CONTINUOUS_IMMEDIATE_LANE.",
-            "values": {
-              "left": {
-                "items": [
-                  "ProductHero: 150px",
-                  "StickyCart: 450px",
-                  "Immediate Priority",
-                  "Active"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Specs: 950px",
-                  "Reviews: 1800px",
-                  "Footer: 3200px",
-                  "Deferred"
-                ]
-              }
-            },
-            "tones": {
-              "left": "ok",
-              "right": "data"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Near-viewport islands are prefetched on Transition lanes as the user prepares to scroll.",
-            "values": {
-              "left": {
-                "items": [
-                  "Hydrated 100%",
-                  "Zero Latency",
-                  "Interactive",
-                  "Bound"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Specs: Prefetching",
-                  "Reviews: Idle",
-                  "Footer: Idle",
-                  "Deferred"
-                ]
-              }
-            },
-            "tones": {
-              "left": "ok",
-              "right": "data"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Traditional hydration traverses the full document tree synchronously."
           },
           {
             "at": "say3",
-            "caption": "Deep off-screen elements remain unhydrated until scrolled within the intersection margin.",
-            "values": {
-              "left": {
-                "items": [
-                  "Committed",
-                  "Committed",
-                  "Interactive",
-                  "Zero Lag"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Specs: Hydrated",
-                  "Reviews: Approaching",
-                  "Footer: Idle",
-                  "Battery Saved"
-                ]
-              }
-            },
-            "tones": {
-              "left": "ok",
-              "right": "ok"
-            }
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "The visible screen freezes while monolithic traversal locks main thread."
           },
           {
-            "at": "say4",
-            "caption": "Mobile devices save massive memory and CPU cycles by never hydrating unviewed sections.",
-            "values": {
-              "left": {
-                "items": [
-                  "Primary Priority",
-                  "60 FPS Verified",
-                  "Immediate",
-                  "Green Vitals"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Zero CPU Waste",
-                  "Flat Memory",
-                  "On-Demand Hydration",
-                  "Green Vitals"
-                ]
-              }
-            },
-            "tones": {
-              "left": "ok",
-              "right": "ok"
-            }
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Selective hydration isolates subtrees into autonomous interactive islands."
           }
         ]
       },
-      "filled": true
+      "filled": {
+        "template": "compare",
+        "title": "Monolithic vs Selective Hydration",
+        "left": {
+          "title": "Monolithic Hydration",
+          "subtitle": "ReactDOM.hydrate",
+          "items": [
+            {
+              "label": "Main Thread",
+              "text": "totalHydrationTimeMs",
+              "tone": "error"
+            },
+            {
+              "label": "Blocking Penalty",
+              "text": "tbtPenaltyMs",
+              "tone": "error"
+            }
+          ]
+        },
+        "right": {
+          "title": "Selective Hydration",
+          "subtitle": "Selective Hydration",
+          "items": [
+            {
+              "label": "Island Slices",
+              "text": "Suspense",
+              "tone": "ok"
+            },
+            {
+              "label": "Zero Penalty",
+              "text": "Total Blocking Time",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Traditional hydration traverses the full document tree synchronously."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "The visible screen freezes while monolithic traversal locks main thread."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Selective hydration isolates subtrees into autonomous interactive islands."
+          }
+        ]
+      }
     },
     {
-      "partTitle": "Deterministic Selective Hydration & Event Replay Engine: Implementing an Event Queue Buffer, Island Prioritization & Replay Simulator",
-      "codeHash": "4bf94c142a4110c691db24e305c13a0e1c8e0350392608fd6989fe86a75b0c49",
+      "partIndex": 1,
+      "partTitle": "React 18 hydrateRoot & Suspense Subtree Segmentation: Breaking the Monolithic Hydration Graph into Independent Concurrent Hydration Islands",
+      "codeHash": "4e9564114e1fdab5cb8a9a80a8818dcabfda82bb423173a1d07a043c832533d6",
       "spec": {
         "template": "boxes",
-        "title": "Deterministic Selective Hydration & Event Replay Engine",
+        "title": "Concurrent Subtree Fault Isolation",
         "boxes": [
           {
-            "id": "island_reg",
-            "label": "Autonomous Island Registry",
-            "tappable": false
+            "id": "b1",
+            "title": "Concurrent Sub-Root",
+            "desc": "hydrateRoot",
+            "tone": "ok"
           },
           {
-            "id": "event_buffer",
-            "label": "Capture-Phase Event Buffer",
-            "tappable": false
+            "id": "b2",
+            "title": "Suspense Boundary",
+            "desc": "Suspense",
+            "tone": "data"
           },
           {
-            "id": "lane_scheduler",
-            "label": "Priority Lane Scheduler",
-            "tappable": false
+            "id": "b3",
+            "title": "Autonomous Island",
+            "desc": "independent island",
+            "tone": "idle"
           },
           {
-            "id": "replayed_action",
-            "label": "Replayed Live Event Dispatcher",
-            "tappable": false
+            "id": "b4",
+            "title": "Isolated Error Scope",
+            "desc": "hydration mismatch",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The runtime registers islands with base priorities (Nav: ten, Search.",
-            "values": {
-              "island_reg": {
-                "text": "\"3 Islands Registered\""
-              },
-              "event_buffer": {
-                "text": "\"Empty\""
-              },
-              "lane_scheduler": {
-                "text": "\"Default Order\""
-              },
-              "replayed_action": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "island_reg": "ok",
-              "event_buffer": "idle",
-              "lane_scheduler": "data",
-              "replayed_action": "idle"
-            }
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Concurrent root hydration splits work across cooperative time slices."
           },
           {
             "at": "say2",
-            "caption": "A user clicks LiveSearchBar; the event is intercepted and buffered during capture phase.",
-            "values": {
-              "island_reg": {
-                "text": "\"Search Clicked\""
-              },
-              "event_buffer": {
-                "text": "\"focus Buffered\""
-              },
-              "lane_scheduler": {
-                "text": "\"Priority Spike\""
-              },
-              "replayed_action": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "island_reg": "ok",
-              "event_buffer": "ok",
-              "lane_scheduler": "data",
-              "replayed_action": "idle"
-            }
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Suspense boundaries segment the component tree into independent islands."
           },
           {
-            "at": "say3",
-            "caption": "Search bar priority is promoted to one hundred, preempting NavigationMenu.",
-            "values": {
-              "island_reg": {
-                "text": "\"Search: Priority 100\""
-              },
-              "event_buffer": {
-                "text": "\"Armed\""
-              },
-              "lane_scheduler": {
-                "text": "\"Hydrating Search\""
-              },
-              "replayed_action": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "island_reg": "ok",
-              "event_buffer": "ok",
-              "lane_scheduler": "ok",
-              "replayed_action": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "LiveSearchBar is hydrated first, and the buffered focus event is replayed seamlessly.",
-            "values": {
-              "island_reg": {
-                "text": "\"Search Hydrated\""
-              },
-              "event_buffer": {
-                "text": "\"Flushed\""
-              },
-              "lane_scheduler": {
-                "text": "\"Nav Hydrated Next\""
-              },
-              "replayed_action": {
-                "text": "\"focus Dispatched\""
-              }
-            },
-            "tones": {
-              "island_reg": "ok",
-              "event_buffer": "ok",
-              "lane_scheduler": "ok",
-              "replayed_action": "ok"
-            }
+            "at": "say5",
+            "highlight": [
+              "b3",
+              "b4"
+            ],
+            "caption": "Fault isolation confines hydration mismatches to individual subtrees."
           }
         ]
       },
-      "filled": true
+      "filled": {
+        "template": "boxes",
+        "title": "Concurrent Subtree Fault Isolation",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Concurrent Sub-Root",
+            "desc": "hydrateRoot",
+            "tone": "ok"
+          },
+          {
+            "id": "b2",
+            "title": "Suspense Boundary",
+            "desc": "Suspense",
+            "tone": "data"
+          },
+          {
+            "id": "b3",
+            "title": "Autonomous Island",
+            "desc": "independent island",
+            "tone": "idle"
+          },
+          {
+            "id": "b4",
+            "title": "Isolated Error Scope",
+            "desc": "hydration mismatch",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Concurrent root hydration splits work across cooperative time slices."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Suspense boundaries segment the component tree into independent islands."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "b3",
+              "b4"
+            ],
+            "caption": "Fault isolation confines hydration mismatches to individual subtrees."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 2,
+      "partTitle": "Event Replay & User-Driven Hydration Priority Promotion: Intercepting Clicks on Unhydrated Islands and Replaying Queued Events",
+      "codeHash": "4fe1dac302408b4c6705fdabb02e0622c0a5bb35444eed2dd17236f50342b8fb",
+      "spec": {
+        "template": "states",
+        "title": "Event Interception & Priority Promotion",
+        "states": [
+          {
+            "id": "s1",
+            "title": "Unhydrated Island",
+            "desc": "top-level event listeners",
+            "tone": "idle"
+          },
+          {
+            "id": "s2",
+            "title": "Event Capture",
+            "desc": "capture phase",
+            "tone": "data"
+          },
+          {
+            "id": "s3",
+            "title": "Priority Promotion",
+            "desc": "SyncLane",
+            "tone": "ok"
+          },
+          {
+            "id": "s4",
+            "title": "Interaction Replay",
+            "desc": "event queue",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "s1",
+              "s2"
+            ],
+            "caption": "Capture phase listeners intercept clicks occurring on unhydrated targets."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Target islands receive priority promotion to execute synchronous hydration."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "React synthesizes queued interactions and dispatches them to handlers."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Event Interception & Priority Promotion",
+        "states": [
+          {
+            "id": "s1",
+            "title": "Unhydrated Island",
+            "desc": "top-level event listeners",
+            "tone": "idle"
+          },
+          {
+            "id": "s2",
+            "title": "Event Capture",
+            "desc": "capture phase",
+            "tone": "data"
+          },
+          {
+            "id": "s3",
+            "title": "Priority Promotion",
+            "desc": "SyncLane",
+            "tone": "ok"
+          },
+          {
+            "id": "s4",
+            "title": "Interaction Replay",
+            "desc": "event queue",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "s1",
+              "s2"
+            ],
+            "caption": "Capture phase listeners intercept clicks occurring on unhydrated targets."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Target islands receive priority promotion to execute synchronous hydration."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "React synthesizes queued interactions and dispatches them to handlers."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 3,
+      "partTitle": "Selective Hydration Scheduling Internals: Lane Bitmask Allocation during Hydration and Viewport-Driven Deferred Hydration",
+      "codeHash": "f7f5a1189f320149b4a351864058f1631f42cd5de2491b1929ea27cd5f1822f0",
+      "spec": {
+        "template": "boxes",
+        "title": "Hydration Priority Lane Allocation",
+        "boxes": [
+          {
+            "id": "l1",
+            "title": "Urgent Sync Tier",
+            "desc": "SyncLane",
+            "tone": "ok"
+          },
+          {
+            "id": "l2",
+            "title": "Default Viewport Tier",
+            "desc": "DefaultLane",
+            "tone": "data"
+          },
+          {
+            "id": "l3",
+            "title": "Deferred Offscreen Tier",
+            "desc": "IdleLane",
+            "tone": "idle"
+          },
+          {
+            "id": "l4",
+            "title": "Observer Preload",
+            "desc": "IntersectionObserver",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "l1"
+            ],
+            "caption": "Direct user interaction assigns the clicked island to urgent sync lanes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "l1",
+              "l2"
+            ],
+            "caption": "Visible elements hydrate progressively across cooperative default slices."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "l3",
+              "l4"
+            ],
+            "caption": "Viewport observers defer below the fold elements until user scrolls near."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Hydration Priority Lane Allocation",
+        "boxes": [
+          {
+            "id": "l1",
+            "title": "Urgent Sync Tier",
+            "desc": "SyncLane",
+            "tone": "ok"
+          },
+          {
+            "id": "l2",
+            "title": "Default Viewport Tier",
+            "desc": "DefaultLane",
+            "tone": "data"
+          },
+          {
+            "id": "l3",
+            "title": "Deferred Offscreen Tier",
+            "desc": "IdleLane",
+            "tone": "idle"
+          },
+          {
+            "id": "l4",
+            "title": "Observer Preload",
+            "desc": "IntersectionObserver",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "l1"
+            ],
+            "caption": "Direct user interaction assigns the clicked island to urgent sync lanes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "l1",
+              "l2"
+            ],
+            "caption": "Visible elements hydrate progressively across cooperative default slices."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "l3",
+              "l4"
+            ],
+            "caption": "Viewport observers defer below the fold elements until user scrolls near."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 4,
+      "partTitle": "Deterministic Selective Hydration & Event Replay Engine: Implementing an Event Queue Buffer, Island Prioritization & Replay Simulator",
+      "codeHash": "4bf94c142a4110c691db24e305c13a0e1c8e0350392608fd6989fe86a75b0c49",
+      "spec": {
+        "template": "flow",
+        "title": "Deterministic Hydration Runtime Pipeline",
+        "nodes": [
+          {
+            "id": "f1",
+            "label": "addIsland",
+            "desc": "islands",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "f2",
+            "label": "userInteraction",
+            "desc": "eventLog",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "f3",
+            "label": "stepHydration",
+            "desc": "priority",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "f4",
+            "label": "eventLog",
+            "desc": "isHydrated",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "f1",
+            "to": "f2",
+            "label": "islands"
+          },
+          {
+            "from": "f2",
+            "to": "f3",
+            "label": "priority"
+          },
+          {
+            "from": "f3",
+            "to": "f4",
+            "label": "eventLog"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "f1"
+            ],
+            "caption": "The island registry tracks boundary coordinates and hydration states."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "f1",
+              "f2"
+            ],
+            "caption": "Event interceptors buffer interactions and elevate priority to maximum."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "f3",
+              "f4"
+            ],
+            "caption": "The dispatcher extracts buffered interactions and executes live handlers."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Deterministic Hydration Runtime Pipeline",
+        "nodes": [
+          {
+            "id": "f1",
+            "label": "addIsland",
+            "desc": "islands",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "f2",
+            "label": "userInteraction",
+            "desc": "eventLog",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "f3",
+            "label": "stepHydration",
+            "desc": "priority",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "f4",
+            "label": "eventLog",
+            "desc": "isHydrated",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "f1",
+            "to": "f2",
+            "label": "islands"
+          },
+          {
+            "from": "f2",
+            "to": "f3",
+            "label": "priority"
+          },
+          {
+            "from": "f3",
+            "to": "f4",
+            "label": "eventLog"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "f1"
+            ],
+            "caption": "The island registry tracks boundary coordinates and hydration states."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "f1",
+              "f2"
+            ],
+            "caption": "Event interceptors buffer interactions and elevate priority to maximum."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "f3",
+              "f4"
+            ],
+            "caption": "The dispatcher extracts buffered interactions and executes live handlers."
+          }
+        ]
+      }
     }
   ]
 }

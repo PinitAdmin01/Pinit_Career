@@ -14275,12 +14275,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What causes the \"Hydration Uncanny Valley\" in traditional single-page applications?",
           options: [
-            "The page appears visually complete due to SSR HTML, but buttons and inputs are completely unresponsive until the entire monolithic JavaScript bundle has downloaded and hydrated",
-            "The screen turns black and white during hydration",
-            "The browser battery level drops below 10%",
-            "The HTML tags fail to render in alphabetical order"
+            "The browser hardware compositor enters power-saving mode, causing visual screen brightness and monitor refresh rates to drop below thirty hertz total.",
+            "The page appears visually complete due to HTML, but buttons remain dead until the entire monolithic JavaScript bundle finishes synchronous hydration.",
+            "The JavaScript V8 runtime engine re-compiles all component functions into WebAssembly bytecode on the client device during initial document parsing.",
+            "The HTML parser reorganizes document elements into alphabetical order, forcing the browser layout tree to invalidate all established CSS stylesheets."
           ],
-          answer: 0,
+          answer: 1,
           why: "Users see rendered interactive elements but their taps and clicks are ignored because the single-threaded client runtime is busy hydrating the whole component tree."
         }
       },
@@ -14310,12 +14310,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "How does React 18 hydrateRoot break up the monolithic component tree?",
           options: [
-            "It treats Suspense boundaries as isolated hydration islands, hydrating each sub-tree independently without blocking the rest of the page",
-            "It converts all components into Web Workers",
-            "It deletes all HTML elements and re-creates them from scratch",
-            "It replaces JavaScript with CSS animations"
+            "It encapsulates all component subtrees inside independent Web Worker threads, executing DOM mutations through asynchronous postMessage channels.",
+            "It clears all server-rendered HTML markup from document memory and rebuilds every component element synchronously from client JavaScript bundles.",
+            "It converts all interactive button elements into pure CSS keyframe animations, bypassing JavaScript execution loops during client page navigation.",
+            "It treats Suspense boundaries as isolated hydration islands, hydrating each sub-tree independently without blocking the rest of the application."
           ],
-          answer: 0,
+          answer: 3,
           why: "hydrateRoot decouples hydration across Suspense boundaries, allowing fast components to become interactive while slow components are still streaming or hydrating."
         }
       },
@@ -14347,10 +14347,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What happens when a user clicks a button that has not yet finished hydrating in React 18?",
           options: [
-            "React intercepts the event during the capture phase, elevates that component's hydration to SyncLane, hydrates it immediately, and replays the original click event",
-            "The browser discards the click and shows an alert dialog",
-            "The page reloads from the server",
-            "The button is permanently disabled"
+            "React intercepts the event during capture phase, elevates the component to SyncLane, hydrates it immediately, and replays the initial user click event.",
+            "The client browser drops the click event permanently and presents an error modal instructing the user to refresh the web page after several seconds.",
+            "The browser issues an immediate page reload request to the backend server, wiping all client memory buffers and re-downloading static asset bundles.",
+            "The button remains permanently disabled and all subsequent user touch events across the active document viewport are throttled by seventy-five percent."
           ],
           answer: 0,
           why: "Capture-phase event interception records user interactions on unhydrated islands, prioritizes their hydration, and replays the interaction seamlessly."
@@ -14386,12 +14386,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does React defer below-the-fold component hydration to IdleLane?",
           options: [
-            "To prioritize main-thread execution time for immediately visible content and high-priority user interactions, maintaining 0ms Total Blocking Time",
-            "Because below-the-fold components are deleted by the browser",
-            "Because mobile screens cannot render HTML below 800 pixels",
-            "Because IdleLane uses more CPU cores than SyncLane"
+            "Because modern mobile operating systems automatically purge all below-the-fold HTML elements from system memory to reduce background battery drain.",
+            "Because mobile touchscreen digitizers cannot register pointer coordinates or touch gestures for document elements located beyond eight hundred pixels.",
+            "To prioritize main-thread execution time for visible above-the-fold elements and immediate user interactions, preserving zero ms Total Blocking Time.",
+            "Because IdleLane executes across auxiliary GPU compute cores, while SyncLane is restricted to running on single-threaded browser background workers."
           ],
-          answer: 0,
+          answer: 2,
           why: "Hydrating offscreen content in IdleLane keeps the main UI thread free for user clicks, scrolling, and above-the-fold interactivity."
         }
       },
@@ -14427,12 +14427,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "How does priority promotion prevent dropped user clicks during progressive page hydration?",
           options: [
-            "When a click is detected on an unhydrated boundary, React bumps its priority from Default/Idle to SyncLane, pausing other tasks to hydrate and process that click immediately",
-            "It stores clicks in localStorage for the next session",
-            "It forces the user to double-click every button",
-            "It converts clicks into touch events"
+            "It stores unhydrated user click callbacks in browser localStorage, allowing the client to re-dispatch interaction histories during subsequent sessions.",
+            "When a click hits an unhydrated island, React elevates its priority to SyncLane, pauses background work to hydrate it, and then replays the click event.",
+            "It prompts the user with an on-screen dialog forcing them to double-click every button element before the browser dispatches any click event handlers.",
+            "It converts all unhydrated mouse click events into native touch gestures and redirects them to the document root to bypass React event reconciliation."
           ],
-          answer: 0,
+          answer: 1,
           why: "Priority promotion ensures that user intent directly re-orders hydration scheduling, preventing missed clicks and eliminating interaction lag."
         }
       }
