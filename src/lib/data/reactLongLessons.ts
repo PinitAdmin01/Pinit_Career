@@ -17088,12 +17088,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the primary operational topology of the Enterprise Edge-Native Streaming Portal in Milestone 10?",
         "options": [
-          "A unified pipeline combining sub-5ms edge authentication/rate-limiting, sub-20ms static shell delivery via PPR, and streaming dynamic SDUI holes with 0.000 CLS",
-          "A monolithic PHP server rendering un-cached HTML with synchronous 3-second database blocking calls",
-          "A client-only single-page application requiring a 50MB JavaScript bundle to download before displaying any content",
-          "A static site generator that rebuilds and deploys all 100,000 pages whenever any dynamic stock price updates"
+          "A monolithic multi-tier cluster that renders static HTML pages synchronously while querying databases across cloud regions.",
+          "A unified pipeline combining edge authentication, instant static shells via PPR, and streaming dynamic SDUI widget holes.",
+          "A client-only single-page application requiring heavy JavaScript bundles to download before displaying any user interface.",
+          "A static site generator that rebuilds and redeploys the entire global domain whenever an individual market quote updates."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Milestone 10 synthesizes edge computing, Partial Prerendering, and Server-Driven UI into a high-performance streaming architecture."
       },
       "tryIt": "Toggle pprStreaming status to 'DEGRADED' in portalConfig and observe the subsystem auditor health score."
@@ -17118,12 +17118,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "Why does the Edge Middleware perform JWT verification and rate limiting before forwarding requests to the App Router origin?",
         "options": [
-          "To terminate invalid or abusive requests with sub-5ms latency at the edge, protecting upstream origin servers from DDoS load",
-          "Because React Server Components cannot read cookies or HTTP headers in production",
-          "To convert incoming HTTP requests into binary UDP packets for the GPU",
-          "To force all authenticated users to refresh their browser every 10 seconds"
+          "Because React Server Components forbid reading incoming HTTP cookie headers or request headers during server render passes.",
+          "To force client browsers to establish direct WebRTC peer connections with backend database clusters for all user actions.",
+          "To convert incoming HTTP requests into binary machine packets that execute directly on client hardware graphics processors.",
+          "To terminate invalid or abusive requests with low latency at the edge, protecting upstream origin servers from DDoS load."
         ],
-        "answer": 0,
+        "answer": 3,
         "why": "Edge-first security shields origin computing resources by terminating unauthorized traffic immediately at the network edge."
       },
       "tryIt": "Send 4 requests from the same IP to test the sliding token bucket rate limiter and observe HTTP 429."
@@ -17148,10 +17148,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How does the Partial Prerendering coordinator achieve an unyielding Cumulative Layout Shift (CLS) of 0.000 during progressive streaming?",
         "options": [
-          "By enforcing Skeleton Bounding Box Contracts where Suspense fallbacks match the exact dimensions of final rendered components",
-          "By hiding the entire web page behind a full-screen loading spinner until all streaming chunks arrive",
-          "By disabling CSS styles completely until the final dynamic chunk completes transmission",
-          "By forcing all images and components to have an arbitrary fixed height of 10 pixels"
+          "By enforcing Skeleton Bounding Box Contracts where Suspense fallbacks match exact dimensions of final rendered components.",
+          "By displaying a full-screen blocking loading spinner over the entire application viewport until all streaming chunks arrive.",
+          "By disabling CSS stylesheet evaluation completely until the final dynamic streaming data chunk finishes network delivery.",
+          "By forcing every interactive component and image element to render with an arbitrary fixed height of twenty screen pixels."
         ],
         "answer": 0,
         "why": "Explicit bounding box reservation ensures that incoming streaming bytes never cause page reflow or visual layout shifting."
@@ -17180,12 +17180,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How does the PortalSDUIEngine handle an unrecognized component type emitted by backend services?",
         "options": [
-          "It intercepts the unknown type, logs a telemetry event, and renders a resilient fallback placeholder without crashing",
-          "It throws a critical JavaScript syntax error and aborts the entire user session",
-          "It executes an external curl command to install new npm packages on the client device in real time",
-          "It reloads the page in an infinite loop until the backend changes the component type"
+          "It halts JavaScript execution across the browser and forces the client tab to refresh in an infinite automated reboot loop.",
+          "It executes external shell commands to download and compile unverified packages on client mobile operating system platforms.",
+          "It intercepts unknown types, records telemetry events, and renders safe fallback placeholders without crashing client apps.",
+          "It throws an uncaught JavaScript syntax exception that unmounts the root React tree and presents an unhandled blank screen."
         ],
-        "answer": 0,
+        "answer": 2,
         "why": "Defensive fallback boundaries guarantee that unknown or newly released component types degrade gracefully without client crashes."
       },
       "tryIt": "Dispatch a new action { type: 'NAVIGATE_PORTAL' } in PortalSDUIEngine and inspect the action history."
@@ -17208,14 +17208,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "output": "Milestone 10 Certification: CERTIFIED\nSLAs Passed: 6/6\nCLS Score: 0\nCache Hit Ratio: 99.4%",
       example: "Automated SLA verification guarantees that all production performance, stability, and reliability invariants are met prior to global rollout.",
         "check": {
-        "question": "What is the purpose of the automated SLA Verification Suite in Milestone 10?",
+        "question": "What is the primary purpose of the automated SLA Verification Suite in Milestone 10?",
         "options": [
-          "To programmatically validate critical production Golden Signals (TTFB, edge auth latency, CLS, stream duration) before certifying production deployment",
-          "To convert all TypeScript files into minified assembly language for embedded microcontrollers",
-          "To format JavaScript source code with Prettier and delete git commit history",
-          "To automatically bill users' credit cards whenever an edge worker executes"
+          "To reformat all TypeScript source code with Prettier and automatically purge historical commit entries from the repository.",
+          "To programmatically validate production Golden Signals such as TTFB, auth latency, and CLS before certifying final rollouts.",
+          "To convert all high-level React components into low-level assembly language instructions for embedded IoT microcontrollers.",
+          "To charge user credit cards automatically whenever an asynchronous edge compute isolate finishes its active execution cycle."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Automated SLA verification guarantees that all production performance, stability, and reliability invariants are met prior to global rollout."
       },
       "tryIt": "Modify staticShellTtfbMs to 40ms in the verification suite and observe how the SLA audit catches the degradation."

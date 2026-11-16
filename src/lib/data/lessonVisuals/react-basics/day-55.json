@@ -1,690 +1,719 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 55,
-  "promptSha": "block11_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Milestone 10 Architectural Vision & Production System Topology",
       "codeHash": "94b566447b630eb47f123e02fc3833c78fe6fc0d9d9652625763446da0f9452f",
       "spec": {
-        "template": "boxes",
-        "title": "Milestone 10 Architecture Topology: Enterprise Edge-Native Streaming Portal",
-        "boxes": [
+        "template": "flow",
+        "title": "Enterprise Edge-Native Portal Architecture",
+        "nodes": [
           {
-            "id": "edge_layer",
-            "label": "Edge Middleware (JWT Gate, Token Bucket Rate Limiting, Geo-Tagging)",
+            "id": "client",
+            "label": "User Client",
+            "text": "Global Client",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "ppr_layer",
-            "label": "Partial Prerendering (Static Shell < 20ms, Suspense Dynamic Holes)",
+            "id": "edge",
+            "label": "Edge Layer",
+            "text": "Edge Middleware",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "sdui_layer",
-            "label": "Server-Driven UI Engine (Polymorphic Registry, Defensive Fallbacks)",
+            "id": "origin",
+            "label": "Streaming Origin",
+            "text": "PPR Runtime",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "cache_layer",
-            "label": "Global Cache Invalidation Mesh (Tag-Based Edge Purge < 15ms)",
+            "id": "sdui",
+            "label": "Dynamic Engine",
+            "text": "SDUI Resolver",
+            "tone": "data",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "client",
+            "to": "edge",
+            "label": "Request"
+          },
+          {
+            "from": "edge",
+            "to": "origin",
+            "label": "Enriched"
+          },
+          {
+            "from": "origin",
+            "to": "sdui",
+            "label": "Stream Holes"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Edge layer terminates unauthorized requests and enriches headers in <.",
-            "values": {
-              "edge_layer": {
-                "text": "\"Edge PoP Active (iad1, fra1, sin1)\""
-              },
-              "ppr_layer": {
-                "text": "\"Origin Ready\""
-              },
-              "sdui_layer": {
-                "text": "\"Registry Ready\""
-              },
-              "cache_layer": {
-                "text": "\"Mesh In Sync\""
-              }
-            },
-            "tones": {
-              "edge_layer": "ok",
-              "ppr_layer": "data",
-              "sdui_layer": "data",
-              "cache_layer": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Partial Prerendering streams the static shell instantly with zero white-screen delay.",
-            "values": {
-              "edge_layer": {
-                "text": "\"Request Forwarded\""
-              },
-              "ppr_layer": {
-                "text": "\"Static Shell Flushed (18ms)\""
-              },
-              "sdui_layer": {
-                "text": "\"Parsing Wire Schemas\""
-              },
-              "cache_layer": {
-                "text": "\"Edge Cached\""
-              }
-            },
-            "tones": {
-              "edge_layer": "ok",
-              "ppr_layer": "ok",
-              "sdui_layer": "data",
-              "cache_layer": "ok"
-            }
+            "highlight": [
+              "client",
+              "edge"
+            ],
+            "caption": "Global client requests encounter distributed edge middleware in milliseconds."
           },
           {
             "at": "say3",
-            "caption": "Dynamic SDUI components stream into reserved bounding box holes with CLS.",
-            "values": {
-              "edge_layer": {
-                "text": "\"Pass\""
-              },
-              "ppr_layer": {
-                "text": "\"Dynamic Stream Complete\""
-              },
-              "sdui_layer": {
-                "text": "\"Widgets Mounted (100%)\""
-              },
-              "cache_layer": {
-                "text": "\"Tags Registered\""
-              }
-            },
-            "tones": {
-              "edge_layer": "ok",
-              "ppr_layer": "ok",
-              "sdui_layer": "ok",
-              "cache_layer": "ok"
-            }
+            "highlight": [
+              "edge"
+            ],
+            "caption": "The edge layer terminates unauthorized requests to protect infrastructure."
           },
           {
             "at": "say4",
-            "caption": "All four subsystems synchronize into a unified, enterprise-grade streaming platform.",
-            "values": {
-              "edge_layer": {
-                "text": "\"ONLINE (100%)\""
-              },
-              "ppr_layer": {
-                "text": "\"ONLINE (100%)\""
-              },
-              "sdui_layer": {
-                "text": "\"ONLINE (100%)\""
-              },
-              "cache_layer": {
-                "text": "\"ONLINE (100%)\""
-              }
-            },
-            "tones": {
-              "edge_layer": "ok",
-              "ppr_layer": "ok",
-              "sdui_layer": "ok",
-              "cache_layer": "ok"
-            }
+            "highlight": [
+              "origin",
+              "sdui"
+            ],
+            "caption": "Partial prerendering streams dynamic components without blocking paint."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Enterprise Edge-Native Portal Architecture",
+        "nodes": [
+          {
+            "id": "client",
+            "label": "User Client",
+            "text": "Global Client",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "edge",
+            "label": "Edge Layer",
+            "text": "Edge Middleware",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "origin",
+            "label": "Streaming Origin",
+            "text": "PPR Runtime",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sdui",
+            "label": "Dynamic Engine",
+            "text": "SDUI Resolver",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "client",
+            "to": "edge",
+            "label": "Request"
+          },
+          {
+            "from": "edge",
+            "to": "origin",
+            "label": "Enriched"
+          },
+          {
+            "from": "origin",
+            "to": "sdui",
+            "label": "Stream Holes"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "client",
+              "edge"
+            ],
+            "caption": "Global client requests encounter distributed edge middleware in milliseconds."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "edge"
+            ],
+            "caption": "The edge layer terminates unauthorized requests to protect infrastructure."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "origin",
+              "sdui"
+            ],
+            "caption": "Partial prerendering streams dynamic components without blocking paint."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Integrated Edge Middleware & Context Hydration Pipeline",
       "codeHash": "ce96081404ba450e05a93f3b280b6b4d318f3a0cbac250999be5d7956c2e3cb6",
       "spec": {
         "template": "flow",
-        "title": "Integrated Edge Middleware & Context Hydration Execution Pipeline",
+        "title": "Edge Middleware & Context Hydration Pipeline",
         "nodes": [
           {
-            "id": "client_req",
-            "label": "Client HTTP Request (NYC / SG / LON)",
+            "id": "rate",
+            "label": "Rate Limiter",
+            "text": "Token Bucket",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "rate_gate",
-            "label": "Token Bucket Rate Limiter Check",
+            "id": "crypto",
+            "label": "Token Verify",
+            "text": "Web Crypto API",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "auth_gate",
-            "label": "Web Crypto JWT Verification",
+            "id": "geo",
+            "label": "Geo Injection",
+            "text": "Context Headers",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "rate",
+            "to": "crypto",
+            "label": "Rate Ok"
           },
           {
-            "id": "geo_context",
-            "label": "Geo IP Header Injection & Origin Routing",
-            "tappable": false
+            "from": "crypto",
+            "to": "geo",
+            "label": "Token Valid"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Incoming user request hits nearest edge PoP; rate limiter evaluates client IP bucket.",
-            "values": {
-              "client_req": {
-                "text": "\"Incoming Request\""
-              },
-              "rate_gate": {
-                "text": "\"Checking Bucket (Quota: 3/5)\""
-              },
-              "auth_gate": {
-                "text": "\"Pending\""
-              },
-              "geo_context": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "client_req": "data",
-              "rate_gate": "data",
-              "auth_gate": "idle",
-              "geo_context": "idle"
-            },
-            "arrows": [
-              [
-                "client_req",
-                "rate_gate"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Rate limiter allows valid traffic; rejects bot floods immediately with.",
-            "values": {
-              "client_req": {
-                "text": "\"Traffic Cleared\""
-              },
-              "rate_gate": {
-                "text": "\"ALLOWED (Quota OK)\""
-              },
-              "auth_gate": {
-                "text": "\"Verifying JWT Signature\""
-              },
-              "geo_context": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "client_req": "ok",
-              "rate_gate": "ok",
-              "auth_gate": "data",
-              "geo_context": "idle"
-            },
-            "arrows": [
-              [
-                "rate_gate",
-                "auth_gate"
-              ]
-            ]
+            "highlight": [
+              "rate"
+            ],
+            "caption": "Rate limiting validation checks client request frequency against quotas."
           },
           {
             "at": "say3",
-            "caption": "Web Crypto validates JWT secret without database calls; rejects invalid signatures.",
-            "values": {
-              "client_req": {
-                "text": "\"Authenticated\""
-              },
-              "rate_gate": {
-                "text": "\"Passed\""
-              },
-              "auth_gate": {
-                "text": "\"JWT Verified (<1ms)\""
-              },
-              "geo_context": {
-                "text": "\"Injecting Geo Headers\""
-              }
-            },
-            "tones": {
-              "client_req": "ok",
-              "rate_gate": "ok",
-              "auth_gate": "ok",
-              "geo_context": "data"
-            },
-            "arrows": [
-              [
-                "auth_gate",
-                "geo_context"
-              ]
-            ]
+            "highlight": [
+              "crypto"
+            ],
+            "caption": "Web crypto standards execute zero network token signature verifications."
           },
           {
             "at": "say4",
-            "caption": "Middleware injects x-edge-geo: US-NYC header and forwards request to App Router origin.",
-            "values": {
-              "client_req": {
-                "text": "\"Completed\""
-              },
-              "rate_gate": {
-                "text": "\"Passed\""
-              },
-              "auth_gate": {
-                "text": "\"Passed\""
-              },
-              "geo_context": {
-                "text": "\"Forwarded to Streaming Origin\""
-              }
-            },
-            "tones": {
-              "client_req": "ok",
-              "rate_gate": "ok",
-              "auth_gate": "ok",
-              "geo_context": "ok"
-            }
+            "highlight": [
+              "geo"
+            ],
+            "caption": "Standardized geographic headers inject localized context into requests."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Edge Middleware & Context Hydration Pipeline",
+        "nodes": [
+          {
+            "id": "rate",
+            "label": "Rate Limiter",
+            "text": "Token Bucket",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "crypto",
+            "label": "Token Verify",
+            "text": "Web Crypto API",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "geo",
+            "label": "Geo Injection",
+            "text": "Context Headers",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "rate",
+            "to": "crypto",
+            "label": "Rate Ok"
+          },
+          {
+            "from": "crypto",
+            "to": "geo",
+            "label": "Token Valid"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "rate"
+            ],
+            "caption": "Rate limiting validation checks client request frequency against quotas."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "crypto"
+            ],
+            "caption": "Web crypto standards execute zero network token signature verifications."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "geo"
+            ],
+            "caption": "Standardized geographic headers inject localized context into requests."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "PPR Shell & Dynamic Hole Streaming Coordinator",
       "codeHash": "7323e34114f5c64c4151b2fca1e6c03cb9ff3c985d440269daf72593ee8bd517",
       "spec": {
-        "template": "boxes",
-        "title": "PPR Streaming Coordinator: Progressive Chunks & Dynamic Holes",
-        "boxes": [
+        "template": "compare",
+        "title": "Static Shell Delivery vs Dynamic Holes Streaming",
+        "left": {
+          "title": "Static Shell",
+          "subtitle": "Edge Delivered",
+          "items": [
+            {
+              "label": "Navigation Frame",
+              "text": "Instant cached layout",
+              "tone": "ok"
+            },
+            {
+              "label": "Time To First Byte",
+              "text": "Fast initial paint",
+              "tone": "ok"
+            }
+          ]
+        },
+        "right": {
+          "title": "Dynamic Holes",
+          "subtitle": "Streaming Chunks",
+          "items": [
+            {
+              "label": "Suspense Hole",
+              "text": "Personalized data feed",
+              "tone": "data"
+            },
+            {
+              "label": "Zero Shift",
+              "text": "Skeleton bounding box",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
           {
-            "id": "chunk_0",
-            "label": "Chunk 0 (T=0ms): Pre-rendered Static Shell (<header>, <nav>, Skeletons)",
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "The pre-rendered static shell delivers instantaneous initial paint."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Chunked transfer encoding keeps the connection open for streaming."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Skeleton bounding boxes ensure streaming bytes cause zero layout shift."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Static Shell Delivery vs Dynamic Holes Streaming",
+        "left": {
+          "title": "Static Shell",
+          "subtitle": "Edge Delivered",
+          "items": [
+            {
+              "label": "Navigation Frame",
+              "text": "Instant cached layout",
+              "tone": "ok"
+            },
+            {
+              "label": "Time To First Byte",
+              "text": "Fast initial paint",
+              "tone": "ok"
+            }
+          ]
+        },
+        "right": {
+          "title": "Dynamic Holes",
+          "subtitle": "Streaming Chunks",
+          "items": [
+            {
+              "label": "Suspense Hole",
+              "text": "Personalized data feed",
+              "tone": "data"
+            },
+            {
+              "label": "Zero Shift",
+              "text": "Skeleton bounding box",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "The pre-rendered static shell delivers instantaneous initial paint."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Chunked transfer encoding keeps the connection open for streaming."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Skeleton bounding boxes ensure streaming bytes cause zero layout shift."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 3,
+      "partTitle": "Dynamic SDUI Wire Interpreter & Component Polymorphism",
+      "codeHash": "6b2941db5efdac1750d3ddc703100cee9d5cfa978086f01894289707bb72c2f3",
+      "spec": {
+        "template": "flow",
+        "title": "Portal SDUI Polymorphic Component Engine",
+        "nodes": [
+          {
+            "id": "wire",
+            "label": "JSON Schema",
+            "text": "Wire Schema",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "chunk_1",
-            "label": "Chunk 1 (T=25ms): Dynamic Hole #1 (<section class='feed'>Live News</section>)",
+            "id": "registry",
+            "label": "Polymorphic Map",
+            "text": "Component Registry",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "chunk_2",
-            "label": "Chunk 2 (T=45ms): Dynamic Hole #2 (<section class='ticker'>AAPL, NVDA Quotes</section>)",
+            "id": "fallback",
+            "label": "Fallback Box",
+            "text": "Defensive Boundary",
+            "tone": "error",
             "tappable": false
           },
           {
-            "id": "stream_complete",
-            "label": "Stream Completion (Total Time: 45ms, CLS: 0.000)",
+            "id": "bus",
+            "label": "Action Bus",
+            "text": "Declarative Actions",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "wire",
+            "to": "registry",
+            "label": "Lookup"
+          },
+          {
+            "from": "registry",
+            "to": "fallback",
+            "label": "Unknown"
+          },
+          {
+            "from": "registry",
+            "to": "bus",
+            "label": "Dispatch"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Chunk zero delivers the static shell in the very first TCP packet (TTFB.",
-            "values": {
-              "chunk_0": {
-                "text": "\"Flushed Instantly (0ms)\""
-              },
-              "chunk_1": {
-                "text": "\"Querying Feed Service...\""
-              },
-              "chunk_2": {
-                "text": "\"Querying Market Service...\""
-              },
-              "stream_complete": {
-                "text": "\"In Flight\""
-              }
-            },
-            "tones": {
-              "chunk_0": "ok",
-              "chunk_1": "data",
-              "chunk_2": "data",
-              "stream_complete": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Dynamic Hole #one resolves at T=ms and replaces the feed skeleton in-place.",
-            "values": {
-              "chunk_0": {
-                "text": "\"Painted\""
-              },
-              "chunk_1": {
-                "text": "\"Feed Streamed (25ms)\""
-              },
-              "chunk_2": {
-                "text": "\"Calculating Quotes...\""
-              },
-              "stream_complete": {
-                "text": "\"In Flight\""
-              }
-            },
-            "tones": {
-              "chunk_0": "ok",
-              "chunk_1": "ok",
-              "chunk_2": "data",
-              "stream_complete": "idle"
-            }
+            "highlight": [
+              "wire",
+              "registry"
+            ],
+            "caption": "The engine recursively traverses node hierarchies to resolve components."
           },
           {
             "at": "say3",
-            "caption": "Dynamic Hole #two resolves at T=ms, streaming real-time equity quotes.",
-            "values": {
-              "chunk_0": {
-                "text": "\"Painted\""
-              },
-              "chunk_1": {
-                "text": "\"Feed Ready\""
-              },
-              "chunk_2": {
-                "text": "\"Quotes Streamed (45ms)\""
-              },
-              "stream_complete": {
-                "text": "\"All Chunks Flushed\""
-              }
-            },
-            "tones": {
-              "chunk_0": "ok",
-              "chunk_1": "ok",
-              "chunk_2": "ok",
-              "stream_complete": "ok"
-            }
+            "highlight": [
+              "registry",
+              "fallback"
+            ],
+            "caption": "Fallback resolvers intercept unsupported widget types to prevent crashes."
           },
           {
             "at": "say4",
-            "caption": "Entire page reaches interactive state in ms with absolute zero layout.",
-            "values": {
-              "chunk_0": {
-                "text": "\"Zero Reflow\""
-              },
-              "chunk_1": {
-                "text": "\"Live Feed Active\""
-              },
-              "chunk_2": {
-                "text": "\"Live Quotes Active\""
-              },
-              "stream_complete": {
-                "text": "\"100% Complete (CLS: 0.000)\""
-              }
-            },
-            "tones": {
-              "chunk_0": "ok",
-              "chunk_1": "ok",
-              "chunk_2": "ok",
-              "stream_complete": "ok"
-            }
+            "highlight": [
+              "bus"
+            ],
+            "caption": "Interactive triggers emit structured action objects to the event bus."
           }
         ]
-      }
-    },
-    {
-      "partTitle": "Dynamic SDUI Wire Interpreter & Component Polymorphism",
-      "codeHash": "6b2941db5efdac1750d3ddc703100cee9d5cfa978086f01894289707bb72c2f3",
-      "spec": {
-        "template": "component-tree",
-        "title": "Portal SDUI Component Tree with Resilient Fallback Handling",
-        "root": {
-          "id": "portal_root",
-          "name": "PortalShell (theme: 'dark')",
-          "children": [
-            {
-              "id": "metrics_row",
-              "name": "MetricsRow (metrics-grid)",
-              "children": [
-                {
-                  "id": "stat_users",
-                  "name": "StatCard (Active Users: 18,420)"
-                },
-                {
-                  "id": "stat_ttfb",
-                  "name": "StatCard (Edge TTFB: 14ms)"
-                },
-                {
-                  "id": "ai_fallback",
-                  "name": "FallbackWidget ([Fallback: ExperimentalAiInsight])"
-                }
-              ]
-            }
-          ]
-        },
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Portal SDUI Polymorphic Component Engine",
+        "nodes": [
+          {
+            "id": "wire",
+            "label": "JSON Schema",
+            "text": "Wire Schema",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "registry",
+            "label": "Polymorphic Map",
+            "text": "Component Registry",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "fallback",
+            "label": "Fallback Box",
+            "text": "Defensive Boundary",
+            "tone": "error",
+            "tappable": false
+          },
+          {
+            "id": "bus",
+            "label": "Action Bus",
+            "text": "Declarative Actions",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "wire",
+            "to": "registry",
+            "label": "Lookup"
+          },
+          {
+            "from": "registry",
+            "to": "fallback",
+            "label": "Unknown"
+          },
+          {
+            "from": "registry",
+            "to": "bus",
+            "label": "Dispatch"
+          }
+        ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "SDUI engine parses incoming wire schema and initializes the PortalShell dark theme.",
-            "values": {
-              "portal_root": {
-                "state": "Theme: dark"
-              },
-              "metrics_row": {
-                "state": "Mounted"
-              },
-              "stat_users": {
-                "state": "Mounted"
-              },
-              "stat_ttfb": {
-                "state": "Mounted"
-              },
-              "ai_fallback": {
-                "state": "Evaluating"
-              }
-            },
-            "tones": {
-              "portal_root": "ok",
-              "metrics_row": "ok",
-              "stat_users": "ok",
-              "stat_ttfb": "ok",
-              "ai_fallback": "data"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Standard registered StatCards render active user counts and edge TTFB latency.",
-            "values": {
-              "portal_root": {
-                "state": "Active"
-              },
-              "metrics_row": {
-                "state": "Rendered"
-              },
-              "stat_users": {
-                "state": "18,420 Users"
-              },
-              "stat_ttfb": {
-                "state": "14ms TTFB"
-              },
-              "ai_fallback": {
-                "state": "Evaluating"
-              }
-            },
-            "tones": {
-              "portal_root": "ok",
-              "metrics_row": "ok",
-              "stat_users": "ok",
-              "stat_ttfb": "ok",
-              "ai_fallback": "data"
-            }
+            "highlight": [
+              "wire",
+              "registry"
+            ],
+            "caption": "The engine recursively traverses node hierarchies to resolve components."
           },
           {
             "at": "say3",
-            "caption": "Unregistered ExperimentalAiInsight widget triggers the defensive fallback handler.",
-            "values": {
-              "portal_root": {
-                "state": "Active"
-              },
-              "metrics_row": {
-                "state": "Rendered"
-              },
-              "stat_users": {
-                "state": "Healthy"
-              },
-              "stat_ttfb": {
-                "state": "Healthy"
-              },
-              "ai_fallback": {
-                "state": "Fallback Rendered"
-              }
-            },
-            "tones": {
-              "portal_root": "ok",
-              "metrics_row": "ok",
-              "stat_users": "ok",
-              "stat_ttfb": "ok",
-              "ai_fallback": "ok"
-            }
+            "highlight": [
+              "registry",
+              "fallback"
+            ],
+            "caption": "Fallback resolvers intercept unsupported widget types to prevent crashes."
           },
           {
             "at": "say4",
-            "caption": "Declarative telemetry action is dispatched; zero crashes occur across the component tree.",
-            "values": {
-              "portal_root": {
-                "state": "Stable"
-              },
-              "metrics_row": {
-                "state": "Stable"
-              },
-              "stat_users": {
-                "state": "Stable"
-              },
-              "stat_ttfb": {
-                "state": "Stable"
-              },
-              "ai_fallback": {
-                "state": "Telemetry Logged"
-              }
-            },
-            "tones": {
-              "portal_root": "ok",
-              "metrics_row": "ok",
-              "stat_users": "ok",
-              "stat_ttfb": "ok",
-              "ai_fallback": "ok"
-            }
+            "highlight": [
+              "bus"
+            ],
+            "caption": "Interactive triggers emit structured action objects to the event bus."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "End-to-End Milestone Production Verification, SLA Conformance & Zero-Downtime Pipeline",
       "codeHash": "e6ee6cfdbb6bdad21c52ec8a7ebde86833ef177f935e75c38ff5937b541be8f2",
       "spec": {
-        "template": "compare",
-        "title": "Milestone 10 Production SLA Certification Scorecard",
-        "left": {
-          "label": "Industry Baseline Standard",
-          "items": [
-            "Edge Auth Latency: 25.0ms",
-            "Static Shell TTFB: 250.0ms",
-            "Streaming Duration: 450.0ms",
-            "Cumulative Layout Shift (CLS): 0.120",
-            "SDUI Fallback Failure: 3.2%",
-            "Cache Hit Ratio: 82.0%"
-          ]
-        },
-        "right": {
-          "label": "Milestone 10 Enterprise Certified Portal",
-          "items": [
-            "Edge Auth Latency: 2.4ms (SLA <= 5.0ms)",
-            "Static Shell TTFB: 18.2ms (SLA <= 35.0ms)",
-            "Streaming Duration: 42.0ms (SLA <= 100.0ms)",
-            "Cumulative Layout Shift: 0.000 (SLA <= 0.010)",
-            "SDUI Fallback Failure: 0.0% (SLA <= 0.1%)",
-            "Cache Hit Ratio: 99.4% (SLA >= 95.0%)"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Milestone 10 Production SLA Verification States",
+        "states": [
           {
-            "at": "say1",
-            "caption": "Sub-fivems edge authentication ensures instant, secure perimeter.",
-            "values": {
-              "left": {
-                "items": [
-                  "25ms Auth Latency",
-                  "Central Auth API",
-                  "Slow Verification",
-                  "High Origin Burden"
-                ]
-              },
-              "right": {
-                "items": [
-                  "2.4ms Auth Latency",
-                  "Web Crypto at Edge",
-                  "Sub-Millisecond Check",
-                  "Origin Shielded"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "id": "auth",
+            "label": "Edge Auth",
+            "text": "Target Under Five Ms",
+            "tone": "ok"
           },
           {
+            "id": "ttfb",
+            "label": "Shell TTFB",
+            "text": "Target Under Thirty Ms",
+            "tone": "ok"
+          },
+          {
+            "id": "stream",
+            "label": "Stream Time",
+            "text": "Target Hundred Ms",
+            "tone": "ok"
+          },
+          {
+            "id": "cert",
+            "label": "SLA Certified",
+            "text": "Production Grade A+",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "auth",
+            "to": "ttfb",
+            "label": "Passed"
+          },
+          {
+            "from": "ttfb",
+            "to": "stream",
+            "label": "Passed"
+          },
+          {
+            "from": "stream",
+            "to": "cert",
+            "label": "All Passed"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "PPR delivers sub-twentyms TTFB and ms total streaming completion.",
-            "values": {
-              "left": {
-                "items": [
-                  "250ms TTFB",
-                  "450ms Total Stream",
-                  "Blank Screen Lag",
-                  "High User Drop-off"
-                ]
-              },
-              "right": {
-                "items": [
-                  "18.2ms TTFB",
-                  "42.0ms Total Stream",
-                  "Instant Static Shell",
-                  "Zero User Drop-off"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "auth",
+              "ttfb"
+            ],
+            "caption": "Verification suites programmatically audit essential golden signals."
           },
           {
             "at": "say3",
-            "caption": "Skeleton bounding box contracts guarantee a pristine CLS score of.",
-            "values": {
-              "left": {
-                "items": [
-                  "CLS: 0.120 (Poor)",
-                  "Janky Layout Reflows",
-                  "Buttons Shift Around",
-                  "Failed Web Vitals"
-                ]
-              },
-              "right": {
-                "items": [
-                  "CLS: 0.000 (Perfect)",
-                  "Zero Layout Thrash",
-                  "Rock-Solid Elements",
-                  "100% Core Web Vitals"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "stream",
+              "cert"
+            ],
+            "caption": "Low latency ensures security checks do not penalize user speed."
           },
           {
             "at": "say4",
-            "caption": "Milestone ten achieves six/six SLAs Passed with Grade A+ Enterprise.",
-            "values": {
-              "left": {
-                "items": [
-                  "Fragile Architecture",
-                  "High Operational Debt",
-                  "Frequent Downtime",
-                  "Uncertified Platform"
-                ]
-              },
-              "right": {
-                "items": [
-                  "World-Class Streaming",
-                  "Fault-Tolerant Platform",
-                  "99.99% Availability",
-                  "Grade A+ Certified"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "cert"
+            ],
+            "caption": "Edge routing rules automatically manage canary traffic deployments."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Milestone 10 Production SLA Verification States",
+        "states": [
+          {
+            "id": "auth",
+            "label": "Edge Auth",
+            "text": "Target Under Five Ms",
+            "tone": "ok"
+          },
+          {
+            "id": "ttfb",
+            "label": "Shell TTFB",
+            "text": "Target Under Thirty Ms",
+            "tone": "ok"
+          },
+          {
+            "id": "stream",
+            "label": "Stream Time",
+            "text": "Target Hundred Ms",
+            "tone": "ok"
+          },
+          {
+            "id": "cert",
+            "label": "SLA Certified",
+            "text": "Production Grade A+",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "auth",
+            "to": "ttfb",
+            "label": "Passed"
+          },
+          {
+            "from": "ttfb",
+            "to": "stream",
+            "label": "Passed"
+          },
+          {
+            "from": "stream",
+            "to": "cert",
+            "label": "All Passed"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "auth",
+              "ttfb"
+            ],
+            "caption": "Verification suites programmatically audit essential golden signals."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "stream",
+              "cert"
+            ],
+            "caption": "Low latency ensures security checks do not penalize user speed."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "cert"
+            ],
+            "caption": "Edge routing rules automatically manage canary traffic deployments."
           }
         ]
       }
