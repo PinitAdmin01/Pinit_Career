@@ -11898,8 +11898,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing From Stack Reconciler to Fiber: Why Synchronous Tree Traversal Froze the Main Thread, an engineering or financial team first captures Stack and validates Reconciler against Fiber before committing Synchronous. The native JavaScript call stack is all-or-nothing: recursive function execution cannot be paused halfway to yield to browser input events.",
         check: {
           question: "Why did the legacy React stack reconciler freeze the user interface during heavy renders?",
-          options: ["Because synchronous recursive call stack traversal cannot yield the main thread until the entire tree finishes", "Because React did not use JavaScript objects to represent HTML tags", "Because modern browsers do not allow JavaScript to run faster than 10 frames per second"],
-          answer: 0,
+          options: [
+            "Because JavaScript engines lacked support for asynchronous promise execution in early browsers.",
+            "Because synchronous recursive call stack traversal cannot yield the main thread to browser events.",
+            "Because the legacy virtual DOM diffing algorithm discarded all component props on every execution.",
+            "Because browser painting pipelines blocked single-threaded event loops during CSS layout updates."
+          ],
+          answer: 1,
           why: "The native JavaScript call stack is all-or-nothing: recursive function execution cannot be paused halfway to yield to browser input events."
         }
       },
@@ -11925,8 +11930,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing The Fiber Node Topology: Child, Sibling, Return, and the Traversal Pointer Walk, an engineering or financial team first captures Fiber and validates Topology against Child before committing Sibling. Fiber nodes use a singly-linked list structure: parent.child points to child 1, and child 1.sibling points to child 2.",
         check: {
           question: "In React's Fiber architecture, how does a parent Fiber node access its second child?",
-          options: ["By following its own child pointer to the first child, and then following that child's sibling pointer", "By looking up index 1 in its children array property", "By performing a document.querySelectorAll DOM query"],
-          answer: 0,
+          options: [
+            "By accessing index one of the immutable children array stored on the parent fiber node instance.",
+            "By executing a recursive depth-first document query selector against the underlying browser DOM.",
+            "By requesting an asynchronous generator yield from the global concurrent scheduler event channel.",
+            "By traversing down its child pointer to the first child and then reading that child sibling field."
+          ],
+          answer: 3,
           why: "Fiber nodes use a singly-linked list structure: parent.child points to child 1, and child 1.sibling points to child 2."
         }
       },
@@ -11952,7 +11962,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Double Buffering: Current vs Work-in-Progress Trees and Atomic DOM Commit, an engineering or financial team first captures Double and validates Buffering against Current before committing Work-in-Progress. Double buffering isolates in-progress work to a shadow tree, ensuring that incomplete or paused renders never cause visual tearing on screen.",
         check: {
           question: "What is the primary benefit of double buffering in React's Fiber architecture?",
-          options: ["It allows React to build, pause, or abandon new UI states in memory without altering the visible DOM until fully ready", "It doubles the memory consumed by the browser so the application runs faster", "It saves component state permanently inside localStorage"],
+          options: [
+            "It builds and mutates the work-in-progress tree offscreen and swaps pointers atomically at commit.",
+            "It caches rendered HTML strings inside indexedDB storage to bypass future virtual DOM diffing runs.",
+            "It duplicates physical browser DOM elements to allow simultaneous rendering across two windows.",
+            "It runs parallel reconciliation passes inside multiple web worker threads without memory locks."
+          ],
           answer: 0,
           why: "Double buffering isolates in-progress work to a shadow tree, ensuring that incomplete or paused renders never cause visual tearing on screen."
         }
@@ -11979,8 +11994,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing The Scheduler and Cooperative Multitasking: 5ms Time Slices with shouldYield, an engineering or financial team first captures Scheduler and validates Cooperative against Multitasking before committing Slices. React uses approximately 5ms time slices so that rendering yields frequently enough to keep input latency well below 16ms.",
         check: {
           question: "What is the typical time-slice duration React's Scheduler allocates to continuous JavaScript execution before calling shouldYield()?",
-          options: ["Approximately 5 milliseconds", "Exactly 1000 milliseconds", "60 seconds"],
-          answer: 0,
+          options: [
+            "Approximately fifty milliseconds to align with idle periods.",
+            "Approximately sixteen milliseconds to match sixty fps paint.",
+            "Approximately five milliseconds to yield quickly to inputs.",
+            "Approximately one millisecond to prevent any thread queuing."
+          ],
+          answer: 2,
           why: "React uses approximately 5ms time slices so that rendering yields frequently enough to keep input latency well below 16ms."
         }
       },
@@ -12008,8 +12028,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Simulating an Interruptible Concurrent Fiber Work Loop in Pure JavaScript, an engineering or financial team first captures Simulating and validates Interruptible against Concurrent before committing Fiber. React concurrently iterates while work remains and the Scheduler indicates that the current time slice has not yet expired.",
         check: {
           question: "What is the condition checked by React's workLoopConcurrent during the render phase?",
-          options: ["while (workInProgress !== null && !shouldYield())", "while (document.readyState === 'loading')", "while (true) with synchronous setTimeout"],
-          answer: 0,
+          options: [
+            "while (workInProgress !== null && isCommitPhaseReady())",
+            "while (workInProgress !== null && !shouldYieldToHost())",
+            "while (workInProgress !== null && hasPendingMicrotasks())",
+            "while (workInProgress !== null && browserFrameIsActive())"
+          ],
+          answer: 1,
           why: "React concurrently iterates while work remains and the Scheduler indicates that the current time slice has not yet expired."
         }
       }

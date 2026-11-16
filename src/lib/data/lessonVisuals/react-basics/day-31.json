@@ -9,306 +9,242 @@
       "partTitle": "From Stack Reconciler to Fiber: Why Synchronous Tree Traversal Froze the Main Thread",
       "codeHash": "518fbe7052e8a5884bb2802b836dcecf564dda031d68bac9f8ad2577ad25f2ba",
       "spec": {
-        "template": "flow",
-        "title": "Synchronous Stack Reconciliation vs Concurrent Fiber Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Reconciliation Architecture: Synchronous Stack vs Concurrent Fiber",
+        "boxes": [
           {
-            "id": "n1",
-            "label": "Call Stack",
-            "tappable": false
+            "id": "b1",
+            "label": "Stack"
           },
           {
-            "id": "n2",
-            "label": "Fiber Slice",
-            "tappable": false
+            "id": "b2",
+            "label": "Header"
           },
           {
-            "id": "n3",
-            "label": "Time Check",
-            "tappable": false
+            "id": "b3",
+            "label": "DataGrid"
           },
           {
-            "id": "n4",
-            "label": "Commit",
-            "tappable": false
+            "id": "b4",
+            "label": "Fiber"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synchronous rendering monopolizes the call stack until the entire tree finishes.",
+            "caption": "Legacy stack reconciler traverses components synchronously.",
             "values": {
-              "n1": {
-                "text": "\"Monolithic\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"None\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"None\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Blocked\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "error",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n4"
-              ]
-            ]
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Fiber breaks rendering into discrete units of work yielding cooperatively to the browser.",
+            "caption": "Single browser thread shares execution and user interactions.",
             "values": {
-              "n1": {
-                "text": "\"Yielded\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"Slice-1\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"Active\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Pending\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "idle",
-              "n2": "data",
-              "n3": "data",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The work loop checks shouldYield() after each fiber before processing the next unit.",
+            "caption": "Synchronous recursion blocks urgent input events completely.",
             "values": {
-              "n1": {
-                "text": "\"Browser 60fps\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"Slice-2\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"Yield Check\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Pending\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "data",
-              "n3": "ok",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n2",
-                "n3"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Once all fiber nodes are reconciled, the finished tree commits synchronously in one paint.",
+            "caption": "Fiber allocates heap nodes enabling interruptible rendering.",
             "values": {
-              "n1": {
-                "text": "\"Completed\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"Tree Done\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"Passed\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Flushed\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "ok",
-              "n3": "ok",
-              "n4": "ok"
-            },
-            "arrows": [
-              [
-                "n3",
-                "n4"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Synchronous Stack Reconciliation vs Concurrent Fiber Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Reconciliation Architecture: Synchronous Stack vs Concurrent Fiber",
+        "boxes": [
           {
-            "id": "n1",
-            "label": "Call Stack",
-            "tappable": false
+            "id": "b1",
+            "label": "Stack"
           },
           {
-            "id": "n2",
-            "label": "Fiber Slice",
-            "tappable": false
+            "id": "b2",
+            "label": "Header"
           },
           {
-            "id": "n3",
-            "label": "Time Check",
-            "tappable": false
+            "id": "b3",
+            "label": "DataGrid"
           },
           {
-            "id": "n4",
-            "label": "Commit",
-            "tappable": false
+            "id": "b4",
+            "label": "Fiber"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synchronous rendering monopolizes the call stack until the entire tree finishes.",
+            "caption": "Legacy stack reconciler traverses components synchronously.",
             "values": {
-              "n1": {
-                "text": "\"Monolithic\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"None\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"None\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Blocked\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "error",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n4"
-              ]
-            ]
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Fiber breaks rendering into discrete units of work yielding cooperatively to the browser.",
+            "caption": "Single browser thread shares execution and user interactions.",
             "values": {
-              "n1": {
-                "text": "\"Yielded\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"Slice-1\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"Active\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Pending\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "idle",
-              "n2": "data",
-              "n3": "data",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The work loop checks shouldYield() after each fiber before processing the next unit.",
+            "caption": "Synchronous recursion blocks urgent input events completely.",
             "values": {
-              "n1": {
-                "text": "\"Browser 60fps\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"Slice-2\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"Yield Check\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Pending\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "data",
-              "n3": "ok",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n2",
-                "n3"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Once all fiber nodes are reconciled, the finished tree commits synchronously in one paint.",
+            "caption": "Fiber allocates heap nodes enabling interruptible rendering.",
             "values": {
-              "n1": {
-                "text": "\"Completed\""
+              "b1": {
+                "text": "Stack"
               },
-              "n2": {
-                "text": "\"Tree Done\""
+              "b2": {
+                "text": "Header"
               },
-              "n3": {
-                "text": "\"Passed\""
+              "b3": {
+                "text": "DataGrid"
               },
-              "n4": {
-                "text": "\"Flushed\""
+              "b4": {
+                "text": "Fiber"
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "ok",
-              "n3": "ok",
-              "n4": "ok"
-            },
-            "arrows": [
-              [
-                "n3",
-                "n4"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            }
           }
         ]
       }
@@ -317,106 +253,290 @@
       "partTitle": "The Fiber Node Topology: Child, Sibling, Return, and the Traversal Pointer Walk",
       "codeHash": "c58dcbff5858cd659381aa6b5d2ae626c1fef1037153a7208125d75b4b8526c3",
       "spec": {
-        "template": "component-tree",
-        "title": "Fiber Linked-List Structure (child, sibling, return)",
+        "template": "flow",
+        "title": "Fiber Node Singly-Linked Pointer Topology",
         "nodes": [
           {
-            "id": "root",
-            "name": "FiberRoot",
-            "tone": "idle"
+            "id": "n1",
+            "label": "Root"
           },
           {
-            "id": "app",
-            "name": "App",
-            "tone": "data"
+            "id": "n2",
+            "label": "App"
           },
           {
-            "id": "sidebar",
-            "name": "Sidebar",
-            "tone": "ok"
+            "id": "n3",
+            "label": "nav"
           },
           {
-            "id": "content",
-            "name": "Content",
-            "tone": "ok"
+            "id": "n4",
+            "label": "main"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every fiber node points to its first child, its next sibling, and its return parent.",
-            "activeId": "root",
-            "tone": "idle"
+            "caption": "Parent fiber maintains a child pointer to its first child.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "App is the first child of FiberRoot with return link pointing back to root.",
-            "activeId": "app",
-            "tone": "data"
+            "caption": "First child references subsequent children via sibling pointers.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Sidebar and Content are sibling nodes connected horizontally via sibling pointer.",
-            "activeId": "sidebar",
-            "tone": "ok"
+            "caption": "Return pointer references parent address for virtual stack return.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "This singly-linked list structure enables interruptible depth-first traversal.",
-            "activeId": "content",
-            "tone": "ok"
+            "caption": "Depth first traversal walks pointer topology in constant stack space.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n2"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "component-tree",
-        "title": "Fiber Linked-List Structure (child, sibling, return)",
+        "template": "flow",
+        "title": "Fiber Node Singly-Linked Pointer Topology",
         "nodes": [
           {
-            "id": "root",
-            "name": "FiberRoot",
-            "tone": "idle"
+            "id": "n1",
+            "label": "Root"
           },
           {
-            "id": "app",
-            "name": "App",
-            "tone": "data"
+            "id": "n2",
+            "label": "App"
           },
           {
-            "id": "sidebar",
-            "name": "Sidebar",
-            "tone": "ok"
+            "id": "n3",
+            "label": "nav"
           },
           {
-            "id": "content",
-            "name": "Content",
-            "tone": "ok"
+            "id": "n4",
+            "label": "main"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every fiber node points to its first child, its next sibling, and its return parent.",
-            "activeId": "root",
-            "tone": "idle"
+            "caption": "Parent fiber maintains a child pointer to its first child.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "App is the first child of FiberRoot with return link pointing back to root.",
-            "activeId": "app",
-            "tone": "data"
+            "caption": "First child references subsequent children via sibling pointers.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Sidebar and Content are sibling nodes connected horizontally via sibling pointer.",
-            "activeId": "sidebar",
-            "tone": "ok"
+            "caption": "Return pointer references parent address for virtual stack return.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "This singly-linked list structure enables interruptible depth-first traversal.",
-            "activeId": "content",
-            "tone": "ok"
+            "caption": "Depth first traversal walks pointer topology in constant stack space.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "App"
+              },
+              "n3": {
+                "text": "nav"
+              },
+              "n4": {
+                "text": "main"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n2"
+              ]
+            ]
           }
         ]
       }
@@ -425,162 +545,290 @@
       "partTitle": "Double Buffering: Current vs Work-in-Progress Trees and Atomic DOM Commit",
       "codeHash": "a6a5df0e3c7259be34b906b0965bcf83ad7c579ad2c12dd2ac8ba45f9e8e4397",
       "spec": {
-        "template": "compare",
-        "title": "Dual-Buffering: current Tree vs workInProgress Tree",
-        "leftLabel": "Current Tree (Screen)",
-        "rightLabel": "WorkInProgress Tree (Memory)",
+        "template": "flow",
+        "title": "Fiber Double Buffering: Current vs Work In Progress",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "currentRoot"
+          },
+          {
+            "id": "n2",
+            "label": "wipRoot"
+          },
+          {
+            "id": "n3",
+            "label": "alternate"
+          },
+          {
+            "id": "n4",
+            "label": "activeTree"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The current tree represents what is physically visible on screen.",
-            "left": {
-              "code": "console.log(current.stateNode);",
-              "result": {
-                "text": "\"Mounted DOM\""
+            "caption": "Double buffering guarantees visual consistency during interrupted renders.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "ok"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(workInProgress);",
-              "result": {
-                "text": "\"null\""
-              },
-              "tone": "idle"
-            }
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Updates construct alternate fiber clones in memory without touching the live screen.",
-            "left": {
-              "code": "console.log(current.stateNode);",
-              "result": {
-                "text": "\"Mounted DOM\""
+            "caption": "Graphics engines maintain front buffer and back buffer in memory.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "ok"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(workInProgress.state);",
-              "result": {
-                "text": "\"Drafting v2\""
-              },
-              "tone": "data"
-            }
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Fiber nodes reuse unchanged subtrees through alternate pointers to prevent GC thrashing.",
-            "left": {
-              "code": "console.log(current.memoizedProps);",
-              "result": {
-                "text": "\"Props v1\""
+            "caption": "Alternate pointer links current tree to work in progress tree.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "ok"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(workInProgress.memoizedProps);",
-              "result": {
-                "text": "\"Props v2\""
-              },
-              "tone": "data"
-            }
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n1"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Upon completion, React flips the root pointer to swap workInProgress into current instantly.",
-            "left": {
-              "code": "console.log(root.current);",
-              "result": {
-                "text": "\"Swapped to v2\""
+            "caption": "Render phase mutates memory tree while visible screen remains untouched.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "idle"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(root.current);",
-              "result": {
-                "text": "\"Now Active\""
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n2"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Dual-Buffering: current Tree vs workInProgress Tree",
-        "leftLabel": "Current Tree (Screen)",
-        "rightLabel": "WorkInProgress Tree (Memory)",
+        "template": "flow",
+        "title": "Fiber Double Buffering: Current vs Work In Progress",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "currentRoot"
+          },
+          {
+            "id": "n2",
+            "label": "wipRoot"
+          },
+          {
+            "id": "n3",
+            "label": "alternate"
+          },
+          {
+            "id": "n4",
+            "label": "activeTree"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The current tree represents what is physically visible on screen.",
-            "left": {
-              "code": "console.log(current.stateNode);",
-              "result": {
-                "text": "\"Mounted DOM\""
+            "caption": "Double buffering guarantees visual consistency during interrupted renders.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "ok"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(workInProgress);",
-              "result": {
-                "text": "\"null\""
-              },
-              "tone": "idle"
-            }
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Updates construct alternate fiber clones in memory without touching the live screen.",
-            "left": {
-              "code": "console.log(current.stateNode);",
-              "result": {
-                "text": "\"Mounted DOM\""
+            "caption": "Graphics engines maintain front buffer and back buffer in memory.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "ok"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(workInProgress.state);",
-              "result": {
-                "text": "\"Drafting v2\""
-              },
-              "tone": "data"
-            }
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Fiber nodes reuse unchanged subtrees through alternate pointers to prevent GC thrashing.",
-            "left": {
-              "code": "console.log(current.memoizedProps);",
-              "result": {
-                "text": "\"Props v1\""
+            "caption": "Alternate pointer links current tree to work in progress tree.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "ok"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(workInProgress.memoizedProps);",
-              "result": {
-                "text": "\"Props v2\""
-              },
-              "tone": "data"
-            }
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n1"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Upon completion, React flips the root pointer to swap workInProgress into current instantly.",
-            "left": {
-              "code": "console.log(root.current);",
-              "result": {
-                "text": "\"Swapped to v2\""
+            "caption": "Render phase mutates memory tree while visible screen remains untouched.",
+            "values": {
+              "n1": {
+                "text": "currentRoot"
               },
-              "tone": "idle"
+              "n2": {
+                "text": "wipRoot"
+              },
+              "n3": {
+                "text": "alternate"
+              },
+              "n4": {
+                "text": "activeTree"
+              }
             },
-            "right": {
-              "code": "console.log(root.current);",
-              "result": {
-                "text": "\"Now Active\""
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n2"
+              ]
+            ]
           }
         ]
       }
@@ -590,248 +838,240 @@
       "codeHash": "e8670d3523553f9fa321fffcade9fe9066e83975f56e7cac46b525d19ee77a9c",
       "spec": {
         "template": "boxes",
-        "title": "Fiber Priority Lanes & Preemption",
+        "title": "Scheduler Cooperative Multitasking Time Slicing",
         "boxes": [
           {
-            "id": "sync",
-            "label": "SyncLane (Keystrokes)",
-            "tappable": false
+            "id": "b1",
+            "label": "renderNav"
           },
           {
-            "id": "input",
-            "label": "InputContinuousLane (Scroll)",
-            "tappable": false
+            "id": "b2",
+            "label": "renderTable"
           },
           {
-            "id": "default",
-            "label": "DefaultLane (Data Fetch)",
-            "tappable": false
+            "id": "b3",
+            "label": "renderRows"
           },
           {
-            "id": "idle",
-            "label": "IdleLane (Telemetry)",
-            "tappable": false
+            "id": "b4",
+            "label": "renderFooter"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "React encodes update priorities using multiple distinct thirty-two-bit.",
+            "caption": "Scheduler starts task processing and records initial timestamp.",
             "values": {
-              "sync": {
-                "text": "\"0b0001\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"0b0010\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"0b0100\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"0b1000\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "idle",
-              "input": "idle",
-              "default": "idle",
-              "idle": "idle"
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "SyncLane handles urgent user inputs that cannot tolerate a single frame of lag.",
+            "caption": "Continuous work evaluates task slices while time permits.",
             "values": {
-              "sync": {
-                "text": "\"Active Urgent\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"Queued\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"Queued\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"Queued\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "ok",
-              "input": "idle",
-              "default": "idle",
-              "idle": "idle"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "A high-priority Sync update preempts and restarts an in-progress DefaultLane transition.",
+            "caption": "Time check detects slice limit and signals cooperatively to yield.",
             "values": {
-              "sync": {
-                "text": "\"Preempting\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"Yielding\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"Suspended\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"Deferred\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "ok",
-              "input": "idle",
-              "default": "data",
-              "idle": "idle"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "error",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Starvation mitigation ensures long-waiting low-priority lanes expire and elevate to sync.",
+            "caption": "Scheduler yields main thread back to browser event queue.",
             "values": {
-              "sync": {
-                "text": "\"Complete\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"Complete\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"Elevated!\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"Processed\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "idle",
-              "input": "idle",
-              "default": "ok",
-              "idle": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Fiber Priority Lanes & Preemption",
+        "title": "Scheduler Cooperative Multitasking Time Slicing",
         "boxes": [
           {
-            "id": "sync",
-            "label": "SyncLane (Keystrokes)",
-            "tappable": false
+            "id": "b1",
+            "label": "renderNav"
           },
           {
-            "id": "input",
-            "label": "InputContinuousLane (Scroll)",
-            "tappable": false
+            "id": "b2",
+            "label": "renderTable"
           },
           {
-            "id": "default",
-            "label": "DefaultLane (Data Fetch)",
-            "tappable": false
+            "id": "b3",
+            "label": "renderRows"
           },
           {
-            "id": "idle",
-            "label": "IdleLane (Telemetry)",
-            "tappable": false
+            "id": "b4",
+            "label": "renderFooter"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "React encodes update priorities using 31 distinct 32-bit bitmask lanes.",
+            "caption": "Scheduler starts task processing and records initial timestamp.",
             "values": {
-              "sync": {
-                "text": "\"0b0001\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"0b0010\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"0b0100\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"0b1000\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "idle",
-              "input": "idle",
-              "default": "idle",
-              "idle": "idle"
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "SyncLane handles urgent user inputs that cannot tolerate a single frame of lag.",
+            "caption": "Continuous work evaluates task slices while time permits.",
             "values": {
-              "sync": {
-                "text": "\"Active Urgent\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"Queued\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"Queued\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"Queued\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "ok",
-              "input": "idle",
-              "default": "idle",
-              "idle": "idle"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "A high-priority Sync update preempts and restarts an in-progress DefaultLane transition.",
+            "caption": "Time check detects slice limit and signals cooperatively to yield.",
             "values": {
-              "sync": {
-                "text": "\"Preempting\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"Yielding\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"Suspended\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"Deferred\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "ok",
-              "input": "idle",
-              "default": "data",
-              "idle": "idle"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "error",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Starvation mitigation ensures long-waiting low-priority lanes expire and elevate to sync.",
+            "caption": "Scheduler yields main thread back to browser event queue.",
             "values": {
-              "sync": {
-                "text": "\"Complete\""
+              "b1": {
+                "text": "renderNav"
               },
-              "input": {
-                "text": "\"Complete\""
+              "b2": {
+                "text": "renderTable"
               },
-              "default": {
-                "text": "\"Elevated!\""
+              "b3": {
+                "text": "renderRows"
               },
-              "idle": {
-                "text": "\"Processed\""
+              "b4": {
+                "text": "renderFooter"
               }
             },
             "tones": {
-              "sync": "idle",
-              "input": "idle",
-              "default": "ok",
-              "idle": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
             }
           }
         ]
@@ -841,90 +1081,290 @@
       "partTitle": "Simulating an Interruptible Concurrent Fiber Work Loop in Pure JavaScript",
       "codeHash": "e756c31950d157797aa6166e570fa789d984b7afd96339fedcf2821de4c65361",
       "spec": {
-        "template": "states",
-        "title": "Fiber Work Loop Lifecycle States",
-        "states": [
+        "template": "flow",
+        "title": "Concurrent Work Loop Pointer Traversal and Yielding",
+        "nodes": [
           {
-            "id": "s1",
-            "label": "PENDING"
+            "id": "n1",
+            "label": "App"
           },
           {
-            "id": "s2",
-            "label": "RECONCILING"
+            "id": "n2",
+            "label": "Header"
           },
           {
-            "id": "s3",
-            "label": "COMMITTING"
+            "id": "n3",
+            "label": "Content"
+          },
+          {
+            "id": "n4",
+            "label": "Footer"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fiber nodes enter PENDING state when an update is scheduled.",
-            "activeId": "s1",
-            "tone": "idle"
+            "caption": "Concurrent loop initializes traversal at root component node.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "The work loop transitions nodes into RECONCILING as units of work are evaluated.",
-            "activeId": "s2",
-            "tone": "data"
+            "caption": "Reconciler descends child pointer to process first nested child.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Should yield checks can pause and resume the RECONCILING phase.",
-            "activeId": "s2",
-            "tone": "data"
+            "caption": "Work loop traverses sibling pointers when leaf nodes complete.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "When all fibers are ready, COMMITTING flushes mutations synchronously to the DOM.",
-            "activeId": "s3",
-            "tone": "ok"
+            "caption": "Return pointer ascends back to parent completing traversal pass.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Fiber Work Loop Lifecycle States",
-        "states": [
+        "template": "flow",
+        "title": "Concurrent Work Loop Pointer Traversal and Yielding",
+        "nodes": [
           {
-            "id": "s1",
-            "label": "PENDING"
+            "id": "n1",
+            "label": "App"
           },
           {
-            "id": "s2",
-            "label": "RECONCILING"
+            "id": "n2",
+            "label": "Header"
           },
           {
-            "id": "s3",
-            "label": "COMMITTING"
+            "id": "n3",
+            "label": "Content"
+          },
+          {
+            "id": "n4",
+            "label": "Footer"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fiber nodes enter PENDING state when an update is scheduled.",
-            "activeId": "s1",
-            "tone": "idle"
+            "caption": "Concurrent loop initializes traversal at root component node.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "The work loop transitions nodes into RECONCILING as units of work are evaluated.",
-            "activeId": "s2",
-            "tone": "data"
+            "caption": "Reconciler descends child pointer to process first nested child.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Should yield checks can pause and resume the RECONCILING phase.",
-            "activeId": "s2",
-            "tone": "data"
+            "caption": "Work loop traverses sibling pointers when leaf nodes complete.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "When all fibers are ready, COMMITTING flushes mutations synchronously to the DOM.",
-            "activeId": "s3",
-            "tone": "ok"
+            "caption": "Return pointer ascends back to parent completing traversal pass.",
+            "values": {
+              "n1": {
+                "text": "App"
+              },
+              "n2": {
+                "text": "Header"
+              },
+              "n3": {
+                "text": "Content"
+              },
+              "n4": {
+                "text": "Footer"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       }
