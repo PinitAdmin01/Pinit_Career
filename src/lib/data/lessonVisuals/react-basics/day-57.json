@@ -1,705 +1,717 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 57,
-  "promptSha": "block12_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Case Study Blueprint: The 500k RPS Black Friday Thundering Herd & Edge Shielding",
       "codeHash": "6a4526728d8fed54fdcb1e55d03f288c03a745325f46429d0dc5d41c6e1fd4e1",
       "spec": {
         "template": "flow",
-        "title": "Edge Anycast & Token Bucket Rate Limiting Pipeline",
+        "title": "Edge Origin Shield & Thundering Herd Absorption",
         "nodes": [
           {
             "id": "client",
-            "label": "Global Browser Client",
-            "sub": "HTTP/3 QUIC Request",
-            "status": "active"
+            "label": "User Traffic",
+            "text": "500k RPS Thundering Herd",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "anycast",
-            "label": "Edge Anycast Routing",
-            "sub": "Sub-5ms Geolocation Hop",
-            "status": "active"
+            "id": "shield",
+            "label": "Edge Shield",
+            "text": "Regional Shield PoPs",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "bucket",
-            "label": "Token Bucket Rate Limiter",
-            "sub": "Sliding Window Enforcer",
-            "status": "active"
-          },
-          {
-            "id": "ppr",
-            "label": "PPR Streaming Origin",
-            "sub": "Static Shell + Dynamic Hole",
-            "status": "ok"
+            "id": "origin",
+            "label": "Origin Server",
+            "text": "Shielded Database",
+            "tone": "ok",
+            "tappable": false
           }
         ],
         "edges": [
           {
             "from": "client",
-            "to": "anycast",
-            "label": "DNS Query"
+            "to": "shield",
+            "label": "Incoming Herd"
           },
           {
-            "from": "anycast",
-            "to": "bucket",
-            "label": "Edge Ingress"
-          },
-          {
-            "from": "bucket",
-            "to": "ppr",
-            "label": "Authorized Forward"
+            "from": "shield",
+            "to": "origin",
+            "label": "Collapsed 4k RPS"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Client initiates request routed to nearest Edge Anycast Point of Presence.",
-            "values": {
-              "client": {
-                "status": "Connecting"
-              },
-              "anycast": {
-                "status": "Resolving"
-              },
-              "bucket": {
-                "status": "Idle"
-              },
-              "ppr": {
-                "status": "Idle"
-              }
-            },
-            "tones": {
-              "client": "data",
-              "anycast": "data",
-              "bucket": "idle",
-              "ppr": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Edge Anycast routes traffic in three.eightms to local edge worker runtime.",
-            "values": {
-              "client": {
-                "status": "Connected"
-              },
-              "anycast": {
-                "status": "Routed"
-              },
-              "bucket": {
-                "status": "Evaluating"
-              },
-              "ppr": {
-                "status": "Idle"
-              }
-            },
-            "tones": {
-              "client": "ok",
-              "anycast": "ok",
-              "bucket": "data",
-              "ppr": "idle"
-            }
+            "highlight": [
+              "client",
+              "shield"
+            ],
+            "caption": "Global retail platforms experience traffic spikes during viral events."
           },
           {
             "at": "say3",
-            "caption": "Token bucket rate limiter consumes token and validates client quota.",
-            "values": {
-              "client": {
-                "status": "Connected"
-              },
-              "anycast": {
-                "status": "Routed"
-              },
-              "bucket": {
-                "status": "Token Deducted"
-              },
-              "ppr": {
-                "status": "Dispatched"
-              }
-            },
-            "tones": {
-              "client": "ok",
-              "anycast": "ok",
-              "bucket": "ok",
-              "ppr": "data"
-            }
+            "highlight": [
+              "shield"
+            ],
+            "caption": "Origin shielding decomposes browsing traffic from mutation funnels."
           },
           {
             "at": "say4",
-            "caption": "Request forwarded to PPR streaming engine with verified edge claims.",
-            "values": {
-              "client": {
-                "status": "Streaming"
-              },
-              "anycast": {
-                "status": "Routed"
-              },
-              "bucket": {
-                "status": "Quota Validated"
-              },
-              "ppr": {
-                "status": "Flushing Shell"
-              }
-            },
-            "tones": {
-              "client": "ok",
-              "anycast": "ok",
-              "bucket": "ok",
-              "ppr": "ok"
-            }
+            "highlight": [
+              "shield",
+              "origin"
+            ],
+            "caption": "Edge networks absorb catalog requests directly at distributed nodes."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Edge Origin Shield & Thundering Herd Absorption",
+        "nodes": [
+          {
+            "id": "client",
+            "label": "User Traffic",
+            "text": "500k RPS Thundering Herd",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "shield",
+            "label": "Edge Shield",
+            "text": "Regional Shield PoPs",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "origin",
+            "label": "Origin Server",
+            "text": "Shielded Database",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "client",
+            "to": "shield",
+            "label": "Incoming Herd"
+          },
+          {
+            "from": "shield",
+            "to": "origin",
+            "label": "Collapsed 4k RPS"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "client",
+              "shield"
+            ],
+            "caption": "Global retail platforms experience traffic spikes during viral events."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "shield"
+            ],
+            "caption": "Origin shielding decomposes browsing traffic from mutation funnels."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "shield",
+              "origin"
+            ],
+            "caption": "Edge networks absorb catalog requests directly at distributed nodes."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "PPR at Scale: Edge Static Shell Distribution & Streaming Personalized Holes",
       "codeHash": "feedd487b9d376db8a635efb064c2a2d5d9e13f6ea9799db7dd64891874d0635",
       "spec": {
-        "template": "wireframe",
-        "title": "Next.js Partial Prerendering Static Shell vs Dynamic Holes",
-        "layout": "dashboard",
-        "zones": [
-          {
-            "id": "nav",
-            "title": "Global Navigation Bar (Static Pre-Rendered)",
-            "role": "header",
-            "status": "static"
-          },
-          {
-            "id": "hero",
-            "title": "Catalog Hero Banner (Edge Cached)",
-            "role": "hero",
-            "status": "static"
-          },
-          {
-            "id": "pricing",
-            "title": "Dynamic Real-Time Pricing (PPR Hole)",
-            "role": "main",
-            "status": "streaming"
-          },
-          {
-            "id": "inventory",
-            "title": "Live Inventory Counter (PPR Hole)",
-            "role": "sidebar",
-            "status": "streaming"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Static Navigation and Hero Banner flush to browser immediately at ms.",
-            "values": {
-              "nav": {
-                "status": "Flushed"
-              },
-              "hero": {
-                "status": "Flushed"
-              },
-              "pricing": {
-                "status": "Skeleton"
-              },
-              "inventory": {
-                "status": "Skeleton"
-              }
-            },
-            "tones": {
-              "nav": "ok",
-              "hero": "ok",
-              "pricing": "idle",
-              "inventory": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Browser paints First Contentful Paint with zero layout shift (CLS.",
-            "values": {
-              "nav": {
-                "status": "Visible"
-              },
-              "hero": {
-                "status": "Visible"
-              },
-              "pricing": {
-                "status": "Locked Bounds"
-              },
-              "inventory": {
-                "status": "Locked Bounds"
-              }
-            },
-            "tones": {
-              "nav": "ok",
-              "hero": "ok",
-              "pricing": "data",
-              "inventory": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Dynamic pricing stream resolves and hydrates without reflowing page elements.",
-            "values": {
-              "nav": {
-                "status": "Visible"
-              },
-              "hero": {
-                "status": "Visible"
-              },
-              "pricing": {
-                "status": "Hydrated ($249.99)"
-              },
-              "inventory": {
-                "status": "Streaming"
-              }
-            },
-            "tones": {
-              "nav": "ok",
-              "hero": "ok",
-              "pricing": "ok",
-              "inventory": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Live inventory completes streaming; full interactive page ready in sub-ms.",
-            "values": {
-              "nav": {
-                "status": "Active"
-              },
-              "hero": {
-                "status": "Active"
-              },
-              "pricing": {
-                "status": "Live Price"
-              },
-              "inventory": {
-                "status": "3 Left in Stock"
-              }
-            },
-            "tones": {
-              "nav": "ok",
-              "hero": "ok",
-              "pricing": "ok",
-              "inventory": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Hierarchical Tag-Based Edge Cache Invalidation Mesh",
-      "codeHash": "50ab72d2519a04f5f0a4c8f2aca4fc26d0833f751d74df0d5630f7396a19d0e0",
-      "spec": {
-        "template": "boxes",
-        "title": "Progressive RSC Chunk Streaming over HTTP/2",
-        "boxes": [
-          {
-            "id": "c1",
-            "label": "Chunk 0: Static HTML Shell",
-            "sub": "Head tags, CSS styles, static layout",
-            "val": "12.4ms",
-            "tone": "ok"
-          },
-          {
-            "id": "c2",
-            "label": "Chunk 1: User Auth Hole",
-            "sub": "Edge JWT session resolution",
-            "val": "21.0ms",
-            "tone": "data"
-          },
-          {
-            "id": "c3",
-            "label": "Chunk 2: Live Pricing Hole",
-            "sub": "Microservice database lookup",
-            "val": "34.5ms",
-            "tone": "data"
-          },
-          {
-            "id": "c4",
-            "label": "Chunk 3: Recommendations",
-            "sub": "AI vector search result stream",
-            "val": "48.2ms",
-            "tone": "ok"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Chunk zero streams immediately from edge cache within ms TTFB.",
-            "values": {
-              "c1": {
-                "val": "Delivered"
-              },
-              "c2": {
-                "val": "Pending"
-              },
-              "c3": {
-                "val": "Pending"
-              },
-              "c4": {
-                "val": "Pending"
-              }
-            },
-            "tones": {
-              "c1": "ok",
-              "c2": "idle",
-              "c3": "idle",
-              "c4": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Chunk one arrives over open HTTP connection, hydrating user navigation.",
-            "values": {
-              "c1": {
-                "val": "Rendered"
-              },
-              "c2": {
-                "val": "Delivered"
-              },
-              "c3": {
-                "val": "Pending"
-              },
-              "c4": {
-                "val": "Pending"
-              }
-            },
-            "tones": {
-              "c1": "ok",
-              "c2": "ok",
-              "c3": "idle",
-              "c4": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Chunk two populates product prices with pre-calculated layout aspect.",
-            "values": {
-              "c1": {
-                "val": "Rendered"
-              },
-              "c2": {
-                "val": "Rendered"
-              },
-              "c3": {
-                "val": "Delivered"
-              },
-              "c4": {
-                "val": "Resolving"
-              }
-            },
-            "tones": {
-              "c1": "ok",
-              "c2": "ok",
-              "c3": "ok",
-              "c4": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Chunk three concludes progressive stream, achieving sub-ms full.",
-            "values": {
-              "c1": {
-                "val": "Rendered"
-              },
-              "c2": {
-                "val": "Rendered"
-              },
-              "c3": {
-                "val": "Rendered"
-              },
-              "c4": {
-                "val": "Stream Closed"
-              }
-            },
-            "tones": {
-              "c1": "ok",
-              "c2": "ok",
-              "c3": "ok",
-              "c4": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Dynamic Flash Sale Pricing Rules & Client-Side Promotion Engine",
-      "codeHash": "5822a8c8150a378852a353ba0acf8abd838204dd0e286254f89001b9de61bc1f",
-      "spec": {
         "template": "compare",
-        "title": "Edge ISR vs Origin Cache Invalidation Latencies",
+        "title": "Static Shell Delivery vs Dynamic Holes Streaming",
         "left": {
-          "label": "Traditional Origin Invalidation",
+          "title": "Static Shell",
+          "subtitle": "Edge Snapshot",
           "items": [
-            "Centralized database write",
-            "Origin server cache purge",
-            "Global CDN purge roundtrips (3-5s)",
-            "Cache stampede risks on purge"
+            {
+              "label": "Product Layout",
+              "text": "Cached images and titles",
+              "tone": "ok"
+            },
+            {
+              "label": "Initial Paint",
+              "text": "Sub fifteen ms TTFB",
+              "tone": "ok"
+            }
           ]
         },
         "right": {
-          "label": "Edge Tag-Based Revalidation",
+          "title": "Dynamic Holes",
+          "subtitle": "Streaming Chunks",
           "items": [
-            "Sub-millisecond edge tag purge",
-            "Stale-While-Revalidate zero delay",
-            "Micro-targeted invalidation by SKU",
-            "100% warm cache absorption"
+            {
+              "label": "Live Inventory",
+              "text": "Real-time stock badges",
+              "tone": "data"
+            },
+            {
+              "label": "Bounding Box",
+              "text": "Zero layout shift skeleton",
+              "tone": "ok"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Origin purging causes high latency spikes across global edge nodes.",
-            "values": {
-              "left": {
-                "items": [
-                  "Purge Command Fired",
-                  "Wait 3000ms",
-                  "Origin Stampede",
-                  "High Server Load"
-                ]
-              },
-              "right": {
-                "items": [
-                  "revalidateTag('sku_101')",
-                  "Sub-5ms Purge",
-                  "Edge Warm Served",
-                  "Zero Origin Hit"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Edge tags invalidate only the exact modified product records.",
-            "values": {
-              "left": {
-                "items": [
-                  "Purge All Products",
-                  "Blank Caches",
-                  "Slow SQL Queries",
-                  "Database Choke"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Granular Tag Match",
-                  "99.8% Caches Warm",
-                  "Fast Edge Fetch",
-                  "Zero Degradation"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Partial prerendering solves dilemmas through streaming hole demarcation."
           },
           {
             "at": "say3",
-            "caption": "Stale-While-Revalidate serves instant responses while refreshing in background.",
-            "values": {
-              "left": {
-                "items": [
-                  "User Waits on DB",
-                  "500ms White Screen",
-                  "High Bounce Rate",
-                  "Lost Revenue"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Instant Stale Serve",
-                  "Background Refresh",
-                  "15ms Response",
-                  "Conversion Boost"
-                ]
-              }
-            },
-            "tones": {
-              "left": "warn",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Static shells deliver instantaneous first contentful paint from edge nodes."
           },
           {
             "at": "say4",
-            "caption": "Tag-based edge invalidation guarantees multiple.nine% edge cache hit.",
-            "values": {
-              "left": {
-                "items": [
-                  "High Origin Costs",
-                  "Unpredictable TTFB",
-                  "Fragile Scaling",
-                  "Legacy Setup"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Predictable Sub-25ms",
-                  "Hosting Bill Cut 70%",
-                  "Robust Scale",
-                  "Grade A+ Cert"
-                ]
-              }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Skeleton bounding boxes ensure streaming bytes cause zero layout shift."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Static Shell Delivery vs Dynamic Holes Streaming",
+        "left": {
+          "title": "Static Shell",
+          "subtitle": "Edge Snapshot",
+          "items": [
+            {
+              "label": "Product Layout",
+              "text": "Cached images and titles",
+              "tone": "ok"
             },
-            "tones": {
-              "left": "error",
-              "right": "ok"
+            {
+              "label": "Initial Paint",
+              "text": "Sub fifteen ms TTFB",
+              "tone": "ok"
             }
+          ]
+        },
+        "right": {
+          "title": "Dynamic Holes",
+          "subtitle": "Streaming Chunks",
+          "items": [
+            {
+              "label": "Live Inventory",
+              "text": "Real-time stock badges",
+              "tone": "data"
+            },
+            {
+              "label": "Bounding Box",
+              "text": "Zero layout shift skeleton",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Partial prerendering solves dilemmas through streaming hole demarcation."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Static shells deliver instantaneous first contentful paint from edge nodes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Skeleton bounding boxes ensure streaming bytes cause zero layout shift."
           }
         ]
       }
     },
     {
-      "partTitle": "Production Forensic Teardown: 2018 Amazon Prime Day Outage & Grade A+ Certification",
-      "codeHash": "3ee18f516f3a32c7cc39bb2f40f135c01a4b395f1da86e7887ce9eba3d46caa0",
+      "partIndex": 2,
+      "partTitle": "Hierarchical Tag-Based Edge Cache Invalidation Mesh",
+      "codeHash": "50ab72d2519a04f5f0a4c8f2aca4fc26d0833f751d74df0d5630f7396a19d0e0",
+      "spec": {
+        "template": "flow",
+        "title": "Hierarchical Tag-Based Cache Invalidation Mesh",
+        "nodes": [
+          {
+            "id": "event",
+            "label": "Stock Mutation",
+            "text": "Inventory Update",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "webhook",
+            "label": "Purge Webhook",
+            "text": "revalidateTag",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sku",
+            "label": "Targeted SKU",
+            "text": "Single Page Purged",
+            "tone": "error",
+            "tappable": false
+          },
+          {
+            "id": "mesh",
+            "label": "Intact Catalog",
+            "text": "Million Cached SKUs",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "event",
+            "to": "webhook",
+            "label": "Stock Drop"
+          },
+          {
+            "from": "webhook",
+            "to": "sku",
+            "label": "Purge Tag"
+          },
+          {
+            "from": "webhook",
+            "to": "mesh",
+            "label": "Keep Hot"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "event"
+            ],
+            "caption": "Fixed expiration leads to stale inventory and checkout failures."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "webhook",
+              "sku"
+            ],
+            "caption": "Hierarchical tag invalidation attaches semantic tags to cached pages."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "sku",
+              "mesh"
+            ],
+            "caption": "The warehouse microservice fires webhooks to purge mutated sku tags."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Hierarchical Tag-Based Cache Invalidation Mesh",
+        "nodes": [
+          {
+            "id": "event",
+            "label": "Stock Mutation",
+            "text": "Inventory Update",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "webhook",
+            "label": "Purge Webhook",
+            "text": "revalidateTag",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sku",
+            "label": "Targeted SKU",
+            "text": "Single Page Purged",
+            "tone": "error",
+            "tappable": false
+          },
+          {
+            "id": "mesh",
+            "label": "Intact Catalog",
+            "text": "Million Cached SKUs",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "event",
+            "to": "webhook",
+            "label": "Stock Drop"
+          },
+          {
+            "from": "webhook",
+            "to": "sku",
+            "label": "Purge Tag"
+          },
+          {
+            "from": "webhook",
+            "to": "mesh",
+            "label": "Keep Hot"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "event"
+            ],
+            "caption": "Fixed expiration leads to stale inventory and checkout failures."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "webhook",
+              "sku"
+            ],
+            "caption": "Hierarchical tag invalidation attaches semantic tags to cached pages."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "sku",
+              "mesh"
+            ],
+            "caption": "The warehouse microservice fires webhooks to purge mutated sku tags."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 3,
+      "partTitle": "Dynamic Flash Sale Pricing Rules & Client-Side Promotion Engine",
+      "codeHash": "5822a8c8150a378852a353ba0acf8abd838204dd0e286254f89001b9de61bc1f",
       "spec": {
         "template": "states",
-        "title": "Automated Synthetic SLA Benchmark Gatekeeper",
+        "title": "Client-Side Flash Sale Pricing Evaluation Statechart",
         "states": [
           {
-            "id": "init",
-            "label": "PROBE_INIT",
-            "desc": "Spinning up headless synthetic browser bots",
-            "active": true
+            "id": "base",
+            "label": "Base Price",
+            "text": "Catalog List Price",
+            "tone": "data"
           },
           {
-            "id": "measuring",
-            "label": "MEASURING_VITALS",
-            "desc": "Auditing TTFB, FCP, CLS, and INP metrics",
-            "active": false
+            "id": "tier",
+            "label": "Filter Tier",
+            "text": "User Loyalty Tier",
+            "tone": "data"
           },
           {
-            "id": "evaluating",
-            "label": "EVALUATING_SLA",
-            "desc": "Checking bounds against strict 50ms budget",
-            "active": false
+            "id": "discount",
+            "label": "Compute Rate",
+            "text": "Optimal Percent Drop",
+            "tone": "ok"
           },
           {
-            "id": "certified",
-            "label": "SLA_CERTIFIED",
-            "desc": "Approved for global edge production release",
-            "active": false
+            "id": "savings",
+            "label": "Final Total",
+            "text": "Exact Integer Cents",
+            "tone": "ok"
           }
         ],
         "transitions": [
           {
-            "from": "init",
-            "to": "measuring",
-            "label": "LAUNCH_PROBE"
+            "from": "base",
+            "to": "tier",
+            "label": "Match Tier"
           },
           {
-            "from": "measuring",
-            "to": "evaluating",
-            "label": "METRICS_COLLECTED"
+            "from": "tier",
+            "to": "discount",
+            "label": "Apply Rule"
           },
           {
-            "from": "evaluating",
-            "to": "certified",
-            "label": "ALL_PASS"
+            "from": "discount",
+            "to": "savings",
+            "label": "Format Cents"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Synthetic audit agents initialize in PROBE_INIT before code merge.",
-            "values": {
-              "init": {
-                "active": true
-              },
-              "measuring": {
-                "active": false
-              },
-              "evaluating": {
-                "active": false
-              },
-              "certified": {
-                "active": false
-              }
-            },
-            "tones": {
-              "init": "ok",
-              "measuring": "idle",
-              "evaluating": "idle",
-              "certified": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Agents measure Core Web Vitals under fourG throttling conditions.",
-            "values": {
-              "init": {
-                "active": false
-              },
-              "measuring": {
-                "active": true
-              },
-              "evaluating": {
-                "active": false
-              },
-              "certified": {
-                "active": false
-              }
-            },
-            "tones": {
-              "init": "idle",
-              "measuring": "data",
-              "evaluating": "idle",
-              "certified": "idle"
-            }
+            "highlight": [
+              "base",
+              "tier"
+            ],
+            "caption": "Server round trips for pricing introduce noticeable interface lag."
           },
           {
             "at": "say3",
-            "caption": "EVALUATING_SLA confirms TTFB multiple.fivems, FCP ms, and CLS.",
-            "values": {
-              "init": {
-                "active": false
-              },
-              "measuring": {
-                "active": false
-              },
-              "evaluating": {
-                "active": true
-              },
-              "certified": {
-                "active": false
-              }
-            },
-            "tones": {
-              "init": "idle",
-              "measuring": "idle",
-              "evaluating": "data",
-              "certified": "idle"
-            }
+            "highlight": [
+              "tier",
+              "discount"
+            ],
+            "caption": "Promotion engines iterate over active rules to compute discounted prices."
           },
           {
             "at": "say4",
-            "caption": "Gatekeeper confers SLA_CERTIFIED, unlocking production deployment.",
-            "values": {
-              "init": {
-                "active": false
-              },
-              "measuring": {
-                "active": false
-              },
-              "evaluating": {
-                "active": false
-              },
-              "certified": {
-                "active": true
-              }
-            },
-            "tones": {
-              "init": "idle",
-              "measuring": "idle",
-              "evaluating": "idle",
-              "certified": "ok"
-            }
+            "highlight": [
+              "discount",
+              "savings"
+            ],
+            "caption": "Financial calculations in retail avoid floating point rounding errors."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Client-Side Flash Sale Pricing Evaluation Statechart",
+        "states": [
+          {
+            "id": "base",
+            "label": "Base Price",
+            "text": "Catalog List Price",
+            "tone": "data"
+          },
+          {
+            "id": "tier",
+            "label": "Filter Tier",
+            "text": "User Loyalty Tier",
+            "tone": "data"
+          },
+          {
+            "id": "discount",
+            "label": "Compute Rate",
+            "text": "Optimal Percent Drop",
+            "tone": "ok"
+          },
+          {
+            "id": "savings",
+            "label": "Final Total",
+            "text": "Exact Integer Cents",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "base",
+            "to": "tier",
+            "label": "Match Tier"
+          },
+          {
+            "from": "tier",
+            "to": "discount",
+            "label": "Apply Rule"
+          },
+          {
+            "from": "discount",
+            "to": "savings",
+            "label": "Format Cents"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "base",
+              "tier"
+            ],
+            "caption": "Server round trips for pricing introduce noticeable interface lag."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "tier",
+              "discount"
+            ],
+            "caption": "Promotion engines iterate over active rules to compute discounted prices."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "discount",
+              "savings"
+            ],
+            "caption": "Financial calculations in retail avoid floating point rounding errors."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 4,
+      "partTitle": "Production Forensic Teardown: 2018 Amazon Prime Day Outage & Grade A+ Certification",
+      "codeHash": "3ee18f516f3a32c7cc39bb2f40f135c01a4b395f1da86e7887ce9eba3d46caa0",
+      "spec": {
+        "template": "states",
+        "title": "E-Commerce Peak Resilience Certification States",
+        "states": [
+          {
+            "id": "edge",
+            "label": "Edge Cache",
+            "text": "Ninety Nine Percent Hit",
+            "tone": "ok"
+          },
+          {
+            "id": "ttfb",
+            "label": "Shell Speed",
+            "text": "Sub Twenty Ms TTFB",
+            "tone": "ok"
+          },
+          {
+            "id": "stream",
+            "label": "Stream Speed",
+            "text": "Under Eighty Ms Stream",
+            "tone": "ok"
+          },
+          {
+            "id": "cert",
+            "label": "Grade Certified",
+            "text": "Resilience Certified",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "edge",
+            "to": "ttfb",
+            "label": "Passed"
+          },
+          {
+            "from": "ttfb",
+            "to": "stream",
+            "label": "Passed"
+          },
+          {
+            "from": "stream",
+            "to": "cert",
+            "label": "All Passed"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "edge"
+            ],
+            "caption": "Database failures cascaded across dependent microservices in prime day."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "edge",
+              "ttfb"
+            ],
+            "caption": "Automated resilience gates audit critical operational signals."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "stream",
+              "cert"
+            ],
+            "caption": "High edge cache hit rates shield origin databases from thundering herds."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "E-Commerce Peak Resilience Certification States",
+        "states": [
+          {
+            "id": "edge",
+            "label": "Edge Cache",
+            "text": "Ninety Nine Percent Hit",
+            "tone": "ok"
+          },
+          {
+            "id": "ttfb",
+            "label": "Shell Speed",
+            "text": "Sub Twenty Ms TTFB",
+            "tone": "ok"
+          },
+          {
+            "id": "stream",
+            "label": "Stream Speed",
+            "text": "Under Eighty Ms Stream",
+            "tone": "ok"
+          },
+          {
+            "id": "cert",
+            "label": "Grade Certified",
+            "text": "Resilience Certified",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "edge",
+            "to": "ttfb",
+            "label": "Passed"
+          },
+          {
+            "from": "ttfb",
+            "to": "stream",
+            "label": "Passed"
+          },
+          {
+            "from": "stream",
+            "to": "cert",
+            "label": "All Passed"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "edge"
+            ],
+            "caption": "Database failures cascaded across dependent microservices in prime day."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "edge",
+              "ttfb"
+            ],
+            "caption": "Automated resilience gates audit critical operational signals."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "stream",
+              "cert"
+            ],
+            "caption": "High edge cache hit rates shield origin databases from thundering herds."
           }
         ]
       }

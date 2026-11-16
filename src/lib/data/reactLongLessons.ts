@@ -17466,12 +17466,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the primary role of an Edge Origin Shield during a 500k RPS e-commerce viral event?",
         "options": [
-          "To absorb 99%+ of catalog browsing requests at distributed edge nodes, preventing database connection exhaustion",
-          "To encrypt all product images with RSA-4096 before rendering in the browser",
-          "To automatically cancel customer orders if the total cart value exceeds $500",
-          "To force all shoppers to wait in a 30-minute queue before seeing product photos"
+          "To encrypt all product catalog images with asymmetric cryptographic algorithms before transmitting to mobile clients.",
+          "To absorb ninety-nine percent of browsing traffic at edge points of presence, preventing origin database exhaustion.",
+          "To cancel customer checkout transactions automatically whenever the cumulative cart total exceeds five hundred dollars.",
+          "To force all incoming shoppers to wait in a thirty minute virtual waiting queue before viewing any product photographs."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Edge origin shields absorb browsing traffic at edge PoPs, forwarding only a small, manageable trickle of requests to origin databases."
       }
     },
@@ -17499,12 +17499,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How does Partial Prerendering (PPR) achieve sub-20ms TTFB while displaying live stock levels?",
         "options": [
-          "It serves an edge-cached static shell immediately while streaming live inventory into reserved Suspense holes",
-          "It uses an artificial timer that delays page loading until stock levels are calculated",
-          "It stores user credit card numbers in browser local storage",
-          "It converts all React JSX into static PNG screenshot images"
+          "It introduces artificial network timers that delay page delivery until background inventory calculation scripts finish.",
+          "It persists unencrypted customer payment credit card numbers inside browser local storage keys to speed up checkouts.",
+          "It converts all interactive React component trees into static pre-rendered PNG screenshot images across edge networks.",
+          "It serves an edge-cached static shell immediately while streaming live inventory data into reserved Suspense boundaries."
         ],
-        "answer": 0,
+        "answer": 3,
         "why": "PPR decouples the static application shell from dynamic streaming holes, delivering instant FCP and live data concurrently."
       }
     },
@@ -17533,10 +17533,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "Why is tag-based cache invalidation superior to blanket cache flushing during inventory updates?",
         "options": [
-          "It purges only the specific pages matching the mutated SKU tag, leaving millions of unrelated cached pages intact",
-          "It reduces server memory consumption by 90% regardless of cache size",
-          "It bypasses CDN networks and writes directly to user hard drives",
-          "It prevents users from using discount promo codes"
+          "It purges only the specific pages matching the mutated SKU tag, leaving millions of unrelated cached pages fully intact.",
+          "It reduces backend server memory allocations by ninety percent regardless of the overall product catalog dataset volume.",
+          "It bypasses global content delivery networks completely and writes product updates directly to client operating disks.",
+          "It disables promotional voucher codes automatically whenever catalog inventory falls below five items in the warehouse."
         ],
         "answer": 0,
         "why": "Tag-based invalidation performs surgical eviction of affected items while preserving global cache hit ratios."
@@ -17566,12 +17566,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "Why are promotional pricing calculations evaluated client-side in flash sale interfaces?",
         "options": [
-          "To deliver instantaneous, sub-millisecond price updates when users toggle coupons or tiers without network latency",
-          "Because backend databases cannot perform subtraction or percentage math",
-          "To allow users to modify product prices in browser DevTools and buy items for free",
-          "To prevent search engines from indexing product prices"
+          "Because relational database clusters cannot execute subtraction or percentage calculations across incoming user carts.",
+          "To allow shoppers to manipulate product prices in browser developer tools and purchase items without paying real money.",
+          "To deliver instantaneous sub-millisecond price updates when users toggle coupons or loyalty tiers without network lag.",
+          "To prevent automated search engine web crawlers from indexing discounted promotional prices across international pages."
         ],
-        "answer": 0,
+        "answer": 2,
         "why": "Client-side evaluation provides instant UI responsiveness during interactive shopping without incurring server round-trips."
       }
     },
@@ -17600,12 +17600,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What primary engineering bottleneck caused the catastrophic $100M Amazon Prime Day outage in 2018?",
         "options": [
-          "Cascading microservice failure caused by un-cached homepage read requests overwhelming an internal DynamoDB service",
-          "A fiber optic cable was accidentally severed in the Atlantic Ocean",
-          "The React virtual DOM exceeded its maximum recursion depth in Internet Explorer",
-          "A CSS overflow bug broke the shopping cart icon on mobile devices"
+          "A major undersea trans-oceanic fiber optic cable was accidentally severed in the middle of the Atlantic shipping lane.",
+          "Cascading microservice failures caused by un-cached homepage read requests overwhelming an internal DynamoDB database.",
+          "The React virtual DOM exceeded its maximum recursion stack limit during concurrent component hydration in the browser.",
+          "An unhandled CSS overflow layout bug hidden behind the shopping cart badge broke mobile checkout navigation completely."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Un-cached homepage reads caused a thundering herd on internal DynamoDB databases, crashing cascading microservices."
       }
     }
