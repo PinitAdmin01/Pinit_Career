@@ -1,688 +1,671 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 52,
-  "promptSha": "block11_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Node.js Runtime vs Edge Runtime: V8 Isolates, Memory Caps & Zero-Cold-Start Limits",
       "codeHash": "6074fa593044c76bda498c1c13c8a3dd8bdee3337a273a2a3c0a4c5fdef09123",
       "spec": {
         "template": "compare",
-        "title": "Serverless Node.js Container vs Edge Runtime V8 Isolate",
+        "title": "Origin Node.js vs Edge Runtime",
         "left": {
-          "label": "Node.js Serverless Container (AWS Lambda)",
+          "title": "Centralized Origin",
+          "subtitle": "Node.js Server",
           "items": [
-            "Heavy container cold start (250ms - 1,200ms)",
-            "Requires centralized origin VPC routing",
-            "Node native C++ bindings supported",
-            "High memory footprint (128MB - 1GB)"
+            {
+              "label": "Heavy Runtime",
+              "text": "Node.js",
+              "tone": "error"
+            },
+            {
+              "label": "Cold Start",
+              "text": "Cold Start",
+              "tone": "error"
+            }
           ]
         },
         "right": {
-          "label": "Edge Runtime V8 Isolate (Vercel / Cloudflare)",
+          "title": "Geo-Distributed Edge",
+          "subtitle": "V8 Isolates",
           "items": [
-            "Sub-millisecond cold start (< 2ms)",
-            "Runs on 300+ edge Points of Presence",
-            "Strict Web Standard APIs (Fetch, Web Crypto)",
-            "Ultra-lean memory footprint (4MB - 16MB)"
+            {
+              "label": "Lightweight Engine",
+              "text": "V8 isolates",
+              "tone": "ok"
+            },
+            {
+              "label": "Global Network",
+              "text": "Edge Runtime",
+              "tone": "ok"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Edge isolates boot instantly without spinning up full operating system containers.",
-            "values": {
-              "left": {
-                "items": [
-                  "Docker Container Spin-up",
-                  "Node.js Runtime Init",
-                  "350ms Cold Start",
-                  "Latency Spike"
-                ]
-              },
-              "right": {
-                "items": [
-                  "V8 Isolate Allocation",
-                  "Zero Boot Overhead",
-                  "1.8ms Startup",
-                  "Instant Execution"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Edge middleware intercepts requests within single-digit milliseconds of the user.",
-            "values": {
-              "left": {
-                "items": [
-                  "Traffic Crosses Ocean",
-                  "180ms Network RTT",
-                  "High Latency Budget",
-                  "Slow Perceived Speed"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Terminated at Local PoP",
-                  "8ms Local RTT",
-                  "Instant Edge Response",
-                  "Blazing Fast Response"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Centralized origin architectures suffer transatlantic propagation delay."
           },
           {
             "at": "say3",
-            "caption": "Web Standard APIs guarantee universal compatibility without Node dependencies.",
-            "values": {
-              "left": {
-                "items": [
-                  "Node 'fs', 'net', 'crypto'",
-                  "Platform Locked",
-                  "Heavy Node Modules",
-                  "Large Deploy Bundles"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Web Fetch, SubtleCrypto",
-                  "Edge Universal",
-                  "Zero Heavy Bundles",
-                  "Lean 15KB Functions"
-                ]
-              }
-            },
-            "tones": {
-              "left": "data",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Full server processes introduce cold-start latency during spikes."
           },
           {
             "at": "say4",
-            "caption": "Edge computing delivers unprecedented scale and cost efficiency.",
-            "values": {
-              "left": {
-                "items": [
-                  "High Idle Costs",
-                  "Slow Scaling Spikes",
-                  "VPC Connection Exhaustion",
-                  "Legacy Infrastructure"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Zero Idle Costs",
-                  "Instant 100k req/s Scale",
-                  "Zero VPC Bottlenecks",
-                  "Next-Gen Cloud"
-                ]
-              }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Edge runtimes deploy lightweight v eight isolates across global points."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Origin Node.js vs Edge Runtime",
+        "left": {
+          "title": "Centralized Origin",
+          "subtitle": "Node.js Server",
+          "items": [
+            {
+              "label": "Heavy Runtime",
+              "text": "Node.js",
+              "tone": "error"
             },
-            "tones": {
-              "left": "error",
-              "right": "ok"
+            {
+              "label": "Cold Start",
+              "text": "Cold Start",
+              "tone": "error"
             }
+          ]
+        },
+        "right": {
+          "title": "Geo-Distributed Edge",
+          "subtitle": "V8 Isolates",
+          "items": [
+            {
+              "label": "Lightweight Engine",
+              "text": "V8 isolates",
+              "tone": "ok"
+            },
+            {
+              "label": "Global Network",
+              "text": "Edge Runtime",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Centralized origin architectures suffer transatlantic propagation delay."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Full server processes introduce cold-start latency during spikes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Edge runtimes deploy lightweight v eight isolates across global points."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Middleware Execution Pipeline & Request Mutation: Rewrites, Redirects & Custom Headers",
       "codeHash": "6798567bb8559d4c45b7874cc30bcf50d3e42b92c49afee3105b470b69b85525",
       "spec": {
         "template": "flow",
-        "title": "Edge Middleware Pipeline: Rate Limit -> Auth Gate -> Geo Routing",
+        "title": "Edge Middleware Mutation Pipeline",
         "nodes": [
           {
-            "id": "incoming_req",
-            "label": "Incoming HTTP Request",
+            "id": "request",
+            "label": "Incoming Request",
+            "text": "middleware.ts",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "rate_limiter",
-            "label": "Token Bucket Rate Limiter",
+            "id": "redirect",
+            "label": "URL Redirect",
+            "text": "NextResponse.redirect()",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "jwt_verifier",
-            "label": "Web Crypto JWT Verifier",
+            "id": "rewrite",
+            "label": "Internal Rewrite",
+            "text": "NextResponse.rewrite()",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "request",
+            "to": "redirect",
+            "label": "Unauthorized"
           },
           {
-            "id": "geo_router",
-            "label": "Geo IP Header Injection & Rewrite",
-            "tappable": false
+            "from": "request",
+            "to": "rewrite",
+            "label": "Tenant Routing"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Client request enters the edge network and hits the rate limiting filter first.",
-            "values": {
-              "incoming_req": {
-                "text": "\"Client Req\""
-              },
-              "rate_limiter": {
-                "text": "\"Evaluating Quota\""
-              },
-              "jwt_verifier": {
-                "text": "\"Standby\""
-              },
-              "geo_router": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "incoming_req": "data",
-              "rate_limiter": "data",
-              "jwt_verifier": "idle",
-              "geo_router": "idle"
-            },
-            "arrows": [
-              [
-                "incoming_req",
-                "rate_limiter"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Excessive requests are blocked immediately with HTTP rate-limited Too.",
-            "values": {
-              "incoming_req": {
-                "text": "\"Blocked Bot\""
-              },
-              "rate_limiter": {
-                "text": "\"429 Blocked\""
-              },
-              "jwt_verifier": {
-                "text": "\"Protected\""
-              },
-              "geo_router": {
-                "text": "\"Untouched\""
-              }
-            },
-            "tones": {
-              "incoming_req": "error",
-              "rate_limiter": "error",
-              "jwt_verifier": "ok",
-              "geo_router": "idle"
-            }
+            "highlight": [
+              "request"
+            ],
+            "caption": "The middleware pipeline intercepts incoming requests at the network edge."
           },
           {
             "at": "say3",
-            "caption": "Valid requests proceed to Web Crypto JWT verification without external round trips.",
-            "values": {
-              "incoming_req": {
-                "text": "\"Authorized Req\""
-              },
-              "rate_limiter": {
-                "text": "\"Quota OK\""
-              },
-              "jwt_verifier": {
-                "text": "\"Signature Verified\""
-              },
-              "geo_router": {
-                "text": "\"Evaluating Geo\""
-              }
-            },
-            "tones": {
-              "incoming_req": "ok",
-              "rate_limiter": "ok",
-              "jwt_verifier": "ok",
-              "geo_router": "data"
-            },
-            "arrows": [
-              [
-                "rate_limiter",
-                "jwt_verifier"
-              ],
-              [
-                "jwt_verifier",
-                "geo_router"
-              ]
-            ]
+            "highlight": [
+              "redirect"
+            ],
+            "caption": "Redirects emit response status codes to update client browser address bars."
           },
           {
             "at": "say4",
-            "caption": "Middleware injects geolocation headers and rewrites traffic to localized origins.",
-            "values": {
-              "incoming_req": {
-                "text": "\"Completed\""
-              },
-              "rate_limiter": {
-                "text": "\"Pass\""
-              },
-              "jwt_verifier": {
-                "text": "\"Pass\""
-              },
-              "geo_router": {
-                "text": "\"Routed to /apac/desk\""
-              }
-            },
-            "tones": {
-              "incoming_req": "ok",
-              "rate_limiter": "ok",
-              "jwt_verifier": "ok",
-              "geo_router": "ok"
-            }
+            "highlight": [
+              "rewrite"
+            ],
+            "caption": "Middleware appends custom context headers to eliminate duplicate lookups."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Edge Middleware Mutation Pipeline",
+        "nodes": [
+          {
+            "id": "request",
+            "label": "Incoming Request",
+            "text": "middleware.ts",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "redirect",
+            "label": "URL Redirect",
+            "text": "NextResponse.redirect()",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "rewrite",
+            "label": "Internal Rewrite",
+            "text": "NextResponse.rewrite()",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "request",
+            "to": "redirect",
+            "label": "Unauthorized"
+          },
+          {
+            "from": "request",
+            "to": "rewrite",
+            "label": "Tenant Routing"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "request"
+            ],
+            "caption": "The middleware pipeline intercepts incoming requests at the network edge."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "redirect"
+            ],
+            "caption": "Redirects emit response status codes to update client browser address bars."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "rewrite"
+            ],
+            "caption": "Middleware appends custom context headers to eliminate duplicate lookups."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "Sub-Millisecond Cryptographic JWT Verification at the Edge with Web Crypto API",
       "codeHash": "c9c49b2b0e9970230827cff5758633ee27869a41624471f1d865f9618efce185",
       "spec": {
-        "template": "boxes",
-        "title": "Sub-Millisecond Edge JWT Verification via Web Crypto API",
-        "boxes": [
+        "template": "flow",
+        "title": "Web Crypto JWT Verification Pipeline",
+        "nodes": [
           {
-            "id": "raw_jwt",
-            "label": "Incoming JWT Bearer Header (Header.Payload.Sig)",
+            "id": "token",
+            "label": "Incoming Token",
+            "text": "JSON Web Tokens",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "web_crypto",
-            "label": "crypto.subtle.verify (HMAC SHA-256)",
+            "id": "subtle",
+            "label": "Web Crypto",
+            "text": "crypto.subtle",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "claims_context",
-            "label": "Extracted Claims (sub, role: 'TRADER', exp)",
+            "id": "verified",
+            "label": "Verified Claims",
+            "text": "sub-millisecond",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "token",
+            "to": "subtle",
+            "label": "Verify Signature"
           },
           {
-            "id": "downstream_headers",
-            "label": "Injected Request Headers (x-user-id, x-role)",
-            "tappable": false
+            "from": "subtle",
+            "to": "verified",
+            "label": "Valid Token"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The edge isolate extracts raw JWT tokens from Authorization headers or cookies.",
-            "values": {
-              "raw_jwt": {
-                "text": "\"Extracted Bearer Token\""
-              },
-              "web_crypto": {
-                "text": "\"Importing Secret Key\""
-              },
-              "claims_context": {
-                "text": "\"Pending\""
-              },
-              "downstream_headers": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "raw_jwt": "data",
-              "web_crypto": "data",
-              "claims_context": "idle",
-              "downstream_headers": "idle"
-            }
+            "highlight": [
+              "token",
+              "subtle"
+            ],
+            "caption": "Edge middleware validates cryptographic authentication in sub-milliseconds."
           },
           {
             "at": "say2",
-            "caption": "Web Crypto API verifies HMAC SHA digest signature in under zero.five.",
-            "values": {
-              "raw_jwt": {
-                "text": "\"Token Valid\""
-              },
-              "web_crypto": {
-                "text": "\"Signature 100% Match\""
-              },
-              "claims_context": {
-                "text": "\"Decoding Payload\""
-              },
-              "downstream_headers": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "raw_jwt": "ok",
-              "web_crypto": "ok",
-              "claims_context": "data",
-              "downstream_headers": "idle"
-            }
+            "highlight": [
+              "token"
+            ],
+            "caption": "Verifying tokens at edge proxies shields origin servers from fake traffic."
           },
           {
             "at": "say3",
-            "caption": "Expiration timestamp is checked; claims are validated against role permissions.",
-            "values": {
-              "raw_jwt": {
-                "text": "\"Valid\""
-              },
-              "web_crypto": {
-                "text": "\"Verified\""
-              },
-              "claims_context": {
-                "text": "\"User: u_101, Role: TRADER\""
-              },
-              "downstream_headers": {
-                "text": "\"Composing Headers\""
-              }
-            },
-            "tones": {
-              "raw_jwt": "ok",
-              "web_crypto": "ok",
-              "claims_context": "ok",
-              "downstream_headers": "data"
-            }
+            "highlight": [
+              "subtle",
+              "verified"
+            ],
+            "caption": "The web crypto api provides native verification inside edge runtimes."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Web Crypto JWT Verification Pipeline",
+        "nodes": [
+          {
+            "id": "token",
+            "label": "Incoming Token",
+            "text": "JSON Web Tokens",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "at": "say4",
-            "caption": "Verified user identity is injected into request headers for downstream Server Components.",
-            "values": {
-              "raw_jwt": {
-                "text": "\"Processed\""
-              },
-              "web_crypto": {
-                "text": "\"Fast (<1ms)\""
-              },
-              "claims_context": {
-                "text": "\"Hydrated\""
-              },
-              "downstream_headers": {
-                "text": "\"x-user-id: u_101 Ready\""
-              }
-            },
-            "tones": {
-              "raw_jwt": "ok",
-              "web_crypto": "ok",
-              "claims_context": "ok",
-              "downstream_headers": "ok"
-            }
+            "id": "subtle",
+            "label": "Web Crypto",
+            "text": "crypto.subtle",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "verified",
+            "label": "Verified Claims",
+            "text": "sub-millisecond",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "token",
+            "to": "subtle",
+            "label": "Verify Signature"
+          },
+          {
+            "from": "subtle",
+            "to": "verified",
+            "label": "Valid Token"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "token",
+              "subtle"
+            ],
+            "caption": "Edge middleware validates cryptographic authentication in sub-milliseconds."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "token"
+            ],
+            "caption": "Verifying tokens at edge proxies shields origin servers from fake traffic."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "subtle",
+              "verified"
+            ],
+            "caption": "The web crypto api provides native verification inside edge runtimes."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Distributed Token-Bucket Rate Limiting & Abuse Prevention with Sliding Windows",
       "codeHash": "28ccdab0c29fb7a34c276d3e257cd624f5bc4833da5e5ca90c047b7c04b4b439",
       "spec": {
         "template": "states",
-        "title": "Sliding Token Bucket Rate Limiter State Machine",
+        "title": "Token Bucket Rate Limiting States",
         "states": [
           {
-            "id": "normal_flow",
-            "label": "NORMAL_FLOW (Tokens > 50%)"
+            "id": "available",
+            "label": "Tokens Available",
+            "text": "refill rate",
+            "tone": "ok"
           },
           {
-            "id": "burst_drain",
-            "label": "BURST_DRAIN (Tokens < 20%)"
+            "id": "burst",
+            "label": "Burst Limit",
+            "text": "Token Bucket",
+            "tone": "data"
           },
           {
-            "id": "blocked_429",
-            "label": "BLOCKED_429 (Tokens = 0)"
-          },
-          {
-            "id": "replenished",
-            "label": "REPLENISHED (Tokens = Max)"
+            "id": "exhausted",
+            "label": "Rate Limited",
+            "text": "HTTP 429 Too Many Requests",
+            "tone": "error"
           }
         ],
         "transitions": [
           {
-            "from": "normal_flow",
-            "to": "burst_drain",
-            "label": "High request volume"
+            "from": "available",
+            "to": "burst",
+            "label": "Consume Token"
           },
           {
-            "from": "burst_drain",
-            "to": "blocked_429",
-            "label": "Bucket exhausted"
-          },
-          {
-            "from": "blocked_429",
-            "to": "replenished",
-            "label": "Window expires & refills"
-          },
-          {
-            "from": "replenished",
-            "to": "normal_flow",
-            "label": "Steady state restored"
+            "from": "burst",
+            "to": "exhausted",
+            "label": "Bucket Empty"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Rate limiter starts in NORMAL_FLOW with full token capacity available.",
-            "values": {
-              "normal_flow": {
-                "status": "ACTIVE"
-              },
-              "burst_drain": {
-                "status": "INACTIVE"
-              },
-              "blocked_429": {
-                "status": "INACTIVE"
-              },
-              "replenished": {
-                "status": "INACTIVE"
-              }
-            },
-            "tones": {
-              "normal_flow": "ok",
-              "burst_drain": "idle",
-              "blocked_429": "idle",
-              "replenished": "idle"
-            }
+            "highlight": [
+              "available"
+            ],
+            "caption": "Token bucket rate limiters protect distributed backends from abuse."
           },
           {
             "at": "say2",
-            "caption": "A sudden burst of user actions rapidly consumes tokens from the edge bucket.",
-            "values": {
-              "normal_flow": {
-                "status": "INACTIVE"
-              },
-              "burst_drain": {
-                "status": "ACTIVE (12 Tokens Left)"
-              },
-              "blocked_429": {
-                "status": "INACTIVE"
-              },
-              "replenished": {
-                "status": "INACTIVE"
-              }
-            },
-            "tones": {
-              "normal_flow": "idle",
-              "burst_drain": "error",
-              "blocked_429": "idle",
-              "replenished": "idle"
-            }
+            "highlight": [
+              "available",
+              "burst"
+            ],
+            "caption": "Edge memory rate limiting protects centralized databases from flood abuse."
           },
           {
             "at": "say3",
-            "caption": "When the bucket empties, edge immediately returns HTTP rate-limited with.",
-            "values": {
-              "normal_flow": {
-                "status": "INACTIVE"
-              },
-              "burst_drain": {
-                "status": "INACTIVE"
-              },
-              "blocked_429": {
-                "status": "ACTIVE (HTTP 429 Issued)"
-              },
-              "replenished": {
-                "status": "INACTIVE"
-              }
-            },
-            "tones": {
-              "normal_flow": "idle",
-              "burst_drain": "idle",
-              "blocked_429": "error",
-              "replenished": "idle"
-            }
+            "highlight": [
+              "exhausted"
+            ],
+            "caption": "The token bucket replenishes tokens continuously at a fixed refill rate."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Token Bucket Rate Limiting States",
+        "states": [
+          {
+            "id": "available",
+            "label": "Tokens Available",
+            "text": "refill rate",
+            "tone": "ok"
           },
           {
-            "at": "say4",
-            "caption": "Tokens replenish automatically over time, restoring normal routing without server reboot.",
-            "values": {
-              "normal_flow": {
-                "status": "ACTIVE (Restored)"
-              },
-              "burst_drain": {
-                "status": "INACTIVE"
-              },
-              "blocked_429": {
-                "status": "INACTIVE"
-              },
-              "replenished": {
-                "status": "100% Capacity"
-              }
-            },
-            "tones": {
-              "normal_flow": "ok",
-              "burst_drain": "idle",
-              "blocked_429": "idle",
-              "replenished": "ok"
-            }
+            "id": "burst",
+            "label": "Burst Limit",
+            "text": "Token Bucket",
+            "tone": "data"
+          },
+          {
+            "id": "exhausted",
+            "label": "Rate Limited",
+            "text": "HTTP 429 Too Many Requests",
+            "tone": "error"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "available",
+            "to": "burst",
+            "label": "Consume Token"
+          },
+          {
+            "from": "burst",
+            "to": "exhausted",
+            "label": "Bucket Empty"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "available"
+            ],
+            "caption": "Token bucket rate limiters protect distributed backends from abuse."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "available",
+              "burst"
+            ],
+            "caption": "Edge memory rate limiting protects centralized databases from flood abuse."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "exhausted"
+            ],
+            "caption": "The token bucket replenishes tokens continuously at a fixed refill rate."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Production Edge Gateway Benchmark: Latency Budgets, Geo-Fencing & Fallback Paths",
       "codeHash": "f9b479c3f063dbe2e095789c4476782e7a0ccaed4a0b6052ebe391199272c60f",
       "spec": {
-        "template": "compare",
-        "title": "Production Security Benchmark: Origin Security vs Edge Middleware Pipeline",
-        "left": {
-          "label": "Centralized Origin Security",
-          "items": [
-            "Origin servers absorb all malicious DDoS traffic",
-            "JWT verified deep inside backend database stack",
-            "Database connection pool exhausted by bots",
-            "High latency penalty for international users"
-          ]
-        },
-        "right": {
-          "label": "Edge Middleware Security Pipeline",
-          "items": [
-            "Bad traffic terminated at edge PoP in < 3ms",
-            "Zero-database cryptographic token verification",
-            "Origin shielded from 99.8% of automated bot attacks",
-            "Sub-20ms localized edge response worldwide"
-          ]
-        },
+        "template": "flow",
+        "title": "Edge Gateway Production SLA Pipeline",
+        "nodes": [
+          {
+            "id": "latency",
+            "label": "Latency SLA",
+            "text": "Edge Pipeline Latency",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "abuse",
+            "label": "Abuse Shield",
+            "text": "Abuse Rate-Limiting Rejection",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "crypto",
+            "label": "Crypto Check",
+            "text": "JWT Cryptographic Integrity",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "result",
+            "label": "Audit Result",
+            "text": "GRADE A+ PRODUCTION READY",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "latency",
+            "to": "abuse",
+            "label": "Latency Budget"
+          },
+          {
+            "from": "abuse",
+            "to": "crypto",
+            "label": "Abuse Filtering"
+          },
+          {
+            "from": "crypto",
+            "to": "result",
+            "label": "Certification"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Edge middleware terminates abusive traffic before it ever touches database infrastructure.",
-            "values": {
-              "left": {
-                "items": [
-                  "100k Bot Reqs Hit DB",
-                  "Connection Pool Full",
-                  "Site Crash Risk",
-                  "Slow User Queries"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Blocked at Edge PoP",
-                  "0 Bot Reqs Hit DB",
-                  "Zero Crash Risk",
-                  "Fast User Queries"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "latency"
+            ],
+            "caption": "The production edge gateway benchmark validates service level agreements."
           },
           {
             "at": "say2",
-            "caption": "Web Crypto verification executes in zero.eightms without network.",
-            "values": {
-              "left": {
-                "items": [
-                  "45ms Auth RTT",
-                  "Centralized Auth API",
-                  "Single Point of Failure",
-                  "High Overhead"
-                ]
-              },
-              "right": {
-                "items": [
-                  "0.8ms Local Compute",
-                  "Distributed Edge Crypto",
-                  "Zero Single Point",
-                  "Ultra Low Overhead"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Geo-IP header injection personalizes currency and region instantaneously.",
-            "values": {
-              "left": {
-                "items": [
-                  "Geo Lookup in Server",
-                  "Added 30ms Per Request",
-                  "External IP Database",
-                  "Stale Geodata"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Native Edge Geo Header",
-                  "0ms Overhead",
-                  "Hardware IP Geo Lookup",
-                  "Always Accurate"
-                ]
-              }
-            },
-            "tones": {
-              "left": "data",
-              "right": "ok"
-            }
+            "highlight": [
+              "latency",
+              "abuse"
+            ],
+            "caption": "The automated audit suite certifies enterprise service level agreements."
           },
           {
             "at": "say4",
-            "caption": "The Edge Middleware Pipeline delivers enterprise-grade zero-trust defense.",
-            "values": {
-              "left": {
-                "items": [
-                  "Vulnerable Perimeter",
-                  "High Infrastructure Costs",
-                  "Frustrated Global Users",
-                  "Grade C Security"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Hardened Edge Perimeter",
-                  "Minimal Origin Burden",
-                  "Delighted Global Users",
-                  "Grade A+ Certified"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "crypto",
+              "result"
+            ],
+            "caption": "Cryptographic validation verifies signatures without origin database calls."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Edge Gateway Production SLA Pipeline",
+        "nodes": [
+          {
+            "id": "latency",
+            "label": "Latency SLA",
+            "text": "Edge Pipeline Latency",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "abuse",
+            "label": "Abuse Shield",
+            "text": "Abuse Rate-Limiting Rejection",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "crypto",
+            "label": "Crypto Check",
+            "text": "JWT Cryptographic Integrity",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "result",
+            "label": "Audit Result",
+            "text": "GRADE A+ PRODUCTION READY",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "latency",
+            "to": "abuse",
+            "label": "Latency Budget"
+          },
+          {
+            "from": "abuse",
+            "to": "crypto",
+            "label": "Abuse Filtering"
+          },
+          {
+            "from": "crypto",
+            "to": "result",
+            "label": "Certification"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "latency"
+            ],
+            "caption": "The production edge gateway benchmark validates service level agreements."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "latency",
+              "abuse"
+            ],
+            "caption": "The automated audit suite certifies enterprise service level agreements."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "crypto",
+              "result"
+            ],
+            "caption": "Cryptographic validation verifies signatures without origin database calls."
           }
         ]
       }
