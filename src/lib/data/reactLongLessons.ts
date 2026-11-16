@@ -16171,15 +16171,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a third nested sub-segment for billing and verify that dashboard layout remains preserved.",
       example: "The App Router layout tree persits common ancestors across navigations, swapping only descendant page slots and maintaining persistent DOM nodes, audio playback, and WebSocket connections.",
         "check": {
-        "question": "Why do nested layouts in the Next.js App Router preserve state and DOM nodes across child navigations?",
+        "question": "Why do nested layouts in the Next.js App Router preserve state when navigating sibling pages?",
         "options": [
-          "React reconciliation preserves layout components located at or above the closest common ancestor, re-rendering only the mutated child segment",
-          "By caching screenshot images of the layout in the browser cache",
-          "Because Next.js disables all JavaScript re-renders on the page",
-          "By forcing all routes to use single-page iframe containers"
+          "By compiling all client React components into static WebAssembly machine binaries during build time, bypassing client browser reconciliation.",
+          "By reusing identical layout Fiber nodes at the same tree depth, passing updated child page elements into the persistent layout children slot.",
+          "By forcing the browser to take static screenshot images of parent layouts and caching them inside hardware GPU buffers across page transitions.",
+          "By storing all ancestor DOM nodes in client cookies and reloading the browser window via full HTTP document refresh cycles on every navigation."
         ],
-        "answer": 0,
-        "why": "The App Router layout tree persits common ancestors across navigations, swapping only descendant page slots and maintaining persistent DOM nodes, audio playback, and WebSocket connections."
+        "answer": 1,
+        "why": "React reconciliation preserves components whose type and position remain constant, updating only the swapped children prop passed into the persistent layout."
       }
     },
     {
@@ -16215,15 +16215,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a (shop) route group with an e-commerce layout and verify that its URL normalizes cleanly.",
       example: "Route Groups (folders wrapped in parentheses) are omitted from the URL path, allowing completely independent root layouts, styling themes, and bundle splittings.",
         "check": {
-        "question": "What architectural benefit do Route Groups provide in enterprise Next.js applications?",
+        "question": "What architectural benefit do Route Groups provide when organizing Next.js applications?",
         "options": [
-          "They allow organizing route segments into distinct layout boundaries and separate root layouts without modifying the public URL path",
-          "They encrypt all JavaScript files on the server",
-          "They convert HTML pages into PDF files automatically",
-          "They speed up internet connection bandwidth for users"
+          "They allow developers to run multithreaded JavaScript code directly inside device kernel hardware without standard browser security restrictions.",
+          "They compress client bundle sizes by fifty percent by automatically stripping all unused CSS style declarations from global document stylesheets.",
+          "They encrypt server-side database connection strings using public cryptographic keys before transmitting route definitions across network sockets.",
+          "They organize folders into logical categories with separate layouts while completely omitting the group folder names from public URL pathnames."
         ],
-        "answer": 0,
-        "why": "Route Groups (folders wrapped in parentheses) are omitted from the URL path, allowing completely independent root layouts, styling themes, and bundle splittings."
+        "answer": 3,
+        "why": "Route Groups (e.g. (marketing) or (dashboard)) partition routes into distinct visual layouts and code domains without affecting the public URL hierarchy."
       }
     },
     {
@@ -16259,15 +16259,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Register a third slot for @notifications and verify that it loads in parallel alongside feed.",
       example: "Named slots (@slot) possess distinct loading.js and error.js boundaries.",
         "check": {
-        "question": "How do Parallel Routes improve fault tolerance in complex dashboard layouts?",
+        "question": "How do Next.js Parallel Routes improve fault tolerance and usability in complex dashboards?",
         "options": [
-          "Each parallel slot possesses its own independent loading and error boundaries, allowing failures in one widget to be isolated without crashing the entire page",
-          "By duplicating all server hardware in the cloud",
-          "By converting all database queries into static text files",
-          "By preventing users from clicking buttons simultaneously"
+          "By rendering independent sub-views simultaneously with isolated error boundaries, preventing one slot failure from crashing the entire dashboard.",
+          "By executing parallel database mutations across separate cloud server regions, ensuring zero data loss during distributed network socket drops.",
+          "By overclocking device graphics hardware to render canvas charts in parallel across multiple GPU compute cores without using the main UI thread.",
+          "By compiling each dashboard widget into an independent microservice container that executes within dedicated virtual machines on client devices."
         ],
         "answer": 0,
-        "why": "Named slots (@slot) possess distinct loading.js and error.js boundaries. If one slot throws an exception or experiences latency, adjacent slots continue streaming and rendering smoothly."
+        "why": "Parallel Routes render multiple slot segments concurrently in the same layout, each with isolated error boundaries and independent loading states."
       }
     },
     {
@@ -16303,15 +16303,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Simulate an intercepting route for /product/500 and verify its dual-mode resolution.",
       example: "Intercepting routes allow contextual modal overlays during in-app navigation while preserving full deep-linking fidelity and standalone rendering on direct page loads.",
         "check": {
-        "question": "What is the primary user experience advantage of Intercepting Routes in Next.js?",
+        "question": "What is the primary user experience advantage of Next.js Intercepting Routes?",
         "options": [
-          "They open route content in a contextual modal during client navigation while rendering a standalone page on direct URL visits or hard reloads",
-          "They hide the URL bar from the user browser",
-          "They automatically translate text into five languages",
-          "They prevent the browser back button from functioning"
+          "They allow client applications to bypass cross-origin resource sharing policies when querying third-party APIs from background service workers.",
+          "They eliminate client-side JavaScript execution entirely by rendering all interactive modal dialogs as pre-rendered animated GIF graphic images.",
+          "They display sub-routes as contextual overlays while preserving shareable URLs that render full-page views upon direct access or page refreshes.",
+          "They intercept incoming HTTP requests on the client machine to block unwanted advertising scripts before they execute inside the browser engine."
         ],
-        "answer": 0,
-        "why": "Intercepting routes allow contextual modal overlays during in-app navigation while preserving full deep-linking fidelity and standalone rendering on direct page loads."
+        "answer": 2,
+        "why": "Intercepting routes render contextual modals or overlays when navigated to client-side, while still rendering full dedicated pages on hard refresh."
       }
     },
     {
@@ -16347,15 +16347,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Run the benchmark across 5-level deep nested route trees and inspect the LCA depth calculation.",
       example: "The App Router computes the Least Common Ancestor (LCA) between active and incoming segment trees, preserving common layout ancestors and remounting only changed sub-trees.",
         "check": {
-        "question": "What algorithm does the Next.js App Router use to minimize DOM re-renders during client-side navigation?",
+        "question": "What algorithm does the Next.js App Router use to determine which segments to preserve during navigation?",
         "options": [
-          "Least Common Ancestor (LCA) tree diffing, which preserves all segment layouts above the LCA and mounts only changed descendant segments",
-          "Full-page DOM tearing and synchronous document reload",
-          "CSS display:none toggling on all inactive routes",
-          "Continuous background web scraping"
+          "Dijkstra's shortest path algorithm that computes optimal network routing paths across distributed content delivery network edge nodes in memory.",
+          "Lowest Common Ancestor traversal that identifies shared prefix segments, preserving common layout trees while swapping only the changed sub-tree.",
+          "Depth-first search that recursively deletes and recreates all ancestor DOM nodes to guarantee that client memory caches contain zero stale data.",
+          "Breadth-first flood fill that scans browser stylesheets to purge unused CSS classes before mounting incoming component view layout hierarchies."
         ],
-        "answer": 0,
-        "why": "The App Router computes the Least Common Ancestor (LCA) between active and incoming segment trees, preserving common layout ancestors and remounting only changed sub-trees."
+        "answer": 1,
+        "why": "The App Router uses Lowest Common Ancestor (LCA) tree comparison to determine which ancestor layouts remain identical, preserving them without re-rendering."
       }
     }
   ],
