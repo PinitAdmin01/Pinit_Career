@@ -14065,12 +14065,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does traditional renderToString cause high TTFB when a page contains slow data dependencies?",
           options: [
-            "renderToString is a synchronous, blocking call that must wait for all database queries and promises to resolve before flushing a single byte of HTML",
-            "Because HTML files cannot be sent over TCP connections",
-            "Because renderToString converts all HTML tags into JPEG images",
-            "Because Node.js does not support string concatenation"
+            "Because modern browser layout engines refuse to parse HTML documents until all CSS stylesheets and web font assets are fully downloaded and decoded.",
+            "Because renderToString is a blocking call that must wait for all database queries and promises to resolve before flushing any initial HTML bytes.",
+            "Because classical Node.js processes convert all component markup into compressed WebP images before transmitting network packets across the socket.",
+            "Because the HTTP protocol permanently closes TCP sockets whenever a server-side component execution loop exceeds twenty-five microseconds in total."
           ],
-          answer: 0,
+          answer: 1,
           why: "Monolithic renderToString blocks on the slowest database call, preventing the browser from receiving the HTML document head, stylesheets, or layouts."
         }
       },
@@ -14100,12 +14100,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What role does the browser preload scanner play when the document head is flushed early?",
           options: [
-            "It discovers critical CSS, fonts, and JavaScript bundles in the early shell and begins downloading them immediately in parallel with server rendering",
-            "It validates SQL database schema migrations",
-            "It executes all React hooks before DOM construction",
-            "It compresses HTML text using gzip on the client device"
+            "It validates SQL database schema migrations and checks foreign key integrity constraints against remote backend cluster nodes before page rendering.",
+            "It executes all React lifecycle hooks and runs synchronous reconciliation loops across memory buffers before constructing any DOM element instances.",
+            "It re-compresses all HTML markup text using client-side Gzip algorithms to minimize RAM memory consumption across all active mobile browser tabs.",
+            "It discovers critical CSS, fonts, and script bundles in the early shell and begins downloading them in parallel while the server renders the page."
           ],
-          answer: 0,
+          answer: 3,
           why: "Flushing the HTML shell early enables the browser preload scanner to fetch stylesheets and scripts over the network while the server streams deferred content."
         }
       },
@@ -14139,10 +14139,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "How does the $RC script find and replace the fallback content in the DOM?",
           options: [
-            "It uses document.getElementById to locate the fallback container ('B:0') and replaces it with the contents of the deferred template chunk ('S:0')",
-            "It reloads the entire web page from scratch",
-            "It deletes the entire DOM body and requests a new page",
-            "It modifies the browser history state without updating the screen"
+            "It uses document.getElementById to locate boundary template 'B:0' and cleanly swaps its fallback with deferred content from hidden template 'S:0'.",
+            "It triggers a complete browser window reload and requests a fresh monolithic HTML document from the server to update the active document viewport.",
+            "It wipes all document body elements completely and issues an asynchronous fetch call to retrieve client-side JavaScript bundles from the cloud CDN.",
+            "It modifies the browser navigation history state using history.pushState without updating any visual DOM nodes currently displayed on the screen."
           ],
           answer: 0,
           why: "React's out-of-order streaming script ($RC) targets the placeholder boundary ID in the DOM and swaps in the rendered HTML nodes from the hidden template."
@@ -14177,12 +14177,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why can a server not change the HTTP status code from 200 to 500 after onShellReady has fired?",
           options: [
-            "Because HTTP response headers and status codes are transmitted in the first network packet; once flushed, headers cannot be modified",
-            "Because HTTP protocol only permits status code 200",
-            "Because React disables error handling after rendering starts",
-            "Because browsers reject status codes other than 200"
+            "Because modern HTTP network specifications forbid web servers from transmitting status codes other than 200 over established TLS socket connections.",
+            "Because React disables all internal error boundary lifecycles the moment rendering begins, preventing servers from detecting unhandled exceptions.",
+            "Because HTTP response status headers are transmitted in the initial network packet; once flushed to the wire, committed headers cannot be modified.",
+            "Because client web browser engines reject incoming stream chunks whenever a server attempts to dispatch error handlers across network connections."
           ],
-          answer: 0,
+          answer: 2,
           why: "Once the streaming shell flushes to the client, the HTTP header packet is committed on the wire; subsequent errors must be handled gracefully in downstream chunks."
         }
       },
@@ -14216,12 +14216,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What are the four primary phases of the Streaming SSR pipeline?",
           options: [
-            "Early Shell Flush, Asynchronous Boundary Resolution, Deferred Chunk Streaming, and Client DOM Replacement ($RC)",
-            "Compilation, Minification, Bundling, and Compression",
-            "DNS Lookup, TCP Handshake, SSL Negotiation, and Page Render",
-            "Component Mount, Component Update, Component Unmount, and Error Catch"
+            "Static compilation of source files, minification of script assets, dead code elimination, and gzip payload compression before network socket dispatch.",
+            "Early shell flush, asynchronous boundary registration, deferred out-of-order chunk streaming, and client DOM replacement via inline script execution.",
+            "DNS domain resolution, three-way TCP handshake negotiation, cryptographic TLS certificate verification, and initial document head parsing in memory.",
+            "Synchronous component mounting, recursive state tree updates, unmounting obsolete DOM nodes, and dispatching client-side error recovery lifecycles."
           ],
-          answer: 0,
+          answer: 1,
           why: "Streaming SSR flushes the layout shell, resolves Suspense boundaries in parallel, streams HTML chunks as they finish, and swaps templates into the DOM."
         }
       }

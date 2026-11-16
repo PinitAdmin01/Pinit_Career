@@ -1,701 +1,632 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 42,
-  "promptSha": "block9_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "The Bottlenecks of Traditional SSR: Time to First Byte (TTFB) Waterfall, Blocking Data Fetching, and All-or-Nothing HTML Generation",
       "codeHash": "b48102b67539e4375e7eb3ef19d7588a7ff629bb302384f6d828791844b2cedf",
       "spec": {
         "template": "compare",
-        "title": "Traditional SSR Waterfall vs Streaming SSR with Suspense",
+        "title": "Blocking Waterfall vs Streaming SSR",
         "left": {
-          "label": "Traditional Blocking SSR",
+          "title": "Traditional Blocking SSR",
+          "subtitle": "Traditional-Blocking-SSR",
           "items": [
-            "All-or-nothing HTML generation",
-            "TTFB blocked by slowest database query",
-            "Server buffers full HTML string in RAM",
-            "Delayed asset discovery & blank screen"
+            {
+              "label": "Waterfall TTFB",
+              "text": "Traditional-Blocking-SSR",
+              "tone": "error"
+            },
+            {
+              "label": "Slow Query Block",
+              "text": "SlowRecommendations",
+              "tone": "error"
+            }
           ]
         },
         "right": {
-          "label": "Streaming SSR with Suspense",
+          "title": "Streaming SSR Suspense",
+          "subtitle": "Streaming-SSR-Suspense",
           "items": [
-            "Immediate shell & head flush (<50ms)",
-            "Decouples TTFB from slow queries",
-            "Constant bounded server memory",
-            "Early CSS/Font preloading & instant FCP"
+            {
+              "label": "Immediate Shell",
+              "text": "Streaming-SSR-Suspense",
+              "tone": "ok"
+            },
+            {
+              "label": "Background Promise",
+              "text": "isStreaming",
+              "tone": "ok"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Traditional SSR blocks the entire response until the slowest backend dependency resolves.",
-            "values": {
-              "left": {
-                "items": [
-                  "All-or-Nothing",
-                  "Blocked TTFB",
-                  "Memory Spikes",
-                  "Blank Screen"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Immediate Shell",
-                  "Fast TTFB",
-                  "Constant RAM",
-                  "Instant FCP"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Streaming SSR flushes the outer layout shell and stylesheet links in the first TCP packet.",
-            "values": {
-              "left": {
-                "items": [
-                  "317ms Wait",
-                  "Delayed Head",
-                  "High TBT",
-                  "Unresponsive"
-                ]
-              },
-              "right": {
-                "items": [
-                  "29ms TTFB",
-                  "Early CSS Preload",
-                  "Zero Blocking",
-                  "Smooth Paint"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Suspense boundaries allow slow components to stream out-of-order as data resolves.",
-            "values": {
-              "left": {
-                "items": [
-                  "Sequential Wait",
-                  "Thread Starved",
-                  "Long Tasks",
-                  "Jank"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Out-of-Order",
-                  "Chunked Delivery",
-                  "Cooperative",
-                  "Responsive"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "The blocking server waterfall delays bytes until all queries finish."
           },
           {
             "at": "say4",
-            "caption": "Streaming SSR delivers a ms improvement in initial perceived latency on.",
-            "values": {
-              "left": {
-                "items": [
-                  "322ms FCP",
-                  "Poor Web Vitals",
-                  "Higher Bounce",
-                  "High Memory"
-                ]
-              },
-              "right": {
-                "items": [
-                  "34ms FCP",
-                  "Green Web Vitals",
-                  "High Retention",
-                  "Low Memory"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Fast components remain blocked waiting for slow database dependencies."
+          },
+          {
+            "at": "say7",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Streaming splits pages into immediate shells and background boundaries."
           }
         ]
       },
-      "filled": true
+      "filled": {
+        "template": "compare",
+        "title": "Blocking Waterfall vs Streaming SSR",
+        "left": {
+          "title": "Traditional Blocking SSR",
+          "subtitle": "Traditional-Blocking-SSR",
+          "items": [
+            {
+              "label": "Waterfall TTFB",
+              "text": "Traditional-Blocking-SSR",
+              "tone": "error"
+            },
+            {
+              "label": "Slow Query Block",
+              "text": "SlowRecommendations",
+              "tone": "error"
+            }
+          ]
+        },
+        "right": {
+          "title": "Streaming SSR Suspense",
+          "subtitle": "Streaming-SSR-Suspense",
+          "items": [
+            {
+              "label": "Immediate Shell",
+              "text": "Streaming-SSR-Suspense",
+              "tone": "ok"
+            },
+            {
+              "label": "Background Promise",
+              "text": "isStreaming",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "The blocking server waterfall delays bytes until all queries finish."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Fast components remain blocked waiting for slow database dependencies."
+          },
+          {
+            "at": "say7",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Streaming splits pages into immediate shells and background boundaries."
+          }
+        ]
+      }
     },
     {
+      "partIndex": 1,
       "partTitle": "Asynchronous HTML Streaming Mechanics: Leveraging Node.js renderToPipeableStream and Web ReadableStreams for Early Shell Flushes",
       "codeHash": "3b067c6769fa3ad5d08d7497552088a34312286e0ead1fc359b929e9f9f2aecd",
       "spec": {
-        "template": "flow",
-        "title": "Early Shell Flush & Preload Scanning Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Asynchronous Stream Mechanics",
+        "boxes": [
           {
-            "id": "http_req",
-            "label": "Client HTTP GET Request",
-            "tappable": false
+            "id": "b1",
+            "title": "Document Head Flush",
+            "desc": "DOCTYPE",
+            "tone": "data"
           },
           {
-            "id": "shell_flush",
-            "label": "Immediate Shell Flush (<50ms)",
-            "tappable": false
+            "id": "b2",
+            "title": "Asset Preload Scanner",
+            "desc": "preload scanner",
+            "tone": "ok"
           },
           {
-            "id": "preload_scanner",
-            "label": "Browser Preload Scanner Active",
-            "tappable": false
+            "id": "b3",
+            "title": "Stream Lifecycle",
+            "desc": "onShellReady",
+            "tone": "ok"
           },
           {
-            "id": "bg_queries",
-            "label": "Parallel Server DB Queries",
-            "tappable": false
+            "id": "b4",
+            "title": "Socket Flow Control",
+            "desc": "stream backpressure",
+            "tone": "idle"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The client request arrives; the server commits OK OK headers and begins.",
-            "values": {
-              "http_req": {
-                "text": "\"GET /catalog\""
-              },
-              "shell_flush": {
-                "text": "\"Headers Sent\""
-              },
-              "preload_scanner": {
-                "text": "\"Standby\""
-              },
-              "bg_queries": {
-                "text": "\"Dispatched\""
-              }
-            },
-            "tones": {
-              "http_req": "data",
-              "shell_flush": "ok",
-              "preload_scanner": "idle",
-              "bg_queries": "data"
-            },
-            "arrows": [
-              [
-                "http_req",
-                "shell_flush"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "The server flushes the DOCTYPE, document head, and stylesheet links in the initial chunk.",
-            "values": {
-              "http_req": {
-                "text": "\"Active\""
-              },
-              "shell_flush": {
-                "text": "\"Head Flushed\""
-              },
-              "preload_scanner": {
-                "text": "\"Parsing Chunks\""
-              },
-              "bg_queries": {
-                "text": "\"In-Flight\""
-              }
-            },
-            "tones": {
-              "http_req": "ok",
-              "shell_flush": "ok",
-              "preload_scanner": "data",
-              "bg_queries": "data"
-            },
-            "arrows": [
-              [
-                "shell_flush",
-                "preload_scanner"
-              ]
-            ]
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Chunked transfer encoding flushes the initial document head immediately."
           },
           {
             "at": "say3",
-            "caption": "The browser preload scanner downloads CSS and web fonts concurrently while database queries run.",
-            "values": {
-              "http_req": {
-                "text": "\"Connected\""
-              },
-              "shell_flush": {
-                "text": "\"Done\""
-              },
-              "preload_scanner": {
-                "text": "\"Downloading CSS\""
-              },
-              "bg_queries": {
-                "text": "\"Database Working\""
-              }
-            },
-            "tones": {
-              "http_req": "ok",
-              "shell_flush": "ok",
-              "preload_scanner": "ok",
-              "bg_queries": "data"
-            },
-            "arrows": [
-              [
-                "preload_scanner",
-                "bg_queries"
-              ]
-            ]
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "The browser scanner discovers stylesheets while server executes queries."
           },
           {
-            "at": "say4",
-            "caption": "Zero dead time: styles are ready in the browser before the body content finishes rendering.",
-            "values": {
-              "http_req": {
-                "text": "\"Warm TCP\""
-              },
-              "shell_flush": {
-                "text": "\"Stream Open\""
-              },
-              "preload_scanner": {
-                "text": "\"Styles Applied\""
-              },
-              "bg_queries": {
-                "text": "\"Ready to Stream\""
-              }
-            },
-            "tones": {
-              "http_req": "ok",
-              "shell_flush": "ok",
-              "preload_scanner": "ok",
-              "bg_queries": "ok"
-            },
-            "arrows": [
-              [
-                "bg_queries",
-                "shell_flush"
-              ]
-            ]
+            "at": "say5",
+            "highlight": [
+              "b3",
+              "b4"
+            ],
+            "caption": "The streaming engine pauses rendering when client socket buffers saturate."
           }
         ]
       },
-      "filled": true
+      "filled": {
+        "template": "boxes",
+        "title": "Asynchronous Stream Mechanics",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Document Head Flush",
+            "desc": "DOCTYPE",
+            "tone": "data"
+          },
+          {
+            "id": "b2",
+            "title": "Asset Preload Scanner",
+            "desc": "preload scanner",
+            "tone": "ok"
+          },
+          {
+            "id": "b3",
+            "title": "Stream Lifecycle",
+            "desc": "onShellReady",
+            "tone": "ok"
+          },
+          {
+            "id": "b4",
+            "title": "Socket Flow Control",
+            "desc": "stream backpressure",
+            "tone": "idle"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Chunked transfer encoding flushes the initial document head immediately."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "The browser scanner discovers stylesheets while server executes queries."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "b3",
+              "b4"
+            ],
+            "caption": "The streaming engine pauses rendering when client socket buffers saturate."
+          }
+        ]
+      }
     },
     {
+      "partIndex": 2,
       "partTitle": "Out-of-Order Chunk Streaming with Suspense: Boundary Placeholders and Inline Script Swapping ($RC)",
       "codeHash": "c24914c14da6d15055ac51af968d91ea2355625173d1308f9e09f9ebffd59ff4",
       "spec": {
         "template": "states",
-        "title": "Out-of-Order Suspense Streaming & $RC Swapping",
+        "title": "Out-of-Order DOM Swapping",
         "states": [
           {
-            "id": "s_fallback",
-            "label": "Template Placeholder (B:0)",
-            "desc": "Initial shell renders template tag and fallback skeleton."
+            "id": "s1",
+            "title": "Placeholder Template",
+            "desc": "template",
+            "tone": "idle"
           },
           {
-            "id": "s_pending",
-            "label": "Background Promise Resolution",
-            "desc": "Server queries reviews database in parallel."
+            "id": "s2",
+            "title": "Skeleton Fallback",
+            "desc": "skeleton",
+            "tone": "data"
           },
           {
-            "id": "s_chunk",
-            "label": "Hidden Chunk Arrival (S:0)",
-            "desc": "Resolved HTML emitted at bottom of stream with $RC script."
+            "id": "s3",
+            "title": "Deferred Data Chunk",
+            "desc": "data promise",
+            "tone": "ok"
           },
           {
-            "id": "s_swapped",
-            "label": "DOM Replacement Executed",
-            "desc": "$RC swaps B:0 skeleton with S:0 live reviews seamlessly."
+            "id": "s4",
+            "title": "Inline Replacement",
+            "desc": "Replace Content",
+            "tone": "ok"
           }
         ],
-        "current": "s_fallback",
         "steps": [
           {
-            "at": "say1",
-            "caption": "React embeds a template placeholder tag (B:zero) alongside an animated.",
-            "values": {
-              "s_fallback": {
-                "text": "\"B:0 Placeholder\""
-              },
-              "s_pending": {
-                "text": "\"Fetching DB\""
-              },
-              "s_chunk": {
-                "text": "\"Waiting\""
-              },
-              "s_swapped": {
-                "text": "\"Waiting\""
-              }
-            },
-            "tones": {
-              "s_fallback": "data",
-              "s_pending": "data",
-              "s_chunk": "idle",
-              "s_swapped": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "The server continues rendering the rest of the document without waiting for reviews.",
-            "values": {
-              "s_fallback": {
-                "text": "\"Visible Skeleton\""
-              },
-              "s_pending": {
-                "text": "\"Query Resolving\""
-              },
-              "s_chunk": {
-                "text": "\"Waiting\""
-              },
-              "s_swapped": {
-                "text": "\"Waiting\""
-              }
-            },
-            "tones": {
-              "s_fallback": "ok",
-              "s_pending": "data",
-              "s_chunk": "idle",
-              "s_swapped": "idle"
-            }
-          },
-          {
             "at": "say3",
-            "caption": "When reviews resolve, the server streams `<div hidden id='S:zero'>`.",
-            "values": {
-              "s_fallback": {
-                "text": "\"Target B:0\""
-              },
-              "s_pending": {
-                "text": "\"Resolved\""
-              },
-              "s_chunk": {
-                "text": "\"S:0 HTML + $RC\""
-              },
-              "s_swapped": {
-                "text": "\"Swapping\""
-              }
-            },
-            "tones": {
-              "s_fallback": "ok",
-              "s_pending": "ok",
-              "s_chunk": "data",
-              "s_swapped": "data"
-            }
+            "highlight": [
+              "s1",
+              "s2"
+            ],
+            "caption": "Suspense boundaries emit placeholder templates and fallback skeletons."
           },
           {
-            "at": "say4",
-            "caption": "$RC executes in the browser, replacing the fallback skeleton with live reviews instantaneously.",
-            "values": {
-              "s_fallback": {
-                "text": "\"Removed\""
-              },
-              "s_pending": {
-                "text": "\"Done\""
-              },
-              "s_chunk": {
-                "text": "\"Unpacked\""
-              },
-              "s_swapped": {
-                "text": "\"Live Reviews Mounted\""
-              }
-            },
-            "tones": {
-              "s_fallback": "idle",
-              "s_pending": "ok",
-              "s_chunk": "ok",
-              "s_swapped": "ok"
-            }
+            "at": "say6",
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Deferred data promises resolve in the background on the server runtime."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "Inline replacement scripts swap resolved content directly into the DOM."
           }
         ]
       },
-      "filled": true
+      "filled": {
+        "template": "states",
+        "title": "Out-of-Order DOM Swapping",
+        "states": [
+          {
+            "id": "s1",
+            "title": "Placeholder Template",
+            "desc": "template",
+            "tone": "idle"
+          },
+          {
+            "id": "s2",
+            "title": "Skeleton Fallback",
+            "desc": "skeleton",
+            "tone": "data"
+          },
+          {
+            "id": "s3",
+            "title": "Deferred Data Chunk",
+            "desc": "data promise",
+            "tone": "ok"
+          },
+          {
+            "id": "s4",
+            "title": "Inline Replacement",
+            "desc": "Replace Content",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "s1",
+              "s2"
+            ],
+            "caption": "Suspense boundaries emit placeholder templates and fallback skeletons."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Deferred data promises resolve in the background on the server runtime."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "Inline replacement scripts swap resolved content directly into the DOM."
+          }
+        ]
+      }
     },
     {
+      "partIndex": 3,
       "partTitle": "Streaming SEO, HTTP Status Codes & Error Boundary Shells: Handling Mid-Stream Exceptions and Fallback Shell Integrity",
       "codeHash": "ea1944d68ef5712d91bdc3d89f9dcebd6acf584e3821ca624667742abd7ad8fc",
       "spec": {
         "template": "boxes",
-        "title": "Streaming Error Boundary Isolation & Status Strategy",
+        "title": "Mid-Stream Error Recovery Shells",
         "boxes": [
           {
-            "id": "headers_status",
-            "label": "HTTP Response Headers (Committed 200 OK)",
-            "tappable": false
+            "id": "e1",
+            "title": "Header Commitment",
+            "desc": "onShellReady",
+            "tone": "ok"
           },
           {
-            "id": "outer_shell",
-            "label": "Application Outer Shell (Intact & Interactive)",
-            "tappable": false
+            "id": "e2",
+            "title": "Boundary Fallback",
+            "desc": "Error Boundary Fallbacks",
+            "tone": "data"
           },
           {
-            "id": "faulty_boundary",
-            "label": "Faulty Suspense Boundary (DB Query Rejected)",
-            "tappable": false
+            "id": "e3",
+            "title": "Client Recovery",
+            "desc": "client-side recovery",
+            "tone": "idle"
           },
           {
-            "id": "inline_fallback",
-            "label": "Streamed Error Boundary Fallback ($RC S:error)",
-            "tappable": false
+            "id": "e4",
+            "title": "Crawler Indexing",
+            "desc": "onAllReady",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Once the initial shell is flushed, HTTP headers are committed and cannot.",
-            "values": {
-              "headers_status": {
-                "text": "\"200 OK Locked\""
-              },
-              "outer_shell": {
-                "text": "\"Mounted\""
-              },
-              "faulty_boundary": {
-                "text": "\"Active\""
-              },
-              "inline_fallback": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "headers_status": "ok",
-              "outer_shell": "ok",
-              "faulty_boundary": "data",
-              "inline_fallback": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "If a nested component throws mid-stream, React isolates the failure to that specific boundary.",
-            "values": {
-              "headers_status": {
-                "text": "\"200 OK\""
-              },
-              "outer_shell": {
-                "text": "\"Operational\""
-              },
-              "faulty_boundary": {
-                "text": "\"Exception Thrown\""
-              },
-              "inline_fallback": {
-                "text": "\"Catch Triggered\""
-              }
-            },
-            "tones": {
-              "headers_status": "ok",
-              "outer_shell": "ok",
-              "faulty_boundary": "error",
-              "inline_fallback": "data"
-            }
+            "highlight": [
+              "e1"
+            ],
+            "caption": "The server flushes status headers during the initial shell lifecycle."
           },
           {
             "at": "say3",
-            "caption": "The server streams an inline error fallback chunk targeting the boundary placeholder.",
-            "values": {
-              "headers_status": {
-                "text": "\"200 OK\""
-              },
-              "outer_shell": {
-                "text": "\"Operational\""
-              },
-              "faulty_boundary": {
-                "text": "\"Isolated\""
-              },
-              "inline_fallback": {
-                "text": "\"$RC('B:0','S:error')\""
-              }
-            },
-            "tones": {
-              "headers_status": "ok",
-              "outer_shell": "ok",
-              "faulty_boundary": "error",
-              "inline_fallback": "data"
-            }
+            "highlight": [
+              "e1",
+              "e2"
+            ],
+            "caption": "Exceptions occurring mid-stream trigger localized error fallbacks."
           },
           {
-            "at": "say4",
-            "caption": "The application shell remains fully functional while the broken card displays a retry prompt.",
-            "values": {
-              "headers_status": {
-                "text": "\"Committed\""
-              },
-              "outer_shell": {
-                "text": "\"100% Usable\""
-              },
-              "faulty_boundary": {
-                "text": "\"Safely Handled\""
-              },
-              "inline_fallback": {
-                "text": "\"Retry Banner Mounted\""
-              }
-            },
-            "tones": {
-              "headers_status": "ok",
-              "outer_shell": "ok",
-              "faulty_boundary": "ok",
-              "inline_fallback": "ok"
-            }
+            "at": "say6",
+            "highlight": [
+              "e2",
+              "e3"
+            ],
+            "caption": "Client recovery allows browsers to re-render failed components cleanly."
           }
         ]
       },
-      "filled": true
+      "filled": {
+        "template": "boxes",
+        "title": "Mid-Stream Error Recovery Shells",
+        "boxes": [
+          {
+            "id": "e1",
+            "title": "Header Commitment",
+            "desc": "onShellReady",
+            "tone": "ok"
+          },
+          {
+            "id": "e2",
+            "title": "Boundary Fallback",
+            "desc": "Error Boundary Fallbacks",
+            "tone": "data"
+          },
+          {
+            "id": "e3",
+            "title": "Client Recovery",
+            "desc": "client-side recovery",
+            "tone": "idle"
+          },
+          {
+            "id": "e4",
+            "title": "Crawler Indexing",
+            "desc": "onAllReady",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "e1"
+            ],
+            "caption": "The server flushes status headers during the initial shell lifecycle."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "e1",
+              "e2"
+            ],
+            "caption": "Exceptions occurring mid-stream trigger localized error fallbacks."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "e2",
+              "e3"
+            ],
+            "caption": "Client recovery allows browsers to re-render failed components cleanly."
+          }
+        ]
+      }
     },
     {
+      "partIndex": 4,
       "partTitle": "Full Asynchronous Streaming SSR Pipeline Engine: Simulating Immediate Shell Flush, Deferred Promise Chunks & DOM Swapping",
       "codeHash": "448ef3f4ba74367ff8319fa2c2da49404b857195e2b1f8e7764c6a308fbeaedc",
       "spec": {
         "template": "flow",
-        "title": "Full Asynchronous Streaming SSR Pipeline Engine",
+        "title": "Asynchronous Streaming SSR Lifecycle",
         "nodes": [
           {
-            "id": "start_pipe",
-            "label": "Start Stream: Flush Head & Shell",
+            "id": "p1",
+            "label": "startStream",
+            "desc": "FLUSH_HEAD",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "emit_slots",
-            "label": "Emit Suspense Slots (B:0)",
+            "id": "p2",
+            "label": "emitSuspenseSlot",
+            "desc": "FLUSH_SLOT_0",
+            "tone": "idle",
             "tappable": false
           },
           {
-            "id": "resolve_chunks",
-            "label": "Resolve Async Chunks & $RC Scripts",
+            "id": "p3",
+            "label": "resolveAsyncChunk",
+            "desc": "RESOLVE_CHUNK_0",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "close_pipe",
-            "label": "Close Stream (</html>)",
+            "id": "p4",
+            "label": "closeStream",
+            "desc": "CLOSE_STREAM",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "p1",
+            "to": "p2",
+            "label": "buffer"
+          },
+          {
+            "from": "p2",
+            "to": "p3",
+            "label": "stream"
+          },
+          {
+            "from": "p3",
+            "to": "p4",
+            "label": "events"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The pipeline initializes, streaming the HTMLfive head metadata and.",
-            "values": {
-              "start_pipe": {
-                "text": "\"FLUSH_HEAD\""
-              },
-              "emit_slots": {
-                "text": "\"Pending\""
-              },
-              "resolve_chunks": {
-                "text": "\"Pending\""
-              },
-              "close_pipe": {
-                "text": "\"Open\""
-              }
-            },
-            "tones": {
-              "start_pipe": "ok",
-              "emit_slots": "idle",
-              "resolve_chunks": "idle",
-              "close_pipe": "data"
-            },
-            "arrows": [
-              [
-                "start_pipe",
-                "emit_slots"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Suspense boundary slots are emitted with placeholder templates and loading fallbacks.",
-            "values": {
-              "start_pipe": {
-                "text": "\"Flushed\""
-              },
-              "emit_slots": {
-                "text": "\"FLUSH_SLOT_0\""
-              },
-              "resolve_chunks": {
-                "text": "\"Pending\""
-              },
-              "close_pipe": {
-                "text": "\"Open\""
-              }
-            },
-            "tones": {
-              "start_pipe": "ok",
-              "emit_slots": "ok",
-              "resolve_chunks": "idle",
-              "close_pipe": "data"
-            },
-            "arrows": [
-              [
-                "emit_slots",
-                "resolve_chunks"
-              ]
-            ]
-          },
-          {
             "at": "say3",
-            "caption": "Background promises resolve; out-of-order chunks and replacement scripts are written to the socket.",
-            "values": {
-              "start_pipe": {
-                "text": "\"Flushed\""
-              },
-              "emit_slots": {
-                "text": "\"Emitted\""
-              },
-              "resolve_chunks": {
-                "text": "\"RESOLVE_CHUNK_0\""
-              },
-              "close_pipe": {
-                "text": "\"Open\""
-              }
-            },
-            "tones": {
-              "start_pipe": "ok",
-              "emit_slots": "ok",
-              "resolve_chunks": "ok",
-              "close_pipe": "data"
-            },
-            "arrows": [
-              [
-                "resolve_chunks",
-                "close_pipe"
-              ]
-            ]
+            "highlight": [
+              "p1"
+            ],
+            "caption": "Phase one flushes document doctype and head elements immediately."
           },
           {
             "at": "say4",
-            "caption": "The closing tags are streamed and the HTTP response terminates with complete content integrity.",
-            "values": {
-              "start_pipe": {
-                "text": "\"Done\""
-              },
-              "emit_slots": {
-                "text": "\"Done\""
-              },
-              "resolve_chunks": {
-                "text": "\"Done\""
-              },
-              "close_pipe": {
-                "text": "\"CLOSE_STREAM\""
-              }
-            },
-            "tones": {
-              "start_pipe": "ok",
-              "emit_slots": "ok",
-              "resolve_chunks": "ok",
-              "close_pipe": "ok"
-            }
+            "highlight": [
+              "p2"
+            ],
+            "caption": "Phase two registers suspense boundaries and emits fallback spinners."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "p3"
+            ],
+            "caption": "Phase three resolves background data and streams replacement scripts."
           }
         ]
       },
-      "filled": true
+      "filled": {
+        "template": "flow",
+        "title": "Asynchronous Streaming SSR Lifecycle",
+        "nodes": [
+          {
+            "id": "p1",
+            "label": "startStream",
+            "desc": "FLUSH_HEAD",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "p2",
+            "label": "emitSuspenseSlot",
+            "desc": "FLUSH_SLOT_0",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "p3",
+            "label": "resolveAsyncChunk",
+            "desc": "RESOLVE_CHUNK_0",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "p4",
+            "label": "closeStream",
+            "desc": "CLOSE_STREAM",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "p1",
+            "to": "p2",
+            "label": "buffer"
+          },
+          {
+            "from": "p2",
+            "to": "p3",
+            "label": "stream"
+          },
+          {
+            "from": "p3",
+            "to": "p4",
+            "label": "events"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "p1"
+            ],
+            "caption": "Phase one flushes document doctype and head elements immediately."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "p2"
+            ],
+            "caption": "Phase two registers suspense boundaries and emits fallback spinners."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "p3"
+            ],
+            "caption": "Phase three resolves background data and streams replacement scripts."
+          }
+        ]
+      }
     }
   ]
 }
