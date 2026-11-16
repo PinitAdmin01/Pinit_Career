@@ -9,298 +9,242 @@
       "partTitle": "The Dual-Render Lifecycle of useDeferredValue: Urgent First, Deferred Second",
       "codeHash": "b35c741a2e73712880aea7dd849459f4f0ca6979ae50151f5a2836ce6d8e2b04",
       "spec": {
-        "template": "flow",
-        "title": "useDeferredValue Dual-Render Lifecycle (Phase 1 vs Phase 2)",
-        "nodes": [
+        "template": "boxes",
+        "title": "Dual Render Lifecycle",
+        "boxes": [
           {
-            "id": "dv_prop",
-            "label": "Incoming Prop Change",
-            "tappable": false
+            "id": "b1",
+            "label": "currentValue"
           },
           {
-            "id": "dv_p1",
-            "label": "Phase 1: Urgent (Stale Val)",
-            "tappable": false
+            "id": "b2",
+            "label": "deferredValue"
           },
           {
-            "id": "dv_memo",
-            "label": "React.memo Bailout",
-            "tappable": false
+            "id": "b3",
+            "label": "childRenderCount"
           },
           {
-            "id": "dv_p2",
-            "label": "Phase 2: Deferred Pass",
-            "tappable": false
+            "id": "b4",
+            "label": "renderChild"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Parent passes new prop 'React' to child component wrapped with useDeferredValue.",
-            "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
-              },
-              "dv_p1": {
-                "text": "\"Starting\""
-              },
-              "dv_memo": {
-                "text": "\"Pending\""
-              },
-              "dv_p2": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "dv_prop": "data",
-              "dv_p1": "idle",
-              "dv_memo": "idle",
-              "dv_p2": "idle"
-            },
-            "arrows": [
-              [
-                "dv_prop",
-                "dv_p1"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Phase one renders immediately in SyncLane returning stale value 'Rea' to.",
+            "caption": "Urgent render executes immediately using previous stale value.",
             "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
+              "b1": {
+                "text": "currentValue"
               },
-              "dv_p1": {
-                "text": "\"Returns 'Rea'\""
+              "b2": {
+                "text": "deferredValue"
               },
-              "dv_memo": {
-                "text": "\"Checking Props\""
+              "b3": {
+                "text": "childRenderCount"
               },
-              "dv_p2": {
-                "text": "\"Queued\""
+              "b4": {
+                "text": "renderChild"
               }
             },
             "tones": {
-              "dv_prop": "data",
-              "dv_p1": "ok",
-              "dv_memo": "data",
-              "dv_p2": "idle"
-            },
-            "arrows": [
-              [
-                "dv_p1",
-                "dv_memo"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Child component detects identical props ('Rea' === 'Rea') and bails out instantly.",
+            "caption": "Scheduler dispatches background render passing new value to hook.",
             "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
+              "b1": {
+                "text": "currentValue"
               },
-              "dv_p1": {
-                "text": "\"Committed (< 1ms)\""
+              "b2": {
+                "text": "deferredValue"
               },
-              "dv_memo": {
-                "text": "\"BAILOUT (0ms wasted)\""
+              "b3": {
+                "text": "childRenderCount"
               },
-              "dv_p2": {
-                "text": "\"Dispatched\""
+              "b4": {
+                "text": "renderChild"
               }
             },
             "tones": {
-              "dv_prop": "ok",
-              "dv_p1": "ok",
-              "dv_memo": "ok",
-              "dv_p2": "data"
-            },
-            "arrows": [
-              [
-                "dv_memo",
-                "dv_p2"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Phase two renders in background TransitionLane with new value 'React' and.",
+            "caption": "Hook bifurcates single prop change into urgent and deferred passes.",
             "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
+              "b1": {
+                "text": "currentValue"
               },
-              "dv_p1": {
-                "text": "\"Done\""
+              "b2": {
+                "text": "deferredValue"
               },
-              "dv_memo": {
-                "text": "\"Reconciled\""
+              "b3": {
+                "text": "childRenderCount"
               },
-              "dv_p2": {
-                "text": "\"Committed 'React'\""
+              "b4": {
+                "text": "renderChild"
               }
             },
             "tones": {
-              "dv_prop": "ok",
-              "dv_p1": "ok",
-              "dv_memo": "ok",
-              "dv_p2": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "ok"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Comparing fresh prop against deferred value detects stale interface.",
+            "values": {
+              "b1": {
+                "text": "currentValue"
+              },
+              "b2": {
+                "text": "deferredValue"
+              },
+              "b3": {
+                "text": "childRenderCount"
+              },
+              "b4": {
+                "text": "renderChild"
+              }
             },
-            "arrows": [
-              [
-                "dv_memo",
-                "dv_p2"
-              ]
-            ]
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "useDeferredValue Dual-Render Lifecycle (Phase 1 vs Phase 2)",
-        "nodes": [
+        "template": "boxes",
+        "title": "Dual Render Lifecycle",
+        "boxes": [
           {
-            "id": "dv_prop",
-            "label": "Incoming Prop Change",
-            "tappable": false
+            "id": "b1",
+            "label": "currentValue"
           },
           {
-            "id": "dv_p1",
-            "label": "Phase 1: Urgent (Stale Val)",
-            "tappable": false
+            "id": "b2",
+            "label": "deferredValue"
           },
           {
-            "id": "dv_memo",
-            "label": "React.memo Bailout",
-            "tappable": false
+            "id": "b3",
+            "label": "childRenderCount"
           },
           {
-            "id": "dv_p2",
-            "label": "Phase 2: Deferred Pass",
-            "tappable": false
+            "id": "b4",
+            "label": "renderChild"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Parent passes new prop 'React' to child component wrapped with useDeferredValue.",
-            "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
-              },
-              "dv_p1": {
-                "text": "\"Starting\""
-              },
-              "dv_memo": {
-                "text": "\"Pending\""
-              },
-              "dv_p2": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "dv_prop": "data",
-              "dv_p1": "idle",
-              "dv_memo": "idle",
-              "dv_p2": "idle"
-            },
-            "arrows": [
-              [
-                "dv_prop",
-                "dv_p1"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Phase 1 renders immediately in SyncLane returning stale value 'Rea' to keep inputs fast.",
+            "caption": "Urgent render executes immediately using previous stale value.",
             "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
+              "b1": {
+                "text": "currentValue"
               },
-              "dv_p1": {
-                "text": "\"Returns 'Rea'\""
+              "b2": {
+                "text": "deferredValue"
               },
-              "dv_memo": {
-                "text": "\"Checking Props\""
+              "b3": {
+                "text": "childRenderCount"
               },
-              "dv_p2": {
-                "text": "\"Queued\""
+              "b4": {
+                "text": "renderChild"
               }
             },
             "tones": {
-              "dv_prop": "data",
-              "dv_p1": "ok",
-              "dv_memo": "data",
-              "dv_p2": "idle"
-            },
-            "arrows": [
-              [
-                "dv_p1",
-                "dv_memo"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Child component detects identical props ('Rea' === 'Rea') and bails out instantly.",
+            "caption": "Scheduler dispatches background render passing new value to hook.",
             "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
+              "b1": {
+                "text": "currentValue"
               },
-              "dv_p1": {
-                "text": "\"Committed (< 1ms)\""
+              "b2": {
+                "text": "deferredValue"
               },
-              "dv_memo": {
-                "text": "\"BAILOUT (0ms wasted)\""
+              "b3": {
+                "text": "childRenderCount"
               },
-              "dv_p2": {
-                "text": "\"Dispatched\""
+              "b4": {
+                "text": "renderChild"
               }
             },
             "tones": {
-              "dv_prop": "ok",
-              "dv_p1": "ok",
-              "dv_memo": "ok",
-              "dv_p2": "data"
-            },
-            "arrows": [
-              [
-                "dv_memo",
-                "dv_p2"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Phase 2 renders in background TransitionLane with new value 'React' and commits smoothly.",
+            "caption": "Hook bifurcates single prop change into urgent and deferred passes.",
             "values": {
-              "dv_prop": {
-                "text": "\"'React'\""
+              "b1": {
+                "text": "currentValue"
               },
-              "dv_p1": {
-                "text": "\"Done\""
+              "b2": {
+                "text": "deferredValue"
               },
-              "dv_memo": {
-                "text": "\"Reconciled\""
+              "b3": {
+                "text": "childRenderCount"
               },
-              "dv_p2": {
-                "text": "\"Committed 'React'\""
+              "b4": {
+                "text": "renderChild"
               }
             },
             "tones": {
-              "dv_prop": "ok",
-              "dv_p1": "ok",
-              "dv_memo": "ok",
-              "dv_p2": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "ok"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Comparing fresh prop against deferred value detects stale interface.",
+            "values": {
+              "b1": {
+                "text": "currentValue"
+              },
+              "b2": {
+                "text": "deferredValue"
+              },
+              "b3": {
+                "text": "childRenderCount"
+              },
+              "b4": {
+                "text": "renderChild"
+              }
             },
-            "arrows": [
-              [
-                "dv_memo",
-                "dv_p2"
-              ]
-            ]
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       }
@@ -309,161 +253,241 @@
       "partTitle": "useDeferredValue vs setTimeout Debounce: Architectural Benchmarks",
       "codeHash": "e077ac696981d5c81773386295de4c4a53b41e8b86721c10ff6e0812c2879765",
       "spec": {
-        "template": "compare",
-        "title": "Fixed 300ms Debounce vs Adaptive useDeferredValue",
-        "leftLabel": "Fixed 300ms setTimeout Debounce",
-        "rightLabel": "Adaptive useDeferredValue",
-        "steps": [
+        "template": "states",
+        "title": "Adaptive Scheduling vs Debounce",
+        "states": [
           {
-            "at": "say1",
-            "caption": "Fixed debounce forces ms of dead idle wait time even on high-end desktop.",
-            "left": {
-              "code": "setTimeout(fn, 300); // 308ms total",
-              "result": {
-                "text": "\"300ms Idle Delay\""
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "useDeferredValue(query); // 9ms total",
-              "result": {
-                "text": "\"Instant (< 1ms delay)\""
-              },
-              "tone": "ok"
-            }
+            "id": "s1",
+            "label": "deviceType"
           },
           {
+            "id": "s2",
+            "label": "computeDurationMs"
+          },
+          {
+            "id": "s3",
+            "label": "debounceDelayMs"
+          },
+          {
+            "id": "s4",
+            "label": "deferredWaitMs"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "On fast hardware, useDeferredValue delivers results over x faster than.",
-            "left": {
-              "code": "console.log(speedup);",
-              "result": {
-                "text": "\"Baseline\""
+            "caption": "Timer debouncing locks calculations into rigid arbitrary delays.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "data"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
             },
-            "right": {
-              "code": "console.log(speedup);",
-              "result": {
-                "text": "\"34.2x Faster\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "error",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "On slow mobile phones, debouncing still freezes the thread when the timer expires.",
-            "left": {
-              "code": "console.log(uiFreeze);",
-              "result": {
-                "text": "\"80ms Thread Lock\""
+            "caption": "Debouncing on slow budget mobile phones drops frames and freezes.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "error"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
             },
-            "right": {
-              "code": "console.log(uiFreeze);",
-              "result": {
-                "text": "\"0ms (5ms Slices)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "error",
+              "s4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "useDeferredValue adapts dynamically to device capability without arbitrary timer constants.",
-            "left": {
-              "code": "console.log(adaptability);",
-              "result": {
-                "text": "\"Rigid Timer\""
+            "caption": "Deferred values adapt dynamically to hardware computational capacity.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "error"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
             },
-            "right": {
-              "code": "console.log(adaptability);",
-              "result": {
-                "text": "\"Fully Adaptive\""
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Adaptive scheduling begins immediately without enforcing idle delays.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "ok"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Fixed 300ms Debounce vs Adaptive useDeferredValue",
-        "leftLabel": "Fixed 300ms setTimeout Debounce",
-        "rightLabel": "Adaptive useDeferredValue",
-        "steps": [
+        "template": "states",
+        "title": "Adaptive Scheduling vs Debounce",
+        "states": [
           {
-            "at": "say1",
-            "caption": "Fixed debounce forces 300ms of dead idle wait time even on high-end desktop hardware.",
-            "left": {
-              "code": "setTimeout(fn, 300); // 308ms total",
-              "result": {
-                "text": "\"300ms Idle Delay\""
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "useDeferredValue(query); // 9ms total",
-              "result": {
-                "text": "\"Instant (< 1ms delay)\""
-              },
-              "tone": "ok"
-            }
+            "id": "s1",
+            "label": "deviceType"
           },
           {
+            "id": "s2",
+            "label": "computeDurationMs"
+          },
+          {
+            "id": "s3",
+            "label": "debounceDelayMs"
+          },
+          {
+            "id": "s4",
+            "label": "deferredWaitMs"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "On fast hardware, useDeferredValue delivers results over 34x faster than fixed debouncing.",
-            "left": {
-              "code": "console.log(speedup);",
-              "result": {
-                "text": "\"Baseline\""
+            "caption": "Timer debouncing locks calculations into rigid arbitrary delays.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "data"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
             },
-            "right": {
-              "code": "console.log(speedup);",
-              "result": {
-                "text": "\"34.2x Faster\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "error",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "On slow mobile phones, debouncing still freezes the thread when the timer expires.",
-            "left": {
-              "code": "console.log(uiFreeze);",
-              "result": {
-                "text": "\"80ms Thread Lock\""
+            "caption": "Debouncing on slow budget mobile phones drops frames and freezes.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "error"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
             },
-            "right": {
-              "code": "console.log(uiFreeze);",
-              "result": {
-                "text": "\"0ms (5ms Slices)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "error",
+              "s4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "useDeferredValue adapts dynamically to device capability without arbitrary timer constants.",
-            "left": {
-              "code": "console.log(adaptability);",
-              "result": {
-                "text": "\"Rigid Timer\""
+            "caption": "Deferred values adapt dynamically to hardware computational capacity.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "error"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
             },
-            "right": {
-              "code": "console.log(adaptability);",
-              "result": {
-                "text": "\"Fully Adaptive\""
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Adaptive scheduling begins immediately without enforcing idle delays.",
+            "values": {
+              "s1": {
+                "text": "deviceType"
               },
-              "tone": "ok"
+              "s2": {
+                "text": "computeDurationMs"
+              },
+              "s3": {
+                "text": "debounceDelayMs"
+              },
+              "s4": {
+                "text": "deferredWaitMs"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
@@ -474,97 +498,241 @@
       "codeHash": "1bf9b05f00ac70f5d2942b8de569c4213e11ab3df13c69ecf130a1ded983c5a1",
       "spec": {
         "template": "states",
-        "title": "Visual Staleness (query !== deferredQuery) States",
+        "title": "Visual Staleness Feedback",
         "states": [
           {
-            "id": "vs1",
-            "label": "SYNCED (query === deferred)"
+            "id": "s1",
+            "label": "rawQuery"
           },
           {
-            "id": "vs2",
-            "label": "STALE (query !== deferred)"
+            "id": "s2",
+            "label": "deferredQuery"
           },
           {
-            "id": "vs3",
-            "label": "BACKGROUND_RECONCILING"
+            "id": "s3",
+            "label": "visualState"
           },
           {
-            "id": "vs4",
-            "label": "COMMITTED_SYNCED"
+            "id": "s4",
+            "label": "getVisualState"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Initial state: raw query matches deferred query; visual opacity is.",
-            "activeId": "vs1",
-            "tone": "idle"
+            "caption": "Comparing prop against deferred value evaluates to true while stale.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "User types; raw query updates immediately in Phase one, creating.",
-            "activeId": "vs2",
-            "tone": "data"
+            "caption": "Reduced opacity signals background work while preserving context.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "data",
+              "s4": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "Container dims to zero.six opacity with 'Updating results...' badge.",
-            "activeId": "vs3",
-            "tone": "data"
+            "caption": "Intentional dimming maintains reading flow without layout shifts.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
+            }
           },
           {
             "at": "say4",
-            "caption": "Phase two commits new data; query matches deferredQuery again, restoring.",
-            "activeId": "vs4",
-            "tone": "ok"
+            "caption": "Dimming stale results maintains full reading context without jitter.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Visual Staleness (query !== deferredQuery) States",
+        "title": "Visual Staleness Feedback",
         "states": [
           {
-            "id": "vs1",
-            "label": "SYNCED (query === deferred)"
+            "id": "s1",
+            "label": "rawQuery"
           },
           {
-            "id": "vs2",
-            "label": "STALE (query !== deferred)"
+            "id": "s2",
+            "label": "deferredQuery"
           },
           {
-            "id": "vs3",
-            "label": "BACKGROUND_RECONCILING"
+            "id": "s3",
+            "label": "visualState"
           },
           {
-            "id": "vs4",
-            "label": "COMMITTED_SYNCED"
+            "id": "s4",
+            "label": "getVisualState"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Initial state: raw query matches deferred query; visual opacity is 1.0 (SYNCED).",
-            "activeId": "vs1",
-            "tone": "idle"
+            "caption": "Comparing prop against deferred value evaluates to true while stale.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "User types; raw query updates immediately in Phase 1, creating intentional STALE state.",
-            "activeId": "vs2",
-            "tone": "data"
+            "caption": "Reduced opacity signals background work while preserving context.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "data",
+              "s4": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "Container dims to 0.6 opacity with 'Updating results...' badge during BACKGROUND_RECONCILING.",
-            "activeId": "vs3",
-            "tone": "data"
+            "caption": "Intentional dimming maintains reading flow without layout shifts.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
+            }
           },
           {
             "at": "say4",
-            "caption": "Phase 2 commits new data; query matches deferredQuery again, restoring COMMITTED_SYNCED.",
-            "activeId": "vs4",
-            "tone": "ok"
+            "caption": "Dimming stale results maintains full reading context without jitter.",
+            "values": {
+              "s1": {
+                "text": "rawQuery"
+              },
+              "s2": {
+                "text": "deferredQuery"
+              },
+              "s3": {
+                "text": "visualState"
+              },
+              "s4": {
+                "text": "getVisualState"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       }
@@ -574,248 +742,240 @@
       "codeHash": "0487f617ae8e08e2180f8af0ec5c09f51c7c718683d312b22b05b948cb1e2f85",
       "spec": {
         "template": "boxes",
-        "title": "React.memo Bailout Prerequisite for useDeferredValue",
+        "title": "Memo Bailout Prerequisite",
         "boxes": [
           {
-            "id": "b_parent",
-            "label": "Parent Re-Render",
-            "tappable": false
+            "id": "b1",
+            "label": "unmemoizedRenderCount"
           },
           {
-            "id": "b_check",
-            "label": "Props Shallow Equal",
-            "tappable": false
+            "id": "b2",
+            "label": "memoizedRenderCount"
           },
           {
-            "id": "b_bailout",
-            "label": "React.memo Bailout",
-            "tappable": false
+            "id": "b3",
+            "label": "prevMemoizedProp"
           },
           {
-            "id": "b_defer",
-            "label": "Phase 2 Concurrent Render",
-            "tappable": false
+            "id": "b4",
+            "label": "simulatePhase1"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Without React.memo, children re-render unconditionally in Phase one.",
+            "caption": "Standard parent renders unconditionally execute nested child trees.",
             "values": {
-              "b_parent": {
-                "text": "\"Rendered\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"Skipped\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"FAILED\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Blocked\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "error",
-              "b_check": "idle",
-              "b_bailout": "error",
-              "b_defer": "idle"
+              "b1": "error",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "With React.memo, Phase one passes identical props ('Rea' === 'Rea').",
+            "caption": "Unmemoized children re-run expensive renders during urgent passes.",
             "values": {
-              "b_parent": {
-                "text": "\"Phase 1 Urgent\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"Props Match\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"BAILOUT OK\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Scheduled\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "ok",
-              "b_check": "ok",
-              "b_bailout": "ok",
-              "b_defer": "idle"
+              "b1": "error",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Expensive child tree reconciliation is skipped in Phase one, keeping.",
+            "caption": "Unmemoized child re-runs layout algorithms synchronously in urgent pass.",
             "values": {
-              "b_parent": {
-                "text": "\"Committed\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"Matched\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"0ms Spent\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Active\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "ok",
-              "b_check": "ok",
-              "b_bailout": "ok",
-              "b_defer": "data"
+              "b1": "error",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Phase two receives new prop 'React' and executes heavy reconciliation.",
+            "caption": "Memoized child bails out of rendering leaving the thread free to paint.",
             "values": {
-              "b_parent": {
-                "text": "\"Synced\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"New Prop\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"Reconciled\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Complete\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "ok",
-              "b_check": "ok",
-              "b_bailout": "ok",
-              "b_defer": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "React.memo Bailout Prerequisite for useDeferredValue",
+        "title": "Memo Bailout Prerequisite",
         "boxes": [
           {
-            "id": "b_parent",
-            "label": "Parent Re-Render",
-            "tappable": false
+            "id": "b1",
+            "label": "unmemoizedRenderCount"
           },
           {
-            "id": "b_check",
-            "label": "Props Shallow Equal",
-            "tappable": false
+            "id": "b2",
+            "label": "memoizedRenderCount"
           },
           {
-            "id": "b_bailout",
-            "label": "React.memo Bailout",
-            "tappable": false
+            "id": "b3",
+            "label": "prevMemoizedProp"
           },
           {
-            "id": "b_defer",
-            "label": "Phase 2 Concurrent Render",
-            "tappable": false
+            "id": "b4",
+            "label": "simulatePhase1"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Without React.memo, children re-render unconditionally in Phase 1, destroying responsiveness.",
+            "caption": "Standard parent renders unconditionally execute nested child trees.",
             "values": {
-              "b_parent": {
-                "text": "\"Rendered\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"Skipped\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"FAILED\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Blocked\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "error",
-              "b_check": "idle",
-              "b_bailout": "error",
-              "b_defer": "idle"
+              "b1": "error",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "With React.memo, Phase 1 passes identical props ('Rea' === 'Rea'), triggering instant bailout.",
+            "caption": "Unmemoized children re-run expensive renders during urgent passes.",
             "values": {
-              "b_parent": {
-                "text": "\"Phase 1 Urgent\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"Props Match\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"BAILOUT OK\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Scheduled\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "ok",
-              "b_check": "ok",
-              "b_bailout": "ok",
-              "b_defer": "idle"
+              "b1": "error",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Expensive child tree reconciliation is skipped in Phase 1, keeping keystroke latency under 1ms.",
+            "caption": "Unmemoized child re-runs layout algorithms synchronously in urgent pass.",
             "values": {
-              "b_parent": {
-                "text": "\"Committed\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"Matched\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"0ms Spent\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Active\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "ok",
-              "b_check": "ok",
-              "b_bailout": "ok",
-              "b_defer": "data"
+              "b1": "error",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Phase 2 receives new prop 'React' and executes heavy reconciliation concurrently in background.",
+            "caption": "Memoized child bails out of rendering leaving the thread free to paint.",
             "values": {
-              "b_parent": {
-                "text": "\"Synced\""
+              "b1": {
+                "text": "unmemoizedRenderCount"
               },
-              "b_check": {
-                "text": "\"New Prop\""
+              "b2": {
+                "text": "memoizedRenderCount"
               },
-              "b_bailout": {
-                "text": "\"Reconciled\""
+              "b3": {
+                "text": "prevMemoizedProp"
               },
-              "b_defer": {
-                "text": "\"Complete\""
+              "b4": {
+                "text": "simulatePhase1"
               }
             },
             "tones": {
-              "b_parent": "ok",
-              "b_check": "ok",
-              "b_bailout": "ok",
-              "b_defer": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -825,133 +985,241 @@
       "partTitle": "Building a Production Responsive Search Engine with useDeferredValue in Pure JavaScript",
       "codeHash": "290551ac73d5521c4d126d38f76798aa6b4008a915168c8e8623207da3cb1ef3",
       "spec": {
-        "template": "wireframe",
-        "title": "Responsive Search Wireframe with Visual Staleness Dimming",
-        "wireframe": {
-          "header": "Product Catalog Search (10,000 Items)",
-          "controls": [
-            "Search: [React                ]",
-            "Badge: [Updating...]"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "Results Grid: 4 Matches (Dimmed to Opacity 0.6 while refreshing)",
-            "opacity": 0.6
+        "template": "boxes",
+        "title": "Responsive Search Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "rawQuery"
+          },
+          {
+            "id": "b2",
+            "label": "deferredQuery"
+          },
+          {
+            "id": "b3",
+            "label": "lastRenderedQuery"
+          },
+          {
+            "id": "b4",
+            "label": "flushDeferredPass"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User types 'React'; search text updates immediately with zero keystroke delay.",
+            "caption": "Search architecture decouples input capture from background passes.",
             "values": {
-              "search": {
-                "text": "\"React (Instant)\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "search": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Query !== deferredQuery evaluates to true; results grid dims to zero.six.",
+            "caption": "Input updates instantaneously while background pass filters catalog.",
             "values": {
-              "staleness": {
-                "text": "\"isStale: true (Opacity 0.6)\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "staleness": "data"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "React.memo skips child re-render during urgent pass, leaving CPU free for typing.",
+            "caption": "Mastering deferred values enables building high throughput search.",
             "values": {
-              "memo": {
-                "text": "\"Memo Bailout: Active\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "memo": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
-            "at": "say4",
-            "caption": "Deferred pass completes; four matches rendered at opacity one.zero with.",
+            "at": "say5",
+            "caption": "Engine verifies memo bailouts and comprehensive performance telemetry.",
             "values": {
-              "status": {
-                "text": "\"Synced (4 Matches)\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "status": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "wireframe",
-        "title": "Responsive Search Wireframe with Visual Staleness Dimming",
-        "wireframe": {
-          "header": "Product Catalog Search (10,000 Items)",
-          "controls": [
-            "Search: [React                ]",
-            "Badge: [Updating...]"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "Results Grid: 4 Matches (Dimmed to Opacity 0.6 while refreshing)",
-            "opacity": 0.6
+        "template": "boxes",
+        "title": "Responsive Search Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "rawQuery"
+          },
+          {
+            "id": "b2",
+            "label": "deferredQuery"
+          },
+          {
+            "id": "b3",
+            "label": "lastRenderedQuery"
+          },
+          {
+            "id": "b4",
+            "label": "flushDeferredPass"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User types 'React'; search text updates immediately with zero keystroke delay.",
+            "caption": "Search architecture decouples input capture from background passes.",
             "values": {
-              "search": {
-                "text": "\"React (Instant)\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "search": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "query !== deferredQuery evaluates to true; results grid dims to 0.6 opacity.",
+            "caption": "Input updates instantaneously while background pass filters catalog.",
             "values": {
-              "staleness": {
-                "text": "\"isStale: true (Opacity 0.6)\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "staleness": "data"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "React.memo skips child re-render during urgent pass, leaving CPU free for typing.",
+            "caption": "Mastering deferred values enables building high throughput search.",
             "values": {
-              "memo": {
-                "text": "\"Memo Bailout: Active\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "memo": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
-            "at": "say4",
-            "caption": "Deferred pass completes; 4 matches rendered at opacity 1.0 with 'Synced' badge.",
+            "at": "say5",
+            "caption": "Engine verifies memo bailouts and comprehensive performance telemetry.",
             "values": {
-              "status": {
-                "text": "\"Synced (4 Matches)\""
+              "b1": {
+                "text": "rawQuery"
+              },
+              "b2": {
+                "text": "deferredQuery"
+              },
+              "b3": {
+                "text": "lastRenderedQuery"
+              },
+              "b4": {
+                "text": "flushDeferredPass"
               }
             },
             "tones": {
-              "status": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]

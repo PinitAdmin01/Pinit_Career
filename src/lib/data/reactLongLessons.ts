@@ -13454,8 +13454,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "During the first urgent pass, useDeferredValue returns the previous value so that React.memo components bail out, keeping the urgent keystroke render instant.",
         check: {
           question: "What value does useDeferredValue(newVal) return during the initial urgent render pass when a new prop arrives?",
-          options: ["It returns the previous (old) value, allowing memoized children to bail out of rendering while the input updates instantly", "It returns null", "It returns a rejected promise", "It returns an empty string"],
-          answer: 0,
+          options: [
+            "It returns a rejected promise to force the parent component into an active asynchronous suspense state.",
+            "It returns the previous value, allowing memoized child components to bail out of rendering instantly.",
+            "It returns an empty string placeholder while background workers compile virtual node trees offscreen.",
+            "It returns null to inform the browser DOM reconciler that pending layout operations should be skipped."
+          ],
+          answer: 1,
           why: "During the first urgent pass, useDeferredValue returns the previous value so that React.memo components bail out, keeping the urgent keystroke render instant."
         }
       },
@@ -13483,8 +13488,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "useDeferredValue does not enforce an arbitrary fixed delay; it starts rendering immediately on available frame headroom and cooperatively slices execution to prevent UI freezes.",
         check: {
           question: "Why is useDeferredValue superior to a fixed 300ms setTimeout debounce for responsive search inputs?",
-          options: ["useDeferredValue adapts dynamically to device speed, rendering immediately if the CPU is free and time-slicing without freezing on slow devices", "useDeferredValue runs on the GPU instead of the CPU", "useDeferredValue automatically translates English queries into multiple languages", "useDeferredValue deletes all components that take longer than 10 milliseconds"],
-          answer: 0,
+          options: [
+            "Because useDeferredValue executes string filtering operations inside GPU compute shaders directly.",
+            "Because useDeferredValue converts search results into IndexedDB binary objects across browser tabs.",
+            "Because useDeferredValue halts all garbage collection cycles until the user stops typing altogether.",
+            "Because useDeferredValue adapts dynamically to hardware speed and time-slices without UI freezing."
+          ],
+          answer: 3,
           why: "useDeferredValue does not enforce an arbitrary fixed delay; it starts rendering immediately on available frame headroom and cooperatively slices execution to prevent UI freezes."
         }
       },
@@ -13513,7 +13523,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "During the background deferred pass, `query` reflects the new value while `deferredQuery` still reflects the old value, making `query !== deferredQuery` the official staleness indicator.",
         check: {
           question: "How do React developers detect that a component is currently rendering a deferred background update when using useDeferredValue?",
-          options: ["By comparing the raw prop directly against the deferred value: `const isStale = query !== deferredQuery;`", "By inspecting the window.navigator object", "By throwing an error inside the component body", "By checking if localStorage contains the key '__IS_DEFERRED__'"],
+          options: [
+            "By comparing the fresh prop directly against the deferred value (`const isStale = query !== deferredQuery;`).",
+            "By inspecting the global window.navigator hardwareConcurrency property inside an active useEffect callback.",
+            "By throwing a caught synchronous exception within the component body to inspect the active fiber call stack.",
+            "By querying the document body dataset attributes to verify whether background worker threads are scheduled."
+          ],
           answer: 0,
           why: "During the background deferred pass, `query` reflects the new value while `deferredQuery` still reflects the old value, making `query !== deferredQuery` the official staleness indicator."
         }
@@ -13544,8 +13559,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Without React.memo, the child component re-renders during the urgent pass regardless of whether the deferred value changed, freezing the main thread.",
         check: {
           question: "Why is wrapping the heavy child component in React.memo mandatory when using useDeferredValue?",
-          options: ["Because without React.memo, the child will re-render unconditionally during the initial urgent pass, destroying the performance benefit of useDeferredValue", "Because React.memo is required to enable CSS stylesheets", "Because useDeferredValue throws a runtime error if React.memo is missing", "Because browsers refuse to render HTML unless React.memo is declared"],
-          answer: 0,
+          options: [
+            "Because React.memo is required to inject CSS stylesheet classes during component compilation passes.",
+            "Because useDeferredValue throws a fatal JavaScript syntax error if child components are unmemoized.",
+            "Because without React.memo, children re-render unconditionally in Phase 1, destroying responsiveness.",
+            "Because modern browser engines refuse to paint HTML elements unless memoization tags are declared."
+          ],
+          answer: 2,
           why: "Without React.memo, the child component re-renders during the urgent pass regardless of whether the deferred value changed, freezing the main thread."
         }
       },
@@ -13574,9 +13594,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Add a third keystroke 'a' ('Rea') and observe how memo bailouts scale across continuous typing.",
         example: "Phase 1 updates the input immediately with the previous value (triggering a React.memo bailout in the child), and Phase 2 renders the heavy child concurrently in the background.",
         check: {
-          question: "What sequence of events occurs when a user types a new letter into an input using useDeferredValue and React.memo?",
-          options: ["Phase 1 renders the urgent input with the old deferred value (child bails out via React.memo), then Phase 2 renders the heavy child in the background with the new value", "The browser reloads the webpage from scratch", "All React components are unmounted permanently", "The operating system terminates the Node.js process"],
-          answer: 0,
+          question: "What sequence of events occurs when a user types into an input using useDeferredValue and React.memo?",
+          options: [
+            "The browser reloads the entire HTML document to establish fresh WebSocket connections to web servers.",
+            "Phase 1 updates input while child bails out, then Phase 2 renders child in background with new value.",
+            "The JavaScript V8 runtime terminates all active timers to prevent memory leaks in component subtrees.",
+            "All React components in the active tree are permanently unmounted and replaced with static DOM nodes."
+          ],
+          answer: 1,
           why: "Phase 1 updates the input immediately with the previous value (triggering a React.memo bailout in the child), and Phase 2 renders the heavy child concurrently in the background."
         }
       }
