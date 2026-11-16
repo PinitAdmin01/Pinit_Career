@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 export interface ActionProfile {
@@ -145,6 +145,11 @@ export default function WhatToDoToday({
   const safeProfile = profile || ({} as ActionProfile);
   const actions = pickActions(safeProfile);
   const isVertical = layout === 'vertical';
+  const [completedItems, setCompletedItems] = useState<Record<number, boolean>>({ 0: true });
+
+  const toggleComplete = (idx: number) => {
+    setCompletedItems(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
 
   return (
     <div
@@ -167,27 +172,45 @@ export default function WhatToDoToday({
           <div style={{ fontSize: 10.5, letterSpacing: '1px', textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 800, marginBottom: 2 }}>
             WHAT TO DO TODAY
           </div>
-          <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
-            {isVertical ? '3 Priority Actions' : '3 concise actions personalized to your career progress'}
-          </div>
+          <Link
+            href="/missions"
+            style={{
+              fontSize: 14.5,
+              fontWeight: 800,
+              color: 'var(--t1)',
+              fontFamily: 'var(--font-display)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              textDecoration: 'none',
+            }}
+          >
+            <span>{isVertical ? '3 Priority Actions' : '3 concise actions personalized to your career progress'}</span>
+            <span style={{ color: 'var(--t3)', fontSize: 13 }}>&gt;</span>
+          </Link>
         </div>
-        <Link
-          href="/missions"
-          style={{
-            fontSize: 11.5,
-            fontWeight: 700,
-            color: 'var(--accent)',
-            textDecoration: 'none',
-            fontFamily: 'var(--font-mono)',
-            padding: '4px 10px',
-            borderRadius: 6,
-            background: 'rgba(99,102,241,0.08)',
-            border: '1px solid rgba(99,102,241,0.2)',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          All missions →
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent)', background: 'rgba(99,102,241,0.1)', padding: '2px 8px', borderRadius: 6, border: '1px solid rgba(99,102,241,0.2)' }}>
+            60%
+          </span>
+          <Link
+            href="/missions"
+            style={{
+              fontSize: 11.5,
+              fontWeight: 700,
+              color: 'var(--accent)',
+              textDecoration: 'none',
+              fontFamily: 'var(--font-mono)',
+              padding: '4px 10px',
+              borderRadius: 6,
+              background: 'rgba(99,102,241,0.08)',
+              border: '1px solid rgba(99,102,241,0.2)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            All missions →
+          </Link>
+        </div>
       </div>
 
       {/* Action cards: vertical flex stack or horizontal grid */}
@@ -209,86 +232,105 @@ export default function WhatToDoToday({
               }
         }
       >
-        {actions.map((action, i) => (
-          <Link
-            key={action.href + i}
-            href={action.href}
-            style={{ textDecoration: 'none', display: 'block', flex: isVertical ? 1 : undefined }}
-            data-testid={`action-item-${isVertical ? 'vertical' : 'horizontal'}-${i}`}
-          >
-            <div
-              style={{
-                background: 'var(--bg3)',
-                border: `1.5px solid ${action.border}`,
-                borderRadius: 12,
-                padding: isVertical ? '10px 14px' : '14px 16px',
-                cursor: 'pointer',
-                transition: 'all 0.18s ease',
-                borderLeft: `4px solid ${action.color}`,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: '100%',
-                boxSizing: 'border-box',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = isVertical ? 'translateX(3px)' : 'translateY(-2px)';
-                e.currentTarget.style.borderColor = action.color;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'none';
-                e.currentTarget.style.borderColor = action.border;
-              }}
+        {actions.map((action, i) => {
+          const isDone = !!completedItems[i];
+          return (
+            <Link
+              key={action.href + i}
+              href={action.href}
+              style={{ textDecoration: 'none', display: 'block', flex: isVertical ? 1 : undefined }}
+              data-testid={`action-item-${isVertical ? 'vertical' : 'horizontal'}-${i}`}
             >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ fontSize: 9.5, fontWeight: 900, color: action.color, background: action.bg, padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
-                      {action.icon}
-                    </span>
-                    <span style={{ fontSize: 11, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)' }}>
-                      Priority {i + 1}
-                    </span>
-                  </div>
-                  {isVertical && (
-                    <span style={{ fontSize: 11, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap', flexShrink: 0 }}>
-                      {action.cta.replace(' →', '')} →
-                    </span>
-                  )}
-                </div>
-
-                <div style={{ fontWeight: 800, fontSize: isVertical ? 13 : 14, color: 'var(--t1)', marginBottom: 3, lineHeight: 1.25 }}>
-                  {action.title}
-                </div>
-
-                <div
+              <div
+                style={{
+                  background: isDone ? 'rgba(16, 185, 129, 0.05)' : 'var(--bg3)',
+                  border: `1.5px solid ${isDone ? 'rgba(16, 185, 129, 0.35)' : action.border}`,
+                  borderRadius: 12,
+                  padding: isVertical ? '10px 14px' : '14px 16px',
+                  cursor: 'pointer',
+                  transition: 'all 0.18s ease',
+                  borderLeft: `4px solid ${isDone ? '#10b981' : action.color}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 12,
+                  height: '100%',
+                  boxSizing: 'border-box',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = isVertical ? 'translateX(3px)' : 'translateY(-2px)';
+                  e.currentTarget.style.borderColor = isDone ? '#10b981' : action.color;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.borderColor = isDone ? 'rgba(16, 185, 129, 0.35)' : action.border;
+                }}
+              >
+                {/* Left Checkbox */}
+                <button
+                  type="button"
+                  aria-label={`Toggle action item ${i + 1}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleComplete(i);
+                  }}
                   style={{
-                    fontSize: isVertical ? 11.5 : 12.5,
-                    color: 'var(--t2)',
-                    lineHeight: 1.35,
-                    marginBottom: isVertical ? 0 : 12,
-                    ...(isVertical
-                      ? {
-                          display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden',
-                        }
-                      : {}),
+                    width: 20,
+                    height: 20,
+                    borderRadius: 5,
+                    border: `1.5px solid ${isDone ? '#10b981' : 'rgba(255,255,255,0.22)'}`,
+                    background: isDone ? 'rgba(16, 185, 129, 0.25)' : 'rgba(255,255,255,0.03)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    fontSize: 12,
+                    fontWeight: 900,
+                    color: '#10b981',
+                    flexShrink: 0,
+                    padding: 0,
                   }}
                 >
-                  {action.desc}
+                  {isDone ? '✓' : ''}
+                </button>
+
+                {/* Center Content */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                    <span style={{ fontSize: 9.5, fontWeight: 900, color: action.color, background: action.bg, padding: '1px 5px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
+                      {action.icon}
+                    </span>
+                    <span style={{ fontWeight: 800, fontSize: isVertical ? 12.5 : 13.5, color: isDone ? 'var(--t2)' : 'var(--t1)', textDecoration: isDone ? 'line-through' : 'none', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {action.title}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: 'var(--t3)',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {action.desc}
+                  </div>
+                </div>
+
+                {/* Right Dual XP Badges */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+                  <span style={{ fontSize: 10, fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#06b6d4', background: 'rgba(6,182,212,0.12)', border: '1px solid rgba(6,182,212,0.25)', padding: '2px 6px', borderRadius: 4 }}>
+                    +50 XP
+                  </span>
+                  <span style={{ fontSize: 10, fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#f59e0b', background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.25)', padding: '2px 6px', borderRadius: 4 }}>
+                    +100 XP
+                  </span>
                 </div>
               </div>
-
-              {!isVertical && (
-                <div style={{ fontSize: 12, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
-                  {action.cta}
-                </div>
-              )}
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

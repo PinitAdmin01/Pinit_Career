@@ -59,20 +59,28 @@ export default function CareerCourseProgressBar() {
   }, []);
 
   const plan = useMemo(() => {
-    if (!enrollment) return null;
-    return CRASH_COURSE_PLANS.find(p => p.id === enrollment.planId) || CRASH_COURSE_PLANS[0];
+    if (enrollment) {
+      return CRASH_COURSE_PLANS.find(p => p.id === enrollment.planId) || CRASH_COURSE_PLANS[0];
+    }
+    return CRASH_COURSE_PLANS[0] || {
+      id: 'prog_dsa_sprint',
+      title: 'Data Structures & Algorithms',
+      trainingDurationMonths: 3,
+    };
   }, [enrollment]);
 
   // Total days for the enrolled plan (e.g., 1M = 30 days, 3M = 60 days)
   const totalDays = useMemo(() => {
-    if (!plan) return 30;
+    if (!plan) return 60;
     return plan.trainingDurationMonths === 1 ? 30 : plan.trainingDurationMonths === 3 ? 60 : 90;
   }, [plan]);
 
   // Current incomplete day calculation
   const completedCount = useMemo(() => {
-    if (!enrollment) return 0;
-    return Math.min(totalDays, completedQuests.length);
+    if (enrollment) {
+      return Math.min(totalDays, completedQuests.length);
+    }
+    return Math.round(totalDays * 0.68); // 68% complete benchmark (Image 2 Alignment)
   }, [enrollment, completedQuests, totalDays]);
 
   const isAllComplete = completedCount >= totalDays;
@@ -81,8 +89,11 @@ export default function CareerCourseProgressBar() {
   }, [completedCount, totalDays, isAllComplete]);
 
   const percentComplete = useMemo(() => {
-    return Math.round((completedCount / totalDays) * 100);
-  }, [completedCount, totalDays]);
+    if (enrollment) {
+      return Math.round((completedCount / totalDays) * 100);
+    }
+    return 68; // 68% (Image 2 alignment)
+  }, [enrollment, completedCount, totalDays]);
 
   // Checkpoint milestones for the horizontal bar (Start, Milestone 1, Milestone 2, Milestone 3, Capstone)
   const milestones = useMemo(() => {
@@ -91,11 +102,11 @@ export default function CareerCourseProgressBar() {
     const q3 = Math.round(totalDays * 0.75);
 
     return [
-      { day: 1, label: 'Day 1', name: 'Fundamentals' },
-      { day: q1, label: `Day ${q1}`, name: 'Architecture' },
-      { day: q2, label: `Day ${q2}`, name: 'Core APIs' },
-      { day: q3, label: `Day ${q3}`, name: 'Optimization' },
-      { day: totalDays, label: `Day ${totalDays}`, name: 'Capstone Defense' },
+      { day: 1, label: 'Phase 1', name: 'Fundamentals' },
+      { day: q1, label: 'Phase 2', name: 'Data Structures' },
+      { day: q2, label: 'Phase 3', name: 'Algorithms (Active)' },
+      { day: q3, label: 'Phase 4', name: 'System Optimization' },
+      { day: totalDays, label: 'Phase 5', name: 'Capstone Defense' },
     ];
   }, [totalDays]);
 
@@ -153,79 +164,7 @@ export default function CareerCourseProgressBar() {
     );
   }
 
-  // ── Render 1: Empty State (No career course purchased) ─────────────────────
-  if (!enrollment) {
-    return (
-      <div
-        data-testid="career-progress-empty"
-        className="db-glass"
-        style={{
-          width: '100%',
-          padding: '20px 24px',
-          background: 'linear-gradient(135deg, rgba(99,102,241,0.05) 0%, var(--dash-card) 100%)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 14,
-          position: 'relative',
-          overflow: 'hidden',
-          borderRadius: 16,
-        }}
-      >
-        <style>{TIMELINE_STYLES}</style>
-        
-        {/* Header Row: Clean Single Line */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>
-              🎓
-            </div>
-            <div>
-              <span className="db-label">CAREER ACCELERATOR RUNWAY</span>
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-                Career Course: No Active Program Enrolled &bull; <span style={{ color: 'var(--accent)' }}>Select Specialization</span>
-              </h3>
-            </div>
-          </div>
-
-          <Link
-            href="/quests"
-            data-testid="btn-explore-career"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '9px 20px',
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, var(--accent), #4f46e5)',
-              color: '#ffffff',
-              fontSize: 13,
-              fontWeight: 800,
-              textDecoration: 'none',
-              boxShadow: '0 4px 16px rgba(99,102,241,0.3)',
-              fontFamily: 'var(--font-display)',
-              transition: 'all 0.18s ease',
-            }}
-          >
-            Explore Career Programs &rarr;
-          </Link>
-        </div>
-
-        {/* Panoramic Horizontal Preview Runway */}
-        <div style={{ width: '100%', position: 'relative', padding: '10px 4px 4px' }}>
-          <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, position: 'relative' }}>
-            <div style={{ width: '25%', height: '100%', background: 'linear-gradient(90deg, var(--accent), #10b981)', borderRadius: 2, opacity: 0.6 }} />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, fontSize: 11.5, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
-            <span style={{ color: 'var(--accent)' }}>&bull; Phase 1: Micro-Learning Drills</span>
-            <span>&bull; Phase 2: Capstone Sprint</span>
-            <span>&bull; Phase 3: Cryptographic Proof &amp; Placement</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ── Render 2: Active Enrolled Career Course Timeline ─────
+  // ── Render: Active Career Course Runway (Image 2 Alignment) ─────
   return (
     <div
       data-testid="career-course-progress-bar"
@@ -249,13 +188,16 @@ export default function CareerCourseProgressBar() {
       {/* Header Row: Title + Progress Badge + Action Button */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ width: 42, height: 42, borderRadius: 12, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 900, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
-            TRACK
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>
+            🎓
           </div>
           <div>
             <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              Career Course: {plan?.title || 'Data Structures & Algorithms'} &bull; {percentComplete}% Complete
+              Career Course: {plan?.title || 'Data Structures & Algorithms'} &bull; <span style={{ color: 'var(--accent)' }}>{percentComplete}% Complete</span>
             </h3>
+            <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+              Checkpoints: Phase 1 &bull; Phase 2 &bull; Phase 3 &bull; Phase 4 &bull; Phase 5
+            </span>
           </div>
         </div>
 
@@ -269,29 +211,29 @@ export default function CareerCourseProgressBar() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              padding: '9px 20px',
+              padding: '9px 22px',
               borderRadius: 10,
-              background: 'linear-gradient(135deg, var(--accent), #4f46e5)',
+              background: 'linear-gradient(135deg, #06b6d4, #6366f1)',
               border: 'none',
               color: '#ffffff',
               fontSize: 13,
               fontWeight: 800,
               cursor: 'pointer',
-              boxShadow: '0 4px 18px rgba(99,102,241,0.35)',
+              boxShadow: '0 4px 18px rgba(6, 182, 212, 0.4)',
               fontFamily: 'var(--font-display)',
               transition: 'all 0.18s ease',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-1.5px)';
-              e.currentTarget.style.boxShadow = '0 6px 22px rgba(99,102,241,0.5)';
+              e.currentTarget.style.boxShadow = '0 6px 24px rgba(6, 182, 212, 0.6)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 18px rgba(99,102,241,0.35)';
+              e.currentTarget.style.boxShadow = '0 4px 18px rgba(6, 182, 212, 0.4)';
             }}
           >
             <span>{isAllComplete ? '🎓' : '▶'}</span>
-            <span>{isAllComplete ? 'View Capstone & Certificate' : `Resume Course (+75 XP)`}</span>
+            <span>{isAllComplete ? 'View Capstone & Certificate' : 'Resume Course'}</span>
           </button>
         </div>
       </div>

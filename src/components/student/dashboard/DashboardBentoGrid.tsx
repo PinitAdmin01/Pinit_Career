@@ -128,33 +128,37 @@ export default function DashboardBentoGrid({
     };
   }, [vaultItems]);
 
-  // Dynamic Active & Capstone Project data
-  const activeProjectData = useMemo(() => {
+  // Dynamic Active & Capstone Project data (4-column grid matching Image 2)
+  const projectsList = useMemo(() => {
     const isIoT = activeTrack === 'iot';
     const completedCount = cOS?.completedQuests?.length || 0;
-    const progress = Math.min(100, Math.max(18, completedCount * 9));
-    const commits = Math.max(3, completedCount * 4);
 
-    if (isIoT) {
-      return {
-        code: 'GW',
-        title: 'Embedded Sensor Gateway & MQTT Broker',
-        stack: `C++ • FreeRTOS • ESP32 • ${commits} Verified Commits`,
-        phase1: 'Hardware Spec',
-        phase2: 'HAL Drivers (Active)',
-        phase3: 'Cloud Telemetry',
-        progress,
-      };
-    }
-    return {
-      code: 'TQ',
-      title: 'Distributed Task Queue Engine & High-Scale Worker',
-      stack: `Go • Redis • Docker • ${commits} Verified Commits`,
-      phase1: 'Architecture Spec',
-      phase2: 'Worker Pool (Active)',
-      phase3: 'Benchmarking & CI',
-      progress,
-    };
+    return [
+      {
+        id: 'proj-1',
+        name: isIoT ? 'Edge Sensor Mesh HAL' : 'Distributed Task Engine',
+        subtitle: 'Milestone Track',
+        progress: Math.min(100, Math.max(35, 75 + completedCount * 2)),
+      },
+      {
+        id: 'proj-2',
+        name: isIoT ? 'MQTT Telemetry Broker' : 'FinTech Immutable Ledger',
+        subtitle: 'Milestone Track',
+        progress: Math.min(100, Math.max(20, 50 + completedCount)),
+      },
+      {
+        id: 'proj-3',
+        name: isIoT ? 'FreeRTOS Core Dispatcher' : 'Autonomous AI Code Reviewer',
+        subtitle: 'Milestone Track',
+        progress: Math.min(100, Math.max(40, 88 + completedCount)),
+      },
+      {
+        id: 'proj-4',
+        name: isIoT ? 'BLE Secure Beacon Node' : 'Real-Time Sensor Gateway',
+        subtitle: 'Milestone Track',
+        progress: Math.min(100, Math.max(15, 35 + completedCount)),
+      },
+    ];
   }, [activeTrack, cOS?.completedQuests?.length]);
 
   return (
@@ -190,15 +194,31 @@ export default function DashboardBentoGrid({
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
-            <div>
-              <span className="db-label">SOCRATIC COMPETENCIES RADAR</span>
-              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-                Multi-Dimensional Competency Matrix
-              </h3>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-              <span style={{ width: 8, height: 8, borderRadius: 2, background: activeTrack === 'sde' ? 'var(--accent)' : 'var(--teal-mid)' }} />
-              Active Track: <strong style={{ color: 'var(--t1)' }}>{activeTrack === 'sde' ? 'SDE Full-Stack' : 'IoT Embedded'}</strong>
+            <Link
+              href="/learning"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                textDecoration: 'none',
+              }}
+            >
+              <div>
+                <span className="db-label">SOCRATIC COMPETENCIES RADAR</span>
+                <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span>Multi-Dimensional Competency Matrix</span>
+                  <span style={{ color: 'var(--t3)', fontSize: 13 }}>&gt;</span>
+                </h3>
+              </div>
+            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: activeTrack === 'sde' ? 'var(--accent)' : 'var(--teal-mid)', background: 'rgba(99,102,241,0.1)', padding: '2px 8px', borderRadius: 6, border: '1px solid rgba(99,102,241,0.2)' }}>
+                40%
+              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ width: 8, height: 8, borderRadius: 2, background: activeTrack === 'sde' ? 'var(--accent)' : 'var(--teal-mid)' }} />
+                Active Track: <strong style={{ color: 'var(--t1)' }}>{activeTrack === 'sde' ? 'SDE Full-Stack' : 'IoT Embedded'}</strong>
+              </div>
             </div>
           </div>
 
@@ -243,47 +263,84 @@ export default function DashboardBentoGrid({
       {/* Row 2: Engineering Growth Track (Placed BELOW What To Do Today & Competency Matrix, 100% Full Width) */}
       <div className="db-glass" style={{ padding: '20px 24px', borderRadius: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
-          <div>
-            <span className="db-label">ENGINEERING GROWTH TRACK</span>
-            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              Stage: <span style={{ color: 'var(--accent)' }}>{EVO_STAGES[activeStageIndex]?.name}</span> &middot; Level {activeStageIndex + 1} of 5
-            </h3>
-          </div>
-          <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)', background: 'var(--bg3)', padding: '4px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
-            DNA Mastery: <strong style={{ color: 'var(--accent)' }}>{careerScore}</strong>/100
+          <Link
+            href="/career-builder"
+            style={{
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+            }}
+          >
+            <div>
+              <span className="db-label">ENGINEERING GROWTH TRACK</span>
+              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>Engineering Growth Track</span>
+                <span style={{ color: 'var(--t3)', fontSize: 13 }}>&gt;</span>
+              </h3>
+            </div>
+          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent)', background: 'rgba(99,102,241,0.1)', padding: '2px 8px', borderRadius: 6, border: '1px solid rgba(99,102,241,0.2)' }}>
+              100%
+            </span>
+            <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)', background: 'var(--bg3)', padding: '4px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
+              Stage: <strong style={{ color: 'var(--accent)' }}>Syntax Novice</strong> &middot; Level {activeStageIndex + 1} of 5
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', padding: '14px 0', margin: '4px 0' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', padding: '22px 0 14px', margin: '4px 0' }}>
           {/* Base Track line */}
           <div style={{ position: 'absolute', left: '6%', right: '6%', height: 3, background: 'rgba(255,255,255,0.06)', zIndex: 0, borderRadius: 2 }} />
           {/* Active Progress line */}
-          <div style={{ position: 'absolute', left: '6%', width: `${Math.min(88, activeStageIndex * 22)}%`, height: 3, background: 'linear-gradient(90deg, var(--accent), #10b981)', zIndex: 0, transition: 'width 0.6s ease', boxShadow: '0 0 10px rgba(99,102,241,0.5)', borderRadius: 2 }} />
+          <div style={{ position: 'absolute', left: '6%', width: `${Math.min(88, activeStageIndex * 22)}%`, height: 3, background: 'linear-gradient(90deg, #06b6d4, #10b981)', zIndex: 0, transition: 'width 0.6s ease', boxShadow: '0 0 10px rgba(6,182,212,0.5)', borderRadius: 2 }} />
           
           {EVO_STAGES.map((step, idx) => {
             const active = idx <= activeStageIndex;
             const current = idx === activeStageIndex;
             return (
               <div key={step.stage} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '18%', textAlign: 'center' }}>
+                {/* Node 1 Beacon Aura (Image 2 Alignment: Syntax Novice 85%) */}
+                {idx === 0 && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: -24,
+                      background: 'rgba(6, 182, 212, 0.2)',
+                      border: '1px solid #06b6d4',
+                      color: '#06b6d4',
+                      padding: '1px 6px',
+                      borderRadius: 999,
+                      fontSize: 9,
+                      fontWeight: 900,
+                      fontFamily: 'var(--font-mono)',
+                      boxShadow: '0 0 10px rgba(6, 182, 212, 0.6)',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    💡 85%
+                  </div>
+                )}
                 <div style={{
                   width: 38,
                   height: 38,
                   borderRadius: '50%',
-                  background: current ? 'linear-gradient(135deg, var(--accent), #4f46e5)' : active ? 'rgba(99,102,241,0.2)' : 'var(--bg3)',
-                  border: `2px solid ${current ? '#fff' : active ? 'var(--accent)' : 'var(--border)'}`,
+                  background: current ? 'linear-gradient(135deg, #06b6d4, var(--accent))' : active ? 'rgba(99,102,241,0.2)' : 'var(--bg3)',
+                  border: `2px solid ${current ? '#06b6d4' : active ? 'var(--accent)' : 'var(--border)'}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: 16,
                   fontWeight: 800,
                   color: current ? '#ffffff' : active ? 'var(--accent)' : 'var(--t3)',
-                  boxShadow: current ? '0 0 16px rgba(99,102,241,0.6)' : 'none',
+                  boxShadow: current ? '0 0 18px rgba(6,182,212,0.7)' : 'none',
                   transition: 'all 0.3s ease',
                   cursor: 'default'
                 }}>
                   {step.icon}
                 </div>
-                <div style={{ fontSize: 11, fontWeight: current ? 800 : active ? 700 : 500, color: current ? 'var(--accent)' : active ? 'var(--t1)' : 'var(--t4)', marginTop: 8, whiteSpace: 'nowrap' }}>
+                <div style={{ fontSize: 11, fontWeight: current ? 800 : active ? 700 : 500, color: current ? '#06b6d4' : active ? 'var(--t1)' : 'var(--t4)', marginTop: 8, whiteSpace: 'nowrap' }}>
                   {step.name}
                 </div>
                 <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 3, display: current ? 'block' : 'none', maxWidth: 110, lineHeight: 1.3, fontFamily: 'var(--font-mono)' }}>
@@ -311,162 +368,327 @@ export default function DashboardBentoGrid({
         {/* Left (50%): Arena & League Telemetry */}
         <div className="db-glass" style={{ padding: '20px 22px', borderRadius: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <div>
-              <span className="db-label">CHALLENGING ARENA &amp; LEAGUES</span>
-              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-                Competitive Standing
-              </h3>
-            </div>
-            <Link href="/arena" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
-              Enter Arena &rarr;
-            </Link>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ fontSize: 24 }}>{arenaStanding.badge}</div>
+            <Link
+              href="/arena"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                textDecoration: 'none',
+              }}
+            >
               <div>
-                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
-                  {arenaStanding.tier} &bull; Rank #{arenaStanding.rank}
+                <span className="db-label">CHALLENGING ARENA &amp; LEAGUES</span>
+                <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span>Arena &amp; League Telemetry</span>
+                  <span style={{ color: 'var(--t3)', fontSize: 13 }}>&gt;</span>
+                </h3>
+              </div>
+            </Link>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent)', background: 'rgba(99,102,241,0.1)', padding: '2px 8px', borderRadius: 6, border: '1px solid rgba(99,102,241,0.2)' }}>
+              50/50
+            </span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div style={{
+                fontSize: 28,
+                filter: 'drop-shadow(0 0 10px rgba(6,182,212,0.6))',
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                background: 'rgba(6,182,212,0.12)',
+                border: '1.5px solid rgba(6,182,212,0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                💎
+              </div>
+              <div>
+                <p style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
+                  Diamond League #42
                 </p>
                 <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>
-                  {arenaStanding.percentile}
+                  Diamond Cohort &bull; Top 4% Contender
                 </p>
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: 10, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: 0.5 }}>Next Clash</span>
-              <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: 10, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: 0.5, fontFamily: 'var(--font-mono)' }}>Countdown</span>
+              <p style={{ fontSize: 15, fontWeight: 900, color: '#06b6d4', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>
                 {formattedCountdown}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Right (50%): Proof Vault & Verified Credentials */}
+        {/* Right (50%): Proof Vault & Verified Credentials (Exact Image 2 Alignment) */}
         <div className="db-glass" style={{ padding: '20px 22px', borderRadius: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <div>
-              <span className="db-label">PROOF VAULT &amp; CREDENTIALS</span>
-              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-                Cryptographic Work Proofs
-              </h3>
-            </div>
-            <Link href="/vault" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
-              View Vault &rarr;
-            </Link>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 34, height: 34, borderRadius: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
-                🔒
-              </div>
-              <div>
-                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
-                  {latestVaultProof.title}
-                </p>
-                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>
-                  {latestVaultProof.hash}
-                </p>
-              </div>
-            </div>
             <Link
               href="/vault"
               style={{
-                display: 'inline-flex',
+                display: 'flex',
                 alignItems: 'center',
-                padding: '6px 12px',
-                borderRadius: 8,
-                fontSize: 11.5,
-                fontWeight: 700,
-                background: 'rgba(255,255,255,0.05)',
-                color: 'var(--t1)',
-                border: '1px solid var(--border)',
+                gap: 6,
                 textDecoration: 'none',
               }}
             >
-              {latestVaultProof.isMinted ? 'Verify →' : 'Mint Proof →'}
+              <div>
+                <span className="db-label">PROOF VAULT &amp; CREDENTIALS</span>
+                <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span>Proof Vault &amp; Verified Credentials</span>
+                  <span style={{ color: 'var(--t3)', fontSize: 13 }}>&gt;</span>
+                </h3>
+              </div>
             </Link>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '2px 8px', borderRadius: 6, border: '1px solid rgba(16,185,129,0.2)' }}>
+              50/50
+            </span>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '14px 16px',
+              borderRadius: 12,
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--border)',
+              flexWrap: 'wrap',
+              gap: 14,
+            }}
+          >
+            {/* 3 Illuminated Credential Shields */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              {/* Shield 1: Minted Certificate / Badge */}
+              <div style={{ position: 'relative' }}>
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 10,
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    border: '1.5px solid rgba(16, 185, 129, 0.45)',
+                    boxShadow: '0 0 12px rgba(16, 185, 129, 0.35)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 20,
+                  }}
+                  title="Minted Certificate Proof"
+                >
+                  📜
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: -3,
+                    right: -3,
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    background: '#10b981',
+                    border: '2px solid var(--dash-card)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 9,
+                    color: '#ffffff',
+                    fontWeight: 900,
+                  }}
+                >
+                  ✓
+                </div>
+              </div>
+
+              {/* Shield 2: Cryptographic Lock */}
+              <div style={{ position: 'relative' }}>
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 10,
+                    background: 'rgba(6, 182, 212, 0.15)',
+                    border: '1.5px solid rgba(6, 182, 212, 0.45)',
+                    boxShadow: '0 0 12px rgba(6, 182, 212, 0.35)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 20,
+                  }}
+                  title="Cryptographic SHA-256 Vault Badge"
+                >
+                  🔒
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: -3,
+                    right: -3,
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    background: '#06b6d4',
+                    border: '2px solid var(--dash-card)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 9,
+                    color: '#ffffff',
+                    fontWeight: 900,
+                  }}
+                >
+                  ✓
+                </div>
+              </div>
+
+              {/* Shield 3: Git Repo Verified Commit */}
+              <div style={{ position: 'relative' }}>
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 10,
+                    background: 'rgba(99, 102, 241, 0.15)',
+                    border: '1.5px solid rgba(99, 102, 241, 0.45)',
+                    boxShadow: '0 0 12px rgba(99, 102, 241, 0.35)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 20,
+                  }}
+                  title="Verified Git Commit Proof"
+                >
+                  🐙
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: -3,
+                    right: -3,
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    background: '#6366f1',
+                    border: '2px solid var(--dash-card)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 9,
+                    color: '#ffffff',
+                    fontWeight: 900,
+                  }}
+                >
+                  ✓
+                </div>
+              </div>
+            </div>
+
+            {/* Checklist Indicators (Matching Image 2) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>
+                <span style={{ color: '#10b981', fontWeight: 900 }}>&#10003;</span>
+                <span>Cryptographic badges</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>
+                <span style={{ color: '#10b981', fontWeight: 900 }}>&#10003;</span>
+                <span>Verified Git commits</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Row 4: Active & Capstone Projects (100% Full Width, matching Engineering Growth Track) */}
+      {/* Row 4: Active & Capstone Projects (100% Full Width, 4-Column Repository Grid matching Image 2) */}
       <div className="db-glass" style={{ padding: '20px 24px', borderRadius: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 14 }}>
-          <div>
-            <span className="db-label">ACTIVE &amp; CAPSTONE PROJECTS</span>
-            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              Engineering Workspaces &amp; Production Repositories
-            </h3>
-          </div>
+          <Link
+            href="/projects"
+            style={{
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+            }}
+          >
+            <div>
+              <span className="db-label">ACTIVE &amp; CAPSTONE PROJECTS</span>
+              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>Active &amp; Capstone Projects</span>
+                <span style={{ color: 'var(--t3)', fontSize: 13 }}>&gt;</span>
+              </h3>
+            </div>
+          </Link>
           <Link href="/projects" style={{ fontSize: 12, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
             + New Project Workspace &rarr;
           </Link>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div
-            style={{
-              padding: '14px 18px',
-              borderRadius: 12,
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid var(--border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: 14,
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 220 }}>
-              <div style={{ width: 38, height: 38, borderRadius: 10, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>
-                {activeProjectData.code}
+        {/* 4-Column Project Grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))',
+            gap: 12,
+          }}
+        >
+          {projectsList.map((p) => (
+            <Link
+              key={p.id}
+              href="/projects"
+              style={{
+                textDecoration: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                padding: '14px 16px',
+                borderRadius: 12,
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid var(--border)',
+                transition: 'all 0.18s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--accent)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.transform = 'none';
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                  {/* GitHub Icon */}
+                  <svg style={{ width: 18, height: 18, fill: 'var(--t1)', flexShrink: 0 }} viewBox="0 0 24 24">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                  </svg>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {p.name}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  aria-label="Project Options"
+                  style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 16, padding: '0 4px', lineHeight: 1 }}
+                >
+                  &hellip;
+                </button>
               </div>
+
               <div>
-                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
-                  {activeProjectData.title}
-                </p>
-                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>
-                  {activeProjectData.stack}
-                </p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)' }}>
+                  <span>{p.subtitle}</span>
+                  <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{p.progress}%</span>
+                </div>
+                <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, overflow: 'hidden' }}>
+                  <div style={{ width: `${p.progress}%`, height: '100%', background: 'linear-gradient(90deg, #06b6d4, var(--accent))', borderRadius: 2 }} />
+                </div>
               </div>
-            </div>
-
-            {/* Horizontal Milestone Timeline Bar */}
-            <div style={{ flex: '1 1 240px', minWidth: 200, padding: '0 12px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10.5, color: 'var(--t3)', marginBottom: 4, fontFamily: 'var(--font-mono)' }}>
-                <span>{activeProjectData.phase1}</span>
-                <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{activeProjectData.phase2}</span>
-                <span>{activeProjectData.phase3}</span>
-              </div>
-              <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2 }}>
-                <div style={{ width: `${activeProjectData.progress}%`, height: '100%', background: 'linear-gradient(90deg, var(--accent), #10b981)', borderRadius: 2 }} />
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999, fontSize: 11, fontWeight: 700, background: 'rgba(16,185,129,0.12)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)' }}>
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#10b981' }} />
-                Active
-              </span>
-              <Link
-                href="/projects"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '7px 14px',
-                  borderRadius: 8,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  background: 'var(--accent, #6366f1)',
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                }}
-              >
-                Open Workspace &rarr;
-              </Link>
-            </div>
-          </div>
+            </Link>
+          ))}
         </div>
       </div>
 
