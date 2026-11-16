@@ -13056,8 +13056,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Bitmasks enable representing sets of priority categories as 31-bit integers on the stack, allowing instant bitwise union, intersection, and subtraction without garbage collection overhead.",
         check: {
           question: "Why did React replace scalar integer priority levels (1-5) with 31-bit bitmask lanes?",
-          options: ["Because bitmasks allow representing, merging, and filtering multiple concurrent priority categories in a single CPU cycle using Small Integers without heap allocations", "Because JavaScript deprecated numeric addition in ECMAScript 2020", "Because integer priorities prevented React from compiling to WebAssembly", "Because monitors require binary numbers to display colors"],
-          answer: 0,
+          options: [
+            "Because bitmasks compile directly to WebAssembly binary modules without client browser parsing lags.",
+            "Because bitmasks allow representing and filtering multiple concurrent priority subsets in 1 CPU cycle.",
+            "Because scalar numbers were deprecated across ECMAScript standards in modern JavaScript web engines.",
+            "Because browser displays require binary color buffers to calculate layout frames during screen paint."
+          ],
+          answer: 1,
           why: "Bitmasks enable representing sets of priority categories as 31-bit integers on the stack, allowing instant bitwise union, intersection, and subtraction without garbage collection overhead."
         }
       },
@@ -13085,8 +13090,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "SyncLane (Bit 0) represents the highest priority in React and is executed synchronously to guarantee zero typing latency.",
         check: {
           question: "Which lane in React's 31-bit taxonomy is reserved for urgent discrete user interactions like keyboard typing?",
-          options: ["SyncLane (Bit 0)", "IdleLane (Bit 29)", "TransitionLane (Bit 6)", "RetryLane (Bit 5)"],
-          answer: 0,
+          options: [
+            "IdleLane (Bit 29)",
+            "RetryLane (Bit 5)",
+            "DraftLane (Bit 8)",
+            "SyncLane (Bit 00)"
+          ],
+          answer: 3,
           why: "SyncLane (Bit 0) represents the highest priority in React and is executed synchronously to guarantee zero typing latency."
         }
       },
@@ -13113,7 +13123,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Using two's complement binary representation, lanes & -lanes isolates the lowest set bit (least-significant bit), which represents the highest priority lane.",
         check: {
           question: "What mathematical expression does React's reconciler use to isolate the single highest-priority lane from a bitmask in one CPU operation?",
-          options: ["lanes & -lanes", "lanes | ~lanes", "Math.max(...lanes)", "lanes.split('').reverse()[0]"],
+          options: [
+            "lanes & -lanes",
+            "lanes | ~lanes",
+            "lanes ^ +lanes",
+            "lanes >> lanes"
+          ],
           answer: 0,
           why: "Using two's complement binary representation, lanes & -lanes isolates the lowest set bit (least-significant bit), which represents the highest priority lane."
         }
@@ -13142,8 +13157,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "React assigns expiration timestamps to each lane.",
         check: {
           question: "How does React prevent low-priority background transition lanes from being starved indefinitely by continuous user inputs?",
-          options: ["By assigning expiration timestamps to lanes and promoting starved lanes to synchronous urgency once their deadline expires", "By crashing the application if an update takes longer than 1 second", "By deleting background components that take too long to render", "By ignoring user keyboard and mouse inputs after 100ms"],
-          answer: 0,
+          options: [
+            "By dropping pending keyboard and touch inputs when render queues exceed maximum capacity limits.",
+            "By cancelling background components and purging all internal component state trees from memory.",
+            "By setting expiration timestamps and promoting starved lanes to synchronous urgency at deadlines.",
+            "By throwing a fatal runtime exception whenever any deferred transition takes more than 1 second."
+          ],
+          answer: 2,
           why: "React assigns expiration timestamps to each lane. When an update's deadline passes without execution, it is promoted to expired status and executed synchronously."
         }
       },
@@ -13172,8 +13192,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "When a background lane exceeds its starvation timeout, it is promoted into expiredLanes, giving it immediate precedence over non-expired normal lanes.",
         check: {
           question: "In a 31-bit bitmask scheduler, why does an expired TransitionLane execute before a non-expired DefaultLane, even though DefaultLane normally has higher priority?",
-          options: ["Because expired lanes are escalated to top-priority urgency to prevent indefinite starvation of background tasks", "Because DefaultLane is automatically deleted if any other lane exists", "Because TransitionLanes cannot be paused once started", "Because the JavaScript runtime executes functions in alphabetical order"],
-          answer: 0,
+          options: [
+            "Because non-expired default lanes are discarded whenever higher transition tasks are registered.",
+            "Because expired lanes are escalated to top urgency to prevent indefinite starvation of workloads.",
+            "Because transition lanes cannot be paused or yielded once their worker task thread has initiated.",
+            "Because browser runtimes execute tasks according to standard lexicographical function sort orders."
+          ],
+          answer: 1,
           why: "When a background lane exceeds its starvation timeout, it is promoted into expiredLanes, giving it immediate precedence over non-expired normal lanes."
         }
       }

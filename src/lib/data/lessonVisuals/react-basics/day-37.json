@@ -9,161 +9,241 @@
       "partTitle": "From Numeric Priorities to Bitmasks: The Limitations of Integer Priority Levels",
       "codeHash": "0691df8160239138fcb8c879770b63ca0c7ef5800cd732d32329d5802e107bec",
       "spec": {
-        "template": "compare",
-        "title": "Priority Models: Scalar Integers vs 31-bit Bitmask Lanes",
-        "leftLabel": "Scalar Integer Priorities (1-5)",
-        "rightLabel": "31-Bit Bitmask Lanes (React 18)",
+        "template": "boxes",
+        "title": "Bitmask Priority Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SyncLane"
+          },
+          {
+            "id": "b2",
+            "label": "InputContinuousLane"
+          },
+          {
+            "id": "b3",
+            "label": "DefaultLane"
+          },
+          {
+            "id": "b4",
+            "label": "IdleLane"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scalar integers cannot represent multi-priority sets without allocating dynamic Heap objects.",
-            "left": {
-              "code": "const taskSet = new Set([2, 3]);",
-              "result": {
-                "text": "\"Heap Allocated\""
+            "caption": "Scheduler divides concurrent work into cooperative slices.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "error"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "const taskLanes = 0b0110;",
-              "result": {
-                "text": "\"Small Integer (SMI)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Bitmask lanes merge multiple priority categories in a single CPU clock cycle using bitwise OR.",
-            "left": {
-              "code": "taskSet.add(4);",
-              "result": {
-                "text": "\"O(1) Set Mutation\""
+            "caption": "Scalar integers introduce severe garbage collection churn in hot loop.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "data"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "lanes |= 0b1000;",
-              "result": {
-                "text": "\"1 CPU Instruction\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Testing lane membership executes instantly with bitwise AND, zero memory allocation.",
-            "left": {
-              "code": "taskSet.has(target);",
-              "result": {
-                "text": "\"Function Call\""
+            "caption": "Decoupled lanes represent independent features without blind merging.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "data"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "(lanes & target) !== 0;",
-              "result": {
-                "text": "\"TEST EAX, EBX\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Bit bitmasks completely eliminate garbage collection churn in the hot.",
-            "left": {
-              "code": "console.log(gcPauses);",
-              "result": {
-                "text": "\"GC Overhead\""
+            "caption": "Small integers stored directly on stack execute without heap overhead.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "error"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "console.log(gcPauses);",
-              "result": {
-                "text": "\"Zero Allocations\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Priority Models: Scalar Integers vs 31-bit Bitmask Lanes",
-        "leftLabel": "Scalar Integer Priorities (1-5)",
-        "rightLabel": "31-Bit Bitmask Lanes (React 18)",
+        "template": "boxes",
+        "title": "Bitmask Priority Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SyncLane"
+          },
+          {
+            "id": "b2",
+            "label": "InputContinuousLane"
+          },
+          {
+            "id": "b3",
+            "label": "DefaultLane"
+          },
+          {
+            "id": "b4",
+            "label": "IdleLane"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scalar integers cannot represent multi-priority sets without allocating dynamic Heap objects.",
-            "left": {
-              "code": "const taskSet = new Set([2, 3]);",
-              "result": {
-                "text": "\"Heap Allocated\""
+            "caption": "Scheduler divides concurrent work into cooperative slices.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "error"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "const taskLanes = 0b0110;",
-              "result": {
-                "text": "\"Small Integer (SMI)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Bitmask lanes merge multiple priority categories in a single CPU clock cycle using bitwise OR.",
-            "left": {
-              "code": "taskSet.add(4);",
-              "result": {
-                "text": "\"O(1) Set Mutation\""
+            "caption": "Scalar integers introduce severe garbage collection churn in hot loop.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "data"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "lanes |= 0b1000;",
-              "result": {
-                "text": "\"1 CPU Instruction\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Testing lane membership executes instantly with bitwise AND, zero memory allocation.",
-            "left": {
-              "code": "taskSet.has(target);",
-              "result": {
-                "text": "\"Function Call\""
+            "caption": "Decoupled lanes represent independent features without blind merging.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "data"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "(lanes & target) !== 0;",
-              "result": {
-                "text": "\"TEST EAX, EBX\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "31-bit bitmasks completely eliminate garbage collection churn in the hot reconciliation loop.",
-            "left": {
-              "code": "console.log(gcPauses);",
-              "result": {
-                "text": "\"GC Overhead\""
+            "caption": "Small integers stored directly on stack execute without heap overhead.",
+            "values": {
+              "b1": {
+                "text": "SyncLane"
               },
-              "tone": "error"
+              "b2": {
+                "text": "InputContinuousLane"
+              },
+              "b3": {
+                "text": "DefaultLane"
+              },
+              "b4": {
+                "text": "IdleLane"
+              }
             },
-            "right": {
-              "code": "console.log(gcPauses);",
-              "result": {
-                "text": "\"Zero Allocations\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -173,249 +253,241 @@
       "partTitle": "The 31 Lanes Taxonomy: Discrete, Continuous, Default, Transition & Idle Lanes",
       "codeHash": "1fdcf5493e335c61ce80245cbee180a96af2a2c05c85425c5c9ed6ff690ca6b9",
       "spec": {
-        "template": "boxes",
-        "title": "React 31-Bit Lane Taxonomy Hierarchy",
-        "boxes": [
+        "template": "states",
+        "title": "Lane Taxonomy Classification",
+        "states": [
           {
-            "id": "l_sync",
-            "label": "SyncLane (0b0001)",
-            "tappable": false
+            "id": "s1",
+            "label": "SyncLane"
           },
           {
-            "id": "l_input",
-            "label": "ContinuousLane (0b0010)",
-            "tappable": false
+            "id": "s2",
+            "label": "InputContinuousLane"
           },
           {
-            "id": "l_default",
-            "label": "DefaultLane (0b0100)",
-            "tappable": false
+            "id": "s3",
+            "label": "DefaultLane"
           },
           {
-            "id": "l_trans",
-            "label": "TransitionLane (0b1000)",
-            "tappable": false
+            "id": "s4",
+            "label": "IdleLane"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SyncLane (bit zero) handles discrete keystrokes and clicks with.",
+            "caption": "Granular taxonomy groups bits into semantic priority categories.",
             "values": {
-              "l_sync": {
-                "text": "\"Urgent Discrete\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Queued\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"Queued\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Queued\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "ok",
-              "l_input": "idle",
-              "l_default": "idle",
-              "l_trans": "idle"
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "InputContinuousLane (bit one) handles high-frequency scrolling and.",
+            "caption": "Discrete user typing and clicks demand immediate synchronous execution.",
             "values": {
-              "l_sync": {
-                "text": "\"Complete\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Active Scroll\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"Queued\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Queued\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "idle",
-              "l_input": "data",
-              "l_default": "idle",
-              "l_trans": "idle"
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "DefaultLane (bit two) processes standard async promise resolutions and.",
+            "caption": "Continuous scroll events coalesce intermediate frames under heavy load.",
             "values": {
-              "l_sync": {
-                "text": "\"Idle\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Idle\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"API Response\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Queued\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "idle",
-              "l_input": "idle",
-              "l_default": "data",
-              "l_trans": "idle"
+              "s1": "ok",
+              "s2": "data",
+              "s3": "ok",
+              "s4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "TransitionLanes (bits three-four) process interruptible background.",
+            "caption": "Standard state updates originate from fetch promises and event hooks.",
             "values": {
-              "l_sync": {
-                "text": "\"Idle\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Idle\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"Committed\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Concurrent Render\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "idle",
-              "l_input": "idle",
-              "l_default": "ok",
-              "l_trans": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "idle"
             }
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "React 31-Bit Lane Taxonomy Hierarchy",
-        "boxes": [
+        "template": "states",
+        "title": "Lane Taxonomy Classification",
+        "states": [
           {
-            "id": "l_sync",
-            "label": "SyncLane (0b0001)",
-            "tappable": false
+            "id": "s1",
+            "label": "SyncLane"
           },
           {
-            "id": "l_input",
-            "label": "ContinuousLane (0b0010)",
-            "tappable": false
+            "id": "s2",
+            "label": "InputContinuousLane"
           },
           {
-            "id": "l_default",
-            "label": "DefaultLane (0b0100)",
-            "tappable": false
+            "id": "s3",
+            "label": "DefaultLane"
           },
           {
-            "id": "l_trans",
-            "label": "TransitionLane (0b1000)",
-            "tappable": false
+            "id": "s4",
+            "label": "IdleLane"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SyncLane (bit 0) handles discrete keystrokes and clicks with synchronous un-interruptible priority.",
+            "caption": "Granular taxonomy groups bits into semantic priority categories.",
             "values": {
-              "l_sync": {
-                "text": "\"Urgent Discrete\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Queued\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"Queued\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Queued\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "ok",
-              "l_input": "idle",
-              "l_default": "idle",
-              "l_trans": "idle"
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "InputContinuousLane (bit 1) handles high-frequency scrolling and dragging interactions.",
+            "caption": "Discrete user typing and clicks demand immediate synchronous execution.",
             "values": {
-              "l_sync": {
-                "text": "\"Complete\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Active Scroll\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"Queued\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Queued\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "idle",
-              "l_input": "data",
-              "l_default": "idle",
-              "l_trans": "idle"
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "DefaultLane (bit 2) processes standard async promise resolutions and setState calls.",
+            "caption": "Continuous scroll events coalesce intermediate frames under heavy load.",
             "values": {
-              "l_sync": {
-                "text": "\"Idle\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Idle\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"API Response\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Queued\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "idle",
-              "l_input": "idle",
-              "l_default": "data",
-              "l_trans": "idle"
+              "s1": "ok",
+              "s2": "data",
+              "s3": "ok",
+              "s4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "TransitionLanes (bits 3-4) process interruptible background renders scheduled via useTransition.",
+            "caption": "Standard state updates originate from fetch promises and event hooks.",
             "values": {
-              "l_sync": {
-                "text": "\"Idle\""
+              "s1": {
+                "text": "SyncLane"
               },
-              "l_input": {
-                "text": "\"Idle\""
+              "s2": {
+                "text": "InputContinuousLane"
               },
-              "l_default": {
-                "text": "\"Committed\""
+              "s3": {
+                "text": "DefaultLane"
               },
-              "l_trans": {
-                "text": "\"Concurrent Render\""
+              "s4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "l_sync": "idle",
-              "l_input": "idle",
-              "l_default": "ok",
-              "l_trans": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "idle"
             }
           }
         ]
@@ -426,147 +498,143 @@
       "codeHash": "6c2e4184c002d8235f6cf06f3658072550a19b85b0749decdcf78d8187893e07",
       "spec": {
         "template": "flow",
-        "title": "Two's Complement Math: Least Significant Bit Extraction (lanes & -lanes)",
+        "title": "Least Significant Bit Extraction",
         "nodes": [
           {
-            "id": "fn_pending",
-            "label": "Pending Lanes Bitmask",
-            "tappable": false
+            "id": "n1",
+            "label": "pendingLanes"
           },
           {
-            "id": "fn_negate",
-            "label": "Two's Complement (-lanes)",
-            "tappable": false
+            "id": "n2",
+            "label": "getHighestPriorityLane"
           },
           {
-            "id": "fn_and",
-            "label": "Bitwise AND (&)",
-            "tappable": false
+            "id": "n3",
+            "label": "activeRenderLane"
           },
           {
-            "id": "fn_highest",
-            "label": "Selected Highest Lane",
-            "tappable": false
+            "id": "n4",
+            "label": "LaneA"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple lanes can be pending simultaneously on the Fiber root (e.g.",
+            "caption": "Reconciler isolates single highest priority lane without running loops.",
             "values": {
-              "fn_pending": {
-                "text": "\"0b1100 (12)\""
+              "n1": {
+                "text": "pendingLanes"
               },
-              "fn_negate": {
-                "text": "\"Waiting\""
+              "n2": {
+                "text": "getHighestPriorityLane"
               },
-              "fn_and": {
-                "text": "\"None\""
+              "n3": {
+                "text": "activeRenderLane"
               },
-              "fn_highest": {
-                "text": "\"None\""
+              "n4": {
+                "text": "LaneA"
               }
             },
             "tones": {
-              "fn_pending": "data",
-              "fn_negate": "idle",
-              "fn_and": "idle",
-              "fn_highest": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn_pending",
-                "fn_negate"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Negating in two's complement inverts all bits and adds one (~x + one = -x).",
+            "caption": "Two complement negation isolates lowest set bit in single instruction.",
             "values": {
-              "fn_pending": {
-                "text": "\"0b1100\""
+              "n1": {
+                "text": "pendingLanes"
               },
-              "fn_negate": {
-                "text": "\"-12 (~12 + 1)\""
+              "n2": {
+                "text": "getHighestPriorityLane"
               },
-              "fn_and": {
-                "text": "\"Ready\""
+              "n3": {
+                "text": "activeRenderLane"
               },
-              "fn_highest": {
-                "text": "\"None\""
+              "n4": {
+                "text": "LaneA"
               }
             },
             "tones": {
-              "fn_pending": "data",
-              "fn_negate": "data",
-              "fn_and": "idle",
-              "fn_highest": "idle"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn_negate",
-                "fn_and"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Evaluating lanes & -lanes isolates the lowest set bit in exactly one CPU instruction.",
-            "values": {
-              "fn_pending": {
-                "text": "\"0b1100\""
-              },
-              "fn_negate": {
-                "text": "\"-12\""
-              },
-              "fn_and": {
-                "text": "\"12 & -12\""
-              },
-              "fn_highest": {
-                "text": "\"0b0100 (Bit 2)\""
-              }
-            },
-            "tones": {
-              "fn_pending": "ok",
-              "fn_negate": "ok",
-              "fn_and": "ok",
-              "fn_highest": "ok"
-            },
-            "arrows": [
-              [
-                "fn_and",
-                "fn_highest"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "The reconciler selects Bit two (DefaultLane) instantly without any loops.",
+            "caption": "Bitwise union merges arriving updates while subtraction clears lanes.",
             "values": {
-              "fn_pending": {
-                "text": "\"Processed\""
+              "n1": {
+                "text": "pendingLanes"
               },
-              "fn_negate": {
-                "text": "\"Done\""
+              "n2": {
+                "text": "getHighestPriorityLane"
               },
-              "fn_and": {
-                "text": "\"Done\""
+              "n3": {
+                "text": "activeRenderLane"
               },
-              "fn_highest": {
-                "text": "\"Active Render\""
+              "n4": {
+                "text": "LaneA"
               }
             },
             "tones": {
-              "fn_pending": "idle",
-              "fn_negate": "idle",
-              "fn_and": "ok",
-              "fn_highest": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn_and",
-                "fn_highest"
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Digital logic preserves lowest bit while inversion resets trailing ones.",
+            "values": {
+              "n1": {
+                "text": "pendingLanes"
+              },
+              "n2": {
+                "text": "getHighestPriorityLane"
+              },
+              "n3": {
+                "text": "activeRenderLane"
+              },
+              "n4": {
+                "text": "LaneA"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
               ]
             ]
           }
@@ -574,147 +642,143 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Two's Complement Math: Least Significant Bit Extraction (lanes & -lanes)",
+        "title": "Least Significant Bit Extraction",
         "nodes": [
           {
-            "id": "fn_pending",
-            "label": "Pending Lanes Bitmask",
-            "tappable": false
+            "id": "n1",
+            "label": "pendingLanes"
           },
           {
-            "id": "fn_negate",
-            "label": "Two's Complement (-lanes)",
-            "tappable": false
+            "id": "n2",
+            "label": "getHighestPriorityLane"
           },
           {
-            "id": "fn_and",
-            "label": "Bitwise AND (&)",
-            "tappable": false
+            "id": "n3",
+            "label": "activeRenderLane"
           },
           {
-            "id": "fn_highest",
-            "label": "Selected Highest Lane",
-            "tappable": false
+            "id": "n4",
+            "label": "LaneA"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple lanes can be pending simultaneously on the Fiber root (e.g. Default + Transition = 0b1100).",
+            "caption": "Reconciler isolates single highest priority lane without running loops.",
             "values": {
-              "fn_pending": {
-                "text": "\"0b1100 (12)\""
+              "n1": {
+                "text": "pendingLanes"
               },
-              "fn_negate": {
-                "text": "\"Waiting\""
+              "n2": {
+                "text": "getHighestPriorityLane"
               },
-              "fn_and": {
-                "text": "\"None\""
+              "n3": {
+                "text": "activeRenderLane"
               },
-              "fn_highest": {
-                "text": "\"None\""
+              "n4": {
+                "text": "LaneA"
               }
             },
             "tones": {
-              "fn_pending": "data",
-              "fn_negate": "idle",
-              "fn_and": "idle",
-              "fn_highest": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn_pending",
-                "fn_negate"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Negating in two's complement inverts all bits and adds 1 (~x + 1 = -x).",
+            "caption": "Two complement negation isolates lowest set bit in single instruction.",
             "values": {
-              "fn_pending": {
-                "text": "\"0b1100\""
+              "n1": {
+                "text": "pendingLanes"
               },
-              "fn_negate": {
-                "text": "\"-12 (~12 + 1)\""
+              "n2": {
+                "text": "getHighestPriorityLane"
               },
-              "fn_and": {
-                "text": "\"Ready\""
+              "n3": {
+                "text": "activeRenderLane"
               },
-              "fn_highest": {
-                "text": "\"None\""
+              "n4": {
+                "text": "LaneA"
               }
             },
             "tones": {
-              "fn_pending": "data",
-              "fn_negate": "data",
-              "fn_and": "idle",
-              "fn_highest": "idle"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn_negate",
-                "fn_and"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Evaluating lanes & -lanes isolates the lowest set bit in exactly one CPU instruction.",
-            "values": {
-              "fn_pending": {
-                "text": "\"0b1100\""
-              },
-              "fn_negate": {
-                "text": "\"-12\""
-              },
-              "fn_and": {
-                "text": "\"12 & -12\""
-              },
-              "fn_highest": {
-                "text": "\"0b0100 (Bit 2)\""
-              }
-            },
-            "tones": {
-              "fn_pending": "ok",
-              "fn_negate": "ok",
-              "fn_and": "ok",
-              "fn_highest": "ok"
-            },
-            "arrows": [
-              [
-                "fn_and",
-                "fn_highest"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "The reconciler selects Bit 2 (DefaultLane) instantly without any loops, arrays, or branches.",
+            "caption": "Bitwise union merges arriving updates while subtraction clears lanes.",
             "values": {
-              "fn_pending": {
-                "text": "\"Processed\""
+              "n1": {
+                "text": "pendingLanes"
               },
-              "fn_negate": {
-                "text": "\"Done\""
+              "n2": {
+                "text": "getHighestPriorityLane"
               },
-              "fn_and": {
-                "text": "\"Done\""
+              "n3": {
+                "text": "activeRenderLane"
               },
-              "fn_highest": {
-                "text": "\"Active Render\""
+              "n4": {
+                "text": "LaneA"
               }
             },
             "tones": {
-              "fn_pending": "idle",
-              "fn_negate": "idle",
-              "fn_and": "ok",
-              "fn_highest": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn_and",
-                "fn_highest"
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Digital logic preserves lowest bit while inversion resets trailing ones.",
+            "values": {
+              "n1": {
+                "text": "pendingLanes"
+              },
+              "n2": {
+                "text": "getHighestPriorityLane"
+              },
+              "n3": {
+                "text": "activeRenderLane"
+              },
+              "n4": {
+                "text": "LaneA"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
               ]
             ]
           }
@@ -726,97 +790,241 @@
       "codeHash": "56738d13fdd276664e23a52445f9ed52d5ef1a40e3fb0a4a6ad2cf2ca3284668",
       "spec": {
         "template": "states",
-        "title": "Lane Starvation & Priority Escalation Lifecycle",
+        "title": "Priority Starvation Escalation",
         "states": [
           {
-            "id": "ls1",
-            "label": "SCHEDULED"
+            "id": "s1",
+            "label": "pendingLanes"
           },
           {
-            "id": "ls2",
-            "label": "COOPERATIVE_WAIT"
+            "id": "s2",
+            "label": "expirationTimes"
           },
           {
-            "id": "ls3",
-            "label": "DEADLINE_EXPIRED"
+            "id": "s3",
+            "label": "expiredLanes"
           },
           {
-            "id": "ls4",
-            "label": "PROMOTED_TO_SYNC"
+            "id": "s4",
+            "label": "ContinuousLane"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Update is scheduled into TransitionLane with a five,ms expiration timeout.",
-            "activeId": "ls1",
-            "tone": "idle"
+            "caption": "Continuous user interactions introduce severe risks of priority starvation.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Continuous user keystrokes cause transition to yield cooperatively in COOPERATIVE_WAIT.",
-            "activeId": "ls2",
-            "tone": "data"
+            "caption": "Scheduler assigns expiration timestamps to calculate deadline windows.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Current timestamp exceeds expiration deadline; lane transitions to DEADLINE_EXPIRED.",
-            "activeId": "ls3",
-            "tone": "error"
+            "caption": "Surpassed timestamps promote starved lanes into expired bitmasks.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "ok",
+              "s3": "error",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Starved lane is promoted into expiredLanes and executes synchronously to completion.",
-            "activeId": "ls4",
-            "tone": "ok"
+            "caption": "Starved tasks escalate to synchronous execution without yielding.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Lane Starvation & Priority Escalation Lifecycle",
+        "title": "Priority Starvation Escalation",
         "states": [
           {
-            "id": "ls1",
-            "label": "SCHEDULED"
+            "id": "s1",
+            "label": "pendingLanes"
           },
           {
-            "id": "ls2",
-            "label": "COOPERATIVE_WAIT"
+            "id": "s2",
+            "label": "expirationTimes"
           },
           {
-            "id": "ls3",
-            "label": "DEADLINE_EXPIRED"
+            "id": "s3",
+            "label": "expiredLanes"
           },
           {
-            "id": "ls4",
-            "label": "PROMOTED_TO_SYNC"
+            "id": "s4",
+            "label": "ContinuousLane"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Update is scheduled into TransitionLane with a 5,000ms expiration timeout.",
-            "activeId": "ls1",
-            "tone": "idle"
+            "caption": "Continuous user interactions introduce severe risks of priority starvation.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Continuous user keystrokes cause transition to yield cooperatively in COOPERATIVE_WAIT.",
-            "activeId": "ls2",
-            "tone": "data"
+            "caption": "Scheduler assigns expiration timestamps to calculate deadline windows.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Current timestamp exceeds expiration deadline; lane transitions to DEADLINE_EXPIRED.",
-            "activeId": "ls3",
-            "tone": "error"
+            "caption": "Surpassed timestamps promote starved lanes into expired bitmasks.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "ok",
+              "s3": "error",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Starved lane is promoted into expiredLanes and executes synchronously to completion.",
-            "activeId": "ls4",
-            "tone": "ok"
+            "caption": "Starved tasks escalate to synchronous execution without yielding.",
+            "values": {
+              "s1": {
+                "text": "pendingLanes"
+              },
+              "s2": {
+                "text": "expirationTimes"
+              },
+              "s3": {
+                "text": "expiredLanes"
+              },
+              "s4": {
+                "text": "ContinuousLane"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       }
@@ -825,135 +1033,241 @@
       "partTitle": "Building a Production 31-Bit Bitmask Lane Scheduler in Pure JavaScript",
       "codeHash": "e758ad37826445e2200aa2a09a8807a543e5e1bdc6adf4ceff25666e5c3c3aa9",
       "spec": {
-        "template": "wireframe",
-        "title": "31-Bit Bitmask Lane Scheduler Register Monitor",
-        "wireframe": {
-          "header": "Fiber Root Lane Registers",
-          "controls": [
-            "pendingLanes: [0b00010101]",
-            "expiredLanes: [0b00000000]",
-            "Active: SyncLane (Bit 0)"
-          ],
-          "viewport": {
-            "totalHeightPx": 200,
-            "renderedRange": "Priority: SyncLane preempting DefaultLane and TransitionLane",
-            "opacity": 1
+        "template": "boxes",
+        "title": "Lane Scheduler Work Loop",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SyncLane"
+          },
+          {
+            "id": "b2",
+            "label": "DefaultLane"
+          },
+          {
+            "id": "b3",
+            "label": "TransitionLane"
+          },
+          {
+            "id": "b4",
+            "label": "IdleLane"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fiber root tracks pending updates in a multiple-bit integer register.",
+            "caption": "Scheduler synthesizes bitwise definitions into cohesive engine.",
             "values": {
-              "registers": {
-                "text": "\"pending: 0b00010100\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "registers": "data"
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Urgent SyncLane arrives; bitwise OR sets bit zero (pending becomes zerob).",
+            "caption": "Fiber root tracks pending updates and expired starvation lanes.",
             "values": {
-              "registers": {
-                "text": "\"pending: 0b00010101\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "registers": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Lanes & -lanes isolates bit zero; SyncLane preempts all background.",
+            "caption": "Scheduler flushes highest priority lanes and clears active bits.",
             "values": {
-              "preemption": {
-                "text": "\"Preempted to Bit 0\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "preemption": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Upon commit, bitwise AND with NOT clears bit zero, restoring background.",
+            "caption": "Integer registers maintain bare metal speed without allocations.",
             "values": {
-              "registers": {
-                "text": "\"pending: 0b00010100\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "registers": "data"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "wireframe",
-        "title": "31-Bit Bitmask Lane Scheduler Register Monitor",
-        "wireframe": {
-          "header": "Fiber Root Lane Registers",
-          "controls": [
-            "pendingLanes: [0b00010101]",
-            "expiredLanes: [0b00000000]",
-            "Active: SyncLane (Bit 0)"
-          ],
-          "viewport": {
-            "totalHeightPx": 200,
-            "renderedRange": "Priority: SyncLane preempting DefaultLane and TransitionLane",
-            "opacity": 1
+        "template": "boxes",
+        "title": "Lane Scheduler Work Loop",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SyncLane"
+          },
+          {
+            "id": "b2",
+            "label": "DefaultLane"
+          },
+          {
+            "id": "b3",
+            "label": "TransitionLane"
+          },
+          {
+            "id": "b4",
+            "label": "IdleLane"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fiber root tracks pending updates in a 31-bit integer register pendingLanes.",
+            "caption": "Scheduler synthesizes bitwise definitions into cohesive engine.",
             "values": {
-              "registers": {
-                "text": "\"pending: 0b00010100\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "registers": "data"
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Urgent SyncLane arrives; bitwise OR sets bit 0 (pending becomes 0b00010101).",
+            "caption": "Fiber root tracks pending updates and expired starvation lanes.",
             "values": {
-              "registers": {
-                "text": "\"pending: 0b00010101\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "registers": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "lanes & -lanes isolates bit 0; SyncLane preempts all background rendering.",
+            "caption": "Scheduler flushes highest priority lanes and clears active bits.",
             "values": {
-              "preemption": {
-                "text": "\"Preempted to Bit 0\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "preemption": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Upon commit, bitwise AND with NOT clears bit 0, restoring background lanes.",
+            "caption": "Integer registers maintain bare metal speed without allocations.",
             "values": {
-              "registers": {
-                "text": "\"pending: 0b00010100\""
+              "b1": {
+                "text": "SyncLane"
+              },
+              "b2": {
+                "text": "DefaultLane"
+              },
+              "b3": {
+                "text": "TransitionLane"
+              },
+              "b4": {
+                "text": "IdleLane"
               }
             },
             "tones": {
-              "registers": "data"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
