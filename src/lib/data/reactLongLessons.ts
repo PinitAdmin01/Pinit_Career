@@ -16670,15 +16670,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add Client-Side Rendering (CSR) to the spectrum and compare its TTFB and SEO capabilities.",
       example: "PPR flushes an instant static HTML shell from the edge CDN in milliseconds while streaming dynamic server holes in parallel within the exact same HTTP connection.",
         "check": {
-        "question": "How does Partial Prerendering (PPR) eliminate the historical tradeoff between SSG and SSR?",
+        "question": "How does Partial Prerendering (PPR) resolve the historic trade-off between static generation and dynamic rendering?",
         "options": [
-          "It prerenders a static HTML shell at build time served in sub-10ms from Edge CDNs, while streaming personalized dynamic Suspense holes into the same HTTP response",
-          "By converting all web pages into static images",
-          "By forcing all users to download the entire database before viewing the page",
-          "By disabling dynamic data across the entire website"
+          "By compiling all server components into static WebAssembly machine binaries during build time, bypassing all browser DOM reconciliation engines.",
+          "By serving a static HTML shell instantly from the edge while streaming dynamic holes wrapped in Suspense over the same single HTTP connection.",
+          "By executing all server database queries inside client web worker threads, completely eliminating the need for backend cloud computing clusters.",
+          "By converting all interactive React components into pre-rendered static JPEG images that execute navigation transitions via client image maps."
         ],
-        "answer": 0,
-        "why": "PPR flushes an instant static HTML shell from the edge CDN in milliseconds while streaming dynamic server holes in parallel within the exact same HTTP connection."
+        "answer": 1,
+        "why": "PPR delivers a static HTML shell in <10ms from the edge while streaming dynamic content inside Suspense boundaries into the same HTTP response."
       }
     },
     {
@@ -16714,15 +16714,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a dynamic user recommendation widget and verify that it streams as Chunk #3 without blocking the shell.",
       example: "React throws a Postpone signal upon encountering dynamic APIs (cookies, headers).",
         "check": {
-        "question": "What signal does React use during build time to identify dynamic holes in a Partial Prerendering pass?",
+        "question": "What architectural boundary does Next.js use at build time to identify dynamic holes in a Partial Prerendering route?",
         "options": [
-          "The React Postpone signal, which pauses rendering for dynamic sub-trees wrapped in Suspense and embeds fallback skeletons in the static shell",
-          "A fatal syntax error that aborts the build process",
-          "A browser alert popup asking the developer for permission",
-          "An HTTP 404 Not Found error code"
+          "Hardware CPU interrupt signals that indicate when the operating system kernel initiates a network socket connection to an external database.",
+          "CSS layout visibility flags that declare whether a specific DOM element should render inside the initial viewport or below the document fold.",
+          "Cryptographic public key signatures attached to client HTTP request headers that verify whether the visitor holds administrative permissions.",
+          "React Suspense boundaries wrapping components that access dynamic functions like cookies(), headers(), or un-cached asynchronous data fetches."
         ],
-        "answer": 0,
-        "why": "React throws a Postpone signal upon encountering dynamic APIs (cookies, headers). Next.js catches this signal, embeds the Suspense fallback into the static shell, and defers rendering until request time."
+        "answer": 3,
+        "why": "Next.js prerenders the static shell up to Suspense boundaries; components inside Suspense accessing dynamic APIs become streaming holes."
       }
     },
     {
@@ -16758,15 +16758,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a Footer component calling getCachedUser1 and verify that dbQueryCount remains strictly 1.",
       example: "React cache() is strictly scoped to the lifecycle of an individual incoming request.",
         "check": {
-        "question": "Why is React cache() preferable to global in-memory caching for user data queries in Server Components?",
+        "question": "Why is React cache() superior to global in-memory maps for request-scoped memoization in Server Components?",
         "options": [
-          "React cache() is request-scoped and automatically discarded when the HTTP response completes, preventing cross-tenant data leakage",
-          "Because React cache() saves all data to localStorage",
-          "Because global caching uses too much battery power on phones",
-          "Because React cache() automatically translates text into French"
+          "Because cache() scopes cached data strictly to the current request lifecycle, automatically preventing cross-user data leakage and memory bloat.",
+          "Because cache() compiles JavaScript database queries into native C++ assembly code, boosting execution speed by twenty times across processors.",
+          "Because cache() forces client browsers to store database records in encrypted hardware cookies, eliminating server-side RAM heap allocations.",
+          "Because cache() converts all relational database tables into static JSON files on edge CDN networks to eliminate network round-trip latencies."
         ],
         "answer": 0,
-        "why": "React cache() is strictly scoped to the lifecycle of an individual incoming request. It prevents N+1 query cascades while guaranteeing zero cross-user memory leakage."
+        "why": "React cache() binds memoized results to the individual request context, garbage collecting automatically when the request ends and preventing data leaks."
       }
     },
     {
@@ -16803,15 +16803,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Purge a tag that does not exist and verify that the revalidation returns 0 without crashing.",
       example: "Tag-based revalidation eliminates arbitrary time expiration.",
         "check": {
-        "question": "What is the primary advantage of tag-based revalidation (revalidateTag) over time-based revalidation (TTL)?",
+        "question": "What is the primary architectural advantage of tag-based revalidation with revalidateTag in Next.js?",
         "options": [
-          "Data is cached indefinitely for maximum performance and purged instantly upon real-world mutation events, eliminating stale data windows",
-          "Tag-based revalidation allows servers to run without electricity",
-          "It eliminates the need for database backups",
-          "It makes all web pages load in exactly zero nanoseconds"
+          "It automatically converts relational database queries into non-relational document collections, reducing cloud server memory storage by half.",
+          "It allows client web applications to bypass cross-origin security rules when fetching third-party resources from external content providers.",
+          "It enables precise granular purging of specific entities across distributed edge caches without invalidating unrelated static content pools.",
+          "It disables client-side JavaScript execution during form submissions, forcing all form actions to execute exclusively via standard HTML POST."
         ],
-        "answer": 0,
-        "why": "Tag-based revalidation eliminates arbitrary time expiration. Cache entries remain fast and hot until an authentic data change occurs, triggering instantaneous on-demand purging."
+        "answer": 2,
+        "why": "revalidateTag purges only cache entries associated with a specific semantic key, avoiding the performance penalty of broad cache invalidation."
       }
     },
     {
@@ -16852,15 +16852,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Set clsScore to 0.05 and observe how the audit suite flags the visual layout shift.",
       example: "When dynamic server content streams into Suspense holes, matching skeleton dimensions ensure that content replaces fallbacks smoothly with zero layout shift, preserving Core Web Vitals.",
         "check": {
-        "question": "Why is maintaining a Cumulative Layout Shift (CLS) of 0.00 essential when streaming dynamic holes in PPR?",
+        "question": "Why is maintaining a Cumulative Layout Shift (CLS) of 0.00 critical when streaming dynamic holes into a static shell?",
         "options": [
-          "To prevent page elements from jumping jarringly when dynamic content replaces fallback skeletons, preserving visual stability",
-          "To reduce the size of the computer screen",
-          "Because web browsers will delete websites with high layout shift",
-          "To prevent the user keyboard from disconnecting"
+          "Because any layout shift causes client operating system display servers to terminate active browser processes to avoid memory graphics crashes.",
+          "To prevent jarring visual jumps and unintended mis-clicks when streamed dynamic components replace fallback skeletons in the rendered layout.",
+          "To force client hardware graphics cards to re-render the entire desktop operating system window interface using hardware accelerated shaders.",
+          "To compress HTML response payloads with hardware gzip compression algorithms before transmitting them across distributed network socket lines."
         ],
-        "answer": 0,
-        "why": "When dynamic server content streams into Suspense holes, matching skeleton dimensions ensure that content replaces fallbacks smoothly with zero layout shift, preserving Core Web Vitals."
+        "answer": 1,
+        "why": "Fallback skeletons must match the dimensions of resolved dynamic content so that streaming completion does not shift surrounding page content."
       }
     }
   ],
