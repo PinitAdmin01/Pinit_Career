@@ -68,13 +68,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why can a standard CNAME not coexist with required records at a DNS zone apex?",
           options: [
-            "A CNAME owner cannot have other ordinary data records, while a zone apex must publish SOA and NS records",
-            "A CNAME target must be an IP address; a hostname target is allowed only for A and AAAA records",
-            "A zone apex cannot use any provider-specific alias or flattening feature because DNS resolvers reject apex aliases",
-            "A CNAME performs an HTTP redirect, so HTTPS certificates cannot cover the alias name",
+            "A CNAME record target must always be configured as a physical numerical IP address host.",
+            "A CNAME record owner cannot possess other records while apex roots require SOA and NS data.",
+            "A CNAME performs an HTTP redirect so SSL certificates cannot validate apex domain hostings.",
+            "A zone apex rejects all provider aliases because resolver caches drop apex configurations."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "RFC 1034 section 3.6.2 dictates that if a CNAME record is present at a node, no other data records may be present. Because a zone apex mandates SOA and NS records, a CNAME cannot coexist at the root apex.",
           explanation: "RFC 1034 section 3.6.2 dictates that if a CNAME record is present at a node, no other data records may be present. Because a zone apex mandates SOA and NS records, a CNAME cannot coexist at the root apex."
         }
@@ -128,13 +128,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural cause of transport-layer head-of-line blocking in HTTP/2?",
           options: [
-            "All streams share TCP's ordered byte stream; a missing TCP segment holds later connection bytes until recovery, delaying data across streams",
-            "Each HTTP/2 stream uses a separate TCP connection, but a per-stream timeout pauses every connection together",
-            "HPACK requires the browser's main thread to finish decoding every header block before any frame on any stream can be delivered",
-            "TCP permits only one active HTTP request on a connection, so HTTP/2 cannot interleave frames from different streams",
+            "Each HTTP/2 stream uses a separate TCP connection where timeouts pause all active links.",
+            "HPACK requires the main thread to decode every header block before any frame is handled.",
+            "TCP permits only one active HTTP request per link preventing interleaved stream frames.",
+            "All streams share one TCP byte stream where a lost segment stalls subsequent stream bytes."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "TCP delivers bytes in order. If a segment is missing, later bytes on that connection cannot be delivered to HTTP/2 until the gap is recovered; this can delay data across streams even when later segments arrived.",
           explanation: "TCP delivers bytes in order. If a segment is missing, later bytes on that connection cannot be delivered to HTTP/2 until the gap is recovered; this can delay data across streams even when later segments arrived."
         }
@@ -195,10 +195,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why can an applicable stylesheet delay first paint while HTML DOM parsing continues?",
           options: [
-            "Applicable render-blocking stylesheets must be parsed so the browser can compute the styles needed for the initial render, even while HTML parsing can progress incrementally",
-            "The HTML tokenizer must stop whenever a stylesheet is discovered, even if the sheet is not applicable to the current media",
-            "The browser must finish every stylesheet before it can construct any DOM nodes or process later HTML bytes",
-            "The browser waits for CSS selectors to be converted into JavaScript before the DOM can receive input events",
+            "Render-blocking stylesheets must parse so the engine computes styles for initial paint.",
+            "The HTML tokenizer pauses whenever a stylesheet is found even if media queries mismatch.",
+            "The browser must parse every stylesheet before constructing any DOM elements from bytes.",
+            "The browser waits for CSS selectors to convert to JavaScript before DOM events register."
           ],
           answer: 0,
           answerIndex: 0,
@@ -257,13 +257,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Which pair is often compositor-friendly because it does not change layout geometry?",
           options: [
-            "transform and opacity",
-            "width, height, and margin-top",
-            "top, left, and border-width",
-            "background-color and font-size",
+            "width, height, and margin-top updates",
+            "top, left, and border-width adjustments",
+            "transform and opacity visual properties",
+            "background-color and font-size changes"
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Transform and opacity can often be updated without changing layout geometry. When the browser can composite the change, it may avoid layout and paint, but layer promotion and frame rate are not guaranteed.",
           explanation: "Transform and opacity can often be updated without changing layout geometry. When the browser can composite the change, it may avoid layout and paint, but layer promotion and frame rate are not guaranteed."
         }
@@ -314,13 +314,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What risk grows when code updates application state and the DOM separately?",
           options: [
-            "The application must coordinate data and DOM changes manually; missed or out-of-order updates can leave the interface out of sync",
-            "Every direct DOM update forces a full-document reflow, regardless of which property changed or whether layout was pending",
-            "Imperative code disables browser event propagation, so each element requires a separate network request to receive input",
-            "Direct DOM updates prevent JavaScript state from being serialized, even when an application explicitly implements serialization",
+            "Every direct DOM update forces a full document reflow regardless of which property changed.",
+            "Manual coordination across data and the DOM allows missed updates that leave the UI drifted.",
+            "Imperative code disables event bubbling so each element requires a separate network handler.",
+            "Direct DOM updates prevent state serialization even when an app implements it explicitly."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Imperative updates require the application to keep JavaScript data and the DOM in sync manually. As update paths grow, missed or out-of-order mutations can cause UI drift; layout work may also be triggered by read/write patterns. The risk depends on the design and update sequence.",
           explanation: "Imperative updates require the application to keep JavaScript data and the DOM in sync manually. As update paths grow, missed or out-of-order mutations can cause UI drift; layout work may also be triggered by read/write patterns. The risk depends on the design and update sequence."
         }
@@ -401,13 +401,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural reason why primitive values are stored directly on the Call Stack while objects reside in the Managed Heap?",
           options: [
-            "Primitive values have fixed, compile-time predictable sizes and lifecycles bound to stack frames, whereas objects have dynamic sizes and persistent lifecycles that outlive the function that created them",
-            "The Call Stack only accepts ASCII character encodings and cannot store UTF-8 international strings",
-            "Operating system kernels prohibit heap memory from executing arithmetic operations",
-            "Browser security boundaries block web workers from accessing stack-allocated memory addresses",
+            "Operating system kernels prohibit heap memory from executing standard arithmetic instructions.",
+            "Primitives have predictable sizes bound to stack frames while objects require dynamic heap memory.",
+            "Browser security boundaries block web workers from accessing local stack allocated memory pages.",
+            "The Call Stack only accepts ASCII character encodings and cannot store UTF-8 international texts."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Stack frames require fixed-size, predictable memory layouts to allow instant O(1) stack pointer movement. Dynamically sized objects require the managed heap.",
           explanation: "Stack frames require fixed-size, predictable memory layouts to allow instant O(1) stack pointer movement. Dynamically sized objects require the managed heap."
         }
@@ -456,13 +456,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does evaluating [1, 2] === [1, 2] in JavaScript evaluate to false?",
           options: [
-            "The strict equality operator evaluates reference memory addresses; the two array literals allocate distinct heap addresses, so their pointers are not identical",
-            "JavaScript arrays cannot be evaluated with equality operators without first calling the toString serializer",
-            "The array elements are stored on different CPU registers that prevent bitwise comparison",
-            "Array equality is strictly reserved for instances compiled with WebAssembly memory modules",
+            "JavaScript arrays cannot be evaluated with equality operators without first calling toString.",
+            "The array elements are stored on different CPU registers that prevent any bitwise comparison.",
+            "Array equality is strictly reserved for instances compiled with native WebAssembly modules.",
+            "Strict equality checks reference memory addresses, so distinct array heap allocations differ."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "Strict equality on non-primitives checks reference identity (whether both operands share the identical memory address), not deep structural equivalence.",
           explanation: "Strict equality on non-primitives checks reference identity (whether both operands share the identical memory address), not deep structural equivalence."
         }
@@ -513,10 +513,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does React require state updates to be strictly immutable rather than allowing in-place object mutations?",
           options: [
-            "Immutability enables O(1) shallow reference equality checks (Object.is) to instantly determine if re-rendering is needed, eliminating expensive O(N) recursive tree traversals",
-            "JavaScript garbage collection crashes whenever an object property is modified more than three times",
-            "Mutating objects in place causes Node.js servers to drop active WebSocket connections",
-            "The browser HTML parser refuses to accept DOM updates originating from mutable variables",
+            "Immutability enables instant shallow reference equality checks avoiding deep tree recursion.",
+            "JavaScript garbage collection crashes whenever an object property is mutated over three times.",
+            "Mutating objects in place causes Node.js servers to drop active WebSocket client connections.",
+            "The browser HTML parser refuses to accept DOM element updates originating from mutable variables."
           ],
           answer: 0,
           answerIndex: 0,
@@ -572,13 +572,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does 0.1 + 0.2 === 0.3 evaluate to false in JavaScript?",
           options: [
-            "Numbers in JavaScript follow IEEE 754 64-bit floating-point format, where fractional decimals like 0.1 and 0.2 cannot be represented with finite precision in base-2 binary",
-            "The strict equality operator converts both operands to hexadecimal integers before comparing",
-            "JavaScript limits addition expressions to integer values unless the math module is explicitly imported",
-            "The V8 JIT compiler truncates decimal places to optimize garbage collection heap allocation",
+            "The strict equality operator converts both operands to hexadecimal integers before comparing.",
+            "JavaScript limits addition expressions to integer values unless math modules are imported.",
+            "Floating-point numbers follow IEEE 754 format where base-10 fractions lose precision in binary.",
+            "The V8 JIT compiler truncates decimal places to optimize garbage collection heap allocations."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Base-10 fractional numbers cannot be represented as finite binary fractions in IEEE 754 double precision, resulting in 0.30000000000000004.",
           explanation: "Base-10 fractional numbers cannot be represented as finite binary fractions in IEEE 754 double precision, resulting in 0.30000000000000004."
         }
@@ -628,13 +628,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural purpose of utilizing the TypeScript 'never' type in the default branch of a switch statement evaluating a discriminated union?",
           options: [
-            "To enforce compile-time exhaustiveness checking, causing a build failure if a developer adds a new variant to the union without handling it in the switch statement",
-            "To instruct the V8 garbage collector to instantly delete the switch statement from memory",
-            "To convert the switch statement into an asynchronous background Promise",
-            "To allow the switch statement to accept floating-point numbers without type coercion",
+            "To instruct the V8 garbage collector to instantly delete the switch statement from call stacks.",
+            "To enforce compile-time exhaustiveness checking ensuring all discriminated variants are handled.",
+            "To convert the switch statement into an asynchronous background promise executed by event loops.",
+            "To allow the switch statement to accept floating-point numbers without implicit type coercions."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "If all union variants are handled, the variable in the default branch is inferred as never. If a variant is missed, it has that unhandled type, causing an invalid assignment to never and failing the build.",
           explanation: "If all union variants are handled, the variable in the default branch is inferred as never. If a variant is missed, it has that unhandled type, causing an invalid assignment to never and failing the build."
         }
