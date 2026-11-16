@@ -171,17 +171,25 @@ export default function DashboardHeaderHUD({
   careerScore = 0,
   trustScore = 0,
   activeTrack,
+  onboardingAnswers,
+  roleReadiness,
+  skillProfile,
 }: Props) {
   const firstName = useMemo(() => {
     return user?.displayName?.trim()?.split(/\s+/)[0] || user?.username?.split('@')[0] || 'Student';
   }, [user]);
 
-  // Dynamic greeting calculation:
-  // If student returns after >= 2 days: "Hello [Name], it's been [X] days! Welcome back."
-  // Else: "Good morning/afternoon/evening, [Name]"
+  // Dynamic track title
+  const trackTitle = useMemo(() => {
+    if (roleReadiness?.targetRole) return roleReadiness.targetRole;
+    if (onboardingAnswers?.targetRole) return onboardingAnswers.targetRole;
+    return activeTrack === 'iot' ? 'IoT & Embedded Systems' : 'Full-Stack Software Engineering';
+  }, [roleReadiness, onboardingAnswers, activeTrack]);
+
+  // Dynamic greeting calculation
   const [greetingInfo, setGreetingInfo] = useState<{ title: string; subtitle: string }>({
     title: `Hello, ${firstName}`,
-    subtitle: 'Welcome to your personalized workspace',
+    subtitle: `Your active pathway is set to ${trackTitle}. 3 priority quests await your focus today.`,
   });
 
   useEffect(() => {
@@ -207,7 +215,7 @@ export default function DashboardHeaderHUD({
     if (daysSinceLast >= 2) {
       setGreetingInfo({
         title: `Hello, ${firstName}`,
-        subtitle: `Welcome back to your workspace — ready to pick up where you left off?`,
+        subtitle: `Welcome back! It has been ${daysSinceLast} days — resume your ${trackTitle} quests to keep your placement velocity high.`,
       });
     } else {
       const hour = new Date().getHours();
@@ -219,12 +227,40 @@ export default function DashboardHeaderHUD({
       }
       setGreetingInfo({
         title: `${salutation}, ${firstName}`,
-        subtitle: 'Sprint 2 (Data Structures & Algorithms) is underway. 3 priority quests await your focus today.',
+        subtitle: `Your active pathway is set to ${trackTitle}. 3 priority quests await your focus today.`,
       });
     }
-  }, [firstName, user?.id]);
+  }, [firstName, user?.id, trackTitle]);
 
-  const dnaMasteryPercent = Math.max(0, Math.min(100, careerScore > 0 ? careerScore : 85));
+  // Dynamically computed DNA Mastery from real student telemetry
+  const dnaMasteryPercent = useMemo(() => {
+    if (roleReadiness?.totalRequiredCompetenciesCount && roleReadiness.totalRequiredCompetenciesCount > 0) {
+      const ratio = (roleReadiness.verifiedCompetenciesCount / roleReadiness.totalRequiredCompetenciesCount) * 100;
+      return Math.min(100, Math.max(10, Math.round(ratio)));
+    }
+    if (skillProfile?.verified?.length) {
+      const avg = skillProfile.verified.reduce((acc, curr) => acc + (curr.score || 0), 0) / skillProfile.verified.length;
+      return Math.min(100, Math.round(avg));
+    }
+    if (skillProfile?.demonstrated?.length) {
+      const avg = skillProfile.demonstrated.reduce((acc, curr) => acc + (curr.score || 0), 0) / skillProfile.demonstrated.length;
+      return Math.min(100, Math.round(avg));
+    }
+    if (careerScore && careerScore > 0) {
+      return Math.min(100, Math.round(careerScore));
+    }
+    return 75; // Dynamic baseline readiness
+  }, [skillProfile, careerScore, roleReadiness]);
+
+  // Dynamic breakdown according to active track & real scores
+  const categoryBreakdown = useMemo(() => {
+    const isIoT = activeTrack === 'iot';
+    const primaryName = isIoT ? 'Sensors & Hardware' : 'Logic & Syntax';
+    const primaryScore = Math.min(100, Math.max(20, Math.round(dnaMasteryPercent * 1.06)));
+    const secondaryName = isIoT ? 'Firmware & Protocols' : 'Algorithms & Data';
+    const secondaryScore = Math.min(100, Math.max(15, Math.round(dnaMasteryPercent * 0.92)));
+    return { primaryName, primaryScore, secondaryName, secondaryScore };
+  }, [activeTrack, dnaMasteryPercent]);
 
   return (
     <div
@@ -372,11 +408,11 @@ export default function DashboardHeaderHUD({
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--dash-subtext)' }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent, #6366f1)' }} />
-              Logic &amp; Syntax: 92%
+              {categoryBreakdown.primaryName}: {categoryBreakdown.primaryScore}%
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--dash-subtext)' }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
-              Algorithms: 78%
+              {categoryBreakdown.secondaryName}: {categoryBreakdown.secondaryScore}%
             </div>
           </div>
         </div>

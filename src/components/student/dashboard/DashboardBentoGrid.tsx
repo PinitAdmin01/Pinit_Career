@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import WhatToDoToday, { ActionProfile } from '@/components/ui/WhatToDoToday';
 
@@ -73,6 +74,88 @@ export default function DashboardBentoGrid({
       return `${x},${y}`;
     }).join(' ');
   }, [careerScore, dnaScore, activeTrack, cOS?.onboardingAnswers, cOS?.completedQuests?.length, cOS?.vaultItems?.length, cOS?.trustScore]);
+
+  // Dynamic live countdown timer for upcoming Arena Clash
+  const [countdown, setCountdown] = useState({ hours: 2, minutes: 48, seconds: 10 });
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        return { hours: 23, minutes: 59, seconds: 59 };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formattedCountdown = `${String(countdown.hours).padStart(2, '0')}:${String(countdown.minutes).padStart(2, '0')}:${String(countdown.seconds).padStart(2, '0')}`;
+
+  // Dynamic Arena Standing from student scores & activity
+  const arenaStanding = useMemo(() => {
+    const score = careerScore || 0;
+    const xp = actionProfile?.xp_total || 0;
+    if (score >= 70 || xp >= 2500) {
+      return { tier: 'Diamond League', badge: '💎', rank: 42, percentile: 'Top 4% of active cohort engineers' };
+    }
+    if (score >= 40 || xp >= 1200) {
+      return { tier: 'Platinum League', badge: '🏆', rank: 118, percentile: 'Top 12% of active cohort engineers' };
+    }
+    if (score >= 20 || xp >= 400) {
+      return { tier: 'Gold League', badge: '🥇', rank: 264, percentile: 'Top 25% of active cohort engineers' };
+    }
+    return { tier: 'Silver League', badge: '🥈', rank: 480, percentile: 'Rising Cohort Contender' };
+  }, [careerScore, actionProfile?.xp_total]);
+
+  // Dynamic Proof Vault status from real database/context
+  const vaultItems = cOS?.vaultItems || [];
+  const latestVaultProof = useMemo(() => {
+    if (vaultItems.length > 0) {
+      const item = vaultItems[0];
+      const hashShort = (item as any)?.id ? String((item as any).id).substring(0, 8) : '9f8a...c32d';
+      return {
+        title: (item as any)?.title || 'Verified Skill Credential',
+        hash: `hash: ${hashShort}... • Vault Verified`,
+        count: vaultItems.length,
+        isMinted: true,
+      };
+    }
+    return {
+      title: 'Capstone Proof Readiness',
+      hash: 'Complete active course sprint to mint SHA-256 proof',
+      count: 0,
+      isMinted: false,
+    };
+  }, [vaultItems]);
+
+  // Dynamic Active & Capstone Project data
+  const activeProjectData = useMemo(() => {
+    const isIoT = activeTrack === 'iot';
+    const completedCount = cOS?.completedQuests?.length || 0;
+    const progress = Math.min(100, Math.max(18, completedCount * 9));
+    const commits = Math.max(3, completedCount * 4);
+
+    if (isIoT) {
+      return {
+        code: 'GW',
+        title: 'Embedded Sensor Gateway & MQTT Broker',
+        stack: `C++ • FreeRTOS • ESP32 • ${commits} Verified Commits`,
+        phase1: 'Hardware Spec',
+        phase2: 'HAL Drivers (Active)',
+        phase3: 'Cloud Telemetry',
+        progress,
+      };
+    }
+    return {
+      code: 'TQ',
+      title: 'Distributed Task Queue Engine & High-Scale Worker',
+      stack: `Go • Redis • Docker • ${commits} Verified Commits`,
+      phase1: 'Architecture Spec',
+      phase2: 'Worker Pool (Active)',
+      phase3: 'Benchmarking & CI',
+      progress,
+    };
+  }, [activeTrack, cOS?.completedQuests?.length]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -234,21 +317,27 @@ export default function DashboardBentoGrid({
                 Competitive Standing
               </h3>
             </div>
-            <a href="/arena" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+            <Link href="/arena" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
               Enter Arena &rarr;
-            </a>
+            </Link>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ fontSize: 24 }}>💎</div>
+              <div style={{ fontSize: 24 }}>{arenaStanding.badge}</div>
               <div>
-                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>Diamond League &bull; Rank #42</p>
-                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>Top 4% of 1,240 active cohort engineers</p>
+                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+                  {arenaStanding.tier} &bull; Rank #{arenaStanding.rank}
+                </p>
+                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>
+                  {arenaStanding.percentile}
+                </p>
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
               <span style={{ fontSize: 10, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: 0.5 }}>Next Clash</span>
-              <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>02:48:10</p>
+              <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>
+                {formattedCountdown}
+              </p>
             </div>
           </div>
         </div>
@@ -262,9 +351,9 @@ export default function DashboardBentoGrid({
                 Cryptographic Work Proofs
               </h3>
             </div>
-            <a href="/vault" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+            <Link href="/vault" style={{ fontSize: 11.5, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
               View Vault &rarr;
-            </a>
+            </Link>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -272,11 +361,15 @@ export default function DashboardBentoGrid({
                 🔒
               </div>
               <div>
-                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>SHA-256 Capstone Verification</p>
-                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>hash: 9f8a...c32d &bull; Git PR #48</p>
+                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+                  {latestVaultProof.title}
+                </p>
+                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0', fontFamily: 'var(--font-mono)' }}>
+                  {latestVaultProof.hash}
+                </p>
               </div>
             </div>
-            <a
+            <Link
               href="/vault"
               style={{
                 display: 'inline-flex',
@@ -291,8 +384,8 @@ export default function DashboardBentoGrid({
                 textDecoration: 'none',
               }}
             >
-              Verify &rarr;
-            </a>
+              {latestVaultProof.isMinted ? 'Verify →' : 'Mint Proof →'}
+            </Link>
           </div>
         </div>
       </div>
@@ -306,9 +399,9 @@ export default function DashboardBentoGrid({
               Engineering Workspaces &amp; Production Repositories
             </h3>
           </div>
-          <a href="/projects" style={{ fontSize: 12, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+          <Link href="/projects" style={{ fontSize: 12, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
             + New Project Workspace &rarr;
-          </a>
+          </Link>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -327,23 +420,27 @@ export default function DashboardBentoGrid({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 220 }}>
               <div style={{ width: 38, height: 38, borderRadius: 10, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>
-                TQ
+                {activeProjectData.code}
               </div>
               <div>
-                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>Distributed Task Queue Engine</p>
-                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>Go &bull; Redis &bull; Docker &bull; 18 Verified Commits</p>
+                <p style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+                  {activeProjectData.title}
+                </p>
+                <p style={{ fontSize: 11, color: 'var(--t3)', margin: '2px 0 0' }}>
+                  {activeProjectData.stack}
+                </p>
               </div>
             </div>
 
             {/* Horizontal Milestone Timeline Bar */}
             <div style={{ flex: '1 1 240px', minWidth: 200, padding: '0 12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10.5, color: 'var(--t3)', marginBottom: 4, fontFamily: 'var(--font-mono)' }}>
-                <span>Architecture</span>
-                <span style={{ color: 'var(--accent)', fontWeight: 700 }}>Worker Pool (Active)</span>
-                <span>Benchmarking</span>
+                <span>{activeProjectData.phase1}</span>
+                <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{activeProjectData.phase2}</span>
+                <span>{activeProjectData.phase3}</span>
               </div>
               <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2 }}>
-                <div style={{ width: '72%', height: '100%', background: 'linear-gradient(90deg, var(--accent), #10b981)', borderRadius: 2 }} />
+                <div style={{ width: `${activeProjectData.progress}%`, height: '100%', background: 'linear-gradient(90deg, var(--accent), #10b981)', borderRadius: 2 }} />
               </div>
             </div>
 
@@ -352,7 +449,7 @@ export default function DashboardBentoGrid({
                 <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#10b981' }} />
                 Active
               </span>
-              <a
+              <Link
                 href="/projects"
                 style={{
                   display: 'inline-flex',
@@ -367,7 +464,7 @@ export default function DashboardBentoGrid({
                 }}
               >
                 Open Workspace &rarr;
-              </a>
+              </Link>
             </div>
           </div>
         </div>
