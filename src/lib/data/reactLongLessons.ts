@@ -12276,8 +12276,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing useDeferredValue vs Debounce and Throttle: Adaptive Scheduling vs Arbitrary Milliseconds, an engineering or financial team first captures useDeferredValue and validates Debounce against Throttle before committing Adaptive. useDeferredValue integrates directly with React's Scheduler, executing background work as soon as the main thread is idle rather than relying on arbitrary timer delays.",
         check: {
           question: "What is the primary difference between useDeferredValue and setTimeout-based debounce?",
-          options: ["useDeferredValue adapts dynamically to hardware speed and CPU availability rather than waiting an arbitrary fixed time", "useDeferredValue runs in a separate thread inside a Node.js server", "useDeferredValue only works on mobile devices running iOS"],
-          answer: 0,
+          options: [
+            "useDeferredValue runs in a separate background worker thread on an external Node server.",
+            "useDeferredValue adapts dynamically to hardware speed rather than waiting a fixed timer.",
+            "useDeferredValue caches search strings in local storage to prevent future network calls.",
+            "useDeferredValue forces continuous full page reloads to synchronize layout state passes."
+          ],
+          answer: 1,
           why: "useDeferredValue integrates directly with React's Scheduler, executing background work as soon as the main thread is idle rather than relying on arbitrary timer delays."
         }
       },
@@ -12306,8 +12311,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Visual Staleness Signaling: Comparing Deferred Value with Fresh State for Opacity Dims, an engineering or financial team first captures Visual and validates Staleness against Signaling before committing Comparing. During the urgent pass, the immediate prop has updated while the deferred value retains its previous value, making prop !== deferredProp true.",
         check: {
           question: "How can a React component determine if its rendered content is currently stale when using useDeferredValue?",
-          options: ["By comparing the immediate prop against the deferred value: isStale = (prop !== deferredProp)", "By reading a cookie stored in document.cookie", "By calling window.requestIdleCallback inside useEffect"],
-          answer: 0,
+          options: [
+            "By inspecting an encrypted authentication cookie stored inside the client browser cache.",
+            "By requesting an asynchronous idle callback directly from the browser window object.",
+            "By querying the underlying operating system kernel scheduler event loop directly.",
+            "By comparing the immediate prop against the deferred value: isStale = prop !== deferred."
+          ],
+          answer: 3,
           why: "During the urgent pass, the immediate prop has updated while the deferred value retains its previous value, making prop !== deferredProp true."
         }
       },
@@ -12336,7 +12346,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Fiber Bailouts with React.memo: Preventing Redundant Child Subtree Re-computation, an engineering or financial team first captures Fiber and validates Bailouts against React before committing Preventing. Without React.memo, parent re-renders cascade into children unconditionally, re-evaluating the expensive child before the deferred pass even begins.",
         check: {
           question: "Why is React.memo essential when passing useDeferredValue to an expensive child component?",
-          options: ["Because without memoization, the child re-renders on the urgent pass anyway, negating the performance benefit", "Because React.memo is required to run TypeScript code in the browser", "Because React throws a compile error if useDeferredValue is used without memo"],
+          options: [
+            "Because without memoization, the child re-renders on the urgent pass, negating benefits.",
+            "Because React.memo is required by modern compilers to execute TypeScript code in browser.",
+            "Because the Fiber reconciler throws a fatal compile error when memo wrappers are omitted.",
+            "Because unmemoized child components force the browser layout engine into recursive loops."
+          ],
           answer: 0,
           why: "Without React.memo, parent re-renders cascade into children unconditionally, re-evaluating the expensive child before the deferred pass even begins."
         }
@@ -12367,8 +12382,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Suspense Boundary Integration: Graceful Fallbacks during Concurrent Deferrals, an engineering or financial team first captures Suspense and validates Boundary against Integration before committing Graceful. React concurrent transitions suppress Suspense fallback spinners during updates, maintaining the existing interface until fresh data is ready.",
         check: {
           question: "What happens when a component suspends during an update driven by useDeferredValue?",
-          options: ["React keeps the existing UI visible on screen instead of flashing the Suspense fallback spinner", "React immediately crashes and logs a fatal error", "The browser reloads the entire webpage"],
-          answer: 0,
+          options: [
+            "The browser immediately reloads the webpage and terminates background worker execution.",
+            "React crashes the application and displays a fatal unhandled rejection error on screen.",
+            "React keeps existing UI visible on screen instead of flashing the Suspense fallback icon.",
+            "React serializes both states to session storage and redirects user to default home view."
+          ],
+          answer: 2,
           why: "React concurrent transitions suppress Suspense fallback spinners during updates, maintaining the existing interface until fresh data is ready."
         }
       },
@@ -12400,8 +12420,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Simulating useDeferredValue Work Scheduling and Memoized Subtree Evaluation, an engineering or financial team first captures Simulating and validates useDeferredValue against Scheduling before committing Memoized. During the urgent pass of the second keystroke, deferredQuery still held 'R', matching the cached props and triggering a 0ms bailout.",
         check: {
           question: "In our simulation, why did ChildGrid successfully bail out during the second handleInput call?",
-          options: ["Because deferredQuery had not yet updated to 'Re', so ChildGrid's props were unchanged from its cache", "Because the computer ran out of memory and terminated the loop", "Because ChildGrid was removed from the DOM entirely"],
-          answer: 0,
+          options: [
+            "Because the operating system ran out of heap memory and canceled the script execution.",
+            "Because deferredQuery had not yet updated, so ChildGrid props matched its cached state.",
+            "Because ChildGrid was unmounted and removed from the active component tree completely.",
+            "Because JavaScript event loop priority blocked microtasks during urgent character input."
+          ],
+          answer: 1,
           why: "During the urgent pass of the second keystroke, deferredQuery still held 'R', matching the cached props and triggering a 0ms bailout."
         }
       }

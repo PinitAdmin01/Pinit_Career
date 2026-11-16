@@ -9,161 +9,241 @@
       "partTitle": "useDeferredValue vs Debounce and Throttle: Adaptive Scheduling vs Arbitrary Milliseconds",
       "codeHash": "c48384572a7c9bc36aabe2d34b77e108d46e0cc57fc30369894857324e042936",
       "spec": {
-        "template": "compare",
-        "title": "useDeferredValue vs Timer-Based Debounce & Throttle",
-        "leftLabel": "Timer-Based Debounce",
-        "rightLabel": "React useDeferredValue",
+        "template": "boxes",
+        "title": "Adaptive Hardware Scheduling vs Fixed Timer Debounce",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "delayMs"
+          },
+          {
+            "id": "b2",
+            "label": "cpuLoad"
+          },
+          {
+            "id": "b3",
+            "label": "fast"
+          },
+          {
+            "id": "b4",
+            "label": "slow"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Debounce introduces fixed artificial delays regardless of whether the CPU is idle.",
-            "left": {
-              "code": "setTimeout(filter, 300);",
-              "result": {
-                "text": "\"Always waits 300ms\""
+            "caption": "Component receives upstream query prop without direct setter control.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "idle"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "const def = useDeferredValue(q);",
-              "result": {
-                "text": "\"Adapts to device CPU\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "On fast devices, useDeferredValue re-renders almost immediately without.",
-            "left": {
-              "code": "console.log(latency);",
-              "result": {
-                "text": "\"Laggy feel\""
+            "caption": "Deferred value updates adaptively based on hardware capability.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "data"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "console.log(latency);",
-              "result": {
-                "text": "\"Near instant\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "On slow devices, useDeferredValue yields cooperatively to keep user input responsive.",
-            "left": {
-              "code": "console.log(freeze);",
-              "result": {
-                "text": "\"Can still freeze UI\""
+            "caption": "Powerful machines complete background calculations in milliseconds.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "error"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "console.log(freeze);",
-              "result": {
-                "text": "\"No freeze (interruptible)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "useDeferredValue requires zero timer cleanup logic, eliminating memory leaks.",
-            "left": {
-              "code": "clearTimeout(timerId);",
-              "result": {
-                "text": "\"Manual cleanup\""
+            "caption": "Constrained devices stretch background tasks without UI freezing.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "idle"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "// Handled by React",
-              "result": {
-                "text": "\"Automatic GC\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "useDeferredValue vs Timer-Based Debounce & Throttle",
-        "leftLabel": "Timer-Based Debounce",
-        "rightLabel": "React useDeferredValue",
+        "template": "boxes",
+        "title": "Adaptive Hardware Scheduling vs Fixed Timer Debounce",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "delayMs"
+          },
+          {
+            "id": "b2",
+            "label": "cpuLoad"
+          },
+          {
+            "id": "b3",
+            "label": "fast"
+          },
+          {
+            "id": "b4",
+            "label": "slow"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Debounce introduces fixed artificial delays regardless of whether the CPU is idle.",
-            "left": {
-              "code": "setTimeout(filter, 300);",
-              "result": {
-                "text": "\"Always waits 300ms\""
+            "caption": "Component receives upstream query prop without direct setter control.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "idle"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "const def = useDeferredValue(q);",
-              "result": {
-                "text": "\"Adapts to device CPU\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "On fast devices, useDeferredValue re-renders almost immediately without 300ms dead time.",
-            "left": {
-              "code": "console.log(latency);",
-              "result": {
-                "text": "\"Laggy feel\""
+            "caption": "Deferred value updates adaptively based on hardware capability.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "data"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "console.log(latency);",
-              "result": {
-                "text": "\"Near instant\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "On slow devices, useDeferredValue yields cooperatively to keep user input responsive.",
-            "left": {
-              "code": "console.log(freeze);",
-              "result": {
-                "text": "\"Can still freeze UI\""
+            "caption": "Powerful machines complete background calculations in milliseconds.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "error"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "console.log(freeze);",
-              "result": {
-                "text": "\"No freeze (interruptible)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "useDeferredValue requires zero timer cleanup logic, eliminating memory leaks.",
-            "left": {
-              "code": "clearTimeout(timerId);",
-              "result": {
-                "text": "\"Manual cleanup\""
+            "caption": "Constrained devices stretch background tasks without UI freezing.",
+            "values": {
+              "b1": {
+                "text": "delayMs"
               },
-              "tone": "idle"
+              "b2": {
+                "text": "cpuLoad"
+              },
+              "b3": {
+                "text": "fast"
+              },
+              "b4": {
+                "text": "slow"
+              }
             },
-            "right": {
-              "code": "// Handled by React",
-              "result": {
-                "text": "\"Automatic GC\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -173,90 +253,290 @@
       "partTitle": "Visual Staleness Signaling: Comparing Deferred Value with Fresh State for Opacity Dims",
       "codeHash": "c1c4a602a08549d36cd52e7c8132e4466ef6899e5682ea39c7f3771007b9cad0",
       "spec": {
-        "template": "states",
-        "title": "Visual Staleness State Machine",
-        "states": [
+        "template": "flow",
+        "title": "Visual Staleness Detection via Value Comparison",
+        "nodes": [
           {
-            "id": "st0",
-            "label": "SYNCED (query === deferredQuery)"
+            "id": "n1",
+            "label": "currentQuery"
           },
           {
-            "id": "st1",
-            "label": "STALE (query !== deferredQuery)"
+            "id": "n2",
+            "label": "deferredQuery"
           },
           {
-            "id": "st2",
-            "label": "RECONCILED (query === deferredQuery)"
+            "id": "n3",
+            "label": "isStale"
+          },
+          {
+            "id": "n4",
+            "label": "opacity"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Initially both input query and deferred query match in synced state.",
-            "activeId": "st0",
-            "tone": "ok"
+            "caption": "Staleness is derived directly during render by comparing values.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "User types new character; query updates immediately while deferred query lags behind.",
-            "activeId": "st1",
-            "tone": "data"
+            "caption": "Immediate pass updates query while deferred value lags behind.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "During stale phase, UI displays previous results with dimmed opacity and updating badge.",
-            "activeId": "st1",
-            "tone": "data"
+            "caption": "Boolean isStale signals that display shows previous query data.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Background render finishes; deferred query catches up and UI returns to synced state.",
-            "activeId": "st2",
-            "tone": "ok"
+            "caption": "Subtle opacity dim informs user that fresh results are compiling.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Visual Staleness State Machine",
-        "states": [
+        "template": "flow",
+        "title": "Visual Staleness Detection via Value Comparison",
+        "nodes": [
           {
-            "id": "st0",
-            "label": "SYNCED (query === deferredQuery)"
+            "id": "n1",
+            "label": "currentQuery"
           },
           {
-            "id": "st1",
-            "label": "STALE (query !== deferredQuery)"
+            "id": "n2",
+            "label": "deferredQuery"
           },
           {
-            "id": "st2",
-            "label": "RECONCILED (query === deferredQuery)"
+            "id": "n3",
+            "label": "isStale"
+          },
+          {
+            "id": "n4",
+            "label": "opacity"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Initially both input query and deferred query match in synced state.",
-            "activeId": "st0",
-            "tone": "ok"
+            "caption": "Staleness is derived directly during render by comparing values.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "User types new character; query updates immediately while deferred query lags behind.",
-            "activeId": "st1",
-            "tone": "data"
+            "caption": "Immediate pass updates query while deferred value lags behind.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "During stale phase, UI displays previous results with dimmed opacity and updating badge.",
-            "activeId": "st1",
-            "tone": "data"
+            "caption": "Boolean isStale signals that display shows previous query data.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Background render finishes; deferred query catches up and UI returns to synced state.",
-            "activeId": "st2",
-            "tone": "ok"
+            "caption": "Subtle opacity dim informs user that fresh results are compiling.",
+            "values": {
+              "n1": {
+                "text": "currentQuery"
+              },
+              "n2": {
+                "text": "deferredQuery"
+              },
+              "n3": {
+                "text": "isStale"
+              },
+              "n4": {
+                "text": "opacity"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       }
@@ -265,106 +545,290 @@
       "partTitle": "Fiber Bailouts with React.memo: Preventing Redundant Child Subtree Re-computation",
       "codeHash": "538e2f3107a62d0d592a299250fc3ca58b16259c46a366d798a75db29db9e70b",
       "spec": {
-        "template": "component-tree",
-        "title": "Fiber Bailout Architecture with React.memo",
+        "template": "flow",
+        "title": "Fiber Subtree Bailouts with React Memo",
         "nodes": [
           {
-            "id": "parent",
-            "name": "SearchDashboard",
-            "tone": "idle"
+            "id": "n1",
+            "label": "shallowEqual"
           },
           {
-            "id": "input",
-            "name": "SearchInput (Urgent)",
-            "tone": "ok"
+            "id": "n2",
+            "label": "prevProps"
           },
           {
-            "id": "list",
-            "name": "MemoizedGrid (Deferred)",
-            "tone": "data"
+            "id": "n3",
+            "label": "nextProps"
           },
           {
-            "id": "rows",
-            "name": "RowItems (Bailed Out)",
-            "tone": "idle"
+            "id": "n4",
+            "label": "reconcileChild"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SearchDashboard owns urgent state query and passes deferred query to child.",
-            "activeId": "parent",
-            "tone": "idle"
+            "caption": "Parent re-rendering cascades to unmemoized children unconditionally.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "data",
+              "n4": "error"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "On keystroke, SearchInput re-renders instantly to show the typed letter.",
-            "activeId": "input",
-            "tone": "ok"
+            "caption": "Without memoization child re-renders on urgent pass anyway.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "MemoizedGrid checks its props (deferredQuery) and bails out of re-rendering prematurely.",
-            "activeId": "list",
-            "tone": "data"
+            "caption": "Wrapping child in memo inspects incoming props for equality.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Once deferredQuery updates in the background, MemoizedGrid re-renders its rows.",
-            "activeId": "rows",
-            "tone": "ok"
+            "caption": "Matching props trigger instant fiber bailout skipping subtree diff.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "component-tree",
-        "title": "Fiber Bailout Architecture with React.memo",
+        "template": "flow",
+        "title": "Fiber Subtree Bailouts with React Memo",
         "nodes": [
           {
-            "id": "parent",
-            "name": "SearchDashboard",
-            "tone": "idle"
+            "id": "n1",
+            "label": "shallowEqual"
           },
           {
-            "id": "input",
-            "name": "SearchInput (Urgent)",
-            "tone": "ok"
+            "id": "n2",
+            "label": "prevProps"
           },
           {
-            "id": "list",
-            "name": "MemoizedGrid (Deferred)",
-            "tone": "data"
+            "id": "n3",
+            "label": "nextProps"
           },
           {
-            "id": "rows",
-            "name": "RowItems (Bailed Out)",
-            "tone": "idle"
+            "id": "n4",
+            "label": "reconcileChild"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SearchDashboard owns urgent state query and passes deferred query to child.",
-            "activeId": "parent",
-            "tone": "idle"
+            "caption": "Parent re-rendering cascades to unmemoized children unconditionally.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "data",
+              "n4": "error"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "On keystroke, SearchInput re-renders instantly to show the typed letter.",
-            "activeId": "input",
-            "tone": "ok"
+            "caption": "Without memoization child re-renders on urgent pass anyway.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "MemoizedGrid checks its props (deferredQuery) and bails out of re-rendering prematurely.",
-            "activeId": "list",
-            "tone": "data"
+            "caption": "Wrapping child in memo inspects incoming props for equality.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Once deferredQuery updates in the background, MemoizedGrid re-renders its rows.",
-            "activeId": "rows",
-            "tone": "ok"
+            "caption": "Matching props trigger instant fiber bailout skipping subtree diff.",
+            "values": {
+              "n1": {
+                "text": "shallowEqual"
+              },
+              "n2": {
+                "text": "prevProps"
+              },
+              "n3": {
+                "text": "nextProps"
+              },
+              "n4": {
+                "text": "reconcileChild"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       }
@@ -373,298 +837,242 @@
       "partTitle": "Suspense Boundary Integration: Graceful Fallbacks during Concurrent Deferrals",
       "codeHash": "848010320114f23c1e69ee02708396bfce9f5223363ade712c72e6eb796b01b3",
       "spec": {
-        "template": "flow",
-        "title": "Suspense Boundary Integration with Deferred Value",
-        "nodes": [
+        "template": "boxes",
+        "title": "Suspense Fallback Suppression During Deferred Deferrals",
+        "boxes": [
           {
-            "id": "w1",
-            "label": "Deferred Query",
-            "tappable": false
+            "id": "b1",
+            "label": "isInitialMount"
           },
           {
-            "id": "w2",
-            "label": "Async Resource",
-            "tappable": false
+            "id": "b2",
+            "label": "isStale"
           },
           {
-            "id": "w3",
-            "label": "Suspense Boundary",
-            "tappable": false
+            "id": "b3",
+            "label": "evaluateSuspenseState"
           },
           {
-            "id": "w4",
-            "label": "Stale Visual UI",
-            "tappable": false
+            "id": "b4",
+            "label": "view"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deferred query triggers an asynchronous data fetch inside child component.",
+            "caption": "Suspense boundaries coordinate asynchronous loading with grace.",
             "values": {
-              "w1": {
-                "text": "\"Deferred 'A'\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Pending Promise\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Catching\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Displaying Old\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "data",
-              "w2": "data",
-              "w3": "idle",
-              "w4": "ok"
-            },
-            "arrows": [
-              [
-                "w1",
-                "w2"
-              ]
-            ]
+              "b1": "data",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Instead of swapping to a jarring fallback spinner, Suspense retains the existing stale UI.",
+            "caption": "Legacy architectures unmounted content causing fallback tear flashes.",
             "values": {
-              "w1": {
-                "text": "\"Computing\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Fetching\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Holding Stale\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Opacity 0.6\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "data",
-              "w2": "data",
-              "w3": "ok",
-              "w4": "data"
-            },
-            "arrows": [
-              [
-                "w2",
-                "w3"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "error"
+            }
           },
           {
             "at": "say3",
-            "caption": "The user continues reading the previous dataset while the fresh payload resolves.",
+            "caption": "Deferred values suppress fallback spinner during active updates.",
             "values": {
-              "w1": {
-                "text": "\"Resolving\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Data Ready\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Reconciling\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Updating...\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "data",
-              "w2": "ok",
-              "w3": "ok",
-              "w4": "data"
-            },
-            "arrows": [
-              [
-                "w3",
-                "w4"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           },
           {
             "at": "say4",
-            "caption": "Fresh data renders smoothly without any screen flicker or layout shift.",
+            "caption": "Existing content remains visible while background promises resolve.",
             "values": {
-              "w1": {
-                "text": "\"Settled\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Fulfilled\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Resolved\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Opacity 1.0\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "ok",
-              "w2": "ok",
-              "w3": "ok",
-              "w4": "ok"
-            },
-            "arrows": [
-              [
-                "w3",
-                "w4"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Suspense Boundary Integration with Deferred Value",
-        "nodes": [
+        "template": "boxes",
+        "title": "Suspense Fallback Suppression During Deferred Deferrals",
+        "boxes": [
           {
-            "id": "w1",
-            "label": "Deferred Query",
-            "tappable": false
+            "id": "b1",
+            "label": "isInitialMount"
           },
           {
-            "id": "w2",
-            "label": "Async Resource",
-            "tappable": false
+            "id": "b2",
+            "label": "isStale"
           },
           {
-            "id": "w3",
-            "label": "Suspense Boundary",
-            "tappable": false
+            "id": "b3",
+            "label": "evaluateSuspenseState"
           },
           {
-            "id": "w4",
-            "label": "Stale Visual UI",
-            "tappable": false
+            "id": "b4",
+            "label": "view"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deferred query triggers an asynchronous data fetch inside child component.",
+            "caption": "Suspense boundaries coordinate asynchronous loading with grace.",
             "values": {
-              "w1": {
-                "text": "\"Deferred 'A'\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Pending Promise\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Catching\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Displaying Old\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "data",
-              "w2": "data",
-              "w3": "idle",
-              "w4": "ok"
-            },
-            "arrows": [
-              [
-                "w1",
-                "w2"
-              ]
-            ]
+              "b1": "data",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Instead of swapping to a jarring fallback spinner, Suspense retains the existing stale UI.",
+            "caption": "Legacy architectures unmounted content causing fallback tear flashes.",
             "values": {
-              "w1": {
-                "text": "\"Computing\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Fetching\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Holding Stale\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Opacity 0.6\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "data",
-              "w2": "data",
-              "w3": "ok",
-              "w4": "data"
-            },
-            "arrows": [
-              [
-                "w2",
-                "w3"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "error"
+            }
           },
           {
             "at": "say3",
-            "caption": "The user continues reading the previous dataset while the fresh payload resolves.",
+            "caption": "Deferred values suppress fallback spinner during active updates.",
             "values": {
-              "w1": {
-                "text": "\"Resolving\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Data Ready\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Reconciling\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Updating...\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "data",
-              "w2": "ok",
-              "w3": "ok",
-              "w4": "data"
-            },
-            "arrows": [
-              [
-                "w3",
-                "w4"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           },
           {
             "at": "say4",
-            "caption": "Fresh data renders smoothly without any screen flicker or layout shift.",
+            "caption": "Existing content remains visible while background promises resolve.",
             "values": {
-              "w1": {
-                "text": "\"Settled\""
+              "b1": {
+                "text": "isInitialMount"
               },
-              "w2": {
-                "text": "\"Fulfilled\""
+              "b2": {
+                "text": "isStale"
               },
-              "w3": {
-                "text": "\"Resolved\""
+              "b3": {
+                "text": "evaluateSuspenseState"
               },
-              "w4": {
-                "text": "\"Opacity 1.0\""
+              "b4": {
+                "text": "view"
               }
             },
             "tones": {
-              "w1": "ok",
-              "w2": "ok",
-              "w3": "ok",
-              "w4": "ok"
-            },
-            "arrows": [
-              [
-                "w3",
-                "w4"
-              ]
-            ]
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       }
@@ -673,250 +1081,290 @@
       "partTitle": "Simulating useDeferredValue Work Scheduling and Memoized Subtree Evaluation",
       "codeHash": "31d0ca658ec8b7c6e4f49b74cd3a40eae6a5362dd09e1a19dc9fbad51a451399",
       "spec": {
-        "template": "boxes",
-        "title": "Simulated Work Scheduler State Monitor",
-        "boxes": [
+        "template": "flow",
+        "title": "Deferred Engine Execution and Memoized Child Bailout",
+        "nodes": [
           {
-            "id": "ws1",
-            "label": "Urgent Queue",
-            "tappable": false
+            "id": "n1",
+            "label": "currentQuery"
           },
           {
-            "id": "ws2",
-            "label": "Deferred Queue",
-            "tappable": false
+            "id": "n2",
+            "label": "deferredQuery"
           },
           {
-            "id": "ws3",
-            "label": "Yield Counter",
-            "tappable": false
+            "id": "n3",
+            "label": "gridCache"
           },
           {
-            "id": "ws4",
-            "label": "Committed State",
-            "tappable": false
+            "id": "n4",
+            "label": "engine"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The work scheduler routes high-frequency typing into the urgent queue.",
+            "caption": "Simulation synthesizes deferred values with memoized bailouts.",
             "values": {
-              "ws1": {
-                "text": "\"Active\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Empty\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"0 yields\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Idle\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "idle",
-              "ws3": "idle",
-              "ws4": "idle"
-            }
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Deferred tasks are queued and processed when urgent work settles.",
+            "caption": "Parent manages immediate input query while child renders rows.",
             "values": {
-              "ws1": {
-                "text": "\"Processed\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Task-1 Queued\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"1 yield\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Pending\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "data",
-              "ws3": "data",
-              "ws4": "idle"
-            }
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "The scheduler yields every fourms to ensure browser frame rendering.",
+            "caption": "Urgent pass updates input immediately while child grid bails out.",
             "values": {
-              "ws1": {
-                "text": "\"Clear\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Slicing\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"2 yields\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Pending\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "data",
-              "ws3": "ok",
-              "ws4": "idle"
-            }
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "All deferred queues drain completely, committing the new view slice.",
+            "caption": "Deferred pass calculates filtered rows without blocking main thread.",
             "values": {
-              "ws1": {
-                "text": "\"Synced\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Drained\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"Reset\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Committed\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "ok",
-              "ws3": "ok",
-              "ws4": "ok"
-            }
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Simulated Work Scheduler State Monitor",
-        "boxes": [
+        "template": "flow",
+        "title": "Deferred Engine Execution and Memoized Child Bailout",
+        "nodes": [
           {
-            "id": "ws1",
-            "label": "Urgent Queue",
-            "tappable": false
+            "id": "n1",
+            "label": "currentQuery"
           },
           {
-            "id": "ws2",
-            "label": "Deferred Queue",
-            "tappable": false
+            "id": "n2",
+            "label": "deferredQuery"
           },
           {
-            "id": "ws3",
-            "label": "Yield Counter",
-            "tappable": false
+            "id": "n3",
+            "label": "gridCache"
           },
           {
-            "id": "ws4",
-            "label": "Committed State",
-            "tappable": false
+            "id": "n4",
+            "label": "engine"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The work scheduler routes high-frequency typing into the urgent queue.",
+            "caption": "Simulation synthesizes deferred values with memoized bailouts.",
             "values": {
-              "ws1": {
-                "text": "\"Active\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Empty\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"0 yields\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Idle\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "idle",
-              "ws3": "idle",
-              "ws4": "idle"
-            }
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Deferred tasks are queued and processed when urgent work settles.",
+            "caption": "Parent manages immediate input query while child renders rows.",
             "values": {
-              "ws1": {
-                "text": "\"Processed\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Task-1 Queued\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"1 yield\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Pending\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "data",
-              "ws3": "data",
-              "ws4": "idle"
-            }
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "The scheduler yields every 4ms to ensure browser frame rendering continues on schedule.",
+            "caption": "Urgent pass updates input immediately while child grid bails out.",
             "values": {
-              "ws1": {
-                "text": "\"Clear\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Slicing\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"2 yields\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Pending\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "data",
-              "ws3": "ok",
-              "ws4": "idle"
-            }
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "All deferred queues drain completely, committing the new view slice.",
+            "caption": "Deferred pass calculates filtered rows without blocking main thread.",
             "values": {
-              "ws1": {
-                "text": "\"Synced\""
+              "n1": {
+                "text": "currentQuery"
               },
-              "ws2": {
-                "text": "\"Drained\""
+              "n2": {
+                "text": "deferredQuery"
               },
-              "ws3": {
-                "text": "\"Reset\""
+              "n3": {
+                "text": "gridCache"
               },
-              "ws4": {
-                "text": "\"Committed\""
+              "n4": {
+                "text": "engine"
               }
             },
             "tones": {
-              "ws1": "ok",
-              "ws2": "ok",
-              "ws3": "ok",
-              "ws4": "ok"
-            }
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           }
         ]
       }
