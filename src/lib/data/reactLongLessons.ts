@@ -17279,12 +17279,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "Why must high-frequency market telemetry bypass standard React setState hooks during initial ingestion?",
         "options": [
-          "Passing 100,000 updates/sec into setState causes main-thread freezing and catastrophic garbage collection pauses",
-          "React disallows using numbers greater than 100 in component state",
-          "WebSocket protocols are incompatible with functional components in React 19",
-          "State updates in React automatically delete previous quotes from local storage"
+          "Because React disallows using numbers greater than one hundred thousand in component state objects across render passes.",
+          "Because passing one hundred thousand updates per second into setState causes main-thread freezing and massive GC pauses.",
+          "Because standard WebSocket protocols are completely incompatible with React functional components in modern web browsers.",
+          "Because state updates in React automatically delete previous quotes from local storage when memory allocations run out."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Direct state updates at high frequency cause extreme memory allocations and GC pauses, stalling the browser main thread."
       }
     },
@@ -17311,12 +17311,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the primary memory advantage of a pre-allocated Float64Array circular ring buffer?",
         "options": [
-          "It maintains a constant memory footprint, overwriting old elements in-place with zero dynamic allocations",
-          "It automatically converts floating point numbers into cryptographic blockchain hashes",
-          "It runs outside the browser sandbox using kernel-level assembly routines",
-          "It doubles in size on every push operation to maximize RAM consumption"
+          "It automatically converts incoming floating point numbers into cryptographic blockchain hashes across memory segments.",
+          "It executes entirely outside browser sandboxes using privileged operating system kernel-level assembly instructions.",
+          "It doubles internal capacity on every push operation to maximize heap memory allocations and avoid buffer overflows.",
+          "It maintains a constant memory footprint, overwriting old elements in-place with zero dynamic memory heap allocations."
         ],
-        "answer": 0,
+        "answer": 3,
         "why": "Pre-allocated TypedArrays eliminate dynamic memory reallocations, abolishing V8 garbage collector pauses."
       }
     },
@@ -17341,12 +17341,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Submit an order with price 152 and verify whether it passes or breaches the 5% price collar threshold.",
       example: "Price collars protect firms from catastrophic market orders executing during unexpected liquidity vacuums.",
         "check": {
-        "question": "What is the role of a Price Collar in an institutional pre-trade risk governor?",
+        "question": "What is the primary role of a Price Collar in an institutional pre-trade risk governor?",
         "options": [
-          "It rejects orders whose prices deviate beyond a specified percentage from current market reference prices to prevent flash-crash losses",
-          "It encrypts user credit card numbers using SHA-512 before sending to Stripe",
-          "It forces all stock orders to execute at exactly $100 regardless of market value",
-          "It delays order execution by 5 minutes to verify trader identity with SMS two-factor auth"
+          "It rejects orders whose prices deviate beyond a set percentage from current market reference prices to prevent huge losses.",
+          "It encrypts user credit card numbers using SHA-512 before transmitting live transactional data to external payment gateways.",
+          "It forces all equity orders to execute at a fixed price of exactly one hundred dollars regardless of current market depth.",
+          "It delays order execution by five minutes to verify trader identity using mandatory SMS two-factor authentication tokens."
         ],
         "answer": 0,
         "why": "Price collars protect firms from catastrophic market orders executing during unexpected liquidity vacuums."
@@ -17374,12 +17374,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How does a resilient remote sandbox prevent an error in a third-party analytics widget from blinding the trader?",
         "options": [
-          "It wraps remote execution in defensive error boundaries, rendering graceful fallbacks while preserving core trading Blotter components",
-          "It reboots the operating system whenever an unhandled exception occurs in JavaScript",
-          "It suppresses all console errors and replaces numbers with random digits",
-          "It automatically rolls back the entire production codebase to the previous month's version"
+          "It forces the desktop operating system to reboot whenever an unhandled division by zero exception occurs in JavaScript.",
+          "It suppresses all console errors and replaces corrupted numbers with randomly generated integer values across screens.",
+          "It wraps remote execution in defensive error boundaries, rendering graceful fallbacks while preserving core blotters.",
+          "It automatically rolls back the entire production codebase to the previous monthly version whenever a component crashes."
         ],
-        "answer": 0,
+        "answer": 2,
         "why": "Granular error boundaries isolate module failures, ensuring that trading operations remain active even if secondary widgets crash."
       }
     },
@@ -17407,12 +17407,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What primary engineering deficiency led to the $440M Knight Capital trading disaster in 2012?",
         "options": [
-          "Lack of pre-trade risk governors, un-audited dead code paths, and absence of automated kill-switch circuit breakers",
-          "The server ran out of physical disk space due to excessive log printing",
-          "The React 18 concurrent reconciler encountered a state tearing bug in Internet Explorer",
-          "A CSS z-index bug hidden beneath the trade execution button prevented manual order cancellation"
+          "The production server ran out of physical disk space due to excessive verbose log printing across active trading sockets.",
+          "The lack of pre-trade risk governors, un-audited dead code paths, and absence of automated kill-switch circuit breakers.",
+          "The React concurrent reconciler encountered an unhandled state tearing bug in legacy Internet Explorer browser engines.",
+          "A CSS z-index stacking bug hidden beneath the trade execution button prevented manual order cancellations by operators."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Knight Capital collapsed due to rogue dead code execution, absent automated pre-trade limits, and missing circuit breakers."
       }
     }

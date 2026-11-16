@@ -1,765 +1,779 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 56,
-  "promptSha": "block12_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Case Study Blueprint: High-Frequency Trading Desk Topology & Zero-Allocation Pipelines",
       "codeHash": "6f6cdd2617f2e997340226837fb75b89a1fb8534a3b2b8e84f7fccdf72e9c0fd",
       "spec": {
         "template": "flow",
-        "title": "WebSocket Ingress & Ring Buffer Ingestion Pipeline",
+        "title": "Zero-Allocation Telemetry Pipeline Architecture",
         "nodes": [
           {
-            "id": "exchange",
-            "label": "Exchange WebSocket Stream (100k msg/s)",
-            "sub": "Raw Binary Ingress",
-            "status": "active"
+            "id": "feed",
+            "label": "Market Feed",
+            "text": "WebSocket Ticks",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "worker",
-            "label": "Ingestion Web Worker",
-            "sub": "Deserialization & Unpacking",
-            "status": "active"
-          },
-          {
-            "id": "ring",
-            "label": "Circular TypedArray Buffer",
-            "sub": "Zero-GC Memory Layout",
-            "status": "active"
+            "id": "pool",
+            "label": "Memory Pool",
+            "text": "TypedArray Pool",
+            "tone": "ok",
+            "tappable": false
           },
           {
             "id": "store",
-            "label": "useSyncExternalStore Subscriber",
-            "sub": "Microtask Frame Throttler",
-            "status": "ok"
+            "label": "External Store",
+            "text": "useSyncExternalStore",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "ui",
+            "label": "Trading UI",
+            "text": "Atomic Blotter",
+            "tone": "data",
+            "tappable": false
           }
         ],
         "edges": [
           {
-            "from": "exchange",
-            "to": "worker",
-            "label": "Binary Ticks"
+            "from": "feed",
+            "to": "pool",
+            "label": "Zero Alloc"
           },
           {
-            "from": "worker",
-            "to": "ring",
-            "label": "Float64 Direct Write"
-          },
-          {
-            "from": "ring",
+            "from": "pool",
             "to": "store",
-            "label": "Atomic Snapshot"
+            "label": "Sync Snapshot"
+          },
+          {
+            "from": "store",
+            "to": "ui",
+            "label": "Render"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Exchange WebSocket stream delivers one hundredk live market ticks per.",
-            "values": {
-              "exchange": {
-                "status": "Streaming"
-              },
-              "worker": {
-                "status": "Buffering"
-              },
-              "ring": {
-                "status": "Idle"
-              },
-              "store": {
-                "status": "Idle"
-              }
-            },
-            "tones": {
-              "exchange": "data",
-              "worker": "data",
-              "ring": "idle",
-              "store": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Web Worker unpacks binary packets without blocking browser main thread.",
-            "values": {
-              "exchange": {
-                "status": "Streaming"
-              },
-              "worker": {
-                "status": "Unpacking"
-              },
-              "ring": {
-                "status": "Writing"
-              },
-              "store": {
-                "status": "Idle"
-              }
-            },
-            "tones": {
-              "exchange": "data",
-              "worker": "ok",
-              "ring": "data",
-              "store": "idle"
-            }
+            "highlight": [
+              "feed"
+            ],
+            "caption": "Market telemetry arrives at high rates over multiplexed websockets."
           },
           {
             "at": "say3",
-            "caption": "Circular TypedArray buffer overwrites oldest ticks with zero garbage collection.",
-            "values": {
-              "exchange": {
-                "status": "Streaming"
-              },
-              "worker": {
-                "status": "Active"
-              },
-              "ring": {
-                "status": "Zero-GC Loop"
-              },
-              "store": {
-                "status": "Notified"
-              }
-            },
-            "tones": {
-              "exchange": "data",
-              "worker": "ok",
-              "ring": "ok",
-              "store": "data"
-            }
+            "highlight": [
+              "feed",
+              "pool"
+            ],
+            "caption": "Passing high rate updates directly into component state causes freezes."
           },
           {
             "at": "say4",
-            "caption": "UseSyncExternalStore dispatches snapshot updates to UI at locked multiple.",
-            "values": {
-              "exchange": {
-                "status": "Streaming"
-              },
-              "worker": {
-                "status": "Active"
-              },
-              "ring": {
-                "status": "Zero-GC Loop"
-              },
-              "store": {
-                "status": "120 FPS Synced"
-              }
-            },
-            "tones": {
-              "exchange": "data",
-              "worker": "ok",
-              "ring": "ok",
-              "store": "ok"
-            }
+            "highlight": [
+              "pool",
+              "store"
+            ],
+            "caption": "Zero allocation telemetry pipelines bypass react state during ingestion."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Zero-Allocation Telemetry Pipeline Architecture",
+        "nodes": [
+          {
+            "id": "feed",
+            "label": "Market Feed",
+            "text": "WebSocket Ticks",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "pool",
+            "label": "Memory Pool",
+            "text": "TypedArray Pool",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "store",
+            "label": "External Store",
+            "text": "useSyncExternalStore",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "ui",
+            "label": "Trading UI",
+            "text": "Atomic Blotter",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "feed",
+            "to": "pool",
+            "label": "Zero Alloc"
+          },
+          {
+            "from": "pool",
+            "to": "store",
+            "label": "Sync Snapshot"
+          },
+          {
+            "from": "store",
+            "to": "ui",
+            "label": "Render"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "feed"
+            ],
+            "caption": "Market telemetry arrives at high rates over multiplexed websockets."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "feed",
+              "pool"
+            ],
+            "caption": "Passing high rate updates directly into component state causes freezes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "pool",
+              "store"
+            ],
+            "caption": "Zero allocation telemetry pipelines bypass react state during ingestion."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Zero-Allocation Circular Ring Buffers & Tear-Free useSyncExternalStore Subscriptions",
       "codeHash": "fd6277fb753f347fee95af3696de6d0fc73ea60b8b074f0ecfc489c523b9fb41",
       "spec": {
+        "template": "flow",
+        "title": "Circular Ring Buffer & Snapshot Synchronization",
+        "nodes": [
+          {
+            "id": "quote",
+            "label": "Incoming Quote",
+            "text": "Float64 Tick",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "ring",
+            "label": "Ring Buffer",
+            "text": "Contiguous Memory",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sync",
+            "label": "Snapshot Read",
+            "text": "getSnapshot",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "blotter",
+            "label": "Blotter View",
+            "text": "Synchronous Paint",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "quote",
+            "to": "ring",
+            "label": "Overwrite In-Place"
+          },
+          {
+            "from": "ring",
+            "to": "sync",
+            "label": "Read Snapshot"
+          },
+          {
+            "from": "sync",
+            "to": "blotter",
+            "label": "Tear-Free Paint"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "quote",
+              "ring"
+            ],
+            "caption": "Pre-allocated typed arrays overwrite contiguous memory in place."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "ring",
+              "sync"
+            ],
+            "caption": "The external store validates snapshots before committing render passes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "sync",
+              "blotter"
+            ],
+            "caption": "Tear-free rendering ensures traders never observe fragmented quotes."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Circular Ring Buffer & Snapshot Synchronization",
+        "nodes": [
+          {
+            "id": "quote",
+            "label": "Incoming Quote",
+            "text": "Float64 Tick",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "ring",
+            "label": "Ring Buffer",
+            "text": "Contiguous Memory",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sync",
+            "label": "Snapshot Read",
+            "text": "getSnapshot",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "blotter",
+            "label": "Blotter View",
+            "text": "Synchronous Paint",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "quote",
+            "to": "ring",
+            "label": "Overwrite In-Place"
+          },
+          {
+            "from": "ring",
+            "to": "sync",
+            "label": "Read Snapshot"
+          },
+          {
+            "from": "sync",
+            "to": "blotter",
+            "label": "Tear-Free Paint"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "quote",
+              "ring"
+            ],
+            "caption": "Pre-allocated typed arrays overwrite contiguous memory in place."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "ring",
+              "sync"
+            ],
+            "caption": "The external store validates snapshots before committing render passes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "sync",
+              "blotter"
+            ],
+            "caption": "Tear-free rendering ensures traders never observe fragmented quotes."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 2,
+      "partTitle": "Pre-Trade Margin & Price Collar Risk Governor Statechart",
+      "codeHash": "79bc75089d259f316a28f3da7e3607699ea69919420aee6778e141d579f2f5f5",
+      "spec": {
         "template": "states",
-        "title": "High-Frequency Order Book Finite State Machine",
+        "title": "Pre-Trade Risk Governor Validation Statechart",
         "states": [
           {
             "id": "idle",
-            "label": "ORDER_IDLE",
-            "desc": "Awaiting inbound market telemetry tick",
-            "active": true
+            "label": "Order Idle",
+            "text": "Ready For Entry",
+            "tone": "data"
           },
           {
-            "id": "buffering",
-            "label": "BUFFERING",
-            "desc": "Appending bid/ask depth to circular ring",
-            "active": false
+            "id": "notional",
+            "label": "Check Notional",
+            "text": "Gross Dollar Cap",
+            "tone": "ok"
           },
           {
-            "id": "snapshotting",
-            "label": "SNAPSHOTTING",
-            "desc": "Freezing immutable order book slice",
-            "active": false
+            "id": "collar",
+            "label": "Check Collar",
+            "text": "Price Deviation Cap",
+            "tone": "ok"
           },
           {
-            "id": "rendered",
-            "label": "RENDERED",
-            "desc": "Order book DOM rendered at 120 FPS",
-            "active": false
+            "id": "dispatch",
+            "label": "Dispatch Order",
+            "text": "Sent To Gateway",
+            "tone": "ok"
           }
         ],
         "transitions": [
           {
             "from": "idle",
-            "to": "buffering",
-            "label": "TICK_RECEIVED"
+            "to": "notional",
+            "label": "Submit Click"
           },
           {
-            "from": "buffering",
-            "to": "snapshotting",
-            "label": "FRAME_TICK"
+            "from": "notional",
+            "to": "collar",
+            "label": "Notional Ok"
           },
           {
-            "from": "snapshotting",
-            "to": "rendered",
-            "label": "STORE_NOTIFY"
-          },
-          {
-            "from": "rendered",
-            "to": "idle",
-            "label": "CYCLE_RESET"
+            "from": "collar",
+            "to": "dispatch",
+            "label": "Collar Ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "State machine initializes in ORDER_IDLE waiting for order book updates.",
-            "values": {
-              "idle": {
-                "active": true
-              },
-              "buffering": {
-                "active": false
-              },
-              "snapshotting": {
-                "active": false
-              },
-              "rendered": {
-                "active": false
-              }
-            },
-            "tones": {
-              "idle": "ok",
-              "buffering": "idle",
-              "snapshotting": "idle",
-              "rendered": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Tick event triggers transition into BUFFERING state in memory.",
-            "values": {
-              "idle": {
-                "active": false
-              },
-              "buffering": {
-                "active": true
-              },
-              "snapshotting": {
-                "active": false
-              },
-              "rendered": {
-                "active": false
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "buffering": "data",
-              "snapshotting": "idle",
-              "rendered": "idle"
-            }
+            "highlight": [
+              "idle",
+              "notional"
+            ],
+            "caption": "Outbound orders must pass through strict client-side risk governors."
           },
           {
             "at": "say3",
-            "caption": "SNAPSHOTTING freezes current price level data without array cloning.",
-            "values": {
-              "idle": {
-                "active": false
-              },
-              "buffering": {
-                "active": false
-              },
-              "snapshotting": {
-                "active": true
-              },
-              "rendered": {
-                "active": false
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "buffering": "idle",
-              "snapshotting": "data",
-              "rendered": "idle"
-            }
+            "highlight": [
+              "notional"
+            ],
+            "caption": "Maximum notional checks verify total dollar amounts before execution."
           },
           {
             "at": "say4",
-            "caption": "RENDERED state guarantees visual refresh with sub-fivems paint latency.",
-            "values": {
-              "idle": {
-                "active": false
-              },
-              "buffering": {
-                "active": false
-              },
-              "snapshotting": {
-                "active": false
-              },
-              "rendered": {
-                "active": true
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "buffering": "idle",
-              "snapshotting": "idle",
-              "rendered": "ok"
-            }
+            "highlight": [
+              "collar",
+              "dispatch"
+            ],
+            "caption": "Price collars protect against executing off-market trades in flash drops."
           }
         ]
-      }
-    },
-    {
-      "partTitle": "Pre-Trade Margin & Price Collar Risk Governor Statechart",
-      "codeHash": "79bc75089d259f316a28f3da7e3607699ea69919420aee6778e141d579f2f5f5",
-      "spec": {
-        "template": "component-tree",
-        "title": "Subscribed Trading Terminal Component Hierarchy",
-        "root": {
-          "id": "terminal_root",
-          "name": "TradingDeskRoot (Global WebSocket Context)",
-          "children": [
-            {
-              "id": "order_book",
-              "name": "OrderBookTable (useSyncExternalStore)",
-              "children": [
-                {
-                  "id": "bids_column",
-                  "name": "BidsColumn (Canvas Overlay)"
-                },
-                {
-                  "id": "asks_column",
-                  "name": "AsksColumn (Canvas Overlay)"
-                }
-              ]
-            },
-            {
-              "id": "execution_panel",
-              "name": "ExecutionPanel (Optimistic Order Form)",
-              "children": [
-                {
-                  "id": "order_input",
-                  "name": "OrderInput (Action Hook)"
-                },
-                {
-                  "id": "risk_gauge",
-                  "name": "RiskMetrics (Sub-millisecond Recalc)"
-                }
-              ]
-            }
-          ]
-        },
+      },
+      "filled": {
+        "template": "states",
+        "title": "Pre-Trade Risk Governor Validation Statechart",
+        "states": [
+          {
+            "id": "idle",
+            "label": "Order Idle",
+            "text": "Ready For Entry",
+            "tone": "data"
+          },
+          {
+            "id": "notional",
+            "label": "Check Notional",
+            "text": "Gross Dollar Cap",
+            "tone": "ok"
+          },
+          {
+            "id": "collar",
+            "label": "Check Collar",
+            "text": "Price Deviation Cap",
+            "tone": "ok"
+          },
+          {
+            "id": "dispatch",
+            "label": "Dispatch Order",
+            "text": "Sent To Gateway",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "idle",
+            "to": "notional",
+            "label": "Submit Click"
+          },
+          {
+            "from": "notional",
+            "to": "collar",
+            "label": "Notional Ok"
+          },
+          {
+            "from": "collar",
+            "to": "dispatch",
+            "label": "Collar Ok"
+          }
+        ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "TradingDeskRoot maintains shared WebSocket connection context.",
-            "values": {
-              "terminal_root": {
-                "state": "Connected"
-              },
-              "order_book": {
-                "state": "Idle"
-              },
-              "bids_column": {
-                "state": "Idle"
-              },
-              "asks_column": {
-                "state": "Idle"
-              },
-              "execution_panel": {
-                "state": "Idle"
-              },
-              "order_input": {
-                "state": "Idle"
-              },
-              "risk_gauge": {
-                "state": "Idle"
-              }
-            },
-            "tones": {
-              "terminal_root": "ok",
-              "order_book": "idle",
-              "bids_column": "idle",
-              "asks_column": "idle",
-              "execution_panel": "idle",
-              "order_input": "idle",
-              "risk_gauge": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "OrderBookTable isolates market tick subscriptions from outer parent tree.",
-            "values": {
-              "terminal_root": {
-                "state": "No Re-render"
-              },
-              "order_book": {
-                "state": "Subscribed"
-              },
-              "bids_column": {
-                "state": "Active"
-              },
-              "asks_column": {
-                "state": "Active"
-              },
-              "execution_panel": {
-                "state": "Idle"
-              },
-              "order_input": {
-                "state": "Idle"
-              },
-              "risk_gauge": {
-                "state": "Idle"
-              }
-            },
-            "tones": {
-              "terminal_root": "ok",
-              "order_book": "ok",
-              "bids_column": "data",
-              "asks_column": "data",
-              "execution_panel": "idle",
-              "order_input": "idle",
-              "risk_gauge": "idle"
-            }
+            "highlight": [
+              "idle",
+              "notional"
+            ],
+            "caption": "Outbound orders must pass through strict client-side risk governors."
           },
           {
             "at": "say3",
-            "caption": "ExecutionPanel processes user orders independently without lag.",
-            "values": {
-              "terminal_root": {
-                "state": "No Re-render"
-              },
-              "order_book": {
-                "state": "Subscribed"
-              },
-              "bids_column": {
-                "state": "Active"
-              },
-              "asks_column": {
-                "state": "Active"
-              },
-              "execution_panel": {
-                "state": "Mounted"
-              },
-              "order_input": {
-                "state": "Focused"
-              },
-              "risk_gauge": {
-                "state": "Calculated"
-              }
-            },
-            "tones": {
-              "terminal_root": "ok",
-              "order_book": "ok",
-              "bids_column": "data",
-              "asks_column": "data",
-              "execution_panel": "ok",
-              "order_input": "ok",
-              "risk_gauge": "ok"
-            }
+            "highlight": [
+              "notional"
+            ],
+            "caption": "Maximum notional checks verify total dollar amounts before execution."
           },
           {
             "at": "say4",
-            "caption": "Decoupled component architecture sustains multiple FPS animations without.",
-            "values": {
-              "terminal_root": {
-                "state": "Stable"
-              },
-              "order_book": {
-                "state": "120 FPS"
-              },
-              "bids_column": {
-                "state": "GPU Blit"
-              },
-              "asks_column": {
-                "state": "GPU Blit"
-              },
-              "execution_panel": {
-                "state": "Interactive"
-              },
-              "order_input": {
-                "state": "Instant"
-              },
-              "risk_gauge": {
-                "state": "Sub-1ms"
-              }
-            },
-            "tones": {
-              "terminal_root": "ok",
-              "order_book": "ok",
-              "bids_column": "ok",
-              "asks_column": "ok",
-              "execution_panel": "ok",
-              "order_input": "ok",
-              "risk_gauge": "ok"
-            }
+            "highlight": [
+              "collar",
+              "dispatch"
+            ],
+            "caption": "Price collars protect against executing off-market trades in flash drops."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Federated Remote Sandboxing & Fault-Tolerant Failure Isolation",
       "codeHash": "d005ac3bd32fa34661097328514da8072fadedf6453f33628647a2ed950832c4",
       "spec": {
-        "template": "boxes",
-        "title": "Off-Screen Canvas Layering & Hardware Acceleration",
-        "boxes": [
+        "template": "flow",
+        "title": "Federated Remote Sandbox & Fault Isolation",
+        "nodes": [
           {
-            "id": "b1",
-            "label": "DOM Chrome Layer",
-            "sub": "Static Headers & Navigation Buttons",
-            "val": "Zero-Draw",
-            "tone": "ok"
+            "id": "shell",
+            "label": "Host Shell",
+            "text": "Core Trading Desk",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "b2",
-            "label": "Off-Screen Depth Canvas",
-            "sub": "High-Frequency Bid/Ask Depth Bars",
-            "val": "120 FPS GPU",
-            "tone": "data"
+            "id": "sandbox",
+            "label": "Remote Sandbox",
+            "text": "Error Boundary",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "b3",
-            "label": "Micro-Batch Ticker Worker",
-            "sub": "Aggregates 100 Ticks per V-Sync Frame",
-            "val": "8.3ms Window",
-            "tone": "data"
+            "id": "remote",
+            "label": "Analytics Remote",
+            "text": "Quantitative Module",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "b4",
-            "label": "Telemetry Monitor",
-            "sub": "Zero Memory Leaks & FPS Watchdog",
-            "val": "Audit A+",
-            "tone": "ok"
+            "id": "fallback",
+            "label": "Fallback Widget",
+            "text": "Safe Placeholder",
+            "tone": "error",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "shell",
+            "to": "sandbox",
+            "label": "Mount Widget"
+          },
+          {
+            "from": "sandbox",
+            "to": "remote",
+            "label": "Execute Remote"
+          },
+          {
+            "from": "sandbox",
+            "to": "fallback",
+            "label": "Trap Error"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "DOM Chrome renders application borders and controls using native CSS.",
-            "values": {
-              "b1": {
-                "val": "Mounted"
-              },
-              "b2": {
-                "val": "Ready"
-              },
-              "b3": {
-                "val": "Listening"
-              },
-              "b4": {
-                "val": "Monitoring"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "idle",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Off-Screen canvas draws thousands of price bars directly via.",
-            "values": {
-              "b1": {
-                "val": "Static"
-              },
-              "b2": {
-                "val": "Drawing"
-              },
-              "b3": {
-                "val": "Active"
-              },
-              "b4": {
-                "val": "Tracking"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
+            "highlight": [
+              "shell",
+              "sandbox"
+            ],
+            "caption": "The lightweight host shell manages layout grids and risk governors."
           },
           {
             "at": "say3",
-            "caption": "Micro-Batch worker consolidates high-rate messages into single animation frames.",
-            "values": {
-              "b1": {
-                "val": "Zero Reflow"
-              },
-              "b2": {
-                "val": "GPU Accelerated"
-              },
-              "b3": {
-                "val": "Batching 100/f"
-              },
-              "b4": {
-                "val": "Tracking"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "ok",
-              "b3": "ok",
-              "b4": "data"
-            }
+            "highlight": [
+              "remote",
+              "fallback"
+            ],
+            "caption": "Uncaught exceptions in analytics widgets must not unmount root views."
           },
           {
             "at": "say4",
-            "caption": "Hardware-accelerated layered pipeline delivers sub-twoms frame paint times.",
-            "values": {
-              "b1": {
-                "val": "Zero Reflow"
-              },
-              "b2": {
-                "val": "120 FPS Synced"
-              },
-              "b3": {
-                "val": "8.3ms Cadence"
-              },
-              "b4": {
-                "val": "Grade A+ Cert"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "ok",
-              "b3": "ok",
-              "b4": "ok"
-            }
+            "highlight": [
+              "sandbox",
+              "fallback"
+            ],
+            "caption": "Resilient remote sandboxes intercept failures and render fallbacks."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Federated Remote Sandbox & Fault Isolation",
+        "nodes": [
+          {
+            "id": "shell",
+            "label": "Host Shell",
+            "text": "Core Trading Desk",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sandbox",
+            "label": "Remote Sandbox",
+            "text": "Error Boundary",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "remote",
+            "label": "Analytics Remote",
+            "text": "Quantitative Module",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "fallback",
+            "label": "Fallback Widget",
+            "text": "Safe Placeholder",
+            "tone": "error",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "shell",
+            "to": "sandbox",
+            "label": "Mount Widget"
+          },
+          {
+            "from": "sandbox",
+            "to": "remote",
+            "label": "Execute Remote"
+          },
+          {
+            "from": "sandbox",
+            "to": "fallback",
+            "label": "Trap Error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "shell",
+              "sandbox"
+            ],
+            "caption": "The lightweight host shell manages layout grids and risk governors."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "remote",
+              "fallback"
+            ],
+            "caption": "Uncaught exceptions in analytics widgets must not unmount root views."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "sandbox",
+              "fallback"
+            ],
+            "caption": "Resilient remote sandboxes intercept failures and render fallbacks."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Production Forensic Teardown: Knight Capital Disaster & Grade A+ Certification",
       "codeHash": "8055187d23609a76aa9445086b103029d265b2720ae7e5c8e2e604f186569930",
       "spec": {
-        "template": "compare",
-        "title": "Micro-Frontend Federated Module vs Monolithic Bundle",
-        "left": {
-          "label": "Monolithic Frontend Architecture",
-          "items": [
-            "15MB single bundle download",
-            "Coupled team release cycles",
-            "Full app rebuild on tiny change",
-            "Cascading runtime failure risks"
-          ]
-        },
-        "right": {
-          "label": "Federated Micro-Frontend Architecture",
-          "items": [
-            "On-demand remote module loading",
-            "Autonomous squad release pipelines",
-            "Independent canary deployment gates",
-            "Fault-isolated error boundaries"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Institutional Trading Desk Forensic Certification States",
+        "states": [
           {
-            "at": "say1",
-            "caption": "Monoliths bundle all features into a massive initial JavaScript payload.",
-            "values": {
-              "left": {
-                "items": [
-                  "15MB Bundle",
-                  "Slow 3G Boot",
-                  "Single Repo",
-                  "High Risk"
-                ]
-              },
-              "right": {
-                "items": [
-                  "50KB Shell",
-                  "Instant Edge Boot",
-                  "Multi Repo",
-                  "Zero Risk"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "id": "tearing",
+            "label": "Zero Tearing",
+            "text": "State Consistency Check",
+            "tone": "ok"
           },
           {
+            "id": "gc",
+            "label": "GC Pause Cap",
+            "text": "P99 Under Two Ms",
+            "tone": "ok"
+          },
+          {
+            "id": "risk",
+            "label": "Risk Governor",
+            "text": "Sub Fifteen Us Check",
+            "tone": "ok"
+          },
+          {
+            "id": "grade",
+            "label": "Grade Certified",
+            "text": "Institutional Grade A+",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "tearing",
+            "to": "gc",
+            "label": "Passed"
+          },
+          {
+            "from": "gc",
+            "to": "risk",
+            "label": "Passed"
+          },
+          {
+            "from": "risk",
+            "to": "grade",
+            "label": "All Passed"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Federated modules download dynamically only when navigated to by the user.",
-            "values": {
-              "left": {
-                "items": [
-                  "Cold Boot 800ms",
-                  "All JS Parsed",
-                  "Blocked Thread",
-                  "High Memory"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Sub-25ms Shell",
-                  "Lazy Download",
-                  "Worker Offloaded",
-                  "Flat Memory"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "tearing",
+              "gc"
+            ],
+            "caption": "Historical software disasters highlight the need for automated audits."
           },
           {
             "at": "say3",
-            "caption": "Independent team pipelines deploy trading features without coordinated freezes.",
-            "values": {
-              "left": {
-                "items": [
-                  "Blocked Releases",
-                  "Merge Hell",
-                  "Manual QA Delay",
-                  "Late Ship"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Autonomous CI",
-                  "Canary Deploy",
-                  "Automated Gate",
-                  "Daily Ships"
-                ]
-              }
-            },
-            "tones": {
-              "left": "warn",
-              "right": "ok"
-            }
+            "highlight": [
+              "risk",
+              "grade"
+            ],
+            "caption": "Continuous forensic suites programmatically verify non-negotiable targets."
           },
           {
             "at": "say4",
-            "caption": "Module Federation delivers enterprise agility with zero user-perceived latency.",
-            "values": {
-              "left": {
-                "items": [
-                  "Legacy Monolith",
-                  "Technical Debt",
-                  "Fragile Coupling",
-                  "High Cost"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Modern Micro-FE",
-                  "Clean Separation",
-                  "Robust Isolation",
-                  "Grade A+"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "tearing",
+              "grade"
+            ],
+            "caption": "Pre-commit validation guarantees zero state tearing across concurrent views."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Institutional Trading Desk Forensic Certification States",
+        "states": [
+          {
+            "id": "tearing",
+            "label": "Zero Tearing",
+            "text": "State Consistency Check",
+            "tone": "ok"
+          },
+          {
+            "id": "gc",
+            "label": "GC Pause Cap",
+            "text": "P99 Under Two Ms",
+            "tone": "ok"
+          },
+          {
+            "id": "risk",
+            "label": "Risk Governor",
+            "text": "Sub Fifteen Us Check",
+            "tone": "ok"
+          },
+          {
+            "id": "grade",
+            "label": "Grade Certified",
+            "text": "Institutional Grade A+",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "tearing",
+            "to": "gc",
+            "label": "Passed"
+          },
+          {
+            "from": "gc",
+            "to": "risk",
+            "label": "Passed"
+          },
+          {
+            "from": "risk",
+            "to": "grade",
+            "label": "All Passed"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "tearing",
+              "gc"
+            ],
+            "caption": "Historical software disasters highlight the need for automated audits."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "risk",
+              "grade"
+            ],
+            "caption": "Continuous forensic suites programmatically verify non-negotiable targets."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "tearing",
+              "grade"
+            ],
+            "caption": "Pre-commit validation guarantees zero state tearing across concurrent views."
           }
         ]
       }
