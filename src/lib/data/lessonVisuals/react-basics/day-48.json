@@ -1,722 +1,633 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 48,
-  "promptSha": "block10_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "The Monolith-to-Micro-Frontend Paradigm: Independent Deployment Lifecycles, Team Ownership & Distributed Builds",
       "codeHash": "751dabf3e6d550c941ad632feab93f228eb3382a3c2c5ac94d49902bf2b59125",
       "spec": {
-        "template": "component-tree",
-        "title": "Module Federation Distributed Architecture Topology",
-        "items": [
-          {
-            "id": "host_shell",
-            "label": "Host Shell (Platform Core Layout)",
-            "depth": 0,
-            "status": "active"
-          },
-          {
-            "id": "market_remote",
-            "label": "MarketDepthRemote (Team MarketData @ CDN-1)",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "order_remote",
-            "label": "OrderExecutionRemote (Team Execution @ CDN-2)",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "risk_remote",
-            "label": "RiskAnalyticsRemote (Team Risk @ CDN-3)",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "shared_scope",
-            "label": "Shared Runtime Scope (React 18.3.1 Singleton)",
-            "depth": 1,
-            "status": "active"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Host Shell boots lightweight core layout and declares shared dependencies.",
-            "values": {
-              "host_shell": {
-                "text": "\"Host Booted\""
-              },
-              "market_remote": {
-                "text": "\"Unloaded\""
-              },
-              "order_remote": {
-                "text": "\"Unloaded\""
-              },
-              "risk_remote": {
-                "text": "\"Unloaded\""
-              },
-              "shared_scope": {
-                "text": "\"Initialized\""
-              }
-            },
-            "tones": {
-              "host_shell": "ok",
-              "market_remote": "idle",
-              "order_remote": "idle",
-              "risk_remote": "idle",
-              "shared_scope": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Remotes are fetched dynamically over HTTP without bundling into host codebase.",
-            "values": {
-              "host_shell": {
-                "text": "\"Mounting Remotes\""
-              },
-              "market_remote": {
-                "text": "\"Fetching remoteEntry.js\""
-              },
-              "order_remote": {
-                "text": "\"Fetching remoteEntry.js\""
-              },
-              "risk_remote": {
-                "text": "\"Fetching remoteEntry.js\""
-              },
-              "shared_scope": {
-                "text": "\"Negotiating SemVer\""
-              }
-            },
-            "tones": {
-              "host_shell": "data",
-              "market_remote": "data",
-              "order_remote": "data",
-              "risk_remote": "data",
-              "shared_scope": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Each remote negotiates against shared scope and shares single React.",
-            "values": {
-              "host_shell": {
-                "text": "\"Scope Bound\""
-              },
-              "market_remote": {
-                "text": "\"Shared React Bound\""
-              },
-              "order_remote": {
-                "text": "\"Shared React Bound\""
-              },
-              "risk_remote": {
-                "text": "\"Shared React Bound\""
-              },
-              "shared_scope": {
-                "text": "0 Duplicate KB\""
-              }
-            },
-            "tones": {
-              "host_shell": "ok",
-              "market_remote": "ok",
-              "order_remote": "ok",
-              "risk_remote": "ok",
-              "shared_scope": "ok"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Independent teams deploy to separate CDNs with zero deployment coordination bottlenecks.",
-            "values": {
-              "host_shell": {
-                "text": "\"Fully Federated\""
-              },
-              "market_remote": {
-                "text": "\"Deployed v2.4\""
-              },
-              "order_remote": {
-                "text": "\"Deployed v1.8\""
-              },
-              "risk_remote": {
-                "text": "\"Deployed v3.1\""
-              },
-              "shared_scope": {
-                "text": "\"Single Dispatcher\""
-              }
-            },
-            "tones": {
-              "host_shell": "ok",
-              "market_remote": "ok",
-              "order_remote": "ok",
-              "risk_remote": "ok",
-              "shared_scope": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Module Federation Under the Hood: Container Hosts, Remotes, Shared Dependency Manifests & Chunk Resolution",
-      "codeHash": "070d552f3c9085d8e88963458a4d77ca17eaf2b1edbe36d3af784cb92c25d3b9",
-      "spec": {
-        "template": "flow",
-        "title": "Dynamic Container Resolution & Webpack Hook Protocol",
-        "nodes": [
-          {
-            "id": "fetch_script",
-            "label": "Inject remoteEntry.js Script",
-            "tappable": false
-          },
-          {
-            "id": "init_sharing",
-            "label": "__webpack_init_sharing__('default')",
-            "tappable": false
-          },
-          {
-            "id": "init_container",
-            "label": "container.init(__webpack_share_scopes__.default)",
-            "tappable": false
-          },
-          {
-            "id": "get_factory",
-            "label": "container.get('./Widget') -> Factory()",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The host dynamically appends remoteEntry.js script tag to browser document.",
-            "values": {
-              "fetch_script": {
-                "text": "\"Script Injected\""
-              },
-              "init_sharing": {
-                "text": "\"Pending\""
-              },
-              "init_container": {
-                "text": "\"Pending\""
-              },
-              "get_factory": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "fetch_script": "data",
-              "init_sharing": "idle",
-              "init_container": "idle",
-              "get_factory": "idle"
-            },
-            "arrows": [
-              [
-                "fetch_script",
-                "init_sharing"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Host initializes global sharing scope with host version manifests.",
-            "values": {
-              "fetch_script": {
-                "text": "\"Script Loaded\""
-              },
-              "init_sharing": {
-                "text": "\"Scope Initialized\""
-              },
-              "init_container": {
-                "text": "\"Pending\""
-              },
-              "get_factory": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "fetch_script": "ok",
-              "init_sharing": "data",
-              "init_container": "idle",
-              "get_factory": "idle"
-            },
-            "arrows": [
-              [
-                "init_sharing",
-                "init_container"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Remote container initializes against shared scope, resolving version conflicts.",
-            "values": {
-              "fetch_script": {
-                "text": "\"Ready\""
-              },
-              "init_sharing": {
-                "text": "\"Scope Active\""
-              },
-              "init_container": {
-                "text": "\"Container Bound\""
-              },
-              "get_factory": {
-                "text": "\"Resolving Module\""
-              }
-            },
-            "tones": {
-              "fetch_script": "ok",
-              "init_sharing": "ok",
-              "init_container": "data",
-              "get_factory": "idle"
-            },
-            "arrows": [
-              [
-                "init_container",
-                "get_factory"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Container exposes component module factory; host mounts federated React tree.",
-            "values": {
-              "fetch_script": {
-                "text": "\"Ready\""
-              },
-              "init_sharing": {
-                "text": "\"Ready\""
-              },
-              "init_container": {
-                "text": "\"Ready\""
-              },
-              "get_factory": {
-                "text": "\"Widget Mounted!\""
-              }
-            },
-            "tones": {
-              "fetch_script": "ok",
-              "init_sharing": "ok",
-              "init_container": "ok",
-              "get_factory": "ok"
-            },
-            "arrows": [
-              [
-                "get_factory",
-                "fetch_script"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Singleton Negotiation & Version Mismatch Traps: Semantic Versioning Ranges (requiredVersion) and Eager Fallbacks",
-      "codeHash": "c72e1726a96d47b330c8cfbf0fc572253a5719a91a64ffcd64b0ec43d3796e4c",
-      "spec": {
         "template": "compare",
-        "title": "Shared Singleton Negotiation vs Multi-Runtime Collision",
+        "title": "Bundle Bloat vs Module Federation",
         "left": {
-          "label": "Multi-Runtime Collision (No Singleton)",
+          "title": "Naive Micro-Frontend",
+          "subtitle": "Bundle Duplication",
           "items": [
-            "Duplicate React runtimes in heap",
-            "Conflicting ReactCurrentDispatcher closures",
-            "Fatal 'Invalid Hook Call' browser crash",
-            "Double memory footprint & payload bloat"
+            {
+              "label": "Duplicate React",
+              "text": "duplication",
+              "tone": "error"
+            },
+            {
+              "label": "Massive Payloads",
+              "text": "bloat",
+              "tone": "error"
+            }
           ]
         },
         "right": {
-          "label": "Negotiated Shared Singleton Scope",
+          "title": "Module Federation",
+          "subtitle": "Shared Runtime",
           "items": [
-            "Single shared React 18 instance",
-            "Unified hook dispatcher for all remotes",
-            "100% stable context & state propagation",
-            "Zero duplicate runtime bundle penalty"
+            {
+              "label": "Single React",
+              "text": "Module Federation",
+              "tone": "ok"
+            },
+            {
+              "label": "Dynamic Remotes",
+              "text": "remotes",
+              "tone": "ok"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Loading duplicate copies of React causes dispatcher closure collision.",
-            "values": {
-              "left": {
-                "items": [
-                  "Host React 18.2",
-                  "Remote React 18.3",
-                  "Duplicate Dispatchers",
-                  "Hook Crash Imminent"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Single React 18.3.1",
-                  "Shared Runtime",
-                  "Unified Dispatcher",
-                  "100% Crash-Free"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "at": "say3",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Monolithic architectures create deployment gridlock across squad teams."
           },
           {
-            "at": "say2",
-            "caption": "When a remote calls useState across boundaries, it crashes without shared singletons.",
-            "values": {
-              "left": {
-                "items": [
-                  "Invalid Hook Call!",
-                  "Dispatcher is null",
-                  "Blank White Screen",
-                  "Production Incident"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Dispatcher Valid",
-                  "Hook Executed",
-                  "State Bound",
-                  "Seamless UI"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "at": "say5",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Naive micro-frontends suffer brutal runtime bundle payload duplication."
           },
+          {
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Module Federation shares vendor libraries dynamically in the browser."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Bundle Bloat vs Module Federation",
+        "left": {
+          "title": "Naive Micro-Frontend",
+          "subtitle": "Bundle Duplication",
+          "items": [
+            {
+              "label": "Duplicate React",
+              "text": "duplication",
+              "tone": "error"
+            },
+            {
+              "label": "Massive Payloads",
+              "text": "bloat",
+              "tone": "error"
+            }
+          ]
+        },
+        "right": {
+          "title": "Module Federation",
+          "subtitle": "Shared Runtime",
+          "items": [
+            {
+              "label": "Single React",
+              "text": "Module Federation",
+              "tone": "ok"
+            },
+            {
+              "label": "Dynamic Remotes",
+              "text": "remotes",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
           {
             "at": "say3",
-            "caption": "Module Federation SemVer negotiation ensures the highest compatible version wins.",
-            "values": {
-              "left": {
-                "items": [
-                  "Unmanaged Versions",
-                  "Silent Incompatibilities",
-                  "Brittle Deployments",
-                  "Runtime Failures"
-                ]
-              },
-              "right": {
-                "items": [
-                  "SemVer Negotiated",
-                  "Best Version Wins",
-                  "Strict Singleton Mode",
-                  "Guaranteed Stability"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Monolithic architectures create deployment gridlock across squad teams."
           },
           {
-            "at": "say4",
-            "caption": "Shared scope saves multiple KB gzipped JavaScript per remote across the.",
-            "values": {
-              "left": {
-                "items": [
-                  "390 KB Duplicate JS",
-                  "Slow Mobile Download",
-                  "High GC Overhead",
-                  "Degraded Performance"
-                ]
-              },
-              "right": {
-                "items": [
-                  "0 KB Duplicate JS",
-                  "Sub-second Load",
-                  "Clean Heap Metrics",
-                  "Max Performance"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "at": "say5",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Naive micro-frontends suffer brutal runtime bundle payload duplication."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Module Federation shares vendor libraries dynamically in the browser."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
+      "partTitle": "Module Federation Under the Hood: Container Hosts, Remotes, Shared Dependency Manifests & Chunk Resolution",
+      "codeHash": "070d552f3c9085d8e88963458a4d77ca17eaf2b1edbe36d3af784cb92c25d3b9",
+      "spec": {
+        "template": "boxes",
+        "title": "Module Federation Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Host Shell",
+            "desc": "host",
+            "tone": "idle"
+          },
+          {
+            "id": "b2",
+            "title": "Remote Manifest",
+            "desc": "remoteEntry",
+            "tone": "data"
+          },
+          {
+            "id": "b3",
+            "title": "Shared Scope",
+            "desc": "sharedScope",
+            "tone": "ok"
+          },
+          {
+            "id": "b4",
+            "title": "Container Init",
+            "desc": "init",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Remote containers expose tiny manifests detailing modules and versions."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "b3"
+            ],
+            "caption": "Hosts initialize shared scopes to broker dependencies across remotes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "b2",
+              "b4"
+            ],
+            "caption": "The runtime downloads remote chunks on demand and executes components."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Module Federation Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Host Shell",
+            "desc": "host",
+            "tone": "idle"
+          },
+          {
+            "id": "b2",
+            "title": "Remote Manifest",
+            "desc": "remoteEntry",
+            "tone": "data"
+          },
+          {
+            "id": "b3",
+            "title": "Shared Scope",
+            "desc": "sharedScope",
+            "tone": "ok"
+          },
+          {
+            "id": "b4",
+            "title": "Container Init",
+            "desc": "init",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Remote containers expose tiny manifests detailing modules and versions."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "b3"
+            ],
+            "caption": "Hosts initialize shared scopes to broker dependencies across remotes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "b2",
+              "b4"
+            ],
+            "caption": "The runtime downloads remote chunks on demand and executes components."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 2,
+      "partTitle": "Singleton Negotiation & Version Mismatch Traps: Semantic Versioning Ranges (requiredVersion) and Eager Fallbacks",
+      "codeHash": "c72e1726a96d47b330c8cfbf0fc572253a5719a91a64ffcd64b0ec43d3796e4c",
+      "spec": {
+        "template": "states",
+        "title": "Singleton Version Negotiation",
+        "states": [
+          {
+            "id": "s1",
+            "title": "Required Version",
+            "desc": "requiredVersion",
+            "tone": "idle"
+          },
+          {
+            "id": "s2",
+            "title": "Singleton Rule",
+            "desc": "singleton",
+            "tone": "data"
+          },
+          {
+            "id": "s3",
+            "title": "Dispatcher Null",
+            "desc": "ReactCurrentDispatcher",
+            "tone": "error"
+          },
+          {
+            "id": "s4",
+            "title": "Negotiated Instance",
+            "desc": "version",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Multiple React instances corrupt hooks dispatchers, triggering crashes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "s1",
+              "s2"
+            ],
+            "caption": "Configuring singleton rules forces host and remotes to share runtimes."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "s1",
+              "s4"
+            ],
+            "caption": "Semantic version validation emits warnings when ranges fail to match."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Singleton Version Negotiation",
+        "states": [
+          {
+            "id": "s1",
+            "title": "Required Version",
+            "desc": "requiredVersion",
+            "tone": "idle"
+          },
+          {
+            "id": "s2",
+            "title": "Singleton Rule",
+            "desc": "singleton",
+            "tone": "data"
+          },
+          {
+            "id": "s3",
+            "title": "Dispatcher Null",
+            "desc": "ReactCurrentDispatcher",
+            "tone": "error"
+          },
+          {
+            "id": "s4",
+            "title": "Negotiated Instance",
+            "desc": "version",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Multiple React instances corrupt hooks dispatchers, triggering crashes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "s1",
+              "s2"
+            ],
+            "caption": "Configuring singleton rules forces host and remotes to share runtimes."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "s1",
+              "s4"
+            ],
+            "caption": "Semantic version validation emits warnings when ranges fail to match."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 3,
       "partTitle": "Building a Resilient Remote Component Loader & Sandbox Container in Pure JavaScript",
       "codeHash": "38a44139e40882be53379cdb33e1af8527e51c9b6bcc93bfbd6942580b81a23b",
       "spec": {
         "template": "boxes",
-        "title": "Resilient Remote Loading & Error Boundary Sandboxing",
+        "title": "Resilient Remote Loader",
         "boxes": [
           {
-            "id": "host_loader",
-            "label": "Host Remote Loader (3-second Timeout Guard)",
-            "tappable": false
+            "id": "r1",
+            "title": "Dynamic Import",
+            "desc": "lazy",
+            "tone": "idle"
           },
           {
-            "id": "cdn_probe",
-            "label": "CDN Network Probe (3 Retries with Backoff)",
-            "tappable": false
+            "id": "r2",
+            "title": "Retry Backoff",
+            "desc": "retries",
+            "tone": "data"
           },
           {
-            "id": "error_boundary",
-            "label": "Host Component Error Boundary",
-            "tappable": false
+            "id": "r3",
+            "title": "Timeout Guard",
+            "desc": "timeout",
+            "tone": "ok"
           },
           {
-            "id": "degraded_widget",
-            "label": "Isolated Fallback Widget (Rest of Desk Alive)",
-            "tappable": false
+            "id": "r4",
+            "title": "Error Boundary",
+            "desc": "ErrorBoundary",
+            "tone": "error"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Host wraps remote module loader with timeout guards and network retries.",
-            "values": {
-              "host_loader": {
-                "text": "\"Loading Remote\""
-              },
-              "cdn_probe": {
-                "text": "\"Connecting CDN\""
-              },
-              "error_boundary": {
-                "text": "\"Monitoring\""
-              },
-              "degraded_widget": {
-                "text": "\"Hidden\""
-              }
-            },
-            "tones": {
-              "host_loader": "data",
-              "cdn_probe": "data",
-              "error_boundary": "ok",
-              "degraded_widget": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "If CDN latency spikes beyond three seconds, timeout guard aborts the.",
-            "values": {
-              "host_loader": {
-                "text": "\"Timeout Abort!\""
-              },
-              "cdn_probe": {
-                "text": "\"CDN Lag 4.2s\""
-              },
-              "error_boundary": {
-                "text": "\"Catching Error\""
-              },
-              "degraded_widget": {
-                "text": "\"Activating Fallback\""
-              }
-            },
-            "tones": {
-              "host_loader": "error",
-              "cdn_probe": "error",
-              "error_boundary": "data",
-              "degraded_widget": "idle"
-            }
+            "highlight": [
+              "r1",
+              "r4"
+            ],
+            "caption": "Network failures in naive loaders crash entire host applications."
           },
           {
             "at": "say3",
-            "caption": "Host Error Boundary catches the failure and mounts an isolated degraded UI.",
-            "values": {
-              "host_loader": {
-                "text": "\"Handled\""
-              },
-              "cdn_probe": {
-                "text": "\"Offline\""
-              },
-              "error_boundary": {
-                "text": "\"Isolated Fault\""
-              },
-              "degraded_widget": {
-                "text": "Degraded Alert Rendered\""
-              }
-            },
-            "tones": {
-              "host_loader": "idle",
-              "cdn_probe": "idle",
-              "error_boundary": "ok",
-              "degraded_widget": "data"
-            }
+            "highlight": [
+              "r2",
+              "r3"
+            ],
+            "caption": "Resilient loaders wrap imports with retry policies and timeout guards."
           },
           {
-            "at": "say4",
-            "caption": "Failure in Risk Analytics does not impact Market Depth or Order Execution panels.",
-            "values": {
-              "host_loader": {
-                "text": "\"Desk Operational\""
-              },
-              "cdn_probe": {
-                "text": "Isolated\""
-              },
-              "error_boundary": {
-                "text": "\"Zero Crash Propagation\""
-              },
-              "degraded_widget": {
-                "text": "\"Trading Continues\""
-              }
-            },
-            "tones": {
-              "host_loader": "ok",
-              "cdn_probe": "idle",
-              "error_boundary": "ok",
-              "degraded_widget": "ok"
-            }
+            "at": "say8",
+            "highlight": [
+              "r4"
+            ],
+            "caption": "Dedicated error boundaries catch remote failures and show fallbacks."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Resilient Remote Loader",
+        "boxes": [
+          {
+            "id": "r1",
+            "title": "Dynamic Import",
+            "desc": "lazy",
+            "tone": "idle"
+          },
+          {
+            "id": "r2",
+            "title": "Retry Backoff",
+            "desc": "retries",
+            "tone": "data"
+          },
+          {
+            "id": "r3",
+            "title": "Timeout Guard",
+            "desc": "timeout",
+            "tone": "ok"
+          },
+          {
+            "id": "r4",
+            "title": "Error Boundary",
+            "desc": "ErrorBoundary",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "r1",
+              "r4"
+            ],
+            "caption": "Network failures in naive loaders crash entire host applications."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "r2",
+              "r3"
+            ],
+            "caption": "Resilient loaders wrap imports with retry policies and timeout guards."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "r4"
+            ],
+            "caption": "Dedicated error boundaries catch remote failures and show fallbacks."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "End-to-End Multi-App Micro-Frontend Simulation: Shell Host, Navigation Remote & Dynamic Cart Island Mounting",
       "codeHash": "74a694a514080203d0fbac71cb233bafb0af7daa75fe20d10e0fc2e17e9d8f13",
       "spec": {
         "template": "flow",
-        "title": "Cross-Remote Decoupled Event Bus Protocol",
+        "title": "Multi-App Micro-Frontend Simulation",
         "nodes": [
           {
-            "id": "order_exec",
-            "label": "OrderExecution Remote (Dispatches Fill)",
+            "id": "n1",
+            "label": "Host Shell",
+            "desc": "HostShell",
+            "tone": "idle",
             "tappable": false
           },
           {
-            "id": "global_bus",
-            "label": "Host Global Event Bus (CustomEvent / Observable)",
+            "id": "n2",
+            "label": "Navigation Remote",
+            "desc": "NavRemote",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "risk_remote_sub",
-            "label": "RiskAnalytics Remote (Recalculates VaR)",
+            "id": "n3",
+            "label": "Cart Remote",
+            "desc": "CartRemote",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "audit_remote_sub",
-            "label": "AuditLog Remote (Appends Ledger Row)",
+            "id": "n4",
+            "label": "Event Bus",
+            "desc": "EventBus",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "mountRemote"
+          },
+          {
+            "from": "n1",
+            "to": "n3",
+            "label": "mountRemote"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "dispatchGlobalEvent"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "OrderExecution remote executes trade and emits ORDER_FILLED domain event.",
-            "values": {
-              "order_exec": {
-                "text": "\"Fill Dispatched\""
-              },
-              "global_bus": {
-                "text": "\"Idle\""
-              },
-              "risk_remote_sub": {
-                "text": "\"Listening\""
-              },
-              "audit_remote_sub": {
-                "text": "\"Listening\""
-              }
-            },
-            "tones": {
-              "order_exec": "data",
-              "global_bus": "idle",
-              "risk_remote_sub": "idle",
-              "audit_remote_sub": "idle"
-            },
-            "arrows": [
-              [
-                "order_exec",
-                "global_bus"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Host Event Bus broadcasts immutable payload without tight module coupling.",
-            "values": {
-              "order_exec": {
-                "text": "\"Exited\""
-              },
-              "global_bus": {
-                "text": "\"Broadcasting Event\""
-              },
-              "risk_remote_sub": {
-                "text": "\"Intercepting\""
-              },
-              "audit_remote_sub": {
-                "text": "\"Intercepting\""
-              }
-            },
-            "tones": {
-              "order_exec": "ok",
-              "global_bus": "data",
-              "risk_remote_sub": "data",
-              "audit_remote_sub": "data"
-            },
-            "arrows": [
-              [
-                "global_bus",
-                "risk_remote_sub"
-              ],
-              [
-                "global_bus",
-                "audit_remote_sub"
-              ]
-            ]
+            "highlight": [
+              "n1"
+            ],
+            "caption": "The architecture unites host shells, navigation, and cart remotes."
           },
           {
             "at": "say3",
-            "caption": "Subscribed remotes receive event and update their local internal stores.",
-            "values": {
-              "order_exec": {
-                "text": "\"Idle\""
-              },
-              "global_bus": {
-                "text": "\"Dispatched\""
-              },
-              "risk_remote_sub": {
-                "text": "\"VaR Updated: 0.12\""
-              },
-              "audit_remote_sub": {
-                "text": "\"Row Inserted\""
-              }
-            },
-            "tones": {
-              "order_exec": "idle",
-              "global_bus": "ok",
-              "risk_remote_sub": "ok",
-              "audit_remote_sub": "ok"
-            }
+            "highlight": [
+              "n1",
+              "n2",
+              "n3"
+            ],
+            "caption": "The host bootstraps shared scopes and mounts remote micro-apps."
           },
           {
-            "at": "say4",
-            "caption": "Micro-frontends collaborate seamlessly without importing each other's code.",
-            "values": {
-              "order_exec": {
-                "text": "\"Decoupled\""
-              },
-              "global_bus": {
-                "text": "\"Zero Memory Leak\""
-              },
-              "risk_remote_sub": {
-                "text": "\"Autonomous\""
-              },
-              "audit_remote_sub": {
-                "text": "\"Autonomous\""
-              }
-            },
-            "tones": {
-              "order_exec": "ok",
-              "global_bus": "ok",
-              "risk_remote_sub": "ok",
-              "audit_remote_sub": "ok"
-            },
-            "arrows": [
-              [
-                "audit_remote_sub",
-                "order_exec"
-              ]
-            ]
+            "at": "say8",
+            "highlight": [
+              "n3",
+              "n4"
+            ],
+            "caption": "Decoupled domain events communicate state across remotes smoothly."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Multi-App Micro-Frontend Simulation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Host Shell",
+            "desc": "HostShell",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Navigation Remote",
+            "desc": "NavRemote",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Cart Remote",
+            "desc": "CartRemote",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Event Bus",
+            "desc": "EventBus",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "mountRemote"
+          },
+          {
+            "from": "n1",
+            "to": "n3",
+            "label": "mountRemote"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "dispatchGlobalEvent"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "n1"
+            ],
+            "caption": "The architecture unites host shells, navigation, and cart remotes."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "n1",
+              "n2",
+              "n3"
+            ],
+            "caption": "The host bootstraps shared scopes and mounts remote micro-apps."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "n3",
+              "n4"
+            ],
+            "caption": "Decoupled domain events communicate state across remotes smoothly."
           }
         ]
       }

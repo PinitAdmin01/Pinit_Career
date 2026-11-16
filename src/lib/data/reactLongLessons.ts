@@ -15422,15 +15422,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a 5th micro-app to the cluster and verify that payload savings scale even higher.",
       example: "Module Federation enables independent builds and deployments while negotiating and sharing common singleton libraries (like React) in the browser, eliminating massive bundle duplication.",
         "check": {
-        "question": "What is the primary architectural benefit of Module Federation over naive iframe or multi-bundle micro-frontends?",
+        "question": "What is the primary architectural benefit of Webpack 5 Module Federation compared to legacy iframe or multi-SPA micro-frontend approaches?",
         "options": [
-          "It allows independently built micro-apps to share foundational singleton dependencies like React at runtime, preventing duplicate bundle downloads",
-          "It replaces JavaScript with C++ WebAssembly binaries",
-          "It disables network encryption to speed up HTTP requests",
-          "It forces all micro-frontends to run on the same server"
+          "It allows web applications to run entirely without client browser runtimes by offloading all JavaScript processing to distributed edge clouds.",
+          "It enables independent applications to share runtime libraries dynamically in the browser, eliminating massive payload duplication across teams.",
+          "It converts all React component functions into static WebAssembly binaries at compile time, eliminating client-side DOM reconciliation loops.",
+          "It replaces client routing tables with hardware-accelerated operating system thread schedulers to synchronize view states across browser tabs."
         ],
-        "answer": 0,
-        "why": "Module Federation enables independent builds and deployments while negotiating and sharing common singleton libraries (like React) in the browser, eliminating massive bundle duplication."
+        "answer": 1,
+        "why": "Module Federation enables independent builds to share common runtimes like React at execution time, eliminating duplicate bundle bloat."
       }
     },
     {
@@ -15466,15 +15466,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a second exposed module (./Footer) to NavRemote and test its dynamic resolution.",
       example: "Module Federation remote containers implement init(sharedScope) to synchronize shared dependencies and get(modulePath) to return executable module factory functions.",
         "check": {
-        "question": "What two core lifecycle methods are exposed on the global container interface by remoteEntry.js?",
+        "question": "What two core lifecycle methods are exposed on a Module Federation container instance?",
         "options": [
-          "init(sharedScope) to configure shared libraries, and get(modulePath) to retrieve module factories",
-          "start() and stop()",
-          "compile() and execute()",
-          "connect() and disconnect()"
+          "mount and unmount methods that attach and detach raw DOM elements directly inside the document body tree without utilizing React renderers.",
+          "connect and disconnect methods that establish and terminate persistent WebSocket connections between host applications and remote servers.",
+          "compile and execute methods that translate incoming TypeScript source code into machine bytecode within client Web Worker runtime sandboxes.",
+          "init to initialize the shared dependency scope and get to retrieve exposed module factories asynchronously from the remote container runtime."
         ],
-        "answer": 0,
-        "why": "Module Federation remote containers implement init(sharedScope) to synchronize shared dependencies and get(modulePath) to return executable module factory functions."
+        "answer": 3,
+        "why": "A Module Federation container exposes init(sharedScope) for dependency negotiation and get(module) for dynamic factory loading."
       }
     },
     {
@@ -15510,15 +15510,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Set strictVersion: false and verify that relaxed version warnings are logged instead of isolated fallbacks.",
       example: "React hooks query a module-scoped dispatcher singleton.",
         "check": {
-        "question": "Why is having multiple copies of React loaded in the same browser window fatal to React hook execution?",
+        "question": "Why is having multiple copies of React loaded in the same browser window a fatal error for Hooks?",
         "options": [
-          "Because React hook state relies on a single shared module-level dispatcher singleton; multiple React closures cause uninitialized hook errors",
-          "Because the browser runs out of RAM",
-          "Because React components can only render once",
-          "Because CSS animations freeze when two scripts are loaded"
+          "React hooks rely on a shared dispatcher singleton; multiple copies create null dispatcher references that throw fatal runtime exceptions.",
+          "Multiple copies trigger browser security sandboxes to terminate the active tab to prevent cross-origin memory corruption vulnerabilities.",
+          "Operating systems revoke network socket permissions whenever more than one JavaScript runtime engine attempts to parse client cookies.",
+          "Browser layout engines refuse to compute CSS flexbox dimensions when duplicate virtual DOM libraries exist within global window memory."
         ],
         "answer": 0,
-        "why": "React hooks query a module-scoped dispatcher singleton. If a component calls hooks using a second React instance that was not mounted by the root renderer, the dispatcher is null, triggering an Invalid Hook Call crash."
+        "why": "React's hook dispatcher is stored as a global module singleton; loading two React copies breaks dispatcher tracking, causing invalid hook call errors."
       }
     },
     {
@@ -15554,15 +15554,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Increase timeoutMs to 200ms and observe how the failing remote behaves when network latency varies.",
       example: "Resilient micro-frontend loaders combine network timeouts, retries, and Error Boundaries to ensure that a failing remote widget renders a degraded fallback without crashing the parent host application.",
         "check": {
-        "question": "How should an enterprise host application protect itself against remote CDN network failures?",
+        "question": "How should an enterprise host application protect itself against a failing or offline remote micro-frontend?",
         "options": [
-          "By wrapping dynamic remote imports inside retry loaders, timeout guards, and React Error Boundaries with graceful fallback shells",
-          "By reloading the entire web page every time an error occurs",
-          "By deleting the remote component from the codebase",
-          "By disabling JavaScript on the client"
+          "By terminating the entire web application process and redirecting all active visitors to an external error status page on another domain.",
+          "By deleting all client-side authentication cookies and forcing the user to log in again to reset the application's internal memory state.",
+          "By wrapping remote component lazy imports with exponential backoff retries, network timeout guards, and localized fallback Error Boundaries.",
+          "By converting all interactive remote widgets into static WebP screenshot images whenever background network requests experience latency."
         ],
-        "answer": 0,
-        "why": "Resilient micro-frontend loaders combine network timeouts, retries, and Error Boundaries to ensure that a failing remote widget renders a degraded fallback without crashing the parent host application."
+        "answer": 2,
+        "why": "Defensive loaders combine timeouts, retries, and ErrorBoundary fallbacks to isolate remote failures without crashing the entire host page."
       }
     },
     {
@@ -15600,15 +15600,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a third remote for UserProfile and verify that all three remotes share the same React singleton.",
       example: "Micro-frontends maintain architectural autonomy by communicating through standardized, loosely coupled event buses or custom DOM events without sharing private implementation code.",
         "check": {
-        "question": "How do autonomous micro-frontends communicate events without tight coupling to each other's internal source code?",
+        "question": "How do autonomous micro-frontends communicate across boundaries without direct code coupling?",
         "options": [
-          "Via decoupled global event buses, custom browser DOM events, or shared observable state stores",
-          "By directly calling internal functions in each other's files",
-          "By writing files to the local hard drive",
-          "By reloading the browser window"
+          "By writing continuous mutation logs to the client's local hard drive and watching file system timestamps with background file observers.",
+          "Via decoupled global event emitters or browser CustomEvents that pass typed payload messages without creating compile-time dependencies.",
+          "By exposing a single mutable global window object that components across different remotes directly mutate without synchronization locks.",
+          "By restarting the client browser window after each interaction to transfer application state payloads via URL query string parameters."
         ],
-        "answer": 0,
-        "why": "Micro-frontends maintain architectural autonomy by communicating through standardized, loosely coupled event buses or custom DOM events without sharing private implementation code."
+        "answer": 1,
+        "why": "Global event buses and CustomEvent dispatchers allow remotes to publish and subscribe to domain events without direct code dependencies."
       }
     }
   ],
