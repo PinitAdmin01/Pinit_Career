@@ -2,141 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 30,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "component-tree",
-      "title": "Enterprise Career Platform System Topology",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "9832ceac8970583a352fc09cea250b70618125649ce5d8efdaaeb28ebf723f81"
+      "partTitle": "Architectural Blueprint: End-to-End System Design of the Job Tracker Enterprise Platform",
+      "codeHash": "9832ceac8970583a352fc09cea250b70618125649ce5d8efdaaeb28ebf723f81",
+      "spec": {
+        "template": "flow",
+        "title": "Enterprise Multi Tier System Topology",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Edge",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Next",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Client",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "PostgresConnector",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asynchronous worker queues process compute tasks with retries.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Edge perimeter terminates handshakes and executes middleware.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Server components stream dynamic markup inside suspense boundaries.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Interactive client islands connect to resilient data stores.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Edge network intercepts traffic and validates tokens."
-        },
-        {
-          "step": 2,
-          "caption": "Streaming server components render layout shells."
-        },
-        {
-          "step": 3,
-          "caption": "Interactive client islands manage local drag states."
-        },
-        {
-          "step": 4,
-          "caption": "Transactional database pool persists application data."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Enterprise Multi Tier System Topology",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Edge",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Next",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Client",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "PostgresConnector",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asynchronous worker queues process compute tasks with retries.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Edge perimeter terminates handshakes and executes middleware.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Server components stream dynamic markup inside suspense boundaries.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Interactive client islands connect to resilient data stores.",
+            "values": {
+              "n1": {
+                "text": "Edge"
+              },
+              "n2": {
+                "text": "Next"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "PostgresConnector"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "boxes",
-      "title": "Normalized Store and Rollback Engine",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "8401619599f19130cab837e122b320cbda4950e9ca0be7b7bcfd577424c8e222"
+      "partTitle": "Normalized Client Cache Engine: Entity Lookup Tables & Optimistic State Reducers",
+      "codeHash": "8401619599f19130cab837e122b320cbda4950e9ca0be7b7bcfd577424c8e222",
+      "spec": {
+        "template": "boxes",
+        "title": "Normalized Client Cache Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "byId",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "allIds",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "optimistic",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "rollback",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Optimistic reordering projects sorted column positions smoothly.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Store selectors memoize state slices to prevent rerenders.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Tabular entity dictionaries enable constant time record access.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Rollback closures restore exact prior state upon mutation errors.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Entities organize into dictionary lookup tables."
-        },
-        {
-          "step": 2,
-          "caption": "Optimistic mutation updates view instantaneously."
-        },
-        {
-          "step": 3,
-          "caption": "Network error triggers transactional rollback closure."
-        },
-        {
-          "step": 4,
-          "caption": "Store restores snapshot without visual inconsistency."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "Normalized Client Cache Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "byId",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "allIds",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "optimistic",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "rollback",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Optimistic reordering projects sorted column positions smoothly.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Store selectors memoize state slices to prevent rerenders.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Tabular entity dictionaries enable constant time record access.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Rollback closures restore exact prior state upon mutation errors.",
+            "values": {
+              "b1": {
+                "text": "byId"
+              },
+              "b2": {
+                "text": "allIds"
+              },
+              "b3": {
+                "text": "optimistic"
+              },
+              "b4": {
+                "text": "rollback"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "compare",
-      "title": "Defense in Depth Security Architecture",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "622b5de2fc638e3a16fe849abf87d833a856b107964b027b337d4d491bc8380a"
+      "partTitle": "Full-Stack Security & Data Integrity Audit: CSP, CORS, Rate Limiting & RLS",
+      "codeHash": "622b5de2fc638e3a16fe849abf87d833a856b107964b027b337d4d491bc8380a",
+      "spec": {
+        "template": "flow",
+        "title": "Defense in Depth Security Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "headers",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "sanitized",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "security",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "policies",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Automated security tests enforce zero trust access on commits.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Threat modeling framework mitigates spoofing and data tampering.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Content Security Policy with dynamic nonces blocks inline scripts.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Row Level Security policies enforce strict candidate tenant isolation.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Strict policy headers block inline script injection."
-        },
-        {
-          "step": 2,
-          "caption": "Same site cookies hide credentials from scripts."
-        },
-        {
-          "step": 3,
-          "caption": "Input filters neutralize untrusted markup inputs."
-        },
-        {
-          "step": 4,
-          "caption": "Row policies enforce tenant boundary isolation."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Defense in Depth Security Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "headers",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "sanitized",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "security",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "policies",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Automated security tests enforce zero trust access on commits.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Threat modeling framework mitigates spoofing and data tampering.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Content Security Policy with dynamic nonces blocks inline scripts.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Row Level Security policies enforce strict candidate tenant isolation.",
+            "values": {
+              "n1": {
+                "text": "headers"
+              },
+              "n2": {
+                "text": "sanitized"
+              },
+              "n3": {
+                "text": "security"
+              },
+              "n4": {
+                "text": "policies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "states",
-      "title": "Core Web Vitals Performance Audit",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "a98dd60b02533b940c774917c305887d17ebcc437d45e94881f90032e64d1598"
+      "partTitle": "Performance Profiling & Core Web Vitals Optimization: LCP, INP, CLS & Bundles",
+      "codeHash": "a98dd60b02533b940c774917c305887d17ebcc437d45e94881f90032e64d1598",
+      "spec": {
+        "template": "boxes",
+        "title": "Core Web Vitals Threshold Budget",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "lcp",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "inp",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "cls",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "metrics",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Build pipeline validates performance budgets before deployment.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "data"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Deterministic object schemas stabilize memory allocations in RAM.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Largest Contentful Paint measures perceived loading speed of cards.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Cumulative Layout Shift tracks visual element movements on render.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Server pre rendering delivers optimal content paint."
-        },
-        {
-          "step": 2,
-          "caption": "Deferred search inputs eliminate long main tasks."
-        },
-        {
-          "step": 3,
-          "caption": "Explicit container dimensions prevent layout shifts."
-        },
-        {
-          "step": 4,
-          "caption": "Metrics pass all enterprise production thresholds."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "Core Web Vitals Threshold Budget",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "lcp",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "inp",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "cls",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "metrics",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Build pipeline validates performance budgets before deployment.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "data"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Deterministic object schemas stabilize memory allocations in RAM.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Largest Contentful Paint measures perceived loading speed of cards.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Cumulative Layout Shift tracks visual element movements on render.",
+            "values": {
+              "b1": {
+                "text": "lcp"
+              },
+              "b2": {
+                "text": "inp"
+              },
+              "b3": {
+                "text": "cls"
+              },
+              "b4": {
+                "text": "metrics"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "flow",
-      "title": "Production Deployment Gate Verification",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "469d260049665959748a723d10ca0b0caaf5ad351af54d42b7f33ab5ab9c595d"
+      "partTitle": "Production Deployment Gate: CI/CD Pipeline Verification, Monitoring & Month 1 Defense",
+      "codeHash": "469d260049665959748a723d10ca0b0caaf5ad351af54d42b7f33ab5ab9c595d",
+      "spec": {
+        "template": "flow",
+        "title": "Production Deployment Gate Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "checklist",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "verification",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "deployment",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "production",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Canary traffic routing directs five percent of traffic safely.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Standalone output shrinks deployment container images drastically.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Deployment gate pipeline validates automated verification criteria.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated test suites and migrations pass before blue-green release.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Continuous integration verifies zero type errors."
-        },
-        {
-          "step": 2,
-          "caption": "Complete automated test suite passes with full green."
-        },
-        {
-          "step": 3,
-          "caption": "Database migrations execute against staging instance."
-        },
-        {
-          "step": 4,
-          "caption": "Zero downtime deployment cutover serves production."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Production Deployment Gate Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "checklist",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "verification",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "deployment",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "production",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Canary traffic routing directs five percent of traffic safely.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Standalone output shrinks deployment container images drastically.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Deployment gate pipeline validates automated verification criteria.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated test suites and migrations pass before blue-green release.",
+            "values": {
+              "n1": {
+                "text": "checklist"
+              },
+              "n2": {
+                "text": "verification"
+              },
+              "n3": {
+                "text": "deployment"
+              },
+              "n4": {
+                "text": "production"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     }
   ]
 }
