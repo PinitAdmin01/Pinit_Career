@@ -17856,13 +17856,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the primary architectural purpose of authoring an enterprise Request for Comments (RFC)?",
         "options": [
-          "To formally define problem statements, multi-tier system topologies, security boundaries, and migration plans for architecture review",
-          "To complain about legacy code on internal message boards without proposing solutions",
-          "To convert all TypeScript files into minified C++ source code",
-          "To eliminate all testing pipelines and deploy directly to production servers"
+          "To mandate that all existing web application codebases immediately migrate to raw native assembly code across all browser platforms.",
+          "To codify multi-tier system topologies, security boundaries, failure modes, and migration plans for architecture review board approval.",
+          "To enforce that all client-side network fetch operations execute exclusively over unencrypted plain-text HTTP connections worldwide.",
+          "To replace all automated continuous integration pipelines with informal weekly stakeholder polls conducted over internal chat tools."
         ],
-        "answer": 0,
-        "why": "RFCs codify major architectural decisions, ensuring alignment across engineering squads, SRE teams, and leadership."
+        "answer": 1,
+        "why": "RFCs formally codify system topologies, security boundaries, failure modes, and migration plans to align engineering leadership and governance."
       }
     },
     {
@@ -17890,15 +17890,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Increase Dynamic_RSC_Stream duration to 45ms and verify whether the pipeline exceeds the 50ms SLA budget.",
       example: "RFC-0104 establishes an end-to-end latency budget of 50.0ms across DNS, edge middleware, static shell, and RSC streaming.",
         "check": {
-        "question": "What is the maximum end-to-end request latency budget established in RFC-0104?",
+        "question": "What is the maximum end-to-end request latency budget established for platform execution in RFC-0104?",
         "options": [
-          "50.0 milliseconds from user DNS resolution to full interactive streaming completion across global edge nodes",
-          "5 seconds per page view",
-          "10 minutes to allow server caches to warm up",
-          "100 microseconds, which is faster than light can travel across fiber cables"
+          "Five hundred milliseconds allocated entirely to DNS lookups and initial TLS handshakes across distributed global points of presence.",
+          "Two thousand milliseconds to accommodate un-optimized legacy relational database queries and redundant nested JSON serialization.",
+          "Ten microseconds from user click to DOM update, which is physically faster than optical signals propagate through fiber optic lines.",
+          "Fifty milliseconds spanning edge DNS routing, sub-millisecond edge middleware authentication, static shell flush, and RSC streaming."
         ],
-        "answer": 0,
-        "why": "RFC-0104 establishes an end-to-end latency budget of 50.0ms across DNS, edge middleware, static shell, and RSC streaming."
+        "answer": 3,
+        "why": "RFC-0104 establishes an end-to-end latency budget of 50.0ms across DNS, edge middleware auth, static shell flush, and RSC streaming."
       }
     },
     {
@@ -17925,12 +17925,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Simulate 3 failures on origin-us-east and observe how the router shifts subsequent traffic to origin-us-west.",
       example: "Edge circuit breakers isolate failed origin clusters and redirect requests to standby regions without dropping user sessions.",
         "check": {
-        "question": "How does an Edge Circuit Breaker protect user sessions during regional origin datacenter failures?",
+        "question": "How does an Edge Circuit Breaker protect user sessions during regional origin datacenter outages?",
         "options": [
-          "It detects error spikes and shifts traffic immediately to a secondary healthy failover region in under 50ms",
-          "It sends an email to the customer support team and closes the website",
-          "It deletes user accounts to reduce server memory usage",
-          "It reloads the user's browser in an infinite loop"
+          "It detects regional origin error bursts and reroutes subsequent traffic to healthy backup origin clusters within fifty milliseconds.",
+          "It terminates all active user WebSocket connections and locks customer browser windows until global cloud providers reboot systems.",
+          "It clears all persistent database storage records to relieve CPU memory contention on degraded origin compute nodes during outages.",
+          "It triggers an unhandled browser alert dialog instructing users to manually change their desktop network proxy domain configurations."
         ],
         "answer": 0,
         "why": "Edge circuit breakers isolate failed origin clusters and redirect requests to standby regions without dropping user sessions."
@@ -17964,12 +17964,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "Why does RFC-0104 mandate strict Zod runtime schema validation for all Server-Driven UI component payloads?",
         "options": [
-          "To enforce immutable structural contracts at domain boundaries and validate runtime data since TypeScript types are erased at compile time",
-          "To compile CSS files into single JavaScript bundles",
-          "Zod generates automatic cryptocurrency tokens on every validation pass"
+          "Because Zod automatically minifies CSS stylesheets into single-line hexadecimal strings during all client JavaScript hydration cycles.",
+          "Because Zod compiles React component templates into native machine instructions for high-throughput edge web execution units in cloud.",
+          "Because TypeScript types are erased at compile time, requiring runtime contracts to guarantee payload safety across domain boundaries.",
+          "Because Zod forces every client browser to download fifteen megabytes of cryptographic authentication tokens upon initial page mounts."
         ],
-        "answer": 0,
-        "why": "TypeScript types are erased during compilation; Zod provides vital runtime schema validation at domain boundaries to guarantee type safety and prevent runtime crashes."
+        "answer": 2,
+        "why": "TypeScript types are erased during compilation; Zod provides vital runtime schema validation at domain boundaries to guarantee type safety."
       }
     },
     {
@@ -17998,12 +17999,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What two economic pillars substantiate the $4.0M annual economic return on investment of RFC-0104?",
         "options": [
-          "$1.75M in cloud hosting cost savings from edge offloading plus $2.25M in revenue lift from faster page conversion speeds",
-          "Selling corporate office furniture and terminating remote employee contracts",
-          "Mining Bitcoin on edge worker nodes during off-peak hours",
-          "Charging users a $10 fee every time they refresh a webpage"
+          "Immediate reductions in developer payroll costs combined with the termination of external corporate software tooling subscriptions.",
+          "Cloud hosting cost reductions of $1.75M from edge offloading combined with $2.25M in revenue conversion lift from sub-50ms latency.",
+          "Monetizing proprietary user telemetry through third-party data brokers while imposing subscription fees on all basic login attempts.",
+          "Eliminating testing infrastructure to reduce cloud compute bills while charging external vendors integration fees for platform APIs."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "RFC-0104 delivers financial ROI through major cloud infrastructure reduction and proven conversion rate increases from sub-50ms speeds."
       }
     }

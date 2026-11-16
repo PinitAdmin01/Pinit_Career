@@ -1,11 +1,10 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 59,
-  "promptSha": "block12_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "RFC-0104 Blueprint: Executive Summary, Architectural Mandate & Technical Motivation",
       "codeHash": "1beab5656ba0f793051b13193175ce9604c4a19c0b6d97e8d0fd0740abeb44e8",
       "spec": {
@@ -13,733 +12,692 @@
         "title": "RFC-0104 Four Core Architectural Pillars",
         "boxes": [
           {
-            "id": "p1",
-            "label": "Pillar 1: Edge Routing",
-            "sub": "Sub-5ms V8 Edge Runtime & Anycast",
-            "val": "V8-Edge",
-            "tone": "ok"
+            "id": "edge",
+            "label": "Edge Routing",
+            "text": "Sub-Millisecond Token Auth",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "p2",
-            "label": "Pillar 2: Hybrid Streaming",
-            "sub": "Next.js PPR with sub-25ms TTFB",
-            "val": "Next-19-PPR",
-            "tone": "ok"
+            "id": "stream",
+            "label": "Hybrid Streaming",
+            "text": "Partial Prerendering Shell",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "p3",
-            "label": "Pillar 3: Server-Driven UI",
-            "sub": "Polymorphic Registry & Zod Schemas",
-            "val": "Schema v3",
-            "tone": "ok"
+            "id": "sdui",
+            "label": "Server-Driven UI",
+            "text": "Polymorphic Block Registry",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "p4",
-            "label": "Pillar 4: Zero-Trust Security",
-            "sub": "WebCrypto JWT & Token Bucket",
-            "val": "Zero-Trust",
-            "tone": "ok"
+            "id": "sec",
+            "label": "Zero-Trust Security",
+            "text": "WebCrypto Token Limiter",
+            "tone": "ok",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "RFC-multiple establishes four mandatory architectural pillars.",
-            "values": {
-              "p1": {
-                "val": "Audited"
-              },
-              "p2": {
-                "val": "Audited"
-              },
-              "p3": {
-                "val": "Audited"
-              },
-              "p4": {
-                "val": "Audited"
-              }
-            },
-            "tones": {
-              "p1": "data",
-              "p2": "data",
-              "p3": "data",
-              "p4": "data"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Edge Routing and Hybrid Streaming guarantee sub-ms end-to-end latency.",
-            "values": {
-              "p1": {
-                "val": "5ms Ingress"
-              },
-              "p2": {
-                "val": "25ms Shell"
-              },
-              "p3": {
-                "val": "Audited"
-              },
-              "p4": {
-                "val": "Audited"
-              }
-            },
-            "tones": {
-              "p1": "ok",
-              "p2": "ok",
-              "p3": "data",
-              "p4": "data"
-            }
+            "highlight": [
+              "edge",
+              "stream"
+            ],
+            "caption": "The enterprise RFC codifies foundational architectural transformations."
           },
           {
             "at": "say3",
-            "caption": "Server-Driven UI and Zero-Trust Security enforce enterprise stability.",
-            "values": {
-              "p1": {
-                "val": "5ms Ingress"
-              },
-              "p2": {
-                "val": "25ms Shell"
-              },
-              "p3": {
-                "val": "Zod Validated"
-              },
-              "p4": {
-                "val": "WebCrypto JWT"
-              }
-            },
-            "tones": {
-              "p1": "ok",
-              "p2": "ok",
-              "p3": "ok",
-              "p4": "ok"
-            }
+            "highlight": [
+              "stream",
+              "sdui"
+            ],
+            "caption": "The edge platform combines hybrid streaming and server driven interfaces."
           },
           {
             "at": "say4",
-            "caption": "Change Advisory Board certifies RFC-multiple with one hundred%.",
-            "values": {
-              "p1": {
-                "val": "CAB Approved"
-              },
-              "p2": {
-                "val": "CAB Approved"
-              },
-              "p3": {
-                "val": "CAB Approved"
-              },
-              "p4": {
-                "val": "CAB Approved"
-              }
-            },
-            "tones": {
-              "p1": "ok",
-              "p2": "ok",
-              "p3": "ok",
-              "p4": "ok"
-            }
+            "highlight": [
+              "sdui",
+              "sec"
+            ],
+            "caption": "Change advisory board scorecards systematically inspect all four pillars."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "RFC-0104 Four Core Architectural Pillars",
+        "boxes": [
+          {
+            "id": "edge",
+            "label": "Edge Routing",
+            "text": "Sub-Millisecond Token Auth",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "stream",
+            "label": "Hybrid Streaming",
+            "text": "Partial Prerendering Shell",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sdui",
+            "label": "Server-Driven UI",
+            "text": "Polymorphic Block Registry",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sec",
+            "label": "Zero-Trust Security",
+            "text": "WebCrypto Token Limiter",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "edge",
+              "stream"
+            ],
+            "caption": "The enterprise RFC codifies foundational architectural transformations."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "stream",
+              "sdui"
+            ],
+            "caption": "The edge platform combines hybrid streaming and server driven interfaces."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "sdui",
+              "sec"
+            ],
+            "caption": "Change advisory board scorecards systematically inspect all four pillars."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Multi-Tiered System Topology Specification & Latency Budget Engineering",
       "codeHash": "440316f7a974a7d72ee2633e3d893c363774bb156660e1812f7e91ff678ad286",
       "spec": {
         "template": "flow",
-        "title": "Multi-Tiered 50ms Latency Budget Pipeline",
+        "title": "Multi-Tiered Platform Latency Budget Pipeline",
         "nodes": [
           {
             "id": "dns",
-            "label": "Edge DNS Anycast",
-            "sub": "4.2ms Resolution",
-            "status": "active"
+            "label": "Edge DNS",
+            "text": "Anycast Resolution",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "mw",
-            "label": "Edge Middleware Auth",
-            "sub": "1.8ms WebCrypto JWT",
-            "status": "active"
+            "id": "auth",
+            "label": "Edge Auth",
+            "text": "Sub-Millisecond Verification",
+            "tone": "ok",
+            "tappable": false
           },
           {
             "id": "shell",
-            "label": "PPR Static Shell Flush",
-            "sub": "12.5ms TTFB Delivery",
-            "status": "active"
+            "label": "Static Shell",
+            "text": "Instantaneous Contentful Paint",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "stream",
-            "label": "Dynamic RSC Stream",
-            "sub": "22.0ms Data Hydration",
-            "status": "ok"
+            "id": "rsc",
+            "label": "RSC Stream",
+            "text": "Personalized Dynamic Slots",
+            "tone": "ok",
+            "tappable": false
           }
         ],
         "edges": [
           {
             "from": "dns",
-            "to": "mw",
-            "label": "4.2ms"
+            "to": "auth",
+            "label": "Resolve"
           },
           {
-            "from": "mw",
+            "from": "auth",
             "to": "shell",
-            "label": "1.8ms"
+            "label": "Authorize"
           },
           {
             "from": "shell",
-            "to": "stream",
-            "label": "12.5ms"
+            "to": "rsc",
+            "label": "Stream Content"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Anycast DNS resolves browser request in four.twoms to nearest edge node.",
-            "values": {
-              "dns": {
-                "status": "4.2ms Done"
-              },
-              "mw": {
-                "status": "Queued"
-              },
-              "shell": {
-                "status": "Idle"
-              },
-              "stream": {
-                "status": "Idle"
-              }
-            },
-            "tones": {
-              "dns": "ok",
-              "mw": "idle",
-              "shell": "idle",
-              "stream": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Edge middleware validates JWT claims in one.eightms without touching.",
-            "values": {
-              "dns": {
-                "status": "4.2ms Done"
-              },
-              "mw": {
-                "status": "1.8ms Done"
-              },
-              "shell": {
-                "status": "Flushing"
-              },
-              "stream": {
-                "status": "Idle"
-              }
-            },
-            "tones": {
-              "dns": "ok",
-              "mw": "ok",
-              "shell": "data",
-              "stream": "idle"
-            }
+            "highlight": [
+              "dns",
+              "auth"
+            ],
+            "caption": "Performance is governed by strict end to end latency budget engineering."
           },
           {
             "at": "say3",
-            "caption": "Static application shell delivers in twelve.fivems, triggering.",
-            "values": {
-              "dns": {
-                "status": "4.2ms Done"
-              },
-              "mw": {
-                "status": "1.8ms Done"
-              },
-              "shell": {
-                "status": "12.5ms Done"
-              },
-              "stream": {
-                "status": "Streaming"
-              }
-            },
-            "tones": {
-              "dns": "ok",
-              "mw": "ok",
-              "shell": "ok",
-              "stream": "data"
-            }
+            "highlight": [
+              "auth",
+              "shell"
+            ],
+            "caption": "Edge middleware executes fast token verification without touching origins."
           },
           {
             "at": "say4",
-            "caption": "Total request completes in multiple.fivems, well within the.",
-            "values": {
-              "dns": {
-                "status": "4.2ms Done"
-              },
-              "mw": {
-                "status": "1.8ms Done"
-              },
-              "shell": {
-                "status": "12.5ms Done"
-              },
-              "stream": {
-                "status": "22.0ms Done"
-              }
-            },
-            "tones": {
-              "dns": "ok",
-              "mw": "ok",
-              "shell": "ok",
-              "stream": "ok"
-            }
+            "highlight": [
+              "shell",
+              "rsc"
+            ],
+            "caption": "The pre-compiled static shell delivers instantaneous contentful paint."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Multi-Tiered Platform Latency Budget Pipeline",
+        "nodes": [
+          {
+            "id": "dns",
+            "label": "Edge DNS",
+            "text": "Anycast Resolution",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "auth",
+            "label": "Edge Auth",
+            "text": "Sub-Millisecond Verification",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "shell",
+            "label": "Static Shell",
+            "text": "Instantaneous Contentful Paint",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "rsc",
+            "label": "RSC Stream",
+            "text": "Personalized Dynamic Slots",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "dns",
+            "to": "auth",
+            "label": "Resolve"
+          },
+          {
+            "from": "auth",
+            "to": "shell",
+            "label": "Authorize"
+          },
+          {
+            "from": "shell",
+            "to": "rsc",
+            "label": "Stream Content"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "dns",
+              "auth"
+            ],
+            "caption": "Performance is governed by strict end to end latency budget engineering."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "auth",
+              "shell"
+            ],
+            "caption": "Edge middleware executes fast token verification without touching origins."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "shell",
+              "rsc"
+            ],
+            "caption": "The pre-compiled static shell delivers instantaneous contentful paint."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "Reliability, Disaster Recovery & Multi-Region Fallback Router",
       "codeHash": "2f1deb59be21be81537f0d902804ab9a2c85a9ccbfa6cd401e8d2d133a0164dc",
       "spec": {
         "template": "states",
-        "title": "Edge Circuit Breaker Finite State Machine",
+        "title": "Edge Circuit Breaker Regional Fallback States",
         "states": [
           {
             "id": "closed",
-            "label": "CIRCUIT_CLOSED",
-            "desc": "Normal operation; traffic routes to primary origin",
-            "active": true
-          },
-          {
-            "id": "tripping",
-            "label": "FAILURE_BURST",
-            "desc": "Consecutive error threshold exceeded (>=2)",
-            "active": false
+            "label": "Closed Normal",
+            "text": "Primary Origin Traffic",
+            "tone": "ok"
           },
           {
             "id": "open",
-            "label": "CIRCUIT_OPEN",
-            "desc": "Primary origin bypassed; traffic routes to failover region",
-            "active": false
+            "label": "Open Tripped",
+            "text": "Secondary Failover Region",
+            "tone": "error"
           },
           {
-            "id": "half_open",
-            "label": "HALF_OPEN",
-            "desc": "Canary probing to verify primary recovery",
-            "active": false
+            "id": "half",
+            "label": "Half Open",
+            "text": "Canary Probe Recovery",
+            "tone": "data"
+          },
+          {
+            "id": "stale",
+            "label": "Stale Degrade",
+            "text": "Local Edge Cache Shell",
+            "tone": "data"
           }
         ],
         "transitions": [
           {
             "from": "closed",
-            "to": "tripping",
-            "label": "ERROR_503"
-          },
-          {
-            "from": "tripping",
             "to": "open",
-            "label": "THRESHOLD_MET"
+            "label": "Failure Burst"
           },
           {
             "from": "open",
-            "to": "half_open",
-            "label": "PROBE_TIMER"
+            "to": "half",
+            "label": "Canary Probe"
           },
           {
-            "from": "half_open",
+            "from": "half",
             "to": "closed",
-            "label": "CANARY_SUCCESS"
+            "label": "Canary Success"
+          },
+          {
+            "from": "open",
+            "to": "stale",
+            "label": "Global Outage"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Circuit breaker operates in CIRCUIT_CLOSED state under normal conditions.",
-            "values": {
-              "closed": {
-                "active": true
-              },
-              "tripping": {
-                "active": false
-              },
-              "open": {
-                "active": false
-              },
-              "half_open": {
-                "active": false
-              }
-            },
-            "tones": {
-              "closed": "ok",
-              "tripping": "idle",
-              "open": "idle",
-              "half_open": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Upstream datacenter emits consecutive unavailable errors, recording.",
-            "values": {
-              "closed": {
-                "active": false
-              },
-              "tripping": {
-                "active": true
-              },
-              "open": {
-                "active": false
-              },
-              "half_open": {
-                "active": false
-              }
-            },
-            "tones": {
-              "closed": "idle",
-              "tripping": "warn",
-              "open": "idle",
-              "half_open": "idle"
-            }
+            "highlight": [
+              "closed"
+            ],
+            "caption": "Edge nodes continuously monitor upstream origin health across regions."
           },
           {
             "at": "say3",
-            "caption": "Threshold reached; circuit trips to CIRCUIT_OPEN in under one millisecond.",
-            "values": {
-              "closed": {
-                "active": false
-              },
-              "tripping": {
-                "active": false
-              },
-              "open": {
-                "active": true
-              },
-              "half_open": {
-                "active": false
-              }
-            },
-            "tones": {
-              "closed": "idle",
-              "tripping": "idle",
-              "open": "error",
-              "half_open": "idle"
-            }
+            "highlight": [
+              "closed",
+              "open"
+            ],
+            "caption": "The edge router shifts subsequent traffic to secondary failover regions."
           },
           {
             "at": "say4",
-            "caption": "Traffic routes seamlessly to backup region with zero dropped user sessions.",
-            "values": {
-              "closed": {
-                "active": false
-              },
-              "tripping": {
-                "active": false
-              },
-              "open": {
-                "active": true
-              },
-              "half_open": {
-                "active": false
-              }
-            },
-            "tones": {
-              "closed": "idle",
-              "tripping": "idle",
-              "open": "ok",
-              "half_open": "idle"
-            }
+            "highlight": [
+              "open",
+              "stale"
+            ],
+            "caption": "Stale degradation policies serve cached static shells during outages."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Edge Circuit Breaker Regional Fallback States",
+        "states": [
+          {
+            "id": "closed",
+            "label": "Closed Normal",
+            "text": "Primary Origin Traffic",
+            "tone": "ok"
+          },
+          {
+            "id": "open",
+            "label": "Open Tripped",
+            "text": "Secondary Failover Region",
+            "tone": "error"
+          },
+          {
+            "id": "half",
+            "label": "Half Open",
+            "text": "Canary Probe Recovery",
+            "tone": "data"
+          },
+          {
+            "id": "stale",
+            "label": "Stale Degrade",
+            "text": "Local Edge Cache Shell",
+            "tone": "data"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "closed",
+            "to": "open",
+            "label": "Failure Burst"
+          },
+          {
+            "from": "open",
+            "to": "half",
+            "label": "Canary Probe"
+          },
+          {
+            "from": "half",
+            "to": "closed",
+            "label": "Canary Success"
+          },
+          {
+            "from": "open",
+            "to": "stale",
+            "label": "Global Outage"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "closed"
+            ],
+            "caption": "Edge nodes continuously monitor upstream origin health across regions."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "closed",
+              "open"
+            ],
+            "caption": "The edge router shifts subsequent traffic to secondary failover regions."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "open",
+              "stale"
+            ],
+            "caption": "Stale degradation policies serve cached static shells during outages."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Cross-Functional Governance & Team Topologies: Zod Schemas & CI Conformance",
       "codeHash": "bf9ecc8d2cf78d608a317609a1ea9c0ce4e6de5db648ae2e2fa3632ab0a1d9b4",
       "spec": {
-        "template": "component-tree",
-        "title": "Decoupled Team Topologies & Schema Governance",
-        "root": {
-          "id": "arch_guild",
-          "name": "Architecture Review Board (RFC-0104 Governance)",
-          "children": [
-            {
-              "id": "platform_core",
-              "name": "Core Platform Squad (Edge Middleware, Caching)",
-              "children": []
-            },
-            {
-              "id": "design_systems",
-              "name": "Design System Squad (Atomic Primitives, Tokens)",
-              "children": []
-            },
-            {
-              "id": "stream_aligned",
-              "name": "Feature Domain Squads (Zod Schema Enforced)",
-              "children": [
-                {
-                  "id": "checkout_squad",
-                  "name": "Checkout Squad (CI Pass 99.4%)"
-                },
-                {
-                  "id": "analytics_squad",
-                  "name": "Analytics Squad (CI Pass 99.1%)"
-                }
-              ]
-            }
-          ]
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Cross-Functional Domain Governance Gate",
+        "nodes": [
           {
-            "at": "say1",
-            "caption": "Architecture guild establishes decoupled team topologies across engineering.",
-            "values": {
-              "arch_guild": {
-                "state": "Governance Active"
-              },
-              "platform_core": {
-                "state": "Active"
-              },
-              "design_systems": {
-                "state": "Active"
-              },
-              "stream_aligned": {
-                "state": "Active"
-              },
-              "checkout_squad": {
-                "state": "Active"
-              },
-              "analytics_squad": {
-                "state": "Active"
-              }
-            },
-            "tones": {
-              "arch_guild": "ok",
-              "platform_core": "ok",
-              "design_systems": "ok",
-              "stream_aligned": "ok",
-              "checkout_squad": "ok",
-              "analytics_squad": "ok"
-            }
+            "id": "design",
+            "label": "Design System",
+            "text": "Atomic Token Primitives",
+            "tone": "data",
+            "tappable": false
           },
           {
+            "id": "platform",
+            "label": "Edge Core",
+            "text": "Middleware Caching Proxies",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "squad",
+            "label": "Feature Squad",
+            "text": "Autonomous Domain Units",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "gate",
+            "label": "Zod Gate",
+            "text": "Runtime Schema Conformance",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "design",
+            "to": "squad",
+            "label": "Visual Tokens"
+          },
+          {
+            "from": "platform",
+            "to": "squad",
+            "label": "Edge Tooling"
+          },
+          {
+            "from": "squad",
+            "to": "gate",
+            "label": "Validate Schema"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Feature squads build business logic independently with zero shared code pollution.",
-            "values": {
-              "arch_guild": {
-                "state": "Monitoring"
-              },
-              "platform_core": {
-                "state": "Stable"
-              },
-              "design_systems": {
-                "state": "Stable"
-              },
-              "stream_aligned": {
-                "state": "Autonomous"
-              },
-              "checkout_squad": {
-                "state": "Building"
-              },
-              "analytics_squad": {
-                "state": "Building"
-              }
-            },
-            "tones": {
-              "arch_guild": "ok",
-              "platform_core": "ok",
-              "design_systems": "ok",
-              "stream_aligned": "ok",
-              "checkout_squad": "data",
-              "analytics_squad": "data"
-            }
+            "highlight": [
+              "design",
+              "platform",
+              "squad"
+            ],
+            "caption": "Engineering structure decouples core platform and feature domain squads."
           },
           {
             "at": "say3",
-            "caption": "CI pipelines audit one hundred% Zod validation coverage across all SDUI.",
-            "values": {
-              "arch_guild": {
-                "state": "Auditing"
-              },
-              "platform_core": {
-                "state": "Audited"
-              },
-              "design_systems": {
-                "state": "Audited"
-              },
-              "stream_aligned": {
-                "state": "Audited"
-              },
-              "checkout_squad": {
-                "state": "100% Zod"
-              },
-              "analytics_squad": {
-                "state": "100% Zod"
-              }
-            },
-            "tones": {
-              "arch_guild": "ok",
-              "platform_core": "ok",
-              "design_systems": "ok",
-              "stream_aligned": "ok",
-              "checkout_squad": "ok",
-              "analytics_squad": "ok"
-            }
+            "highlight": [
+              "squad",
+              "gate"
+            ],
+            "caption": "Inter-domain communication is governed by automated schema validation."
           },
           {
             "at": "say4",
-            "caption": "All squads pass compliance gates, enabling daily autonomous production releases.",
-            "values": {
-              "arch_guild": {
-                "state": "Compliant"
-              },
-              "platform_core": {
-                "state": "Compliant"
-              },
-              "design_systems": {
-                "state": "Compliant"
-              },
-              "stream_aligned": {
-                "state": "Compliant"
-              },
-              "checkout_squad": {
-                "state": "Compliant"
-              },
-              "analytics_squad": {
-                "state": "Compliant"
-              }
-            },
-            "tones": {
-              "arch_guild": "ok",
-              "platform_core": "ok",
-              "design_systems": "ok",
-              "stream_aligned": "ok",
-              "checkout_squad": "ok",
-              "analytics_squad": "ok"
-            }
+            "highlight": [
+              "gate"
+            ],
+            "caption": "Continuous integration linters enforce schema coverage and test rates."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Cross-Functional Domain Governance Gate",
+        "nodes": [
+          {
+            "id": "design",
+            "label": "Design System",
+            "text": "Atomic Token Primitives",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "platform",
+            "label": "Edge Core",
+            "text": "Middleware Caching Proxies",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "squad",
+            "label": "Feature Squad",
+            "text": "Autonomous Domain Units",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "gate",
+            "label": "Zod Gate",
+            "text": "Runtime Schema Conformance",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "design",
+            "to": "squad",
+            "label": "Visual Tokens"
+          },
+          {
+            "from": "platform",
+            "to": "squad",
+            "label": "Edge Tooling"
+          },
+          {
+            "from": "squad",
+            "to": "gate",
+            "label": "Validate Schema"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "design",
+              "platform",
+              "squad"
+            ],
+            "caption": "Engineering structure decouples core platform and feature domain squads."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "squad",
+              "gate"
+            ],
+            "caption": "Inter-domain communication is governed by automated schema validation."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "gate"
+            ],
+            "caption": "Continuous integration linters enforce schema coverage and test rates."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "The Principal Architect Viva & Financial ROI Defense: $4.0M Economic Value",
       "codeHash": "1dfae55bdd369cfbc5c8f7b5f85be675ece133e58a960d9f6a56d26f18c55b9f",
       "spec": {
         "template": "compare",
-        "title": "Financial ROI Model: Legacy Cloud Costs vs Edge Offloaded Platform",
+        "title": "RFC-0104 Financial ROI Model Breakdown",
         "left": {
-          "label": "Legacy Cloud Infrastructure",
-          "items": [
-            "$2,500,000 annual origin hosting bills",
-            "Origin server CPU spikes during sales",
-            "800ms initial render latency",
-            "High customer bounce rates"
+          "title": "Hosting Cost Reduction",
+          "lines": [
+            "Edge Compute Offloading",
+            "CDN Asset Absorption",
+            "Database Read Sharding",
+            "Annual Cloud Savings"
           ]
         },
         "right": {
-          "label": "RFC-0104 Edge Platform",
-          "items": [
-            "$750,000 annual origin hosting bills",
-            "70% compute offloaded to edge cache",
-            "Sub-50ms instantaneous page renders",
-            "+4.5% conversion lift ($2,250,000 revenue)"
+          "title": "Revenue Conversion Lift",
+          "lines": [
+            "Sub-Fifty Millisecond Latency",
+            "Zero Layout Shift Spikes",
+            "Conservative Conversion Lift",
+            "Gross Revenue Lift"
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Legacy origin architecture spends $two,server-error,multiple annually on.",
-            "values": {
-              "left": {
-                "items": [
-                  "$2.5M Cloud Bill",
-                  "Origin Heavy",
-                  "800ms TTFB",
-                  "High Churn"
-                ]
-              },
-              "right": {
-                "items": [
-                  "$750k Cloud Bill",
-                  "70% Edge Cache",
-                  "25ms TTFB",
-                  "High Conversion"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Edge caching offloads multiple% of static and dynamic load, saving.",
-            "values": {
-              "left": {
-                "items": [
-                  "Overloaded Servers",
-                  "Scaling Bottlenecks",
-                  "Expensive Egress",
-                  "Fragile Scaling"
-                ]
-              },
-              "right": {
-                "items": [
-                  "$1.75M Savings",
-                  "Zero Origin Spikes",
-                  "Flat Costs",
-                  "Infinite Edge Scale"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Edge caching dramatically reduces origin compute load and cloud expense."
           },
           {
             "at": "say3",
-            "caption": "Sub-ms speed lift generates a conservative four.five% conversion increase.",
-            "values": {
-              "left": {
-                "items": [
-                  "Baseline Sales",
-                  "Slow Checkouts",
-                  "Abandoned Carts",
-                  "Lost Opportunities"
-                ]
-              },
-              "right": {
-                "items": [
-                  "+$2.25M Revenue",
-                  "Instant Checkouts",
-                  "Higher GMV",
-                  "Delighted Users"
-                ]
-              }
-            },
-            "tones": {
-              "left": "warn",
-              "right": "ok"
-            }
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Faster render latency yields measurable customer conversion rate gains."
           },
           {
             "at": "say4",
-            "caption": "Total net economic benefit reaches $four,multiple,multiple annually.",
-            "values": {
-              "left": {
-                "items": [
-                  "Stagnant Legacy",
-                  "High OpEx",
-                  "Technical Debt",
-                  "Rejected"
-                ]
-              },
-              "right": {
-                "items": [
-                  "$4.0M Net Value",
-                  "Executive Approved",
-                  "High Yield",
-                  "Grade A+ Cert"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Combined annual economic benefits earn executive review board approval."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "RFC-0104 Financial ROI Model Breakdown",
+        "left": {
+          "title": "Hosting Cost Reduction",
+          "lines": [
+            "Edge Compute Offloading",
+            "CDN Asset Absorption",
+            "Database Read Sharding",
+            "Annual Cloud Savings"
+          ]
+        },
+        "right": {
+          "title": "Revenue Conversion Lift",
+          "lines": [
+            "Sub-Fifty Millisecond Latency",
+            "Zero Layout Shift Spikes",
+            "Conservative Conversion Lift",
+            "Gross Revenue Lift"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Edge caching dramatically reduces origin compute load and cloud expense."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Faster render latency yields measurable customer conversion rate gains."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Combined annual economic benefits earn executive review board approval."
           }
         ]
       }
