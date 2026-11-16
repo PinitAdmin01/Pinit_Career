@@ -815,6 +815,18 @@ export default function InterviewPage() {
   };
   handleSendMessageWithTextRef.current = handleSendMessageWithText;
 
+  const handleSkipQuestion = useCallback(async () => {
+    if (isSendingInterviewMessageRef.current) return;
+    stopSpeaking();
+    postLiveEvent('skip', activeStage);
+    const skipNotice = activeStage === 'round2_coding'
+      ? 'I would like to skip the current coding question or review and move on.'
+      : activeStage === 'round3_systems'
+      ? 'I would like to skip this architecture defense question and move forward.'
+      : 'I would like to skip this question and proceed to the next topic.';
+    await handleSendMessageWithText(skipNotice);
+  }, [activeStage, postLiveEvent, handleSendMessageWithText]);
+
   // The code the student submits is recorded in the server's interview record, so the evaluator
   // judges the code itself (the in-browser test run below is feedback for the student only).
   const lastRecordedCodeRef = useRef('');
@@ -884,6 +896,7 @@ export default function InterviewPage() {
       });
       setLatestTestOutcomes(result.testOutcomes || []);
       setTerminalLogs(prev => [...prev, ...result.terminalLogs]);
+      void recordCodeSubmission();
       if (result.testOutcomes && result.testOutcomes.length > 0) {
         setTerminalLogs(prev => [
           ...prev,
@@ -895,7 +908,6 @@ export default function InterviewPage() {
           })
         ]);
       }
-      void recordCodeSubmission();
       const codeIsUnchanged = codeContentRef.current === codeContent && selectedLangRef.current === selectedLang;
       setCodeRunFailed(!result.allPassed || !codeIsUnchanged);
       if (result.allPassed && codeIsUnchanged) {
@@ -1154,6 +1166,23 @@ export default function InterviewPage() {
     return assistantMsgs.length > 0 ? assistantMsgs[assistantMsgs.length - 1].content : 'Welcome to your interview!';
   }, [messages]);
 
+  const userResponses = useMemo(() => messages.filter(m => m.role === 'user'), [messages]);
+
+  const hasSubstantiveRound1 = useMemo(() => {
+    const substantiveTurns = userResponses.filter(m => m.content.trim().split(/\s+/).filter(Boolean).length >= 10);
+    return substantiveTurns.length >= 2 || userResponses.length >= 3;
+  }, [userResponses]);
+
+  const starCoverage = useMemo(() => {
+    const allText = userResponses.map(m => m.content.toLowerCase()).join(' ');
+    const hasS = /situation|context|problem|challenge|project|working on|scenario/.test(allText);
+    const hasT = /task|goal|needed to|objective|responsible|requirement|deliverable/.test(allText);
+    const hasA = /action|i built|i implemented|i designed|i created|i refactored|i led|i used|i engineered/.test(allText);
+    const hasR = /result|impact|improved|reduced|increased|delivered|metric|outcome|%|latency|throughput/.test(allText);
+    const count = [hasS, hasT, hasA, hasR].filter(Boolean).length;
+    return { hasS, hasT, hasA, hasR, count };
+  }, [userResponses]);
+
   const currentCodingProb = getDynamicCodingProblem(activeTopicName, selectedLang);
 
   const formatElapsed = (sec: number) => {
@@ -1266,6 +1295,7 @@ export default function InterviewPage() {
             isAvatarSpeaking={isAvatarSpeaking}
             interruptSpeech={interruptSpeech}
             exitInterview={exitInterview}
+            onSkipQuestion={handleSkipQuestion}
             isTabInactive={isTabInactive}
           />
 
@@ -1360,7 +1390,7 @@ export default function InterviewPage() {
               isVoiceListening={isVoiceListening}
               lastInterviewerSpeech={lastInterviewerSpeech}
               onProceed={() => proceedToNextStage('round2_coding')}
-              canProceed={messages.filter(message => message.role === 'user').length >= 3}
+              canProceed={hasSubstantiveRound1}
               isSendingInterviewMessage={isSendingInterviewMessage}
               fillerWordCount={fillerWordCount}
               messages={messages}
@@ -1482,7 +1512,7 @@ export default function InterviewPage() {
               wpmScore={wpmScore}
               lastInterviewerSpeech={lastInterviewerSpeech}
               finishInterview={finishInterview}
-              canFinishInterview={starStep >= 4 && !isSendingInterviewMessage && !isAvatarSpeaking}
+              canFinishInterview={(starStep >= 4 || starCoverage.count >= 3) && !isSendingInterviewMessage && !isAvatarSpeaking}
               isSendingInterviewMessage={isSendingInterviewMessage}
               manualTextInput={manualTextInput}
               setManualTextInput={setManualTextInput}

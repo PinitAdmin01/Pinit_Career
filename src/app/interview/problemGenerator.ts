@@ -87,7 +87,7 @@ export function createSemanticFallbackProblem(topicName: string, difficulty: 'ea
     description: `Implement function '${safeFn}' to evaluate constraints, metrics, and throughput for ${topicName}.`,
     functionName: safeFn,
     starterCode: {
-      python: `def ${safeFn}(input_data, threshold):\n    # TODO: Count items in input_data strictly greater than threshold\n    # Example: [10, 20, 30], 15 -> 2\n    pass`,
+      python: `def ${safeFn}(input_data, threshold):\n    # TODO: Implement - Count items in input_data strictly greater than threshold\n    # Example: [10, 20, 30], 15 -> 2\n    pass`,
       javascript: `function ${safeFn}(inputData, threshold) {\n    // TODO: Count items in inputData strictly greater than threshold\n    // Example: [10, 20, 30], 15 -> 2\n}`,
       java: `public class Solution {\n    public int ${safeFn}(int[] data, int threshold) {\n        // TODO: Count items strictly greater than threshold\n        return 0;\n    }\n}`,
       sql: SQL_INTERVIEW_STARTER

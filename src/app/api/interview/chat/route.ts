@@ -608,8 +608,21 @@ RULES:
       }
     }
 
-    const verdictMatch = reviewDecision ? reply.match(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/i) : null;
-    const roundVerdict = reviewDecision ? (verdictMatch?.[1]?.toUpperCase() === 'PASS' ? 'PASS' : 'RETRY') : undefined;
+    let roundVerdict: 'PASS' | 'RETRY' | undefined = undefined;
+    if (reviewDecision) {
+      const verdictMatch = reply.match(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/i);
+      if (verdictMatch) {
+        roundVerdict = verdictMatch[1].toUpperCase() === 'PASS' ? 'PASS' : 'RETRY';
+      } else {
+        // Robust semantic fallback if LLM omitted the exact bracket tag
+        const lowerReply = reply.toLowerCase();
+        const positiveKeywords = ['looks good', 'meets the bar', 'well explained', 'good explanation', 'solid approach', 'approved', 'pass', 'correctly addressed', 'optimal', 'great job', 'excellent'];
+        const negativeKeywords = ['retry', 'please explain again', 'does not address', 'missed', 'substantive gap', 'unclear', 'insufficient'];
+        const isPositive = positiveKeywords.some(p => lowerReply.includes(p));
+        const isNegative = negativeKeywords.some(p => lowerReply.includes(p));
+        roundVerdict = (isPositive && !isNegative) ? 'PASS' : 'RETRY';
+      }
+    }
     const sanitizedReply = sanitizeLLMOutput(reviewDecision ? reply.replace(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/i, '').trim() : reply);
     if (live) {
       await recordTurns([liveUserTurn, clampTurn('assistant', sanitizedReply, stage)]);

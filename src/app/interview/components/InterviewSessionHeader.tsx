@@ -24,6 +24,7 @@ interface InterviewSessionHeaderProps {
   isAvatarSpeaking: boolean;
   interruptSpeech: () => void;
   exitInterview: () => void;
+  onSkipQuestion?: () => void;
   isTabInactive?: boolean;
 }
 
@@ -48,6 +49,7 @@ export function InterviewSessionHeader({
   isAvatarSpeaking,
   interruptSpeech,
   exitInterview,
+  onSkipQuestion,
   isTabInactive = false
 }: InterviewSessionHeaderProps) {
   const rounds = [
@@ -219,6 +221,29 @@ export function InterviewSessionHeader({
             }}
           >
             ✋ Interrupt &amp; Speak
+          </button>
+        )}
+
+        {onSkipQuestion && isScoredStage && activeStage !== 'results' && (
+          <button
+            onClick={() => {
+              if (window.confirm('Skip this question and move to the next topic? (This will be noted in the audit record)')) {
+                onSkipQuestion();
+              }
+            }}
+            title="Skip current question"
+            style={{
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
+              color: 'var(--t2)',
+              borderRadius: 8,
+              padding: '5px 12px',
+              fontSize: 12,
+              fontWeight: 800,
+              cursor: 'pointer'
+            }}
+          >
+            ⏭ Skip Question
           </button>
         )}
 

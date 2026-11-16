@@ -179,8 +179,8 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
           }}
         >
           {canProceed
-            ? '✅ 3/3 Behavioral responses complete — Ready for Round 2 Coding!'
-            : `💬 Progress: ${Math.min(3, userResponseCount)}/3 responses completed — answer ${Math.max(1, 3 - userResponseCount)} more topic-specific question${3 - userResponseCount === 1 ? '' : 's'} to unlock Round 2.`}
+            ? '✅ Behavioral responses verified — Ready for Round 2 Coding!'
+            : `💬 Progress: ${Math.min(3, userResponseCount)}/3 responses — answer thoroughly or skip to unlock Round 2.`}
         </div>
 
         {/* Telemetry Bar */}
