@@ -2,141 +2,1178 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 29,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "boxes",
-      "title": "Relational Foreign Key and Index Model",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "703473d9e1c0f6a356044b59dab382f5800603aa695a7c59464942571b61c727"
+      "partTitle": "Relational Data Modeling: Entity Relations, Foreign Keys & B-Tree Indexing",
+      "codeHash": "703473d9e1c0f6a356044b59dab382f5800603aa695a7c59464942571b61c727",
+      "spec": {
+        "template": "boxes",
+        "title": "Relational Schema and Composite Index Hierarchy",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "users",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "jobs",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "indexes",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "buffer",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Relational schema enforces foreign key integrity constraints.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Normalization eliminates data redundancy across related tables.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Composite indexes accelerate multi-column filter queries in RAM.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Query profiling inspects buffer cache hits and scan paths.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "data"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Users and jobs link via foreign key constraints."
-        },
-        {
-          "step": 2,
-          "caption": "Composite index organizes search keys into tree."
-        },
-        {
-          "step": 3,
-          "caption": "Planner traverses logarithmic index blocks in memory."
-        },
-        {
-          "step": 4,
-          "caption": "Query executes without sequential table scans."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "Relational Schema and Composite Index Hierarchy",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "users",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "jobs",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "indexes",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "buffer",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Relational schema enforces foreign key integrity constraints.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Normalization eliminates data redundancy across related tables.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Composite indexes accelerate multi-column filter queries in RAM.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Query profiling inspects buffer cache hits and scan paths.",
+            "values": {
+              "b1": {
+                "text": "users"
+              },
+              "b2": {
+                "text": "jobs"
+              },
+              "b3": {
+                "text": "indexes"
+              },
+              "b4": {
+                "text": "buffer"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "data"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "states",
-      "title": "ACID Transaction and Rollback Lifecycle",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "19776a2546c86032e6685db67f780a4692da3e7572b1e232786e6c199f0482ff"
+      "partTitle": "ACID Transactions, Row Locking & PostgreSQL Isolation Levels",
+      "codeHash": "19776a2546c86032e6685db67f780a4692da3e7572b1e232786e6c199f0482ff",
+      "spec": {
+        "template": "flow",
+        "title": "Transaction Boundary and Isolation Flow",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "transaction",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "locking",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "COMMITTED",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "ROLLED_BACK",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Transaction boundary wraps multi-table operations atomically.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL isolation levels prevent concurrent read anomalies.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Pessimistic row locking acquires exclusive record write locks.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Optimistic concurrency verifies version columns without locks.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Transaction begins and captures isolated snapshot."
-        },
-        {
-          "step": 2,
-          "caption": "Operations execute and modify state atomically."
-        },
-        {
-          "step": 3,
-          "caption": "Constraint violation triggers immediate abort."
-        },
-        {
-          "step": 4,
-          "caption": "Storage engine rolls back to pre transaction state."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Transaction Boundary and Isolation Flow",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "transaction",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "locking",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "COMMITTED",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "ROLLED_BACK",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Transaction boundary wraps multi-table operations atomically.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "PostgreSQL isolation levels prevent concurrent read anomalies.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Pessimistic row locking acquires exclusive record write locks.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Optimistic concurrency verifies version columns without locks.",
+            "values": {
+              "n1": {
+                "text": "transaction"
+              },
+              "n2": {
+                "text": "locking"
+              },
+              "n3": {
+                "text": "COMMITTED"
+              },
+              "n4": {
+                "text": "ROLLED_BACK"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "flow",
-      "title": "DataLoader Batch Query Execution",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "d88713a5ae2b2eb0eb22bf4b5d671240b61dbcbd073b036b0feb9a40d036ec2a"
+      "partTitle": "ORM Abstractions: Prisma/Drizzle Type Safety & The N+1 Query Eliminator",
+      "codeHash": "d88713a5ae2b2eb0eb22bf4b5d671240b61dbcbd073b036b0feb9a40d036ec2a",
+      "spec": {
+        "template": "compare",
+        "title": "Query Strategy Comparison",
+        "left": {
+          "id": "c1",
+          "label": "Prisma",
+          "tappable": false
+        },
+        "right": {
+          "id": "c2",
+          "label": "DataLoader",
+          "tappable": false
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Object relational mappers generate typed client definitions.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Drizzle compiles directly to lightweight SQL on serverless edge.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "data",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Naive loops trigger separate database queries per item.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "error",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Batch loader combines foreign key requests into one query.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Multiple components request individual entity keys."
+      "filled": {
+        "template": "compare",
+        "title": "Query Strategy Comparison",
+        "left": {
+          "id": "c1",
+          "label": "Prisma",
+          "tappable": false
         },
-        {
-          "step": 2,
-          "caption": "Batch queue aggregates and deduplicates identifiers."
+        "right": {
+          "id": "c2",
+          "label": "DataLoader",
+          "tappable": false
         },
-        {
-          "step": 3,
-          "caption": "Single database query fetches consolidated entities."
-        },
-        {
-          "step": 4,
-          "caption": "Loader resolves all caller promises simultaneously."
-        }
-      ]
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Object relational mappers generate typed client definitions.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Drizzle compiles directly to lightweight SQL on serverless edge.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "data",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Naive loops trigger separate database queries per item.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "error",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Batch loader combines foreign key requests into one query.",
+            "values": {
+              "c1": {
+                "text": "Prisma"
+              },
+              "c2": {
+                "text": "DataLoader"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "compare",
-      "title": "Serverless Database Connection Pooling",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "1c8b6bdebf3c5f53cbc2738f93cecefae767c0ddcfcbd90ba6692dfc4363d13d"
+      "partTitle": "Connection Pooling & Serverless Database Architecture: PgBouncer & Edge Proxies",
+      "codeHash": "1c8b6bdebf3c5f53cbc2738f93cecefae767c0ddcfcbd90ba6692dfc4363d13d",
+      "spec": {
+        "template": "flow",
+        "title": "Serverless Connection Pooling Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "lambdas",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "PgBouncer",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "PostgreSQL",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Serverless concurrency surges trigger connection exhaustion.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "PgBouncer multiplexes thousands of lambdas into a small pool.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Transaction pooling mode recycles database sockets upon commit.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Edge proxies route queries over secure websockets to storage.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Multiple serverless lambdas instantiate concurrently."
-        },
-        {
-          "step": 2,
-          "caption": "Lightweight pooler queues incoming client requests."
-        },
-        {
-          "step": 3,
-          "caption": "Fixed pool of persistent sockets serves transactions."
-        },
-        {
-          "step": 4,
-          "caption": "Database operates within safe connection thresholds."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Serverless Connection Pooling Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "lambdas",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "PgBouncer",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "PostgreSQL",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Serverless concurrency surges trigger connection exhaustion.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "PgBouncer multiplexes thousands of lambdas into a small pool.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Transaction pooling mode recycles database sockets upon commit.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Edge proxies route queries over secure websockets to storage.",
+            "values": {
+              "n1": {
+                "text": "lambdas"
+              },
+              "n2": {
+                "text": "PgBouncer"
+              },
+              "n3": {
+                "text": "PostgreSQL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "flow",
-      "title": "Next Route Handler Schema Validation",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c30e33d54c56bc4ee82514cd40c0d061250a847503e592b5e5efb667a5c24878"
+      "partTitle": "Next.js API Route Handlers: Zod Schema Validation & HTTP Error Envelopes",
+      "codeHash": "c30e33d54c56bc4ee82514cd40c0d061250a847503e592b5e5efb667a5c24878",
+      "spec": {
+        "template": "flow",
+        "title": "Next Route Handler Security Perimeter",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "request",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "safeParse",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "handler",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "envelope",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Route perimeter authenticates caller identity and permissions.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Zod safe parse protects database from malformed input payloads.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Sanitized error envelope hides internal database stack traces.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Edge rate limiter rejects excessive traffic bursts with status.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Client sends payload to endpoint route handler."
-        },
-        {
-          "step": 2,
-          "caption": "Zod schema validates types and constraint rules."
-        },
-        {
-          "step": 3,
-          "caption": "Malformed requests receive structured error bodies."
-        },
-        {
-          "step": 4,
-          "caption": "Valid payloads execute database operations safely."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Next Route Handler Security Perimeter",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "request",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "safeParse",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "handler",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "envelope",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Route perimeter authenticates caller identity and permissions.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Zod safe parse protects database from malformed input payloads.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Sanitized error envelope hides internal database stack traces.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Edge rate limiter rejects excessive traffic bursts with status.",
+            "values": {
+              "n1": {
+                "text": "request"
+              },
+              "n2": {
+                "text": "safeParse"
+              },
+              "n3": {
+                "text": "handler"
+              },
+              "n4": {
+                "text": "envelope"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     }
   ]
 }
