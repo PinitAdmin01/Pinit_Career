@@ -17659,12 +17659,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the primary architectural benefit of representing collaborative documents as recursive block trees?",
         "options": [
-          "It enables infinite structural nesting and atomic operation mutations over discrete block entities",
-          "It converts all text into 8-bit ASCII characters to save disk space",
-          "It forces all users to edit documents in read-only mode",
-          "It requires every document to be compiled into a WebAssembly binary"
+          "It converts all textual content into eight-bit ASCII characters to save physical storage space on cloud server disks.",
+          "It enables infinite structural nesting and atomic operational mutations over discrete, identifiable block entities.",
+          "It forces all concurrent users to view documents exclusively in read-only mode while preventing live shared edits.",
+          "It requires every document paragraph to compile into a standalone WebAssembly binary on local client mobile devices."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Block trees decompose complex documents into discrete, identifiable nodes that support granular nesting and atomic real-time updates."
       }
     },
@@ -17692,12 +17692,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How does a resilient block registry prevent client crashes when encountering an unrecognized block type?",
         "options": [
-          "It intercepts unknown types and routes rendering to a graceful fallback boundary without throwing uncaught exceptions",
-          "It deletes the entire document from the database to maintain consistency",
-          "It triggers an alert box that freezes the browser until the user reboots",
-          "It automatically downloads random npm packages from untrusted third parties"
+          "It permanently deletes the entire document from the database to maintain strict schema consistency on clients.",
+          "It displays an operating system modal dialog that pauses JavaScript execution until the user reboots the desktop.",
+          "It automatically downloads and executes unvetted third-party packages from arbitrary external public registries.",
+          "It intercepts unknown block types and routes rendering to a graceful fallback boundary without throwing errors."
         ],
-        "answer": 0,
+        "answer": 3,
         "why": "Defensive fallback boundaries isolate unrecognized block types, allowing surrounding valid blocks to render smoothly."
       }
     },
@@ -17724,12 +17724,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Dispatch a third mutation 'INDENT_BLOCK' in CollaborativeMutationDispatcher and inspect the updated vector clock.",
       example: "Vector clocks track logical causality, enabling conflict resolution algorithms to merge concurrent offline edits deterministically.",
         "check": {
-        "question": "What is the purpose of Vector Clocks in a collaborative offline mutation dispatcher?",
+        "question": "What is the primary purpose of Vector Clocks in a collaborative offline mutation dispatcher?",
         "options": [
-          "To establish causal ordering between concurrent distributed mutations across multiple collaborators",
-          "To measure the battery life of the client laptop during offline editing",
-          "To set a countdown timer for when the document automatically expires",
-          "To encrypt document text with a random 256-bit AES key"
+          "To establish causal ordering between concurrent distributed mutations across multiple distributed collaborators.",
+          "To monitor the remaining hardware battery percentage of the client device while offline document editing occurs.",
+          "To enforce a countdown timer that causes the collaborative workspace document to expire and lock automatically.",
+          "To encrypt document text using randomly generated symmetric keys before writing mutations to local browser disk."
         ],
         "answer": 0,
         "why": "Vector clocks track logical causality, enabling conflict resolution algorithms to merge concurrent offline edits deterministically."
@@ -17759,14 +17759,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a new formula 'discountedTotal' that subtracts a $10 coupon from grandTotal and verify its calculation.",
       example: "Sandboxed functional evaluation eliminates code injection vulnerabilities while executing user-authored mathematical logic.",
         "check": {
-        "question": "Why must dynamic user formulas in collaborative workspaces be evaluated without eval()?",
+        "question": "Why must dynamic user formulas in collaborative workspaces be evaluated without eval() or new Function()?",
         "options": [
-          "Using eval() creates critical Remote Code Execution (RCE) and XSS security vulnerabilities from user-authored templates",
-          "eval() runs 5,000 times slower than Python on all modern computers",
-          "eval() is only permitted inside Node.js command-line scripts",
-          "eval() deletes all variables in local storage upon execution"
+          "Because dynamic eval statements run five thousand times slower than compiled Python scripts on modern computers.",
+          "Because eval is formally forbidden inside standard browser JavaScript runtimes by international W3C specifications.",
+          "Because eval creates critical Remote Code Execution and script injection vulnerabilities from user-authored logic.",
+          "Because eval wipes all stored session tokens and IndexedDB records from client memory upon every single execution."
         ],
-        "answer": 0,
+        "answer": 2,
         "why": "Sandboxed functional evaluation eliminates code injection vulnerabilities while executing user-authored mathematical logic."
       }
     },
@@ -17781,8 +17781,8 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
   "In multi-tenant enterprise SaaS environments, schema evolution must accommodate enterprise compliance standards—such as SOC 2 Type II, HIPAA, and GDPR. When customer data is migrated across schema versions, the migration pipeline must maintain immutable cryptographic checksums to prove data integrity and prevent silent data truncation.",
   "Our certifyDocumentEngine suite acts as an automated compliance and performance gate in continuous delivery pipelines. Before any code is deployed to global production workspace clusters, synthetic benchmarking agents execute automated stress suites: generating deeply nested 10-level block trees, firing 1,000 rapid-fire offline mutations, and verifying zero fallback failures.",
   "If any component introduces an unhandled block rendering crash, if render latency exceeds 5.0 milliseconds, or if the offline mutation queue fails to drain completely upon network reconnection, the automated audit halts the release pipeline immediately, protecting millions of daily active users from software regressions.",
-  "One common pitfall when implementing Multi-Tenant Schema Evolution & Grade A+ Collaborative Production Certification is treating captures as a static constant rather than a dynamic input that must be re-verified as conditions evolve. Whenever against or schema changes, teams should immediately re-run their baseline checks on transform to confirm that the original decision rule still holds. Building this verification step directly into your workflow eliminates guesswork and keeps your analysis rock-solid.",
-  "Let us connect Multi-Tenant Schema Evolution & Grade A+ Collaborative Production Certification directly to day-to-day practice: In practice, when implementing Multi-Tenant Schema Evolution & Grade A+ Collaborative Production Certification, an engineering or financial , the most important discipline is verifying the underlying assumptions before acting on the headline figure. Lazy schema migrations transform documents forward dynamically on read and write, achieving seamless multi-version evolution, which is why experienced practitioners always document both the primary calculation and the boundary conditions surrounding against and dynamically.",
+  "To prevent schema corruption during asynchronous migrations, collaborative platforms employ Dual-Schema Shadow Validation. When older documents undergo forward transformation, the engine executes the migration against a clone in memory, validating the transformed tree against target Zod contracts before updating persistent database records. If the transformed tree violates structural invariants or drops child nodes, the migration aborts defensively, preserving the original payload and routing the anomaly to an SRE dead-letter queue.",
+  "Furthermore, multi-tenant workspaces implement Automated Backward Compatibility Regression Suites. In continuous deployment pipelines, golden snapshots of documents authored across every historical schema version (from version 1 to current) are re-evaluated against the latest component registry. This guarantees that new block features and schema upgrades never break historical corporate knowledge bases or silently corrupt enterprise document hierarchies.",
   "Through continuous automated auditing and rigorous architectural discipline, your collaborative engineering standards set the benchmark for high-availability, low-latency web applications worldwide.",
   "These industrial practices guarantee that your collaborative platforms deliver the speed, reliability, and security expected by world-class software teams worldwide.",
   "By harmonizing Server-Driven UI with optimistic offline synchronization and safe computational formulas, you have proven your ability to architect the most complex application interfaces in contemporary web engineering.",
@@ -17798,12 +17798,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How do enterprise collaborative platforms migrate millions of legacy documents without scheduled downtime?",
         "options": [
-          "Through zero-downtime lazy in-memory schema migrations executed on document fetch and write-back",
-          "By emailing all customers and asking them to re-type their documents manually",
-          "By shutting down the production cluster for 48 hours over a holiday weekend",
-          "By permanently deleting all documents created more than 6 months ago"
+          "By broadcasting emails to all workspace administrators requesting that users re-type their historical documents.",
+          "Through zero-downtime lazy in-memory schema migrations executed upon document fetch and persistent write-backs.",
+          "By taking down global multi-tenant database clusters for forty-eight hours over major corporate annual holidays.",
+          "By permanently archiving and deleting all collaborative workspace pages and documents created six months prior."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Lazy schema migrations transform documents forward dynamically on read and write, achieving seamless multi-version evolution."
       }
     }

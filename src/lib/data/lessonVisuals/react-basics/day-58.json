@@ -1,745 +1,781 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 58,
-  "promptSha": "block12_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Case Study Blueprint: The Recursive Polymorphic Block-Tree Document Model",
       "codeHash": "f8f6d4c458fc8042cf9163e20244a2ab3c86bdb4d6e94c371dafd03334ca7b28",
       "spec": {
-        "template": "component-tree",
-        "title": "Recursive Block Tree & Polymorphic Node Registry",
-        "root": {
-          "id": "doc_root",
-          "name": "CollaborativeDocument (RecordMap Context)",
-          "children": [
-            {
-              "id": "header_block",
-              "name": "HeaderBlock (Polymorphic Node)",
-              "children": []
-            },
-            {
-              "id": "column_container",
-              "name": "ColumnContainerBlock (Nested Layout)",
-              "children": [
-                {
-                  "id": "col_1",
-                  "name": "ColumnBlock (Markdown Content)"
-                },
-                {
-                  "id": "col_2",
-                  "name": "ColumnBlock (Interactive KanbanBlock)"
-                }
-              ]
-            },
-            {
-              "id": "database_block",
-              "name": "DatabaseViewBlock (DAG Formula Engine)",
-              "children": []
-            }
-          ]
-        },
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "CollaborativeDocument mounts normalized RecordMap without object cloning.",
-            "values": {
-              "doc_root": {
-                "state": "Mounted"
-              },
-              "header_block": {
-                "state": "Idle"
-              },
-              "column_container": {
-                "state": "Idle"
-              },
-              "col_1": {
-                "state": "Idle"
-              },
-              "col_2": {
-                "state": "Idle"
-              },
-              "database_block": {
-                "state": "Idle"
-              }
-            },
-            "tones": {
-              "doc_root": "ok",
-              "header_block": "idle",
-              "column_container": "idle",
-              "col_1": "idle",
-              "col_2": "idle",
-              "database_block": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Recursive layout engine maps UUID arrays to registered polymorphic components.",
-            "values": {
-              "doc_root": {
-                "state": "Hydrated"
-              },
-              "header_block": {
-                "state": "Rendered"
-              },
-              "column_container": {
-                "state": "Rendered"
-              },
-              "col_1": {
-                "state": "Active"
-              },
-              "col_2": {
-                "state": "Active"
-              },
-              "database_block": {
-                "state": "Idle"
-              }
-            },
-            "tones": {
-              "doc_root": "ok",
-              "header_block": "ok",
-              "column_container": "ok",
-              "col_1": "data",
-              "col_2": "data",
-              "database_block": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Virtualized windowing unmounts off-screen blocks, keeping memory flat.",
-            "values": {
-              "doc_root": {
-                "state": "Windowed"
-              },
-              "header_block": {
-                "state": "Rendered"
-              },
-              "column_container": {
-                "state": "Rendered"
-              },
-              "col_1": {
-                "state": "Visible"
-              },
-              "col_2": {
-                "state": "Visible"
-              },
-              "database_block": {
-                "state": "Unmounted (Virtual)"
-              }
-            },
-            "tones": {
-              "doc_root": "ok",
-              "header_block": "ok",
-              "column_container": "ok",
-              "col_1": "ok",
-              "col_2": "ok",
-              "database_block": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Normalized block tree maintains sub-sixteenms typing latency across.",
-            "values": {
-              "doc_root": {
-                "state": "60 FPS Synced"
-              },
-              "header_block": {
-                "state": "Cached"
-              },
-              "column_container": {
-                "state": "Zero Reflow"
-              },
-              "col_1": {
-                "state": "Instant"
-              },
-              "col_2": {
-                "state": "Interactive"
-              },
-              "database_block": {
-                "state": "Virtualized"
-              }
-            },
-            "tones": {
-              "doc_root": "ok",
-              "header_block": "ok",
-              "column_container": "ok",
-              "col_1": "ok",
-              "col_2": "ok",
-              "database_block": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Polymorphic Block Component Registry with Defensive Fallback Handling",
-      "codeHash": "3fa1cf60ef7bce4b7bc45bf2a3aff4cd10148e4477bfcf05d5bef8d6d7f35e52",
-      "spec": {
-        "template": "boxes",
-        "title": "Dynamic Code Splitting & Fallback Diagnostics",
-        "boxes": [
-          {
-            "id": "b1",
-            "label": "Core Text Block",
-            "sub": "Bundled in primary application chunk",
-            "val": "Immediate",
-            "tone": "ok"
-          },
-          {
-            "id": "b2",
-            "label": "Kanban Lazy Chunk",
-            "sub": "Downloaded on demand when block exists",
-            "val": "React.lazy()",
-            "tone": "data"
-          },
-          {
-            "id": "b3",
-            "label": "Mermaid Diagram Chunk",
-            "sub": "Async parser and SVG renderer",
-            "val": "Deferred",
-            "tone": "data"
-          },
-          {
-            "id": "b4",
-            "label": "Fallback Boundary",
-            "sub": "Graceful placeholder with telemetry beacon",
-            "val": "Zero-Crash",
-            "tone": "ok"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Core text and heading blocks mount immediately from primary bundle.",
-            "values": {
-              "b1": {
-                "val": "Mounted"
-              },
-              "b2": {
-                "val": "Unloaded"
-              },
-              "b3": {
-                "val": "Unloaded"
-              },
-              "b4": {
-                "val": "Ready"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "idle",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Kanban block triggers asynchronous module download upon viewport entry.",
-            "values": {
-              "b1": {
-                "val": "Active"
-              },
-              "b2": {
-                "val": "Downloading..."
-              },
-              "b3": {
-                "val": "Unloaded"
-              },
-              "b4": {
-                "val": "Ready"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Suspense displays smooth skeleton placeholder during code loading.",
-            "values": {
-              "b1": {
-                "val": "Active"
-              },
-              "b2": {
-                "val": "Suspended"
-              },
-              "b3": {
-                "val": "Unloaded"
-              },
-              "b4": {
-                "val": "Placeholder"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Chunk hydrates and mounts; unknown block types render safe fallback badges.",
-            "values": {
-              "b1": {
-                "val": "Active"
-              },
-              "b2": {
-                "val": "Hydrated"
-              },
-              "b3": {
-                "val": "Lazy Ready"
-              },
-              "b4": {
-                "val": "Protected"
-              }
-            },
-            "tones": {
-              "b1": "ok",
-              "b2": "ok",
-              "b3": "ok",
-              "b4": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Optimistic Offline Mutations & Vector Clock Synchronization",
-      "codeHash": "e9d87db7197bac20b85b3138fd94d0a7b8488bd631ac453ff756bde68fed5e6b",
-      "spec": {
         "template": "flow",
-        "title": "CRDT Delta Convergence & Offline Mutation Pipeline",
+        "title": "Recursive Polymorphic Block-Tree Document Model",
         "nodes": [
           {
-            "id": "user",
-            "label": "Local User Keystroke",
-            "sub": "Offline Mutation Event",
-            "status": "active"
+            "id": "page",
+            "label": "Page Block",
+            "text": "Root Container",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "idb",
-            "label": "IndexedDB Mutation Queue",
-            "sub": "Persistent Local Storage",
-            "status": "active"
+            "id": "columns",
+            "label": "Column List",
+            "text": "Layout Wrapper",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "crdt",
-            "label": "CRDT Convergence Engine",
-            "sub": "Deterministic Conflict Resolution",
-            "status": "active"
+            "id": "col1",
+            "label": "Left Column",
+            "text": "First Column",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "server",
-            "label": "Authoritative Sync Server",
-            "sub": "WebSocket Broadcast",
-            "status": "ok"
+            "id": "col2",
+            "label": "Right Column",
+            "text": "Second Column",
+            "tone": "ok",
+            "tappable": false
           }
         ],
         "edges": [
           {
-            "from": "user",
-            "to": "idb",
-            "label": "Immediate Enqueue"
+            "from": "page",
+            "to": "columns",
+            "label": "Contains"
           },
           {
-            "from": "idb",
-            "to": "crdt",
-            "label": "Replay on Online"
+            "from": "columns",
+            "to": "col1",
+            "label": "Child Col"
           },
           {
-            "from": "crdt",
-            "to": "server",
-            "label": "Idempotent Flush"
+            "from": "columns",
+            "to": "col2",
+            "label": "Child Col"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "User makes document edits while airplane mode is active.",
-            "values": {
-              "user": {
-                "status": "Typing"
-              },
-              "idb": {
-                "status": "Queueing"
-              },
-              "crdt": {
-                "status": "Local Apply"
-              },
-              "server": {
-                "status": "Disconnected"
-              }
-            },
-            "tones": {
-              "user": "data",
-              "idb": "data",
-              "crdt": "ok",
-              "server": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Mutations persist safely in IndexedDB, surviving browser refreshes.",
-            "values": {
-              "user": {
-                "status": "Idle"
-              },
-              "idb": {
-                "status": "100 Safe Edits"
-              },
-              "crdt": {
-                "status": "Local Apply"
-              },
-              "server": {
-                "status": "Disconnected"
-              }
-            },
-            "tones": {
-              "user": "idle",
-              "idb": "ok",
-              "crdt": "ok",
-              "server": "idle"
-            }
+            "highlight": [
+              "page",
+              "columns"
+            ],
+            "caption": "Collaborative workspaces represent documents as recursive block trees."
           },
           {
             "at": "say3",
-            "caption": "Browser reconnects; IndexedDB queue drains mutations with backoff.",
-            "values": {
-              "user": {
-                "status": "Online"
-              },
-              "idb": {
-                "status": "Draining..."
-              },
-              "crdt": {
-                "status": "Merging Deltas"
-              },
-              "server": {
-                "status": "Connected"
-              }
-            },
-            "tones": {
-              "user": "ok",
-              "idb": "data",
-              "crdt": "data",
-              "server": "ok"
-            }
+            "highlight": [
+              "columns",
+              "col1",
+              "col2"
+            ],
+            "caption": "Every block contains explicit type properties and ordered child pointers."
           },
           {
             "at": "say4",
-            "caption": "CRDT resolves concurrent remote edits mathematically with zero data loss.",
-            "values": {
-              "user": {
-                "status": "Online"
-              },
-              "idb": {
-                "status": "Queue Empty"
-              },
-              "crdt": {
-                "status": "Converged"
-              },
-              "server": {
-                "status": "Synced"
-              }
-            },
-            "tones": {
-              "user": "ok",
-              "idb": "ok",
-              "crdt": "ok",
-              "server": "ok"
-            }
+            "highlight": [
+              "col1",
+              "col2"
+            ],
+            "caption": "Distributed edits synchronize atomic block mutations across users."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Recursive Polymorphic Block-Tree Document Model",
+        "nodes": [
+          {
+            "id": "page",
+            "label": "Page Block",
+            "text": "Root Container",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "columns",
+            "label": "Column List",
+            "text": "Layout Wrapper",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "col1",
+            "label": "Left Column",
+            "text": "First Column",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "col2",
+            "label": "Right Column",
+            "text": "Second Column",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "page",
+            "to": "columns",
+            "label": "Contains"
+          },
+          {
+            "from": "columns",
+            "to": "col1",
+            "label": "Child Col"
+          },
+          {
+            "from": "columns",
+            "to": "col2",
+            "label": "Child Col"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "page",
+              "columns"
+            ],
+            "caption": "Collaborative workspaces represent documents as recursive block trees."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "columns",
+              "col1",
+              "col2"
+            ],
+            "caption": "Every block contains explicit type properties and ordered child pointers."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "col1",
+              "col2"
+            ],
+            "caption": "Distributed edits synchronize atomic block mutations across users."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
+      "partTitle": "Polymorphic Block Component Registry with Defensive Fallback Handling",
+      "codeHash": "3fa1cf60ef7bce4b7bc45bf2a3aff4cd10148e4477bfcf05d5bef8d6d7f35e52",
+      "spec": {
+        "template": "flow",
+        "title": "Polymorphic Block Component Registry & Fallbacks",
+        "nodes": [
+          {
+            "id": "schema",
+            "label": "JSON Block",
+            "text": "Wire Schema Node",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "registry",
+            "label": "Block Registry",
+            "text": "Component Map",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "fallback",
+            "label": "Fallback Box",
+            "text": "Resilient Boundary",
+            "tone": "error",
+            "tappable": false
+          },
+          {
+            "id": "react",
+            "label": "React Node",
+            "text": "Mounted Component",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "schema",
+            "to": "registry",
+            "label": "Lookup"
+          },
+          {
+            "from": "registry",
+            "to": "react",
+            "label": "Known Type"
+          },
+          {
+            "from": "registry",
+            "to": "fallback",
+            "label": "Unknown Type"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "schema",
+              "registry"
+            ],
+            "caption": "The component registry maps block type strings to functional components."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "registry",
+              "fallback"
+            ],
+            "caption": "Unsupported block types must not trigger unhandled runtime crashes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "fallback",
+              "react"
+            ],
+            "caption": "Fallback boundaries intercept unknown blocks and render safe placeholders."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Polymorphic Block Component Registry & Fallbacks",
+        "nodes": [
+          {
+            "id": "schema",
+            "label": "JSON Block",
+            "text": "Wire Schema Node",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "registry",
+            "label": "Block Registry",
+            "text": "Component Map",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "fallback",
+            "label": "Fallback Box",
+            "text": "Resilient Boundary",
+            "tone": "error",
+            "tappable": false
+          },
+          {
+            "id": "react",
+            "label": "React Node",
+            "text": "Mounted Component",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "schema",
+            "to": "registry",
+            "label": "Lookup"
+          },
+          {
+            "from": "registry",
+            "to": "react",
+            "label": "Known Type"
+          },
+          {
+            "from": "registry",
+            "to": "fallback",
+            "label": "Unknown Type"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "schema",
+              "registry"
+            ],
+            "caption": "The component registry maps block type strings to functional components."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "registry",
+              "fallback"
+            ],
+            "caption": "Unsupported block types must not trigger unhandled runtime crashes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "fallback",
+              "react"
+            ],
+            "caption": "Fallback boundaries intercept unknown blocks and render safe placeholders."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 2,
+      "partTitle": "Optimistic Offline Mutations & Vector Clock Synchronization",
+      "codeHash": "e9d87db7197bac20b85b3138fd94d0a7b8488bd631ac453ff756bde68fed5e6b",
+      "spec": {
+        "template": "flow",
+        "title": "Optimistic Offline Mutation & Vector Clock Sync",
+        "nodes": [
+          {
+            "id": "ui",
+            "label": "User Edit",
+            "text": "Optimistic UI",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "queue",
+            "label": "Mutation Queue",
+            "text": "IndexedDB Queue",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "vector",
+            "label": "Vector Clock",
+            "text": "Causal Ordering",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "server",
+            "label": "Sync Gateway",
+            "text": "WebSocket CRDT",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "ui",
+            "to": "queue",
+            "label": "Sub-1ms Queue"
+          },
+          {
+            "from": "queue",
+            "to": "vector",
+            "label": "Increment"
+          },
+          {
+            "from": "vector",
+            "to": "server",
+            "label": "Flush Reconnect"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "ui"
+            ],
+            "caption": "Optimistic execution updates in-memory client state in under one ms."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "queue",
+              "vector"
+            ],
+            "caption": "Mutation records are persisted into durable indexed database storage."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "vector",
+              "server"
+            ],
+            "caption": "Vector clocks guarantee causal ordering across distributed collaborators."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Optimistic Offline Mutation & Vector Clock Sync",
+        "nodes": [
+          {
+            "id": "ui",
+            "label": "User Edit",
+            "text": "Optimistic UI",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "queue",
+            "label": "Mutation Queue",
+            "text": "IndexedDB Queue",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "vector",
+            "label": "Vector Clock",
+            "text": "Causal Ordering",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "server",
+            "label": "Sync Gateway",
+            "text": "WebSocket CRDT",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "ui",
+            "to": "queue",
+            "label": "Sub-1ms Queue"
+          },
+          {
+            "from": "queue",
+            "to": "vector",
+            "label": "Increment"
+          },
+          {
+            "from": "vector",
+            "to": "server",
+            "label": "Flush Reconnect"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "ui"
+            ],
+            "caption": "Optimistic execution updates in-memory client state in under one ms."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "queue",
+              "vector"
+            ],
+            "caption": "Mutation records are persisted into durable indexed database storage."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "vector",
+              "server"
+            ],
+            "caption": "Vector clocks guarantee causal ordering across distributed collaborators."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 3,
       "partTitle": "Safe Zero-Eval Block Formula Engine & DAG Dependency Resolution",
       "codeHash": "20aeae60f5d329249d409b25af7949e68950d7fdaaabea2a6076065456270460",
       "spec": {
         "template": "states",
-        "title": "Formula Evaluation DAG Dependency States",
+        "title": "Zero-Eval Safe Formula Engine Dependency DAG",
         "states": [
           {
-            "id": "clean",
-            "label": "CELL_CLEAN",
-            "desc": "Calculated value matches current dependencies",
-            "active": true
+            "id": "subtotal",
+            "label": "Base Value",
+            "text": "Numeric Literal",
+            "tone": "data"
           },
           {
-            "id": "dirty",
-            "label": "CELL_DIRTY",
-            "desc": "Upstream cell changed; flagged for recalculation",
-            "active": false
+            "id": "tax",
+            "label": "Formula Node",
+            "text": "Tax Rate Multiply",
+            "tone": "ok"
           },
           {
-            "id": "evaluating",
-            "label": "EVALUATING",
-            "desc": "Executing sandboxed topological formula pass",
-            "active": false
+            "id": "grand",
+            "label": "Total Formula",
+            "text": "Sum Derived Value",
+            "tone": "ok"
           },
           {
-            "id": "resolved",
-            "label": "RESOLVED",
-            "desc": "New numeric result cached in LRU table",
-            "active": false
+            "id": "memo",
+            "label": "Cached Memo",
+            "text": "Sub-Microsecond Read",
+            "tone": "ok"
           }
         ],
         "transitions": [
           {
-            "from": "clean",
-            "to": "dirty",
-            "label": "UPSTREAM_MUTATED"
+            "from": "subtotal",
+            "to": "tax",
+            "label": "Dependent"
           },
           {
-            "from": "dirty",
-            "to": "evaluating",
-            "label": "DAG_SORT_TRIGGER"
+            "from": "tax",
+            "to": "grand",
+            "label": "Dependent"
           },
           {
-            "from": "evaluating",
-            "to": "resolved",
-            "label": "CALCULATION_DONE"
-          },
-          {
-            "from": "resolved",
-            "to": "clean",
-            "label": "CACHE_STORED"
+            "from": "grand",
+            "to": "memo",
+            "label": "Cache Result"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Formula cells rest in CELL_CLEAN state with cached results.",
-            "values": {
-              "clean": {
-                "active": true
-              },
-              "dirty": {
-                "active": false
-              },
-              "evaluating": {
-                "active": false
-              },
-              "resolved": {
-                "active": false
-              }
-            },
-            "tones": {
-              "clean": "ok",
-              "dirty": "idle",
-              "evaluating": "idle",
-              "resolved": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Mutating an input value transitions downstream dependent cells to CELL_DIRTY.",
-            "values": {
-              "clean": {
-                "active": false
-              },
-              "dirty": {
-                "active": true
-              },
-              "evaluating": {
-                "active": false
-              },
-              "resolved": {
-                "active": false
-              }
-            },
-            "tones": {
-              "clean": "idle",
-              "dirty": "warn",
-              "evaluating": "idle",
-              "resolved": "idle"
-            }
+            "highlight": [
+              "subtotal"
+            ],
+            "caption": "Dynamic user formulas must maintain sandbox safety without eval."
           },
           {
             "at": "say3",
-            "caption": "Topological sort evaluates cells in strict acyclic order within one.fivems.",
-            "values": {
-              "clean": {
-                "active": false
-              },
-              "dirty": {
-                "active": false
-              },
-              "evaluating": {
-                "active": true
-              },
-              "resolved": {
-                "active": false
-              }
-            },
-            "tones": {
-              "clean": "idle",
-              "dirty": "idle",
-              "evaluating": "data",
-              "resolved": "idle"
-            }
+            "highlight": [
+              "tax",
+              "grand"
+            ],
+            "caption": "Sandboxed formula engines resolve dependency chains declaratively."
           },
           {
             "at": "say4",
-            "caption": "Calculated values resolve and cache, returning all cells to CELL_CLEAN.",
-            "values": {
-              "clean": {
-                "active": true
-              },
-              "dirty": {
-                "active": false
-              },
-              "evaluating": {
-                "active": false
-              },
-              "resolved": {
-                "active": true
-              }
-            },
-            "tones": {
-              "clean": "ok",
-              "dirty": "idle",
-              "evaluating": "idle",
-              "resolved": "ok"
-            }
+            "highlight": [
+              "grand",
+              "memo"
+            ],
+            "caption": "Cycle detection breaks recursive loops and emits diagnostic warnings."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Zero-Eval Safe Formula Engine Dependency DAG",
+        "states": [
+          {
+            "id": "subtotal",
+            "label": "Base Value",
+            "text": "Numeric Literal",
+            "tone": "data"
+          },
+          {
+            "id": "tax",
+            "label": "Formula Node",
+            "text": "Tax Rate Multiply",
+            "tone": "ok"
+          },
+          {
+            "id": "grand",
+            "label": "Total Formula",
+            "text": "Sum Derived Value",
+            "tone": "ok"
+          },
+          {
+            "id": "memo",
+            "label": "Cached Memo",
+            "text": "Sub-Microsecond Read",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "subtotal",
+            "to": "tax",
+            "label": "Dependent"
+          },
+          {
+            "from": "tax",
+            "to": "grand",
+            "label": "Dependent"
+          },
+          {
+            "from": "grand",
+            "to": "memo",
+            "label": "Cache Result"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "subtotal"
+            ],
+            "caption": "Dynamic user formulas must maintain sandbox safety without eval."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "tax",
+              "grand"
+            ],
+            "caption": "Sandboxed formula engines resolve dependency chains declaratively."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "grand",
+              "memo"
+            ],
+            "caption": "Cycle detection breaks recursive loops and emits diagnostic warnings."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Multi-Tenant Schema Evolution & Grade A+ Collaborative Production Certification",
       "codeHash": "94b0ca0dd982bb70d7c65d64d09c7a3ca456d3e5c575a77d68039e24d729d6f7",
       "spec": {
-        "template": "compare",
-        "title": "Monolithic Document Engine vs Virtualized Block Engine",
-        "left": {
-          "label": "Un-Virtualized Monolithic Document",
-          "items": [
-            "10,000 DOM elements in memory",
-            "800MB heap memory footprint",
-            "Scrolling stutter below 20 FPS",
-            "Severe garbage collection pauses"
-          ]
-        },
-        "right": {
-          "label": "Normalized Virtualized Block Engine",
-          "items": [
-            "Only viewport blocks rendered",
-            "Flat 45MB memory consumption",
-            "Silky-smooth 60 FPS scrolling",
-            "Sub-16ms typing latency guaranteed"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Multi-Tenant Lazy Schema Migration States",
+        "states": [
           {
-            "at": "say1",
-            "caption": "Un-virtualized documents mount thousands of DOM elements simultaneously.",
-            "values": {
-              "left": {
-                "items": [
-                  "10k Nodes",
-                  "800MB Heap",
-                  "Stuttered Scroll",
-                  "Heavy GC"
-                ]
-              },
-              "right": {
-                "items": [
-                  "40 Nodes Viewport",
-                  "45MB Heap",
-                  "60 FPS Fluid",
-                  "Zero-GC Pools"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "id": "legacy",
+            "label": "Version One",
+            "text": "Legacy Document",
+            "tone": "data"
           },
           {
+            "id": "transform",
+            "label": "Lazy Migrator",
+            "text": "Forward Transformer",
+            "tone": "ok"
+          },
+          {
+            "id": "shadow",
+            "label": "Shadow Validate",
+            "text": "Target Zod Schema",
+            "tone": "ok"
+          },
+          {
+            "id": "modern",
+            "label": "Version Three",
+            "text": "Persisted Write-Back",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "legacy",
+            "to": "transform",
+            "label": "Read Fetch"
+          },
+          {
+            "from": "transform",
+            "to": "shadow",
+            "label": "Validate"
+          },
+          {
+            "from": "shadow",
+            "to": "modern",
+            "label": "Save Write"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Virtualized windowing limits DOM nodes to the visible screen area.",
-            "values": {
-              "left": {
-                "items": [
-                  "Cloned Object Trees",
-                  "Deep Nesting",
-                  "DOM Thrashing",
-                  "Slow Typing"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Normalized Map",
-                  "Pointer Refs Only",
-                  "Zero Reflow",
-                  "12ms Response"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "legacy",
+              "transform"
+            ],
+            "caption": "Lazy schema migrations transform documents forward dynamically on read."
           },
           {
             "at": "say3",
-            "caption": "Editing a block updates only pointer references without cloning trees.",
-            "values": {
-              "left": {
-                "items": [
-                  "Full Page Re-render",
-                  "High Battery Drain",
-                  "Laggy Input",
-                  "Frequent OOM"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Localized Mutation",
-                  "Battery Optimized",
-                  "Crisp Typing",
-                  "Stable Bounds"
-                ]
-              }
-            },
-            "tones": {
-              "left": "warn",
-              "right": "ok"
-            }
+            "highlight": [
+              "transform",
+              "shadow"
+            ],
+            "caption": "Automated certification suites audit four critical workflow standards."
           },
           {
             "at": "say4",
-            "caption": "Virtualized architecture delivers desktop-grade fluidity on web browsers.",
-            "values": {
-              "left": {
-                "items": [
-                  "Legacy Rich Text",
-                  "Unscalable Tech",
-                  "High Churn",
-                  "Poor UX"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Modern SDUI Blocks",
-                  "Infinite Scalability",
-                  "Enterprise Ready",
-                  "Grade A+ Cert"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "shadow",
+              "modern"
+            ],
+            "caption": "Grade certified engines guarantee high availability across workspaces."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Multi-Tenant Lazy Schema Migration States",
+        "states": [
+          {
+            "id": "legacy",
+            "label": "Version One",
+            "text": "Legacy Document",
+            "tone": "data"
+          },
+          {
+            "id": "transform",
+            "label": "Lazy Migrator",
+            "text": "Forward Transformer",
+            "tone": "ok"
+          },
+          {
+            "id": "shadow",
+            "label": "Shadow Validate",
+            "text": "Target Zod Schema",
+            "tone": "ok"
+          },
+          {
+            "id": "modern",
+            "label": "Version Three",
+            "text": "Persisted Write-Back",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "legacy",
+            "to": "transform",
+            "label": "Read Fetch"
+          },
+          {
+            "from": "transform",
+            "to": "shadow",
+            "label": "Validate"
+          },
+          {
+            "from": "shadow",
+            "to": "modern",
+            "label": "Save Write"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "legacy",
+              "transform"
+            ],
+            "caption": "Lazy schema migrations transform documents forward dynamically on read."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "transform",
+              "shadow"
+            ],
+            "caption": "Automated certification suites audit four critical workflow standards."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "shadow",
+              "modern"
+            ],
+            "caption": "Grade certified engines guarantee high availability across workspaces."
           }
         ]
       }
