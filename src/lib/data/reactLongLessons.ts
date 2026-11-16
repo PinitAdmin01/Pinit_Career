@@ -16914,12 +16914,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the primary architectural advantage of Server-Driven UI (SDUI) in enterprise applications?",
         "options": [
-          "It decouples screen layout, visual styling, and component hierarchy from native client release cycles via declarative JSON schemas",
-          "It forces all UI logic to run client-side using eval() strings sent over WebSockets",
-          "It eliminates the need for frontend component libraries by generating raw binary WebAssembly files on the server",
-          "It requires all React components to be converted into static HTML files without client interactivity"
+          "It replaces client component styling with server-generated machine code binaries, bypassing browser layout trees completely.",
+          "It decouples screen layouts, visual hierarchies, and component trees from native release cycles via declarative JSON schemas.",
+          "It forces all state transitions to execute inside edge worker threads, eliminating all client-side memory storage buffers.",
+          "It converts all interactive web elements into static pre-rendered SVG vector images, disabling client JavaScript processing."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "SDUI empowers backend services to dictate component layout, ordering, and attributes dynamically over JSON, eliminating client deployment bottlenecks."
       },
       "tryIt": "Add a third child widget to sduiTree with type 'AlertBanner' and verify tree depth and node counts."
@@ -16944,12 +16944,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How should a robust SDUI polymorphic component resolver handle an unrecognized component type emitted by the server?",
         "options": [
-          "Log diagnostic telemetry and route rendering to a resilient fallback handler or safe placeholder to prevent client crashes",
-          "Throw an unhandled JavaScript runtime error and abort the entire application render tree",
-          "Execute an eval() statement to dynamically download arbitrary unvetted JavaScript from an external URL",
-          "Silently corrupt the DOM by mounting an empty canvas element without notifying error monitors"
+          "By executing dynamic script evaluation statements to fetch unverified code packages from arbitrary external server endpoints.",
+          "By throwing a fatal JavaScript runtime exception that unmounts the root React tree to alert developers of missing contracts.",
+          "By mounting an empty canvas element that silently halts subsequent child node reconciliation without emitting telemetry data.",
+          "By logging diagnostic telemetry and rendering a safe fallback placeholder or skeleton to prevent client runtime app crashes."
         ],
-        "answer": 0,
+        "answer": 3,
         "why": "Resilient fallback boundaries ensure that experimental or unknown component types do not crash the client application."
       },
       "tryIt": "Register a new 'MetricCard' component in SDUIRegistry and render it alongside Hero and Card."
@@ -16972,12 +16972,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "output": "Dispatched Total: 3\nActions Log: NAVIGATE:EXECUTED, MUTATE_CART:EXECUTED, UNKNOWN_OP:REJECTED",
       example: "Declarative action objects provide airtight security by guaranteeing that only pre-audited, client-compiled handlers execute in response to user events.",
         "check": {
-        "question": "Why are event handlers declared as semantic action objects (e.g. { type: 'NAVIGATE' }) rather than raw JavaScript functions in SDUI payloads?",
+        "question": "Why are user interactions declared as semantic action objects rather than raw JavaScript functions in SDUI wire payloads?",
         "options": [
-          "JSON cannot serialize executable functions, and declarative action objects prevent Cross-Site Scripting (XSS) while enabling centralized audit logging",
-          "Raw functions would increase the JSON payload size by exactly 500% regardless of code length",
-          "Web browsers disallow calling functions inside React components when server components are active",
-          "Declarative action objects bypass the JavaScript call stack and execute directly on the GPU"
+          "Because JSON cannot serialize executable closures, and declarative actions prevent script injection and enable audit logs.",
+          "Because raw callback functions increase wire compression payload footprints by five hundred percent across mobile networks.",
+          "Because browser rendering engines forbid executing JavaScript functions whenever React Server Components stream wire chunks.",
+          "Because declarative action objects bypass the JavaScript execution thread and trigger native hardware interrupts on the GPU."
         ],
         "answer": 0,
         "why": "Declarative action objects provide airtight security by guaranteeing that only pre-audited, client-compiled handlers execute in response to user events."
@@ -17002,14 +17002,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "output": "Total Widgets: 3\nVisible Widgets: w1, w2\nVIP Deal Visible: true\nHigh Roller Visible: false",
       example: "Sandboxed, tokenized expression evaluation ensures zero execution vulnerability while evaluating client state predicates.",
         "check": {
-        "question": "Why must SDUI expression engines strictly avoid using eval() or new Function() for evaluating dynamic visibility conditions?",
+        "question": "Why must SDUI expression engines strictly avoid using eval() or new Function() for evaluating client visibility conditions?",
         "options": [
-          "Using eval() exposes the application to catastrophic Remote Code Execution (RCE) and Cross-Site Scripting (XSS) vulnerabilities",
-          "eval() is completely deprecated and removed in ECMAScript 2024",
-          "eval() runs 10,000 times slower than AST parsing in all modern JavaScript engines",
-          "eval() forces the React component to unmount and re-mount on every single frame"
+          "Because dynamic eval statements run ten thousand times slower than tokenizer interpreters across modern JavaScript engines.",
+          "Because eval triggers complete React component unmounting and remounting on every individual animation frame in the browser.",
+          "Because eval introduces severe Remote Code Execution and script injection risks if backend server payloads are compromised.",
+          "Because ECMAScript standards have formally removed eval from the language specification in all modern production browsers."
         ],
-        "answer": 0,
+        "answer": 2,
         "why": "Sandboxed, tokenized expression evaluation ensures zero execution vulnerability while evaluating client state predicates."
       },
       "tryIt": "Add a condition 'user.balance >= 500' and verify whether the high roller widget mounts or is filtered."
@@ -17031,14 +17031,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "output": "Migrated Version: 2\nMigrated Title: Active Sessions\nMigrated Stat: 1420",
       example: "Schema migration pipelines transform payloads across schema versions, ensuring older client apps never break when backend contracts evolve.",
         "check": {
-        "question": "What is the purpose of a Schema Migration Pipeline in a high-scale SDUI infrastructure?",
+        "question": "What is the primary purpose of a versioned Schema Migration Pipeline within a high-scale SDUI infrastructure?",
         "options": [
-          "To ensure backwards and forwards compatibility between legacy client applications and evolving backend JSON schema versions",
-          "To automatically compress all JSON payloads into gzip archives before writing to disk",
-          "To convert React JSX components into Vue.js single-file templates in production",
-          "To restart edge worker instances whenever a new database migration is applied"
+          "To compress all serialized JSON wire responses into binary gzip archives before persisting them to distributed edge disks.",
+          "To ensure seamless backward and forward compatibility between legacy client applications and evolving backend JSON schemas.",
+          "To convert client React JSX components into alternative single-file template frameworks during production runtime mounts.",
+          "To restart distributed edge worker compute instances whenever a new database schema migration script runs on the cluster."
         ],
-        "answer": 0,
+        "answer": 1,
         "why": "Schema migration pipelines transform payloads across schema versions, ensuring older client apps never break when backend contracts evolve."
       },
       "tryIt": "Add a migration transformer from version 2 to 3 that restructures the card layout with nested metadata."

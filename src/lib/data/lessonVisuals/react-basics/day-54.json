@@ -1,702 +1,695 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 54,
-  "promptSha": "block11_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Architecture of Server-Driven UI (SDUI) & Declarative JSON Schemas",
       "codeHash": "09215a2562e9499a8b81ff8a58d1fec40addf307f1a338a68139c06ae9839bc7",
       "spec": {
-        "template": "component-tree",
-        "title": "Server-Driven UI (SDUI) Declarative JSON Wire Tree",
-        "root": {
-          "id": "page_root",
-          "name": "PageContainer (id: 'page_home_01', padding: 16)",
-          "children": [
+        "template": "compare",
+        "title": "Traditional Client UI vs Server-Driven UI",
+        "left": {
+          "title": "Client Bundles",
+          "subtitle": "Static client code",
+          "items": [
             {
-              "id": "hero_node",
-              "name": "HeroBanner (headline: 'Edge Streaming Active')"
+              "label": "Compiled Layouts",
+              "text": "Hardcoded templates",
+              "tone": "data"
             },
             {
-              "id": "grid_node",
-              "name": "GridSection (columns: 2)",
-              "children": [
-                {
-                  "id": "metric_1",
-                  "name": "MetricCard (P99 Latency: 14ms)"
-                },
-                {
-                  "id": "metric_2",
-                  "name": "MetricCard (Availability: 99.99%)"
-                }
-              ]
+              "label": "Release Cadence",
+              "text": "Slow app store reviews",
+              "tone": "error"
+            }
+          ]
+        },
+        "right": {
+          "title": "Server Driven",
+          "subtitle": "Dynamic JSON wire",
+          "items": [
+            {
+              "label": "Wire Schemas",
+              "text": "Server JSON wire schemas",
+              "tone": "ok"
+            },
+            {
+              "label": "Instant Updates",
+              "text": "Real-time layout deploys",
+              "tone": "ok"
             }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "The backend server transmits a declarative JSON wire schema over HTTP.",
-            "values": {
-              "page_root": {
-                "state": "JSON Received"
-              },
-              "hero_node": {
-                "state": "Parsed"
-              },
-              "grid_node": {
-                "state": "Parsed"
-              },
-              "metric_1": {
-                "state": "Parsed"
-              },
-              "metric_2": {
-                "state": "Parsed"
-              }
-            },
-            "tones": {
-              "page_root": "data",
-              "hero_node": "data",
-              "grid_node": "data",
-              "metric_1": "data",
-              "metric_2": "data"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "The client schema validator checks node types, props, and hierarchical depth.",
-            "values": {
-              "page_root": {
-                "state": "Validated"
-              },
-              "hero_node": {
-                "state": "Validated"
-              },
-              "grid_node": {
-                "state": "Validated"
-              },
-              "metric_1": {
-                "state": "Depth: 3"
-              },
-              "metric_2": {
-                "state": "Depth: 3"
-              }
-            },
-            "tones": {
-              "page_root": "ok",
-              "hero_node": "ok",
-              "grid_node": "ok",
-              "metric_1": "ok",
-              "metric_2": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Rigid release cadence creates organizational friction across teams."
           },
           {
             "at": "say3",
-            "caption": "Nodes are instantiated into corresponding React design system components.",
-            "values": {
-              "page_root": {
-                "state": "Mounted Container"
-              },
-              "hero_node": {
-                "state": "Rendered Hero"
-              },
-              "grid_node": {
-                "state": "Rendered Grid"
-              },
-              "metric_1": {
-                "state": "Rendered Card"
-              },
-              "metric_2": {
-                "state": "Rendered Card"
-              }
-            },
-            "tones": {
-              "page_root": "ok",
-              "hero_node": "ok",
-              "grid_node": "ok",
-              "metric_1": "ok",
-              "metric_2": "ok"
-            }
+            "highlight": [
+              "right"
+            ],
+            "caption": "The client application transforms into an intelligent rendering engine."
           },
           {
             "at": "say4",
-            "caption": "SDUI allows updating screen layout instantly without app store or CDN deploys.",
-            "values": {
-              "page_root": {
-                "state": "Dynamic"
-              },
-              "hero_node": {
-                "state": "Zero Deploy Update"
-              },
-              "grid_node": {
-                "state": "Flexible Layout"
-              },
-              "metric_1": {
-                "state": "Live Metric"
-              },
-              "metric_2": {
-                "state": "Live Metric"
-              }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Enterprise architecture requires deep discipline in schema design."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Traditional Client UI vs Server-Driven UI",
+        "left": {
+          "title": "Client Bundles",
+          "subtitle": "Static client code",
+          "items": [
+            {
+              "label": "Compiled Layouts",
+              "text": "Hardcoded templates",
+              "tone": "data"
             },
-            "tones": {
-              "page_root": "ok",
-              "hero_node": "ok",
-              "grid_node": "ok",
-              "metric_1": "ok",
-              "metric_2": "ok"
+            {
+              "label": "Release Cadence",
+              "text": "Slow app store reviews",
+              "tone": "error"
             }
+          ]
+        },
+        "right": {
+          "title": "Server Driven",
+          "subtitle": "Dynamic JSON wire",
+          "items": [
+            {
+              "label": "Wire Schemas",
+              "text": "Server JSON wire schemas",
+              "tone": "ok"
+            },
+            {
+              "label": "Instant Updates",
+              "text": "Real-time layout deploys",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Rigid release cadence creates organizational friction across teams."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "right"
+            ],
+            "caption": "The client application transforms into an intelligent rendering engine."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Enterprise architecture requires deep discipline in schema design."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Dynamic Component Registry & Polymorphic Resolver with Fallbacks",
       "codeHash": "8149f85e46574373eee00cb4540ef158ce1871bb9bddec261653c7beea91bb14",
       "spec": {
-        "template": "boxes",
-        "title": "Polymorphic Component Registry with Defensive Fallback Boundary",
-        "boxes": [
+        "template": "flow",
+        "title": "Polymorphic Component Resolution Pipeline",
+        "nodes": [
           {
-            "id": "incoming_type",
-            "label": "Incoming Node Type (e.g. 'QuantumWidget')",
+            "id": "schema",
+            "label": "Schema Node",
+            "text": "SDUI Node",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "registry_lookup",
-            "label": "SDUIRegistry.get(node.type)",
+            "id": "registry",
+            "label": "Component Registry",
+            "text": "Registry Map",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "registered_component",
-            "label": "Registered React Component (Page, Hero, Card)",
+            "id": "fallback",
+            "label": "Fallback Handler",
+            "text": "Fallback Boundary",
+            "tone": "error",
             "tappable": false
           },
           {
-            "id": "fallback_boundary",
-            "label": "Resilient Fallback Boundary (<UnsupportedWidgetFallback/>)",
+            "id": "render",
+            "label": "Mount Element",
+            "text": "Rendered Widget",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "schema",
+            "to": "registry",
+            "label": "Lookup Type"
+          },
+          {
+            "from": "registry",
+            "to": "render",
+            "label": "Registered"
+          },
+          {
+            "from": "registry",
+            "to": "fallback",
+            "label": "Unknown Type"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Resolver queries the central component registry for each node type string.",
-            "values": {
-              "incoming_type": {
-                "text": "\"type: 'Card'\""
-              },
-              "registry_lookup": {
-                "text": "\"Registry Query\""
-              },
-              "registered_component": {
-                "text": "\"Matching Component\""
-              },
-              "fallback_boundary": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "incoming_type": "data",
-              "registry_lookup": "data",
-              "registered_component": "ok",
-              "fallback_boundary": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Registered types render the corresponding React component with declared props.",
-            "values": {
-              "incoming_type": {
-                "text": "\"type: 'Hero'\""
-              },
-              "registry_lookup": {
-                "text": "\"Match Found\""
-              },
-              "registered_component": {
-                "text": "\"Hero Rendered\""
-              },
-              "fallback_boundary": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "incoming_type": "ok",
-              "registry_lookup": "ok",
-              "registered_component": "ok",
-              "fallback_boundary": "idle"
-            }
+            "highlight": [
+              "schema",
+              "registry"
+            ],
+            "caption": "The component registry maps abstract type strings to implementations."
           },
           {
             "at": "say3",
-            "caption": "Unrecognized or experimental widget types are intercepted by the fallback handler.",
-            "values": {
-              "incoming_type": {
-                "text": "\"type: 'QuantumWidget'\""
-              },
-              "registry_lookup": {
-                "text": "\"Not Found\""
-              },
-              "registered_component": {
-                "text": "\"Bypassed\""
-              },
-              "fallback_boundary": {
-                "text": "\"Fallback Triggered\""
-              }
-            },
-            "tones": {
-              "incoming_type": "error",
-              "registry_lookup": "error",
-              "registered_component": "idle",
-              "fallback_boundary": "ok"
-            }
+            "highlight": [
+              "registry",
+              "fallback"
+            ],
+            "caption": "Unknown component types pose critical challenges for client stability."
           },
           {
             "at": "say4",
-            "caption": "The application logs diagnostic telemetry while remaining one hundred%.",
-            "values": {
-              "incoming_type": {
-                "text": "\"Handled Safely\""
-              },
-              "registry_lookup": {
-                "text": "\"Zero Crash\""
-              },
-              "registered_component": {
-                "text": "\"Siblings Rendered\""
-              },
-              "fallback_boundary": {
-                "text": "\"Safe Placeholder Visible\""
-              }
-            },
-            "tones": {
-              "incoming_type": "ok",
-              "registry_lookup": "ok",
-              "registered_component": "ok",
-              "fallback_boundary": "ok"
-            }
+            "highlight": [
+              "fallback"
+            ],
+            "caption": "Fallback registry contracts intercept missing widgets gracefully."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Polymorphic Component Resolution Pipeline",
+        "nodes": [
+          {
+            "id": "schema",
+            "label": "Schema Node",
+            "text": "SDUI Node",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "registry",
+            "label": "Component Registry",
+            "text": "Registry Map",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "fallback",
+            "label": "Fallback Handler",
+            "text": "Fallback Boundary",
+            "tone": "error",
+            "tappable": false
+          },
+          {
+            "id": "render",
+            "label": "Mount Element",
+            "text": "Rendered Widget",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "schema",
+            "to": "registry",
+            "label": "Lookup Type"
+          },
+          {
+            "from": "registry",
+            "to": "render",
+            "label": "Registered"
+          },
+          {
+            "from": "registry",
+            "to": "fallback",
+            "label": "Unknown Type"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "schema",
+              "registry"
+            ],
+            "caption": "The component registry maps abstract type strings to implementations."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "registry",
+              "fallback"
+            ],
+            "caption": "Unknown component types pose critical challenges for client stability."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "fallback"
+            ],
+            "caption": "Fallback registry contracts intercept missing widgets gracefully."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "Declarative Action Dispatchers & Centralized Event Bus",
       "codeHash": "caf0e302cdfd7226bece016908a84a6c32a6848eb2fcd431319e65875cf7df0e",
       "spec": {
         "template": "flow",
-        "title": "SDUI Declarative Action Dispatcher & Centralized Event Bus",
+        "title": "Declarative Action Dispatcher Pipeline",
         "nodes": [
           {
-            "id": "user_tap",
-            "label": "User Clicks SDUI Action Button",
+            "id": "event",
+            "label": "User Tap",
+            "text": "Widget Interaction",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "action_payload",
-            "label": "Action Object { type: 'MUTATE_CART', payload }",
+            "id": "dispatcher",
+            "label": "Action Dispatcher",
+            "text": "Central Dispatcher",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "dispatcher_bus",
-            "label": "Centralized SDUIActionDispatcher",
+            "id": "enrich",
+            "label": "Context Enrich",
+            "text": "Telemetry Context",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "execution_audit",
-            "label": "Executed Handler & Immutable Audit Log",
+            "id": "handler",
+            "label": "Action Handler",
+            "text": "Audited Handler",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "event",
+            "to": "dispatcher",
+            "label": "Emit Action"
+          },
+          {
+            "from": "dispatcher",
+            "to": "enrich",
+            "label": "Enrich"
+          },
+          {
+            "from": "enrich",
+            "to": "handler",
+            "label": "Execute"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Interactive widgets emit declarative action objects rather than raw functions.",
-            "values": {
-              "user_tap": {
-                "text": "\"Tap 'Buy Now'\""
-              },
-              "action_payload": {
-                "text": "\"type: 'MUTATE_CART'\""
-              },
-              "dispatcher_bus": {
-                "text": "\"Receiving Action\""
-              },
-              "execution_audit": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "user_tap": "data",
-              "action_payload": "data",
-              "dispatcher_bus": "data",
-              "execution_audit": "idle"
-            },
-            "arrows": [
-              [
-                "user_tap",
-                "action_payload"
-              ],
-              [
-                "action_payload",
-                "dispatcher_bus"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Dispatcher enriches payload with client session ID, auth tokens, and device metadata.",
-            "values": {
-              "user_tap": {
-                "text": "\"Tapped\""
-              },
-              "action_payload": {
-                "text": "\"Enriched with userId\""
-              },
-              "dispatcher_bus": {
-                "text": "\"Context Injected\""
-              },
-              "execution_audit": {
-                "text": "\"Checking Security Policy\""
-              }
-            },
-            "tones": {
-              "user_tap": "ok",
-              "action_payload": "ok",
-              "dispatcher_bus": "ok",
-              "execution_audit": "data"
-            }
+            "highlight": [
+              "event",
+              "dispatcher"
+            ],
+            "caption": "Declarative action objects specify semantic action type and input payload."
           },
           {
             "at": "say3",
-            "caption": "The registered action handler executes safely without exposing arbitrary script injection.",
-            "values": {
-              "user_tap": {
-                "text": "\"Completed\""
-              },
-              "action_payload": {
-                "text": "\"Validated\""
-              },
-              "dispatcher_bus": {
-                "text": "\"Handler Executing\""
-              },
-              "execution_audit": {
-                "text": "\"SKU Added to Cart\""
-              }
-            },
-            "tones": {
-              "user_tap": "ok",
-              "action_payload": "ok",
-              "dispatcher_bus": "ok",
-              "execution_audit": "ok"
-            },
-            "arrows": [
-              [
-                "dispatcher_bus",
-                "execution_audit"
-              ]
-            ]
+            "highlight": [
+              "dispatcher",
+              "enrich"
+            ],
+            "caption": "The dispatcher checks permissions and enriches ambient context."
           },
           {
             "at": "say4",
-            "caption": "All actions are recorded in an audit trail for observability and telemetry tracking.",
-            "values": {
-              "user_tap": {
-                "text": "\"Success\""
-              },
-              "action_payload": {
-                "text": "\"Audit Logged\""
-              },
-              "dispatcher_bus": {
-                "text": "\"Idle\""
-              },
-              "execution_audit": {
-                "text": "\"Status: EXECUTED\""
-              }
-            },
-            "tones": {
-              "user_tap": "ok",
-              "action_payload": "ok",
-              "dispatcher_bus": "ok",
-              "execution_audit": "ok"
-            }
+            "highlight": [
+              "enrich",
+              "handler"
+            ],
+            "caption": "Airtight security prevents malicious cross-site script execution."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Declarative Action Dispatcher Pipeline",
+        "nodes": [
+          {
+            "id": "event",
+            "label": "User Tap",
+            "text": "Widget Interaction",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "dispatcher",
+            "label": "Action Dispatcher",
+            "text": "Central Dispatcher",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "enrich",
+            "label": "Context Enrich",
+            "text": "Telemetry Context",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "handler",
+            "label": "Action Handler",
+            "text": "Audited Handler",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "event",
+            "to": "dispatcher",
+            "label": "Emit Action"
+          },
+          {
+            "from": "dispatcher",
+            "to": "enrich",
+            "label": "Enrich"
+          },
+          {
+            "from": "enrich",
+            "to": "handler",
+            "label": "Execute"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "event",
+              "dispatcher"
+            ],
+            "caption": "Declarative action objects specify semantic action type and input payload."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "dispatcher",
+              "enrich"
+            ],
+            "caption": "The dispatcher checks permissions and enriches ambient context."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "enrich",
+              "handler"
+            ],
+            "caption": "Airtight security prevents malicious cross-site script execution."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Safe Zero-Eval Expression Evaluation & Dynamic State Binding",
       "codeHash": "1e1c8c6db99c5eb81e01c391867a33c16676c46ae048142841d169d6401370ae",
       "spec": {
         "template": "states",
-        "title": "Safe Zero-Eval Expression Evaluation Lifecycle",
+        "title": "Zero-Eval Safe Expression Visibility State",
         "states": [
           {
-            "id": "parse_expression",
-            "label": "PARSE_EXPRESSION (Regex Tokenizer)"
+            "id": "tokenize",
+            "label": "Parse Expression",
+            "text": "AST Tokenizer",
+            "tone": "data"
           },
           {
-            "id": "resolve_context",
-            "label": "RESOLVE_CONTEXT (Deep Property Traversal)"
+            "id": "context",
+            "label": "Resolve Path",
+            "text": "Ambient Context",
+            "tone": "data"
           },
           {
-            "id": "evaluate_operator",
-            "label": "EVALUATE_OPERATOR (Safe JS Comparison)"
-          },
-          {
-            "id": "filter_tree",
-            "label": "FILTER_TREE (Mount / Omit Node)"
+            "id": "operator",
+            "label": "Evaluate Op",
+            "text": "Sandboxed Compare",
+            "tone": "ok"
           }
         ],
         "transitions": [
           {
-            "from": "parse_expression",
-            "to": "resolve_context",
-            "label": "Path extracted"
+            "from": "tokenize",
+            "to": "context",
+            "label": "Extract Path"
           },
           {
-            "from": "resolve_context",
-            "to": "evaluate_operator",
-            "label": "Value resolved"
-          },
-          {
-            "from": "evaluate_operator",
-            "to": "filter_tree",
-            "label": "Boolean result evaluated"
-          },
-          {
-            "from": "filter_tree",
-            "to": "parse_expression",
-            "label": "Next node evaluated"
+            "from": "context",
+            "to": "operator",
+            "label": "Compare Values"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Tokenizer parses expressions like 'user.tier === VIP' into path, operator, and value.",
-            "values": {
-              "parse_expression": {
-                "status": "TOKENIZING"
-              },
-              "resolve_context": {
-                "status": "IDLE"
-              },
-              "evaluate_operator": {
-                "status": "IDLE"
-              },
-              "filter_tree": {
-                "status": "IDLE"
-              }
-            },
-            "tones": {
-              "parse_expression": "data",
-              "resolve_context": "idle",
-              "evaluate_operator": "idle",
-              "filter_tree": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Resolver safely navigates nested client context objects without using eval().",
-            "values": {
-              "parse_expression": {
-                "status": "PARSED"
-              },
-              "resolve_context": {
-                "status": "RESOLVED: 'VIP'"
-              },
-              "evaluate_operator": {
-                "status": "EVALUATING"
-              },
-              "filter_tree": {
-                "status": "IDLE"
-              }
-            },
-            "tones": {
-              "parse_expression": "ok",
-              "resolve_context": "ok",
-              "evaluate_operator": "data",
-              "filter_tree": "idle"
-            }
+            "highlight": [
+              "tokenize"
+            ],
+            "caption": "Client expression evaluation engines assess state locally without delays."
           },
           {
             "at": "say3",
-            "caption": "Comparison operators are evaluated against strict sandboxed boolean logic.",
-            "values": {
-              "parse_expression": {
-                "status": "PARSED"
-              },
-              "resolve_context": {
-                "status": "RESOLVED"
-              },
-              "evaluate_operator": {
-                "status": "RESULT: TRUE"
-              },
-              "filter_tree": {
-                "status": "MOUNTING"
-              }
-            },
-            "tones": {
-              "parse_expression": "ok",
-              "resolve_context": "ok",
-              "evaluate_operator": "ok",
-              "filter_tree": "ok"
-            }
+            "highlight": [
+              "context"
+            ],
+            "caption": "Sandbox safety forbids dynamic eval execution across client code."
           },
           {
             "at": "say4",
-            "caption": "Zero-eval expression evaluation provides dynamic responsiveness with zero XSS vulnerabilities.",
-            "values": {
-              "parse_expression": {
-                "status": "SECURE"
-              },
-              "resolve_context": {
-                "status": "ZERO EVAL"
-              },
-              "evaluate_operator": {
-                "status": "SAFE COMPARISON"
-              },
-              "filter_tree": {
-                "status": "VISIBLE"
-              }
-            },
-            "tones": {
-              "parse_expression": "ok",
-              "resolve_context": "ok",
-              "evaluate_operator": "ok",
-              "filter_tree": "ok"
-            }
+            "highlight": [
+              "operator"
+            ],
+            "caption": "Deterministic syntax tokenizers parse expressions into discrete tokens."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Zero-Eval Safe Expression Visibility State",
+        "states": [
+          {
+            "id": "tokenize",
+            "label": "Parse Expression",
+            "text": "AST Tokenizer",
+            "tone": "data"
+          },
+          {
+            "id": "context",
+            "label": "Resolve Path",
+            "text": "Ambient Context",
+            "tone": "data"
+          },
+          {
+            "id": "operator",
+            "label": "Evaluate Op",
+            "text": "Sandboxed Compare",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "tokenize",
+            "to": "context",
+            "label": "Extract Path"
+          },
+          {
+            "from": "context",
+            "to": "operator",
+            "label": "Compare Values"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "tokenize"
+            ],
+            "caption": "Client expression evaluation engines assess state locally without delays."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "context"
+            ],
+            "caption": "Sandbox safety forbids dynamic eval execution across client code."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "operator"
+            ],
+            "caption": "Deterministic syntax tokenizers parse expressions into discrete tokens."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Streaming SDUI, Schema Versioning & Production Migration Pipelines",
       "codeHash": "47969f2f2ace850b62be6f075d4754956a356ea0aa821000ea73976e9af59568",
       "spec": {
-        "template": "compare",
-        "title": "Production Evolution: Hardcoded Releases vs Server-Driven UI Engine",
-        "left": {
-          "label": "Hardcoded Client Release Cycle",
-          "items": [
-            "Layout change requires 2-week app store review",
-            "A/B test requires separate client binary builds",
-            "Breaking backend change crashes older mobile apps",
-            "Stale client bundles render inconsistent UI"
-          ]
-        },
-        "right": {
-          "label": "Server-Driven UI Engine",
-          "items": [
-            "Layout update deploys in seconds via JSON wire",
-            "Dynamic A/B experiments configured instantly",
-            "Versioned schema migrator preserves older apps",
-            "Universal consistency across Web, iOS, and Android"
-          ]
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Schema Migration & Streaming Pipeline",
+        "nodes": [
           {
-            "at": "say1",
-            "caption": "SDUI eliminates app store review delays for marketing and promotional campaigns.",
-            "values": {
-              "left": {
-                "items": [
-                  "14 Days Review Delay",
-                  "Missed Holiday Promo",
-                  "Heavy App Updates",
-                  "User Churn"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Instant Server Deploy",
-                  "Live in 5 Seconds",
-                  "Zero App Downloads",
-                  "Peak User Conversion"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "id": "req",
+            "label": "Client Version",
+            "text": "Schema Header",
+            "tone": "data",
+            "tappable": false
           },
           {
+            "id": "migrator",
+            "label": "Schema Migrator",
+            "text": "Pipeline Transform",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "stream",
+            "label": "Streaming Chunk",
+            "text": "Chunked Stream",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "req",
+            "to": "migrator",
+            "label": "Header Version"
+          },
+          {
+            "from": "migrator",
+            "to": "stream",
+            "label": "Transform Wire"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Polymorphic registries ensure zero client crashes even when backend schemas evolve.",
-            "values": {
-              "left": {
-                "items": [
-                  "Unhandled Type Crash",
-                  "White Screen of Death",
-                  "1-Star App Reviews",
-                  "Emergency Hotfix"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Graceful Fallback",
-                  "Safe Skeletons Rendered",
-                  "5-Star App Reviews",
-                  "Zero Emergency Hotfixes"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "req"
+            ],
+            "caption": "Clients transmit supported schema version numbers in request headers."
           },
           {
             "at": "say3",
-            "caption": "Versioned migration pipelines transform legacy schemas forward and backward.",
-            "values": {
-              "left": {
-                "items": [
-                  "Forced App Upgrades",
-                  "Locked Out Legacy Users",
-                  "Data Loss on Update",
-                  "Customer Complaints"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Seamless Migration",
-                  "100% Backward Compatible",
-                  "Zero User Lockout",
-                  "Delighted Customers"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "migrator"
+            ],
+            "caption": "Automated transformation pipelines convert schema representations smoothly."
           },
           {
             "at": "say4",
-            "caption": "Server-Driven UI establishes the architectural pinnacle of agile enterprise applications.",
-            "values": {
-              "left": {
-                "items": [
-                  "Rigid Monolithic Client",
-                  "Slow Innovation Cadence",
-                  "Fragile Mobile Releases",
-                  "Grade C Agility"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Dynamic UI Engine",
-                  "Rapid Daily Iteration",
-                  "Fault-Tolerant Platform",
-                  "Grade A+ Certified"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "stream"
+            ],
+            "caption": "Streaming transfers deliver initial layout nodes with high performance."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Schema Migration & Streaming Pipeline",
+        "nodes": [
+          {
+            "id": "req",
+            "label": "Client Version",
+            "text": "Schema Header",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "migrator",
+            "label": "Schema Migrator",
+            "text": "Pipeline Transform",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "stream",
+            "label": "Streaming Chunk",
+            "text": "Chunked Stream",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "req",
+            "to": "migrator",
+            "label": "Header Version"
+          },
+          {
+            "from": "migrator",
+            "to": "stream",
+            "label": "Transform Wire"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "req"
+            ],
+            "caption": "Clients transmit supported schema version numbers in request headers."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "migrator"
+            ],
+            "caption": "Automated transformation pipelines convert schema representations smoothly."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "stream"
+            ],
+            "caption": "Streaming transfers deliver initial layout nodes with high performance."
           }
         ]
       }
