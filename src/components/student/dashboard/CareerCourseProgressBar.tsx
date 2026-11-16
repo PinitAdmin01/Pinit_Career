@@ -160,27 +160,29 @@ export default function CareerCourseProgressBar() {
         data-testid="career-progress-empty"
         className="db-glass"
         style={{
+          width: '100%',
           padding: '20px 24px',
-          background: 'linear-gradient(135deg, rgba(99,102,241,0.03) 0%, var(--dash-card) 100%)',
+          background: 'linear-gradient(135deg, rgba(99,102,241,0.05) 0%, var(--dash-card) 100%)',
           display: 'flex',
           flexDirection: 'column',
-          gap: 16,
+          gap: 14,
           position: 'relative',
           overflow: 'hidden',
+          borderRadius: 16,
         }}
       >
         <style>{TIMELINE_STYLES}</style>
         
-        {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+        {/* Header Row: Clean Single Line */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>
               🎓
             </div>
             <div>
-              <span className="db-label">CAREER COURSE PROGRESS</span>
+              <span className="db-label">CAREER ACCELERATOR RUNWAY</span>
               <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-                No Active Career Program Enrolled
+                Career Course: No Active Program Enrolled &bull; <span style={{ color: 'var(--accent)' }}>Select Specialization</span>
               </h3>
             </div>
           </div>
@@ -192,7 +194,7 @@ export default function CareerCourseProgressBar() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              padding: '8px 18px',
+              padding: '9px 20px',
               borderRadius: 10,
               background: 'linear-gradient(135deg, var(--accent), #4f46e5)',
               color: '#ffffff',
@@ -204,46 +206,33 @@ export default function CareerCourseProgressBar() {
               transition: 'all 0.18s ease',
             }}
           >
-            Explore Career Programs →
+            Explore Career Programs &rarr;
           </Link>
         </div>
 
-        {/* Empty Roadmap Timeline Visual */}
-        <div style={{ position: 'relative', padding: '16px 0 8px', margin: '4px 0' }}>
-          {/* Base track */}
-          <div style={{ position: 'absolute', top: 28, left: '4%', right: '4%', height: 3, borderTop: '2px dashed var(--dash-border)', zIndex: 0 }} />
-
-          <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
-            {[
-              { step: 1, title: 'Phase 1: Micro-Learning', desc: 'Daily interactive lessons & drills' },
-              { step: 2, title: 'Phase 2: Capstone Sprint', desc: 'Production-ready architecture' },
-              { step: 3, title: 'Phase 3: Industry Certificate', desc: 'Tamper-proof verified credential' },
-            ].map((p) => (
-              <div key={p.step} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', width: '30%' }}>
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--bg3)', border: '1.5px solid var(--dash-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-                  {p.step}
-                </div>
-                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginTop: 8 }}>
-                  {p.title}
-                </div>
-                <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2, fontFamily: 'var(--font-mono)' }}>
-                  {p.desc}
-                </div>
-              </div>
-            ))}
+        {/* Panoramic Horizontal Preview Runway */}
+        <div style={{ width: '100%', position: 'relative', padding: '10px 4px 4px' }}>
+          <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, position: 'relative' }}>
+            <div style={{ width: '25%', height: '100%', background: 'linear-gradient(90deg, var(--accent), #10b981)', borderRadius: 2, opacity: 0.6 }} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, fontSize: 11.5, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ color: 'var(--accent)' }}>&bull; Phase 1: Micro-Learning Drills</span>
+            <span>&bull; Phase 2: Capstone Sprint</span>
+            <span>&bull; Phase 3: Cryptographic Proof &amp; Placement</span>
           </div>
         </div>
       </div>
     );
   }
 
-  // ── Render 2: Active Enrolled Career Course Timeline (Image 4 inspired) ─────
+  // ── Render 2: Active Enrolled Career Course Timeline ─────
   return (
     <div
       data-testid="career-course-progress-bar"
       className="db-glass"
       style={{
-        padding: '20px 24px',
+        width: '100%',
+        padding: '20px 26px',
         background: 'linear-gradient(135deg, rgba(99,102,241,0.08) 0%, var(--dash-card) 100%)',
         border: '1.5px solid rgba(99,102,241,0.3)',
         boxShadow: '0 8px 30px -4px rgba(99,102,241,0.2)',
@@ -252,6 +241,7 @@ export default function CareerCourseProgressBar() {
         gap: 16,
         position: 'relative',
         overflow: 'hidden',
+        borderRadius: 16,
       }}
     >
       <style>{TIMELINE_STYLES}</style>
@@ -263,20 +253,14 @@ export default function CareerCourseProgressBar() {
             TRACK
           </div>
           <div>
-            <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              {plan?.title || 'Full-Stack Career Accelerator'} &middot; {isAllComplete ? <span style={{ color: '#10b981' }}>100% Completed</span> : <><span style={{ color: 'var(--accent)' }}>Day {currentIncompleteDay}</span> of {totalDays}</>}
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
+              Career Course: {plan?.title || 'Data Structures & Algorithms'} &bull; {percentComplete}% Complete
             </h3>
           </div>
         </div>
 
-        {/* Action Button & Completion Pill */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-          <div style={{ textAlign: 'right', marginRight: 4 }}>
-            <div style={{ fontSize: 15, fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#10b981' }}>
-              {percentComplete}% Completed
-            </div>
-          </div>
-
+        {/* Action Button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <button
             type="button"
             data-testid="btn-resume-incomplete-day"
@@ -285,12 +269,12 @@ export default function CareerCourseProgressBar() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              padding: '10px 20px',
+              padding: '9px 20px',
               borderRadius: 10,
               background: 'linear-gradient(135deg, var(--accent), #4f46e5)',
               border: 'none',
               color: '#ffffff',
-              fontSize: 13.5,
+              fontSize: 13,
               fontWeight: 800,
               cursor: 'pointer',
               boxShadow: '0 4px 18px rgba(99,102,241,0.35)',
@@ -307,7 +291,7 @@ export default function CareerCourseProgressBar() {
             }}
           >
             <span>{isAllComplete ? '🎓' : '▶'}</span>
-            <span>{isAllComplete ? 'View Capstone & Certificate' : ('Resume Incomplete Day (Day ' + currentIncompleteDay + ')')}</span>
+            <span>{isAllComplete ? 'View Capstone & Certificate' : `Resume Course (+75 XP)`}</span>
           </button>
         </div>
       </div>
