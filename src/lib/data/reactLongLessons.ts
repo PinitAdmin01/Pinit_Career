@@ -15674,13 +15674,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is the primary architectural difference between React Reconciler and React Renderer?",
         "options": [
-          "The Reconciler manages Fiber diffing, scheduling, and hooks, while the Renderer translates diffs into platform-specific mutations (like DOM, Native, or Canvas)",
-          "The Reconciler only runs on mobile phones",
-          "The Renderer handles CSS compilation while Reconciler handles HTML",
-          "They are identical and cannot be decoupled"
+          "The Reconciler generates binary machine instructions directly for target CPU architectures, whereas the Renderer manages runtime memory garbage collection.",
+          "The Reconciler manages the Fiber tree and computes abstract diffs, whereas the Renderer translates those instructions into platform-specific mutations.",
+          "The Reconciler compiles JSX into static HTML strings on cloud server instances, whereas the Renderer parses client CSS stylesheets inside browser views.",
+          "The Reconciler manages network socket protocols and database connection pools, whereas the Renderer binds interactive pointer gestures to event handlers."
         ],
-        "answer": 0,
-        "why": "React Core separates reconciliation (Fiber tree diffing, lane scheduling, and hook lifecycles) from rendering (translating diff instructions into physical platform nodes like DOM elements or terminal strings)."
+        "answer": 1,
+        "why": "React Reconciler manages the priority lanes, Fiber tree, and diffing calculations, while platform renderers execute mutations for specific targets like DOM or Native."
       }
     },
     {
@@ -15716,15 +15716,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add an opacity prop to newProps and verify that prepareUpdate catches the attribute difference.",
       example: "Separating diff computation (prepareUpdate) from host mutation (commitUpdate) ensures that aborted or time-sliced concurrent renders do not pollute the host platform with partial mutations.",
         "check": {
-        "question": "Why does HostConfig separate prop diffing into prepareUpdate and commitUpdate phases?",
+        "question": "Why does the HostConfig contract separate property diffing into prepareUpdate and commitUpdate?",
         "options": [
-          "prepareUpdate runs during the concurrent render phase to compute diffs without side-effects; commitUpdate executes synchronously to apply changes to the host",
-          "Because JavaScript requires functions to be called twice",
-          "Because browsers crash if props are updated in one step",
-          "To allow CSS styles to compile before JavaScript runs"
+          "To compile TypeScript interfaces into WebAssembly machine binaries during render passes, allowing native operating systems to bypass sandbox checks.",
+          "To force all active client background worker threads to terminate immediately, preventing memory leaks when users navigate away from active views.",
+          "To compress DOM mutation payloads with hardware gzip compression algorithms before transmitting them across distributed network socket connections.",
+          "To compute prop diffs concurrently without touching the host platform, applying only the resulting mutation payload during the synchronous commit."
         ],
-        "answer": 0,
-        "why": "Separating diff computation (prepareUpdate) from host mutation (commitUpdate) ensures that aborted or time-sliced concurrent renders do not pollute the host platform with partial mutations."
+        "answer": 3,
+        "why": "prepareUpdate computes diffs during the interruptible render phase, returning a payload so commitUpdate can execute synchronous mutations without recalculating."
       }
     },
     {
@@ -15760,15 +15760,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a third line to panelNode and observe how layout height adapts dynamically.",
       example: "When rendering to targets without a native layout engine (like terminal CLIs or HTML5 Canvas), the custom renderer must calculate bounding boxes, text wrapping, and tree positions in memory.",
         "check": {
-        "question": "Why must a custom terminal or canvas React renderer maintain its own Virtual Node Graph?",
+        "question": "Why must a custom terminal or canvas React renderer maintain an in-memory Virtual Node Graph?",
         "options": [
-          "Because non-browser platforms lack a native DOM engine to manage hierarchy, box model dimensions, and spatial layouts",
-          "Because terminals only support binary numbers",
-          "Because React crashes if nodes are not instances of HTMLElement",
-          "To bypass JavaScript garbage collection"
+          "Because non-DOM platforms lack a built-in hierarchical document tree, requiring a virtual representation to track parent-child nesting and bounds.",
+          "Because Node.js prohibits background processes from printing text to stdout unless all string values are first converted to binary buffer streams.",
+          "Because device graphic processing units reject draw commands if component function instances contain more than five nested declarative hook calls.",
+          "Because client terminal emulators require cryptographic public key certificates before accepting standard ANSI cursor movement escape sequences."
         ],
         "answer": 0,
-        "why": "When rendering to targets without a native layout engine (like terminal CLIs or HTML5 Canvas), the custom renderer must calculate bounding boxes, text wrapping, and tree positions in memory."
+        "why": "Unlike web browsers that offer a native DOM tree, terminal or canvas outputs are flat streams or raster pixels requiring a virtual node tree to represent UI layout."
       }
     },
     {
@@ -15804,15 +15804,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a yellow alert message to the box children and test yellow ANSI formatting.",
       example: "Terminal emulators interpret ANSI escape sequences (starting with \\x1b[) to alter text color, bold styling, and cursor position on screen.",
         "check": {
-        "question": "How does a terminal React renderer format colors and styles in a terminal window?",
+        "question": "How does a headless terminal React renderer format colors, borders, and text styling in a console window?",
         "options": [
-          "By wrapping text inside standardized ANSI escape sequences (e.g. \\x1b[32m for green and \\x1b[0m for reset)",
-          "By downloading CSS files from a CDN",
-          "By converting text into JPEG images",
-          "By executing shell scripts in bash"
+          "By compiling CSS style declarations into WebGL shader language programs that execute directly inside device hardware GPU rendering pipeline stages.",
+          "By injecting inline HTML stylesheet link tags into the operating system kernel registry to configure global terminal window typography preferences.",
+          "By wrapping rendered string content in standardized ANSI escape sequence codes that instruct terminal emulators how to set colors and style layout.",
+          "By opening local WebSocket connections to the host operating system display server and streaming raw bitmap pixel frames into active shell windows."
         ],
-        "answer": 0,
-        "why": "Terminal emulators interpret ANSI escape sequences (starting with \\x1b[) to alter text color, bold styling, and cursor position on screen."
+        "answer": 2,
+        "why": "Terminal renderers wrap text in standard ANSI escape sequences (such as \\x1b[32m for green) to instruct terminal emulators to render colored and styled text."
       }
     },
     {
@@ -15851,15 +15851,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Trigger a third update changing status to MAINTENANCE and verify frame counter increments to 3.",
       example: "React's reconciler architecture provides a universal programming model: developers use the exact same declarative components and hooks regardless of whether rendering to DOM, Canvas, VR, or terminal CLIs.",
         "check": {
-        "question": "What core advantage does React's component model offer when building custom CLI tools or 3D games?",
+        "question": "What core architectural advantage does React's component model provide when targeting custom non-DOM platforms?",
         "options": [
-          "Developers write declarative JSX components with hooks, state, and effects, completely decoupled from the underlying rendering target",
-          "It makes terminal commands execute ten times faster",
-          "It eliminates the need for computer graphics cards",
-          "It allows C++ code to run without compilation"
+          "It forces client operating systems to allocate continuous physical hardware RAM blocks, eliminating the need for runtime memory garbage collection.",
+          "It enables complete reuse of declarative component logic, custom hooks, and concurrent state management across web, mobile, and terminal targets.",
+          "It automatically translates all frontend JavaScript code into compiled Rust binaries, boosting raw numerical calculation performance by ten times.",
+          "It replaces standard TCP network socket layers with direct satellite communication protocols to ensure zero-latency data transmission across apps."
         ],
-        "answer": 0,
-        "why": "React's reconciler architecture provides a universal programming model: developers use the exact same declarative components and hooks regardless of whether rendering to DOM, Canvas, VR, or terminal CLIs."
+        "answer": 1,
+        "why": "React's declarative component model and hooks decouple stateful business logic from UI rendering targets, allowing high code reuse across web, native, and terminal."
       }
     }
   ],

@@ -1,700 +1,651 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 49,
-  "promptSha": "block10_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "The Separation of Reconciler and Renderer: How React Core Traverses Component Trees Across Any Target Platform",
       "codeHash": "79ce3d4c9b29e5420d916dcd9a8840464fd12cf746ae1314e54f013a41bfc3f6",
       "spec": {
-        "template": "flow",
-        "title": "React Fiber Reconciler Pipeline & HostConfig Mutative Phase",
-        "nodes": [
-          {
-            "id": "jsx_el",
-            "label": "React Elements (JSX AST)",
-            "tappable": false
-          },
-          {
-            "id": "fiber_work",
-            "label": "Reconciler WorkLoop (Diffing & Fiber Tree)",
-            "tappable": false
-          },
-          {
-            "id": "host_config",
-            "label": "Custom HostConfig Implementation",
-            "tappable": false
-          },
-          {
-            "id": "target_host",
-            "label": "Custom Host Target (Terminal / Canvas / PDF)",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "React parses JSX into lightweight React element trees in user space.",
-            "values": {
-              "jsx_el": {
-                "text": "\"JSX AST\""
-              },
-              "fiber_work": {
-                "text": "\"Pending\""
-              },
-              "host_config": {
-                "text": "\"Standby\""
-              },
-              "target_host": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "jsx_el": "data",
-              "fiber_work": "idle",
-              "host_config": "idle",
-              "target_host": "idle"
-            },
-            "arrows": [
-              [
-                "jsx_el",
-                "fiber_work"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Fiber reconciler computes diffs and determines minimum necessary mutations.",
-            "values": {
-              "jsx_el": {
-                "text": "\"Parsed\""
-              },
-              "fiber_work": {
-                "text": "\"Fiber Diff Complete\""
-              },
-              "host_config": {
-                "text": "\"Invoking Phase\""
-              },
-              "target_host": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "jsx_el": "ok",
-              "fiber_work": "data",
-              "host_config": "idle",
-              "target_host": "idle"
-            },
-            "arrows": [
-              [
-                "fiber_work",
-                "host_config"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "HostConfig translates abstract Fiber mutations into target-specific operations.",
-            "values": {
-              "jsx_el": {
-                "text": "\"Parsed\""
-              },
-              "fiber_work": {
-                "text": "\"Commit Phase\""
-              },
-              "host_config": {
-                "text": "\"createInstance & append\""
-              },
-              "target_host": {
-                "text": "\"Mutating Nodes\""
-              }
-            },
-            "tones": {
-              "jsx_el": "ok",
-              "fiber_work": "ok",
-              "host_config": "data",
-              "target_host": "data"
-            },
-            "arrows": [
-              [
-                "host_config",
-                "target_host"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Target host (Terminal CLI, Canvas, three-dimensional WebGL) renders the.",
-            "values": {
-              "jsx_el": {
-                "text": "\"Rendered\""
-              },
-              "fiber_work": {
-                "text": "\"Committed\""
-              },
-              "host_config": {
-                "text": "Flushed\""
-              },
-              "target_host": {
-                "text": "\"Scene Flushed (60 FPS)\""
-              }
-            },
-            "tones": {
-              "jsx_el": "ok",
-              "fiber_work": "ok",
-              "host_config": "ok",
-              "target_host": "ok"
-            },
-            "arrows": [
-              [
-                "target_host",
-                "jsx_el"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Dissecting the HostConfig Interface: Mutation vs Persistence Modes, Tree Mutation Primitives & Lifecycle Hooks",
-      "codeHash": "5e127cb71f1b6afd2d5b69eb4efeb5879ed3b34a4305a8b85d7a8ea7c8dbc8bb",
-      "spec": {
-        "template": "boxes",
-        "title": "Custom HostConfig Mutative Contract Methods",
-        "boxes": [
-          {
-            "id": "create_inst",
-            "label": "createInstance(type, props): Instantiate VirtualNode",
-            "tappable": false
-          },
-          {
-            "id": "append_child",
-            "label": "appendInitialChild(parent, child): Build Tree Hierarchy",
-            "tappable": false
-          },
-          {
-            "id": "prepare_update",
-            "label": "prepareUpdate(inst, type, oldP, newP): Compute Prop Diff",
-            "tappable": false
-          },
-          {
-            "id": "commit_update",
-            "label": "commitUpdate(inst, updatePayload): Apply Terminal Mutation",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "createInstance allocates target-specific nodes (e.g. VirtualNode or Canvas shape).",
-            "values": {
-              "create_inst": {
-                "text": "\"Allocating Node\""
-              },
-              "append_child": {
-                "text": "\"Standby\""
-              },
-              "prepare_update": {
-                "text": "\"Standby\""
-              },
-              "commit_update": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "create_inst": "data",
-              "append_child": "idle",
-              "prepare_update": "idle",
-              "commit_update": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "appendInitialChild constructs the initial node tree hierarchy before mounting.",
-            "values": {
-              "create_inst": {
-                "text": "\"Instantiated\""
-              },
-              "append_child": {
-                "text": "\"Linking Hierarchy\""
-              },
-              "prepare_update": {
-                "text": "\"Standby\""
-              },
-              "commit_update": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "create_inst": "ok",
-              "append_child": "data",
-              "prepare_update": "idle",
-              "commit_update": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "prepareUpdate calculates exact attribute changes, returning a diff payload.",
-            "values": {
-              "create_inst": {
-                "text": "\"Ready\""
-              },
-              "append_child": {
-                "text": "\"Linked\""
-              },
-              "prepare_update": {
-                "text": "\"Diff: text updated\""
-              },
-              "commit_update": {
-                "text": "\"Pending Commit\""
-              }
-            },
-            "tones": {
-              "create_inst": "ok",
-              "append_child": "ok",
-              "prepare_update": "data",
-              "commit_update": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "commitUpdate mutates target properties and invalidates screen bounding boxes.",
-            "values": {
-              "create_inst": {
-                "text": "\"Ready\""
-              },
-              "append_child": {
-                "text": "\"Ready\""
-              },
-              "prepare_update": {
-                "text": "\"Committed\""
-              },
-              "commit_update": {
-                "text": "\"CLI Redrawn\""
-              }
-            },
-            "tones": {
-              "create_inst": "ok",
-              "append_child": "ok",
-              "prepare_update": "ok",
-              "commit_update": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The Virtual Node Graph: Representing Host Instances, Attribute Diffs, Child Traversal & Layout Tree Updates",
-      "codeHash": "2b1af034884f92b9c3ccedfb13c92fa844fa57cad8e912fabb9db6a0b79df57b",
-      "spec": {
-        "template": "component-tree",
-        "title": "Headless In-Memory Virtual Node Graph Representation",
-        "items": [
-          {
-            "id": "term_root",
-            "label": "VirtualRoot (ANSI Terminal Canvas)",
-            "depth": 0,
-            "status": "active"
-          },
-          {
-            "id": "header_box",
-            "label": "BoxNode (border: 'double', color: 'cyan')",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "title_text",
-            "label": "TextNode (\"PinIT Trading Terminal v1.0\")",
-            "depth": 2,
-            "status": "active"
-          },
-          {
-            "id": "content_box",
-            "label": "BoxNode (border: 'single', color: 'green')",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "quote_text",
-            "label": "TextNode (\"NVDA: $175.50 | +3.2%\")",
-            "depth": 2,
-            "status": "active"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Reconciler mounts React components into a headless in-memory Virtual Node Graph.",
-            "values": {
-              "term_root": {
-                "text": "\"Root Allocated\""
-              },
-              "header_box": {
-                "text": "\"Building\""
-              },
-              "title_text": {
-                "text": "\"Building\""
-              },
-              "content_box": {
-                "text": "\"Building\""
-              },
-              "quote_text": {
-                "text": "\"Building\""
-              }
-            },
-            "tones": {
-              "term_root": "ok",
-              "header_box": "data",
-              "title_text": "data",
-              "content_box": "data",
-              "quote_text": "data"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Layout engine calculates box dimensions and ANSI color inheritance hierarchies.",
-            "values": {
-              "term_root": {
-                "text": "\"Layout Computed\""
-              },
-              "header_box": {
-                "text": "\"Cyan Border\""
-              },
-              "title_text": {
-                "text": "Centered Text\""
-              },
-              "content_box": {
-                "text": "\"Green Border\""
-              },
-              "quote_text": {
-                "text": "\"Bold Price\""
-              }
-            },
-            "tones": {
-              "term_root": "ok",
-              "header_box": "ok",
-              "title_text": "ok",
-              "content_box": "ok",
-              "quote_text": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A price update mutates only the quote TextNode without rebuilding the box frames.",
-            "values": {
-              "term_root": {
-                "text": "\"Minimal Diff\""
-              },
-              "header_box": {
-                "text": "\"Preserved\""
-              },
-              "title_text": {
-                "text": "\"Preserved\""
-              },
-              "content_box": {
-                "text": "\"Preserved\""
-              },
-              "quote_text": {
-                "text": "\"Mutated: $175.75\""
-              }
-            },
-            "tones": {
-              "term_root": "ok",
-              "header_box": "ok",
-              "title_text": "ok",
-              "content_box": "ok",
-              "quote_text": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Headless node graph serializes directly to ANSI terminal escape sequences.",
-            "values": {
-              "term_root": {
-                "text": "\"Serialized 120 Bytes\""
-              },
-              "header_box": {
-                "text": "\"Flushed\""
-              },
-              "title_text": {
-                "text": "\"Flushed\""
-              },
-              "content_box": {
-                "text": "\"Flushed\""
-              },
-              "quote_text": {
-                "text": "\"Flushed (0.4ms)\""
-              }
-            },
-            "tones": {
-              "term_root": "ok",
-              "header_box": "ok",
-              "title_text": "ok",
-              "content_box": "ok",
-              "quote_text": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Functional Headless Terminal ANSI Reconciler in Pure JavaScript",
-      "codeHash": "988569d834deb4c8194ba48b4c88d76842ac65df34e383282f5379152edf4b12",
-      "spec": {
         "template": "compare",
-        "title": "Browser DOM Reconciler vs Headless Terminal Reconciler",
+        "title": "Reconciler vs Platform Renderer",
         "left": {
-          "label": "Browser DOM Reconciler (react-dom)",
+          "title": "The Reconciler",
+          "subtitle": "Universal Core",
           "items": [
-            "Coupled to browser C++ DOM API",
-            "Requires heavy browser / layout engine",
-            "Slow CI integration tests (5-10s)",
-            "Heavy memory footprint (200MB+ RAM)"
+            {
+              "label": "Fiber Tree",
+              "text": "Reconciler",
+              "tone": "ok"
+            },
+            {
+              "label": "Diffing Engine",
+              "text": "react-reconciler",
+              "tone": "ok"
+            }
           ]
         },
         "right": {
-          "label": "Headless Reconciler (Custom HostConfig)",
+          "title": "The Renderer",
+          "subtitle": "Platform Adapter",
           "items": [
-            "Completely decoupled from DOM & browser",
-            "Runs in pure Node.js in 2 milliseconds",
-            "Blazing fast unit & integration tests",
-            "Lightweight memory footprint (< 10MB RAM)"
+            {
+              "label": "Platform Adapter",
+              "text": "Renderer",
+              "tone": "data"
+            },
+            {
+              "label": "Target Contract",
+              "text": "HostConfig",
+              "tone": "data"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "react-dom is bound to browser APIs (document.createElement, innerHTML).",
-            "values": {
-              "left": {
-                "items": [
-                  "Browser Bound",
-                  "C++ DOM Bridge",
-                  "Heavy Runtimes",
-                  "Slow Startup"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Pure Node.js",
-                  "Headless AST",
-                  "Zero Dependencies",
-                  "Instant Startup"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Custom reconcilers allow React to render to CLI terminals, PDFs, or.",
-            "values": {
-              "left": {
-                "items": [
-                  "HTML Elements Only",
-                  "CSS Stylesheets",
-                  "Reflow Penalties",
-                  "DOM Thrashing"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Any Target Engine",
-                  "ANSI / WebGL / Canvas",
-                  "Direct Memory Writes",
-                  "Zero DOM Thrash"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "React separates abstract reconciliation logic from platform rendering."
           },
           {
             "at": "say3",
-            "caption": "Headless reconcilers run ten,multiple automated UI component tests in.",
-            "values": {
-              "left": {
-                "items": [
-                  "Heavy Playwright Tests",
-                  "Frequent Test Flakes",
-                  "CI Infrastructure Tax",
-                  "Slow Release Cycles"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Sub-millisecond Tests",
-                  "100% Deterministic",
-                  "Zero Browser Cost",
-                  "Continuous Delivery"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "The reconciler manages the fiber tree and concurrent priority lanes."
           },
           {
             "at": "say4",
-            "caption": "Custom host reconcilers represent the ultimate decoupling of React logic from presentation.",
-            "values": {
-              "left": {
-                "items": [
-                  "Monolithic Target",
-                  "Browser Lock-in",
-                  "Legacy Web Stack",
-                  "High Overhead"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Universal Architecture",
-                  "Cross-Platform Power",
-                  "Architectural Freedom",
-                  "Maximum Speed"
-                ]
-              }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Platform renderers implement the host config contract to mount nodes."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Reconciler vs Platform Renderer",
+        "left": {
+          "title": "The Reconciler",
+          "subtitle": "Universal Core",
+          "items": [
+            {
+              "label": "Fiber Tree",
+              "text": "Reconciler",
+              "tone": "ok"
             },
-            "tones": {
-              "left": "error",
-              "right": "ok"
+            {
+              "label": "Diffing Engine",
+              "text": "react-reconciler",
+              "tone": "ok"
             }
+          ]
+        },
+        "right": {
+          "title": "The Renderer",
+          "subtitle": "Platform Adapter",
+          "items": [
+            {
+              "label": "Platform Adapter",
+              "text": "Renderer",
+              "tone": "data"
+            },
+            {
+              "label": "Target Contract",
+              "text": "HostConfig",
+              "tone": "data"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "React separates abstract reconciliation logic from platform rendering."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "left"
+            ],
+            "caption": "The reconciler manages the fiber tree and concurrent priority lanes."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Platform renderers implement the host config contract to mount nodes."
           }
         ]
       }
     },
     {
-      "partTitle": "Complete Custom Renderer Simulation: Scheduling Fibers, Diffing Text Nodes, and Committing Terminal Virtual Layouts",
-      "codeHash": "89d39042abb8954ad4e4b23278892626e9cd92496ad66985a689362b72edf57c",
+      "partIndex": 1,
+      "partTitle": "Dissecting the HostConfig Interface: Mutation vs Persistence Modes, Tree Mutation Primitives & Lifecycle Hooks",
+      "codeHash": "5e127cb71f1b6afd2d5b69eb4efeb5879ed3b34a4305a8b85d7a8ea7c8dbc8bb",
       "spec": {
-        "template": "states",
-        "title": "Reconciler Commit Lifecycle & Screen Flush States",
-        "states": [
+        "template": "flow",
+        "title": "HostConfig Lifecycle Pipeline",
+        "nodes": [
           {
-            "id": "render_pass",
-            "label": "RENDER_PASS (Pure WorkLoop Calculation)",
-            "active": true
+            "id": "n1",
+            "label": "Create Node",
+            "text": "createInstance",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "diff_ready",
-            "label": "DIFF_READY (Mutation Payloads Staged)",
-            "active": false
+            "id": "n2",
+            "label": "Attach Child",
+            "text": "appendInitialChild",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "commit_mutations",
-            "label": "COMMIT_MUTATIONS (Executing HostConfig Operations)",
-            "active": false
+            "id": "n3",
+            "label": "Compute Diff",
+            "text": "prepareUpdate",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "screen_flush",
-            "label": "SCREEN_FLUSH (Output Emitted to Standard Output)",
-            "active": false
+            "id": "n4",
+            "label": "Apply Mutation",
+            "text": "commitUpdate",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "Initial Tree"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "label": "Props Changed"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "Commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "n1"
+            ],
+            "caption": "React allocates host instances during the initial render phase."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "n1",
+              "n2"
+            ],
+            "caption": "Initial children attach to parent nodes before mounting on screen."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "n3"
+            ],
+            "caption": "Prop diffing computes minimal update payloads during reconciliation."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "n4"
+            ],
+            "caption": "The commit phase applies the update payload to the physical platform."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "HostConfig Lifecycle Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Create Node",
+            "text": "createInstance",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Attach Child",
+            "text": "appendInitialChild",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Compute Diff",
+            "text": "prepareUpdate",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Apply Mutation",
+            "text": "commitUpdate",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "Initial Tree"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "label": "Props Changed"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "Commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "n1"
+            ],
+            "caption": "React allocates host instances during the initial render phase."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "n1",
+              "n2"
+            ],
+            "caption": "Initial children attach to parent nodes before mounting on screen."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "n3"
+            ],
+            "caption": "Prop diffing computes minimal update payloads during reconciliation."
+          },
+          {
+            "at": "say5",
+            "highlight": [
+              "n4"
+            ],
+            "caption": "The commit phase applies the update payload to the physical platform."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 2,
+      "partTitle": "The Virtual Node Graph: Representing Host Instances, Attribute Diffs, Child Traversal & Layout Tree Updates",
+      "codeHash": "2b1af034884f92b9c3ccedfb13c92fa844fa57cad8e912fabb9db6a0b79df57b",
+      "spec": {
+        "template": "boxes",
+        "title": "Virtual Node Graph Hierarchy",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Root Container",
+            "text": "Virtual Node Graph",
+            "tone": "ok"
+          },
+          {
+            "id": "b2",
+            "title": "Panel Box",
+            "text": "box",
+            "tone": "data"
+          },
+          {
+            "id": "b3",
+            "title": "Text Leaf",
+            "text": "text",
+            "tone": "idle"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reconciler executes pure Fiber WorkLoop without touching the outside world.",
-            "values": {
-              "render_pass": {
-                "text": "\"Computing Diffs\""
-              },
-              "diff_ready": {
-                "text": "\"Staging\""
-              },
-              "commit_mutations": {
-                "text": "\"Inactive\""
-              },
-              "screen_flush": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "render_pass": "data",
-              "diff_ready": "idle",
-              "commit_mutations": "idle",
-              "screen_flush": "idle"
-            }
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Non-browser environments require a custom in-memory node graph."
           },
           {
             "at": "say2",
-            "caption": "Diffs are finalized and mutation operations are queued into the work effect list.",
-            "values": {
-              "render_pass": {
-                "text": "\"Complete\""
-              },
-              "diff_ready": {
-                "text": "Payloads Ready\""
-              },
-              "commit_mutations": {
-                "text": "\"Staged\""
-              },
-              "screen_flush": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "render_pass": "ok",
-              "diff_ready": "data",
-              "commit_mutations": "idle",
-              "screen_flush": "idle"
-            }
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "The virtual tree hierarchy mirrors the structure of react components."
           },
           {
             "at": "say3",
-            "caption": "COMMIT_MUTATIONS executes createInstance, appendChild, and commitUpdate.",
-            "values": {
-              "render_pass": {
-                "text": "\"Exited\""
-              },
-              "diff_ready": {
-                "text": "\"Flushed\""
-              },
-              "commit_mutations": {
-                "text": "\"Applying Node Changes\""
-              },
-              "screen_flush": {
-                "text": "\"Buffering\""
-              }
-            },
-            "tones": {
-              "render_pass": "idle",
-              "diff_ready": "ok",
-              "commit_mutations": "data",
-              "screen_flush": "idle"
-            }
+            "highlight": [
+              "b2",
+              "b3"
+            ],
+            "caption": "Box containers manage layouts while text nodes store string content."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Virtual Node Graph Hierarchy",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Root Container",
+            "text": "Virtual Node Graph",
+            "tone": "ok"
+          },
+          {
+            "id": "b2",
+            "title": "Panel Box",
+            "text": "box",
+            "tone": "data"
+          },
+          {
+            "id": "b3",
+            "title": "Text Leaf",
+            "text": "text",
+            "tone": "idle"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Non-browser environments require a custom in-memory node graph."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "The virtual tree hierarchy mirrors the structure of react components."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "b2",
+              "b3"
+            ],
+            "caption": "Box containers manage layouts while text nodes store string content."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 3,
+      "partTitle": "Building a Functional Headless Terminal ANSI Reconciler in Pure JavaScript",
+      "codeHash": "988569d834deb4c8194ba48b4c88d76842ac65df34e383282f5379152edf4b12",
+      "spec": {
+        "template": "states",
+        "title": "Terminal Rendering Pipeline",
+        "states": [
+          {
+            "id": "traversal",
+            "label": "Tree Traversal",
+            "text": "Depth-First Traversal",
+            "tone": "ok"
+          },
+          {
+            "id": "formatting",
+            "label": "ANSI Encoding",
+            "text": "ANSI Escape Sequences",
+            "tone": "data"
+          },
+          {
+            "id": "output",
+            "label": "Screen Paint",
+            "text": "stdout",
+            "tone": "idle"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "traversal",
+            "to": "formatting",
+            "label": "Format Nodes"
+          },
+          {
+            "from": "formatting",
+            "to": "output",
+            "label": "Flush Buffer"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "traversal"
+            ],
+            "caption": "Terminal rendering converts virtual trees into command-line output."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "formatting"
+            ],
+            "caption": "ANSI escape sequences apply colors and text formatting in the shell."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "output"
+            ],
+            "caption": "The serializer compiles styled jsx text into colored terminal output."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Terminal Rendering Pipeline",
+        "states": [
+          {
+            "id": "traversal",
+            "label": "Tree Traversal",
+            "text": "Depth-First Traversal",
+            "tone": "ok"
+          },
+          {
+            "id": "formatting",
+            "label": "ANSI Encoding",
+            "text": "ANSI Escape Sequences",
+            "tone": "data"
+          },
+          {
+            "id": "output",
+            "label": "Screen Paint",
+            "text": "stdout",
+            "tone": "idle"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "traversal",
+            "to": "formatting",
+            "label": "Format Nodes"
+          },
+          {
+            "from": "formatting",
+            "to": "output",
+            "label": "Flush Buffer"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "traversal"
+            ],
+            "caption": "Terminal rendering converts virtual trees into command-line output."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "formatting"
+            ],
+            "caption": "ANSI escape sequences apply colors and text formatting in the shell."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "output"
+            ],
+            "caption": "The serializer compiles styled jsx text into colored terminal output."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 4,
+      "partTitle": "Complete Custom Renderer Simulation: Scheduling Fibers, Diffing Text Nodes, and Committing Terminal Virtual Layouts",
+      "codeHash": "89d39042abb8954ad4e4b23278892626e9cd92496ad66985a689362b72edf57c",
+      "spec": {
+        "template": "flow",
+        "title": "Custom Renderer Execution Cycle",
+        "nodes": [
+          {
+            "id": "mount",
+            "label": "Initial Mount",
+            "text": "mount",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "diff",
+            "label": "Diffing Phase",
+            "text": "diffPayload",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "repaint",
+            "label": "Buffer Repaint",
+            "text": "renderToScreen",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "mount",
+            "to": "diff",
+            "label": "Telemetry Event"
+          },
+          {
+            "from": "diff",
+            "to": "repaint",
+            "label": "Frame Repaint"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "mount"
+            ],
+            "caption": "The renderer performs an initial mount pass to construct the screen."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "diff"
+            ],
+            "caption": "The host config abstraction drives custom terminal reconcilers cleanly."
           },
           {
             "at": "say4",
-            "caption": "SCREEN_FLUSH sends finalized ANSI stream to process.stdout; UI is updated.",
-            "values": {
-              "render_pass": {
-                "text": "\"Clean\""
-              },
-              "diff_ready": {
-                "text": "\"Clean\""
-              },
-              "commit_mutations": {
-                "text": "\"Committed\""
-              },
-              "screen_flush": {
-                "text": "\"Flushed to CLI\""
-              }
-            },
-            "tones": {
-              "render_pass": "ok",
-              "diff_ready": "ok",
-              "commit_mutations": "ok",
-              "screen_flush": "ok"
-            }
+            "highlight": [
+              "repaint"
+            ],
+            "caption": "Minimal mutation payloads repaint the terminal frame buffer."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Custom Renderer Execution Cycle",
+        "nodes": [
+          {
+            "id": "mount",
+            "label": "Initial Mount",
+            "text": "mount",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "diff",
+            "label": "Diffing Phase",
+            "text": "diffPayload",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "repaint",
+            "label": "Buffer Repaint",
+            "text": "renderToScreen",
+            "tone": "data",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "mount",
+            "to": "diff",
+            "label": "Telemetry Event"
+          },
+          {
+            "from": "diff",
+            "to": "repaint",
+            "label": "Frame Repaint"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "mount"
+            ],
+            "caption": "The renderer performs an initial mount pass to construct the screen."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "diff"
+            ],
+            "caption": "The host config abstraction drives custom terminal reconcilers cleanly."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "repaint"
+            ],
+            "caption": "Minimal mutation payloads repaint the terminal frame buffer."
           }
         ]
       }
