@@ -346,8 +346,8 @@ export interface ArenaRoom {
   guestEloDelta?: number;
   hostNewElo?: number;
   guestNewElo?: number;
-  hostXpAward?: number;
-  guestXpAward?: number;
+  hostArenaPointsAward?: number;
+  guestArenaPointsAward?: number;
   hostPinsAward?: number;
   guestPinsAward?: number;
 }
@@ -387,6 +387,13 @@ interface ArenaRoomRow {
   winner_id: string | null;
   started_at: string | null;
   ended_at: string | null;
+  elo_applied: boolean | null;
+  host_elo_delta: number | null;
+  guest_elo_delta: number | null;
+  host_new_elo: number | null;
+  guest_new_elo: number | null;
+  host_arena_points_award: number | null;
+  guest_arena_points_award: number | null;
   created_at: string;
   updated_at: string | null;
 }
@@ -450,6 +457,13 @@ function rowToRoom(data: ArenaRoomRow): ArenaRoom {
     winnerId: data.winner_id || undefined,
     startedAt: data.started_at ? new Date(data.started_at).getTime() : undefined,
     endedAt: data.ended_at ? new Date(data.ended_at).getTime() : undefined,
+    eloApplied: Boolean(data.elo_applied),
+    hostEloDelta: data.host_elo_delta ?? undefined,
+    guestEloDelta: data.guest_elo_delta ?? undefined,
+    hostNewElo: data.host_new_elo ?? undefined,
+    guestNewElo: data.guest_new_elo ?? undefined,
+    hostArenaPointsAward: data.host_arena_points_award ?? undefined,
+    guestArenaPointsAward: data.guest_arena_points_award ?? undefined,
     createdAt: new Date(data.created_at).getTime(),
   };
 }
@@ -610,6 +624,13 @@ export class ArenaPvPStore {
           winner_id: updated.winnerId ?? null,
           started_at: updated.startedAt ? new Date(updated.startedAt).toISOString() : null,
           ended_at: updated.endedAt ? new Date(updated.endedAt).toISOString() : null,
+          elo_applied: updated.eloApplied ?? false,
+          host_elo_delta: updated.hostEloDelta ?? null,
+          guest_elo_delta: updated.guestEloDelta ?? null,
+          host_new_elo: updated.hostNewElo ?? null,
+          guest_new_elo: updated.guestNewElo ?? null,
+          host_arena_points_award: updated.hostArenaPointsAward ?? null,
+          guest_arena_points_award: updated.guestArenaPointsAward ?? null,
           updated_at: new Date().toISOString(),
         })
         .eq('room_code', code)
@@ -743,7 +764,7 @@ export class ArenaPvPStore {
 
    * Authoritative Elo & XP settlement when a match concludes.
 
-   * Calculates Elo deltas, updates users table, writes to xp_ledger, and attaches rewards.
+   * Calculates fixed ELO deltas and rating-scaled Arena Points, then persists the result.
 
    */
 
@@ -753,6 +774,34 @@ export class ArenaPvPStore {
 
       return room;
 
+    }
+
+    const hasPersistentDatabase = Boolean(
+      process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
+    );
+    if (hasPersistentDatabase) {
+      const { data, error } = await getSupabaseAdmin().rpc('settle_arena_match_rewards', {
+        p_room_code: normalizeCode(room.roomCode),
+      });
+      if (error || !data?.ok) {
+        console.error('[ArenaPvPStore] Atomic match settlement is unavailable:', error?.message || data);
+        return room;
+      }
+
+      const settledRoom: ArenaRoom = {
+        ...room,
+        eloApplied: true,
+        hostEloDelta: Number(data.host_elo_delta) || 0,
+        guestEloDelta: Number(data.guest_elo_delta) || 0,
+        hostNewElo: Number(data.host_new_elo) || 0,
+        guestNewElo: Number(data.guest_new_elo) || 0,
+        hostArenaPointsAward: Number(data.host_arena_points_award) || 0,
+        guestArenaPointsAward: Number(data.guest_arena_points_award) || 0,
+        hostPinsAward: 0,
+        guestPinsAward: 0,
+      };
+      inMemoryRooms.set(normalizeCode(room.roomCode), clone(settledRoom));
+      return settledRoom;
     }
 
 
@@ -769,21 +818,21 @@ export class ArenaPvPStore {
 
       const admin = getSupabaseAdmin();
 
-      const { data: hostUser } = await admin.from('users').select('arena_elo').eq('id', hostId).maybeSingle();
+      const { data: hostUser } = await admin.from('users').select('arena_elo, arena_wins').eq('id', hostId).maybeSingle();
 
-      if (hostUser?.arena_elo && typeof hostUser.arena_elo === 'number') {
+      if (typeof hostUser?.arena_elo === 'number' && Number.isFinite(hostUser.arena_elo)) {
 
-        hostElo = hostUser.arena_elo;
+        hostElo = hostUser.arena_elo === 1200 && !hostUser.arena_wins ? 100 : hostUser.arena_elo;
 
       }
 
       if (guestId && guestId !== 'guest') {
 
-        const { data: guestUser } = await admin.from('users').select('arena_elo').eq('id', guestId).maybeSingle();
+        const { data: guestUser } = await admin.from('users').select('arena_elo, arena_wins').eq('id', guestId).maybeSingle();
 
-        if (guestUser?.arena_elo && typeof guestUser.arena_elo === 'number') {
+        if (typeof guestUser?.arena_elo === 'number' && Number.isFinite(guestUser.arena_elo)) {
 
-          guestElo = guestUser.arena_elo;
+          guestElo = guestUser.arena_elo === 1200 && !guestUser.arena_wins ? 100 : guestUser.arena_elo;
 
         }
 
@@ -813,28 +862,6 @@ export class ArenaPvPStore {
 
 
 
-    // Code War Rule 3: First Blood Bonus (+25 XP, +5 Elo)
-    if (room.firstBloodClaimedBy) {
-      if (room.firstBloodClaimedBy === hostId) {
-        result.hostXpAward += 25;
-        result.hostDelta += 5;
-        result.hostNewElo += 5;
-      } else if (room.firstBloodClaimedBy === guestId) {
-        result.guestXpAward += 25;
-        result.guestDelta += 5;
-        result.guestNewElo += 5;
-      }
-    }
-
-    // Code War Rule 4: Clean Execution Bonus (+15 XP for passing on 1st submission)
-    if (room.cleanBonusAwardedTo) {
-      if (room.cleanBonusAwardedTo === hostId) {
-        result.hostXpAward += 15;
-      } else if (room.cleanBonusAwardedTo === guestId) {
-        result.guestXpAward += 15;
-      }
-    }
-
     room.eloApplied = true;
 
     room.hostEloDelta = result.hostDelta;
@@ -845,9 +872,9 @@ export class ArenaPvPStore {
 
     room.guestNewElo = result.guestNewElo;
 
-    room.hostXpAward = result.hostXpAward;
+    room.hostArenaPointsAward = result.hostArenaPointsAward;
 
-    room.guestXpAward = result.guestXpAward;
+    room.guestArenaPointsAward = result.guestArenaPointsAward;
 
     room.hostPinsAward = result.hostPinsAward;
 
@@ -875,7 +902,7 @@ export class ArenaPvPStore {
 
       const { data: hostProfile } = await admin.from('users')
 
-        .select('arena_wins, arena_losses, xp_total, weekly_xp, pins')
+        .select('arena_wins, arena_losses, weekly_arena_points, pins')
 
         .eq('id', hostId)
 
@@ -889,23 +916,8 @@ export class ArenaPvPStore {
           arena_elo: result.hostNewElo,
           arena_wins: (hostProfile.arena_wins || 0) + (isHostWin ? 1 : 0),
           arena_losses: (hostProfile.arena_losses || 0) + (isHostLoss ? 1 : 0),
-          xp_total: (hostProfile.xp_total || 0) + result.hostXpAward,
-          weekly_xp: (hostProfile.weekly_xp || 0) + result.hostXpAward,
+          weekly_arena_points: (hostProfile.weekly_arena_points || 0) + result.hostArenaPointsAward,
         }).eq('id', hostId);
-
-
-
-        await admin.from('xp_ledger').insert({
-
-          user_id: hostId,
-
-          amount: result.hostXpAward,
-
-          reason: `arena_pvp:${room.roomCode}`,
-
-          created_at: new Date().toISOString(),
-
-        });
 
       }
 
@@ -921,7 +933,7 @@ export class ArenaPvPStore {
 
         const { data: guestProfile } = await admin.from('users')
 
-          .select('arena_wins, arena_losses, xp_total, weekly_xp, pins')
+          .select('arena_wins, arena_losses, weekly_arena_points, pins')
 
           .eq('id', guestId)
 
@@ -934,23 +946,8 @@ export class ArenaPvPStore {
             arena_elo: result.guestNewElo,
             arena_wins: (guestProfile.arena_wins || 0) + (isGuestWin ? 1 : 0),
             arena_losses: (guestProfile.arena_losses || 0) + (isGuestLoss ? 1 : 0),
-            xp_total: (guestProfile.xp_total || 0) + result.guestXpAward,
-            weekly_xp: (guestProfile.weekly_xp || 0) + result.guestXpAward,
+            weekly_arena_points: (guestProfile.weekly_arena_points || 0) + result.guestArenaPointsAward,
           }).eq('id', guestId);
-
-
-
-          await admin.from('xp_ledger').insert({
-
-            user_id: guestId,
-
-            amount: result.guestXpAward,
-
-            reason: `arena_pvp:${room.roomCode}`,
-
-            created_at: new Date().toISOString(),
-
-          });
 
         }
 
@@ -962,9 +959,21 @@ export class ArenaPvPStore {
 
     }
 
+    // Persist the reward receipt on the room so both players see the same
+    // ELO and Arena Points result after a reload or realtime refresh.
+    const persistedRoom = await this.updateRoom(room.roomCode, current => ({
+      ...current,
+      eloApplied: true,
+      hostEloDelta: room.hostEloDelta,
+      guestEloDelta: room.guestEloDelta,
+      hostNewElo: room.hostNewElo,
+      guestNewElo: room.guestNewElo,
+      hostArenaPointsAward: room.hostArenaPointsAward,
+      guestArenaPointsAward: room.guestArenaPointsAward,
+    }));
 
 
-    return room;
+    return persistedRoom || room;
 
   }
 

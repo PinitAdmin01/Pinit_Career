@@ -132,12 +132,14 @@ describe('BRUTAL 3RD-PERSON AUDIT: STUDENT NAVIGATION & HUB UNIFICATION', () => 
       assert.ok(hrefs.includes('/missions'));
       assert.ok(hrefs.includes('/arena'));
       assert.ok(hrefs.includes('/projects'));
-      assert.ok(hrefs.includes('/leaderboard'));
+      assert.ok(hrefs.includes('/innovation-hub'));
       assert.ok(hrefs.includes('/interview'));
       assert.ok(hrefs.includes('/mirror'));
       assert.ok(hrefs.includes('/attention-span'));
       assert.ok(hrefs.includes('/vault'));
       assert.ok(hrefs.includes('/shop'));
+      assert.equal(hrefs.includes('/leaderboard'), false, 'Leaderboard must share the Arena sidebar destination');
+      assert.equal(isPathActive('/leaderboard', '/arena'), true, 'Leaderboard deep links should activate the Arena sidebar destination');
     });
 
     it('has exactly 4 persistent bottom utility items in BOTTOM_NAV', () => {

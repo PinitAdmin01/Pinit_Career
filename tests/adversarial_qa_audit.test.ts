@@ -62,15 +62,18 @@ describe('ADVERSARIAL SENIOR QA & UI/UX DESIGN AUDIT', () => {
       { path: '/career-builder', label: 'Career Builder' },
     ];
 
-    it('has exactly 9 primary workspace items in STUDENT_NAV (GD unified under Interview, Twin unified under Mirror)', () => {
-      assert.equal(STUDENT_NAV[0].items.length, 9);
+    it('keeps the merged Arena and Leaderboard as one of 11 primary workspace items', () => {
+      const items = STUDENT_NAV[0].items;
+      assert.equal(items.length, 11);
+      assert.equal(items.filter((item: any) => item.href === '/arena').length, 1);
+      assert.equal(items.some((item: any) => item.href === '/leaderboard'), false);
     });
 
     it('has exactly 4 persistent footer items in BOTTOM_NAV', () => {
       assert.equal(BOTTOM_NAV.length, 4);
     });
 
-    it('correctly conditionally appends the 15th route (/career-builder) when flag is enabled', () => {
+    it('conditionally exposes the optional /career-builder route when enabled', () => {
       const defaultProps = {
         collapsed: false,
         setCollapsed: () => {},
@@ -103,7 +106,7 @@ describe('ADVERSARIAL SENIOR QA & UI/UX DESIGN AUDIT', () => {
       assert.ok(htmlOn.includes('href="/career-builder"'), 'Must render /career-builder when flag is enabled');
     });
 
-    it('verifies active state highlighting across all 15 routes without route bleeding', () => {
+    it('verifies active state highlighting across student routes without route bleeding', () => {
       for (const route of studentRoutes) {
         // Test isPathActive behavior
         assert.equal(isPathActive(route.path, route.path), true, `${route.path} should match itself`);

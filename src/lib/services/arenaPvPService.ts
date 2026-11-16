@@ -45,6 +45,41 @@ export class ArenaPvPService {
     return headers;
   }
 
+  static async startSoloMatch(problemId: string): Promise<{ matchId: string; startedAt: string; deadlineAt: string }> {
+    const headers = await this.getAuthHeaders();
+    const res = await fetch('/api/arena/solo/start', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ problemId }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok || typeof data.matchId !== 'string') {
+      throw new Error(data.error || 'Could not start Arena match.');
+    }
+    return { matchId: data.matchId, startedAt: data.startedAt, deadlineAt: data.deadlineAt };
+  }
+
+  static async settleSoloMatch(params: { matchId: string; code: string; language: string }): Promise<any> {
+    const headers = await this.getAuthHeaders();
+    let lastError: Error | null = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const res = await fetch('/api/arena/settle-solo', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(params),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) return data;
+        lastError = new Error(data.error || 'Arena result could not be saved.');
+        if (res.status < 500) break;
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error('Arena result could not be saved.');
+      }
+    }
+    throw lastError || new Error('Arena result could not be saved.');
+  }
+
   /**
    * Create a new custom battle room
    */

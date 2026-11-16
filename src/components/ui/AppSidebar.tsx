@@ -30,9 +30,9 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Bite-sized algorithmic challenges, speed drills, and daily streak rewards.'
   },
   '/arena': {
-    label: 'Challenging Arena',
-    tooltip: 'Competitive Coding Battles & Peer Arena',
-    description: '1v1 coding duels, timed hackathons, and algorithmic skill matchmaking.'
+    label: 'Arena & Leaderboard',
+    tooltip: 'Battle, track League Points, and browse divisions',
+    description: 'Compete in coding duels, follow your sprint rank, and inspect Campus, Global, and Guild standings.'
   },
   '/projects': {
     label: 'Projects',
@@ -45,9 +45,9 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Form or join 3-person hackathon squads, build live prototypes, and submit to jury evaluation.'
   },
   '/leaderboard': {
-    label: 'Leaderboard & Leagues',
-    tooltip: 'Global Student Rankings & League Standings',
-    description: 'Campus, regional, and global leaderboards with weekly promotion leagues.'
+    label: 'Arena & Leaderboard',
+    tooltip: 'Sprint standings and league divisions',
+    description: 'Campus, global, and guild standings with weekly promotion and demotion by League Points rank.'
   },
   '/interview': {
     label: 'AI Interview',
@@ -106,10 +106,9 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/dashboard', icon: '🏠', label: 'Dashboard' },
     { href: '/quests', icon: '🗺', label: 'Quests & Courses' },
     { href: '/missions', icon: '⚡', label: 'Daily Missions' },
-    { href: '/arena', icon: '⚔️', label: 'Challenging Arena' },
+    { href: '/arena', icon: '⚔️', label: 'Arena & Leaderboard' },
     { href: '/projects', icon: '📁', label: 'Projects' },
     { href: '/innovation-hub', icon: '💡', label: 'Innovation Hub' },
-    { href: '/leaderboard', icon: '🏆', label: 'Leaderboard & Leagues' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/mirror', icon: '🪞', label: 'Mirror' },
     { href: '/attention-span', icon: '🧠', label: 'Attention Span' },
@@ -252,6 +251,9 @@ export function isPathActive(pathname: string, href: string, currentSearch = '')
   const cleanPathname = (pathname || '').split('?')[0].replace(/\/$/, '') || '/';
   const [rawHrefPath, hrefQuery] = (href || '').split('?');
   const hrefPath = rawHrefPath.replace(/\/$/, '') || '/';
+
+  // Arena and leaderboard share one sidebar destination.
+  if (hrefPath === '/arena' && cleanPathname === '/leaderboard') return true;
 
   if (hrefPath === '/') return cleanPathname === '/';
 

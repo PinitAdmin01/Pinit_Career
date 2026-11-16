@@ -17,7 +17,6 @@ import {
 } from '@/lib/api/codeWarsApi';
 import { ArenaPvPService, ArenaRoom } from '@/lib/services/arenaPvPService';
 import { triggerPinStream } from '@/components/pins/coinAnimation';
-import ArenaMatchmakingRadar from '@/components/pins/ArenaMatchmakingRadar';
 import ArenaCodeDiffViewer from '@/components/pins/ArenaCodeDiffViewer';
 import { calculateStudentKnowledge } from '@/lib/arena/knowledgeEngine';
 import { BattleAudio } from '@/lib/arena/battleAudio';
@@ -28,7 +27,7 @@ import {
   CombatEvent,
   createCombatEvent,
 } from '@/lib/arena/codeWarRules';
-import LeagueBadge, { LEAGUE_CONFIGS, LeagueTier, normalizeLeagueTier } from '@/components/pins/LeagueBadge';
+import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
 
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react').then(mod => mod.default),
@@ -107,7 +106,7 @@ function ArenaContent() {
   const [soloReward, setSoloReward] = useState<{
     eloDelta: number;
     newElo: number;
-    xpAwarded: number;
+    arenaPointsAwarded: number;
     pinsAwarded: number;
   } | null>(null);
 
@@ -135,17 +134,6 @@ function ArenaContent() {
     }).catch(() => {});
   }, [studentId]);
 
-  // Elo Tier & Progress Calculation (100-baseline Esports ladder: +20 on win, -20 on loss)
-  const eloTier = React.useMemo(() => {
-    if (eloRating >= 500) return { name: 'Grandmaster Apex', icon: '👑', base: 500, target: 700, next: 'Legendary' };
-    if (eloRating >= 400) return { name: 'Diamond Apex', icon: '💎', base: 400, target: 500, next: 'Grandmaster' };
-    if (eloRating >= 280) return { name: 'Platinum Vanguard', icon: '🛡️', base: 280, target: 400, next: 'Diamond' };
-    if (eloRating >= 200) return { name: 'Gold Architect', icon: '⚔️', base: 200, target: 280, next: 'Platinum' };
-    if (eloRating >= 140) return { name: 'Silver Tactician', icon: '⚡', base: 140, target: 200, next: 'Gold' };
-    return { name: 'Bronze Cadet', icon: '🔰', base: 100, target: 140, next: 'Silver' };
-  }, [eloRating]);
-  const eloProgressPct = Math.min(100, Math.max(5, Math.round(((eloRating - eloTier.base) / (eloTier.target - eloTier.base)) * 100)));
-
   // Combat Precision & Win Ratio (Real match evidence)
   const totalBattles = recentMatches.length;
   const winsCount = recentMatches.filter(m => m.status === 'victory').length;
@@ -167,7 +155,6 @@ function ArenaContent() {
   // Code Wars & PvP State
   const [problems] = useState<CodeWarsProblem[]>(CODE_WARS_PROBLEMS_CATALOG);
   const [selectedProblemId, setSelectedProblemId] = useState<string>('auto');
-  const [selectedDifficulty, setSelectedDifficulty] = useState<'basic' | 'intermediate' | 'advanced' | 'production'>('intermediate');
   const [selectedTimeLimit, setSelectedTimeLimit] = useState<number>(600); // 10 minutes
 
   // Track solved problems in localStorage to prevent repeatable XP farming
@@ -189,15 +176,13 @@ function ArenaContent() {
   const [roomError, setRoomError] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
-  // Matchmaking Queue State
-  const [isQueueing, setIsQueueing] = useState<boolean>(false);
-  const [queueSeconds, setQueueSeconds] = useState<number>(0);
-
   // Countdown before battle start (3.. 2.. 1.. FIGHT!)
   const [countdown, setCountdown] = useState<number | null>(null);
 
   // Solo battle fallback match
   const [soloMatch, setSoloMatch] = useState<BattleMatch | null>(null);
+  const [soloSettlementRetry, setSoloSettlementRetry] = useState(0);
+  const soloSettlementAttemptsRef = useRef(0);
 
   // In-battle state
   const [language, setLanguage] = useState<'typescript' | 'python' | 'java'>('typescript');
@@ -269,15 +254,6 @@ function ArenaContent() {
       }
     };
   }, [isGameActive]);
-
-  // Determine user's League Tier from XP & ELO
-  const userLeagueTier: LeagueTier = React.useMemo(() => {
-    if (xp >= 6000 || eloRating >= 400) return 'ruby';
-    if (xp >= 3000 || eloRating >= 280) return 'platinum';
-    if (xp >= 1500 || eloRating >= 200) return 'gold';
-    if (xp >= 500 || eloRating >= 140) return 'silver';
-    return 'browns';
-  }, [xp, eloRating]);
 
   // Determine current active problem
   const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || (selectedProblemId !== 'auto' ? selectedProblemId : ''))) || problems[0];
@@ -395,7 +371,7 @@ function ArenaContent() {
         setLanguage(targetSlotLang as 'python' | 'typescript' | 'java');
       }
     }
-  }, [activeRoom?.hostId, activeRoom?.guestId, activeRoom?.hostLanguage, activeRoom?.guestLanguage, studentId, language]);
+  }, [activeRoom, activeRoom?.hostId, activeRoom?.guestId, activeRoom?.hostLanguage, activeRoom?.guestLanguage, studentId, language]);
 
   // Load starter code on problem or language change
   useEffect(() => {
@@ -450,63 +426,6 @@ function ArenaContent() {
     };
   }, [roomStatus, soloStatus, timeRemaining, problemDifficulty]);
 
-  // Matchmaking Queue Timer (Fast 1s Clock + 2s Polling Cadence for Fast Pairing)
-  useEffect(() => {
-    if (!isQueueing) return;
-
-    let isSubscribed = true;
-
-    // 1. Precise 1-second clock timer for visual radar feedback
-    const clockInterval = setInterval(() => {
-      setQueueSeconds(s => s + 1);
-    }, 1000);
-
-    // 2. Immediate poll on start
-    const pollMatchmaker = async () => {
-      if (!isSubscribed) return;
-      try {
-        const studentCompletedQuests: string[] = (Array.isArray(cOS?.completedQuests) && cOS.completedQuests.length > 0)
-          ? cOS.completedQuests
-          : (Array.isArray((user as any)?.completed_quests)
-            ? (user as any).completed_quests
-            : (Array.isArray((user as any)?.completedQuests)
-              ? (user as any).completedQuests
-              : []));
-
-        const res = await ArenaPvPService.matchmake({
-          studentId,
-          studentName,
-          studentAvatar,
-          difficulty: selectedDifficulty,
-          defaultProblemId: selectedProblemId,
-          preferredLanguage: language,
-          completedQuests: studentCompletedQuests,
-          recentProblemIds: Array.from(solvedProblemIds),
-        });
-
-        if (res.matched && res.room && isSubscribed) {
-          setIsQueueing(false);
-          setQueueSeconds(0);
-          setActiveRoom(res.room);
-          setTimeRemaining(res.room.timeLimitSeconds || 600);
-        }
-      } catch (err) {
-        console.warn('Matchmaking poll error:', err);
-      }
-    };
-
-    pollMatchmaker();
-
-    // 3. Fast 2-second polling cadence for instantaneous pairing
-    const pollInterval = setInterval(pollMatchmaker, 2000);
-
-    return () => {
-      isSubscribed = false;
-      clearInterval(clockInterval);
-      clearInterval(pollInterval);
-    };
-  }, [isQueueing, selectedDifficulty, selectedProblemId, studentId, studentName, studentAvatar, language, solvedProblemIds, cOS?.completedQuests, user]);
-
   // Handle Create Room
   const handleCreateRoom = async () => {
     try {
@@ -531,7 +450,7 @@ function ArenaContent() {
         hostAvatar: studentAvatar,
         hostLanguage: language,
         problemId: selectedProblemId || 'auto',
-        difficulty: selectedDifficulty,
+        difficulty: studentKnowledge.recommendedDifficulty as 'basic' | 'intermediate' | 'advanced',
         timeLimitSeconds: selectedTimeLimit,
         completedQuests: studentCompletedQuests,
         recentProblemIds: Array.from(solvedProblemIds),
@@ -775,8 +694,7 @@ function ArenaContent() {
   };
 
   // Start Solo Sparring against Turing AI with Knowledge Affinity Calibration
-  const handleStartSoloSparring = (overrideDifficulty?: 'basic' | 'intermediate' | 'advanced') => {
-    setIsQueueing(false);
+  const handleStartSoloSparring = async (overrideDifficulty?: 'basic' | 'intermediate' | 'advanced') => {
     setSoloReward(null);
     const targetDiff = overrideDifficulty || (studentKnowledge.recommendedDifficulty as any) || 'basic';
     const candidateProblems = problems.filter(p => p.difficulty === targetDiff);
@@ -787,10 +705,19 @@ function ArenaContent() {
       : problems[0];
 
     setSelectedProblemId(chosenProblem.id);
-    const match = CodeWarsApiService.startMatch(studentId, chosenProblem.id, '1v1_duel');
-    setSoloMatch(match);
-    setTimeRemaining(chosenProblem.timeLimitSeconds);
-    setTestResult(null);
+    try {
+      const serverMatch = await ArenaPvPService.startSoloMatch(chosenProblem.id);
+      const match = CodeWarsApiService.startMatch(studentId, chosenProblem.id, '1v1_duel');
+      match.id = serverMatch.matchId;
+      match.startedAt = Date.parse(serverMatch.startedAt) || Date.now();
+      soloSettledRef.current = null;
+      soloSettlementAttemptsRef.current = 0;
+      setSoloMatch(match);
+      setTimeRemaining(chosenProblem.timeLimitSeconds);
+      setTestResult(null);
+    } catch (err) {
+      toast.error('Arena unavailable', err instanceof Error ? err.message : 'Could not start a sparring match.');
+    }
   };
 
   // Leave / Forfeit room
@@ -848,19 +775,6 @@ function ArenaContent() {
     }
   }, [isMatchOver, studentId]);
 
-  // Synchronize match XP & rewards to student profile upon match conclusion
-  const awardAppliedRef = useRef<string | null>(null);
-  useEffect(() => {
-    if (!isMatchOver || !activeRoom) return;
-    const matchKey = `${activeRoom.roomCode}:${activeRoom.winnerId}`;
-    if (awardAppliedRef.current === matchKey) return;
-    awardAppliedRef.current = matchKey;
-
-    const myAwardXp = isHost ? (activeRoom as any)?.hostXpAward : (activeRoom as any)?.guestXpAward;
-    const xpToAdd = typeof myAwardXp === 'number' ? myAwardXp : (didIWin ? 50 : 15);
-    cOS.addXp(xpToAdd, didIWin ? '1v1 Code War Victory' : '1v1 Code War Match Effort');
-  }, [isMatchOver, activeRoom, isHost, didIWin, cOS]);
-
   // Synchronize 1v1 Room match completion to client state
   const roomSettledRef = useRef<string | null>(null);
   useEffect(() => {
@@ -870,24 +784,21 @@ function ArenaContent() {
     roomSettledRef.current = roomKey;
 
     const myNewElo = isHost ? activeRoom.hostNewElo : activeRoom.guestNewElo;
-    const myXpAward = isHost ? activeRoom.hostXpAward : activeRoom.guestXpAward;
+    const myArenaPointsAward = isHost ? activeRoom.hostArenaPointsAward : activeRoom.guestArenaPointsAward;
     if (typeof myNewElo === 'number' && myNewElo > 0) {
       setLiveElo(myNewElo);
       try {
         localStorage.setItem(`pinit_user_elo_${studentId}`, String(myNewElo));
       } catch {}
       if (typeof window !== 'undefined') {
-        const currentWeeklyXp = Number((user as any)?.weekly_xp) || 0;
-        const currentTotalXp = Number((user as any)?.xp_total) || xp || 0;
-        const addXp = typeof myXpAward === 'number' && myXpAward > 0 ? myXpAward : 0;
+        const currentArenaPoints = Number((user as any)?.weekly_arena_points) || 0;
+        const addArenaPoints = typeof myArenaPointsAward === 'number' && myArenaPointsAward > 0 ? myArenaPointsAward : 0;
         window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
           detail: {
             arena_elo: myNewElo,
             elo: myNewElo,
-            weekly_xp: currentWeeklyXp + addXp,
-            weeklyXp: currentWeeklyXp + addXp,
-            xp_total: currentTotalXp + addXp,
-            totalXp: currentTotalXp + addXp,
+            weekly_arena_points: currentArenaPoints + addArenaPoints,
+            arenaPoints: currentArenaPoints + addArenaPoints,
           }
         }));
       }
@@ -899,54 +810,51 @@ function ArenaContent() {
   const soloSettledRef = useRef<string | null>(null);
   useEffect(() => {
     if (!isMatchOver || !soloMatch || soloMatch.status === 'active') return;
-    const settleKey = `${soloMatch.id}:${soloMatch.status}`;
+    const settleKey = soloMatch.id;
     if (soloSettledRef.current === settleKey) return;
     soloSettledRef.current = settleKey;
+    const attemptNumber = ++soloSettlementAttemptsRef.current;
 
     const isWin = soloMatch.status === 'victory';
-    fetch('/api/arena/settle-solo', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        problemId: activeProblem.id,
-        passed: isWin,
-        timeSpentSeconds: (activeProblem.timeLimitSeconds || 600) - timeRemaining,
-      }),
-    })
-      .then(async res => {
-        if (!res.ok) return;
-        const data = await res.json();
+    ArenaPvPService.settleSoloMatch({ matchId: soloMatch.id, code, language })
+      .then(data => {
+        if (data.rewardUnavailable) return;
+        if (data.passed !== isWin) {
+          setSoloMatch(current => current ? { ...current, status: data.passed ? 'victory' : 'defeat' } : null);
+        }
         setSoloReward({
           eloDelta: data.eloDelta,
           newElo: data.newElo,
-          xpAwarded: data.xpAwarded,
+          arenaPointsAwarded: data.arenaPointsAwarded,
           pinsAwarded: data.pinsAwarded,
         });
         setLiveElo(data.newElo);
         try {
           localStorage.setItem(`pinit_user_elo_${studentId}`, String(data.newElo));
         } catch {}
-        if (data.xpAwarded && cOS?.addXp) {
-          cOS.addXp(data.xpAwarded, isWin ? 'Turing AI Sparring Victory (+20 ELO)' : 'Turing AI Sparring Match');
-        }
         if (typeof window !== 'undefined') {
+          const currentArenaPoints = Number((user as any)?.weekly_arena_points) || 0;
           window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
             detail: {
               arena_elo: data.newElo,
               elo: data.newElo,
-              weekly_xp: data.newWeeklyXp,
-              weeklyXp: data.newWeeklyXp,
-              xp_total: data.newXp,
-              totalXp: data.newXp,
+              weekly_arena_points: data.newArenaPoints ?? (currentArenaPoints + (data.arenaPointsAwarded || 0)),
+              arenaPoints: data.newArenaPoints ?? (currentArenaPoints + (data.arenaPointsAwarded || 0)),
             }
           }));
         }
         if (refresh) refresh().catch(() => {});
       })
       .catch(err => {
+        soloSettledRef.current = null;
         console.warn('[Arena Solo Effect] Settle failed:', err);
+        if (attemptNumber < 3) {
+          window.setTimeout(() => setSoloSettlementRetry(value => value + 1), attemptNumber * 1200);
+        } else {
+          toast.error('Arena result not saved', 'Your result could not be saved after several attempts. Please keep this match open and try again.');
+        }
       });
-  }, [isMatchOver, soloMatch, activeProblem.id, timeRemaining, studentId, cOS, refresh]);
+  }, [isMatchOver, soloMatch, code, language, studentId, cOS, refresh, soloSettlementRetry, user]);
 
   // Synchronize 1v1 Arena Code War battle status with AppShell Gaming / Focus Mode
   const inDuel = Boolean(((activeRoom && activeRoom.status !== 'waiting') || soloMatch) && !isMatchOver);
@@ -986,62 +894,7 @@ function ArenaContent() {
       padding: inDuel ? '12px 20px 32px' : '0 0 40px',
       transition: 'all 0.25s ease'
     }}>
-      
-      {/* ── Arena Navigation Tabs (Sleek Glass Segmented Bar) ───────────────────── */}
-      <div style={{
-        display: inDuel ? 'none' : 'flex',
-        gap: 8,
-        padding: '6px',
-        borderRadius: 14,
-        background: 'var(--card)',
-        border: '1px solid var(--border)',
-        marginBottom: 24,
-        marginTop: 4,
-        overflowX: 'auto',
-        boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04))'
-      }}>
-        {[
-          { id: 'code_wars', label: '1v1 Code Wars', badge: 'Live PvP Arena' },
-        ].map(tab => {
-          const isSelected = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => {
-                setActiveTab(tab.id as any);
-                router.push(`/arena?tab=${tab.id}`, { scroll: false });
-              }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '9px 16px',
-                borderRadius: 10,
-                background: isSelected ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
-                border: isSelected ? '1px solid var(--accent)' : '1px solid transparent',
-                color: isSelected ? 'var(--t1)' : 'var(--t2)',
-                fontWeight: 800,
-                fontSize: 14.5,
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              <span>{tab.label}</span>
-              <span style={{
-                fontSize: 11.5,
-                padding: '2px 8px',
-                borderRadius: 20,
-                background: isSelected ? 'rgba(99, 102, 241, 0.3)' : 'var(--bg3)',
-                color: isSelected ? '#a5b4fc' : 'var(--t3)',
-                fontWeight: 700,
-              }}>
-                {tab.badge}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+      <CompetitionNavigation active="arena" hidden={inDuel} />
 
       {/* ── 1v1 CODE WARS TAB ──────────────────────────────────── */}
       {activeTab === 'code_wars' && (
@@ -1049,145 +902,18 @@ function ArenaContent() {
           {/* STATE 1: LOBBY (No active battle or room) */}
           {!activeRoom && !soloMatch && (
             <div>
-              {/* Heading: Matchmaking Cards (Image 1 Style) */}
+              {/* Heading: Choose your battle (Image 1 Style) */}
               <div style={{ marginBottom: 18 }}>
                 <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
-                  Matchmaking Cards
+                  Choose your battle
                 </h2>
               </div>
 
               {/* Top Quick Actions Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20, marginBottom: 28 }}>
                 
-                {/* Mode A: Quick Duel */}
-                <div style={{
-                  padding: '28px 24px',
-                  borderRadius: 20,
-                  background: 'var(--card)',
-                  backdropFilter: 'blur(16px)',
-                  border: isQueueing ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-                  boxShadow: isQueueing ? '0 0 28px rgba(99, 102, 241, 0.3)' : 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  minHeight: 280,
-                  transition: 'border 0.2s ease, box-shadow 0.2s ease'
-                }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      <span style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 6,
-                        fontSize: 12,
-                        fontWeight: 800,
-                        letterSpacing: '0.04em',
-                        color: '#818cf8',
-                        background: 'rgba(99, 102, 241, 0.12)',
-                        border: '1px solid rgba(99, 102, 241, 0.25)',
-                        padding: '4px 12px',
-                        borderRadius: 20
-                      }}>
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#818cf8', boxShadow: '0 0 6px #818cf8' }} />
-                        TURING AI SPARRING &amp; DUELS
-                      </span>
-                    </div>
-                    <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                      Quick Duel
-                    </h3>
-                    <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
-                      Compete 1v1 coding arena and queue with dashboard. Spar against calibrated Turing AI or live student peers.
-                    </p>
-
-                    {isQueueing ? (
-                      <div style={{ marginBottom: 16 }}>
-                        <ArenaMatchmakingRadar
-                          isQueueing={isQueueing}
-                          queueSeconds={queueSeconds}
-                          onSwitchToAiSparring={handleStartSoloSparring}
-                          studentPins={pins}
-                        />
-                      </div>
-                    ) : (
-                      <div style={{ marginBottom: 16 }}>
-                        <label style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 6 }}>Difficulty Preference</label>
-                        <select
-                          value={selectedDifficulty}
-                          onChange={(e: any) => setSelectedDifficulty(e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '10px 14px',
-                            borderRadius: 10,
-                            background: 'var(--bg3)',
-                            border: '1px solid var(--border)',
-                            color: 'var(--t1)',
-                            fontSize: 14.5,
-                            fontWeight: 600,
-                            cursor: 'pointer'
-                          }}
-                        >
-                          <option value="basic">Basic (Entry Level Algorithms)</option>
-                          <option value="intermediate">Intermediate (Trees, HashMaps, Two Pointers)</option>
-                          <option value="advanced">Advanced (DP, Graph Traversal, Deadlocks)</option>
-                          <option value="production">Production (High Concurrency &amp; B-Trees)</option>
-                        </select>
-                      </div>
-                    )}
-                  </div>
-
-                  {isQueueing ? (
-                    <button
-                      onClick={() => {
-                        setIsQueueing(false);
-                        ArenaPvPService.matchmake({ studentId, studentName, action: 'cancel' });
-                      }}
-                      style={{
-                        width: '100%',
-                        padding: '12px',
-                        borderRadius: 10,
-                        background: 'rgba(239, 68, 68, 0.15)',
-                        border: '1px solid rgba(239, 68, 68, 0.3)',
-                        color: '#ef4444',
-                        fontWeight: 700,
-                        fontSize: 15.5,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Cancel Search
-                    </button>
-                  ) : (
-                    <button
-                      onClick={async () => {
-                        if (cOS?.spendPins) {
-                          const ok = await cOS.spendPins('code_arena', undefined, 'Code Arena 1v1 Battle');
-                          if (!ok) return;
-                        }
-                        setIsQueueing(true);
-                        setQueueSeconds(0);
-                      }}
-                      style={{
-                        width: '100%',
-                        padding: '12px',
-                        borderRadius: 10,
-                        background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                        color: '#fff',
-                        fontWeight: 700,
-                        fontSize: 15.5,
-                        border: 'none',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 8,
-                        boxShadow: '0 4px 12px rgba(79, 70, 229, 0.35)'
-                      }}
-                    >
-                      Instant Queue ⚡ (10 Pins)
-                    </button>
-                  )}
-                </div>
-
-                {/* Mode B: Create Private Room */}
+                {
+                /* Mode B: Create Private Room */}
                 <div style={{
                   padding: '28px 24px',
                   borderRadius: 20,
@@ -1438,144 +1164,55 @@ function ArenaContent() {
                 </div>
               </div>
 
-              {/* LEADERBOARD LEAGUES ROADMAP (Image 1 Aesthetic + Reused Badges) */}
               <div
-                data-testid="leaderboard-leagues-roadmap"
+                data-testid="league-points-rules"
                 style={{
                   marginTop: 28,
-                  padding: '24px 28px',
+                  padding: '22px 24px',
                   borderRadius: 20,
-                  background: 'var(--card)',
-                  backdropFilter: 'blur(16px)',
+                  background: 'linear-gradient(135deg, var(--card), var(--bg2))',
                   border: '1px solid var(--border)',
                   boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
-                  <div>
-                    <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
-                      Leaderboard Leagues
-                    </h3>
-                    <p style={{ fontSize: 13.5, color: 'var(--t3)', margin: '4px 0 0' }}>
-                      Seasonal progression across verified divisions. Compete in 1v1 battles to promote through the ranks.
-                    </p>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', marginBottom: 18 }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                    <div style={{ width: 42, height: 42, borderRadius: 13, display: 'grid', placeItems: 'center', background: 'var(--accent-light)', fontSize: 21, flexShrink: 0 }}>🏁</div>
+                    <div>
+                      <h3 style={{ fontSize: 19, fontWeight: 850, color: 'var(--t1)', margin: 0 }}>One score decides your league rank</h3>
+                      <p style={{ fontSize: 13.5, color: 'var(--t2)', margin: '5px 0 0', lineHeight: 1.5 }}>
+                        <strong style={{ color: 'var(--t1)' }}>League Points = Learning XP + Arena Points.</strong> Both count equally during this sprint.
+                      </p>
+                    </div>
                   </div>
-
                   <Link
-                    href="/leaderboard?mode=weekly_leagues"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      padding: '8px 18px',
-                      borderRadius: 12,
-                      background: 'rgba(99, 102, 241, 0.12)',
-                      border: '1px solid rgba(99, 102, 241, 0.25)',
-                      color: 'var(--accent, #6366f1)',
-                      fontSize: 13.5,
-                      fontWeight: 700,
-                      textDecoration: 'none',
-                      transition: 'all 0.15s ease'
-                    }}
+                    href="/leaderboard?mode=global"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '9px 14px', borderRadius: 10, background: 'var(--accent-light)', border: '1px solid var(--accent)', color: 'var(--accent-hover, var(--brand-bright, #4f46e5))', fontSize: 13, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap' }}
                   >
-                    <span>View Full Leaderboard →</span>
+                    View standings →
                   </Link>
                 </div>
 
-                {/* 5 League Divisions Track */}
-                <div style={{ position: 'relative', marginTop: 16, marginBottom: 8 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
-                    {[
-                      { tier: 'browns' as LeagueTier, label: 'Browns', range: '100 - 139 Elo', eloBase: 100, xpMin: 0, title: 'Cadet' },
-                      { tier: 'silver' as LeagueTier, label: 'Silver', range: '140 - 199 Elo', eloBase: 140, xpMin: 500, title: 'Tactician' },
-                      { tier: 'gold' as LeagueTier, label: 'Gold', range: '200 - 279 Elo', eloBase: 200, xpMin: 1500, title: 'Architect' },
-                      { tier: 'platinum' as LeagueTier, label: 'Platinum', range: '280 - 399 Elo', eloBase: 280, xpMin: 3000, title: 'Vanguard' },
-                      { tier: 'ruby' as LeagueTier, label: 'Ruby', range: '400+ Elo', eloBase: 400, xpMin: 6000, title: 'Apex' },
-                    ].map((league) => {
-                      const isActive = userLeagueTier === league.tier;
-                      const cfg = LEAGUE_CONFIGS[league.tier];
-                      return (
-                        <div
-                          key={league.tier}
-                          style={{
-                            padding: '16px 14px',
-                            borderRadius: 14,
-                            background: isActive
-                              ? (theme === 'light' ? 'rgba(99, 102, 241, 0.08)' : 'rgba(99, 102, 241, 0.12)')
-                              : 'var(--bg2)',
-                            border: isActive ? `2px solid ${cfg.color}` : '1px solid var(--border)',
-                            boxShadow: isActive ? `0 0 20px ${cfg.glowColor}` : 'none',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            position: 'relative',
-                            transition: 'all 0.2s ease',
-                          }}
-                        >
-                          {isActive && (
-                            <span style={{
-                              position: 'absolute',
-                              top: 8,
-                              right: 8,
-                              fontSize: 9.5,
-                              fontWeight: 800,
-                              padding: '2px 7px',
-                              borderRadius: 4,
-                              background: cfg.color,
-                              color: '#fff',
-                              textTransform: 'uppercase',
-                              letterSpacing: '0.5px'
-                            }}>
-                              Active
-                            </span>
-                          )}
-
-                          <div style={{ marginBottom: 10 }}>
-                            <LeagueBadge tier={league.tier} size="md" glow={isActive} />
-                          </div>
-
-                          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
-                            {league.label} {league.title}
-                          </div>
-                          <div style={{ fontSize: 12, fontWeight: 600, color: cfg.color, marginTop: 2 }}>
-                            {league.range}
-                          </div>
-                          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
-                            Min {league.xpMin.toLocaleString()} XP
-                          </div>
-                        </div>
-                      );
-                    })}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 10 }}>
+                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                    <div style={{ fontSize: 11, fontWeight: 850, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '.06em' }}>Learn</div>
+                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>Career Learning XP adds to League Points one for one.</div>
                   </div>
-
-                  {/* Horizontal Single-Axis Progress Track */}
-                  <div style={{ marginTop: 20, padding: '0 8px' }}>
-                    <div style={{
-                      height: 6,
-                      borderRadius: 3,
-                      background: 'var(--bg3)',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      border: '1px solid var(--border)'
-                    }}>
-                      <div style={{
-                        width: `${Math.min(100, Math.max(10, Math.round(((eloRating - 100) / 400) * 100)))}%`,
-                        height: '100%',
-                        borderRadius: 3,
-                        background: 'linear-gradient(90deg, #d97706 0%, #38bdf8 35%, #f59e0b 60%, #60a5fa 85%, #ef4444 100%)',
-                        boxShadow: '0 0 10px rgba(99, 102, 241, 0.5)',
-                        transition: 'width 0.4s ease'
-                      }} />
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 11.5, color: 'var(--t3)', fontWeight: 600 }}>
-                      <span>100 ELO (Base)</span>
-                      <span>140 ELO</span>
-                      <span>200 ELO</span>
-                      <span>280 ELO</span>
-                      <span>400+ ELO</span>
-                    </div>
+                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                    <div style={{ fontSize: 11, fontWeight: 850, color: '#059669', textTransform: 'uppercase', letterSpacing: '.06em' }}>Win in Arena</div>
+                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>Arena Points = half your pre-match ELO, rounded, up to 250. ELO 200 → 100 points; ELO 500 → 250.</div>
                   </div>
+                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                    <div style={{ fontSize: 11, fontWeight: 850, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '.06em' }}>Keep ELO separate</div>
+                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>ELO starts at 100 and persists between sprints. A win adds 20; a loss removes 20, down to 0.</div>
+                  </div>
+                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                    <div style={{ fontSize: 11, fontWeight: 850, color: '#d97706', textTransform: 'uppercase', letterSpacing: '.06em' }}>Move by rank</div>
+                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>At sprint reset, the top 10% move up. The bottom 10% move down when a division has at least 10 players; Browns and Ruby are the league edges. ELO never changes placement.</div>
+                  </div>
+                </div>
+                <div style={{ marginTop: 12, fontSize: 12, color: 'var(--t3)' }}>
+                  Join Browns after reaching 100 lifetime Career XP. Your ELO rating is not reset when the sprint ends.
                 </div>
               </div>
             </div>
@@ -1811,17 +1448,17 @@ function ArenaContent() {
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                     <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(245, 158, 11, 0.12)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#d97706', fontWeight: 700 }}>
-                      ⚡ First Blood: +25 XP / +5 Elo
+                      ⚡ First to solve wins
                     </span>
                     <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(99, 102, 241, 0.3)', color: '#6366f1', fontWeight: 700 }}>
                       🛡️ Anti-Spam: 3.0s Tactical Cooldown
                     </span>
                     <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#059669', fontWeight: 700 }}>
-                      🎯 Clean Code: +15 XP (1st Attempt)
+                      🎯 Clean code improves Battle Score
                     </span>
                     {timeRemaining <= 90 && (
                       <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(239, 68, 68, 0.18)', border: '1px solid #ef4444', color: '#ef4444', fontWeight: 800 }}>
-                        🔥 Surge Active (+15% Clutch)
+                        🔥 Surge Active (+15% Battle Score)
                       </span>
                     )}
                   </div>
@@ -2000,8 +1637,9 @@ function ArenaContent() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                       <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
-                        {studentName} ({eloTier.name})
+                        {studentName}
                       </span>
+                      <span style={{ fontSize: 11, color: 'var(--t3)', whiteSpace: 'nowrap' }}>Arena ELO {eloRating}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <div style={{
@@ -2598,12 +2236,12 @@ function ArenaContent() {
                     <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
                       {activeRoom?.firstBloodClaimedBy === studentId && (
                         <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.18)', border: '1px solid #ef4444', color: '#ef4444', fontWeight: 800 }}>
-                          🩸 First Blood Winner (+25 XP / +5 Elo)
+                          🩸 First to solve
                         </span>
                       )}
                       {didIWin && submissionAttempts <= 1 && failedAttempts === 0 && (
                         <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.18)', border: '1px solid #10b981', color: '#10b981', fontWeight: 800 }}>
-                          🎯 Clean First-Pass Architecture (+15 XP)
+                          🎯 Clean first pass
                         </span>
                       )}
                       <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontWeight: 600 }}>
@@ -2641,17 +2279,17 @@ function ArenaContent() {
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ARENA XP</div>
+                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ARENA POINTS</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
                           +{(() => {
                             if (activeRoom) {
-                              const awardXp = isHost ? (activeRoom as any)?.hostXpAward : (activeRoom as any)?.guestXpAward;
-                              if (typeof awardXp === 'number') return awardXp;
+                              const awardPoints = isHost ? (activeRoom as any)?.hostArenaPointsAward : (activeRoom as any)?.guestArenaPointsAward;
+                              if (typeof awardPoints === 'number') return awardPoints;
                             }
                             if (soloReward) {
-                              return soloReward.xpAwarded;
+                              return soloReward.arenaPointsAwarded;
                             }
-                            return didIWin ? (activeProblem?.xpReward || 50) : 15;
+                            return didIWin ? Math.min(250, Math.round(eloRating * 0.5)) : 0;
                           })()}
                         </div>
                       </div>
@@ -2781,7 +2419,7 @@ function ArenaContent() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontSize: 24 }}>📜</span>
                 <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
-                  PinIT Code War Official Rulebook
+                  PinIT Arena Rules
                 </h3>
               </div>
               <button
@@ -2799,17 +2437,17 @@ function ArenaContent() {
             </div>
 
             <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
-              The PinIT Code War Arena operates under strict competitive engineering standards to promote clean code, anti-cheat integrity, and high-intensity problem solving.
+              Match outcomes are resolved by the Arena. ELO and Arena Points follow the same rules in private duels and solo sparring.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
               <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 16 }}>⚡</span>
-                  <strong style={{ color: '#f59e0b', fontSize: 14.5 }}>Rule 1: First Blood & Blitz Speed</strong>
+                  <strong style={{ color: '#f59e0b', fontSize: 14.5 }}>Rule 1: Win and rating rewards</strong>
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  The first combatant to pass 100% of test cases immediately wins the match and claims the First Blood bonus: <strong>+25 Bonus XP</strong> and <strong>+5 Bonus Elo</strong>.
+                  The first combatant to pass all test cases wins. A win adds <strong>20 ELO</strong> and awards <strong>half of pre-match ELO as Arena Points</strong>, rounded and capped at 250. A loss removes up to 20 ELO and awards no Arena Points; a draw changes neither.
                 </div>
               </div>
 
@@ -2826,10 +2464,10 @@ function ArenaContent() {
               <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 16 }}>🎯</span>
-                  <strong style={{ color: '#10b981', fontSize: 14.5 }}>Rule 3: Clean Execution Bonus</strong>
+                  <strong style={{ color: '#10b981', fontSize: 14.5 }}>Rule 3: Clean execution</strong>
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  Submitting a solution that passes on the 1st attempt with 0 failed runs awards the <strong>+15 XP Clean Architecture Bonus</strong>. Each failed final submission deducts 30 Battle Points.
+                  A first-attempt pass improves your <strong>Battle Score</strong>. Battle Score helps resolve close matches; it does not add Arena Points or ELO.
                 </div>
               </div>
 
@@ -2839,7 +2477,7 @@ function ArenaContent() {
                   <strong style={{ color: '#ef4444', fontSize: 14.5 }}>Rule 4: Pressure Surge Protocol (&lt;90s)</strong>
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  When the battle clock drops below 90 seconds, the chamber triggers Surge Mode. All test cases cleared during Surge grant a <strong>+15% Clutch Point Multiplier</strong>.
+                  When the battle clock drops below 90 seconds, Surge Mode adds a <strong>15% Battle Score bonus</strong> for tests cleared during the final stretch. It does not change League Points directly.
                 </div>
               </div>
 
@@ -2856,10 +2494,10 @@ function ArenaContent() {
               <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 16 }}>🛡️</span>
-                  <strong style={{ color: '#a855f7', fontSize: 14.5 }}>Rule 6: Rating Safety Floor</strong>
+                  <strong style={{ color: '#a855f7', fontSize: 14.5 }}>Rule 6: Persistent ELO</strong>
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  Students are protected by a minimum rating floor of <strong>100 Elo</strong>. You will never drop below the cadet baseline regardless of match outcomes.
+                  New players start at <strong>100 ELO</strong>. ELO persists across sprint resets and can fall to 0; it never determines your league division.
                 </div>
               </div>
             </div>

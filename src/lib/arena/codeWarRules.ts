@@ -15,13 +15,10 @@ export const ARENA_RULES_CONFIG = {
   PRESSURE_SURGE_THRESHOLD_SECONDS: 90,// Final 90 seconds triggers high-intensity Surge Mode
   SURGE_CLUTCH_BONUS_MULTIPLIER: 1.15, // 15% bonus on points earned during Surge
 
-  // First Blood & Speed
-  FIRST_BLOOD_BONUS_XP: 25,            // Bonus XP for the first combatant to pass all tests
-  FIRST_BLOOD_BONUS_ELO: 5,            // Bonus Elo for first blood
+  // First blood marks the match winner. Rating rewards are settled separately.
   SPEED_SCORE_WEIGHT: 200,             // Maximum points attributable to remaining time (out of 1000)
 
   // Clean Execution vs Submission Penalties
-  CLEAN_SUBMISSION_BONUS_XP: 15,       // Awarded if combatant passes all tests on first submission attempt
   CLEAN_CODE_SCORE_BONUS: 100,         // Points in battle score for 0 failed submissions
   FAILED_SUBMISSION_PENALTY_SCORE: 30, // Score deduction per failed final submission attempt
   MAX_SCORE: 1000,
@@ -334,7 +331,7 @@ export function createCombatEvent(
         description: `${actorName} passed all ${testTotal ?? 5}/${testTotal ?? 5} test cases!`,
         timestamp,
         severity: 'urgent',
-        badge: '+25 XP / +5 Elo',
+        badge: 'Match winner',
       };
 
     case 'streak':

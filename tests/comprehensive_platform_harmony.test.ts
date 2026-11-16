@@ -9,7 +9,7 @@ if (typeof require !== 'undefined' && require.extensions) {
 }
 
 import { TOUR_SLIDES, TOUR_TOTAL_MS } from '../src/components/ui/StoryTourModal';
-import { STUDENT_NAV, ROUTE_TOOLTIPS } from '../src/components/ui/AppSidebar';
+import { STUDENT_NAV, ROUTE_TOOLTIPS, isPathActive } from '../src/components/ui/AppSidebar';
 
 describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT', () => {
 
@@ -167,9 +167,9 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
   });
 
   describe('Auditor 4 (Defensive Invariants & Role Gate Cleanliness)', () => {
-    it('C4.1: STUDENT_NAV retains exact 9 flagship routes with Mirror and Interview', () => {
+    it('C4.1: STUDENT_NAV merges Arena and Leaderboard into one destination', () => {
       const items = STUDENT_NAV[0].items;
-      assert.strictEqual(items.length, 9, 'STUDENT_NAV must strictly maintain 9 flagship items');
+      assert.strictEqual(items.length, 11, 'STUDENT_NAV includes the 11 current primary destinations');
       const hrefs = items.map((i: any) => i.href);
       assert.deepStrictEqual(hrefs, [
         '/dashboard',
@@ -177,11 +177,14 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
         '/missions',
         '/arena',
         '/projects',
-        '/leaderboard',
+        '/innovation-hub',
         '/interview',
         '/mirror',
-        '/attention-span'
+        '/attention-span',
+        '/vault',
+        '/shop'
       ]);
+      assert.equal(isPathActive('/leaderboard', '/arena'), true, 'Leaderboard deep links should keep the combined sidebar item active');
     });
 
     it('C4.2: ROUTE_TOOLTIPS includes comprehensive metadata for /mirror', () => {

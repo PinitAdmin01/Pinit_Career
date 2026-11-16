@@ -83,9 +83,16 @@ export async function persistQuestCompletion(
   // Prefer server-authoritative endpoint to honor anti-cheat guards
   if (typeof window !== 'undefined') {
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        return { ok: false, error: 'Please sign in again before claiming XP.' };
+      }
       const resp = await fetch('/api/quest/complete', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
         body: JSON.stringify({
           questId,
           isExam: typeof xpOrIsExam === 'boolean' ? xpOrIsExam : false,
@@ -119,7 +126,7 @@ export async function persistQuestCompletion(
   try {
     const { data: userProfile, error: fetchErr } = await supabase
       .from('users')
-      .select('completed_quests, xp_total, missions_completed, trust_score')
+      .select('completed_quests, xp_total, weekly_xp, missions_completed, trust_score')
       .eq('id', uid)
       .maybeSingle();
 
@@ -136,10 +143,12 @@ export async function persistQuestCompletion(
     }
 
     const currentXp = typeof userProfile?.xp_total === 'number' ? userProfile.xp_total : 0;
+    const currentWeeklyXp = typeof userProfile?.weekly_xp === 'number' ? userProfile.weekly_xp : 0;
     const currentMissions = typeof userProfile?.missions_completed === 'number' ? userProfile.missions_completed : 0;
     const currentTrust = typeof userProfile?.trust_score === 'number' ? userProfile.trust_score : 50;
 
     const newXp = currentXp + (xpAmount || 15);
+    const newWeeklyXp = currentWeeklyXp + (xpAmount || 15);
     const newMissions = currentMissions + 1;
     const newTrust = Math.min(100, currentTrust + 2);
 
@@ -148,6 +157,7 @@ export async function persistQuestCompletion(
       .update({
         completed_quests: currentQuests,
         xp_total: newXp,
+        weekly_xp: newWeeklyXp,
         missions_completed: newMissions,
         trust_score: newTrust,
         updated_at: new Date().toISOString(),

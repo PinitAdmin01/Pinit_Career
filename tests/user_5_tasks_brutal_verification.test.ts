@@ -22,7 +22,7 @@ test('TASK 1: Removal of old buttons and replacement with 2 dynamic circles side
     'Circle 1 must conditionally render when userTotalXp < 100 and vanish when requirement is met'
   );
   assert.ok(
-    leaderboardPage.includes('League Entry Requirement: 100 XP Needed to Join'),
+    leaderboardPage.includes('100 Career XP required to join Browns'),
     'Circle 1 must display exact popover copy on click'
   );
   assert.ok(
@@ -36,7 +36,7 @@ test('TASK 1: Removal of old buttons and replacement with 2 dynamic circles side
     'Circle 2 must render Weekly Sprint Reset Clock dial'
   );
   assert.ok(
-    leaderboardPage.includes('Sprint resets Monday at 1:00 AM IST. Top 10% promote to higher league; bottom 10% demote.'),
+    leaderboardPage.includes('Sprint resets Monday at 1:00 AM IST. Top 10% promote; bottom 10% demote when the division has 10+ players.'),
     'Circle 2 popover must explain promote and demote rules on click'
   );
 });
@@ -64,18 +64,16 @@ test('TASK 2: Top 3 Podium Showcase is cleanly removed from rendering without fa
 // ── TASK 3: 30% REDUCTION OF SUB-TABS & COMPLETE EMOJI PURGE ──────────────────
 test('TASK 3: Sub-tabs 30% reduction and ZERO unicode emojis across entire leaderboard', () => {
   // 1. Sub-tabs reduced dimensions
-  assert.ok(leaderboardPage.includes('minWidth: 125'), 'Sub-tab buttons must be reduced to 125px min-width');
-  assert.ok(leaderboardPage.includes("padding: '7px 12px'"), 'Sub-tab button padding must be reduced to 7px 12px');
-  assert.ok(leaderboardPage.includes('fontSize: 12'), 'Sub-tab font size must be reduced to 12px');
+  assert.ok(leaderboardPage.includes('minWidth: 112'), 'Three sub-tab buttons must remain compact and usable');
+  assert.ok(leaderboardPage.includes("padding: '10px 16px'"), 'Sub-tab hit targets must retain usable touch padding');
+  assert.ok(leaderboardPage.includes('fontSize: 13'), 'Sub-tab labels must remain readable');
 
   // 2. Sub-tab labels have zero emojis
-  const subtabsDefinition = `[
-          { id: 'region_college', label: 'Region / College' },
-          { id: 'global', label: 'Global Leaderboard' },
-          { id: 'guild_projects', label: 'Guild Projects' },
-          { id: 'weekly_leagues', label: 'League Promotion & Demotion' },
-        ]`;
-  assert.ok(leaderboardPage.includes(subtabsDefinition), 'Sub-tabs must have no icon property and clean text labels');
+  assert.ok(leaderboardPage.includes("{ id: 'campus', label: 'Campus' }"), 'Campus board must be present');
+  assert.ok(leaderboardPage.includes("{ id: 'global', label: 'Global' }"), 'Global league standings must be present');
+  assert.ok(leaderboardPage.includes("{ id: 'guild', label: 'Guild' }"), 'Guild board must be present');
+  assert.ok(!leaderboardPage.includes("{ id: 'weekly_leagues'"), 'Promotion and demotion must be part of Global, not a fourth sub-tab');
+  assert.ok(leaderboardPage.includes("placeholder={activeTab === 'guild' ? 'Search guilds or projects…' : 'Search students or campus…'}"), 'Search must sit beside the three board scopes');
 
   // 3. Complete regex scan for any unicode emojis in leaderboard/page.tsx
   const emojiRegex = /[\u{1F000}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
@@ -108,8 +106,8 @@ test('TASK 4: Starting ELO is 100 and legacy 1200 default is sanitized across al
 
   // 2. Solo settle route sanitization
   assert.ok(
-    settleSoloRoute.includes('data.arena_elo === 1200 && (!data.arena_wins || data.arena_wins === 0)'),
-    'Settle solo route must normalize legacy 1200 ELO to 100'
+    fs.readFileSync(path.resolve('supabase/migrations/20261116010000_league_points_and_join_state.sql'), 'utf8').includes('v_elo = 1200 AND v_wins = 0'),
+    'Atomic solo settlement must normalize the legacy 1200 baseline to 100'
   );
 
   // 3. Portal service sanitization
@@ -126,8 +124,8 @@ test('TASK 4: Starting ELO is 100 and legacy 1200 default is sanitized across al
 
   // 5. Leaderboard frontend clientElo sanitization
   assert.ok(
-    leaderboardPage.includes('(rawUserElo === 1200 && !(user as any).arena_wins) ? 100 :'),
-    'Leaderboard page must normalize clientElo to 100 for 0-win users'
+    leaderboardRoute.includes('isLegacy1200 = rawElo === 1200'),
+    'Leaderboard API must normalize legacy 1200 to the 100 baseline for unrated users'
   );
 
   // 6. Arena page baseline & auto-healing

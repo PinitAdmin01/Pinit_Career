@@ -42,11 +42,18 @@ async function persistJavaCompletionServerSide(uid: string, questId: string, xpA
     const current: string[] = profile.completed_quests || [];
     if (current.includes(questId)) return; // idempotent
     const newCompleted = [...current, questId];
-    const newXp = (profile.xp_total || 0) + xpAmount;
-    const newWeeklyXp = (profile.weekly_xp || 0) + xpAmount;
+    const { data: award, error: awardError } = await admin.rpc('increment_xp', {
+      p_user_id: uid,
+      p_amount: xpAmount,
+      p_reason: `quest:${questId}`,
+    });
+    if (awardError || !award?.ok) {
+      console.warn('[run-java] XP award RPC failed:', awardError?.message || award?.reason);
+      return;
+    }
     const { error: updateErr } = await admin
       .from('users')
-      .update({ completed_quests: newCompleted, xp_total: newXp, weekly_xp: newWeeklyXp })
+      .update({ completed_quests: newCompleted })
       .eq('id', uid);
     if (updateErr) console.warn('[run-java] persistJavaCompletionServerSide update failed:', updateErr.message);
   } catch (e: any) {

@@ -10,6 +10,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/lib/store/useAppStore';
 import LeagueBadge, { LeagueTier, LEAGUE_CONFIGS, normalizeLeagueTier } from '@/components/pins/LeagueBadge';
 import PinCoin from '@/components/pins/PinCoin';
+import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
 
 export interface LeaderboardEntry {
   rank: number;
@@ -25,7 +26,8 @@ export interface LeaderboardEntry {
   learningGainPoints: number;
   eloRating: number;
   eloGain?: number;
-  leagueScore?: number;
+  arenaPoints?: number;
+  leaguePoints?: number;
   leagueTier: LeagueTier;
   weeklyXp: number;
   totalXp: number;
@@ -44,8 +46,7 @@ export interface GuildLeaderboardEntry {
   status: string;
 }
 
-// Task 10: 4 Sub-Tabs: Region/College, Global, Guild Projects, and League Promotion/Demotion
-export type TabMode = 'region_college' | 'global' | 'guild_projects' | 'weekly_leagues';
+export type TabMode = 'campus' | 'global' | 'guild';
 
 const ALL_LEAGUES: LeagueTier[] = ['browns', 'silver', 'gold', 'platinum', 'ruby'];
 
@@ -71,18 +72,15 @@ function LeaderboardContent() {
   // Mode initial state (supports both ?mode= and ?tab= cross-links from Arena)
   const rawMode = searchParams?.get('mode') || searchParams?.get('tab');
   const initialMode: TabMode =
-    rawMode === 'global' ? 'global' :
-    rawMode === 'guild_projects' ? 'guild_projects' :
-    (rawMode === 'weekly_leagues' || rawMode === 'code_wars') ? 'weekly_leagues' :
-    rawMode === 'region_college' ? 'region_college' :
-    'weekly_leagues';
+    rawMode === 'guild' || rawMode === 'guild_projects' ? 'guild' :
+    rawMode === 'campus' || rawMode === 'region_college' ? 'campus' :
+    'global';
 
   const [activeTab, setActiveTab] = useState<TabMode>(initialMode);
   const [selectedLeague, setSelectedLeague] = useState<LeagueTier>('browns');
   const [currentUserLeague, setCurrentUserLeague] = useState<LeagueTier>('browns');
   const [isLeagueModalOpen, setIsLeagueModalOpen] = useState(false);
   const hasManuallySelectedRef = useRef(false);
-  const [domainFilter, setDomainFilter] = useState<'all' | 'tech' | 'data' | 'ai'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
@@ -99,6 +97,9 @@ function LeaderboardContent() {
     ruby: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [joiningLeague, setJoiningLeague] = useState(false);
+  const [currentUserHasJoined, setCurrentUserHasJoined] = useState(false);
+  const [serverCareerXp, setServerCareerXp] = useState<number | null>(null);
 
   const [showXpReqTooltip, setShowXpReqTooltip] = useState(false);
   const [showResetTooltip, setShowResetTooltip] = useState(false);
@@ -126,45 +127,53 @@ function LeaderboardContent() {
     }
   }, [user]);
 
-  // Task 10: 100 XP League Gate State
-  const userTotalXp = typeof cOS?.xp === 'number' && Number.isFinite(cOS.xp)
-    ? cOS.xp
-    : Number((user as any)?.xp_total || (user as any)?.xp || 0);
+  // Entry uses lifetime Career XP. Take the freshest available source so a
+  // temporarily stale client context cannot keep a qualified learner locked out.
+  const userTotalXp = Math.max(
+    Number.isFinite(Number(cOS?.xp)) ? Number(cOS.xp) : 0,
+    Number((user as any)?.xp_total || (user as any)?.xp || 0),
+    serverCareerXp ?? 0,
+  );
 
   const [joinedLeague, setJoinedLeague] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     const stored = localStorage.getItem(`pinit_joined_league_${user?.id || 'default'}`);
-    return stored === 'true' || Boolean((user as any)?.league_tier);
+    return stored === 'true' || Boolean((user as any)?.league_joined_at);
   });
 
   const handleJoinLeague = async () => {
-    console.log('[LEADERBOARD_CLIENT][Join League Triggered]', { userId: user?.id, userTotalXp });
+    if (!user?.id || joiningLeague) return;
     if (userTotalXp < 100) {
-      toast.error('League Locked', `You need 100 XP to join the Weekly Ranked League. You currently have ${userTotalXp} XP.`);
+      toast.error('League Locked', `You need 100 lifetime Career XP to join Browns. You currently have ${userTotalXp} XP.`);
       return;
     }
-    setJoinedLeague(true);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(`pinit_joined_league_${user?.id || 'default'}`, 'true');
-    }
-
-    // Persist league tier to Supabase database
-    if (user?.id) {
-      try {
-        await supabase.from('users').update({ league_tier: 'browns' }).eq('id', user.id);
-        console.log('[LEADERBOARD_CLIENT][Persisted league_tier: browns to Supabase]');
-      } catch (err) {
-        console.warn('[Leaderboard] Failed to persist league_tier to Supabase:', err);
+    setJoiningLeague(true);
+    try {
+      let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
+      const response = await fetch('/api/leaderboard/join', { method: 'POST', headers, body: '{}' });
+      const result = await response.json();
+      if (!response.ok || !result.ok) {
+        toast.error('Could not join league', result.error === 'LEAGUE_ENTRY_LOCKED'
+          ? 'Reach 100 Career XP to unlock Browns League.'
+          : 'Please try again in a moment.');
+        return;
       }
+      setJoinedLeague(true);
+      setCurrentUserHasJoined(true);
+      setCurrentUserLeague(normalizeLeagueTier(result.leagueTier));
+      setSelectedLeague(normalizeLeagueTier(result.leagueTier));
+      setServerCareerXp(Number(result.careerXp) || userTotalXp);
+      if (typeof window !== 'undefined') localStorage.setItem(`pinit_joined_league_${user.id}`, 'true');
+      window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', { detail: { league_tier: result.leagueTier, league_joined_at: new Date().toISOString() } }));
+      setRefreshTrigger(prev => prev + 1);
+      toast.success('You joined Browns League', 'Your first sprint starts now. Climb by earning League Points.');
+    } catch {
+      toast.error('Could not join league', 'Please try again in a moment.');
+    } finally {
+      setJoiningLeague(false);
     }
-
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
-        detail: { league_tier: 'browns' }
-      }));
-    }
-    setRefreshTrigger(prev => prev + 1);
-    toast.success('Joined Weekly Ranked League!', 'Welcome to the Browns Division. Climb the ranks with Weekly XP & 1v1 Code Wars!');
   };
 
   // Live 1-second countdown ticker for Monday 1:00 AM IST reset
@@ -181,7 +190,7 @@ function LeaderboardContent() {
   // Synchronize joinedLeague reactively when user hydrates or server profile arrives
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if ((user as any)?.league_tier || serverCurrentUser?.leagueTier) {
+    if ((user as any)?.league_joined_at || currentUserHasJoined) {
       setJoinedLeague(true);
       return;
     }
@@ -191,7 +200,7 @@ function LeaderboardContent() {
         setJoinedLeague(true);
       }
     }
-  }, [user, serverCurrentUser]);
+  }, [user, currentUserHasJoined]);
 
   // Modal Escape key listener and body scroll-lock
   useEffect(() => {
@@ -214,8 +223,9 @@ function LeaderboardContent() {
     const handleProfileUpdate = (e: any) => {
       console.log('[LEADERBOARD_CLIENT][Profile Update Event Received]', e?.detail);
       if (e?.detail) {
-        if (e.detail.league_tier) {
+        if (e.detail.league_joined_at) {
           setJoinedLeague(true);
+          setCurrentUserHasJoined(true);
         }
         const updatedElo = typeof e.detail.arena_elo === 'number' 
           ? e.detail.arena_elo 
@@ -223,31 +233,34 @@ function LeaderboardContent() {
         const updatedWeeklyXp = typeof e.detail.weekly_xp === 'number' 
           ? e.detail.weekly_xp 
           : (typeof e.detail.weeklyXp === 'number' ? e.detail.weeklyXp : undefined);
+        const updatedArenaPoints = typeof e.detail.weekly_arena_points === 'number'
+          ? e.detail.weekly_arena_points
+          : (typeof e.detail.arenaPoints === 'number' ? e.detail.arenaPoints : undefined);
         const updatedTotalXp = typeof e.detail.xp_total === 'number' 
           ? e.detail.xp_total 
           : (typeof e.detail.totalXp === 'number' ? e.detail.totalXp : (typeof e.detail.xp === 'number' ? e.detail.xp : undefined));
 
+        if (typeof updatedTotalXp === 'number') setServerCareerXp(updatedTotalXp);
+
         if (user) {
           if (typeof updatedElo === 'number') (user as any).arena_elo = updatedElo;
           if (typeof updatedWeeklyXp === 'number') (user as any).weekly_xp = updatedWeeklyXp;
+          if (typeof updatedArenaPoints === 'number') (user as any).weekly_arena_points = updatedArenaPoints;
           if (typeof updatedTotalXp === 'number') (user as any).xp_total = updatedTotalXp;
         }
 
         // Instant HUD recalculation with 0ms latency
         setServerCurrentUser(prev => {
           if (!prev) return null;
-          const elo = typeof updatedElo === 'number' ? updatedElo : prev.eloRating;
           const weeklyXp = typeof updatedWeeklyXp === 'number' ? updatedWeeklyXp : prev.weeklyXp;
+          const arenaPoints = typeof updatedArenaPoints === 'number' ? updatedArenaPoints : (prev.arenaPoints || 0);
           const totalXp = typeof updatedTotalXp === 'number' ? updatedTotalXp : prev.totalXp;
-          const eloGain = Math.max(0, elo - 100);
-          const leagueScore = weeklyXp + Math.round(eloGain * 1.5);
           return {
             ...prev,
-            eloRating: elo,
-            eloGain,
             weeklyXp,
+            arenaPoints,
+            leaguePoints: weeklyXp + arenaPoints,
             totalXp,
-            leagueScore,
           };
         });
       }
@@ -266,7 +279,7 @@ function LeaderboardContent() {
       setLoading(true);
       try {
         const params = new URLSearchParams({
-          mode: activeTab,
+          mode: activeTab === 'guild' ? 'guild_projects' : 'weekly_leagues',
           league: selectedLeague,
         });
         if (user?.id) {
@@ -282,7 +295,7 @@ function LeaderboardContent() {
         } catch {}
 
         console.log('[LEADERBOARD_CLIENT][Fetch Inflight]', {
-          mode: activeTab,
+          mode: activeTab === 'guild' ? 'guild_projects' : 'weekly_leagues',
           league: selectedLeague,
           userId: user?.id || 'guest',
         });
@@ -308,21 +321,29 @@ function LeaderboardContent() {
 
         if (data.ok && isMounted) {
           setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
+          setServerCurrentUser(data.currentUser || null);
           if (data.currentUser) {
             setServerCurrentUser(data.currentUser);
+          }
+          if (typeof data.currentUserHasJoined === 'boolean') {
+            setCurrentUserHasJoined(data.currentUserHasJoined);
+            setJoinedLeague(data.currentUserHasJoined);
+          }
+          if (Number.isFinite(data.currentUserTotalXp)) {
+            setServerCareerXp(Number(data.currentUserTotalXp));
           }
           if (Array.isArray(data.guilds)) {
             setGuilds(data.guilds);
           }
-          setPromotionCutoff(data.promotionCutoffRank || 1);
-          setDemotionCutoff(data.demotionCutoffRank || 1);
+          setPromotionCutoff(Number.isFinite(data.promotionCutoffRank) ? data.promotionCutoffRank : 0);
+          setDemotionCutoff(Number.isFinite(data.demotionCutoffRank) ? data.demotionCutoffRank : 0);
           if (typeof data.remainingMs === 'number') {
             setRemainingMs(data.remainingMs);
           }
           if (data.currentUserLeague) {
             const userTier = normalizeLeagueTier(data.currentUserLeague);
             setCurrentUserLeague(userTier);
-            if (!hasManuallySelectedRef.current && userTier !== 'browns') {
+            if (data.currentUserHasJoined && !hasManuallySelectedRef.current && userTier !== 'browns') {
               setSelectedLeague(userTier);
             }
           }
@@ -348,51 +369,16 @@ function LeaderboardContent() {
   const currentUserEntry = useMemo(() => {
     const fromTable = leaderboard.find(e => e.isCurrentUser || e.studentId === user?.id);
     if (fromTable) return fromTable;
-    if (serverCurrentUser) return serverCurrentUser;
-
-    if (user?.id) {
-      const clientXp = Number((user as any).weekly_xp) || Number((cOS as any)?.dna?.experience) || (userTotalXp > 0 ? userTotalXp : 0);
-      const rawUserElo = Number((user as any).arena_elo);
-      const clientElo = (rawUserElo === 1200 && !(user as any).arena_wins) ? 100 : (rawUserElo > 0 ? rawUserElo : 100);
-      const clientEloGain = Math.max(0, clientElo - 100);
-      const clientLeagueScore = clientXp + Math.round(clientEloGain * 1.5);
-      const userName = typeof user.name === 'string' ? user.name : ((user as any).display_name || 'Student Candidate');
-      return {
-        rank: 1,
-        studentId: user.id,
-        name: userName,
-        avatarUrl: user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(userName)}`,
-        college: userCollege,
-        programTitle: 'Engineering Track',
-        verifiedSkillsCount: 0,
-        demonstratedSkillsCount: 0,
-        defenseScore: 75,
-        readinessStatus: 'exploring',
-        learningGainPoints: Math.round(clientXp / 50),
-        eloRating: clientElo,
-        eloGain: clientEloGain,
-        leagueScore: clientLeagueScore,
-        leagueTier: currentUserLeague,
-        weeklyXp: clientXp,
-        totalXp: userTotalXp,
-        zone: 'safe',
-        isCurrentUser: true,
-      } as LeaderboardEntry;
-    }
-    return null;
-  }, [leaderboard, serverCurrentUser, user, cOS, userCollege, currentUserLeague, userTotalXp]);
+    return serverCurrentUser;
+  }, [leaderboard, serverCurrentUser, user?.id]);
 
   // Filtered entries by domain, search, and region/college
   const filteredEntries = useMemo(() => {
     let list = leaderboard;
 
-    // Filter by Region/College if activeTab === 'region_college'
-    if (activeTab === 'region_college') {
+    if (activeTab === 'campus') {
       const matchCollege = list.filter(e => e.college.toLowerCase().includes(userCollege.toLowerCase()) || userCollege.toLowerCase().includes(e.college.toLowerCase()));
-      // If at least one matching college student exists, scope to college; otherwise show all regional peers
-      if (matchCollege.length > 0) {
-        list = matchCollege;
-      }
+      list = matchCollege.map((entry, index) => ({ ...entry, rank: index + 1, zone: 'safe' as const }));
     }
 
     const result = list.filter(entry => {
@@ -401,31 +387,29 @@ function LeaderboardContent() {
         entry.college.toLowerCase().includes(searchQuery.toLowerCase()) ||
         entry.programTitle.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesDomain = domainFilter === 'all' ||
-        entry.programTitle.toLowerCase().includes(domainFilter);
-
-      return matchesSearch && matchesDomain;
+      return matchesSearch;
     });
-
-    if (currentUserEntry && !result.some(e => e.studentId === currentUserEntry.studentId || e.isCurrentUser)) {
-      const matchesSearch = !searchQuery ||
-        currentUserEntry.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        currentUserEntry.college.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        currentUserEntry.programTitle.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesDomain = domainFilter === 'all' || currentUserEntry.programTitle.toLowerCase().includes(domainFilter);
-      if (matchesSearch && matchesDomain) {
-        result.push(currentUserEntry);
-      }
-    }
-
     return result;
-  }, [leaderboard, searchQuery, domainFilter, activeTab, userCollege, currentUserEntry]);
+  }, [leaderboard, searchQuery, activeTab, userCollege]);
+
+  const filteredGuilds = useMemo(() => {
+    const term = searchQuery.trim().toLowerCase();
+    if (!term) return guilds;
+    return guilds.filter(guild =>
+      guild.guildName.toLowerCase().includes(term) ||
+      guild.hackathonTitle.toLowerCase().includes(term) ||
+      guild.teamLeadName.toLowerCase().includes(term) ||
+      guild.status.toLowerCase().includes(term)
+    );
+  }, [guilds, searchQuery]);
 
   const activeLeagueMeta = LEAGUE_CONFIGS[selectedLeague];
   const userLeagueMeta = LEAGUE_CONFIGS[currentUserLeague];
 
   return (
     <div style={{ background: 'transparent', color: 'var(--text)', maxWidth: 1340, margin: '0 auto', padding: '0 0 40px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+
+      <CompetitionNavigation active="leaderboard" />
 
       {/* ── TOP ELEVATED COCKPIT TELEMETRY HUD (25% Compact Scale) ──────── */}
       <div
@@ -492,7 +476,7 @@ function LeaderboardContent() {
           </div>
           <div>
             <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: activeLeagueMeta.color, display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span>Active Division</span>
+              <span>Viewing Division</span>
               <span style={{ fontSize: 9.5, padding: '1px 5px', borderRadius: 4, background: `${activeLeagueMeta.color}22`, border: `1px solid ${activeLeagueMeta.color}50`, textTransform: 'none' }}>
                 Switch ▾
               </span>
@@ -509,7 +493,7 @@ function LeaderboardContent() {
         {/* Card 2: Sprint Standing & Promotion Status */}
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span>Current Sprint Standing ($XP + ELO$)</span>
+            <span>Your sprint standing</span>
             <span style={{ fontSize: 9.5, padding: '1px 6px', borderRadius: 4, background: 'rgba(99, 102, 241, 0.12)', color: 'var(--accent, #4f46e5)', fontWeight: 800 }}>LIVE SPRINT</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 2, flexWrap: 'wrap' }}>
@@ -518,14 +502,9 @@ function LeaderboardContent() {
             </span>
             <span style={{ fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
               {currentUserEntry
-                ? `${currentUserEntry.weeklyXp.toLocaleString()} XP + ${currentUserEntry.eloGain ?? 0} ELO Gain`
-                : 'Earn XP & Duel in Code Wars!'}
+                ? `${(currentUserEntry.leaguePoints || 0).toLocaleString()} League Points`
+                : (currentUserHasJoined ? `Inspecting ${activeLeagueMeta.title}` : 'Join Browns to start your sprint')}
             </span>
-            {currentUserEntry && (
-              <span style={{ fontSize: 11, fontWeight: 800, padding: '1px 6px', borderRadius: 4, background: 'rgba(16, 185, 129, 0.12)', color: '#059669', fontFamily: 'var(--font-mono)' }}>
-                {(currentUserEntry.leagueScore ?? (currentUserEntry.weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5))).toLocaleString()} pts
-              </span>
-            )}
           </div>
 
           <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
@@ -535,7 +514,7 @@ function LeaderboardContent() {
               </span>
             ) : currentUserEntry?.zone === 'demotion' ? (
               <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 10.5, fontWeight: 800, boxShadow: '0 0 10px rgba(239,68,68,0.18)' }}>
-                In Demotion Zone! Earn XP to remain in {userLeagueMeta.title}
+                In Demotion Zone! Earn League Points to remain in {userLeagueMeta.title}
               </span>
             ) : (
               <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.15)', border: '1px solid #6366f1', color: '#4f46e5', fontSize: 10.5, fontWeight: 800 }}>
@@ -547,7 +526,7 @@ function LeaderboardContent() {
 
         {/* Right Section: Two Dynamic Circles Side-by-Side (Task 1) */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 16 }}>
-          {/* Circle 1: League Entry Requirement: 100 XP Needed to Join (Vanishes when requirement met) */}
+          {/* Career XP needed to unlock Browns membership. */}
           {userTotalXp < 100 && (
             <div ref={xpReqRef} style={{ position: 'relative' }}>
               <button
@@ -556,7 +535,7 @@ function LeaderboardContent() {
                   setShowXpReqTooltip(prev => !prev);
                   setShowResetTooltip(false);
                 }}
-                title="League Entry Requirement: 100 XP Needed to Join"
+                title="100 Career XP required to join Browns"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -611,7 +590,7 @@ function LeaderboardContent() {
                       {userTotalXp}
                     </span>
                     <span style={{ fontSize: 8, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', lineHeight: 1, marginTop: 1 }}>
-                      100 XP
+                      Career XP
                     </span>
                   </div>
                 </div>
@@ -641,17 +620,17 @@ function LeaderboardContent() {
                   }}
                 >
                   <div style={{ fontSize: 11.5, fontWeight: 800, color: '#f59e0b', marginBottom: 4 }}>
-                    League Entry Requirement: 100 XP Needed to Join
+                    100 Career XP required to join Browns
                   </div>
                   <div style={{ fontSize: 11, color: 'var(--t2)', lineHeight: 1.4 }}>
-                    Earn <strong>{Math.max(0, 100 - userTotalXp)} more XP</strong> in Quests or Code Wars to unlock Ranked Leagues. Current: {userTotalXp}/100 XP.
+                    Earn <strong>{Math.max(0, 100 - userTotalXp)} more Career XP</strong> through learning activities. Current: {userTotalXp}/100 Career XP.
                   </div>
                   <div style={{ marginTop: 8, height: 4, borderRadius: 2, background: 'rgba(245, 158, 11, 0.2)', overflow: 'hidden' }}>
                     <div style={{ height: '100%', width: `${Math.min(100, (userTotalXp / 100) * 100)}%`, background: '#f59e0b' }} />
                   </div>
                   <div style={{ marginTop: 8 }}>
                     <Link
-                      href="/arena?tab=code_wars"
+                      href="/quests"
                       style={{
                         display: 'inline-block',
                         fontSize: 11,
@@ -660,7 +639,7 @@ function LeaderboardContent() {
                         textDecoration: 'underline',
                       }}
                     >
-                      Duel in 1v1 Code Wars →
+                      Continue learning quests →
                     </Link>
                   </div>
                 </div>
@@ -767,7 +746,7 @@ function LeaderboardContent() {
                   {formatCountdown(remainingMs)}
                 </div>
                 <div style={{ fontSize: 10.5, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  Sprint resets Monday at 1:00 AM IST. Top 10% promote to higher league; bottom 10% demote.
+                  Sprint resets Monday at 1:00 AM IST. Top 10% promote; bottom 10% demote when the division has 10+ players. Browns and Ruby are the league edges.
                 </div>
               </div>
             )}
@@ -775,7 +754,7 @@ function LeaderboardContent() {
         </div>
       </div>
 
-      {/* ── Task 10: 100 XP League Entry Gate & Qualification Banner ───── */}
+      {/* ── Career XP league entry gate ─────────────────────────────────── */}
       {userTotalXp < 100 ? (
         <div
           data-testid="league-100xp-gate"
@@ -810,10 +789,10 @@ function LeaderboardContent() {
             </div>
             <div>
               <div style={{ fontSize: 16, fontWeight: 800, color: '#eab308' }}>
-                League Entry Requirement: 100 XP Needed to Join
+                100 Career XP required to join Browns
               </div>
               <div style={{ fontSize: 13.5, color: 'var(--t2)', marginTop: 2 }}>
-                You can view players across all divisions, but cannot join the competitive ranked league until reaching 100 XP.
+                You can browse every division now. Join Browns after reaching 100 lifetime Career XP.
               </div>
             </div>
           </div>
@@ -821,7 +800,7 @@ function LeaderboardContent() {
           <div style={{ minWidth: 220 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 700, color: '#eab308', marginBottom: 4 }}>
               <span>League Qualification</span>
-              <span>{userTotalXp} / 100 XP</span>
+              <span>{userTotalXp} / 100 Career XP</span>
             </div>
             <div style={{ height: 8, background: 'rgba(255,255,255,0.08)', borderRadius: 999, overflow: 'hidden' }}>
               <div
@@ -869,16 +848,17 @@ function LeaderboardContent() {
             </div>
             <div>
               <div style={{ fontSize: 16, fontWeight: 800, color: '#22c55e' }}>
-                You Have Reached 100+ XP! League Entry Unlocked
+                100 Career XP reached — Browns is unlocked
               </div>
               <div style={{ fontSize: 13.5, color: 'var(--t2)', marginTop: 2 }}>
-                You are now eligible to join the competitive Weekly Ranked League. Join now to enter this sprint!
+                Join Browns to start your first ranked sprint. Your league position is decided by League Points rank.
               </div>
             </div>
           </div>
 
           <button
             onClick={handleJoinLeague}
+            disabled={joiningLeague}
             data-testid="join-league-btn"
             style={{
               padding: '10px 22px',
@@ -888,61 +868,82 @@ function LeaderboardContent() {
               fontSize: 14,
               fontWeight: 800,
               border: 'none',
-              cursor: 'pointer',
+              cursor: joiningLeague ? 'wait' : 'pointer',
+              opacity: joiningLeague ? 0.75 : 1,
               boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
             }}
           >
-            Join Ranked League Now
+            {joiningLeague ? 'Joining…' : 'Join Browns League'}
           </button>
         </div>
       ) : null}
 
-      {/* ── Mode Switcher Sub-Tabs (Reduced by 30%, Emojis Purged per Task 3) ── */}
-      <div style={{
-        display: 'flex',
-        gap: 6,
-        padding: '4px',
-        borderRadius: 10,
-        background: 'var(--bg2)',
-        border: '1px solid var(--border)',
-        marginBottom: 16,
-        overflowX: 'auto'
-      }}>
-        {[
-          { id: 'region_college', label: 'Region / College' },
-          { id: 'global', label: 'Global Leaderboard' },
-          { id: 'guild_projects', label: 'Guild Projects' },
-          { id: 'weekly_leagues', label: 'League Promotion & Demotion' },
-        ].map(tab => (
-          <button
-            key={tab.id}
-            data-testid={`subtab-${tab.id}`}
-            onClick={() => setActiveTab(tab.id as TabMode)}
-            style={{
-              flex: 1,
-              minWidth: 125,
-              padding: '7px 12px',
-              borderRadius: 8,
-              border: activeTab === tab.id ? '1.5px solid var(--accent)' : '1px solid transparent',
-              background: activeTab === tab.id
-                ? 'var(--accent-light)'
-                : 'transparent',
-              color: activeTab === tab.id ? 'var(--accent-hover, var(--brand-bright, #4f46e5))' : 'var(--t2)',
-              fontWeight: 800,
-              fontSize: 12,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.15s ease'
-            }}
-          >
-            <span>{tab.label}</span>
-          </button>
-        ))}
+      {/* Three clear leaderboard scopes, with search beside the tabs. */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18, flexWrap: 'wrap' }}>
+        <div style={{
+          display: 'flex',
+          flex: '1 1 520px',
+          gap: 6,
+          padding: 5,
+          borderRadius: 12,
+          background: 'var(--bg2)',
+          border: '1px solid var(--border)',
+          overflowX: 'auto',
+        }}>
+          {[
+            { id: 'campus', label: 'Campus' },
+            { id: 'global', label: 'Global' },
+            { id: 'guild', label: 'Guild' },
+          ].map(tab => (
+            <button
+              key={tab.id}
+              data-testid={`subtab-${tab.id}`}
+              onClick={() => setActiveTab(tab.id as TabMode)}
+              style={{
+                flex: 1,
+                minWidth: 112,
+                padding: '10px 16px',
+                borderRadius: 9,
+                border: activeTab === tab.id ? '1px solid var(--accent)' : '1px solid transparent',
+                background: activeTab === tab.id ? 'var(--accent-light)' : 'transparent',
+                color: activeTab === tab.id ? 'var(--accent-hover, var(--brand-bright, #4f46e5))' : 'var(--t2)',
+                fontWeight: 800,
+                fontSize: 13,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <input
+          type="search"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          aria-label={activeTab === 'guild' ? 'Search guilds' : 'Search leaderboard'}
+          placeholder={activeTab === 'guild' ? 'Search guilds or projects…' : 'Search students or campus…'}
+          style={{
+            flex: '0 1 320px',
+            minWidth: 220,
+            padding: '10px 14px',
+            borderRadius: 10,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            color: 'var(--t1)',
+            boxShadow: 'var(--shadow-sm)',
+            fontSize: 14,
+            outline: 'none',
+          }}
+        />
       </div>
 
-
+      {activeTab === 'global' && (
+        <div style={{ marginBottom: 14, padding: '10px 14px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12.5, lineHeight: 1.5 }}>
+          League Points decide rank within each division. At reset, the top 10% advance; the bottom 10% move down when a division has at least 10 players. Browns has no lower league, Ruby has no higher league, and ELO never changes league placement.
+        </div>
+      )}
 
       {/* ── Interactive Game-Dev League Division Vault Modal ──────────── */}
       {isLeagueModalOpen && (
@@ -1059,7 +1060,7 @@ function LeaderboardContent() {
               {ALL_LEAGUES.map(tier => {
                 const meta = LEAGUE_CONFIGS[tier];
                 const isSelected = selectedLeague === tier;
-                const isUserTier = currentUserLeague === tier;
+                const isUserTier = currentUserHasJoined && currentUserLeague === tier;
                 const count = leagueCounts[tier] || 0;
 
                 return (
@@ -1073,8 +1074,8 @@ function LeaderboardContent() {
                       setSelectedLeague(tier);
                       hasManuallySelectedRef.current = true;
                       setIsLeagueModalOpen(false);
-                      if (activeTab !== 'weekly_leagues') {
-                        setActiveTab('weekly_leagues');
+                      if (activeTab !== 'global') {
+                        setActiveTab('global');
                       }
                       toast.info(`Inspecting ${meta.title}`, `Loaded ${meta.title} sprint ladder.`);
                     }}
@@ -1130,60 +1131,13 @@ function LeaderboardContent() {
         </div>
       )}
 
-      {/* ── Filter & Search Bar ────────────────────────────────────────── */}
-      {activeTab !== 'guild_projects' && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, gap: 16, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', gap: 8 }}>
-            {(['all', 'tech', 'data', 'ai'] as const).map(d => (
-              <button
-                key={d}
-                onClick={() => setDomainFilter(d)}
-                style={{
-                  padding: '7px 16px',
-                  borderRadius: 8,
-                  fontSize: 13,
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  background: domainFilter === d ? 'var(--brand)' : 'var(--card)',
-                  border: domainFilter === d ? '1px solid var(--brand)' : '1px solid var(--border)',
-                  color: domainFilter === d ? '#ffffff' : 'var(--t2)',
-                  boxShadow: 'var(--shadow-sm)',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                {d === 'all' ? 'All Tracks' : `${d} Domain`}
-              </button>
-            ))}
-          </div>
-
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search student, role, or college..."
-            style={{
-              padding: '8px 16px',
-              borderRadius: 10,
-              background: 'var(--card)',
-              border: '1px solid var(--border)',
-              color: 'var(--t1)',
-              boxShadow: 'var(--shadow-sm)',
-              fontSize: 14.5,
-              width: 300,
-              outline: 'none',
-            }}
-          />
-        </div>
-      )}
-
       {/* ── TOP 3 CHAMPIONS PODIUM SHOWCASE (Temporarily removed per Task 2) ── */}
 
             {/* ── TAB CONTENT: GUILD PROJECTS TABLE ──────────────────────────── */}
-      {activeTab === 'guild_projects' ? (
+      {activeTab === 'guild' ? (
         <div data-testid="guild-projects-table-container" style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', minWidth: 840, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
+            <table style={{ width: '100%', minWidth: 720, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
               <thead>
                 <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
@@ -1242,8 +1196,10 @@ function LeaderboardContent() {
                       </div>
                     </td>
                   </tr>
+                ) : filteredGuilds.length === 0 ? (
+                  <tr><td colSpan={7} style={{ padding: '48px 20px', textAlign: 'center', color: 'var(--t3)' }}>No guilds match this search.</td></tr>
                 ) : (
-                  guilds.map((guild) => (
+                  filteredGuilds.map((guild) => (
                     <tr key={guild.guildId} style={{ borderBottom: '1px solid var(--border)' }}>
                       <td style={{ padding: '16px 20px', fontWeight: 900, color: guild.rank === 1 ? '#d97706' : guild.rank === 2 ? '#64748b' : guild.rank === 3 ? '#b45309' : 'var(--t3)' }}>
                         #{guild.rank}
@@ -1278,42 +1234,31 @@ function LeaderboardContent() {
           </div>
         </div>
       ) : (
-        /* ── STUDENT CANDIDATES LEADERBOARD TABLE (Region / Global / Weekly) ── */
+        /* ── CAMPUS / GLOBAL LEAGUE POINTS TABLE ── */
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', minWidth: 840, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
+            <table style={{ width: '100%', minWidth: 660, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
               <thead>
                 <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
-                  <th style={{ padding: '14px 20px' }}>Student Candidate</th>
-                  <th style={{ padding: '14px 20px' }}>
-                    {activeTab === 'region_college' ? 'Collegiate Affiliation' : 'Program Track'}
-                  </th>
-                  <th style={{ padding: '14px 20px' }}>
-                    {activeTab === 'weekly_leagues' ? 'Weekly XP' : 'Total XP'}
-                  </th>
-                  {activeTab === 'weekly_leagues' && (
-                    <th style={{ padding: '14px 20px' }}>Arena ELO</th>
-                  )}
-                  <th style={{ padding: '14px 20px' }}>
-                    {activeTab === 'weekly_leagues' ? 'League Score (XP + ELO)' : 'Defense Score'}
-                  </th>
-                  <th style={{ padding: '14px 20px' }}>
-                    {activeTab === 'weekly_leagues' ? 'Sprint Zone' : 'Placement Status'}
-                  </th>
+                  <th style={{ padding: '14px 20px' }}>Student</th>
+                  <th style={{ padding: '14px 20px', textAlign: 'right' }}>League Points</th>
+                  <th style={{ padding: '14px 20px' }}>{activeTab === 'global' ? 'Sprint Zone' : 'Board'}</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={7} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
-                      Loading real-time student leaderboard & leagues...
+                    <td colSpan={4} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
+                      Loading League Points…
                     </td>
                   </tr>
                 ) : filteredEntries.length === 0 ? (
                   <tr>
-                    <td colSpan={7} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
-                      No students found matching this criteria. Earn XP to lead this division!
+                    <td colSpan={4} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
+                      {activeTab === 'campus'
+                        ? 'No ranked students from your campus in this division yet.'
+                        : 'No students found in this division.'}
                     </td>
                   </tr>
                 ) : (
@@ -1324,18 +1269,17 @@ function LeaderboardContent() {
                     const isDemoting = entry.zone === 'demotion';
 
                     // Cutoff lines for weekly leagues
-                    const renderPromotionDivider = activeTab === 'weekly_leagues' &&
+                    const renderPromotionDivider = activeTab === 'global' &&
                       selectedLeague !== 'ruby' &&
-                      idx + 1 === promotionCutoff &&
+                      entry.rank === promotionCutoff &&
                       filteredEntries.length >= 2;
 
-                    const renderDemotionDivider = activeTab === 'weekly_leagues' &&
+                    const renderDemotionDivider = activeTab === 'global' &&
                       selectedLeague !== 'browns' &&
-                      idx + 1 === demotionCutoff - 1 &&
+                      demotionCutoff > 0 &&
+                      entry.rank === demotionCutoff - 1 &&
                       filteredEntries.length >= 2 &&
                       demotionCutoff > promotionCutoff;
-
-                    const calculatedLeagueScore = entry.leagueScore ?? (entry.weeklyXp + Math.round(Math.max(0, entry.eloRating - 100) * 1.5));
 
                     return (
                       <React.Fragment key={entry.studentId}>
@@ -1389,48 +1333,16 @@ function LeaderboardContent() {
                             </div>
                           </td>
 
-                          {/* Program / College Track */}
-                          <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
-                            {activeTab === 'region_college' ? entry.college : entry.programTitle}
+                          {/* One score is shown: League Points */}
+                          <td style={{ padding: '16px 20px', textAlign: 'right' }}>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 900, color: '#10b981' }}>
+                              {(entry.leaguePoints || 0).toLocaleString()}
+                            </span>
                           </td>
 
-                          {/* XP Column */}
+                          {/* Promotion and demotion are shown only on the Global ladder. */}
                           <td style={{ padding: '16px 20px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15.5, fontWeight: 900, color: '#d97706' }}>
-                                +{activeTab === 'weekly_leagues' ? entry.weeklyXp.toLocaleString() : entry.totalXp.toLocaleString()}
-                              </span>
-                              <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700 }}>XP</span>
-                            </div>
-                          </td>
-
-                          {/* Arena ELO (Weekly leagues) */}
-                          {activeTab === 'weekly_leagues' && (
-                            <td style={{ padding: '16px 20px' }}>
-                              <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.12)', color: '#dc2626', fontWeight: 800, fontSize: 13, border: '1px solid rgba(239,68,68,0.25)' }}>
-                                {entry.eloRating} ELO
-                              </span>
-                            </td>
-                          )}
-
-                          {/* League Score (XP + ELO) or Defense Score */}
-                          <td style={{ padding: '16px 20px' }}>
-                            {activeTab === 'weekly_leagues' ? (
-                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 900, color: '#10b981' }}>
-                                {calculatedLeagueScore.toLocaleString()} pts
-                              </span>
-                            ) : (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                                <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.12)', color: '#059669', fontWeight: 800, fontSize: 13, border: '1px solid rgba(16,185,129,0.25)' }}>
-                                  {entry.defenseScore}% Defense
-                                </span>
-                              </div>
-                            )}
-                          </td>
-
-                          {/* Zone / Placement */}
-                          <td style={{ padding: '16px 20px' }}>
-                            {activeTab === 'weekly_leagues' ? (
+                            {activeTab === 'global' ? (
                               isPromoting ? (
                                 <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#059669', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(16,185,129,0.3)' }}>
                                   Promoting
@@ -1445,8 +1357,8 @@ function LeaderboardContent() {
                                 </span>
                               )
                             ) : (
-                              <span style={{ fontSize: 12.5, fontWeight: 700, color: entry.readinessStatus === 'ready_for_interview' ? '#059669' : '#38bdf8' }}>
-                                {entry.readinessStatus === 'ready_for_interview' ? 'Interview Ready' : 'In Progress'}
+                              <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t3)' }}>
+                                Campus board
                               </span>
                             )}
                           </td>
@@ -1455,10 +1367,10 @@ function LeaderboardContent() {
                         {/* Promotion Divider */}
                         {renderPromotionDivider && (
                           <tr>
-                            <td colSpan={7} style={{ padding: 0 }}>
+                  <td colSpan={4} style={{ padding: 0 }}>
                               <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #10b981, #10b981 8px, transparent 8px, transparent 16px)' }} />
                               <div style={{ padding: '4px 20px', background: 'rgba(16,185,129,0.1)', color: '#059669', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                                Promotion Cutoff Line — Top 10% advance to higher league
+                                Promotion Cutoff Line — Top 10% advance by rank
                               </div>
                             </td>
                           </tr>
@@ -1467,10 +1379,10 @@ function LeaderboardContent() {
                         {/* Demotion Divider */}
                         {renderDemotionDivider && (
                           <tr>
-                            <td colSpan={7} style={{ padding: 0 }}>
+                  <td colSpan={4} style={{ padding: 0 }}>
                               <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #ef4444, #ef4444 8px, transparent 8px, transparent 16px)' }} />
                               <div style={{ padding: '4px 20px', background: 'rgba(239,68,68,0.1)', color: '#dc2626', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                                Demotion Cutoff Line — Bottom 10% demote to lower league
+                                Demotion Cutoff Line — Bottom 10% move down by rank
                               </div>
                             </td>
                           </tr>

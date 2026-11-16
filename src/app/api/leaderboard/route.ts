@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { calculateLeaguePoints, getLeagueCutoffs } from '@/lib/leagues/leaguePoints';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,7 +22,8 @@ export interface LeaderboardEntry {
   learningGainPoints: number;
   eloRating: number;
   eloGain?: number;
-  leagueScore?: number;
+  arenaPoints?: number;
+  leaguePoints?: number;
   leagueTier: LeagueTier;
   weeklyXp: number;
   totalXp: number;
@@ -139,6 +141,9 @@ export async function GET(req: Request) {
       }
     }
     const mode = url.searchParams.get('mode') || 'weekly_leagues';
+    // The Global leaderboard is the all-campus view of the selected league.
+    // It uses the same League Points ranks and movement cutoffs as the sprint.
+    const isLeagueRanking = mode === 'weekly_leagues' || mode === 'global';
     const requestedLeague = (url.searchParams.get('league') || '').toLowerCase().trim() as LeagueTier;
     const validLeagues = new Set<LeagueTier>(['browns', 'silver', 'gold', 'platinum', 'ruby']);
 
@@ -150,14 +155,18 @@ export async function GET(req: Request) {
 
     // 1. Fetch current user's profile to know their current league
     let currentUserLeague: LeagueTier = 'browns';
+    let currentUserHasJoined = false;
+    let currentUserTotalXp = 0;
     if (currentUserId && admin) {
       try {
         const { data: userProfile } = await admin
           .from('users')
-          .select('league_tier')
+          .select('league_tier, league_joined_at, xp_total')
           .eq('id', currentUserId)
           .maybeSingle();
 
+        currentUserHasJoined = Boolean(userProfile?.league_joined_at);
+        currentUserTotalXp = Number(userProfile?.xp_total) || 0;
         if (userProfile?.league_tier && validLeagues.has(userProfile.league_tier.toLowerCase() as LeagueTier)) {
           currentUserLeague = userProfile.league_tier.toLowerCase() as LeagueTier;
         }
@@ -178,34 +187,43 @@ export async function GET(req: Request) {
 
     // 2. Query users based on mode
     let rawUsers: any[] | null = null;
+    let requestedCohortCount: number | null = null;
     if (admin) {
       try {
-        // Students only (staff, parents, recruiters are not ranked).
-        let query = admin.from('users').select(
-          'id, display_name, avatar_url, college, target_role, ats_score, trust_score, career_dna_score, xp_total, weekly_xp, league_tier, skill_tags, completed_quests, arena_elo, arena_wins'
-        ).or('role.eq.student,role.eq.Student,role.is.null');
+        const pageSize = 1000;
+        const users: any[] = [];
+        for (let from = 0; ; from += isLeagueRanking ? pageSize : 100) {
+          // Students only (staff, parents, recruiters are not ranked). League
+          // ladders are read in stable pages so rank cutoffs use the full cohort.
+          let query = admin.from('users').select(
+            'id, display_name, avatar_url, college, target_role, ats_score, trust_score, career_dna_score, xp_total, weekly_xp, weekly_arena_points, league_tier, league_joined_at, skill_tags, completed_quests, arena_elo, arena_wins',
+            { count: 'exact' }
+          ).or('role.eq.student,role.eq.Student,role.eq.STUDENT,role.is.null');
 
-        if (mode === 'weekly_leagues') {
-          if (activeLeague === 'browns') {
-            query = query.or('league_tier.eq.browns,league_tier.is.null');
+          if (isLeagueRanking) {
+            const titleTier = `${activeLeague.charAt(0).toUpperCase()}${activeLeague.slice(1)}`;
+            query = query
+              .not('league_joined_at', 'is', null)
+              .in('league_tier', [activeLeague, titleTier, activeLeague.toUpperCase()])
+              .order('id', { ascending: true });
+          } else if (mode === 'code_wars') {
+            query = query.order('arena_elo', { ascending: false }).order('xp_total', { ascending: false }).order('id', { ascending: true });
           } else {
-            query = query.or(`league_tier.eq.${activeLeague},league_tier.eq.${activeLeague.charAt(0).toUpperCase() + activeLeague.slice(1)}`);
+            query = query.order('xp_total', { ascending: false }).order('id', { ascending: true });
           }
-          query = query.order('weekly_xp', { ascending: false }).order('xp_total', { ascending: false });
-        } else if (mode === 'code_wars') {
-          query = query.order('arena_elo', { ascending: false }).order('xp_total', { ascending: false });
-        } else {
-          query = query.order('xp_total', { ascending: false });
-        }
 
-        query = query.limit(100);
-
-        const { data, error: usersErr } = await query;
-        if (usersErr && DB_CONFIGURED) {
-          console.error('[Leaderboard] users query failed:', usersErr.message);
-          return NextResponse.json({ ok: false, error: 'LEADERBOARD_UNAVAILABLE', message: 'The leaderboard is unavailable right now.' }, { status: 503 });
+          const pageLength = isLeagueRanking ? pageSize : 100;
+          const { data, error: usersErr, count } = await query.range(from, from + pageLength - 1);
+          if (usersErr && DB_CONFIGURED) {
+            console.error('[Leaderboard] users query failed:', usersErr.message);
+            return NextResponse.json({ ok: false, error: 'LEADERBOARD_UNAVAILABLE', message: 'The leaderboard is unavailable right now.' }, { status: 503 });
+          }
+          const rows = data || [];
+          users.push(...rows);
+          requestedCohortCount = count;
+          if (!isLeagueRanking || rows.length < pageLength) break;
         }
-        rawUsers = data || [];
+        rawUsers = users;
       } catch {}
     }
 
@@ -255,7 +273,7 @@ export async function GET(req: Request) {
     }
 
     const data = rawUsers || [];
-    const totalCohortCount = data.length;
+    const totalCohortCount = requestedCohortCount ?? data.length;
 
     console.log('[LEADERBOARD_MIDDLEPOINT][Cohort Retrieval]', {
       mode,
@@ -271,29 +289,22 @@ export async function GET(req: Request) {
     if (userIds.length > 0) {
       try {
         // Verified competencies live in student_competency_mastery (competency engine).
-        const { data: masteryData } = await admin
-          .from('student_competency_mastery')
-          .select('student_id, state')
-          .in('student_id', userIds)
-          .eq('state', 'verified');
+        for (let from = 0; from < userIds.length; from += 500) {
+          const { data: masteryData } = await admin
+            .from('student_competency_mastery')
+            .select('student_id, state')
+            .in('student_id', userIds.slice(from, from + 500))
+            .eq('state', 'verified');
 
-        if (masteryData) {
-          masteryData.forEach((row: { student_id: string }) => {
+          masteryData?.forEach((row: { student_id: string }) => {
             verifiedCountsMap[row.student_id] = (verifiedCountsMap[row.student_id] || 0) + 1;
           });
         }
       } catch {}
     }
 
-    // 4. Calculate cutoffs for weekly leagues (Top 10% promote, Bottom 10% demote)
-    let promotionCutoffRank = Math.max(1, Math.ceil(totalCohortCount * 0.10));
-    let demotionCutoffRank = Math.max(1, totalCohortCount - Math.floor(totalCohortCount * 0.10) + 1);
-    if (totalCohortCount >= 4 && totalCohortCount < 10) {
-      promotionCutoffRank = 1;
-      demotionCutoffRank = totalCohortCount;
-    } else if (totalCohortCount >= 10 && demotionCutoffRank <= promotionCutoffRank) {
-      demotionCutoffRank = promotionCutoffRank + 1;
-    }
+    // Promotion and demotion zones use the same cutoffs as the sprint reset.
+    const { promotionCutoffRank, demotionCutoffRank } = getLeagueCutoffs(totalCohortCount);
 
     // 5. Build authoritative student entries
     const entries: LeaderboardEntry[] = data.map((p, idx) => {
@@ -301,8 +312,10 @@ export async function GET(req: Request) {
       const verifiedSkills = verifiedCountsMap[p.id] || 0;
       const demonstratedSkills = Array.isArray(p.completed_quests) ? p.completed_quests.length : 0;
       const defense = Math.min(100, Math.max(0, Number(p.ats_score) || 0));
-      const totalXp = Number(p.xp_total) || 0;
-      const weeklyXp = Number(p.weekly_xp) || 0;
+      const totalXp = Math.max(0, Number(p.xp_total) || 0);
+      const weeklyXp = Math.max(0, Number(p.weekly_xp) || 0);
+      const arenaPoints = Math.max(0, Number(p.weekly_arena_points) || 0);
+      const leaguePoints = calculateLeaguePoints(weeklyXp, arenaPoints);
       const trust = Number(p.trust_score) || 0;
 
       const readiness: LeaderboardEntry['readinessStatus'] = 
@@ -312,7 +325,7 @@ export async function GET(req: Request) {
       let zone: LeaderboardEntry['zone'] = 'safe';
       if (activeLeague !== 'ruby' && rank <= promotionCutoffRank && totalCohortCount >= 2) {
         zone = 'promotion';
-      } else if (activeLeague !== 'browns' && rank >= demotionCutoffRank && totalCohortCount >= 2 && rank > promotionCutoffRank) {
+      } else if (activeLeague !== 'browns' && demotionCutoffRank > 0 && rank >= demotionCutoffRank && totalCohortCount >= 2 && rank > promotionCutoffRank) {
         zone = 'demotion';
       }
 
@@ -326,12 +339,11 @@ export async function GET(req: Request) {
       const rawElo = (p as any).arena_elo;
       // Sanitize legacy 1200 default from old SQL migration: baseline is 100
       const isLegacy1200 = rawElo === 1200 && (!(p as any).arena_wins || (p as any).arena_wins === 0);
-      const eloRating = (rawElo !== undefined && rawElo !== null && Number(rawElo) > 0 && !isLegacy1200)
+      const eloRating = (rawElo !== undefined && rawElo !== null && Number.isFinite(Number(rawElo)) && !isLegacy1200)
         ? Number(rawElo)
-        : (100 + Math.min(60, Math.round(Math.sqrt(totalXp) * 0.8)));
+        : 100;
 
       const eloGain = Math.max(0, eloRating - 100);
-      const leagueScore = weeklyXp + Math.round(eloGain * 1.5);
 
       return {
         rank,
@@ -347,7 +359,8 @@ export async function GET(req: Request) {
         learningGainPoints: Math.max(0, Math.round(totalXp / 50)),
         eloRating,
         eloGain,
-        leagueScore,
+        arenaPoints,
+        leaguePoints,
         leagueTier: normTier,
         weeklyXp,
         totalXp,
@@ -357,30 +370,25 @@ export async function GET(req: Request) {
     });
 
     // Sort based on mode rules
-    if (mode === 'weekly_leagues') {
-      // Task 10: Promotion & Demotion rank determined by League Score (XP + ELO)
+    if (isLeagueRanking) {
       entries.sort((a, b) => {
-        const scoreA = a.leagueScore ?? (a.weeklyXp + Math.round((a.eloGain ?? 0) * 1.5));
-        const scoreB = b.leagueScore ?? (b.weeklyXp + Math.round((b.eloGain ?? 0) * 1.5));
+        const scoreA = a.leaguePoints ?? calculateLeaguePoints(a.weeklyXp, a.arenaPoints ?? 0);
+        const scoreB = b.leaguePoints ?? calculateLeaguePoints(b.weeklyXp, b.arenaPoints ?? 0);
         if (scoreB !== scoreA) return scoreB - scoreA;
         if (b.weeklyXp !== a.weeklyXp) return b.weeklyXp - a.weeklyXp;
-        if (b.eloRating !== a.eloRating) return b.eloRating - a.eloRating;
-        return b.totalXp - a.totalXp;
+        if (b.totalXp !== a.totalXp) return b.totalXp - a.totalXp;
+        return a.studentId.localeCompare(b.studentId);
       });
       entries.forEach((e, i) => {
         e.rank = i + 1;
         if (activeLeague !== 'ruby' && e.rank <= promotionCutoffRank && totalCohortCount >= 2) {
           e.zone = 'promotion';
-        } else if (activeLeague !== 'browns' && e.rank >= demotionCutoffRank && totalCohortCount >= 2 && e.rank > promotionCutoffRank) {
+        } else if (activeLeague !== 'browns' && demotionCutoffRank > 0 && e.rank >= demotionCutoffRank && totalCohortCount >= 2 && e.rank > promotionCutoffRank) {
           e.zone = 'demotion';
         } else {
           e.zone = 'safe';
         }
       });
-    } else if (mode === 'global') {
-      // Global ranking by total XP
-      entries.sort((a, b) => b.totalXp - a.totalXp);
-      entries.forEach((e, i) => { e.rank = i + 1; });
     } else if (mode === 'verified_evidence') {
       entries.sort((a, b) => {
         if (b.verifiedSkillsCount !== a.verifiedSkillsCount) return b.verifiedSkillsCount - a.verifiedSkillsCount;
@@ -408,11 +416,11 @@ export async function GET(req: Request) {
     let currentUserEntry = entries.find(e => e.isCurrentUser) || null;
 
     // If current user is outside top limit, resolve their exact position so Cockpit never says "Unranked"
-    if (!currentUserEntry && currentUserId && admin) {
+    if (!currentUserEntry && currentUserId && currentUserHasJoined && currentUserLeague === activeLeague && isLeagueRanking && admin) {
       try {
         const { data: myProfile } = await admin
           .from('users')
-          .select('id, display_name, avatar_url, college, target_role, ats_score, trust_score, xp_total, weekly_xp, league_tier, completed_quests, arena_elo, arena_wins')
+          .select('id, display_name, avatar_url, college, target_role, ats_score, trust_score, xp_total, weekly_xp, weekly_arena_points, league_tier, league_joined_at, completed_quests, arena_elo, arena_wins')
           .eq('id', currentUserId)
           .maybeSingle();
 
@@ -423,33 +431,29 @@ export async function GET(req: Request) {
 
           let higherCount = 0;
           try {
-            let rankQuery = admin
+            const { data: rankedRows } = await admin
               .from('users')
-              .select('id', { count: 'exact', head: true })
-              .or('role.eq.student,role.eq.Student,role.is.null');
-
-            if (mode === 'weekly_leagues') {
-              if (activeLeague === 'browns') {
-                rankQuery = rankQuery.or('league_tier.eq.browns,league_tier.eq.Browns,league_tier.is.null');
-              } else {
-                rankQuery = rankQuery.or(`league_tier.eq.${activeLeague},league_tier.eq.${activeLeague.charAt(0).toUpperCase() + activeLeague.slice(1)}`);
-              }
-              rankQuery = rankQuery.gt('weekly_xp', myProfile.weekly_xp || 0);
-            } else if (mode === 'code_wars') {
-              const effectiveElo = (myProfile.arena_elo === 1200 && (!myProfile.arena_wins || myProfile.arena_wins === 0))
-                ? 100
-                : (myProfile.arena_elo || 100);
-              rankQuery = rankQuery.gt('arena_elo', effectiveElo);
-            } else {
-              rankQuery = rankQuery.gt('xp_total', myProfile.xp_total || 0);
-            }
-
-            const { count } = await rankQuery;
-            higherCount = count || 0;
+              .select('id, weekly_xp, weekly_arena_points, xp_total')
+              .or('role.eq.student,role.eq.Student,role.eq.STUDENT,role.is.null')
+              .not('league_joined_at', 'is', null)
+              .or(`league_tier.eq.${activeLeague},league_tier.eq.${activeLeague.charAt(0).toUpperCase() + activeLeague.slice(1)}`)
+              .order('id', { ascending: true })
+              .limit(10000);
+            const ranked = (rankedRows || []).sort((a: any, b: any) =>
+              calculateLeaguePoints(Number(b.weekly_xp) || 0, Number(b.weekly_arena_points) || 0) -
+                calculateLeaguePoints(Number(a.weekly_xp) || 0, Number(a.weekly_arena_points) || 0) ||
+              Math.max(0, Number(b.weekly_xp) || 0) - Math.max(0, Number(a.weekly_xp) || 0) ||
+              (Number(b.xp_total) || 0) - (Number(a.xp_total) || 0) ||
+              String(a.id).localeCompare(String(b.id))
+            );
+            const rankedIndex = ranked.findIndex((row: any) => row.id === currentUserId);
+            higherCount = rankedIndex >= 0 ? rankedIndex : 0;
           } catch {}
 
           const myRank = higherCount + 1;
           const myWeeklyXp = Number(myProfile.weekly_xp) || 0;
+          const myArenaPoints = Number(myProfile.weekly_arena_points) || 0;
+          const myLeaguePoints = calculateLeaguePoints(myWeeklyXp, myArenaPoints);
           const myTotalXp = Number(myProfile.xp_total) || 0;
           const myDefense = Math.min(100, Math.max(0, Number(myProfile.ats_score) || 0));
 
@@ -459,11 +463,10 @@ export async function GET(req: Request) {
             // Auto-heal legacy 1200 row in Supabase
             admin.from('users').update({ arena_elo: 100 }).eq('id', currentUserId).then(() => {}).catch(() => {});
           }
-          const myEloRating = (myRawElo !== undefined && myRawElo !== null && Number(myRawElo) > 0 && !isMyLegacy1200)
+          const myEloRating = (myRawElo !== undefined && myRawElo !== null && Number.isFinite(Number(myRawElo)) && !isMyLegacy1200)
             ? Number(myRawElo)
-            : (100 + Math.min(60, Math.round(Math.sqrt(myTotalXp) * 0.8)));
+            : 100;
           const myEloGain = Math.max(0, myEloRating - 100);
-          const myLeagueScore = myWeeklyXp + Math.round(myEloGain * 1.5);
 
           currentUserEntry = {
             rank: myRank,
@@ -479,11 +482,12 @@ export async function GET(req: Request) {
             learningGainPoints: Math.max(0, Math.round(myTotalXp / 50)),
             eloRating: myEloRating,
             eloGain: myEloGain,
-            leagueScore: myLeagueScore,
+            arenaPoints: myArenaPoints,
+            leaguePoints: myLeaguePoints,
             leagueTier: myTier,
             weeklyXp: myWeeklyXp,
             totalXp: myTotalXp,
-            zone: (activeLeague !== 'ruby' && myRank <= promotionCutoffRank) ? 'promotion' : (activeLeague !== 'browns' && myRank >= demotionCutoffRank ? 'demotion' : 'safe'),
+            zone: (activeLeague !== 'ruby' && myRank <= promotionCutoffRank) ? 'promotion' : (activeLeague !== 'browns' && demotionCutoffRank > 0 && myRank >= demotionCutoffRank ? 'demotion' : 'safe'),
             isCurrentUser: true,
           };
 
@@ -500,7 +504,7 @@ export async function GET(req: Request) {
       currentUserId: currentUserId || 'anonymous',
       foundInTopList: entries.some(e => e.studentId === currentUserId),
       resolvedRank: currentUserEntry?.rank ?? 'none',
-      leagueScore: currentUserEntry?.leagueScore ?? 0,
+      leaguePoints: currentUserEntry?.leaguePoints ?? 0,
     });
     const sprintEndsAt = getNextMonday1AmIst();
     const remainingMs = Math.max(0, sprintEndsAt.getTime() - Date.now());
@@ -515,21 +519,21 @@ export async function GET(req: Request) {
     };
 
     try {
-      const { data: allTiers } = await admin
-        .from('users')
-        .select('league_tier')
-        .or('role.eq.student,role.is.null');
+      const tiers: LeagueTier[] = ['browns', 'silver', 'gold', 'platinum', 'ruby'];
+      const counts = await Promise.all(tiers.map(async tier => {
+        const titleTier = `${tier.charAt(0).toUpperCase()}${tier.slice(1)}`;
+        const { count, error } = await admin
+          .from('users')
+          .select('id', { count: 'exact', head: true })
+          .or('role.eq.student,role.eq.Student,role.eq.STUDENT,role.is.null')
+          .not('league_joined_at', 'is', null)
+          .in('league_tier', [tier, titleTier, tier.toUpperCase()]);
+        if (error) throw error;
+        return [tier, count || 0] as const;
+      }));
+      counts.forEach(([tier, count]) => { leagueCounts[tier] = count; });
 
-      if (allTiers && allTiers.length > 0) {
-        allTiers.forEach((row: any) => {
-          const t = (row.league_tier || 'browns').toLowerCase() as LeagueTier;
-          if (validLeagues.has(t)) {
-            leagueCounts[t] = (leagueCounts[t] || 0) + 1;
-          } else {
-            leagueCounts.browns += 1;
-          }
-        });
-      } else if (!DB_CONFIGURED) {
+      if (Object.values(leagueCounts).every(count => count === 0) && !DB_CONFIGURED) {
         leagueCounts.browns = 36;
         leagueCounts.silver = 24;
         leagueCounts.gold = 16;
@@ -622,6 +626,8 @@ export async function GET(req: Request) {
       mode,
       activeLeague,
       currentUserLeague,
+      currentUserHasJoined,
+      currentUserTotalXp,
       leaderboard: entries,
       guilds,
       totalCount: entries.length,

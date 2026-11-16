@@ -1,11 +1,14 @@
 /**
- * Weekly league promotion / demotion — the same rules as public.evaluate_weekly_leagues() (Phase B6b),
- * used by the cron route when that database function is unavailable.
+ * Deterministic preview of the same weekly movement rules used by
+ * public.evaluate_weekly_leagues(). The cron itself runs the atomic SQL procedure.
  *
  * Only students are ranked (the caller passes students only). Every move is decided from one snapshot
  * of the week, so a player moved tonight is never ranked again in their new tier the same night.
- * In a tier of 2+ players the top 10% (at least 1) move up; in a tier of 10+ the bottom 10% move down.
+ * League Points are sprint Learning XP + Arena Points. In a tier of 2+ players the top 10% (at least 1)
+ * move up; in a tier of 10+ the bottom 10% move down. Browns and Ruby keep their terminal boundaries.
  */
+
+import { calculateLeaguePoints, getLeagueCutoffs } from '@/lib/leagues/leaguePoints';
 
 export const LEAGUE_TIERS = ['browns', 'silver', 'gold', 'platinum', 'ruby'] as const;
 export type LeagueTier = (typeof LEAGUE_TIERS)[number];
@@ -14,7 +17,9 @@ export interface LeaguePlayer {
   id: string;
   league_tier: string | null;
   weekly_xp: number | null;
+  weekly_arena_points?: number | null;
   xp_total: number | null;
+  league_joined_at?: string | null;
 }
 
 export interface LeagueMove {
@@ -22,7 +27,9 @@ export interface LeagueMove {
   from: LeagueTier;
   to: LeagueTier;
   outcome: 'promoted' | 'demoted';
-  weekly_xp: number;
+  learning_xp: number;
+  arena_points: number;
+  league_points: number;
 }
 
 const isTier = (t: unknown): t is LeagueTier => (LEAGUE_TIERS as readonly unknown[]).includes(t);
@@ -30,7 +37,7 @@ const isTier = (t: unknown): t is LeagueTier => (LEAGUE_TIERS as readonly unknow
 export function planWeeklyLeagueMoves(players: LeaguePlayer[]): LeagueMove[] {
   const byTier = new Map<LeagueTier, LeaguePlayer[]>();
   for (const p of players) {
-    if (!isTier(p.league_tier)) continue;
+    if (!isTier(p.league_tier) || ('league_joined_at' in p && !p.league_joined_at) || (p.xp_total ?? 0) < 100) continue;
     const group = byTier.get(p.league_tier) ?? [];
     group.push(p);
     byTier.set(p.league_tier, group);
@@ -42,20 +49,30 @@ export function planWeeklyLeagueMoves(players: LeaguePlayer[]): LeagueMove[] {
     if (n < 2) continue;
     const ti = LEAGUE_TIERS.indexOf(tier);
     // Integer arithmetic (n / 10), matching the SQL: 30 * 0.1 is 3.0000000000000004 in JavaScript.
-    const promCutoff = Math.max(1, Math.ceil(n / 10));
-    const demCutoff = n - Math.floor(n / 10) + 1;
+    const { promotionCutoffRank: promCutoff, demotionCutoffRank: demCutoff } = getLeagueCutoffs(n);
+    const toMoveScore = (p: LeaguePlayer) => ({
+      learning_xp: Math.max(0, p.weekly_xp ?? 0),
+      arena_points: Math.max(0, p.weekly_arena_points ?? 0),
+      league_points: calculateLeaguePoints(p.weekly_xp ?? 0, p.weekly_arena_points ?? 0),
+    });
     const ranked = [...group].sort(
-      (a, b) =>
-        (b.weekly_xp ?? 0) - (a.weekly_xp ?? 0) ||
-        (b.xp_total ?? 0) - (a.xp_total ?? 0) ||
-        (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+      (a, b) => {
+        const aScore = calculateLeaguePoints(a.weekly_xp ?? 0, a.weekly_arena_points ?? 0);
+        const bScore = calculateLeaguePoints(b.weekly_xp ?? 0, b.weekly_arena_points ?? 0);
+        return bScore - aScore ||
+          Math.max(0, b.weekly_xp ?? 0) - Math.max(0, a.weekly_xp ?? 0) ||
+          (b.xp_total ?? 0) - (a.xp_total ?? 0) ||
+          (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+      }
     );
     ranked.forEach((p, i) => {
       const rank = i + 1;
       if (ti < LEAGUE_TIERS.length - 1 && rank <= promCutoff) {
-        moves.push({ id: p.id, from: tier, to: LEAGUE_TIERS[ti + 1], outcome: 'promoted', weekly_xp: p.weekly_xp ?? 0 });
-      } else if (ti > 0 && demCutoff > promCutoff && rank >= demCutoff) {
-        moves.push({ id: p.id, from: tier, to: LEAGUE_TIERS[ti - 1], outcome: 'demoted', weekly_xp: p.weekly_xp ?? 0 });
+        const score = toMoveScore(p);
+        moves.push({ id: p.id, from: tier, to: LEAGUE_TIERS[ti + 1], outcome: 'promoted', ...score });
+      } else if (ti > 0 && demCutoff > 0 && demCutoff > promCutoff && rank >= demCutoff) {
+        const score = toMoveScore(p);
+        moves.push({ id: p.id, from: tier, to: LEAGUE_TIERS[ti - 1], outcome: 'demoted', ...score });
       }
     });
   }

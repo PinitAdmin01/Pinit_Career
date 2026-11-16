@@ -2,8 +2,14 @@
  * Authoritative Elo & Arena Match Settlement Engine
  * 
  * Implements standard FIDE / Esports Elo rating calculation with dynamic K-factors,
- * rating floors, and match XP / pin rewards.
+ * a persistent rating, and Arena Points awards.
  */
+
+import {
+  ARENA_WIN_POINTS_CAP,
+  ARENA_WIN_POINTS_PER_ELO,
+  arenaPointsForResult,
+} from '@/lib/leagues/leaguePoints';
 
 export interface EloPlayer {
   id: string;
@@ -24,8 +30,8 @@ export interface EloMatchResult {
   guestDelta: number;
   hostNewElo: number;
   guestNewElo: number;
-  hostXpAward: number;
-  guestXpAward: number;
+  hostArenaPointsAward: number;
+  guestArenaPointsAward: number;
   hostPinsAward: number;
   guestPinsAward: number;
 }
@@ -37,9 +43,8 @@ export const ELO_CONFIG = {
   K_FACTOR_CADET: 32,      // Rating < 1400 (fast calibration)
   K_FACTOR_INTERMEDIATE: 24,// Rating 1400 - 1800
   K_FACTOR_MASTER: 16,     // Rating > 1800 (high stability)
-  WIN_XP: 50,
-  LOSS_XP: 15,
-  DRAW_XP: 25,
+  WIN_ARENA_POINTS_PER_ELO: ARENA_WIN_POINTS_PER_ELO,
+  WIN_ARENA_POINTS_CAP: ARENA_WIN_POINTS_CAP,
   WIN_PINS: 0,
   LOSS_PINS: 0,
   DRAW_PINS: 0,
@@ -70,8 +75,12 @@ export function calculateEloMatch(params: {
   guestElo?: number | null;
   winnerId: string; // hostId, guestId, or 'draw'
 }): EloMatchResult {
-  const safeHostElo = Number.isFinite(Number(params.hostElo)) ? Number(params.hostElo) : ELO_CONFIG.DEFAULT_ELO;
-  const safeGuestElo = Number.isFinite(Number(params.guestElo)) ? Number(params.guestElo) : ELO_CONFIG.DEFAULT_ELO;
+  const safeHostElo = params.hostElo !== null && params.hostElo !== undefined && Number.isFinite(Number(params.hostElo))
+    ? Number(params.hostElo)
+    : ELO_CONFIG.DEFAULT_ELO;
+  const safeGuestElo = params.guestElo !== null && params.guestElo !== undefined && Number.isFinite(Number(params.guestElo))
+    ? Number(params.guestElo)
+    : ELO_CONFIG.DEFAULT_ELO;
   const hostCurrentElo = Math.max(ELO_CONFIG.FLOOR_ELO, safeHostElo);
   const guestCurrentElo = Math.max(ELO_CONFIG.FLOOR_ELO, safeGuestElo);
 
@@ -80,8 +89,8 @@ export function calculateEloMatch(params: {
 
   let hostActualScore = 0.5;
   let guestActualScore = 0.5;
-  let hostXpAward = ELO_CONFIG.DRAW_XP;
-  let guestXpAward = ELO_CONFIG.DRAW_XP;
+  let hostArenaPointsAward = 0;
+  let guestArenaPointsAward = 0;
   let hostPinsAward = ELO_CONFIG.DRAW_PINS;
   let guestPinsAward = ELO_CONFIG.DRAW_PINS;
   let hostDelta = 0;
@@ -90,8 +99,7 @@ export function calculateEloMatch(params: {
   if (params.winnerId === params.hostId) {
     hostActualScore = 1;
     guestActualScore = 0;
-    hostXpAward = ELO_CONFIG.WIN_XP;
-    guestXpAward = ELO_CONFIG.LOSS_XP;
+    hostArenaPointsAward = arenaPointsForResult(hostCurrentElo, 'win');
     hostPinsAward = ELO_CONFIG.WIN_PINS;
     guestPinsAward = ELO_CONFIG.LOSS_PINS;
     hostDelta = ELO_CONFIG.WIN_ELO_TRANSFER;
@@ -99,8 +107,7 @@ export function calculateEloMatch(params: {
   } else if (params.winnerId === params.guestId) {
     hostActualScore = 0;
     guestActualScore = 1;
-    hostXpAward = ELO_CONFIG.LOSS_XP;
-    guestXpAward = ELO_CONFIG.WIN_XP;
+    guestArenaPointsAward = arenaPointsForResult(guestCurrentElo, 'win');
     hostPinsAward = ELO_CONFIG.LOSS_PINS;
     guestPinsAward = ELO_CONFIG.WIN_PINS;
     hostDelta = -ELO_CONFIG.WIN_ELO_TRANSFER;
@@ -110,6 +117,8 @@ export function calculateEloMatch(params: {
   // Enforce Elo floor (0)
   const hostNewElo = Math.max(ELO_CONFIG.FLOOR_ELO, hostCurrentElo + hostDelta);
   const guestNewElo = Math.max(ELO_CONFIG.FLOOR_ELO, guestCurrentElo + guestDelta);
+  hostDelta = hostNewElo - hostCurrentElo;
+  guestDelta = guestNewElo - guestCurrentElo;
 
   return {
     hostId: params.hostId,
@@ -123,8 +132,8 @@ export function calculateEloMatch(params: {
     guestDelta,
     hostNewElo,
     guestNewElo,
-    hostXpAward,
-    guestXpAward,
+    hostArenaPointsAward,
+    guestArenaPointsAward,
     hostPinsAward,
     guestPinsAward,
   };

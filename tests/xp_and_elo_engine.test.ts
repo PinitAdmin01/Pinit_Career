@@ -1,4 +1,4 @@
-import { describe, it, before } from 'node:test';
+import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert';
 import {
   calculateEloMatch,
@@ -10,9 +10,24 @@ import { ArenaPvPStore, ArenaRoom } from '../src/lib/services/arenaPvPStore';
 import { setSupabaseAdminForTests } from '../src/lib/server/supabaseAdmin';
 
 describe('Authoritative Elo & XP Engine (Task 12)', () => {
+  const originalUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const originalServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   before(() => {
-    // Provide in-memory mock admin so local test runs instantaneously without socket timeout
+    process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://127.0.0.1:54321';
+    process.env.SUPABASE_SERVICE_ROLE_KEY = 'test-service-key';
     const mockAdmin: any = {
+      rpc: async () => ({
+        data: {
+          ok: true,
+          host_elo_delta: 20,
+          guest_elo_delta: -20,
+          host_new_elo: 1220,
+          guest_new_elo: 1180,
+          host_arena_points_award: 250,
+          guest_arena_points_award: 0,
+        },
+        error: null,
+      }),
       from: () => ({
         select: () => ({
           eq: () => ({
@@ -29,6 +44,14 @@ describe('Authoritative Elo & XP Engine (Task 12)', () => {
       }),
     };
     setSupabaseAdminForTests(mockAdmin);
+  });
+
+  after(() => {
+    if (originalUrl === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+    else process.env.NEXT_PUBLIC_SUPABASE_URL = originalUrl;
+    if (originalServiceKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    else process.env.SUPABASE_SERVICE_ROLE_KEY = originalServiceKey;
+    setSupabaseAdminForTests(null);
   });
 
   describe('Mathematical Properties & K-Factor Curves', () => {
@@ -77,11 +100,10 @@ describe('Authoritative Elo & XP Engine (Task 12)', () => {
       assert.strictEqual(res.hostNewElo, 120);
       assert.strictEqual(res.guestNewElo, 80);
 
-      // Verify Effort Rewards
-      assert.strictEqual(res.hostXpAward, ELO_CONFIG.WIN_XP); // 50 XP
-      assert.strictEqual(res.guestXpAward, ELO_CONFIG.LOSS_XP); // 15 XP
-      assert.strictEqual(res.hostPinsAward, ELO_CONFIG.WIN_PINS); // 20 Pins
-      assert.strictEqual(res.guestPinsAward, ELO_CONFIG.LOSS_PINS); // 5 Pins
+      assert.strictEqual(res.hostArenaPointsAward, 50);
+      assert.strictEqual(res.guestArenaPointsAward, 0);
+      assert.strictEqual(res.hostPinsAward, 0);
+      assert.strictEqual(res.guestPinsAward, 0);
     });
 
     it('awards 20 elo when guest defeats host', () => {
@@ -108,9 +130,23 @@ describe('Authoritative Elo & XP Engine (Task 12)', () => {
         winnerId: 'strong_player',
       });
 
-      // 10 - 20 = -10 -> strictly floored at 0
-      assert.strictEqual(res.hostDelta, -20);
+      // ELO cannot be transferred below zero, so a 10-point balance loses only 10.
+      assert.strictEqual(res.hostDelta, -10);
       assert.strictEqual(res.hostNewElo, 0);
+    });
+
+    it('uses the 100 ELO baseline when either stored rating is null', () => {
+      const res = calculateEloMatch({
+        hostId: 'new_host',
+        guestId: 'new_guest',
+        hostElo: null,
+        guestElo: null,
+        winnerId: 'new_host',
+      });
+      assert.equal(res.hostCurrentElo, 100);
+      assert.equal(res.guestCurrentElo, 100);
+      assert.equal(res.hostNewElo, 120);
+      assert.equal(res.guestNewElo, 80);
     });
 
     it('handles draw results accurately', () => {
@@ -126,9 +162,9 @@ describe('Authoritative Elo & XP Engine (Task 12)', () => {
       assert.strictEqual(res.guestDelta, 0);
       assert.strictEqual(res.hostNewElo, 100);
       assert.strictEqual(res.guestNewElo, 100);
-      assert.strictEqual(res.hostXpAward, ELO_CONFIG.DRAW_XP); // 25 XP
-      assert.strictEqual(res.guestXpAward, ELO_CONFIG.DRAW_XP);
-      assert.strictEqual(res.hostPinsAward, ELO_CONFIG.DRAW_PINS); // 10 Pins
+      assert.strictEqual(res.hostArenaPointsAward, 0);
+      assert.strictEqual(res.guestArenaPointsAward, 0);
+      assert.strictEqual(res.hostPinsAward, 0);
     });
   });
 
@@ -157,8 +193,8 @@ describe('Authoritative Elo & XP Engine (Task 12)', () => {
       assert.strictEqual(settled.eloApplied, true);
       assert.ok(typeof settled.hostEloDelta === 'number');
       assert.ok(typeof settled.guestEloDelta === 'number');
-      assert.strictEqual(settled.hostXpAward, 50);
-      assert.strictEqual(settled.guestXpAward, 15);
+      assert.strictEqual(settled.hostArenaPointsAward, 250);
+      assert.strictEqual(settled.guestArenaPointsAward, 0);
 
       // Verify Idempotency: Second call does not re-settle or mutate
       const hostDelta1 = settled.hostEloDelta;

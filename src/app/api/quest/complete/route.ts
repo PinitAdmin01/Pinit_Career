@@ -107,6 +107,7 @@ export async function POST(req: Request) {
     let nextXp = (profile.xp_total || 0) + safeXp;
     let nextWeeklyXp = (profile.weekly_xp || 0) + safeXp;
     let nextPins = (profile.pins || 0) + safePins;
+    let xpCreditedByRpc = false;
 
     // Try authoritative increment_xp RPC first if available
     try {
@@ -118,6 +119,7 @@ export async function POST(req: Request) {
       if (!rpcErr && rpcRes?.ok) {
         if (typeof rpcRes.new_xp === 'number') nextXp = rpcRes.new_xp;
         if (typeof rpcRes.new_weekly_xp === 'number') nextWeeklyXp = rpcRes.new_weekly_xp;
+        xpCreditedByRpc = true;
       }
     } catch {
       // Graceful fallback to direct calculation
@@ -146,15 +148,21 @@ export async function POST(req: Request) {
       completedQuestsTimestamps: nextTimestamps,
     };
 
+    const userUpdate: Record<string, unknown> = {
+      completed_quests: nextCompleted,
+      pins: nextPins,
+      onboarding_answers: nextAnswers,
+    };
+    // increment_xp is atomic and already wrote these columns. Rewriting the
+    // values read before the RPC could erase XP earned by a concurrent request.
+    if (!xpCreditedByRpc) {
+      userUpdate.xp_total = nextXp;
+      userUpdate.weekly_xp = nextWeeklyXp;
+    }
+
     const { error: updateErr } = await supabase
       .from('users')
-      .update({
-        completed_quests: nextCompleted,
-        xp_total: nextXp,
-        weekly_xp: nextWeeklyXp,
-        pins: nextPins,
-        onboarding_answers: nextAnswers,
-      })
+      .update(userUpdate)
       .eq('id', userId);
 
     if (updateErr) {

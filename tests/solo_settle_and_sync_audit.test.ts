@@ -53,24 +53,29 @@ describe('Solo Sparring & ELO 100-Baseline Audit', () => {
     assert.ok(fs.existsSync(routePath), 'Solo settle route must exist');
     const content = fs.readFileSync(routePath, 'utf8');
     assert.ok(content.includes('requireCombatantFromRequest'), 'Must enforce combatant auth');
-    assert.ok(content.includes('ELO_CONFIG.DEFAULT_ELO'), 'Must reference ELO_CONFIG.DEFAULT_ELO');
-    assert.ok(content.includes("from('users').update"), 'Must update users table');
-    assert.ok(content.includes("from('xp_ledger').insert"), 'Must insert into xp_ledger');
-    assert.ok(content.includes('arena_elo: newElo'), 'Must persist arena_elo');
+    assert.ok(content.includes("from('arena_solo_matches')"), 'Must settle a server-created match only');
+    assert.ok(content.includes('judgeCodeWarsSubmission'), 'Must judge submitted code on the server');
+    assert.ok(content.includes("rpc('settle_solo_arena_match'"), 'Must use atomic database settlement');
+    assert.ok(content.includes("'ARENA_MATCH_NOT_FOUND'"), 'Must reject a match not owned by the authenticated combatant');
   });
 
   it('verifies arena page dispatches pinit:user_profile_updated event on battle conclusion', () => {
     const arenaPagePath = path.join(process.cwd(), 'src/app/arena/page.tsx');
     const content = fs.readFileSync(arenaPagePath, 'utf8');
-    assert.ok(content.includes('/api/arena/settle-solo'), 'Arena page must call /api/arena/settle-solo');
+    const service = fs.readFileSync(path.join(process.cwd(), 'src/lib/services/arenaPvPService.ts'), 'utf8');
+    assert.ok(service.includes("fetch('/api/arena/solo/start'"), 'Arena service must start a server-created solo match');
+    assert.ok(content.includes('ArenaPvPService.settleSoloMatch'), 'Arena page must use the settlement service');
+    assert.ok(service.includes("fetch('/api/arena/settle-solo'"), 'Arena service must call the authenticated solo settlement endpoint');
     assert.ok(content.includes('pinit:user_profile_updated'), 'Arena page must dispatch pinit:user_profile_updated');
     assert.ok(content.includes('localStorage.setItem(`pinit_user_elo_${studentId}`'), 'Must cache ELO locally');
+    assert.ok(content.includes('weekly_arena_points:'), 'Must publish updated Arena Points to the leaderboard');
   });
 
   it('verifies leaderboard page listens to pinit:user_profile_updated to auto-refresh without hard refresh', () => {
     const leaderboardPath = path.join(process.cwd(), 'src/app/leaderboard/page.tsx');
     const content = fs.readFileSync(leaderboardPath, 'utf8');
     assert.ok(content.includes('pinit:user_profile_updated'), 'Leaderboard must listen to pinit:user_profile_updated');
-    assert.ok(content.includes('entry.eloRating - 100'), 'Leaderboard must compute gain from 100 baseline');
+    assert.ok(content.includes('leaguePoints: weeklyXp + arenaPoints'), 'Leaderboard must immediately recompute League Points');
+    assert.ok(content.includes("{ id: 'global', label: 'Global' }"), 'Global view is part of the combined league board');
   });
 });

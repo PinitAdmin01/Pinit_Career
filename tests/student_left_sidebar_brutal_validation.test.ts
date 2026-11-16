@@ -59,24 +59,24 @@ describe('BRUTAL VALIDATION — STUDENT LEFT SIDEBAR (Perspectives 3, 4, 5)', ()
         { href: '/dashboard', label: 'Dashboard' },
         { href: '/quests', label: 'Quests & Courses' },
         { href: '/missions', label: 'Daily Missions' },
-        { href: '/arena', label: 'Challenging Arena' },
-        { href: '/projects', label: 'Projects & Innovation' },
-        { href: '/leaderboard', label: 'Leaderboard & Leagues' },
+        { href: '/arena', label: 'Arena & Leaderboard' },
+        { href: '/projects', label: 'Projects' },
+        { href: '/innovation-hub', label: 'Innovation Hub' },
         { href: '/interview', label: 'AI Interview' },
         { href: '/mirror', label: 'Mirror' },
         { href: '/attention-span', label: 'Attention Span' },
+        { href: '/vault', label: 'Proof Vault' },
+        { href: '/shop', label: 'Item Shop' },
       ];
 
       const actualLeaves = STUDENT_NAV[0].items.filter((item): item is NavLeaf => !isGroup(item));
+      assert.deepEqual(actualLeaves.map(({ href }) => href), expectedRoutes.map(({ href }) => href));
       for (const expected of expectedRoutes) {
         const found = actualLeaves.find(l => l.href === expected.href);
         assert.ok(found, `STUDENT_NAV must include route ${expected.href}`);
-        if (expected.href === '/projects') {
-          assert.ok(found.label === 'Projects' || found.label === 'Projects & Innovation', `Route /projects label must be Projects or Projects & Innovation (got "${found.label}")`);
-        } else {
-          assert.equal(found.label, expected.label, `Route ${expected.href} label must be "${expected.label}"`);
-        }
+        assert.equal(found.label, expected.label, `Route ${expected.href} label must be "${expected.label}"`);
       }
+      assert.equal(actualLeaves.some(({ href }) => href === '/leaderboard'), false, 'Leaderboard must share the Arena destination');
     });
 
     it('BOTTOM_NAV contains required secondary student utilities', () => {
@@ -249,7 +249,8 @@ describe('BRUTAL VALIDATION — FULL SSR RENDERING OF APPSIDEBAR', () => {
     assert.ok(html.includes('href="/missions"'), 'Missions link must be present');
     assert.ok(html.includes('href="/arena"'), 'Arena link must be present');
     assert.ok(html.includes('href="/projects"'), 'Projects link must be present');
-    assert.ok(html.includes('href="/leaderboard"'), 'Leaderboard link must be present');
+    assert.equal((html.match(/href="\/arena"/g) ?? []).length, 1, 'Arena and Leaderboard must share one sidebar link');
+    assert.ok(!html.includes('href="/leaderboard"'), 'A duplicate Leaderboard sidebar link must not be present');
     assert.ok(html.includes('href="/interview"'), 'Interview link must be present');
     assert.ok(html.includes('href="/mirror"'), 'Mirror link must be present');
     assert.ok(html.includes('href="/attention-span"'), 'Attention span link must be present');

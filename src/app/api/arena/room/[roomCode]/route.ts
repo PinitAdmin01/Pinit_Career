@@ -22,11 +22,18 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ room
     }
     const { roomCode } = await params;
     console.log(`[ArenaRoom GET] Room lookup: ${roomCode} from viewer: ${auth.user.id}`);
-    const room = await ArenaPvPStore.getRoom(roomCode);
+    let room = await ArenaPvPStore.getRoom(roomCode);
 
     if (!room) {
       console.warn(`[ArenaRoom GET] Room not found: ${roomCode}`);
       return NextResponse.json({ error: 'Room not found' }, { status: 404 });
+    }
+
+    if (room.status === 'completed' && room.winnerId && !room.eloApplied) {
+      room = await ArenaPvPStore.settleMatch(room);
+      if (!room.eloApplied && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        return NextResponse.json({ error: 'ARENA_SETTLEMENT_PENDING' }, { status: 503 });
+      }
     }
 
     return NextResponse.json({ success: true, room: viewRoomFor(room, auth.user.id) });
@@ -220,6 +227,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
     let settled = updated;
     if (settled && settled.status === 'completed' && settled.winnerId && !settled.eloApplied) {
       settled = await ArenaPvPStore.settleMatch(settled);
+      if (!settled.eloApplied && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        return NextResponse.json({ error: 'ARENA_SETTLEMENT_PENDING' }, { status: 503 });
+      }
     }
     const latest = settled ? await ArenaPvPStore.publishCodesIfCompleted(settled) : await ArenaPvPStore.getRoom(roomCode);
     if (!latest) {

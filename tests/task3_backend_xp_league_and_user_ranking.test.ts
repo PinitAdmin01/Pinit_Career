@@ -32,11 +32,12 @@ test('TASK 3 AUDIT: Backend off-cohort rank computation appends user to entries 
   );
 });
 
-test('TASK 3 AUDIT: Frontend handleJoinLeague persists league_tier = browns to Supabase database', () => {
+test('TASK 3 AUDIT: Frontend joins Browns through the qualified server endpoint', () => {
   assert.ok(
-    leaderboardPage.includes("supabase.from('users').update({ league_tier: 'browns' })"),
-    'handleJoinLeague must persist league_tier = browns to Supabase users table'
+    leaderboardPage.includes("fetch('/api/leaderboard/join'"),
+    'handleJoinLeague must persist league membership through the server endpoint'
   );
+  assert.ok(leaderboardPage.includes('userTotalXp < 100'), 'Joining requires at least 100 lifetime Career XP');
   assert.ok(
     leaderboardPage.includes("pinit:user_profile_updated"),
     'handleJoinLeague must dispatch pinit:user_profile_updated event'
@@ -49,15 +50,13 @@ test('TASK 3 AUDIT: Frontend stores serverCurrentUser and ensures user always ap
     'Frontend must save data.currentUser into serverCurrentUser state'
   );
   assert.ok(
-    leaderboardPage.includes('if (serverCurrentUser) return serverCurrentUser;'),
+    leaderboardPage.includes('return serverCurrentUser;'),
     'currentUserEntry must fall back to serverCurrentUser'
   );
   assert.ok(
     leaderboardPage.includes('params.set(\'userId\', user.id);'),
     'Frontend fetchLeaderboard must pass userId query parameter'
   );
-  assert.ok(
-    leaderboardPage.includes('result.push(currentUserEntry);'),
-    'Filtered entries must ensure current user row is always present in table'
-  );
+  assert.ok(leaderboardPage.includes('const result = list.filter(entry => {'), 'Search must filter the full leaderboard response');
+  assert.ok(leaderboardPage.includes('filteredEntries.map((entry, idx) => {'), 'The current user entry returned by the server must render in the standings table');
 });

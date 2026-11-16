@@ -9,6 +9,7 @@ const leaderboardRoutePath = path.join(ROOT, 'src/app/api/leaderboard/route.ts')
 
 const leaderboardPage = fs.readFileSync(leaderboardPagePath, 'utf8');
 const leaderboardRoute = fs.readFileSync(leaderboardRoutePath, 'utf8');
+const competitionNavigation = fs.readFileSync(path.join(ROOT, 'src/components/competition/CompetitionNavigation.tsx'), 'utf8');
 
 // ── VECTOR 1: ZERO-DUMMY DATA & DATA INTEGRITY ────────────────────────────────
 test('BRUTAL VECTOR 1: Zero mock squads & zero hardcoded demo data in backend and frontend', () => {
@@ -77,7 +78,7 @@ test('BRUTAL VECTOR 2: Space reclamation, HUD elevation, and ~25% compact sizing
   );
   // 3. Dynamic Circles housed inside HUD per Task 1
   assert.ok(
-    leaderboardPage.includes('League Entry Requirement: 100 XP Needed to Join'),
+    leaderboardPage.includes('100 Career XP required to join Browns'),
     'Circle 1 must display League Entry Requirement tooltip/popover'
   );
   assert.ok(
@@ -85,8 +86,8 @@ test('BRUTAL VECTOR 2: Space reclamation, HUD elevation, and ~25% compact sizing
     'Circle 2 must display Weekly Sprint Reset Clock dial'
   );
   assert.ok(
-    leaderboardPage.includes('href="/arena?tab=code_wars"'),
-    '1v1 Battle Arena quick link must be accessible from requirement popover'
+    competitionNavigation.includes("href: '/leaderboard?mode=global'"),
+    'Combined competition navigation must expose global standings'
   );
 });
 
@@ -94,8 +95,8 @@ test('BRUTAL VECTOR 2: Space reclamation, HUD elevation, and ~25% compact sizing
 test('BRUTAL VECTOR 3: Anti-unranked logic, Supabase league persistence & active off-cohort search', () => {
   // 1. Supabase persistence in handleJoinLeague
   assert.ok(
-    leaderboardPage.includes("supabase.from('users').update({ league_tier: 'browns' }).eq('id', user.id)"),
-    'handleJoinLeague must write league_tier = browns to Supabase users table'
+    leaderboardPage.includes("fetch('/api/leaderboard/join'"),
+    'Join League must use the authenticated server endpoint'
   );
   assert.ok(
     leaderboardPage.includes("pinit:user_profile_updated"),
@@ -132,8 +133,8 @@ test('BRUTAL VECTOR 3: Anti-unranked logic, Supabase league persistence & active
     'Frontend must reactively sync joinedLeague state'
   );
   assert.ok(
-    leaderboardPage.includes('currentUserEntry.name.toLowerCase().includes(searchQuery.toLowerCase())'),
-    'Searching user own name must retain off-cohort user in filtered result'
+    leaderboardPage.includes('const result = list.filter(entry => {'),
+    'Search must filter the returned leaderboard rows, including the server-appended current-user entry'
   );
 });
 
@@ -231,15 +232,13 @@ test('BRUTAL VECTOR 5: API resiliency against invalid/malicious query parameters
 
 // ── VECTOR 6: MATHEMATICAL & TIE-BREAKER SOUNDNESS ─────────────────────────────
 test('BRUTAL VECTOR 6: League score formula, zones, and 4-tier tiebreaker', () => {
-  // Formula: weeklyXp + round(eloGain * 1.5)
+  // Formula: sprint learning XP + sprint Arena Points. ELO only scales the Arena Points awarded for a win.
   assert.ok(
-    leaderboardRoute.includes('weeklyXp + Math.round(eloGain * 1.5)'),
-    'Backend must compute 1.5x competitive ELO multiplier for league score'
+    leaderboardRoute.includes('calculateLeaguePoints(weeklyXp, arenaPoints)'),
+    'Backend League Points must combine weekly learning XP and Arena Points'
   );
-  assert.ok(
-    leaderboardPage.includes('currentUserEntry.weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5)'),
-    'Frontend must match 1.5x competitive ELO multiplier'
-  );
+  assert.ok(leaderboardPage.includes('League Points</th>'), 'Leaderboard must show League Points as the single competition score');
+  assert.ok(leaderboardRoute.includes('calculateLeaguePoints(a.weeklyXp, a.arenaPoints ?? 0)'), 'Backend standings must sort by the combined League Points value');
 
   // Tiebreaker stages
   assert.ok(
@@ -251,12 +250,12 @@ test('BRUTAL VECTOR 6: League score formula, zones, and 4-tier tiebreaker', () =
     'Tiebreaker stage 2: Weekly XP'
   );
   assert.ok(
-    leaderboardRoute.includes('if (b.eloRating !== a.eloRating) return b.eloRating - a.eloRating;'),
-    'Tiebreaker stage 3: Arena ELO rating'
+    leaderboardRoute.includes('if (b.totalXp !== a.totalXp) return b.totalXp - a.totalXp;'),
+    'Tiebreaker stage 3: Lifetime XP'
   );
   assert.ok(
-    leaderboardRoute.includes('return b.totalXp - a.totalXp;'),
-    'Tiebreaker stage 4: Total XP'
+    leaderboardRoute.includes('return a.studentId.localeCompare(b.studentId);'),
+    'Tiebreaker stage 4: Stable student ID'
   );
 
   // Cutoff zones boundary safeguards
@@ -265,7 +264,7 @@ test('BRUTAL VECTOR 6: League score formula, zones, and 4-tier tiebreaker', () =
     'Ruby league champions cannot be promoted'
   );
   assert.ok(
-    leaderboardRoute.includes("activeLeague !== 'browns' && e.rank >= demotionCutoffRank"),
+    leaderboardRoute.includes("activeLeague !== 'browns' && demotionCutoffRank > 0 && e.rank >= demotionCutoffRank"),
     'Browns league rookies cannot be demoted'
   );
 });
@@ -320,8 +319,8 @@ test('BRUTAL VECTOR 7: Comprehensive telemetry logging across middleware, middle
     'Frontend must log fetch completion with clientDurationMs'
   );
   assert.ok(
-    leaderboardPage.includes('[LEADERBOARD_CLIENT][Join League Triggered]'),
-    'Frontend must log join league action'
+    leaderboardPage.includes("fetch('/api/leaderboard/join'"),
+    'Frontend join action must call the membership endpoint'
   );
   assert.ok(
     leaderboardPage.includes('[LEADERBOARD_CLIENT][Profile Update Event Received]'),
@@ -341,14 +340,14 @@ test('BRUTAL VECTOR 8: 100 baseline ELO with non-negative ELO gain protection', 
     'Backend must clamp eloGain to 0 minimum so ELO losses below 100 never penalize league score'
   );
   assert.ok(
-    leaderboardPage.includes('Math.max(0, entry.eloRating - 100)'),
-    'Frontend must clamp eloGain to 0 minimum in pedestal and table calculations'
+    leaderboardPage.includes('const userTotalXp = Math.max(') && leaderboardPage.includes('Number.isFinite(Number(cOS?.xp))'),
+    'Frontend must use the freshest XP value for entry eligibility'
   );
 
   // Default baseline ELO is 100 with legacy 1200 sanitization
   assert.ok(
-    leaderboardPage.includes('clientElo') && leaderboardPage.includes('100'),
-    'Frontend must fall back to 100 baseline ELO for unrated students'
+    leaderboardPage.includes('arena_elo') && leaderboardPage.includes('100'),
+    'Frontend must recognize the 100 baseline ELO when displaying profile updates'
   );
   assert.ok(
     leaderboardRoute.includes('arena_elo || 100') || leaderboardRoute.includes('isLegacy1200'),

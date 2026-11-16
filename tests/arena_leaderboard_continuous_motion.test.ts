@@ -3,6 +3,7 @@ import assert from 'node:assert';
 import fs from 'fs';
 import path from 'path';
 import { ELO_CONFIG, calculateEloMatch } from '../src/lib/arena/eloEngine';
+import { arenaPointsForResult, calculateLeaguePoints } from '../src/lib/leagues/leaguePoints';
 
 const ROOT = process.cwd();
 const arenaPagePath = path.join(ROOT, 'src/app/arena/page.tsx');
@@ -10,12 +11,14 @@ const leaderboardPagePath = path.join(ROOT, 'src/app/leaderboard/page.tsx');
 const leaderboardRoutePath = path.join(ROOT, 'src/app/api/leaderboard/route.ts');
 const settleSoloRoutePath = path.join(ROOT, 'src/app/api/arena/settle-solo/route.ts');
 const arenaPvPStorePath = path.join(ROOT, 'src/lib/services/arenaPvPStore.ts');
+const competitionNavigationPath = path.join(ROOT, 'src/components/competition/CompetitionNavigation.tsx');
 
 const arenaPage = fs.readFileSync(arenaPagePath, 'utf8');
 const leaderboardPage = fs.readFileSync(leaderboardPagePath, 'utf8');
 const leaderboardRoute = fs.readFileSync(leaderboardRoutePath, 'utf8');
 const settleSoloRoute = fs.readFileSync(settleSoloRoutePath, 'utf8');
 const arenaPvPStore = fs.readFileSync(arenaPvPStorePath, 'utf8');
+const competitionNavigation = fs.readFileSync(competitionNavigationPath, 'utf8');
 
 // ── VECTOR 1: MATHEMATICAL & ELO INVARIANT HARMONIZATION ───────────────────────
 test('CONTINUOUS MOTION VECTOR 1: Canonical baseline ELO of 100 & exact 20-point transfer', () => {
@@ -50,8 +53,8 @@ test('CONTINUOUS MOTION VECTOR 2: Strict Pins Invariant — zero pins awarded by
   assert.strictEqual(ELO_CONFIG.DRAW_PINS, 0, 'DRAW_PINS must be 0');
 
   // settle-solo route
-  assert.ok(settleSoloRoute.includes('pinsAwarded = 0'), 'settle-solo must award 0 pins');
   assert.ok(settleSoloRoute.includes('pinsAwarded: 0'), 'settle-solo response must return pinsAwarded: 0');
+  assert.ok(fs.readFileSync(path.join(ROOT, 'supabase/migrations/20261116010000_league_points_and_join_state.sql'), 'utf8').includes("'pinsAwarded', 0"), 'Atomic solo settlement must persist a zero-Pin award');
 
   // arenaPvPStore match settlement
   assert.strictEqual(arenaPvPStore.includes('pins: (hostProfile.pins || 0) + result.hostPinsAward'), false, 'arenaPvPStore must not mutate host pins on battle settle');
@@ -63,48 +66,33 @@ test('CONTINUOUS MOTION VECTOR 3: Event payload symmetry between Arena emitters 
   // Arena must emit both snake_case and camelCase keys
   assert.ok(arenaPage.includes("detail: {"), 'Arena must dispatch detail object');
   assert.ok(arenaPage.includes("arena_elo:"), 'Arena must include arena_elo');
-  assert.ok(arenaPage.includes("weekly_xp:"), 'Arena must include weekly_xp');
-  assert.ok(arenaPage.includes("xp_total:"), 'Arena must include xp_total');
+  assert.ok(arenaPage.includes("weekly_arena_points:"), 'Arena must include the new sprint Arena Points total');
 
   // Leaderboard must accept both snake_case and camelCase
   assert.ok(leaderboardPage.includes("typeof e.detail.arena_elo === 'number'"), 'Leaderboard must accept arena_elo');
   assert.ok(leaderboardPage.includes("typeof e.detail.elo === 'number'"), 'Leaderboard must accept camelCase elo fallback');
-  assert.ok(leaderboardPage.includes("typeof e.detail.weekly_xp === 'number'"), 'Leaderboard must accept weekly_xp');
-  assert.ok(leaderboardPage.includes("typeof e.detail.weeklyXp === 'number'"), 'Leaderboard must accept camelCase weeklyXp fallback');
+  assert.ok(leaderboardPage.includes("typeof e.detail.weekly_arena_points === 'number'"), 'Leaderboard must accept weekly_arena_points');
+  assert.ok(leaderboardPage.includes("typeof e.detail.arenaPoints === 'number'"), 'Leaderboard must accept camelCase Arena Points fallback');
 
   // Leaderboard must execute synchronous in-memory update on serverCurrentUser
   assert.ok(leaderboardPage.includes("setServerCurrentUser(prev => {"), 'Leaderboard must update serverCurrentUser immediately on event');
-  assert.ok(leaderboardPage.includes("leagueScore,"), 'Leaderboard must recompute leagueScore on instant update');
+  assert.ok(leaderboardPage.includes('leaguePoints: weeklyXp + arenaPoints'), 'Leaderboard must recompute the combined League Points immediately');
 });
 
 // ── VECTOR 4: CROSS-PAGE ROUTING & DEEP LINKS ─────────────────────────────────
 test('CONTINUOUS MOTION VECTOR 4: Seamless bidirectional navigation links and query routing', () => {
-  // Leaderboard must recognize tab=code_wars as weekly_leagues mode
-  assert.ok(leaderboardPage.includes("rawMode === 'code_wars'"), 'Leaderboard must map code_wars to weekly_leagues');
-
-  // Leaderboard HUD link to Arena
-  assert.ok(leaderboardPage.includes('href="/arena?tab=code_wars"'), 'Leaderboard HUD button must link to /arena?tab=code_wars');
-
-  // Arena HUD link to Leaderboard
-  assert.ok(arenaPage.includes('href="/leaderboard?mode=weekly_leagues"') || arenaPage.includes('href="/leaderboard?tab=code_wars"'), 'Arena HUD button must link to Leaderboard');
+  assert.ok(competitionNavigation.includes("href: '/arena'"), 'Competition navigation must link to Arena');
+  assert.ok(competitionNavigation.includes("href: '/leaderboard?mode=global'"), 'Competition navigation must link to global League standings');
+  assert.ok(arenaPage.includes('href="/leaderboard?mode=global"'), 'Arena rules panel must link to standings');
+  assert.ok(leaderboardPage.includes('<CompetitionNavigation active="leaderboard"'), 'Leaderboard must use the shared competition navigation');
 });
 
 // ── VECTOR 5: SCORING & TIEBREAKER MATHEMATICAL CONVERGENCE ───────────────────
 test('CONTINUOUS MOTION VECTOR 5: Mathematical formula convergence across frontend and backend', () => {
-  // Formula: weeklyXp + Math.round(eloGain * 1.5) where eloGain = Math.max(0, eloRating - 100)
-  assert.ok(leaderboardRoute.includes('weeklyXp + Math.round(eloGain * 1.5)'), 'Backend route must use exact 1.5x ELO gain multiplier');
-  assert.ok(leaderboardPage.includes('weeklyXp + Math.round(eloGain * 1.5)') || leaderboardPage.includes('weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5)'), 'Frontend must use exact 1.5x ELO gain multiplier');
-
-  // Simulation test
-  const calculateScore = (weeklyXp: number, elo: number) => {
-    const eloGain = Math.max(0, elo - 100);
-    return weeklyXp + Math.round(eloGain * 1.5);
-  };
-
-  assert.strictEqual(calculateScore(1000, 100), 1000, 'Base ELO gives 0 bonus points');
-  assert.strictEqual(calculateScore(1000, 120), 1030, '120 ELO gives +30 bonus points');
-  assert.strictEqual(calculateScore(1000, 140), 1060, '140 ELO gives +60 bonus points');
-  assert.strictEqual(calculateScore(1000, 80), 1000, 'Sub-100 ELO does not penalize base weekly XP');
+  assert.ok(leaderboardRoute.includes('calculateLeaguePoints(weeklyXp, arenaPoints)'), 'Backend must rank by Weekly Learning XP plus Arena Points');
+  assert.ok(leaderboardPage.includes('leaguePoints: weeklyXp + arenaPoints'), 'Frontend live updates must use the same sum');
+  assert.strictEqual(calculateLeaguePoints(1000, 250), 1250);
+  assert.strictEqual(calculateLeaguePoints(200, 100), 300);
 });
 
 // ── VECTOR 6: COLD-BLOODED STRESS & BOUNDARY CONCURRENCY ──────────────────────
@@ -119,10 +107,8 @@ test('CONTINUOUS MOTION VECTOR 6: Concurrency and extreme boundary resilience', 
   });
   assert.ok(minMatch.hostNewElo >= 0, 'ELO must never drop below 0');
 
-  // High ELO master player (e.g. 500 ELO)
-  const masterElo = 500;
-  const masterXp = 5000;
-  const masterGain = Math.max(0, masterElo - 100); // 400
-  const masterScore = masterXp + Math.round(masterGain * 1.5); // 5000 + 600 = 5600
-  assert.strictEqual(masterScore, 5600);
+  assert.strictEqual(arenaPointsForResult(500, 'win'), 250, 'A 500 ELO win earns the 250-point cap');
+  assert.strictEqual(arenaPointsForResult(200, 'win'), 100, 'A 200 ELO win earns 100 Arena Points');
+  assert.strictEqual(arenaPointsForResult(500, 'loss'), 0, 'Losses do not earn Arena Points');
+  assert.strictEqual(calculateLeaguePoints(500, arenaPointsForResult(500, 'win')), 750);
 });
