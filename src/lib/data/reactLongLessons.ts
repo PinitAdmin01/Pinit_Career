@@ -14925,13 +14925,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "What is State Tearing in Concurrent React applications?",
         "options": [
-          "A visual inconsistency where different components in the same render pass display conflicting versions of the same external state because the store mutated during a concurrent yield",
-          "A syntax error thrown when compiling TypeScript interfaces",
-          "A memory leak caused by failing to clear setInterval timers",
-          "A network error when an API endpoint returns HTTP 500"
+          "A memory leak occurring when unmounted components retain background event listener subscriptions, exhausting device memory over time.",
+          "A visual defect where components in one render pass display conflicting values because external state mutated during a concurrent yield.",
+          "An unexpected fatal runtime exception thrown whenever an asynchronous fetch call rejects during client-side hydration reconciliation.",
+          "A rendering artifact where CSS stylesheets fail to apply flexbox styles to dynamically generated table elements during window resizing."
         ],
-        "answer": 0,
-        "why": "State tearing occurs when an external store mutates while React is time-slicing a concurrent render pass, causing earlier components to render old state and later components to render new state."
+        "answer": 1,
+        "why": "State tearing occurs when a mutable external store updates while React is yielding to the browser, causing different components to render conflicting data."
       }
     },
     {
@@ -14970,13 +14970,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         "check": {
         "question": "How does React prevent state tearing when using useSyncExternalStore?",
         "options": [
-          "Before committing to the DOM, React checks getSnapshot() again; if any snapshot changed mid-render, it discards the pass and restarts synchronously in SyncLane",
-          "It disables all JavaScript execution in the browser",
-          "It converts all external stores into database tables",
-          "It forces all network requests to wait 5 seconds before resolving"
+          "React disables concurrent rendering permanently across the application and forces all component updates to execute synchronously on mount.",
+          "React stores all external store snapshots inside client browser localStorage buffers to ensure persistence across browser window reloads.",
+          "React wraps every external store mutation inside an isolated Web Worker thread to bypass the single-threaded JavaScript execution model.",
+          "React re-reads getSnapshot before committing; if the store changed mid-render, React discards the pass and restarts rendering synchronously."
         ],
-        "answer": 0,
-        "why": "React validates snapshots prior to the commit phase. If a store mutated mid-render, it aborts the concurrent pass and flushes a synchronous re-render to ensure UI consistency."
+        "answer": 3,
+        "why": "useSyncExternalStore re-checks store snapshots right before committing; if a mismatch is detected, React aborts the render and re-runs it synchronously."
       }
     },
     {
@@ -15013,15 +15013,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Modify ComplexStore to update user.name and observe that the memoized selector invalidates correctly.",
       example: "React uses Object.is to compare successive getSnapshot results.",
         "check": {
-        "question": "Why must getSnapshot return a referentially stable value if the external store has not changed?",
+        "question": "Why must getSnapshot return a referentially stable value if the underlying data has not changed?",
         "options": [
-          "Because returning a new object reference on every call causes React to believe the store mutated, triggering an infinite re-render loop",
-          "Because browsers crash if more than three objects are allocated per second",
-          "Because JavaScript arrays cannot be compared with numbers",
-          "Because CSS animations require string primitives"
+          "React uses Object.is to check snapshots; returning fresh object references on every invocation triggers catastrophic infinite render loops.",
+          "Modern browser engines automatically purge unstable object references from heap memory buffers after one hundred milliseconds to avoid leaks.",
+          "JavaScript V8 garbage collection pauses freeze the main thread permanently whenever a component allocates more than two objects per tick.",
+          "Unstable references prevent CSS animations from executing smoothly by corrupting browser layout caches during hardware acceleration passes."
         ],
         "answer": 0,
-        "why": "React uses Object.is to compare successive getSnapshot results. Creating a new object on every invocation tricks React into infinite re-renders until it hits the max update depth."
+        "why": "Returning a new object reference from getSnapshot causes Object.is comparison to fail continuously, resulting in Maximum Update Depth errors."
       }
     },
     {
@@ -15056,15 +15056,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a third widget that subscribes to userPortfolio.shares and verify its re-render behavior.",
       example: "Unlike React Context which re-renders every consumer when any part of context changes, selector-based observable stores re-render only components whose selected values actually change.",
         "check": {
-        "question": "What is the primary performance advantage of an observable external store over monolithic React Context?",
+        "question": "What is the primary performance advantage of an Observable Store with selectors over a monolithic React Context?",
         "options": [
-          "Components subscribe only to specific state slices; updates to unrelated properties bail out without re-rendering subscribed components",
-          "Observable stores make network requests download ten times faster",
-          "Observable stores compile JSX into C++ binary code",
-          "Observable stores eliminate the need for HTML buttons"
+          "Observable store dispatches execute exclusively inside background Web Worker threads without consuming any UI thread CPU processing cycles.",
+          "Observable stores compress all application state using client-side gzip algorithms, reducing overall memory footprint by ninety percent.",
+          "Components subscribe only to specific data slices; mutations re-render solely components whose selected data changed, avoiding tree renders.",
+          "Observable stores eliminate all network socket latency by pre-fetching subsequent database states before user interactions even take place."
         ],
-        "answer": 0,
-        "why": "Unlike React Context which re-renders every consumer when any part of context changes, selector-based observable stores re-render only components whose selected values actually change."
+        "answer": 2,
+        "why": "Selector-based subscriptions isolate updates to affected components, avoiding wasteful re-renders that plague monolithic Context architectures."
       }
     },
     {
@@ -15101,15 +15101,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Increase simulatedFrames to 5000 and verify that data integrity remains at 100.0%.",
       example: "useSyncExternalStore guarantees 100% data integrity by detecting mid-render mutations and automatically falling back to synchronous rendering to eliminate torn frames.",
         "check": {
-        "question": "Under high-frequency state mutations, what is the data integrity score achieved by useSyncExternalStore compared to naive subscriptions?",
+        "question": "Under high-frequency state mutations, what is the data integrity guarantee of useSyncExternalStore?",
         "options": [
-          "100.0% tear-free data integrity, compared to severe state tearing in naive subscriptions",
-          "50.0% data integrity",
-          "0.0% data integrity",
-          "It varies randomly based on monitor refresh rate"
+          "It guarantees eventual consistency within two to three render cycles, allowing minor ephemeral UI tearing during high-throughput workloads.",
+          "It delivers one hundred percent tear-free consistency by synchronously checking store snapshots before committing updates to the live DOM.",
+          "It guarantees that state mutations will never exceed fifty milliseconds of execution time regardless of total subscriber count in memory.",
+          "It guarantees that failed state updates will automatically retry against the remote backend server without notifying subscriber components."
         ],
-        "answer": 0,
-        "why": "useSyncExternalStore guarantees 100% data integrity by detecting mid-render mutations and automatically falling back to synchronous rendering to eliminate torn frames."
+        "answer": 1,
+        "why": "useSyncExternalStore guarantees 100% tear-free rendering by synchronizing external store reads with React's commit phase."
       }
     }
   ],

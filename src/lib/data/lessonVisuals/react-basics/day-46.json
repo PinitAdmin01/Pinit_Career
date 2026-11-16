@@ -1,700 +1,629 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 46,
-  "promptSha": "block10_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "The Anatomy of State Tearing: How Concurrent Time Slicing Produces Visual Inconsistencies with Mutable Global State",
       "codeHash": "3b84aa72af7a87d0de60778b20d3790757e2baf635625856587383357dc25fad",
       "spec": {
         "template": "compare",
-        "title": "State Tearing Under React 18 Concurrent Rendering",
+        "title": "State Tearing vs Synchronized Stores",
         "left": {
-          "label": "Naive Subscription (useState)",
+          "title": "Naive Store",
+          "subtitle": "State Tearing",
           "items": [
-            "Reads mutable global store mid-render",
-            "Time-sliced render yields to tick",
-            "Tree renders mismatched snapshots",
-            "State tearing visible on screen"
+            {
+              "label": "Concurrent Yield",
+              "text": "concurrent",
+              "tone": "error"
+            },
+            {
+              "label": "Inconsistent DOM",
+              "text": "tearing",
+              "tone": "error"
+            }
           ]
         },
         "right": {
-          "label": "useSyncExternalStore Hook",
+          "title": "Synchronized Store",
+          "subtitle": "Tear-Free Store",
           "items": [
-            "Synchronous snapshot guarantee",
-            "Pre-commit consistency check",
-            "SyncLane fallback on collision",
-            "Zero state tearing mathematically"
+            {
+              "label": "Snapshot Check",
+              "text": "getSnapshot",
+              "tone": "ok"
+            },
+            {
+              "label": "Synchronous Commit",
+              "text": "subscribe",
+              "tone": "ok"
+            }
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Concurrent rendering splits component rendering across browser animation frames.",
-            "values": {
-              "left": {
-                "items": [
-                  "Async Time Slicing",
-                  "Interleaved Events",
-                  "Fragmented Snapshots",
-                  "Visible Glitches"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Concurrent Scheduler",
-                  "Protected Snapshots",
-                  "Atomic Commit",
-                  "Tear-Free Screen"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "at": "say3",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Concurrent time slicing yields execution to background browser tasks."
           },
           {
-            "at": "say2",
-            "caption": "A high-frequency tick mutating mid-render causes naive subscriptions to tear.",
-            "values": {
-              "left": {
-                "items": [
-                  "Tick Arrives at T=4ms",
-                  "Component A reads $150",
-                  "Component B reads $155",
-                  "Torn UI Frame"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Tick Arrives at T=4ms",
-                  "Snapshot Checked",
-                  "Mismatch Trapped",
-                  "Safe Deferral"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "at": "say5",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Conflicting values render across components during external mutations."
           },
+          {
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Built-in state hooks remain immune to tearing via Fiber queues."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "State Tearing vs Synchronized Stores",
+        "left": {
+          "title": "Naive Store",
+          "subtitle": "State Tearing",
+          "items": [
+            {
+              "label": "Concurrent Yield",
+              "text": "concurrent",
+              "tone": "error"
+            },
+            {
+              "label": "Inconsistent DOM",
+              "text": "tearing",
+              "tone": "error"
+            }
+          ]
+        },
+        "right": {
+          "title": "Synchronized Store",
+          "subtitle": "Tear-Free Store",
+          "items": [
+            {
+              "label": "Snapshot Check",
+              "text": "getSnapshot",
+              "tone": "ok"
+            },
+            {
+              "label": "Synchronous Commit",
+              "text": "subscribe",
+              "tone": "ok"
+            }
+          ]
+        },
+        "steps": [
           {
             "at": "say3",
-            "caption": "useSyncExternalStore detects snapshot mismatch and restarts in SyncLane.",
-            "values": {
-              "left": {
-                "items": [
-                  "No Pre-Commit Validation",
-                  "Invalid State Committed",
-                  "Trader Confusion",
-                  "Financial Hazard"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Pre-Commit Validation",
-                  "SyncLane Restart",
-                  "Single Frame Update",
-                  "100% Data Integrity"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Concurrent time slicing yields execution to background browser tasks."
           },
           {
-            "at": "say4",
-            "caption": "Pre-commit validation ensures zero torn frames even under one,multiple.",
-            "values": {
-              "left": {
-                "items": [
-                  "12 Torn Frames / Sec",
-                  "High UI Stutter",
-                  "Unsafe Trading Desk",
-                  "Audit Failure"
-                ]
-              },
-              "right": {
-                "items": [
-                  "0 Torn Frames / Sec",
-                  "Smooth 60 FPS",
-                  "Grade A+ Trading Desk",
-                  "Certified Compliant"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "at": "say5",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Conflicting values render across components during external mutations."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Built-in state hooks remain immune to tearing via Fiber queues."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "The useSyncExternalStore Contract: subscribe, getSnapshot, getServerSnapshot & Re-render Scheduling",
       "codeHash": "d0c74e2618ed3a925ec71e93a7b6da142f01040c8cafeef10bcdf15d984bd17e",
       "spec": {
-        "template": "flow",
-        "title": "Pre-Commit Consistency Check & SyncLane Recovery Flow",
-        "nodes": [
+        "template": "boxes",
+        "title": "useSyncExternalStore Contract",
+        "boxes": [
           {
-            "id": "render_start",
-            "label": "Concurrent Render Start",
-            "tappable": false
+            "id": "b1",
+            "title": "Subscription Callback",
+            "desc": "subscribe",
+            "tone": "data"
           },
           {
-            "id": "mid_mutation",
-            "label": "Mid-Render Store Mutation",
-            "tappable": false
+            "id": "b2",
+            "title": "Client Snapshot",
+            "desc": "getSnapshot",
+            "tone": "ok"
           },
           {
-            "id": "pre_commit",
-            "label": "Pre-Commit getSnapshot()",
-            "tappable": false
+            "id": "b3",
+            "title": "Server Snapshot",
+            "desc": "getServerSnapshot",
+            "tone": "idle"
           },
           {
-            "id": "sync_recovery",
-            "label": "SyncLane Atomic Flush",
-            "tappable": false
+            "id": "b4",
+            "title": "Validation Check",
+            "desc": "isTorn",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "React initiates a low-priority concurrent render pass across the component tree.",
-            "values": {
-              "render_start": {
-                "text": "\"Pass Started\""
-              },
-              "mid_mutation": {
-                "text": "\"Idle\""
-              },
-              "pre_commit": {
-                "text": "\"Pending\""
-              },
-              "sync_recovery": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "render_start": "data",
-              "mid_mutation": "idle",
-              "pre_commit": "idle",
-              "sync_recovery": "idle"
-            },
-            "arrows": [
-              [
-                "render_start",
-                "mid_mutation"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "A rapid WebSocket tick updates the external store during time-slice pause.",
-            "values": {
-              "render_start": {
-                "text": "\"Paused\""
-              },
-              "mid_mutation": {
-                "text": "\"Tick Mutated $155\""
-              },
-              "pre_commit": {
-                "text": "\"Evaluating\""
-              },
-              "sync_recovery": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "render_start": "idle",
-              "mid_mutation": "error",
-              "pre_commit": "data",
-              "sync_recovery": "idle"
-            },
-            "arrows": [
-              [
-                "mid_mutation",
-                "pre_commit"
-              ]
-            ]
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "The hook coordinates subscription listeners with synchronous reads."
           },
           {
             "at": "say3",
-            "caption": "React invokes getSnapshot right before commit and traps the snapshot difference.",
-            "values": {
-              "render_start": {
-                "text": "\"Discarded\""
-              },
-              "mid_mutation": {
-                "text": "\"Trapped\""
-              },
-              "pre_commit": {
-                "text": "\"Mismatch Detected\""
-              },
-              "sync_recovery": {
-                "text": "\"SyncLane Fired\""
-              }
-            },
-            "tones": {
-              "render_start": "error",
-              "mid_mutation": "ok",
-              "pre_commit": "error",
-              "sync_recovery": "ok"
-            },
-            "arrows": [
-              [
-                "pre_commit",
-                "sync_recovery"
-              ]
-            ]
+            "highlight": [
+              "b2"
+            ],
+            "caption": "getSnapshot returns the current immutable snapshot of store state."
           },
           {
-            "at": "say4",
-            "caption": "The entire tree synchronously re-renders in SyncLane, guaranteeing tear-free pixels.",
-            "values": {
-              "render_start": {
-                "text": "\"Clean Tree\""
-              },
-              "mid_mutation": {
-                "text": "\"Synced\""
-              },
-              "pre_commit": {
-                "text": "\"Validated\""
-              },
-              "sync_recovery": {
-                "text": "\"Flushed 60FPS\""
-              }
-            },
-            "tones": {
-              "render_start": "ok",
-              "mid_mutation": "ok",
-              "pre_commit": "ok",
-              "sync_recovery": "ok"
-            },
-            "arrows": [
-              [
-                "sync_recovery",
-                "render_start"
-              ]
-            ]
+            "at": "say6",
+            "highlight": [
+              "b2",
+              "b4"
+            ],
+            "caption": "React detects mid-render store mutations and restarts synchronously."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "useSyncExternalStore Contract",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Subscription Callback",
+            "desc": "subscribe",
+            "tone": "data"
+          },
+          {
+            "id": "b2",
+            "title": "Client Snapshot",
+            "desc": "getSnapshot",
+            "tone": "ok"
+          },
+          {
+            "id": "b3",
+            "title": "Server Snapshot",
+            "desc": "getServerSnapshot",
+            "tone": "idle"
+          },
+          {
+            "id": "b4",
+            "title": "Validation Check",
+            "desc": "isTorn",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "The hook coordinates subscription listeners with synchronous reads."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "b2"
+            ],
+            "caption": "getSnapshot returns the current immutable snapshot of store state."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "b2",
+              "b4"
+            ],
+            "caption": "React detects mid-render store mutations and restarts synchronously."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "Snapshot Stability & Referential Equality: Avoiding Infinite Render Loops with Memoized Selectors",
       "codeHash": "44bc6dc7b9adbc2994cc81dd61bb5b62ae8b8a679af62ed3e197470d03b693a6",
       "spec": {
-        "template": "boxes",
-        "title": "Selective Store Subscriptions & Memoized Selectors",
-        "boxes": [
+        "template": "states",
+        "title": "Snapshot Referential Stability",
+        "states": [
           {
-            "id": "ext_store",
-            "label": "External High-Frequency Store (10,000 ticks/sec)",
-            "tappable": false
+            "id": "s1",
+            "title": "Primitive Snapshot",
+            "desc": "primitive",
+            "tone": "ok"
           },
           {
-            "id": "selector_guard",
-            "label": "Memoized Selector (Cached Slice Equality)",
-            "tappable": false
+            "id": "s2",
+            "title": "Unstable Object",
+            "desc": "unstableSelector",
+            "tone": "error"
           },
           {
-            "id": "active_widget",
-            "label": "Subscribed Widget (NVDA Quote - Re-renders)",
-            "tappable": false
+            "id": "s3",
+            "title": "Memoized Cache",
+            "desc": "memoizedSelector",
+            "tone": "ok"
           },
           {
-            "id": "unrelated_widget",
-            "label": "Unrelated Widget (AAPL Quote - Bails Out)",
-            "tappable": false
+            "id": "s4",
+            "title": "Loop Guard",
+            "desc": "maxLoopExceeded",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The external store receives continuous tick updates from exchange WebSockets.",
-            "values": {
-              "ext_store": {
-                "text": "\"Tick NVDA: $175\""
-              },
-              "selector_guard": {
-                "text": "\"Filtering\""
-              },
-              "active_widget": {
-                "text": "\"Standby\""
-              },
-              "unrelated_widget": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "ext_store": "data",
-              "selector_guard": "data",
-              "active_widget": "idle",
-              "unrelated_widget": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "The selector evaluates only the specific slice requested by each component.",
-            "values": {
-              "ext_store": {
-                "text": "\"Dispatched\""
-              },
-              "selector_guard": {
-                "text": "\"Comparing Refs\""
-              },
-              "active_widget": {
-                "text": "\"Value Changed\""
-              },
-              "unrelated_widget": {
-                "text": "\"Unchanged Ref\""
-              }
-            },
-            "tones": {
-              "ext_store": "ok",
-              "selector_guard": "ok",
-              "active_widget": "data",
-              "unrelated_widget": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Unrelated components skip reconciliation entirely, saving main thread cycles.",
-            "values": {
-              "ext_store": {
-                "text": "\"Idle\""
-              },
-              "selector_guard": {
-                "text": "\"Passed\""
-              },
-              "active_widget": {
-                "text": "\"Re-rendering\""
-              },
-              "unrelated_widget": {
-                "text": "\"Bailed Out (0ms)\""
-              }
-            },
-            "tones": {
-              "ext_store": "idle",
-              "selector_guard": "ok",
-              "active_widget": "data",
-              "unrelated_widget": "ok"
-            }
+            "highlight": [
+              "s1"
+            ],
+            "caption": "React checks snapshot equality using strict referential comparisons."
           },
           {
             "at": "say4",
-            "caption": "Only the active NVDA widget updates on screen, sustaining multiple FPS.",
-            "values": {
-              "ext_store": {
-                "text": "\"Synced\""
-              },
-              "selector_guard": {
-                "text": "\"Cached\""
-              },
-              "active_widget": {
-                "text": "\"Updated: $175\""
-              },
-              "unrelated_widget": {
-                "text": "\"Preserved: $150\""
-              }
-            },
-            "tones": {
-              "ext_store": "ok",
-              "selector_guard": "ok",
-              "active_widget": "ok",
-              "unrelated_widget": "ok"
-            }
+            "highlight": [
+              "s2"
+            ],
+            "caption": "Allocating fresh objects causes infinite loops and fatal crashes."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "Memoized selectors cache derived results to protect render stability."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Snapshot Referential Stability",
+        "states": [
+          {
+            "id": "s1",
+            "title": "Primitive Snapshot",
+            "desc": "primitive",
+            "tone": "ok"
+          },
+          {
+            "id": "s2",
+            "title": "Unstable Object",
+            "desc": "unstableSelector",
+            "tone": "error"
+          },
+          {
+            "id": "s3",
+            "title": "Memoized Cache",
+            "desc": "memoizedSelector",
+            "tone": "ok"
+          },
+          {
+            "id": "s4",
+            "title": "Loop Guard",
+            "desc": "maxLoopExceeded",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "s1"
+            ],
+            "caption": "React checks snapshot equality using strict referential comparisons."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "s2"
+            ],
+            "caption": "Allocating fresh objects causes infinite loops and fatal crashes."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "Memoized selectors cache derived results to protect render stability."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Building an Enterprise Observable State Store (Zustand/Redux Core Architecture) in Pure JavaScript",
       "codeHash": "6caa7561ac1618ca61be2584f0462cba67b9e909fccc0f3b2a257558303eac88",
       "spec": {
-        "template": "component-tree",
-        "title": "Concurrent Trading View Selective Subscription Tree",
-        "items": [
+        "template": "boxes",
+        "title": "Observable Store Engine",
+        "boxes": [
           {
-            "id": "desk_root",
-            "label": "TradingDeskRoot (Host Layout)",
-            "depth": 0,
-            "status": "active"
+            "id": "o1",
+            "title": "State Snapshot",
+            "desc": "getState",
+            "tone": "idle"
           },
           {
-            "id": "market_panel",
-            "label": "MarketWatchPanel (Subscribed to NVDA)",
-            "depth": 1,
-            "status": "active"
+            "id": "o2",
+            "title": "Action Dispatcher",
+            "desc": "setState",
+            "tone": "data"
           },
           {
-            "id": "portfolio_panel",
-            "label": "PortfolioMarginPanel (Subscribed to Cash)",
-            "depth": 1,
-            "status": "active"
+            "id": "o3",
+            "title": "Subscriber Set",
+            "desc": "listeners",
+            "tone": "ok"
           },
           {
-            "id": "order_depth",
-            "label": "OrderBookDepth (Subscribed to NVDA Book)",
-            "depth": 2,
-            "status": "active"
-          },
-          {
-            "id": "history_log",
-            "label": "TradeAuditHistory (Subscribed to Orders)",
-            "depth": 2,
-            "status": "active"
+            "id": "o4",
+            "title": "Slice Selector",
+            "desc": "useStore",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "TradingDeskRoot mounts high-density financial widgets across the workspace.",
-            "values": {
-              "desk_root": {
-                "text": "\"Root Active\""
-              },
-              "market_panel": {
-                "text": "\"Listening\""
-              },
-              "portfolio_panel": {
-                "text": "\"Listening\""
-              },
-              "order_depth": {
-                "text": "\"Listening\""
-              },
-              "history_log": {
-                "text": "\"Listening\""
-              }
-            },
-            "tones": {
-              "desk_root": "ok",
-              "market_panel": "idle",
-              "portfolio_panel": "idle",
-              "order_depth": "idle",
-              "history_log": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "An NVDA price tick arrives; MarketWatchPanel and OrderBookDepth update.",
-            "values": {
-              "desk_root": {
-                "text": "\"Skipped\""
-              },
-              "market_panel": {
-                "text": "\"Re-rendered\""
-              },
-              "portfolio_panel": {
-                "text": "\"Skipped\""
-              },
-              "order_depth": {
-                "text": "\"Re-rendered\""
-              },
-              "history_log": {
-                "text": "\"Skipped\""
-              }
-            },
-            "tones": {
-              "desk_root": "ok",
-              "market_panel": "data",
-              "portfolio_panel": "ok",
-              "order_depth": "data",
-              "history_log": "ok"
-            }
+            "highlight": [
+              "o1",
+              "o2"
+            ],
+            "caption": "Observable stores decouple state storage from the component tree."
           },
           {
             "at": "say3",
-            "caption": "Portfolio and History panels completely bypass reconciliation due to stable references.",
-            "values": {
-              "desk_root": {
-                "text": "\"Zero Cost\""
-              },
-              "market_panel": {
-                "text": "\"Committed\""
-              },
-              "portfolio_panel": {
-                "text": "\"Bailed Out\""
-              },
-              "order_depth": {
-                "text": "\"Committed\""
-              },
-              "history_log": {
-                "text": "\"Bailed Out\""
-              }
-            },
-            "tones": {
-              "desk_root": "ok",
-              "market_panel": "ok",
-              "portfolio_panel": "ok",
-              "order_depth": "ok",
-              "history_log": "ok"
-            }
+            "highlight": [
+              "o3",
+              "o4"
+            ],
+            "caption": "Components subscribe to isolated slices without tree-wide re-renders."
           },
           {
             "at": "say4",
-            "caption": "Full screen renders in one.eightms with zero torn frames across all panels.",
-            "values": {
-              "desk_root": {
-                "text": "\"60 FPS Stable\""
-              },
-              "market_panel": {
-                "text": "\"Sync: $175\""
-              },
-              "portfolio_panel": {
-                "text": "\"Sync: $100K\""
-              },
-              "order_depth": {
-                "text": "\"Sync: 500 Bids\""
-              },
-              "history_log": {
-                "text": "\"Sync: 12 Fills\""
-              }
-            },
-            "tones": {
-              "desk_root": "ok",
-              "market_panel": "ok",
-              "portfolio_panel": "ok",
-              "order_depth": "ok",
-              "history_log": "ok"
-            }
+            "highlight": [
+              "o1",
+              "o3"
+            ],
+            "caption": "The immutable state engine notifies listeners when values change."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Observable Store Engine",
+        "boxes": [
+          {
+            "id": "o1",
+            "title": "State Snapshot",
+            "desc": "getState",
+            "tone": "idle"
+          },
+          {
+            "id": "o2",
+            "title": "Action Dispatcher",
+            "desc": "setState",
+            "tone": "data"
+          },
+          {
+            "id": "o3",
+            "title": "Subscriber Set",
+            "desc": "listeners",
+            "tone": "ok"
+          },
+          {
+            "id": "o4",
+            "title": "Slice Selector",
+            "desc": "useStore",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "o1",
+              "o2"
+            ],
+            "caption": "Observable stores decouple state storage from the component tree."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "o3",
+              "o4"
+            ],
+            "caption": "Components subscribe to isolated slices without tree-wide re-renders."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "o1",
+              "o3"
+            ],
+            "caption": "The immutable state engine notifies listeners when values change."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Benchmarking Concurrent Rendering with useSyncExternalStore: 100% Tear-Free State Guarantees Under Heavy Load",
       "codeHash": "130008569d471c00ea9c4e26a2b58aa7f0aa7505c916f9a16f1a845662dd1f05",
       "spec": {
-        "template": "states",
-        "title": "Concurrent Scheduler & External Store Synchronization States",
-        "states": [
+        "template": "flow",
+        "title": "Concurrent Benchmark Suite",
+        "nodes": [
           {
-            "id": "idle",
-            "label": "IDLE (In-Memory Store Clean)",
-            "active": true
+            "id": "n1",
+            "label": "State Mutation",
+            "desc": "dispatchUpdate",
+            "tone": "data",
+            "tappable": false
           },
           {
-            "id": "concurrent_slice",
-            "label": "CONCURRENT_SLICE (Yielded to Main Thread)",
-            "active": false
+            "id": "n2",
+            "label": "Yield Check",
+            "desc": "simulateYield",
+            "tone": "idle",
+            "tappable": false
           },
           {
-            "id": "mismatch_detected",
-            "label": "MISMATCH_DETECTED (Snapshot Mutated)",
-            "active": false
+            "id": "n3",
+            "label": "Pre-Commit Audit",
+            "desc": "auditConsistency",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "id": "synclane_recovery",
-            "label": "SYNCLANE_RECOVERY (Atomic Synchronous Flush)",
-            "active": false
+            "id": "n4",
+            "label": "Tear-Free Commit",
+            "desc": "isTearFree",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "simulateYield"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "label": "auditConsistency"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "isTearFree"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The trading engine rests in IDLE with in-memory stores and virtual DOM in sync.",
-            "values": {
-              "idle": {
-                "text": "\"Clean State\""
-              },
-              "concurrent_slice": {
-                "text": "\"Ready\""
-              },
-              "mismatch_detected": {
-                "text": "\"None\""
-              },
-              "synclane_recovery": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "idle": "ok",
-              "concurrent_slice": "idle",
-              "mismatch_detected": "idle",
-              "synclane_recovery": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "React yields execution mid-render, entering CONCURRENT_SLICE state.",
-            "values": {
-              "idle": {
-                "text": "\"Active\""
-              },
-              "concurrent_slice": {
-                "text": "\"Yielded\""
-              },
-              "mismatch_detected": {
-                "text": "\"Watching\""
-              },
-              "synclane_recovery": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "concurrent_slice": "data",
-              "mismatch_detected": "idle",
-              "synclane_recovery": "idle"
-            }
+            "highlight": [
+              "n1"
+            ],
+            "caption": "The benchmark simulates high-frequency financial trading workloads."
           },
           {
             "at": "say3",
-            "caption": "Mid-slice mutation triggers MISMATCH_DETECTED before pixels can commit.",
-            "values": {
-              "idle": {
-                "text": "\"Aborted\""
-              },
-              "concurrent_slice": {
-                "text": "\"Discarded\""
-              },
-              "mismatch_detected": {
-                "text": "\"Tear Trapped!\""
-              },
-              "synclane_recovery": {
-                "text": "\"Triggering\""
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "concurrent_slice": "error",
-              "mismatch_detected": "error",
-              "synclane_recovery": "data"
-            }
+            "highlight": [
+              "n1",
+              "n2"
+            ],
+            "caption": "Naive subscriptions suffer tearing during concurrent yield intervals."
           },
           {
             "at": "say4",
-            "caption": "SYNCLANE_RECOVERY executes atomically, flushing tear-free pixels to screen.",
-            "values": {
-              "idle": {
-                "text": "\"Clean Return\""
-              },
-              "concurrent_slice": {
-                "text": "\"Bypassed\""
-              },
-              "mismatch_detected": {
-                "text": "\"Resolved\""
-              },
-              "synclane_recovery": {
-                "text": "\"Atomic Commit\""
-              }
-            },
-            "tones": {
-              "idle": "ok",
-              "concurrent_slice": "idle",
-              "mismatch_detected": "ok",
-              "synclane_recovery": "ok"
-            }
+            "highlight": [
+              "n3",
+              "n4"
+            ],
+            "caption": "useSyncExternalStore delivers absolute data integrity without tears."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Concurrent Benchmark Suite",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "State Mutation",
+            "desc": "dispatchUpdate",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Yield Check",
+            "desc": "simulateYield",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Pre-Commit Audit",
+            "desc": "auditConsistency",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Tear-Free Commit",
+            "desc": "isTearFree",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "simulateYield"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "label": "auditConsistency"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "isTearFree"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "n1"
+            ],
+            "caption": "The benchmark simulates high-frequency financial trading workloads."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "n1",
+              "n2"
+            ],
+            "caption": "Naive subscriptions suffer tearing during concurrent yield intervals."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "n3",
+              "n4"
+            ],
+            "caption": "useSyncExternalStore delivers absolute data integrity without tears."
           }
         ]
       }
