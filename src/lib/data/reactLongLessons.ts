@@ -12084,8 +12084,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Urgent vs Transition Updates: High-Priority Keystrokes vs Low-Priority State Changes, an engineering or financial team first captures Urgent and validates Transition against Updates before committing High-Priority. Direct physical user inputs demand sub-16ms hardware feedback to prevent human perception of UI jank and typing stutter.",
         check: {
           question: "Which of the following interactions should be treated as an Urgent Update in React?",
-          options: ["Direct physical input like typing a character into a text input or clicking a toggle button", "Filtering 10,000 records across multiple columns in a data grid", "Loading and parsing a 50-megabyte CSV file in the background"],
-          answer: 0,
+          options: [
+            "Filtering ten thousand records across multiple columns inside an enterprise data grid.",
+            "Direct physical input like typing in a text field or clicking an urgent button toggle.",
+            "Loading and parsing fifty megabytes of raw analytical telemetry files in background.",
+            "Generating dynamic vector embeddings for offline semantic document classification."
+          ],
+          answer: 1,
           why: "Direct physical user inputs demand sub-16ms hardware feedback to prevent human perception of UI jank and typing stutter."
         }
       },
@@ -12112,8 +12117,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Anatomy of startTransition: Marking State Updates with Low-Priority Lanes, an engineering or financial team first captures Anatomy and validates startTransition against Marking before committing State. React sets an internal transition batch context before running the startTransition callback, tagging all nested state dispatches with transition lanes.",
         check: {
           question: "How does React internally detect that a setState call should be treated as a transition?",
-          options: ["By inspecting an internal batch config context variable set during startTransition execution", "By inspecting the name of the state variable to see if it starts with 'transition'", "By querying the browser window.navigator object"],
-          answer: 0,
+          options: [
+            "By inspecting the name of the state variable to see if it begins with transition prefix.",
+            "By requesting an asynchronous permission token directly from browser navigator hardware.",
+            "By querying global document cookies to evaluate active user session authorization flags.",
+            "By inspecting an internal batch config context variable set during startTransition call."
+          ],
+          answer: 3,
           why: "React sets an internal transition batch context before running the startTransition callback, tagging all nested state dispatches with transition lanes."
         }
       },
@@ -12140,7 +12150,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing The isPending Flag: Designing Non-Blocking User Feedback and Shimmer Indicators, an engineering or financial team first captures isPending and validates Designing against Non-Blocking before committing Feedback. isPending allows developers to indicate background work (e.g.",
         check: {
           question: "What is the primary architectural advantage of useTransition's isPending flag over traditional loading spinners?",
-          options: ["It keeps the existing UI visible and interactive while background work computes, avoiding disorienting layout flashes", "It forces the browser to disable all CSS animations automatically", "It converts client-side JavaScript into server-side PHP"],
+          options: [
+            "It keeps existing UI visible and interactive while background work computes offscreen.",
+            "It forces the browser to disable all CSS animations automatically during rendering runs.",
+            "It converts client-side JavaScript code into server-side PHP scripts without overhead.",
+            "It serializes component states into indexedDB storage to bypass future virtual DOM runs."
+          ],
           answer: 0,
           why: "isPending allows developers to indicate background work (e.g. via dimming or inline badges) without unmounting the existing interface."
         }
@@ -12168,8 +12183,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Concurrent Interruption in Action: Bailing Out and Discarding Obsolete Renders, an engineering or financial team first captures Concurrent and validates Interruption against Action before committing Bailing. Concurrent React can interrupt and discard stale background renders in memory without ever touching the real DOM.",
         check: {
           question: "What happens in Concurrent React when an urgent update arrives while a background transition is rendering?",
-          options: ["React yields, handles the urgent update, and can discard the obsolete background render if a newer transition arrives", "React crashes the browser with an unhandled exception", "React blocks the urgent update until the background render finishes 100%"],
-          answer: 0,
+          options: [
+            "React crashes the browser execution thread with an unhandled fatal memory leak warning.",
+            "React blocks the urgent update until the background transition finishes one hundred pct.",
+            "React yields, handles urgent update, and can discard obsolete background transition work.",
+            "React serializes both updates to local storage and forces a complete full browser reload."
+          ],
+          answer: 2,
           why: "Concurrent React can interrupt and discard stale background renders in memory without ever touching the real DOM."
         }
       },
@@ -12198,8 +12218,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Building a Priority-Aware Concurrent Transition Dispatcher in Pure JavaScript, an engineering or financial team first captures Building and validates Priority-Aware against Concurrent before committing Transition. Comparing transition IDs prevents race conditions where a slow, older render finishes after a fast, newer render.",
         check: {
           question: "Why is the transitionId check critical when committing concurrent transition updates?",
-          options: ["To ensure that older, superseded background renders do not overwrite newer state commits", "To generate random numbers for browser security tokens", "To encrypt the data transmitted over HTTP requests"],
-          answer: 0,
+          options: [
+            "To generate cryptographically random numbers for browser security session verification.",
+            "To ensure that older, superseded background renders do not overwrite newer state commits.",
+            "To encrypt the sensitive user data transmitted over external HTTP request headers cleanly.",
+            "To compress the rendered HTML markup before transferring payloads across websocket pipes."
+          ],
+          answer: 1,
           why: "Comparing transition IDs prevents race conditions where a slow, older render finishes after a fast, newer render."
         }
       }

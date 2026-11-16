@@ -9,161 +9,241 @@
       "partTitle": "Urgent vs Transition Updates: High-Priority Keystrokes vs Low-Priority State Changes",
       "codeHash": "d117aeaaec1914bc4069afa52e95ca4c9fe1fb5666a80aef70fa830656ac6235",
       "spec": {
-        "template": "compare",
-        "title": "Urgent Input Keystroke Lane vs Transition Filtering Lane",
-        "leftLabel": "Urgent Lane (Keystroke)",
-        "rightLabel": "Transition Lane (10k Rows)",
+        "template": "boxes",
+        "title": "Urgent vs Transition State Update Prioritization",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "urgent"
+          },
+          {
+            "id": "b2",
+            "label": "transition"
+          },
+          {
+            "id": "b3",
+            "label": "urgentQueue"
+          },
+          {
+            "id": "b4",
+            "label": "transitionQueue"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Urgent updates echo character inputs immediately at multiple FPS without.",
-            "left": {
-              "code": "setSearchText('A');",
-              "result": {
-                "text": "\"Echo 'A' (0ms)\""
+            "caption": "Legacy rendering treated all state updates with identical urgency.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "startTransition(() => filter(10000));",
-              "result": {
-                "text": "\"Scheduled\""
-              },
-              "tone": "idle"
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Transition updates execute in the background with lower CPU priority.",
-            "left": {
-              "code": "console.log(urgentInput);",
-              "result": {
-                "text": "\"'A' rendered\""
+            "caption": "Debounce introduced artificial delay compromising fast user typing.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "console.log(isPending);",
-              "result": {
-                "text": "\"true (computing)\""
-              },
-              "tone": "data"
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "A second keystroke 'Al' arrives before the filter completes and interrupts it.",
-            "left": {
-              "code": "setSearchText('Al');",
-              "result": {
-                "text": "\"Echo 'Al' (0ms)\""
+            "caption": "Urgent updates require immediate hardware feedback under fifty ms.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "console.log('Preempted');",
-              "result": {
-                "text": "\"Job Aborted\""
-              },
-              "tone": "data"
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "The background lane smoothly restarts with 'Al' and commits the final result.",
-            "left": {
-              "code": "console.log(urgentInput);",
-              "result": {
-                "text": "\"'Al' synced\""
+            "caption": "Transition updates compute large filtered datasets in background.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "console.log(isPending);",
-              "result": {
-                "text": "\"false (2500 rows)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Urgent Input Keystroke Lane vs Transition Filtering Lane",
-        "leftLabel": "Urgent Lane (Keystroke)",
-        "rightLabel": "Transition Lane (10k Rows)",
+        "template": "boxes",
+        "title": "Urgent vs Transition State Update Prioritization",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "urgent"
+          },
+          {
+            "id": "b2",
+            "label": "transition"
+          },
+          {
+            "id": "b3",
+            "label": "urgentQueue"
+          },
+          {
+            "id": "b4",
+            "label": "transitionQueue"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Urgent updates echo character inputs immediately at 60 FPS without delay.",
-            "left": {
-              "code": "setSearchText('A');",
-              "result": {
-                "text": "\"Echo 'A' (0ms)\""
+            "caption": "Legacy rendering treated all state updates with identical urgency.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "startTransition(() => filter(10000));",
-              "result": {
-                "text": "\"Scheduled\""
-              },
-              "tone": "idle"
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Transition updates execute in the background with lower CPU priority.",
-            "left": {
-              "code": "console.log(urgentInput);",
-              "result": {
-                "text": "\"'A' rendered\""
+            "caption": "Debounce introduced artificial delay compromising fast user typing.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "console.log(isPending);",
-              "result": {
-                "text": "\"true (computing)\""
-              },
-              "tone": "data"
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "A second keystroke 'Al' arrives before the filter completes and interrupts it.",
-            "left": {
-              "code": "setSearchText('Al');",
-              "result": {
-                "text": "\"Echo 'Al' (0ms)\""
+            "caption": "Urgent updates require immediate hardware feedback under fifty ms.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "console.log('Preempted');",
-              "result": {
-                "text": "\"Job Aborted\""
-              },
-              "tone": "data"
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "The background lane smoothly restarts with 'Al' and commits the final result.",
-            "left": {
-              "code": "console.log(urgentInput);",
-              "result": {
-                "text": "\"'Al' synced\""
+            "caption": "Transition updates compute large filtered datasets in background.",
+            "values": {
+              "b1": {
+                "text": "urgent"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "transition"
+              },
+              "b3": {
+                "text": "urgentQueue"
+              },
+              "b4": {
+                "text": "transitionQueue"
+              }
             },
-            "right": {
-              "code": "console.log(isPending);",
-              "result": {
-                "text": "\"false (2500 rows)\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
@@ -174,147 +254,143 @@
       "codeHash": "aaef2d0e2c6191f3f862e91d34caa189a62d081aafd5458e79a604defe8ea0a2",
       "spec": {
         "template": "flow",
-        "title": "startTransition Non-Blocking Execution Flow",
+        "title": "React Concurrent Lanes and startTransition Context",
         "nodes": [
           {
-            "id": "k1",
-            "label": "Keystroke",
-            "tappable": false
+            "id": "n1",
+            "label": "Sync"
           },
           {
-            "id": "k2",
-            "label": "startTransition",
-            "tappable": false
+            "id": "n2",
+            "label": "Default"
           },
           {
-            "id": "k3",
-            "label": "Time-Slice",
-            "tappable": false
+            "id": "n3",
+            "label": "Transition"
           },
           {
-            "id": "k4",
-            "label": "DOM Flush",
-            "tappable": false
+            "id": "n4",
+            "label": "startTransition"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User interaction fires keystroke event into the synchronous handler.",
+            "caption": "Hook useTransition returns pending boolean and transition launcher.",
             "values": {
-              "k1": {
-                "text": "\"Input 'A'\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Waiting\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Idle\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Idle\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "idle",
-              "k3": "idle",
-              "k4": "idle"
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "data"
             },
             "arrows": [
               [
-                "k1",
-                "k2"
+                "n4",
+                "n3"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "startTransition wraps state setter, tagging fibers with LowPriority transition lane.",
+            "caption": "Bitmask lanes allocate priority levels across concurrent work units.",
             "values": {
-              "k1": {
-                "text": "\"Echoed\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Tagged Lane\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Slicing\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Idle\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "data",
-              "k3": "data",
-              "k4": "idle"
+              "n1": "ok",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "k2",
-                "k3"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Fiber scheduler evaluates row slices while yielding control back to browser between chunks.",
+            "caption": "Callback context assigns transition lane bitmask to state setters.",
             "values": {
-              "k1": {
-                "text": "\"Responsive\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Yielding\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Processing\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Pending\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "idle",
-              "k3": "data",
-              "k4": "idle"
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "data"
             },
             "arrows": [
               [
-                "k3",
-                "k4"
+                "n4",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "When calculation completes, React commits the new dataset to the DOM in a single atomic pass.",
+            "caption": "Context resets to null after scope execution completes cleanly.",
             "values": {
-              "k1": {
-                "text": "\"Ready\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Settled\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Complete\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Painted\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "ok",
-              "k3": "ok",
-              "k4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "k3",
-                "k4"
+                "n3",
+                "n1"
               ]
             ]
           }
@@ -322,147 +398,143 @@
       },
       "filled": {
         "template": "flow",
-        "title": "startTransition Non-Blocking Execution Flow",
+        "title": "React Concurrent Lanes and startTransition Context",
         "nodes": [
           {
-            "id": "k1",
-            "label": "Keystroke",
-            "tappable": false
+            "id": "n1",
+            "label": "Sync"
           },
           {
-            "id": "k2",
-            "label": "startTransition",
-            "tappable": false
+            "id": "n2",
+            "label": "Default"
           },
           {
-            "id": "k3",
-            "label": "Time-Slice",
-            "tappable": false
+            "id": "n3",
+            "label": "Transition"
           },
           {
-            "id": "k4",
-            "label": "DOM Flush",
-            "tappable": false
+            "id": "n4",
+            "label": "startTransition"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User interaction fires keystroke event into the synchronous handler.",
+            "caption": "Hook useTransition returns pending boolean and transition launcher.",
             "values": {
-              "k1": {
-                "text": "\"Input 'A'\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Waiting\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Idle\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Idle\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "idle",
-              "k3": "idle",
-              "k4": "idle"
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "data"
             },
             "arrows": [
               [
-                "k1",
-                "k2"
+                "n4",
+                "n3"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "startTransition wraps state setter, tagging fibers with LowPriority transition lane.",
+            "caption": "Bitmask lanes allocate priority levels across concurrent work units.",
             "values": {
-              "k1": {
-                "text": "\"Echoed\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Tagged Lane\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Slicing\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Idle\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "data",
-              "k3": "data",
-              "k4": "idle"
+              "n1": "ok",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "k2",
-                "k3"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Fiber scheduler evaluates row slices while yielding control back to browser between chunks.",
+            "caption": "Callback context assigns transition lane bitmask to state setters.",
             "values": {
-              "k1": {
-                "text": "\"Responsive\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Yielding\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Processing\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Pending\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "idle",
-              "k3": "data",
-              "k4": "idle"
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "data"
             },
             "arrows": [
               [
-                "k3",
-                "k4"
+                "n4",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "When calculation completes, React commits the new dataset to the DOM in a single atomic pass.",
+            "caption": "Context resets to null after scope execution completes cleanly.",
             "values": {
-              "k1": {
-                "text": "\"Ready\""
+              "n1": {
+                "text": "Sync"
               },
-              "k2": {
-                "text": "\"Settled\""
+              "n2": {
+                "text": "Default"
               },
-              "k3": {
-                "text": "\"Complete\""
+              "n3": {
+                "text": "Transition"
               },
-              "k4": {
-                "text": "\"Painted\""
+              "n4": {
+                "text": "startTransition"
               }
             },
             "tones": {
-              "k1": "ok",
-              "k2": "ok",
-              "k3": "ok",
-              "k4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "k3",
-                "k4"
+                "n3",
+                "n1"
               ]
             ]
           }
@@ -473,90 +545,242 @@
       "partTitle": "The isPending Flag: Designing Non-Blocking User Feedback and Shimmer Indicators",
       "codeHash": "440d0daf32702c806e1942aaa39171d9b085bbd77320023c291be611d7a96c8c",
       "spec": {
-        "template": "states",
-        "title": "isPending Lifecycle State Transitions",
-        "states": [
+        "template": "boxes",
+        "title": "isPending Transition Lifecycle and Shimmer Feedback",
+        "boxes": [
           {
-            "id": "p0",
-            "label": "IDLE (isPending=false)"
+            "id": "b1",
+            "label": "isPending"
           },
           {
-            "id": "p1",
-            "label": "CALCULATING (isPending=true)"
+            "id": "b2",
+            "label": "run"
           },
           {
-            "id": "p2",
-            "label": "COMMITTED (isPending=false)"
+            "id": "b3",
+            "label": "tracker"
+          },
+          {
+            "id": "b4",
+            "label": "filtered"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Grid begins in idle state displaying synced dataset with isPending false.",
-            "activeId": "p0",
-            "tone": "ok"
+            "caption": "User requires visual feedback that asynchronous transition is active.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "startTransition is invoked, flipping isPending to true and rendering subtle loading badge.",
-            "activeId": "p1",
-            "tone": "data"
+            "caption": "Flag flips to true immediately to render skeleton shimmer states.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Background filtering continues while user can freely interact with the UI.",
-            "activeId": "p1",
-            "tone": "data"
+            "caption": "Existing interface remains visible and clickable during transition.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Calculation resolves, dataset updates atomically, and isPending transitions back to false.",
-            "activeId": "p2",
-            "tone": "ok"
+            "caption": "Flag returns to false atomically when background mutations commit.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "isPending Lifecycle State Transitions",
-        "states": [
+        "template": "boxes",
+        "title": "isPending Transition Lifecycle and Shimmer Feedback",
+        "boxes": [
           {
-            "id": "p0",
-            "label": "IDLE (isPending=false)"
+            "id": "b1",
+            "label": "isPending"
           },
           {
-            "id": "p1",
-            "label": "CALCULATING (isPending=true)"
+            "id": "b2",
+            "label": "run"
           },
           {
-            "id": "p2",
-            "label": "COMMITTED (isPending=false)"
+            "id": "b3",
+            "label": "tracker"
+          },
+          {
+            "id": "b4",
+            "label": "filtered"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Grid begins in idle state displaying synced dataset with isPending false.",
-            "activeId": "p0",
-            "tone": "ok"
+            "caption": "User requires visual feedback that asynchronous transition is active.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "startTransition is invoked, flipping isPending to true and rendering subtle loading badge.",
-            "activeId": "p1",
-            "tone": "data"
+            "caption": "Flag flips to true immediately to render skeleton shimmer states.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Background filtering continues while user can freely interact with the UI.",
-            "activeId": "p1",
-            "tone": "data"
+            "caption": "Existing interface remains visible and clickable during transition.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Calculation resolves, dataset updates atomically, and isPending transitions back to false.",
-            "activeId": "p2",
-            "tone": "ok"
+            "caption": "Flag returns to false atomically when background mutations commit.",
+            "values": {
+              "b1": {
+                "text": "isPending"
+              },
+              "b2": {
+                "text": "run"
+              },
+              "b3": {
+                "text": "tracker"
+              },
+              "b4": {
+                "text": "filtered"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       }
@@ -566,147 +790,143 @@
       "codeHash": "92cd05903da6f5496a3cf078db39f521db9f734030985a8ca75064ccea771b7b",
       "spec": {
         "template": "flow",
-        "title": "Concurrent Interruption and Preemption Mechanism",
+        "title": "Concurrent Interruption and Obsolete Render Abandonment",
         "nodes": [
           {
-            "id": "c1",
-            "label": "Job 1 (Query 'E')",
-            "tappable": false
+            "id": "n1",
+            "label": "activeTask"
           },
           {
-            "id": "c2",
-            "label": "Chunk 2 / 4",
-            "tappable": false
+            "id": "n2",
+            "label": "abandonedTasks"
           },
           {
-            "id": "c3",
-            "label": "Interruption ('En')",
-            "tappable": false
+            "id": "n3",
+            "label": "committedTasks"
           },
           {
-            "id": "c4",
-            "label": "Job 2 Active",
-            "tappable": false
+            "id": "n4",
+            "label": "dispatcher"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Job one starts computing filtered records for initial query 'E'.",
+            "caption": "Concurrent engine can abandon background work that becomes obsolete.",
             "values": {
-              "c1": {
-                "text": "\"Active\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Processing\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"None\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "data",
-              "c2": "data",
-              "c3": "idle",
-              "c4": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "c1",
-                "c2"
+                "n4",
+                "n1"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Job one yields at chunk boundary to allow browser event dispatch.",
+            "caption": "Rapid typing in search box schedules multiple successive queries.",
             "values": {
-              "c1": {
-                "text": "\"Yielding\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Chunk 2\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"Incoming key\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "idle",
-              "c2": "data",
-              "c3": "ok",
-              "c4": "idle"
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "data"
             },
             "arrows": [
               [
-                "c2",
-                "c3"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "User types 'n', triggering urgent interruption that invalidates Job one.",
+            "caption": "Incoming keystroke pauses active transition render immediately.",
             "values": {
-              "c1": {
-                "text": "\"Preempted\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Aborted\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"Dispatched\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"Starting\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "error",
-              "c2": "error",
-              "c3": "ok",
-              "c4": "data"
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "c3",
-                "c4"
+                "n4",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Job two takes priority and computes against 'En' with fresh state.",
+            "caption": "Stale background tree is discarded in memory without DOM mutation.",
             "values": {
-              "c1": {
-                "text": "\"Discarded\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Cleaned up\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"Echoed\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"Committed\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "idle",
-              "c2": "idle",
-              "c3": "ok",
-              "c4": "ok"
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "c3",
-                "c4"
+                "n1",
+                "n3"
               ]
             ]
           }
@@ -714,147 +934,143 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Concurrent Interruption and Preemption Mechanism",
+        "title": "Concurrent Interruption and Obsolete Render Abandonment",
         "nodes": [
           {
-            "id": "c1",
-            "label": "Job 1 (Query 'E')",
-            "tappable": false
+            "id": "n1",
+            "label": "activeTask"
           },
           {
-            "id": "c2",
-            "label": "Chunk 2 / 4",
-            "tappable": false
+            "id": "n2",
+            "label": "abandonedTasks"
           },
           {
-            "id": "c3",
-            "label": "Interruption ('En')",
-            "tappable": false
+            "id": "n3",
+            "label": "committedTasks"
           },
           {
-            "id": "c4",
-            "label": "Job 2 Active",
-            "tappable": false
+            "id": "n4",
+            "label": "dispatcher"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Job 1 starts computing filtered records for initial query 'E'.",
+            "caption": "Concurrent engine can abandon background work that becomes obsolete.",
             "values": {
-              "c1": {
-                "text": "\"Active\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Processing\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"None\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "data",
-              "c2": "data",
-              "c3": "idle",
-              "c4": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "c1",
-                "c2"
+                "n4",
+                "n1"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Job 1 yields at chunk boundary to allow browser event dispatch.",
+            "caption": "Rapid typing in search box schedules multiple successive queries.",
             "values": {
-              "c1": {
-                "text": "\"Yielding\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Chunk 2\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"Incoming key\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "idle",
-              "c2": "data",
-              "c3": "ok",
-              "c4": "idle"
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "data"
             },
             "arrows": [
               [
-                "c2",
-                "c3"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "User types 'n', triggering urgent interruption that invalidates Job 1.",
+            "caption": "Incoming keystroke pauses active transition render immediately.",
             "values": {
-              "c1": {
-                "text": "\"Preempted\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Aborted\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"Dispatched\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"Starting\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "error",
-              "c2": "error",
-              "c3": "ok",
-              "c4": "data"
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "c3",
-                "c4"
+                "n4",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Job 2 takes priority and computes against 'En' with fresh state.",
+            "caption": "Stale background tree is discarded in memory without DOM mutation.",
             "values": {
-              "c1": {
-                "text": "\"Discarded\""
+              "n1": {
+                "text": "activeTask"
               },
-              "c2": {
-                "text": "\"Cleaned up\""
+              "n2": {
+                "text": "abandonedTasks"
               },
-              "c3": {
-                "text": "\"Echoed\""
+              "n3": {
+                "text": "committedTasks"
               },
-              "c4": {
-                "text": "\"Committed\""
+              "n4": {
+                "text": "dispatcher"
               }
             },
             "tones": {
-              "c1": "idle",
-              "c2": "idle",
-              "c3": "ok",
-              "c4": "ok"
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "c3",
-                "c4"
+                "n1",
+                "n3"
               ]
             ]
           }
@@ -865,250 +1081,290 @@
       "partTitle": "Building a Priority-Aware Concurrent Transition Dispatcher in Pure JavaScript",
       "codeHash": "2d7ada79c3476f79ae507b944ad143e33e3d478bc8a02ba470468394eb3c35c4",
       "spec": {
-        "template": "boxes",
-        "title": "Priority-Aware Concurrent Search Controller",
-        "boxes": [
+        "template": "flow",
+        "title": "Priority Aware Concurrent Transition Dispatcher",
+        "nodes": [
           {
-            "id": "b1",
-            "label": "Urgent Input State",
-            "tappable": false
+            "id": "n1",
+            "label": "dispatchUrgent"
           },
           {
-            "id": "b2",
-            "label": "Transition Filter",
-            "tappable": false
+            "id": "n2",
+            "label": "startTransition"
           },
           {
-            "id": "b3",
-            "label": "Status Feedback",
-            "tappable": false
+            "id": "n3",
+            "label": "isPending"
           },
           {
-            "id": "b4",
-            "label": "Rendered Viewport",
-            "tappable": false
+            "id": "n4",
+            "label": "currentId"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The search controller cleanly decouples urgent typing from heavy background computations.",
+            "caption": "Custom dispatcher synthesizes urgent and transition update queues.",
             "values": {
-              "b1": {
-                "text": "\"60 FPS\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Low Priority\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Synced\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"10000 rows\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "idle",
-              "b3": "ok",
-              "b4": "idle"
-            }
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Incoming keystroke immediately updates input state and raises isPending.",
+            "caption": "Dispatcher manages high priority tasks and background filter tasks.",
             "values": {
-              "b1": {
-                "text": "\"Updated 'A'\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Running\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Updating...\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"Stale View\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
+              "n1": "ok",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Background filter processes matching rows without blocking cursor animation.",
+            "caption": "Urgent dispatch executes immediately and signals interruption flag.",
             "values": {
-              "b1": {
-                "text": "\"Responsive\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Filtering\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Updating...\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"Stale View\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
+              "n1": "data",
+              "n2": "data",
+              "n3": "ok",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Transition commits, updating rendered rows and resetting isPending to false.",
+            "caption": "Transition ID comparison discards stale results before committing.",
             "values": {
-              "b1": {
-                "text": "\"Idle\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Done\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Synced\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"Filtered View\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "ok",
-              "b3": "ok",
-              "b4": "ok"
-            }
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n2"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Priority-Aware Concurrent Search Controller",
-        "boxes": [
+        "template": "flow",
+        "title": "Priority Aware Concurrent Transition Dispatcher",
+        "nodes": [
           {
-            "id": "b1",
-            "label": "Urgent Input State",
-            "tappable": false
+            "id": "n1",
+            "label": "dispatchUrgent"
           },
           {
-            "id": "b2",
-            "label": "Transition Filter",
-            "tappable": false
+            "id": "n2",
+            "label": "startTransition"
           },
           {
-            "id": "b3",
-            "label": "Status Feedback",
-            "tappable": false
+            "id": "n3",
+            "label": "isPending"
           },
           {
-            "id": "b4",
-            "label": "Rendered Viewport",
-            "tappable": false
+            "id": "n4",
+            "label": "currentId"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The search controller cleanly decouples urgent typing from heavy background computations.",
+            "caption": "Custom dispatcher synthesizes urgent and transition update queues.",
             "values": {
-              "b1": {
-                "text": "\"60 FPS\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Low Priority\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Synced\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"10000 rows\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "idle",
-              "b3": "ok",
-              "b4": "idle"
-            }
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Incoming keystroke immediately updates input state and raises isPending.",
+            "caption": "Dispatcher manages high priority tasks and background filter tasks.",
             "values": {
-              "b1": {
-                "text": "\"Updated 'A'\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Running\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Updating...\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"Stale View\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
+              "n1": "ok",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Background filter processes matching rows without blocking cursor animation.",
+            "caption": "Urgent dispatch executes immediately and signals interruption flag.",
             "values": {
-              "b1": {
-                "text": "\"Responsive\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Filtering\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Updating...\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"Stale View\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
+              "n1": "data",
+              "n2": "data",
+              "n3": "ok",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "Transition commits, updating rendered rows and resetting isPending to false.",
+            "caption": "Transition ID comparison discards stale results before committing.",
             "values": {
-              "b1": {
-                "text": "\"Idle\""
+              "n1": {
+                "text": "dispatchUrgent"
               },
-              "b2": {
-                "text": "\"Done\""
+              "n2": {
+                "text": "startTransition"
               },
-              "b3": {
-                "text": "\"Synced\""
+              "n3": {
+                "text": "isPending"
               },
-              "b4": {
-                "text": "\"Filtered View\""
+              "n4": {
+                "text": "currentId"
               }
             },
             "tones": {
-              "b1": "ok",
-              "b2": "ok",
-              "b3": "ok",
-              "b4": "ok"
-            }
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n2"
+              ]
+            ]
           }
         ]
       }
