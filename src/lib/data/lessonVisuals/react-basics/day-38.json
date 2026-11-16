@@ -9,161 +9,241 @@
       "partTitle": "Urgent vs Non-Urgent Updates: The Anatomy of Main-Thread UI Freezes",
       "codeHash": "5f69fe88ec45914af4d8fe0a980a3edcb9a3ecae526b5a2a2c19499b2a22edda",
       "spec": {
-        "template": "compare",
-        "title": "Synchronous Blocking setState vs Dual-Priority useTransition",
-        "leftLabel": "Legacy Synchronous setState",
-        "rightLabel": "useTransition Dual Priority",
-        "steps": [
+        "template": "boxes",
+        "title": "Urgent vs Non-Urgent Slicing",
+        "boxes": [
           {
-            "at": "say1",
-            "caption": "Legacy React treats all state updates as urgent, locking the main thread during heavy renders.",
-            "left": {
-              "code": "setQuery(text); // Locks thread for 150ms",
-              "result": {
-                "text": "\"150ms UI Freeze\""
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "startTransition(() => setQuery(text));",
-              "result": {
-                "text": "\"Non-blocking\""
-              },
-              "tone": "ok"
-            }
+            "id": "b1",
+            "label": "stateInput"
           },
           {
+            "id": "b2",
+            "label": "filteredCount"
+          },
+          {
+            "id": "b3",
+            "label": "droppedFrames"
+          },
+          {
+            "id": "b4",
+            "label": "sliceSize"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Typing drops multiple frames in synchronous updates; useTransition.",
-            "left": {
-              "code": "console.log(droppedFrames);",
-              "result": {
-                "text": "\"6 Dropped Frames\""
+            "caption": "Synchronous updates execute in same block freezing the browser thread.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "error"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
             },
-            "right": {
-              "code": "console.log(droppedFrames);",
-              "result": {
-                "text": "\"0 Dropped Frames\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "error",
+              "b3": "error",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "useTransition splits updates: text updates instantly in SyncLane, filter runs in TransitionLane.",
-            "left": {
-              "code": "console.log(lanes);",
-              "result": {
-                "text": "\"Single Urgent Lane\""
+            "caption": "Direct physical manipulation demands immediate tactile user feedback.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "data"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
             },
-            "right": {
-              "code": "console.log(lanes);",
-              "result": {
-                "text": "\"SyncLane + TransLane\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "The application achieves flawless Core Web Vitals INP scores under heavy computational loads.",
-            "left": {
-              "code": "console.log(inpScore);",
-              "result": {
-                "text": "\"Poor (> 200ms)\""
+            "caption": "Debouncing delays heavy renders without solving main thread freezes.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "error"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
             },
-            "right": {
-              "code": "console.log(inpScore);",
-              "result": {
-                "text": "\"Good (< 16ms)\""
+            "tones": {
+              "b1": "ok",
+              "b2": "error",
+              "b3": "error",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Transitions time slice computations keeping main thread responsive.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Synchronous Blocking setState vs Dual-Priority useTransition",
-        "leftLabel": "Legacy Synchronous setState",
-        "rightLabel": "useTransition Dual Priority",
-        "steps": [
+        "template": "boxes",
+        "title": "Urgent vs Non-Urgent Slicing",
+        "boxes": [
           {
-            "at": "say1",
-            "caption": "Legacy React treats all state updates as urgent, locking the main thread during heavy renders.",
-            "left": {
-              "code": "setQuery(text); // Locks thread for 150ms",
-              "result": {
-                "text": "\"150ms UI Freeze\""
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "startTransition(() => setQuery(text));",
-              "result": {
-                "text": "\"Non-blocking\""
-              },
-              "tone": "ok"
-            }
+            "id": "b1",
+            "label": "stateInput"
           },
           {
+            "id": "b2",
+            "label": "filteredCount"
+          },
+          {
+            "id": "b3",
+            "label": "droppedFrames"
+          },
+          {
+            "id": "b4",
+            "label": "sliceSize"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Typing drops multiple frames in synchronous updates; useTransition preserves 60 FPS typing.",
-            "left": {
-              "code": "console.log(droppedFrames);",
-              "result": {
-                "text": "\"6 Dropped Frames\""
+            "caption": "Synchronous updates execute in same block freezing the browser thread.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "error"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
             },
-            "right": {
-              "code": "console.log(droppedFrames);",
-              "result": {
-                "text": "\"0 Dropped Frames\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "error",
+              "b3": "error",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "useTransition splits updates: text updates instantly in SyncLane, filter runs in TransitionLane.",
-            "left": {
-              "code": "console.log(lanes);",
-              "result": {
-                "text": "\"Single Urgent Lane\""
+            "caption": "Direct physical manipulation demands immediate tactile user feedback.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "data"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
             },
-            "right": {
-              "code": "console.log(lanes);",
-              "result": {
-                "text": "\"SyncLane + TransLane\""
-              },
-              "tone": "ok"
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "The application achieves flawless Core Web Vitals INP scores under heavy computational loads.",
-            "left": {
-              "code": "console.log(inpScore);",
-              "result": {
-                "text": "\"Poor (> 200ms)\""
+            "caption": "Debouncing delays heavy renders without solving main thread freezes.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "error"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
             },
-            "right": {
-              "code": "console.log(inpScore);",
-              "result": {
-                "text": "\"Good (< 16ms)\""
+            "tones": {
+              "b1": "ok",
+              "b2": "error",
+              "b3": "error",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Transitions time slice computations keeping main thread responsive.",
+            "values": {
+              "b1": {
+                "text": "stateInput"
               },
-              "tone": "ok"
+              "b2": {
+                "text": "filteredCount"
+              },
+              "b3": {
+                "text": "droppedFrames"
+              },
+              "b4": {
+                "text": "sliceSize"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -174,97 +254,241 @@
       "codeHash": "29cc94c78324dcfb110e395c652ec15b9ec052116b16d2cf3f7bf0af9728426b",
       "spec": {
         "template": "states",
-        "title": "isPending State Machine & Visual Continuity",
+        "title": "Optimistic State Machine",
         "states": [
           {
-            "id": "ts1",
-            "label": "IDLE (opacity: 1.0)"
+            "id": "s1",
+            "label": "isPending"
           },
           {
-            "id": "ts2",
-            "label": "PENDING (opacity: 0.6)"
+            "id": "s2",
+            "label": "currentData"
           },
           {
-            "id": "ts3",
-            "label": "COMMITTING (opacity: 0.8)"
+            "id": "s3",
+            "label": "pendingData"
           },
           {
-            "id": "ts4",
-            "label": "SYNCED (opacity: 1.0)"
+            "id": "s4",
+            "label": "visualStyle"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Component begins in IDLE state displaying active content at full opacity.",
-            "activeId": "ts1",
-            "tone": "idle"
-          },
-          {
             "at": "say2",
-            "caption": "StartTransition flips isPending to true synchronously, dimming content to.",
-            "activeId": "ts2",
-            "tone": "data"
+            "caption": "Flag toggles synchronously to true before background rendering.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Heavy work reconciles in background; existing UI remains interactive and readable.",
-            "activeId": "ts3",
-            "tone": "data"
+            "caption": "Synchronous toggle enables immediate optimistic visual confirmation.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "data",
+              "s4": "ok"
+            }
           },
           {
             "at": "say4",
-            "caption": "Atomic commit swaps data and resets isPending to false, snapping opacity.",
-            "activeId": "ts4",
-            "tone": "ok"
+            "caption": "Existing screen remains readable eliminating jarring layout shifts.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Concurrent reconciler preserves visual continuity on suspension.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "isPending State Machine & Visual Continuity",
+        "title": "Optimistic State Machine",
         "states": [
           {
-            "id": "ts1",
-            "label": "IDLE (opacity: 1.0)"
+            "id": "s1",
+            "label": "isPending"
           },
           {
-            "id": "ts2",
-            "label": "PENDING (opacity: 0.6)"
+            "id": "s2",
+            "label": "currentData"
           },
           {
-            "id": "ts3",
-            "label": "COMMITTING (opacity: 0.8)"
+            "id": "s3",
+            "label": "pendingData"
           },
           {
-            "id": "ts4",
-            "label": "SYNCED (opacity: 1.0)"
+            "id": "s4",
+            "label": "visualStyle"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Component begins in IDLE state displaying active content at full opacity.",
-            "activeId": "ts1",
-            "tone": "idle"
-          },
-          {
             "at": "say2",
-            "caption": "startTransition flips isPending to true synchronously, dimming content to 0.6 opacity.",
-            "activeId": "ts2",
-            "tone": "data"
+            "caption": "Flag toggles synchronously to true before background rendering.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Heavy work reconciles in background; existing UI remains interactive and readable.",
-            "activeId": "ts3",
-            "tone": "data"
+            "caption": "Synchronous toggle enables immediate optimistic visual confirmation.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "data",
+              "s3": "data",
+              "s4": "ok"
+            }
           },
           {
             "at": "say4",
-            "caption": "Atomic commit swaps data and resets isPending to false, snapping opacity back to 1.0.",
-            "activeId": "ts4",
-            "tone": "ok"
+            "caption": "Existing screen remains readable eliminating jarring layout shifts.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Concurrent reconciler preserves visual continuity on suspension.",
+            "values": {
+              "s1": {
+                "text": "isPending"
+              },
+              "s2": {
+                "text": "currentData"
+              },
+              "s3": {
+                "text": "pendingData"
+              },
+              "s4": {
+                "text": "visualStyle"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       }
@@ -274,147 +498,143 @@
       "codeHash": "a1de8a27e6cb9344e187d3aaf3dfa2e57167a8edacb306dd179ef99e80768bbb",
       "spec": {
         "template": "flow",
-        "title": "Interruptible Rendering: Preempting In-Flight Transitions",
+        "title": "Interruptible Reconciler Flow",
         "nodes": [
           {
-            "id": "in_q1",
-            "label": "Query 'A' Transition",
-            "tappable": false
+            "id": "n1",
+            "label": "activeTask"
           },
           {
-            "id": "in_key",
-            "label": "Urgent Keystroke 'B'",
-            "tappable": false
+            "id": "n2",
+            "label": "processSlice"
           },
           {
-            "id": "in_abort",
-            "label": "Abort Stale Work",
-            "tappable": false
+            "id": "n3",
+            "label": "handleUrgentInput"
           },
           {
-            "id": "in_q2",
-            "label": "Fresh Query 'AB'",
-            "tappable": false
+            "id": "n4",
+            "label": "discardedWorkCount"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "User types 'A'; background transition begins reconciling ten,multiple.",
-            "values": {
-              "in_q1": {
-                "text": "\"Running Slice 1\""
-              },
-              "in_key": {
-                "text": "\"None\""
-              },
-              "in_abort": {
-                "text": "\"None\""
-              },
-              "in_q2": {
-                "text": "\"None\""
-              }
-            },
-            "tones": {
-              "in_q1": "data",
-              "in_key": "idle",
-              "in_abort": "idle",
-              "in_q2": "idle"
-            },
-            "arrows": [
-              [
-                "in_q1",
-                "in_key"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "User rapidly types 'B' before transition 'A' finishes; SyncLane keystroke arrives.",
+            "caption": "User typing starts heavy background filtering across macro tasks.",
             "values": {
-              "in_q1": {
-                "text": "\"In-Flight (30/100)\""
+              "n1": {
+                "text": "activeTask"
               },
-              "in_key": {
-                "text": "\"Urgent 'B' Arrived\""
+              "n2": {
+                "text": "processSlice"
               },
-              "in_abort": {
-                "text": "\"Preemption Triggered\""
+              "n3": {
+                "text": "handleUrgentInput"
               },
-              "in_q2": {
-                "text": "\"Queued\""
+              "n4": {
+                "text": "discardedWorkCount"
               }
             },
             "tones": {
-              "in_q1": "error",
-              "in_key": "ok",
-              "in_abort": "data",
-              "in_q2": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in_key",
-                "in_abort"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Scheduler immediately aborts stale transition 'A', discarding partial work without lag.",
+            "caption": "Urgent keystroke arrives while background render is in progress.",
             "values": {
-              "in_q1": {
-                "text": "\"ABORTED\""
+              "n1": {
+                "text": "activeTask"
               },
-              "in_key": {
-                "text": "\"Committed 'AB'\""
+              "n2": {
+                "text": "processSlice"
               },
-              "in_abort": {
-                "text": "\"Saved 70 units\""
+              "n3": {
+                "text": "handleUrgentInput"
               },
-              "in_q2": {
-                "text": "\"Starting\""
+              "n4": {
+                "text": "discardedWorkCount"
               }
             },
             "tones": {
-              "in_q1": "error",
-              "in_key": "ok",
-              "in_abort": "ok",
-              "in_q2": "data"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in_abort",
-                "in_q2"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Fresh transition 'AB' reconciles and commits cleanly with zero wasted computation.",
+            "caption": "Reconciler discards stale in progress tree to service keystroke.",
             "values": {
-              "in_q1": {
-                "text": "\"Discarded\""
+              "n1": {
+                "text": "activeTask"
               },
-              "in_key": {
-                "text": "\"Synced\""
+              "n2": {
+                "text": "processSlice"
               },
-              "in_abort": {
-                "text": "\"Clean\""
+              "n3": {
+                "text": "handleUrgentInput"
               },
-              "in_q2": {
-                "text": "\"100% Committed\""
+              "n4": {
+                "text": "discardedWorkCount"
               }
             },
             "tones": {
-              "in_q1": "idle",
-              "in_key": "ok",
-              "in_abort": "ok",
-              "in_q2": "ok"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "error",
+              "n4": "error"
             },
             "arrows": [
               [
-                "in_abort",
-                "in_q2"
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Mathematical lane priorities guarantee zero typing lag for users.",
+            "values": {
+              "n1": {
+                "text": "activeTask"
+              },
+              "n2": {
+                "text": "processSlice"
+              },
+              "n3": {
+                "text": "handleUrgentInput"
+              },
+              "n4": {
+                "text": "discardedWorkCount"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
               ]
             ]
           }
@@ -422,147 +642,143 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Interruptible Rendering: Preempting In-Flight Transitions",
+        "title": "Interruptible Reconciler Flow",
         "nodes": [
           {
-            "id": "in_q1",
-            "label": "Query 'A' Transition",
-            "tappable": false
+            "id": "n1",
+            "label": "activeTask"
           },
           {
-            "id": "in_key",
-            "label": "Urgent Keystroke 'B'",
-            "tappable": false
+            "id": "n2",
+            "label": "processSlice"
           },
           {
-            "id": "in_abort",
-            "label": "Abort Stale Work",
-            "tappable": false
+            "id": "n3",
+            "label": "handleUrgentInput"
           },
           {
-            "id": "in_q2",
-            "label": "Fresh Query 'AB'",
-            "tappable": false
+            "id": "n4",
+            "label": "discardedWorkCount"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "User types 'A'; background transition begins reconciling 10,000 items in TransitionLane.",
-            "values": {
-              "in_q1": {
-                "text": "\"Running Slice 1\""
-              },
-              "in_key": {
-                "text": "\"None\""
-              },
-              "in_abort": {
-                "text": "\"None\""
-              },
-              "in_q2": {
-                "text": "\"None\""
-              }
-            },
-            "tones": {
-              "in_q1": "data",
-              "in_key": "idle",
-              "in_abort": "idle",
-              "in_q2": "idle"
-            },
-            "arrows": [
-              [
-                "in_q1",
-                "in_key"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "User rapidly types 'B' before transition 'A' finishes; SyncLane keystroke arrives.",
+            "caption": "User typing starts heavy background filtering across macro tasks.",
             "values": {
-              "in_q1": {
-                "text": "\"In-Flight (30/100)\""
+              "n1": {
+                "text": "activeTask"
               },
-              "in_key": {
-                "text": "\"Urgent 'B' Arrived\""
+              "n2": {
+                "text": "processSlice"
               },
-              "in_abort": {
-                "text": "\"Preemption Triggered\""
+              "n3": {
+                "text": "handleUrgentInput"
               },
-              "in_q2": {
-                "text": "\"Queued\""
+              "n4": {
+                "text": "discardedWorkCount"
               }
             },
             "tones": {
-              "in_q1": "error",
-              "in_key": "ok",
-              "in_abort": "data",
-              "in_q2": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in_key",
-                "in_abort"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Scheduler immediately aborts stale transition 'A', discarding partial work without lag.",
+            "caption": "Urgent keystroke arrives while background render is in progress.",
             "values": {
-              "in_q1": {
-                "text": "\"ABORTED\""
+              "n1": {
+                "text": "activeTask"
               },
-              "in_key": {
-                "text": "\"Committed 'AB'\""
+              "n2": {
+                "text": "processSlice"
               },
-              "in_abort": {
-                "text": "\"Saved 70 units\""
+              "n3": {
+                "text": "handleUrgentInput"
               },
-              "in_q2": {
-                "text": "\"Starting\""
+              "n4": {
+                "text": "discardedWorkCount"
               }
             },
             "tones": {
-              "in_q1": "error",
-              "in_key": "ok",
-              "in_abort": "ok",
-              "in_q2": "data"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in_abort",
-                "in_q2"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Fresh transition 'AB' reconciles and commits cleanly with zero wasted computation.",
+            "caption": "Reconciler discards stale in progress tree to service keystroke.",
             "values": {
-              "in_q1": {
-                "text": "\"Discarded\""
+              "n1": {
+                "text": "activeTask"
               },
-              "in_key": {
-                "text": "\"Synced\""
+              "n2": {
+                "text": "processSlice"
               },
-              "in_abort": {
-                "text": "\"Clean\""
+              "n3": {
+                "text": "handleUrgentInput"
               },
-              "in_q2": {
-                "text": "\"100% Committed\""
+              "n4": {
+                "text": "discardedWorkCount"
               }
             },
             "tones": {
-              "in_q1": "idle",
-              "in_key": "ok",
-              "in_abort": "ok",
-              "in_q2": "ok"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "error",
+              "n4": "error"
             },
             "arrows": [
               [
-                "in_abort",
-                "in_q2"
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Mathematical lane priorities guarantee zero typing lag for users.",
+            "values": {
+              "n1": {
+                "text": "activeTask"
+              },
+              "n2": {
+                "text": "processSlice"
+              },
+              "n3": {
+                "text": "handleUrgentInput"
+              },
+              "n4": {
+                "text": "discardedWorkCount"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n4"
               ]
             ]
           }
@@ -573,249 +789,241 @@
       "partTitle": "Concurrent State Batching and Multi-Transition Coordination",
       "codeHash": "542b19e41117b228caee309a959a710dfcd182a8886b1f21259662a9b2ef6b20",
       "spec": {
-        "template": "boxes",
-        "title": "Automatic State Batching Inside Transitions",
-        "boxes": [
+        "template": "states",
+        "title": "Multi Transition Batching",
+        "states": [
           {
-            "id": "b_tab",
-            "label": "tab: 'Analytics'",
-            "tappable": false
+            "id": "s1",
+            "label": "activeTransitions"
           },
           {
-            "id": "b_filt",
-            "label": "filter: 'Revenue'",
-            "tappable": false
+            "id": "s2",
+            "label": "transitionCounter"
           },
           {
-            "id": "b_sort",
-            "label": "sort: 'desc'",
-            "tappable": false
+            "id": "s3",
+            "label": "appState"
           },
           {
-            "id": "b_commit",
-            "label": "Atomic Commit (1 Pass)",
-            "tappable": false
+            "id": "s4",
+            "label": "processTransition"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "React multiple batches all state updates within a transition into a.",
-            "values": {
-              "b_tab": {
-                "text": "\"Queued\""
-              },
-              "b_filt": {
-                "text": "\"Queued\""
-              },
-              "b_sort": {
-                "text": "\"Queued\""
-              },
-              "b_commit": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "b_tab": "data",
-              "b_filt": "data",
-              "b_sort": "data",
-              "b_commit": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Multiple state mutations are evaluated together during the background render pass.",
+            "caption": "Multi lane architecture tracks concurrent in flight transitions.",
             "values": {
-              "b_tab": {
-                "text": "\"Reconciled\""
+              "s1": {
+                "text": "activeTransitions"
               },
-              "b_filt": {
-                "text": "\"Reconciled\""
+              "s2": {
+                "text": "transitionCounter"
               },
-              "b_sort": {
-                "text": "\"Reconciled\""
+              "s3": {
+                "text": "appState"
               },
-              "b_commit": {
-                "text": "\"Drafting\""
+              "s4": {
+                "text": "processTransition"
               }
             },
             "tones": {
-              "b_tab": "ok",
-              "b_filt": "ok",
-              "b_sort": "ok",
-              "b_commit": "data"
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Atomic commit mutates the DOM once, completely preventing intermediate torn states.",
+            "caption": "Automatic batching unifies multiple mutations into atomic commit.",
             "values": {
-              "b_tab": {
-                "text": "\"Committed\""
+              "s1": {
+                "text": "activeTransitions"
               },
-              "b_filt": {
-                "text": "\"Committed\""
+              "s2": {
+                "text": "transitionCounter"
               },
-              "b_sort": {
-                "text": "\"Committed\""
+              "s3": {
+                "text": "appState"
               },
-              "b_commit": {
-                "text": "\"1 DOM Pass\""
+              "s4": {
+                "text": "processTransition"
               }
             },
             "tones": {
-              "b_tab": "ok",
-              "b_filt": "ok",
-              "b_sort": "ok",
-              "b_commit": "ok"
+              "s1": "data",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "The UI displays all updated properties in flawless synchrony without visual jitter.",
+            "caption": "Sequence identifiers prevent stale responses overwriting state.",
             "values": {
-              "b_tab": {
-                "text": "\"Synced\""
+              "s1": {
+                "text": "activeTransitions"
               },
-              "b_filt": {
-                "text": "\"Synced\""
+              "s2": {
+                "text": "transitionCounter"
               },
-              "b_sort": {
-                "text": "\"Synced\""
+              "s3": {
+                "text": "appState"
               },
-              "b_commit": {
-                "text": "\"Flawless\""
+              "s4": {
+                "text": "processTransition"
               }
             },
             "tones": {
-              "b_tab": "ok",
-              "b_filt": "ok",
-              "b_sort": "ok",
-              "b_commit": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Reconciler prevents state tearing through atomic DOM mutations.",
+            "values": {
+              "s1": {
+                "text": "activeTransitions"
+              },
+              "s2": {
+                "text": "transitionCounter"
+              },
+              "s3": {
+                "text": "appState"
+              },
+              "s4": {
+                "text": "processTransition"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Automatic State Batching Inside Transitions",
-        "boxes": [
+        "template": "states",
+        "title": "Multi Transition Batching",
+        "states": [
           {
-            "id": "b_tab",
-            "label": "tab: 'Analytics'",
-            "tappable": false
+            "id": "s1",
+            "label": "activeTransitions"
           },
           {
-            "id": "b_filt",
-            "label": "filter: 'Revenue'",
-            "tappable": false
+            "id": "s2",
+            "label": "transitionCounter"
           },
           {
-            "id": "b_sort",
-            "label": "sort: 'desc'",
-            "tappable": false
+            "id": "s3",
+            "label": "appState"
           },
           {
-            "id": "b_commit",
-            "label": "Atomic Commit (1 Pass)",
-            "tappable": false
+            "id": "s4",
+            "label": "processTransition"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "React 18 batches all state updates within a transition into a single unified batch.",
-            "values": {
-              "b_tab": {
-                "text": "\"Queued\""
-              },
-              "b_filt": {
-                "text": "\"Queued\""
-              },
-              "b_sort": {
-                "text": "\"Queued\""
-              },
-              "b_commit": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "b_tab": "data",
-              "b_filt": "data",
-              "b_sort": "data",
-              "b_commit": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Multiple state mutations are evaluated together during the background render pass.",
+            "caption": "Multi lane architecture tracks concurrent in flight transitions.",
             "values": {
-              "b_tab": {
-                "text": "\"Reconciled\""
+              "s1": {
+                "text": "activeTransitions"
               },
-              "b_filt": {
-                "text": "\"Reconciled\""
+              "s2": {
+                "text": "transitionCounter"
               },
-              "b_sort": {
-                "text": "\"Reconciled\""
+              "s3": {
+                "text": "appState"
               },
-              "b_commit": {
-                "text": "\"Drafting\""
+              "s4": {
+                "text": "processTransition"
               }
             },
             "tones": {
-              "b_tab": "ok",
-              "b_filt": "ok",
-              "b_sort": "ok",
-              "b_commit": "data"
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Atomic commit mutates the DOM once, completely preventing intermediate torn states.",
+            "caption": "Automatic batching unifies multiple mutations into atomic commit.",
             "values": {
-              "b_tab": {
-                "text": "\"Committed\""
+              "s1": {
+                "text": "activeTransitions"
               },
-              "b_filt": {
-                "text": "\"Committed\""
+              "s2": {
+                "text": "transitionCounter"
               },
-              "b_sort": {
-                "text": "\"Committed\""
+              "s3": {
+                "text": "appState"
               },
-              "b_commit": {
-                "text": "\"1 DOM Pass\""
+              "s4": {
+                "text": "processTransition"
               }
             },
             "tones": {
-              "b_tab": "ok",
-              "b_filt": "ok",
-              "b_sort": "ok",
-              "b_commit": "ok"
+              "s1": "data",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "The UI displays all updated properties in flawless synchrony without visual jitter.",
+            "caption": "Sequence identifiers prevent stale responses overwriting state.",
             "values": {
-              "b_tab": {
-                "text": "\"Synced\""
+              "s1": {
+                "text": "activeTransitions"
               },
-              "b_filt": {
-                "text": "\"Synced\""
+              "s2": {
+                "text": "transitionCounter"
               },
-              "b_sort": {
-                "text": "\"Synced\""
+              "s3": {
+                "text": "appState"
               },
-              "b_commit": {
-                "text": "\"Flawless\""
+              "s4": {
+                "text": "processTransition"
               }
             },
             "tones": {
-              "b_tab": "ok",
-              "b_filt": "ok",
-              "b_sort": "ok",
-              "b_commit": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Reconciler prevents state tearing through atomic DOM mutations.",
+            "values": {
+              "s1": {
+                "text": "activeTransitions"
+              },
+              "s2": {
+                "text": "transitionCounter"
+              },
+              "s3": {
+                "text": "appState"
+              },
+              "s4": {
+                "text": "processTransition"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
@@ -825,133 +1033,241 @@
       "partTitle": "Building a Production-Grade Transition Engine in Pure JavaScript",
       "codeHash": "7d10d01176848db8b75bce9b4a40c11f1a842722eedd5f50d905510268823240",
       "spec": {
-        "template": "wireframe",
-        "title": "Dual-Priority Search Visual Interface with isPending Indicator",
-        "wireframe": {
-          "header": "Enterprise Search Dashboard with useTransition",
-          "controls": [
-            "Input: [React Internals      ]",
-            "Status: [Updating...]"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "Results Container: Opacity 0.6 (Reading preserved during background render)",
-            "opacity": 0.6
-          }
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Transition Engine Architecture",
+        "boxes": [
           {
-            "at": "say1",
-            "caption": "User types into the search input; text echoes instantly in SyncLane without lag.",
-            "values": {
-              "search": {
-                "text": "\"React Internals (0ms)\""
-              }
-            },
-            "tones": {
-              "search": "ok"
-            }
+            "id": "b1",
+            "label": "urgentValue"
           },
           {
+            "id": "b2",
+            "label": "transitionValue"
+          },
+          {
+            "id": "b3",
+            "label": "inFlightTransition"
+          },
+          {
+            "id": "b4",
+            "label": "processSlice"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "IsPending badge displays 'Updating...' while results list dims to.",
+            "caption": "Dual queue architecture manages urgent and background workloads.",
             "values": {
-              "badge": {
-                "text": "\"Updating...\""
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "badge": "data"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Existing results remain fully visible and clickable, eliminating jarring layout shifts.",
+            "caption": "Time sliced processing pauses background work when inputs arrive.",
             "values": {
-              "results": {
-                "text": "\"Previous Items Visible\""
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "results": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Deferred results commit atomically; badge says 'Synced' and opacity snaps.",
+            "caption": "Concurrent execution delivers smooth sixty frame responsiveness.",
             "values": {
-              "badge": {
-                "text": "\"Synced (Opacity 1.0)\""
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "badge": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Developers combine transitions with web workers for heavy math.",
+            "values": {
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "wireframe",
-        "title": "Dual-Priority Search Visual Interface with isPending Indicator",
-        "wireframe": {
-          "header": "Enterprise Search Dashboard with useTransition",
-          "controls": [
-            "Input: [React Internals      ]",
-            "Status: [Updating...]"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "Results Container: Opacity 0.6 (Reading preserved during background render)",
-            "opacity": 0.6
-          }
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Transition Engine Architecture",
+        "boxes": [
           {
-            "at": "say1",
-            "caption": "User types into the search input; text echoes instantly in SyncLane without lag.",
-            "values": {
-              "search": {
-                "text": "\"React Internals (0ms)\""
-              }
-            },
-            "tones": {
-              "search": "ok"
-            }
+            "id": "b1",
+            "label": "urgentValue"
           },
           {
+            "id": "b2",
+            "label": "transitionValue"
+          },
+          {
+            "id": "b3",
+            "label": "inFlightTransition"
+          },
+          {
+            "id": "b4",
+            "label": "processSlice"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "isPending badge displays 'Updating...' while results list dims to 0.6 opacity.",
+            "caption": "Dual queue architecture manages urgent and background workloads.",
             "values": {
-              "badge": {
-                "text": "\"Updating...\""
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "badge": "data"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Existing results remain fully visible and clickable, eliminating jarring layout shifts.",
+            "caption": "Time sliced processing pauses background work when inputs arrive.",
             "values": {
-              "results": {
-                "text": "\"Previous Items Visible\""
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "results": "ok"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Deferred results commit atomically; badge says 'Synced' and opacity snaps to 1.0.",
+            "caption": "Concurrent execution delivers smooth sixty frame responsiveness.",
             "values": {
-              "badge": {
-                "text": "\"Synced (Opacity 1.0)\""
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "badge": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Developers combine transitions with web workers for heavy math.",
+            "values": {
+              "b1": {
+                "text": "urgentValue"
+              },
+              "b2": {
+                "text": "transitionValue"
+              },
+              "b3": {
+                "text": "inFlightTransition"
+              },
+              "b4": {
+                "text": "processSlice"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]

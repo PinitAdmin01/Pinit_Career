@@ -13252,8 +13252,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "startTransition tells React that the update is non-urgent, allowing the reconciler to render it concurrently with lower priority without blocking urgent user interactions.",
         check: {
           question: "What is the primary architectural purpose of wrapping a state update inside startTransition?",
-          options: ["To mark the update as non-urgent, allowing React to time-slice and interrupt it so the main thread remains responsive to user input", "To automatically translate the React component into HTML web components", "To persist state changes to browser localStorage synchronously", "To disable CSS transitions during component rendering"],
-          answer: 0,
+          options: [
+            "To automatically compile component functions into native WebAssembly binary code units.",
+            "To mark updates as non-urgent, allowing time-slicing so the main thread stays responsive.",
+            "To serialize component state variables directly into browser local storage partitions.",
+            "To disable browser layout recalculations while rendering complex visual document trees."
+          ],
+          answer: 1,
           why: "startTransition tells React that the update is non-urgent, allowing the reconciler to render it concurrently with lower priority without blocking urgent user interactions."
         }
       },
@@ -13282,8 +13287,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "isPending maintains visual continuity by keeping the current screen visible while new content prepares in the background, eliminating jarring layout shifts.",
         check: {
           question: "What is the primary user experience advantage of using isPending compared to traditional loading spinners?",
-          options: ["isPending keeps the existing UI visible and interactive (e.g. with reduced opacity) rather than destroying the UI with a blank loading screen", "isPending makes network requests download five times faster", "isPending disables JavaScript execution in the browser", "isPending automatically caches state in the browser cookies"],
-          answer: 0,
+          options: [
+            "It automatically caches incoming network responses inside local indexedDB tables.",
+            "It accelerates background fetch execution speed across asynchronous server calls.",
+            "It forces the browser to disable JavaScript garbage collection during animations.",
+            "It preserves visual continuity by keeping the current UI readable and interactive."
+          ],
+          answer: 3,
           why: "isPending maintains visual continuity by keeping the current screen visible while new content prepares in the background, eliminating jarring layout shifts."
         }
       },
@@ -13310,8 +13320,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Modify the script so that keystroke 'B' arrives AFTER 100 units finish, and verify that query 'A' commits first.",
         example: "React's concurrent scheduler cleanly aborts and discards stale work-in-progress transitions when higher-priority sync updates arrive, ensuring instant input responsiveness.",
         check: {
-          question: "What does React do with an in-progress transition when an urgent user keystroke arrives before the transition finishes?",
-          options: ["React immediately interrupts and discards the stale work-in-progress transition to render the urgent keystroke without delay", "React crashes the browser with an unhandled exception", "React freezes the keyboard until the background transition commits", "React renders both versions simultaneously overlapping on the screen"],
+          question: "What does React do with an in-progress transition when an urgent user keystroke arrives?",
+          options: [
+            "React immediately aborts and discards the stale work-in-progress tree to render the urgent input.",
+            "React pauses the keystroke hardware event in the browser queue until the transition commits DOM.",
+            "React crashes the rendering thread with an unhandled exception to prevent internal state leaks.",
+            "React duplicates the component subtree and renders both competing queries side by side on screen."
+          ],
           answer: 0,
           why: "React's concurrent scheduler cleanly aborts and discards stale work-in-progress transitions when higher-priority sync updates arrive, ensuring instant input responsiveness."
         }
@@ -13341,8 +13356,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Automatic batching ensures that all state mutations queued within a transition are committed together in one atomic render, eliminating intermediate visual inconsistencies.",
         check: {
           question: "What is the primary benefit of automatic state batching inside React 18 transitions?",
-          options: ["Multiple state updates wrapped in a transition are evaluated together and committed in a single atomic DOM render, preventing intermediate torn UI states", "It converts client-side state into SQL database tables", "It forces all network requests to execute via GraphQL", "It prevents components from ever re-rendering"],
-          answer: 0,
+          options: [
+            "It converts state updates into WebGL vertex shaders for high-performance hardware rendering.",
+            "It serializes multiple component property sets directly into relational indexedDB databases.",
+            "Multiple state mutations are evaluated together and committed atomically in one render pass.",
+            "It replaces asynchronous Promise callbacks with synchronous blocking background worker loops."
+          ],
+          answer: 2,
           why: "Automatic batching ensures that all state mutations queued within a transition are committed together in one atomic render, eliminating intermediate visual inconsistencies."
         }
       },
@@ -13372,9 +13392,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Allow t1 to finish both steps before calling setUrgent('AB') and observe that no preemption abort occurs.",
         example: "Aborting stale in-flight transitions prevents wasted CPU computation on obsolete user queries and ensures the interface immediately prioritizes the user's latest input.",
         check: {
-          question: "In our Production Transition Engine, why is an in-flight background transition aborted when an urgent input update arrives?",
-          options: ["Because the user's new input supersedes the previous query, rendering the old in-progress calculation obsolete and freeing the main thread", "Because the JavaScript call stack runs out of memory", "Because browsers only allow one state update per minute", "Because the monitor disables graphics compositing during typing"],
-          answer: 0,
+          question: "In our Production Transition Engine, why is an in-flight background transition aborted on new input?",
+          options: [
+            "Because browser engines cannot maintain more than one active JavaScript closure in memory.",
+            "Because new input makes prior work obsolete, freeing the main thread for the latest intent.",
+            "Because operating system kernel schedulers revoke CPU execution slices after single frames.",
+            "Because modern display monitors disable graphical compositing layers during text selection."
+          ],
+          answer: 1,
           why: "Aborting stale in-flight transitions prevents wasted CPU computation on obsolete user queries and ensures the interface immediately prioritizes the user's latest input."
         }
       }
