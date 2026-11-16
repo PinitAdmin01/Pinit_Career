@@ -12861,8 +12861,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "The browser main thread is shared between JavaScript execution and rendering.",
         check: {
           question: "Why does a 50ms synchronous JavaScript function cause dropped frames on a 60Hz display?",
-          options: ["Because single-threaded JavaScript blocks the browser from running layout, paint, and compositing passes within the 16.6ms deadline", "Because browsers terminate any JavaScript script that runs for longer than 10 milliseconds", "Because the GPU disables hardware acceleration whenever arrays are iterated", "Because 60Hz monitors disconnect from the CPU when long tasks are detected"],
-          answer: 0,
+          options: [
+            "Because operating systems suspend browser processes executing scripts past five milliseconds.",
+            "Because single-threaded execution blocks layout, paint, and compositing passes past deadlines.",
+            "Because GPU hardware interrupts force a hard system restart whenever script calls exceed limits.",
+            "Because modern monitors disconnect display port connections when rendering workloads accumulate."
+          ],
+          answer: 1,
           why: "The browser main thread is shared between JavaScript execution and rendering. Long tasks block layout and paint passes, missing the 16.6ms hardware V-Sync deadline."
         }
       },
@@ -12890,8 +12895,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Browsers enforce a mandatory 4ms clamp on nested timers deeper than 5 levels, adding substantial idle latency between consecutive cooperative slices.",
         check: {
           question: "Why is setTimeout(fn, 0) unsuitable for high-frequency time-slicing schedulers in web applications?",
-          options: ["Because the HTML5 standard clamps nested timeouts to a minimum 4ms delay after level 5, wasting CPU time in idle waiting", "Because setTimeout clears the browser local storage on every invocation", "Because setTimeout runs synchronously and cannot yield execution to the event loop", "Because setTimeout is deprecated in modern ECMAScript specifications"],
-          answer: 0,
+          options: [
+            "Because setTimeout clears browser indexed database partitions on every single timer execution.",
+            "Because setTimeout runs synchronously on call stacks and cannot yield to browser event loops.",
+            "Because setTimeout has been completely deprecated and removed from modern ECMAScript standards.",
+            "Because the HTML5 standard clamps nested timeouts to a four-millisecond delay after five levels."
+          ],
+          answer: 3,
           why: "Browsers enforce a mandatory 4ms clamp on nested timers deeper than 5 levels, adding substantial idle latency between consecutive cooperative slices."
         }
       },
@@ -12919,7 +12929,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "MessageChannel macro-tasks execute immediately after browser layout and paint without the mandatory 4ms delay imposed on nested setTimeout calls.",
         check: {
           question: "Why does React's Scheduler package use MessageChannel instead of setTimeout or requestIdleCallback?",
-          options: ["To post zero-latency macro-tasks that bypass the 4ms setTimeout clamp and work reliably across all modern browsers", "To convert JavaScript execution into multi-threaded WebAssembly binaries", "Because MessageChannel automatically encrypts component state in memory", "Because MessageChannel is the only browser API capable of reading CPU temperature"],
+          options: [
+            "To post zero-latency macro-tasks that bypass timer clamping and yield to browser paint passes.",
+            "To convert standard component trees into binary assembly instructions executed by GPU cores.",
+            "Because message ports automatically encrypt all component properties inside internal memory.",
+            "Because message ports are the only browser interface capable of monitoring hardware thermals."
+          ],
           answer: 0,
           why: "MessageChannel macro-tasks execute immediately after browser layout and paint without the mandatory 4ms delay imposed on nested setTimeout calls."
         }
@@ -12948,8 +12963,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "React Scheduler uses a fixed 5ms slice target to guarantee that long renders yield frequently enough to preserve 60 FPS and 120 FPS frame budgets.",
         check: {
           question: "What is the standard execution slice duration used by React's Scheduler package before shouldYield() returns true?",
-          options: ["5 milliseconds", "500 milliseconds", "60 seconds", "100 microseconds"],
-          answer: 0,
+          options: [
+            "One hundred microseconds",
+            "Fifty-five milliseconds",
+            "Five short milliseconds",
+            "Sixty whole seconds run"
+          ],
+          answer: 2,
           why: "React Scheduler uses a fixed 5ms slice target to guarantee that long renders yield frequently enough to preserve 60 FPS and 120 FPS frame budgets."
         }
       },
@@ -12977,8 +12997,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Cooperative scheduling breaks long execution blocks into small 5ms slices, preventing thread starvation and ensuring the browser maintains a fluid 60 FPS interface.",
         check: {
           question: "What is the primary benefit of building a cooperative task scheduler with MessageChannel and 5ms slices?",
-          options: ["It ensures the JavaScript thread yields control regularly, allowing the browser to paint and service user events at 60 FPS", "It automatically doubles the network bandwidth of HTTP requests", "It replaces all React hooks with plain HTML strings", "It forces all asynchronous promises to resolve synchronously"],
-          answer: 0,
+          options: [
+            "It doubles network throughput by aggregating outgoing HTTP requests across background threads.",
+            "It yields control frequently so the browser can paint and service user events at sixty frames.",
+            "It converts all asynchronous promises into synchronous blocking operations on call stack nodes.",
+            "It replaces all React component trees with static un-hydrated HTML markup strings in production."
+          ],
+          answer: 1,
           why: "Cooperative scheduling breaks long execution blocks into small 5ms slices, preventing thread starvation and ensuring the browser maintains a fluid 60 FPS interface."
         }
       }

@@ -9,306 +9,242 @@
       "partTitle": "Anatomy of the 16.6ms Frame: V-Sync, Browser Rendering Pipelines & Main Thread Monopolization",
       "codeHash": "050076cc28027fbdd372fe772cc4859fffafd974b67df6e8b4bab1a0fe5c0506",
       "spec": {
-        "template": "flow",
-        "title": "Anatomy of the 16.6ms Frame Budget: V-Sync & Browser Rendering Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Anatomy of the Frame Budget: V-Sync and Headroom",
+        "boxes": [
           {
-            "id": "vsync",
-            "label": "Hardware V-Sync",
-            "tappable": false
+            "id": "b1",
+            "label": "TARGET_FPS"
           },
           {
-            "id": "js",
-            "label": "JavaScript Execution",
-            "tappable": false
+            "id": "b2",
+            "label": "FRAME_BUDGET_MS"
           },
           {
-            "id": "layout",
-            "label": "Style & Layout Reflow",
-            "tappable": false
+            "id": "b3",
+            "label": "evaluateFramePerformance"
           },
           {
-            "id": "gpu",
-            "label": "GPU Paint & Composite",
-            "tappable": false
+            "id": "b4",
+            "label": "droppedFrames"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Hz display refreshes every sixteen.sixms; all browser work must.",
+            "caption": "Monitor updates physical pixels during hardware refresh intervals.",
             "values": {
-              "vsync": {
-                "text": "\"60Hz Tick\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"Budget Start\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"Queued\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"Queued\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "ok",
-              "js": "data",
-              "layout": "idle",
-              "gpu": "idle"
-            },
-            "arrows": [
-              [
-                "vsync",
-                "js"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Monolithic synchronous JavaScript exceeding sixteen.sixms causes dropped.",
+            "caption": "Synchronous calculations monopolize thread causing stuttering scroll.",
             "values": {
-              "vsync": {
-                "text": "\"Tick Missed\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"50ms Long Task\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"Blocked\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"Starved\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "error",
-              "js": "error",
-              "layout": "idle",
-              "gpu": "idle"
-            },
-            "arrows": [
-              [
-                "js",
-                "layout"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "error"
+            }
           },
           {
             "at": "say3",
-            "caption": "Cooperative multitasking breaks JavaScript work into fivems slices.",
+            "caption": "Sequential phases require style recalculation and rasterization.",
             "values": {
-              "vsync": {
-                "text": "\"Stable 60fps\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"5ms Slice\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"5ms Reflow\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"6.6ms Paint\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "ok",
-              "js": "ok",
-              "layout": "ok",
-              "gpu": "ok"
-            },
-            "arrows": [
-              [
-                "js",
-                "layout"
-              ],
-              [
-                "layout",
-                "gpu"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Double-buffering swaps back-buffer to front-buffer cleanly on the V-Sync vertical blanking interval.",
+            "caption": "Profiling tools highlight tasks exceeding execution budgets as warnings.",
             "values": {
-              "vsync": {
-                "text": "\"V-Blank Pulse\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"Idle\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"Complete\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"Buffer Swapped\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "ok",
-              "js": "idle",
-              "layout": "ok",
-              "gpu": "ok"
-            },
-            "arrows": [
-              [
-                "layout",
-                "gpu"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Anatomy of the 16.6ms Frame Budget: V-Sync & Browser Rendering Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Anatomy of the Frame Budget: V-Sync and Headroom",
+        "boxes": [
           {
-            "id": "vsync",
-            "label": "Hardware V-Sync",
-            "tappable": false
+            "id": "b1",
+            "label": "TARGET_FPS"
           },
           {
-            "id": "js",
-            "label": "JavaScript Execution",
-            "tappable": false
+            "id": "b2",
+            "label": "FRAME_BUDGET_MS"
           },
           {
-            "id": "layout",
-            "label": "Style & Layout Reflow",
-            "tappable": false
+            "id": "b3",
+            "label": "evaluateFramePerformance"
           },
           {
-            "id": "gpu",
-            "label": "GPU Paint & Composite",
-            "tappable": false
+            "id": "b4",
+            "label": "droppedFrames"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The 60Hz display refreshes every 16.6ms; all browser work must finish within this window.",
+            "caption": "Monitor updates physical pixels during hardware refresh intervals.",
             "values": {
-              "vsync": {
-                "text": "\"60Hz Tick\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"Budget Start\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"Queued\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"Queued\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "ok",
-              "js": "data",
-              "layout": "idle",
-              "gpu": "idle"
-            },
-            "arrows": [
-              [
-                "vsync",
-                "js"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Monolithic synchronous JavaScript exceeding 16.6ms causes dropped frames and visible jank.",
+            "caption": "Synchronous calculations monopolize thread causing stuttering scroll.",
             "values": {
-              "vsync": {
-                "text": "\"Tick Missed\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"50ms Long Task\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"Blocked\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"Starved\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "error",
-              "js": "error",
-              "layout": "idle",
-              "gpu": "idle"
-            },
-            "arrows": [
-              [
-                "js",
-                "layout"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "error"
+            }
           },
           {
             "at": "say3",
-            "caption": "Cooperative multitasking breaks JavaScript work into 5ms slices, preserving layout and paint time.",
+            "caption": "Sequential phases require style recalculation and rasterization.",
             "values": {
-              "vsync": {
-                "text": "\"Stable 60fps\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"5ms Slice\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"5ms Reflow\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"6.6ms Paint\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "ok",
-              "js": "ok",
-              "layout": "ok",
-              "gpu": "ok"
-            },
-            "arrows": [
-              [
-                "js",
-                "layout"
-              ],
-              [
-                "layout",
-                "gpu"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "Double-buffering swaps back-buffer to front-buffer cleanly on the V-Sync vertical blanking interval.",
+            "caption": "Profiling tools highlight tasks exceeding execution budgets as warnings.",
             "values": {
-              "vsync": {
-                "text": "\"V-Blank Pulse\""
+              "b1": {
+                "text": "TARGET_FPS"
               },
-              "js": {
-                "text": "\"Idle\""
+              "b2": {
+                "text": "FRAME_BUDGET_MS"
               },
-              "layout": {
-                "text": "\"Complete\""
+              "b3": {
+                "text": "evaluateFramePerformance"
               },
-              "gpu": {
-                "text": "\"Buffer Swapped\""
+              "b4": {
+                "text": "droppedFrames"
               }
             },
             "tones": {
-              "vsync": "ok",
-              "js": "idle",
-              "layout": "ok",
-              "gpu": "ok"
-            },
-            "arrows": [
-              [
-                "layout",
-                "gpu"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       }
@@ -317,161 +253,241 @@
       "partTitle": "The setTimeout Clamping Hazard: Why Browsers Enforce 4ms Minimums on Nested Timers",
       "codeHash": "af405f6e0b723d53835928f9d85e832efdaa492c43bfcae78cd64e97f9d56765",
       "spec": {
-        "template": "compare",
-        "title": "HTML5 Timer Clamping: setTimeout vs Macro-Task Slicing",
-        "leftLabel": "Nested setTimeout (> 5 levels)",
-        "rightLabel": "Zero-Latency Macro-Tasks",
+        "template": "states",
+        "title": "HTML5 Timer Clamping Simulation",
+        "states": [
+          {
+            "id": "s1",
+            "label": "simulateTimerSlicing"
+          },
+          {
+            "id": "s2",
+            "label": "clampDelay"
+          },
+          {
+            "id": "s3",
+            "label": "activeExecutionTime"
+          },
+          {
+            "id": "s4",
+            "label": "idleClampTime"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "HTMLfive mandates a fourms minimum delay once setTimeout nests deeper.",
-            "left": {
-              "code": "setTimeout(fn, 0); // clamped to 4ms",
-              "result": {
-                "text": "\"4ms Clamped\""
+            "caption": "Cooperative time slicing introduces hidden timer clamping traps.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "channel.port2.postMessage(null);",
-              "result": {
-                "text": "\"0ms Delay\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "In a twenty-slice computation, fourms clamping introduces ms of dead idle.",
-            "left": {
-              "code": "console.log(wastedClampTime);",
-              "result": {
-                "text": "\"60ms Dead Time\""
+            "caption": "Standard specification enforces mandatory minimum delay on nested timers.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "console.log(wastedClampTime);",
-              "result": {
-                "text": "\"0ms Dead Time\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "error",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "MessageChannel fires as a top-priority macro-task without any artificial timer penalties.",
-            "left": {
-              "code": "console.log(idleOverhead);",
-              "result": {
-                "text": "\"60% Overhead\""
+            "caption": "Scheduler limitations prolong background calculations across frames.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "console.log(idleOverhead);",
-              "result": {
-                "text": "\"0% Overhead\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "error",
+              "s3": "data",
+              "s4": "error"
             }
           },
           {
             "at": "say4",
-            "caption": "React Scheduler relies on MessageChannel to guarantee instantaneous cooperative re-entry.",
-            "left": {
-              "code": "console.log(userExperience);",
-              "result": {
-                "text": "\"Laggy\""
+            "caption": "Browser constraints create impedance mismatches for modern frameworks.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "console.log(userExperience);",
-              "result": {
-                "text": "\"Silky Smooth\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "error",
+              "s3": "ok",
+              "s4": "error"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "HTML5 Timer Clamping: setTimeout vs Macro-Task Slicing",
-        "leftLabel": "Nested setTimeout (> 5 levels)",
-        "rightLabel": "Zero-Latency Macro-Tasks",
+        "template": "states",
+        "title": "HTML5 Timer Clamping Simulation",
+        "states": [
+          {
+            "id": "s1",
+            "label": "simulateTimerSlicing"
+          },
+          {
+            "id": "s2",
+            "label": "clampDelay"
+          },
+          {
+            "id": "s3",
+            "label": "activeExecutionTime"
+          },
+          {
+            "id": "s4",
+            "label": "idleClampTime"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "HTML5 mandates a 4ms minimum delay once setTimeout nests deeper than 5 consecutive levels.",
-            "left": {
-              "code": "setTimeout(fn, 0); // clamped to 4ms",
-              "result": {
-                "text": "\"4ms Clamped\""
+            "caption": "Cooperative time slicing introduces hidden timer clamping traps.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "channel.port2.postMessage(null);",
-              "result": {
-                "text": "\"0ms Delay\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "In a 20-slice computation, 4ms clamping introduces 60ms of dead idle time with zero CPU utilization.",
-            "left": {
-              "code": "console.log(wastedClampTime);",
-              "result": {
-                "text": "\"60ms Dead Time\""
+            "caption": "Standard specification enforces mandatory minimum delay on nested timers.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "console.log(wastedClampTime);",
-              "result": {
-                "text": "\"0ms Dead Time\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "error",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "MessageChannel fires as a top-priority macro-task without any artificial timer penalties.",
-            "left": {
-              "code": "console.log(idleOverhead);",
-              "result": {
-                "text": "\"60% Overhead\""
+            "caption": "Scheduler limitations prolong background calculations across frames.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "console.log(idleOverhead);",
-              "result": {
-                "text": "\"0% Overhead\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "error",
+              "s3": "data",
+              "s4": "error"
             }
           },
           {
             "at": "say4",
-            "caption": "React Scheduler relies on MessageChannel to guarantee instantaneous cooperative re-entry.",
-            "left": {
-              "code": "console.log(userExperience);",
-              "result": {
-                "text": "\"Laggy\""
+            "caption": "Browser constraints create impedance mismatches for modern frameworks.",
+            "values": {
+              "s1": {
+                "text": "simulateTimerSlicing"
               },
-              "tone": "error"
+              "s2": {
+                "text": "clampDelay"
+              },
+              "s3": {
+                "text": "activeExecutionTime"
+              },
+              "s4": {
+                "text": "idleClampTime"
+              }
             },
-            "right": {
-              "code": "console.log(userExperience);",
-              "result": {
-                "text": "\"Silky Smooth\""
-              },
-              "tone": "ok"
+            "tones": {
+              "s1": "ok",
+              "s2": "error",
+              "s3": "ok",
+              "s4": "error"
             }
           }
         ]
@@ -481,98 +497,290 @@
       "partTitle": "Architecture of React's Scheduler: Leveraging MessageChannel for Zero-Latency Macro-Tasks",
       "codeHash": "f38061759f2142ea7aff5887a7e7b5c0215bd1dda0c72dd8530afb13c31b44a0",
       "spec": {
-        "template": "states",
-        "title": "React Scheduler MessageChannel State Machine",
-        "states": [
+        "template": "flow",
+        "title": "MessageChannel Scheduler Engine Architecture",
+        "nodes": [
           {
-            "id": "ms1",
-            "label": "QUEUE_IDLE"
+            "id": "n1",
+            "label": "taskQueue"
           },
           {
-            "id": "ms2",
-            "label": "MACRO_TASK_SCHEDULED"
+            "id": "n2",
+            "label": "schedule"
           },
           {
-            "id": "ms3",
-            "label": "RECONCILING_SLICE"
+            "id": "n3",
+            "label": "flushWork"
           },
           {
-            "id": "ms4",
-            "label": "YIELDED_TO_PAINT"
+            "id": "n4",
+            "label": "yieldCount"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scheduler rests in QUEUE_IDLE state awaiting incoming units of work.",
-            "activeId": "ms1",
-            "tone": "idle"
+            "caption": "Scheduler leverages message channel for zero latency yielding.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Calling postMacroTask() triggers channel.porttwo.postMessage and moves to.",
-            "activeId": "ms2",
-            "tone": "data"
+            "caption": "Message channel triggers priority macrotask without timer delay.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "Portone.onmessage fires; workLoop reconciles fiber nodes in.",
-            "activeId": "ms3",
-            "tone": "data"
+            "caption": "Reconciler coordinates with message channel for non blocking slices.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "When slice exceeds fivems, scheduler yields control to browser paint and.",
-            "activeId": "ms4",
-            "tone": "ok"
+            "caption": "Distinction ensures layout reflow occurs between macrotask slices.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "React Scheduler MessageChannel State Machine",
-        "states": [
+        "template": "flow",
+        "title": "MessageChannel Scheduler Engine Architecture",
+        "nodes": [
           {
-            "id": "ms1",
-            "label": "QUEUE_IDLE"
+            "id": "n1",
+            "label": "taskQueue"
           },
           {
-            "id": "ms2",
-            "label": "MACRO_TASK_SCHEDULED"
+            "id": "n2",
+            "label": "schedule"
           },
           {
-            "id": "ms3",
-            "label": "RECONCILING_SLICE"
+            "id": "n3",
+            "label": "flushWork"
           },
           {
-            "id": "ms4",
-            "label": "YIELDED_TO_PAINT"
+            "id": "n4",
+            "label": "yieldCount"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scheduler rests in QUEUE_IDLE state awaiting incoming units of work.",
-            "activeId": "ms1",
-            "tone": "idle"
+            "caption": "Scheduler leverages message channel for zero latency yielding.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Calling postMacroTask() triggers channel.port2.postMessage and moves to MACRO_TASK_SCHEDULED.",
-            "activeId": "ms2",
-            "tone": "data"
+            "caption": "Message channel triggers priority macrotask without timer delay.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
           },
           {
             "at": "say3",
-            "caption": "port1.onmessage fires; workLoop reconciles fiber nodes in RECONCILING_SLICE.",
-            "activeId": "ms3",
-            "tone": "data"
+            "caption": "Reconciler coordinates with message channel for non blocking slices.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           },
           {
             "at": "say4",
-            "caption": "When slice exceeds 5ms, scheduler yields control to browser paint and re-queues.",
-            "activeId": "ms4",
-            "tone": "ok"
+            "caption": "Distinction ensures layout reflow occurs between macrotask slices.",
+            "values": {
+              "n1": {
+                "text": "taskQueue"
+              },
+              "n2": {
+                "text": "schedule"
+              },
+              "n3": {
+                "text": "flushWork"
+              },
+              "n4": {
+                "text": "yieldCount"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n4",
+                "n1"
+              ]
+            ]
           }
         ]
       }
@@ -582,248 +790,240 @@
       "codeHash": "7b2f74b609229e5480bfcadd98c51f5439b732a2d42005d6b0785771507120ae",
       "spec": {
         "template": "boxes",
-        "title": "shouldYield() 5ms Heuristic & Frame Budget Breakdown",
+        "title": "Cooperative Work Loop and shouldYield Heuristic",
         "boxes": [
           {
-            "id": "b_budget",
-            "label": "16.6ms Total Frame",
-            "tappable": false
+            "id": "b1",
+            "label": "shouldYield"
           },
           {
-            "id": "b_slice",
-            "label": "React Slice (5ms)",
-            "tappable": false
+            "id": "b2",
+            "label": "sliceStartTime"
           },
           {
-            "id": "b_layout",
-            "label": "Style & Layout (5ms)",
-            "tappable": false
+            "id": "b3",
+            "label": "YIELD_INTERVAL_MS"
           },
           {
-            "id": "b_paint",
-            "label": "GPU Paint (6.6ms)",
-            "tappable": false
+            "id": "b4",
+            "label": "slicesCount"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sixteen.sixms frame budget must accommodate all JavaScript, style.",
+            "caption": "Scheduler decision engine avoids fragile dynamic timestamp estimates.",
             "values": {
-              "b_budget": {
-                "text": "\"16.6ms\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"5ms\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"5ms\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"6.6ms\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "data",
-              "b_layout": "data",
-              "b_paint": "ok"
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "React Scheduler fixes slice duration to fivems, guaranteeing ample.",
+            "caption": "Work loop evaluates shouldYield after reconciling each fiber node.",
             "values": {
-              "b_budget": {
-                "text": "\"Active Frame\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"Running\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"Headroom 11ms\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"Headroom 6ms\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "ok",
-              "b_layout": "data",
-              "b_paint": "data"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "The shouldYield() heuristic evaluates performance.now() - startTime after every single fiber node.",
+            "caption": "Fiber reconciler pauses tree traversal and preserves pointer position.",
             "values": {
-              "b_budget": {
-                "text": "\"Audit Pass\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"Elapsed >= 5ms\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"Yield Triggered\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"Ready\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "error",
-              "b_layout": "ok",
-              "b_paint": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Zero frames are dropped because rendering yields cleanly before the.",
+            "caption": "Yield threshold leaves generous headroom for browser compositing.",
             "values": {
-              "b_budget": {
-                "text": "\"0 Dropped\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"5ms Met\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"Flawless\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"60 FPS Confirmed\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "ok",
-              "b_layout": "ok",
-              "b_paint": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "shouldYield() 5ms Heuristic & Frame Budget Breakdown",
+        "title": "Cooperative Work Loop and shouldYield Heuristic",
         "boxes": [
           {
-            "id": "b_budget",
-            "label": "16.6ms Total Frame",
-            "tappable": false
+            "id": "b1",
+            "label": "shouldYield"
           },
           {
-            "id": "b_slice",
-            "label": "React Slice (5ms)",
-            "tappable": false
+            "id": "b2",
+            "label": "sliceStartTime"
           },
           {
-            "id": "b_layout",
-            "label": "Style & Layout (5ms)",
-            "tappable": false
+            "id": "b3",
+            "label": "YIELD_INTERVAL_MS"
           },
           {
-            "id": "b_paint",
-            "label": "GPU Paint (6.6ms)",
-            "tappable": false
+            "id": "b4",
+            "label": "slicesCount"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The 16.6ms frame budget must accommodate all JavaScript, style recalculation, layout, and paint.",
+            "caption": "Scheduler decision engine avoids fragile dynamic timestamp estimates.",
             "values": {
-              "b_budget": {
-                "text": "\"16.6ms\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"5ms\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"5ms\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"6.6ms\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "data",
-              "b_layout": "data",
-              "b_paint": "ok"
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "React Scheduler fixes slice duration to 5ms, guaranteeing ample headroom for browser layout.",
+            "caption": "Work loop evaluates shouldYield after reconciling each fiber node.",
             "values": {
-              "b_budget": {
-                "text": "\"Active Frame\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"Running\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"Headroom 11ms\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"Headroom 6ms\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "ok",
-              "b_layout": "data",
-              "b_paint": "data"
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "The shouldYield() heuristic evaluates performance.now() - startTime after every single fiber node.",
+            "caption": "Fiber reconciler pauses tree traversal and preserves pointer position.",
             "values": {
-              "b_budget": {
-                "text": "\"Audit Pass\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"Elapsed >= 5ms\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"Yield Triggered\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"Ready\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "error",
-              "b_layout": "ok",
-              "b_paint": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Zero frames are dropped because rendering yields cleanly before the 16.6ms hardware V-Sync pulse.",
+            "caption": "Yield threshold leaves generous headroom for browser compositing.",
             "values": {
-              "b_budget": {
-                "text": "\"0 Dropped\""
+              "b1": {
+                "text": "shouldYield"
               },
-              "b_slice": {
-                "text": "\"5ms Met\""
+              "b2": {
+                "text": "sliceStartTime"
               },
-              "b_layout": {
-                "text": "\"Flawless\""
+              "b3": {
+                "text": "YIELD_INTERVAL_MS"
               },
-              "b_paint": {
-                "text": "\"60 FPS Confirmed\""
+              "b4": {
+                "text": "slicesCount"
               }
             },
             "tones": {
-              "b_budget": "ok",
-              "b_slice": "ok",
-              "b_layout": "ok",
-              "b_paint": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -833,135 +1033,241 @@
       "partTitle": "Building a Production MessageChannel Cooperative Task Scheduler in JavaScript",
       "codeHash": "6ec90faf6a25b2b11c4506ebf3a9aebecce10ba0f3f332febf6a443f6d73e8ce",
       "spec": {
-        "template": "wireframe",
-        "title": "Chrome DevTools Performance Timeline: Monolithic vs Sliced",
-        "wireframe": {
-          "header": "Chrome DevTools Performance Profiler",
-          "controls": [
-            "Total Blocking Time: 0ms",
-            "Frame Rate: 60 FPS",
-            "Interaction: Responsive"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "Main Thread: 5ms Slices [||||] (Zero Red Hatched Long Tasks)",
-            "opacity": 1
+        "template": "states",
+        "title": "Production Task Scheduler Execution Engine",
+        "states": [
+          {
+            "id": "s1",
+            "label": "ProductionTaskScheduler"
+          },
+          {
+            "id": "s2",
+            "label": "postTask"
+          },
+          {
+            "id": "s3",
+            "label": "workLoop"
+          },
+          {
+            "id": "s4",
+            "label": "virtualClock"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional monolithic tasks display red-hatched long task warnings.",
+            "caption": "Integrated task scheduler coordinates cooperative execution in browser.",
             "values": {
-              "timeline": {
-                "text": "\"Long Task: 150ms (FAIL)\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "timeline": "error"
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Cooperative scheduler segments execution into uniform fivems macro-tasks.",
+            "caption": "Operational requirements demand deterministic loop measuring elapsed time.",
             "values": {
-              "timeline": {
-                "text": "\"5ms Slices: [||||]\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "timeline": "ok"
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Chrome DevTools reports Total Blocking Time (TBT) drops to exactly zero.",
+            "caption": "Virtual clock model aggregates task duration weights across slices.",
             "values": {
-              "tbt": {
-                "text": "\"TBT: 0ms (PASS)\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "tbt": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
             }
           },
           {
             "at": "say4",
-            "caption": "Interaction to Next Paint (INP) achieves top-tier score, certifying production web performance.",
+            "caption": "Routing long computations through cooperative scheduler avoids freeze.",
             "values": {
-              "inp": {
-                "text": "\"INP: < 16ms (GOOD)\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "inp": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "wireframe",
-        "title": "Chrome DevTools Performance Timeline: Monolithic vs Sliced",
-        "wireframe": {
-          "header": "Chrome DevTools Performance Profiler",
-          "controls": [
-            "Total Blocking Time: 0ms",
-            "Frame Rate: 60 FPS",
-            "Interaction: Responsive"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "Main Thread: 5ms Slices [||||] (Zero Red Hatched Long Tasks)",
-            "opacity": 1
+        "template": "states",
+        "title": "Production Task Scheduler Execution Engine",
+        "states": [
+          {
+            "id": "s1",
+            "label": "ProductionTaskScheduler"
+          },
+          {
+            "id": "s2",
+            "label": "postTask"
+          },
+          {
+            "id": "s3",
+            "label": "workLoop"
+          },
+          {
+            "id": "s4",
+            "label": "virtualClock"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional monolithic tasks display red-hatched long task warnings exceeding 50ms.",
+            "caption": "Integrated task scheduler coordinates cooperative execution in browser.",
             "values": {
-              "timeline": {
-                "text": "\"Long Task: 150ms (FAIL)\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "timeline": "error"
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Cooperative scheduler segments execution into uniform 5ms macro-tasks.",
+            "caption": "Operational requirements demand deterministic loop measuring elapsed time.",
             "values": {
-              "timeline": {
-                "text": "\"5ms Slices: [||||]\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "timeline": "ok"
+              "s1": "ok",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Chrome DevTools reports Total Blocking Time (TBT) drops to exactly 0 milliseconds.",
+            "caption": "Virtual clock model aggregates task duration weights across slices.",
             "values": {
-              "tbt": {
-                "text": "\"TBT: 0ms (PASS)\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "tbt": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "data",
+              "s4": "ok"
             }
           },
           {
             "at": "say4",
-            "caption": "Interaction to Next Paint (INP) achieves top-tier score, certifying production web performance.",
+            "caption": "Routing long computations through cooperative scheduler avoids freeze.",
             "values": {
-              "inp": {
-                "text": "\"INP: < 16ms (GOOD)\""
+              "s1": {
+                "text": "ProductionTaskScheduler"
+              },
+              "s2": {
+                "text": "postTask"
+              },
+              "s3": {
+                "text": "workLoop"
+              },
+              "s4": {
+                "text": "virtualClock"
               }
             },
             "tones": {
-              "inp": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
