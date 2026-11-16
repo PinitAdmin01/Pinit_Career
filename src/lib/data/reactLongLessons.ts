@@ -14488,12 +14488,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What major friction points of traditional REST API mutations are eliminated by Server Actions?",
           options: [
-            "They eliminate manual fetch() endpoint boilerplate, separate API route handlers, manual request serializing, and disjointed client-side cache invalidation",
-            "They remove the need for database storage",
-            "They allow servers to run without electricity",
-            "They turn all POST requests into GET requests"
+            "They replace all relational database management engines with browser localStorage buffers, eliminating backend persistent storage architectures.",
+            "They eliminate manual fetch handlers, custom API route wiring, manual payload serialization, and disjointed client-side cache invalidation steps.",
+            "They enforce synchronous execution across all distributed cloud functions, preventing asynchronous promises from ever running in server clusters.",
+            "They convert all standard HTTP POST network requests into read-only HTTP GET queries, disabling server-side state mutations across cloud hosts."
           ],
-          answer: 0,
+          answer: 1,
           why: "Server Actions provide type-safe RPC functions invoked directly from JSX forms and event handlers, bridging client state and backend mutations seamlessly."
         }
       },
@@ -14524,12 +14524,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "How does progressive enhancement ensure that forms work even before JavaScript has finished hydrating?",
           options: [
-            "The form renders with a native HTML action attribute pointing to a server endpoint, allowing standard multi-page POST submissions if JS is unavailable or loading",
-            "By embedding the entire Node.js runtime into the browser cache",
-            "By executing form validations via CSS selectors",
-            "By disabling the submit button until full hydration"
+            "By embedding a complete standalone Node.js V8 execution binary into the client browser cache to execute server functions locally on the device.",
+            "By executing complex component validation schemas entirely through native CSS pseudo-selectors, bypassing JavaScript parsing on client threads.",
+            "By keeping the submit button disabled and showing an inline loading spinner until the entire client-side script bundle finishes downloading.",
+            "By utilizing semantic HTML form action attributes that trigger native multi-page HTTP POST submissions if client-side JavaScript is unavailable."
           ],
-          answer: 0,
+          answer: 3,
           why: "Native HTML <form action> allows browsers to submit forms via standard HTTP POST even if JavaScript is loading, disabled, or failed to download."
         }
       },
@@ -14559,12 +14559,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Submit quantity: 5 and verify that count increments to 8 while error remains null.",
         example: "useActionState returns the current action state, the enhanced action function for form binding, and a boolean indicating whether the server transition is pending.",
         check: {
-          question: "What are the three values returned by the useActionState hook tuple?",
+          question: "What are the three values returned by the useActionState hook tuple in React 19?",
           options: [
-            "[state, formAction, isPending] representing the current mutation result, the wrapped dispatch action, and the pending transition state",
-            "[data, loading, error]",
-            "[value, setValue, resetValue]",
-            "[request, response, next]"
+            "The current state payload returned by the action, the enhanced dispatch function for form binding, and a boolean indicating pending execution.",
+            "A static reference to the database connection pool, a callback to restart the Node.js server, and a numeric counter of active HTTP connections.",
+            "The raw JSON request body from the network socket, an authentication bearer token string, and a promise that resolves upon browser tab closure.",
+            "An array of active DOM event listeners, a pointer to the parent HTML element, and a microsecond timestamp marking the latest component mount."
           ],
           answer: 0,
           why: "useActionState returns the current action state, the enhanced action function for form binding, and a boolean indicating whether the server transition is pending."
@@ -14598,12 +14598,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "How does useOptimistic protect against UI desynchronization when a server mutation fails?",
           options: [
-            "It applies an immediate temporary projection to the UI during the transition and automatically rolls back to the authoritative server state if the action rejects",
-            "It permanently overwrites the database with client values",
-            "It shuts down the web server to prevent corrupt data",
-            "It logs the user out of their session"
+            "It permanently writes client-side optimistic guesses to database tables and disables server-side constraint checks during active network transitions.",
+            "It immediately terminates the backend web server process and restarts all cloud cluster containers to prevent inconsistent memory states committing.",
+            "It applies an immediate temporary projection to the UI during transitions and automatically rolls back to authoritative state if the action rejects.",
+            "It logs the active user out of their authenticated session and invalidates all client-side authentication tokens across all open browser windows."
           ],
-          answer: 0,
+          answer: 2,
           why: "useOptimistic binds temporary state to the lifecycle of the transition; if the action throws or rejects, the optimistic projection is discarded automatically."
         }
       },
@@ -14621,9 +14621,9 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
   "Execute the complete Server Action simulation below and trace both a successful optimistic purchase and a rejected out-of-stock transaction with automatic rollback.",
   "In enterprise financial and inventory architectures, this end-to-end reconciliation engine provides rigorous auditing and idempotency guarantees. By attaching unique idempotency keys to each Server Action request, backend systems can guarantee that even if network retries occur, a credit card is never charged twice and inventory is never double-allocated.",
   "Ultimately, Server Actions and optimistic transitions represent the maturation of React into a unified full-stack application engine. By treating asynchronous mutations as declarative, type-safe functions integrated with the Concurrent Scheduler, developers can build enterprise-grade web applications that feel as instant and dependable as native desktop software.",
-  "Before moving on from End-to-End Server Action RPC & Optimistic Reconciliation Simulator: Building an RPC Form Dispatcher with Async Action Handlers, Optimistic UI State, and Rollback Mechanics to the concept check below, mentally trace what happens if the primary input to captures doubles or drops by half. Seeing how against absorbs that shock—and how transactions and ensure surface the resulting variance—gives you an intuitive feel for the model's sensitivity. That intuition will serve you both in hands-on troubleshooting and in high-stakes technical interviews.",
+  "In production environments, handling network retries requires strict idempotency controls. When a mobile client drops connectivity during a mutative action dispatch, the browser or service worker may automatically retry the request. If the Server Action lacks idempotency safeguards, such retries can lead to duplicate payments, double inventory deductions, or corrupted state. Enterprise implementations generate a unique client-side UUID idempotency key before dispatching the action, persisting this key in Redis or database transaction logs with short expiration windows to guarantee exactly-once execution semantics.",
   "By synthesizing native HTML form mechanics, asynchronous server functions, and optimistic reconciliation, full-stack engineers gain the superpower to build applications that load instantly, mutate securely, and scale effortlessly to millions of global users.",
-  "With this complete mutative architecture, we possess every theoretical and practical mechanism needed to build enterprise-grade React applications that combine bulletproof server transactions with instantaneous client responsiveness. Why does this distinction matter so much when working through End-to-End Server Action RPC & Optimistic Reconciliation Simulator: Building an RPC Form Dispatcher with Async Action Handlers, Optimistic UI State, and Rollback Mechanics? Because in real-world engagements, small misconfigurations in Optimistic or Reconciliation rarely announce themselves with an obvious crash; instead, they quietly skew Building until an independent reconciliation exposes the gap. By stepping through the logic of Async methodically and confirming each intermediate threshold, you build a repeatable habit that holds up under executive and regulatory scrutiny."
+  "With this complete mutative architecture, we possess every theoretical and practical mechanism needed to build enterprise-grade React applications that combine bulletproof server transactions with instantaneous client responsiveness. When designing full-stack state architectures, always maintain a rigorous separation between ephemeral optimistic UI state and authoritative server records. The client should never assume ownership over business rules or inventory totals; its role is strictly to render a fluid, non-blocking projection while the server executes ACID validation in an isolated database transaction. By following this unidirectional data flow—dispatching through form actions, projecting optimistically, and reconciling against server wire updates—teams deliver enterprise software that is both blazingly responsive and impervious to data corruption."
 ],
         code: "// Complete End-to-End Server Action RPC & Reconciliation Engine\nfunction buildServerActionEngine() {\n  const serverDb = { inventory: 50, cartItems: [] };\n  const clientLog = [];\n\n  // Emulated Server Action (\"use server\")\n  function serverAddToCart(productId, qty) {\n    if (serverDb.inventory < qty) {\n      throw new Error('INSUFFICIENT_STOCK: Requested ' + qty + ', Available ' + serverDb.inventory);\n    }\n    serverDb.inventory -= qty;\n    serverDb.cartItems.push({ productId, qty });\n    return { ok: true, remainingInventory: serverDb.inventory, totalItems: serverDb.cartItems.length };\n  }\n\n  // Client form submit handler with optimistic projection\n  function clientSubmit(productId, qty) {\n    clientLog.push('Client submitting purchase of ' + qty + ' units for ' + productId);\n    try {\n      const response = serverAddToCart(productId, qty);\n      clientLog.push('Mutation Succeeded! Remaining Server Inventory: ' + response.remainingInventory);\n      return { status: 'SUCCESS', data: response };\n    } catch (err) {\n      clientLog.push('Mutation Failed: ' + err.message + ' -> Rolled back UI');\n      return { status: 'ERROR', error: err.message };\n    }\n  }\n\n  return { clientSubmit, serverDb, clientLog };\n}\n\nconst engine = buildServerActionEngine();\nengine.clientSubmit('sku_datacenter_gpu', 5);\nengine.clientSubmit('sku_datacenter_gpu', 60); // triggers insufficient stock error\n\nconsole.log('--- END-TO-END SERVER ACTION RPC SIMULATION ---');\nengine.clientLog.forEach(l => console.log('Audit:', l));\nconsole.log('Final Authoritative Inventory on Database:', engine.serverDb.inventory);",
         output: "--- END-TO-END SERVER ACTION RPC SIMULATION ---\nAudit: Client submitting purchase of 5 units for sku_datacenter_gpu\nAudit: Mutation Succeeded! Remaining Server Inventory: 45\nAudit: Client submitting purchase of 60 units for sku_datacenter_gpu\nAudit: Mutation Failed: INSUFFICIENT_STOCK: Requested 60, Available 45 -> Rolled back UI\nFinal Authoritative Inventory on Database: 45",
@@ -14638,12 +14638,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What guarantees database transactional integrity during concurrent Server Action calls?",
           options: [
-            "Atomic database transactions (e.g. ACID transactions with rollback capabilities) paired with server-side optimistic concurrency checks",
-            "Client-side localStorage locks",
-            "Disabling concurrent network requests in the browser",
-            "Using random sleep timers before writing to disk"
+            "Relying on client-side browser localStorage locks and disabling concurrent network dispatch events across all active mobile browser browser tabs.",
+            "Executing ACID database transactions with row-level locks and pairing server validation with automatic client-side rollback mechanisms on failure.",
+            "Injecting artificial five-second thread sleep pauses into Node.js event loops before executing any disk writes to avoid concurrent file conflicts.",
+            "Restricting the web application to a single concurrent HTTP request by queuing all incoming user actions in an in-memory client-side script array."
           ],
-          answer: 0,
+          answer: 1,
           why: "ACID transactions on the server ensure that inventory decrements and balance changes commit atomically or roll back completely without data corruption."
         }
       }
