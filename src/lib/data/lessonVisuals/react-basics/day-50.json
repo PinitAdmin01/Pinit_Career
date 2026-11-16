@@ -1,700 +1,639 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 50,
-  "promptSha": "block10_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Architectural Blueprint: Real-Time High-Frequency Trading Desk Topology & Micro-Frontend Boundary Contracts",
       "codeHash": "c43816c63c1cde5a175411604294b2a7472d690fab7312d08a0cbb57157b1f37",
       "spec": {
-        "template": "component-tree",
-        "title": "Milestone 9 Financial Trading Desk Multi-Remote Topology",
-        "items": [
+        "template": "boxes",
+        "title": "Trading Desk Micro-Frontend Topology",
+        "boxes": [
           {
-            "id": "desk_shell",
-            "label": "TradingDeskHostShell (Host Layout & Event Bus)",
-            "depth": 0,
-            "status": "active"
+            "id": "b1",
+            "title": "Host Container",
+            "text": "Host Shell",
+            "tone": "ok"
           },
           {
-            "id": "market_depth_remote",
-            "label": "MarketDepthRemote (useSyncExternalStore Level 2 Book)",
-            "depth": 1,
-            "status": "active"
+            "id": "b2",
+            "title": "Market Data Remote",
+            "text": "WebSocket",
+            "tone": "data"
           },
           {
-            "id": "order_exec_remote",
-            "label": "OrderExecutionRemote (Deterministic Statechart Gateway)",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "risk_remote",
-            "label": "RiskAnalyticsRemote (Real-Time VaR Calculator)",
-            "depth": 1,
-            "status": "active"
-          },
-          {
-            "id": "shared_react_singleton",
-            "label": "Shared React 18 Singleton Scope (0 KB Duplicate Payload)",
-            "depth": 1,
-            "status": "active"
+            "id": "b3",
+            "title": "Order Execution Remote",
+            "text": "Statecharts",
+            "tone": "idle"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "TradingDeskHostShell boots and initializes the shared React multiple.",
-            "values": {
-              "desk_shell": {
-                "text": "\"Host Shell Active\""
-              },
-              "market_depth_remote": {
-                "text": "\"Mounting\""
-              },
-              "order_exec_remote": {
-                "text": "\"Mounting\""
-              },
-              "risk_remote": {
-                "text": "\"Mounting\""
-              },
-              "shared_react_singleton": {
-                "text": "\"React 18 Bound\""
-              }
-            },
-            "tones": {
-              "desk_shell": "ok",
-              "market_depth_remote": "idle",
-              "order_exec_remote": "idle",
-              "risk_remote": "idle",
-              "shared_react_singleton": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "MarketDepth and OrderExecution remotes mount in parallel over Module Federation.",
-            "values": {
-              "desk_shell": {
-                "text": "\"Remotes Bound\""
-              },
-              "market_depth_remote": {
-                "text": "\"L2 Book Ready\""
-              },
-              "order_exec_remote": {
-                "text": "\"FSM Ready\""
-              },
-              "risk_remote": {
-                "text": "\"Evaluating VaR\""
-              },
-              "shared_react_singleton": {
-                "text": "\"0 Duplicate KB\""
-              }
-            },
-            "tones": {
-              "desk_shell": "ok",
-              "market_depth_remote": "data",
-              "order_exec_remote": "data",
-              "risk_remote": "data",
-              "shared_react_singleton": "ok"
-            }
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Trading desks monitor diverse financial instruments across viewports."
           },
           {
             "at": "say3",
-            "caption": "All remotes share a single React dispatcher, preventing invalid hook crashes.",
-            "values": {
-              "desk_shell": {
-                "text": "\"Dispatcher Verified\""
-              },
-              "market_depth_remote": {
-                "text": "\"Hook Safe\""
-              },
-              "order_exec_remote": {
-                "text": "\"Hook Safe\""
-              },
-              "risk_remote": {
-                "text": "\"Hook Safe\""
-              },
-              "shared_react_singleton": {
-                "text": "\"Unified Dispatcher\""
-              }
-            },
-            "tones": {
-              "desk_shell": "ok",
-              "market_depth_remote": "ok",
-              "order_exec_remote": "ok",
-              "risk_remote": "ok",
-              "shared_react_singleton": "ok"
-            }
+            "highlight": [
+              "b2"
+            ],
+            "caption": "Live feeds stream high-frequency tick updates without state tearing."
           },
           {
             "at": "say4",
-            "caption": "Enterprise trading desk topology achieves Grade A+ production readiness.",
-            "values": {
-              "desk_shell": {
-                "text": "\"Desk Operational\""
-              },
-              "market_depth_remote": {
-                "text": "\"60 FPS Quotes\""
-              },
-              "order_exec_remote": {
-                "text": "\"Guarded Orders\""
-              },
-              "risk_remote": {
-                "text": "\"VaR 12.0% Safe\""
-              },
-              "shared_react_singleton": {
-                "text": "\"Grade A+ Certified\""
-              }
-            },
-            "tones": {
-              "desk_shell": "ok",
-              "market_depth_remote": "ok",
-              "order_exec_remote": "ok",
-              "risk_remote": "ok",
-              "shared_react_singleton": "ok"
-            }
+            "highlight": [
+              "b1",
+              "b3"
+            ],
+            "caption": "Federated micro-frontends deploy autonomously within the host shell."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Trading Desk Micro-Frontend Topology",
+        "boxes": [
+          {
+            "id": "b1",
+            "title": "Host Container",
+            "text": "Host Shell",
+            "tone": "ok"
+          },
+          {
+            "id": "b2",
+            "title": "Market Data Remote",
+            "text": "WebSocket",
+            "tone": "data"
+          },
+          {
+            "id": "b3",
+            "title": "Order Execution Remote",
+            "text": "Statecharts",
+            "tone": "idle"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Trading desks monitor diverse financial instruments across viewports."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "b2"
+            ],
+            "caption": "Live feeds stream high-frequency tick updates without state tearing."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "b1",
+              "b3"
+            ],
+            "caption": "Federated micro-frontends deploy autonomously within the host shell."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Low-Latency Market Feed Store with useSyncExternalStore: 1,000 Ticks/Sec Ingestion with 0ms State Tearing",
       "codeHash": "d0bd00d9880e3ec0e0ef0b4d47497663b4cd5abce3fb21498a2f35bfb27f46ab",
       "spec": {
         "template": "flow",
-        "title": "High-Frequency Tick Ingestion to Selective Widgets",
+        "title": "Low-Latency Market Store Pipeline",
         "nodes": [
           {
-            "id": "ws_feed",
-            "label": "WebSocket Exchange Feed (1,000 Ticks/Sec)",
+            "id": "n1",
+            "label": "WebSocket Feed",
+            "text": "WebSocket",
+            "tone": "data",
             "tappable": false
           },
           {
-            "id": "ext_store",
-            "label": "HighFrequencyMarketStore (Typed Ring Buffer)",
+            "id": "n2",
+            "label": "External Store",
+            "text": "useSyncExternalStore",
+            "tone": "ok",
             "tappable": false
           },
           {
-            "id": "memo_selector",
-            "label": "useSyncExternalStore Memoized Selector",
+            "id": "n3",
+            "label": "Memoized View",
+            "text": "Selectors",
+            "tone": "ok",
             "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "Tick Event"
           },
           {
-            "id": "quote_widget",
-            "label": "Active QuoteWidget (Smooth 60 FPS Render)",
-            "tappable": false
+            "from": "n2",
+            "to": "n3",
+            "label": "Snapshot Read"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Live WebSocket market feeds stream rapid quotes into client memory.",
-            "values": {
-              "ws_feed": {
-                "text": "\"Tick Stream: 1,000/s\""
-              },
-              "ext_store": {
-                "text": "\"Ingesting\""
-              },
-              "memo_selector": {
-                "text": "\"Standby\""
-              },
-              "quote_widget": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "ws_feed": "data",
-              "ext_store": "data",
-              "memo_selector": "idle",
-              "quote_widget": "idle"
-            },
-            "arrows": [
-              [
-                "ws_feed",
-                "ext_store"
-              ]
-            ]
+            "highlight": [
+              "n1",
+              "n2"
+            ],
+            "caption": "The market store ingests high-frequency ticks with sync store hooks."
           },
           {
             "at": "say2",
-            "caption": "External store updates in-memory hash maps in sub-microsecond time.",
-            "values": {
-              "ws_feed": {
-                "text": "\"Stream Active\""
-              },
-              "ext_store": {
-                "text": "\"Updated NVDA: $175.5\""
-              },
-              "memo_selector": {
-                "text": "\"Evaluating Diff\""
-              },
-              "quote_widget": {
-                "text": "\"Standby\""
-              }
-            },
-            "tones": {
-              "ws_feed": "ok",
-              "ext_store": "ok",
-              "memo_selector": "data",
-              "quote_widget": "idle"
-            },
-            "arrows": [
-              [
-                "ext_store",
-                "memo_selector"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Memoized selectors notify only components subscribed to the updated instrument.",
-            "values": {
-              "ws_feed": {
-                "text": "\"Stream Active\""
-              },
-              "ext_store": {
-                "text": "\"Dispatched\""
-              },
-              "memo_selector": {
-                "text": "\"NVDA Ref Changed\""
-              },
-              "quote_widget": {
-                "text": "\"Re-render Fired\""
-              }
-            },
-            "tones": {
-              "ws_feed": "ok",
-              "ext_store": "ok",
-              "memo_selector": "ok",
-              "quote_widget": "data"
-            },
-            "arrows": [
-              [
-                "memo_selector",
-                "quote_widget"
-              ]
-            ]
+            "highlight": [
+              "n2"
+            ],
+            "caption": "The store updates internal hash maps as new market ticks arrive."
           },
           {
             "at": "say4",
-            "caption": "Active quote widget updates while unrelated portfolio widgets bail out completely.",
-            "values": {
-              "ws_feed": {
-                "text": "Stream Active\""
-              },
-              "ext_store": {
-                "text": "\"Store In Sync\""
-              },
-              "memo_selector": {
-                "text": "\"Cached\""
-              },
-              "quote_widget": {
-                "text": "\"Rendered 60 FPS\""
-              }
-            },
-            "tones": {
-              "ws_feed": "ok",
-              "ext_store": "ok",
-              "memo_selector": "ok",
-              "quote_widget": "ok"
-            },
-            "arrows": [
-              [
-                "quote_widget",
-                "ws_feed"
-              ]
-            ]
+            "highlight": [
+              "n3"
+            ],
+            "caption": "Pre-commit validation detects snapshot mismatch to prevent a torn book."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Low-Latency Market Store Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "WebSocket Feed",
+            "text": "WebSocket",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "External Store",
+            "text": "useSyncExternalStore",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Memoized View",
+            "text": "Selectors",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "Tick Event"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "label": "Snapshot Read"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "n1",
+              "n2"
+            ],
+            "caption": "The market store ingests high-frequency ticks with sync store hooks."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "n2"
+            ],
+            "caption": "The store updates internal hash maps as new market ticks arrive."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "n3"
+            ],
+            "caption": "Pre-commit validation detects snapshot mismatch to prevent a torn book."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "Order Execution Statechart Engine: Strict Transition Guards, Slippage Limits & Atomic Order Lifecycle",
       "codeHash": "87ac3f0380f789f46188276f91d10bbb96534070bde15cdd4cc9bc092883f678",
       "spec": {
         "template": "states",
-        "title": "Order Execution Statechart Lifecycle & Pre-Trade Guards",
+        "title": "Order Execution State Machine",
         "states": [
           {
             "id": "idle",
-            "label": "IDLE (Awaiting Order Parameters)",
-            "active": true
+            "label": "Ready State",
+            "text": "IDLE",
+            "tone": "idle"
           },
           {
-            "id": "validating_risk",
-            "label": "VALIDATING_RISK (Buying Power & Position Limits)",
-            "active": false
+            "id": "pending",
+            "label": "Submitting",
+            "text": "PENDING",
+            "tone": "data"
           },
           {
-            "id": "submitting_exchange",
-            "label": "SUBMITTING_EXCHANGE (Duplicate Clicks Blocked)",
-            "active": false
+            "id": "filled",
+            "label": "Order Filled",
+            "text": "FILLED",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "idle",
+            "to": "pending",
+            "label": "SUBMIT"
           },
           {
-            "id": "acknowledged",
-            "label": "ACKNOWLEDGED (Exchange ClOrdID Assigned)",
-            "active": false
+            "from": "pending",
+            "to": "filled",
+            "label": "CONFIRM"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The execution machine rests in IDLE awaiting user limit price and quantity.",
-            "values": {
-              "idle": {
-                "text": "\"Awaiting Order\""
-              },
-              "validating_risk": {
-                "text": "\"Inactive\""
-              },
-              "submitting_exchange": {
-                "text": "\"Inactive\""
-              },
-              "acknowledged": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "idle": "data",
-              "validating_risk": "idle",
-              "submitting_exchange": "idle",
-              "acknowledged": "idle"
-            }
+            "highlight": [
+              "idle"
+            ],
+            "caption": "The order execution engine initiates in a clean ready state."
           },
           {
             "at": "say2",
-            "caption": "Pre-trade risk guards evaluate account margin; orders exceeding balance are rejected.",
-            "values": {
-              "idle": {
-                "text": "\"Evaluated\""
-              },
-              "validating_risk": {
-                "text": "\"Margin Checked\""
-              },
-              "submitting_exchange": {
-                "text": "\"Inactive\""
-              },
-              "acknowledged": {
-                "text": "\"Inactive\""
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "validating_risk": "data",
-              "submitting_exchange": "idle",
-              "acknowledged": "idle"
-            }
+            "highlight": [
+              "pending"
+            ],
+            "caption": "Finite state machines prevent invalid transitions during submission."
           },
           {
             "at": "say3",
-            "caption": "Machine enters SUBMITTING_EXCHANGE; duplicate clicks are structurally ignored.",
-            "values": {
-              "idle": {
-                "text": "\"Exited\""
-              },
-              "validating_risk": {
-                "text": "\"Passed\""
-              },
-              "submitting_exchange": {
-                "text": "\"Submitting... Clicks Ignored\""
-              },
-              "acknowledged": {
-                "text": "\"Awaiting Ack\""
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "validating_risk": "ok",
-              "submitting_exchange": "data",
-              "acknowledged": "idle"
-            }
+            "highlight": [
+              "pending"
+            ],
+            "caption": "Repeated submit clicks are rejected while an order remains pending."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Order Execution State Machine",
+        "states": [
+          {
+            "id": "idle",
+            "label": "Ready State",
+            "text": "IDLE",
+            "tone": "idle"
           },
           {
-            "at": "say4",
-            "caption": "Exchange acknowledges order and assigns ClOrdID, moving to ACKNOWLEDGED state.",
-            "values": {
-              "idle": {
-                "text": "\"Exited\""
-              },
-              "validating_risk": {
-                "text": "\"Passed\""
-              },
-              "submitting_exchange": {
-                "text": "\"Exited\""
-              },
-              "acknowledged": {
-                "text": "\"Order Ack: EXCH-ORD-99124\""
-              }
-            },
-            "tones": {
-              "idle": "idle",
-              "validating_risk": "ok",
-              "submitting_exchange": "idle",
-              "acknowledged": "ok"
-            }
+            "id": "pending",
+            "label": "Submitting",
+            "text": "PENDING",
+            "tone": "data"
+          },
+          {
+            "id": "filled",
+            "label": "Order Filled",
+            "text": "FILLED",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "idle",
+            "to": "pending",
+            "label": "SUBMIT"
+          },
+          {
+            "from": "pending",
+            "to": "filled",
+            "label": "CONFIRM"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "idle"
+            ],
+            "caption": "The order execution engine initiates in a clean ready state."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "pending"
+            ],
+            "caption": "Finite state machines prevent invalid transitions during submission."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "pending"
+            ],
+            "caption": "Repeated submit clicks are rejected while an order remains pending."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Federated Micro-Frontend Module Loader: Loading Dynamic Market Depth & Portfolio Remotes with Shared Runtimes",
       "codeHash": "17262ffebe55e8934646c6d1692fe7070eb0aaccfa9e524b21282f31424439e7",
       "spec": {
-        "template": "boxes",
-        "title": "Federated Host Runtime Orchestrator Architecture",
-        "boxes": [
-          {
-            "id": "shared_react",
-            "label": "Shared React 18 Singleton (Webpack Scope Default)",
-            "tappable": false
-          },
-          {
-            "id": "remote_registry",
-            "label": "Dynamic Remote Container Registry",
-            "tappable": false
-          },
-          {
-            "id": "cross_event_bus",
-            "label": "Decoupled Cross-Remote Event Bus",
-            "tappable": false
-          },
-          {
-            "id": "boundary_fallback",
-            "label": "Host Resilient Error Boundary Fallback",
-            "tappable": false
-          }
-        ],
+        "template": "compare",
+        "title": "Federated Micro-Frontend Isolation",
+        "left": {
+          "title": "Healthy Remotes",
+          "subtitle": "Shared Runtime",
+          "items": [
+            {
+              "label": "Market Remote",
+              "text": "Market Data",
+              "tone": "ok"
+            },
+            {
+              "label": "Order Ticket",
+              "text": "Order Ticket",
+              "tone": "ok"
+            }
+          ]
+        },
+        "right": {
+          "title": "Degraded Remote",
+          "subtitle": "Error Boundary",
+          "items": [
+            {
+              "label": "Analytics Remote",
+              "text": "Analytics",
+              "tone": "error"
+            },
+            {
+              "label": "Fallback UI",
+              "text": "Error Boundary",
+              "tone": "data"
+            }
+          ]
+        },
         "steps": [
           {
             "at": "say1",
-            "caption": "Host initializes shared React multiple singleton scope across all.",
-            "values": {
-              "shared_react": {
-                "text": "\"React 18.3.1 Active\""
-              },
-              "remote_registry": {
-                "text": "\"3 Remotes Registered\""
-              },
-              "cross_event_bus": {
-                "text": "\"Bus Online\""
-              },
-              "boundary_fallback": {
-                "text": "\"Guards Armored\""
-              }
-            },
-            "tones": {
-              "shared_react": "ok",
-              "remote_registry": "ok",
-              "cross_event_bus": "ok",
-              "boundary_fallback": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "The host orchestrates federated micro-frontend remote containers."
           },
           {
             "at": "say2",
-            "caption": "MarketDepth and RiskAnalytics remotes mount seamlessly using shared runtime.",
-            "values": {
-              "shared_react": {
-                "text": "\"0 Duplicate KB\""
-              },
-              "remote_registry": {
-                "text": "\"Widgets Mounted\""
-              },
-              "cross_event_bus": {
-                "text": "\"Listeners Attached\""
-              },
-              "boundary_fallback": {
-                "text": "\"Monitoring\""
-              }
-            },
-            "tones": {
-              "shared_react": "ok",
-              "remote_registry": "data",
-              "cross_event_bus": "data",
-              "boundary_fallback": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Order executions trigger cross-remote domain events, updating portfolio VaR.",
-            "values": {
-              "shared_react": {
-                "text": "\"Stable Context\""
-              },
-              "remote_registry": {
-                "text": "\"Widgets Active\""
-              },
-              "cross_event_bus": {
-                "text": "\"ORDER_EXECUTED Dispatched\""
-              },
-              "boundary_fallback": {
-                "text": "\"No Faults\""
-              }
-            },
-            "tones": {
-              "shared_react": "ok",
-              "remote_registry": "ok",
-              "cross_event_bus": "ok",
-              "boundary_fallback": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "The host shell mounts market data and order ticket components cleanly."
           },
           {
             "at": "say4",
-            "caption": "Isolated boundaries guarantee that secondary remote crashes never crash trading.",
-            "values": {
-              "shared_react": {
-                "text": "\"Preserved\""
-              },
-              "remote_registry": {
-                "text": "\"Sandboxed\""
-              },
-              "cross_event_bus": {
-                "text": "\"Isolated\""
-              },
-              "boundary_fallback": {
-                "text": "\"100% Resilience\""
-              }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Error boundaries catch failing remotes without crashing the host app."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Federated Micro-Frontend Isolation",
+        "left": {
+          "title": "Healthy Remotes",
+          "subtitle": "Shared Runtime",
+          "items": [
+            {
+              "label": "Market Remote",
+              "text": "Market Data",
+              "tone": "ok"
             },
-            "tones": {
-              "shared_react": "ok",
-              "remote_registry": "ok",
-              "cross_event_bus": "ok",
-              "boundary_fallback": "ok"
+            {
+              "label": "Order Ticket",
+              "text": "Order Ticket",
+              "tone": "ok"
             }
+          ]
+        },
+        "right": {
+          "title": "Degraded Remote",
+          "subtitle": "Error Boundary",
+          "items": [
+            {
+              "label": "Analytics Remote",
+              "text": "Analytics",
+              "tone": "error"
+            },
+            {
+              "label": "Fallback UI",
+              "text": "Error Boundary",
+              "tone": "data"
+            }
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "left"
+            ],
+            "caption": "The host orchestrates federated micro-frontend remote containers."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "The host shell mounts market data and order ticket components cleanly."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Error boundaries catch failing remotes without crashing the host app."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Production Verification Suite & Performance Audit: Certifying 0ms Tearing, Sub-5ms Render Latency & Zero Memory Leaks",
       "codeHash": "d5a4d6a23090c63f25fd31d1802d2e398ceb23c6a616fc7b8928a3f169474563",
       "spec": {
-        "template": "compare",
-        "title": "Production Audit Benchmark: Spaghetti Architecture vs Milestone 9 Desk",
-        "left": {
-          "label": "Naive Spaghetti Trading Desk",
-          "items": [
-            "Severe state tearing under high-frequency ticks",
-            "Uncontrolled render latency (> 50ms drops frames)",
-            "Duplicate order submissions on nervous double-clicks",
-            "Fatal hook crashes from duplicate React runtimes"
-          ]
-        },
-        "right": {
-          "label": "Milestone 9 Enterprise Trading Desk",
-          "items": [
-            "0.00% state tearing via useSyncExternalStore",
-            "Sub-5ms UI execution latency (smooth 60 FPS)",
-            "Deterministic statechart eliminates double-submissions",
-            "Shared React 18 singleton with resilient error sandboxing"
-          ]
-        },
+        "template": "flow",
+        "title": "Milestone 9 Production Audit Pipeline",
+        "nodes": [
+          {
+            "id": "tearing",
+            "label": "Tear-Free Check",
+            "text": "State Tearing Invariant",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "latency",
+            "label": "Latency Check",
+            "text": "Render Latency Threshold",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "singleton",
+            "label": "Singleton Check",
+            "text": "React Singleton Integrity",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "grade",
+            "label": "Audit Result",
+            "text": "GRADE A+ PRODUCTION READY",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "tearing",
+            "to": "latency",
+            "label": "Frame Budget"
+          },
+          {
+            "from": "latency",
+            "to": "singleton",
+            "label": "Runtime Check"
+          },
+          {
+            "from": "singleton",
+            "to": "grade",
+            "label": "Certification"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Milestone nine guarantees zero torn frames under one,multiple tick/sec.",
-            "values": {
-              "left": {
-                "items": [
-                  "15 Torn Frames / Sec",
-                  "Inconsistent PnL",
-                  "High Risk Exposure",
-                  "Audit Non-Compliant"
-                ]
-              },
-              "right": {
-                "items": [
-                  "0 Torn Frames / Sec",
-                  "100% PnL Accuracy",
-                  "Zero Risk Exposure",
-                  "Certified Compliant"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "tearing"
+            ],
+            "caption": "The production audit harness validates enterprise system compliance."
           },
           {
             "at": "say2",
-            "caption": "Selective subscriptions reduce render latency from ms down to three.twoms.",
-            "values": {
-              "left": {
-                "items": [
-                  "52ms Render Latency",
-                  "Dropped Frames (18 FPS)",
-                  "UI Freezes on Ticks",
-                  "Main Thread Exhausted"
-                ]
-              },
-              "right": {
-                "items": [
-                  "3.2ms Render Latency",
-                  "Smooth 60 FPS",
-                  "Zero UI Freezing",
-                  "Main Thread Free"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "highlight": [
+              "tearing",
+              "latency"
+            ],
+            "caption": "The verification suite asserts non-negotiable enterprise criteria."
           },
           {
-            "at": "say3",
-            "caption": "Order execution statecharts eliminate double submissions and margin breaches.",
-            "values": {
-              "left": {
-                "items": [
-                  "Ghost Duplicate Orders",
-                  "Unchecked Margin",
-                  "Fat-Finger Errors",
-                  "Disastrous Losses"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Zero Duplicates",
-                  "Strict Pre-Trade Guards",
-                  "Price Collars Enforced",
-                  "Capital Protected"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "at": "say6",
+            "highlight": [
+              "singleton",
+              "grade"
+            ],
+            "caption": "Shared runtime singletons eliminate duplicate vendor bundle overhead."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Milestone 9 Production Audit Pipeline",
+        "nodes": [
+          {
+            "id": "tearing",
+            "label": "Tear-Free Check",
+            "text": "State Tearing Invariant",
+            "tone": "ok",
+            "tappable": false
           },
           {
-            "at": "say4",
-            "caption": "Micro-Frontend Real-Time Trading Desk achieves Grade A+ Production Ready Certification.",
-            "values": {
-              "left": {
-                "items": [
-                  "Brittle Monolith",
-                  "High Team Coupling",
-                  "Frequent Outages",
-                  "Grade F Non-Compliant"
-                ]
-              },
-              "right": {
-                "items": [
-                  "Autonomous Remotes",
-                  "Federated Decoupling",
-                  "99.99% Uptime",
-                  "Grade A+ Certified"
-                ]
-              }
-            },
-            "tones": {
-              "left": "error",
-              "right": "ok"
-            }
+            "id": "latency",
+            "label": "Latency Check",
+            "text": "Render Latency Threshold",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "singleton",
+            "label": "Singleton Check",
+            "text": "React Singleton Integrity",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "grade",
+            "label": "Audit Result",
+            "text": "GRADE A+ PRODUCTION READY",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "tearing",
+            "to": "latency",
+            "label": "Frame Budget"
+          },
+          {
+            "from": "latency",
+            "to": "singleton",
+            "label": "Runtime Check"
+          },
+          {
+            "from": "singleton",
+            "to": "grade",
+            "label": "Certification"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "highlight": [
+              "tearing"
+            ],
+            "caption": "The production audit harness validates enterprise system compliance."
+          },
+          {
+            "at": "say2",
+            "highlight": [
+              "tearing",
+              "latency"
+            ],
+            "caption": "The verification suite asserts non-negotiable enterprise criteria."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "singleton",
+              "grade"
+            ],
+            "caption": "Shared runtime singletons eliminate duplicate vendor bundle overhead."
           }
         ]
       }

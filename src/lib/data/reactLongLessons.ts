@@ -15921,15 +15921,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a TSLA instrument to the topology and verify that its summary spread calculates cleanly.",
       example: "Financial trading desks demand ultra-low-latency data ingestion, strict zero state tearing via useSyncExternalStore, independent micro-frontend deployments, and statechart-driven order execution.",
         "check": {
-        "question": "What are the four core architectural requirements of an enterprise real-time financial trading desk?",
+        "question": "What are the four primary architectural pillars of an institutional financial trading desk?",
         "options": [
-          "High-frequency data ingestion, 100% zero state tearing, autonomous micro-frontend team ownership, and deterministic order statecharts",
-          "Monolithic single-repo deployment, plain CSS styling, PHP backend, and synchronous database queries",
-          "Disabling all JavaScript animations, running exclusively on Firefox, and updating once per minute",
-          "Converting all stock prices into integer numbers without decimal places"
+          "Hardware overclocking, automated database compaction, global CDN route caching, and automated memory garbage collection without worker threads.",
+          "High-frequency data ingestion, zero state tearing, organizational micro-frontend federation, and deterministic order execution state machines.",
+          "Continuous client browser tab refreshing, local cookie storage persistence, uncompressed JSON streaming, and peer-to-peer audio communication.",
+          "Pure WebAssembly canvas rendering, elimination of all React hooks, direct kernel network socket binding, and unencrypted local disk telemetry."
         ],
-        "answer": 0,
-        "why": "Financial trading desks demand ultra-low-latency data ingestion, strict zero state tearing via useSyncExternalStore, independent micro-frontend deployments, and statechart-driven order execution."
+        "answer": 1,
+        "why": "Institutional trading desks require high-frequency tick ingestion, tear-free external stores, autonomous federated teams, and statechart order safety."
       }
     },
     {
@@ -15965,15 +15965,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Ingest a tick for NVDA and verify that its re-render counter increments to 1 while AAPL bails out.",
       example: "Memoized selectors ensure referential stability so that components subscribed only to AAPL do not re-render when NVDA or MSFT prices update, preserving 60 FPS performance.",
         "check": {
-        "question": "How does useSyncExternalStore with memoized selectors prevent main thread starvation during high-frequency market tick ingestion?",
+        "question": "How does useSyncExternalStore with memoized selectors prevent UI tearing during market tick feeds?",
         "options": [
-          "Components re-render only when their specific selected instrument price changes, skipping reconciliation for thousands of unrelated quote widgets",
-          "By turning off the computer screen during high volatility",
-          "By discarding 90% of incoming stock prices",
-          "By running the web browser inside a virtual machine"
+          "By forcing the client browser to pause rendering cycles until all pending WebSocket network packets are written to persistent local disk storage.",
+          "By converting all incoming floating-point price updates into static string values to prevent client memory corruption across distributed threads.",
+          "By encrypting the React component tree with hardware cryptographic keys before dispatching state change notifications to active subscriber views.",
+          "By reading consistent immutable snapshots synchronously during render and re-rendering only when selector outputs change by referential equality."
         ],
-        "answer": 0,
-        "why": "Memoized selectors ensure referential stability so that components subscribed only to AAPL do not re-render when NVDA or MSFT prices update, preserving 60 FPS performance."
+        "answer": 3,
+        "why": "useSyncExternalStore enforces synchronous snapshot reads, eliminating tearing, while referential equality in selectors prevents unnecessary re-renders."
       }
     },
     {
@@ -16009,15 +16009,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Submit an order exceeding 5,000 shares and verify that the quantity threshold guard rejects the trade.",
       example: "In an FSM, state transitions are instantaneous.",
         "check": {
-        "question": "How does the Order Execution Statechart protect against nervous double-clicks submitting duplicate financial orders?",
+        "question": "How does the Order Execution Statechart protect against duplicate order submissions?",
         "options": [
-          "The machine transitions to SUBMITTING_EXCHANGE on the first event, where subsequent duplicate SUBMIT events are structurally ignored",
-          "By disabling the user's mouse hardware",
-          "By deleting the customer's trading account",
-          "By asking the user to solve a math puzzle before submitting"
+          "By transitioning into a SUBMITTING state that rejects duplicate SUBMIT events until an authoritative exchange acknowledgment or rejection arrives.",
+          "By terminating the client's network connection immediately after a click to prevent additional HTTP packets from being transmitted over the wire.",
+          "By deleting the customer's private trading credentials from browser memory, forcing the trader to authenticate again before submitting trades.",
+          "By restarting the client operating system display server whenever multiple button clicks are detected within a twenty-millisecond time window."
         ],
         "answer": 0,
-        "why": "In an FSM, state transitions are instantaneous. The first click moves the machine into SUBMITTING_EXCHANGE where duplicate SUBMIT events have no transition and are safely ignored."
+        "why": "Finite statecharts ignore unhandled events in active states, guaranteeing that clicking submit repeatedly during an in-flight order has zero effect."
       }
     },
     {
@@ -16053,15 +16053,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Add a third remote for ExecutionHistory and verify that it mounts and binds to the shared React singleton.",
       example: "React hooks rely on a module-scoped dispatcher singleton.",
         "check": {
-        "question": "Why is sharing a single React runtime instance critical when mounting multiple federated trading desk widgets?",
+        "question": "Why is negotiating a shared React runtime singleton critical across federated trading remotes?",
         "options": [
-          "To prevent multiple React module closures from corrupting internal hook dispatchers, eliminating Invalid Hook Call crashes",
-          "To make the trading desk look more colorful",
-          "To allow the browser to use more memory",
-          "Because Webpack cannot bundle more than one file"
+          "To prevent browser layout engines from rejecting CSS grid stylesheet definitions when multiple JavaScript runtimes execute on identical threads.",
+          "To allow client operating systems to execute background tasks without acquiring administrator permissions from the enterprise network directory.",
+          "To ensure all remotes share a single Hook dispatcher instance, preventing fatal invalid hook call exceptions and massive duplicate payload bloat.",
+          "To compress remote JavaScript code with hardware gzip encryption streams before transmitting them across distributed WebSocket network connections."
         ],
-        "answer": 0,
-        "why": "React hooks rely on a module-scoped dispatcher singleton. Sharing a single negotiated React runtime across all micro-frontends guarantees that all hooks execute safely without dispatcher collision."
+        "answer": 2,
+        "why": "React Hooks depend on a shared dispatcher singleton; loading multiple copies of React breaks hook contexts and wastes memory and bundle size."
       }
     },
     {
@@ -16100,15 +16100,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "tryIt": "Set tornFramesCount to 3 and observe how the audit suite flags the state integrity violation.",
       example: "The Milestone 9 audit suite rigorously verifies 0ms state tearing, sub-5ms render latency, order state machine integrity, shared React singletons, and resilient remote sandboxing.",
         "check": {
-        "question": "What five performance and architectural criteria are validated by the Milestone 9 audit suite?",
+        "question": "What constitutes Grade A+ production compliance in the Milestone 9 trading platform audit suite?",
         "options": [
-          "Zero state tearing, sub-5ms render latency, statechart duplicate protection, React singleton integrity, and remote failure isolation",
-          "Screen resolution, monitor brightness, mouse sensitivity, keyboard layout, and audio volume",
-          "Hard drive speed, CPU core count, operating system version, browser user agent, and IP address",
-          "HTML tag count, CSS rule count, JavaScript file size, image format, and font family"
+          "Overclocking client CPU processors above four gigahertz and maintaining continuous zero-latency database replication across active browser windows.",
+          "Zero torn frames, render latency under five milliseconds, deterministic order state transitions, a single React runtime, and isolated CDN errors.",
+          "Converting all user interface components into compiled C++ WebAssembly binaries and disabling client-side security checks across network sockets.",
+          "Restricting platform access to local area networks and purging all client memory caches whenever a user switches focus to an external application."
         ],
-        "answer": 0,
-        "why": "The Milestone 9 audit suite rigorously verifies 0ms state tearing, sub-5ms render latency, order state machine integrity, shared React singletons, and resilient remote sandboxing."
+        "answer": 1,
+        "why": "The Milestone 9 audit verifies zero state tears, sub-5ms render budgets, statechart order safety, singleton integrity, and isolated remote error boundaries."
       }
     }
   ],
