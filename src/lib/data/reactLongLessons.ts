@@ -11895,7 +11895,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 8, note: "Processing 4 nodes synchronously locks the caller until the array is fully exhausted." }
         ],
         tryIt: "Add a new component 'UserProfile' to the nodes array and verify that result.length increases to 5.",
-        example: "In practice, when implementing From Stack Reconciler to Fiber: Why Synchronous Tree Traversal Froze the Main Thread, an engineering or financial team first captures Stack and validates Reconciler against Fiber before committing Synchronous. The native JavaScript call stack is all-or-nothing: recursive function execution cannot be paused halfway to yield to browser input events.",
+        example: "The native JavaScript call stack is all-or-nothing: recursive function execution cannot be paused halfway to yield to browser input events.",
         check: {
           question: "Why did the legacy React stack reconciler freeze the user interface during heavy renders?",
           options: [
@@ -11927,7 +11927,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 14, note: "App has nav as first child; main is reached via nav.sibling, not as an array element." }
         ],
         tryIt: "Create a third child 'footer' on main.sibling with return pointing to app, and print footer.type.",
-        example: "In practice, when implementing The Fiber Node Topology: Child, Sibling, Return, and the Traversal Pointer Walk, an engineering or financial team first captures Fiber and validates Topology against Child before committing Sibling. Fiber nodes use a singly-linked list structure: parent.child points to child 1, and child 1.sibling points to child 2.",
+        example: "Fiber nodes use a singly-linked list structure: parent.child points to child 1, and child 1.sibling points to child 2.",
         check: {
           question: "In React's Fiber architecture, how does a parent Fiber node access its second child?",
           options: [
@@ -11959,7 +11959,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 14, note: "At commit time, activeTree flips to the workInProgress tree in a single reference assignment." }
         ],
         tryIt: "Add a third step where you create a new update with count: 2 reusing currentRoot as the alternate, and verify the cycle.",
-        example: "In practice, when implementing Double Buffering: Current vs Work-in-Progress Trees and Atomic DOM Commit, an engineering or financial team first captures Double and validates Buffering against Current before committing Work-in-Progress. Double buffering isolates in-progress work to a shadow tree, ensuring that incomplete or paused renders never cause visual tearing on screen.",
+        example: "Double buffering isolates in-progress work to a shadow tree, ensuring that incomplete or paused renders never cause visual tearing on screen.",
         check: {
           question: "What is the primary benefit of double buffering in React's Fiber architecture?",
           options: [
@@ -11991,7 +11991,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 16, note: "At index 2 (elapsed 6ms >= 5ms), the loop cleanly yields before processing renderRows." }
         ],
         tryIt: "Increase timeSliceMs to 10 and verify that all 4 tasks complete before yielding.",
-        example: "In practice, when implementing The Scheduler and Cooperative Multitasking: 5ms Time Slices with shouldYield, an engineering or financial team first captures Scheduler and validates Cooperative against Multitasking before committing Slices. React uses approximately 5ms time slices so that rendering yields frequently enough to keep input latency well below 16ms.",
+        example: "React uses approximately 5ms time slices so that rendering yields frequently enough to keep input latency well below 16ms.",
         check: {
           question: "What is the typical time-slice duration React's Scheduler allocates to continuous JavaScript execution before calling shouldYield()?",
           options: [
@@ -12025,7 +12025,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 32, note: "Slice 2 picks up nextUnit without restarting from App, demonstrating resumability." }
         ],
         tryIt: "Add a sibling 'Sidebar' after Header in the tree definition and observe how the traversal order adjusts automatically.",
-        example: "In practice, when implementing Simulating an Interruptible Concurrent Fiber Work Loop in Pure JavaScript, an engineering or financial team first captures Simulating and validates Interruptible against Concurrent before committing Fiber. React concurrently iterates while work remains and the Scheduler indicates that the current time slice has not yet expired.",
+        example: "React concurrently iterates while work remains and the Scheduler indicates that the current time slice has not yet expired.",
         check: {
           question: "What is the condition checked by React's workLoopConcurrent during the render phase?",
           options: [
@@ -12081,7 +12081,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 13, note: "High-priority keystroke updates process immediately, bypassing background filter tasks." }
         ],
         tryIt: "Add a new update { id: 4, type: 'transition', desc: 'Re-sort table by column' } and verify transitionQueue.length.",
-        example: "In practice, when implementing Urgent vs Transition Updates: High-Priority Keystrokes vs Low-Priority State Changes, an engineering or financial team first captures Urgent and validates Transition against Updates before committing High-Priority. Direct physical user inputs demand sub-16ms hardware feedback to prevent human perception of UI jank and typing stutter.",
+        example: "Direct physical user inputs demand sub-16ms hardware feedback to prevent human perception of UI jank and typing stutter.",
         check: {
           question: "Which of the following interactions should be treated as an Urgent Update in React?",
           options: [
@@ -12114,7 +12114,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 13, note: "dispatchSetState checks currentTransitionContext to select Transition lane vs Default lane." }
         ],
         tryIt: "Call dispatchSetState after startTransition completes and verify its lane reverts to Lanes.Default.",
-        example: "In practice, when implementing Anatomy of startTransition: Marking State Updates with Low-Priority Lanes, an engineering or financial team first captures Anatomy and validates startTransition against Marking before committing State. React sets an internal transition batch context before running the startTransition callback, tagging all nested state dispatches with transition lanes.",
+        example: "React sets an internal transition batch context before running the startTransition callback, tagging all nested state dispatches with transition lanes.",
         check: {
           question: "How does React internally detect that a setState call should be treated as a transition?",
           options: [
@@ -12147,7 +12147,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 10, note: "Once transition work finishes and commits, isPending flips cleanly back to false." }
         ],
         tryIt: "Add an error throw inside transitionWork and wrap with try/finally to verify isPending always resets to false.",
-        example: "In practice, when implementing The isPending Flag: Designing Non-Blocking User Feedback and Shimmer Indicators, an engineering or financial team first captures isPending and validates Designing against Non-Blocking before committing Feedback. isPending allows developers to indicate background work (e.g.",
+        example: "isPending allows developers to indicate background work (e.g.",
         check: {
           question: "What is the primary architectural advantage of useTransition's isPending flag over traditional loading spinners?",
           options: [
@@ -12180,7 +12180,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 28, note: "Stale renders 'd' and 'de' are discarded in memory; only the final 'dev' commits to the screen." }
         ],
         tryIt: "Call scheduleTransition('developer') and commit() to observe another cycle of abandonment and commit.",
-        example: "In practice, when implementing Concurrent Interruption in Action: Bailing Out and Discarding Obsolete Renders, an engineering or financial team first captures Concurrent and validates Interruption against Action before committing Bailing. Concurrent React can interrupt and discard stale background renders in memory without ever touching the real DOM.",
+        example: "Concurrent React can interrupt and discard stale background renders in memory without ever touching the real DOM.",
         check: {
           question: "What happens in Concurrent React when an urgent update arrives while a background transition is rendering?",
           options: [
@@ -12215,7 +12215,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 16, note: "transitionId === this.currentId check ensures only the latest transition commits." }
         ],
         tryIt: "Simulate an aborted transition by incrementing currentId prior to the commit check.",
-        example: "In practice, when implementing Building a Priority-Aware Concurrent Transition Dispatcher in Pure JavaScript, an engineering or financial team first captures Building and validates Priority-Aware against Concurrent before committing Transition. Comparing transition IDs prevents race conditions where a slow, older render finishes after a fast, newer render.",
+        example: "Comparing transition IDs prevents race conditions where a slow, older render finishes after a fast, newer render.",
         check: {
           question: "Why is the transitionId check critical when committing concurrent transition updates?",
           options: [
@@ -12273,7 +12273,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 5, note: "Deferred value schedules background rendering dynamically based on hardware capability." }
         ],
         tryIt: "Add an ultra-fast hardware profile with 1ms finish time and compare against debounce.",
-        example: "In practice, when implementing useDeferredValue vs Debounce and Throttle: Adaptive Scheduling vs Arbitrary Milliseconds, an engineering or financial team first captures useDeferredValue and validates Debounce against Throttle before committing Adaptive. useDeferredValue integrates directly with React's Scheduler, executing background work as soon as the main thread is idle rather than relying on arbitrary timer delays.",
+        example: "useDeferredValue integrates directly with React's Scheduler, executing background work as soon as the main thread is idle rather than relying on arbitrary timer delays.",
         check: {
           question: "What is the primary difference between useDeferredValue and setTimeout-based debounce?",
           options: [
@@ -12308,7 +12308,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 15, note: "On the urgent pass, old data renders with 0.6 opacity to signal background recalculation." }
         ],
         tryIt: "Add an extra status property that returns 'UPDATING' when isStale is true and 'SYNCED' when false.",
-        example: "In practice, when implementing Visual Staleness Signaling: Comparing Deferred Value with Fresh State for Opacity Dims, an engineering or financial team first captures Visual and validates Staleness against Signaling before committing Comparing. During the urgent pass, the immediate prop has updated while the deferred value retains its previous value, making prop !== deferredProp true.",
+        example: "During the urgent pass, the immediate prop has updated while the deferred value retains its previous value, making prop !== deferredProp true.",
         check: {
           question: "How can a React component determine if its rendered content is currently stale when using useDeferredValue?",
           options: [
@@ -12343,7 +12343,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 15, note: "On the urgent pass, matching props allow React to skip evaluating the 10,000-row subtree." }
         ],
         tryIt: "Add a new prop theme: 'dark' to nextProps and observe how shallowEqual triggers a RE_RENDER.",
-        example: "In practice, when implementing Fiber Bailouts with React.memo: Preventing Redundant Child Subtree Re-computation, an engineering or financial team first captures Fiber and validates Bailouts against React before committing Preventing. Without React.memo, parent re-renders cascade into children unconditionally, re-evaluating the expensive child before the deferred pass even begins.",
+        example: "Without React.memo, parent re-renders cascade into children unconditionally, re-evaluating the expensive child before the deferred pass even begins.",
         check: {
           question: "Why is React.memo essential when passing useDeferredValue to an expensive child component?",
           options: [
@@ -12379,7 +12379,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 8, note: "When the background promise resolves, the fresh content renders at full opacity." }
         ],
         tryIt: "Add a new state simulating a network failure to evaluate error boundary fallback behavior.",
-        example: "In practice, when implementing Suspense Boundary Integration: Graceful Fallbacks during Concurrent Deferrals, an engineering or financial team first captures Suspense and validates Boundary against Integration before committing Graceful. React concurrent transitions suppress Suspense fallback spinners during updates, maintaining the existing interface until fresh data is ready.",
+        example: "React concurrent transitions suppress Suspense fallback spinners during updates, maintaining the existing interface until fresh data is ready.",
         check: {
           question: "What happens when a component suspends during an update driven by useDeferredValue?",
           options: [
@@ -12417,7 +12417,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 18, note: "On the deferred pass, ChildGrid recalculates and updates its cached output." }
         ],
         tryIt: "Add a third handleInput('a') and verify that ChildGrid bails out on the urgent pass before committing.",
-        example: "In practice, when implementing Simulating useDeferredValue Work Scheduling and Memoized Subtree Evaluation, an engineering or financial team first captures Simulating and validates useDeferredValue against Scheduling before committing Memoized. During the urgent pass of the second keystroke, deferredQuery still held 'R', matching the cached props and triggering a 0ms bailout.",
+        example: "During the urgent pass of the second keystroke, deferredQuery still held 'R', matching the cached props and triggering a 0ms bailout.",
         check: {
           question: "In our simulation, why did ChildGrid successfully bail out during the second handleInput call?",
           options: [
@@ -12475,7 +12475,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 10, note: "The UI logic encounters an impossible state and produces corrupted visual output." }
         ],
         tryIt: "Set isLoading to false and isError to true to observe the clean single-state rendering.",
-        example: "In practice, when implementing The Boolean Explosion Problem: Why Multiple useState Flags Cause Corrupted UI, an engineering or financial team first captures Boolean and validates Explosion against Problem before committing Multiple. Independent booleans multiply exponentially (2^N), creating impossible states that cause corrupted, glitchy UI rendering.",
+        example: "Independent booleans multiply exponentially (2^N), creating impossible states that cause corrupted, glitchy UI rendering.",
         check: {
           question: "What is the primary danger of managing component status with multiple independent boolean flags (e.g. isLoading, isError)?",
           options: [
@@ -12510,7 +12510,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 16, note: "A duplicate FETCH event during loading does nothing, cleanly preventing double-submit bugs." }
         ],
         tryIt: "Add a RESET event to success that transitions back to idle and verify its transition.",
-        example: "In practice, when implementing Anatomy of a Finite State Machine: States, Events, Guards, and Transition Tables, an engineering or financial team first captures Anatomy and validates Finite against State before committing Machine. FSMs are deterministic: undeclared transitions are no-ops, automatically safeguarding your UI against unwanted or out-of-order events.",
+        example: "FSMs are deterministic: undeclared transitions are no-ops, automatically safeguarding your UI against unwanted or out-of-order events.",
         check: {
           question: "What happens in a Finite State Machine when an event is received that has no transition defined for the current state?",
           options: [
@@ -12546,7 +12546,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 10, note: "When RESOLVE fires during loading, it cleanly transitions to success with payload data." }
         ],
         tryIt: "Dispatch a RELOAD action from success state and verify it transitions back to loading.",
-        example: "In practice, when implementing Implementing FSMs with useReducer: Discriminated Union Actions and Context Payloads, an engineering or financial team first captures Implementing and validates useReducer against Discriminated before committing Union. Switching on state.status first enforces statechart transition rules, ensuring illegal or out-of-order actions are ignored.",
+        example: "Switching on state.status first enforces statechart transition rules, ensuring illegal or out-of-order actions are ignored.",
         check: {
           question: "Why does a State Machine reducer switch on state.status before action.type?",
           options: [
@@ -12582,7 +12582,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 12, note: "Exiting 'loading' triggers cleanup like aborting active sockets." }
         ],
         tryIt: "Add an entry action for state 'error' that logs a warning to the analytics pipeline.",
-        example: "In practice, when implementing Side Effects and Entry/Exit Actions: Decoupling State Evolution from Network I/O, an engineering or financial team first captures Effects and validates Entry against Actions before committing Decoupling. useEffect serves as the declarative bridge for state machine side effects: the effect body is the entry action, and the cleanup function is the exit action.",
+        example: "useEffect serves as the declarative bridge for state machine side effects: the effect body is the entry action, and the cleanup function is the exit action.",
         check: {
           question: "In React FSM architecture, what is the role of useEffect in relation to state transitions?",
           options: [
@@ -12619,7 +12619,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 13, note: "stepFSM warns and ignores any out-of-order events that violate the transition table." }
         ],
         tryIt: "Try calling stepFSM(st, 'RESOLVE_DATA') while in 'empty' and observe the invalid event warning.",
-        example: "In practice, when implementing Building a Robust Async Data Fetching State Machine with Strict Transition Tables, an engineering or financial team first captures Building and validates Robust against Async before committing Fetching. A discrete 'empty' state can only be entered after a completed query, preventing premature or misleading empty flashes.",
+        example: "A discrete 'empty' state can only be entered after a completed query, preventing premature or misleading empty flashes.",
         check: {
           question: "What is the primary benefit of having a dedicated 'empty' state in a data grid state machine?",
           options: [
@@ -12674,7 +12674,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 48, note: "Rapid sequential keystrokes demonstrate urgent priority queueing." }
         ],
         tryIt: "Modify the search query from 'En' to 'Health' and run to observe the exact matching record count.",
-        example: "In practice, when implementing Architectural Blueprint: Integrating FSM, Fiber Priority, and Virtual Windowing, an engineering or financial team first captures Architectural and validates Blueprint against Integrating before committing Fiber. Urgent updates keep the text input responsive and smooth at 60 FPS, while heavy background work like filtering 10,000 rows executes without blocking the main thread.",
+        example: "Urgent updates keep the text input responsive and smooth at 60 FPS, while heavy background work like filtering 10,000 rows executes without blocking the main thread.",
         check: {
           question: "Why must the user's keystroke update urgent state synchronously rather than waiting for the 10,000-row filter to finish?",
           options: [
@@ -12705,7 +12705,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 40, note: "SORT_TOGGLED sorts the current filtered collection predictably." }
         ],
         tryIt: "Add a third query change action before the completion of token 2 and verify that token 2 is also safely discarded.",
-        example: "In practice, when implementing Designing the Grid State Machine: Discriminated Unions for Filtering, Sorting, and Slicing, an engineering or financial team first captures Designing and validates State against Machine before committing Discriminated. Monotonic tokens ensure that if an older background filtering pass completes after a newer search query has already begun, its stale results are discarded automatically.",
+        example: "Monotonic tokens ensure that if an older background filtering pass completes after a newer search query has already begun, its stale results are discarded automatically.",
         check: {
           question: "What is the primary role of the monotonic transaction token in the grid state machine?",
           options: [
@@ -12736,7 +12736,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 68, note: "Both completed jobs output their verified 2,500 record matches." }
         ],
         tryIt: "Change CHUNK_SIZE to 5000 and run to see how the engine processes the dataset in fewer, larger slices.",
-        example: "In practice, when implementing Non-Blocking Concurrent Filtering with useTransition and Priority Queuing, an engineering or financial team first captures Non-Blocking and validates Concurrent against Filtering before committing useTransition. Cooperative chunking allows the JavaScript event loop to breathe between slices, enabling urgent user inputs to preempt long-running background tasks.",
+        example: "Cooperative chunking allows the JavaScript event loop to breathe between slices, enabling urgent user inputs to preempt long-running background tasks.",
         check: {
           question: "What is the primary benefit of breaking a 10,000-row filtering loop into chunked slices?",
           options: [
@@ -12767,7 +12767,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 54, note: "Output shows 15 rendered rows out of 3,000, eliminating DOM bloat." }
         ],
         tryIt: "Increase VIEWPORT_HEIGHT from 400 to 600 and re-run to see how the visible count scales proportionally.",
-        example: "In practice, when implementing Virtual Viewport Rendering and Stale Visual Indicators with useDeferredValue, an engineering or financial team first captures Virtual and validates Viewport against Rendering before committing Stale. Virtualization keeps the DOM light by rendering only the 15 to 30 rows currently inside the visible screen window, preventing browser DOM overload.",
+        example: "Virtualization keeps the DOM light by rendering only the 15 to 30 rows currently inside the visible screen window, preventing browser DOM overload.",
         check: {
           question: "Why does virtualizing the data grid improve performance when rendering 10,000 rows?",
           options: [
@@ -12798,7 +12798,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 67, note: "Summary confirms all urgent latencies were well below the 16.6ms 60 FPS budget." }
         ],
         tryIt: "Add another keystroke 's' to search for 'Sales' and observe the resulting matches count.",
-        example: "In practice, when implementing Production Stress Testing: Benchmarking Frame Rates and 10,000-Row Throughput, an engineering or financial team first captures Production and validates Stress against Testing before committing Benchmarking. A 60 frames per second display budget requires each frame to be computed and painted in under 16.6 milliseconds (1000ms / 60 frames = 16.6ms).",
+        example: "A 60 frames per second display budget requires each frame to be computed and painted in under 16.6 milliseconds (1000ms / 60 frames = 16.6ms).",
         check: {
           question: "What threshold must interaction latency stay below to maintain a 60 FPS responsive user interface?",
           options: [
@@ -12858,7 +12858,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 38, note: "Cooperative 5ms slices leave over 11ms of headroom for layout and paint." }
         ],
         tryIt: "Change TARGET_FPS to 120 and re-run to see how the budget tightens to 8.33ms per frame.",
-        example: "In practice, when implementing Anatomy of the 16.6ms Frame: V-Sync, Browser Rendering Pipelines & Main Thread Monopolization, an engineering or financial team first captures Anatomy and validates Frame against V-Sync before committing Browser. The browser main thread is shared between JavaScript execution and rendering.",
+        example: "The browser main thread is shared between JavaScript execution and rendering.",
         check: {
           question: "Why does a 50ms synchronous JavaScript function cause dropped frames on a 60Hz display?",
           options: ["Because single-threaded JavaScript blocks the browser from running layout, paint, and compositing passes within the 16.6ms deadline", "Because browsers terminate any JavaScript script that runs for longer than 10 milliseconds", "Because the GPU disables hardware acceleration whenever arrays are iterated", "Because 60Hz monitors disconnect from the CPU when long tasks are detected"],
@@ -12887,7 +12887,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 38, note: "A staggering 60% of total time is wasted in idle waiting, destroying user responsiveness." }
         ],
         tryIt: "Increase numSlices to 40 and observe how wasted clamp delay grows to exceed 140ms.",
-        example: "In practice, when implementing The setTimeout Clamping Hazard: Why Browsers Enforce 4ms Minimums on Nested Timers, an engineering or financial team first captures setTimeout and validates Clamping against Hazard before committing Browsers. Browsers enforce a mandatory 4ms clamp on nested timers deeper than 5 levels, adding substantial idle latency between consecutive cooperative slices.",
+        example: "Browsers enforce a mandatory 4ms clamp on nested timers deeper than 5 levels, adding substantial idle latency between consecutive cooperative slices.",
         check: {
           question: "Why is setTimeout(fn, 0) unsuitable for high-frequency time-slicing schedulers in web applications?",
           options: ["Because the HTML5 standard clamps nested timeouts to a minimum 4ms delay after level 5, wasting CPU time in idle waiting", "Because setTimeout clears the browser local storage on every invocation", "Because setTimeout runs synchronously and cannot yield execution to the event loop", "Because setTimeout is deprecated in modern ECMAScript specifications"],
@@ -12916,7 +12916,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 39, note: "When the slice budget expires, the scheduler yields and posts the next macro-task." }
         ],
         tryIt: "Add a fourth task with heavy iteration to trigger the 5ms threshold and observe the yielding log.",
-        example: "In practice, when implementing Architecture of React's Scheduler: Leveraging MessageChannel for Zero-Latency Macro-Tasks, an engineering or financial team first captures Architecture and validates React against Scheduler before committing Leveraging. MessageChannel macro-tasks execute immediately after browser layout and paint without the mandatory 4ms delay imposed on nested setTimeout calls.",
+        example: "MessageChannel macro-tasks execute immediately after browser layout and paint without the mandatory 4ms delay imposed on nested setTimeout calls.",
         check: {
           question: "Why does React's Scheduler package use MessageChannel instead of setTimeout or requestIdleCallback?",
           options: ["To post zero-latency macro-tasks that bypass the 4ms setTimeout clamp and work reliably across all modern browsers", "To convert JavaScript execution into multi-threaded WebAssembly binaries", "Because MessageChannel automatically encrypts component state in memory", "Because MessageChannel is the only browser API capable of reading CPU temperature"],
@@ -12945,7 +12945,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 56, note: "In lightweight simulations, all 6 fibers process within 5ms; heavy tasks trigger pauses." }
         ],
         tryIt: "Set YIELD_INTERVAL_MS to 0 to force shouldYield() to pause after the very first fiber node.",
-        example: "In practice, when implementing Cooperative Multitasking and the shouldYield() Heuristic: 5ms Time-Slicing Windows, an engineering or financial team first captures Cooperative and validates Multitasking against shouldYield before committing Heuristic. React Scheduler uses a fixed 5ms slice target to guarantee that long renders yield frequently enough to preserve 60 FPS and 120 FPS frame budgets.",
+        example: "React Scheduler uses a fixed 5ms slice target to guarantee that long renders yield frequently enough to preserve 60 FPS and 120 FPS frame budgets.",
         check: {
           question: "What is the standard execution slice duration used by React's Scheduler package before shouldYield() returns true?",
           options: ["5 milliseconds", "500 milliseconds", "60 seconds", "100 microseconds"],
@@ -12974,7 +12974,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 57, note: "Deterministic task weights (2ms + 4ms = 6ms) trigger a clean yield before task 3." }
         ],
         tryIt: "Reduce ReconcileGridRows duration from 4ms to 2ms and verify that all tasks complete in a single slice without yielding.",
-        example: "In practice, when implementing Building a Production MessageChannel Cooperative Task Scheduler in JavaScript, an engineering or financial team first captures Building and validates Production against MessageChannel before committing Cooperative. Cooperative scheduling breaks long execution blocks into small 5ms slices, preventing thread starvation and ensuring the browser maintains a fluid 60 FPS interface.",
+        example: "Cooperative scheduling breaks long execution blocks into small 5ms slices, preventing thread starvation and ensuring the browser maintains a fluid 60 FPS interface.",
         check: {
           question: "What is the primary benefit of building a cooperative task scheduler with MessageChannel and 5ms slices?",
           options: ["It ensures the JavaScript thread yields control regularly, allowing the browser to paint and service user events at 60 FPS", "It automatically doubles the network bandwidth of HTTP requests", "It replaces all React hooks with plain HTML strings", "It forces all asynchronous promises to resolve synchronously"],
@@ -13028,7 +13028,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 21, note: "Bitwise AND (&) tests lane membership instantly with zero memory allocation." }
         ],
         tryIt: "Add an extra lane (OffscreenLane = 0b00010000) and merge it with taskB_lanes using bitwise OR.",
-        example: "In practice, when implementing From Numeric Priorities to Bitmasks: The Limitations of Integer Priority Levels, an engineering or financial team first captures Numeric and validates Priorities against Bitmasks before committing Limitations. Bitmasks enable representing sets of priority categories as 31-bit integers on the stack, allowing instant bitwise union, intersection, and subtraction without garbage collection overhead.",
+        example: "Bitmasks enable representing sets of priority categories as 31-bit integers on the stack, allowing instant bitwise union, intersection, and subtraction without garbage collection overhead.",
         check: {
           question: "Why did React replace scalar integer priority levels (1-5) with 31-bit bitmask lanes?",
           options: ["Because bitmasks allow representing, merging, and filtering multiple concurrent priority categories in a single CPU cycle using Small Integers without heap allocations", "Because JavaScript deprecated numeric addition in ECMAScript 2020", "Because integer priorities prevented React from compiling to WebAssembly", "Because monitors require binary numbers to display colors"],
@@ -13057,7 +13057,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 15, note: "classifyLane inspects bits using bitwise AND to return priority metadata." }
         ],
         tryIt: "Add a check for IdleLane in action5 and verify that it classifies with Idle/Offscreen priority.",
-        example: "In practice, when implementing The 31 Lanes Taxonomy: Discrete, Continuous, Default, Transition & Idle Lanes, an engineering or financial team first captures Lanes and validates Taxonomy against Discrete before committing Continuous. SyncLane (Bit 0) represents the highest priority in React and is executed synchronously to guarantee zero typing latency.",
+        example: "SyncLane (Bit 0) represents the highest priority in React and is executed synchronously to guarantee zero typing latency.",
         check: {
           question: "Which lane in React's 31-bit taxonomy is reserved for urgent discrete user interactions like keyboard typing?",
           options: ["SyncLane (Bit 0)", "IdleLane (Bit 29)", "TransitionLane (Bit 6)", "RetryLane (Bit 5)"],
@@ -13085,7 +13085,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 28, note: "pendingLanes &= ~activeLane strips the completed lane, leaving the remaining lanes." }
         ],
         tryIt: "Add LaneD = 0b00000010 (InputContinuousLane) and verify that it preempts DefaultLane but yields to SyncLane.",
-        example: "In practice, when implementing Bitwise Math in the Reconciler: Least-Significant Bit Extraction (lanes & -lanes), an engineering or financial team first captures Bitwise and validates Reconciler against Least-Significant before committing Extraction. Using two's complement binary representation, lanes & -lanes isolates the lowest set bit (least-significant bit), which represents the highest priority lane.",
+        example: "Using two's complement binary representation, lanes & -lanes isolates the lowest set bit (least-significant bit), which represents the highest priority lane.",
         check: {
           question: "What mathematical expression does React's reconciler use to isolate the single highest-priority lane from a bitmask in one CPU operation?",
           options: ["lanes & -lanes", "lanes | ~lanes", "Math.max(...lanes)", "lanes.split('').reverse()[0]"],
@@ -13114,7 +13114,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 52, note: "At 1600ms, the background transition lane escalates to prevent indefinite starvation." }
         ],
         tryIt: "Adjust the TransitionLane timeout to 1000ms and observe how it avoids escalation at 1600ms.",
-        example: "In practice, when implementing Lane Starvation and Priority Escalation: Expiration Timestamps and Sync Promotion, an engineering or financial team first captures Starvation and validates Priority against Escalation before committing Expiration. React assigns expiration timestamps to each lane.",
+        example: "React assigns expiration timestamps to each lane.",
         check: {
           question: "How does React prevent low-priority background transition lanes from being starved indefinitely by continuous user inputs?",
           options: ["By assigning expiration timestamps to lanes and promoting starved lanes to synchronous urgency once their deadline expires", "By crashing the application if an update takes longer than 1 second", "By deleting background components that take too long to render", "By ignoring user keyboard and mouse inputs after 100ms"],
@@ -13144,7 +13144,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 64, note: "Notice how the expired TransitionLane runs BEFORE DefaultLane due to starvation escalation." }
         ],
         tryIt: "Add an InputContinuousLane task and verify how it orders relative to DefaultLane and TransitionLane.",
-        example: "In practice, when implementing Building a Production 31-Bit Bitmask Lane Scheduler in Pure JavaScript, an engineering or financial team first captures Building and validates Production against Bitmask before committing Scheduler. When a background lane exceeds its starvation timeout, it is promoted into expiredLanes, giving it immediate precedence over non-expired normal lanes.",
+        example: "When a background lane exceeds its starvation timeout, it is promoted into expiredLanes, giving it immediate precedence over non-expired normal lanes.",
         check: {
           question: "In a 31-bit bitmask scheduler, why does an expired TransitionLane execute before a non-expired DefaultLane, even though DefaultLane normally has higher priority?",
           options: ["Because expired lanes are escalated to top-priority urgency to prevent indefinite starvation of background tasks", "Because DefaultLane is automatically deleted if any other lane exists", "Because TransitionLanes cannot be paused once started", "Because the JavaScript runtime executes functions in alphabetical order"],
@@ -13199,7 +13199,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 34, note: "Transition work is sliced across cooperative chunks, guaranteeing zero dropped frames." }
         ],
         tryIt: "Increase heavyItemCount to 20000 and observe how chunking scales gracefully across multiple slices.",
-        example: "In practice, when implementing Urgent vs Non-Urgent Updates: The Anatomy of Main-Thread UI Freezes, an engineering or financial team first captures Urgent and validates Non-Urgent against Updates before committing Anatomy. startTransition tells React that the update is non-urgent, allowing the reconciler to render it concurrently with lower priority without blocking urgent user interactions.",
+        example: "startTransition tells React that the update is non-urgent, allowing the reconciler to render it concurrently with lower priority without blocking urgent user interactions.",
         check: {
           question: "What is the primary architectural purpose of wrapping a state update inside startTransition?",
           options: ["To mark the update as non-urgent, allowing React to time-slice and interrupt it so the main thread remains responsive to user input", "To automatically translate the React component into HTML web components", "To persist state changes to browser localStorage synchronously", "To disable CSS transitions during component rendering"],
@@ -13229,7 +13229,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 39, note: "The UI displays old data with reduced opacity while the new state prepares offscreen." }
         ],
         tryIt: "Add an error simulation during the updateFn and verify that isPending resets safely in a try/finally block.",
-        example: "In practice, when implementing The isPending State Machine: Optimistic Indicators and Visual Continuity, an engineering or financial team first captures isPending and validates State against Machine before committing Optimistic. isPending maintains visual continuity by keeping the current screen visible while new content prepares in the background, eliminating jarring layout shifts.",
+        example: "isPending maintains visual continuity by keeping the current screen visible while new content prepares in the background, eliminating jarring layout shifts.",
         check: {
           question: "What is the primary user experience advantage of using isPending compared to traditional loading spinners?",
           options: ["isPending keeps the existing UI visible and interactive (e.g. with reduced opacity) rather than destroying the UI with a blank loading screen", "isPending makes network requests download five times faster", "isPending disables JavaScript execution in the browser", "isPending automatically caches state in the browser cookies"],
@@ -13258,7 +13258,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 57, note: "The engine processes 'AB' completely while saving 70 units of unnecessary computation on 'A'." }
         ],
         tryIt: "Modify the script so that keystroke 'B' arrives AFTER 100 units finish, and verify that query 'A' commits first.",
-        example: "In practice, when implementing Interruptible Rendering in Action: Preempting Background Transitions with Keystrokes, an engineering or financial team first captures Interruptible and validates Rendering against Action before committing Preempting. React's concurrent scheduler cleanly aborts and discards stale work-in-progress transitions when higher-priority sync updates arrive, ensuring instant input responsiveness.",
+        example: "React's concurrent scheduler cleanly aborts and discards stale work-in-progress transitions when higher-priority sync updates arrive, ensuring instant input responsiveness.",
         check: {
           question: "What does React do with an in-progress transition when an urgent user keystroke arrives before the transition finishes?",
           options: ["React immediately interrupts and discards the stale work-in-progress transition to render the urgent keystroke without delay", "React crashes the browser with an unhandled exception", "React freezes the keyboard until the background transition commits", "React renders both versions simultaneously overlapping on the screen"],
@@ -13288,7 +13288,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 42, note: "All three properties update atomically without intermediate rendering passes." }
         ],
         tryIt: "Add a second transition that updates only the sort property and verify that it commits cleanly.",
-        example: "In practice, when implementing Concurrent State Batching and Multi-Transition Coordination, an engineering or financial team first captures Concurrent and validates State against Batching before committing Multi-Transition. Automatic batching ensures that all state mutations queued within a transition are committed together in one atomic render, eliminating intermediate visual inconsistencies.",
+        example: "Automatic batching ensures that all state mutations queued within a transition are committed together in one atomic render, eliminating intermediate visual inconsistencies.",
         check: {
           question: "What is the primary benefit of automatic state batching inside React 18 transitions?",
           options: ["Multiple state updates wrapped in a transition are evaluated together and committed in a single atomic DOM render, preventing intermediate torn UI states", "It converts client-side state into SQL database tables", "It forces all network requests to execute via GraphQL", "It prevents components from ever re-rendering"],
@@ -13320,7 +13320,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 64, note: "Notice how transition 1 was cleanly aborted, leaving only the fresh 'AB' transition." }
         ],
         tryIt: "Allow t1 to finish both steps before calling setUrgent('AB') and observe that no preemption abort occurs.",
-        example: "In practice, when implementing Building a Production-Grade Transition Engine in Pure JavaScript, an engineering or financial team first captures Building and validates Production-Grade against Transition before committing Engine. Aborting stale in-flight transitions prevents wasted CPU computation on obsolete user queries and ensures the interface immediately prioritizes the user's latest input.",
+        example: "Aborting stale in-flight transitions prevents wasted CPU computation on obsolete user queries and ensures the interface immediately prioritizes the user's latest input.",
         check: {
           question: "In our Production Transition Engine, why is an in-flight background transition aborted when an urgent input update arrives?",
           options: ["Because the user's new input supersedes the previous query, rendering the old in-progress calculation obsolete and freeing the main thread", "Because the JavaScript call stack runs out of memory", "Because browsers only allow one state update per minute", "Because the monitor disables graphics compositing during typing"],
@@ -13376,7 +13376,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 29, note: "Phase 2 runs in a background macro-task with 'React', updating the results smoothly." }
         ],
         tryIt: "Simulate typing 'React 19' and trace how Phase 1 returns 'React' before Phase 2 renders 'React 19'.",
-        example: "In practice, when implementing The Dual-Render Lifecycle of useDeferredValue: Urgent First, Deferred Second, an engineering or financial team first captures Dual-Render and validates Lifecycle against useDeferredValue before committing Urgent. During the first urgent pass, useDeferredValue returns the previous value so that React.memo components bail out, keeping the urgent keystroke render instant.",
+        example: "During the first urgent pass, useDeferredValue returns the previous value so that React.memo components bail out, keeping the urgent keystroke render instant.",
         check: {
           question: "What value does useDeferredValue(newVal) return during the initial urgent render pass when a new prop arrives?",
           options: ["It returns the previous (old) value, allowing memoized children to bail out of rendering while the input updates instantly", "It returns null", "It returns a rejected promise", "It returns an empty string"],
@@ -13405,7 +13405,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 24, note: "On low-end hardware, 80ms compute is cooperatively sliced without freezing the phone." }
         ],
         tryIt: "Test with a 2ms compute duration to see how useDeferredValue delivers results over 100x faster than debouncing.",
-        example: "In practice, when implementing useDeferredValue vs setTimeout Debounce: Architectural Benchmarks, an engineering or financial team first captures useDeferredValue and validates setTimeout against Debounce before committing Architectural. useDeferredValue does not enforce an arbitrary fixed delay; it starts rendering immediately on available frame headroom and cooperatively slices execution to prevent UI freezes.",
+        example: "useDeferredValue does not enforce an arbitrary fixed delay; it starts rendering immediately on available frame headroom and cooperatively slices execution to prevent UI freezes.",
         check: {
           question: "Why is useDeferredValue superior to a fixed 300ms setTimeout debounce for responsive search inputs?",
           options: ["useDeferredValue adapts dynamically to device speed, rendering immediately if the CPU is free and time-slicing without freezing on slow devices", "useDeferredValue runs on the GPU instead of the CPU", "useDeferredValue automatically translates English queries into multiple languages", "useDeferredValue deletes all components that take longer than 10 milliseconds"],
@@ -13435,7 +13435,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 39, note: "Notice how the UI smoothly transitions from Synced -> Updating results... -> Synced." }
         ],
         tryIt: "Add a CSS transition property to getVisualState and verify that visual styling adapts cleanly.",
-        example: "In practice, when implementing Visual Staleness and Intentional Lag: query !== deferredQuery Styling, an engineering or financial team first captures Visual and validates Staleness against Intentional before committing query. During the background deferred pass, `query` reflects the new value while `deferredQuery` still reflects the old value, making `query !== deferredQuery` the official staleness indicator.",
+        example: "During the background deferred pass, `query` reflects the new value while `deferredQuery` still reflects the old value, making `query !== deferredQuery` the official staleness indicator.",
         check: {
           question: "How do React developers detect that a component is currently rendering a deferred background update when using useDeferredValue?",
           options: ["By comparing the raw prop directly against the deferred value: `const isStale = query !== deferredQuery;`", "By inspecting the window.navigator object", "By throwing an error inside the component body", "By checking if localStorage contains the key '__IS_DEFERRED__'"],
@@ -13466,7 +13466,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 39, note: "React.memo cuts total renders in half, ensuring Phase 1 completes under 1ms." }
         ],
         tryIt: "Add a third prop update 'ABC' and verify that React.memo continues bailing out during Phase 1.",
-        example: "In practice, when implementing Bailout Optimization with React.memo: Preventing Premature Child Renders, an engineering or financial team first captures Bailout and validates Optimization against React before committing Preventing. Without React.memo, the child component re-renders during the urgent pass regardless of whether the deferred value changed, freezing the main thread.",
+        example: "Without React.memo, the child component re-renders during the urgent pass regardless of whether the deferred value changed, freezing the main thread.",
         check: {
           question: "Why is wrapping the heavy child component in React.memo mandatory when using useDeferredValue?",
           options: ["Because without React.memo, the child will re-render unconditionally during the initial urgent pass, destroying the performance benefit of useDeferredValue", "Because React.memo is required to enable CSS stylesheets", "Because useDeferredValue throws a runtime error if React.memo is missing", "Because browsers refuse to render HTML unless React.memo is declared"],
@@ -13497,7 +13497,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 31, note: "flushDeferredPass executes the heavy filter in the background and commits results." }
         ],
         tryIt: "Add a third keystroke 'a' ('Rea') and observe how memo bailouts scale across continuous typing.",
-        example: "In practice, when implementing Building a Production Responsive Search Engine with useDeferredValue in Pure JavaScript, an engineering or financial team first captures Building and validates Production against Responsive before committing Search. Phase 1 updates the input immediately with the previous value (triggering a React.memo bailout in the child), and Phase 2 renders the heavy child concurrently in the background.",
+        example: "Phase 1 updates the input immediately with the previous value (triggering a React.memo bailout in the child), and Phase 2 renders the heavy child concurrently in the background.",
         check: {
           question: "What sequence of events occurs when a user types a new letter into an input using useDeferredValue and React.memo?",
           options: ["Phase 1 renders the urgent input with the old deferred value (child bails out via React.memo), then Phase 2 renders the heavy child in the background with the new value", "The browser reloads the webpage from scratch", "All React components are unmounted permanently", "The operating system terminates the Node.js process"],
@@ -13551,7 +13551,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 42, note: "10,000 nodes are evenly partitioned into 2,000 nodes per category in contiguous memory." }
         ],
         tryIt: "Increase totalNodes to 20000 and verify that category distribution scales proportionately.",
-        example: "In practice, when implementing Architectural Blueprint: 10,000-Node Visual Graph Data Structures & Rendering Topology, an engineering or financial team first captures Architectural and validates Blueprint against Visual before committing Graph. Monolithic synchronous iteration over 10,000 items monopolizes the thread for hundreds of milliseconds, dropping multiple consecutive frames and freezing user input.",
+        example: "Monolithic synchronous iteration over 10,000 items monopolizes the thread for hundreds of milliseconds, dropping multiple consecutive frames and freezing user input.",
         check: {
           question: "Why does a 10,000-node visual graph require a decoupled priority architecture rather than a single synchronous render loop?",
           options: ["Because synchronizing 10,000 node calculations in a single call stack blocks the main thread for over 150ms, violating the 16.6ms frame budget and causing severe UI jank", "Because browsers crash if an array has more than 50 elements", "Because graphics cards cannot draw circles", "Because HTTP requests only support 100 nodes"],
@@ -13582,7 +13582,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 40, note: "The filter commits exactly 2,000 matching Database nodes without thread locking." }
         ],
         tryIt: "Filter for 'Security' and verify that 2,000 security nodes are matched across the 4 slices.",
-        example: "In practice, when implementing Dual-Priority Graph Filtering: Coupling Sync Keystrokes with Transition Slices, an engineering or financial team first captures Dual-Priority and validates Graph against Filtering before committing Coupling. The synchronous pass updates the search text immediately to preserve typing responsiveness, while scheduling the heavy graph evaluation into low-priority TransitionLane.",
+        example: "The synchronous pass updates the search text immediately to preserve typing responsiveness, while scheduling the heavy graph evaluation into low-priority TransitionLane.",
         check: {
           question: "In our Dual-Priority Graph Filter, what happens during the initial synchronous render pass when the user types a new category name?",
           options: ["The text input updates instantly with zero latency and isPending flips to true, while the heavy 10,000-node filter is scheduled into TransitionLane", "The browser downloads a new CSS file from the server", "All 10,000 nodes are removed from memory permanently", "The JavaScript engine switches from V8 to SpiderMonkey"],
@@ -13612,7 +13612,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 49, note: "The engine processes all 4 slices for 'Se' cleanly, achieving 100% throughput." }
         ],
         tryIt: "Add a third rapid keystroke 'c' ('Sec') and verify that saved computations scale to 15,000 node checks.",
-        example: "In practice, when implementing Cooperative Time-Slicing & In-Flight Preemption under Rapid Typing, an engineering or financial team first captures Cooperative and validates Time-Slicing against In-Flight before committing Preemption. Aborting in-flight transitions eliminates wasted CPU time on stale queries, preventing rendering backlogs and ensuring immediate responsiveness for the latest input.",
+        example: "Aborting in-flight transitions eliminates wasted CPU time on stale queries, preventing rendering backlogs and ensuring immediate responsiveness for the latest input.",
         check: {
           question: "How does in-flight preemption improve performance when a user types rapidly into a 10,000-node graph filter?",
           options: ["It immediately aborts stale in-flight filtering passes for superseded queries, saving thousands of unnecessary calculations and keeping the main thread responsive", "It downscales the resolution of the user's display monitor", "It converts JavaScript arrays into binary files on disk", "It locks the search input so the user cannot type for 5 seconds"],
@@ -13642,7 +13642,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 54, note: "Panning the camera updates the visible slice instantly with zero GC thrashing." }
         ],
         tryIt: "Expand viewport to 1600x1200 and verify that visible count increases to approximately 960 nodes.",
-        example: "In practice, when implementing Spatial Viewport Partitioning: Bounding-Box Culling & Clustering, an engineering or financial team first captures Spatial and validates Viewport against Partitioning before committing Bounding-Box. Bounding-box spatial culling ensures the GPU only renders the small subset of nodes currently visible in the active viewport, preserving 60 FPS frame rates.",
+        example: "Bounding-box spatial culling ensures the GPU only renders the small subset of nodes currently visible in the active viewport, preserving 60 FPS frame rates.",
         check: {
           question: "What is the primary benefit of spatial viewport culling in a 10,000-node visual graph application?",
           options: ["It discards offscreen nodes before rasterization, reducing GPU draw calls and layout reflows by up to 90%", "It encrypts the graph nodes using AES-256", "It compresses images into JPEG format", "It reboots the operating system"],
@@ -13674,7 +13674,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 95, note: "auditPerformance certifies 0ms TBT and 100% compliance with the 16.6ms frame budget." }
         ],
         tryIt: "Increase slice duration to 20ms and observe how the audit catches the frame budget violation.",
-        example: "In practice, when implementing The Production 10,000-Node Visual Graph Filter Engine & Latency Audit, an engineering or financial team first captures Production and validates Visual against Graph before committing Filter. The capstone achieves 60 FPS by pairing cache-efficient memory layouts with dual-priority scheduling, cooperative 5ms macro-task slicing with preemption, and spatial culling.",
+        example: "The capstone achieves 60 FPS by pairing cache-efficient memory layouts with dual-priority scheduling, cooperative 5ms macro-task slicing with preemption, and spatial culling.",
         check: {
           question: "What four core architectural pillars combine to make our 10,000-Node Visual Graph Filter maintain 60 FPS responsiveness?",
           options: ["Contiguous memory topology, dual-priority scheduling (Sync vs Transition), cooperative 5ms MessageChannel time-slicing with preemption, and spatial viewport bounding-box culling", "Overclocking the user's monitor refresh rate to 240Hz", "Deleting 9,900 nodes from the dataset so only 100 nodes exist", "Re-rendering the entire webpage every 1 millisecond"],
@@ -13730,7 +13730,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 44, note: "Zero-bundle server offloading achieves a 96.9% reduction in client JavaScript delivery." }
         ],
         tryIt: "Add a simulated heavy charting library (500KB) to pageModules as a server component and observe that client bundle size remains 22.2 KB.",
-        example: "In practice, when implementing The Server-Client Dichotomy: Why Client-Side Bundles Exploded and the Architectural Evolution of React Server Components, an engineering or financial team first captures Server-Client and validates Dichotomy against Client-Side before committing Bundles. RSC renders component trees on the server and streams serialized virtual DOM nodes, eliminating all component code and backend library dependencies from the client bundle.",
+        example: "RSC renders component trees on the server and streams serialized virtual DOM nodes, eliminating all component code and backend library dependencies from the client bundle.",
         check: {
           question: "What is the primary difference between traditional SSR and React Server Components regarding client bundle payloads?",
           options: [
@@ -13765,7 +13765,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 14, note: "Flags custom class instances that cannot be reconstructed over plain JSON wire." }
         ],
         tryIt: "Add a Date object to safeProps and observe how JSON serialization treats timestamps versus custom object instances.",
-        example: "In practice, when implementing The \"use client\" Boundary: Directive Semantics, Island Leaves vs Server Roots & Serialization Invariants, an engineering or financial team first captures client and validates Boundary against Directive before committing Semantics. Composition allows Server Components to evaluate on the server and pass their rendered element slots to Client Components without leaking server dependencies into the client bundle.",
+        example: "Composition allows Server Components to evaluate on the server and pass their rendered element slots to Client Components without leaking server dependencies into the client bundle.",
         check: {
           question: "Why can a Server Component be passed as a child prop to a Client Component without entering the client bundle?",
           options: [
@@ -13800,7 +13800,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 44, note: "All markdown nodes render as semantic HTML elements without client-side parsing." }
         ],
         tryIt: "Modify the parser to support blockquotes (lines starting with >) and verify that rendered virtual DOM nodes update cleanly.",
-        example: "In practice, when implementing Zero-Bundle-Size Heavy Dependencies: Offloading Complex Libraries Completely to the Server Runtime, an engineering or financial team first captures Zero-Bundle-Size and validates Heavy against Dependencies before committing Offloading. Server Components offload expensive tokenization and transformation libraries to the server runtime, completely freeing the client browser from downloading or hydrating them.",
+        example: "Server Components offload expensive tokenization and transformation libraries to the server runtime, completely freeing the client browser from downloading or hydrating them.",
         check: {
           question: "Why does moving a markdown parser to a Server Component eliminate the hydration cost on the client device?",
           options: [
@@ -13838,7 +13838,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 25, note: "Resolves \"$L\" lazy module references by attaching client module definitions." }
         ],
         tryIt: "Add an M3 module for a StarRating client component and embed it in the J0 children array to test multi-island parsing.",
-        example: "In practice, when implementing Deep Dive into the RSC Wire Stream Format: Line-by-Line Tokenized Serialization & Reference Resolution, an engineering or financial team first captures Stream and validates Format against Line-by-Line before committing Tokenized. In the RSC wire protocol stream, 'M' declares client module boundary imports and 'J' describes virtual element hierarchies containing HTML tags and module references.",
+        example: "In the RSC wire protocol stream, 'M' declares client module boundary imports and 'J' describes virtual element hierarchies containing HTML tags and module references.",
         check: {
           question: "What do the control characters \"M\" and \"J\" signify in the RSC wire protocol?",
           options: [
@@ -13876,7 +13876,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 62, note: "Resolves client island references and attaches live interactive event listeners." }
         ],
         tryIt: "Add a second client island (e.g. FavoriteBookmarkButton) and verify that both islands serialize with distinct module IDs (M1, M2).",
-        example: "In practice, when implementing Complete RSC Runtime Simulator: Virtual Server Tree Serialization & Client-Side Fiber Reconstruction, an engineering or financial team first captures Complete and validates Runtime against Simulator before committing Virtual. The RSC runtime replaces Server Components with pure serialized element data and references Client Components via module chunks, hydrating interactivity only at client leaf boundaries.",
+        example: "The RSC runtime replaces Server Components with pure serialized element data and references Client Components via module chunks, hydrating interactivity only at client leaf boundaries.",
         check: {
           question: "How does the client deserializer reconstruct interactive event handlers without executing server component code?",
           options: [
@@ -13936,7 +13936,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 36, note: "Streaming SSR delivers a 288ms improvement in initial perceived latency." }
         ],
         tryIt: "Increase the SlowRecommendations latency to 600ms and verify that Streaming TTFB remains completely unaffected at 29ms.",
-        example: "In practice, when implementing The Bottlenecks of Traditional SSR: Time to First Byte (TTFB) Waterfall, Blocking Data Fetching, and All-or-Nothing HTML Generation, an engineering or financial team first captures Bottlenecks and validates Traditional against Waterfall before committing Blocking. Monolithic renderToString blocks on the slowest database call, preventing the browser from receiving the HTML document head, stylesheets, or layouts.",
+        example: "Monolithic renderToString blocks on the slowest database call, preventing the browser from receiving the HTML document head, stylesheets, or layouts.",
         check: {
           question: "Why does traditional renderToString cause high TTFB when a page contains slow data dependencies?",
           options: [
@@ -13971,7 +13971,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 31, note: "Early shell flush allows the browser to download CSS while the server renders." }
         ],
         tryIt: "Add a second Suspense boundary with ID 1 for recommended products and inspect the emitted chunk stream.",
-        example: "In practice, when implementing Asynchronous HTML Streaming Mechanics: Leveraging Node.js renderToPipeableStream and Web ReadableStreams for Early Shell Flushes, an engineering or financial team first captures Asynchronous and validates Streaming against Mechanics before committing Leveraging. Flushing the HTML shell early enables the browser preload scanner to fetch stylesheets and scripts over the network while the server streams deferred content.",
+        example: "Flushing the HTML shell early enables the browser preload scanner to fetch stylesheets and scripts over the network while the server streams deferred content.",
         check: {
           question: "What role does the browser preload scanner play when the document head is flushed early?",
           options: [
@@ -14010,7 +14010,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 32, note: "Allows deferred sections to render out-of-order without blocking the stream." }
         ],
         tryIt: "Modify reviewsHtml to include rating stars and verify that the swapped DOM reflects the updated markup.",
-        example: "In practice, when implementing Out-of-Order Chunk Streaming with Suspense: Boundary Placeholders and Inline Script Swapping ($RC), an engineering or financial team first captures Out-of-Order and validates Chunk against Streaming before committing Suspense. React's out-of-order streaming script ($RC) targets the placeholder boundary ID in the DOM and swaps in the rendered HTML nodes from the hidden template.",
+        example: "React's out-of-order streaming script ($RC) targets the placeholder boundary ID in the DOM and swaps in the rendered HTML nodes from the hidden template.",
         check: {
           question: "How does the $RC script find and replace the fallback content in the DOM?",
           options: [
@@ -14048,7 +14048,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 30, note: "Guarantees the surrounding page shell remains interactive despite partial failure." }
         ],
         tryIt: "Simulate an authorization error in an account widget and observe how an inline login prompt is streamed.",
-        example: "In practice, when implementing Streaming SEO, HTTP Status Codes & Error Boundary Shells: Handling Mid-Stream Exceptions and Fallback Shell Integrity, an engineering or financial team first captures Streaming and validates Status against Codes before committing Error. Once the streaming shell flushes to the client, the HTTP header packet is committed on the wire; subsequent errors must be handled gracefully in downstream chunks.",
+        example: "Once the streaming shell flushes to the client, the HTTP header packet is committed on the wire; subsequent errors must be handled gracefully in downstream chunks.",
         check: {
           question: "Why can a server not change the HTTP status code from 200 to 500 after onShellReady has fired?",
           options: [
@@ -14087,7 +14087,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 18, note: "resolveAsyncChunk streams deferred content and inline DOM replacement script." }
         ],
         tryIt: "Add an additional resolveAsyncChunk call for an analytics widget and observe the pipeline event logs.",
-        example: "In practice, when implementing Full Asynchronous Streaming SSR Pipeline Engine: Simulating Immediate Shell Flush, Deferred Promise Chunks & DOM Swapping, an engineering or financial team first captures Asynchronous and validates Streaming against Pipeline before committing Engine. Streaming SSR flushes the layout shell, resolves Suspense boundaries in parallel, streams HTML chunks as they finish, and swaps templates into the DOM.",
+        example: "Streaming SSR flushes the layout shell, resolves Suspense boundaries in parallel, streams HTML chunks as they finish, and swaps templates into the DOM.",
         check: {
           question: "What are the four primary phases of the Streaming SSR pipeline?",
           options: [
@@ -14146,7 +14146,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 36, note: "Monolithic hydration blocks the UI thread for 163ms, creating an unresponsive uncanny valley." }
         ],
         tryIt: "Add a 1500-node DataGrid component to the tree and observe how Total Blocking Time escalates exponentially.",
-        example: "In practice, when implementing The Hydration Uncanny Valley: Static HTML Visible While Main Thread Freezes During Monolithic Tree Traversal, an engineering or financial team first captures Hydration and validates Uncanny against Valley before committing Static. Users see rendered interactive elements but their taps and clicks are ignored because the single-threaded client runtime is busy hydrating the whole component tree.",
+        example: "Users see rendered interactive elements but their taps and clicks are ignored because the single-threaded client runtime is busy hydrating the whole component tree.",
         check: {
           question: "What causes the \"Hydration Uncanny Valley\" in traditional single-page applications?",
           options: [
@@ -14181,7 +14181,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 32, note: "Decouples hydration scheduling so slow subtrees never block critical UI controls." }
         ],
         tryIt: "Wrap ProductInfo in a Suspense boundary and observe how the independent island count increases.",
-        example: "In practice, when implementing React 18 hydrateRoot & Suspense Subtree Segmentation: Breaking the Monolithic Hydration Graph into Independent Concurrent Hydration Islands, an engineering or financial team first captures React and validates hydrateRoot against Suspense before committing Subtree. hydrateRoot decouples hydration across Suspense boundaries, allowing fast components to become interactive while slow components are still streaming or hydrating.",
+        example: "hydrateRoot decouples hydration across Suspense boundaries, allowing fast components to become interactive while slow components are still streaming or hydrating.",
         check: {
           question: "How does React 18 hydrateRoot break up the monolithic component tree?",
           options: [
@@ -14218,7 +14218,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 32, note: "Replays buffered interaction seamlessly once island hydration completes." }
         ],
         tryIt: "Simulate an early click on RelatedItems and observe how it jumps ahead of CommentsList in the hydration queue.",
-        example: "In practice, when implementing Event Replay & User-Driven Hydration Priority Promotion: Intercepting Clicks on Unhydrated Islands and Replaying Queued Events, an engineering or financial team first captures Event and validates Replay against User-Driven before committing Hydration. Capture-phase event interception records user interactions on unhydrated islands, prioritizes their hydration, and replays the interaction seamlessly.",
+        example: "Capture-phase event interception records user interactions on unhydrated islands, prioritizes their hydration, and replays the interaction seamlessly.",
         check: {
           question: "What happens when a user clicks a button that has not yet finished hydrating in React 18?",
           options: [
@@ -14257,7 +14257,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 11, note: "Off-screen below-the-fold components are safely deferred to IDLE_OFFSCREEN_LANE." }
         ],
         tryIt: "Increase screenHeight to 1200px and observe how TechnicalSpecs promotes to CONTINUOUS_IMMEDIATE_LANE.",
-        example: "In practice, when implementing Selective Hydration Scheduling Internals: Lane Bitmask Allocation during Hydration and Viewport-Driven Deferred Hydration, an engineering or financial team first captures Selective and validates Hydration against Scheduling before committing Internals. Hydrating offscreen content in IdleLane keeps the main UI thread free for user clicks, scrolling, and above-the-fold interactivity.",
+        example: "Hydrating offscreen content in IdleLane keeps the main UI thread free for user clicks, scrolling, and above-the-fold interactivity.",
         check: {
           question: "Why does React defer below-the-fold component hydration to IdleLane?",
           options: [
@@ -14298,7 +14298,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 44, note: "Verifies that LiveSearchBar hydrates ahead of NavigationMenu upon user click." }
         ],
         tryIt: "Trigger an interaction on AddToCartBtn before running stepHydration to test multi-priority scheduling.",
-        example: "In practice, when implementing Deterministic Selective Hydration & Event Replay Engine: Implementing an Event Queue Buffer, Island Prioritization & Replay Simulator, an engineering or financial team first captures Deterministic and validates Selective against Hydration before committing Event. Priority promotion ensures that user intent directly re-orders hydration scheduling, preventing missed clicks and eliminating interaction lag.",
+        example: "Priority promotion ensures that user intent directly re-orders hydration scheduling, preventing missed clicks and eliminating interaction lag.",
         check: {
           question: "How does priority promotion prevent dropped user clicks during progressive page hydration?",
           options: [
@@ -14359,7 +14359,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 24, note: "Server Actions reduce client-side mutation boilerplate by 88% while providing end-to-end type safety." }
         ],
         tryIt: "Add a third architecture (GraphQL Mutation) and compare boilerplate overhead against Server Actions.",
-        example: "In practice, when implementing The Evolution of React Mutations: From Imperative Fetch Handlers and Redux Thunks to Declarative Server Actions, an engineering or financial team first captures Evolution and validates React against Mutations before committing Imperative. Server Actions provide type-safe RPC functions invoked directly from JSX forms and event handlers, bridging client state and backend mutations seamlessly.",
+        example: "Server Actions provide type-safe RPC functions invoked directly from JSX forms and event handlers, bridging client state and backend mutations seamlessly.",
         check: {
           question: "What major friction points of traditional REST API mutations are eliminated by Server Actions?",
           options: [
@@ -14395,7 +14395,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 16, note: "Enhanced client RPC mode intercepts submission, transmitting Next-Action headers without full page reload." }
         ],
         tryIt: "Add a file upload field to formDataObj and inspect how native multipart encoding handles binary attachments.",
-        example: "In practice, when implementing Progressive Enhancement & Native HTML Form Submissions: Zero-JS Form POST Fallbacks, FormData Parsing, and Automatic JSON RPC Upgrades, an engineering or financial team first captures Progressive and validates Enhancement against Native before committing Submissions. Native HTML <form action> allows browsers to submit forms via standard HTTP POST even if JavaScript is loading, disabled, or failed to download.",
+        example: "Native HTML <form action> allows browsers to submit forms via standard HTTP POST even if JavaScript is loading, disabled, or failed to download.",
         check: {
           question: "How does progressive enhancement ensure that forms work even before JavaScript has finished hydrating?",
           options: [
@@ -14432,7 +14432,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 44, note: "Records transition events: START_PENDING followed by ACTION_COMMITTED." }
         ],
         tryIt: "Submit quantity: 5 and verify that count increments to 8 while error remains null.",
-        example: "In practice, when implementing The useActionState & useFormStatus Hook Architecture: Managing Mutative Pending States, Form Submission Metadata, and Action Result Payloads, an engineering or financial team first captures useActionState and validates useFormStatus against Architecture before committing Managing. useActionState returns the current action state, the enhanced action function for form binding, and a boolean indicating whether the server transition is pending.",
+        example: "useActionState returns the current action state, the enhanced action function for form binding, and a boolean indicating whether the server transition is pending.",
         check: {
           question: "What are the three values returned by the useActionState hook tuple?",
           options: [
@@ -14469,7 +14469,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 33, note: "Guarantees thread-safe UI consistency under network latency or backend failure." }
         ],
         tryIt: "Simulate two consecutive successful reservations and verify that serverStock decrements accurately.",
-        example: "In practice, when implementing Optimistic UI Updates with useOptimistic: Immediate Client State Projection, Rollback Safeguards, and Server-Driven Path Revalidation, an engineering or financial team first captures Optimistic and validates Updates against useOptimistic before committing Immediate. useOptimistic binds temporary state to the lifecycle of the transition; if the action throws or rejects, the optimistic projection is discarded automatically.",
+        example: "useOptimistic binds temporary state to the lifecycle of the transition; if the action throws or rejects, the optimistic projection is discarded automatically.",
         check: {
           question: "How does useOptimistic protect against UI desynchronization when a server mutation fails?",
           options: [
@@ -14509,7 +14509,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 36, note: "Verifies that database inventory remains consistent (45) after failed transaction." }
         ],
         tryIt: "Submit a third valid purchase of 10 units and verify that database inventory decreases to 35.",
-        example: "In practice, when implementing End-to-End Server Action RPC & Optimistic Reconciliation Simulator: Building an RPC Form Dispatcher with Async Action Handlers, Optimistic UI State, and Rollback Mechanics, an engineering or financial team first captures End-to-End and validates Server against Action before committing Optimistic. ACID transactions on the server ensure that inventory decrements and balance changes commit atomically or roll back completely without data corruption.",
+        example: "ACID transactions on the server ensure that inventory decrements and balance changes commit atomically or roll back completely without data corruption.",
         check: {
           question: "What guarantees database transactional integrity during concurrent Server Action calls?",
           options: [
@@ -14569,7 +14569,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 36, note: "Confirms enterprise architectural compliance across the entire catalog topology." }
         ],
         tryIt: "Add an InteractiveWishlistButton client island and verify that client island count increases to 3.",
-        example: "In practice, when implementing Enterprise Architectural Blueprint: Hybrid RSC Topology, Client Island Boundaries, Streaming Suspense Skeletons & Mutative Actions, an engineering or financial team first captures Enterprise and validates Architectural against Blueprint before committing Hybrid. Milestone 8 combines RSC for zero bundle weight, Streaming SSR for sub-50ms TTFB, Selective Hydration for 0ms TBT, and Server Actions for atomic mutations.",
+        example: "Milestone 8 combines RSC for zero bundle weight, Streaming SSR for sub-50ms TTFB, Selective Hydration for 0ms TBT, and Server Actions for atomic mutations.",
         check: {
           question: "What are the four architectural building blocks of a modern hybrid RSC application?",
           options: [
@@ -14606,7 +14606,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 36, note: "Verifies that zero kilobytes of parser dependencies leak to the browser bundle." }
         ],
         tryIt: "Add a third product (RAM Module) to rawInventory and verify that the catalog shell updates cleanly.",
-        example: "In practice, when implementing Server Component Catalog Engine: Zero-Bundle Markdown Product Specs, Server-Side Inventory Queries & Streaming Shell Generation, an engineering or financial team first captures Server and validates Component against Catalog before committing Engine. Server Components execute backend dependencies on the server runtime, emitting only static virtual DOM nodes without leaking library code to client bundles.",
+        example: "Server Components execute backend dependencies on the server runtime, emitting only static virtual DOM nodes without leaking library code to client bundles.",
         check: {
           question: "Why does compiling markdown on the server eliminate client bundle weight?",
           options: [
@@ -14644,7 +14644,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 25, note: "The browser swaps the live reviews into the active DOM without page reload." }
         ],
         tryIt: "Add a reviewer badge to resolvedReviewsHtml and verify that Stage 2 includes the new badge text.",
-        example: "In practice, when implementing Streaming Hydration & Interactive Islands: Out-of-Order Reviews Streaming, Add-to-Cart Island, and User-Click Hydration Prioritization, an engineering or financial team first captures Streaming and validates Hydration against Interactive before committing Islands. Wrapping deferred components in Suspense allows the server to flush the main layout shell immediately and stream reviews asynchronously as data resolves.",
+        example: "Wrapping deferred components in Suspense allows the server to flush the main layout shell immediately and stream reviews asynchronously as data resolves.",
         check: {
           question: "How does out-of-order streaming prevent slow reviews from blocking the product layout shell?",
           options: [
@@ -14682,7 +14682,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 36, note: "Verifies that database stock remains consistent (8) after failed transaction." }
         ],
         tryIt: "Submit a purchase of 4 units and verify that CartCount becomes 6 while server inventory becomes 4.",
-        example: "In practice, when implementing Server Action Cart Mutation & Optimistic Inventory Reservation: useActionState Cart Checkout, useOptimistic Stock Decrement, and Server Cache Revalidation, an engineering or financial team first captures Server and validates Action against Mutation before committing Optimistic. Atomic transaction checks reject the mutation on the server, and the transition boundary rolls back the optimistic cart count to the true server state.",
+        example: "Atomic transaction checks reject the mutation on the server, and the transition boundary rolls back the optimistic cart count to the true server state.",
         check: {
           question: "What safeguards are activated if a purchase action is submitted for an out-of-stock item?",
           options: [
@@ -14724,7 +14724,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
           { line: 25, note: "Certifies Grade A+ Production Ready status for the hybrid e-commerce catalog." }
         ],
         tryIt: "Set tbtMs to 80 and observe how the audit suite flags the performance degradation.",
-        example: "In practice, when implementing Production Verification Suite & Performance Audit: Validating 0ms Total Blocking Time, Zero Client Dependency Leaks, Sub-100ms TTFB Streaming, and Complete Form Fallbacks, an engineering or financial team first captures Production and validates Verification against Suite before committing Performance. The Milestone 8 verification suite audits TBT, TTFB, bundle leakage, streaming template swapping, and progressive enhancement form fallbacks.",
+        example: "The Milestone 8 verification suite audits TBT, TTFB, bundle leakage, streaming template swapping, and progressive enhancement form fallbacks.",
         check: {
           question: "What five performance and architectural criteria are validated by the Milestone 8 audit suite?",
           options: [
@@ -14796,7 +14796,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a third component to simulate a 3-way tear across multiple macro-task slices.",
-      example: "In practice, when implementing The Anatomy of State Tearing: How Concurrent Time Slicing Produces Visual Inconsistencies with Mutable Global State, an engineering or financial team first captures Anatomy and validates State against Tearing before committing Concurrent. State tearing occurs when an external store mutates while React is time-slicing a concurrent render pass, causing earlier components to render old state and later components to render new state.",
+      example: "State tearing occurs when an external store mutates while React is time-slicing a concurrent render pass, causing earlier components to render old state and later components to render new state.",
         "check": {
         "question": "What is State Tearing in Concurrent React applications?",
         "options": [
@@ -14841,7 +14841,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Simulate a clean render without mid-render mutation and verify that it commits without sync fallback.",
-      example: "In practice, when implementing The useSyncExternalStore Contract: subscribe, getSnapshot, getServerSnapshot & Re-render Scheduling, an engineering or financial team first captures useSyncExternalStore and validates Contract against subscribe before committing getSnapshot. React validates snapshots prior to the commit phase.",
+      example: "React validates snapshots prior to the commit phase.",
         "check": {
         "question": "How does React prevent state tearing when using useSyncExternalStore?",
         "options": [
@@ -14886,7 +14886,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Modify ComplexStore to update user.name and observe that the memoized selector invalidates correctly.",
-      example: "In practice, when implementing Snapshot Stability & Referential Equality: Avoiding Infinite Render Loops with Memoized Selectors, an engineering or financial team first captures Snapshot and validates Stability against Referential before committing Equality. React uses Object.is to compare successive getSnapshot results.",
+      example: "React uses Object.is to compare successive getSnapshot results.",
         "check": {
         "question": "Why must getSnapshot return a referentially stable value if the external store has not changed?",
         "options": [
@@ -14929,7 +14929,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a third widget that subscribes to userPortfolio.shares and verify its re-render behavior.",
-      example: "In practice, when implementing Building an Enterprise Observable State Store (Zustand/Redux Core Architecture) in Pure JavaScript, an engineering or financial team first captures Building and validates Enterprise against Observable before committing State. Unlike React Context which re-renders every consumer when any part of context changes, selector-based observable stores re-render only components whose selected values actually change.",
+      example: "Unlike React Context which re-renders every consumer when any part of context changes, selector-based observable stores re-render only components whose selected values actually change.",
         "check": {
         "question": "What is the primary performance advantage of an observable external store over monolithic React Context?",
         "options": [
@@ -14974,7 +14974,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Increase simulatedFrames to 5000 and verify that data integrity remains at 100.0%.",
-      example: "In practice, when implementing Benchmarking Concurrent Rendering with useSyncExternalStore: 100% Tear-Free State Guarantees Under Heavy Load, an engineering or financial team first captures Benchmarking and validates Concurrent against Rendering before committing useSyncExternalStore. useSyncExternalStore guarantees 100% data integrity by detecting mid-render mutations and automatically falling back to synchronous rendering to eliminate torn frames.",
+      example: "useSyncExternalStore guarantees 100% data integrity by detecting mid-render mutations and automatically falling back to synchronous rendering to eliminate torn frames.",
         "check": {
         "question": "Under high-frequency state mutations, what is the data integrity score achieved by useSyncExternalStore compared to naive subscriptions?",
         "options": [
@@ -15046,7 +15046,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a RETRY event to the FSM and verify that it only transitions when currently in the FAILURE state.",
-      example: "In practice, when implementing Beyond Boolean Flag Spaghetti: Why Complex Multi-Step UIs Demand Deterministic State Transition Tables, an engineering or financial team first captures Beyond and validates Boolean against Spaghetti before committing Complex. An FSM restricts the application to a finite set of mutually exclusive states and transitions, making impossible combinations (like simultaneous loading and error) structurally impossible.",
+      example: "An FSM restricts the application to a finite set of mutually exclusive states and transitions, making impossible combinations (like simultaneous loading and error) structurally impossible.",
         "check": {
         "question": "Why do finite state machines eliminate impossible states compared to multiple boolean flags?",
         "options": [
@@ -15090,7 +15090,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Change the required password length guard to 10 characters and test the updated validation behavior.",
-      example: "In practice, when implementing Mathematical Formalism of Finite State Automata: States, Events, Transitions, Guards & Extended Context, an engineering or financial team first captures Mathematical and validates Formalism against Finite before committing State. Transition guards check preconditions (such as form validation or authorization) before allowing a state machine to transition to the target state.",
+      example: "Transition guards check preconditions (such as form validation or authorization) before allowing a state machine to transition to the target state.",
         "check": {
         "question": "What is the role of a Transition Guard in a state machine?",
         "options": [
@@ -15134,7 +15134,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a third parallel region for Subtitles (ENABLED/DISABLED) and verify multi-region event routing.",
-      example: "In practice, when implementing Hierarchical & Parallel Statecharts: Compound States, History States & Decoupled State Coordination, an engineering or financial team first captures Hierarchical and validates Parallel against Statecharts before committing Compound. Parallel statecharts allow orthogonal features (like video playback and audio volume) to operate independently without creating a Cartesian product of states.",
+      example: "Parallel statecharts allow orthogonal features (like video playback and audio volume) to operate independently without creating a Cartesian product of states.",
         "check": {
         "question": "What major problem is solved by Parallel (Orthogonal) Statecharts?",
         "options": [
@@ -15178,7 +15178,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a CANCEL_CHECKOUT event that transitions from SHIPPING_STEP back to CART_VIEW.",
-      example: "In practice, when implementing Building a Production Statechart Interpreter & React Hook (useMachine) in Pure JavaScript, an engineering or financial team first captures Building and validates Production against Statechart before committing Interpreter. Synchronous event execution in the dispatch handler guarantees that UI state transitions happen atomically, preventing visual flashing and intermediate torn frames.",
+      example: "Synchronous event execution in the dispatch handler guarantees that UI state transitions happen atomically, preventing visual flashing and intermediate torn frames.",
         "check": {
         "question": "Why should statechart event dispatching execute synchronously in a custom hook rather than inside useEffect?",
         "options": [
@@ -15223,7 +15223,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Simulate an invalid ZIP code and verify that the machine refuses to transition to PAYMENT_SELECTION.",
-      example: "In practice, when implementing Complete E-Commerce Multi-Step Checkout State Machine: Form Validation, Gateway Tokenization & Fallback Recovery, an engineering or financial team first captures Complete and validates E-Commerce against Multi-Step before committing Checkout. Because state transitions are instantaneous and mutually exclusive, the first click moves the machine into PROCESSING_TRANSACTION where duplicate SUBMIT events are ignored.",
+      example: "Because state transitions are instantaneous and mutually exclusive, the first click moves the machine into PROCESSING_TRANSACTION where duplicate SUBMIT events are ignored.",
         "check": {
         "question": "How does an e-commerce state machine protect against double-charging a user when they double-click Submit?",
         "options": [
@@ -15295,7 +15295,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a 5th micro-app to the cluster and verify that payload savings scale even higher.",
-      example: "In practice, when implementing The Monolith-to-Micro-Frontend Paradigm: Independent Deployment Lifecycles, Team Ownership & Distributed Builds, an engineering or financial team first captures Monolith-to-Micro-Frontend and validates Paradigm against Independent before committing Deployment. Module Federation enables independent builds and deployments while negotiating and sharing common singleton libraries (like React) in the browser, eliminating massive bundle duplication.",
+      example: "Module Federation enables independent builds and deployments while negotiating and sharing common singleton libraries (like React) in the browser, eliminating massive bundle duplication.",
         "check": {
         "question": "What is the primary architectural benefit of Module Federation over naive iframe or multi-bundle micro-frontends?",
         "options": [
@@ -15339,7 +15339,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a second exposed module (./Footer) to NavRemote and test its dynamic resolution.",
-      example: "In practice, when implementing Module Federation Under the Hood: Container Hosts, Remotes, Shared Dependency Manifests & Chunk Resolution, an engineering or financial team first captures Module and validates Federation against Under before committing Container. Module Federation remote containers implement init(sharedScope) to synchronize shared dependencies and get(modulePath) to return executable module factory functions.",
+      example: "Module Federation remote containers implement init(sharedScope) to synchronize shared dependencies and get(modulePath) to return executable module factory functions.",
         "check": {
         "question": "What two core lifecycle methods are exposed on the global container interface by remoteEntry.js?",
         "options": [
@@ -15383,7 +15383,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Set strictVersion: false and verify that relaxed version warnings are logged instead of isolated fallbacks.",
-      example: "In practice, when implementing Singleton Negotiation & Version Mismatch Traps: Semantic Versioning Ranges (requiredVersion) and Eager Fallbacks, an engineering or financial team first captures Singleton and validates Negotiation against Version before committing Mismatch. React hooks query a module-scoped dispatcher singleton.",
+      example: "React hooks query a module-scoped dispatcher singleton.",
         "check": {
         "question": "Why is having multiple copies of React loaded in the same browser window fatal to React hook execution?",
         "options": [
@@ -15427,7 +15427,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Increase timeoutMs to 200ms and observe how the failing remote behaves when network latency varies.",
-      example: "In practice, when implementing Building a Resilient Remote Component Loader & Sandbox Container in Pure JavaScript, an engineering or financial team first captures Building and validates Resilient against Remote before committing Component. Resilient micro-frontend loaders combine network timeouts, retries, and Error Boundaries to ensure that a failing remote widget renders a degraded fallback without crashing the parent host application.",
+      example: "Resilient micro-frontend loaders combine network timeouts, retries, and Error Boundaries to ensure that a failing remote widget renders a degraded fallback without crashing the parent host application.",
         "check": {
         "question": "How should an enterprise host application protect itself against remote CDN network failures?",
         "options": [
@@ -15473,7 +15473,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a third remote for UserProfile and verify that all three remotes share the same React singleton.",
-      example: "In practice, when implementing End-to-End Multi-App Micro-Frontend Simulation: Shell Host, Navigation Remote & Dynamic Cart Island Mounting, an engineering or financial team first captures End-to-End and validates Multi-App against Micro-Frontend before committing Simulation. Micro-frontends maintain architectural autonomy by communicating through standardized, loosely coupled event buses or custom DOM events without sharing private implementation code.",
+      example: "Micro-frontends maintain architectural autonomy by communicating through standardized, loosely coupled event buses or custom DOM events without sharing private implementation code.",
         "check": {
         "question": "How do autonomous micro-frontends communicate events without tight coupling to each other's internal source code?",
         "options": [
@@ -15545,7 +15545,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add an SVG host config that translates virtual box and text nodes into <rect> and <text> tags.",
-      example: "In practice, when implementing The Separation of Reconciler and Renderer: How React Core Traverses Component Trees Across Any Target Platform, an engineering or financial team first captures Separation and validates Reconciler against Renderer before committing React. React Core separates reconciliation (Fiber tree diffing, lane scheduling, and hook lifecycles) from rendering (translating diff instructions into physical platform nodes like DOM elements or terminal strings).",
+      example: "React Core separates reconciliation (Fiber tree diffing, lane scheduling, and hook lifecycles) from rendering (translating diff instructions into physical platform nodes like DOM elements or terminal strings).",
         "check": {
         "question": "What is the primary architectural difference between React Reconciler and React Renderer?",
         "options": [
@@ -15589,7 +15589,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add an opacity prop to newProps and verify that prepareUpdate catches the attribute difference.",
-      example: "In practice, when implementing Dissecting the HostConfig Interface: Mutation vs Persistence Modes, Tree Mutation Primitives & Lifecycle Hooks, an engineering or financial team first captures Dissecting and validates HostConfig against Interface before committing Mutation. Separating diff computation (prepareUpdate) from host mutation (commitUpdate) ensures that aborted or time-sliced concurrent renders do not pollute the host platform with partial mutations.",
+      example: "Separating diff computation (prepareUpdate) from host mutation (commitUpdate) ensures that aborted or time-sliced concurrent renders do not pollute the host platform with partial mutations.",
         "check": {
         "question": "Why does HostConfig separate prop diffing into prepareUpdate and commitUpdate phases?",
         "options": [
@@ -15633,7 +15633,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a third line to panelNode and observe how layout height adapts dynamically.",
-      example: "In practice, when implementing The Virtual Node Graph: Representing Host Instances, Attribute Diffs, Child Traversal & Layout Tree Updates, an engineering or financial team first captures Virtual and validates Graph against Representing before committing Instances. When rendering to targets without a native layout engine (like terminal CLIs or HTML5 Canvas), the custom renderer must calculate bounding boxes, text wrapping, and tree positions in memory.",
+      example: "When rendering to targets without a native layout engine (like terminal CLIs or HTML5 Canvas), the custom renderer must calculate bounding boxes, text wrapping, and tree positions in memory.",
         "check": {
         "question": "Why must a custom terminal or canvas React renderer maintain its own Virtual Node Graph?",
         "options": [
@@ -15677,7 +15677,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a yellow alert message to the box children and test yellow ANSI formatting.",
-      example: "In practice, when implementing Building a Functional Headless Terminal ANSI Reconciler in Pure JavaScript, an engineering or financial team first captures Building and validates Functional against Headless before committing Terminal. Terminal emulators interpret ANSI escape sequences (starting with \\x1b[) to alter text color, bold styling, and cursor position on screen.",
+      example: "Terminal emulators interpret ANSI escape sequences (starting with \\x1b[) to alter text color, bold styling, and cursor position on screen.",
         "check": {
         "question": "How does a terminal React renderer format colors and styles in a terminal window?",
         "options": [
@@ -15724,7 +15724,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Trigger a third update changing status to MAINTENANCE and verify frame counter increments to 3.",
-      example: "In practice, when implementing Complete Custom Renderer Simulation: Scheduling Fibers, Diffing Text Nodes, and Committing Terminal Virtual Layouts, an engineering or financial team first captures Complete and validates Custom against Renderer before committing Simulation. React's reconciler architecture provides a universal programming model: developers use the exact same declarative components and hooks regardless of whether rendering to DOM, Canvas, VR, or terminal CLIs.",
+      example: "React's reconciler architecture provides a universal programming model: developers use the exact same declarative components and hooks regardless of whether rendering to DOM, Canvas, VR, or terminal CLIs.",
         "check": {
         "question": "What core advantage does React's component model offer when building custom CLI tools or 3D games?",
         "options": [
@@ -15794,7 +15794,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a TSLA instrument to the topology and verify that its summary spread calculates cleanly.",
-      example: "In practice, when implementing Architectural Blueprint: Real-Time High-Frequency Trading Desk Topology & Micro-Frontend Boundary Contracts, an engineering or financial team first captures Architectural and validates Blueprint against Real-Time before committing High-Frequency. Financial trading desks demand ultra-low-latency data ingestion, strict zero state tearing via useSyncExternalStore, independent micro-frontend deployments, and statechart-driven order execution.",
+      example: "Financial trading desks demand ultra-low-latency data ingestion, strict zero state tearing via useSyncExternalStore, independent micro-frontend deployments, and statechart-driven order execution.",
         "check": {
         "question": "What are the four core architectural requirements of an enterprise real-time financial trading desk?",
         "options": [
@@ -15838,7 +15838,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Ingest a tick for NVDA and verify that its re-render counter increments to 1 while AAPL bails out.",
-      example: "In practice, when implementing Low-Latency Market Feed Store with useSyncExternalStore: 1,000 Ticks/Sec Ingestion with 0ms State Tearing, an engineering or financial team first captures Low-Latency and validates Market against Store before committing useSyncExternalStore. Memoized selectors ensure referential stability so that components subscribed only to AAPL do not re-render when NVDA or MSFT prices update, preserving 60 FPS performance.",
+      example: "Memoized selectors ensure referential stability so that components subscribed only to AAPL do not re-render when NVDA or MSFT prices update, preserving 60 FPS performance.",
         "check": {
         "question": "How does useSyncExternalStore with memoized selectors prevent main thread starvation during high-frequency market tick ingestion?",
         "options": [
@@ -15882,7 +15882,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Submit an order exceeding 5,000 shares and verify that the quantity threshold guard rejects the trade.",
-      example: "In practice, when implementing Order Execution Statechart Engine: Strict Transition Guards, Slippage Limits & Atomic Order Lifecycle, an engineering or financial team first captures Order and validates Execution against Statechart before committing Engine. In an FSM, state transitions are instantaneous.",
+      example: "In an FSM, state transitions are instantaneous.",
         "check": {
         "question": "How does the Order Execution Statechart protect against nervous double-clicks submitting duplicate financial orders?",
         "options": [
@@ -15926,7 +15926,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a third remote for ExecutionHistory and verify that it mounts and binds to the shared React singleton.",
-      example: "In practice, when implementing Federated Micro-Frontend Module Loader: Loading Dynamic Market Depth & Portfolio Remotes with Shared Runtimes, an engineering or financial team first captures Federated and validates Micro-Frontend against Module before committing Loader. React hooks rely on a module-scoped dispatcher singleton.",
+      example: "React hooks rely on a module-scoped dispatcher singleton.",
         "check": {
         "question": "Why is sharing a single React runtime instance critical when mounting multiple federated trading desk widgets?",
         "options": [
@@ -15973,7 +15973,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Set tornFramesCount to 3 and observe how the audit suite flags the state integrity violation.",
-      example: "In practice, when implementing Production Verification Suite & Performance Audit: Certifying 0ms Tearing, Sub-5ms Render Latency & Zero Memory Leaks, an engineering or financial team first captures Production and validates Verification against Suite before committing Performance. The Milestone 9 audit suite rigorously verifies 0ms state tearing, sub-5ms render latency, order state machine integrity, shared React singletons, and resilient remote sandboxing.",
+      example: "The Milestone 9 audit suite rigorously verifies 0ms state tearing, sub-5ms render latency, order state machine integrity, shared React singletons, and resilient remote sandboxing.",
         "check": {
         "question": "What five performance and architectural criteria are validated by the Milestone 9 audit suite?",
         "options": [
@@ -16044,7 +16044,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a third nested sub-segment for billing and verify that dashboard layout remains preserved.",
-      example: "In practice, when implementing Nested Layout Hierarchy, Segment Preservation & Scroll Restoration, an engineering or financial team first captures Nested and validates Layout against Hierarchy before committing Segment. The App Router layout tree persits common ancestors across navigations, swapping only descendant page slots and maintaining persistent DOM nodes, audio playback, and WebSocket connections.",
+      example: "The App Router layout tree persits common ancestors across navigations, swapping only descendant page slots and maintaining persistent DOM nodes, audio playback, and WebSocket connections.",
         "check": {
         "question": "Why do nested layouts in the Next.js App Router preserve state and DOM nodes across child navigations?",
         "options": [
@@ -16088,7 +16088,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a (shop) route group with an e-commerce layout and verify that its URL normalizes cleanly.",
-      example: "In practice, when implementing Route Groups ((marketing) vs (dashboard)): Multi-Root Layouts Without URL Pollution, an engineering or financial team first captures Route and validates Groups against marketing before committing dashboard. Route Groups (folders wrapped in parentheses) are omitted from the URL path, allowing completely independent root layouts, styling themes, and bundle splittings.",
+      example: "Route Groups (folders wrapped in parentheses) are omitted from the URL path, allowing completely independent root layouts, styling themes, and bundle splittings.",
         "check": {
         "question": "What architectural benefit do Route Groups provide in enterprise Next.js applications?",
         "options": [
@@ -16132,7 +16132,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Register a third slot for @notifications and verify that it loads in parallel alongside feed.",
-      example: "In practice, when implementing Parallel Routes (@analytics, @feed): Independent Loading & Error Boundaries, an engineering or financial team first captures Parallel and validates Routes against analytics before committing Independent. Named slots (@slot) possess distinct loading.js and error.js boundaries.",
+      example: "Named slots (@slot) possess distinct loading.js and error.js boundaries.",
         "check": {
         "question": "How do Parallel Routes improve fault tolerance in complex dashboard layouts?",
         "options": [
@@ -16176,7 +16176,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Simulate an intercepting route for /product/500 and verify its dual-mode resolution.",
-      example: "In practice, when implementing Intercepting Routes ((.), (..), (...)): Context-Preserving Modal Overlays & Deep Linking, an engineering or financial team first captures Intercepting and validates Routes against Context-Preserving before committing Modal. Intercepting routes allow contextual modal overlays during in-app navigation while preserving full deep-linking fidelity and standalone rendering on direct page loads.",
+      example: "Intercepting routes allow contextual modal overlays during in-app navigation while preserving full deep-linking fidelity and standalone rendering on direct page loads.",
         "check": {
         "question": "What is the primary user experience advantage of Intercepting Routes in Next.js?",
         "options": [
@@ -16220,7 +16220,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Run the benchmark across 5-level deep nested route trees and inspect the LCA depth calculation.",
-      example: "In practice, when implementing The App Router Tree Traversal Engine & Production Layout Diffing Benchmark, an engineering or financial team first captures Router and validates Traversal against Engine before committing Production. The App Router computes the Least Common Ancestor (LCA) between active and incoming segment trees, preserving common layout ancestors and remounting only changed sub-trees.",
+      example: "The App Router computes the Least Common Ancestor (LCA) between active and incoming segment trees, preserving common layout ancestors and remounting only changed sub-trees.",
         "check": {
         "question": "What algorithm does the Next.js App Router use to minimize DOM re-renders during client-side navigation?",
         "options": [
@@ -16291,7 +16291,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a London edge node and compare its latency against the Virginia central origin.",
-      example: "In practice, when implementing Node.js Runtime vs Edge Runtime: V8 Isolates, Memory Caps & Zero-Cold-Start Limits, an engineering or financial team first captures Runtime and validates Isolates against Memory before committing Zero-Cold-Start. V8 isolates initialize in sub-millisecond time because they execute JavaScript inside pre-warmed shared process pools without spinning up separate operating system containers.",
+      example: "V8 isolates initialize in sub-millisecond time because they execute JavaScript inside pre-warmed shared process pools without spinning up separate operating system containers.",
         "check": {
         "question": "Why does the Edge Runtime deliver sub-5ms cold starts compared to traditional Node.js serverless containers?",
         "options": [
@@ -16336,7 +16336,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add an edge rewrite for /docs to an external documentation portal and verify its output.",
-      example: "In practice, when implementing Middleware Execution Pipeline & Request Mutation: Rewrites, Redirects & Custom Headers, an engineering or financial team first captures Middleware and validates Execution against Pipeline before committing Request. Redirects emit HTTP 307/308 responses to update the client address bar, whereas rewrites silently route the request internally without changing the visible URL.",
+      example: "Redirects emit HTTP 307/308 responses to update the client address bar, whereas rewrites silently route the request internally without changing the visible URL.",
         "check": {
         "question": "What is the key functional difference between a redirect and a rewrite in Next.js edge middleware?",
         "options": [
@@ -16380,7 +16380,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Set the token expiration to -10 seconds and verify that the verifier catches the TOKEN_EXPIRED error.",
-      example: "In practice, when implementing Sub-Millisecond Cryptographic JWT Verification at the Edge with Web Crypto API, an engineering or financial team first captures Sub-Millisecond and validates Cryptographic against Verification before committing Crypto. Cryptographic verification uses public-key signatures embedded in the token.",
+      example: "Cryptographic verification uses public-key signatures embedded in the token.",
         "check": {
         "question": "How does verifying cryptographic JWT signatures at the edge protect origin databases from DoS attacks?",
         "options": [
@@ -16424,7 +16424,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Adjust bucket capacity to 5 and observe how many burst requests succeed before HTTP 429 triggers.",
-      example: "In practice, when implementing Distributed Token-Bucket Rate Limiting & Abuse Prevention with Sliding Windows, an engineering or financial team first captures Distributed and validates Token-Bucket against Limiting before committing Abuse. The token bucket accommodates natural bursts of user clicks up to bucket capacity while strictly enforcing sustained throughput through the constant refill rate.",
+      example: "The token bucket accommodates natural bursts of user clicks up to bucket capacity while strictly enforcing sustained throughput through the constant refill rate.",
         "check": {
         "question": "How does the Token Bucket algorithm handle bursty traffic while enforcing long-term rate limits?",
         "options": [
@@ -16474,7 +16474,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Set pipelineLatencyMs to 4.5ms and observe how the audit suite flags the SLA violation.",
-      example: "In practice, when implementing Production Edge Gateway Benchmark: Latency Budgets, Geo-Fencing & Fallback Paths, an engineering or financial team first captures Production and validates Gateway against Benchmark before committing Latency. The edge gateway audit suite strictly evaluates pipeline latency, DoS abuse blocking, cryptographic security, subdomain tenant routing, and zero cold-start latency.",
+      example: "The edge gateway audit suite strictly evaluates pipeline latency, DoS abuse blocking, cryptographic security, subdomain tenant routing, and zero cold-start latency.",
         "check": {
         "question": "What are the core performance SLAs verified by the edge gateway audit suite?",
         "options": [
@@ -16544,7 +16544,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add Client-Side Rendering (CSR) to the spectrum and compare its TTFB and SEO capabilities.",
-      example: "In practice, when implementing The Rendering Spectrum: Static Site Generation (SSG), SSR, ISR vs Partial Prerendering (PPR), an engineering or financial team first captures Rendering and validates Spectrum against Static before committing Generation. PPR flushes an instant static HTML shell from the edge CDN in milliseconds while streaming dynamic server holes in parallel within the exact same HTTP connection.",
+      example: "PPR flushes an instant static HTML shell from the edge CDN in milliseconds while streaming dynamic server holes in parallel within the exact same HTTP connection.",
         "check": {
         "question": "How does Partial Prerendering (PPR) eliminate the historical tradeoff between SSG and SSR?",
         "options": [
@@ -16588,7 +16588,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a dynamic user recommendation widget and verify that it streams as Chunk #3 without blocking the shell.",
-      example: "In practice, when implementing Static Shell Generation & Dynamic Streaming Holes: The Postponed React Element Protocol, an engineering or financial team first captures Static and validates Shell against Generation before committing Dynamic. React throws a Postpone signal upon encountering dynamic APIs (cookies, headers).",
+      example: "React throws a Postpone signal upon encountering dynamic APIs (cookies, headers).",
         "check": {
         "question": "What signal does React use during build time to identify dynamic holes in a Partial Prerendering pass?",
         "options": [
@@ -16632,7 +16632,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Add a Footer component calling getCachedUser1 and verify that dbQueryCount remains strictly 1.",
-      example: "In practice, when implementing React Cache (cache()) & Request-Scoped Memoization Across Asynchronous Server Trees, an engineering or financial team first captures React and validates Cache against Request-Scoped before committing Memoization. React cache() is strictly scoped to the lifecycle of an individual incoming request.",
+      example: "React cache() is strictly scoped to the lifecycle of an individual incoming request.",
         "check": {
         "question": "Why is React cache() preferable to global in-memory caching for user data queries in Server Components?",
         "options": [
@@ -16677,7 +16677,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Purge a tag that does not exist and verify that the revalidation returns 0 without crashing.",
-      example: "In practice, when implementing Next.js Unstable_cache & Incremental Tag Revalidation (revalidateTag) Mechanics, an engineering or financial team first captures Unstable_cache and validates Incremental against Revalidation before committing revalidateTag. Tag-based revalidation eliminates arbitrary time expiration.",
+      example: "Tag-based revalidation eliminates arbitrary time expiration.",
         "check": {
         "question": "What is the primary advantage of tag-based revalidation (revalidateTag) over time-based revalidation (TTL)?",
         "options": [
@@ -16726,7 +16726,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         }
       ],
       "tryIt": "Set clsScore to 0.05 and observe how the audit suite flags the visual layout shift.",
-      example: "In practice, when implementing Production PPR Streaming Simulation & Benchmark: Sub-10ms TTFB with Zero Layout Shift, an engineering or financial team first captures Production and validates Streaming against Simulation before committing Benchmark. When dynamic server content streams into Suspense holes, matching skeleton dimensions ensure that content replaces fallbacks smoothly with zero layout shift, preserving Core Web Vitals.",
+      example: "When dynamic server content streams into Suspense holes, matching skeleton dimensions ensure that content replaces fallbacks smoothly with zero layout shift, preserving Core Web Vitals.",
         "check": {
         "question": "Why is maintaining a Cumulative Layout Shift (CLS) of 0.00 essential when streaming dynamic holes in PPR?",
         "options": [
@@ -16786,7 +16786,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function validateSchema(node) {\n  if (!node || typeof node !== 'object') throw new Error('Invalid node');\n  if (!node.type || !node.id) throw new Error('Missing type or id');\n  let count = 1;\n  let maxChildDepth = 0;\n  if (Array.isArray(node.children)) {\n    for (const child of node.children) {\n      const res = validateSchema(child);\n      count += res.count;\n      if (res.depth > maxChildDepth) maxChildDepth = res.depth;\n    }\n  }\n  return { count, depth: 1 + maxChildDepth };\n}\n\nconst sduiTree = {\n  type: 'PageContainer',\n  id: 'page_home_01',\n  props: { title: 'Enterprise Portal', padding: 16 },\n  children: [\n    {\n      type: 'HeroBanner',\n      id: 'banner_hero',\n      props: { headline: 'Edge Streaming Active', variant: 'primary' }\n    },\n    {\n      type: 'GridSection',\n      id: 'section_grid',\n      props: { columns: 2 },\n      children: [\n        { type: 'MetricCard', id: 'card_latency', props: { label: 'P99 Latency', value: '14ms' } },\n        { type: 'MetricCard', id: 'card_uptime', props: { label: 'Availability', value: '99.99%' } }\n      ]\n    }\n  ]\n};\n\nconst stats = validateSchema(sduiTree);\nconsole.log('SDUI Tree Nodes:', stats.count);\nconsole.log('SDUI Max Depth:', stats.depth);\nconsole.log('Root Node Type:', sduiTree.type);",
       "output": "SDUI Tree Nodes: 5\nSDUI Max Depth: 3\nRoot Node Type: PageContainer",
-      example: "In practice, when implementing Architecture of Server-Driven UI (SDUI) & Declarative JSON Schemas, an engineering or financial team first captures Architecture and validates Server-Driven against Declarative before committing Schemas. SDUI empowers backend services to dictate component layout, ordering, and attributes dynamically over JSON, eliminating client deployment bottlenecks.",
+      example: "SDUI empowers backend services to dictate component layout, ordering, and attributes dynamically over JSON, eliminating client deployment bottlenecks.",
         "check": {
         "question": "What is the primary architectural advantage of Server-Driven UI (SDUI) in enterprise applications?",
         "options": [
@@ -16816,7 +16816,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "class SDUIRegistry {\n  constructor() {\n    this.registry = new Map();\n    this.fallback = null;\n  }\n\n  register(type, renderFn) {\n    this.registry.set(type, renderFn);\n  }\n\n  setFallback(renderFn) {\n    this.fallback = renderFn;\n  }\n\n  render(node) {\n    const Component = this.registry.get(node.type) || this.fallback;\n    if (!Component) return `<!-- Unhandled: ${node.type} -->`;\n    return Component(node.props || {}, (node.children || []).map(child => this.render(child)));\n  }\n}\n\nconst engine = new SDUIRegistry();\nengine.register('Page', (props, children) => `<main class=\"${props.layout}\">${children.join('')}</main>`);\nengine.register('Hero', (props) => `<header><h1>${props.title}</h1></header>`);\nengine.register('Card', (props) => `<div class=\"card\">${props.title}: ${props.val}</div>`);\nengine.setFallback((props) => `<div class=\"unknown-fallback\">Unsupported Widget</div>`);\n\nconst payload = {\n  type: 'Page',\n  props: { layout: 'fluid' },\n  children: [\n    { type: 'Hero', props: { title: 'Real-Time Edge Desk' } },\n    { type: 'Card', props: { title: 'Throughput', val: '120k req/s' } },\n    { type: 'QuantumWidget', props: { id: 999 } }\n  ]\n};\n\nconst html = engine.render(payload);\nconsole.log('Rendered HTML:', html);\nconsole.log('Fallback Handled:', html.includes('Unsupported Widget'));",
       "output": "Rendered HTML: <main class=\"fluid\"><header><h1>Real-Time Edge Desk</h1></header><div class=\"card\">Throughput: 120k req/s</div><div class=\"unknown-fallback\">Unsupported Widget</div></main>\nFallback Handled: true",
-      example: "In practice, when implementing Dynamic Component Registry & Polymorphic Resolver with Fallbacks, an engineering or financial team first captures Dynamic and validates Component against Registry before committing Polymorphic. Resilient fallback boundaries ensure that experimental or unknown component types do not crash the client application.",
+      example: "Resilient fallback boundaries ensure that experimental or unknown component types do not crash the client application.",
         "check": {
         "question": "How should a robust SDUI polymorphic component resolver handle an unrecognized component type emitted by the server?",
         "options": [
@@ -16846,7 +16846,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "class SDUIActionDispatcher {\n  constructor() {\n    this.handlers = new Map();\n    this.auditLog = [];\n  }\n\n  register(actionType, handler) {\n    this.handlers.set(actionType, handler);\n  }\n\n  dispatch(action, context = {}) {\n    const handler = this.handlers.get(action.type);\n    if (!handler) {\n      this.auditLog.push({ type: action.type, status: 'REJECTED', reason: 'NO_HANDLER' });\n      return false;\n    }\n    const result = handler(action.payload, context);\n    this.auditLog.push({ type: action.type, status: 'EXECUTED', result });\n    return true;\n  }\n}\n\nconst dispatcher = new SDUIActionDispatcher();\ndispatcher.register('NAVIGATE', (p) => `Navigating to ${p.route}`);\ndispatcher.register('MUTATE_CART', (p, ctx) => `User ${ctx.userId} added SKU ${p.sku} x${p.qty}`);\n\ndispatcher.dispatch({ type: 'NAVIGATE', payload: { route: '/checkout' } }, { userId: 'u_101' });\ndispatcher.dispatch({ type: 'MUTATE_CART', payload: { sku: 'PROD_99', qty: 2 } }, { userId: 'u_101' });\ndispatcher.dispatch({ type: 'UNKNOWN_OP', payload: {} }, { userId: 'u_101' });\n\nconsole.log('Dispatched Total:', dispatcher.auditLog.length);\nconsole.log('Actions Log:', dispatcher.auditLog.map(e => `${e.type}:${e.status}`).join(', '));",
       "output": "Dispatched Total: 3\nActions Log: NAVIGATE:EXECUTED, MUTATE_CART:EXECUTED, UNKNOWN_OP:REJECTED",
-      example: "In practice, when implementing Declarative Action Dispatchers & Centralized Event Bus, an engineering or financial team first captures Declarative and validates Action against Dispatchers before committing Centralized. Declarative action objects provide airtight security by guaranteeing that only pre-audited, client-compiled handlers execute in response to user events.",
+      example: "Declarative action objects provide airtight security by guaranteeing that only pre-audited, client-compiled handlers execute in response to user events.",
         "check": {
         "question": "Why are event handlers declared as semantic action objects (e.g. { type: 'NAVIGATE' }) rather than raw JavaScript functions in SDUI payloads?",
         "options": [
@@ -16876,7 +16876,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function evaluateExpression(expr, context) {\n  const match = expr.match(/^([a-zA-Z0-9_.]+)\\s*(===|!==|>|<|>=|<=)\\s*['\"]?([a-zA-Z0-9_.-]+)['\"]?$/);\n  if (!match) return false;\n  const [_, path, op, rawVal] = match;\n  \n  const val = path.split('.').reduce((obj, key) => (obj && obj[key] !== undefined ? obj[key] : undefined), context);\n  const targetVal = isNaN(Number(rawVal)) ? rawVal : Number(rawVal);\n  \n  switch (op) {\n    case '===': return val === targetVal;\n    case '!==': return val !== targetVal;\n    case '>': return Number(val) > Number(targetVal);\n    case '<': return Number(val) < Number(targetVal);\n    case '>=': return Number(val) >= Number(targetVal);\n    case '<=': return Number(val) <= Number(targetVal);\n    default: return false;\n  }\n}\n\nfunction resolveVisibility(nodes, context) {\n  return nodes.filter(node => {\n    if (!node.visibleWhen) return true;\n    return evaluateExpression(node.visibleWhen, context);\n  });\n}\n\nconst userContext = { user: { tier: 'VIP', balance: 500 } };\nconst widgets = [\n  { id: 'w1', title: 'Public Welcome Banner' },\n  { id: 'w2', title: 'VIP Exclusive Deal', visibleWhen: 'user.tier === VIP' },\n  { id: 'w3', title: 'High Roller Lounge', visibleWhen: 'user.balance > 1000' }\n];\n\nconst visible = resolveVisibility(widgets, userContext);\nconsole.log('Total Widgets:', widgets.length);\nconsole.log('Visible Widgets:', visible.map(w => w.id).join(', '));\nconsole.log('VIP Deal Visible:', visible.some(w => w.id === 'w2'));\nconsole.log('High Roller Visible:', visible.some(w => w.id === 'w3'));",
       "output": "Total Widgets: 3\nVisible Widgets: w1, w2\nVIP Deal Visible: true\nHigh Roller Visible: false",
-      example: "In practice, when implementing Safe Zero-Eval Expression Evaluation & Dynamic State Binding, an engineering or financial team first captures Zero-Eval and validates Expression against Evaluation before committing Dynamic. Sandboxed, tokenized expression evaluation ensures zero execution vulnerability while evaluating client state predicates.",
+      example: "Sandboxed, tokenized expression evaluation ensures zero execution vulnerability while evaluating client state predicates.",
         "check": {
         "question": "Why must SDUI expression engines strictly avoid using eval() or new Function() for evaluating dynamic visibility conditions?",
         "options": [
@@ -16905,7 +16905,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "class SDUISchemaMigrator {\n  constructor() {\n    this.migrations = new Map();\n  }\n\n  addMigration(fromVersion, toVersion, transformFn) {\n    this.migrations.set(`${fromVersion}->${toVersion}`, transformFn);\n  }\n\n  migrate(node, targetVersion) {\n    let currentVersion = node.schemaVersion || 1;\n    let currentNode = JSON.parse(JSON.stringify(node));\n    while (currentVersion < targetVersion) {\n      const nextVersion = currentVersion + 1;\n      const key = `${currentVersion}->${nextVersion}`;\n      const transform = this.migrations.get(key);\n      if (!transform) throw new Error(`Missing migration pipeline: ${key}`);\n      currentNode = transform(currentNode);\n      currentNode.schemaVersion = nextVersion;\n      currentVersion = nextVersion;\n    }\n    return currentNode;\n  }\n}\n\nconst migrator = new SDUISchemaMigrator();\nmigrator.addMigration(1, 2, (node) => ({\n  ...node,\n  props: { title: node.props.label, stats: { current: node.props.value } }\n}));\n\nconst legacyNode = {\n  type: 'StatWidget',\n  schemaVersion: 1,\n  props: { label: 'Active Sessions', value: 1420 }\n};\n\nconst modernNode = migrator.migrate(legacyNode, 2);\nconsole.log('Migrated Version:', modernNode.schemaVersion);\nconsole.log('Migrated Title:', modernNode.props.title);\nconsole.log('Migrated Stat:', modernNode.props.stats.current);",
       "output": "Migrated Version: 2\nMigrated Title: Active Sessions\nMigrated Stat: 1420",
-      example: "In practice, when implementing Streaming SDUI, Schema Versioning & Production Migration Pipelines, an engineering or financial team first captures Streaming and validates Schema against Versioning before committing Production. Schema migration pipelines transform payloads across schema versions, ensuring older client apps never break when backend contracts evolve.",
+      example: "Schema migration pipelines transform payloads across schema versions, ensuring older client apps never break when backend contracts evolve.",
         "check": {
         "question": "What is the purpose of a Schema Migration Pipeline in a high-scale SDUI infrastructure?",
         "options": [
@@ -16960,7 +16960,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function auditPortalSubsystems(config) {\n  const subsystems = ['edgeMiddleware', 'pprStreaming', 'sduiEngine', 'cacheMesh'];\n  const audit = {};\n  let totalScore = 0;\n  for (const sys of subsystems) {\n    const active = config[sys] && config[sys].status === 'ACTIVE';\n    audit[sys] = active ? 'ONLINE' : 'DEGRADED';\n    if (active) totalScore += 25;\n  }\n  return { audit, healthScore: totalScore, status: totalScore === 100 ? 'READY' : 'DEGRADED' };\n}\n\nconst portalConfig = {\n  edgeMiddleware: { status: 'ACTIVE', runtime: 'edge-light', regions: ['iad1', 'fra1', 'sin1'] },\n  pprStreaming: { status: 'ACTIVE', engine: 'react-19-ppr', fallbackLatencyMs: 12 },\n  sduiEngine: { status: 'ACTIVE', schemaVersion: 2, registeredWidgets: 48 },\n  cacheMesh: { status: 'ACTIVE', tagInvalidation: true, purgeLatencyMs: 8 }\n};\n\nconst report = auditPortalSubsystems(portalConfig);\nconsole.log('Portal Status:', report.status);\nconsole.log('System Health:', report.healthScore + '%');\nconsole.log('Subsystem Audit:', Object.entries(report.audit).map(([k, v]) => `${k}:${v}`).join(', '));",
       "output": "Portal Status: READY\nSystem Health: 100%\nSubsystem Audit: edgeMiddleware:ONLINE, pprStreaming:ONLINE, sduiEngine:ONLINE, cacheMesh:ONLINE",
-      example: "In practice, when implementing Milestone 10 Architectural Vision & Production System Topology, an engineering or financial team first captures Milestone and validates Architectural against Vision before committing Production. Milestone 10 synthesizes edge computing, Partial Prerendering, and Server-Driven UI into a high-performance streaming architecture.",
+      example: "Milestone 10 synthesizes edge computing, Partial Prerendering, and Server-Driven UI into a high-performance streaming architecture.",
         "check": {
         "question": "What is the primary operational topology of the Enterprise Edge-Native Streaming Portal in Milestone 10?",
         "options": [
@@ -16990,7 +16990,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "class EnterpriseEdgePipeline {\n  constructor(rateLimitMax = 5) {\n    this.rateLimitMax = rateLimitMax;\n    this.requestCounts = new Map();\n  }\n\n  process(req) {\n    const ip = req.ip || '127.0.0.1';\n    const count = (this.requestCounts.get(ip) || 0) + 1;\n    this.requestCounts.set(ip, count);\n\n    if (count > this.rateLimitMax) {\n      return { status: 429, headers: { 'Retry-After': '60' }, body: 'Rate limit exceeded' };\n    }\n\n    if (!req.token || req.token !== 'valid_edge_jwt_secret') {\n      return { status: 401, headers: {}, body: 'Unauthorized: Invalid JWT' };\n    }\n\n    const geoHeader = req.geo ? `${req.geo.country}-${req.geo.city}` : 'US-UNKNOWN';\n    return {\n      status: 200,\n      headers: {\n        'x-edge-geo': geoHeader,\n        'x-edge-verified': 'true',\n        'x-rate-remaining': String(this.rateLimitMax - count)\n      },\n      body: 'PASSED'\n    };\n  }\n}\n\nconst pipeline = new EnterpriseEdgePipeline(3);\nconst r1 = pipeline.process({ ip: '10.0.0.1', token: 'valid_edge_jwt_secret', geo: { country: 'US', city: 'NYC' } });\nconst r2 = pipeline.process({ ip: '10.0.0.1', token: 'bad_token' });\npipeline.process({ ip: '10.0.0.2', token: 'valid_edge_jwt_secret' });\npipeline.process({ ip: '10.0.0.2', token: 'valid_edge_jwt_secret' });\npipeline.process({ ip: '10.0.0.2', token: 'valid_edge_jwt_secret' });\nconst rBlocked = pipeline.process({ ip: '10.0.0.2', token: 'valid_edge_jwt_secret' });\n\nconsole.log('Req 1 Status:', r1.status);\nconsole.log('Req 1 Geo Header:', r1.headers['x-edge-geo']);\nconsole.log('Req 2 Status (Bad Auth):', r2.status);\nconsole.log('Req Blocked Status (Rate Limit):', rBlocked.status);",
       "output": "Req 1 Status: 200\nReq 1 Geo Header: US-NYC\nReq 2 Status (Bad Auth): 401\nReq Blocked Status (Rate Limit): 429",
-      example: "In practice, when implementing Integrated Edge Middleware & Context Hydration Pipeline, an engineering or financial team first captures Integrated and validates Middleware against Context before committing Hydration. Edge-first security shields origin computing resources by terminating unauthorized traffic immediately at the network edge.",
+      example: "Edge-first security shields origin computing resources by terminating unauthorized traffic immediately at the network edge.",
         "check": {
         "question": "Why does the Edge Middleware perform JWT verification and rate limiting before forwarding requests to the App Router origin?",
         "options": [
@@ -17020,7 +17020,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function simulatePPRStream(staticShell, dynamicHoles) {\n  const streamChunks = [];\n  streamChunks.push({ phase: 'STATIC_SHELL', timeMs: 0, html: `<div id=\"app-root\">${staticShell}</div>` });\n\n  for (const hole of dynamicHoles) {\n    streamChunks.push({\n      phase: 'DYNAMIC_HOLE',\n      timeMs: hole.latencyMs,\n      targetHoleId: hole.id,\n      html: `<template data-target=\"${hole.id}\">${hole.rendered}</template>`\n    });\n  }\n  return streamChunks;\n}\n\nconst shell = '<header><h1>Edge Portal</h1><nav>Home | Desk | Analytics</nav></header><main><div id=\"hole-feed\">Loading Feed...</div><div id=\"hole-prices\">Loading Prices...</div></main>';\nconst holes = [\n  { id: 'hole-feed', latencyMs: 25, rendered: '<section class=\"feed\">Live News: Market Open</section>' },\n  { id: 'hole-prices', latencyMs: 45, rendered: '<section class=\"ticker\">AAPL: $220.50 | NVDA: $128.10</section>' }\n];\n\nconst chunks = simulatePPRStream(shell, holes);\nconsole.log('Total Chunks:', chunks.length);\nconsole.log('First Chunk Phase:', chunks[0].phase);\nconsole.log('Dynamic Hole Target 1:', chunks[1].targetHoleId);\nconsole.log('Dynamic Hole Target 2:', chunks[2].targetHoleId);\nconsole.log('Max Stream Latency:', Math.max(...chunks.map(c => c.timeMs)) + 'ms');",
       "output": "Total Chunks: 3\nFirst Chunk Phase: STATIC_SHELL\nDynamic Hole Target 1: hole-feed\nDynamic Hole Target 2: hole-prices\nMax Stream Latency: 45ms",
-      example: "In practice, when implementing PPR Shell & Dynamic Hole Streaming Coordinator, an engineering or financial team first captures Shell and validates Dynamic against Streaming before committing Coordinator. Explicit bounding box reservation ensures that incoming streaming bytes never cause page reflow or visual layout shifting.",
+      example: "Explicit bounding box reservation ensures that incoming streaming bytes never cause page reflow or visual layout shifting.",
         "check": {
         "question": "How does the Partial Prerendering coordinator achieve an unyielding Cumulative Layout Shift (CLS) of 0.000 during progressive streaming?",
         "options": [
@@ -17052,7 +17052,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "class PortalSDUIEngine {\n  constructor() {\n    this.components = new Map();\n    this.actionHistory = [];\n  }\n\n  register(type, renderFn) {\n    this.components.set(type, renderFn);\n  }\n\n  render(node) {\n    const Component = this.components.get(node.type);\n    if (!Component) return `<div class=\"fallback-widget\">[Fallback: ${node.type}]</div>`;\n    const renderedChildren = (node.children || []).map(c => this.render(c)).join('');\n    return Component(node.props || {}, renderedChildren);\n  }\n\n  dispatch(action) {\n    this.actionHistory.push(action);\n    return `Action ${action.type} handled successfully`;\n  }\n}\n\nconst sdui = new PortalSDUIEngine();\nsdui.register('PortalShell', (p, children) => `<div class=\"portal-${p.theme}\">${children}</div>`);\nsdui.register('MetricsRow', (p, children) => `<div class=\"metrics-grid\">${children}</div>`);\nsdui.register('StatCard', (p) => `<div class=\"stat-card\"><span>${p.label}</span><strong>${p.value}</strong></div>`);\n\nconst wireSchema = {\n  type: 'PortalShell',\n  props: { theme: 'dark' },\n  children: [\n    {\n      type: 'MetricsRow',\n      children: [\n        { type: 'StatCard', props: { label: 'Active Users', value: '18,420' } },\n        { type: 'StatCard', props: { label: 'Edge TTFB', value: '14ms' } },\n        { type: 'ExperimentalAiInsight', props: { mode: 'forecast' } }\n      ]\n    }\n  ]\n};\n\nconst outputHtml = sdui.render(wireSchema);\nsdui.dispatch({ type: 'TELEMETRY_LOG', payload: { event: 'SDUI_RENDER_SUCCESS' } });\n\nconsole.log('Rendered HTML Length:', outputHtml.length);\nconsole.log('Contains Dark Theme:', outputHtml.includes('portal-dark'));\nconsole.log('Contains Active Users:', outputHtml.includes('18,420'));\nconsole.log('Fallback Handled:', outputHtml.includes('Fallback: ExperimentalAiInsight'));\nconsole.log('Actions Dispatched:', sdui.actionHistory.length);",
       "output": "Rendered HTML Length: 280\nContains Dark Theme: true\nContains Active Users: true\nFallback Handled: true\nActions Dispatched: 1",
-      example: "In practice, when implementing Dynamic SDUI Wire Interpreter & Component Polymorphism, an engineering or financial team first captures Dynamic and validates Interpreter against Component before committing Polymorphism. Defensive fallback boundaries guarantee that unknown or newly released component types degrade gracefully without client crashes.",
+      example: "Defensive fallback boundaries guarantee that unknown or newly released component types degrade gracefully without client crashes.",
         "check": {
         "question": "How does the PortalSDUIEngine handle an unrecognized component type emitted by backend services?",
         "options": [
@@ -17082,7 +17082,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function runMilestone10VerificationSuite() {\n  const metrics = {\n    edgeAuthLatencyMs: 2.4,\n    staticShellTtfbMs: 18.2,\n    dynamicStreamDurationMs: 42.0,\n    cumulativeLayoutShift: 0.000,\n    sduiFallbackRatePercent: 0.0,\n    cacheHitRatioPercent: 99.4\n  };\n\n  const slaTargets = {\n    edgeAuthLatencyMs: 5.0,\n    staticShellTtfbMs: 35.0,\n    dynamicStreamDurationMs: 100.0,\n    cumulativeLayoutShift: 0.01,\n    sduiFallbackRatePercent: 0.1,\n    cacheHitRatioPercent: 95.0\n  };\n\n  const results = {};\n  let passedCount = 0;\n\n  for (const [key, target] of Object.entries(slaTargets)) {\n    const val = metrics[key];\n    const isPass = key === 'cacheHitRatioPercent' ? val >= target : val <= target;\n    results[key] = { value: val, target, pass: isPass };\n    if (isPass) passedCount++;\n  }\n\n  const allPassed = passedCount === Object.keys(slaTargets).length;\n  return { allPassed, passedCount, total: Object.keys(slaTargets).length, results };\n}\n\nconst suite = runMilestone10VerificationSuite();\nconsole.log('Milestone 10 Certification:', suite.allPassed ? 'CERTIFIED' : 'FAILED');\nconsole.log('SLAs Passed:', `${suite.passedCount}/${suite.total}`);\nconsole.log('CLS Score:', suite.results.cumulativeLayoutShift.value);\nconsole.log('Cache Hit Ratio:', suite.results.cacheHitRatioPercent.value + '%');",
       "output": "Milestone 10 Certification: CERTIFIED\nSLAs Passed: 6/6\nCLS Score: 0\nCache Hit Ratio: 99.4%",
-      example: "In practice, when implementing End-to-End Milestone Production Verification, SLA Conformance & Zero-Downtime Pipeline, an engineering or financial team first captures End-to-End and validates Milestone against Production before committing Verification. Automated SLA verification guarantees that all production performance, stability, and reliability invariants are met prior to global rollout.",
+      example: "Automated SLA verification guarantees that all production performance, stability, and reliability invariants are met prior to global rollout.",
         "check": {
         "question": "What is the purpose of the automated SLA Verification Suite in Milestone 10?",
         "options": [
@@ -17151,7 +17151,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function auditTradingDeskThroughput(ticksPerSec, maxLatencyBudgetMs) {\n  const timePerTickUs = (1000000 / ticksPerSec);\n  const isWithinBudget = (timePerTickUs / 1000) <= maxLatencyBudgetMs;\n  return {\n    ticksPerSec,\n    timePerTickUs: Number(timePerTickUs.toFixed(2)),\n    budgetMet: isWithinBudget,\n    systemRating: isWithinBudget ? 'INSTITUTIONAL_GRADE' : 'UNSAFE_FOR_PRODUCTION'\n  };\n}\n\nconst audit = auditTradingDeskThroughput(100000, 0.05);\nconsole.log('Throughput Capacity:', audit.ticksPerSec + ' ticks/sec');\nconsole.log('Time Per Tick:', audit.timePerTickUs + ' us');\nconsole.log('Latency Budget Met:', audit.budgetMet);\nconsole.log('System Rating:', audit.systemRating);",
       "output": "Throughput Capacity: 100000 ticks/sec\nTime Per Tick: 10 us\nLatency Budget Met: true\nSystem Rating: INSTITUTIONAL_GRADE",
       "tryIt": "Increase ticksPerSec to 200,000 and calculate the updated microsecond time budget per tick.",
-      example: "In practice, when implementing Case Study Blueprint: High-Frequency Trading Desk Topology & Zero-Allocation Pipelines, an engineering or financial team first captures Study and validates Blueprint against High-Frequency before committing Trading. Direct state updates at high frequency cause extreme memory allocations and GC pauses, stalling the browser main thread.",
+      example: "Direct state updates at high frequency cause extreme memory allocations and GC pauses, stalling the browser main thread.",
         "check": {
         "question": "Why must high-frequency market telemetry bypass standard React setState hooks during initial ingestion?",
         "options": [
@@ -17183,7 +17183,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class CircularRingBuffer {\n  constructor(capacity) {\n    this.capacity = capacity;\n    this.buffer = new Float64Array(capacity);\n    this.head = 0;\n    this.count = 0;\n  }\n\n  push(val) {\n    this.buffer[this.head] = val;\n    this.head = (this.head + 1) % this.capacity;\n    if (this.count < this.capacity) this.count++;\n  }\n\n  getLatest(n) {\n    const k = Math.min(n, this.count);\n    const result = [];\n    for (let i = 0; i < k; i++) {\n      const idx = (this.head - 1 - i + this.capacity) % this.capacity;\n      result.push(this.buffer[idx]);\n    }\n    return result;\n  }\n}\n\nconst ring = new CircularRingBuffer(5);\n[150.25, 150.50, 150.75, 151.00, 151.25, 151.50].forEach(p => ring.push(p));\nconst latestThree = ring.getLatest(3);\n\nconsole.log('Ring Buffer Capacity:', ring.capacity);\nconsole.log('Total Stored Items:', ring.count);\nconsole.log('Latest 3 Quotes:', latestThree.join(', '));\nconsole.log('Latest Quote:', latestThree[0]);",
       "output": "Ring Buffer Capacity: 5\nTotal Stored Items: 5\nLatest 3 Quotes: 151.5, 151.25, 151\nLatest Quote: 151.5",
       "tryIt": "Push 3 more quotes into the circular ring buffer and observe how old items are overwritten in-place.",
-      example: "In practice, when implementing Zero-Allocation Circular Ring Buffers & Tear-Free useSyncExternalStore Subscriptions, an engineering or financial team first captures Zero-Allocation and validates Circular against Buffers before committing Tear-Free. Pre-allocated TypedArrays eliminate dynamic memory reallocations, abolishing V8 garbage collector pauses.",
+      example: "Pre-allocated TypedArrays eliminate dynamic memory reallocations, abolishing V8 garbage collector pauses.",
         "check": {
         "question": "What is the primary memory advantage of a pre-allocated Float64Array circular ring buffer?",
         "options": [
@@ -17215,7 +17215,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class PreTradeRiskGovernor {\n  constructor(maxNotional, priceCollarPct) {\n    this.maxNotional = maxNotional;\n    this.priceCollarPct = priceCollarPct;\n  }\n\n  evaluateOrder(order, lastRefPrice) {\n    const notional = order.qty * order.price;\n    if (notional > this.maxNotional) {\n      return { approved: false, reason: 'MAX_NOTIONAL_BREACH', notional };\n    }\n    const deviation = Math.abs(order.price - lastRefPrice) / lastRefPrice;\n    if (deviation > this.priceCollarPct) {\n      return { approved: false, reason: 'PRICE_COLLAR_BREACH', deviationPct: deviation * 100 };\n    }\n    return { approved: true, notional, status: 'ORDER_DISPATCHED' };\n  }\n}\n\nconst governor = new PreTradeRiskGovernor(1000000, 0.05);\nconst o1 = governor.evaluateOrder({ symbol: 'AAPL', qty: 100, price: 150 }, 150);\nconst o2 = governor.evaluateOrder({ symbol: 'AAPL', qty: 10000, price: 150 }, 150);\nconst o3 = governor.evaluateOrder({ symbol: 'AAPL', qty: 100, price: 170 }, 150);\n\nconsole.log('Order 1 Status:', o1.status);\nconsole.log('Order 2 Rejected:', o2.reason);\nconsole.log('Order 3 Rejected:', o3.reason);",
       "output": "Order 1 Status: ORDER_DISPATCHED\nOrder 2 Rejected: MAX_NOTIONAL_BREACH\nOrder 3 Rejected: PRICE_COLLAR_BREACH",
       "tryIt": "Submit an order with price 152 and verify whether it passes or breaches the 5% price collar threshold.",
-      example: "In practice, when implementing Pre-Trade Margin & Price Collar Risk Governor Statechart, an engineering or financial team first captures Pre-Trade and validates Margin against Price before committing Collar. Price collars protect firms from catastrophic market orders executing during unexpected liquidity vacuums.",
+      example: "Price collars protect firms from catastrophic market orders executing during unexpected liquidity vacuums.",
         "check": {
         "question": "What is the role of a Price Collar in an institutional pre-trade risk governor?",
         "options": [
@@ -17246,7 +17246,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class FederatedRemoteSandbox {\n  constructor() {\n    this.remotes = new Map();\n    this.failures = [];\n  }\n\n  registerRemote(id, factoryFn) {\n    this.remotes.set(id, factoryFn);\n  }\n\n  mount(id) {\n    const factory = this.remotes.get(id);\n    if (!factory) {\n      this.failures.push({ id, error: 'MODULE_NOT_REGISTERED' });\n      return `<!-- Fallback: Remote ${id} Missing -->`;\n    }\n    try {\n      return factory();\n    } catch (err) {\n      this.failures.push({ id, error: err.message });\n      return `<!-- Fallback: Remote ${id} Crashed Gracefully -->`;\n    }\n  }\n}\n\nconst sandbox = new FederatedRemoteSandbox();\nsandbox.registerRemote('MarketDepth', () => '<div class=\"market-depth\">Depth: 10 Bids / 10 Asks</div>');\nsandbox.registerRemote('BuggyAnalytics', () => { throw new Error('Uncaught Division By Zero'); });\n\nconst htmlDepth = sandbox.mount('MarketDepth');\nconst htmlBuggy = sandbox.mount('BuggyAnalytics');\nconst htmlUnknown = sandbox.mount('AlgoRouter');\n\nconsole.log('Market Depth Rendered:', htmlDepth.includes('10 Bids'));\nconsole.log('Buggy Analytics Isolated:', htmlBuggy.includes('Crashed Gracefully'));\nconsole.log('Unknown Remote Handled:', htmlUnknown.includes('Missing'));\nconsole.log('Total Trapped Failures:', sandbox.failures.length);",
       "output": "Market Depth Rendered: true\nBuggy Analytics Isolated: true\nUnknown Remote Handled: true\nTotal Trapped Failures: 2",
       "tryIt": "Register a new remote 'RiskMatrix' that returns a table of Greeks and verify its safe mounting in the sandbox.",
-      example: "In practice, when implementing Federated Remote Sandboxing & Fault-Tolerant Failure Isolation, an engineering or financial team first captures Federated and validates Remote against Sandboxing before committing Fault-Tolerant. Granular error boundaries isolate module failures, ensuring that trading operations remain active even if secondary widgets crash.",
+      example: "Granular error boundaries isolate module failures, ensuring that trading operations remain active even if secondary widgets crash.",
         "check": {
         "question": "How does a resilient remote sandbox prevent an error in a third-party analytics widget from blinding the trader?",
         "options": [
@@ -17279,7 +17279,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function certifyTradingDeskForensics(metrics) {\n  const targets = {\n    stateTearingRate: 0.0,\n    gcPauseP99Ms: 2.0,\n    riskCheckLatencyUs: 15.0,\n    remoteIsolationScore: 100\n  };\n\n  const pass = (\n    metrics.stateTearingRate === targets.stateTearingRate &&\n    metrics.gcPauseP99Ms <= targets.gcPauseP99Ms &&\n    metrics.riskCheckLatencyUs <= targets.riskCheckLatencyUs &&\n    metrics.remoteIsolationScore === targets.remoteIsolationScore\n  );\n\n  return {\n    certified: pass,\n    rating: pass ? 'GRADE A+ TRADING DESK' : 'REJECTED_AUDIT_FAILURE',\n    metrics\n  };\n}\n\nconst auditResult = certifyTradingDeskForensics({\n  stateTearingRate: 0.0,\n  gcPauseP99Ms: 1.4,\n  riskCheckLatencyUs: 8.5,\n  remoteIsolationScore: 100\n});\n\nconsole.log('Forensic Certification:', auditResult.rating);\nconsole.log('Audit Certified:', auditResult.certified);\nconsole.log('Tearing Rate:', auditResult.metrics.stateTearingRate + '%');\nconsole.log('P99 GC Pause:', auditResult.metrics.gcPauseP99Ms + 'ms');",
       "output": "Forensic Certification: GRADE A+ TRADING DESK\nAudit Certified: true\nTearing Rate: 0%\nP99 GC Pause: 1.4ms",
       "tryIt": "Set stateTearingRate to 0.05% in the forensic suite and observe how the audit flags the compliance failure.",
-      example: "In practice, when implementing Production Forensic Teardown: Knight Capital Disaster & Grade A+ Certification, an engineering or financial team first captures Production and validates Forensic against Teardown before committing Knight. Knight Capital collapsed due to rogue dead code execution, absent automated pre-trade limits, and missing circuit breakers.",
+      example: "Knight Capital collapsed due to rogue dead code execution, absent automated pre-trade limits, and missing circuit breakers.",
         "check": {
         "question": "What primary engineering deficiency led to the $440M Knight Capital trading disaster in 2012?",
         "options": [
@@ -17338,7 +17338,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function simulateOriginShield(totalRequests, edgeCacheHitRate) {\n  const edgeAbsorbed = Math.floor(totalRequests * edgeCacheHitRate);\n  const originForwarded = totalRequests - edgeAbsorbed;\n  const originCapacity = 5000;\n  const isHealthy = originForwarded <= originCapacity;\n\n  return {\n    totalRequests,\n    edgeAbsorbed,\n    originForwarded,\n    originCapacity,\n    status: isHealthy ? 'ORIGIN_PROTECTED' : 'THUNDERING_HERD_CRASH'\n  };\n}\n\nconst sim = simulateOriginShield(500000, 0.992);\nconsole.log('Total Requests:', sim.totalRequests + ' req/s');\nconsole.log('Edge Absorbed:', sim.edgeAbsorbed + ' req/s');\nconsole.log('Origin Forwarded:', sim.originForwarded + ' req/s');\nconsole.log('Origin Health:', sim.status);",
       "output": "Total Requests: 500000 req/s\nEdge Absorbed: 496000 req/s\nOrigin Forwarded: 4000 req/s\nOrigin Health: ORIGIN_PROTECTED",
       "tryIt": "Modify edgeCacheHitRate to 0.98 and calculate the updated number of requests forwarded to the origin.",
-      example: "In practice, when implementing Case Study Blueprint: The 500k RPS Black Friday Thundering Herd & Edge Shielding, an engineering or financial team first captures Study and validates Blueprint against Black before committing Friday. Edge origin shields absorb browsing traffic at edge PoPs, forwarding only a small, manageable trickle of requests to origin databases.",
+      example: "Edge origin shields absorb browsing traffic at edge PoPs, forwarding only a small, manageable trickle of requests to origin databases.",
         "check": {
         "question": "What is the primary role of an Edge Origin Shield during a 500k RPS e-commerce viral event?",
         "options": [
@@ -17371,7 +17371,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class PPRStreamingEngine {\n  constructor() {\n    this.stream = [];\n  }\n\n  emitShell(shellHtml) {\n    this.stream.push({ type: 'STATIC_SHELL', ttfbMs: 14, content: shellHtml });\n  }\n\n  streamHole(holeId, delayMs, payload) {\n    this.stream.push({ type: 'DYNAMIC_HOLE', holeId, delayMs, payload });\n  }\n\n  getMetrics() {\n    const ttfb = this.stream[0].ttfbMs;\n    const totalTime = Math.max(...this.stream.map(s => s.delayMs || s.ttfbMs));\n    return { ttfb, totalTime, chunks: this.stream.length };\n  }\n}\n\nconst ppr = new PPRStreamingEngine();\nppr.emitShell('<header>Nike Store</header><main><div id=\"prod-info\">Air Max 90 - $140</div><div id=\"hole-inventory\">Loading Stock...</div></main>');\nppr.streamHole('hole-inventory', 35, { stock: 14, inStock: true });\nppr.streamHole('hole-recommendations', 55, { items: ['Socks', 'Shoe Cleaner'] });\n\nconst metrics = ppr.getMetrics();\nconsole.log('Static Shell TTFB:', metrics.ttfb + 'ms');\nconsole.log('Total Streaming Duration:', metrics.totalTime + 'ms');\nconsole.log('Stream Chunks:', metrics.chunks);",
       "output": "Static Shell TTFB: 14ms\nTotal Streaming Duration: 55ms\nStream Chunks: 3",
       "tryIt": "Add a third dynamic hole for shipping estimates with 40ms latency and inspect the updated total streaming duration.",
-      example: "In practice, when implementing PPR at Scale: Edge Static Shell Distribution & Streaming Personalized Holes, an engineering or financial team first captures Scale and validates Static against Shell before committing Distribution. PPR decouples the static application shell from dynamic streaming holes, delivering instant FCP and live data concurrently.",
+      example: "PPR decouples the static application shell from dynamic streaming holes, delivering instant FCP and live data concurrently.",
         "check": {
         "question": "How does Partial Prerendering (PPR) achieve sub-20ms TTFB while displaying live stock levels?",
         "options": [
@@ -17405,7 +17405,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class CacheTagMesh {\n  constructor() {\n    this.cache = new Map();\n  }\n\n  set(key, val, tags) {\n    this.cache.set(key, { val, tags });\n  }\n\n  invalidateTag(targetTag) {\n    let purged = 0;\n    for (const [key, entry] of this.cache.entries()) {\n      if (entry.tags.includes(targetTag)) {\n        this.cache.delete(key);\n        purged++;\n      }\n    }\n    return purged;\n  }\n\n  size() {\n    return this.cache.size;\n  }\n}\n\nconst mesh = new CacheTagMesh();\nmesh.set('/products/air-max-90', { title: 'Air Max 90' }, ['brand:nike', 'cat:footwear', 'sku:9921']);\nmesh.set('/products/pegasus-40', { title: 'Pegasus 40' }, ['brand:nike', 'cat:footwear', 'sku:8814']);\nmesh.set('/products/hoodie-club', { title: 'Club Hoodie' }, ['brand:nike', 'cat:apparel', 'sku:1102']);\n\nconst initialCount = mesh.size();\nconst purgedCount = mesh.invalidateTag('sku:9921');\nconst remainingCount = mesh.size();\n\nconsole.log('Initial Cached Pages:', initialCount);\nconsole.log('Purged Pages for SKU 9921:', purgedCount);\nconsole.log('Remaining Cached Pages:', remainingCount);",
       "output": "Initial Cached Pages: 3\nPurged Pages for SKU 9921: 1\nRemaining Cached Pages: 2",
       "tryIt": "Invalidate tag 'brand:nike' in CacheTagMesh and verify how many product pages are purged across the catalog.",
-      example: "In practice, when implementing Hierarchical Tag-Based Edge Cache Invalidation Mesh, an engineering or financial team first captures Hierarchical and validates Tag-Based against Cache before committing Invalidation. Tag-based invalidation performs surgical eviction of affected items while preserving global cache hit ratios.",
+      example: "Tag-based invalidation performs surgical eviction of affected items while preserving global cache hit ratios.",
         "check": {
         "question": "Why is tag-based cache invalidation superior to blanket cache flushing during inventory updates?",
         "options": [
@@ -17438,7 +17438,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function resolveFlashSalePrice(basePrice, discounts, userTier) {\n  let effectivePrice = basePrice;\n  let activeDiscountLabel = 'NONE';\n\n  for (const disc of discounts) {\n    if (disc.tier && disc.tier !== userTier) continue;\n    const discounted = basePrice * (1 - disc.percent);\n    if (discounted < effectivePrice) {\n      effectivePrice = discounted;\n      activeDiscountLabel = disc.label;\n    }\n  }\n\n  return {\n    basePrice,\n    effectivePrice: Number(effectivePrice.toFixed(2)),\n    savings: Number((basePrice - effectivePrice).toFixed(2)),\n    activeDiscountLabel\n  };\n}\n\nconst discounts = [\n  { label: 'BLACK_FRIDAY_GENERAL', percent: 0.15 },\n  { label: 'VIP_PLATINUM_DROP', percent: 0.30, tier: 'PLATINUM' }\n];\n\nconst p1 = resolveFlashSalePrice(200.0, discounts, 'REGULAR');\nconst p2 = resolveFlashSalePrice(200.0, discounts, 'PLATINUM');\n\nconsole.log('Regular Promo Price: $' + p1.effectivePrice);\nconsole.log('Regular Promo Applied:', p1.activeDiscountLabel);\nconsole.log('VIP Promo Price: $' + p2.effectivePrice);\nconsole.log('VIP Savings: $' + p2.savings);",
       "output": "Regular Promo Price: $170\nRegular Promo Applied: BLACK_FRIDAY_GENERAL\nVIP Promo Price: $140\nVIP Savings: $60",
       "tryIt": "Add a new VIP_GOLD discount of 25% and calculate the effective price for a user with tier 'GOLD'.",
-      example: "In practice, when implementing Dynamic Flash Sale Pricing Rules & Client-Side Promotion Engine, an engineering or financial team first captures Dynamic and validates Flash against Pricing before committing Rules. Client-side evaluation provides instant UI responsiveness during interactive shopping without incurring server round-trips.",
+      example: "Client-side evaluation provides instant UI responsiveness during interactive shopping without incurring server round-trips.",
         "check": {
         "question": "Why are promotional pricing calculations evaluated client-side in flash sale interfaces?",
         "options": [
@@ -17472,7 +17472,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function auditECommerceResilience(metrics) {\n  const targets = {\n    edgeCacheHitRate: 0.99,\n    staticShellTtfbMs: 20.0,\n    dynamicStreamMs: 80.0,\n    clsScore: 0.000,\n    thunderingHerdSpike: false\n  };\n\n  const certified = (\n    metrics.edgeCacheHitRate >= targets.edgeCacheHitRate &&\n    metrics.staticShellTtfbMs <= targets.staticShellTtfbMs &&\n    metrics.dynamicStreamMs <= targets.dynamicStreamMs &&\n    metrics.clsScore === targets.clsScore &&\n    metrics.thunderingHerdSpike === targets.thunderingHerdSpike\n  );\n\n  return {\n    certified,\n    slaStatus: certified ? 'GRADE A+ CERTIFIED ECOMMERCE' : 'SLA_BREACH',\n    metrics\n  };\n}\n\nconst audit = auditECommerceResilience({\n  edgeCacheHitRate: 0.994,\n  staticShellTtfbMs: 14.5,\n  dynamicStreamMs: 48.0,\n  clsScore: 0.000,\n  thunderingHerdSpike: false\n});\n\nconsole.log('Audit Certification:', audit.slaStatus);\nconsole.log('Platform Certified:', audit.certified);\nconsole.log('Edge Cache Hit Rate:', (audit.metrics.edgeCacheHitRate * 100).toFixed(1) + '%');\nconsole.log('Static Shell TTFB:', audit.metrics.staticShellTtfbMs + 'ms');",
       "output": "Audit Certification: GRADE A+ CERTIFIED ECOMMERCE\nPlatform Certified: true\nEdge Cache Hit Rate: 99.4%\nStatic Shell TTFB: 14.5ms",
       "tryIt": "Set edgeCacheHitRate to 0.95 in the resilience suite and observe how the audit flags the SLA breach.",
-      example: "In practice, when implementing Production Forensic Teardown: 2018 Amazon Prime Day Outage & Grade A+ Certification, an engineering or financial team first captures Production and validates Forensic against Teardown before committing Amazon. Un-cached homepage reads caused a thundering herd on internal DynamoDB databases, crashing cascading microservices.",
+      example: "Un-cached homepage reads caused a thundering herd on internal DynamoDB databases, crashing cascading microservices.",
         "check": {
         "question": "What primary engineering bottleneck caused the catastrophic $100M Amazon Prime Day outage in 2018?",
         "options": [
@@ -17531,7 +17531,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function parseBlockTree(block) {\n  let count = 1;\n  let maxDepth = 0;\n  if (Array.isArray(block.children)) {\n    for (const child of block.children) {\n      const res = parseBlockTree(child);\n      count += res.count;\n      if (res.depth > maxDepth) maxDepth = res.depth;\n    }\n  }\n  return { count, depth: 1 + maxDepth };\n}\n\nconst documentTree = {\n  id: 'doc_root',\n  type: 'PageBlock',\n  properties: { title: 'Engineering Roadmap 2026' },\n  children: [\n    { id: 'b1', type: 'HeadingBlock', properties: { text: 'Q1 Deliverables', level: 1 } },\n    {\n      id: 'b2',\n      type: 'ColumnListBlock',\n      children: [\n        { id: 'col1', type: 'ColumnBlock', children: [{ id: 't1', type: 'TodoBlock', properties: { text: 'Edge Streaming Engine', done: true } }] },\n        { id: 'col2', type: 'ColumnBlock', children: [{ id: 't2', type: 'TodoBlock', properties: { text: 'SDUI Component Registry', done: false } }] }\n      ]\n    }\n  ]\n};\n\nconst treeStats = parseBlockTree(documentTree);\nconsole.log('Total Document Blocks:', treeStats.count);\nconsole.log('Max Hierarchy Depth:', treeStats.depth);\nconsole.log('Document Root Type:', documentTree.type);",
       "output": "Total Document Blocks: 7\nMax Hierarchy Depth: 4\nDocument Root Type: PageBlock",
       "tryIt": "Add a third column with a CodeBlock to documentTree and calculate the updated block count.",
-      example: "In practice, when implementing Case Study Blueprint: The Recursive Polymorphic Block-Tree Document Model, an engineering or financial team first captures Study and validates Blueprint against Recursive before committing Polymorphic. Block trees decompose complex documents into discrete, identifiable nodes that support granular nesting and atomic real-time updates.",
+      example: "Block trees decompose complex documents into discrete, identifiable nodes that support granular nesting and atomic real-time updates.",
         "check": {
         "question": "What is the primary architectural benefit of representing collaborative documents as recursive block trees?",
         "options": [
@@ -17564,7 +17564,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class BlockComponentRegistry {\n  constructor() {\n    this.blocks = new Map();\n    this.fallback = null;\n  }\n\n  register(type, renderFn) {\n    this.blocks.set(type, renderFn);\n  }\n\n  setFallback(renderFn) {\n    this.fallback = renderFn;\n  }\n\n  render(block) {\n    const Component = this.blocks.get(block.type) || this.fallback;\n    if (!Component) return `<!-- Unhandled: ${block.type} -->`;\n    const renderedChildren = (block.children || []).map(c => this.render(c)).join('');\n    return Component(block.properties || {}, renderedChildren);\n  }\n}\n\nconst registry = new BlockComponentRegistry();\nregistry.register('PageBlock', (p, children) => `<article class=\"page\"><h1>${p.title}</h1>${children}</article>`);\nregistry.register('HeadingBlock', (p) => `<h${p.level}>${p.text}</h${p.level}>`);\nregistry.register('TodoBlock', (p) => `<div class=\"todo\"><input type=\"checkbox\" ${p.done ? 'checked' : ''}/> ${p.text}</div>`);\nregistry.setFallback((p) => `<div class=\"fallback-block\">[Unsupported Block]</div>`);\n\nconst sampleDoc = {\n  type: 'PageBlock',\n  properties: { title: 'Architecture RFC' },\n  children: [\n    { type: 'HeadingBlock', properties: { text: 'Executive Summary', level: 2 } },\n    { type: 'TodoBlock', properties: { text: 'Review SLA Targets', done: true } },\n    { type: 'ExperimentalAiGraphBlock', properties: { data: 'graph_01' } }\n  ]\n};\n\nconst renderedHtml = registry.render(sampleDoc);\nconsole.log('Document HTML Length:', renderedHtml.length);\nconsole.log('Contains Heading:', renderedHtml.includes('<h2>Executive Summary</h2>'));\nconsole.log('Contains Todo:', renderedHtml.includes('Review SLA Targets'));\nconsole.log('Fallback Handled Safely:', renderedHtml.includes('Unsupported Block'));",
       "output": "Document HTML Length: 211\nContains Heading: true\nContains Todo: true\nFallback Handled Safely: true",
       "tryIt": "Register a new 'CalloutBlock' in BlockComponentRegistry and render it with custom icon properties.",
-      example: "In practice, when implementing Polymorphic Block Component Registry with Defensive Fallback Handling, an engineering or financial team first captures Polymorphic and validates Block against Component before committing Registry. Defensive fallback boundaries isolate unrecognized block types, allowing surrounding valid blocks to render smoothly.",
+      example: "Defensive fallback boundaries isolate unrecognized block types, allowing surrounding valid blocks to render smoothly.",
         "check": {
         "question": "How does a resilient block registry prevent client crashes when encountering an unrecognized block type?",
         "options": [
@@ -17598,7 +17598,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class CollaborativeMutationDispatcher {\n  constructor(clientId) {\n    this.clientId = clientId;\n    this.clock = 0;\n    this.mutationQueue = [];\n  }\n\n  dispatch(type, blockId, patch) {\n    this.clock++;\n    const mutation = {\n      id: `mut_${this.clientId}_${this.clock}`,\n      clientId: this.clientId,\n      clock: this.clock,\n      type,\n      blockId,\n      patch,\n      timestamp: 1700000000 + this.clock\n    };\n    this.mutationQueue.push(mutation);\n    return mutation;\n  }\n\n  flush() {\n    const batch = [...this.mutationQueue];\n    this.mutationQueue = [];\n    return batch;\n  }\n}\n\nconst dispatcher = new CollaborativeMutationDispatcher('client_alice');\ndispatcher.dispatch('UPDATE_TEXT', 'b1', { text: 'Revised Heading' });\ndispatcher.dispatch('TOGGLE_TODO', 't1', { done: true });\nconst batch = dispatcher.flush();\n\nconsole.log('Dispatched Batch Count:', batch.length);\nconsole.log('First Mutation ID:', batch[0].id);\nconsole.log('Vector Clock:', batch[1].clock);\nconsole.log('Remaining in Queue:', dispatcher.mutationQueue.length);",
       "output": "Dispatched Batch Count: 2\nFirst Mutation ID: mut_client_alice_1\nVector Clock: 2\nRemaining in Queue: 0",
       "tryIt": "Dispatch a third mutation 'INDENT_BLOCK' in CollaborativeMutationDispatcher and inspect the updated vector clock.",
-      example: "In practice, when implementing Optimistic Offline Mutations & Vector Clock Synchronization, an engineering or financial team first captures Optimistic and validates Offline against Mutations before committing Vector. Vector clocks track logical causality, enabling conflict resolution algorithms to merge concurrent offline edits deterministically.",
+      example: "Vector clocks track logical causality, enabling conflict resolution algorithms to merge concurrent offline edits deterministically.",
         "check": {
         "question": "What is the purpose of Vector Clocks in a collaborative offline mutation dispatcher?",
         "options": [
@@ -17633,7 +17633,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class SafeFormulaEngine {\n  constructor() {\n    this.formulas = new Map();\n    this.values = new Map();\n  }\n\n  setValue(key, val) {\n    this.values.set(key, val);\n  }\n\n  setFormula(key, exprFn) {\n    this.formulas.set(key, exprFn);\n  }\n\n  evaluate(key) {\n    if (this.formulas.has(key)) {\n      const fn = this.formulas.get(key);\n      return fn(k => this.evaluate(k));\n    }\n    return this.values.get(key) || 0;\n  }\n}\n\nconst engine = new SafeFormulaEngine();\nengine.setValue('subtotal', 120);\nengine.setValue('taxRate', 0.08);\nengine.setFormula('taxAmount', get => Number((get('subtotal') * get('taxRate')).toFixed(2)));\nengine.setFormula('grandTotal', get => Number((get('subtotal') + get('taxAmount')).toFixed(2)));\n\nconst total = engine.evaluate('grandTotal');\nconst tax = engine.evaluate('taxAmount');\n\nconsole.log('Formula Subtotal:', 120);\nconsole.log('Calculated Tax:', tax);\nconsole.log('Calculated Grand Total:', total);",
       "output": "Formula Subtotal: 120\nCalculated Tax: 9.6\nCalculated Grand Total: 129.6",
       "tryIt": "Add a new formula 'discountedTotal' that subtracts a $10 coupon from grandTotal and verify its calculation.",
-      example: "In practice, when implementing Safe Zero-Eval Block Formula Engine & DAG Dependency Resolution, an engineering or financial team first captures Zero-Eval and validates Block against Formula before committing Engine. Sandboxed functional evaluation eliminates code injection vulnerabilities while executing user-authored mathematical logic.",
+      example: "Sandboxed functional evaluation eliminates code injection vulnerabilities while executing user-authored mathematical logic.",
         "check": {
         "question": "Why must dynamic user formulas in collaborative workspaces be evaluated without eval()?",
         "options": [
@@ -17670,7 +17670,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function certifyDocumentEngine(metrics) {\n  const targets = {\n    blockTreeDepthMax: 10,\n    renderLatencyMs: 5.0,\n    offlineQueueDrainRate: 100,\n    fallbackResilienceScore: 100\n  };\n\n  const pass = (\n    metrics.blockTreeDepthMax <= targets.blockTreeDepthMax &&\n    metrics.renderLatencyMs <= targets.renderLatencyMs &&\n    metrics.offlineQueueDrainRate >= targets.offlineQueueDrainRate &&\n    metrics.fallbackResilienceScore === targets.fallbackResilienceScore\n  );\n\n  return {\n    certified: pass,\n    rating: pass ? 'GRADE A+ COLLABORATIVE ENGINE' : 'UNSAFE_FOR_PRODUCTION',\n    metrics\n  };\n}\n\nconst audit = certifyDocumentEngine({\n  blockTreeDepthMax: 6,\n  renderLatencyMs: 1.8,\n  offlineQueueDrainRate: 100,\n  fallbackResilienceScore: 100\n});\n\nconsole.log('Engine Rating:', audit.rating);\nconsole.log('Engine Certified:', audit.certified);\nconsole.log('P99 Render Latency:', audit.metrics.renderLatencyMs + 'ms');\nconsole.log('Resilience Score:', audit.metrics.fallbackResilienceScore + '%');",
       "output": "Engine Rating: GRADE A+ COLLABORATIVE ENGINE\nEngine Certified: true\nP99 Render Latency: 1.8ms\nResilience Score: 100%",
       "tryIt": "Modify renderLatencyMs to 6.5ms in the certification suite and observe how the audit flags the SLA failure.",
-      example: "In practice, when implementing Multi-Tenant Schema Evolution & Grade A+ Collaborative Production Certification, an engineering or financial team first captures Multi-Tenant and validates Schema against Evolution before committing Grade. Lazy schema migrations transform documents forward dynamically on read and write, achieving seamless multi-version evolution.",
+      example: "Lazy schema migrations transform documents forward dynamically on read and write, achieving seamless multi-version evolution.",
         "check": {
         "question": "How do enterprise collaborative platforms migrate millions of legacy documents without scheduled downtime?",
         "options": [
@@ -17728,7 +17728,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function auditRfcSpec(spec) {\n  const requiredPillars = ['edgeRouting', 'hybridStreaming', 'serverDrivenUI', 'zeroTrustSecurity'];\n  const coverage = {};\n  let totalScore = 0;\n  for (const pillar of requiredPillars) {\n    const present = Boolean(spec[pillar]);\n    coverage[pillar] = present ? 'SPECIFIED' : 'MISSING';\n    if (present) totalScore += 25;\n  }\n  return { coverage, score: totalScore, status: totalScore === 100 ? 'APPROVED_BY_CAB' : 'REJECTED' };\n}\n\nconst rfc0104 = {\n  rfcNumber: 'RFC-0104',\n  title: 'Next-Generation Edge-Native Streaming Web Platform',\n  edgeRouting: { runtime: 'V8-Edge', maxLatencyMs: 5 },\n  hybridStreaming: { engine: 'Next-19-PPR', maxTtfbMs: 25 },\n  serverDrivenUI: { registry: 'Polymorphic', schemaVersion: 3 },\n  zeroTrustSecurity: { auth: 'WebCrypto-JWT', rateLimiter: 'TokenBucket' }\n};\n\nconst cabReview = auditRfcSpec(rfc0104);\nconsole.log('RFC Title:', rfc0104.title);\nconsole.log('CAB Status:', cabReview.status);\nconsole.log('Specification Score:', cabReview.score + '%');\nconsole.log('Pillars Verified:', Object.keys(cabReview.coverage).length);",
       "output": "RFC Title: Next-Generation Edge-Native Streaming Web Platform\nCAB Status: APPROVED_BY_CAB\nSpecification Score: 100%\nPillars Verified: 4",
       "tryIt": "Temporarily remove zeroTrustSecurity from rfc0104 and observe how the CAB audit rejects the specification.",
-      example: "In practice, when implementing RFC-0104 Blueprint: Executive Summary, Architectural Mandate & Technical Motivation, an engineering or financial team first captures RFC-0104 and validates Blueprint against Executive before committing Summary. RFCs codify major architectural decisions, ensuring alignment across engineering squads, SRE teams, and leadership.",
+      example: "RFCs codify major architectural decisions, ensuring alignment across engineering squads, SRE teams, and leadership.",
         "check": {
         "question": "What is the primary architectural purpose of authoring an enterprise Request for Comments (RFC)?",
         "options": [
@@ -17764,7 +17764,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function calculateTotalPlatformLatency(stages) {\n  let totalLatencyMs = 0;\n  const trace = [];\n  for (const stage of stages) {\n    totalLatencyMs += stage.durationMs;\n    trace.push(`${stage.name}:${stage.durationMs}ms`);\n  }\n  return {\n    totalLatencyMs: Number(totalLatencyMs.toFixed(2)),\n    isWithinSla: totalLatencyMs <= 50.0,\n    trace: trace.join(' -> ')\n  };\n}\n\nconst platformPipeline = [\n  { name: 'EdgeDNS_Anycast', durationMs: 4.2 },\n  { name: 'EdgeMiddleware_Auth', durationMs: 1.8 },\n  { name: 'PPR_StaticShell_Flush', durationMs: 12.5 },\n  { name: 'Dynamic_RSC_Stream', durationMs: 22.0 }\n];\n\nconst perf = calculateTotalPlatformLatency(platformPipeline);\nconsole.log('Total Request Latency:', perf.totalLatencyMs + 'ms');\nconsole.log('Within 50ms SLA:', perf.isWithinSla);\nconsole.log('Execution Trace:', perf.trace);",
       "output": "Total Request Latency: 40.5ms\nWithin 50ms SLA: true\nExecution Trace: EdgeDNS_Anycast:4.2ms -> EdgeMiddleware_Auth:1.8ms -> PPR_StaticShell_Flush:12.5ms -> Dynamic_RSC_Stream:22ms",
       "tryIt": "Increase Dynamic_RSC_Stream duration to 45ms and verify whether the pipeline exceeds the 50ms SLA budget.",
-      example: "In practice, when implementing Multi-Tiered System Topology Specification & Latency Budget Engineering, an engineering or financial team first captures Multi-Tiered and validates Topology against Specification before committing Latency. RFC-0104 establishes an end-to-end latency budget of 50.0ms across DNS, edge middleware, static shell, and RSC streaming.",
+      example: "RFC-0104 establishes an end-to-end latency budget of 50.0ms across DNS, edge middleware, static shell, and RSC streaming.",
         "check": {
         "question": "What is the maximum end-to-end request latency budget established in RFC-0104?",
         "options": [
@@ -17799,7 +17799,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "class EdgeCircuitBreakerRouter {\n  constructor(failureThreshold = 3) {\n    this.failureThreshold = failureThreshold;\n    this.failureCounts = new Map();\n    this.state = 'CLOSED';\n  }\n\n  recordFailure(region) {\n    const count = (this.failureCounts.get(region) || 0) + 1;\n    this.failureCounts.set(region, count);\n    if (count >= this.failureThreshold) {\n      this.state = 'OPEN';\n    }\n  }\n\n  route(primaryRegion, secondaryRegion) {\n    if (this.state === 'OPEN') {\n      return { destination: secondaryRegion, status: 'CIRCUIT_OPEN_FALLBACK' };\n    }\n    return { destination: primaryRegion, status: 'NORMAL_PRIMARY' };\n  }\n}\n\nconst router = new EdgeCircuitBreakerRouter(2);\nconst r1 = router.route('origin-us-east', 'origin-us-west');\nrouter.recordFailure('origin-us-east');\nrouter.recordFailure('origin-us-east');\nconst r2 = router.route('origin-us-east', 'origin-us-west');\n\nconsole.log('Initial Routing:', r1.destination, `(${r1.status})`);\nconsole.log('Post-Failure Routing:', r2.destination, `(${r2.status})`);\nconsole.log('Circuit Breaker Tripped:', router.state === 'OPEN');",
       "output": "Initial Routing: origin-us-east (NORMAL_PRIMARY)\nPost-Failure Routing: origin-us-west (CIRCUIT_OPEN_FALLBACK)\nCircuit Breaker Tripped: true",
       "tryIt": "Simulate 3 failures on origin-us-east and observe how the router shifts subsequent traffic to origin-us-west.",
-      example: "In practice, when implementing Reliability, Disaster Recovery & Multi-Region Fallback Router, an engineering or financial team first captures Reliability and validates Disaster against Recovery before committing Multi-Region. Edge circuit breakers isolate failed origin clusters and redirect requests to standby regions without dropping user sessions.",
+      example: "Edge circuit breakers isolate failed origin clusters and redirect requests to standby regions without dropping user sessions.",
         "check": {
         "question": "How does an Edge Circuit Breaker protect user sessions during regional origin datacenter failures?",
         "options": [
@@ -17836,7 +17836,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function auditDomainConformance(domains) {\n  const results = {};\n  let compliantCount = 0;\n\n  for (const [domain, config] of Object.entries(domains)) {\n    const isCompliant = (\n      config.zodValidation === true &&\n      config.ciPassRatePercent >= 99.0 &&\n      config.dependencyIsolation === true\n    );\n    results[domain] = isCompliant ? 'COMPLIANT' : 'NON_COMPLIANT';\n    if (isCompliant) compliantCount++;\n  }\n\n  return {\n    results,\n    allCompliant: compliantCount === Object.keys(domains).length,\n    totalDomains: Object.keys(domains).length\n  };\n}\n\nconst domainRegistry = {\n  DesignSystemSquad: { zodValidation: true, ciPassRatePercent: 99.8, dependencyIsolation: true },\n  CheckoutSquad: { zodValidation: true, ciPassRatePercent: 99.4, dependencyIsolation: true },\n  AnalyticsSquad: { zodValidation: true, ciPassRatePercent: 99.1, dependencyIsolation: true }\n};\n\nconst auditReport = auditDomainConformance(domainRegistry);\nconsole.log('All Domains Compliant:', auditReport.allCompliant);\nconsole.log('Audited Domain Count:', auditReport.totalDomains);\nconsole.log('Checkout Squad Status:', auditReport.results.CheckoutSquad);",
       "output": "All Domains Compliant: true\nAudited Domain Count: 3\nCheckout Squad Status: COMPLIANT",
       "tryIt": "Change ciPassRatePercent to 98.5% for CheckoutSquad and verify how the conformance audit flags the policy breach.",
-      example: "In practice, when implementing Cross-Functional Governance & Team Topologies: Zod Schemas & CI Conformance, an engineering or financial team first captures Cross-Functional and validates Governance against Topologies before committing Schemas. TypeScript types are erased during compilation; Zod provides vital runtime schema validation at domain boundaries to guarantee type safety and prevent runtime crashes.",
+      example: "TypeScript types are erased during compilation; Zod provides vital runtime schema validation at domain boundaries to guarantee type safety and prevent runtime crashes.",
         "check": {
         "question": "Why does RFC-0104 mandate strict Zod runtime schema validation for all Server-Driven UI component payloads?",
         "options": [
@@ -17870,7 +17870,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       "code": "function calculatePlatformRoi(metrics) {\n  const serverCostAnnual = metrics.legacyServerCostAnnual * (1 - metrics.edgeOffloadPercent);\n  const annualSavings = metrics.legacyServerCostAnnual - serverCostAnnual;\n  const conversionLiftValue = metrics.annualRevenue * metrics.conversionLiftPercent;\n  const totalFinancialBenefit = annualSavings + conversionLiftValue;\n\n  return {\n    annualServerSavings: Number(annualSavings.toFixed(0)),\n    annualConversionLift: Number(conversionLiftValue.toFixed(0)),\n    totalBenefit: Number(totalFinancialBenefit.toFixed(0)),\n    approved: totalFinancialBenefit > 1000000\n  };\n}\n\nconst roi = calculatePlatformRoi({\n  legacyServerCostAnnual: 2500000,\n  edgeOffloadPercent: 0.70,\n  annualRevenue: 50000000,\n  conversionLiftPercent: 0.045\n});\n\nconsole.log('Annual Hosting Savings: $' + roi.annualServerSavings);\nconsole.log('Revenue Lift from Speed: $' + roi.annualConversionLift);\nconsole.log('Total Annual Economic Benefit: $' + roi.totalBenefit);\nconsole.log('Executive Board Approved:', roi.approved);",
       "output": "Annual Hosting Savings: $1750000\nRevenue Lift from Speed: $2250000\nTotal Annual Economic Benefit: $4000000\nExecutive Board Approved: true",
       "tryIt": "Increase conversionLiftPercent to 6% in calculatePlatformRoi and calculate the updated total annual economic benefit.",
-      example: "In practice, when implementing The Principal Architect Viva & Financial ROI Defense: $4.0M Economic Value, an engineering or financial team first captures Principal and validates Architect against Financial before committing Defense. RFC-0104 delivers financial ROI through major cloud infrastructure reduction and proven conversion rate increases from sub-50ms speeds.",
+      example: "RFC-0104 delivers financial ROI through major cloud infrastructure reduction and proven conversion rate increases from sub-50ms speeds.",
         "check": {
         "question": "What two economic pillars substantiate the $4.0M annual economic return on investment of RFC-0104?",
         "options": [
@@ -17912,7 +17912,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function synthesizeHyperGridTopology(config) {\n  const subsystems = {\n    edgeIngress: { status: 'ONLINE', protocol: 'HTTP/3-QUIC', latencyMs: 2.1 },\n    tradingEngine: { status: 'ONLINE', throughputMsgPerSec: 100000, bufferMode: 'Circular' },\n    sduiRegistry: { status: 'ONLINE', componentsRegistered: 48, schemaVersion: 'v3.2' },\n    resilienceLayer: { status: 'ONLINE', failoverRegions: ['us-east', 'eu-west', 'ap-southeast'] }\n  };\n  const allOnline = Object.values(subsystems).every(s => s.status === 'ONLINE');\n  return {\n    platform: config.platformName,\n    clusterId: config.clusterId,\n    allOnline,\n    subsystems\n  };\n}\n\nconst hypergrid = synthesizeHyperGridTopology({\n  platformName: 'HyperGrid-Autonomous-Trading-Portal',\n  clusterId: 'HG-PROD-01'\n});\n\nconsole.log('Platform:', hypergrid.platform);\nconsole.log('Cluster ID:', hypergrid.clusterId);\nconsole.log('All Subsystems Online:', hypergrid.allOnline);\nconsole.log('Ingress Latency:', hypergrid.subsystems.edgeIngress.latencyMs + 'ms');\nconsole.log('Trading Throughput:', hypergrid.subsystems.tradingEngine.throughputMsgPerSec + ' msg/s');",
       "output": "Platform: HyperGrid-Autonomous-Trading-Portal\nCluster ID: HG-PROD-01\nAll Subsystems Online: true\nIngress Latency: 2.1ms\nTrading Throughput: 100000 msg/s",
-      example: "In practice, when implementing Architecture Synthesis: Autonomous Trading Desk & Edge Streaming Topology, an engineering or financial team first captures Architecture and validates Synthesis against Autonomous before committing Trading. synthesizeHyperGridTopology systematically validates the operational health of all four primary platform subsystems to ensure full platform readiness prior to production cutover.",
+      example: "synthesizeHyperGridTopology systematically validates the operational health of all four primary platform subsystems to ensure full platform readiness prior to production cutover.",
         tryIt: "In the Architecture Synthesis: Autonomous Trading Desk & Edge Streaming Topology code editor, adjust synthesizeHyperGridTopology (currently 3) and config to test boundary conditions, then run the snippet and verify how the computed output responds.",
         "check": {
         "question": "What is the primary role of the synthesizeHyperGridTopology engine in Day 60?",
@@ -17945,7 +17945,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function executeBlueGreenMigration(trafficRatio, canarySuccessRate) {\n  const steps = [\n    { step: 1, bluePercent: 100, greenPercent: 0, phase: 'BASELINE' },\n    { step: 2, bluePercent: 90, greenPercent: 10, phase: 'CANARY_10' },\n    { step: 3, bluePercent: 50, greenPercent: 50, phase: 'SPLIT_50' },\n    { step: 4, bluePercent: 0, greenPercent: 100, phase: 'FULL_CUTOVER' }\n  ];\n  const isHealthy = canarySuccessRate >= 0.9999;\n  return {\n    trafficShift: steps,\n    canaryHealthy: isHealthy,\n    deploymentStatus: isHealthy ? 'DEPLOYED_TO_PRODUCTION' : 'ABORTED_ROLLBACK'\n  };\n}\n\nconst rollout = executeBlueGreenMigration(1.0, 0.99995);\nconsole.log('Rollout Status:', rollout.deploymentStatus);\nconsole.log('Canary Health Check:', rollout.canaryHealthy);\nconsole.log('Final Phase:', rollout.trafficShift[rollout.trafficShift.length - 1].phase);\nconsole.log('Green Traffic Target:', rollout.trafficShift[rollout.trafficShift.length - 1].greenPercent + '%');",
       "output": "Rollout Status: DEPLOYED_TO_PRODUCTION\nCanary Health Check: true\nFinal Phase: FULL_CUTOVER\nGreen Traffic Target: 100%",
-      example: "In practice, when implementing Zero-Downtime Blue/Green Edge Traffic Migration & Canary Ingress, an engineering or financial team first captures Zero-Downtime and validates Green against Traffic before committing Migration. A 99.99% canary success rate ensures that even rare edge runtime errors or service degradations trigger an immediate automated rollback before full production traffic is exposed.",
+      example: "A 99.99% canary success rate ensures that even rare edge runtime errors or service degradations trigger an immediate automated rollback before full production traffic is exposed.",
         tryIt: "In the Zero-Downtime Blue/Green Edge Traffic Migration & Canary Ingress code editor, adjust executeBlueGreenMigration (currently 1) and trafficRatio to test boundary conditions, then run the snippet and verify how the computed output responds.",
         "check": {
         "question": "Why does the canary traffic migration pipeline require a 99.99% success rate during the Canary 10% phase?",
@@ -17981,7 +17981,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function verifyProductionSlaSuite(metrics) {\n  const audits = [\n    { vector: 'TTFB_Shell_Sub25ms', pass: metrics.ttfbShellMs <= 25.0, val: metrics.ttfbShellMs },\n    { vector: 'FCP_Sub100ms', pass: metrics.fcpMs <= 100.0, val: metrics.fcpMs },\n    { vector: 'Zero_CLS', pass: metrics.cls === 0.000, val: metrics.cls },\n    { vector: 'INP_Sub50ms', pass: metrics.inpMs <= 50.0, val: metrics.inpMs },\n    { vector: 'Edge_JWT_Sub5ms', pass: metrics.jwtAuthMs <= 5.0, val: metrics.jwtAuthMs },\n    { vector: 'Ticker_Update_Min60fps', pass: metrics.tickerFps >= 60, val: metrics.tickerFps },\n    { vector: 'Offline_Drain_Sub2s', pass: metrics.offlineDrainSec <= 2.0, val: metrics.offlineDrainSec },\n    { vector: 'SDUI_Zod_100Pct', pass: metrics.sduiZodPct === 100, val: metrics.sduiZodPct },\n    { vector: 'Zero_Memory_Leak', pass: metrics.leakBytes === 0, val: metrics.leakBytes },\n    { vector: 'Failover_Sub50ms', pass: metrics.failoverMs <= 50.0, val: metrics.failoverMs }\n  ];\n  const passedCount = audits.filter(a => a.pass).length;\n  return {\n    totalAudits: audits.length,\n    passedAudits: passedCount,\n    grade: passedCount === 10 ? 'A+_PRODUCTION_CERTIFIED' : 'REJECTED'\n  };\n}\n\nconst slaResults = verifyProductionSlaSuite({\n  ttfbShellMs: 14.2,\n  fcpMs: 48.0,\n  cls: 0.000,\n  inpMs: 18.5,\n  jwtAuthMs: 1.2,\n  tickerFps: 120,\n  offlineDrainSec: 0.45,\n  sduiZodPct: 100,\n  leakBytes: 0,\n  failoverMs: 32.0\n});\n\nconsole.log('Production SLA Grade:', slaResults.grade);\nconsole.log('Audits Passed:', `${slaResults.passedAudits}/${slaResults.totalAudits}`);\nconsole.log('10-Vector Conformance:', slaResults.passedAudits === 10);",
       "output": "Production SLA Grade: A+_PRODUCTION_CERTIFIED\nAudits Passed: 10/10\n10-Vector Conformance: true",
-      example: "In practice, when implementing Automated SLA Verification & 10-Vector Production Gate, an engineering or financial team first captures Automated and validates Verification against Vector before committing Production. Unbounded client heap growth is a severe failure mode; the 10-vector SLA audit explicitly enforces Zero Memory Leakage (leakBytes === 0).",
+      example: "Unbounded client heap growth is a severe failure mode; the 10-vector SLA audit explicitly enforces Zero Memory Leakage (leakBytes === 0).",
         tryIt: "In the Automated SLA Verification & 10-Vector Production Gate code editor, adjust verifyProductionSlaSuite (currently 25.0) and metrics to test boundary conditions, then run the snippet and verify how the computed output responds.",
         "check": {
         "question": "Which of the following is NOT one of the 10 SLA vectors audited by verifyProductionSlaSuite?",
@@ -18018,7 +18018,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function simulateChaosEngineeringRecovery(scenario) {\n  const eventLog = [];\n  eventLog.push(`INJECT: ${scenario.fault}`);\n  \n  let currentRegion = scenario.primaryRegion;\n  let healthy = false;\n  \n  if (scenario.fault === 'PRIMARY_ORIGIN_DOWN') {\n    eventLog.push(`DETECT: Health check failed on ${currentRegion} (status 503)`);\n    currentRegion = scenario.fallbackRegion;\n    eventLog.push(`FAILOVER: Switched edge routing to ${currentRegion} in ${scenario.failoverLatencyMs}ms`);\n    healthy = true;\n  }\n  \n  return {\n    resolved: healthy,\n    activeRegion: currentRegion,\n    recoveryTimeMs: scenario.failoverLatencyMs,\n    auditTrail: eventLog\n  };\n}\n\nconst chaosTest = simulateChaosEngineeringRecovery({\n  fault: 'PRIMARY_ORIGIN_DOWN',\n  primaryRegion: 'origin-us-east',\n  fallbackRegion: 'origin-eu-west',\n  failoverLatencyMs: 28.4\n});\n\nconsole.log('Chaos Fault Resolved:', chaosTest.resolved);\nconsole.log('Active Failover Region:', chaosTest.activeRegion);\nconsole.log('Recovery Latency:', chaosTest.recoveryTimeMs + 'ms');\nconsole.log('Audit Steps Logged:', chaosTest.auditTrail.length);",
       "output": "Chaos Fault Resolved: true\nActive Failover Region: origin-eu-west\nRecovery Latency: 28.4ms\nAudit Steps Logged: 3",
-      example: "In practice, when implementing Production Chaos Engineering, Telemetry Auditing & Auto-Recovery, an engineering or financial team first captures Production and validates Chaos against Engineering before committing Telemetry. The Edge Circuit Breaker monitors origin health, trips instantaneously upon failure bursts, and shifts traffic to healthy backup origins automatically within the 50ms SLA.",
+      example: "The Edge Circuit Breaker monitors origin health, trips instantaneously upon failure bursts, and shifts traffic to healthy backup origins automatically within the 50ms SLA.",
         tryIt: "In the Production Chaos Engineering, Telemetry Auditing & Auto-Recovery code editor, adjust simulateChaosEngineeringRecovery (currently 503) and scenario to test boundary conditions, then run the snippet and verify how the computed output responds.",
         "check": {
         "question": "How does the Edge Circuit Breaker handle an unexpected primary origin failure during chaos simulation?",
@@ -18053,7 +18053,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
       ],
       "code": "function certifyGrandMasterAccreditation(candidate) {\n  const isMasterQualified = (\n    candidate.completedDays === 60 &&\n    candidate.totalMilestonesCompleted === 10 &&\n    candidate.architecturalExcellenceScore >= 98.0 &&\n    candidate.zeroHallucinationAuditsPassed === true\n  );\n\n  return {\n    engineer: candidate.name,\n    credential: isMasterQualified ? 'DISTINGUISHED_FULL_STACK_REACT_ARCHITECT' : 'INCOMPLETE',\n    courseProgress: `${candidate.completedDays}/60 (100% COMPLETE)`,\n    certified: isMasterQualified,\n    honors: isMasterQualified ? 'SUMMA_CUM_LAUDE' : 'NONE'\n  };\n}\n\nconst certification = certifyGrandMasterAccreditation({\n  name: 'Senior Principal Engineer',\n  completedDays: 60,\n  totalMilestonesCompleted: 10,\n  architecturalExcellenceScore: 99.8,\n  zeroHallucinationAuditsPassed: true\n});\n\nconsole.log('Engineer:', certification.engineer);\nconsole.log('Accreditation Credential:', certification.credential);\nconsole.log('Course Progress:', certification.courseProgress);\nconsole.log('Certified:', certification.certified);\nconsole.log('Honors:', certification.honors);",
       "output": "Engineer: Senior Principal Engineer\nAccreditation Credential: DISTINGUISHED_FULL_STACK_REACT_ARCHITECT\nCourse Progress: 60/60 (100% COMPLETE)\nCertified: true\nHonors: SUMMA_CUM_LAUDE",
-      example: "In practice, when implementing Grand Master Capstone Accreditation, Course 02 Completion & Architectural Certification, an engineering or financial team first captures Grand and validates Capstone against Accreditation before committing Completion. Completing all 60 days, 10 milestone projects, and passing the 10-vector SLA audit confers the Distinguished Full-Stack React Architect credential with Summa Cum Laude honors.",
+      example: "Completing all 60 days, 10 milestone projects, and passing the 10-vector SLA audit confers the Distinguished Full-Stack React Architect credential with Summa Cum Laude honors.",
         tryIt: "In the Grand Master Capstone Accreditation, Course 02 Completion & Architectural Certification code editor, adjust certifyGrandMasterAccreditation (currently 60) and candidate to test boundary conditions, then run the snippet and verify how the computed output responds.",
         "check": {
         "question": "What official credential is conferred upon achieving 100% completion of Course 02 across all 60 days and 10 milestones?",
