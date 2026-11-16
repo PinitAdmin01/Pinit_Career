@@ -1,777 +1,683 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 60,
-  "promptSha": "block12_generated",
-  "model": "gpt-4o",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Architecture Synthesis: Autonomous Trading Desk & Edge Streaming Topology",
       "codeHash": "0c84e4273ac2e5a3e3352493cfaf4b933d69291ef1c2654cf479080bd8bc7582",
       "spec": {
-        "template": "flow",
-        "title": "HyperGrid Autonomous Trading Topology & Subsystem Integration",
-        "nodes": [
+        "template": "boxes",
+        "title": "HyperGrid Platform Subsystem Topology Synthesis",
+        "boxes": [
           {
             "id": "ingress",
-            "label": "Edge Ingress Gate",
-            "sub": "HTTP/3 QUIC (2.1ms Latency)",
-            "status": "ok"
+            "label": "Edge Ingress",
+            "text": "HTTP/3-QUIC Ingress Protocol",
+            "tone": "data",
+            "tappable": false
           },
           {
             "id": "engine",
-            "label": "Trading Engine Core",
-            "sub": "100k msg/s Circular Buffer",
-            "status": "ok"
+            "label": "Trading Engine",
+            "text": "Circular Ring Buffer Mode",
+            "tone": "ok",
+            "tappable": false
           },
           {
             "id": "sdui",
-            "label": "Polymorphic SDUI Registry",
-            "sub": "48 Components (v3.2)",
-            "status": "ok"
+            "label": "SDUI Registry",
+            "text": "Polymorphic Component Schema",
+            "tone": "ok",
+            "tappable": false
           },
           {
             "id": "resilience",
-            "label": "Multi-Region Resilience",
-            "sub": "us-east / eu-west / ap-southeast",
-            "status": "ok"
-          }
-        ],
-        "edges": [
-          {
-            "from": "ingress",
-            "to": "engine",
-            "label": "Binary Ticks"
-          },
-          {
-            "from": "ingress",
-            "to": "sdui",
-            "label": "Layout Schemas"
-          },
-          {
-            "from": "engine",
-            "to": "resilience",
-            "label": "State Heartbeat"
+            "label": "Multi-Region",
+            "text": "Automated Failover Cluster",
+            "tone": "ok",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "SynthesizeHyperGridTopology probes all four core platform subsystems.",
-            "values": {
-              "ingress": {
-                "status": "Checking"
-              },
-              "engine": {
-                "status": "Checking"
-              },
-              "sdui": {
-                "status": "Checking"
-              },
-              "resilience": {
-                "status": "Checking"
-              }
-            },
-            "tones": {
-              "ingress": "data",
-              "engine": "data",
-              "sdui": "data",
-              "resilience": "data"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Edge Ingress verifies HTTP QUIC QUIC protocol with two.onems ingress.",
-            "values": {
-              "ingress": {
-                "status": "ONLINE (2.1ms)"
-              },
-              "engine": {
-                "status": "Checking"
-              },
-              "sdui": {
-                "status": "Checking"
-              },
-              "resilience": {
-                "status": "Checking"
-              }
-            },
-            "tones": {
-              "ingress": "ok",
-              "engine": "data",
-              "sdui": "data",
-              "resilience": "data"
-            }
+            "highlight": [
+              "ingress"
+            ],
+            "caption": "HyperGrid engineers real-time streaming platforms with zero layout shift."
           },
           {
             "at": "say3",
-            "caption": "Trading Engine confirms one hundredk msg/s throughput with zero-GC.",
-            "values": {
-              "ingress": {
-                "status": "ONLINE (2.1ms)"
-              },
-              "engine": {
-                "status": "ONLINE (100k/s)"
-              },
-              "sdui": {
-                "status": "ONLINE (48 comps)"
-              },
-              "resilience": {
-                "status": "Checking"
-              }
-            },
-            "tones": {
-              "ingress": "ok",
-              "engine": "ok",
-              "sdui": "ok",
-              "resilience": "data"
-            }
+            "highlight": [
+              "ingress",
+              "engine"
+            ],
+            "caption": "Edge ingress terminates secure connections and streams static shells."
           },
           {
             "at": "say4",
-            "caption": "All subsystems report ONLINE; HyperGrid platform verified production-ready.",
-            "values": {
-              "ingress": {
-                "status": "ONLINE"
-              },
-              "engine": {
-                "status": "ONLINE"
-              },
-              "sdui": {
-                "status": "ONLINE"
-              },
-              "resilience": {
-                "status": "ONLINE (3 regions)"
-              }
-            },
-            "tones": {
-              "ingress": "ok",
-              "engine": "ok",
-              "sdui": "ok",
-              "resilience": "ok"
-            }
+            "highlight": [
+              "engine",
+              "sdui"
+            ],
+            "caption": "Circular buffer trading engines coordinate high-frequency ticker updates."
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "HyperGrid Platform Subsystem Topology Synthesis",
+        "boxes": [
+          {
+            "id": "ingress",
+            "label": "Edge Ingress",
+            "text": "HTTP/3-QUIC Ingress Protocol",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "engine",
+            "label": "Trading Engine",
+            "text": "Circular Ring Buffer Mode",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "sdui",
+            "label": "SDUI Registry",
+            "text": "Polymorphic Component Schema",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "resilience",
+            "label": "Multi-Region",
+            "text": "Automated Failover Cluster",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "ingress"
+            ],
+            "caption": "HyperGrid engineers real-time streaming platforms with zero layout shift."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "ingress",
+              "engine"
+            ],
+            "caption": "Edge ingress terminates secure connections and streams static shells."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "engine",
+              "sdui"
+            ],
+            "caption": "Circular buffer trading engines coordinate high-frequency ticker updates."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Zero-Downtime Blue/Green Edge Traffic Migration & Canary Ingress",
       "codeHash": "179a90fb7877628aab257d4541b8c57521baa222ae43ca2d54474919e6c8475f",
       "spec": {
+        "template": "flow",
+        "title": "Canary Ingress Traffic Migration Pipeline",
+        "nodes": [
+          {
+            "id": "base",
+            "label": "Baseline",
+            "text": "Blue Primary Active",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "canary",
+            "label": "Canary Phase",
+            "text": "Ten Percent Green",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "split",
+            "label": "Split Phase",
+            "text": "Fifty Fifty Split",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "cutover",
+            "label": "Full Cutover",
+            "text": "Green Primary Active",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "base",
+            "to": "canary",
+            "label": "Canary Shift"
+          },
+          {
+            "from": "canary",
+            "to": "split",
+            "label": "Scale Traffic"
+          },
+          {
+            "from": "split",
+            "to": "cutover",
+            "label": "Complete Cutover"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "base",
+              "canary"
+            ],
+            "caption": "Canary traffic migration progresses through four disciplined phases."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "canary",
+              "split"
+            ],
+            "caption": "Automated monitoring agents inspect operational metrics at the edge."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "split",
+              "cutover"
+            ],
+            "caption": "Edge routers shift traffic back to stable blue clusters upon failure."
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Canary Ingress Traffic Migration Pipeline",
+        "nodes": [
+          {
+            "id": "base",
+            "label": "Baseline",
+            "text": "Blue Primary Active",
+            "tone": "data",
+            "tappable": false
+          },
+          {
+            "id": "canary",
+            "label": "Canary Phase",
+            "text": "Ten Percent Green",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "split",
+            "label": "Split Phase",
+            "text": "Fifty Fifty Split",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "cutover",
+            "label": "Full Cutover",
+            "text": "Green Primary Active",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "base",
+            "to": "canary",
+            "label": "Canary Shift"
+          },
+          {
+            "from": "canary",
+            "to": "split",
+            "label": "Scale Traffic"
+          },
+          {
+            "from": "split",
+            "to": "cutover",
+            "label": "Complete Cutover"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "base",
+              "canary"
+            ],
+            "caption": "Canary traffic migration progresses through four disciplined phases."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "canary",
+              "split"
+            ],
+            "caption": "Automated monitoring agents inspect operational metrics at the edge."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "split",
+              "cutover"
+            ],
+            "caption": "Edge routers shift traffic back to stable blue clusters upon failure."
+          }
+        ]
+      }
+    },
+    {
+      "partIndex": 2,
+      "partTitle": "Automated SLA Verification & 10-Vector Production Gate",
+      "codeHash": "96e136b72cc892445df26be2201a5cabc5c698a2e870adb5b9720c58a1424b3e",
+      "spec": {
         "template": "states",
-        "title": "Zero-Downtime Blue/Green Canary Traffic Progression",
+        "title": "Ten-Vector Production SLA Quality Gate",
         "states": [
           {
-            "id": "p1",
-            "label": "PHASE_BASELINE",
-            "desc": "100% Blue / 0% Green (Pre-rollout)",
-            "active": true
+            "id": "ttfb",
+            "label": "Shell TTFB",
+            "text": "Sub-25ms Edge Cache",
+            "tone": "ok"
           },
           {
-            "id": "p2",
-            "label": "PHASE_CANARY_10",
-            "desc": "90% Blue / 10% Green (Auditing error rates)",
-            "active": false
+            "id": "cls",
+            "label": "Zero CLS",
+            "text": "Mathematical Zero Shift",
+            "tone": "ok"
           },
           {
-            "id": "p3",
-            "label": "PHASE_SPLIT_50",
-            "desc": "50% Blue / 50% Green (Load distribution)",
-            "active": false
+            "id": "fps",
+            "label": "Ticker FPS",
+            "text": "High Frame Rate Stream",
+            "tone": "ok"
           },
           {
-            "id": "p4",
-            "label": "PHASE_CUTOVER",
-            "desc": "0% Blue / 100% Green (Full production release)",
-            "active": false
+            "id": "leak",
+            "label": "Zero Leak",
+            "text": "Clean Heap Snapshots",
+            "tone": "ok"
           }
         ],
         "transitions": [
           {
-            "from": "p1",
-            "to": "p2",
-            "label": "DEPLOY_GREEN"
+            "from": "ttfb",
+            "to": "cls",
+            "label": "Hydrate Shell"
           },
           {
-            "from": "p2",
-            "to": "p3",
-            "label": "CANARY_OK_99.99%"
+            "from": "cls",
+            "to": "fps",
+            "label": "Animate Ticker"
           },
           {
-            "from": "p3",
-            "to": "p4",
-            "label": "DRAIN_BLUE"
+            "from": "fps",
+            "to": "leak",
+            "label": "Recycle Memory"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Rollout initiates at PHASE_BASELINE with one hundred% traffic on stable.",
-            "values": {
-              "p1": {
-                "active": true
-              },
-              "p2": {
-                "active": false
-              },
-              "p3": {
-                "active": false
-              },
-              "p4": {
-                "active": false
-              }
-            },
-            "tones": {
-              "p1": "ok",
-              "p2": "idle",
-              "p3": "idle",
-              "p4": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Ten% of edge traffic shifts to Green; automated telemetry monitors.",
-            "values": {
-              "p1": {
-                "active": false
-              },
-              "p2": {
-                "active": true
-              },
-              "p3": {
-                "active": false
-              },
-              "p4": {
-                "active": false
-              }
-            },
-            "tones": {
-              "p1": "idle",
-              "p2": "data",
-              "p3": "idle",
-              "p4": "idle"
-            }
+            "highlight": [
+              "ttfb"
+            ],
+            "caption": "Automated audit engines validate platforms against ten rigorous vectors."
           },
           {
             "at": "say3",
-            "caption": "Traffic splits multiple/multiple without dropping a single active.",
-            "values": {
-              "p1": {
-                "active": false
-              },
-              "p2": {
-                "active": false
-              },
-              "p3": {
-                "active": true
-              },
-              "p4": {
-                "active": false
-              }
-            },
-            "tones": {
-              "p1": "idle",
-              "p2": "idle",
-              "p3": "data",
-              "p4": "idle"
-            }
+            "highlight": [
+              "cls",
+              "fps"
+            ],
+            "caption": "High-frequency trading tickers maintain smooth frame animation rates."
           },
           {
             "at": "say4",
-            "caption": "Blue cluster safely drains; one hundred% traffic cutover completes with.",
-            "values": {
-              "p1": {
-                "active": false
-              },
-              "p2": {
-                "active": false
-              },
-              "p3": {
-                "active": false
-              },
-              "p4": {
-                "active": true
-              }
-            },
-            "tones": {
-              "p1": "idle",
-              "p2": "idle",
-              "p3": "idle",
-              "p4": "ok"
-            }
+            "highlight": [
+              "fps",
+              "leak"
+            ],
+            "caption": "Long-running browser heap snapshots confirm zero memory leak retention."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Ten-Vector Production SLA Quality Gate",
+        "states": [
+          {
+            "id": "ttfb",
+            "label": "Shell TTFB",
+            "text": "Sub-25ms Edge Cache",
+            "tone": "ok"
+          },
+          {
+            "id": "cls",
+            "label": "Zero CLS",
+            "text": "Mathematical Zero Shift",
+            "tone": "ok"
+          },
+          {
+            "id": "fps",
+            "label": "Ticker FPS",
+            "text": "High Frame Rate Stream",
+            "tone": "ok"
+          },
+          {
+            "id": "leak",
+            "label": "Zero Leak",
+            "text": "Clean Heap Snapshots",
+            "tone": "ok"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "ttfb",
+            "to": "cls",
+            "label": "Hydrate Shell"
+          },
+          {
+            "from": "cls",
+            "to": "fps",
+            "label": "Animate Ticker"
+          },
+          {
+            "from": "fps",
+            "to": "leak",
+            "label": "Recycle Memory"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "ttfb"
+            ],
+            "caption": "Automated audit engines validate platforms against ten rigorous vectors."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "cls",
+              "fps"
+            ],
+            "caption": "High-frequency trading tickers maintain smooth frame animation rates."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "fps",
+              "leak"
+            ],
+            "caption": "Long-running browser heap snapshots confirm zero memory leak retention."
           }
         ]
       }
     },
     {
-      "partTitle": "Automated SLA Verification & 10-Vector Production Gate",
-      "codeHash": "96e136b72cc892445df26be2201a5cabc5c698a2e870adb5b9720c58a1424b3e",
-      "spec": {
-        "template": "boxes",
-        "title": "10-Vector Production SLA Audit Certification Vectors",
-        "boxes": [
-          {
-            "id": "v1",
-            "label": "TTFB Static Shell",
-            "sub": "Target <= 25ms",
-            "val": "14.2ms",
-            "tone": "ok"
-          },
-          {
-            "id": "v2",
-            "label": "Cumulative Layout Shift",
-            "sub": "Target === 0.000",
-            "val": "0.000 CLS",
-            "tone": "ok"
-          },
-          {
-            "id": "v3",
-            "label": "Ticker Frame Rate",
-            "sub": "Target >= 60 FPS",
-            "val": "120 FPS",
-            "tone": "ok"
-          },
-          {
-            "id": "v4",
-            "label": "Multi-Region Failover",
-            "sub": "Target <= 50ms",
-            "val": "32.0ms",
-            "tone": "ok"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Audit engine benchmarks all ten SLA vectors against mathematical.",
-            "values": {
-              "v1": {
-                "val": "Benchmarking"
-              },
-              "v2": {
-                "val": "Benchmarking"
-              },
-              "v3": {
-                "val": "Benchmarking"
-              },
-              "v4": {
-                "val": "Benchmarking"
-              }
-            },
-            "tones": {
-              "v1": "data",
-              "v2": "data",
-              "v3": "data",
-              "v4": "data"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Static Shell TTFB registers multiple.twoms and Cumulative Layout Shift.",
-            "values": {
-              "v1": {
-                "val": "14.2ms (Pass)"
-              },
-              "v2": {
-                "val": "0.000 (Pass)"
-              },
-              "v3": {
-                "val": "Auditing FPS"
-              },
-              "v4": {
-                "val": "Auditing Failover"
-              }
-            },
-            "tones": {
-              "v1": "ok",
-              "v2": "ok",
-              "v3": "data",
-              "v4": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "High-Frequency Ticker hits multiple FPS and multi-region failover clocks.",
-            "values": {
-              "v1": {
-                "val": "14.2ms (Pass)"
-              },
-              "v2": {
-                "val": "0.000 (Pass)"
-              },
-              "v3": {
-                "val": "120 FPS (Pass)"
-              },
-              "v4": {
-                "val": "32.0ms (Pass)"
-              }
-            },
-            "tones": {
-              "v1": "ok",
-              "v2": "ok",
-              "v3": "ok",
-              "v4": "ok"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "All ten vectors pass; verifyProductionSlaSuite awards Grade A+ Production.",
-            "values": {
-              "v1": {
-                "val": "Grade A+"
-              },
-              "v2": {
-                "val": "Grade A+"
-              },
-              "v3": {
-                "val": "Grade A+"
-              },
-              "v4": {
-                "val": "Grade A+"
-              }
-            },
-            "tones": {
-              "v1": "ok",
-              "v2": "ok",
-              "v3": "ok",
-              "v4": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
+      "partIndex": 3,
       "partTitle": "Production Chaos Engineering, Telemetry Auditing & Auto-Recovery",
       "codeHash": "135fb4cab15b8e36e2bca92984596d6fd87716269544413b708cf01a0b41e91c",
       "spec": {
-        "template": "flow",
-        "title": "Automated Chaos Recovery & Sub-50ms Edge Failover",
-        "nodes": [
+        "template": "states",
+        "title": "Production Chaos Injection & Automated Recovery",
+        "states": [
           {
-            "id": "chaos",
-            "label": "Chaos Agent Injection",
-            "sub": "PRIMARY_ORIGIN_DOWN",
-            "status": "active"
+            "id": "inject",
+            "label": "Fault Inject",
+            "text": "Simulate Primary Outage",
+            "tone": "error"
           },
           {
-            "id": "probe",
-            "label": "Edge Health Detector",
-            "sub": "HTTP 503 Detected on us-east",
-            "status": "active"
+            "id": "detect",
+            "label": "Health Detect",
+            "text": "HTTP 503 Status Code",
+            "tone": "error"
           },
           {
-            "id": "breaker",
-            "label": "Edge Circuit Breaker",
-            "sub": "State: OPEN (Sub-1ms)",
-            "status": "active"
+            "id": "failover",
+            "label": "Edge Failover",
+            "text": "Sub-50ms Region Switch",
+            "tone": "ok"
           },
           {
-            "id": "eu_west",
-            "label": "Failover Cluster (origin-eu-west)",
-            "sub": "Traffic Rerouted in 28.4ms",
-            "status": "ok"
+            "id": "audit",
+            "label": "Audit Trail",
+            "text": "Immutable Recovery Log",
+            "tone": "data"
           }
         ],
-        "edges": [
+        "transitions": [
           {
-            "from": "chaos",
-            "to": "probe",
-            "label": "Simulate Fault"
+            "from": "inject",
+            "to": "detect",
+            "label": "Outage Tripped"
           },
           {
-            "from": "probe",
-            "to": "breaker",
-            "label": "Trip Signal"
+            "from": "detect",
+            "to": "failover",
+            "label": "Circuit Open"
           },
           {
-            "from": "breaker",
-            "to": "eu_west",
-            "label": "Failover Redirect"
+            "from": "failover",
+            "to": "audit",
+            "label": "Log Telemetry"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Chaos Monkey injects total outage into primary origin datacenter us-east.",
-            "values": {
-              "chaos": {
-                "status": "Fault Injected"
-              },
-              "probe": {
-                "status": "Probing..."
-              },
-              "breaker": {
-                "status": "CLOSED"
-              },
-              "eu_west": {
-                "status": "Standby"
-              }
-            },
-            "tones": {
-              "chaos": "warn",
-              "probe": "data",
-              "breaker": "ok",
-              "eu_west": "idle"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "Health detector catches HTTP unavailable errors and signals the circuit.",
-            "values": {
-              "chaos": {
-                "status": "Origin Dead"
-              },
-              "probe": {
-                "status": "503 Detected"
-              },
-              "breaker": {
-                "status": "Tripping"
-              },
-              "eu_west": {
-                "status": "Standby"
-              }
-            },
-            "tones": {
-              "chaos": "error",
-              "probe": "error",
-              "breaker": "warn",
-              "eu_west": "idle"
-            }
+            "highlight": [
+              "inject",
+              "detect"
+            ],
+            "caption": "Edge monitoring nodes detect origin failure bursts during chaos trials."
           },
           {
             "at": "say3",
-            "caption": "Circuit breaker trips to OPEN in sub-millisecond time across edge nodes.",
-            "values": {
-              "chaos": {
-                "status": "Origin Dead"
-              },
-              "probe": {
-                "status": "Alert Logged"
-              },
-              "breaker": {
-                "status": "OPEN"
-              },
-              "eu_west": {
-                "status": "Receiving"
-              }
-            },
-            "tones": {
-              "chaos": "error",
-              "probe": "ok",
-              "breaker": "error",
-              "eu_west": "data"
-            }
+            "highlight": [
+              "detect",
+              "failover"
+            ],
+            "caption": "Circuit breakers redirect global incoming traffic to failover clusters."
           },
           {
             "at": "say4",
-            "caption": "All global traffic reroutes to eu-west in multiple.fourms, resolving.",
-            "values": {
-              "chaos": {
-                "status": "Contained"
-              },
-              "probe": {
-                "status": "Resolved"
-              },
-              "breaker": {
-                "status": "OPEN"
-              },
-              "eu_west": {
-                "status": "ONLINE (28.4ms)"
-              }
-            },
-            "tones": {
-              "chaos": "ok",
-              "probe": "ok",
-              "breaker": "ok",
-              "eu_west": "ok"
-            }
+            "highlight": [
+              "failover",
+              "audit"
+            ],
+            "caption": "Telemetry pipelines record distributed traces to pinpoint bottlenecks."
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Production Chaos Injection & Automated Recovery",
+        "states": [
+          {
+            "id": "inject",
+            "label": "Fault Inject",
+            "text": "Simulate Primary Outage",
+            "tone": "error"
+          },
+          {
+            "id": "detect",
+            "label": "Health Detect",
+            "text": "HTTP 503 Status Code",
+            "tone": "error"
+          },
+          {
+            "id": "failover",
+            "label": "Edge Failover",
+            "text": "Sub-50ms Region Switch",
+            "tone": "ok"
+          },
+          {
+            "id": "audit",
+            "label": "Audit Trail",
+            "text": "Immutable Recovery Log",
+            "tone": "data"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "inject",
+            "to": "detect",
+            "label": "Outage Tripped"
+          },
+          {
+            "from": "detect",
+            "to": "failover",
+            "label": "Circuit Open"
+          },
+          {
+            "from": "failover",
+            "to": "audit",
+            "label": "Log Telemetry"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "inject",
+              "detect"
+            ],
+            "caption": "Edge monitoring nodes detect origin failure bursts during chaos trials."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "detect",
+              "failover"
+            ],
+            "caption": "Circuit breakers redirect global incoming traffic to failover clusters."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "failover",
+              "audit"
+            ],
+            "caption": "Telemetry pipelines record distributed traces to pinpoint bottlenecks."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "Grand Master Capstone Accreditation, Course 02 Completion & Architectural Certification",
       "codeHash": "1258268d31433ebc1561059e4651de698692df7408b49eb0f9cdc0caaf0845a4",
       "spec": {
-        "template": "component-tree",
-        "title": "Master Accreditation & 60-Day Full Curriculum Hierarchy",
-        "root": {
-          "id": "full_course",
-          "name": "Course 02: Full-Stack React Web Development (60/60 Days - 100% COMPLETE)",
-          "children": [
-            {
-              "id": "m1",
-              "name": "Month 1: Client Primitives & React Core (Days 1–30, Milestones 1–5)",
-              "children": [
-                {
-                  "id": "b1_3",
-                  "name": "Blocks 1–3: Reconciliation, Hooks & Reducers"
-                },
-                {
-                  "id": "b4_6",
-                  "name": "Blocks 4–6: Forms, Performance, TS & State Machines"
-                }
-              ]
-            },
-            {
-              "id": "m2",
-              "name": "Month 2: Enterprise Distributed Systems (Days 31–60, Milestones 6–10)",
-              "children": [
-                {
-                  "id": "b7_9",
-                  "name": "Blocks 7–9: Next.js App Router, RSC, PPR & WebSockets"
-                },
-                {
-                  "id": "b10_12",
-                  "name": "Blocks 10–12: Micro-Frontends, CRDTs, SDUI & Capstone"
-                }
-              ]
-            }
+        "template": "compare",
+        "title": "Sixty-Day Full-Stack Architectural Curriculum Synthesis",
+        "left": {
+          "title": "Month One: Core Foundations",
+          "lines": [
+            "Component Architecture Models",
+            "Fiber DOM Reconciliation",
+            "State Machines and Reducers",
+            "Performance Profiling Audits"
+          ]
+        },
+        "right": {
+          "title": "Month Two: Enterprise Systems",
+          "lines": [
+            "Next App Router and RSC",
+            "Partial Prerendering Streaming",
+            "High-Frequency Trading Engines",
+            "Architectural RFC Defense"
           ]
         },
         "steps": [
           {
-            "at": "say1",
-            "caption": "Day curriculum comprehensively reviewed across Month one and Month two.",
-            "values": {
-              "full_course": {
-                "state": "Auditing"
-              },
-              "m1": {
-                "state": "30 Days Passed"
-              },
-              "m2": {
-                "state": "30 Days Passed"
-              },
-              "b1_3": {
-                "state": "Verified"
-              },
-              "b4_6": {
-                "state": "Verified"
-              },
-              "b7_9": {
-                "state": "Verified"
-              },
-              "b10_12": {
-                "state": "Verified"
-              }
-            },
-            "tones": {
-              "full_course": "data",
-              "m1": "ok",
-              "m2": "ok",
-              "b1_3": "ok",
-              "b4_6": "ok",
-              "b7_9": "ok",
-              "b10_12": "ok"
-            }
-          },
-          {
             "at": "say2",
-            "caption": "All ten project milestones confirmed completed with zero regressions.",
-            "values": {
-              "full_course": {
-                "state": "10/10 Milestones"
-              },
-              "m1": {
-                "state": "Milestones 1-5"
-              },
-              "m2": {
-                "state": "Milestones 6-10"
-              },
-              "b1_3": {
-                "state": "Gold"
-              },
-              "b4_6": {
-                "state": "Gold"
-              },
-              "b7_9": {
-                "state": "Gold"
-              },
-              "b10_12": {
-                "state": "Gold"
-              }
-            },
-            "tones": {
-              "full_course": "ok",
-              "m1": "ok",
-              "m2": "ok",
-              "b1_3": "ok",
-              "b4_6": "ok",
-              "b7_9": "ok",
-              "b10_12": "ok"
-            }
+            "highlight": [
+              "left"
+            ],
+            "caption": "Month one established mastery of component models and reconciliation."
           },
           {
             "at": "say3",
-            "caption": "Architectural excellence score achieves multiple.eight% with zero.",
-            "values": {
-              "full_course": {
-                "state": "Score 99.8%"
-              },
-              "m1": {
-                "state": "Accredited"
-              },
-              "m2": {
-                "state": "Accredited"
-              },
-              "b1_3": {
-                "state": "A+"
-              },
-              "b4_6": {
-                "state": "A+"
-              },
-              "b7_9": {
-                "state": "A+"
-              },
-              "b10_12": {
-                "state": "A+"
-              }
-            },
-            "tones": {
-              "full_course": "ok",
-              "m1": "ok",
-              "m2": "ok",
-              "b1_3": "ok",
-              "b4_6": "ok",
-              "b7_9": "ok",
-              "b10_12": "ok"
-            }
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Month two scaled into distributed edge runtimes and streaming systems."
           },
           {
             "at": "say4",
-            "caption": "Official Credential Conferred: Distinguished Full-Stack React Architect (Summa Cum Laude)!",
-            "values": {
-              "full_course": {
-                "state": "100% CERTIFIED"
-              },
-              "m1": {
-                "state": "MASTERED"
-              },
-              "m2": {
-                "state": "MASTERED"
-              },
-              "b1_3": {
-                "state": "HONORS"
-              },
-              "b4_6": {
-                "state": "HONORS"
-              },
-              "b7_9": {
-                "state": "HONORS"
-              },
-              "b10_12": {
-                "state": "HONORS"
-              }
-            },
-            "tones": {
-              "full_course": "ok",
-              "m1": "ok",
-              "m2": "ok",
-              "b1_3": "ok",
-              "b4_6": "ok",
-              "b7_9": "ok",
-              "b10_12": "ok"
-            }
+            "highlight": [
+              "right"
+            ],
+            "caption": "Curriculum completion confers the distinguished react architect honors."
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Sixty-Day Full-Stack Architectural Curriculum Synthesis",
+        "left": {
+          "title": "Month One: Core Foundations",
+          "lines": [
+            "Component Architecture Models",
+            "Fiber DOM Reconciliation",
+            "State Machines and Reducers",
+            "Performance Profiling Audits"
+          ]
+        },
+        "right": {
+          "title": "Month Two: Enterprise Systems",
+          "lines": [
+            "Next App Router and RSC",
+            "Partial Prerendering Streaming",
+            "High-Frequency Trading Engines",
+            "Architectural RFC Defense"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "highlight": [
+              "left"
+            ],
+            "caption": "Month one established mastery of component models and reconciliation."
+          },
+          {
+            "at": "say3",
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Month two scaled into distributed edge runtimes and streaming systems."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "right"
+            ],
+            "caption": "Curriculum completion confers the distinguished react architect honors."
           }
         ]
       }
