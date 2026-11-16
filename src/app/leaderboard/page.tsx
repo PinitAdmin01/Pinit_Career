@@ -407,7 +407,7 @@ function LeaderboardContent() {
   const userLeagueMeta = LEAGUE_CONFIGS[currentUserLeague];
 
   return (
-    <div style={{ background: 'transparent', color: 'var(--text)', maxWidth: 1340, margin: '0 auto', padding: '0 0 40px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div style={{ background: 'transparent', color: 'var(--text)', maxWidth: 1540, margin: '0 auto', padding: '0 0 40px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
 
       <CompetitionNavigation active="leaderboard" />
 
@@ -416,10 +416,10 @@ function LeaderboardContent() {
         data-testid="cockpit-telemetry-hud"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: 12,
-          padding: '12px 18px',
-          borderRadius: 14,
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
+          gap: 18,
+          padding: '18px 24px',
+          borderRadius: 18,
           background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
           border: `1.5px solid ${userLeagueMeta.color}45`,
           boxShadow: `var(--shadow-sm), 0 0 16px ${userLeagueMeta.color}15`,
@@ -476,7 +476,7 @@ function LeaderboardContent() {
           </div>
           <div>
             <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: activeLeagueMeta.color, display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span>Viewing Division</span>
+              <span>{currentUserHasJoined && selectedLeague === currentUserLeague ? 'Active Division' : 'Viewing Division'}</span>
               <span style={{ fontSize: 9.5, padding: '1px 5px', borderRadius: 4, background: `${activeLeagueMeta.color}22`, border: `1px solid ${activeLeagueMeta.color}50`, textTransform: 'none' }}>
                 Switch ▾
               </span>

@@ -30,7 +30,7 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Bite-sized algorithmic challenges, speed drills, and daily streak rewards.'
   },
   '/arena': {
-    label: 'Arena & Leaderboard',
+    label: 'Arena',
     tooltip: 'Battle, track League Points, and browse divisions',
     description: 'Compete in coding duels, follow your sprint rank, and inspect Campus, Global, and Guild standings.'
   },
@@ -45,7 +45,7 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Form or join 3-person hackathon squads, build live prototypes, and submit to jury evaluation.'
   },
   '/leaderboard': {
-    label: 'Arena & Leaderboard',
+    label: 'Arena',
     tooltip: 'Sprint standings and league divisions',
     description: 'Campus, global, and guild standings with weekly promotion and demotion by League Points rank.'
   },
@@ -106,7 +106,7 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/dashboard', icon: '🏠', label: 'Dashboard' },
     { href: '/quests', icon: '🗺', label: 'Quests & Courses' },
     { href: '/missions', icon: '⚡', label: 'Daily Missions' },
-    { href: '/arena', icon: '⚔️', label: 'Arena & Leaderboard' },
+    { href: '/arena', icon: '⚔️', label: 'Arena' },
     { href: '/projects', icon: '📁', label: 'Projects' },
     { href: '/innovation-hub', icon: '💡', label: 'Innovation Hub' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },

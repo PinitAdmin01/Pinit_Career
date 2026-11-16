@@ -56,6 +56,49 @@ test('Arena and league API handlers enforce the public contracts without externa
       'Guest results never mint persistent competitive points or Pins',
     );
 
+    const paidMatchRequestId = 'f1ed2362-09c8-4c88-9bd5-31a7b41f21d9';
+    let paidMatchRpcArgs: Record<string, unknown> | null = null;
+    let paidMatchRpcReply: { data: Record<string, unknown> | null; error: { message: string } | null } = {
+      data: {
+        ok: true,
+        replayed: false,
+        matchId: 'server-paid-match-id',
+        startedAt: '2026-11-17T12:00:00.000Z',
+        deadlineAt: '2026-11-17T12:10:00.000Z',
+        newBalance: 40,
+        newBonusBalance: 10,
+      },
+      error: null,
+    };
+    setSupabaseAdminForTests({
+      rpc: async (name: string, args: Record<string, unknown>) => {
+        assert.equal(name, 'start_solo_arena_match_with_pin_fee');
+        paidMatchRpcArgs = args;
+        return paidMatchRpcReply;
+      },
+    });
+
+    const paidMatchResponse = await startSolo(new Request('http://localhost/api/arena/solo/start', {
+      ...jsonBody({ problemId: problem.id, requestId: paidMatchRequestId }),
+      headers: { authorization: 'Bearer demo-token-bypass' },
+    }));
+    assert.equal(paidMatchResponse.status, 200);
+    const paidMatch = await paidMatchResponse.json();
+    assert.equal(paidMatch.persisted, true);
+    assert.equal(paidMatch.matchId, 'server-paid-match-id');
+    assert.equal(paidMatch.newBalance, 40);
+    assert.equal(paidMatchRpcArgs?.p_request_id, paidMatchRequestId);
+    assert.equal(paidMatchRpcArgs?.p_user_id, 'test_user_001', 'The server derives the charged user from verified auth');
+    assert.equal(paidMatchRpcArgs?.p_problem_id, problem.id);
+
+    paidMatchRpcReply = { data: { ok: false, error: 'INSUFFICIENT_PINS' }, error: null };
+    const rejectedPaidMatchResponse = await startSolo(new Request('http://localhost/api/arena/solo/start', {
+      ...jsonBody({ problemId: problem.id, requestId: '44f85957-9cbd-430a-879a-690de73a8fc1' }),
+      headers: { authorization: 'Bearer demo-token-bypass' },
+    }));
+    assert.equal(rejectedPaidMatchResponse.status, 402);
+    assert.equal((await rejectedPaidMatchResponse.json()).error, 'INSUFFICIENT_PINS');
+
     let profileXp = 99;
     let profileElo = 1200;
     let profileWins = 0;

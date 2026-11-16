@@ -1,8 +1,115 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ArenaPvPStore, viewRoomFor } from '@/lib/services/arenaPvPStore';
+import type { ArenaRoom } from '@/lib/services/arenaPvPStore';
 import { requireCombatantFromRequest } from '@/lib/server/requireAuth';
 import { codeWarsScore, judgeCodeWarsSubmission } from '@/lib/server/codeWarsJudge';
 import { createCombatEvent, resolveMatchWinner } from '@/lib/arena/codeWarRules';
+
+function getRoomDeadline(room: ArenaRoom): number | null {
+  if (room.status !== 'in_progress' || !Number.isFinite(room.startedAt) || !room.startedAt) return null;
+  const timeLimitSeconds = Number(room.timeLimitSeconds);
+  const durationMs = (Number.isFinite(timeLimitSeconds) && timeLimitSeconds > 0 ? timeLimitSeconds : 600) * 1000;
+  return room.startedAt + durationMs;
+}
+
+function hasRoomExpired(room: ArenaRoom, at: number): boolean {
+  const deadline = getRoomDeadline(room);
+  return deadline !== null && at >= deadline;
+}
+
+function combatantSide(room: ArenaRoom, playerId: string, deviceId: string): { isHost: boolean; isGuest: boolean } {
+  const accountIsHost = room.hostId === playerId;
+  const accountIsGuest = room.guestId === playerId;
+  const matchesHostDevice = accountIsHost && Boolean(deviceId && room.hostDeviceId === deviceId);
+  const matchesGuestDevice = accountIsGuest && Boolean(deviceId && room.guestDeviceId === deviceId);
+  if (matchesHostDevice) return { isHost: true, isGuest: false };
+  if (matchesGuestDevice) return { isHost: false, isGuest: true };
+
+  const isHost = accountIsHost;
+  const isGuest = accountIsGuest;
+  if (isHost && isGuest) return { isHost: true, isGuest: false };
+  return { isHost, isGuest };
+}
+
+/** Finish an expired match using only final submissions judged by the server. */
+async function finishExpiredRoom(roomCode: string, at: number): Promise<ArenaRoom | null> {
+  return ArenaPvPStore.updateRoom(roomCode, (room) => {
+    const deadline = getRoomDeadline(room);
+    if (deadline === null || at < deadline) return null;
+
+    room.endedAt = deadline;
+    if (!room.guestId) {
+      room.status = 'cancelled';
+      room.winnerId = undefined;
+      room.tieBreakerReason = 'The battle was cancelled because no opponent joined.';
+      return room;
+    }
+
+    room.status = 'completed';
+    const hostSubmitted = room.hostProgress.submitted;
+    const guestSubmitted = room.guestProgress.submitted;
+
+    if (hostSubmitted !== guestSubmitted) {
+      const submittedProgress = hostSubmitted ? room.hostProgress : room.guestProgress;
+      if (submittedProgress.testsPassed > 0) {
+        room.winnerId = hostSubmitted ? room.hostId : room.guestId;
+        room.tieBreakerReason = `Time expired. ${hostSubmitted ? room.hostName : (room.guestName || 'Challenger')} passed ${submittedProgress.testsPassed} tests; the opponent did not submit a final solution.`;
+      } else {
+        room.winnerId = 'draw';
+        room.tieBreakerReason = 'Time expired. No final submission passed a test, so the match is a draw.';
+      }
+      return room;
+    }
+
+    if (!hostSubmitted && !guestSubmitted) {
+      room.winnerId = 'draw';
+      room.tieBreakerReason = 'Time expired with no final submissions. The match is a draw.';
+      return room;
+    }
+
+    const elapsedSeconds = (progress: ArenaRoom['hostProgress']) =>
+      progress.lastActiveAt && room.startedAt
+        ? Math.max(0, Math.round((progress.lastActiveAt - room.startedAt) / 1000))
+        : room.timeLimitSeconds;
+    const resolution = resolveMatchWinner({
+      hostId: room.hostId,
+      guestId: room.guestId,
+      hostStats: {
+        testsPassed: room.hostProgress.testsPassed,
+        totalTests: room.hostProgress.totalTests,
+        score: room.hostProgress.score,
+        submitted: room.hostProgress.submitted,
+        submissionAttempts: room.hostProgress.submissionAttempts || 0,
+        failedAttempts: room.hostProgress.failedAttempts || 0,
+        timeSpentSeconds: elapsedSeconds(room.hostProgress),
+        timeRemainingSeconds: 0,
+      },
+      guestStats: {
+        testsPassed: room.guestProgress.testsPassed,
+        totalTests: room.guestProgress.totalTests,
+        score: room.guestProgress.score,
+        submitted: room.guestProgress.submitted,
+        submissionAttempts: room.guestProgress.submissionAttempts || 0,
+        failedAttempts: room.guestProgress.failedAttempts || 0,
+        timeSpentSeconds: elapsedSeconds(room.guestProgress),
+        timeRemainingSeconds: 0,
+      },
+      firstBloodClaimedBy: room.firstBloodClaimedBy,
+    });
+    room.winnerId = resolution.winnerId;
+    room.tieBreakerReason = `Time expired. ${resolution.winReason}`;
+    return room;
+  });
+}
+
+async function settleCompletedRoom(room: ArenaRoom): Promise<ArenaRoom> {
+  if (room.status !== 'completed' || !room.winnerId || room.eloApplied) return room;
+  const settled = await ArenaPvPStore.settleMatch(room);
+  if (!settled.eloApplied && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error('ARENA_SETTLEMENT_PENDING');
+  }
+  return settled;
+}
 
 /**
  * Arena battle room. The player is always the logged-in user (the request body's playerId is
@@ -29,11 +136,18 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ room
       return NextResponse.json({ error: 'Room not found' }, { status: 404 });
     }
 
-    if (room.status === 'completed' && room.winnerId && !room.eloApplied) {
-      room = await ArenaPvPStore.settleMatch(room);
-      if (!room.eloApplied && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    const now = Date.now();
+    if (hasRoomExpired(room, now)) {
+      room = await finishExpiredRoom(roomCode, now) || await ArenaPvPStore.getRoom(roomCode) || room;
+    }
+
+    try {
+      room = await settleCompletedRoom(room);
+    } catch (err) {
+      if (err instanceof Error && err.message === 'ARENA_SETTLEMENT_PENDING') {
         return NextResponse.json({ error: 'ARENA_SETTLEMENT_PENDING' }, { status: 503 });
       }
+      throw err;
     }
 
     return NextResponse.json({ success: true, room: viewRoomFor(room, auth.user.id) });
@@ -44,6 +158,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ room
 }
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ roomCode: string }> }) {
+  const requestReceivedAt = Date.now();
   try {
     const auth = await requireCombatantFromRequest(req);
     if (auth.error) {
@@ -63,11 +178,37 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
       return NextResponse.json({ error: 'Room not found or update failed' }, { status: 404 });
     }
     const deviceId = req.headers.get('x-combatant-device-id') || '';
-    const isHost = current.hostId === playerId || Boolean(deviceId && current.hostDeviceId === deviceId);
-    const isGuest = current.guestId === playerId || current.guestId === `${playerId}_challenger` || Boolean(deviceId && current.guestDeviceId === deviceId);
+    const { isHost, isGuest } = combatantSide(current, playerId, deviceId);
     if (!isHost && !isGuest) {
       console.warn(`[ArenaRoom POST] Player ${playerId} is neither host nor guest in ${roomCode}`);
       return NextResponse.json({ error: 'You are not a player in this room' }, { status: 403 });
+    }
+
+    if (action === 'toggle_ready' && (current.status !== 'waiting' || !current.guestId)) {
+      return NextResponse.json({ error: 'ROOM_NOT_WAITING_FOR_READY' }, { status: 409 });
+    }
+    if (action === 'start_game' && (
+      current.status !== 'waiting' || !current.guestId || !current.hostReady || !current.guestReady
+    )) {
+      return NextResponse.json({ error: 'BOTH_PLAYERS_NOT_READY' }, { status: 409 });
+    }
+
+    // The server clock decides the deadline. A late submit, timeout callback, or progress update
+    // first closes the room and then returns its authoritative final state.
+    if (hasRoomExpired(current, requestReceivedAt)) {
+      let expired = await finishExpiredRoom(roomCode, requestReceivedAt);
+      expired = expired || await ArenaPvPStore.getRoom(roomCode);
+      if (!expired) return NextResponse.json({ error: 'Room not found or update failed' }, { status: 404 });
+      try {
+        expired = await settleCompletedRoom(expired);
+      } catch (err) {
+        if (err instanceof Error && err.message === 'ARENA_SETTLEMENT_PENDING') {
+          return NextResponse.json({ error: 'ARENA_SETTLEMENT_PENDING' }, { status: 503 });
+        }
+        throw err;
+      }
+      const latestExpired = await ArenaPvPStore.publishCodesIfCompleted(expired);
+      return NextResponse.json({ success: true, expired: true, room: viewRoomFor(latestExpired, playerId) });
     }
 
     // Judge a submission before touching the room (only while the match is running).
@@ -97,12 +238,13 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
     }
 
     const updated = await ArenaPvPStore.updateRoom(roomCode, (room) => {
-      const isHost = room.hostId === playerId || Boolean(deviceId && room.hostDeviceId === deviceId);
-      const isGuest = room.guestId === playerId || room.guestId === `${playerId}_challenger` || Boolean(deviceId && room.guestDeviceId === deviceId);
+      const { isHost, isGuest } = combatantSide(room, playerId, deviceId);
 
       if (!isHost && !isGuest) return null;
+      if (requestReceivedAt >= (getRoomDeadline(room) ?? Number.POSITIVE_INFINITY)) return null;
 
       if (action === 'toggle_ready') {
+        if (room.status !== 'waiting' || !room.guestId) return null;
         if (isHost) room.hostReady = !room.hostReady;
         if (isGuest) room.guestReady = !room.guestReady;
 
@@ -111,7 +253,13 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
           room.status = 'in_progress';
           room.startedAt = Date.now();
         }
+      } else if (action === 'cancel_room') {
+        if (!isHost || room.status !== 'waiting' || room.guestId) return null;
+        room.status = 'cancelled';
+        room.endedAt = Date.now();
+        room.tieBreakerReason = 'The room creator cancelled before an opponent joined.';
       } else if (action === 'start_game') {
+        if (room.status !== 'waiting' || !room.guestId || !room.hostReady || !room.guestReady) return null;
         room.status = 'in_progress';
         room.startedAt = Date.now();
       } else if (action === 'update_progress') {
@@ -225,10 +373,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
     });
 
     let settled = updated;
-    if (settled && settled.status === 'completed' && settled.winnerId && !settled.eloApplied) {
-      settled = await ArenaPvPStore.settleMatch(settled);
-      if (!settled.eloApplied && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-        return NextResponse.json({ error: 'ARENA_SETTLEMENT_PENDING' }, { status: 503 });
+    if (settled) {
+      try {
+        settled = await settleCompletedRoom(settled);
+      } catch (err) {
+        if (err instanceof Error && err.message === 'ARENA_SETTLEMENT_PENDING') {
+          return NextResponse.json({ error: 'ARENA_SETTLEMENT_PENDING' }, { status: 503 });
+        }
+        throw err;
       }
     }
     const latest = settled ? await ArenaPvPStore.publishCodesIfCompleted(settled) : await ArenaPvPStore.getRoom(roomCode);

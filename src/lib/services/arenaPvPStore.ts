@@ -348,6 +348,8 @@ export interface ArenaRoom {
   guestNewElo?: number;
   hostArenaPointsAward?: number;
   guestArenaPointsAward?: number;
+  pinCharge?: { newBalance: number; newBonusBalance: number; totalBalance: number };
+  clientPinChargeRequired?: boolean;
   hostPinsAward?: number;
   guestPinsAward?: number;
 }
@@ -377,11 +379,15 @@ interface ArenaRoomRow {
   host_id: string;
   host_name: string;
   host_avatar: string | null;
+  host_device_id: string | null;
+  host_language: string | null;
   host_ready: boolean | null;
   host_progress: ArenaPlayerProgress | null;
   guest_id: string | null;
   guest_name: string | null;
   guest_avatar: string | null;
+  guest_device_id: string | null;
+  guest_language: string | null;
   guest_ready: boolean | null;
   guest_progress: ArenaPlayerProgress | null;
   winner_id: string | null;
@@ -445,15 +451,17 @@ function rowToRoom(data: ArenaRoomRow): ArenaRoom {
     hostId: data.host_id,
     hostName: data.host_name,
     hostAvatar: data.host_avatar || '',
+    hostDeviceId: data.host_device_id || undefined,
     hostReady: Boolean(data.host_ready),
     hostProgress: hostProg,
-    hostLanguage: hostProg.language || 'typescript',
+    hostLanguage: data.host_language || hostProg.language || 'typescript',
     guestId: data.guest_id || undefined,
     guestName: data.guest_name || undefined,
     guestAvatar: data.guest_avatar || undefined,
+    guestDeviceId: data.guest_device_id || undefined,
     guestReady: Boolean(data.guest_ready),
     guestProgress: guestProg,
-    guestLanguage: guestProg.language || 'typescript',
+    guestLanguage: data.guest_language || guestProg.language || 'typescript',
     winnerId: data.winner_id || undefined,
     startedAt: data.started_at ? new Date(data.started_at).getTime() : undefined,
     endedAt: data.ended_at ? new Date(data.ended_at).getTime() : undefined,
@@ -517,6 +525,8 @@ export class ArenaPvPStore {
     difficulty?: 'basic' | 'intermediate' | 'advanced' | 'production';
     timeLimitSeconds?: number;
     roomCode?: string;
+    pinChargeUserId?: string;
+    requestId?: string;
   }): Promise<ArenaRoom> {
     const roomCode = params.roomCode || generateRoomCode();
     const now = Date.now();
@@ -556,8 +566,57 @@ export class ArenaPvPStore {
       createdAt: now,
     };
 
-    inMemoryRooms.set(roomCode, room);
+    if (params.pinChargeUserId) {
+      let result: any;
+      try {
+        const { data, error } = await getSupabaseAdmin().rpc('create_arena_room_with_pin_fee', {
+          p_request_id: params.requestId,
+          p_user_id: params.pinChargeUserId,
+          p_room_code: room.roomCode,
+          p_host_name: room.hostName,
+          p_host_avatar: room.hostAvatar || null,
+          p_host_device_id: room.hostDeviceId || null,
+          p_host_language: room.hostLanguage || 'typescript',
+          p_problem_id: room.problemId,
+          p_difficulty: room.difficulty,
+          p_time_limit_seconds: room.timeLimitSeconds,
+          p_host_progress: room.hostProgress,
+          p_guest_progress: room.guestProgress,
+        });
+        if (error) throw new Error('ARENA_PIN_SERVICE_UNAVAILABLE');
+        result = data;
+      } catch (err) {
+        inMemoryRooms.delete(normalizeCode(room.roomCode));
+        throw err instanceof Error && err.message.startsWith('ARENA_')
+          ? err
+          : new Error('ARENA_PIN_SERVICE_UNAVAILABLE');
+      }
 
+      if (!result?.ok) {
+        inMemoryRooms.delete(normalizeCode(room.roomCode));
+        const reason = typeof result?.error === 'string' ? result.error : 'ARENA_PIN_SERVICE_UNAVAILABLE';
+        throw new Error(reason.startsWith('ARENA_') || reason === 'INSUFFICIENT_PINS' ? reason : 'ARENA_PIN_SERVICE_UNAVAILABLE');
+      }
+      if (!result.room || typeof result.room.room_code !== 'string') {
+        inMemoryRooms.delete(normalizeCode(room.roomCode));
+        throw new Error('ARENA_PIN_SERVICE_UNAVAILABLE');
+      }
+
+      const persistedRoom = rowToRoom(result.room as ArenaRoomRow);
+      persistedRoom.hostDeviceId = room.hostDeviceId;
+      persistedRoom.hostLanguage = room.hostLanguage;
+      persistedRoom.pinCharge = {
+        newBalance: Math.max(0, Number(result.newBalance) || 0),
+        newBonusBalance: Math.max(0, Number(result.newBonusBalance) || 0),
+        totalBalance: Math.max(0, Number(result.newBalance) || 0) + Math.max(0, Number(result.newBonusBalance) || 0),
+      };
+      inMemoryRooms.set(normalizeCode(persistedRoom.roomCode), persistedRoom);
+      return persistedRoom;
+    }
+
+    const persistenceRequired = process.env.NODE_ENV === 'production' || Boolean(
+      process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
+    );
     try {
       const { error } = await getSupabaseAdmin().from('arena_rooms').insert({
         room_code: room.roomCode,
@@ -568,14 +627,25 @@ export class ArenaPvPStore {
         host_id: room.hostId,
         host_name: room.hostName,
         host_avatar: room.hostAvatar,
+          host_device_id: room.hostDeviceId || null,
+          host_language: room.hostLanguage || 'typescript',
         host_ready: room.hostReady,
         host_progress: room.hostProgress,
+          guest_device_id: room.guestDeviceId || null,
+          guest_language: room.guestLanguage || 'typescript',
         guest_ready: room.guestReady,
         guest_progress: room.guestProgress,
       });
-      if (error) console.warn('[ArenaPvPStore] arena_rooms insert failed:', error.message);
+      if (error) throw new Error(error.message || 'Database insert failed');
+      inMemoryRooms.set(roomCode, room);
     } catch (err) {
-      console.warn('[ArenaPvPStore] arena_rooms insert failed:', err);
+      if (persistenceRequired) {
+        inMemoryRooms.delete(roomCode);
+        console.error('[ArenaPvPStore] arena_rooms insert failed; refusing to create an in-memory-only room:', err);
+        throw new Error('ARENA_ROOM_PERSISTENCE_FAILED');
+      }
+      console.warn('[ArenaPvPStore] arena_rooms insert failed; using an in-memory room for local development:', err);
+      inMemoryRooms.set(roomCode, room);
     }
 
     return room;
@@ -619,6 +689,10 @@ export class ArenaPvPStore {
           guest_id: updated.guestId ?? null,
           guest_name: updated.guestName ?? null,
           guest_avatar: updated.guestAvatar ?? null,
+          host_device_id: updated.hostDeviceId ?? null,
+          host_language: updated.hostLanguage || 'typescript',
+          guest_device_id: updated.guestDeviceId ?? null,
+          guest_language: updated.guestLanguage || 'typescript',
           guest_ready: updated.guestReady,
           guest_progress: updated.guestProgress,
           winner_id: updated.winnerId ?? null,
@@ -664,7 +738,7 @@ export class ArenaPvPStore {
   }): Promise<{ success: boolean; room?: ArenaRoom; error?: string }> {
     console.log(`[ArenaPvPStore.joinRoom] Guest joining room: ${params.roomCode} | guestId: ${params.guestId} (${params.guestName}) | language: ${params.guestLanguage || 'typescript'}`);
     let failure: string | null = null;
-    let actualGuestId = params.guestId;
+    const actualGuestId = params.guestId;
 
     const room = await this.updateRoom(params.roomCode, (r) => {
       if (r.status === 'completed' || r.status === 'cancelled') { failure = 'This match has already concluded.'; return null; }
@@ -674,9 +748,12 @@ export class ArenaPvPStore {
         params.guestDeviceId && r.hostDeviceId && params.guestDeviceId !== r.hostDeviceId
       );
 
-      // If same user ID and same device, it is host re-entering
-      if (r.hostId === params.guestId && !isDifferentDevice) {
-        failure = null;
+      // One account cannot occupy both sides: the settlement RPC needs two
+      // distinct profiles or a player could farm rating and Arena Points.
+      if (r.hostId === params.guestId) {
+        if (isDifferentDevice) {
+          failure = 'You cannot join your own room. Ask another player to use the invite code.';
+        }
         return null;
       }
 
@@ -690,11 +767,6 @@ export class ArenaPvPStore {
       if (r.guestId && r.guestId !== params.guestId) {
         failure = 'This battle room is already full.';
         return null;
-      }
-
-      // If same user ID but DIFFERENT device, allocate distinct challenger ID
-      if (r.hostId === params.guestId && isDifferentDevice) {
-        actualGuestId = `${params.guestId}_challenger`;
       }
 
       r.guestId = actualGuestId;

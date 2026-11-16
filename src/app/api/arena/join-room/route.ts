@@ -35,7 +35,8 @@ export async function POST(req: NextRequest) {
 
     if (!result.success || !result.room) {
       console.warn(`[JoinRoom API] Failed to join room ${roomCode}: ${result.error}`);
-      return NextResponse.json({ error: result.error }, { status: 400 });
+      const isSelfJoin = result.error?.startsWith('You cannot join your own room.') || false;
+      return NextResponse.json({ error: result.error }, { status: isSelfJoin ? 409 : 400 });
     }
 
     console.log(`[JoinRoom API] Successfully joined room: ${result.room.roomCode} | status: ${result.room.status} | host: ${result.room.hostId} | guest: ${result.room.guestId}`);

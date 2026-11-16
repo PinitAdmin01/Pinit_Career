@@ -302,7 +302,7 @@ def is_palindrome(s: str) -> bool:
       assert.strictEqual(match.hostNewElo, ELO_CONFIG.FLOOR_ELO, 'Cadet rating must never drop below floor');
     });
 
-    it('settles room with Clean Execution and First Blood bonuses applied atomically', async () => {
+    it('settles Arena rating and points without minting learning XP or Pins', async () => {
       const testRoom: ArenaRoom = {
         id: 'room_audit_firstblood_clean',
         roomCode: 'AUDIT99',
@@ -346,11 +346,12 @@ def is_palindrome(s: str) -> bool:
       const settled = await ArenaPvPStore.settleMatch(testRoom);
 
       assert.strictEqual(settled.eloApplied, true);
-      // Base Win XP (50) + First Blood (25) + Clean Submission (15) = 90 XP
-      assert.strictEqual(settled.hostXpAward, 90);
-      // Base Loss XP (15)
-      assert.strictEqual(settled.guestXpAward, 15);
-      // Winner receives positive Elo delta
+      assert.equal(settled.hostXpAward, undefined, 'Arena combat must not be counted as Learning XP');
+      assert.equal(settled.guestXpAward, undefined, 'Arena combat must not be counted as Learning XP');
+      assert.equal(settled.hostArenaPointsAward, 250, 'A winning 1000 ELO player receives the 250-point cap');
+      assert.equal(settled.guestArenaPointsAward, 0, 'A loss earns no Arena Points');
+      assert.equal(settled.hostPinsAward, 0, 'Match results do not mint Pins');
+      assert.equal(settled.guestPinsAward, 0, 'Match results do not mint Pins');
       assert.ok((settled.hostEloDelta || 0) > 0);
     });
   });

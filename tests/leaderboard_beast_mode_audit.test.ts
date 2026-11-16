@@ -6,63 +6,68 @@ import path from 'path';
 const ROOT = path.join(__dirname, '..');
 const leaderboardPagePath = path.join(ROOT, 'src/app/leaderboard/page.tsx');
 const leaderboardRoutePath = path.join(ROOT, 'src/app/api/leaderboard/route.ts');
+const leaguePointsPath = path.join(ROOT, 'src/lib/leagues/leaguePoints.ts');
 
 const leaderboardPage = fs.readFileSync(leaderboardPagePath, 'utf8');
 const leaderboardRoute = fs.readFileSync(leaderboardRoutePath, 'utf8');
+const leaguePoints = fs.readFileSync(leaguePointsPath, 'utf8');
 
 // ── 1. MATHEMATICAL FORMULA & ELO ANTI-INFLATION AUDIT ────────────────────────
-test('Leaderboard ELO: Decoupled from artificial XP inflation with logarithmic calibration', () => {
+test('Arena rating does not inflate League Points; wins award capped rating-scaled Arena Points', () => {
   assert.ok(
-    !leaderboardRoute.includes('1200 + Math.round(totalXp / 8)'),
-    'Must purge naive totalXp / 8 which gave 2000+ ELO to non-combatants'
+    !leaderboardRoute.includes('eloRating - 100) * 1.5'),
+    'League score must not be calculated from ELO rating'
   );
   assert.ok(
-    leaderboardRoute.includes('Math.min(60, Math.round(Math.sqrt(totalXp) * 0.8))'),
-    'Must use soft-capped logarithmic baseline for unranked candidates'
+    leaguePoints.includes('Math.round(safeElo * ARENA_WIN_POINTS_PER_ELO)'),
+    'Arena win points must scale from pre-match ELO'
+  );
+  assert.ok(leaguePoints.includes('ARENA_WIN_POINTS_CAP = 250'));
+  assert.ok(leaguePoints.includes('learningXp || 0)) + Math.max(0, Math.round(arenaPoints || 0))'));
+  assert.ok(leaderboardRoute.includes('calculateLeaguePoints(weeklyXp, arenaPoints)'));
+});
+
+test('Global leaderboard shows one score: League Points', () => {
+  assert.ok(
+    leaderboardPage.includes('>League Points</th>'),
+    'Global leaderboard must show only the combined League Points score'
+  );
+  assert.ok(
+    !leaderboardPage.includes('Weekly XP</th>') && !leaderboardPage.includes('Arena ELO</th>'),
+    'Global score table must not expose its component columns'
   );
 });
 
-test('Leaderboard Score: Dynamic 1.5x competitive weight for weekly league score', () => {
+test('Leaderboard ranks by League Points with deterministic tie-breakers', () => {
   assert.ok(
-    leaderboardRoute.includes('leagueScore = weeklyXp + Math.round(eloGain * 1.5)'),
-    'League score must weight competitive arena victories with 1.5x multiplier'
-  );
-  assert.ok(
-    leaderboardPage.includes('entry.weeklyXp + Math.round(Math.max(0, entry.eloRating - 100) * 1.5)'),
-    'Frontend must compute synchronized league score with identical formula'
-  );
-});
-
-test('Leaderboard Comparator: 4-tier deterministic tiebreaker', () => {
-  assert.ok(
-    leaderboardRoute.includes('if (scoreB !== scoreA) return scoreB - scoreA;'),
-    'Tier 1 tiebreaker: leagueScore'
+    leaderboardRoute.includes('calculateLeaguePoints(a.weeklyXp, a.arenaPoints ?? 0)'),
+    'Primary order must be the sum of sprint Learning XP and Arena Points'
   );
   assert.ok(
     leaderboardRoute.includes('if (b.weeklyXp !== a.weeklyXp) return b.weeklyXp - a.weeklyXp;'),
     'Tier 2 tiebreaker: weeklyXp'
   );
   assert.ok(
-    leaderboardRoute.includes('if (b.eloRating !== a.eloRating) return b.eloRating - a.eloRating;'),
-    'Tier 3 tiebreaker: eloRating'
+    leaderboardRoute.includes('if (b.totalXp !== a.totalXp) return b.totalXp - a.totalXp;'),
+    'Career XP is a deterministic tie-breaker only'
   );
   assert.ok(
-    leaderboardRoute.includes('return b.totalXp - a.totalXp;'),
-    'Tier 4 tiebreaker: totalXp'
+    leaderboardRoute.includes('return a.studentId.localeCompare(b.studentId);'),
+    'Student ID gives a stable final tie-breaker'
   );
 });
 
 test('Leaderboard Zones: Adaptive cohort promotion and demotion thresholds', () => {
   assert.ok(
-    leaderboardRoute.includes('if (totalCohortCount >= 4 && totalCohortCount < 10)'),
-    'Must adapt cutoffs for small cohorts so bottom player demotes'
+    leaguePoints.includes('memberCount >= 10'),
+    'Demotion is disabled until a division has at least 10 ranked players'
   );
   assert.ok(
     leaderboardRoute.includes("activeLeague !== 'ruby' && e.rank <= promotionCutoffRank"),
     'Ruby division must not promote players (it is the summit tier)'
   );
   assert.ok(
-    leaderboardRoute.includes("activeLeague !== 'browns' && e.rank >= demotionCutoffRank"),
+    leaderboardRoute.includes("activeLeague !== 'browns'") && leaderboardRoute.includes('e.rank >= demotionCutoffRank'),
     'Browns division must not demote players (it is the entry tier)'
   );
 });
@@ -108,7 +113,7 @@ test('Cockpit HUD: Live telemetry, dynamic score breakdown, and zone indicators'
     'Cockpit must render promotion zone banner'
   );
   assert.ok(
-    leaderboardPage.includes('In Demotion Zone! Earn XP to remain in'),
+    leaderboardPage.includes('In Demotion Zone! Earn League Points to remain in'),
     'Cockpit must render demotion zone banner'
   );
 });
@@ -119,8 +124,8 @@ test('Responsive Table: Horizontally scrollable container with min-width guard',
     'Table wrapper must have overflowX: auto for responsive mobile and small screen support'
   );
   assert.ok(
-    leaderboardPage.includes('minWidth: 840'),
-    'Table must enforce minWidth 840 to prevent awkward column squishing'
+    leaderboardPage.includes('minWidth: 720'),
+    'Compact four-column League Points table must remain readable on narrow screens'
   );
 });
 

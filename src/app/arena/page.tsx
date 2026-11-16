@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -41,6 +41,14 @@ const MonacoEditor = dynamic(
   }
 );
 
+function createArenaRequestId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, char => {
+    const random = Math.floor(Math.random() * 16);
+    return (char === 'x' ? random : (random & 0x3) | 0x8).toString(16);
+  });
+}
+
 function ArenaContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,14 +58,26 @@ function ArenaContent() {
 
   const { user, refresh } = useAuth();
   const studentId = user?.id || 'student_' + Math.random().toString(36).substring(2, 8);
+  const [combatantDeviceId, setCombatantDeviceId] = useState('');
   const studentName = (user as any)?.full_name || (user as any)?.name || 'Combatant';
   const studentAvatar = (user as any)?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
   
   const cOS = useCareerOS();
   const { xp = 0, pins = 0 } = cOS || {};
 
+  useEffect(() => {
+    setCombatantDeviceId(ArenaPvPService.getDeviceId());
+  }, []);
+
   // Live ELO state with instant cache hydration (Baseline 100)
   const [liveElo, setLiveElo] = useState<number | null>(null);
+  const [arenaStanding, setArenaStanding] = useState<{
+    rank: number | null;
+    league: string;
+    weeklyXp: number;
+    careerXp: number;
+    joined: boolean;
+  }>({ rank: null, league: 'browns', weeklyXp: 0, careerXp: 0, joined: false });
   const [cachedElo, setCachedElo] = useState<number>(() => {
     if (typeof window !== 'undefined') {
       const saved = Number(localStorage.getItem(`pinit_user_elo_${studentId}`));
@@ -172,7 +192,10 @@ function ArenaContent() {
   const [activeRoom, setActiveRoom] = useState<ArenaRoom | null>(null);
   const [roomInputCode, setRoomInputCode] = useState<string>('');
   const [isCreatingRoom, setIsCreatingRoom] = useState<boolean>(false);
+  const roomCreateRequestIdRef = useRef<string | null>(null);
+  const soloStartRequestIdRef = useRef<string | null>(null);
   const [isJoiningRoom, setIsJoiningRoom] = useState<boolean>(false);
+  const [isStartingSolo, setIsStartingSolo] = useState<boolean>(false);
   const [roomError, setRoomError] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
@@ -214,6 +237,43 @@ function ArenaContent() {
   const [isStrategyExpanded, setIsStrategyExpanded] = useState<boolean>(true);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    if (!user?.id) {
+      setArenaStanding({ rank: null, league: 'browns', weeklyXp: 0, careerXp: Math.max(0, Number(xp) || 0), joined: false });
+      return;
+    }
+
+    let cancelled = false;
+    const loadStanding = async () => {
+      try {
+        const params = new URLSearchParams({ mode: 'global', userId: user.id });
+        const headers: Record<string, string> = { 'x-user-id': user.id };
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
+        } catch {}
+
+        const response = await fetch(`/api/leaderboard?${params.toString()}`, { headers, cache: 'no-store' });
+        if (!response.ok) return;
+        const data = await response.json();
+        if (cancelled || !data?.ok) return;
+
+        setArenaStanding({
+          rank: data.currentUserHasJoined && Number.isFinite(Number(data.currentUser?.rank)) ? Number(data.currentUser.rank) : null,
+          league: typeof data.currentUserLeague === 'string' ? data.currentUserLeague : 'browns',
+          weeklyXp: Math.max(0, Number(data.currentUser?.weeklyXp) || 0),
+          careerXp: Math.max(0, Number(data.currentUserTotalXp) || Number(xp) || 0),
+          joined: Boolean(data.currentUserHasJoined),
+        });
+      } catch {
+        // Keep the fast local profile values visible if the standings endpoint is unavailable.
+      }
+    };
+
+    void loadStanding();
+    return () => { cancelled = true; };
+  }, [user?.id, xp, soloReward?.newElo, activeRoom?.eloApplied]);
 
   // Detect Light/Dark theme changes for Monaco & UI precision
   useEffect(() => {
@@ -358,8 +418,10 @@ function ArenaContent() {
   // Synchronize player editor language to active room slot when entering match
   useEffect(() => {
     if (!activeRoom) return;
-    const isHost = activeRoom.hostId === studentId;
-    const isGuest = activeRoom.guestId === studentId || activeRoom.guestId === `${studentId}_challenger`;
+    const onHostDevice = Boolean(combatantDeviceId && activeRoom.hostDeviceId === combatantDeviceId);
+    const onGuestDevice = Boolean(combatantDeviceId && activeRoom.guestDeviceId === combatantDeviceId);
+    const isHost = onHostDevice || (!onGuestDevice && activeRoom.hostId === studentId);
+    const isGuest = onGuestDevice || (!onHostDevice && (activeRoom.guestId === studentId || activeRoom.guestId === `${studentId}_challenger`));
     const targetSlotLang = isHost
       ? activeRoom.hostLanguage
       : isGuest
@@ -371,7 +433,7 @@ function ArenaContent() {
         setLanguage(targetSlotLang as 'python' | 'typescript' | 'java');
       }
     }
-  }, [activeRoom, activeRoom?.hostId, activeRoom?.guestId, activeRoom?.hostLanguage, activeRoom?.guestLanguage, studentId, language]);
+  }, [activeRoom, activeRoom?.hostId, activeRoom?.guestId, activeRoom?.hostDeviceId, activeRoom?.guestDeviceId, activeRoom?.hostLanguage, activeRoom?.guestLanguage, studentId, language, combatantDeviceId]);
 
   // Load starter code on problem or language change
   useEffect(() => {
@@ -428,13 +490,21 @@ function ArenaContent() {
 
   // Handle Create Room
   const handleCreateRoom = async () => {
+    if (isCreatingRoom) return;
+    setIsCreatingRoom(true);
+    setRoomError(null);
+
+    const hasPersistentWallet = Boolean(user?.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id));
+    if (!hasPersistentWallet && cOS?.canAfford && !cOS.canAfford('code_arena')) {
+      setRoomError('You need 10 Pins to create a battle room.');
+      setIsCreatingRoom(false);
+      return;
+    }
+
     try {
-      if (cOS?.spendPins) {
-        const ok = await cOS.spendPins('code_arena', undefined, 'Create Battle Room');
-        if (!ok) return;
+      if (!roomCreateRequestIdRef.current) {
+        roomCreateRequestIdRef.current = createArenaRequestId();
       }
-      setIsCreatingRoom(true);
-      setRoomError(null);
 
       const studentCompletedQuests: string[] = (Array.isArray(cOS?.completedQuests) && cOS.completedQuests.length > 0)
         ? cOS.completedQuests
@@ -452,15 +522,32 @@ function ArenaContent() {
         problemId: selectedProblemId || 'auto',
         difficulty: studentKnowledge.recommendedDifficulty as 'basic' | 'intermediate' | 'advanced',
         timeLimitSeconds: selectedTimeLimit,
+        requestId: roomCreateRequestIdRef.current,
         completedQuests: studentCompletedQuests,
         recentProblemIds: Array.from(solvedProblemIds),
       });
+
+      if (room.clientPinChargeRequired) {
+        const charged = cOS?.spendPins
+          ? await cOS.spendPins('code_arena', undefined, 'Create Battle Room')
+          : false;
+        if (!charged) {
+          await ArenaPvPService.cancelWaitingRoom(room.roomCode);
+          throw new Error('You need 10 Pins to create a battle room. The unused room was cancelled.');
+        }
+      }
+      if (room.pinCharge) {
+        cOS?.setPins?.(room.pinCharge.newBalance);
+        cOS?.setBonusPins?.(room.pinCharge.newBonusBalance);
+      }
+
+      roomCreateRequestIdRef.current = null;
       setActiveRoom(room);
       setTimeRemaining(room.timeLimitSeconds);
-      setIsCreatingRoom(false);
     } catch (err: any) {
-      setIsCreatingRoom(false);
       setRoomError(err.message || 'Failed to create room');
+    } finally {
+      setIsCreatingRoom(false);
     }
   };
 
@@ -695,7 +782,15 @@ function ArenaContent() {
 
   // Start Solo Sparring against Turing AI with Knowledge Affinity Calibration
   const handleStartSoloSparring = async (overrideDifficulty?: 'basic' | 'intermediate' | 'advanced') => {
+    if (isStartingSolo) return;
+    setIsStartingSolo(true);
     setSoloReward(null);
+    const hasPersistentWallet = Boolean(user?.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id));
+    if (!hasPersistentWallet && cOS?.canAfford && !cOS.canAfford('code_arena')) {
+      toast.error('Insufficient Pins', 'You need 10 Pins to enter a rated Arena match.');
+      setIsStartingSolo(false);
+      return;
+    }
     const targetDiff = overrideDifficulty || (studentKnowledge.recommendedDifficulty as any) || 'basic';
     const candidateProblems = problems.filter(p => p.difficulty === targetDiff);
     const unvisited = candidateProblems.filter(p => !solvedProblemIds.has(p.id));
@@ -706,7 +801,17 @@ function ArenaContent() {
 
     setSelectedProblemId(chosenProblem.id);
     try {
-      const serverMatch = await ArenaPvPService.startSoloMatch(chosenProblem.id);
+      if (!soloStartRequestIdRef.current) soloStartRequestIdRef.current = createArenaRequestId();
+      const serverMatch = await ArenaPvPService.startSoloMatch(chosenProblem.id, soloStartRequestIdRef.current);
+      if (serverMatch.persisted) {
+        if (typeof serverMatch.newBalance === 'number') cOS?.setPins?.(serverMatch.newBalance);
+        if (typeof serverMatch.newBonusBalance === 'number') cOS?.setBonusPins?.(serverMatch.newBonusBalance);
+      } else {
+        const charged = cOS?.spendPins
+          ? await cOS.spendPins('code_arena', undefined, 'Start Rated Arena Match')
+          : false;
+        if (!charged) throw new Error('You need 10 Pins to enter a rated Arena match.');
+      }
       const match = CodeWarsApiService.startMatch(studentId, chosenProblem.id, '1v1_duel');
       match.id = serverMatch.matchId;
       match.startedAt = Date.parse(serverMatch.startedAt) || Date.now();
@@ -715,8 +820,11 @@ function ArenaContent() {
       setSoloMatch(match);
       setTimeRemaining(chosenProblem.timeLimitSeconds);
       setTestResult(null);
+      soloStartRequestIdRef.current = null;
     } catch (err) {
       toast.error('Arena unavailable', err instanceof Error ? err.message : 'Could not start a sparring match.');
+    } finally {
+      setIsStartingSolo(false);
     }
   };
 
@@ -737,8 +845,10 @@ function ArenaContent() {
   };
 
   // Derived state for PvP HUD
-  const isHost = activeRoom?.hostId === studentId;
-  const isGuest = activeRoom?.guestId === studentId;
+  const onHostDevice = Boolean(activeRoom && combatantDeviceId && activeRoom.hostDeviceId === combatantDeviceId);
+  const onGuestDevice = Boolean(activeRoom && combatantDeviceId && activeRoom.guestDeviceId === combatantDeviceId);
+  const isHost = Boolean(activeRoom && (onHostDevice || (!onGuestDevice && activeRoom.hostId === studentId)));
+  const isGuest = Boolean(activeRoom && (onGuestDevice || (!onHostDevice && (activeRoom.guestId === studentId || activeRoom.guestId === `${studentId}_challenger`))));
   const myProgress = isHost ? activeRoom?.hostProgress : activeRoom?.guestProgress;
   const opponentProgress = isHost ? activeRoom?.guestProgress : activeRoom?.hostProgress;
   const opponentName = isHost ? (activeRoom?.guestName || 'Waiting for challenger...') : activeRoom?.hostName;
@@ -747,7 +857,16 @@ function ArenaContent() {
   const isOpponentReady = isHost ? activeRoom?.guestReady : activeRoom?.hostReady;
 
   const isMatchOver = Boolean((activeRoom && activeRoom.status === 'completed') || (soloMatch && soloMatch.status !== 'active'));
-  const didIWin = activeRoom ? activeRoom.winnerId === studentId : soloMatch?.status === 'victory';
+  const didIWin = activeRoom
+    ? isHost ? activeRoom.winnerId === activeRoom.hostId : isGuest && activeRoom.winnerId === activeRoom.guestId
+    : soloMatch?.status === 'victory';
+  const didIDraw = activeRoom?.winnerId === 'draw';
+  const currentCareerXp = Math.max(0, Number(arenaStanding.careerXp) || 0, Number(xp) || 0);
+  const arenaLeagueLabel = `${arenaStanding.league.charAt(0).toUpperCase()}${arenaStanding.league.slice(1)} League`;
+  const arenaRankLabel = arenaStanding.joined && arenaStanding.rank ? `#${arenaStanding.rank}` : 'Unranked';
+  const arenaRankCaption = arenaStanding.joined
+    ? arenaLeagueLabel
+    : currentCareerXp >= 100 ? 'Join Browns to start your sprint' : 'Reach 100 Career XP to qualify';
 
   // Audio Fanfare & Report on Match Conclusion
   const matchOverSoundPlayedRef = useRef<boolean>(false);
@@ -756,7 +875,7 @@ function ArenaContent() {
       matchOverSoundPlayedRef.current = true;
       if (didIWin) {
         BattleAudio.playVictory();
-      } else {
+      } else if (!didIDraw) {
         BattleAudio.playDefeat();
       }
       setShowBattleReport(true);
@@ -764,7 +883,7 @@ function ArenaContent() {
     if (!isMatchOver) {
       matchOverSoundPlayedRef.current = false;
     }
-  }, [isMatchOver, didIWin]);
+  }, [isMatchOver, didIWin, didIDraw]);
 
   // Synchronize recentMatches on match completion
   useEffect(() => {
@@ -888,7 +1007,7 @@ function ArenaContent() {
 
   return (
     <div style={{
-      maxWidth: inDuel ? '100%' : 1380,
+      maxWidth: inDuel ? '100%' : 1540,
       margin: '0 auto',
       minHeight: inDuel ? '100vh' : '85vh',
       padding: inDuel ? '12px 20px 32px' : '0 0 40px',
@@ -902,15 +1021,79 @@ function ArenaContent() {
           {/* STATE 1: LOBBY (No active battle or room) */}
           {!activeRoom && !soloMatch && (
             <div>
-              {/* Heading: Choose your battle (Image 1 Style) */}
-              <div style={{ marginBottom: 18 }}>
-                <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
-                  Choose your battle
-                </h2>
+              <section
+                data-testid="arena-ranked-hero"
+                style={{
+                  position: 'relative',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+                  alignItems: 'center',
+                  gap: 24,
+                  overflow: 'hidden',
+                  padding: 'clamp(24px, 4vw, 42px)',
+                  marginBottom: 18,
+                  borderRadius: 22,
+                  background: 'linear-gradient(115deg, var(--card) 0%, var(--bg2) 62%, var(--accent-light) 150%)',
+                  border: '1px solid color-mix(in srgb, var(--accent) 30%, var(--border))',
+                  boxShadow: 'var(--shadow-md, 0 12px 36px rgba(0,0,0,.12))',
+                }}
+              >
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, padding: '7px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--accent-hover, #4f46e5)', fontSize: 12, fontWeight: 850, letterSpacing: '.045em', textTransform: 'uppercase' }}>
+                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 10px #22c55e' }} />
+                    1v1 Code Wars <span aria-hidden="true" style={{ color: 'var(--t3)' }}>·</span> Live Arena
+                  </div>
+                  <h1 style={{ margin: '18px 0 8px', color: 'var(--t1)', fontSize: 'clamp(28px, 3.2vw, 40px)', lineHeight: 1.08, letterSpacing: '-.04em', fontWeight: 900 }}>
+                    Outthink. Outcode. Outlast.
+                  </h1>
+                  <p style={{ maxWidth: 600, margin: 0, color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.7 }}>
+                    Fair, timed duels move your Arena ELO. Choose your format and make the next move.
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginTop: 22 }}>
+                    <span style={{ padding: '7px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase' }}>
+                      Rated · calibrated
+                    </span>
+                    <span style={{ padding: '7px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase' }}>
+                      Difficulty matched to you
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => void handleStartSoloSparring()}
+                      disabled={isStartingSolo}
+                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, padding: '13px 19px', border: '1px solid rgba(255,255,255,.16)', borderRadius: 12, color: '#fff', background: 'linear-gradient(135deg, #6259ed, #493bd4)', boxShadow: '0 9px 22px rgba(79,70,229,.28)', fontSize: 13, fontWeight: 900, letterSpacing: '.02em', cursor: isStartingSolo ? 'wait' : 'pointer', opacity: isStartingSolo ? .75 : 1 }}
+                    >
+                      {isStartingSolo ? 'PREPARING MATCH…' : 'ENTER THE RING'} <span aria-hidden="true">↗</span><span style={{ opacity: .82 }}>· 10 PINS</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div aria-hidden="true" style={{ justifySelf: 'center', position: 'relative', width: 'min(210px, 42vw)', aspectRatio: '1', display: 'grid', placeItems: 'center', borderRadius: '50%', border: '1px dashed color-mix(in srgb, var(--accent) 70%, transparent)', background: 'radial-gradient(circle, var(--accent-light) 0%, transparent 68%)' }}>
+                  <div style={{ position: 'absolute', inset: '9%', borderRadius: '50%', border: '1px solid color-mix(in srgb, var(--accent) 34%, transparent)' }} />
+                  <div style={{ position: 'absolute', inset: '20%', borderRadius: '50%', border: '1px solid color-mix(in srgb, var(--accent) 28%, transparent)' }} />
+                  <div style={{ position: 'absolute', inset: '31%', borderRadius: '50%', border: '1px solid color-mix(in srgb, var(--accent) 44%, transparent)' }} />
+                  <div style={{ width: '39%', aspectRatio: '1', display: 'grid', placeItems: 'center', borderRadius: '50%', color: 'var(--t1)', background: 'var(--card)', border: '2px solid var(--accent)', boxShadow: '0 0 28px color-mix(in srgb, var(--accent) 25%, transparent)', fontSize: 22, fontWeight: 950, letterSpacing: '.03em' }}>VS</div>
+                  <span style={{ position: 'absolute', top: 4, left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '6px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 10.5, fontWeight: 900, letterSpacing: '.06em' }}>RATED MATCH</span>
+                </div>
+              </section>
+
+              <div data-testid="arena-summary-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 190px), 1fr))', gap: 12, marginBottom: 28 }}>
+                {[
+                  { label: 'Your rank', value: arenaRankLabel, detail: arenaRankCaption, color: '#22d3ee' },
+                  { label: 'Arena ELO', value: String(liveElo ?? sanitizedUserElo ?? cachedElo), detail: 'Match rating', color: '#a78bfa' },
+                  { label: 'Sprint gain', value: `${arenaStanding.weeklyXp.toLocaleString()} XP`, detail: 'Learning XP this sprint', color: '#10b981' },
+                  { label: 'Entry goal', value: `${Math.min(100, currentCareerXp)} / 100`, detail: arenaStanding.joined ? 'Browns entry complete' : 'Career XP to qualify', color: '#fbbf24' },
+                ].map(card => (
+                  <div key={card.label} style={{ position: 'relative', minHeight: 96, padding: '16px 18px 15px 22px', borderRadius: 15, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', overflow: 'hidden' }}>
+                    <span aria-hidden="true" style={{ position: 'absolute', inset: '14px auto 14px 0', width: 4, borderRadius: 4, background: card.color }} />
+                    <div style={{ color: 'var(--t3)', fontSize: 10.5, fontWeight: 900, letterSpacing: '.06em', textTransform: 'uppercase' }}>{card.label}</div>
+                    <div style={{ marginTop: 7, color: 'var(--t1)', fontSize: 22, lineHeight: 1, fontWeight: 900 }}>{card.value}</div>
+                    <div style={{ marginTop: 7, color: 'var(--t3)', fontSize: 11.5 }}>{card.detail}</div>
+                  </div>
+                ))}
               </div>
 
               {/* Top Quick Actions Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20, marginBottom: 28 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 16, marginBottom: 18 }}>
                 
                 {
                 /* Mode B: Create Private Room */}
@@ -942,14 +1125,14 @@ function ArenaContent() {
                         borderRadius: 20
                       }}>
                         <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
-                        PRIVATE INVITE
+                        PRIVATE BATTLE
                       </span>
                     </div>
                     <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                      Create Private Room
+                      Challenge a friend
                     </h3>
                     <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
-                      Host a private duel, choose problem difficulty &amp; time limit, and share an invite code/link with friends.
+                      Set the challenge, create a private room, then share a one-time invite with your rival.
                     </p>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
@@ -1053,14 +1236,14 @@ function ArenaContent() {
                         borderRadius: 20
                       }}>
                         <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ec4899', boxShadow: '0 0 6px #ec4899' }} />
-                        ENTER CODE
+                        INVITE CODE
                       </span>
                     </div>
                     <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                      Join via Code
+                      Join a battle
                     </h3>
                     <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
-                      Have an invite code from a friend? Enter it below to immediately jump into their battle lobby.
+                      Got a room code from a friend? Enter it here to join their lobby.
                     </p>
 
                     <div style={{ marginBottom: 16 }}>
@@ -1068,7 +1251,7 @@ function ArenaContent() {
                         type="text"
                         value={roomInputCode}
                         onChange={e => setRoomInputCode(e.target.value.toUpperCase())}
-                        placeholder="6-digit PIN (e.g. ARENA-8F2A)"
+                        placeholder="ARENA-8F2A"
                         maxLength={12}
                         style={{
                           width: '100%',
@@ -1132,89 +1315,12 @@ function ArenaContent() {
                 </div>
               )}
 
-              {/* Task 14: Knowledge Calibration Banner */}
-              <div style={{
-                marginTop: 24,
-                marginBottom: 20,
-                padding: '16px 20px',
-                borderRadius: 14,
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.12) 100%)',
-                border: '1px solid rgba(99, 102, 241, 0.25)',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: 12,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div style={{ fontSize: 28 }}>🎯</div>
-                  <div>
-                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
-                      Knowledge-Calibrated Arena: <span style={{ color: '#818cf8' }}>{studentKnowledge.tierLabel}</span>
-                    </div>
-                    <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 2 }}>
-                      Knowledge Score: <strong style={{ color: 'var(--t2)' }}>{studentKnowledge.score}/100</strong> (Quests: {studentKnowledge.questMasteryScore}/35 · Elo: {studentKnowledge.eloMasteryScore}/30 · Diagnostic: {studentKnowledge.diagnosticScore}/20 · Activity: {studentKnowledge.consistencyScore}/15)
-                    </div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 8, background: '#10b981', color: '#fff', textTransform: 'uppercase' }}>
-                    Calibrated: {studentKnowledge.recommendedDifficulty}
-                  </span>
-                </div>
-              </div>
-
-              <div
-                data-testid="league-points-rules"
-                style={{
-                  marginTop: 28,
-                  padding: '22px 24px',
-                  borderRadius: 20,
-                  background: 'linear-gradient(135deg, var(--card), var(--bg2))',
-                  border: '1px solid var(--border)',
-                  boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', marginBottom: 18 }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                    <div style={{ width: 42, height: 42, borderRadius: 13, display: 'grid', placeItems: 'center', background: 'var(--accent-light)', fontSize: 21, flexShrink: 0 }}>🏁</div>
-                    <div>
-                      <h3 style={{ fontSize: 19, fontWeight: 850, color: 'var(--t1)', margin: 0 }}>One score decides your league rank</h3>
-                      <p style={{ fontSize: 13.5, color: 'var(--t2)', margin: '5px 0 0', lineHeight: 1.5 }}>
-                        <strong style={{ color: 'var(--t1)' }}>League Points = Learning XP + Arena Points.</strong> Both count equally during this sprint.
-                      </p>
-                    </div>
-                  </div>
-                  <Link
-                    href="/leaderboard?mode=global"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '9px 14px', borderRadius: 10, background: 'var(--accent-light)', border: '1px solid var(--accent)', color: 'var(--accent-hover, var(--brand-bright, #4f46e5))', fontSize: 13, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap' }}
-                  >
-                    View standings →
-                  </Link>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 10 }}>
-                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                    <div style={{ fontSize: 11, fontWeight: 850, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '.06em' }}>Learn</div>
-                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>Career Learning XP adds to League Points one for one.</div>
-                  </div>
-                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                    <div style={{ fontSize: 11, fontWeight: 850, color: '#059669', textTransform: 'uppercase', letterSpacing: '.06em' }}>Win in Arena</div>
-                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>Arena Points = half your pre-match ELO, rounded, up to 250. ELO 200 → 100 points; ELO 500 → 250.</div>
-                  </div>
-                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                    <div style={{ fontSize: 11, fontWeight: 850, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '.06em' }}>Keep ELO separate</div>
-                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>ELO starts at 100 and persists between sprints. A win adds 20; a loss removes 20, down to 0.</div>
-                  </div>
-                  <div style={{ padding: '13px 14px', borderRadius: 13, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                    <div style={{ fontSize: 11, fontWeight: 850, color: '#d97706', textTransform: 'uppercase', letterSpacing: '.06em' }}>Move by rank</div>
-                    <div style={{ marginTop: 5, color: 'var(--t1)', fontSize: 13, lineHeight: 1.45 }}>At sprint reset, the top 10% move up. The bottom 10% move down when a division has at least 10 players; Browns and Ruby are the league edges. ELO never changes placement.</div>
-                  </div>
-                </div>
-                <div style={{ marginTop: 12, fontSize: 12, color: 'var(--t3)' }}>
-                  Join Browns after reaching 100 lifetime Career XP. Your ELO rating is not reset when the sprint ends.
-                </div>
-              </div>
+              <p data-testid="arena-league-note" style={{ margin: '4px 0 0', color: 'var(--t3)', fontSize: 12.5, lineHeight: 1.5 }}>
+                Arena wins add Arena Points to your League Points.{' '}
+                <Link href="/leaderboard?mode=global" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
+                  View League Points standings →
+                </Link>
+              </p>
             </div>
           )}
 
@@ -2199,17 +2305,17 @@ function ArenaContent() {
                     padding: 32,
                     borderRadius: 20,
                     background: 'var(--bg2)',
-                    border: didIWin ? '2px solid #10b981' : '2px solid #ef4444',
+                    border: didIDraw ? '2px solid #818cf8' : didIWin ? '2px solid #10b981' : '2px solid #ef4444',
                     textAlign: 'center',
-                    boxShadow: didIWin ? '0 0 50px rgba(16, 185, 129, 0.3)' : '0 0 50px rgba(239, 68, 68, 0.3)',
+                    boxShadow: didIDraw ? '0 0 50px rgba(129, 140, 248, 0.22)' : didIWin ? '0 0 50px rgba(16, 185, 129, 0.3)' : '0 0 50px rgba(239, 68, 68, 0.3)',
                     animation: 'goldImpactShockwave 0.5s ease'
                   }}>
                     <div style={{ fontSize: 61.5, marginBottom: 12 }}>
-                      {didIWin ? '✓' : '✗'}
+                      {didIDraw ? '＝' : didIWin ? '✓' : '✗'}
                     </div>
 
-                    <h2 style={{ fontSize: 31, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171', margin: '0 0 8px' }}>
-                      {didIWin ? 'VICTORY!' : 'DEFEAT'}
+                    <h2 style={{ fontSize: 31, fontWeight: 800, color: didIDraw ? '#a5b4fc' : didIWin ? '#34d399' : '#f87171', margin: '0 0 8px' }}>
+                      {didIDraw ? 'DRAW' : didIWin ? 'VICTORY!' : 'DEFEAT'}
                     </h2>
 
                     <div style={{
@@ -2223,11 +2329,13 @@ function ArenaContent() {
                       fontWeight: 700,
                       marginBottom: 12
                     }}>
-                      ⚔️ Decision: {activeRoom?.tieBreakerReason || (didIWin ? 'Flawless Test Suite Clear' : 'Match Concluded')}
+                      {didIDraw ? '🤝' : '⚔️'} Decision: {activeRoom?.tieBreakerReason || (didIDraw ? 'The match ended evenly' : didIWin ? 'Flawless Test Suite Clear' : 'Match Concluded')}
                     </div>
 
                     <p style={{ color: 'var(--t2)', fontSize: 15.5, margin: '0 0 20px' }}>
-                      {didIWin
+                      {didIDraw
+                        ? 'The match ended level. Your Arena ELO and Arena Points stay unchanged.'
+                        : didIWin
                         ? 'Sensational performance! You conquered the algorithmic duel under official Arena rules.'
                         : "Hard-fought match. Review your test logs, inspect your rival's approach, and run it back."}
                     </p>
@@ -2260,7 +2368,7 @@ function ArenaContent() {
                     }}>
                       <div>
                         <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ELO RATING</div>
-                        <div style={{ fontSize: 20, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171' }}>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: didIDraw ? '#a5b4fc' : didIWin ? '#34d399' : '#f87171' }}>
                           {(() => {
                             if (activeRoom) {
                               const delta = isHost ? (activeRoom as any)?.hostEloDelta : (activeRoom as any)?.guestEloDelta;
@@ -2271,11 +2379,11 @@ function ArenaContent() {
                             if (soloReward) {
                               return soloReward.eloDelta >= 0 ? `+${soloReward.eloDelta}` : `${soloReward.eloDelta}`;
                             }
-                            return didIWin ? '+20' : '-20';
+                            return didIDraw ? '+0' : didIWin ? '+20' : '-20';
                           })()}
                         </div>
                         <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
-                          {soloReward?.newElo ? `New Rating: ${soloReward.newElo}` : (activeRoom ? `Rating: ${isHost ? (activeRoom as any)?.hostNewElo || 120 : (activeRoom as any)?.guestNewElo || 80}` : (didIWin ? 'New: 120' : 'New: 80'))}
+                          {soloReward?.newElo ? `New Rating: ${soloReward.newElo}` : (activeRoom ? `Rating: ${isHost ? (activeRoom as any)?.hostNewElo ?? liveElo ?? sanitizedUserElo ?? 100 : (activeRoom as any)?.guestNewElo ?? liveElo ?? sanitizedUserElo ?? 100}` : (didIDraw ? `New: ${liveElo ?? sanitizedUserElo ?? 100}` : didIWin ? 'New: 120' : 'New: 80'))}
                         </div>
                       </div>
                       <div>

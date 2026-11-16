@@ -45,18 +45,34 @@ export class ArenaPvPService {
     return headers;
   }
 
-  static async startSoloMatch(problemId: string): Promise<{ matchId: string; startedAt: string; deadlineAt: string }> {
+  static async startSoloMatch(problemId: string, requestId?: string): Promise<{
+    matchId: string;
+    startedAt: string;
+    deadlineAt: string;
+    persisted: boolean;
+    newBalance?: number;
+    newBonusBalance?: number;
+    replayed?: boolean;
+  }> {
     const headers = await this.getAuthHeaders();
     const res = await fetch('/api/arena/solo/start', {
       method: 'POST',
       headers,
-      body: JSON.stringify({ problemId }),
+      body: JSON.stringify({ problemId, requestId }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.ok || typeof data.matchId !== 'string') {
       throw new Error(data.error || 'Could not start Arena match.');
     }
-    return { matchId: data.matchId, startedAt: data.startedAt, deadlineAt: data.deadlineAt };
+    return {
+      matchId: data.matchId,
+      startedAt: data.startedAt,
+      deadlineAt: data.deadlineAt,
+      persisted: Boolean(data.persisted),
+      ...(typeof data.newBalance === 'number' ? { newBalance: data.newBalance } : {}),
+      ...(typeof data.newBonusBalance === 'number' ? { newBonusBalance: data.newBonusBalance } : {}),
+      ...(typeof data.replayed === 'boolean' ? { replayed: data.replayed } : {}),
+    };
   }
 
   static async settleSoloMatch(params: { matchId: string; code: string; language: string }): Promise<any> {
@@ -92,6 +108,7 @@ export class ArenaPvPService {
     problemId: string;
     difficulty?: 'basic' | 'intermediate' | 'advanced' | 'production';
     timeLimitSeconds?: number;
+    requestId?: string;
     completedQuests?: string[];
     verifiedCompetencies?: string[];
     recentProblemIds?: string[];
@@ -108,6 +125,17 @@ export class ArenaPvPService {
       throw new Error(data.error || 'Failed to create room');
     }
     return data.room;
+  }
+
+  /** Cancel an empty room when a guest's local Pins reservation cannot be completed. */
+  static async cancelWaitingRoom(roomCode: string): Promise<void> {
+    const headers = await this.getAuthHeaders();
+    const res = await fetch(`/api/arena/room/${encodeURIComponent(roomCode)}`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ action: 'cancel_room' }),
+    });
+    if (!res.ok) throw new Error('Could not cancel the unused battle room.');
   }
 
   /**
@@ -282,11 +310,15 @@ export class ArenaPvPService {
                 hostId: d.host_id,
                 hostName: d.host_name,
                 hostAvatar: d.host_avatar,
+                hostDeviceId: d.host_device_id || undefined,
+                hostLanguage: d.host_language || d.host_progress?.language || 'typescript',
                 hostReady: d.host_ready,
                 hostProgress: d.host_progress || { testsPassed: 0, totalTests: 5, score: 0, submitted: false, code: '' },
                 guestId: d.guest_id,
                 guestName: d.guest_name,
                 guestAvatar: d.guest_avatar,
+                guestDeviceId: d.guest_device_id || undefined,
+                guestLanguage: d.guest_language || d.guest_progress?.language || 'typescript',
                 guestReady: d.guest_ready,
                 guestProgress: d.guest_progress || { testsPassed: 0, totalTests: 5, score: 0, submitted: false, code: '' },
                 winnerId: d.winner_id,

@@ -69,8 +69,8 @@ test('BRUTAL VECTOR 2: Space reclamation, HUD elevation, and ~25% compact sizing
     'Cockpit Telemetry HUD must be present with test ID'
   );
   assert.ok(
-    leaderboardPage.includes("padding: '12px 18px'"),
-    'Cockpit HUD must have compact padding: 12px 18px'
+    leaderboardPage.includes("padding: '18px 24px'"),
+    'Cockpit HUD must use the current compact, responsive card spacing'
   );
   assert.ok(
     leaderboardPage.includes('fontSize: 20'),

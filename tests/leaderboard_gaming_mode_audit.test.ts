@@ -36,7 +36,7 @@ test('Task 1: Cockpit banner must use theme-adaptive semantic gradient, not hard
   );
 });
 
-test('Task 1: League inspection cards and filters use semantic tokens and visible borders', () => {
+test('Task 1: League inspection cards use semantic tokens and standings use three focused tabs', () => {
   assert.ok(
     leaderboardPage.includes("border: isSelected ? `2px solid ${meta.color}` : '1px solid var(--border)'"),
     'League card border must resolve to var(--border) when not selected'
@@ -45,14 +45,13 @@ test('Task 1: League inspection cards and filters use semantic tokens and visibl
     leaderboardPage.includes("background: isSelected ? meta.bgGradient : 'var(--card)'"),
     'League card background must resolve to var(--card) when not selected'
   );
-  assert.ok(
-    leaderboardPage.includes("background: domainFilter === d ? 'var(--brand)' : 'var(--card)'"),
-    'Domain filter buttons must use var(--card) when inactive'
-  );
-  assert.ok(
-    leaderboardPage.includes("border: domainFilter === d ? '1px solid var(--brand)' : '1px solid var(--border)'"),
-    'Domain filter buttons must use var(--border) when inactive'
-  );
+  assert.ok(leaderboardPage.includes("{ id: 'campus', label: 'Campus' }"));
+  assert.ok(leaderboardPage.includes("{ id: 'global', label: 'Global' }"));
+  assert.ok(leaderboardPage.includes("{ id: 'guild', label: 'Guild' }"));
+  assert.ok(!leaderboardPage.includes('ALL TRACKS'));
+  assert.ok(!leaderboardPage.includes('TECH DOMAIN'));
+  assert.ok(!leaderboardPage.includes('DATA DOMAIN'));
+  assert.ok(!leaderboardPage.includes('AI DOMAIN'));
 });
 
 test('Task 1: High-contrast rank colors and Silver/Gold YOU badges', () => {
@@ -107,14 +106,14 @@ test('Task 3: Leaderboard API sets anti-stale Cache-Control headers', () => {
   );
 });
 
-test('Task 3: Browns league includes students with NULL league_tier', () => {
+test('Task 3: Browns leaderboard includes only qualified, explicitly joined members', () => {
   assert.ok(
-    leaderboardRoute.includes("activeLeague === 'browns'"),
-    'Leaderboard route must check if activeLeague is browns'
+    leaderboardRoute.includes(".not('league_joined_at', 'is', null)"),
+    'League rankings must exclude profiles that have not joined'
   );
   assert.ok(
-    leaderboardRoute.includes("query.or('league_tier.eq.browns,league_tier.is.null')"),
-    'Browns league query must include NULL league_tier users'
+    leaderboardRoute.includes(".in('league_tier', [activeLeague, titleTier, activeLeague.toUpperCase()])"),
+    'League rankings must query the selected division'
   );
 });
 
@@ -124,31 +123,31 @@ test('Task 3: Off-cohort rank resolution for students outside top 100 limit', ()
     'Must compute off-cohort position for logged-in user'
   );
   assert.ok(
-    leaderboardRoute.includes("rankQuery.gt('weekly_xp', myProfile.weekly_xp || 0)"),
-    'Must count users with higher weekly_xp to compute exact off-cohort rank'
+    leaderboardRoute.includes('calculateLeaguePoints(Number(b.weekly_xp) || 0, Number(b.weekly_arena_points) || 0) -'),
+    'Must use the combined League Points score when resolving off-cohort rank'
   );
 });
 
 // ── TASK 4 AUDIT: Dynamic Weekly XP Telemetry Synchronization ──────────────────
 test('Task 4: Quest completion synchronizes weekly_xp alongside total xp', () => {
   assert.ok(
-    questComplete.includes('weekly_xp: nextWeeklyXp'),
-    'Quest complete route must update weekly_xp in users table'
+    questComplete.includes("supabase.rpc('increment_xp'"),
+    'Quest completion must use the atomic XP RPC that also increments weekly XP'
   );
   assert.ok(
-    questComplete.includes('weeklyXp: nextWeeklyXp'),
-    'Quest complete route must return weeklyXp in JSON response'
+    questComplete.includes('userUpdate.weekly_xp = nextWeeklyXp'),
+    'Quest completion fallback must preserve weekly XP when the RPC is unavailable'
   );
 });
 
 test('Task 4: Python and Java code runners persist weekly_xp on server-side milestones', () => {
   assert.ok(
-    pythonRunner.includes('weekly_xp: newWeeklyXp'),
-    'Python code runner must increment weekly_xp'
+    pythonRunner.includes("admin.rpc('increment_xp'"),
+    'Python runner must award learning XP through the atomic XP RPC'
   );
   assert.ok(
-    javaRunner.includes('weekly_xp: newWeeklyXp'),
-    'Java code runner must increment weekly_xp'
+    javaRunner.includes("admin.rpc('increment_xp'"),
+    'Java runner must award learning XP through the atomic XP RPC'
   );
 });
 

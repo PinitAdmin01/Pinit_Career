@@ -32,25 +32,23 @@ describe('Arena lobby, standings link, and scoring rules', () => {
       'Expected bottom combat telemetry dock to be purged per user order'
     );
 
-    // The Arena explains the score and links to the combined standings screen.
+    // The Arena keeps score details brief and links to the combined standings screen.
     assert.ok(
-      arenaContent.includes('data-testid="league-points-rules"'),
-      'Expected the League Points rules to be present'
+      arenaContent.includes('data-testid="arena-league-note"'),
+      'Expected the concise Arena standings note to be present'
     );
-    assert.ok(arenaContent.includes('League Points = Learning XP + Arena Points'));
     assert.ok(arenaContent.includes('href="/leaderboard?mode=global"'), 'Arena must open the global League Points board');
-    assert.ok(arenaContent.includes('Arena Points = half your pre-match ELO'));
-    assert.ok(arenaContent.includes('ELO never changes placement'));
+    assert.ok(arenaContent.includes('Arena wins add Arena Points to your League Points.'));
   });
 
   it('keeps private-room actions and removes the matchmaking queue card', () => {
     assert.ok(arenaContent.includes('<CompetitionNavigation active="arena"'), 'Arena and standings share the competition navigation');
-    assert.ok(arenaContent.includes('Create Private Room'), 'Create Private Room card must be present');
-    assert.ok(arenaContent.includes('Join via Code'), 'Join via Code card must be present');
+    assert.ok(arenaContent.includes('Challenge a friend'), 'Private battle card must be present');
+    assert.ok(arenaContent.includes('Join a battle'), 'Room-code join card must be present');
     assert.ok(!arenaContent.includes('Quick Duel'), 'Removed queue matchmaking card must stay absent');
     assert.ok(!arenaContent.includes('Instant Queue'), 'Removed instant-queue action must stay absent');
-    assert.ok(arenaContent.includes('PRIVATE INVITE'), 'Lobby Mode B micro-badge must be present');
-    assert.ok(arenaContent.includes('ENTER CODE'), 'Lobby Mode C micro-badge must be present');
+    assert.ok(arenaContent.includes('PRIVATE BATTLE'), 'Private-room micro-badge must be present');
+    assert.ok(arenaContent.includes('INVITE CODE'), 'Room-code micro-badge must be present');
     assert.ok(arenaContent.includes("background: 'var(--card)'"), 'Cards must use var(--card) for Light/Dark parity');
   });
 
