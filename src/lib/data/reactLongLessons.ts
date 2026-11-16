@@ -12677,9 +12677,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Architectural Blueprint: Integrating FSM, Fiber Priority, and Virtual Windowing, an engineering or financial team first captures Architectural and validates Blueprint against Integrating before committing Fiber. Urgent updates keep the text input responsive and smooth at 60 FPS, while heavy background work like filtering 10,000 rows executes without blocking the main thread.",
         check: {
           question: "Why must the user's keystroke update urgent state synchronously rather than waiting for the 10,000-row filter to finish?",
-          options: ["To prevent input latency and ensure the text cursor and typed characters echo at 60 FPS without lag", "Because React Concurrent Mode prohibits storing strings inside useTransition updates", "Because browsers refuse to emit onKeyDown events while arrays are being filtered", "To force garbage collection before re-rendering the table columns"],
-          answer: 0,
-          why: "Urgent updates keep the text input responsive and smooth at 60 FPS, while heavy background work like filtering 10,000 rows executes without blocking the main thread."
+          options: [
+            "To enforce garbage collection runs before updating table headers and column cells.",
+            "To avoid input latency and ensure typed keystrokes echo on screen without frame drops.",
+            "Because browsers refuse to dispatch input events while background workers are active.",
+            "Because concurrent rendering engines reject mutations applied to primary state trees."
+          ],
+          answer: 1,
+          why: "Urgent state must update immediately so that keystrokes and the text cursor render at 60 FPS without perceptible input lag."
         }
       },
       {
@@ -12703,9 +12708,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Designing the Grid State Machine: Discriminated Unions for Filtering, Sorting, and Slicing, an engineering or financial team first captures Designing and validates State against Machine before committing Discriminated. Monotonic tokens ensure that if an older background filtering pass completes after a newer search query has already begun, its stale results are discarded automatically.",
         check: {
           question: "What is the primary role of the monotonic transaction token in the grid state machine?",
-          options: ["To detect and discard out-of-order background filter completions caused by rapid successive keystrokes", "To generate unique CSS class names for alternating grid rows", "To encrypt column headers for secure HTTP transmission", "To prevent the browser from opening the developer console during rendering"],
-          answer: 0,
-          why: "Monotonic tokens ensure that if an older background filtering pass completes after a newer search query has already begun, its stale results are discarded automatically."
+          options: [
+            "To generate deterministic css styling classes for alternating rows in the grid interface.",
+            "To compress dataset records in memory using native client-side hashing algorithms safely.",
+            "To prevent developer inspection utilities from intercepting dispatched component actions.",
+            "To detect and discard stale background filter responses caused by rapid input keystrokes."
+          ],
+          answer: 3,
+          why: "Monotonic tokens allow the state machine to identify and ignore out-of-order filter completions from earlier keystrokes."
         }
       },
       {
@@ -12729,9 +12739,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Non-Blocking Concurrent Filtering with useTransition and Priority Queuing, an engineering or financial team first captures Non-Blocking and validates Concurrent against Filtering before committing useTransition. Cooperative chunking allows the JavaScript event loop to breathe between slices, enabling urgent user inputs to preempt long-running background tasks.",
         check: {
           question: "What is the primary benefit of breaking a 10,000-row filtering loop into chunked slices?",
-          options: ["It allows the engine to check for urgent incoming events between chunks and abort obsolete work without freezing the main thread", "It automatically stores the filtered results in local browser cookies", "It eliminates the need for JavaScript array methods entirely", "It doubles the memory capacity of the client machine"],
+          options: [
+            "It allows checking for urgent user inputs between slices without locking the main thread.",
+            "It automatically persists filtered table records directly inside browser cache partitions.",
+            "It bypasses standard array iteration methods to execute native web assembly instructions.",
+            "It doubles memory throughput by preventing garbage collection sweeps during table updates."
+          ],
           answer: 0,
-          why: "Cooperative chunking allows the JavaScript event loop to breathe between slices, enabling urgent user inputs to preempt long-running background tasks."
+          why: "Chunking computation lets the runtime yield control back to the event loop between slices so urgent inputs remain responsive."
         }
       },
       {
@@ -12755,9 +12770,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Virtual Viewport Rendering and Stale Visual Indicators with useDeferredValue, an engineering or financial team first captures Virtual and validates Viewport against Rendering before committing Stale. Virtualization keeps the DOM light by rendering only the 15 to 30 rows currently inside the visible screen window, preventing browser DOM overload.",
         check: {
           question: "Why does virtualizing the data grid improve performance when rendering 10,000 rows?",
-          options: ["It only creates DOM elements for the rows currently visible inside the viewport, drastically reducing layout and compositing costs", "It compresses row data into binary zip files before writing them to the screen", "It disables JavaScript garbage collection during active scroll gestures", "It offloads rendering calculations to remote cloud servers"],
-          answer: 0,
-          why: "Virtualization keeps the DOM light by rendering only the 15 to 30 rows currently inside the visible screen window, preventing browser DOM overload."
+          options: [
+            "It disables garbage collection cycles while scrolling through large virtualized datasets.",
+            "It compresses all row records into binary streams before mounting them onto screen nodes.",
+            "It only mounts DOM nodes for rows inside the active viewport, minimizing layout overhead.",
+            "It offloads all geometry and layout calculations directly onto remote backend api workers."
+          ],
+          answer: 2,
+          why: "Virtualization only creates DOM nodes for the visible viewport window, keeping the DOM lightweight regardless of total row count."
         }
       },
       {
@@ -12781,9 +12801,14 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "In practice, when implementing Production Stress Testing: Benchmarking Frame Rates and 10,000-Row Throughput, an engineering or financial team first captures Production and validates Stress against Testing before committing Benchmarking. A 60 frames per second display budget requires each frame to be computed and painted in under 16.6 milliseconds (1000ms / 60 frames = 16.6ms).",
         check: {
           question: "What threshold must interaction latency stay below to maintain a 60 FPS responsive user interface?",
-          options: ["Under 16.6 milliseconds per frame", "Under 1,000 milliseconds", "Under 500 milliseconds", "Under 100 seconds"],
-          answer: 0,
-          why: "A 60 frames per second display budget requires each frame to be computed and painted in under 16.6 milliseconds (1000ms / 60 frames = 16.6ms)."
+          options: [
+            "Interaction latency must stay strictly below five milliseconds for frames.",
+            "Interaction latency must stay strictly below sixteen milliseconds a frame.",
+            "Interaction latency must stay strictly below thirty milliseconds per frame.",
+            "Interaction latency must stay strictly below fifty milliseconds for frames."
+          ],
+          answer: 1,
+          why: "To hit sixty frames per second, the entire render, layout, and commit budget must complete in under sixteen milliseconds."
         }
       }
     ],

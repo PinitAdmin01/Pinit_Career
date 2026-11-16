@@ -9,298 +9,242 @@
       "partTitle": "Architectural Blueprint: Integrating FSM, Fiber Priority, and Virtual Windowing",
       "codeHash": "a00c7fdb399f0b0ef2d5c60bff0875478c9360c48f95e071da49976d9fe30b5e",
       "spec": {
-        "template": "flow",
-        "title": "Concurrent Data Grid Architecture: Urgent Input to Viewport Slicing",
-        "nodes": [
+        "template": "boxes",
+        "title": "Concurrent Grid Architecture: Urgent vs Transition Separation",
+        "boxes": [
           {
-            "id": "g1",
-            "label": "Urgent Input",
-            "tappable": false
+            "id": "b1",
+            "label": "Urgent Lane"
           },
           {
-            "id": "g2",
-            "label": "Concurrent Slices",
-            "tappable": false
+            "id": "b2",
+            "label": "Transition Lane"
           },
           {
-            "id": "g3",
-            "label": "Virtual Window",
-            "tappable": false
+            "id": "b3",
+            "label": "isPending"
           },
           {
-            "id": "g4",
-            "label": "60 FPS Render",
-            "tappable": false
+            "id": "b4",
+            "label": "masterData"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User keystrokes enter synchronous Urgent Lane to echo immediately in the search input.",
+            "caption": "Keystrokes must echo with zero perceived input lag and no stutter.",
             "values": {
-              "g1": {
-                "text": "\"Echo 'Sale'\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Pending\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Offset: 720px\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"60 FPS\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "idle",
-              "g3": "idle",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g1",
-                "g2"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Concurrent background filter processes ten,multiple records in.",
+            "caption": "Senior software architects synthesize three architectural pillars.",
             "values": {
-              "g1": {
-                "text": "\"Responsive\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Chunk 2/4\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Rendering Old\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"No dropped frames\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "data",
-              "g3": "data",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g2",
-                "g3"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "Virtualization math calculates visible window of multiple rows with.",
+            "caption": "Foundational segment establishes concurrent execution pipelines.",
             "values": {
-              "g1": {
-                "text": "\"Synced\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Filtered 2500\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Rows 18-32\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"DOM Light\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "ok",
-              "g3": "ok",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g3",
-                "g4"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "data"
+            }
           },
           {
             "at": "say4",
-            "caption": "The completed dataset commits atomically, updating only visible viewport elements.",
+            "caption": "Simulation instantiates concurrent grid store with two tracks.",
             "values": {
-              "g1": {
-                "text": "\"Ready\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Committed\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Rows 18-32\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"Flawless 60 FPS\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "ok",
-              "g3": "ok",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g3",
-                "g4"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Concurrent Data Grid Architecture: Urgent Input to Viewport Slicing",
-        "nodes": [
+        "template": "boxes",
+        "title": "Concurrent Grid Architecture: Urgent vs Transition Separation",
+        "boxes": [
           {
-            "id": "g1",
-            "label": "Urgent Input",
-            "tappable": false
+            "id": "b1",
+            "label": "Urgent Lane"
           },
           {
-            "id": "g2",
-            "label": "Concurrent Slices",
-            "tappable": false
+            "id": "b2",
+            "label": "Transition Lane"
           },
           {
-            "id": "g3",
-            "label": "Virtual Window",
-            "tappable": false
+            "id": "b3",
+            "label": "isPending"
           },
           {
-            "id": "g4",
-            "label": "60 FPS Render",
-            "tappable": false
+            "id": "b4",
+            "label": "masterData"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User keystrokes enter synchronous Urgent Lane to echo immediately in the search input.",
+            "caption": "Keystrokes must echo with zero perceived input lag and no stutter.",
             "values": {
-              "g1": {
-                "text": "\"Echo 'Sale'\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Pending\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Offset: 720px\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"60 FPS\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "idle",
-              "g3": "idle",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g1",
-                "g2"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Concurrent background filter processes 10,000 records in 2,500-item cooperative slices.",
+            "caption": "Senior software architects synthesize three architectural pillars.",
             "values": {
-              "g1": {
-                "text": "\"Responsive\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Chunk 2/4\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Rendering Old\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"No dropped frames\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "data",
-              "g3": "data",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g2",
-                "g3"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "Virtualization math calculates visible window of 15 rows with overscan buffers.",
+            "caption": "Foundational segment establishes concurrent execution pipelines.",
             "values": {
-              "g1": {
-                "text": "\"Synced\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Filtered 2500\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Rows 18-32\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"DOM Light\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "ok",
-              "g3": "ok",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g3",
-                "g4"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "data"
+            }
           },
           {
             "at": "say4",
-            "caption": "The completed dataset commits atomically, updating only visible viewport elements.",
+            "caption": "Simulation instantiates concurrent grid store with two tracks.",
             "values": {
-              "g1": {
-                "text": "\"Ready\""
+              "b1": {
+                "text": "Urgent Lane"
               },
-              "g2": {
-                "text": "\"Committed\""
+              "b2": {
+                "text": "Transition Lane"
               },
-              "g3": {
-                "text": "\"Rows 18-32\""
+              "b3": {
+                "text": "isPending"
               },
-              "g4": {
-                "text": "\"Flawless 60 FPS\""
+              "b4": {
+                "text": "masterData"
               }
             },
             "tones": {
-              "g1": "ok",
-              "g2": "ok",
-              "g3": "ok",
-              "g4": "ok"
-            },
-            "arrows": [
-              [
-                "g3",
-                "g4"
-              ]
-            ]
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
         ]
       }
@@ -310,97 +254,289 @@
       "codeHash": "8734a7984e157f9867f653710a7d7ed9038e2911dedb83d905de7703d72c29fc",
       "spec": {
         "template": "states",
-        "title": "Grid State Machine Lifecycle Transitions",
+        "title": "Grid State Machine Lifecycle: Discriminated Unions",
         "states": [
           {
-            "id": "gs1",
+            "id": "s1",
             "label": "IDLE"
           },
           {
-            "id": "gs2",
+            "id": "s2",
             "label": "FILTERING"
           },
           {
-            "id": "gs3",
+            "id": "s3",
             "label": "SORTING"
           },
           {
-            "id": "gs4",
-            "label": "READY"
+            "id": "s4",
+            "label": "ERROR"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Grid begins in IDLE state displaying pre-allocated ten,multiple record.",
-            "activeId": "gs1",
-            "tone": "idle"
+            "caption": "Multiple asynchronous operations execute concurrently in data grids.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "QUERY_CHANGED increments transaction token and transitions grid to FILTERING.",
-            "activeId": "gs2",
-            "tone": "data"
+            "caption": "Finite state machine establishes consistency and eliminates tearing.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "User column sort toggle applies SORT_TOGGLED directly across filtered slice.",
-            "activeId": "gs3",
-            "tone": "data"
+            "caption": "Monotonic transaction tokens resolve overlapping background jobs.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "FILTER_COMPLETED matches monotonic token and transitions grid safely to READY.",
-            "activeId": "gs4",
-            "tone": "ok"
+            "caption": "Architectural discipline transforms edge cases into outcomes.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "data",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Examine the complete state machine implementation with pure reducer.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "idle"
+            }
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Grid State Machine Lifecycle Transitions",
+        "title": "Grid State Machine Lifecycle: Discriminated Unions",
         "states": [
           {
-            "id": "gs1",
+            "id": "s1",
             "label": "IDLE"
           },
           {
-            "id": "gs2",
+            "id": "s2",
             "label": "FILTERING"
           },
           {
-            "id": "gs3",
+            "id": "s3",
             "label": "SORTING"
           },
           {
-            "id": "gs4",
-            "label": "READY"
+            "id": "s4",
+            "label": "ERROR"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Grid begins in IDLE state displaying pre-allocated 10,000 record store.",
-            "activeId": "gs1",
-            "tone": "idle"
+            "caption": "Multiple asynchronous operations execute concurrently in data grids.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "QUERY_CHANGED increments transaction token and transitions grid to FILTERING.",
-            "activeId": "gs2",
-            "tone": "data"
+            "caption": "Finite state machine establishes consistency and eliminates tearing.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "User column sort toggle applies SORT_TOGGLED directly across filtered slice.",
-            "activeId": "gs3",
-            "tone": "data"
+            "caption": "Monotonic transaction tokens resolve overlapping background jobs.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say4",
-            "caption": "FILTER_COMPLETED matches monotonic token and transitions grid safely to READY.",
-            "activeId": "gs4",
-            "tone": "ok"
+            "caption": "Architectural discipline transforms edge cases into outcomes.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "data",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Examine the complete state machine implementation with pure reducer.",
+            "values": {
+              "s1": {
+                "text": "IDLE"
+              },
+              "s2": {
+                "text": "FILTERING"
+              },
+              "s3": {
+                "text": "SORTING"
+              },
+              "s4": {
+                "text": "ERROR"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "idle"
+            }
           }
         ]
       }
@@ -410,147 +546,143 @@
       "codeHash": "b7de7d32a1f50e2770586ecd1d751c1d61a58e24280a647c8907d5c58831baa7",
       "spec": {
         "template": "flow",
-        "title": "Cooperative Priority Slicing & Preemption",
+        "title": "Cooperative Time-Slicing: Priority Queue and Chunking",
         "nodes": [
           {
-            "id": "sl1",
-            "label": "Chunk 1 [0..2500]",
-            "tappable": false
+            "id": "n1",
+            "label": "items"
           },
           {
-            "id": "sl2",
-            "label": "Yield Check",
-            "tappable": false
+            "id": "n2",
+            "label": "CHUNK_SIZE"
           },
           {
-            "id": "sl3",
-            "label": "Chunk 2 [2501..5000]",
-            "tappable": false
+            "id": "n3",
+            "label": "CooperativeFilterEngine"
           },
           {
-            "id": "sl4",
-            "label": "Commit Matches",
-            "tappable": false
+            "id": "n4",
+            "label": "processSlice"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Filter engine evaluates initial two,server-error records in sub-twoms.",
+            "caption": "Synchronous array loops block execution thread and drop frames.",
             "values": {
-              "sl1": {
-                "text": "\"Evaluated\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Checking\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Waiting\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "ok",
-              "sl2": "data",
-              "sl3": "idle",
-              "sl4": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "sl1",
-                "sl2"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Yield check detects no urgent cancellation, allowing scheduler to process.",
+            "caption": "Fiber reconciler breaks rendering into cooperative work units.",
             "values": {
-              "sl1": {
-                "text": "\"Done\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Clear\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Processing\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "idle",
-              "sl2": "ok",
-              "sl3": "data",
-              "sl4": "idle"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "sl2",
-                "sl3"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "If new keypress arrives, yield check aborts job cleanly to service urgent input.",
+            "caption": "Engine checks for urgent interruption signals between small slices.",
             "values": {
-              "sl1": {
-                "text": "\"Discarded\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Preempted\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Aborted\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"Restarted\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "idle",
-              "sl2": "data",
-              "sl3": "error",
-              "sl4": "ok"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "sl3",
-                "sl4"
+                "n3",
+                "n4"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "On uninterrupted completion, all chunks merge into matching results slice.",
+            "caption": "Cooperative yielding mechanism reduces memory pressure spikes.",
             "values": {
-              "sl1": {
-                "text": "\"Complete\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Complete\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Complete\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"2500 Matches\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "ok",
-              "sl2": "ok",
-              "sl3": "ok",
-              "sl4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "sl3",
-                "sl4"
+                "n4",
+                "n1"
               ]
             ]
           }
@@ -558,147 +690,143 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Cooperative Priority Slicing & Preemption",
+        "title": "Cooperative Time-Slicing: Priority Queue and Chunking",
         "nodes": [
           {
-            "id": "sl1",
-            "label": "Chunk 1 [0..2500]",
-            "tappable": false
+            "id": "n1",
+            "label": "items"
           },
           {
-            "id": "sl2",
-            "label": "Yield Check",
-            "tappable": false
+            "id": "n2",
+            "label": "CHUNK_SIZE"
           },
           {
-            "id": "sl3",
-            "label": "Chunk 2 [2501..5000]",
-            "tappable": false
+            "id": "n3",
+            "label": "CooperativeFilterEngine"
           },
           {
-            "id": "sl4",
-            "label": "Commit Matches",
-            "tappable": false
+            "id": "n4",
+            "label": "processSlice"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Filter engine evaluates initial 2,500 records in sub-2ms slice.",
+            "caption": "Synchronous array loops block execution thread and drop frames.",
             "values": {
-              "sl1": {
-                "text": "\"Evaluated\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Checking\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Waiting\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "ok",
-              "sl2": "data",
-              "sl3": "idle",
-              "sl4": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "sl1",
-                "sl2"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Yield check detects no urgent cancellation, allowing scheduler to process Chunk 2.",
+            "caption": "Fiber reconciler breaks rendering into cooperative work units.",
             "values": {
-              "sl1": {
-                "text": "\"Done\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Clear\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Processing\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"None\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "idle",
-              "sl2": "ok",
-              "sl3": "data",
-              "sl4": "idle"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "sl2",
-                "sl3"
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "If new keypress arrives, yield check aborts job cleanly to service urgent input.",
+            "caption": "Engine checks for urgent interruption signals between small slices.",
             "values": {
-              "sl1": {
-                "text": "\"Discarded\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Preempted\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Aborted\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"Restarted\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "idle",
-              "sl2": "data",
-              "sl3": "error",
-              "sl4": "ok"
+              "n1": "data",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "sl3",
-                "sl4"
+                "n3",
+                "n4"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "On uninterrupted completion, all chunks merge into matching results slice.",
+            "caption": "Cooperative yielding mechanism reduces memory pressure spikes.",
             "values": {
-              "sl1": {
-                "text": "\"Complete\""
+              "n1": {
+                "text": "items"
               },
-              "sl2": {
-                "text": "\"Complete\""
+              "n2": {
+                "text": "CHUNK_SIZE"
               },
-              "sl3": {
-                "text": "\"Complete\""
+              "n3": {
+                "text": "CooperativeFilterEngine"
               },
-              "sl4": {
-                "text": "\"2500 Matches\""
+              "n4": {
+                "text": "processSlice"
               }
             },
             "tones": {
-              "sl1": "ok",
-              "sl2": "ok",
-              "sl3": "ok",
-              "sl4": "ok"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
-                "sl3",
-                "sl4"
+                "n4",
+                "n1"
               ]
             ]
           }
@@ -709,133 +837,241 @@
       "partTitle": "Virtual Viewport Rendering and Stale Visual Indicators with useDeferredValue",
       "codeHash": "7d3605226db09d4d0b537bd3b9cce963f285ebf8ffb10ca6b28f909060d82d2a",
       "spec": {
-        "template": "wireframe",
-        "title": "Virtual Viewport Wireframe with Stale Visual Cue",
-        "wireframe": {
-          "header": "Concurrent Data Grid (10,000 Records)",
-          "controls": [
-            "Search: [Sale               ]",
-            "Badge: [Updating (Sale)...]"
-          ],
-          "viewport": {
-            "totalHeightPx": 120000,
-            "renderedRange": "Rows 18 to 32 (15 elements in DOM)",
-            "opacity": 0.65
+        "template": "boxes",
+        "title": "Virtual Viewport Slice Calculation and Stale Visual Presentation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "calculateVirtualWindow"
+          },
+          {
+            "id": "b2",
+            "label": "scrollTop"
+          },
+          {
+            "id": "b3",
+            "label": "offsetY"
+          },
+          {
+            "id": "b4",
+            "label": "computeGridVisualState"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Outer scroll container maintains full height of multiple,px for accurate.",
+            "caption": "Full screen spinners destroy user reading context and visual focus.",
             "values": {
-              "scroll": {
-                "text": "\"scrollTop: 800px\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "scroll": "idle"
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Only multiple rows (rows multiple to thirty-two) are physically mounted.",
+            "caption": "Deferred value signals staleness with subtle opacity adjustments.",
             "values": {
-              "viewport": {
-                "text": "\"15 Active Nodes\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "viewport": "ok"
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "Subtle zero.multiple opacity signals visual staleness while background.",
+            "caption": "Viewport virtualization renders only visible rows inside container.",
             "values": {
-              "staleness": {
-                "text": "\"Opacity: 0.65\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "staleness": "data"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           },
           {
             "at": "say4",
-            "caption": "When deferred query matches urgent query, opacity returns to one.zero and.",
+            "caption": "Synergy decouples dataset size from active DOM rendering overhead.",
             "values": {
-              "sync": {
-                "text": "\"Opacity: 1.0\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "sync": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "wireframe",
-        "title": "Virtual Viewport Wireframe with Stale Visual Cue",
-        "wireframe": {
-          "header": "Concurrent Data Grid (10,000 Records)",
-          "controls": [
-            "Search: [Sale               ]",
-            "Badge: [Updating (Sale)...]"
-          ],
-          "viewport": {
-            "totalHeightPx": 120000,
-            "renderedRange": "Rows 18 to 32 (15 elements in DOM)",
-            "opacity": 0.65
+        "template": "boxes",
+        "title": "Virtual Viewport Slice Calculation and Stale Visual Presentation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "calculateVirtualWindow"
+          },
+          {
+            "id": "b2",
+            "label": "scrollTop"
+          },
+          {
+            "id": "b3",
+            "label": "offsetY"
+          },
+          {
+            "id": "b4",
+            "label": "computeGridVisualState"
           }
-        },
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Outer scroll container maintains full height of 120,000px for accurate scrollbar track.",
+            "caption": "Full screen spinners destroy user reading context and visual focus.",
             "values": {
-              "scroll": {
-                "text": "\"scrollTop: 800px\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "scroll": "idle"
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Only 15 rows (rows 18 to 32) are physically mounted in the DOM with 720px translateY.",
+            "caption": "Deferred value signals staleness with subtle opacity adjustments.",
             "values": {
-              "viewport": {
-                "text": "\"15 Active Nodes\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "viewport": "ok"
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "Subtle 0.65 opacity signals visual staleness while background filter recalculates.",
+            "caption": "Viewport virtualization renders only visible rows inside container.",
             "values": {
-              "staleness": {
-                "text": "\"Opacity: 0.65\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "staleness": "data"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           },
           {
             "at": "say4",
-            "caption": "When deferred query matches urgent query, opacity returns to 1.0 and badge says Synced.",
+            "caption": "Synergy decouples dataset size from active DOM rendering overhead.",
             "values": {
-              "sync": {
-                "text": "\"Opacity: 1.0\""
+              "b1": {
+                "text": "calculateVirtualWindow"
+              },
+              "b2": {
+                "text": "scrollTop"
+              },
+              "b3": {
+                "text": "offsetY"
+              },
+              "b4": {
+                "text": "computeGridVisualState"
               }
             },
             "tones": {
-              "sync": "ok"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -845,249 +1081,241 @@
       "partTitle": "Production Stress Testing: Benchmarking Frame Rates and 10,000-Row Throughput",
       "codeHash": "2eeff36aab29a3157368a5586a3d1e380bb122ad6a78319bd88c749a104dd59a",
       "spec": {
-        "template": "boxes",
-        "title": "Production Benchmark Performance Audit",
-        "boxes": [
+        "template": "states",
+        "title": "Production Benchmark Harness: Latency Telemetry Engine",
+        "states": [
           {
-            "id": "bm1",
-            "label": "Keystroke Latency",
-            "tappable": false
+            "id": "s1",
+            "label": "BenchmarkGridEngine"
           },
           {
-            "id": "bm2",
-            "label": "Frame Budget (16.6ms)",
-            "tappable": false
+            "id": "s2",
+            "label": "simulateKeystroke"
           },
           {
-            "id": "bm3",
-            "label": "Throughput (Rows/sec)",
-            "tappable": false
+            "id": "s3",
+            "label": "executeConcurrentJob"
           },
           {
-            "id": "bm4",
-            "label": "Dropped Frames",
-            "tappable": false
+            "id": "s4",
+            "label": "metrics"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated synthetic benchmark executes rapid four-keystroke sequence.",
+            "caption": "Web standards formalize interaction latency benchmarks for apps.",
             "values": {
-              "bm1": {
-                "text": "\"0ms\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"16.6ms Target\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"250k rows/s\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "idle",
-              "bm3": "data",
-              "bm4": "ok"
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "All urgent typing events execute in sub-millisecond time, satisfying INP web standards.",
+            "caption": "Typing simulation verifies urgent handlers execute without delays.",
             "values": {
-              "bm1": {
-                "text": "\"0ms (PASS)\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"16.6ms Target\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"High\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "idle",
-              "bm3": "ok",
-              "bm4": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Background priority scheduling successfully preempts intermediate obsolete jobs.",
+            "caption": "Benchmark harness records timestamps and logs immediate telemetry.",
             "values": {
-              "bm1": {
-                "text": "\"0ms\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"Met Budget\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"Preempted 3\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "ok",
-              "bm3": "data",
-              "bm4": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "Final committed query delivers exactly two,server-error matching records.",
+            "caption": "Urgent event processing leaves main thread receptive to user input.",
             "values": {
-              "bm1": {
-                "text": "\"0ms\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"60 FPS Confirmed\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"Stable\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0 Dropped\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "ok",
-              "bm3": "ok",
-              "bm4": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Production Benchmark Performance Audit",
-        "boxes": [
+        "template": "states",
+        "title": "Production Benchmark Harness: Latency Telemetry Engine",
+        "states": [
           {
-            "id": "bm1",
-            "label": "Keystroke Latency",
-            "tappable": false
+            "id": "s1",
+            "label": "BenchmarkGridEngine"
           },
           {
-            "id": "bm2",
-            "label": "Frame Budget (16.6ms)",
-            "tappable": false
+            "id": "s2",
+            "label": "simulateKeystroke"
           },
           {
-            "id": "bm3",
-            "label": "Throughput (Rows/sec)",
-            "tappable": false
+            "id": "s3",
+            "label": "executeConcurrentJob"
           },
           {
-            "id": "bm4",
-            "label": "Dropped Frames",
-            "tappable": false
+            "id": "s4",
+            "label": "metrics"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated synthetic benchmark executes rapid 4-keystroke sequence across 10,000 rows.",
+            "caption": "Web standards formalize interaction latency benchmarks for apps.",
             "values": {
-              "bm1": {
-                "text": "\"0ms\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"16.6ms Target\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"250k rows/s\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "idle",
-              "bm3": "data",
-              "bm4": "ok"
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "All urgent typing events execute in sub-millisecond time, satisfying INP web standards.",
+            "caption": "Typing simulation verifies urgent handlers execute without delays.",
             "values": {
-              "bm1": {
-                "text": "\"0ms (PASS)\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"16.6ms Target\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"High\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "idle",
-              "bm3": "ok",
-              "bm4": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "idle",
+              "s4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Background priority scheduling successfully preempts intermediate obsolete jobs.",
+            "caption": "Benchmark harness records timestamps and logs immediate telemetry.",
             "values": {
-              "bm1": {
-                "text": "\"0ms\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"Met Budget\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"Preempted 3\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "ok",
-              "bm3": "data",
-              "bm4": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "Final committed query delivers exactly 2,500 matching records with 0 dropped frames.",
+            "caption": "Urgent event processing leaves main thread receptive to user input.",
             "values": {
-              "bm1": {
-                "text": "\"0ms\""
+              "s1": {
+                "text": "BenchmarkGridEngine"
               },
-              "bm2": {
-                "text": "\"60 FPS Confirmed\""
+              "s2": {
+                "text": "simulateKeystroke"
               },
-              "bm3": {
-                "text": "\"Stable\""
+              "s3": {
+                "text": "executeConcurrentJob"
               },
-              "bm4": {
-                "text": "\"0 Dropped\""
+              "s4": {
+                "text": "metrics"
               }
             },
             "tones": {
-              "bm1": "ok",
-              "bm2": "ok",
-              "bm3": "ok",
-              "bm4": "ok"
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
             }
           }
         ]
