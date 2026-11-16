@@ -14696,15 +14696,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Add an InteractiveWishlistButton client island and verify that client island count increases to 3.",
         example: "Milestone 8 combines RSC for zero bundle weight, Streaming SSR for sub-50ms TTFB, Selective Hydration for 0ms TBT, and Server Actions for atomic mutations.",
         check: {
-          question: "What are the four architectural building blocks of a modern hybrid RSC application?",
+          question: "What are the four architectural building blocks of our Milestone 8 Hybrid RSC catalog?",
           options: [
-            "React Server Components (RSC), Streaming SSR with Suspense, Selective Hydration with event replay, and Server Actions with optimistic updates",
-            "HTML, CSS, jQuery, and Apache",
-            "Redux, MobX, Zustand, and Recoil",
-            "Webpack, Babel, Gulp, and Grunt"
+            "Standalone HTML documents, static CSS styles, client JavaScript bundles, and WebAssembly modules executing offline tasks across edge devices.",
+            "RSC Server Catalog, Out-of-Order Suspense Reviews Streaming, Interactive Client Islands with Selective Hydration, and Server Action Mutations.",
+            "Legacy Express routing tables, monolithic client-side single page app bundles, Redux store middleware, and custom REST API endpoint handlers.",
+            "Hardware-accelerated WebGL canvases, service worker caching tiers, IndexedDB storage layers, and peer-to-peer WebRTC video streaming channels."
           ],
-          answer: 0,
-          why: "Milestone 8 combines RSC for zero bundle weight, Streaming SSR for sub-50ms TTFB, Selective Hydration for 0ms TBT, and Server Actions for atomic mutations."
+          answer: 1,
+          why: "Milestone 8 combines Server Components for data, Suspense for streaming, Selective Hydration for interactivity, and Server Actions for mutations."
         }
       },
       {
@@ -14733,15 +14733,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Add a third product (RAM Module) to rawInventory and verify that the catalog shell updates cleanly.",
         example: "Server Components execute backend dependencies on the server runtime, emitting only static virtual DOM nodes without leaking library code to client bundles.",
         check: {
-          question: "Why does compiling markdown on the server eliminate client bundle weight?",
+          question: "Why does compiling markdown on the server eliminate client bundle bloat?",
           options: [
-            "The markdown parsing library and its syntax tokenizer execute strictly on the server and are never bundled or shipped to the browser",
-            "Markdown files are smaller than HTML files",
-            "Browsers have native markdown engines built into CSS",
-            "The client downloads markdown files directly from GitHub"
+            "Because client browser layout engines parse raw markdown text files natively without requiring any external JavaScript runtime dependencies.",
+            "Because modern web browsers automatically compress markdown AST trees into compact binary bytecode within device hardware graphics buffers.",
+            "Because the compiler strips all punctuation and whitespace from product descriptions to minimize file transfer sizes across mobile networks.",
+            "Heavy markdown parser libraries run exclusively on the server, ensuring zero parser dependency bytes are bundled into client script assets."
           ],
-          answer: 0,
-          why: "Server Components execute backend dependencies on the server runtime, emitting only static virtual DOM nodes without leaking library code to client bundles."
+          answer: 3,
+          why: "Heavy markdown parser libraries (35KB+) run exclusively on the server and are completely omitted from the client-side JavaScript bundle."
         }
       },
       {
@@ -14771,15 +14771,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Add a reviewer badge to resolvedReviewsHtml and verify that Stage 2 includes the new badge text.",
         example: "Wrapping deferred components in Suspense allows the server to flush the main layout shell immediately and stream reviews asynchronously as data resolves.",
         check: {
-          question: "How does out-of-order streaming prevent slow reviews from blocking the product layout shell?",
+          question: "How does out-of-order streaming prevent slow reviews queries from delaying the initial page view?",
           options: [
-            "The product layout shell flushes immediately with a Suspense fallback skeleton, while slow customer reviews stream in subsequent chunks and swap in via $RC scripts",
-            "By discarding reviews that take longer than 10 milliseconds",
-            "By rendering reviews only when the user refreshes the page",
-            "By converting customer reviews into images"
+            "The server flushes the shell immediately with a placeholder, streaming deferred HTML and inline swap scripts when database queries finish.",
+            "The server drops all reviews data whenever network traffic spikes to prioritize essential product image assets over customer feedback text.",
+            "The client browser executes reviews queries directly against cloud database replicas via raw SQL queries embedded inside component headers.",
+            "The streaming pipeline pauses client HTML parsing until the database resolves all background promises to prevent DOM layout flickering bugs."
           ],
           answer: 0,
-          why: "Wrapping deferred components in Suspense allows the server to flush the main layout shell immediately and stream reviews asynchronously as data resolves."
+          why: "The server flushes the product shell immediately with a Suspense placeholder, then streams the reviews HTML and inline swap script when the database resolves."
         }
       },
       {
@@ -14809,15 +14809,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Submit a purchase of 4 units and verify that CartCount becomes 6 while server inventory becomes 4.",
         example: "Atomic transaction checks reject the mutation on the server, and the transition boundary rolls back the optimistic cart count to the true server state.",
         check: {
-          question: "What safeguards are activated if a purchase action is submitted for an out-of-stock item?",
+          question: "What safeguards are activated if a purchase action rejects due to insufficient stock?",
           options: [
-            "The server rejects the transaction, preventing inventory negative balances, and the client useOptimistic hook rolls back the optimistic UI state",
-            "The server crashes and restarts",
-            "The user's credit card is charged double",
-            "The item is automatically ordered from an external competitor"
+            "The browser forces a full hard window refresh and purges the entire client application memory cache to prevent stale inventory from showing.",
+            "The application permanently locks the customer checkout button and disables further pointer interactions across the entire active viewport.",
+            "useOptimistic automatically rolls back the projected cart state to authoritative server stock and displays an informative notification banner.",
+            "The backend server dispatches a silent retry request every three hundred milliseconds until fresh warehouse inventory arrives in stock bins."
           ],
-          answer: 0,
-          why: "Atomic transaction checks reject the mutation on the server, and the transition boundary rolls back the optimistic cart count to the true server state."
+          answer: 2,
+          why: "useOptimistic automatically rolls back the projected cart state to the authoritative server stock and displays an informative out-of-stock notification."
         }
       },
       {
@@ -14851,15 +14851,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         tryIt: "Set tbtMs to 80 and observe how the audit suite flags the performance degradation.",
         example: "The Milestone 8 verification suite audits TBT, TTFB, bundle leakage, streaming template swapping, and progressive enhancement form fallbacks.",
         check: {
-          question: "What five performance and architectural criteria are validated by the Milestone 8 audit suite?",
+          question: "What five performance and architectural criteria are evaluated by our Milestone 8 audit suite?",
           options: [
-            "0ms Total Blocking Time (TBT), sub-100ms TTFB, zero client dependency leaks, out-of-order Suspense replacement, and zero-JS form fallbacks",
-            "Color contrast, font size, page margins, line height, and image aspect ratio",
-            "CPU clock speed, RAM usage, hard drive capacity, monitor refresh rate, and mouse DPI",
-            "HTML validity, XML schema, CSS linting, TypeScript strictness, and ESLint warnings"
+            "Total memory usage, CPU core temperatures, GPU rendering frame times, network bandwidth quotas, and battery drain percentages across devices.",
+            "Zero ms Total Blocking Time, sub-hundred ms TTFB, zero client dependency leakage, out-of-order DOM swaps, and progressive enhancement fallbacks.",
+            "Code repository commit counts, cyclomatic complexity scores, unit test execution speeds, lint warning quantities, and comment line densities.",
+            "Active user session durations, customer conversion rates, marketing clickthrough metrics, shopping cart values, and bounce rate percentages."
           ],
-          answer: 0,
-          why: "The Milestone 8 verification suite audits TBT, TTFB, bundle leakage, streaming template swapping, and progressive enhancement form fallbacks."
+          answer: 1,
+          why: "0ms Total Blocking Time, Sub-100ms TTFB Streaming, Zero Client Dependency Leakage, Out-of-Order DOM Swaps, and Progressive Enhancement Fallbacks."
         }
       }
     ],
