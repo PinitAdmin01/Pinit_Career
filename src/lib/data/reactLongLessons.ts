@@ -13654,8 +13654,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Monolithic synchronous iteration over 10,000 items monopolizes the thread for hundreds of milliseconds, dropping multiple consecutive frames and freezing user input.",
         check: {
           question: "Why does a 10,000-node visual graph require a decoupled priority architecture rather than a single synchronous render loop?",
-          options: ["Because synchronizing 10,000 node calculations in a single call stack blocks the main thread for over 150ms, violating the 16.6ms frame budget and causing severe UI jank", "Because browsers crash if an array has more than 50 elements", "Because graphics cards cannot draw circles", "Because HTTP requests only support 100 nodes"],
-          answer: 0,
+          options: [
+            "Because synchronous loops force DOM nodes to bypass layout passes completely, creating unrecoverable memory fragmentation in the browser heap.",
+            "Because running ten thousand node calculations in one call stack monopolizes the thread for over 150ms, blowing frame budgets and freezing UI.",
+            "Because modern browser runtimes abort all active script contexts whenever any single loop iteration accesses more than two thousand objects.",
+            "Because the browser event loop permanently disables keyboard input listeners whenever an iteration task exceeds eighty microseconds in total."
+          ],
+          answer: 1,
           why: "Monolithic synchronous iteration over 10,000 items monopolizes the thread for hundreds of milliseconds, dropping multiple consecutive frames and freezing user input."
         }
       },
@@ -13685,8 +13690,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "The synchronous pass updates the search text immediately to preserve typing responsiveness, while scheduling the heavy graph evaluation into low-priority TransitionLane.",
         check: {
           question: "In our Dual-Priority Graph Filter, what happens during the initial synchronous render pass when the user types a new category name?",
-          options: ["The text input updates instantly with zero latency and isPending flips to true, while the heavy 10,000-node filter is scheduled into TransitionLane", "The browser downloads a new CSS file from the server", "All 10,000 nodes are removed from memory permanently", "The JavaScript engine switches from V8 to SpiderMonkey"],
-          answer: 0,
+          options: [
+            "The engine recalculates geometric coordinates across all ten thousand graph nodes synchronously before committing any updates to the active view.",
+            "The browser downloads updated stylesheet assets from the server and recomputes the CSS cascade across every single DOM node in the component tree.",
+            "The JavaScript reconciler permanently flushes all ten thousand graph nodes from heap memory and requests a fresh dataset from the remote backend.",
+            "The search text input commits instantly with zero latency and sets isPending true, while the heavy graph filter is deferred to a TransitionLane."
+          ],
+          answer: 3,
           why: "The synchronous pass updates the search text immediately to preserve typing responsiveness, while scheduling the heavy graph evaluation into low-priority TransitionLane."
         }
       },
@@ -13715,7 +13725,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Aborting in-flight transitions eliminates wasted CPU time on stale queries, preventing rendering backlogs and ensuring immediate responsiveness for the latest input.",
         check: {
           question: "How does in-flight preemption improve performance when a user types rapidly into a 10,000-node graph filter?",
-          options: ["It immediately aborts stale in-flight filtering passes for superseded queries, saving thousands of unnecessary calculations and keeping the main thread responsive", "It downscales the resolution of the user's display monitor", "It converts JavaScript arrays into binary files on disk", "It locks the search input so the user cannot type for 5 seconds"],
+          options: [
+            "It immediately aborts stale in-flight filtering passes for superseded queries, saving wasted calculations and preserving main-thread responsiveness.",
+            "It dynamically throttles the hardware monitor refresh rate from 120Hz down to 30Hz until all background graph filtering passes complete processing.",
+            "It converts active JavaScript object arrays into serialized binary records and dumps them into IndexedDB storage to bypass the garbage collector.",
+            "It freezes all keyboard and mouse event listeners on the document root for five hundred milliseconds until the current filtering chunk terminates."
+          ],
           answer: 0,
           why: "Aborting in-flight transitions eliminates wasted CPU time on stale queries, preventing rendering backlogs and ensuring immediate responsiveness for the latest input."
         }
@@ -13745,8 +13760,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "Bounding-box spatial culling ensures the GPU only renders the small subset of nodes currently visible in the active viewport, preserving 60 FPS frame rates.",
         check: {
           question: "What is the primary benefit of spatial viewport culling in a 10,000-node visual graph application?",
-          options: ["It discards offscreen nodes before rasterization, reducing GPU draw calls and layout reflows by up to 90%", "It encrypts the graph nodes using AES-256", "It compresses images into JPEG format", "It reboots the operating system"],
-          answer: 0,
+          options: [
+            "It encrypts all offscreen graph node identifiers using hardware-accelerated AES-256 ciphers to protect user telemetry data from script tampering.",
+            "It converts vector canvas drawing instructions into compressed WebP binary blobs to reduce network transmission overhead across web worker threads.",
+            "It discards offscreen nodes prior to rasterization, reducing GPU draw commands, layout reflows, and style calculations by eighty to ninety percent.",
+            "It forces the browser to restart its GPU process whenever the user pans the camera viewport beyond the boundaries of the active coordinate plane."
+          ],
+          answer: 2,
           why: "Bounding-box spatial culling ensures the GPU only renders the small subset of nodes currently visible in the active viewport, preserving 60 FPS frame rates."
         }
       },
@@ -13777,8 +13797,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         example: "The capstone achieves 60 FPS by pairing cache-efficient memory layouts with dual-priority scheduling, cooperative 5ms macro-task slicing with preemption, and spatial culling.",
         check: {
           question: "What four core architectural pillars combine to make our 10,000-Node Visual Graph Filter maintain 60 FPS responsiveness?",
-          options: ["Contiguous memory topology, dual-priority scheduling (Sync vs Transition), cooperative 5ms MessageChannel time-slicing with preemption, and spatial viewport bounding-box culling", "Overclocking the user's monitor refresh rate to 240Hz", "Deleting 9,900 nodes from the dataset so only 100 nodes exist", "Re-rendering the entire webpage every 1 millisecond"],
-          answer: 0,
+          options: [
+            "Overclocking client GPU render cycles, compiling JavaScript functions directly into WebAssembly modules, and disabling all browser security checks.",
+            "Contiguous memory layouts, dual-priority scheduling (Sync vs Transition), cooperative 5ms macro-task slicing with preemption, and spatial culling.",
+            "Deleting 9,900 nodes from the graph so only 100 nodes remain in memory, disabling user keyboard inputs, and rendering precomputed static bitmaps.",
+            "Re-rendering the entire document object model tree every single millisecond using synchronous loops, bypassing the browser native compositor system."
+          ],
+          answer: 1,
           why: "The capstone achieves 60 FPS by pairing cache-efficient memory layouts with dual-priority scheduling, cooperative 5ms macro-task slicing with preemption, and spatial culling."
         }
       }

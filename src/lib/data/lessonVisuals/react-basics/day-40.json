@@ -1,1096 +1,633 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": "1.2",
   "prefix": "react-basics",
   "day": 40,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
+      "partIndex": 0,
       "partTitle": "Architectural Blueprint: 10,000-Node Visual Graph Data Structures & Rendering Topology",
       "codeHash": "f4d1c96be578c0bbdbbc5cfa1a462661f911e2d299aa60e465b7594c5233c9e5",
       "spec": {
         "template": "boxes",
-        "title": "10,000-Node Visual Graph Topology & Memory Architecture",
+        "title": "Four-Layer Graph Engine Topology",
         "boxes": [
           {
-            "id": "g_comp",
-            "label": "Compute (2000 Nodes)",
-            "tappable": false
+            "id": "b1",
+            "title": "Layer 1: Graph Data Store",
+            "desc": "Graph Data Store",
+            "tone": "data"
           },
           {
-            "id": "g_db",
-            "label": "Database (2000 Nodes)",
-            "tappable": false
+            "id": "b2",
+            "title": "Layer 2: Priority Scheduler",
+            "desc": "Priority Scheduler",
+            "tone": "ok"
           },
           {
-            "id": "g_stor",
-            "label": "Storage (2000 Nodes)",
-            "tappable": false
+            "id": "b3",
+            "title": "Layer 3: Cooperative Time-Slicer",
+            "desc": "Cooperative Time-Slicer",
+            "tone": "idle"
           },
           {
-            "id": "g_sec",
-            "label": "Security (2000 Nodes)",
-            "tappable": false
+            "id": "b4",
+            "title": "Layer 4: Viewport Spatial Partitioner",
+            "desc": "Viewport Spatial Partitioner",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Ten,multiple nodes are partitioned into contiguous memory arrays across.",
-            "values": {
-              "g_comp": {
-                "text": "\"2000 Nodes\""
-              },
-              "g_db": {
-                "text": "\"2000 Nodes\""
-              },
-              "g_stor": {
-                "text": "\"2000 Nodes\""
-              },
-              "g_sec": {
-                "text": "\"2000 Nodes\""
-              }
-            },
-            "tones": {
-              "g_comp": "ok",
-              "g_db": "ok",
-              "g_stor": "ok",
-              "g_sec": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Contiguous memory layout maximizes CPU level-one/level-two cache.",
-            "values": {
-              "g_comp": {
-                "text": "\"L1 Cached\""
-              },
-              "g_db": {
-                "text": "\"L1 Cached\""
-              },
-              "g_stor": {
-                "text": "\"L1 Cached\""
-              },
-              "g_sec": {
-                "text": "\"L1 Cached\""
-              }
-            },
-            "tones": {
-              "g_comp": "data",
-              "g_db": "data",
-              "g_stor": "data",
-              "g_sec": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Nodes declare geometric coordinates (x, y) across a simulated x canvas.",
-            "values": {
-              "g_comp": {
-                "text": "\"Plane 2000x2000\""
-              },
-              "g_db": {
-                "text": "\"Plane 2000x2000\""
-              },
-              "g_stor": {
-                "text": "\"Plane 2000x2000\""
-              },
-              "g_sec": {
-                "text": "\"Plane 2000x2000\""
-              }
-            },
-            "tones": {
-              "g_comp": "ok",
-              "g_db": "ok",
-              "g_stor": "ok",
-              "g_sec": "ok"
-            }
-          },
-          {
             "at": "say4",
-            "caption": "Total graph topology is instantiated in contiguous memory with zero garbage collection overhead.",
-            "values": {
-              "g_comp": {
-                "text": "\"Ready\""
-              },
-              "g_db": {
-                "text": "\"Ready\""
-              },
-              "g_stor": {
-                "text": "\"Ready\""
-              },
-              "g_sec": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "g_comp": "ok",
-              "g_db": "ok",
-              "g_stor": "ok",
-              "g_sec": "ok"
-            }
+            "highlight": [
+              "b1",
+              "b2",
+              "b3",
+              "b4"
+            ],
+            "caption": "The graph architecture decomposes workload across four decoupled layers."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Contiguous memory layouts optimize hardware cache lines during traversal."
+          },
+          {
+            "at": "say7",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Compact node metadata layouts eliminate pauses from garbage collection."
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "10,000-Node Visual Graph Topology & Memory Architecture",
+        "title": "Four-Layer Graph Engine Topology",
         "boxes": [
           {
-            "id": "g_comp",
-            "label": "Compute (2000 Nodes)",
-            "tappable": false
+            "id": "b1",
+            "title": "Layer 1: Graph Data Store",
+            "desc": "Graph Data Store",
+            "tone": "data"
           },
           {
-            "id": "g_db",
-            "label": "Database (2000 Nodes)",
-            "tappable": false
+            "id": "b2",
+            "title": "Layer 2: Priority Scheduler",
+            "desc": "Priority Scheduler",
+            "tone": "ok"
           },
           {
-            "id": "g_stor",
-            "label": "Storage (2000 Nodes)",
-            "tappable": false
+            "id": "b3",
+            "title": "Layer 3: Cooperative Time-Slicer",
+            "desc": "Cooperative Time-Slicer",
+            "tone": "idle"
           },
           {
-            "id": "g_sec",
-            "label": "Security (2000 Nodes)",
-            "tappable": false
+            "id": "b4",
+            "title": "Layer 4: Viewport Spatial Partitioner",
+            "desc": "Viewport Spatial Partitioner",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "10,000 nodes are partitioned into contiguous memory arrays across 5 enterprise categories.",
-            "values": {
-              "g_comp": {
-                "text": "\"2000 Nodes\""
-              },
-              "g_db": {
-                "text": "\"2000 Nodes\""
-              },
-              "g_stor": {
-                "text": "\"2000 Nodes\""
-              },
-              "g_sec": {
-                "text": "\"2000 Nodes\""
-              }
-            },
-            "tones": {
-              "g_comp": "ok",
-              "g_db": "ok",
-              "g_stor": "ok",
-              "g_sec": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Contiguous memory layout maximizes CPU L1/L2 cache locality, eliminating cache misses.",
-            "values": {
-              "g_comp": {
-                "text": "\"L1 Cached\""
-              },
-              "g_db": {
-                "text": "\"L1 Cached\""
-              },
-              "g_stor": {
-                "text": "\"L1 Cached\""
-              },
-              "g_sec": {
-                "text": "\"L1 Cached\""
-              }
-            },
-            "tones": {
-              "g_comp": "data",
-              "g_db": "data",
-              "g_stor": "data",
-              "g_sec": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Nodes declare geometric coordinates (x, y) across a simulated 2000x2000 canvas plane.",
-            "values": {
-              "g_comp": {
-                "text": "\"Plane 2000x2000\""
-              },
-              "g_db": {
-                "text": "\"Plane 2000x2000\""
-              },
-              "g_stor": {
-                "text": "\"Plane 2000x2000\""
-              },
-              "g_sec": {
-                "text": "\"Plane 2000x2000\""
-              }
-            },
-            "tones": {
-              "g_comp": "ok",
-              "g_db": "ok",
-              "g_stor": "ok",
-              "g_sec": "ok"
-            }
-          },
-          {
             "at": "say4",
-            "caption": "Total graph topology is instantiated in contiguous memory with zero garbage collection overhead.",
-            "values": {
-              "g_comp": {
-                "text": "\"Ready\""
-              },
-              "g_db": {
-                "text": "\"Ready\""
-              },
-              "g_stor": {
-                "text": "\"Ready\""
-              },
-              "g_sec": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "g_comp": "ok",
-              "g_db": "ok",
-              "g_stor": "ok",
-              "g_sec": "ok"
-            }
+            "highlight": [
+              "b1",
+              "b2",
+              "b3",
+              "b4"
+            ],
+            "caption": "The graph architecture decomposes workload across four decoupled layers."
+          },
+          {
+            "at": "say6",
+            "highlight": [
+              "b1"
+            ],
+            "caption": "Contiguous memory layouts optimize hardware cache lines during traversal."
+          },
+          {
+            "at": "say7",
+            "highlight": [
+              "b1",
+              "b2"
+            ],
+            "caption": "Compact node metadata layouts eliminate pauses from garbage collection."
           }
         ]
       }
     },
     {
+      "partIndex": 1,
       "partTitle": "Dual-Priority Graph Filtering: Coupling Sync Keystrokes with Transition Slices",
       "codeHash": "9f6312b823dc7d0ffe70e2b8a5bf412bd575fd85f79fb91c846fda08dbf353f5",
       "spec": {
-        "template": "flow",
-        "title": "Dual-Priority Graph Filter: Keystroke Echo to 4-Slice Evaluation",
-        "nodes": [
-          {
-            "id": "gf_sync",
-            "label": "Sync Keystroke Echo",
-            "tappable": false
-          },
-          {
-            "id": "gf_slice",
-            "label": "4x 2,500-Node Slices",
-            "tappable": false
-          },
-          {
-            "id": "gf_filter",
-            "label": "Category Predicate Match",
-            "tappable": false
-          },
-          {
-            "id": "gf_commit",
-            "label": "Commit 2000 Matches",
-            "tappable": false
-          }
-        ],
+        "template": "compare",
+        "title": "Sync Keystrokes vs Transition Traversal",
+        "left": {
+          "title": "SyncLane Urgent Pass",
+          "subtitle": "SyncLane",
+          "items": [
+            {
+              "label": "Keystroke Echo",
+              "text": "SyncLane",
+              "tone": "ok"
+            },
+            {
+              "label": "Pending Flag",
+              "text": "isPending",
+              "tone": "idle"
+            }
+          ]
+        },
+        "right": {
+          "title": "TransitionLane Background Pass",
+          "subtitle": "TransitionLane",
+          "items": [
+            {
+              "label": "Graph Traversal",
+              "text": "TransitionLane",
+              "tone": "data"
+            },
+            {
+              "label": "Yield Channel",
+              "text": "MessageChannel",
+              "tone": "ok"
+            }
+          ]
+        },
         "steps": [
           {
-            "at": "say1",
-            "caption": "User types 'Database'; search input updates immediately in SyncLane (<.",
-            "values": {
-              "gf_sync": {
-                "text": "\"'Database' (0.1ms)\""
-              },
-              "gf_slice": {
-                "text": "\"Pending\""
-              },
-              "gf_filter": {
-                "text": "\"Pending\""
-              },
-              "gf_commit": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "idle",
-              "gf_filter": "idle",
-              "gf_commit": "idle"
-            },
-            "arrows": [
-              [
-                "gf_sync",
-                "gf_slice"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Graph filter evaluates ten,multiple nodes across four discrete.",
-            "values": {
-              "gf_sync": {
-                "text": "\"Instant\""
-              },
-              "gf_slice": {
-                "text": "\"Slice 1 & 2 Done\""
-              },
-              "gf_filter": {
-                "text": "\"Evaluating\""
-              },
-              "gf_commit": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "data",
-              "gf_filter": "data",
-              "gf_commit": "idle"
-            },
-            "arrows": [
-              [
-                "gf_slice",
-                "gf_filter"
-              ]
-            ]
-          },
-          {
             "at": "say3",
-            "caption": "Between slices, the scheduler yields to the event loop, preserving.",
-            "values": {
-              "gf_sync": {
-                "text": "\"Main Thread Free\""
-              },
-              "gf_slice": {
-                "text": "\"Slice 3 & 4 Done\""
-              },
-              "gf_filter": {
-                "text": "\"2000 Matches Found\""
-              },
-              "gf_commit": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "ok",
-              "gf_filter": "ok",
-              "gf_commit": "data"
-            },
-            "arrows": [
-              [
-                "gf_filter",
-                "gf_commit"
-              ]
-            ]
+            "highlight": [
+              "left"
+            ],
+            "caption": "The search input commits instantly in synchronous priority lane."
           },
           {
             "at": "say4",
-            "caption": "Exactly two,multiple matching Database nodes commit cleanly without.",
-            "values": {
-              "gf_sync": {
-                "text": "\"Synced\""
-              },
-              "gf_slice": {
-                "text": "\"100% Sliced\""
-              },
-              "gf_filter": {
-                "text": "\"2000 Nodes\""
-              },
-              "gf_commit": {
-                "text": "\"60 FPS Preserved\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "ok",
-              "gf_filter": "ok",
-              "gf_commit": "ok"
-            },
-            "arrows": [
-              [
-                "gf_filter",
-                "gf_commit"
-              ]
-            ]
+            "highlight": [
+              "right"
+            ],
+            "caption": "The heavy graph query queues into cooperative background transition lanes."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Routing keystrokes through synchronous lanes guarantees fluid response."
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Dual-Priority Graph Filter: Keystroke Echo to 4-Slice Evaluation",
-        "nodes": [
-          {
-            "id": "gf_sync",
-            "label": "Sync Keystroke Echo",
-            "tappable": false
-          },
-          {
-            "id": "gf_slice",
-            "label": "4x 2,500-Node Slices",
-            "tappable": false
-          },
-          {
-            "id": "gf_filter",
-            "label": "Category Predicate Match",
-            "tappable": false
-          },
-          {
-            "id": "gf_commit",
-            "label": "Commit 2000 Matches",
-            "tappable": false
-          }
-        ],
+        "template": "compare",
+        "title": "Sync Keystrokes vs Transition Traversal",
+        "left": {
+          "title": "SyncLane Urgent Pass",
+          "subtitle": "SyncLane",
+          "items": [
+            {
+              "label": "Keystroke Echo",
+              "text": "SyncLane",
+              "tone": "ok"
+            },
+            {
+              "label": "Pending Flag",
+              "text": "isPending",
+              "tone": "idle"
+            }
+          ]
+        },
+        "right": {
+          "title": "TransitionLane Background Pass",
+          "subtitle": "TransitionLane",
+          "items": [
+            {
+              "label": "Graph Traversal",
+              "text": "TransitionLane",
+              "tone": "data"
+            },
+            {
+              "label": "Yield Channel",
+              "text": "MessageChannel",
+              "tone": "ok"
+            }
+          ]
+        },
         "steps": [
           {
-            "at": "say1",
-            "caption": "User types 'Database'; search input updates immediately in SyncLane (< 0.2ms latency).",
-            "values": {
-              "gf_sync": {
-                "text": "\"'Database' (0.1ms)\""
-              },
-              "gf_slice": {
-                "text": "\"Pending\""
-              },
-              "gf_filter": {
-                "text": "\"Pending\""
-              },
-              "gf_commit": {
-                "text": "\"Pending\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "idle",
-              "gf_filter": "idle",
-              "gf_commit": "idle"
-            },
-            "arrows": [
-              [
-                "gf_sync",
-                "gf_slice"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Graph filter evaluates 10,000 nodes across 4 discrete cooperative slices of 2,500 nodes each.",
-            "values": {
-              "gf_sync": {
-                "text": "\"Instant\""
-              },
-              "gf_slice": {
-                "text": "\"Slice 1 & 2 Done\""
-              },
-              "gf_filter": {
-                "text": "\"Evaluating\""
-              },
-              "gf_commit": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "data",
-              "gf_filter": "data",
-              "gf_commit": "idle"
-            },
-            "arrows": [
-              [
-                "gf_slice",
-                "gf_filter"
-              ]
-            ]
-          },
-          {
             "at": "say3",
-            "caption": "Between slices, the scheduler yields to the event loop, preserving 60 FPS animation smoothness.",
-            "values": {
-              "gf_sync": {
-                "text": "\"Main Thread Free\""
-              },
-              "gf_slice": {
-                "text": "\"Slice 3 & 4 Done\""
-              },
-              "gf_filter": {
-                "text": "\"2000 Matches Found\""
-              },
-              "gf_commit": {
-                "text": "\"Ready\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "ok",
-              "gf_filter": "ok",
-              "gf_commit": "data"
-            },
-            "arrows": [
-              [
-                "gf_filter",
-                "gf_commit"
-              ]
-            ]
+            "highlight": [
+              "left"
+            ],
+            "caption": "The search input commits instantly in synchronous priority lane."
           },
           {
             "at": "say4",
-            "caption": "Exactly 2,000 matching Database nodes commit cleanly without dropping a single frame.",
-            "values": {
-              "gf_sync": {
-                "text": "\"Synced\""
-              },
-              "gf_slice": {
-                "text": "\"100% Sliced\""
-              },
-              "gf_filter": {
-                "text": "\"2000 Nodes\""
-              },
-              "gf_commit": {
-                "text": "\"60 FPS Preserved\""
-              }
-            },
-            "tones": {
-              "gf_sync": "ok",
-              "gf_slice": "ok",
-              "gf_filter": "ok",
-              "gf_commit": "ok"
-            },
-            "arrows": [
-              [
-                "gf_filter",
-                "gf_commit"
-              ]
-            ]
+            "highlight": [
+              "right"
+            ],
+            "caption": "The heavy graph query queues into cooperative background transition lanes."
+          },
+          {
+            "at": "say8",
+            "highlight": [
+              "left",
+              "right"
+            ],
+            "caption": "Routing keystrokes through synchronous lanes guarantees fluid response."
           }
         ]
       }
     },
     {
+      "partIndex": 2,
       "partTitle": "Cooperative Time-Slicing & In-Flight Preemption under Rapid Typing",
       "codeHash": "3c142ec57a7aa4d8056a8a7158d1ad6a15ea105d108cba4b61b115df3523e56f",
       "spec": {
         "template": "states",
-        "title": "Graph Preemption & Work-in-Progress Cancellation Lifecycle",
+        "title": "Preemption & Zero-Cost Task Cancellation",
         "states": [
           {
-            "id": "gps1",
-            "label": "INITIAL_QUERY_SLICING"
+            "id": "s1",
+            "title": "Initial Query",
+            "desc": "active task",
+            "tone": "idle"
           },
           {
-            "id": "gps2",
-            "label": "RAPID_KEYSTROKE_INTERRUPT"
+            "id": "s2",
+            "title": "Rapid Keystroke",
+            "desc": "SyncLane",
+            "tone": "data"
           },
           {
-            "id": "gps3",
-            "label": "STALE_WORK_ABORTED"
+            "id": "s3",
+            "title": "Preemption Abort",
+            "desc": "aborted",
+            "tone": "error"
           },
           {
-            "id": "gps4",
-            "label": "FRESH_QUERY_COMMITTED"
+            "id": "s4",
+            "title": "Fresh Transition",
+            "desc": "transition",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "User types 'S'; graph begins slicing through ten,multiple nodes in.",
-            "activeId": "gps1",
-            "tone": "idle"
-          },
-          {
-            "at": "say2",
-            "caption": "User rapidly types 'e' before slice two runs; RAPID_KEYSTROKE_INTERRUPT.",
-            "activeId": "gps2",
-            "tone": "data"
-          },
-          {
             "at": "say3",
-            "caption": "Scheduler immediately enters STALE_WORK_ABORTED, saving.",
-            "activeId": "gps3",
-            "tone": "error"
+            "highlight": [
+              "s1"
+            ],
+            "caption": "The engine implements in-flight preemption to handle rapid typing."
           },
           {
             "at": "say4",
-            "caption": "Fresh query 'Se' executes all slices cleanly and achieves FRESH_QUERY_COMMITTED status.",
-            "activeId": "gps4",
-            "tone": "ok"
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Arrival of a new character immediately aborts the active transition."
+          },
+          {
+            "at": "say9",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "Aborting stale filters prevents garbage collection pauses completely."
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Graph Preemption & Work-in-Progress Cancellation Lifecycle",
+        "title": "Preemption & Zero-Cost Task Cancellation",
         "states": [
           {
-            "id": "gps1",
-            "label": "INITIAL_QUERY_SLICING"
-          },
-          {
-            "id": "gps2",
-            "label": "RAPID_KEYSTROKE_INTERRUPT"
-          },
-          {
-            "id": "gps3",
-            "label": "STALE_WORK_ABORTED"
-          },
-          {
-            "id": "gps4",
-            "label": "FRESH_QUERY_COMMITTED"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "User types 'S'; graph begins slicing through 10,000 nodes in INITIAL_QUERY_SLICING.",
-            "activeId": "gps1",
+            "id": "s1",
+            "title": "Initial Query",
+            "desc": "active task",
             "tone": "idle"
           },
           {
-            "at": "say2",
-            "caption": "User rapidly types 'e' before slice 2 runs; RAPID_KEYSTROKE_INTERRUPT fires in SyncLane.",
-            "activeId": "gps2",
+            "id": "s2",
+            "title": "Rapid Keystroke",
+            "desc": "SyncLane",
             "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Scheduler immediately enters STALE_WORK_ABORTED, saving 7,500 unneeded node checks.",
-            "activeId": "gps3",
+            "id": "s3",
+            "title": "Preemption Abort",
+            "desc": "aborted",
             "tone": "error"
           },
           {
-            "at": "say4",
-            "caption": "Fresh query 'Se' executes all slices cleanly and achieves FRESH_QUERY_COMMITTED status.",
-            "activeId": "gps4",
+            "id": "s4",
+            "title": "Fresh Transition",
+            "desc": "transition",
             "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "highlight": [
+              "s1"
+            ],
+            "caption": "The engine implements in-flight preemption to handle rapid typing."
+          },
+          {
+            "at": "say4",
+            "highlight": [
+              "s2",
+              "s3"
+            ],
+            "caption": "Arrival of a new character immediately aborts the active transition."
+          },
+          {
+            "at": "say9",
+            "highlight": [
+              "s3",
+              "s4"
+            ],
+            "caption": "Aborting stale filters prevents garbage collection pauses completely."
           }
         ]
       }
     },
     {
+      "partIndex": 3,
       "partTitle": "Spatial Viewport Partitioning: Bounding-Box Culling & Clustering",
       "codeHash": "f0e007b1ecb9bdd3b728a68b9246b2000ba8aa58313c97f76474b3e0b2ed79a2",
       "spec": {
-        "template": "wireframe",
-        "title": "Spatial Viewport Culling Wireframe (2000x2000 Plane to 800x600 Camera)",
-        "wireframe": {
-          "header": "Milestone 7 Visual Graph Canvas (2000x2000)",
-          "controls": [
-            "Camera: [x: 0..800, y: 0..600]",
-            "Total Matched: 2000",
-            "Visible: 245"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "245 Visible Nodes Rendered (1,755 Offscreen Nodes Culled - 87.8% GPU Reduction)",
-            "opacity": 1
-          }
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Spatial Viewport Bounding-Box Culling Pipeline",
+        "nodes": [
           {
-            "at": "say1",
-            "caption": "The full graph spans a x coordinate plane containing two,multiple.",
-            "values": {
-              "plane": {
-                "text": "\"Total Matched: 2000\""
-              }
-            },
-            "tones": {
-              "plane": "data"
-            }
+            "id": "n1",
+            "label": "viewport",
+            "desc": "Spatial Viewport Partitioning",
+            "tone": "data",
+            "tappable": false
           },
           {
+            "id": "n2",
+            "label": "camera",
+            "desc": "bounding box",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "culler",
+            "desc": "spatial containment",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "nodes",
+            "desc": "canvas renderer",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "viewport"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "label": "cull"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "filter"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Camera viewport (x) encloses only multiple nodes; spatial culling.",
-            "values": {
-              "visible": {
-                "text": "\"Visible: 245 (Culled: 1755)\""
-              }
-            },
-            "tones": {
-              "visible": "ok"
-            }
+            "highlight": [
+              "n1"
+            ],
+            "caption": "Bounding box culling discards objects outside the active view frustum."
           },
           {
             "at": "say3",
-            "caption": "GPU draw calls and layout passes are reduced by multiple.eight%.",
-            "values": {
-              "gpu": {
-                "text": "\"GPU Load: -87.8%\""
-              }
-            },
-            "tones": {
-              "gpu": "ok"
-            }
+            "highlight": [
+              "n2",
+              "n3"
+            ],
+            "caption": "The spatial partitioner tests coordinates against viewport boundaries."
           },
           {
-            "at": "say4",
-            "caption": "Panning camera updates viewport boundaries and re-renders visible slice.",
-            "values": {
-              "pan": {
-                "text": "\"Camera Pan: 60 FPS\""
-              }
-            },
-            "tones": {
-              "pan": "ok"
-            }
+            "at": "say8",
+            "highlight": [
+              "n3",
+              "n4"
+            ],
+            "caption": "Culling offscreen elements reduces layout reflows and drawing calls."
           }
         ]
       },
       "filled": {
-        "template": "wireframe",
-        "title": "Spatial Viewport Culling Wireframe (2000x2000 Plane to 800x600 Camera)",
-        "wireframe": {
-          "header": "Milestone 7 Visual Graph Canvas (2000x2000)",
-          "controls": [
-            "Camera: [x: 0..800, y: 0..600]",
-            "Total Matched: 2000",
-            "Visible: 245"
-          ],
-          "viewport": {
-            "totalHeightPx": 240,
-            "renderedRange": "245 Visible Nodes Rendered (1,755 Offscreen Nodes Culled - 87.8% GPU Reduction)",
-            "opacity": 1
-          }
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Spatial Viewport Bounding-Box Culling Pipeline",
+        "nodes": [
           {
-            "at": "say1",
-            "caption": "The full graph spans a 2000x2000 coordinate plane containing 2,000 matching Database nodes.",
-            "values": {
-              "plane": {
-                "text": "\"Total Matched: 2000\""
-              }
-            },
-            "tones": {
-              "plane": "data"
-            }
+            "id": "n1",
+            "label": "viewport",
+            "desc": "Spatial Viewport Partitioning",
+            "tone": "data",
+            "tappable": false
           },
           {
+            "id": "n2",
+            "label": "camera",
+            "desc": "bounding box",
+            "tone": "idle",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "culler",
+            "desc": "spatial containment",
+            "tone": "ok",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "nodes",
+            "desc": "canvas renderer",
+            "tone": "ok",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "viewport"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "label": "cull"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "filter"
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Camera viewport (800x600) encloses only 245 nodes; spatial culling discards remaining 1,755.",
-            "values": {
-              "visible": {
-                "text": "\"Visible: 245 (Culled: 1755)\""
-              }
-            },
-            "tones": {
-              "visible": "ok"
-            }
+            "highlight": [
+              "n1"
+            ],
+            "caption": "Bounding box culling discards objects outside the active view frustum."
           },
           {
             "at": "say3",
-            "caption": "GPU draw calls and layout passes are reduced by 87.8%, guaranteeing instantaneous rasterization.",
-            "values": {
-              "gpu": {
-                "text": "\"GPU Load: -87.8%\""
-              }
-            },
-            "tones": {
-              "gpu": "ok"
-            }
+            "highlight": [
+              "n2",
+              "n3"
+            ],
+            "caption": "The spatial partitioner tests coordinates against viewport boundaries."
           },
           {
-            "at": "say4",
-            "caption": "Panning camera updates viewport boundaries and re-renders visible slice in < 1ms.",
-            "values": {
-              "pan": {
-                "text": "\"Camera Pan: 60 FPS\""
-              }
-            },
-            "tones": {
-              "pan": "ok"
-            }
+            "at": "say8",
+            "highlight": [
+              "n3",
+              "n4"
+            ],
+            "caption": "Culling offscreen elements reduces layout reflows and drawing calls."
           }
         ]
       }
     },
     {
+      "partIndex": 4,
       "partTitle": "The Production 10,000-Node Visual Graph Filter Engine & Latency Audit",
       "codeHash": "735c51202cbf79895dcf3cac236d28e8674ad760aae9db445e2be8b1c64add37",
       "spec": {
-        "template": "flow",
-        "title": "Milestone 7 Capstone Production Architecture & 60 FPS Certification",
-        "nodes": [
+        "template": "boxes",
+        "title": "Production Capstone Engine Architecture",
+        "boxes": [
           {
-            "id": "cap_sync",
-            "label": "SyncLane Input (< 0.2ms)",
-            "tappable": false
+            "id": "c1",
+            "title": "Lane Classifier",
+            "desc": "Bitmask Lane Classifier",
+            "tone": "ok"
           },
           {
-            "id": "cap_preempt",
-            "label": "In-Flight Preemption",
-            "tappable": false
+            "id": "c2",
+            "title": "Cooperative Slicer",
+            "desc": "cooperative transition pass",
+            "tone": "data"
           },
           {
-            "id": "cap_slice",
-            "label": "5ms MessageChannel Slices",
-            "tappable": false
+            "id": "c3",
+            "title": "Spatial Partitioner",
+            "desc": "Spatial Viewport Partitioner",
+            "tone": "idle"
           },
           {
-            "id": "cap_cull",
-            "label": "Spatial Culling (< 16.6ms)",
-            "tappable": false
+            "id": "c4",
+            "title": "Frame Budget Audit",
+            "desc": "Total Blocking Time",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "User keystrokes echo in SyncLane in under zero.two milliseconds with zero.",
-            "values": {
-              "cap_sync": {
-                "text": "\"0.1ms Echo\""
-              },
-              "cap_preempt": {
-                "text": "\"None\""
-              },
-              "cap_slice": {
-                "text": "\"Queued\""
-              },
-              "cap_cull": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "idle",
-              "cap_slice": "idle",
-              "cap_cull": "idle"
-            },
-            "arrows": [
-              [
-                "cap_sync",
-                "cap_preempt"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Incoming keystrokes immediately abort stale in-flight filters, saving thousands of calculations.",
-            "values": {
-              "cap_sync": {
-                "text": "\"Preemption Check\""
-              },
-              "cap_preempt": {
-                "text": "\"Aborted Stale\""
-              },
-              "cap_slice": {
-                "text": "\"Restarted\""
-              },
-              "cap_cull": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "error",
-              "cap_slice": "data",
-              "cap_cull": "idle"
-            },
-            "arrows": [
-              [
-                "cap_preempt",
-                "cap_slice"
-              ]
-            ]
+            "highlight": [
+              "c1"
+            ],
+            "caption": "The classifier routes urgent keystrokes directly into synchronous lanes."
           },
           {
             "at": "say3",
-            "caption": "Ten,multiple nodes are filtered in fivems cooperative slices with zero.",
-            "values": {
-              "cap_sync": {
-                "text": "\"Synced\""
-              },
-              "cap_preempt": {
-                "text": "\"Done\""
-              },
-              "cap_slice": {
-                "text": "\"5ms Slices (TBT=0ms)\""
-              },
-              "cap_cull": {
-                "text": "\"Evaluating\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "ok",
-              "cap_slice": "ok",
-              "cap_cull": "data"
-            },
-            "arrows": [
-              [
-                "cap_slice",
-                "cap_cull"
-              ]
-            ]
+            "highlight": [
+              "c2",
+              "c3"
+            ],
+            "caption": "Cooperative transitions slice node filtering across microtask windows."
           },
           {
             "at": "say4",
-            "caption": "Spatial culling renders multiple visible nodes; Milestone seven achieves.",
-            "values": {
-              "cap_sync": {
-                "text": "\"0ms TBT\""
-              },
-              "cap_preempt": {
-                "text": "\"Optimal\""
-              },
-              "cap_slice": {
-                "text": "\"Max 5ms\""
-              },
-              "cap_cull": {
-                "text": "\"60 FPS CERTIFIED\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "ok",
-              "cap_slice": "ok",
-              "cap_cull": "ok"
-            },
-            "arrows": [
-              [
-                "cap_slice",
-                "cap_cull"
-              ]
-            ]
+            "highlight": [
+              "c4"
+            ],
+            "caption": "Automated latency audits verify compliance with visual frame deadlines."
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone 7 Capstone Production Architecture & 60 FPS Certification",
-        "nodes": [
+        "template": "boxes",
+        "title": "Production Capstone Engine Architecture",
+        "boxes": [
           {
-            "id": "cap_sync",
-            "label": "SyncLane Input (< 0.2ms)",
-            "tappable": false
+            "id": "c1",
+            "title": "Lane Classifier",
+            "desc": "Bitmask Lane Classifier",
+            "tone": "ok"
           },
           {
-            "id": "cap_preempt",
-            "label": "In-Flight Preemption",
-            "tappable": false
+            "id": "c2",
+            "title": "Cooperative Slicer",
+            "desc": "cooperative transition pass",
+            "tone": "data"
           },
           {
-            "id": "cap_slice",
-            "label": "5ms MessageChannel Slices",
-            "tappable": false
+            "id": "c3",
+            "title": "Spatial Partitioner",
+            "desc": "Spatial Viewport Partitioner",
+            "tone": "idle"
           },
           {
-            "id": "cap_cull",
-            "label": "Spatial Culling (< 16.6ms)",
-            "tappable": false
+            "id": "c4",
+            "title": "Frame Budget Audit",
+            "desc": "Total Blocking Time",
+            "tone": "ok"
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "User keystrokes echo in SyncLane in under 0.2 milliseconds with zero dropped frames.",
-            "values": {
-              "cap_sync": {
-                "text": "\"0.1ms Echo\""
-              },
-              "cap_preempt": {
-                "text": "\"None\""
-              },
-              "cap_slice": {
-                "text": "\"Queued\""
-              },
-              "cap_cull": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "idle",
-              "cap_slice": "idle",
-              "cap_cull": "idle"
-            },
-            "arrows": [
-              [
-                "cap_sync",
-                "cap_preempt"
-              ]
-            ]
-          },
-          {
             "at": "say2",
-            "caption": "Incoming keystrokes immediately abort stale in-flight filters, saving thousands of calculations.",
-            "values": {
-              "cap_sync": {
-                "text": "\"Preemption Check\""
-              },
-              "cap_preempt": {
-                "text": "\"Aborted Stale\""
-              },
-              "cap_slice": {
-                "text": "\"Restarted\""
-              },
-              "cap_cull": {
-                "text": "\"Queued\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "error",
-              "cap_slice": "data",
-              "cap_cull": "idle"
-            },
-            "arrows": [
-              [
-                "cap_preempt",
-                "cap_slice"
-              ]
-            ]
+            "highlight": [
+              "c1"
+            ],
+            "caption": "The classifier routes urgent keystrokes directly into synchronous lanes."
           },
           {
             "at": "say3",
-            "caption": "10,000 nodes are filtered in 5ms cooperative slices with zero Total Blocking Time (TBT).",
-            "values": {
-              "cap_sync": {
-                "text": "\"Synced\""
-              },
-              "cap_preempt": {
-                "text": "\"Done\""
-              },
-              "cap_slice": {
-                "text": "\"5ms Slices (TBT=0ms)\""
-              },
-              "cap_cull": {
-                "text": "\"Evaluating\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "ok",
-              "cap_slice": "ok",
-              "cap_cull": "data"
-            },
-            "arrows": [
-              [
-                "cap_slice",
-                "cap_cull"
-              ]
-            ]
+            "highlight": [
+              "c2",
+              "c3"
+            ],
+            "caption": "Cooperative transitions slice node filtering across microtask windows."
           },
           {
             "at": "say4",
-            "caption": "Spatial culling renders 245 visible nodes; Milestone 7 achieves certified 60 FPS compliance.",
-            "values": {
-              "cap_sync": {
-                "text": "\"0ms TBT\""
-              },
-              "cap_preempt": {
-                "text": "\"Optimal\""
-              },
-              "cap_slice": {
-                "text": "\"Max 5ms\""
-              },
-              "cap_cull": {
-                "text": "\"60 FPS CERTIFIED\""
-              }
-            },
-            "tones": {
-              "cap_sync": "ok",
-              "cap_preempt": "ok",
-              "cap_slice": "ok",
-              "cap_cull": "ok"
-            },
-            "arrows": [
-              [
-                "cap_slice",
-                "cap_cull"
-              ]
-            ]
+            "highlight": [
+              "c4"
+            ],
+            "caption": "Automated latency audits verify compliance with visual frame deadlines."
           }
         ]
       }
