@@ -15,14 +15,14 @@ test('Task 4: Campus Academic & Right Sidebar Connection Flow Verification', asy
     );
   });
 
-  await t.test('2. AppShell renders Campus Academic circle trigger when not connected', () => {
+  await t.test('2. AppShell unifies academic trigger: duplicate floating CA button removed', () => {
     assert.ok(
-      shellSource.includes('campus-academic-circle-btn'),
-      'Must render circular button when !isCollegeConnected'
+      !shellSource.includes('campus-academic-circle-btn'),
+      'Must eliminate duplicate floating campus-academic-circle-btn so there is only 1 academic circle tab'
     );
     assert.ok(
-      shellSource.includes('Campus Academic — Connect to College'),
-      'Trigger button must have informative title and aria-label'
+      shellSource.includes('onOpenConnectCollege'),
+      'AppShell must pass onOpenConnectCollege trigger to AppHeader single academic circle button'
     );
   });
 

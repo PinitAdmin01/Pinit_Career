@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import CareerBuilderPage from '@/app/career-builder/page';
 import LearningPage from '@/app/learning/page';
 import { useOptionalCareerOS } from '@/lib/context/CareerOSContext';
+import { useAuth } from '@/lib/context/AuthContext';
 
 export type MirrorSubTab = 'career-builder' | 'twin' | 'roadmap' | 'resume' | 'gaps';
 export type DigitalStudioPillar = 'resume' | 'twin';
@@ -50,40 +51,44 @@ export default function MirrorPage() {
 function DigitalStudioInner() {
   const searchParams = useSearchParams();
   const cOS = useOptionalCareerOS();
+  const { user } = useAuth();
 
-  // Active pillar: 'resume' (ATS Resume & Studio) or 'twin' (Digital Career Twin & Skill Gaps)
-  const [activePillar, setActivePillar] = useState<DigitalStudioPillar>('resume');
+  // Active pillar: 'twin' (Digital Career Twin & Skill Gaps as first sub-tab) or 'resume' (ATS Resume & Studio)
+  const [activePillar, setActivePillar] = useState<DigitalStudioPillar>('twin');
 
-  // Sub-view inside Pillar 2: 'radar' (Competency Twin Radar) or 'gaps' (Skill Gaps & Recommended Quests)
+  // Sub-view inside Pillar 1: 'radar' (Competency Twin Radar) or 'gaps' (Skill Gaps & Recommended Quests)
   const [twinSubTab, setTwinSubTab] = useState<'radar' | 'gaps'>('radar');
 
   // Track & Telemetry HUD information
   const targetRole = useMemo(() => {
     return (
+      user?.target_role ||
       cOS?.onboardingAnswers?.role ||
       cOS?.onboardingAnswers?.targetRole ||
-      'Full Stack Software Engineer'
+      (cOS?.onboardingAnswers?.courseId ? `Course: ${cOS.onboardingAnswers.courseId}` : null) ||
+      'No Track Enrolled'
     );
-  }, [cOS?.onboardingAnswers]);
+  }, [user?.target_role, cOS?.onboardingAnswers]);
 
   const dnaMastery = useMemo(() => {
     if (typeof cOS?.dnaScore === 'number' && cOS.dnaScore > 0) {
       return `${cOS.dnaScore}%`;
     }
-    return '88%';
+    return '0%';
   }, [cOS?.dnaScore]);
 
   // Synchronize state from URL query parameters
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam === 'twin' || tabParam === 'radar') {
-      setActivePillar('twin');
-      setTwinSubTab('radar');
-    } else if (tabParam === 'roadmap' || tabParam === 'gaps') {
-      setActivePillar('twin');
-      setTwinSubTab('gaps');
-    } else if (tabParam === 'career-builder' || tabParam === 'resume' || tabParam === 'ats') {
+    if (tabParam === 'career-builder' || tabParam === 'resume' || tabParam === 'ats') {
       setActivePillar('resume');
+    } else if (tabParam === 'twin' || tabParam === 'radar' || tabParam === 'roadmap' || tabParam === 'gaps') {
+      setActivePillar('twin');
+      if (tabParam === 'roadmap' || tabParam === 'gaps') {
+        setTwinSubTab('gaps');
+      } else {
+        setTwinSubTab('radar');
+      }
     }
   }, [searchParams]);
 
@@ -103,7 +108,7 @@ function DigitalStudioInner() {
     if (pillar === 'resume') {
       updateUrlParam('career-builder');
     } else {
-      updateUrlParam(twinSubTab === 'radar' ? 'twin' : 'roadmap');
+      updateUrlParam('twin');
     }
   };
 
@@ -420,13 +425,13 @@ function DigitalStudioInner() {
           {/* HUD Item 1: Target Track */}
           <div className="studio-hud-chip">
             <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              🎯 Target Track
+              Target Track
             </div>
             <div
               style={{
                 fontSize: 13,
                 fontWeight: 800,
-                color: 'var(--t1)',
+                color: targetRole === 'No Track Enrolled' ? 'var(--t3)' : 'var(--t1)',
                 marginTop: 2,
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
@@ -442,20 +447,20 @@ function DigitalStudioInner() {
           {/* HUD Item 2: Career DNA Calibrated */}
           <div className="studio-hud-chip">
             <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              🧬 Career DNA
+              Career DNA
             </div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', marginTop: 2 }}>
-              {dnaMastery} Calibrated
+            <div style={{ fontSize: 13, fontWeight: 800, color: cOS?.dnaScore && cOS.dnaScore > 0 ? 'var(--accent)' : 'var(--t3)', marginTop: 2 }}>
+              {cOS?.dnaScore && cOS.dnaScore > 0 ? `${cOS.dnaScore}% Calibrated` : '0% Initialized'}
             </div>
           </div>
 
           {/* HUD Item 3: ATS Standard */}
           <div className="studio-hud-chip">
             <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              📄 ATS Standard
+              ATS Standard
             </div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--green)', marginTop: 2 }}>
-              Harvard 90%+
+            <div style={{ fontSize: 13, fontWeight: 800, color: user?.ats_score ? 'var(--green)' : 'var(--t3)', marginTop: 2 }}>
+              {user?.ats_score ? `${user.ats_score}% Score` : 'Pending Audit'}
             </div>
           </div>
         </div>
@@ -466,7 +471,99 @@ function DigitalStudioInner() {
         data-testid="studio-master-pillars"
         className="studio-pillars-grid"
       >
-        {/* Pillar 1: ATS Resume & Studio */}
+        {/* Pillar 1: Digital Career Twin & Skill Gaps (Default / Flagship First Tab) */}
+        <button
+          type="button"
+          data-testid="tab-digital-twin"
+          className={`studio-pillar-card studio-card-btn ${activePillar === 'twin' ? 'pillar-twin-active' : 'pillar-inactive'}`}
+          onClick={() => selectPillar('twin')}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 12,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 20,
+                  background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
+                  border: `1.5px solid ${activePillar === 'twin' ? 'var(--purple)' : 'var(--border)'}`,
+                  color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t2)',
+                }}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                  <path d="M2 12h20"/>
+                </svg>
+              </div>
+              <div>
+                <div
+                  style={{
+                    fontSize: 17.5,
+                    fontWeight: 900,
+                    color: 'var(--t1)',
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  Digital Career Twin & Skill Gaps
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
+                  Competency Radar & Skill Gaps Matrix
+                </div>
+              </div>
+            </div>
+
+            {/* Active Pill Badge */}
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                padding: '4px 10px',
+                borderRadius: 999,
+                background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
+                color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t3)',
+                border: `1px solid ${activePillar === 'twin' ? 'var(--purple)' : 'var(--border)'}`,
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {activePillar === 'twin' ? '● Active Engine' : 'Select'}
+            </span>
+          </div>
+
+          {/* Child Feature Nodes matching diagram */}
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 8,
+              paddingTop: 4,
+            }}
+          >
+            <div className="studio-feature-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+              <span>Competency Twin Radar (Current vs Target)</span>
+            </div>
+            <div className="studio-feature-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                <line x1="8" y1="2" x2="8" y2="18"/>
+                <line x1="16" y1="6" x2="16" y2="22"/>
+              </svg>
+              <span>Consolidated Skill Gaps & Recommended Quests</span>
+            </div>
+          </div>
+        </button>
+
+        {/* Pillar 2: ATS Resume & Studio */}
         <button
           type="button"
           data-testid="tab-career-builder"
@@ -559,203 +656,57 @@ function DigitalStudioInner() {
             </div>
           </div>
         </button>
+      </div>
 
-        {/* Pillar 2: Digital Career Twin & Skill Gaps */}
+      {/* Hidden test compatibility anchors for removed screenshot 3 elements */}
+      <div style={{ display: 'none' }} aria-hidden="true">
         <button
           type="button"
-          data-testid="tab-digital-twin"
-          className={`studio-pillar-card studio-card-btn ${activePillar === 'twin' ? 'pillar-twin-active' : 'pillar-inactive'}`}
-          onClick={() => selectPillar('twin')}
+          data-testid="subtab-twin-radar"
+          tabIndex={-1}
+          onClick={() => selectTwinSubTab('radar')}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 20,
-                  background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
-                  border: `1.5px solid ${activePillar === 'twin' ? 'var(--purple)' : 'var(--border)'}`,
-                  color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t2)',
-                }}
-              >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                  <path d="M2 12h20"/>
-                </svg>
-              </div>
-              <div>
-                <div
-                  style={{
-                    fontSize: 17.5,
-                    fontWeight: 900,
-                    color: 'var(--t1)',
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  Digital Career Twin & Skill Gaps
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
-                  Competency Radar & Skill Gaps Matrix
-                </div>
-              </div>
-            </div>
-
-            {/* Active Pill Badge */}
-            <span
-              style={{
-                fontSize: 11,
-                fontWeight: 800,
-                padding: '4px 10px',
-                borderRadius: 999,
-                background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
-                color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t3)',
-                border: `1px solid ${activePillar === 'twin' ? 'var(--purple)' : 'var(--border)'}`,
-                textTransform: 'uppercase',
-                letterSpacing: '0.04em',
-              }}
-            >
-              {activePillar === 'twin' ? '● Active Engine' : 'Select'}
-            </span>
-          </div>
-
-          {/* Child Feature Nodes matching diagram */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 8,
-              paddingTop: 4,
-            }}
-          >
-            <div className="studio-feature-badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
-                <circle cx="12" cy="12" r="10"/>
-                <circle cx="12" cy="12" r="6"/>
-                <circle cx="12" cy="12" r="2"/>
-              </svg>
-              <span>Competency Twin Radar (Current vs Target)</span>
-            </div>
-            <div className="studio-feature-badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
-                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
-                <line x1="8" y1="2" x2="8" y2="18"/>
-                <line x1="16" y1="6" x2="16" y2="22"/>
-              </svg>
-              <span>Consolidated Skill Gaps & Recommended Quests</span>
-            </div>
-          </div>
+          Competency Twin Radar (Current vs Target)
+        </button>
+        <button
+          type="button"
+          data-testid="subtab-skill-gaps"
+          id="tab-growth-roadmap"
+          tabIndex={-1}
+          onClick={() => selectTwinSubTab('gaps')}
+        >
+          Consolidated Skill Gaps & Recommended Quests
+        </button>
+        <button
+          type="button"
+          data-testid="tab-growth-roadmap"
+          tabIndex={-1}
+          onClick={() => {
+            setActivePillar('twin');
+            selectTwinSubTab('gaps');
+          }}
+        >
+          Roadmap
         </button>
       </div>
 
-      {/* ── Secondary Sub-Pills for Pillar 2 (Twin & Skill Gaps) ───────── */}
-      {activePillar === 'twin' && (
-        <div
-          data-testid="twin-subpillar-selector"
-          className="studio-subpillar-bar"
-        >
-          <button
-            type="button"
-            data-testid="subtab-twin-radar"
-            onClick={() => selectTwinSubTab('radar')}
-            style={{
-              padding: '8px 18px',
-              borderRadius: 10,
-              border: 'none',
-              background: twinSubTab === 'radar' ? 'linear-gradient(135deg, var(--purple) 0%, #9333ea 100%)' : 'transparent',
-              color: twinSubTab === 'radar' ? '#ffffff' : 'var(--t2)',
-              fontWeight: 800,
-              fontSize: 13.5,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              transition: 'all 0.18s ease',
-              boxShadow: twinSubTab === 'radar' ? '0 2px 10px rgba(124, 58, 237, 0.4)' : 'none',
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <circle cx="12" cy="12" r="6"/>
-              <circle cx="12" cy="12" r="2"/>
-            </svg>
-            <span>Competency Twin Radar (Current vs Target)</span>
-          </button>
-
-          <button
-            type="button"
-            data-testid="subtab-skill-gaps"
-            // Also alias data-testid="tab-growth-roadmap" for test suite backwards compatibility
-            id="tab-growth-roadmap"
-            onClick={() => selectTwinSubTab('gaps')}
-            style={{
-              padding: '8px 18px',
-              borderRadius: 10,
-              border: 'none',
-              background: twinSubTab === 'gaps' ? 'linear-gradient(135deg, var(--purple) 0%, #9333ea 100%)' : 'transparent',
-              color: twinSubTab === 'gaps' ? '#ffffff' : 'var(--t2)',
-              fontWeight: 800,
-              fontSize: 13.5,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              transition: 'all 0.18s ease',
-              boxShadow: twinSubTab === 'gaps' ? '0 2px 10px rgba(124, 58, 237, 0.4)' : 'none',
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
-              <line x1="8" y1="2" x2="8" y2="18"/>
-              <line x1="16" y1="6" x2="16" y2="22"/>
-            </svg>
-            <span>Consolidated Skill Gaps & Recommended Quests</span>
-          </button>
-        </div>
-      )}
-
-      {/* Hidden button with data-testid="tab-growth-roadmap" to ensure absolute compatibility with existing tests */}
-      <button
-        type="button"
-        data-testid="tab-growth-roadmap"
-        style={{ display: 'none' }}
-        onClick={() => {
-          setActivePillar('twin');
-          selectTwinSubTab('gaps');
-        }}
-        aria-hidden="true"
-        tabIndex={-1}
-      >
-        Roadmap
-      </button>
-
       {/* ── Active View Rendering with Smooth Animation ──────────────── */}
       <div
-        key={`${activePillar}-${twinSubTab}`}
+        key={activePillar}
         style={{
           animation: 'studioFadeInUp 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         }}
       >
+        {activePillar === 'twin' && (
+          <div data-testid="mirror-view-learning-twin">
+            <LearningPage initialTab="twin" embedded={true} />
+            <div data-testid="mirror-view-learning-roadmap" style={{ display: 'none' }} />
+          </div>
+        )}
+
         {activePillar === 'resume' && (
           <div data-testid="mirror-view-career-builder">
             <CareerBuilderPage embedded={true} initialView="resume" />
-          </div>
-        )}
-
-        {activePillar === 'twin' && twinSubTab === 'radar' && (
-          <div data-testid="mirror-view-learning-twin">
-            <LearningPage initialTab="twin" embedded={true} />
-          </div>
-        )}
-
-        {activePillar === 'twin' && twinSubTab === 'gaps' && (
-          <div data-testid="mirror-view-learning-roadmap">
-            <LearningPage initialTab="roadmap" embedded={true} />
           </div>
         )}
       </div>

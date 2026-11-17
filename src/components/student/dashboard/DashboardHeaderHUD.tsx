@@ -371,14 +371,6 @@ export default function DashboardHeaderHUD({
           <CareerTwinHologram track={activeTrack} />
 
           <div style={{ flex: 1, minWidth: 0 }}>
-            {/* Exploration Status Pill */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 7 }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3.5px 11px', borderRadius: 999, fontSize: 11, fontWeight: 700, background: 'rgba(16, 185, 129, 0.12)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.28)' }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
-                Personal &bull; {dynamicCareer > 0 ? 'Active Sprint' : 'Orientation'}
-              </span>
-            </div>
-
             <h1
               data-testid="student-greeting"
               style={{
@@ -485,9 +477,6 @@ export default function DashboardHeaderHUD({
               <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--dash-telemetry-val)', fontFamily: 'var(--font-mono)', lineHeight: 1.15 }}>
                 {dynamicTrust}
               </span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#10b981', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                Good Standing
-              </span>
             </div>
           </Link>
 
@@ -520,9 +509,6 @@ export default function DashboardHeaderHUD({
               </span>
               <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--dash-telemetry-val)', fontFamily: 'var(--font-mono)', lineHeight: 1.15 }}>
                 {dynamicCareer}
-              </span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#818cf8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {dynamicCareer > 0 ? 'In Progress' : 'No Active Course'}
               </span>
             </div>
           </Link>
@@ -563,9 +549,6 @@ export default function DashboardHeaderHUD({
               <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--dash-telemetry-val)', fontFamily: 'var(--font-mono)', lineHeight: 1.15 }}>
                 {dynamicElo}
               </span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#06b6d4', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {dynamicElo > 100 ? `Rating: ${dynamicElo}` : 'Unranked • Placement'}
-              </span>
             </div>
           </Link>
 
@@ -597,9 +580,6 @@ export default function DashboardHeaderHUD({
               </span>
               <span style={{ fontSize: 22, fontWeight: 900, color: 'var(--dash-telemetry-val)', fontFamily: 'var(--font-mono)', lineHeight: 1.15 }}>
                 {dynamicWeeklyExp}
-              </span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#f59e0b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {dynamicWeeklyExp > 0 ? 'Active Momentum' : 'No Activity'}
               </span>
             </div>
           </Link>

@@ -5,7 +5,7 @@
 import React from 'react';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import Link from 'next/link';
-import PinCurrencyIcon from '@/components/pins/PinCurrencyIcon';
+import PinCoin from '@/components/pins/PinCoin';
 import './pins.css';
 
 interface Props {
@@ -61,7 +61,7 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
         transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
-      <PinCurrencyIcon size={s.iconSize} glow={!very_low} animate={!very_low && !low} />
+      <PinCoin size={s.iconSize} glow={!very_low} animate={!very_low && !low} />
       <span>{totalPins.toLocaleString()} Pins</span>
       {very_low && size !== 'sm' && <span style={{ fontSize: s.font - 1, marginLeft: 2 }}>⚠ Low</span>}
     </div>

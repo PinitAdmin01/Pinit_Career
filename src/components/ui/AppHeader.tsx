@@ -31,6 +31,8 @@ export interface AppHeaderProps {
   userId?: string;
   toggleRightSidebar?: () => void;
   isRightSidebarOpen?: boolean;
+  isCollegeConnected?: boolean;
+  onOpenConnectCollege?: () => void;
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
@@ -56,6 +58,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   userId,
   toggleRightSidebar,
   isRightSidebarOpen,
+  isCollegeConnected = false,
+  onOpenConnectCollege,
 }) => {
   return (
     <header className="topbar" style={{ display: (isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive) ? 'none' : 'flex' }}>
@@ -83,13 +87,25 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         <GearAudioHub theme={theme === 'light' ? 'light' : 'dark'} size="sm" />
 
         {/* 🎓 Academic Tabs Trigger Circle "A" */}
-        {isStudent && toggleRightSidebar && (
+        {isStudent && (toggleRightSidebar || onOpenConnectCollege) && (
           <button
             type="button"
-            onClick={toggleRightSidebar}
+            onClick={() => {
+              if (!isCollegeConnected) {
+                onOpenConnectCollege?.();
+              } else {
+                toggleRightSidebar?.();
+              }
+            }}
             data-testid="academic-circle-btn"
-            title={isRightSidebarOpen ? 'Close Academic Tabs (A)' : 'Open Academic Tabs (A)'}
-            aria-label="Toggle Campus Academic Services"
+            title={
+              !isCollegeConnected
+                ? 'Campus Academic — Connect to College (A)'
+                : isRightSidebarOpen
+                ? 'Close Academic Tabs (A)'
+                : 'Open Academic Tabs (A)'
+            }
+            aria-label={!isCollegeConnected ? 'Connect to College' : 'Toggle Campus Academic Services'}
             style={{
               width: 30,
               height: 30,

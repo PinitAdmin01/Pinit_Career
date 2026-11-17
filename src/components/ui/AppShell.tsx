@@ -462,7 +462,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         localStorage.setItem('pinit_connected_college', connectedName);
       }
       setShowConnectCollegeModal(false);
-      toast.success(`Successfully connected to ${connectedName}! Right sidebar unlocked.`);
+      setActiveAcademicTab('home');
+      setRightCollapsed(false);
+      setCollapsed(true);
+      toast.success(`Successfully connected to ${connectedName}! College dashboard unlocked.`);
     } catch (err: any) {
       setCollegeError(err?.message || 'Connection failed. Please try again.');
     } finally {
@@ -746,6 +749,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           userId={user?.id}
           toggleRightSidebar={toggleRightSidebar}
           isRightSidebarOpen={!rightCollapsed}
+          isCollegeConnected={isCollegeConnected}
+          onOpenConnectCollege={() => {
+            setCollegeError('');
+            setShowConnectCollegeModal(true);
+          }}
         />
 
         {/* Content */}
@@ -800,7 +808,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Right Sidebar - completely invisible by default; toggled on demand via Circle 'A' beside Settings Gear */}
-      {isStudent && !effectiveFocusMode && !cleanPath.startsWith('/quests') && !rightCollapsed && (
+      {isStudent && !effectiveFocusMode && !cleanPath.startsWith('/quests') && isCollegeConnected && !rightCollapsed && (
         <aside
           className="sidebar right-sidebar"
           style={{
@@ -970,44 +978,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         </aside>
-      )}
-
-      {/* Task 4: Circular Campus Academic Trigger when not connected to college */}
-      {isStudent && !effectiveFocusMode && !cleanPath.startsWith('/quests') && !isCollegeConnected && (
-        <button
-          type="button"
-          className="campus-academic-circle-btn"
-          title="Campus Academic — Connect to College"
-          aria-label="Connect to College"
-          onClick={() => {
-            setCollegeError('');
-            setShowConnectCollegeModal(true);
-          }}
-          style={{
-            position: 'fixed',
-            right: 14,
-            top: 72,
-            width: 48,
-            height: 48,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
-            border: '2px solid rgba(255, 255, 255, 0.25)',
-            boxShadow: '0 4px 18px rgba(99, 102, 241, 0.45), 0 0 12px rgba(168, 85, 247, 0.35)',
-            color: '#ffffff',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            zIndex: 90,
-            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            padding: 0,
-            outline: 'none',
-          }}
-        >
-          <span style={{ fontSize: 16, lineHeight: 1 }}>🏛️</span>
-          <span style={{ fontSize: 8.5, fontWeight: 900, letterSpacing: '0.5px', marginTop: 1, textTransform: 'uppercase' }}>CA</span>
-        </button>
       )}
 
       {isStudent && !isLandingPage && !isLessonOrDetail && !effectiveFocusMode && !isRoleplayActive && !isArenaDuelActive && !isInterviewActiveState && (

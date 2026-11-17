@@ -18,13 +18,11 @@ import {
 
 describe('BRUTAL VERIFICATION: Pins & Wallet and Item Shop Unified Hub Merge', () => {
 
-  it('1. Left Sidebar Navigation has single merged "Pins & Shop" flagship route', () => {
+  it('1. Left Sidebar Navigation removes loose "Pins & Shop" tab from student sidebar per Task 2', () => {
     const studentItems = STUDENT_NAV[0].items.filter((item): item is NavLeaf => 'href' in item);
     const shopItem = studentItems.find(item => item.href === '/shop');
 
-    assert.ok(shopItem, 'STUDENT_NAV must contain /shop item');
-    assert.equal(shopItem.label, 'Pins & Shop', 'Label must be "Pins & Shop" to represent the merged hub');
-    assert.equal(shopItem.icon, '🛍️', 'Icon must be shop bag 🛍️');
+    assert.equal(shopItem, undefined, 'STUDENT_NAV must NOT contain /shop item per Task 2');
 
     // Confirm no loose duplicate /pins in STUDENT_NAV or BOTTOM_NAV
     const loosePinsInStudentNav = studentItems.find(item => item.href === '/pins');

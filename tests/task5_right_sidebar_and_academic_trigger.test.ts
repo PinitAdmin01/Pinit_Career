@@ -30,8 +30,8 @@ describe('TASK 5 BRUTAL VERIFICATION: Right Sidebar Invisibility & Circle "A" Ac
     );
   };
 
-  it('renders circular "A" academic trigger button right next to settings gear for student', () => {
-    let toggled = false;
+  it('renders circular "A" academic trigger button prompting Connect to College when disconnected', () => {
+    let modalOpened = false;
     const html = renderHeader({
       isLessonOrDetail: false,
       isGroupDiscussionCall: false,
@@ -52,18 +52,49 @@ describe('TASK 5 BRUTAL VERIFICATION: Right Sidebar Invisibility & Circle "A" Ac
       wsConnected: true,
       unread: 0,
       userId: 'student-123',
-      toggleRightSidebar: () => { toggled = true; },
+      toggleRightSidebar: () => {},
       isRightSidebarOpen: false,
+      isCollegeConnected: false,
+      onOpenConnectCollege: () => { modalOpened = true; },
     });
 
     // Verify academic trigger button presence and structure
     assert.ok(html.includes('data-testid="academic-circle-btn"'), 'Academic circle button must be rendered in AppHeader');
     assert.ok(html.includes('>A</button>'), 'Button must render design "A" inside the circle');
-    assert.ok(html.includes('title="Open Academic Tabs (A)"'), 'Button must indicate opening academic tabs when closed');
+    assert.ok(html.includes('title="Campus Academic — Connect to College (A)"'), 'Button must prompt Connect to College when disconnected');
     assert.ok(html.includes('border-radius:50%'), 'Button must have circular 50% border radius');
   });
 
-  it('updates circular button title when academic sidebar is currently open', () => {
+  it('renders circular "A" button indicating Open Academic Tabs when student is connected and sidebar is closed', () => {
+    const html = renderHeader({
+      isLessonOrDetail: false,
+      isGroupDiscussionCall: false,
+      isRoleplayActive: false,
+      effectiveFocusMode: false,
+      mobileOpen: false,
+      setMobileOpen: () => {},
+      pageTitle: 'Dashboard',
+      isStudent: true,
+      careerScore: 100,
+      dnaScore: 80,
+      trustScore: 90,
+      missionOnlyStreak: 5,
+      liteUiMode: false,
+      setLiteUiMode: () => {},
+      theme: 'dark',
+      toggleTheme: () => {},
+      wsConnected: true,
+      unread: 0,
+      userId: 'student-123',
+      toggleRightSidebar: () => {},
+      isRightSidebarOpen: false,
+      isCollegeConnected: true,
+    });
+
+    assert.ok(html.includes('title="Open Academic Tabs (A)"'), 'Button must indicate opening academic tabs when closed and connected');
+  });
+
+  it('updates circular button title when academic sidebar is currently open and connected', () => {
     const html = renderHeader({
       isLessonOrDetail: false,
       isGroupDiscussionCall: false,
@@ -86,6 +117,7 @@ describe('TASK 5 BRUTAL VERIFICATION: Right Sidebar Invisibility & Circle "A" Ac
       userId: 'student-123',
       toggleRightSidebar: () => {},
       isRightSidebarOpen: true,
+      isCollegeConnected: true,
     });
 
     assert.ok(html.includes('title="Close Academic Tabs (A)"'), 'Button must indicate closing academic tabs when open');
@@ -124,10 +156,10 @@ describe('TASK 5 BRUTAL VERIFICATION: Right Sidebar Invisibility & Circle "A" Ac
     const path = await import('node:path');
     const shellContent = fs.readFileSync(path.resolve(__dirname, '../src/components/ui/AppShell.tsx'), 'utf8');
 
-    // 1. Right sidebar is unmounted/hidden when rightCollapsed is true
+    // 1. Right sidebar is unmounted/hidden when rightCollapsed is true and requires isCollegeConnected
     assert.ok(
-      shellContent.includes('{isStudent && !effectiveFocusMode && !cleanPath.startsWith(\'/quests\') && !rightCollapsed && ('),
-      'AppShell must condition right sidebar rendering on !rightCollapsed so it takes 0px width by default'
+      shellContent.includes('{isStudent && !effectiveFocusMode && !cleanPath.startsWith(\'/quests\') && isCollegeConnected && !rightCollapsed && ('),
+      'AppShell must condition right sidebar rendering on isCollegeConnected && !rightCollapsed so it takes 0px width by default'
     );
 
     // 2. Contains the explicit close button

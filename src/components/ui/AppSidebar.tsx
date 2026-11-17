@@ -20,7 +20,7 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Real-time overview of current quests, learning streak, attendance, and weekly milestones.'
   },
   '/quests': {
-    label: 'Quests & Courses',
+    label: 'Courses',
     tooltip: 'Industrial Certification & Learning Roadmaps',
     description: 'Guided 60-day industrial curriculum, hands-on lessons, and verified certification tracks.'
   },
@@ -30,7 +30,7 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Bite-sized algorithmic challenges, speed drills, and daily streak rewards.'
   },
   '/arena': {
-    label: 'Arena & Leaderboard',
+    label: 'Arena',
     tooltip: 'Battle, track League Points, and browse divisions',
     description: 'Compete in coding duels, follow your sprint rank, and inspect Campus, Global, and Guild standings.'
   },
@@ -109,14 +109,13 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
 export const STUDENT_NAV: NavSection[] = [
   { section: 'PinIT Career OS', items: [
     { href: '/dashboard', icon: '🏠', label: 'Dashboard' },
-    { href: '/quests', icon: '🗺', label: 'Quests & Courses' },
+    { href: '/quests', icon: '🗺', label: 'Courses' },
     { href: '/missions', icon: '⚡', label: 'Daily Missions' },
     { href: '/projects', icon: '📁', label: 'Projects' },
     { href: '/innovation-hub', icon: '💡', label: 'Innovation Hub' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/mirror', icon: '🪞', label: 'Digital Studio' },
-    { href: '/attention-span', icon: '🧠', label: 'Attention Span' },
-    { href: '/shop', icon: '🛍️', label: 'Pins & Shop' }
+    { href: '/attention-span', icon: '🧠', label: 'Attention Span' }
   ]}
 ];
 
@@ -236,7 +235,7 @@ export const TEACHER_NAV: NavSection[] = [
 
 export const BOTTOM_NAV: NavLeaf[] = [
   { href: '/friends',       icon: '👥', label: 'My Network'                 },
-  { href: '/arena',         icon: '⚔️', label: 'Arena & Leaderboard'        },
+  { href: '/arena',         icon: '⚔️', label: 'Arena'                      },
   { href: '/notifications', icon: '🔔', label: 'Notifications', badge: true },
   { href: '/profile',       icon: '👤', label: 'Profile'                    },
 ];
@@ -417,8 +416,99 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
     return isPathActive(pathname, href, currentSearch);
   };
 
+const NAV_SVG_ICONS: Record<string, React.ReactNode> = {
+  '/dashboard': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+    </svg>
+  ),
+  '/quests': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      <line x1="9" y1="7" x2="15" y2="7"/>
+      <line x1="9" y1="11" x2="13" y2="11"/>
+    </svg>
+  ),
+  '/missions': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="22" y1="12" x2="18" y2="12"/>
+      <line x1="6" y1="12" x2="2" y2="12"/>
+      <line x1="12" y1="6" x2="12" y2="2"/>
+      <line x1="12" y1="22" x2="12" y2="18"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  ),
+  '/projects': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </svg>
+  ),
+  '/innovation-hub': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18h6"/>
+      <path d="M10 22h4"/>
+      <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+    </svg>
+  ),
+  '/interview': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+      <line x1="12" y1="19" x2="12" y2="22"/>
+    </svg>
+  ),
+  '/mirror': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </svg>
+  ),
+  '/attention-span': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </svg>
+  ),
+  '/friends': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+  ),
+  '/arena': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+      <line x1="13" y1="19" x2="19" y2="13"/>
+      <line x1="16" y1="16" x2="20" y2="20"/>
+      <line x1="19" y1="21" x2="21" y2="19"/>
+      <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+      <line x1="5" y1="14" x2="9" y2="18"/>
+      <line x1="7" y1="17" x2="4" y2="20"/>
+      <line x1="3" y1="19" x2="5" y2="21"/>
+    </svg>
+  ),
+  '/notifications': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+  ),
+  '/profile': (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+  ),
+};
+
   function NavLink({ href, icon, label, badge, indent = false }: NavLeaf & { indent?: boolean }) {
     const active = isNavActive(href);
+    const navIcon = NAV_SVG_ICONS[href] || icon;
     const isTourSpotlight = Boolean(
       activeTourRoute && (
         href === activeTourRoute ||
@@ -456,9 +546,17 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       >
         <span
           className="nav-icon"
-          style={isTourSpotlight ? { transform: 'scale(1.16)', color: 'var(--accent)', transition: 'transform 0.25s' } : undefined}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 22,
+            height: 22,
+            flexShrink: 0,
+            ...(isTourSpotlight ? { transform: 'scale(1.16)', color: 'var(--accent)', transition: 'transform 0.25s' } : {}),
+          }}
         >
-          {icon}
+          {navIcon}
         </span>
         {!isCompact && (
           <span
@@ -584,35 +682,38 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       }}
     >
       {/* Logo & Collapse/Expand Header */}
-      <div className="sidebar-logo" style={isCompact ? { flexDirection: 'column', gap: 6, padding: '10px 6px' } : undefined}>
+      <div className="sidebar-logo" style={isCompact ? { flexDirection: 'column', gap: 6, padding: '10px 6px' } : { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px' }}>
         <Link
           href={homeHref}
           onClick={() => handleNavSelect(homeHref)}
           style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}
           title={isCompact ? 'PinIT Career OS — Home' : undefined}
         >
-          {isCompact || effectiveFocusMode ? (
-            <span className="logo-mark logo-mark-img" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Image
-                src="/brand/pinit-career-mark.png"
-                alt="PINIT CAREER"
-                width={32}
-                height={32}
-                priority
-                style={{ width: 32, height: 32, objectFit: 'contain' }}
-              />
-            </span>
-          ) : (
-            <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 4px', display: 'flex', alignItems: 'center' }}>
-              <Image
-                src="/brand/pinit-career-logo-clear.png"
-                alt="PINIT CAREER"
-                width={148}
-                height={34}
-                className="lp-brand-logo"
-                style={{ height: 34, maxWidth: 148, width: 'auto', objectFit: 'contain' }}
-                priority
-              />
+          <span className="logo-mark logo-mark-img" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <Image
+              src="/brand/pinit-career-mark.png"
+              alt="PinIT Career OS"
+              width={30}
+              height={30}
+              priority
+              style={{ width: 30, height: 30, objectFit: 'contain', filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.35))' }}
+            />
+          </span>
+          {!isCompact && !effectiveFocusMode && (
+            <span
+              style={{
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: 12.5,
+                fontWeight: 900,
+                letterSpacing: '0.07em',
+                color: 'var(--t1)',
+                whiteSpace: 'nowrap',
+                textTransform: 'uppercase',
+                display: 'inline-block',
+                lineHeight: 1,
+              }}
+            >
+              PINIT CAREER OS
             </span>
           )}
         </Link>
@@ -696,7 +797,9 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       <nav className="sidebar-nav">
         {nav.map((sec) => (
           <div key={sec.section}>
-            {!isCompact && !effectiveFocusMode && <div className="nav-section-label">{sec.section}</div>}
+            {!isCompact && !effectiveFocusMode && sec.section !== 'PinIT Career OS' && (
+              <div className="nav-section-label">{sec.section}</div>
+            )}
             {sec.items.map((item) =>
               isGroup(item) ? <NavGroupHeader key={item.label} group={item} /> : <NavLink key={item.href} {...item} />
             )}
@@ -710,7 +813,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         {isStudent && <NavLink href="/friends" icon="👥" label="My Network" />}
 
         {/* 2. Arena & Leaderboard (Relocated under My Network) */}
-        {isStudent && <NavLink href="/arena" icon="⚔️" label="Arena & Leaderboard" />}
+        {isStudent && <NavLink href="/arena" icon="⚔️" label="Arena" />}
 
         {/* 3. Notifications */}
         <NavLink href="/notifications" icon="🔔" label="Notifications" badge={true} />
