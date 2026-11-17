@@ -495,8 +495,8 @@ function ArenaContent() {
     setRoomError(null);
 
     const hasPersistentWallet = Boolean(user?.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id));
-    if (!hasPersistentWallet && cOS?.canAfford && !cOS.canAfford('code_arena')) {
-      setRoomError('You need 10 Pins to create a battle room.');
+    if (!hasPersistentWallet) {
+      setRoomError('Sign in to spend Pins and create a battle room. You can still join an invite.');
       setIsCreatingRoom(false);
       return;
     }
@@ -527,15 +527,6 @@ function ArenaContent() {
         recentProblemIds: Array.from(solvedProblemIds),
       });
 
-      if (room.clientPinChargeRequired) {
-        const charged = cOS?.spendPins
-          ? await cOS.spendPins('code_arena', undefined, 'Create Battle Room')
-          : false;
-        if (!charged) {
-          await ArenaPvPService.cancelWaitingRoom(room.roomCode);
-          throw new Error('You need 10 Pins to create a battle room. The unused room was cancelled.');
-        }
-      }
       if (room.pinCharge) {
         cOS?.setPins?.(room.pinCharge.newBalance);
         cOS?.setBonusPins?.(room.pinCharge.newBonusBalance);

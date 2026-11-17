@@ -349,7 +349,6 @@ export interface ArenaRoom {
   hostArenaPointsAward?: number;
   guestArenaPointsAward?: number;
   pinCharge?: { newBalance: number; newBonusBalance: number; totalBalance: number };
-  clientPinChargeRequired?: boolean;
   hostPinsAward?: number;
   guestPinsAward?: number;
 }

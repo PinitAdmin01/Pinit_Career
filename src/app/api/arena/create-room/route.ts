@@ -14,6 +14,15 @@ export async function POST(req: NextRequest) {
       return auth.error;
     }
 
+    // Room creation spends persistent Pins. A guest/local wallet cannot be verified by the
+    // server, so accepting it here would let direct API callers create unpaid rooms.
+    if (auth.user.isGuest || !UUID_PATTERN.test(auth.user.id)) {
+      return NextResponse.json(
+        { error: 'AUTH_REQUIRED_FOR_PAID_ARENA_ROOM', message: 'Sign in to spend Pins and create a battle room. You can still join an invite.' },
+        { status: 401 },
+      );
+    }
+
     const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
     const requestedProblemId = typeof body.problemId === 'string' ? body.problemId.trim() : '';
     const rawRequestId = typeof body.requestId === 'string' ? body.requestId.trim() : '';
@@ -65,7 +74,6 @@ export async function POST(req: NextRequest) {
       console.log(`[CreateRoom API] Auto-calibrated question: ${chosenProblemId} (Tier: ${chosenDifficulty}) for host: ${auth.user.id}`);
     }
 
-    const hasPersistentWallet = UUID_PATTERN.test(auth.user.id);
     const room = await ArenaPvPStore.createRoom({
       hostId: auth.user.id,
       hostName: hostName.slice(0, 60),
@@ -75,13 +83,9 @@ export async function POST(req: NextRequest) {
       problemId: chosenProblemId,
       difficulty: chosenDifficulty,
       timeLimitSeconds: chosenTimeLimit,
-      ...(hasPersistentWallet ? {
-        pinChargeUserId: auth.user.id,
-        requestId: rawRequestId || randomUUID(),
-      } : {}),
+      pinChargeUserId: auth.user.id,
+      requestId: rawRequestId || randomUUID(),
     });
-
-    if (!hasPersistentWallet) room.clientPinChargeRequired = true;
 
     console.log(`[CreateRoom API] Room successfully created: ${room.roomCode} | problemId: ${room.problemId} | host: ${room.hostId}`);
 

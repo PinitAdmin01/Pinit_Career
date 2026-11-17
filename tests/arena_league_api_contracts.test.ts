@@ -1,9 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { POST as startSolo } from '../src/app/api/arena/solo/start/route';
+import { POST as createRoom } from '../src/app/api/arena/create-room/route';
 import { POST as settleSolo } from '../src/app/api/arena/settle-solo/route';
 import { POST as joinLeague } from '../src/app/api/leaderboard/join/route';
 import { setSupabaseAdminForTests } from '../src/lib/server/supabaseAdmin';
+import { signVaultSessionToken } from '../src/lib/server/vaultSessionToken';
 import { CODE_WARS_PROBLEMS_CATALOG } from '../src/lib/api/codeWarsApi';
 
 const jsonBody = (body: unknown) => ({
@@ -24,6 +26,42 @@ test('Arena and league API handlers enforce the public contracts without externa
       'content-type': 'application/json',
       authorization: 'Bearer guest-token-contract-test',
     };
+
+    const unpaidGuestRoom = await createRoom(new Request('http://localhost/api/arena/create-room', {
+      ...jsonBody({ hostName: 'Guest', problemId: problem.id }),
+      headers: guestHeaders,
+    }));
+    assert.equal(unpaidGuestRoom.status, 401, 'Guest/local wallets cannot authorize paid room creation on the server');
+    assert.equal((await unpaidGuestRoom.json()).error, 'AUTH_REQUIRED_FOR_PAID_ARENA_ROOM');
+
+    const unpaidDemoRoom = await createRoom(new Request('http://localhost/api/arena/create-room', {
+      ...jsonBody({ hostName: 'Demo', problemId: problem.id }),
+      headers: { 'content-type': 'application/json', authorization: 'Bearer demo-token-bypass' },
+    }));
+    assert.equal(unpaidDemoRoom.status, 401, 'Non-persistent development identities cannot skip the server-side fee');
+
+    const roomAccountId = 'bf1f1bc4-3852-4fa3-a928-0f65d7cd3344';
+    const roomUserToken = signVaultSessionToken({
+      uid: roomAccountId,
+      role: 'student',
+      exp: Date.now() + 60_000,
+    });
+    let roomFeeRpcCalls = 0;
+    setSupabaseAdminForTests({
+      rpc: async (name: string, args: Record<string, unknown>) => {
+        assert.equal(name, 'create_arena_room_with_pin_fee');
+        assert.equal(args.p_user_id, roomAccountId, 'The server charges the verified account, not a client-supplied player ID');
+        roomFeeRpcCalls += 1;
+        return { data: { ok: false, error: 'INSUFFICIENT_PINS' }, error: null };
+      },
+    });
+    const insufficientRoom = await createRoom(new Request('http://localhost/api/arena/create-room', {
+      ...jsonBody({ hostName: 'Student', problemId: problem.id, requestId: '15e9cc67-df1e-47fc-9da8-bfbaf002a9e9' }),
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${roomUserToken}` },
+    }));
+    assert.equal(insufficientRoom.status, 402);
+    assert.equal((await insufficientRoom.json()).error, 'INSUFFICIENT_PINS');
+    assert.equal(roomFeeRpcCalls, 1, 'Every persistent room creation attempt must reach the atomic server-side fee check');
 
     const unauthorized = await startSolo(new Request('http://localhost/api/arena/solo/start', jsonBody({ problemId: problem.id })));
     assert.equal(unauthorized.status, 401, 'Unauthenticated callers cannot open an Arena match');
