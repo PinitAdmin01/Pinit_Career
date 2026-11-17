@@ -95,8 +95,8 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Personal portfolio, cryptographically signed credentials, resume sync, and account settings.'
   },
   '/mirror': {
-    label: 'Mirror',
-    tooltip: 'Career Mirror: ATS Resume Studio, Digital Twin & Roadmaps',
+    label: 'Digital Studio',
+    tooltip: 'Digital Studio: ATS Resume Studio & Career Digital Twin',
     description: 'Unified career reflection: AI resume builder, ATS score optimizer, and digital twin skill simulation.'
   },
   '/career-builder': {
@@ -114,7 +114,7 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/projects', icon: '📁', label: 'Projects' },
     { href: '/innovation-hub', icon: '💡', label: 'Innovation Hub' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
-    { href: '/mirror', icon: '🪞', label: 'Mirror' },
+    { href: '/mirror', icon: '🪞', label: 'Digital Studio' },
     { href: '/attention-span', icon: '🧠', label: 'Attention Span' },
     { href: '/shop', icon: '🛍️', label: 'Pins & Shop' }
   ]}

@@ -24,11 +24,11 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
       assert.strictEqual(interviewSlide.title, 'AI Interview & GD Studio');
       assert.strictEqual(interviewSlide.segmentLabel, 'TAB 7/13 · AI INTERVIEW & GD');
 
-      // Slide 8 must be Career Mirror Hub
+      // Slide 8 must be Digital Studio
       const mirrorSlide = TOUR_SLIDES[8];
       assert.strictEqual(mirrorSlide.route, '/mirror');
-      assert.strictEqual(mirrorSlide.title, 'Career Mirror Hub');
-      assert.strictEqual(mirrorSlide.segmentLabel, 'TAB 8/13 · CAREER MIRROR');
+      assert.strictEqual(mirrorSlide.title, 'Digital Studio');
+      assert.strictEqual(mirrorSlide.segmentLabel, 'TAB 8/13 · DIGITAL STUDIO');
       assert.ok(mirrorSlide.text.includes('ATS Resume Studio'), 'Mirror slide must mention ATS Resume Studio');
 
       // Verify no slide points to obsolete dead routes
@@ -60,8 +60,8 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
         'LiteChatInterface must not push to deprecated /career-builder');
       assert.ok(chatCode.includes("router.push('/mirror?tab=career-builder')"),
         'LiteChatInterface must push to /mirror?tab=career-builder');
-      assert.ok(chatCode.includes('Open Career Mirror'),
-        'Action button label must reflect Career Mirror');
+      assert.ok(chatCode.includes('Open Digital Studio'),
+        'Action button label must reflect Digital Studio');
     });
 
     it('C2.2: WorkspaceSubmitPanel points directly to Mirror roadmap', () => {
@@ -187,7 +187,7 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
 
     it('C4.2: ROUTE_TOOLTIPS includes comprehensive metadata for /mirror', () => {
       assert.ok(ROUTE_TOOLTIPS['/mirror'], 'ROUTE_TOOLTIPS must have /mirror defined');
-      assert.strictEqual(ROUTE_TOOLTIPS['/mirror'].label, 'Mirror');
+      assert.strictEqual(ROUTE_TOOLTIPS['/mirror'].label, 'Digital Studio');
       assert.ok(ROUTE_TOOLTIPS['/mirror'].tooltip.includes('ATS Resume Studio'));
       assert.ok(ROUTE_TOOLTIPS['/mirror'].description.includes('AI resume builder'));
     });

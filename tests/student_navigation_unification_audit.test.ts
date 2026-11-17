@@ -75,7 +75,7 @@ describe('BRUTAL 3RD-PERSON AUDIT: STUDENT NAVIGATION & HUB UNIFICATION', () => 
       const primaryItems = STUDENT_NAV[0].items;
       const mirrorItem = primaryItems.find((it: any) => it.href === '/mirror');
       assert.ok(mirrorItem, 'Mirror item must exist in STUDENT_NAV');
-      assert.equal(mirrorItem.label, 'Mirror');
+      assert.equal(mirrorItem.label, 'Digital Studio');
       assert.equal(mirrorItem.icon, '🪞');
     });
 
