@@ -252,14 +252,28 @@ export default function InterviewPage() {
     }
   }, [isInterviewActive, activeStage]);
 
-  // Fullscreen Auto-Hide Sidebars
+  // Fullscreen Auto-Hide Sidebars & Gaming Mode Synchronization
   useEffect(() => {
-    if (typeof document !== 'undefined') {
-      if (isInterviewActive) document.body.setAttribute('data-interview-active', 'true');
-      else document.body.removeAttribute('data-interview-active');
+    if (typeof window !== 'undefined') {
+      if (isInterviewActive) {
+        document.body.setAttribute('data-interview-active', 'true');
+        document.documentElement.setAttribute('data-gaming-mode', 'true');
+        (window as any).__pinitInterviewActive = true;
+        window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: true } }));
+      } else {
+        document.body.removeAttribute('data-interview-active');
+        document.documentElement.removeAttribute('data-gaming-mode');
+        (window as any).__pinitInterviewActive = false;
+        window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: false } }));
+      }
     }
     return () => {
-      if (typeof document !== 'undefined') document.body.removeAttribute('data-interview-active');
+      if (typeof window !== 'undefined') {
+        document.body.removeAttribute('data-interview-active');
+        document.documentElement.removeAttribute('data-gaming-mode');
+        (window as any).__pinitInterviewActive = false;
+        window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: false } }));
+      }
     };
   }, [isInterviewActive]);
 
@@ -570,12 +584,56 @@ export default function InterviewPage() {
     }
     const foundTeacher = AVATAR_POOL.find(a => a.id === activeSessionDraft.activeTeacherId);
     if (foundTeacher) setActiveTeacher(foundTeacher);
+
+    // 🎮 Auto-activate Gaming Mode (Browser Fullscreen & Focus Mode) on resume gesture
+    if (typeof window !== 'undefined') {
+      try {
+        const docAny = document as any;
+        const elAny = document.documentElement as any;
+        if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+          if (elAny.requestFullscreen) {
+            elAny.requestFullscreen().catch(() => {});
+          } else if (elAny.webkitRequestFullscreen) {
+            elAny.webkitRequestFullscreen().catch(() => {});
+          } else if (elAny.mozRequestFullScreen) {
+            elAny.mozRequestFullScreen().catch(() => {});
+          }
+        }
+      } catch {}
+      (window as any).__pinitInterviewActive = true;
+      window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: true } }));
+      document.body.setAttribute('data-interview-active', 'true');
+      document.documentElement.setAttribute('data-gaming-mode', 'true');
+    }
+
     setIsInterviewActive(true);
     toast.success('Interview Session Restored', `Resumed in ${activeSessionDraft.activeTopicName} (${formatStageLabel(activeSessionDraft.activeStage)})`);
   }, [activeSessionDraft, setLiveSessionId, setFillerWordCount, fetchDynamicProblem]);
 
   const startInterview = async () => {
     stopArchetypeSoundscape();
+
+    // 🎮 Auto-activate Gaming Mode (Browser Fullscreen & Focus Mode) on direct start click gesture
+    if (typeof window !== 'undefined') {
+      try {
+        const docAny = document as any;
+        const elAny = document.documentElement as any;
+        if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+          if (elAny.requestFullscreen) {
+            elAny.requestFullscreen().catch(() => {});
+          } else if (elAny.webkitRequestFullscreen) {
+            elAny.webkitRequestFullscreen().catch(() => {});
+          } else if (elAny.mozRequestFullScreen) {
+            elAny.mozRequestFullScreen().catch(() => {});
+          }
+        }
+      } catch {}
+      (window as any).__pinitInterviewActive = true;
+      window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: true } }));
+      document.body.setAttribute('data-interview-active', 'true');
+      document.documentElement.setAttribute('data-gaming-mode', 'true');
+    }
+
     const topic = interviewMode === 'custom' && customTopicInput.trim()
       ? customTopicInput.trim()
       : roadmapInterviewTopic(onboardingAnswers?.role, domainStream);
@@ -660,6 +718,24 @@ export default function InterviewPage() {
     clearDraft();
     const closingId = liveSessionIdRef.current;
     setLiveSessionId(null);
+
+    // 🎮 Deactivate Fullscreen Gaming Mode on interview exit
+    if (typeof window !== 'undefined') {
+      try {
+        const docAny = document as any;
+        if (document.fullscreenElement || docAny.webkitFullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          } else if (docAny.webkitExitFullscreen) {
+            docAny.webkitExitFullscreen().catch(() => {});
+          }
+        }
+      } catch {}
+      (window as any).__pinitInterviewActive = false;
+      window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: false } }));
+      document.body.removeAttribute('data-interview-active');
+      document.documentElement.removeAttribute('data-gaming-mode');
+    }
 
     // Notify server of session conclusion / cancellation
     try {

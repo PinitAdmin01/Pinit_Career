@@ -168,6 +168,43 @@ export function InterviewSessionHeader({
           </button>
         </div>
 
+        {/* 🎮 Fullscreen Gaming Focus Mode Control */}
+        <button
+          data-testid="header-gaming-mode-toggle"
+          title="Toggle Fullscreen Gaming Focus Mode"
+          onClick={async () => {
+            if (typeof document === 'undefined') return;
+            const docAny = document as any;
+            const elAny = document.documentElement as any;
+            try {
+              if (document.fullscreenElement || docAny.webkitFullscreenElement) {
+                if (document.exitFullscreen) await document.exitFullscreen();
+                else if (docAny.webkitExitFullscreen) await docAny.webkitExitFullscreen();
+              } else {
+                if (elAny.requestFullscreen) await elAny.requestFullscreen();
+                else if (elAny.webkitRequestFullscreen) await elAny.webkitRequestFullscreen();
+                else if (elAny.mozRequestFullScreen) await elAny.mozRequestFullScreen();
+              }
+            } catch {}
+          }}
+          style={{
+            background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%)',
+            border: '1.5px solid rgba(139, 92, 246, 0.5)',
+            color: '#c4b5fd',
+            borderRadius: 8,
+            padding: '5px 12px',
+            fontSize: 12,
+            fontWeight: 900,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 5
+          }}
+        >
+          <span>🎮</span>
+          <span>Gaming Focus</span>
+        </button>
+
         {/* Inline Avatar Volume Slider */}
         <div style={{
           display: 'flex',
