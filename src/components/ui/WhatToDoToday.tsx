@@ -292,7 +292,11 @@ export default function WhatToDoToday({
                     padding: 0,
                   }}
                 >
-                  {isDone ? '✓' : ''}
+                  {isDone ? (
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : null}
                 </button>
 
                 {/* Center Content */}

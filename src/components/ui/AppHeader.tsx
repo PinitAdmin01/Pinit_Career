@@ -29,6 +29,8 @@ export interface AppHeaderProps {
   wsConnected: boolean;
   unread: number;
   userId?: string;
+  toggleRightSidebar?: () => void;
+  isRightSidebarOpen?: boolean;
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
@@ -52,6 +54,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   wsConnected,
   unread,
   userId,
+  toggleRightSidebar,
+  isRightSidebarOpen,
 }) => {
   return (
     <header className="topbar" style={{ display: (isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive) ? 'none' : 'flex' }}>
@@ -130,6 +134,41 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
         {/* ⚙️ Universal Preferences & Ambience Hub */}
         <GearAudioHub theme={theme === 'light' ? 'light' : 'dark'} size="sm" />
+
+        {/* 🎓 Academic Tabs Trigger Circle "A" (Task 5: Frustrating Right Sidebar Hidden by default) */}
+        {isStudent && toggleRightSidebar && (
+          <button
+            type="button"
+            onClick={toggleRightSidebar}
+            data-testid="academic-circle-btn"
+            title={isRightSidebarOpen ? 'Close Academic Tabs (A)' : 'Open Academic Tabs (A)'}
+            aria-label="Toggle Campus Academic Services"
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: '50%',
+              background: isRightSidebarOpen
+                ? 'linear-gradient(135deg, var(--accent), var(--purple))'
+                : 'var(--bg3)',
+              border: `1.5px solid ${isRightSidebarOpen ? 'var(--accent)' : 'var(--border)'}`,
+              color: isRightSidebarOpen ? '#ffffff' : 'var(--accent)',
+              fontWeight: 900,
+              fontSize: 14,
+              fontFamily: 'var(--font-display), sans-serif',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              boxShadow: isRightSidebarOpen ? '0 0 12px rgba(99, 102, 241, 0.45)' : 'none',
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+              lineHeight: 1,
+              padding: 0,
+              flexShrink: 0,
+            }}
+          >
+            A
+          </button>
+        )}
 
       </div>
 
