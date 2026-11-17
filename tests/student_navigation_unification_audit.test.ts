@@ -125,7 +125,7 @@ describe('BRUTAL 3RD-PERSON AUDIT: STUDENT NAVIGATION & HUB UNIFICATION', () => 
   // ─────────────────────────────────────────────────────────────────────────
   describe('Master Architecture: Canonical Student Navigation', () => {
     it('has all canonical flagship items in STUDENT_NAV (Proof Vault removed)', () => {
-      assert.ok(STUDENT_NAV[0].items.length >= 9, 'STUDENT_NAV must have streamlined hubs');
+      assert.ok(STUDENT_NAV[0].items.length >= 8, 'STUDENT_NAV must have streamlined hubs');
       const hrefs = STUDENT_NAV[0].items.map((it: any) => it.href);
       assert.ok(hrefs.includes('/dashboard'));
       assert.ok(hrefs.includes('/quests'));
@@ -135,7 +135,7 @@ describe('BRUTAL 3RD-PERSON AUDIT: STUDENT NAVIGATION & HUB UNIFICATION', () => 
       assert.ok(hrefs.includes('/interview'));
       assert.ok(hrefs.includes('/mirror'));
       assert.ok(hrefs.includes('/attention-span'));
-      assert.ok(hrefs.includes('/shop'));
+      assert.equal(hrefs.includes('/shop'), false, 'Pins & Shop removed from left sidebar per Task 2');
       assert.equal(hrefs.includes('/vault'), false, 'Proof Vault must be removed from student sidebar');
       assert.equal(hrefs.includes('/leaderboard'), false, 'Leaderboard must share the Arena sidebar destination');
       assert.equal(isPathActive('/leaderboard', '/arena'), true, 'Leaderboard deep links should activate the Arena sidebar destination');
