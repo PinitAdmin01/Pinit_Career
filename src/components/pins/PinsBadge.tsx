@@ -2,6 +2,7 @@
 // PinsBadge — shows current pin balance inline anywhere in the app
 // Used in AppShell topbar, pricing page, and feature pages
 
+import React from 'react';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import Link from 'next/link';
 import PinCurrencyIcon from '@/components/pins/PinCurrencyIcon';

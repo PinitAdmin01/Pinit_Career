@@ -167,21 +167,19 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
   });
 
   describe('Auditor 4 (Defensive Invariants & Role Gate Cleanliness)', () => {
-    it('C4.1: STUDENT_NAV merges Arena and Leaderboard into one destination', () => {
+    it('C4.1: STUDENT_NAV merges Arena and Leaderboard into one destination relocated under My Network (Vault removed)', () => {
       const items = STUDENT_NAV[0].items;
-      assert.strictEqual(items.length, 11, 'STUDENT_NAV includes the 11 current primary destinations');
+      assert.strictEqual(items.length, 9, 'STUDENT_NAV includes the 9 current primary destinations');
       const hrefs = items.map((i: any) => i.href);
       assert.deepStrictEqual(hrefs, [
         '/dashboard',
         '/quests',
         '/missions',
-        '/arena',
         '/projects',
         '/innovation-hub',
         '/interview',
         '/mirror',
         '/attention-span',
-        '/vault',
         '/shop'
       ]);
       assert.equal(isPathActive('/leaderboard', '/arena'), true, 'Leaderboard deep links should keep the combined sidebar item active');

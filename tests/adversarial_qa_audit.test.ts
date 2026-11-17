@@ -62,11 +62,15 @@ describe('ADVERSARIAL SENIOR QA & UI/UX DESIGN AUDIT', () => {
       { path: '/career-builder', label: 'Career Builder' },
     ];
 
-    it('keeps the merged Arena and Leaderboard as one of 11 primary workspace items', () => {
+    it('keeps the merged Arena and Leaderboard relocated under My Network in BOTTOM_NAV (Vault and Pins removed)', () => {
       const items = STUDENT_NAV[0].items;
-      assert.equal(items.length, 11);
-      assert.equal(items.filter((item: any) => item.href === '/arena').length, 1);
+      assert.equal(items.length, 9);
+      assert.equal(items.filter((item: any) => item.href === '/arena').length, 0);
+      assert.equal(items.filter((item: any) => item.href === '/vault').length, 0);
       assert.equal(items.some((item: any) => item.href === '/leaderboard'), false);
+      const bottomArena = BOTTOM_NAV.find((item: any) => item.href === '/arena');
+      assert.ok(bottomArena, 'Arena must be in BOTTOM_NAV under My Network');
+      assert.equal(BOTTOM_NAV.some((item: any) => item.href === '/pins'), false);
     });
 
     it('has exactly 4 persistent footer items in BOTTOM_NAV', () => {
