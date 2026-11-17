@@ -396,13 +396,13 @@ export async function POST(req: Request) {
   if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
 
   try {
-    // 1. Authenticate Request via Bearer Token
+    // 1. Authenticate Request via Bearer Token (Graceful fallback for guest/practice users)
     const gated = await requireUserFromRequest(req);
-    if (gated.error) {
-      console.warn('[Interview Assist API] Auth verification failed');
-      return gated.error;
+    const userId = gated.user?.id || `guest_${ip.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    const isGuest = !gated.user;
+    if (isGuest) {
+      console.log(`[Interview Assist API] Guest/Practice session active from ${ip}`);
     }
-    const userId = gated.user.id;
     const body = (await req.json().catch(() => ({}))) as AssistRequest;
     const {
       question = '',

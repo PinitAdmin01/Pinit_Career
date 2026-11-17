@@ -502,13 +502,23 @@ export default function InterviewPage() {
       .replace(/^(?:Ms\.|Mr\.)?\s*[\w\s]+:\s*/i, '')
       .trim();
 
+    const finalQuestion = cleanQuestion || (
+      targetStage === 'round2_coding'
+        ? 'How would you approach solving this problem under time and space constraints?'
+        : targetStage === 'round3_systems'
+        ? 'How would you design this system architecture end-to-end?'
+        : targetStage === 'round4_star'
+        ? 'Describe a high-stakes engineering situation, task, action, and measurable result.'
+        : `Tell me about your background and experience with ${activeTopicName}.`
+    );
+
     try {
       const headers = await getAuthHeaders();
       const res = await fetch('/api/interview/assist', {
         method: 'POST',
         headers,
         body: JSON.stringify({
-          question: cleanQuestion,
+          question: finalQuestion,
           stage: targetStage,
           topic: activeTopicName,
           domainStream,
@@ -529,7 +539,7 @@ export default function InterviewPage() {
           activeTopicName,
           targetLevel,
           targetStage === 'round2_coding',
-          cleanQuestion
+          finalQuestion
         );
         setAssistData(fallbackData);
       }
@@ -537,6 +547,28 @@ export default function InterviewPage() {
       if (requestId === assistRequestRef.current) setIsFetchingAssist(false);
     }
   }, [isInterviewActive, activeStage, activeTopicName, domainStream, difficulty, assistScriptLevel]);
+
+  // 🎯 Unified Reactive Assist Mode Synchronization:
+  // Automatically crafts a tailored coaching script whenever the interviewer's question changes or Assist Mode is enabled
+  const lastAssistantMessage = useMemo(() => {
+    const assistantMsgs = messages.filter(m => m.role === 'assistant');
+    return assistantMsgs.length > 0 ? assistantMsgs[assistantMsgs.length - 1].content : '';
+  }, [messages]);
+
+  const lastFetchedAssistKeyRef = useRef<string>('');
+
+  useEffect(() => {
+    if (!isInterviewActive || !isAssistModeActive || !lastAssistantMessage) return;
+    const clean = lastAssistantMessage
+      .replace(/\s*—\s*(?:Ms\.|Mr\.)?\s*[\w\s]+$/i, '')
+      .replace(/^(?:Ms\.|Mr\.)?\s*[\w\s]+:\s*/i, '')
+      .trim();
+    if (!clean) return;
+    const key = `${activeStage}:${activeTopicName}:${assistScriptLevel}:${clean}`;
+    if (lastFetchedAssistKeyRef.current === key) return;
+    lastFetchedAssistKeyRef.current = key;
+    void fetchAssistScript(clean, assistScriptLevel);
+  }, [isInterviewActive, isAssistModeActive, lastAssistantMessage, activeStage, activeTopicName, assistScriptLevel, fetchAssistScript]);
 
   const resumeActiveSession = useCallback(() => {
     if (!activeSessionDraft) return;

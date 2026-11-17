@@ -85,7 +85,20 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <button
-                onClick={resumeActiveSession}
+                onClick={() => {
+                  if (typeof document !== 'undefined') {
+                    try {
+                      const docAny = document as any;
+                      const elAny = document.documentElement as any;
+                      if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+                        if (elAny.requestFullscreen) elAny.requestFullscreen().catch(() => {});
+                        else if (elAny.webkitRequestFullscreen) elAny.webkitRequestFullscreen().catch(() => {});
+                        else if (elAny.mozRequestFullScreen) elAny.mozRequestFullScreen().catch(() => {});
+                      }
+                    } catch {}
+                  }
+                  resumeActiveSession();
+                }}
                 style={{
                   background: 'var(--accent)',
                   color: 'var(--text)',
@@ -390,7 +403,21 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
         </div>
 
         <button
-          onClick={startInterview}
+          data-testid="start-interview-btn"
+          onClick={() => {
+            if (typeof document !== 'undefined') {
+              try {
+                const docAny = document as any;
+                const elAny = document.documentElement as any;
+                if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+                  if (elAny.requestFullscreen) elAny.requestFullscreen().catch(() => {});
+                  else if (elAny.webkitRequestFullscreen) elAny.webkitRequestFullscreen().catch(() => {});
+                  else if (elAny.mozRequestFullScreen) elAny.mozRequestFullScreen().catch(() => {});
+                }
+              } catch {}
+            }
+            startInterview();
+          }}
           style={{ width: '100%', background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15.5, fontWeight: 900, color: 'var(--text)', cursor: 'pointer', boxShadow: 'var(--shadow-md)' }}
         >
           🎙️ Start Proactive Voice Interview ➔

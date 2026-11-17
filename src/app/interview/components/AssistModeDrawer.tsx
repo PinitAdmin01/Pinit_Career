@@ -132,6 +132,38 @@ export function buildFallbackAssistData(
     };
   }
 
+  if (/\b(deadline\w*|pressure\w*|tight|fast|speed|urgent|urgency|timeline\w*|time constraint|balance speed)\b/i.test(lowerQ)) {
+    return {
+      script: `Under strict delivery pressure for our ${cleanTopic} release, I utilized a MoSCoW prioritization model to isolate critical-path features from non-essential enhancements. I aligned with our product stakeholders on MVP boundaries, automated our core acceptance tests, and maintained continuous deployment. As a result, we hit our launch deadline with zero critical defects and full test coverage on all primary workflows.`,
+      bulletPoints: [
+        `Demonstrate structured prioritization (MoSCoW framework) under pressure`,
+        `Show active communication with product leads to prevent scope creep`,
+        `Maintain non-negotiable engineering verification standards`
+      ],
+      deliveryGuide: {
+        pacing: '120–130 WPM (Decisive and structured)',
+        tone: 'Disciplined, pragmatic, and high-ownership',
+        emphasisWords: ['prioritization', 'critical-path', 'acceptance tests', 'continuous deployment']
+      }
+    };
+  }
+
+  if (/\b(scale|scalable|scalability|scaling|bottleneck\w*|concurrency|throughput|latency|caching|redis|database|queries|capacity)\b/i.test(lowerQ)) {
+    return {
+      script: `To ensure scalable performance in ${cleanTopic}, I profiled our hot-path database queries and introduced read replicas alongside Redis caching for frequently read metadata. Furthermore, I added connection pooling and rate-limiting at the API gateway layer to prevent thundering herd spikes. This optimization reduced our p99 query latency by 65% and allowed the service to comfortably handle 4x peak traffic surges.`,
+      bulletPoints: [
+        `Identify specific bottleneck using profiling and latency telemetry`,
+        `Introduce multi-tiered caching and connection pooling strategies`,
+        `Quantify throughput and p99 latency gains under peak traffic`
+      ],
+      deliveryGuide: {
+        pacing: '125–135 WPM (Confident and analytical)',
+        tone: 'Architectural, systems-focused, and evidence-driven',
+        emphasisWords: ['read replicas', 'caching', 'connection pooling', 'p99 latency']
+      }
+    };
+  }
+
   return {
     script:
       level === 'advanced'

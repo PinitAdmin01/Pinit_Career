@@ -1465,11 +1465,22 @@ textarea:focus {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent) !important;
 }
 
-/* Fullscreen Immersive Mode: Hide sidebars during active interview or Code War */
+/* Fullscreen Immersive Mode: Hide sidebars and headers during active interview or Code War */
 body[data-interview-active="true"] aside,
 body[data-interview-active="true"] [data-sidebar="true"],
 body[data-interview-active="true"] .right-student-sidebar,
 body[data-interview-active="true"] .sidebar-left,
+body[data-interview-active="true"] .sidebar,
+body[data-interview-active="true"] .topbar,
+body[data-interview-active="true"] .app-header,
+body[data-interview-active="true"] header,
+body[data-interview-active="true"] .avatar-mentor-widget,
+body[data-interview-active="true"] .mentor-widget,
+html[data-gaming-mode="true"] .topbar,
+html[data-gaming-mode="true"] .app-header,
+html[data-gaming-mode="true"] header,
+html[data-gaming-mode="true"] aside,
+html[data-gaming-mode="true"] [data-sidebar="true"],
 body[data-arena-active="true"] aside,
 body[data-arena-active="true"] [data-sidebar="true"],
 body[data-arena-active="true"] .right-student-sidebar,
@@ -1485,6 +1496,12 @@ body[data-arena-active="true"] .mentor-widget {
 
 body[data-interview-active="true"] main,
 body[data-interview-active="true"] .main-content-area,
+body[data-interview-active="true"] .main-area,
+body[data-interview-active="true"] .page-content,
+html[data-gaming-mode="true"] main,
+html[data-gaming-mode="true"] .main-content-area,
+html[data-gaming-mode="true"] .main-area,
+html[data-gaming-mode="true"] .page-content,
 body[data-arena-active="true"] .main-area,
 body[data-arena-active="true"] main,
 body[data-arena-active="true"] .main-content-area,

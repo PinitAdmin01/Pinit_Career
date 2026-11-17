@@ -52,6 +52,23 @@ export function InterviewSessionHeader({
   onSkipQuestion,
   isTabInactive = false
 }: InterviewSessionHeaderProps) {
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const updateFs = () => {
+      const active = Boolean(document.fullscreenElement || (document as any).webkitFullscreenElement);
+      setIsFullscreen(active);
+    };
+    updateFs();
+    document.addEventListener('fullscreenchange', updateFs);
+    document.addEventListener('webkitfullscreenchange', updateFs);
+    return () => {
+      document.removeEventListener('fullscreenchange', updateFs);
+      document.removeEventListener('webkitfullscreenchange', updateFs);
+    };
+  }, []);
+
   const rounds = [
     { id: 'round1_behavioral', label: 'Background' },
     { id: 'round2_coding', label: 'Challenge' },
@@ -171,7 +188,7 @@ export function InterviewSessionHeader({
         {/* 🎮 Fullscreen Gaming Focus Mode Control */}
         <button
           data-testid="header-gaming-mode-toggle"
-          title="Toggle Fullscreen Gaming Focus Mode"
+          title={isFullscreen ? 'Exit Fullscreen Gaming Focus (Esc)' : 'Enter Fullscreen Gaming Focus Mode'}
           onClick={async () => {
             if (typeof document === 'undefined') return;
             const docAny = document as any;
@@ -188,8 +205,12 @@ export function InterviewSessionHeader({
             } catch {}
           }}
           style={{
-            background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%)',
-            border: '1.5px solid rgba(139, 92, 246, 0.5)',
+            background: isFullscreen
+              ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%)'
+              : 'rgba(139, 92, 246, 0.15)',
+            border: isFullscreen
+              ? '1.5px solid rgba(139, 92, 246, 0.8)'
+              : '1px solid rgba(139, 92, 246, 0.4)',
             color: '#c4b5fd',
             borderRadius: 8,
             padding: '5px 12px',
@@ -198,11 +219,12 @@ export function InterviewSessionHeader({
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: 5
+            gap: 6,
+            boxShadow: isFullscreen ? '0 0 12px rgba(139, 92, 246, 0.35)' : 'none'
           }}
         >
           <span>🎮</span>
-          <span>Gaming Focus</span>
+          <span>{isFullscreen ? 'Gaming Mode: Active' : 'Gaming Focus'}</span>
         </button>
 
         {/* Inline Avatar Volume Slider */}
