@@ -8,6 +8,7 @@ import { arenaPointsForResult, calculateLeaguePoints } from '../src/lib/leagues/
 const ROOT = process.cwd();
 const arenaPagePath = path.join(ROOT, 'src/app/arena/page.tsx');
 const leaderboardPagePath = path.join(ROOT, 'src/app/leaderboard/page.tsx');
+const competitionStylesPath = path.join(ROOT, 'src/app/competition-experience.module.css');
 const leaderboardRoutePath = path.join(ROOT, 'src/app/api/leaderboard/route.ts');
 const settleSoloRoutePath = path.join(ROOT, 'src/app/api/arena/settle-solo/route.ts');
 const arenaPvPStorePath = path.join(ROOT, 'src/lib/services/arenaPvPStore.ts');
@@ -15,6 +16,7 @@ const competitionNavigationPath = path.join(ROOT, 'src/components/competition/Co
 
 const arenaPage = fs.readFileSync(arenaPagePath, 'utf8');
 const leaderboardPage = fs.readFileSync(leaderboardPagePath, 'utf8');
+const competitionStyles = fs.readFileSync(competitionStylesPath, 'utf8');
 const leaderboardRoute = fs.readFileSync(leaderboardRoutePath, 'utf8');
 const settleSoloRoute = fs.readFileSync(settleSoloRoutePath, 'utf8');
 const arenaPvPStore = fs.readFileSync(arenaPvPStorePath, 'utf8');
@@ -111,4 +113,15 @@ test('CONTINUOUS MOTION VECTOR 6: Concurrency and extreme boundary resilience', 
   assert.strictEqual(arenaPointsForResult(200, 'win'), 100, 'A 200 ELO win earns 100 Arena Points');
   assert.strictEqual(arenaPointsForResult(500, 'loss'), 0, 'Losses do not earn Arena Points');
   assert.strictEqual(calculateLeaguePoints(500, arenaPointsForResult(500, 'win')), 750);
+});
+
+// ── VECTOR 7: LIVE UI REFRESH & RESPONSIVE MOTION ─────────────────────────────
+test('CONTINUOUS MOTION VECTOR 7: Arena and standings visibly react to fresh values', () => {
+  assert.ok(arenaPage.includes('window.setInterval(refreshWhenVisible, 30_000)'), 'Arena standings must refresh on a visible-tab cadence');
+  assert.ok(arenaPage.includes("window.addEventListener('pinit:user_profile_updated'"), 'Arena summary must react immediately to profile updates');
+  assert.ok(leaderboardPage.includes('window.setInterval(requestRefresh, 30_000)'), 'Leaderboard must refresh on a visible-tab cadence');
+  assert.ok(leaderboardPage.includes('loadedQueryKeyRef.current !== queryKey'), 'A scope/league change must load matching rows instead of reusing stale rows');
+  assert.ok(leaderboardPage.includes('key={`points-${entry.leaguePoints || 0}`}'), 'League Point changes must trigger the value update motion');
+  assert.ok(!arenaPage.includes('RATED MATCH'), 'The removed badge above VS must stay removed');
+  assert.ok(competitionStyles.includes('@media (prefers-reduced-motion: reduce)'), 'Motion must honor reduced-motion preferences');
 });

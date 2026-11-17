@@ -358,5 +358,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .arenaCenter, .metricValueChanged, .liveBoardDot, .boardValue { animation: none !important; }
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  .competitionPage, .competitionPage *, .competitionPage *::before, .competitionPage *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

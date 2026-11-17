@@ -28,6 +28,7 @@ import {
   createCombatEvent,
 } from '@/lib/arena/codeWarRules';
 import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
+import styles from '../competition-experience.module.css';
 
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react').then(mod => mod.default),
@@ -245,7 +246,10 @@ function ArenaContent() {
     }
 
     let cancelled = false;
+    let inFlight = false;
     const loadStanding = async () => {
+      if (inFlight) return;
+      inFlight = true;
       try {
         const params = new URLSearchParams({ mode: 'global', userId: user.id });
         const headers: Record<string, string> = { 'x-user-id': user.id };
@@ -259,6 +263,9 @@ function ArenaContent() {
         const data = await response.json();
         if (cancelled || !data?.ok) return;
 
+        const standingElo = Number(data.currentUser?.eloRating);
+        if (Number.isFinite(standingElo) && standingElo > 0) setLiveElo(standingElo);
+
         setArenaStanding({
           rank: data.currentUserHasJoined && Number.isFinite(Number(data.currentUser?.rank)) ? Number(data.currentUser.rank) : null,
           league: typeof data.currentUserLeague === 'string' ? data.currentUserLeague : 'browns',
@@ -268,11 +275,49 @@ function ArenaContent() {
         });
       } catch {
         // Keep the fast local profile values visible if the standings endpoint is unavailable.
+      } finally {
+        inFlight = false;
       }
     };
 
+    const refreshWhenVisible = () => {
+      if (document.visibilityState === 'visible') void loadStanding();
+    };
+    const handleProfileUpdate = (event: Event) => {
+      const detail = (event as CustomEvent<Record<string, unknown>>).detail || {};
+      const updatedElo = typeof detail.arena_elo === 'number'
+        ? detail.arena_elo
+        : typeof detail.elo === 'number' ? detail.elo : null;
+      const updatedWeeklyXp = typeof detail.weekly_xp === 'number'
+        ? detail.weekly_xp
+        : typeof detail.weeklyXp === 'number' ? detail.weeklyXp : null;
+      const updatedCareerXp = typeof detail.xp_total === 'number'
+        ? detail.xp_total
+        : typeof detail.totalXp === 'number' ? detail.totalXp : typeof detail.xp === 'number' ? detail.xp : null;
+
+      if (updatedElo !== null && Number.isFinite(updatedElo)) setLiveElo(updatedElo);
+      if ((updatedWeeklyXp !== null && Number.isFinite(updatedWeeklyXp)) || (updatedCareerXp !== null && Number.isFinite(updatedCareerXp))) {
+        setArenaStanding(previous => ({
+          ...previous,
+          weeklyXp: updatedWeeklyXp !== null && Number.isFinite(updatedWeeklyXp) ? Math.max(0, updatedWeeklyXp) : previous.weeklyXp,
+          careerXp: updatedCareerXp !== null && Number.isFinite(updatedCareerXp) ? Math.max(0, updatedCareerXp) : previous.careerXp,
+        }));
+      }
+      refreshWhenVisible();
+    };
+
     void loadStanding();
-    return () => { cancelled = true; };
+    const timer = window.setInterval(refreshWhenVisible, 30_000);
+    window.addEventListener('focus', refreshWhenVisible);
+    window.addEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
+    document.addEventListener('visibilitychange', refreshWhenVisible);
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+      window.removeEventListener('focus', refreshWhenVisible);
+      window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
+      document.removeEventListener('visibilitychange', refreshWhenVisible);
+    };
   }, [user?.id, xp, soloReward?.newElo, activeRoom?.eloApplied]);
 
   // Detect Light/Dark theme changes for Monaco & UI precision
@@ -997,11 +1042,11 @@ function ArenaContent() {
   }, [activeRoom, soloMatch]);
 
   return (
-    <div style={{
-      maxWidth: inDuel ? '100%' : 1540,
+    <div className={inDuel ? undefined : styles.competitionPage} style={{
+      maxWidth: inDuel ? '100%' : undefined,
       margin: '0 auto',
       minHeight: inDuel ? '100vh' : '85vh',
-      padding: inDuel ? '12px 20px 32px' : '0 0 40px',
+      padding: inDuel ? '12px 20px 32px' : undefined,
       transition: 'all 0.25s ease'
     }}>
       <CompetitionNavigation active="arena" hidden={inDuel} />
@@ -1012,94 +1057,66 @@ function ArenaContent() {
           {/* STATE 1: LOBBY (No active battle or room) */}
           {!activeRoom && !soloMatch && (
             <div>
-              <section
-                data-testid="arena-ranked-hero"
-                style={{
-                  position: 'relative',
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
-                  alignItems: 'center',
-                  gap: 24,
-                  overflow: 'hidden',
-                  padding: 'clamp(24px, 4vw, 42px)',
-                  marginBottom: 18,
-                  borderRadius: 22,
-                  background: 'linear-gradient(115deg, var(--card) 0%, var(--bg2) 62%, var(--accent-light) 150%)',
-                  border: '1px solid color-mix(in srgb, var(--accent) 30%, var(--border))',
-                  boxShadow: 'var(--shadow-md, 0 12px 36px rgba(0,0,0,.12))',
-                }}
-              >
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, padding: '7px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--accent-hover, #4f46e5)', fontSize: 12, fontWeight: 850, letterSpacing: '.045em', textTransform: 'uppercase' }}>
-                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 10px #22c55e' }} />
+              <section data-testid="arena-ranked-hero" className={styles.arenaHero}>
+                <div className={styles.arenaHeroContent}>
+                  <div className={styles.eyebrow}>
+                    <span className={styles.liveDot} />
                     1v1 Code Wars <span aria-hidden="true" style={{ color: 'var(--t3)' }}>·</span> Live Arena
                   </div>
-                  <h1 style={{ margin: '18px 0 8px', color: 'var(--t1)', fontSize: 'clamp(28px, 3.2vw, 40px)', lineHeight: 1.08, letterSpacing: '-.04em', fontWeight: 900 }}>
+                  <h1 className={styles.heroTitle}>
                     Outthink. Outcode. Outlast.
                   </h1>
-                  <p style={{ maxWidth: 600, margin: 0, color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.7 }}>
+                  <p className={styles.heroDescription}>
                     Fair, timed duels move your Arena ELO. Choose your format and make the next move.
                   </p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginTop: 22 }}>
-                    <span style={{ padding: '7px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase' }}>
-                      Rated · calibrated
+                  <div className={styles.heroActions}>
+                    <span className={styles.detailPill}>
+                      1v1 · Arena ELO
                     </span>
-                    <span style={{ padding: '7px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase' }}>
+                    <span className={styles.detailPill}>
                       Difficulty matched to you
                     </span>
                     <button
                       type="button"
                       onClick={() => void handleStartSoloSparring()}
                       disabled={isStartingSolo}
-                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, padding: '13px 19px', border: '1px solid rgba(255,255,255,.16)', borderRadius: 12, color: '#fff', background: 'linear-gradient(135deg, #6259ed, #493bd4)', boxShadow: '0 9px 22px rgba(79,70,229,.28)', fontSize: 13, fontWeight: 900, letterSpacing: '.02em', cursor: isStartingSolo ? 'wait' : 'pointer', opacity: isStartingSolo ? .75 : 1 }}
+                      className={styles.primaryAction}
                     >
                       {isStartingSolo ? 'PREPARING MATCH…' : 'ENTER THE RING'} <span aria-hidden="true">↗</span><span style={{ opacity: .82 }}>· 10 PINS</span>
                     </button>
                   </div>
                 </div>
 
-                <div aria-hidden="true" style={{ justifySelf: 'center', position: 'relative', width: 'min(210px, 42vw)', aspectRatio: '1', display: 'grid', placeItems: 'center', borderRadius: '50%', border: '1px dashed color-mix(in srgb, var(--accent) 70%, transparent)', background: 'radial-gradient(circle, var(--accent-light) 0%, transparent 68%)' }}>
-                  <div style={{ position: 'absolute', inset: '9%', borderRadius: '50%', border: '1px solid color-mix(in srgb, var(--accent) 34%, transparent)' }} />
-                  <div style={{ position: 'absolute', inset: '20%', borderRadius: '50%', border: '1px solid color-mix(in srgb, var(--accent) 28%, transparent)' }} />
-                  <div style={{ position: 'absolute', inset: '31%', borderRadius: '50%', border: '1px solid color-mix(in srgb, var(--accent) 44%, transparent)' }} />
-                  <div style={{ width: '39%', aspectRatio: '1', display: 'grid', placeItems: 'center', borderRadius: '50%', color: 'var(--t1)', background: 'var(--card)', border: '2px solid var(--accent)', boxShadow: '0 0 28px color-mix(in srgb, var(--accent) 25%, transparent)', fontSize: 22, fontWeight: 950, letterSpacing: '.03em' }}>VS</div>
-                  <span style={{ position: 'absolute', top: 4, left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '6px 12px', borderRadius: 999, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 10.5, fontWeight: 900, letterSpacing: '.06em' }}>RATED MATCH</span>
+                <div aria-hidden="true" className={styles.arenaVisual}>
+                  <div className={`${styles.arenaRing} ${styles.arenaRingOne}`} />
+                  <div className={`${styles.arenaRing} ${styles.arenaRingTwo}`} />
+                  <div className={`${styles.arenaRing} ${styles.arenaRingThree}`} />
+                  <div className={styles.arenaCenter}>VS</div>
                 </div>
               </section>
 
-              <div data-testid="arena-summary-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 190px), 1fr))', gap: 12, marginBottom: 28 }}>
+              <div data-testid="arena-summary-cards" className={styles.arenaMetrics}>
                 {[
                   { label: 'Your rank', value: arenaRankLabel, detail: arenaRankCaption, color: '#22d3ee' },
                   { label: 'Arena ELO', value: String(liveElo ?? sanitizedUserElo ?? cachedElo), detail: 'Match rating', color: '#a78bfa' },
                   { label: 'Sprint gain', value: `${arenaStanding.weeklyXp.toLocaleString()} XP`, detail: 'Learning XP this sprint', color: '#10b981' },
                   { label: 'Entry goal', value: `${Math.min(100, currentCareerXp)} / 100`, detail: arenaStanding.joined ? 'Browns entry complete' : 'Career XP to qualify', color: '#fbbf24' },
                 ].map(card => (
-                  <div key={card.label} style={{ position: 'relative', minHeight: 96, padding: '16px 18px 15px 22px', borderRadius: 15, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', overflow: 'hidden' }}>
-                    <span aria-hidden="true" style={{ position: 'absolute', inset: '14px auto 14px 0', width: 4, borderRadius: 4, background: card.color }} />
-                    <div style={{ color: 'var(--t3)', fontSize: 10.5, fontWeight: 900, letterSpacing: '.06em', textTransform: 'uppercase' }}>{card.label}</div>
-                    <div style={{ marginTop: 7, color: 'var(--t1)', fontSize: 22, lineHeight: 1, fontWeight: 900 }}>{card.value}</div>
-                    <div style={{ marginTop: 7, color: 'var(--t3)', fontSize: 11.5 }}>{card.detail}</div>
+                  <div key={card.label} className={styles.metricCard}>
+                    <span aria-hidden="true" className={styles.metricAccent} style={{ background: card.color }} />
+                    <div className={styles.metricLabel}>{card.label}</div>
+                    <div key={card.value} className={`${styles.metricValue} ${styles.metricValueChanged}`} aria-live="polite" aria-atomic="true">{card.value}</div>
+                    <div className={styles.metricCaption}>{card.detail}</div>
                   </div>
                 ))}
               </div>
 
               {/* Top Quick Actions Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 16, marginBottom: 18 }}>
+              <div className={styles.arenaActionGrid}>
                 
                 {
                 /* Mode B: Create Private Room */}
-                <div style={{
-                  padding: '28px 24px',
-                  borderRadius: 20,
-                  background: 'var(--card)',
-                  backdropFilter: 'blur(16px)',
-                  border: '1px solid var(--border)',
-                  boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  minHeight: 280
-                }}>
+                <div className={styles.arenaActionCard}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       <span style={{
@@ -1119,29 +1136,20 @@ function ArenaContent() {
                         PRIVATE BATTLE
                       </span>
                     </div>
-                    <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+                    <h3 className={styles.actionTitle}>
                       Challenge a friend
                     </h3>
-                    <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
+                    <p className={styles.actionDescription}>
                       Set the challenge, create a private room, then share a one-time invite with your rival.
                     </p>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
+                    <div className={styles.actionControls}>
                       <div>
-                        <label style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Challenge Caliber</label>
+                        <label className={styles.actionFieldLabel}>Challenge Caliber</label>
                         <select
                           value={selectedProblemId}
                           onChange={e => setSelectedProblemId(e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '8px 10px',
-                            borderRadius: 8,
-                            background: 'var(--bg3)',
-                            border: '1px solid var(--border)',
-                            color: 'var(--t1)',
-                            fontSize: 13,
-                            fontWeight: 600
-                          }}
+                          className={styles.actionField}
                         >
                           <option value="auto">🎯 Auto-Calibrated (Shared Knowledge Edge)</option>
                           <option value="tier_basic">🟢 Novice Foundations (Days 1–15)</option>
@@ -1151,20 +1159,11 @@ function ArenaContent() {
                       </div>
 
                       <div>
-                        <label style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Time Limit</label>
+                        <label className={styles.actionFieldLabel}>Time Limit</label>
                         <select
                           value={selectedTimeLimit}
                           onChange={e => setSelectedTimeLimit(Number(e.target.value))}
-                          style={{
-                            width: '100%',
-                            padding: '8px 10px',
-                            borderRadius: 8,
-                            background: 'var(--bg3)',
-                            border: '1px solid var(--border)',
-                            color: 'var(--t1)',
-                            fontSize: 13,
-                            fontWeight: 600
-                          }}
+                          className={styles.actionField}
                         >
                           <option value={300}>5 Minutes</option>
                           <option value={600}>10 Minutes</option>
@@ -1177,40 +1176,14 @@ function ArenaContent() {
                   <button
                     onClick={handleCreateRoom}
                     disabled={isCreatingRoom}
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      borderRadius: 10,
-                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      color: '#fff',
-                      fontWeight: 700,
-                      fontSize: 15.5,
-                      border: 'none',
-                      cursor: isCreatingRoom ? 'not-allowed' : 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      boxShadow: '0 4px 12px rgba(16, 185, 129, 0.35)'
-                    }}
+                    className={`${styles.actionButton} ${styles.createRoomButton}`}
                   >
                     {isCreatingRoom ? 'Generating Room...' : 'Create Room & Invite (10 Pins)'}
                   </button>
                 </div>
 
                 {/* Mode C: Join Room via Code */}
-                <div style={{
-                  padding: '28px 24px',
-                  borderRadius: 20,
-                  background: 'var(--card)',
-                  backdropFilter: 'blur(16px)',
-                  border: '1px solid var(--border)',
-                  boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  minHeight: 280
-                }}>
+                <div className={styles.arenaActionCard}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       <span style={{
@@ -1230,33 +1203,21 @@ function ArenaContent() {
                         INVITE CODE
                       </span>
                     </div>
-                    <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+                    <h3 className={styles.actionTitle}>
                       Join a battle
                     </h3>
-                    <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
+                    <p className={styles.actionDescription}>
                       Got a room code from a friend? Enter it here to join their lobby.
                     </p>
 
-                    <div style={{ marginBottom: 16 }}>
+                    <div className={styles.actionControls} style={{ gridTemplateColumns: '1fr', marginBottom: 16 }}>
                       <input
                         type="text"
                         value={roomInputCode}
                         onChange={e => setRoomInputCode(e.target.value.toUpperCase())}
                         placeholder="ARENA-8F2A"
                         maxLength={12}
-                        style={{
-                          width: '100%',
-                          padding: '12px 14px',
-                          borderRadius: 10,
-                          background: 'var(--bg3)',
-                          border: '1px solid var(--border)',
-                          color: 'var(--t1)',
-                          fontSize: 16.5,
-                          fontWeight: 700,
-                          textAlign: 'center',
-                          letterSpacing: '2px',
-                          fontFamily: 'monospace'
-                        }}
+                        className={styles.roomCodeField}
                       />
                     </div>
                   </div>
@@ -1264,23 +1225,7 @@ function ArenaContent() {
                   <button
                     onClick={() => handleJoinRoom()}
                     disabled={isJoiningRoom || !roomInputCode.trim()}
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      borderRadius: 10,
-                      background: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
-                      color: '#fff',
-                      fontWeight: 700,
-                      fontSize: 15.5,
-                      border: 'none',
-                      cursor: isJoiningRoom || !roomInputCode.trim() ? 'not-allowed' : 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      opacity: !roomInputCode.trim() ? 0.6 : 1,
-                      boxShadow: '0 4px 12px rgba(236, 72, 153, 0.35)'
-                    }}
+                    className={`${styles.actionButton} ${styles.joinRoomButton}`}
                   >
                     {isJoiningRoom ? 'Connecting...' : 'Join Battle Room'}
                   </button>
@@ -1306,7 +1251,7 @@ function ArenaContent() {
                 </div>
               )}
 
-              <p data-testid="arena-league-note" style={{ margin: '4px 0 0', color: 'var(--t3)', fontSize: 12.5, lineHeight: 1.5 }}>
+              <p data-testid="arena-league-note" className={styles.arenaLeagueLink}>
                 Arena wins add Arena Points to your League Points.{' '}
                 <Link href="/leaderboard?mode=global" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
                   View League Points standings →

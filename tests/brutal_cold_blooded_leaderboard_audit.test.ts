@@ -5,9 +5,11 @@ import path from 'path';
 
 const ROOT = process.cwd();
 const leaderboardPagePath = path.join(ROOT, 'src/app/leaderboard/page.tsx');
+const competitionStylesPath = path.join(ROOT, 'src/app/competition-experience.module.css');
 const leaderboardRoutePath = path.join(ROOT, 'src/app/api/leaderboard/route.ts');
 
 const leaderboardPage = fs.readFileSync(leaderboardPagePath, 'utf8');
+const competitionStyles = fs.readFileSync(competitionStylesPath, 'utf8');
 const leaderboardRoute = fs.readFileSync(leaderboardRoutePath, 'utf8');
 const competitionNavigation = fs.readFileSync(path.join(ROOT, 'src/components/competition/CompetitionNavigation.tsx'), 'utf8');
 
@@ -69,11 +71,14 @@ test('BRUTAL VECTOR 2: Space reclamation, HUD elevation, and ~25% compact sizing
     'Cockpit Telemetry HUD must be present with test ID'
   );
   assert.ok(
-    leaderboardPage.includes("padding: '18px 24px'"),
-    'Cockpit HUD must use the current compact, responsive card spacing'
+    leaderboardPage.includes('className={styles.leagueCockpit}') &&
+      competitionStyles.includes('.leagueCockpit {') &&
+      competitionStyles.includes('padding: 17px clamp(17px, 2.1vw, 27px)') &&
+      competitionStyles.includes('@media (max-width: 980px)'),
+    'Cockpit HUD must use the shared compact spacing and responsive layout'
   );
   assert.ok(
-    leaderboardPage.includes('fontSize: 20'),
+    competitionStyles.includes('.leagueRankNumber { color: var(--warning, #d97706); font-size: 20px;'),
     'Rank display font must be scaled down to 20px'
   );
   // 3. Dynamic Circles housed inside HUD per Task 1

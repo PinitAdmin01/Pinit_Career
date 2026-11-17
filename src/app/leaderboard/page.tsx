@@ -11,6 +11,7 @@ import { toast } from '@/lib/store/useAppStore';
 import LeagueBadge, { LeagueTier, LEAGUE_CONFIGS, normalizeLeagueTier } from '@/components/pins/LeagueBadge';
 import PinCoin from '@/components/pins/PinCoin';
 import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
+import styles from '../competition-experience.module.css';
 
 export interface LeaderboardEntry {
   rank: number;
@@ -97,6 +98,8 @@ function LeaderboardContent() {
     ruby: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<Date | null>(null);
+  const loadedQueryKeyRef = useRef<string | null>(null);
   const [joiningLeague, setJoiningLeague] = useState(false);
   const [currentUserHasJoined, setCurrentUserHasJoined] = useState(false);
   const [serverCareerXp, setServerCareerXp] = useState<number | null>(null);
@@ -187,6 +190,22 @@ function LeaderboardContent() {
   // Real-time synchronization trigger when combat matches settle
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
+  // Refresh live standings on focus, return-to-tab, and a light 30-second cadence.
+  // Hidden tabs pause polling; the currently displayed table stays in place while data refreshes.
+  useEffect(() => {
+    const requestRefresh = () => {
+      if (document.visibilityState === 'visible') setRefreshTrigger(previous => previous + 1);
+    };
+    const timer = window.setInterval(requestRefresh, 30_000);
+    window.addEventListener('focus', requestRefresh);
+    document.addEventListener('visibilitychange', requestRefresh);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener('focus', requestRefresh);
+      document.removeEventListener('visibilitychange', requestRefresh);
+    };
+  }, []);
+
   // Synchronize joinedLeague reactively when user hydrates or server profile arrives
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -275,8 +294,9 @@ function LeaderboardContent() {
   // Fetch real leaderboard telemetry from server
   useEffect(() => {
     let isMounted = true;
+    const queryKey = `${user?.id || 'guest'}:${activeTab}:${selectedLeague}`;
     async function fetchLeaderboard() {
-      setLoading(true);
+      if (loadedQueryKeyRef.current !== queryKey) setLoading(true);
       try {
         const params = new URLSearchParams({
           mode: activeTab === 'guild' ? 'guild_projects' : 'weekly_leagues',
@@ -320,6 +340,8 @@ function LeaderboardContent() {
         });
 
         if (data.ok && isMounted) {
+          loadedQueryKeyRef.current = queryKey;
+          setLastUpdatedAt(new Date());
           setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
           setServerCurrentUser(data.currentUser || null);
           if (data.currentUser) {
@@ -407,49 +429,25 @@ function LeaderboardContent() {
   const userLeagueMeta = LEAGUE_CONFIGS[currentUserLeague];
 
   return (
-    <div style={{ background: 'transparent', color: 'var(--text)', maxWidth: 1540, margin: '0 auto', padding: '0 0 40px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div className={styles.competitionPage}>
 
       <CompetitionNavigation active="leaderboard" />
 
       {/* ── TOP ELEVATED COCKPIT TELEMETRY HUD (25% Compact Scale) ──────── */}
       <div
         data-testid="cockpit-telemetry-hud"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
-          gap: 18,
-          padding: '18px 24px',
-          borderRadius: 18,
-          background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
-          border: `1.5px solid ${userLeagueMeta.color}45`,
-          boxShadow: `var(--shadow-sm), 0 0 16px ${userLeagueMeta.color}15`,
-          marginBottom: 16,
-          alignItems: 'center',
-        }}
+        className={styles.leagueCockpit}
+        style={{ '--league-color': userLeagueMeta.color } as React.CSSProperties}
       >
         {/* Card 1: Active League & Interactive Division Selector Trigger */}
         <button
           type="button"
-          className="pinit-emblem-launcher"
+          className={`pinit-emblem-launcher ${styles.leagueDivisionButton}`}
           data-testid="interactive-league-emblem-btn"
           onClick={() => setIsLeagueModalOpen(true)}
           title="Click to inspect all competitive divisions"
           aria-haspopup="dialog"
           aria-expanded={isLeagueModalOpen}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            background: 'transparent',
-            border: 'none',
-            padding: '4px 8px',
-            margin: '-4px -8px',
-            borderRadius: 12,
-            cursor: 'pointer',
-            textAlign: 'left',
-            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            outline: 'none',
-          }}
         >
           <div style={{ position: 'relative' }}>
             <LeagueBadge tier={selectedLeague} size="sm" glow animate />
@@ -491,16 +489,16 @@ function LeaderboardContent() {
         </button>
 
         {/* Card 2: Sprint Standing & Promotion Status */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className={styles.leagueStanding}>
+          <div className={styles.leagueStandingHeader}>
             <span>Your sprint standing</span>
-            <span style={{ fontSize: 9.5, padding: '1px 6px', borderRadius: 4, background: 'rgba(99, 102, 241, 0.12)', color: 'var(--accent, #4f46e5)', fontWeight: 800 }}>LIVE SPRINT</span>
+            <span className={styles.liveSprint}>LIVE SPRINT</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 2, flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: '#d97706' }}>
+          <div className={styles.leagueRankLine}>
+            <span key={currentUserEntry?.rank ?? 'unranked'} className={`${styles.leagueRankNumber} ${styles.metricValueChanged}`}>
               {currentUserEntry ? `#${currentUserEntry.rank}` : 'Unranked'}
             </span>
-            <span style={{ fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
+            <span key={currentUserEntry?.leaguePoints ?? 0} className={`${styles.leaguePoints} ${styles.metricValueChanged}`}>
               {currentUserEntry
                 ? `${(currentUserEntry.leaguePoints || 0).toLocaleString()} League Points`
                 : (currentUserHasJoined ? `Inspecting ${activeLeagueMeta.title}` : 'Join Browns to start your sprint')}
@@ -509,15 +507,15 @@ function LeaderboardContent() {
 
           <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
             {currentUserEntry?.zone === 'promotion' ? (
-              <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#059669', fontSize: 10.5, fontWeight: 800, boxShadow: '0 0 10px rgba(16,185,129,0.18)' }}>
+              <span className={`${styles.zoneLabel} ${styles.zonePromotion}`}>
                 In Promotion Zone! Advance to {userLeagueMeta.nextTier ? LEAGUE_CONFIGS[userLeagueMeta.nextTier].title : 'Champions'}
               </span>
             ) : currentUserEntry?.zone === 'demotion' ? (
-              <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 10.5, fontWeight: 800, boxShadow: '0 0 10px rgba(239,68,68,0.18)' }}>
+              <span className={`${styles.zoneLabel} ${styles.zoneDemotion}`}>
                 In Demotion Zone! Earn League Points to remain in {userLeagueMeta.title}
               </span>
             ) : (
-              <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.15)', border: '1px solid #6366f1', color: '#4f46e5', fontSize: 10.5, fontWeight: 800 }}>
+              <span className={styles.zoneLabel}>
                 Safe Zone — Remaining in {userLeagueMeta.title}
               </span>
             )}
@@ -525,7 +523,7 @@ function LeaderboardContent() {
         </div>
 
         {/* Right Section: Two Dynamic Circles Side-by-Side (Task 1) */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 16 }}>
+        <div className={styles.leagueClockGroup}>
           {/* Career XP needed to unlock Browns membership. */}
           {userTotalXp < 100 && (
             <div ref={xpReqRef} style={{ position: 'relative' }}>
@@ -758,6 +756,7 @@ function LeaderboardContent() {
       {userTotalXp < 100 ? (
         <div
           data-testid="league-100xp-gate"
+          className={styles.qualificationBanner}
           style={{
             padding: '20px 24px',
             borderRadius: 16,
@@ -804,6 +803,7 @@ function LeaderboardContent() {
             </div>
             <div style={{ height: 8, background: 'rgba(255,255,255,0.08)', borderRadius: 999, overflow: 'hidden' }}>
               <div
+                className={styles.qualificationProgress}
                 style={{
                   width: `${Math.min(100, Math.round((userTotalXp / 100) * 100))}%`,
                   height: '100%',
@@ -817,6 +817,7 @@ function LeaderboardContent() {
       ) : !joinedLeague ? (
         <div
           data-testid="league-qualified-banner"
+          className={styles.qualifiedBanner}
           style={{
             padding: '20px 24px',
             borderRadius: 16,
@@ -879,17 +880,8 @@ function LeaderboardContent() {
       ) : null}
 
       {/* Three clear leaderboard scopes, with search beside the tabs. */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18, flexWrap: 'wrap' }}>
-        <div style={{
-          display: 'flex',
-          flex: '1 1 520px',
-          gap: 6,
-          padding: 5,
-          borderRadius: 12,
-          background: 'var(--bg2)',
-          border: '1px solid var(--border)',
-          overflowX: 'auto',
-        }}>
+      <div className={styles.leaderboardToolbar}>
+        <div className={styles.scopeTabs} role="tablist" aria-label="Leaderboard scope">
           {[
             { id: 'campus', label: 'Campus' },
             { id: 'global', label: 'Global' },
@@ -898,20 +890,10 @@ function LeaderboardContent() {
             <button
               key={tab.id}
               data-testid={`subtab-${tab.id}`}
+              role="tab"
+              aria-selected={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id as TabMode)}
-              style={{
-                flex: 1,
-                minWidth: 112,
-                padding: '10px 16px',
-                borderRadius: 9,
-                border: activeTab === tab.id ? '1px solid var(--accent)' : '1px solid transparent',
-                background: activeTab === tab.id ? 'var(--accent-light)' : 'transparent',
-                color: activeTab === tab.id ? 'var(--accent-hover, var(--brand-bright, #4f46e5))' : 'var(--t2)',
-                fontWeight: 800,
-                fontSize: 13,
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-              }}
+              className={`${styles.scopeTab} ${activeTab === tab.id ? styles.scopeTabSelected : ''}`}
             >
               {tab.label}
             </button>
@@ -924,23 +906,18 @@ function LeaderboardContent() {
           onChange={e => setSearchQuery(e.target.value)}
           aria-label={activeTab === 'guild' ? 'Search guilds' : 'Search leaderboard'}
           placeholder={activeTab === 'guild' ? 'Search guilds or projects…' : 'Search students or campus…'}
-          style={{
-            flex: '0 1 320px',
-            minWidth: 220,
-            padding: '10px 14px',
-            borderRadius: 10,
-            background: 'var(--card)',
-            border: '1px solid var(--border)',
-            color: 'var(--t1)',
-            boxShadow: 'var(--shadow-sm)',
-            fontSize: 14,
-            outline: 'none',
-          }}
+          className={styles.searchField}
         />
+        <span className={styles.liveBoardStatus} role="status" aria-live="polite">
+          <span className={styles.liveBoardDot} aria-hidden="true" />
+          {loading
+            ? lastUpdatedAt ? 'Updating live standings' : 'Loading live standings'
+            : lastUpdatedAt ? `Live · Updated ${lastUpdatedAt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : 'Live standings'}
+        </span>
       </div>
 
       {activeTab === 'global' && (
-        <div style={{ marginBottom: 14, padding: '10px 14px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12.5, lineHeight: 1.5 }}>
+        <div className={styles.rulesNote}>
           League Points decide rank within each division. At reset, the top 10% advance; the bottom 10% move down when a division has at least 10 players. Browns has no lower league, Ruby has no higher league, and ELO never changes league placement.
         </div>
       )}
@@ -1135,7 +1112,7 @@ function LeaderboardContent() {
 
             {/* ── TAB CONTENT: GUILD PROJECTS TABLE ──────────────────────────── */}
       {activeTab === 'guild' ? (
-        <div data-testid="guild-projects-table-container" style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
+        <div data-testid="guild-projects-table-container" className={styles.boardShell}>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', minWidth: 720, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
               <thead>
@@ -1235,9 +1212,9 @@ function LeaderboardContent() {
         </div>
       ) : (
         /* ── CAMPUS / GLOBAL LEAGUE POINTS TABLE ── */
-        <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
+        <div className={styles.boardShell}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', minWidth: 660, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
+            <table className={styles.boardTable}>
               <thead>
                 <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
@@ -1299,7 +1276,7 @@ function LeaderboardContent() {
                         >
                           {/* Rank */}
                           <td style={{ padding: '16px 20px', fontWeight: 900, fontSize: isTop3 ? 16 : 14, color: entry.rank === 1 ? '#d97706' : entry.rank === 2 ? '#64748b' : entry.rank === 3 ? '#b45309' : 'var(--t3)' }}>
-                            {rankLabel}
+                            <span key={`rank-${entry.rank}`} className={styles.boardValue}>{rankLabel}</span>
                           </td>
 
                           {/* Student Candidate & Avatar */}
@@ -1335,7 +1312,7 @@ function LeaderboardContent() {
 
                           {/* One score is shown: League Points */}
                           <td style={{ padding: '16px 20px', textAlign: 'right' }}>
-                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 900, color: '#10b981' }}>
+                            <span key={`points-${entry.leaguePoints || 0}`} className={styles.boardValue} style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 900, color: '#10b981' }}>
                               {(entry.leaguePoints || 0).toLocaleString()}
                             </span>
                           </td>
