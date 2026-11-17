@@ -129,7 +129,13 @@ Requirements:
   }
 };
 
-export default function CareerBuilderPage({ embedded = false }: { embedded?: boolean } = {}) {
+export default function CareerBuilderPage({
+  embedded = false,
+  initialView = 'roadmap'
+}: {
+  embedded?: boolean;
+  initialView?: 'roadmap' | 'resume';
+} = {}) {
   const router = useRouter();
   const { user } = useAuth();
   const userId = user?.id || 'guest';
@@ -145,8 +151,8 @@ export default function CareerBuilderPage({ embedded = false }: { embedded?: boo
     setOnboardingStep
   } = cOS;
 
-  // View & Filter States
-  const [activeView, setActiveView] = useState<'roadmap' | 'resume'>('roadmap');
+  // View & Filter States (defaults to initialView or 'resume' when embedded in Digital Studio)
+  const [activeView, setActiveView] = useState<'roadmap' | 'resume'>(initialView || (embedded ? 'resume' : 'roadmap'));
   const [selectedDomain, setSelectedDomain] = useState<DomainCategory>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTrajectoryId, setSelectedTrajectoryId] = useState<string>('fullstack-developer');
@@ -609,48 +615,50 @@ export default function CareerBuilderPage({ embedded = false }: { embedded?: boo
       )}
 
       {/* ── Main Tab Switcher ───────────────────────────────────────────── */}
-      <div style={{ display: 'flex', gap: 12, marginBottom: 26 }}>
+      <div style={{ display: 'flex', gap: 10, marginBottom: 24, flexWrap: 'wrap' }}>
         <button
-          onClick={() => setActiveView('roadmap')}
-          style={{
-            padding: '12px 22px',
-            borderRadius: 12,
-            border: `2px solid ${activeView === 'roadmap' ? 'var(--accent)' : 'var(--border)'}`,
-            background: activeView === 'roadmap' ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg2)',
-            color: activeView === 'roadmap' ? 'var(--accent)' : 'var(--t2)',
-            fontWeight: 900,
-            fontSize: 14.5,
-            cursor: 'pointer',
-            fontFamily: 'var(--font-mono)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            boxShadow: activeView === 'roadmap' ? '0 0 16px rgba(99, 102, 241, 0.25)' : 'none',
-            transition: 'all 0.2s ease',
-          }}
-        >
-          <span>🧬</span> Custom Roadmap Fuser
-        </button>
-        <button
+          type="button"
           onClick={() => setActiveView('resume')}
           style={{
-            padding: '12px 22px',
-            borderRadius: 12,
-            border: `2px solid ${activeView === 'resume' ? 'var(--accent)' : 'var(--border)'}`,
-            background: activeView === 'resume' ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg2)',
+            padding: embedded ? '8px 18px' : '10px 22px',
+            borderRadius: 10,
+            border: `1.5px solid ${activeView === 'resume' ? 'var(--accent)' : 'var(--border)'}`,
+            background: activeView === 'resume' ? 'var(--accent-light)' : 'var(--bg2)',
             color: activeView === 'resume' ? 'var(--accent)' : 'var(--t2)',
-            fontWeight: 900,
-            fontSize: 14.5,
+            fontWeight: 800,
+            fontSize: 13.5,
             cursor: 'pointer',
-            fontFamily: 'var(--font-mono)',
             display: 'flex',
             alignItems: 'center',
-            gap: 10,
-            boxShadow: activeView === 'resume' ? '0 0 16px rgba(99, 102, 241, 0.25)' : 'none',
+            gap: 8,
+            boxShadow: activeView === 'resume' ? '0 0 14px var(--accent-glow)' : 'none',
             transition: 'all 0.2s ease',
           }}
         >
-          <span>📄</span> AI Resume & ATS Gap Loop
+          <span>📄</span>
+          <span>Live Resume Builder & ATS Scanner</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveView('roadmap')}
+          style={{
+            padding: embedded ? '8px 18px' : '10px 22px',
+            borderRadius: 10,
+            border: `1.5px solid ${activeView === 'roadmap' ? 'var(--accent)' : 'var(--border)'}`,
+            background: activeView === 'roadmap' ? 'var(--accent-light)' : 'var(--bg2)',
+            color: activeView === 'roadmap' ? 'var(--accent)' : 'var(--t2)',
+            fontWeight: 800,
+            fontSize: 13.5,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            boxShadow: activeView === 'roadmap' ? '0 0 14px var(--accent-glow)' : 'none',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          <span>🧬</span>
+          <span>Custom Trajectory Roadmap Fuser</span>
         </button>
       </div>
 

@@ -28,15 +28,15 @@ export default function MirrorPage() {
         >
           <div
             style={{
-              width: 38,
-              height: 38,
+              width: 36,
+              height: 36,
               borderRadius: '50%',
-              border: '3px solid rgba(59, 130, 246, 0.2)',
-              borderTopColor: '#3b82f6',
+              border: '3px solid var(--accent-light)',
+              borderTopColor: 'var(--accent)',
               animation: 'spin 0.8s linear infinite',
             }}
           />
-          <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.2px' }}>
+          <div style={{ fontSize: 14.5, fontWeight: 700, letterSpacing: '-0.2px' }}>
             Loading Digital Studio...
           </div>
         </div>
@@ -115,18 +115,14 @@ function DigitalStudioInner() {
   return (
     <div
       data-testid="digital-studio-page"
-      style={{
-        maxWidth: 1400,
-        margin: '0 auto',
-        padding: '0 20px 60px 20px',
-      }}
-      className="animate-fade-in"
+      className="studio-page-container animate-fade-in"
     >
       <style>{`
+        /* ── Common Keyframe Animations ── */
         @keyframes studioFadeInUp {
           from {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(8px);
           }
           to {
             opacity: 1;
@@ -135,17 +131,235 @@ function DigitalStudioInner() {
         }
         @keyframes pulseGlow {
           0%, 100% { opacity: 0.6; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.08); }
+          50% { opacity: 1; transform: scale(1.06); }
         }
-        .studio-card-btn {
-          transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+
+        /* ── Layout Container ── */
+        .studio-page-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 16px 20px 60px 20px;
         }
-        .studio-card-btn:hover {
-          transform: translateY(-2px);
+
+        /* ── Header Card Shades & Theming ── */
+        .studio-header-card {
+          border-radius: 20px;
+          padding: 24px 28px;
+          margin-bottom: 22px;
+          display: flex;
+          justify-content: space-between;
+          alignItems: center;
+          flex-wrap: wrap;
+          gap: 20px;
+          transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+          position: relative;
+          backdrop-filter: blur(16px);
+          backdropFilter: blur(16px);
         }
-        .studio-card-btn:active {
+        :root.dark .studio-header-card, [data-theme='dark'] .studio-header-card {
+          background: linear-gradient(135deg, rgba(13, 18, 30, 0.94) 0%, rgba(20, 27, 45, 0.82) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+        :root.light .studio-header-card, [data-theme='light'] .studio-header-card {
+          background: linear-gradient(135deg, #ffffff 0%, #f8fafd 100%);
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03), inset 0 1px 0 #ffffff;
+        }
+
+        /* ── Title Typography ── */
+        .studio-header-title {
+          font-family: var(--font-display, inherit);
+          font-size: 28px;
+          font-weight: 900;
+          letter-spacing: -0.03em;
+          margin: 0 0 6px 0;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        :root.dark .studio-header-title, [data-theme='dark'] .studio-header-title {
+          background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 55%, #94a3b8 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        :root.light .studio-header-title, [data-theme='light'] .studio-header-title {
+          background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        /* ── Eyebrow Badge ── */
+        .studio-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 4px 12px;
+          border-radius: 999px;
+          font-size: 11.5px;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+        }
+        :root.dark .studio-eyebrow, [data-theme='dark'] .studio-eyebrow {
+          background: rgba(56, 189, 248, 0.12);
+          border: 1px solid rgba(56, 189, 248, 0.28);
+          color: #38bdf8;
+        }
+        :root.light .studio-eyebrow, [data-theme='light'] .studio-eyebrow {
+          background: #eef2ff;
+          border: 1px solid #c7d2fe;
+          color: #4338ca;
+        }
+
+        /* ── Vector Icon Badge ── */
+        .studio-icon-badge {
+          width: 44px;
+          height: 44px;
+          border-radius: 13px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: all 0.2s ease;
+        }
+        :root.dark .studio-icon-badge, [data-theme='dark'] .studio-icon-badge {
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(13, 18, 30, 0.8) 100%);
+          border: 1px solid rgba(129, 140, 248, 0.35);
+          color: #818cf8;
+          box-shadow: 0 0 16px rgba(99, 102, 241, 0.25);
+        }
+        :root.light .studio-icon-badge, [data-theme='light'] .studio-icon-badge {
+          background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+          border: 1.5px solid #c7d2fe;
+          color: #4f46e5;
+          box-shadow: 0 4px 12px rgba(99, 102, 241, 0.14);
+        }
+
+        /* ── HUD Telemetry Chips ── */
+        .studio-hud-chip {
+          border-radius: 14px;
+          padding: 10px 16px;
+          min-width: 130px;
+          transition: all 0.2s ease;
+        }
+        :root.dark .studio-hud-chip, [data-theme='dark'] .studio-hud-chip {
+          background: rgba(13, 18, 30, 0.75);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+        :root.light .studio-hud-chip, [data-theme='light'] .studio-hud-chip {
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ── Pillar Cards Grid & Styling ── */
+        .studio-pillars-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+        .studio-pillar-card, .studio-card-btn {
+          position: relative;
+          text-align: left;
+          cursor: pointer;
+          border-radius: 18px;
+          padding: 20px 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+        }
+        .studio-pillar-card:hover, .studio-card-btn:hover {
+          transform: translateY(-2.5px);
+        }
+        .studio-pillar-card:active, .studio-card-btn:active {
           transform: translateY(0);
         }
+
+        /* ── Pillar 1: ATS Resume Active States ── */
+        :root.dark .pillar-resume-active, [data-theme='dark'] .pillar-resume-active {
+          background: linear-gradient(135deg, rgba(37, 99, 235, 0.18) 0%, rgba(13, 18, 30, 0.9) 100%);
+          border: 1.5px solid rgba(59, 130, 246, 0.65);
+          box-shadow: 0 0 30px -4px rgba(59, 130, 246, 0.32), 0 12px 28px -10px rgba(0, 0, 0, 0.6);
+        }
+        :root.light .pillar-resume-active, [data-theme='light'] .pillar-resume-active {
+          background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+          border: 1.5px solid #3b82f6;
+          box-shadow: 0 12px 28px -6px rgba(59, 130, 246, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ── Pillar 2: Twin Active States ── */
+        :root.dark .pillar-twin-active, [data-theme='dark'] .pillar-twin-active {
+          background: linear-gradient(135deg, rgba(147, 51, 234, 0.18) 0%, rgba(13, 18, 30, 0.9) 100%);
+          border: 1.5px solid rgba(168, 85, 247, 0.65);
+          box-shadow: 0 0 30px -4px rgba(168, 85, 247, 0.32), 0 12px 28px -10px rgba(0, 0, 0, 0.6);
+        }
+        :root.light .pillar-twin-active, [data-theme='light'] .pillar-twin-active {
+          background: linear-gradient(135deg, #faf5ff 0%, #ffffff 100%);
+          border: 1.5px solid #a855f7;
+          box-shadow: 0 12px 28px -6px rgba(168, 85, 247, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ── Inactive Pillar States ── */
+        :root.dark .pillar-inactive, [data-theme='dark'] .pillar-inactive {
+          background: rgba(13, 18, 30, 0.55);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        :root.light .pillar-inactive, [data-theme='light'] .pillar-inactive {
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        /* ── Child Feature Badges inside Cards ── */
+        .studio-feature-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          padding: 5px 11px;
+          border-radius: 8px;
+          font-weight: 600;
+          transition: all 0.2s ease;
+        }
+        :root.dark .studio-feature-badge, [data-theme='dark'] .studio-feature-badge {
+          background: rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          color: var(--t1);
+        }
+        :root.light .studio-feature-badge, [data-theme='light'] .studio-feature-badge {
+          background: #f1f5f9;
+          border: 1px solid #e2e8f0;
+          color: #334155;
+        }
+
+        /* ── Sub-Pillar Bar ── */
+        .studio-subpillar-bar {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 22px;
+          padding: 6px;
+          border-radius: 14px;
+          width: fit-content;
+          flex-wrap: wrap;
+        }
+        :root.dark .studio-subpillar-bar, [data-theme='dark'] .studio-subpillar-bar {
+          background: rgba(13, 18, 30, 0.85);
+          border: 1px solid rgba(168, 85, 247, 0.25);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+        :root.light .studio-subpillar-bar, [data-theme='light'] .studio-subpillar-bar {
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
         @media (max-width: 820px) {
           .studio-pillars-grid {
             grid-template-columns: 1fr !important;
@@ -160,57 +374,24 @@ function DigitalStudioInner() {
       {/* ── Top Header Banner with Telemetry HUD ─────────────────────── */}
       <div
         data-testid="digital-studio-header"
-        style={{
-          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(30, 41, 59, 0.68) 100%)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: 20,
-          padding: '24px 28px',
-          marginBottom: 24,
-          boxShadow: '0 12px 36px -10px rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 20,
-        }}
+        className="studio-header-card"
       >
         {/* Left: Title & Vision */}
         <div style={{ flex: '1 1 480px' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '4px 12px',
-              borderRadius: 999,
-              background: 'rgba(56, 189, 248, 0.12)',
-              border: '1px solid rgba(56, 189, 248, 0.28)',
-              color: '#38bdf8',
-              fontSize: 11.5,
-              fontWeight: 800,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              marginBottom: 10,
-            }}
-          >
-            <span>✨</span>
+          <div className="studio-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
             <span>Unified Career Intelligence · Live Twin & ATS Matrix</span>
           </div>
 
-          <h1
-            style={{
-              fontFamily: 'var(--font-display, inherit)',
-              fontSize: 28,
-              fontWeight: 900,
-              letterSpacing: '-0.03em',
-              margin: '0 0 6px 0',
-              background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 55%, #94a3b8 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            🪞 Digital Studio
+          <h1 className="studio-header-title">
+            <div className="studio-icon-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <span>Digital Studio</span>
           </h1>
 
           <p
@@ -237,15 +418,7 @@ function DigitalStudioInner() {
           }}
         >
           {/* HUD Item 1: Target Track */}
-          <div
-            style={{
-              background: 'rgba(15, 23, 42, 0.7)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 14,
-              padding: '10px 16px',
-              minWidth: 140,
-            }}
-          >
+          <div className="studio-hud-chip">
             <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               🎯 Target Track
             </div>
@@ -267,37 +440,21 @@ function DigitalStudioInner() {
           </div>
 
           {/* HUD Item 2: Career DNA Calibrated */}
-          <div
-            style={{
-              background: 'rgba(15, 23, 42, 0.7)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 14,
-              padding: '10px 16px',
-              minWidth: 120,
-            }}
-          >
+          <div className="studio-hud-chip">
             <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               🧬 Career DNA
             </div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: '#38bdf8', marginTop: 2 }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', marginTop: 2 }}>
               {dnaMastery} Calibrated
             </div>
           </div>
 
           {/* HUD Item 3: ATS Standard */}
-          <div
-            style={{
-              background: 'rgba(15, 23, 42, 0.7)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 14,
-              padding: '10px 16px',
-              minWidth: 120,
-            }}
-          >
+          <div className="studio-hud-chip">
             <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               📄 ATS Standard
             </div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: '#10b981', marginTop: 2 }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--green)', marginTop: 2 }}>
               Harvard 90%+
             </div>
           </div>
@@ -308,41 +465,13 @@ function DigitalStudioInner() {
       <div
         data-testid="studio-master-pillars"
         className="studio-pillars-grid"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: 16,
-          marginBottom: 24,
-        }}
       >
         {/* Pillar 1: ATS Resume & Studio */}
         <button
           type="button"
           data-testid="tab-career-builder"
-          className="studio-card-btn"
+          className={`studio-pillar-card studio-card-btn ${activePillar === 'resume' ? 'pillar-resume-active' : 'pillar-inactive'}`}
           onClick={() => selectPillar('resume')}
-          style={{
-            position: 'relative',
-            textAlign: 'left',
-            cursor: 'pointer',
-            borderRadius: 18,
-            padding: '20px 24px',
-            border:
-              activePillar === 'resume'
-                ? '1px solid rgba(59, 130, 246, 0.65)'
-                : '1px solid rgba(255, 255, 255, 0.08)',
-            background:
-              activePillar === 'resume'
-                ? 'linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(15, 23, 42, 0.85) 100%)'
-                : 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.4) 100%)',
-            boxShadow:
-              activePillar === 'resume'
-                ? '0 0 28px -4px rgba(59, 130, 246, 0.35), 0 10px 24px -10px rgba(0, 0, 0, 0.6)'
-                : '0 4px 12px rgba(0, 0, 0, 0.2)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -354,25 +483,26 @@ function DigitalStudioInner() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 22,
-                  background:
-                    activePillar === 'resume'
-                      ? 'rgba(59, 130, 246, 0.2)'
-                      : 'rgba(255, 255, 255, 0.05)',
-                  border:
-                    activePillar === 'resume'
-                      ? '1px solid rgba(59, 130, 246, 0.4)'
-                      : '1px solid rgba(255, 255, 255, 0.08)',
+                  fontSize: 20,
+                  background: activePillar === 'resume' ? 'var(--accent-light)' : 'var(--bg3)',
+                  border: `1.5px solid ${activePillar === 'resume' ? 'var(--accent)' : 'var(--border)'}`,
+                  color: activePillar === 'resume' ? 'var(--accent)' : 'var(--t2)',
                 }}
               >
-                📄
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
               </div>
               <div>
                 <div
                   style={{
-                    fontSize: 18,
-                    fontWeight: 800,
-                    color: activePillar === 'resume' ? '#fff' : 'var(--t1)',
+                    fontSize: 17.5,
+                    fontWeight: 900,
+                    color: 'var(--t1)',
                     letterSpacing: '-0.02em',
                   }}
                 >
@@ -391,15 +521,9 @@ function DigitalStudioInner() {
                 fontWeight: 800,
                 padding: '4px 10px',
                 borderRadius: 999,
-                background:
-                  activePillar === 'resume'
-                    ? 'rgba(59, 130, 246, 0.25)'
-                    : 'rgba(255, 255, 255, 0.05)',
-                color: activePillar === 'resume' ? '#93c5fd' : 'var(--t3)',
-                border:
-                  activePillar === 'resume'
-                    ? '1px solid rgba(59, 130, 246, 0.45)'
-                    : '1px solid rgba(255, 255, 255, 0.08)',
+                background: activePillar === 'resume' ? 'var(--accent-light)' : 'var(--bg3)',
+                color: activePillar === 'resume' ? 'var(--accent)' : 'var(--t3)',
+                border: `1px solid ${activePillar === 'resume' ? 'var(--accent)' : 'var(--border)'}`,
                 textTransform: 'uppercase',
                 letterSpacing: '0.04em',
               }}
@@ -417,29 +541,21 @@ function DigitalStudioInner() {
               paddingTop: 4,
             }}
           >
-            <div
-              style={{
-                fontSize: 12,
-                color: activePillar === 'resume' ? '#bfdbfe' : 'var(--t2)',
-                background: 'rgba(0, 0, 0, 0.25)',
-                padding: '5px 10px',
-                borderRadius: 8,
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-              }}
-            >
-              📝 Live Resume Builder & Harvard Template
+            <div className="studio-feature-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent)' }}>
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>Live Resume Builder & Harvard Template</span>
             </div>
-            <div
-              style={{
-                fontSize: 12,
-                color: activePillar === 'resume' ? '#bfdbfe' : 'var(--t2)',
-                background: 'rgba(0, 0, 0, 0.25)',
-                padding: '5px 10px',
-                borderRadius: 8,
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-              }}
-            >
-              🎯 ATS Keyword Matcher & Role Fit Scoring
+            <div className="studio-feature-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent)' }}>
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="22" y1="12" x2="18" y2="12"/>
+                <line x1="6" y1="12" x2="2" y2="12"/>
+                <line x1="12" y1="6" x2="12" y2="2"/>
+                <line x1="12" y1="22" x2="12" y2="18"/>
+              </svg>
+              <span>ATS Keyword Matcher & Role Fit Scoring</span>
             </div>
           </div>
         </button>
@@ -448,30 +564,8 @@ function DigitalStudioInner() {
         <button
           type="button"
           data-testid="tab-digital-twin"
-          className="studio-card-btn"
+          className={`studio-pillar-card studio-card-btn ${activePillar === 'twin' ? 'pillar-twin-active' : 'pillar-inactive'}`}
           onClick={() => selectPillar('twin')}
-          style={{
-            position: 'relative',
-            textAlign: 'left',
-            cursor: 'pointer',
-            borderRadius: 18,
-            padding: '20px 24px',
-            border:
-              activePillar === 'twin'
-                ? '1px solid rgba(168, 85, 247, 0.65)'
-                : '1px solid rgba(255, 255, 255, 0.08)',
-            background:
-              activePillar === 'twin'
-                ? 'linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(15, 23, 42, 0.85) 100%)'
-                : 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.4) 100%)',
-            boxShadow:
-              activePillar === 'twin'
-                ? '0 0 28px -4px rgba(168, 85, 247, 0.35), 0 10px 24px -10px rgba(0, 0, 0, 0.6)'
-                : '0 4px 12px rgba(0, 0, 0, 0.2)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -483,25 +577,24 @@ function DigitalStudioInner() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: 22,
-                  background:
-                    activePillar === 'twin'
-                      ? 'rgba(168, 85, 247, 0.2)'
-                      : 'rgba(255, 255, 255, 0.05)',
-                  border:
-                    activePillar === 'twin'
-                      ? '1px solid rgba(168, 85, 247, 0.4)'
-                      : '1px solid rgba(255, 255, 255, 0.08)',
+                  fontSize: 20,
+                  background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
+                  border: `1.5px solid ${activePillar === 'twin' ? 'var(--purple)' : 'var(--border)'}`,
+                  color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t2)',
                 }}
               >
-                🧬
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                  <path d="M2 12h20"/>
+                </svg>
               </div>
               <div>
                 <div
                   style={{
-                    fontSize: 18,
-                    fontWeight: 800,
-                    color: activePillar === 'twin' ? '#fff' : 'var(--t1)',
+                    fontSize: 17.5,
+                    fontWeight: 900,
+                    color: 'var(--t1)',
                     letterSpacing: '-0.02em',
                   }}
                 >
@@ -520,15 +613,9 @@ function DigitalStudioInner() {
                 fontWeight: 800,
                 padding: '4px 10px',
                 borderRadius: 999,
-                background:
-                  activePillar === 'twin'
-                    ? 'rgba(168, 85, 247, 0.25)'
-                    : 'rgba(255, 255, 255, 0.05)',
-                color: activePillar === 'twin' ? '#d8b4fe' : 'var(--t3)',
-                border:
-                  activePillar === 'twin'
-                    ? '1px solid rgba(168, 85, 247, 0.45)'
-                    : '1px solid rgba(255, 255, 255, 0.08)',
+                background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
+                color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t3)',
+                border: `1px solid ${activePillar === 'twin' ? 'var(--purple)' : 'var(--border)'}`,
                 textTransform: 'uppercase',
                 letterSpacing: '0.04em',
               }}
@@ -546,29 +633,21 @@ function DigitalStudioInner() {
               paddingTop: 4,
             }}
           >
-            <div
-              style={{
-                fontSize: 12,
-                color: activePillar === 'twin' ? '#e9d5ff' : 'var(--t2)',
-                background: 'rgba(0, 0, 0, 0.25)',
-                padding: '5px 10px',
-                borderRadius: 8,
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-              }}
-            >
-              🎯 Competency Twin Radar (Current vs Target)
+            <div className="studio-feature-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+              <span>Competency Twin Radar (Current vs Target)</span>
             </div>
-            <div
-              style={{
-                fontSize: 12,
-                color: activePillar === 'twin' ? '#e9d5ff' : 'var(--t2)',
-                background: 'rgba(0, 0, 0, 0.25)',
-                padding: '5px 10px',
-                borderRadius: 8,
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-              }}
-            >
-              🗺️ Consolidated Skill Gaps & Recommended Quests
+            <div className="studio-feature-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                <line x1="8" y1="2" x2="8" y2="18"/>
+                <line x1="16" y1="6" x2="16" y2="22"/>
+              </svg>
+              <span>Consolidated Skill Gaps & Recommended Quests</span>
             </div>
           </div>
         </button>
@@ -578,18 +657,7 @@ function DigitalStudioInner() {
       {activePillar === 'twin' && (
         <div
           data-testid="twin-subpillar-selector"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            marginBottom: 20,
-            padding: '6px',
-            background: 'rgba(15, 23, 42, 0.75)',
-            border: '1px solid rgba(168, 85, 247, 0.25)',
-            borderRadius: 14,
-            width: 'fit-content',
-            backdropFilter: 'blur(12px)',
-          }}
+          className="studio-subpillar-bar"
         >
           <button
             type="button"
@@ -599,7 +667,7 @@ function DigitalStudioInner() {
               padding: '8px 18px',
               borderRadius: 10,
               border: 'none',
-              background: twinSubTab === 'radar' ? 'linear-gradient(135deg, #9333ea 0%, #7c3aed 100%)' : 'transparent',
+              background: twinSubTab === 'radar' ? 'linear-gradient(135deg, var(--purple) 0%, #9333ea 100%)' : 'transparent',
               color: twinSubTab === 'radar' ? '#ffffff' : 'var(--t2)',
               fontWeight: 800,
               fontSize: 13.5,
@@ -611,7 +679,11 @@ function DigitalStudioInner() {
               boxShadow: twinSubTab === 'radar' ? '0 2px 10px rgba(124, 58, 237, 0.4)' : 'none',
             }}
           >
-            <span>🎯</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
             <span>Competency Twin Radar (Current vs Target)</span>
           </button>
 
@@ -625,7 +697,7 @@ function DigitalStudioInner() {
               padding: '8px 18px',
               borderRadius: 10,
               border: 'none',
-              background: twinSubTab === 'gaps' ? 'linear-gradient(135deg, #9333ea 0%, #7c3aed 100%)' : 'transparent',
+              background: twinSubTab === 'gaps' ? 'linear-gradient(135deg, var(--purple) 0%, #9333ea 100%)' : 'transparent',
               color: twinSubTab === 'gaps' ? '#ffffff' : 'var(--t2)',
               fontWeight: 800,
               fontSize: 13.5,
@@ -637,7 +709,11 @@ function DigitalStudioInner() {
               boxShadow: twinSubTab === 'gaps' ? '0 2px 10px rgba(124, 58, 237, 0.4)' : 'none',
             }}
           >
-            <span>🗺️</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+              <line x1="8" y1="2" x2="8" y2="18"/>
+              <line x1="16" y1="6" x2="16" y2="22"/>
+            </svg>
             <span>Consolidated Skill Gaps & Recommended Quests</span>
           </button>
         </div>
@@ -667,7 +743,7 @@ function DigitalStudioInner() {
       >
         {activePillar === 'resume' && (
           <div data-testid="mirror-view-career-builder">
-            <CareerBuilderPage embedded={true} />
+            <CareerBuilderPage embedded={true} initialView="resume" />
           </div>
         )}
 
