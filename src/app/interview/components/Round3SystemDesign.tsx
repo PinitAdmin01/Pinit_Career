@@ -220,6 +220,16 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--reward-bright)' }}>Defense Teleprompter</span>
                 </div>
                 <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+                  {fetchAssistScript && (
+                    <button
+                      onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
+                      disabled={isFetchingAssist}
+                      style={{ background: 'rgba(var(--reward-rgb),0.12)', border: '1px solid rgba(var(--reward-rgb),0.4)', color: 'var(--reward-bright)', borderRadius: 4, padding: '2px 6px', fontSize: 10, fontWeight: 800, cursor: isFetchingAssist ? 'not-allowed' : 'pointer' }}
+                      title="Refresh defense script for this challenge"
+                    >
+                      {isFetchingAssist ? '⏳ Crafting...' : '🔄 Refresh'}
+                    </button>
+                  )}
                   {assistData?.script && (
                     <button
                       onClick={() => navigator.clipboard.writeText(assistData.script)}

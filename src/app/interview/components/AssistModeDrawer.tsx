@@ -18,9 +18,12 @@ export function buildFallbackAssistData(
   stage: string,
   topic: string = 'Software Engineering',
   level: 'standard' | 'advanced' = 'standard',
-  isCodingRound: boolean = false
+  isCodingRound: boolean = false,
+  question: string = ''
 ): AssistData {
   const cleanTopic = (topic || 'Software Engineering').trim();
+  const lowerQ = (question || '').toLowerCase();
+
   if (isCodingRound || stage === 'round2_coding') {
     return {
       script:
@@ -74,6 +77,57 @@ export function buildFallbackAssistData(
         pacing: '130–155 WPM (Executive composure)',
         tone: 'Accountable, metric-focused, decisive',
         emphasisWords: ['Situation', 'Task', 'Action', 'Result', 'measurable']
+      }
+    };
+  }
+
+  // Round 1 Question-Aware Logic
+  if (/\b(trade-?off\w*|differently|alternative\w*|compromise\w*|sacrifice\w*|retrospective\w*|approach differently|looking back|revisit\w*)\b/i.test(lowerQ)) {
+    return {
+      script: level === 'advanced'
+        ? `When balancing trade-offs in ${cleanTopic}, our initial constraint was shipping an MVP rapidly under tight timelines. We chose a unified monolith with synchronous database transactions to iterate fast. In retrospect, the trade-off I would approach differently today is decoupling our event pipeline earlier and introducing asynchronous message queues with idempotent workers. That would have prevented database locking bottlenecks as our concurrency expanded 5x.`
+        : `In that scenario for ${cleanTopic}, our primary trade-off was prioritizing delivery speed and simplicity over distributed complexity. We initially built a consolidated service to validate product-market fit quickly. Looking back, the key trade-off I would approach differently is decoupling the data layer earlier and introducing an asynchronous queue for heavy mutations. That would have prevented database connection bottlenecks as user concurrency surged.`,
+      bulletPoints: [
+        `Acknowledge original architectural trade-off (shipping velocity vs long-term scalability)`,
+        `Pinpoint the exact technical evolution you would implement today (e.g. event queues, caching)`,
+        `Cite the concrete metric benefit (e.g. eliminating database locks, predictable latency)`
+      ],
+      deliveryGuide: {
+        pacing: '120–135 WPM (Reflective and analytical)',
+        tone: 'Self-aware, mature, and engineering-grounded',
+        emphasisWords: ['trade-off', 'monolith', 'asynchronous queue', 'idempotent', 'bottlenecks']
+      }
+    };
+  }
+
+  if (/\b(fail\w*|mistake\w*|error\w*|bug\w*|incident\w*|outage\w*|crash\w*|crisis|down|broken|regress\w*)\b/i.test(lowerQ)) {
+    return {
+      script: `During a critical deployment in ${cleanTopic}, we encountered an unexpected regression under peak production load. I took immediate ownership of the incident, coordinated with our team, and rolled back the change within 4 minutes. After stabilizing the service, I led a blameless post-mortem, identified the missing test coverage in our concurrent pipeline, and implemented automated regression guards so the issue could never recur.`,
+      bulletPoints: [
+        `Take direct, unreserved ownership of the incident without deflection`,
+        `Detail immediate containment actions (circuit breaking, rollback within 4 minutes)`,
+        `Demonstrate permanent architectural guards built into the engineering process`
+      ],
+      deliveryGuide: {
+        pacing: '125–130 WPM (Composed and resolute)',
+        tone: 'Accountable, crisis-tested, and process-driven',
+        emphasisWords: ['ownership', 'circuit breaking', 'post-mortem', 'regression guards']
+      }
+    };
+  }
+
+  if (/\b(conflict\w*|disagree\w*|pushback|differing|friction|cross-functional|stakeholder\w*|clash\w*|alignment)\b/i.test(lowerQ)) {
+    return {
+      script: `When architecting a core component in ${cleanTopic}, a senior engineer and I had differing perspectives on whether to adopt a synchronous REST model or an event-driven pub/sub queue. Instead of debating theoretically, I proposed a 1-day benchmark spike to measure latency, throughput, and error propagation under simulated load. The telemetry proved the event-driven model provided far superior fault isolation. We aligned on the data, and shipped the milestone ahead of schedule.`,
+      bulletPoints: [
+        `Frame conflict around objective technical criteria rather than personal opinions`,
+        `Use evidence-driven prototypes and telemetry to resolve architectural ambiguity`,
+        `Highlight shared team alignment and mutual respect`
+      ],
+      deliveryGuide: {
+        pacing: '120–125 WPM (Collaborative and measured)',
+        tone: 'Empathetic, data-backed, and solutions-oriented',
+        emphasisWords: ['benchmark', 'telemetry', 'fault isolation', 'aligned on data']
       }
     };
   }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { PIN_COSTS, PinTransaction } from '@/hooks/usePinBalance';
@@ -241,11 +241,26 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
 // ── Main Page ──────────────────────────────────────────────────────────────
 const PAGE_SIZE = 15;
 
-export default function PinsWalletPage() {
+export default function PinsWalletPage({
+  initialTab = 'buy',
+  embedded = false,
+  onNavigateToShop,
+}: {
+  initialTab?: PageTab;
+  embedded?: boolean;
+  onNavigateToShop?: () => void;
+} = {}) {
   const { user } = useAuth();
   const { pins, pinHistory, isLoaded, setPins, bonusPins, setBonusPins, claimBonusPins } = useCareerOS();
 
-  const [activeTab, setActiveTab] = useState<PageTab>('buy');
+  const [activeTab, setActiveTab] = useState<PageTab>(initialTab);
+
+  // Sync activeTab if initialTab changes
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
   const [filter, setFilter] = useState<FilterTab>('all');
   const [page, setPage] = useState(0);
   const [customPins, setCustomPins] = useState(300);
@@ -299,7 +314,59 @@ export default function PinsWalletPage() {
   );
 
   return (
-    <div style={{ maxWidth: 1040, margin: '0 auto', padding: '4px 0 40px', display: 'flex', flexDirection: 'column', gap: 22 }}>
+    <div style={{ maxWidth: 1040, margin: '0 auto', padding: embedded ? '0' : '4px 0 40px', display: 'flex', flexDirection: 'column', gap: 22 }}>
+
+      {/* ── Top-Level Unified Switcher (When on /pins standalone) ──────────────── */}
+      {!embedded && (
+        <div
+          data-testid="pins-shop-master-switcher"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '4px',
+            background: 'var(--bg2)',
+            border: '1px solid var(--border)',
+            borderRadius: 14,
+            width: 'fit-content',
+          }}
+        >
+          <Link
+            href="/shop"
+            style={{
+              padding: '8px 18px',
+              borderRadius: 10,
+              textDecoration: 'none',
+              background: 'transparent',
+              color: 'var(--t2)',
+              fontWeight: 800,
+              fontSize: 13.5,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 7,
+              transition: 'all 0.2s',
+            }}
+          >
+            <span>🛍️</span> Item Shop
+          </Link>
+          <div
+            style={{
+              padding: '8px 18px',
+              borderRadius: 10,
+              background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+              color: '#ffffff',
+              fontWeight: 800,
+              fontSize: 13.5,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 7,
+              boxShadow: '0 2px 8px rgba(37, 99, 235, 0.25)',
+            }}
+          >
+            <span>🪙</span> Pins & Wallet
+          </div>
+        </div>
+      )}
 
       {/* ── 2-Section Header: Active Daily Pins + Bonus Pins Vault ──────────────── */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>

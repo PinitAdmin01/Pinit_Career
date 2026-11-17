@@ -267,6 +267,29 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               </div>
 
               <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                {fetchAssistScript && (
+                  <button
+                    data-testid="teleprompter-refresh-btn-r4"
+                    onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
+                    disabled={isFetchingAssist}
+                    style={{
+                      background: 'rgba(var(--reward-rgb),0.12)',
+                      border: '1px solid rgba(var(--reward-rgb),0.4)',
+                      color: 'var(--reward-bright)',
+                      borderRadius: 6,
+                      padding: '2px 8px',
+                      fontSize: 10.5,
+                      fontWeight: 800,
+                      cursor: isFetchingAssist ? 'not-allowed' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 4
+                    }}
+                    title="Regenerate spoken script for current question"
+                  >
+                    {isFetchingAssist ? '⏳ Crafting...' : '🔄 Refresh for Question'}
+                  </button>
+                )}
                 {setAssistScriptLevel && (
                   <button
                     onClick={() => {

@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { usePins } from '@/hooks/usePins';
 import { useItemLocks } from '@/hooks/useItemLocks';
 import { triggerCoinStream } from '@/components/pins/coinAnimation';
 import { toast } from '@/lib/store/useAppStore';
+import PinsWalletPage from '@/app/pins/page';
 
 interface ShopItem {
   id: string;
@@ -124,7 +126,51 @@ const SHOP_CATALOG: ShopItem[] = [
   },
 ];
 
-export default function ShopPage() {
+export default function ShopPage({ initialPillar = 'shop' }: { initialPillar?: 'shop' | 'wallet' } = {}) {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t2)', fontSize: 14.5 }}>Loading Pins & Shop...</div>}>
+      <ShopPageContent initialPillar={initialPillar} />
+    </Suspense>
+  );
+}
+
+function ShopPageContent({ initialPillar = 'shop' }: { initialPillar?: 'shop' | 'wallet' }) {
+  const searchParams = useSearchParams();
+  const [pillar, setPillar] = useState<'shop' | 'wallet'>(initialPillar);
+  const [walletSubTab, setWalletSubTab] = useState<'buy' | 'calculator' | 'wallet'>('buy');
+
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam === 'wallet') {
+      setPillar('wallet');
+      setWalletSubTab('wallet');
+    } else if (tabParam === 'buy' || tabParam === 'recharge') {
+      setPillar('wallet');
+      setWalletSubTab('buy');
+    } else if (tabParam === 'calculator') {
+      setPillar('wallet');
+      setWalletSubTab('calculator');
+    } else if (tabParam === 'shop') {
+      setPillar('shop');
+    }
+  }, [searchParams]);
+
+  const handlePillarChange = (nextPillar: 'shop' | 'wallet', nextSubTab?: 'buy' | 'calculator' | 'wallet') => {
+    setPillar(nextPillar);
+    if (nextSubTab) setWalletSubTab(nextSubTab);
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        if (nextPillar === 'wallet') {
+          url.searchParams.set('tab', nextSubTab || walletSubTab || 'wallet');
+        } else {
+          url.searchParams.delete('tab');
+        }
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  };
+
   const { addVaultItem, vaultItems } = useCareerOS();
   const { pins, bonusPins, spendPins } = usePins();
   const { isItemUnlocked, getItemRemainingSeconds, unlockItem } = useItemLocks({
@@ -231,84 +277,152 @@ export default function ShopPage() {
 
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 20px', minHeight: '85vh' }}>
-      {/* Header Bar */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: 16,
-        marginBottom: 28,
-        paddingBottom: 20,
-        borderBottom: '1px solid var(--border)',
-      }}>
-        <div>
-          <div style={{
+      {/* ── Unified Master Switcher: 🛍️ Item Shop vs 🪙 Pins & Wallet ── */}
+      <div
+        data-testid="shop-master-switcher"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          marginBottom: 24,
+          padding: '4px',
+          background: 'var(--bg2)',
+          border: '1px solid var(--border)',
+          borderRadius: 14,
+          width: 'fit-content',
+        }}
+      >
+        <button
+          type="button"
+          data-testid="tab-item-shop"
+          onClick={() => handlePillarChange('shop')}
+          style={{
+            padding: '8px 18px',
+            borderRadius: 10,
+            border: 'none',
+            background: pillar === 'shop' ? 'linear-gradient(135deg, #0284c7, #2563eb)' : 'transparent',
+            color: pillar === 'shop' ? '#ffffff' : 'var(--t2)',
+            fontWeight: 800,
+            fontSize: 13.5,
+            cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 6,
-            padding: '3px 10px',
-            borderRadius: 20,
-            background: 'rgba(56, 189, 248, 0.12)',
-            border: '1px solid rgba(56, 189, 248, 0.3)',
-            color: '#38bdf8',
-            fontSize: 11,
-            fontWeight: 800,
-            textTransform: 'uppercase',
-            letterSpacing: '0.06em',
-            marginBottom: 8,
-          }}>
-            ⚡ Pin Economy Marketplace
-          </div>
-          <h1 style={{ fontSize: 28, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
-            Customization & Power Shop
-          </h1>
-          <p style={{ margin: 0, fontSize: 14, color: 'var(--t3)' }}>
-            Equip real-time avatar cosmetics, unlock 30-minute AI feature passes, and showcase prestigious leaderboard titles.
-          </p>
-        </div>
-
-        {/* Live Pin Balance Badge */}
-        <div
-          ref={balanceRef}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 14,
-            padding: '12px 20px',
-            borderRadius: 16,
-            background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.14) 0%, rgba(37, 99, 235, 0.08) 100%)',
-            border: '1px solid rgba(56, 189, 248, 0.3)',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+            gap: 7,
+            boxShadow: pillar === 'shop' ? '0 2px 8px rgba(37, 99, 235, 0.25)' : 'none',
+            transition: 'all 0.2s',
           }}
         >
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Spendable Balance
+          <span>🛍️</span> Item Shop
+        </button>
+
+        <button
+          type="button"
+          data-testid="tab-pins-wallet"
+          onClick={() => handlePillarChange('wallet', 'wallet')}
+          style={{
+            padding: '8px 18px',
+            borderRadius: 10,
+            border: 'none',
+            background: pillar === 'wallet' ? 'linear-gradient(135deg, #0284c7, #2563eb)' : 'transparent',
+            color: pillar === 'wallet' ? '#ffffff' : 'var(--t2)',
+            fontWeight: 800,
+            fontSize: 13.5,
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 7,
+            boxShadow: pillar === 'wallet' ? '0 2px 8px rgba(37, 99, 235, 0.25)' : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <span>🪙</span> Pins & Wallet
+        </button>
+      </div>
+
+      {pillar === 'wallet' ? (
+        <PinsWalletPage embedded={true} initialTab={walletSubTab} onNavigateToShop={() => handlePillarChange('shop')} />
+      ) : (
+        <>
+          {/* Header Bar */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 16,
+            marginBottom: 28,
+            paddingBottom: 20,
+            borderBottom: '1px solid var(--border)',
+          }}>
+            <div>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '3px 10px',
+                borderRadius: 20,
+                background: 'rgba(56, 189, 248, 0.12)',
+                border: '1px solid rgba(56, 189, 248, 0.3)',
+                color: '#38bdf8',
+                fontSize: 11,
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                marginBottom: 8,
+              }}>
+                ⚡ Pin Economy Marketplace
+              </div>
+              <h1 style={{ fontSize: 28, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
+                Customization & Power Shop
+              </h1>
+              <p style={{ margin: 0, fontSize: 14, color: 'var(--t3)' }}>
+                Equip real-time avatar cosmetics, unlock 30-minute AI feature passes, and showcase prestigious leaderboard titles.
+              </p>
             </div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span>🪙</span>
-              <span>{totalPins.toLocaleString()}</span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--t3)' }}>Pins</span>
+
+            {/* Live Pin Balance Badge */}
+            <div
+              ref={balanceRef}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                padding: '12px 20px',
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.14) 0%, rgba(37, 99, 235, 0.08) 100%)',
+                border: '1px solid rgba(56, 189, 248, 0.3)',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Spendable Balance
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 900, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span>🪙</span>
+                  <span>{totalPins.toLocaleString()}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--t3)' }}>Pins</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => handlePillarChange('wallet', 'buy')}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: 10,
+                  background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                  color: '#ffffff',
+                  fontSize: 12.5,
+                  fontWeight: 800,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                }}
+              >
+                + Get Pins
+              </button>
             </div>
           </div>
-          <Link
-            href="/pins"
-            style={{
-              padding: '8px 14px',
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, #0284c7, #2563eb)',
-              color: '#ffffff',
-              fontSize: 12.5,
-              fontWeight: 800,
-              textDecoration: 'none',
-              boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
-            }}
-          >
-            + Get Pins
-          </Link>
-        </div>
-      </div>
 
       {/* Category Tabs */}
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 24 }}>
@@ -500,6 +614,8 @@ export default function ShopPage() {
           );
         })}
       </div>
+        </>
+      )}
     </div>
   );
 }

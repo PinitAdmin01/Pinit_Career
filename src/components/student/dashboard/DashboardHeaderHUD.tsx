@@ -150,8 +150,8 @@ function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
   }, [track]);
 
   return (
-    <div style={{ position: 'relative', width: 120, height: 140, flexShrink: 0 }}>
-      <canvas ref={canvasRef} style={{ width: 120, height: 140, display: 'block' }} />
+    <div style={{ position: 'relative', width: 110, height: 130, flexShrink: 0 }}>
+      <canvas ref={canvasRef} style={{ width: 110, height: 130, display: 'block' }} />
     </div>
   );
 }
@@ -190,7 +190,7 @@ export default function DashboardHeaderHUD({
   // Dynamic greeting calculation
   const [greetingInfo, setGreetingInfo] = useState<{ title: string; subtitle: string }>({
     title: `Hello, ${firstName}`,
-    subtitle: `Your active pathway is set to ${trackTitle}. 3 priority quests await your focus today.`,
+    subtitle: `Your active pathway is set to ${trackTitle}. Explore career programs or resume your daily drills.`,
   });
 
   useEffect(() => {
@@ -208,71 +208,80 @@ export default function DashboardHeaderHUD({
       }
     }
 
-    // Save current session visit
     try {
       localStorage.setItem(storageKey, now.toString());
     } catch {}
 
+    const hour = new Date().getHours();
+    let salutation = 'Good evening';
+    if (hour >= 5 && hour < 12) {
+      salutation = 'Good morning';
+    } else if (hour >= 12 && hour < 17) {
+      salutation = 'Good afternoon';
+    }
+
     if (daysSinceLast >= 2) {
       setGreetingInfo({
-        title: `Hello, ${firstName}`,
-        subtitle: `Welcome back! It has been ${daysSinceLast} days — resume your ${trackTitle} quests to keep your placement velocity high.`,
+        title: `${salutation}, ${firstName}`,
+        subtitle: `Welcome back! Resume your ${trackTitle} quests to keep your placement velocity high.`,
       });
     } else {
-      const hour = new Date().getHours();
-      let salutation = 'Good evening';
-      if (hour >= 5 && hour < 12) {
-        salutation = 'Good morning';
-      } else if (hour >= 12 && hour < 17) {
-        salutation = 'Good afternoon';
-      }
       setGreetingInfo({
         title: `${salutation}, ${firstName}`,
-        subtitle: `Your active pathway is set to ${trackTitle}. 3 priority quests await your focus today.`,
+        subtitle: `Your active pathway is set to ${trackTitle}. Start your first quest to accelerate your career readiness.`,
       });
     }
   }, [firstName, user?.id, trackTitle]);
 
-  // Dynamically computed DNA Mastery from real student telemetry
-  const dnaMasteryPercent = useMemo(() => {
-    if (roleReadiness?.totalRequiredCompetenciesCount && roleReadiness.totalRequiredCompetenciesCount > 0) {
-      const ratio = (roleReadiness.verifiedCompetenciesCount / roleReadiness.totalRequiredCompetenciesCount) * 100;
-      return Math.min(100, Math.max(10, Math.round(ratio)));
+  // ── Dynamic & Honest Telemetry Baseline ────────────────────────────────────
+  // 1. Trust Score: default 100. Deduct 5 if class skipped or suspicious activity; otherwise 100.
+  const dynamicTrust = useMemo(() => {
+    if (typeof trustScore === 'number' && trustScore > 0 && trustScore !== 100) {
+      return Math.min(100, Math.max(0, Math.round(trustScore)));
     }
-    if (skillProfile?.verified?.length) {
-      const avg = skillProfile.verified.reduce((acc, curr) => acc + (curr.score || 0), 0) / skillProfile.verified.length;
-      return Math.min(100, Math.round(avg));
+    // Check local attendance deductions
+    if (typeof window !== 'undefined' && user?.id) {
+      try {
+        const raw = localStorage.getItem(`pinit_attendance_v2_${user.id}`);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          const skipped = Number(parsed?.missedDays || parsed?.absentCount || 0);
+          if (skipped > 0) {
+            return Math.max(50, 100 - skipped * 5);
+          }
+        }
+      } catch {}
     }
-    if (skillProfile?.demonstrated?.length) {
-      const avg = skillProfile.demonstrated.reduce((acc, curr) => acc + (curr.score || 0), 0) / skillProfile.demonstrated.length;
-      return Math.min(100, Math.round(avg));
-    }
-    if (careerScore && careerScore > 0) {
+    return 100;
+  }, [trustScore, user?.id]);
+
+  // 2. Career Score: default 0 (student has not chosen/completed any course yet)
+  const dynamicCareer = useMemo(() => {
+    if (typeof careerScore === 'number' && careerScore > 0) {
       return Math.min(100, Math.round(careerScore));
     }
-    return 75; // Dynamic baseline readiness
-  }, [skillProfile, careerScore, roleReadiness]);
+    if (roleReadiness?.verifiedCompetenciesCount && roleReadiness.verifiedCompetenciesCount > 0) {
+      return Math.min(100, Math.round((roleReadiness.verifiedCompetenciesCount / (roleReadiness.totalRequiredCompetenciesCount || 1)) * 100));
+    }
+    return 0; // Honest baseline: 0
+  }, [careerScore, roleReadiness]);
 
-  // Dynamic 4 Telemetry Metrics (Task 1: Trust Score, Career Score, Arena ELO, Weekly EXP)
-  const dynamicTrust = useMemo(() => {
-    if (trustScore && trustScore > 0) return Math.min(100, Math.round(trustScore));
-    return 88;
-  }, [trustScore]);
-
-  const dynamicCareer = useMemo(() => {
-    if (careerScore && careerScore > 0) return Math.min(100, Math.round(careerScore));
-    if (dnaMasteryPercent && dnaMasteryPercent > 0) return dnaMasteryPercent;
-    return 92;
-  }, [careerScore, dnaMasteryPercent]);
-
+  // 3. Arena ELO: default 100 (student has not entered competitive arena matchmaking yet)
   const dynamicElo = useMemo(() => {
-    const eloVal = (user as any)?.elo || (user as any)?.rating;
-    return eloVal && eloVal > 0 ? eloVal : 1450;
+    const eloVal = (user as any)?.elo ?? (user as any)?.rating;
+    if (typeof eloVal === 'number' && eloVal > 100) {
+      return Math.round(eloVal);
+    }
+    return 100; // Honest baseline: 100
   }, [user]);
 
+  // 4. Weekly EXP: default 0 (student has not logged activity this week)
   const dynamicWeeklyExp = useMemo(() => {
-    const xpVal = (user as any)?.xp || (user as any)?.weekly_xp;
-    return xpVal && xpVal > 0 ? `+${xpVal.toLocaleString()} XP` : '+1,850 XP';
+    const xpVal = (user as any)?.weekly_xp ?? (user as any)?.xp;
+    if (typeof xpVal === 'number' && xpVal > 0) {
+      return xpVal;
+    }
+    return 0; // Honest baseline: 0
   }, [user]);
 
   return (
@@ -284,29 +293,48 @@ export default function DashboardHeaderHUD({
         border: '1.5px solid rgba(99, 102, 241, 0.22)',
         boxShadow: '0 8px 30px -4px rgba(99, 102, 241, 0.16)',
         padding: '22px 28px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
         position: 'relative',
         overflow: 'hidden',
+        borderRadius: 16,
       }}
     >
+      <style>{`
+        .hero-main-layout {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: 24px;
+          align-items: center;
+          position: relative;
+          z-index: 1;
+        }
+        @media (max-width: 960px) {
+          .hero-main-layout {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          .hero-telemetry-suite {
+            width: 100% !important;
+          }
+        }
+      `}</style>
+
       {/* Ambient glowing radial lights */}
       <div style={{ position: 'absolute', top: -60, right: -60, width: 240, height: 240, background: 'rgba(99,102,241,0.12)', borderRadius: '50%', filter: 'blur(80px)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: -40, left: -40, width: 180, height: 180, background: 'rgba(14,165,233,0.08)', borderRadius: '50%', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
-      {/* Main Row: Hologram + Clean Greeting + DNA Mastery Ring */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, position: 'relative', zIndex: 1 }}>
+      {/* Main 2-Column Grid: Left (Hologram + Greeting) | Right (4 Telemetry Metrics) */}
+      <div className="hero-main-layout">
         
         {/* Left: Hologram + Single-Line Greeting + Quick Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 22, flex: '1 1 auto', minWidth: 280 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20, minWidth: 0 }}>
           <CareerTwinHologram track={activeTrack} />
 
           <div style={{ flex: 1, minWidth: 0 }}>
+            {/* Exploration Status Pill */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 700, background: 'rgba(16, 185, 129, 0.12)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.28)' }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
-                Personal &bull; Active Sprint
+                Personal &bull; {dynamicCareer > 0 ? 'Active Sprint' : 'Orientation'}
               </span>
             </div>
 
@@ -327,13 +355,13 @@ export default function DashboardHeaderHUD({
               {greetingInfo.title}
             </h1>
 
-            <p style={{ fontSize: 13.5, color: 'var(--dash-subtext)', margin: '0 0 14px', lineHeight: 1.5, maxWidth: 640 }}>
+            <p style={{ fontSize: 13.5, color: 'var(--dash-subtext)', margin: '0 0 14px', lineHeight: 1.5, maxWidth: 580 }}>
               {greetingInfo.subtitle}
             </p>
 
             {/* Quick Action Buttons */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <a
+              <Link
                 href="/quests"
                 style={{
                   display: 'inline-flex',
@@ -351,8 +379,8 @@ export default function DashboardHeaderHUD({
                 }}
               >
                 + Start Today&apos;s Quest
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/quests"
                 style={{
                   display: 'inline-flex',
@@ -368,23 +396,25 @@ export default function DashboardHeaderHUD({
                   textDecoration: 'none',
                 }}
               >
-                Resume Sprint
-              </a>
+                Explore Courses
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Right: 4 Telemetry Components (Task 1: Trust Score, Career Score, Arena ELO, Weekly EXP) */}
+        {/* Right: 4 Telemetry Components (Trust Score, Career Score, Arena ELO, Weekly EXP) */}
         <div
           data-testid="header-telemetry-suite"
+          className="hero-telemetry-suite"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, minmax(138px, 1fr))',
+            gridTemplateColumns: 'repeat(2, minmax(134px, 1fr))',
             gap: 10,
             flexShrink: 0,
+            justifyContent: 'end',
           }}
         >
-          {/* 1. Trust Score */}
+          {/* 1. Trust Score (Default 100, Deduct 5 on skip, No / 100) */}
           <Link
             href="/vault"
             style={{
@@ -398,7 +428,7 @@ export default function DashboardHeaderHUD({
               backdropFilter: 'blur(12px)',
               textDecoration: 'none',
               transition: 'all 0.18s ease',
-              minWidth: 138,
+              minWidth: 134,
             }}
             onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
               e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.55)';
@@ -418,27 +448,30 @@ export default function DashboardHeaderHUD({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 15,
               flexShrink: 0,
             }}>
-              🛡️
+              {/* SVG Shield Icon (No Emojis) */}
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <span style={{ fontSize: 9.5, fontWeight: 800, color: 'var(--dash-subtext)', letterSpacing: 0.6, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 TRUST SCORE
               </span>
-              <span style={{ fontSize: 13.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
-                {dynamicTrust} / 100
+              <span style={{ fontSize: 14.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
+                {dynamicTrust}
               </span>
               <span style={{ fontSize: 10, fontWeight: 600, color: '#10b981', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                Tier: Institutional
+                Good Standing
               </span>
             </div>
           </Link>
 
-          {/* 2. Career Score */}
+          {/* 2. Career Score (Default 0, No / 100) */}
           <Link
-            href="/dashboard"
+            href="/quests"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -450,7 +483,7 @@ export default function DashboardHeaderHUD({
               backdropFilter: 'blur(12px)',
               textDecoration: 'none',
               transition: 'all 0.18s ease',
-              minWidth: 138,
+              minWidth: 134,
             }}
             onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
               e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.55)';
@@ -470,25 +503,28 @@ export default function DashboardHeaderHUD({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 15,
               flexShrink: 0,
             }}>
-              🎯
+              {/* SVG Compass / Target Icon (No Emojis) */}
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+              </svg>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <span style={{ fontSize: 9.5, fontWeight: 800, color: 'var(--dash-subtext)', letterSpacing: 0.6, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 CAREER SCORE
               </span>
-              <span style={{ fontSize: 13.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
-                {dynamicCareer} / 100
+              <span style={{ fontSize: 14.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
+                {dynamicCareer}
               </span>
               <span style={{ fontSize: 10, fontWeight: 600, color: '#818cf8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                Role: Top 5% Ready
+                {dynamicCareer > 0 ? 'In Progress' : 'No Active Course'}
               </span>
             </div>
           </Link>
 
-          {/* 3. Arena ELO */}
+          {/* 3. Arena ELO (Default 100, Placement, No Fake Rating) */}
           <Link
             href="/arena"
             style={{
@@ -502,7 +538,7 @@ export default function DashboardHeaderHUD({
               backdropFilter: 'blur(12px)',
               textDecoration: 'none',
               transition: 'all 0.18s ease',
-              minWidth: 138,
+              minWidth: 134,
             }}
             onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
               e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.55)';
@@ -522,25 +558,34 @@ export default function DashboardHeaderHUD({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 15,
               flexShrink: 0,
             }}>
-              ⚔️
+              {/* SVG Swords Icon (No Emojis) */}
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+                <line x1="13" y1="19" x2="19" y2="13"/>
+                <line x1="16" y1="16" x2="20" y2="20"/>
+                <line x1="19" y1="21" x2="21" y2="19"/>
+                <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+                <line x1="5" y1="14" x2="9" y2="18"/>
+                <line x1="7" y1="17" x2="4" y2="20"/>
+                <line x1="3" y1="19" x2="5" y2="21"/>
+              </svg>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <span style={{ fontSize: 9.5, fontWeight: 800, color: 'var(--dash-subtext)', letterSpacing: 0.6, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 ARENA ELO
               </span>
-              <span style={{ fontSize: 13.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
-                {dynamicElo.toLocaleString()} ELO
+              <span style={{ fontSize: 14.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
+                {dynamicElo}
               </span>
               <span style={{ fontSize: 10, fontWeight: 600, color: '#06b6d4', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                Diamond League #42
+                {dynamicElo > 100 ? `Rating: ${dynamicElo}` : 'Unranked • Placement'}
               </span>
             </div>
           </Link>
 
-          {/* 4. Weekly EXP */}
+          {/* 4. Weekly EXP (Default 0, No Fake Numbers) */}
           <Link
             href="/quests"
             style={{
@@ -554,7 +599,7 @@ export default function DashboardHeaderHUD({
               backdropFilter: 'blur(12px)',
               textDecoration: 'none',
               transition: 'all 0.18s ease',
-              minWidth: 138,
+              minWidth: 134,
             }}
             onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
               e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.55)';
@@ -574,20 +619,22 @@ export default function DashboardHeaderHUD({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 15,
               flexShrink: 0,
             }}>
-              ⚡
+              {/* SVG Lightning Bolt Icon (No Emojis) */}
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <span style={{ fontSize: 9.5, fontWeight: 800, color: 'var(--dash-subtext)', letterSpacing: 0.6, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 WEEKLY EXP
               </span>
-              <span style={{ fontSize: 13.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
+              <span style={{ fontSize: 14.5, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1.2 }}>
                 {dynamicWeeklyExp}
               </span>
               <span style={{ fontSize: 10, fontWeight: 600, color: '#f59e0b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                🔥 Active Momentum
+                {dynamicWeeklyExp > 0 ? 'Active Momentum' : 'No Activity'}
               </span>
             </div>
           </Link>

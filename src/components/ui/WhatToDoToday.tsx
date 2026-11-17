@@ -46,10 +46,10 @@ function pickActions(profile: ActionProfile): Action[] {
       color: '#6366f1',
       bg: 'rgba(99,102,241,0.12)',
       border: 'rgba(99,102,241,0.25)',
-      title: ats === 0 ? 'Optimize Resume' : `Resume Score (${ats}/100)`,
+      title: ats === 0 ? 'Optimize Resume' : `Resume Score: ${ats}`,
       desc: ats === 0
         ? `Upload your resume to map keyword gaps for ${trackName}.`
-        : `Close missing technical keywords to reach 80+ benchmark.`,
+        : `Close missing technical keywords to reach benchmark standing.`,
       href: '/career-builder',
       cta: 'Open Resume Builder →',
       urgency: ats === 0 ? 95 : ats < 55 ? 75 : 10,
@@ -74,7 +74,7 @@ function pickActions(profile: ActionProfile): Action[] {
       color: '#10b981',
       bg: 'rgba(16,185,129,0.12)',
       border: 'rgba(16,185,129,0.25)',
-      title: trust < 50 ? 'Boost Trust Quotient' : `Trust Score (${Math.round(trust)}/100)`,
+      title: trust < 50 ? 'Boost Trust Quotient' : `Trust Score: ${Math.round(trust)}`,
       desc: trust < 50
         ? 'Verify a certificate or pass a quick coding quiz to build recruiter trust.'
         : 'Institutional trust is verified. Add more credentials to maintain 90+ standing.',

@@ -59,14 +59,12 @@ describe('BRUTAL VALIDATION — STUDENT LEFT SIDEBAR (Perspectives 3, 4, 5)', ()
         { href: '/dashboard', label: 'Dashboard' },
         { href: '/quests', label: 'Quests & Courses' },
         { href: '/missions', label: 'Daily Missions' },
-        { href: '/arena', label: 'Arena & Leaderboard' },
         { href: '/projects', label: 'Projects' },
         { href: '/innovation-hub', label: 'Innovation Hub' },
         { href: '/interview', label: 'AI Interview' },
         { href: '/mirror', label: 'Mirror' },
         { href: '/attention-span', label: 'Attention Span' },
-        { href: '/vault', label: 'Proof Vault' },
-        { href: '/shop', label: 'Item Shop' },
+        { href: '/shop', label: 'Pins & Shop' },
       ];
 
       const actualLeaves = STUDENT_NAV[0].items.filter((item): item is NavLeaf => !isGroup(item));
@@ -80,7 +78,7 @@ describe('BRUTAL VALIDATION — STUDENT LEFT SIDEBAR (Perspectives 3, 4, 5)', ()
     });
 
     it('BOTTOM_NAV contains required secondary student utilities', () => {
-      const expectedFooterRoutes = ['/friends', '/pins', '/notifications', '/profile'];
+      const expectedFooterRoutes = ['/friends', '/arena', '/notifications', '/profile'];
       for (const route of expectedFooterRoutes) {
         const found = BOTTOM_NAV.find(b => b.href === route);
         assert.ok(found, `BOTTOM_NAV must contain ${route}`);
@@ -258,10 +256,10 @@ describe('BRUTAL VALIDATION — FULL SSR RENDERING OF APPSIDEBAR', () => {
     // Active state highlighting on /dashboard
     assert.ok(html.includes('active'), 'Active class must be rendered for current route');
 
-    // Footer items
+    // Footer items & Unified Shop link
     assert.ok(html.includes('href="/friends"'), 'Friends link must be in student footer');
-    assert.ok(html.includes('href="/pins"'), 'Pins & Wallet link must be in student footer');
-    assert.ok(html.includes('350'), 'Safe pins count must be displayed');
+    assert.ok(html.includes('href="/arena"'), 'Relocated Arena link must be in student footer');
+    assert.ok(html.includes('href="/shop"'), 'Pins & Shop link must be in main student nav');
     assert.ok(html.includes('Aarav Patel'), 'Student display name must be rendered');
     assert.ok(html.includes('student') && html.includes('Profile'), 'Role badge must be rendered');
 

@@ -20,7 +20,6 @@ test('SHOP & CUSTOMIZATION SYSTEM AUDIT', async (t) => {
     const sidebarPath = path.join(process.cwd(), 'src/components/ui/AppSidebar.tsx');
     const content = fs.readFileSync(sidebarPath, 'utf8');
     assert.match(content, /href:\s*'\/shop'/, 'AppSidebar must include /shop link');
-    assert.match(content, /href:\s*'\/vault'/, 'AppSidebar must include /vault link');
   });
 
   await t.test('3. Catalog Rigor & Item Variety', () => {

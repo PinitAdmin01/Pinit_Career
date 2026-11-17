@@ -482,13 +482,19 @@ export default function InterviewPage() {
     const targetStage = stageOverride || activeStage;
     const targetLevel = level || assistScriptLevel;
     setIsFetchingAssist(true);
+
+    const cleanQuestion = String(questionText || '')
+      .replace(/\s*—\s*(?:Ms\.|Mr\.)?\s*[\w\s]+$/i, '')
+      .replace(/^(?:Ms\.|Mr\.)?\s*[\w\s]+:\s*/i, '')
+      .trim();
+
     try {
       const headers = await getAuthHeaders();
       const res = await fetch('/api/interview/assist', {
         method: 'POST',
         headers,
         body: JSON.stringify({
-          question: questionText,
+          question: cleanQuestion,
           stage: targetStage,
           topic: activeTopicName,
           domainStream,
@@ -502,12 +508,16 @@ export default function InterviewPage() {
       if (!data?.script) throw new Error('The assist service returned an empty script.');
       if (requestId === assistRequestRef.current) setAssistData(data);
     } catch (error) {
-      console.warn('[Interview Assist] Could not refresh the script:', error);
+      console.warn('[Interview Assist] Could not refresh the script via API, using question-aware fallback:', error);
       if (requestId === assistRequestRef.current) {
-        setAssistData((prev: any) =>
-          prev || buildFallbackAssistData(targetStage, activeTopicName, targetLevel, targetStage === 'round2_coding')
+        const fallbackData = buildFallbackAssistData(
+          targetStage,
+          activeTopicName,
+          targetLevel,
+          targetStage === 'round2_coding',
+          cleanQuestion
         );
-        toast.error('Assist Mode could not refresh', 'Loaded offline coaching outline. Try Regenerate again in a moment.');
+        setAssistData(fallbackData);
       }
     } finally {
       if (requestId === assistRequestRef.current) setIsFetchingAssist(false);
