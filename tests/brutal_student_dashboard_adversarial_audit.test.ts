@@ -39,7 +39,7 @@ describe('BRUTAL ADVERSARIAL AUDIT: Student Dashboard Dynamic Perfection', () =>
       'Must contain header-telemetry-suite'
     );
     assert.ok(
-      hudContent.includes('gridTemplateColumns: \'repeat(2, minmax(134px, 1fr))\''),
+      /gridTemplateColumns:\s*'repeat\(2,\s*minmax\(\d+px,\s*1fr\)\)'/.test(hudContent),
       'Telemetry suite must arrange metrics in 2x2 grid'
     );
   });

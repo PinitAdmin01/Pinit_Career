@@ -348,7 +348,7 @@ export default function CareerCourseProgressBar() {
                         : isCurrent
                         ? 'var(--accent)'
                         : 'var(--bg3)',
-                      border: `2px solid ${isCurrent ? '#ffffff' : isCompleted ? '#10b981' : 'var(--dash-border)'}`,
+                      border: `2px solid ${isCurrent ? '#ffffff' : isCompleted ? '#10b981' : 'var(--dash-inner-border, var(--border2))'}`,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',

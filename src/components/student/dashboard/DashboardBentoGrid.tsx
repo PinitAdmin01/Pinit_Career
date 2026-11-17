@@ -194,7 +194,7 @@ export default function DashboardBentoGrid({
                     return `${+(60 + r * Math.sin(rad)).toFixed(1)},${+(60 - r * Math.cos(rad)).toFixed(1)}`;
                   }).join(' ')}
                   fill="none"
-                  stroke="rgba(255,255,255,0.06)"
+                  stroke="var(--dash-inner-border, var(--border2))"
                   strokeWidth="0.8"
                 />
               ))}
@@ -202,7 +202,7 @@ export default function DashboardBentoGrid({
                 const rad = ang * (Math.PI / 180);
                 const x2 = +(60 + 46 * Math.sin(rad)).toFixed(1);
                 const y2 = +(60 - 46 * Math.cos(rad)).toFixed(1);
-                return <line key={i} x1="60" y1="60" x2={x2} y2={y2} stroke="rgba(255,255,255,0.06)" strokeWidth="0.8" />;
+                return <line key={i} x1="60" y1="60" x2={x2} y2={y2} stroke="var(--dash-inner-border, var(--border2))" strokeWidth="0.8" />;
               })}
               <polygon
                 points={radarPoints}
@@ -253,7 +253,7 @@ export default function DashboardBentoGrid({
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', padding: '22px 0 14px', margin: '4px 0' }}>
           {/* Base Track line */}
-          <div style={{ position: 'absolute', left: '6%', right: '6%', height: 3, background: 'rgba(255,255,255,0.06)', zIndex: 0, borderRadius: 2 }} />
+          <div style={{ position: 'absolute', left: '6%', right: '6%', height: 3, background: 'var(--dash-inner-border, var(--border2))', zIndex: 0, borderRadius: 2 }} />
           {/* Active Progress line: 0% if careerScore === 0 */}
           <div style={{
             position: 'absolute',
@@ -354,8 +354,9 @@ export default function DashboardBentoGrid({
               justifyContent: 'space-between',
               padding: '14px 16px',
               borderRadius: 12,
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid var(--border)',
+              background: 'var(--dash-subtle-bg)',
+              border: '1px solid var(--dash-inner-border)',
+              boxShadow: 'var(--hud-card-shadow)',
               transition: 'all 0.18s ease',
             }}
             onMouseEnter={(e) => {
@@ -363,7 +364,7 @@ export default function DashboardBentoGrid({
               e.currentTarget.style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border)';
+              e.currentTarget.style.borderColor = 'var(--dash-inner-border)';
               e.currentTarget.style.transform = 'none';
             }}
           >
@@ -443,8 +444,9 @@ export default function DashboardBentoGrid({
               justifyContent: 'space-between',
               padding: '14px 16px',
               borderRadius: 12,
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid var(--border)',
+              background: 'var(--dash-subtle-bg)',
+              border: '1px solid var(--dash-inner-border)',
+              boxShadow: 'var(--hud-card-shadow)',
               flexWrap: 'wrap',
               gap: 14,
               transition: 'all 0.18s ease',
@@ -454,7 +456,7 @@ export default function DashboardBentoGrid({
               e.currentTarget.style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border)';
+              e.currentTarget.style.borderColor = 'var(--dash-inner-border)';
               e.currentTarget.style.transform = 'none';
             }}
           >
@@ -467,8 +469,8 @@ export default function DashboardBentoGrid({
                     width: 42,
                     height: 42,
                     borderRadius: 10,
-                    background: hasVaultItems ? 'rgba(16, 185, 129, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                    border: hasVaultItems ? '1.5px solid rgba(16, 185, 129, 0.45)' : '1.5px dashed rgba(255, 255, 255, 0.15)',
+                    background: hasVaultItems ? 'rgba(16, 185, 129, 0.15)' : 'var(--dash-subtle-hover, rgba(255, 255, 255, 0.03))',
+                    border: hasVaultItems ? '1.5px solid rgba(16, 185, 129, 0.45)' : '1.5px dashed var(--dash-inner-border, rgba(255, 255, 255, 0.15))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -491,8 +493,8 @@ export default function DashboardBentoGrid({
                     width: 42,
                     height: 42,
                     borderRadius: 10,
-                    background: vaultItems.length > 1 ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                    border: vaultItems.length > 1 ? '1.5px solid rgba(6, 182, 212, 0.45)' : '1.5px dashed rgba(255, 255, 255, 0.15)',
+                    background: vaultItems.length > 1 ? 'rgba(6, 182, 212, 0.15)' : 'var(--dash-subtle-hover, rgba(255, 255, 255, 0.03))',
+                    border: vaultItems.length > 1 ? '1.5px solid rgba(6, 182, 212, 0.45)' : '1.5px dashed var(--dash-inner-border, rgba(255, 255, 255, 0.15))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -513,8 +515,8 @@ export default function DashboardBentoGrid({
                     width: 42,
                     height: 42,
                     borderRadius: 10,
-                    background: vaultItems.length > 2 ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                    border: vaultItems.length > 2 ? '1.5px solid rgba(99, 102, 241, 0.45)' : '1.5px dashed rgba(255, 255, 255, 0.15)',
+                    background: vaultItems.length > 2 ? 'rgba(99, 102, 241, 0.15)' : 'var(--dash-subtle-hover, rgba(255, 255, 255, 0.03))',
+                    border: vaultItems.length > 2 ? '1.5px solid rgba(99, 102, 241, 0.45)' : '1.5px dashed var(--dash-inner-border, rgba(255, 255, 255, 0.15))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -580,8 +582,8 @@ export default function DashboardBentoGrid({
             style={{
               padding: '24px 20px',
               borderRadius: 12,
-              background: 'rgba(255, 255, 255, 0.015)',
-              border: '1.5px dashed rgba(99, 102, 241, 0.25)',
+              background: 'var(--dash-subtle-bg)',
+              border: '1.5px dashed var(--dash-border-accent, rgba(99, 102, 241, 0.35))',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',

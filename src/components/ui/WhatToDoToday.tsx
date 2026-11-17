@@ -243,10 +243,10 @@ export default function WhatToDoToday({
             >
               <div
                 style={{
-                  background: isDone ? 'rgba(16, 185, 129, 0.05)' : 'var(--bg3)',
+                  background: isDone ? 'rgba(16, 185, 129, 0.06)' : 'var(--dash-subtle-bg, var(--bg3))',
                   border: `1.5px solid ${isDone ? 'rgba(16, 185, 129, 0.35)' : action.border}`,
                   borderRadius: 12,
-                  padding: isVertical ? '10px 14px' : '14px 16px',
+                  padding: isVertical ? '11px 15px' : '14px 16px',
                   cursor: 'pointer',
                   transition: 'all 0.18s ease',
                   borderLeft: `4px solid ${isDone ? '#10b981' : action.color}`,
@@ -256,6 +256,7 @@ export default function WhatToDoToday({
                   gap: 12,
                   height: '100%',
                   boxSizing: 'border-box',
+                  boxShadow: 'var(--hud-card-shadow, 0 2px 8px -1px rgba(0,0,0,0.05))',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = isVertical ? 'translateX(3px)' : 'translateY(-2px)';
@@ -279,8 +280,8 @@ export default function WhatToDoToday({
                     width: 20,
                     height: 20,
                     borderRadius: 5,
-                    border: `1.5px solid ${isDone ? '#10b981' : 'rgba(255,255,255,0.22)'}`,
-                    background: isDone ? 'rgba(16, 185, 129, 0.25)' : 'rgba(255,255,255,0.03)',
+                    border: `1.5px solid ${isDone ? '#10b981' : 'var(--border2)'}`,
+                    background: isDone ? 'rgba(16, 185, 129, 0.25)' : 'var(--dash-subtle-hover, rgba(255,255,255,0.03))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',

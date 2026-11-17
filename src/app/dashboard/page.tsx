@@ -26,24 +26,28 @@ const EVOLUTION_STAGES = [
 // ── Scoped CSS ──────────────────────────────────────────────────────────────
 const DB_STYLES = `
   /* Page wrapper */
-  .db-page { display:flex; flex-direction:column; gap:20px; max-width:1340px; margin:0 auto; padding:0 4px; }
+  .db-page { display:flex; flex-direction:column; gap:22px; max-width:1340px; margin:0 auto; padding:0 4px; }
 
-  /* Glass card base (Continuous with CareerCourseProgressBar) */
+  /* Glass card base with subtle tactile depth & modern shades */
   .db-glass {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, var(--dash-card) 100%);
+    background: var(--dash-card-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1.5px solid rgba(99, 102, 241, 0.22);
+    border: 1.5px solid var(--dash-border-accent);
     border-radius: 16px;
-    box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.16);
-    will-change: transform, border-color;
+    box-shadow: var(--dash-card-shadow);
+    will-change: transform, border-color, box-shadow;
     transform: translateZ(0);
     backface-visibility: hidden;
-    transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), border-color 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
     position: relative;
   }
-  .db-glass:hover { border-color: rgba(99, 102, 241, 0.38); transform: translateY(-2px) translateZ(0); box-shadow: 0 12px 36px -4px rgba(99, 102, 241, 0.24); }
+  .db-glass:hover {
+    border-color: rgba(99, 102, 241, 0.42);
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: var(--dash-card-hover-shadow);
+  }
 
   /* Section label */
   .db-label { font-size:9.5px; font-family:var(--font-mono); font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent); display:block; }
@@ -53,20 +57,44 @@ const DB_STYLES = `
   @keyframes hud-scan  { 0% { top:0; opacity:0; } 10% { opacity:1; } 90% { opacity:1; } 100% { top:100%; opacity:0; } }
   @keyframes spin      { to { transform:rotate(360deg); } }
 
-  /* Theme tokens */
-  :root {
-    --dash-card:    rgba(10,14,23,0.45);
-    --dash-border:  rgba(255,255,255,0.04);
-    --dash-text:    var(--t1);
-    --dash-subtext: var(--t2);
-    --dash-banner:  linear-gradient(135deg,rgba(10,15,26,0.6),rgba(18,24,36,0.35));
+  /* Theme tokens: Dark Mode Default */
+  :root, :root.dark, [data-theme='dark'] {
+    --dash-card:              rgba(13, 18, 30, 0.82);
+    --dash-border:            rgba(255, 255, 255, 0.08);
+    --dash-border-accent:     rgba(99, 102, 241, 0.24);
+    --dash-text:              var(--t1);
+    --dash-subtext:           var(--t2);
+    --dash-subtle-bg:         rgba(255, 255, 255, 0.03);
+    --dash-subtle-hover:      rgba(255, 255, 255, 0.06);
+    --dash-inner-border:      rgba(255, 255, 255, 0.08);
+    --dash-card-bg:           linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(13, 18, 30, 0.85) 60%, rgba(18, 24, 38, 0.92) 100%);
+    --dash-card-shadow:       0 8px 32px -4px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --dash-card-hover-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(99, 102, 241, 0.35);
+    --dash-telemetry-val:     #f8fafc;
+    --dash-telemetry-label:   var(--t3);
+    --hud-card-bg:            linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(13, 18, 30, 0.72) 100%);
+    --hud-card-shadow:        0 4px 16px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    --hud-card-hover-shadow:  0 8px 24px -2px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
-  :root.light,[data-theme='light'] {
-    --dash-card:    rgba(255,255,255,0.9);
-    --dash-border:  rgba(0,0,0,0.07);
-    --dash-text:    var(--t1);
-    --dash-subtext: var(--t2);
-    --dash-banner:  linear-gradient(135deg,rgba(255,255,255,0.95),rgba(241,243,248,0.85));
+
+  /* Theme tokens: Light Mode Modern Clean Shades */
+  :root.light, [data-theme='light'] {
+    --dash-card:              #ffffff;
+    --dash-border:            rgba(226, 232, 240, 0.95);
+    --dash-border-accent:     rgba(99, 102, 241, 0.22);
+    --dash-text:              #0f172a;
+    --dash-subtext:           #475569;
+    --dash-subtle-bg:         rgba(248, 250, 252, 0.9);
+    --dash-subtle-hover:      #f1f5f9;
+    --dash-inner-border:      rgba(226, 232, 240, 0.85);
+    --dash-card-bg:           linear-gradient(135deg, #ffffff 0%, rgba(248, 250, 252, 0.96) 100%);
+    --dash-card-shadow:       0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03), inset 0 1px 0 #ffffff;
+    --dash-card-hover-shadow: 0 10px 30px -4px rgba(99, 102, 241, 0.14), 0 2px 6px rgba(15, 23, 42, 0.04), inset 0 1px 0 #ffffff;
+    --dash-telemetry-val:     #0f172a;
+    --dash-telemetry-label:   #64748b;
+    --hud-card-bg:            linear-gradient(135deg, #ffffff 0%, rgba(248, 250, 252, 0.95) 100%);
+    --hud-card-shadow:        0 2px 8px -2px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04), inset 0 1px 0 #ffffff;
+    --hud-card-hover-shadow:  0 6px 20px -2px rgba(15, 23, 42, 0.12), inset 0 1px 0 #ffffff;
   }
 `;
 
