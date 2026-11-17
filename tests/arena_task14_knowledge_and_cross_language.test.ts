@@ -123,7 +123,7 @@ describe('Task 14: Empirical Knowledge Calibration Engine', () => {
 });
 
 describe('Task 14: 2-Device Pairing & Session Isolation', () => {
-  it('allows same user testing on two devices to occupy host and guest slots without collision', async () => {
+  it('blocks the same account from occupying both room sides on separate devices', async () => {
     const testUserId = 'tester_cross_device_01';
     const roomCode = 'ARENA-DEVPAIR';
 
@@ -140,8 +140,8 @@ describe('Task 14: 2-Device Pairing & Session Isolation', () => {
     assert.equal(created.hostDeviceId, 'device_laptop_alpha');
     assert.equal(created.guestId, undefined);
 
-    // Device 2 joins room under same user account from phone
-    const joinRes = await ArenaPvPStore.joinRoom({
+    // Device 2 must not create a second competitive identity for the same account.
+    const selfJoin = await ArenaPvPStore.joinRoom({
       roomCode,
       guestId: testUserId,
       guestName: 'Alice (Phone)',
@@ -149,28 +149,12 @@ describe('Task 14: 2-Device Pairing & Session Isolation', () => {
       guestLanguage: 'python',
     });
 
-    assert.equal(joinRes.success, true);
-    assert.ok(joinRes.room);
-    assert.equal(joinRes.room.hostId, testUserId);
-    assert.equal(joinRes.room.guestId, `${testUserId}_challenger`);
-    assert.equal(joinRes.room.guestDeviceId, 'device_phone_beta');
-    assert.equal(joinRes.room.guestLanguage, 'python');
-
-    // Verify ready toggling works for both devices
-    const readyHost = await ArenaPvPStore.updateRoom(roomCode, (r) => {
-      r.hostReady = true;
-      return r;
-    });
-    assert.equal(readyHost?.hostReady, true);
-    assert.equal(readyHost?.guestReady, false);
-
-    const readyGuest = await ArenaPvPStore.updateRoom(roomCode, (r) => {
-      r.guestReady = true;
-      r.status = 'in_progress';
-      return r;
-    });
-    assert.equal(readyGuest?.guestReady, true);
-    assert.equal(readyGuest?.status, 'in_progress');
+    assert.equal(selfJoin.success, false);
+    assert.match(selfJoin.error || '', /cannot join your own room/i);
+    const unchanged = await ArenaPvPStore.getRoom(roomCode);
+    assert.equal(unchanged?.hostId, testUserId);
+    assert.equal(unchanged?.hostDeviceId, 'device_laptop_alpha');
+    assert.equal(unchanged?.guestId, undefined, 'A rejected self-join must leave the challenger slot empty');
   });
 });
 
