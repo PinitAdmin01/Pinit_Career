@@ -178,7 +178,7 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
             Return to Quests Tab
           </Link>
           <Link href="/mirror?tab=roadmap" className="btn-ghost" style={{ padding: '10px 24px' }}>
-            View Career Mirror
+            View Digital Studio
           </Link>
         </div>
       </div>

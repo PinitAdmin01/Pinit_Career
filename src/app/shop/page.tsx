@@ -48,7 +48,7 @@ const SHOP_CATALOG: ShopItem[] = [
     icon: '📄',
     isTimed: true,
     durationMinutes: 30,
-    highlight: 'Career Mirror',
+    highlight: 'Digital Studio',
     themeColor: '#60a5fa',
   },
   {

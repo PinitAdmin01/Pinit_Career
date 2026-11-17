@@ -109,7 +109,7 @@ describe('STRANGER\'S BRUTAL INDEPENDENT VERIFICATION AUDIT', () => {
       assert.ok(!studentHrefs.includes('/learning'), 'STUDENT_NAV must NOT have top-level /learning');
 
       const mirrorItem = STUDENT_NAV[0].items.find(it => 'href' in it && it.href === '/mirror') as any;
-      assert.equal(mirrorItem.label, 'Mirror');
+      assert.equal(mirrorItem.label, 'Digital Studio');
       assert.equal(mirrorItem.icon, '🪞');
     });
 
@@ -130,7 +130,7 @@ describe('STRANGER\'S BRUTAL INDEPENDENT VERIFICATION AUDIT', () => {
       
       // PAGE_TITLES verification
       assert.ok(appShellSource.includes("'/mirror':"), "AppShell PAGE_TITLES must register '/mirror'");
-      assert.ok(appShellSource.includes("'/mirror':        'Mirror'"), "AppShell PAGE_TITLES must map '/mirror' to 'Mirror'");
+      assert.ok(appShellSource.includes("'/mirror':        'Digital Studio'"), "AppShell PAGE_TITLES must map '/mirror' to 'Digital Studio'");
 
       // allowedStudentTabs verification (prevents redirect trap)
       assert.ok(appShellSource.includes("'/mirror'"), "AppShell allowedStudentTabs must whitelist '/mirror'");

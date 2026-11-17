@@ -62,7 +62,7 @@ describe('BRUTAL VALIDATION — STUDENT LEFT SIDEBAR (Perspectives 3, 4, 5)', ()
         { href: '/projects', label: 'Projects' },
         { href: '/innovation-hub', label: 'Innovation Hub' },
         { href: '/interview', label: 'AI Interview' },
-        { href: '/mirror', label: 'Mirror' },
+        { href: '/mirror', label: 'Digital Studio' },
         { href: '/attention-span', label: 'Attention Span' },
         { href: '/shop', label: 'Pins & Shop' },
       ];
@@ -350,7 +350,7 @@ describe('Perspective 6: All 15 Student Route Modules Exist and Export Valid Com
     { name: 'Notifications', path: '../src/app/notifications/page' },
     { name: 'Profile', path: '../src/app/profile/page' },
     { name: 'Career Builder', path: '../src/app/career-builder/page' },
-    { name: 'Mirror', path: '../src/app/mirror/page' },
+    { name: 'Digital Studio', path: '../src/app/mirror/page' },
   ];
 
   for (const route of routes) {

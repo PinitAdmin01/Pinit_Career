@@ -33,7 +33,7 @@ const ExamStartModal = dynamic(
 const PAGE_TITLES: Record<string, string> = {
   '/dashboard':     'Home',          '/resume':        'Resume & ATS',
   '/career-builder': 'Career Builder',
-  '/mirror':        'Mirror',
+  '/mirror':        'Digital Studio',
   '/career-assets': 'Career Assets', '/career-dna':   'Career DNA',    '/trust':         'Trust Score',
   '/career-twin':   'Career Twin',   '/missions':      'Daily Missions',
   '/learn':         'Learn',         '/exam':          'Exams',

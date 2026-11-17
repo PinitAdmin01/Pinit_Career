@@ -206,7 +206,7 @@ export default function LiteChatInterface() {
             timestamp: Date.now(),
             actions: [
               {
-                label: '🗺️ Open Career Mirror',
+                label: '🪞 Open Digital Studio',
                 onClick: () => router.push('/mirror?tab=career-builder')
               }
             ]
