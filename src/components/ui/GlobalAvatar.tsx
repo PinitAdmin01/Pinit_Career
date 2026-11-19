@@ -671,6 +671,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       {minimized && !shouldHideVisually && (
         <div
           className="avatar-mentor-widget"
+          data-testid="global-avatar-launcher"
           onClick={() => {
             setMinimized(false);
             resetIdleTimer();
@@ -678,32 +679,38 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           title="Talk to your AI Career Mentor"
           style={{
             position: 'fixed',
-            bottom: 18,
+            bottom: 0,
+            left: '50%',
+            right: 'auto',
+            transform: 'translateX(-50%)',
+            transformOrigin: 'bottom center',
             zIndex: 9999,
             cursor: 'pointer',
             display: 'flex',
+            flexDirection: 'row',
             alignItems: 'center',
             gap: 8,
-            background: 'linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(30,27,75,0.92) 100%)',
+            width: 'auto',
+            height: 'auto',
+            minHeight: 0,
+            overflow: 'visible',
+            background: 'linear-gradient(135deg, rgba(15,23,42,0.94) 0%, rgba(30,27,75,0.94) 100%)',
             backdropFilter: 'blur(12px)',
-            border: '1.5px solid rgba(var(--brand-rgb), 0.4)',
-            borderRadius: 24,
-            padding: '5px 11px 5px 6px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(var(--brand-rgb), 0.25)',
-            
-            opacity: 0.4,
-            transition: 'opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s',
-            right: 24,
-            left: 'auto',
-            transform: 'none',
+            border: '1.5px solid rgba(var(--brand-rgb), 0.42)',
+            borderBottom: 'none',
+            borderRadius: '18px 18px 0 0',
+            padding: '6px 14px 6px 8px',
+            boxShadow: '0 -4px 24px rgba(0,0,0,0.38), 0 0 18px rgba(var(--brand-rgb), 0.22)',
+            opacity: 0.55,
+            transition: 'opacity 0.25s ease, transform 0.25s ease, box-shadow 0.2s',
           }}
           onMouseEnter={e => {
             e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.transform = 'translateX(-50%) scale(1.04)';
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.opacity = '0.4';
-            e.currentTarget.style.transform = 'none';
+            e.currentTarget.style.opacity = '0.55';
+            e.currentTarget.style.transform = 'translateX(-50%)';
           }}
         >
           <div style={{
@@ -772,22 +779,19 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       {!minimized && !shouldHideVisually && (
         <div data-story-tour-card={tourActive ? '' : undefined} style={{
           position: 'fixed',
-          bottom: isCentered ? 'auto' : 18,
+          bottom: isCentered ? 'auto' : 0,
           top: isCentered ? '50%' : 'auto',
-          left: isCentered
-            ? '50%'
-            : (isRightSidebarOpen && !isLeftSidebarOpen ? 88 : 'auto'),
-          right: isCentered
-            ? 'auto'
-            : (isRightSidebarOpen && !isLeftSidebarOpen ? 'auto' : 18),
-          transform: isCentered ? 'translate(-50%, -50%)' : 'none',
+          left: '50%',
+          right: 'auto',
+          transform: isCentered ? 'translate(-50%, -50%)' : 'translateX(-50%)',
           zIndex: 9999,
           width: tourActive ? 'min(420px, calc(100vw - 28px))' : (isEnlarged ? 285 : 210),
           maxWidth: 'calc(100vw - 24px)',
           height: tourActive ? 240 : (isEnlarged ? 360 : 270),
           background: 'var(--bg2)',
           border: '1px solid var(--border)',
-          borderRadius: 16,
+          borderBottom: isCentered ? '1px solid var(--border)' : 'none',
+          borderRadius: isCentered ? 16 : '16px 16px 0 0',
           boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
           display: 'flex',
           flexDirection: tourActive ? 'row' : 'column',
