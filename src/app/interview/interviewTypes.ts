@@ -64,6 +64,8 @@ export interface ActiveInterviewDraft {
   /** The server's record of this interview (interview_live_sessions), to continue it after a reload. */
   liveSessionId?: string | null;
   tabSwitchCount?: number;
+  targetCompany?: string;
+  round4StartMsgIndex?: number;
   timestamp: number;
 }
 

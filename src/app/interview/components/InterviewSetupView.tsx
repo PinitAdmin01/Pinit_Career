@@ -2,6 +2,8 @@
 
 import React from 'react';
 import type { JdMatchResult } from '@/lib/interview/jdMatch';
+import { COMPANY_PROFILES, resolveCompanyProfile } from '@/lib/interview/companyProfiles';
+import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
 
 export interface InterviewSetupViewProps {
   activeSessionDraft: any;
@@ -21,6 +23,8 @@ export interface InterviewSetupViewProps {
   jdMatchResult?: JdMatchResult | null;
   difficulty: 'easy' | 'normal' | 'hard';
   setDifficulty: (diff: 'easy' | 'normal' | 'hard') => void;
+  targetCompany?: string;
+  setTargetCompany?: (company: string) => void;
   isAssistModeActive?: boolean;
   setIsAssistModeActive?: (val: boolean) => void;
   startInterview: () => void;
@@ -47,6 +51,8 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
   jdMatchResult,
   difficulty,
   setDifficulty,
+  targetCompany = '',
+  setTargetCompany,
   isAssistModeActive = false,
   setIsAssistModeActive,
   startInterview,
@@ -97,6 +103,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
                       }
                     } catch {}
                   }
+                  try { unlockSpeechSynthesis(); } catch {}
                   resumeActiveSession();
                 }}
                 style={{
@@ -334,6 +341,46 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
           </div>
         </div>
 
+        {/* Optional Target Company Style Preset */}
+        <div style={{ marginBottom: 18 }}>
+          <label htmlFor="company-preset-select" style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>
+            TARGET COMPANY STYLE (OPTIONAL)
+          </label>
+          <select
+            id="company-preset-select"
+            data-testid="company-preset-select"
+            value={targetCompany}
+            onChange={(e) => setTargetCompany?.(e.target.value)}
+            style={{
+              width: '100%',
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
+              borderRadius: 10,
+              padding: '9px 12px',
+              fontSize: 13,
+              fontWeight: 700,
+              color: 'var(--t1)',
+              outline: 'none'
+            }}
+          >
+            <option value="">Standard Corporate Rubric (General Industry)</option>
+            {COMPANY_PROFILES.map((cp) => (
+              <option key={cp.id} value={cp.name}>
+                {cp.name} — {cp.interviewStyle}
+              </option>
+            ))}
+          </select>
+          {(() => {
+            const resolved = resolveCompanyProfile(targetCompany);
+            if (!resolved) return null;
+            return (
+              <div data-testid="company-preset-summary" style={{ marginTop: 6, fontSize: 11.5, color: 'var(--accent)', lineHeight: 1.4, background: 'rgba(var(--brand-rgb), 0.06)', padding: '6px 10px', borderRadius: 8, border: '1px solid rgba(var(--brand-rgb), 0.2)' }}>
+                🏢 <strong>{resolved.name}</strong>: {resolved.interviewStyle} · Key themes: {resolved.culturalValues.slice(0, 2).join(', ')}
+              </div>
+            );
+          })()}
+        </div>
+
         {/* Assist Mode (AI Teleprompter) Toggle Button */}
         <div
           onClick={() => setIsAssistModeActive && setIsAssistModeActive(!isAssistModeActive)}
@@ -416,6 +463,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
                 }
               } catch {}
             }
+            try { unlockSpeechSynthesis(); } catch {}
             startInterview();
           }}
           style={{ width: '100%', background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15.5, fontWeight: 900, color: 'var(--text)', cursor: 'pointer', boxShadow: 'var(--shadow-md)' }}

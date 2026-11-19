@@ -6,6 +6,8 @@ import {
   MindsetArchetype
 } from '@/lib/interview/scoringMatrix';
 import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
+import { escapeHtml } from '@/lib/interview/jsonExtract';
+import { buildQuestionBenchmarks, extractDefendedTechStack } from '@/lib/interview/postInterviewInsights';
 import { toast } from '@/lib/store/useAppStore';
 import { Message } from './interviewTypes';
 
@@ -21,6 +23,7 @@ export interface EvaluationInput {
   domainStream: 'tech' | 'non_tech';
   archetype: MindsetArchetype;
   tabSwitchCount?: number;
+  selectedLang?: string;
 }
 
 export function computeDeterministicEvaluation({
@@ -34,7 +37,8 @@ export function computeDeterministicEvaluation({
   activeTopicName,
   domainStream,
   archetype,
-  tabSwitchCount
+  tabSwitchCount,
+  selectedLang
 }: EvaluationInput) {
   const safeMessages = Array.isArray(messages) ? messages : [];
   const userMsgCount = safeMessages.filter(m => m?.role === 'user').length;
@@ -137,6 +141,9 @@ export function computeDeterministicEvaluation({
     badge: round4Badge
   };
 
+  const defendedTechStack = extractDefendedTechStack(safeMessages, selectedLang, latestTopology);
+  const questionBreakdown = buildQuestionBenchmarks(safeMessages, activeTopicName, domainStream);
+
   return {
     verdict: scoringResult.verdict,
     score: scoringResult.overallScore,
@@ -152,6 +159,8 @@ export function computeDeterministicEvaluation({
     telemetryDiagnostics,
     perRoundScores,
     starMetrics,
+    defendedTechStack,
+    questionBreakdown,
     solvingScore
   };
 }
@@ -187,15 +196,15 @@ export function generateInterviewTranscriptMarkdown({
     `**Track:** ${domainStream === 'non_tech' ? 'Non-Technical / Product' : 'Technical / Engineering'}  `,
     `**Interviewer:** ${teacherName}  `,
     `**Date:** ${new Date().toLocaleDateString('en-US', { dateStyle: 'full' })}  `,
-    `**Verdict:** ${evaluationResult?.verdict || 'Completed'} (${evaluationResult?.score || 0}%)  `,
+    `**Verdict:** ${evaluationResult?.verdict || 'Completed'} (${evaluationResult?.score ?? 0}%)  `,
     ...(evaluationResult?.readiness ? [`**Readiness:** ${evaluationResult.readiness}  `] : []),
     `- **STAR Framework Coverage:** ${evaluationResult?.perRoundScores?.round4?.metric || 'Articulated'} (${evaluationResult?.perRoundScores?.round4?.badge || 'STAR'})  `,
     `\n---\n`,
     `## 1. Per-Round Performance Breakdown`,
-    `- **Round 1 (${evaluationResult?.perRoundScores?.round1?.badge || 'Behavioral'}):** ${evaluationResult?.perRoundScores?.round1?.score || 75}% — ${evaluationResult?.perRoundScores?.round1?.verdict || 'Competent'} (${evaluationResult?.perRoundScores?.round1?.metric || 'Verbal Q&A'})`,
-    `- **Round 2 (${evaluationResult?.perRoundScores?.round2?.badge || 'Coding'}):** ${evaluationResult?.perRoundScores?.round2?.score || 70}% — ${evaluationResult?.perRoundScores?.round2?.verdict || 'Working'} (${evaluationResult?.perRoundScores?.round2?.metric || 'Test assertions'})`,
-    `- **Round 3 (${evaluationResult?.perRoundScores?.round3?.badge || 'Systems'}):** ${evaluationResult?.perRoundScores?.round3?.score || 80}% — ${evaluationResult?.perRoundScores?.round3?.verdict || 'Viable'} (${evaluationResult?.perRoundScores?.round3?.metric || 'Canvas topology'})`,
-    `- **Round 4 (${evaluationResult?.perRoundScores?.round4?.badge || 'STAR'}):** ${evaluationResult?.perRoundScores?.round4?.score || 85}% — ${evaluationResult?.perRoundScores?.round4?.verdict || 'Structured'} (${evaluationResult?.perRoundScores?.round4?.metric || 'STAR criteria'})`,
+    `- **Round 1 (${evaluationResult?.perRoundScores?.round1?.badge || 'Behavioral'}):** ${evaluationResult?.perRoundScores?.round1?.score ?? 0}% — ${evaluationResult?.perRoundScores?.round1?.verdict || 'Competent'} (${evaluationResult?.perRoundScores?.round1?.metric || 'Verbal Q&A'})`,
+    `- **Round 2 (${evaluationResult?.perRoundScores?.round2?.badge || 'Coding'}):** ${evaluationResult?.perRoundScores?.round2?.score ?? 0}% — ${evaluationResult?.perRoundScores?.round2?.verdict || 'Working'} (${evaluationResult?.perRoundScores?.round2?.metric || 'Test assertions'})`,
+    `- **Round 3 (${evaluationResult?.perRoundScores?.round3?.badge || 'Systems'}):** ${evaluationResult?.perRoundScores?.round3?.score ?? 0}% — ${evaluationResult?.perRoundScores?.round3?.verdict || 'Viable'} (${evaluationResult?.perRoundScores?.round3?.metric || 'Canvas topology'})`,
+    `- **Round 4 (${evaluationResult?.perRoundScores?.round4?.badge || 'STAR'}):** ${evaluationResult?.perRoundScores?.round4?.score ?? 0}% — ${evaluationResult?.perRoundScores?.round4?.verdict || 'Structured'} (${evaluationResult?.perRoundScores?.round4?.metric || 'STAR criteria'})`,
     `\n## 2. Telemetry & Delivery Diagnostics`,
     `- **Average Eye Contact:** ${typeof eyeContactScore === 'number' ? `${eyeContactScore}%` : 'Not Tracked'}`,
     `- **Speaking Pace:** ${typeof wpmScore === 'number' ? `${wpmScore} Words Per Minute` : 'Not Measured'}`,
@@ -237,12 +246,16 @@ export function generateScorecardPrintHtml({
   tabSwitchCount?: number;
   messages: Message[];
 }): string {
-  const score = evaluationResult?.score || 0;
-  const verdict = evaluationResult?.verdict || 'Completed';
+  const score = Number.isFinite(Number(evaluationResult?.score)) ? Number(evaluationResult.score) : 0;
+  const verdict = escapeHtml(evaluationResult?.verdict || 'Completed');
+  const safeTopic = escapeHtml(activeTopicName);
+  const safeTeacher = escapeHtml(teacherName);
   const rounds = evaluationResult?.perRoundScores || {};
-  const evidence = evaluationResult?.answerQuality?.evidence || [];
+  const evidence = Array.isArray(evaluationResult?.answerQuality?.evidence) ? evaluationResult.answerQuality.evidence : [];
+  const techStack = Array.isArray(evaluationResult?.defendedTechStack) ? evaluationResult.defendedTechStack : [];
+  const qBreakdown = Array.isArray(evaluationResult?.questionBreakdown) ? evaluationResult.questionBreakdown : [];
 
-  return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Scorecard - ' + activeTopicName + '</title>' +
+  return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Scorecard - ' + safeTopic + '</title>' +
     '<style>@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .no-print { display: none; } }' +
     'body { font-family: sans-serif; margin: 40px; color: #1e293b; line-height: 1.5; background: #fff; }' +
     '.header { border-bottom: 2px solid #6366f1; padding-bottom: 16px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; }' +
@@ -251,23 +264,27 @@ export function generateScorecardPrintHtml({
     '.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }' +
     '.card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; }' +
     '.card h4 { margin: 0 0 6px 0; font-size: 13px; text-transform: uppercase; color: #64748b; }' +
+    '.pill { display: inline-block; padding: 3px 8px; border-radius: 999px; background: #e0e7ff; color: #3730a3; font-size: 11px; font-weight: 700; margin: 2px 4px 2px 0; }' +
     '.evidence { border-left: 3px solid #6366f1; padding: 8px 12px; margin-bottom: 8px; background: #f1f5f9; border-radius: 0 6px 6px 0; }' +
     '.evidence blockquote { margin: 0; font-style: italic; font-size: 13px; color: #0f172a; }' +
     '.evidence p { margin: 4px 0 0 0; font-size: 12px; color: #475569; }</style></head><body>' +
     '<div class="header"><div><div class="brand">PinIT Career OS — AI Mock Interview Official Scorecard</div>' +
-    '<div style="font-size: 14px; color: #64748b; margin-top: 4px;">Topic: <strong>' + activeTopicName + '</strong> • Track: <strong>' + (domainStream === 'non_tech' ? 'Non-Tech / Commerce' : 'Tech / Engineering') + '</strong> • Panel: <strong>' + teacherName + '</strong></div></div>' +
+    '<div style="font-size: 14px; color: #64748b; margin-top: 4px;">Topic: <strong>' + safeTopic + '</strong> • Track: <strong>' + (domainStream === 'non_tech' ? 'Non-Tech / Commerce' : 'Tech / Engineering') + '</strong> • Panel: <strong>' + safeTeacher + '</strong></div></div>' +
     '<div style="text-align: right;"><div class="score-badge">' + score + '%</div><div style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #64748b;">' + verdict + '</div></div></div>' +
-    '<div class="grid"><div class="card"><h4>Round 1: Behavioral & Domain</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round1?.score ?? 75) + '% — ' + (rounds.round1?.verdict ?? 'Competent') + '</div><div style="font-size: 12px; color: #64748b;">' + (rounds.round1?.metric ?? 'Verbal Q&A Communication') + '</div></div>' +
-    '<div class="card"><h4>Round 2: Problem Solving</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round2?.score ?? 70) + '% — ' + (rounds.round2?.verdict ?? 'Working') + '</div><div style="font-size: 12px; color: #64748b;">' + (rounds.round2?.metric ?? 'Test suite execution') + '</div></div>' +
-    '<div class="card"><h4>Round 3: System Architecture</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round3?.score ?? 80) + '% — ' + (rounds.round3?.verdict ?? 'Viable') + '</div><div style="font-size: 12px; color: #64748b;">' + (rounds.round3?.metric ?? 'Canvas topology verification') + '</div></div>' +
-    '<div class="card"><h4>Round 4: STAR Defense</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round4?.score ?? 85) + '% — ' + (rounds.round4?.verdict ?? 'Structured') + '</div><div style="font-size: 12px; color: #64748b;">' + (rounds.round4?.metric ?? 'STAR Framework Rigor') + '</div></div></div>' +
+    '<div class="grid"><div class="card"><h4>Round 1: Behavioral & Domain</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round1?.score ?? 0) + '% — ' + escapeHtml(rounds.round1?.verdict ?? 'Competent') + '</div><div style="font-size: 12px; color: #64748b;">' + escapeHtml(rounds.round1?.metric ?? 'Verbal Q&A Communication') + '</div></div>' +
+    '<div class="card"><h4>Round 2: Problem Solving</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round2?.score ?? 0) + '% — ' + escapeHtml(rounds.round2?.verdict ?? 'Working') + '</div><div style="font-size: 12px; color: #64748b;">' + escapeHtml(rounds.round2?.metric ?? 'Test suite execution') + '</div></div>' +
+    '<div class="card"><h4>Round 3: System Architecture</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round3?.score ?? 0) + '% — ' + escapeHtml(rounds.round3?.verdict ?? 'Viable') + '</div><div style="font-size: 12px; color: #64748b;">' + escapeHtml(rounds.round3?.metric ?? 'Canvas topology verification') + '</div></div>' +
+    '<div class="card"><h4>Round 4: STAR Defense</h4><div style="font-size: 18px; font-weight: 800;">' + (rounds.round4?.score ?? 0) + '% — ' + escapeHtml(rounds.round4?.verdict ?? 'Structured') + '</div><div style="font-size: 12px; color: #64748b;">' + escapeHtml(rounds.round4?.metric ?? 'STAR Framework Rigor') + '</div></div></div>' +
+    (techStack.length > 0 ? ('<div class="card" style="margin-bottom: 24px;"><h4>Verified Defended Tech Stack</h4><div>' + techStack.map((t: string) => '<span class="pill">' + escapeHtml(t) + '</span>').join('') + '</div></div>') : '') +
     '<div class="card" style="margin-bottom: 24px;"><h4>Delivery & Telemetry Diagnostics</h4><div style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 8px;">' +
     '<span>Eye Contact Focus: <strong>' + (typeof eyeContactScore === 'number' ? eyeContactScore + '%' : 'N/A') + '</strong></span>' +
     '<span>Speaking Cadence: <strong>' + (typeof wpmScore === 'number' ? wpmScore + ' WPM' : 'N/A') + '</strong></span>' +
     '<span>Filler Words: <strong>' + (typeof fillerWordCount === 'number' ? fillerWordCount : 0) + '</strong></span>' +
     '<span>Tab Pauses: <strong>' + (typeof tabSwitchCount === 'number' ? tabSwitchCount : 0) + '</strong></span></div></div>' +
     (evidence.length > 0 ? ('<div style="margin-bottom: 24px;"><h3 style="font-size: 14px; text-transform: uppercase; color: #475569; margin-bottom: 12px;">Verified Transcript Quotations & Rubric Evidence</h3>' +
-      evidence.map((e: any) => '<div class="evidence"><blockquote>"' + e.quote + '"</blockquote><p><strong>' + e.dimension + ':</strong> ' + e.assessment + '</p></div>').join('') + '</div>') : '') +
+      evidence.map((e: any) => '<div class="evidence"><blockquote>"' + escapeHtml(e.quote) + '"</blockquote><p><strong>' + escapeHtml(e.dimension) + ':</strong> ' + escapeHtml(e.assessment) + '</p></div>').join('') + '</div>') : '') +
+    (qBreakdown.length > 0 ? ('<div style="margin-bottom: 24px;"><h3 style="font-size: 14px; text-transform: uppercase; color: #475569; margin-bottom: 12px;">Question-by-Question Benchmark Review</h3>' +
+      qBreakdown.map((q: any, idx: number) => '<div class="card" style="margin-bottom: 10px;"><div style="font-weight: 800; font-size: 13px;">Q' + (idx + 1) + ': ' + escapeHtml(q.question) + ' (' + (Number.isFinite(Number(q.score)) ? Number(q.score) : 0) + '%)</div><div style="font-size: 12px; margin-top: 4px;"><strong>Your Answer:</strong> ' + escapeHtml(q.candidateAnswer || q.candidate_answer || '') + '</div><div style="font-size: 12px; margin-top: 4px; color: #0f766e;"><strong>Ideal Benchmark:</strong> ' + escapeHtml(q.idealAnswer || q.ideal_answer || '') + '</div><div style="font-size: 11px; margin-top: 4px; color: #475569;">' + escapeHtml(q.feedback || '') + '</div></div>').join('') + '</div>') : '') +
     '<div class="no-print" style="text-align: center; margin-top: 30px;"><button onclick="window.print()" style="background: #6366f1; color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 800; cursor: pointer;">🖨️ Print / Save as PDF</button></div></body></html>';
 }
 
@@ -286,7 +303,7 @@ export function exportInterviewTranscriptFile({
   messages,
   tabSwitchCount
 }: {
-  format: 'markdown' | 'json' | 'pdf' | 'pdf';
+  format: 'markdown' | 'json' | 'pdf';
   activeTopicName: string;
   domainStream: 'tech' | 'non_tech';
   teacherName: string;

@@ -14,6 +14,9 @@ interface InterviewVoiceHudProps {
   isSpeechSupported?: boolean;
   onDoneSpeaking?: () => void;
   isTabInactive?: boolean;
+  micAudioLevel?: number;
+  bargeInEnabled?: boolean;
+  setBargeInEnabled?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function InterviewVoiceHud({
@@ -26,7 +29,10 @@ export function InterviewVoiceHud({
   startVoiceListening,
   isSpeechSupported = true,
   onDoneSpeaking,
-  isTabInactive = false
+  isTabInactive = false,
+  micAudioLevel = 0,
+  bargeInEnabled = false,
+  setBargeInEnabled
 }: InterviewVoiceHudProps) {
   return (
     <div
@@ -83,6 +89,52 @@ export function InterviewVoiceHud({
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        {isVoiceListening && !isTabInactive && (
+          <div
+            data-testid="voice-level-meter"
+            title="Live 300-3400 Hz speech band activity"
+            style={{
+              width: 54,
+              height: 8,
+              borderRadius: 99,
+              background: 'rgba(255,255,255,0.1)',
+              overflow: 'hidden',
+              border: '1px solid rgba(34, 197, 94, 0.35)'
+            }}
+          >
+            <div
+              style={{
+                width: `${Math.max(8, Math.min(100, micAudioLevel))}%`,
+                height: '100%',
+                borderRadius: 99,
+                background: micAudioLevel > 45 ? 'var(--success-bright, #22c55e)' : 'var(--accent)',
+                transition: 'width 0.08s linear'
+              }}
+            />
+          </div>
+        )}
+
+        {setBargeInEnabled && !isTabInactive && (
+          <button
+            type="button"
+            data-testid="voice-barge-in-toggle"
+            onClick={() => setBargeInEnabled(prev => !prev)}
+            title="Hands-free voice barge-in (recommended with headphones; keep OFF on laptop speakers to prevent echo)"
+            style={{
+              background: bargeInEnabled ? 'rgba(16, 185, 129, 0.16)' : 'var(--bg2)',
+              border: bargeInEnabled ? '1px solid rgba(16, 185, 129, 0.45)' : '1px solid var(--border)',
+              color: bargeInEnabled ? '#34d399' : 'var(--t3)',
+              borderRadius: 6,
+              padding: '5px 9px',
+              fontSize: 11,
+              fontWeight: 800,
+              cursor: 'pointer'
+            }}
+          >
+            🎧 Barge-In: {bargeInEnabled ? 'ON' : 'OFF'}
+          </button>
+        )}
+
         {liveSpeechTranscript && onDoneSpeaking && !isTabInactive && (
           <button
             onClick={onDoneSpeaking}

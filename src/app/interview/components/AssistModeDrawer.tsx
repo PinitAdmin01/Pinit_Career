@@ -185,6 +185,12 @@ export function buildFallbackAssistData(
 interface AssistModeDrawerProps {
   isScoredStage: boolean;
   isCodingRound?: boolean;
+  compact?: boolean;
+  activeStage?: string;
+  activeTopicName?: string;
+  questionText?: string;
+  isDockedUnderCam?: boolean;
+  onToggleDock?: () => void;
   isAssistModeActive: boolean;
   setIsAssistModeActive: (active: boolean) => void;
   assistScriptLevel: 'standard' | 'advanced';
@@ -195,10 +201,10 @@ interface AssistModeDrawerProps {
   assistData: AssistData | null;
   liveSpeechTranscript: string;
   messages: Message[];
-  activeTeacher: AvatarTeacher;
-  difficulty: string;
+  activeTeacher?: AvatarTeacher;
+  difficulty?: string;
   fetchAssistScript: (prompt: string, level?: 'standard' | 'advanced') => void;
-  speakWithAvatarRaw: (
+  speakWithAvatarRaw?: (
     text: string,
     teacherId: string,
     onStart: () => void,
@@ -207,12 +213,18 @@ interface AssistModeDrawerProps {
     isAssistScript: boolean,
     diff: string
   ) => void;
-  setAnimState: (state: 'idle' | 'talking' | 'thinking') => void;
+  setAnimState?: (state: 'idle' | 'talking' | 'thinking') => void;
 }
 
 export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
   isScoredStage: _isScoredStage,
   isCodingRound = false,
+  compact = false,
+  activeStage,
+  activeTopicName = 'Software Engineering',
+  questionText,
+  isDockedUnderCam = false,
+  onToggleDock,
   isAssistModeActive,
   setIsAssistModeActive,
   assistScriptLevel,
@@ -224,7 +236,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
   liveSpeechTranscript,
   messages,
   activeTeacher,
-  difficulty,
+  difficulty = 'medium',
   fetchAssistScript,
   speakWithAvatarRaw,
   setAnimState
@@ -233,15 +245,21 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
     return new Set(liveSpeechTranscript.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean));
   }, [liveSpeechTranscript]);
 
+  const lastAssistantQuestion = React.useMemo(() => {
+    if (questionText && questionText.trim()) return questionText;
+    return messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content || '';
+  }, [questionText, messages]);
+
   const resolvedAssistData = React.useMemo<AssistData>(() => {
     if (assistData && assistData.script) return assistData;
     return buildFallbackAssistData(
-      isCodingRound ? 'round2_coding' : 'round1_behavioral',
-      'Software Engineering',
+      activeStage || (isCodingRound ? 'round2_coding' : 'round1_behavioral'),
+      activeTopicName || 'Software Engineering',
       assistScriptLevel,
-      isCodingRound
+      isCodingRound,
+      lastAssistantQuestion
     );
-  }, [assistData, assistScriptLevel, isCodingRound]);
+  }, [assistData, activeStage, activeTopicName, assistScriptLevel, isCodingRound, lastAssistantQuestion]);
 
   const scriptCoverage = React.useMemo(() => {
     const words = (resolvedAssistData.script || '')
@@ -265,62 +283,86 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
       style={{
         background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
         border: '1.5px solid var(--reward)',
-        borderRadius: 14,
-        padding: '14px 16px',
-        boxShadow: '0 8px 24px rgba(var(--reward-rgb), 0.25)',
+        borderRadius: compact ? 12 : 14,
+        padding: compact ? '8px 10px' : '14px 16px',
+        boxShadow: isDockedUnderCam
+          ? '0 10px 28px rgba(var(--reward-rgb), 0.35)'
+          : '0 8px 24px rgba(var(--reward-rgb), 0.25)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 10
+        gap: compact ? 6 : 10
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(var(--reward-rgb),0.3)', paddingBottom: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(var(--reward-rgb),0.3)', paddingBottom: compact ? 6 : 8, gap: 6, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 17.5 }}>🪄</span>
+          <span style={{ fontSize: compact ? 15 : 17.5 }}>🪄</span>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 900, color: 'var(--reward-bright)', letterSpacing: 0.5 }}>
+            <div style={{ fontSize: compact ? 12.5 : 14, fontWeight: 900, color: 'var(--reward-bright)', letterSpacing: 0.5 }}>
               {isCodingRound ? 'CODING COACH • HINTS ONLY' : 'ASSIST MODE • INTERVIEW COACH'}
             </div>
-            <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
-              {isCodingRound ? 'Plan your approach and test your reasoning. No code or pseudocode.' : 'A tailored response outline and delivery coaching for the current question.'}
-            </div>
+            {!compact && (
+              <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+                {isCodingRound ? 'Plan your approach and test your reasoning. No code or pseudocode.' : 'A tailored response outline and delivery coaching for the current question. (Alt+Space to toggle)'}
+              </div>
+            )}
           </div>
         </div>
 
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
-          <button
-            data-testid="assist-listen-btn"
-            onClick={() => {
-              if (resolvedAssistData?.script) {
-                speakWithAvatarRaw(
-                  resolvedAssistData.script,
-                  activeTeacher.id,
-                  () => setAnimState('talking'),
-                  () => setAnimState('idle'),
-                  false,
-                  true,
-                  difficulty
-                );
-              }
-            }}
-            style={{
-              background: 'rgba(var(--reward-rgb),0.15)',
-              border: '1px solid var(--reward)',
-              color: 'var(--reward-bright)',
-              borderRadius: 6,
-              padding: '3px 8px',
-              fontSize: 11,
-              fontWeight: 800,
-              cursor: 'pointer'
-            }}
-          >
-            🔊 Listen
-          </button>
+          {speakWithAvatarRaw && activeTeacher && (
+            <button
+              data-testid="assist-listen-btn"
+              onClick={() => {
+                if (resolvedAssistData?.script) {
+                  speakWithAvatarRaw(
+                    resolvedAssistData.script,
+                    activeTeacher.id,
+                    () => {},
+                    () => {},
+                    false,
+                    true,
+                    difficulty
+                  );
+                }
+              }}
+              style={{
+                background: 'rgba(var(--reward-rgb),0.15)',
+                border: '1px solid var(--reward)',
+                color: 'var(--reward-bright)',
+                borderRadius: 6,
+                padding: '3px 8px',
+                fontSize: 11,
+                fontWeight: 800,
+                cursor: 'pointer'
+              }}
+            >
+              🔊 Listen
+            </button>
+          )}
+          {onToggleDock && (
+            <button
+              data-testid="assist-dock-btn"
+              onClick={onToggleDock}
+              title={isDockedUnderCam ? 'Restore beside transcript' : 'Dock directly under your webcam so your eyes stay near the lens'}
+              style={{
+                background: isDockedUnderCam ? 'var(--reward)' : 'rgba(var(--reward-rgb),0.15)',
+                border: '1px solid var(--reward)',
+                color: isDockedUnderCam ? '#fff' : 'var(--reward-bright)',
+                borderRadius: 6,
+                padding: '3px 8px',
+                fontSize: 11,
+                fontWeight: 800,
+                cursor: 'pointer'
+              }}
+            >
+              {isDockedUnderCam ? '◧ Inline' : '📷 Eye-Level Dock'}
+            </button>
+          )}
 
           <button
             data-testid="assist-regenerate-btn"
             onClick={() => {
-              const lastAssistantMsg = messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content;
-              fetchAssistScript(lastAssistantMsg || 'Tell me about yourself and your experience.', assistScriptLevel);
+              fetchAssistScript(lastAssistantQuestion || 'Tell me about yourself and your experience.', assistScriptLevel);
             }}
             disabled={isFetchingAssist}
             style={{
@@ -343,8 +385,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
             onClick={() => {
               const nextLvl = assistScriptLevel === 'standard' ? 'advanced' : 'standard';
               setAssistScriptLevel(nextLvl);
-              const lastAssistantMsg = messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content;
-              if (lastAssistantMsg) fetchAssistScript(lastAssistantMsg, nextLvl);
+              fetchAssistScript(lastAssistantQuestion || 'Tell me about yourself and your experience.', nextLvl);
             }}
             style={{
               background: 'rgba(var(--reward-rgb),0.15)',
@@ -441,8 +482,8 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
       ) : (
         <div>
           {assistTab === 'script' && (
-            <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: '12px 14px', border: '1px solid rgba(var(--reward-rgb),0.2)' }}>
-              <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--text)', fontWeight: 500 }}>
+            <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: compact ? '8px 10px' : '12px 14px', border: '1px solid rgba(var(--reward-rgb),0.2)' }}>
+              <div style={{ fontSize: compact ? 12.5 : 14.5, lineHeight: 1.5, color: 'var(--text)', fontWeight: 500, maxHeight: compact ? 112 : undefined, overflowY: compact ? 'auto' : undefined }}>
                 {isCodingRound ? resolvedAssistData.script : <>
                 &ldquo;
                 {resolvedAssistData.script.split(' ').map((word: string, wIdx: number) => {

@@ -58,7 +58,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
             )}
           </div>
           <h1 style={{ fontSize: 24, fontWeight: 900, margin: '6px 0', color: evaluationResult?.verdict?.includes('Hire') ? 'var(--green-mid)' : 'var(--coral-mid)' }}>
-            Verdict: {evaluationResult?.verdict || 'Needs Practice'} ({evaluationResult?.score || 50}%)
+            Verdict: {evaluationResult?.verdict || 'Needs Practice'} ({evaluationResult?.score ?? 0}%)
           </h1>
           <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 10px' }}>
             {evaluationResult?.summary || `Performance evaluation recorded for ${activeTopicName}.`}
@@ -272,6 +272,123 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
         </div>
       </div>
 
+      {/* Defended Tech Stack Badges & Question-by-Question Benchmark Diff */}
+      {Array.isArray(evaluationResult?.defendedTechStack) && evaluationResult.defendedTechStack.length > 0 && (
+        <div className="iv-panel" style={{ padding: 18 }} data-testid="results-tech-stack-badges">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 16 }}>🧩</span>
+              <h3 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                Verified Defended Tech &amp; Domain Stack
+              </h3>
+            </div>
+            <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>
+              Extracted from spoken transcript, code &amp; whiteboard
+            </span>
+          </div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {evaluationResult.defendedTechStack.map((tech: string) => (
+              <span
+                key={tech}
+                style={{
+                  fontSize: 11.5,
+                  fontWeight: 800,
+                  padding: '4px 10px',
+                  borderRadius: 999,
+                  background: 'rgba(var(--brand-rgb), 0.12)',
+                  border: '1px solid rgba(var(--brand-rgb), 0.3)',
+                  color: 'var(--accent-mid)'
+                }}
+              >
+                ✓ {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {Array.isArray(evaluationResult?.questionBreakdown) && evaluationResult.questionBreakdown.length > 0 && (
+        <div className="iv-panel" style={{ padding: 20 }} data-testid="results-question-benchmark">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <div>
+              <h3 style={{ fontSize: 14.5, fontWeight: 900, margin: 0, color: 'var(--t1)', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                Question-by-Question Benchmark Review
+              </h3>
+              <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>
+                Side-by-side comparison of your answer against an exemplary target response.
+              </p>
+            </div>
+            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(var(--brand-rgb),0.1)', color: 'var(--accent-mid)', fontWeight: 800 }}>
+              {evaluationResult.questionBreakdown.length} Exchanges
+            </span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {evaluationResult.questionBreakdown.map((item: any, idx: number) => {
+              const qScore = Number.isFinite(Number(item?.score)) ? Number(item.score) : 0;
+              const candidateAns = item?.candidateAnswer || item?.candidate_answer || '';
+              const idealAns = item?.idealAnswer || item?.ideal_answer || '';
+              const missed = Array.isArray(item?.missedConcepts)
+                ? item.missedConcepts
+                : Array.isArray(item?.missed_concepts)
+                ? item.missed_concepts
+                : [];
+              return (
+                <details
+                  key={idx}
+                  open={idx === 0}
+                  style={{
+                    background: 'var(--bg3)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 10,
+                    padding: '10px 14px'
+                  }}
+                >
+                  <summary style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: 12.5, color: 'var(--t1)' }}>
+                    <span>Q{idx + 1}: {item?.question}</span>
+                    <span style={{
+                      flexShrink: 0,
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      fontSize: 11,
+                      fontWeight: 900,
+                      background: qScore >= 75 ? 'rgba(34,197,94,0.15)' : 'rgba(245,158,11,0.15)',
+                      color: qScore >= 75 ? 'var(--green-mid)' : 'var(--amber-mid)'
+                    }}>
+                      {qScore}%
+                    </span>
+                  </summary>
+                  <div style={{ marginTop: 10, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
+                    <div style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>Your Response</div>
+                      <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>{candidateAns || 'No response recorded.'}</div>
+                    </div>
+                    <div style={{ padding: '8px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.06)', border: '1px solid rgba(16, 185, 129, 0.25)' }}>
+                      <div style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--green-mid)', textTransform: 'uppercase', marginBottom: 4 }}>Ideal Benchmark Answer</div>
+                      <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.45 }}>{idealAns}</div>
+                    </div>
+                  </div>
+                  {item?.feedback && (
+                    <div style={{ marginTop: 8, fontSize: 11.5, color: 'var(--t2)' }}>
+                      <strong>Mentor Note:</strong> {item.feedback}
+                    </div>
+                  )}
+                  {missed.length > 0 && (
+                    <div style={{ marginTop: 6, display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
+                      <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--amber-mid)' }}>Missed Signals:</span>
+                      {missed.map((concept: string, cIdx: number) => (
+                        <span key={cIdx} style={{ fontSize: 10.5, padding: '2px 7px', borderRadius: 4, background: 'rgba(245, 158, 11, 0.12)', color: 'var(--amber-mid)', fontWeight: 700 }}>
+                          {concept}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </details>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Action Buttons Row with PDF Print & Share */}
       {/* STAR Framework Metrics & Improvement Suggestions */}
       {(evaluationResult?.starMetrics || evaluationResult?.improvements) && (
@@ -334,9 +451,8 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
           💾 Raw JSON
         </button>
         <button
-          onClick={() => {
-            if (typeof window !== 'undefined') window.print();
-          }}
+          data-testid="print-pdf-btn"
+          onClick={() => exportInterviewTranscript('pdf')}
           style={{ padding: 12, borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}
         >
           🖨️ Print / Save PDF

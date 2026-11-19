@@ -3,13 +3,17 @@
 import { useState, useRef, useEffect } from 'react';
 import { toast } from '@/lib/store/useAppStore';
 
-export function useInterviewGaze(isInterviewActive: boolean) {
+export function useInterviewGaze(isInterviewActive: boolean, activeStage?: string) {
   const [showCameraPreview, setShowCameraPreview] = useState(false);
   const [eyeContactScore, setEyeContactScore] = useState<number | null>(null);
   const videoPreviewRef = useRef<HTMLVideoElement>(null);
   const cameraStreamRef = useRef<MediaStream | null>(null);
+  const isTogglingCameraRef = useRef(false);
+  const isInterviewActiveRef = useRef(isInterviewActive);
+  isInterviewActiveRef.current = isInterviewActive;
 
   const toggleCameraPreview = async () => {
+    if (isTogglingCameraRef.current) return;
     if (showCameraPreview) {
       if (cameraStreamRef.current) {
         cameraStreamRef.current.getTracks().forEach(t => t.stop());
@@ -17,18 +21,28 @@ export function useInterviewGaze(isInterviewActive: boolean) {
       }
       setShowCameraPreview(false);
     } else {
+      isTogglingCameraRef.current = true;
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 }, audio: false });
+        if (!isInterviewActiveRef.current) {
+          stream.getTracks().forEach(t => t.stop());
+          return;
+        }
+        if (cameraStreamRef.current) {
+          cameraStreamRef.current.getTracks().forEach(t => t.stop());
+        }
         cameraStreamRef.current = stream;
         setShowCameraPreview(true);
         setTimeout(() => {
-          if (videoPreviewRef.current) {
+          if (videoPreviewRef.current && cameraStreamRef.current === stream) {
             videoPreviewRef.current.srcObject = stream;
           }
         }, 150);
       } catch (err) {
         console.warn('[Camera Preview] Webcam access denied or unavailable:', err);
         toast.warning('Webcam Preview Unavailable', 'Camera access was denied or no device was detected. You can continue naturally with voice.');
+      } finally {
+        isTogglingCameraRef.current = false;
       }
     }
   };
@@ -49,7 +63,7 @@ export function useInterviewGaze(isInterviewActive: boolean) {
         videoPreviewRef.current.play().catch(() => {});
       }
     }
-  });
+  }, [showCameraPreview, isInterviewActive, activeStage]);
 
   useEffect(() => {
     if (!showCameraPreview || !isInterviewActive) return;

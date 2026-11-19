@@ -78,7 +78,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ scores, size = 200 }) =>
 
         <polygon
           points={pointsStr}
-          fill="url(#radar-glow)"
+          fill="url(#radar-grad)"
           stroke="var(--accent-mid)"
           strokeWidth="2"
           filter="url(#radar-glow)"

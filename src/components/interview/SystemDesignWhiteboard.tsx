@@ -96,6 +96,8 @@ export default function SystemDesignWhiteboard({
 
   const prevTopicRef = useRef(activeTopic);
   const prevStreamRef = useRef(domainStream);
+  const onTopologyChangeRef = useRef(onTopologyChange);
+  onTopologyChangeRef.current = onTopologyChange;
 
   // Reset topology ONLY when domain stream or topic actually changes to a different one
   useEffect(() => {
@@ -135,10 +137,10 @@ export default function SystemDesignWhiteboard({
       isFullyConnected: currentNodes.length > 0 && currentLinks.length >= currentNodes.length - 1
     };
 
-    if (onTopologyChange) {
-      onTopologyChange(snapshot);
+    if (onTopologyChangeRef.current) {
+      onTopologyChangeRef.current(snapshot);
     }
-  }, [onTopologyChange]);
+  }, []);
 
   useEffect(() => {
     emitTopology(nodes, links);

@@ -249,7 +249,9 @@ export async function POST(req: Request) {
       difficulty,
       customTopic,
       domainStream,
-      domainSubTopic
+      domainSubTopic,
+      jdContext,
+      companyContext
     } = body;
 
     const selectedInterviewer = INTERVIEWERS_MAP[interviewerId] || INTERVIEWERS_MAP.vikram;
@@ -322,6 +324,12 @@ export async function POST(req: Request) {
     const topicFocus = live ? live.topic : (typeof customTopic === 'string' ? customTopic.trim() : '');
     if (topicFocus) {
       topicPrompt += ` Topic Focus: "${topicFocus}". Align all questions and technical drill-downs strictly to this domain.`;
+    }
+    if (typeof companyContext === 'string' && companyContext.trim()) {
+      topicPrompt += `\n${companyContext.trim().slice(0, 1200)}`;
+    }
+    if (typeof jdContext === 'string' && jdContext.trim()) {
+      topicPrompt += `\n${jdContext.trim().slice(0, 1200)}`;
     }
 
     // 4. Build Stage-Specific Context
@@ -525,7 +533,7 @@ RULES:
     }
 
     // Fallback to Google Gemini API if Groq pool is exhausted
-    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_AI_KEY;
     if (!reply && geminiKey) {
       try {
         console.log('[Interview Chat API] Falling back to Gemini inference...');
@@ -614,12 +622,14 @@ RULES:
       if (verdictMatch) {
         roundVerdict = verdictMatch[1].toUpperCase() === 'PASS' ? 'PASS' : 'RETRY';
       } else {
-        // Robust semantic fallback if LLM omitted the exact bracket tag
+        // Word-boundary + negation-aware fallback when LLM omits the exact bracket tag
         const lowerReply = reply.toLowerCase();
-        const positiveKeywords = ['looks good', 'meets the bar', 'well explained', 'good explanation', 'solid approach', 'approved', 'pass', 'correctly addressed', 'optimal', 'great job', 'excellent'];
-        const negativeKeywords = ['retry', 'please explain again', 'does not address', 'missed', 'substantive gap', 'unclear', 'insufficient'];
-        const isPositive = positiveKeywords.some(p => lowerReply.includes(p));
-        const isNegative = negativeKeywords.some(p => lowerReply.includes(p));
+        const negatedPositivePattern = /\b(?:not|never|no|doesn'?t|does not|did not|didn'?t|won'?t|will not|cannot|can'?t|failed to)\s+(?:\w+\s+){0,2}(?:looks? good|meets? the bar|well explained|good explanation|solid approach|approved|correctly addressed|optimal|great job|excellent|pass|sufficient)\b/gi;
+        const hasNegatedPositive = negatedPositivePattern.test(lowerReply);
+        const scrubbedForPositive = lowerReply.replace(negatedPositivePattern, '');
+        const isPositive = /\b(looks good|meets the bar|well explained|good explanation|solid approach|approved|correctly addressed|optimal|great job|excellent|pass)\b/i.test(scrubbedForPositive);
+        const scrubbedPositiveNegations = lowerReply.replace(/\b(?:no|not|never|didn'?t|zero)\s+(?:substantive\s+gaps?|gaps?|missed|unclear|issues?)\b/gi, '');
+        const isNegative = hasNegatedPositive || /\b(retry|explain again|does not address|substantive gap|unclear|insufficient|incomplete|missed)\b/i.test(scrubbedPositiveNegations);
         roundVerdict = (isPositive && !isNegative) ? 'PASS' : 'RETRY';
       }
     }

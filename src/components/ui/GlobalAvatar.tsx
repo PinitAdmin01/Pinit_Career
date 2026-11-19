@@ -249,8 +249,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── 3. Wake word listener (Strictly Opt-In & Transparent) ─────────────────
   useEffect(() => {
-    // Explicitly pause speech recognition while story tour is active or disabled
-    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive) return;
+    // Pause wake-word speech recognition during active tasks (interview, GD, exam, lesson) or story tour
+    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive || isTaskOrProcessActive) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -342,7 +342,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         try { recognition.stop(); } catch {}
       }
     };
-  }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive]);
+  }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive, isTaskOrProcessActive]);
 
   // ── Story tour engine ──────────────────────────────────────────────────────
   // Engine callbacks read the latest render's handlers through this ref.
@@ -668,8 +668,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       {tourActive && <StoryTourProgressBar tourStep={tourStep} runKey={tourSlideRun} />}
 
       {/* ── Floating avatar launcher button (when minimized) ── */}
-      {minimized && (
+      {minimized && !shouldHideVisually && (
         <div
+          className="avatar-mentor-widget"
           onClick={() => {
             setMinimized(false);
             resetIdleTimer();

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { extractJsonObject } from '@/lib/interview/jsonExtract';
 
 export interface AssistRequest {
   question: string;
@@ -11,6 +12,9 @@ export interface AssistRequest {
   difficulty?: 'easy' | 'normal' | 'hard';
   scriptLevel?: 'standard' | 'advanced';
   isPractice?: boolean;
+  recentContext?: string;
+  jdContext?: string;
+  companyContext?: string;
 }
 
 export interface AssistResponse {
@@ -155,7 +159,7 @@ export function getFallbackAssistScript(
 
       if (intent === 'conflict') {
         return {
-          script: `When architecting a core component in ${cleanTopic}, a senior engineer and I had differing perspectives on whether to adopt a synchronous REST model or an event-driven pub/sub queue. Instead of debating theoretically, I proposed a 1-day benchmark spikes to measure latency, throughput, and error propagation under simulated load. The telemetry proved the event-driven model provided far superior fault isolation. We aligned on the data, and shipped the milestone ahead of schedule.`,
+          script: `When architecting a core component in ${cleanTopic}, a senior engineer and I had differing perspectives on whether to adopt a synchronous REST model or an event-driven pub/sub queue. Instead of debating theoretically, I proposed a 1-day benchmark spike to measure latency, throughput, and error propagation under simulated load. The telemetry proved the event-driven model provided far superior fault isolation. We aligned on the data, and shipped the milestone ahead of schedule.`,
           bulletPoints: [
             `Frame conflict around objective technical criteria rather than personal opinions`,
             `Use evidence-driven prototypes and telemetry to resolve architectural ambiguity`,
@@ -395,6 +399,12 @@ export async function POST(req: Request) {
   const rl = checkRateLimit(`interview_assist_${ip}`, { limit: 60, windowMs: 60_000 });
   if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
 
+  let stage = 'round1_behavioral';
+  let topic = 'Software Engineering';
+  let stream = 'tech';
+  let scriptLevel = 'standard';
+  let cleanQuestion = '';
+
   try {
     // 1. Authenticate Request via Bearer Token (Graceful fallback for guest/practice users)
     const gated = await requireUserFromRequest(req);
@@ -404,33 +414,37 @@ export async function POST(req: Request) {
       console.log(`[Interview Assist API] Guest/Practice session active from ${ip}`);
     }
     const body = (await req.json().catch(() => ({}))) as AssistRequest;
-    const {
-      question = '',
-      stage = 'round1_behavioral',
-      topic = 'Software Engineering',
-      domainStream = 'tech',
-      difficulty = 'normal',
-      scriptLevel = 'standard',
-    } = body;
+    stage = body.stage || 'round1_behavioral';
+    topic = body.topic || 'Software Engineering';
+    scriptLevel = body.scriptLevel || 'standard';
+    stream = body.domainStream === 'non_tech' ? 'non_tech' : 'tech';
+    const difficulty = body.difficulty || 'normal';
+    const recentContext = typeof body.recentContext === 'string' ? body.recentContext.slice(0, 700).trim() : '';
+    const jdContext = typeof body.jdContext === 'string' ? body.jdContext.slice(0, 700).trim() : '';
+    const companyContext = typeof body.companyContext === 'string' ? body.companyContext.slice(0, 700).trim() : '';
 
     // Clean question to remove interviewer suffixes or speaker artifacts
-    const cleanQuestion = String(question || '')
+    cleanQuestion = String(body.question || '')
       .replace(/\s*—\s*(?:Ms\.|Mr\.)?\s*[\w\s]+$/i, '')
       .replace(/^(?:Ms\.|Mr\.)?\s*[\w\s]+:\s*/i, '')
       .trim();
 
     console.log(`[Interview Assist API] User: ${userId} | Stage: ${stage} | Topic: ${topic} | Question: "${cleanQuestion.slice(0, 60)}..."`);
 
-    const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
-
     // 2. Build Structured LLM Prompt for High-Scoring Verbal Scripts
     const isCodingCoach = stage === 'round2_coding';
+    const extraGrounding = [
+      companyContext ? `Company Hiring Context:\n${companyContext}` : '',
+      jdContext ? `Job Description Context:\n${jdContext}` : '',
+      recentContext ? `Recent Candidate Turns:\n${recentContext}` : ''
+    ].filter(Boolean).join('\n\n');
+
     const systemPrompt = `You are an elite ${isCodingCoach ? 'coding coach' : 'Executive Interview Coach and Teleprompter Scriptwriter'} for top tech & corporate candidates.
 The candidate is currently in an active AI interview for "${topic}" (${stream} stream, difficulty: ${difficulty}, level: ${scriptLevel}).
 
 The AI Interviewer just asked this question:
 "${cleanQuestion || 'Tell me about yourself and your experience.'}"
-
+${extraGrounding ? `\n${extraGrounding}\n` : ''}
 ${isCodingCoach
     ? 'Generate concise problem-solving guidance for the side panel: what to clarify, a high-level approach to consider, useful data-structure considerations, edge cases, and how to explain trade-offs. Do not write a candidate answer.'
     : 'Generate a natural, word-for-word spoken response script and vocal delivery guide that the candidate can speak aloud directly to answer this specific question.'}
@@ -460,17 +474,17 @@ RULES:
 
     // 3. Multi-Key Pool & Provider Failover
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
-    let groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
+    const groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
     const singleGroqKey = process.env.GROQ_API_KEY;
     if (singleGroqKey && !groqKeys.includes(singleGroqKey)) {
       groqKeys.push(singleGroqKey);
     }
-    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_AI_KEY;
     const openRouterKey = process.env.OPENROUTER_API_KEY;
 
     let parsedResult: any = null;
 
-    // A. Attempt Groq Multi-Key Pool with ultra-fast 8B model (20k TPM limit, <200ms latency)
+    // A. Attempt Groq Multi-Key Pool with ultra-fast 8B model
     for (const key of groqKeys) {
       try {
         console.log(`[Interview Assist API] Attempting Groq 8B inference with key ending in ...${key.slice(-4)}`);
@@ -482,11 +496,12 @@ RULES:
           },
           body: JSON.stringify({
             model: 'llama-3.1-8b-instant',
+            response_format: { type: 'json_object' },
             messages: [
               { role: 'system', content: systemPrompt },
-              { role: 'user', content: `Generate the interview response script for question: "${cleanQuestion}"` }
+              { role: 'user', content: `Generate the interview response script for question: "${cleanQuestion || 'Tell me about yourself.'}"` }
             ],
-            max_tokens: 500,
+            max_tokens: 550,
             temperature: 0.3
           }),
           signal: AbortSignal.timeout(4000)
@@ -495,10 +510,12 @@ RULES:
         if (res.ok) {
           const data = await res.json();
           const raw = (data.choices?.[0]?.message?.content || '').trim();
-          const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-          parsedResult = JSON.parse(cleanJsonStr);
-          console.log('[Interview Assist API] Groq 8B script generated successfully');
-          break;
+          const extracted = extractJsonObject(raw);
+          if (extracted?.script) {
+            parsedResult = extracted;
+            console.log('[Interview Assist API] Groq 8B script generated successfully');
+            break;
+          }
         } else {
           console.warn(`[Interview Assist API] Groq 8B key returned status: ${res.status}`);
         }
@@ -511,7 +528,7 @@ RULES:
     if (!parsedResult && groqKeys.length > 0) {
       for (const key of groqKeys) {
         try {
-          console.log(`[Interview Assist API] Attempting Groq 70B fallback...`);
+          console.log('[Interview Assist API] Attempting Groq 70B fallback...');
           const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -520,11 +537,12 @@ RULES:
             },
             body: JSON.stringify({
               model: 'llama-3.3-70b-versatile',
+              response_format: { type: 'json_object' },
               messages: [
                 { role: 'system', content: systemPrompt },
-                { role: 'user', content: `Generate the interview response script for question: "${cleanQuestion}"` }
+                { role: 'user', content: `Generate the interview response script for question: "${cleanQuestion || 'Tell me about yourself.'}"` }
               ],
-              max_tokens: 500,
+              max_tokens: 550,
               temperature: 0.3
             }),
             signal: AbortSignal.timeout(4500)
@@ -533,10 +551,12 @@ RULES:
           if (res.ok) {
             const data = await res.json();
             const raw = (data.choices?.[0]?.message?.content || '').trim();
-            const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-            parsedResult = JSON.parse(cleanJsonStr);
-            console.log('[Interview Assist API] Groq 70B script generated successfully');
-            break;
+            const extracted = extractJsonObject(raw);
+            if (extracted?.script) {
+              parsedResult = extracted;
+              console.log('[Interview Assist API] Groq 70B script generated successfully');
+              break;
+            }
           }
         } catch (err: any) {
           console.warn('[Interview Assist API] Groq 70B attempt failed:', err?.message);
@@ -555,7 +575,7 @@ RULES:
             contents: [
               {
                 role: 'user',
-                parts: [{ text: `${systemPrompt}\n\nCandidate Question: "${cleanQuestion}"\nReturn ONLY the JSON object.` }]
+                parts: [{ text: `${systemPrompt}\n\nCandidate Question: "${cleanQuestion || 'Tell me about yourself.'}"\nReturn ONLY the JSON object.` }]
               }
             ],
             generationConfig: {
@@ -570,9 +590,11 @@ RULES:
         if (geminiRes.ok) {
           const geminiData = await geminiRes.json();
           const raw = (geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
-          const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-          parsedResult = JSON.parse(cleanJsonStr);
-          console.log('[Interview Assist API] Gemini Flash script generated successfully');
+          const extracted = extractJsonObject(raw);
+          if (extracted?.script) {
+            parsedResult = extracted;
+            console.log('[Interview Assist API] Gemini Flash script generated successfully');
+          }
         }
       } catch (geminiErr: any) {
         console.warn('[Interview Assist API] Gemini attempt failed:', geminiErr?.message);
@@ -595,9 +617,9 @@ RULES:
             model: 'meta-llama/llama-3.1-8b-instruct:free',
             messages: [
               { role: 'system', content: systemPrompt },
-              { role: 'user', content: `Generate the interview response script for question: "${cleanQuestion}"` }
+              { role: 'user', content: `Generate the interview response script for question: "${cleanQuestion || 'Tell me about yourself.'}"` }
             ],
-            max_tokens: 500,
+            max_tokens: 550,
             temperature: 0.3
           }),
           signal: AbortSignal.timeout(4500)
@@ -606,9 +628,11 @@ RULES:
         if (res.ok) {
           const data = await res.json();
           const raw = (data.choices?.[0]?.message?.content || '').trim();
-          const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-          parsedResult = JSON.parse(cleanJsonStr);
-          console.log('[Interview Assist API] OpenRouter script generated successfully');
+          const extracted = extractJsonObject(raw);
+          if (extracted?.script) {
+            parsedResult = extracted;
+            console.log('[Interview Assist API] OpenRouter script generated successfully');
+          }
         }
       } catch (err: any) {
         console.warn('[Interview Assist API] OpenRouter attempt failed:', err?.message);
@@ -617,17 +641,35 @@ RULES:
 
     // 4. Return LLM Script or Instant Question-Aware Fallback
     if (parsedResult && parsedResult.script) {
-      const sanitizedScript = sanitizeLLMOutput(parsedResult.script);
+      const sanitizedScript = sanitizeLLMOutput(String(parsedResult.script));
+      const sanitizedBullets = Array.isArray(parsedResult.bulletPoints)
+        ? parsedResult.bulletPoints.map((b: unknown) => sanitizeLLMOutput(String(b))).filter(Boolean)
+        : [];
+      const rawGuide = parsedResult.deliveryGuide || {};
+      const sanitizedGuide = {
+        pacing: sanitizeLLMOutput(String(rawGuide.pacing || 'Conversational pace (~125 WPM)')),
+        tone: sanitizeLLMOutput(String(rawGuide.tone || 'Confident and structured')),
+        emphasisWords: Array.isArray(rawGuide.emphasisWords)
+          ? rawGuide.emphasisWords.map((w: unknown) => sanitizeLLMOutput(String(w))).filter(Boolean)
+          : [],
+        pauseCues: Array.isArray(rawGuide.pauseCues)
+          ? rawGuide.pauseCues.map((p: unknown) => sanitizeLLMOutput(String(p))).filter(Boolean)
+          : []
+      };
+      const rawStar = parsedResult.starBreakdown;
+      const sanitizedStar = rawStar && typeof rawStar === 'object'
+        ? {
+            situation: sanitizeLLMOutput(String(rawStar.situation || '')),
+            task: sanitizeLLMOutput(String(rawStar.task || '')),
+            action: sanitizeLLMOutput(String(rawStar.action || '')),
+            result: sanitizeLLMOutput(String(rawStar.result || ''))
+          }
+        : undefined;
       return NextResponse.json({
         script: sanitizedScript,
-        bulletPoints: Array.isArray(parsedResult.bulletPoints) ? parsedResult.bulletPoints : [],
-        deliveryGuide: parsedResult.deliveryGuide || {
-          pacing: 'Conversational pace (~125 WPM)',
-          tone: 'Confident and structured',
-          emphasisWords: [],
-          pauseCues: []
-        },
-        starBreakdown: parsedResult.starBreakdown,
+        bulletPoints: sanitizedBullets,
+        deliveryGuide: sanitizedGuide,
+        starBreakdown: sanitizedStar,
         success: true
       });
     }
@@ -638,7 +680,7 @@ RULES:
 
   } catch (err: any) {
     console.error('[Interview Assist API Error]:', err);
-    const fallback = getFallbackAssistScript('round1_behavioral', 'Software Engineering', 'tech', 'standard', '');
+    const fallback = getFallbackAssistScript(stage, topic, stream, scriptLevel, cleanQuestion);
     return NextResponse.json(fallback);
   }
 }

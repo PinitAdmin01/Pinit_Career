@@ -3,11 +3,12 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { recordActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
+import { extractJsonObject } from '@/lib/interview/jsonExtract';
 
 export interface DynamicProblemRequest {
   topic: string;
   domainStream?: 'tech' | 'non_tech';
-  language?: 'python' | 'javascript' | 'java' | 'sql';
+  language?: 'python' | 'javascript' | 'java' | 'sql' | 'cpp';
   difficulty?: 'easy' | 'normal' | 'hard';
   variation?: number;
   projectContext?: string;
@@ -21,6 +22,7 @@ export interface DynamicProblemResponse {
     python: string;
     javascript: string;
     java: string;
+    cpp?: string;
     sql: string;
   };
   testCases: Array<{
@@ -68,6 +70,7 @@ function generateSemanticProblemFallback(
         python: `def ${safeFnName}(primary_metric, secondary_metric):\n    # TODO: Compare the ratio with the required boundary; handle zero division\n    return False`,
         javascript: `function ${jsFnName}(primaryMetric, secondaryMetric) {\n    // TODO: Compare the ratio with the required boundary; handle zero division\n    return false;\n}`,
         java: `public class Solution {\n    public boolean ${jsFnName}(double primary, double secondary) {\n        // TODO: Return true if primary / secondary >= 1.25\n        return false;\n    }\n}`,
+        cpp: `class Solution {\npublic:\n    bool ${jsFnName}(double primary, double secondary) {\n        // TODO: Return true if primary / secondary >= 1.25\n        return false;\n    }\n};`,
         sql: `SELECT department_id, COUNT(*) AS headcount, AVG(salary) AS avg_salary FROM employees GROUP BY department_id HAVING AVG(salary) > 50000 ORDER BY department_id;`
       },
       testCases: [
@@ -119,6 +122,7 @@ SELECT (SELECT round(avg_salary) FROM answer WHERE department_id = 101) = 99333 
       python: `def ${safeFnName}(items, threshold):\n    # TODO: Return count using the required threshold boundary\n    return 0`,
       javascript: `function ${jsFnName}(items, threshold) {\n    // TODO: Return count using the required threshold boundary\n    return 0;\n}`,
       java: `import java.util.*;\npublic class Solution {\n    public int ${jsFnName}(int[] items, int threshold) {\n        // TODO: Return count of items ${comparisonText} the threshold\n        return 0;\n    }\n}`,
+      cpp: `#include <vector>\n\nclass Solution {\npublic:\n    int ${jsFnName}(const std::vector<int>& items, int threshold) {\n        // TODO: Return count of items ${comparisonText} the threshold\n        return 0;\n    }\n};`,
       sql: `SELECT department_id, COUNT(*) AS headcount, AVG(salary) AS avg_salary FROM employees GROUP BY department_id HAVING AVG(salary) > 50000 ORDER BY department_id;`
     },
     testCases: [
@@ -216,6 +220,7 @@ Return ONLY valid JSON matching this schema:
     "python": "<string>",
     "javascript": "<string>",
     "java": "<string>",
+    "cpp": "<string>",
     "sql": "<string>"
   },
   "testCases": [
@@ -229,11 +234,12 @@ Return ONLY valid JSON matching this schema:
 
     // Multi-key pool rotation
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
-    let groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
+    const groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
     const singleGroqKey = process.env.GROQ_API_KEY;
     if (singleGroqKey && !groqKeys.includes(singleGroqKey)) {
       groqKeys.push(singleGroqKey);
     }
+    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_AI_KEY;
     const openRouterKey = process.env.OPENROUTER_API_KEY;
 
     let parsedResult: any = null;
@@ -249,22 +255,26 @@ Return ONLY valid JSON matching this schema:
           },
           body: JSON.stringify({
             model: 'llama-3.3-70b-versatile',
+            response_format: { type: 'json_object' },
             messages: [
               { role: 'system', content: systemPrompt },
               { role: 'user', content: `Generate a fresh variation ${variation + 1} challenge boilerplate and test cases for: "${topic}"` }
             ],
             max_tokens: 850,
             temperature: 0.2
-          })
+          }),
+          signal: AbortSignal.timeout(8000)
         });
 
         if (res.ok) {
           const data = await res.json();
           const raw = (data.choices?.[0]?.message?.content || '').trim();
-          const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-          parsedResult = JSON.parse(cleanJsonStr);
-          console.log('[Dynamic Problem API] ✅ Groq dynamic problem generated successfully');
-          break;
+          const extracted = extractJsonObject(raw);
+          if (extracted?.title && extracted?.starterCode) {
+            parsedResult = extracted;
+            console.log('[Dynamic Problem API] Groq dynamic problem generated successfully');
+            break;
+          }
         } else {
           console.warn(`[Dynamic Problem API] Groq key returned status: ${res.status}`);
         }
@@ -273,7 +283,43 @@ Return ONLY valid JSON matching this schema:
       }
     }
 
-    // Failover to OpenRouter if Groq is unavailable
+    // Failover to Gemini Flash if Groq is unavailable
+    if (!parsedResult && geminiKey) {
+      try {
+        console.log('[Dynamic Problem API] Falling back to Gemini Flash for problem generation...');
+        const gemRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: 'user',
+                parts: [{ text: `${systemPrompt}\n\nGenerate a fresh variation ${variation + 1} challenge boilerplate and test cases for: "${topic}"\nReturn ONLY valid JSON.` }]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.2,
+              maxOutputTokens: 900,
+              responseMimeType: 'application/json'
+            }
+          }),
+          signal: AbortSignal.timeout(8000)
+        });
+        if (gemRes.ok) {
+          const gemData = await gemRes.json();
+          const raw = (gemData?.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+          const extracted = extractJsonObject(raw);
+          if (extracted?.title && extracted?.starterCode) {
+            parsedResult = extracted;
+            console.log('[Dynamic Problem API] Gemini problem generated successfully');
+          }
+        }
+      } catch (err: any) {
+        console.warn('[Dynamic Problem API] Gemini attempt failed:', err?.message);
+      }
+    }
+
+    // Failover to OpenRouter if Groq & Gemini are unavailable
     if (!parsedResult && openRouterKey) {
       try {
         console.log('[Dynamic Problem API] Falling back to OpenRouter for problem generation...');
@@ -293,15 +339,18 @@ Return ONLY valid JSON matching this schema:
             ],
             max_tokens: 850,
             temperature: 0.2
-          })
+          }),
+          signal: AbortSignal.timeout(8000)
         });
 
         if (res.ok) {
           const data = await res.json();
           const raw = (data.choices?.[0]?.message?.content || '').trim();
-          const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-          parsedResult = JSON.parse(cleanJsonStr);
-          console.log('[Dynamic Problem API] ✅ OpenRouter problem generated successfully');
+          const extracted = extractJsonObject(raw);
+          if (extracted?.title && extracted?.starterCode) {
+            parsedResult = extracted;
+            console.log('[Dynamic Problem API] OpenRouter problem generated successfully');
+          }
         }
       } catch (err: any) {
         console.warn('[Dynamic Problem API] OpenRouter attempt failed:', err?.message);
