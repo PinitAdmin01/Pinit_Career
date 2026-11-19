@@ -189,32 +189,25 @@ test('Task 4: UserService maps weeklyXp and includes weekly_xp in directFields',
   );
 });
 
-// ── TASK 5 AUDIT: Global Double Shift + Space Gaming Mode ─────────────────────
-test('Task 5: AppShell contains global keydown listener for double Shift + Space', () => {
+// ── TASK 5 AUDIT: Guarded Fullscreen Gaming Mode ──────────────────────────────
+test('Task 5: AppShell protects editors and Arena from accidental fullscreen toggles', () => {
+  assert.ok(appShell.includes("e.code === 'Space'") && appShell.includes('e.shiftKey'), 'AppShell must detect the documented Shift + Space combo');
+  assert.ok(appShell.includes('700'), 'AppShell must use a 700ms double-tap threshold');
+  assert.ok(appShell.includes('!e.repeat'), 'Held keys must not count as two shortcut presses');
   assert.ok(
-    appShell.includes("e.shiftKey && (e.code === 'Space' || e.key === ' ')"),
-    'AppShell must detect Shift + Space combo'
+    appShell.includes("window.location.pathname.startsWith('/arena/')") && appShell.includes("window.location.pathname === '/arena'"),
+    'Arena must use its explicit fullscreen button instead of the global keyboard shortcut'
   );
+  for (const editorSelector of ['[role="textbox"]', '.monaco-editor', '.cm-editor', '.CodeMirror', '.ace_editor']) {
+    assert.ok(appShell.includes(editorSelector), `AppShell must ignore keyboard shortcuts inside ${editorSelector}`);
+  }
+  assert.ok(appShell.includes('requestFullscreen'), 'AppShell must call requestFullscreen for native browser immersion');
+  assert.ok(appShell.includes('webkitRequestFullscreen'), 'AppShell must provide Safari fallback for fullscreen');
   assert.ok(
-    appShell.includes('700'),
-    'AppShell must use natural double-tap threshold (700ms)'
+    appShell.includes('setShowGamingPill(isFullscreen())') && appShell.includes('Fullscreen active · Press Esc to exit'),
+    'Fullscreen HUD must reflect actual browser state'
   );
-  assert.ok(
-    appShell.includes("target.isContentEditable"),
-    'AppShell must ignore keydown when typing in contentEditable or input'
-  );
-  assert.ok(
-    appShell.includes("requestFullscreen"),
-    'AppShell must call requestFullscreen for native browser immersion'
-  );
-  assert.ok(
-    appShell.includes("webkitRequestFullscreen"),
-    'AppShell must provide Safari fallback for fullscreen'
-  );
-  assert.ok(
-    appShell.includes('Gaming Mode Active · Press Shift + Space twice or Esc to exit'),
-    'AppShell must display non-intrusive floating HUD overlay'
-  );
+  assert.ok(!appShell.includes('setTimeout(() => setShowGamingPill(false), 3000)'), 'Fullscreen HUD must not disappear while fullscreen remains active');
 });
 
 // ── TASK 6 AUDIT: Removal of Focus Button and Feature ──────────────────────────
@@ -291,27 +284,28 @@ test('Behavioral: League Promotion and Demotion Cutoff Zones with 100 students',
   assert.strictEqual(rank95Zone, 'demotion');
 });
 
-test('Behavioral: Gaming Mode Double Shift + Space timing and input guard logic', () => {
+test('Behavioral: Fullscreen shortcut ignores Arena, editors, and repeated keydown events', () => {
   class GamingModeSimulator {
     lastShiftSpaceTime = 0;
     fullscreenActive = false;
     hudVisible = false;
 
-    handleKeyDown(event: { shiftKey: boolean; code: string; isInput: boolean; timeMs: number }) {
+    handleKeyDown(event: { shiftKey: boolean; code: string; isInput: boolean; isArena: boolean; repeat: boolean; timeMs: number }) {
       if (event.shiftKey && event.code === 'Space') {
-        if (!event.isInput) {
-          if (event.timeMs - this.lastShiftSpaceTime < 700) {
-            this.fullscreenActive = !this.fullscreenActive;
-            this.hudVisible = this.fullscreenActive;
-            this.lastShiftSpaceTime = 0;
-            return 'TOGGLED';
-          } else {
-            this.lastShiftSpaceTime = event.timeMs;
-            return 'RECORDED_FIRST_TAP';
-          }
+        if (event.isInput || event.isArena || event.repeat) {
+          this.lastShiftSpaceTime = 0;
+          return event.isArena ? 'IGNORED_ARENA' : event.isInput ? 'IGNORED_INPUT' : 'IGNORED_REPEAT';
         }
-        return 'IGNORED_INPUT';
+        if (event.timeMs - this.lastShiftSpaceTime < 700) {
+          this.fullscreenActive = !this.fullscreenActive;
+          this.hudVisible = this.fullscreenActive;
+          this.lastShiftSpaceTime = 0;
+          return 'TOGGLED';
+        }
+        this.lastShiftSpaceTime = event.timeMs;
+        return 'RECORDED_FIRST_TAP';
       }
+      this.lastShiftSpaceTime = 0;
       if (event.code === 'Escape' && this.fullscreenActive) {
         this.fullscreenActive = false;
         this.hudVisible = false;
@@ -323,26 +317,30 @@ test('Behavioral: Gaming Mode Double Shift + Space timing and input guard logic'
 
   const sim = new GamingModeSimulator();
 
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: true, repeat: false, timeMs: 900 }), 'IGNORED_ARENA');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: true, isArena: false, repeat: false, timeMs: 950 }), 'IGNORED_INPUT');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: true, timeMs: 975 }), 'IGNORED_REPEAT');
+
   // Tap 1: Shift + Space at t=1000ms
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 1000 }), 'RECORDED_FIRST_TAP');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 1000 }), 'RECORDED_FIRST_TAP');
   assert.strictEqual(sim.fullscreenActive, false);
 
   // Tap 2: Shift + Space at t=1400ms (400ms delta <= 700ms)
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 1400 }), 'TOGGLED');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 1400 }), 'TOGGLED');
   assert.strictEqual(sim.fullscreenActive, true);
   assert.strictEqual(sim.hudVisible, true);
 
   // Tap in an input box: ignored even if Shift + Space
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: true, timeMs: 1500 }), 'IGNORED_INPUT');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: true, isArena: false, repeat: false, timeMs: 1500 }), 'IGNORED_INPUT');
   assert.strictEqual(sim.fullscreenActive, true);
 
   // Press Escape: Exits gaming mode
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: false, code: 'Escape', isInput: false, timeMs: 1600 }), 'EXITED_FULLSCREEN');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: false, code: 'Escape', isInput: false, isArena: false, repeat: false, timeMs: 1600 }), 'EXITED_FULLSCREEN');
   assert.strictEqual(sim.fullscreenActive, false);
   assert.strictEqual(sim.hudVisible, false);
 
   // Slow taps: Tap 1 at t=2000ms, Tap 2 at t=2800ms (800ms delta > 700ms) -> Not toggled
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 2000 }), 'RECORDED_FIRST_TAP');
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 2800 }), 'RECORDED_FIRST_TAP');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 2000 }), 'RECORDED_FIRST_TAP');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 2800 }), 'RECORDED_FIRST_TAP');
   assert.strictEqual(sim.fullscreenActive, false);
 });
