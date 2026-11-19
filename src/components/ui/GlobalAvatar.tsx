@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo, Suspense, lazy } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { speakWithAvatar, stopSpeaking, preloadTTS, setStoryTourAudioLock } from '@/lib/tts';
@@ -8,6 +8,7 @@ import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
 import { completeStoryTour, isStoryTourPending, resetStoryTour } from '@/lib/storyTour';
 import { StoryTourEngine, tourRoutePath } from '@/lib/storyTourEngine';
 import { matchNavigationIntent } from '@/components/avatar/hooks/useVoiceNavigation';
+import { isHyperActiveTrigger } from '@/lib/avatar/wakeWordParser';
 import {
   StoryTourCard,
   StoryTourProgressBar,
@@ -32,6 +33,7 @@ export interface GlobalAvatarProps {
   refreshProfile?: () => void;
   onOpenRightSidebar?: () => void;
   onExpandLeftNav?: () => void;
+  onCollapseLeftNav?: () => void;
   isRightSidebarOpen?: boolean;
   isLeftSidebarOpen?: boolean;
   onTourSlideChange?: (route: string | null, tabKey: string | null) => void;
@@ -117,6 +119,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   refreshProfile,
   onOpenRightSidebar,
   onExpandLeftNav,
+  onCollapseLeftNav,
   isRightSidebarOpen = false,
   isLeftSidebarOpen = true,
   onTourSlideChange,
@@ -141,11 +144,23 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [showVoiceRegModal, setShowVoiceRegModal] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceListeningActive, setVoiceListeningActive] = useState(false);
+  const [isCompactViewport, setIsCompactViewport] = useState(false);
+  const [hyperActive, setHyperActive] = useState(false);
+  const leftSidebarBeforeHyperRef = useRef<boolean>(false);
+  const lastHyperTriggerRef = useRef<number>(0);
+  const onCollapseLeftNavRef = useRef(onCollapseLeftNav);
+  onCollapseLeftNavRef.current = onCollapseLeftNav;
+  const isLeftSidebarOpenRef = useRef(isLeftSidebarOpen);
+  isLeftSidebarOpenRef.current = isLeftSidebarOpen;
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setVoiceListeningActive(localStorage.getItem('pinit_voice_wake_active') === 'true');
-    }
+    if (typeof window === 'undefined') return;
+    setVoiceListeningActive(localStorage.getItem('pinit_voice_wake_active') === 'true');
+    const mq = window.matchMedia('(max-width: 900px)');
+    const syncViewport = () => setIsCompactViewport(mq.matches);
+    syncViewport();
+    mq.addEventListener?.('change', syncViewport);
+    return () => mq.removeEventListener?.('change', syncViewport);
   }, []);
 
   const toggleVoiceListening = (e?: React.MouseEvent) => {
@@ -227,17 +242,50 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     };
   }, []);
 
-  // ── 2. Auto-close / auto-dock floating avatar after 15s of inactivity ────────
+  // ── 2. Hyper-Active mode lifecycle + 15s auto-dock timer ────────────────────
+  const enterHyperActive = useCallback(() => {
+    const now = Date.now();
+    if (now - lastHyperTriggerRef.current < 800) return;
+    lastHyperTriggerRef.current = now;
+    leftSidebarBeforeHyperRef.current = isLeftSidebarOpenRef.current;
+    onCollapseLeftNavRef.current?.();
+    setTourActive(false);
+    setMinimized(false);
+    setHyperActive(true);
+  }, []);
+
+  const exitHyperActive = useCallback((minimizeToPill = false) => {
+    stopSpeaking();
+    setHyperActive(false);
+    setMinimized(minimizeToPill);
+    if (leftSidebarBeforeHyperRef.current) {
+      leftSidebarBeforeHyperRef.current = false;
+      onExpandLeftNavRef.current?.();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hyperActive) return;
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        exitHyperActive(false);
+      }
+    };
+    window.addEventListener('keydown', onEsc);
+    return () => window.removeEventListener('keydown', onEsc);
+  }, [hyperActive, exitHyperActive]);
+
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const resetIdleTimer = useCallback(() => {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    if (!minimized && !tourActive && !celebEvent) {
+    if (!minimized && !tourActive && !celebEvent && !hyperActive) {
       idleTimerRef.current = setTimeout(() => {
         setMinimized(true);
       }, 15000);
     }
-  }, [minimized, tourActive, celebEvent]);
+  }, [minimized, tourActive, celebEvent, hyperActive]);
 
   useEffect(() => {
     resetIdleTimer();
@@ -248,8 +296,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── 3. Wake word listener (Strictly Opt-In & Transparent) ─────────────────
   useEffect(() => {
-    // Pause wake-word speech recognition during active tasks (interview, GD, exam, lesson) or story tour
-    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive || isTaskOrProcessActive) return;
+    // Pause wake-word speech recognition during active tasks, story tour, or Hyper-Active chat (prevents dual-mic lock)
+    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive || isTaskOrProcessActive || hyperActive) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -263,14 +311,24 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
       recognition.onresult = (event: any) => {
         if (!isMounted || !voiceListeningActive) return;
-        const transcript = Array.from(event.results)
+        const startIdx = typeof event.resultIndex === 'number' ? event.resultIndex : 0;
+        const latestSlice = Array.from(event.results).slice(startIdx);
+        const transcript = latestSlice
           .map((r: any) => r[0].transcript)
           .join(' ')
           .toLowerCase();
 
         const mentorName = teacher.name.split(' ')[1]?.toLowerCase() || teacher.name.toLowerCase();
+
+        // 0. Hyper-Active trigger ("hey priya we need to chat/chart/speak/talk")
+        if (isHyperActiveTrigger(transcript, mentorName)) {
+          stopSpeaking();
+          enterHyperActive();
+          return;
+        }
+
         // Clean wake words (removed false triggers: freya, riya)
-        const hasWakeWord = /\b(hey|hay|hi|hello)\b/i.test(transcript) ||
+        const hasWakeWord = /\b(hey|hwy|hay|hi|hello)\b/i.test(transcript) ||
                             /\b(priya|anish|vikram|kashyap|karthic|maya|divya|aisha|rohan|shalini)\b/i.test(transcript) ||
                             transcript.includes(mentorName);
 
@@ -317,7 +375,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         }
 
         // 3. General Wake Word Greeting
-        speakWithAvatar(`Yes! I am here. Say "go to missions" or ask "what should I do now?"`, teacherId, () => {}, () => {});
+        speakWithAvatar(`Yes! I am here. Say "we need to chat" for full conversation mode, or ask what to do next.`, teacherId, () => {}, () => {});
       };
 
       recognition.onerror = (err: any) => {
@@ -341,7 +399,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         try { recognition.stop(); } catch {}
       }
     };
-  }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive, isTaskOrProcessActive]);
+  }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive, isTaskOrProcessActive, hyperActive, enterHyperActive]);
 
   // ── Story tour engine ──────────────────────────────────────────────────────
   // Engine callbacks read the latest render's handlers through this ref.
@@ -606,6 +664,32 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [tourActive, nextTourSlide, prevTourSlide, dismissTour, replayCurrentSlide]);
 
+  const completedQuestsCount = (cOS.completedQuests || []).length;
+  const completedMissionsCount = (cOS.completedMissions || []).length;
+  const missionStreakVal = cOS.missionStreak || 0;
+  const careerScoreVal = cOS.careerScore || 0;
+  const xpVal = cOS.xp || 0;
+
+  const hyperCareerProfile = useMemo(
+    () => ({
+      ...(profile || {}),
+      displayName:
+        user?.displayName ||
+        (user as any)?.name ||
+        (user as any)?.full_name ||
+        profile?.displayName ||
+        profile?.name ||
+        profile?.full_name ||
+        '',
+      completedQuestsCount,
+      completedMissionsCount,
+      missionStreak: missionStreakVal,
+      careerScore: careerScoreVal,
+      xp: xpVal,
+    }),
+    [profile, user, completedQuestsCount, completedMissionsCount, missionStreakVal, careerScoreVal, xpVal]
+  );
+
   if (!mounted || isOnboardingOrAuth) return null;
 
   const isCentered = onboardingStep === 0;
@@ -617,49 +701,53 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   if (!tourActive && !celebEvent) {
     if (onboardingStep === 0) {
-      dialogueText = "Welcome! I am your AI Career Mentor. Let's build your career profile, compile your credentials, and design a socratic learning roadmap to qualify for top engineering roles!";
+      dialogueText = "Welcome! Ready to map your skills and launch your career sprint?";
       showButton = true;
       buttonText = "Let's Begin!";
       onButtonClick = () => setOnboardingStep(1);
     } else if (onboardingStep === 1) {
-      dialogueText = "Welcome to the Command Center Dashboard! This panel tracks your XP progression, consistency streak, and Career DNA. To start, click on the 'Career Twin' tab to initialize your digital twin profile!";
+      dialogueText = "Dashboard live. Open Digital Studio to initialize your Career Twin.";
     } else if (onboardingStep === 2) {
-      dialogueText = "We are in the Career Twin studio. Map your current skills against your desired engineering track. When you are ready, return to the Dashboard and choose a Trajectory to build your custom quest roadmap!";
+      dialogueText = "Map your current skills, then pick a track on the Dashboard.";
     } else if (onboardingStep === 3 || onboardingStep === 4) {
-      if (!roadmapGenerated) {
-        dialogueText = "Select your target SDE trajectory on the Dashboard page below to compile your custom quest roadmap!";
-      } else {
-        dialogueText = "Your custom quest roadmap is compiled! Head to the 'Quests' tab to begin learning or the 'Missions' tab to solve daily gap-closure challenges!";
-      }
+      dialogueText = !roadmapGenerated
+        ? "Pick your target track below to compile your quest roadmap."
+        : "Roadmap ready. Jump into Courses or Daily Missions to build momentum.";
     } else if (onboardingStep === 5) {
-      dialogueText = "Excellent job! You are progressing nicely. Keep completing quests to build your Career DNA and Vault documents!";
+      dialogueText = "Strong momentum. Keep clearing quests to verify your Vault credentials.";
     } else {
       const TAB_GUIDES: Record<string, string> = {
-        '/dashboard': "🏠 **Home Dashboard** — Your command center! Here you can see your Career Score, active mission streak, XP tier progression, and AI-personalised recommendations. Keep your streak alive with daily missions!",
-        '/quests': "🗺 **Quests** — Your socratic learning curriculum! Complete guided coding challenges and theory lessons to verify your mastery and earn XP.",
-        '/career-twin': "🧬 **Career Twin** — Map your Current Self against your Future Self (target role). We'll calculate your alignment percentage and identify exact skill gaps!",
-        '/learning': "📖 **Learning & Roadmap** — Track your milestone roadmap, skill competencies, and deep-dive learning modules to qualify for top roles.",
-        '/missions': "⚡ **Daily Missions** — 5 personalised micro-challenges generated every day based on your skill gaps. Complete them to maintain your streak and earn bonus XP!",
-        '/arena': "⚔️ **Challenging Arena** — Compete in live 1v1 coding face-offs, algorithmic battles, and timed DSA challenges against peers.",
-        '/projects': "🚀 **Projects & Squads** — Collaborate on production-grade software and build verifiable portfolio projects for recruiters.",
-        '/leaderboard': "🏆 **Leaderboards & Leagues** — Track your global and campus rank, climb through weekly league tiers, and earn sprint promotions.",
-        '/interview': "🎙 **AI Interview** — Practice realistic mock interviews with instant AI scoring on coding logic, problem decomposition, and STAR responses.",
-        '/group-discussion': "💬 **GD Practice** — Engage in boardroom debates against AI avatars to build speaking confidence and argument structure.",
-        '/attention-span': "🧠 **Attention Span** — Gamified cognitive focus exercises to train your endurance and stamina for long engineering sprints.",
-        '/notifications': "🔔 **Notifications** — Real-time alerts for quest rewards, streak milestones, recruiter profile views, and mission assignments.",
-        '/friends': "👥 **Friends & Network** — Connect with peers, challenge friends to 1v1 Arena Duels, collaborate on Squad Projects, and build your university network.",
-        '/pins': "⚡ **Pins & Wallet** — Track your Pins balance, recharge via UPI, and unlock premium AI features.",
-        '/profile': "👤 **Profile** — Manage settings, configure vocal biometrics, inspect your Career DNA genome, and select your AI mentor personality.",
+        '/dashboard': "Dashboard: Track readiness, active sprint progress, and today's priority actions.",
+        '/quests': "Courses: Clear guided lessons and verified code labs to build mastery.",
+        '/career-twin': "Career Twin: Compare your current skills against your target role.",
+        '/mirror': "Digital Studio: Inspect skill gaps, resume ATS score, and Career Twin.",
+        '/learning': "Roadmap: Follow your milestone track and verify core engineering concepts.",
+        '/missions': "Daily Missions: Complete quick daily gap-closure challenges to keep your streak.",
+        '/arena': "Arena: Compete in live 1v1 coding duels and timed algorithmic sprints.",
+        '/projects': "Projects: Ship verifiable portfolio work and track milestone progress.",
+        '/leaderboard': "Leaderboard: Track your sprint standing and weekly league promotion.",
+        '/interview': "AI Interview: Practice mock rounds with instant scoring and feedback.",
+        '/group-discussion': "GD Practice: Sharpen structured arguments in AI boardroom debates.",
+        '/attention-span': "Attention Span: Train deep-work focus for timed technical sprints.",
+        '/notifications': "Notifications: Review quest rewards, streak alerts, and updates.",
+        '/friends': "My Network: Connect with peers for duels and squad projects.",
+        '/pins': "Pins & Wallet: Track Pins balance and unlock advanced mentor features.",
+        '/profile': "Profile: Manage mentor voice settings, Career DNA, and preferences.",
       };
 
       const matchedGuide = Object.entries(TAB_GUIDES).find(([path]) => pathname.startsWith(path));
-      if (matchedGuide) {
-        dialogueText = matchedGuide[1];
-      } else {
-        dialogueText = "🧬 Your Career OS is fully operational! Navigate to any tab and I'll explain how it works. Ask me anything!";
-      }
+      dialogueText = matchedGuide
+        ? matchedGuide[1]
+        : "Say 'Hey Priya, we need to chat' anytime to open full conversation mode.";
     }
   }
+
+  const INACTIVE_PILL_OPACITY = 0.4;
+  const activeDockLeft = isCompactViewport
+    ? 10
+    : isLeftSidebarOpen
+      ? 'calc(var(--sidebar-w, 232px) + 12px)'
+      : 'calc(var(--sidebar-collapsed-w, 64px) + 12px)';
 
   return (
     <>
@@ -667,7 +755,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       {tourActive && <StoryTourProgressBar tourStep={tourStep} runKey={tourSlideRun} />}
 
       {/* ── Floating avatar launcher button (when minimized) ── */}
-      {minimized && !shouldHideVisually && (
+      {!hyperActive && minimized && !shouldHideVisually && (
         <div
           className="avatar-mentor-widget"
           data-testid="global-avatar-launcher"
@@ -700,7 +788,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             borderRadius: '18px 18px 0 0',
             padding: '6px 14px 6px 8px',
             boxShadow: '0 -4px 24px rgba(0,0,0,0.38), 0 0 18px rgba(var(--brand-rgb), 0.22)',
-            opacity: 0.55,
+            opacity: INACTIVE_PILL_OPACITY,
             transition: 'opacity 0.25s ease, transform 0.25s ease, box-shadow 0.2s',
           }}
           onMouseEnter={e => {
@@ -708,7 +796,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             e.currentTarget.style.transform = 'translateX(-50%) scale(1.04)';
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.opacity = '0.55';
+            e.currentTarget.style.opacity = String(INACTIVE_PILL_OPACITY);
             e.currentTarget.style.transform = 'translateX(-50%)';
           }}
         >
@@ -774,29 +862,103 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         </div>
       )}
 
-      {/* ── Expanded floating avatar mentor window ── */}
-      {!minimized && !shouldHideVisually && (
-        <div className="mentor-widget" data-story-tour-card={tourActive ? '' : undefined} style={{
-          position: 'fixed',
-          bottom: isCentered ? 'auto' : 0,
-          top: isCentered ? '50%' : 'auto',
-          left: '50%',
-          right: 'auto',
-          transform: isCentered ? 'translate(-50%, -50%)' : 'translateX(-50%)',
-          zIndex: 9999,
-          width: tourActive ? 'min(420px, calc(100vw - 28px))' : (isEnlarged ? 285 : 210),
-          maxWidth: 'calc(100vw - 24px)',
-          height: tourActive ? 240 : (isEnlarged ? 360 : 270),
-          background: 'var(--bg2)',
-          border: '1px solid var(--border)',
-          borderBottom: isCentered ? '1px solid var(--border)' : 'none',
-          borderRadius: isCentered ? 16 : '16px 16px 0 0',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-          display: 'flex',
-          flexDirection: tourActive ? 'row' : 'column',
-          overflow: 'hidden',
-          transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
-        }}>
+      {/* ── Hyper-Active Centered 65% Stage (Left: 3D Avatar | Right: Live Chat) ── */}
+      {hyperActive && !shouldHideVisually && (
+        <>
+          <div
+            data-testid="global-avatar-hyper-backdrop"
+            onClick={() => exitHyperActive(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 9998,
+              background: 'rgba(2, 6, 23, 0.58)',
+              backdropFilter: 'blur(6px)',
+              WebkitBackdropFilter: 'blur(6px)',
+            }}
+          />
+          <div
+            className="mentor-widget"
+            data-testid="global-avatar-hyper-active"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${teacher.name} Hyper-Active Conversation`}
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 9999,
+              width: 'min(94vw, clamp(720px, 68vw, 1120px))',
+              height: 'min(84vh, clamp(480px, 68vh, 740px))',
+              background: 'var(--bg2)',
+              border: '1px solid rgba(var(--brand-rgb), 0.38)',
+              borderRadius: 20,
+              boxShadow: '0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+            }}
+          >
+            <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>Launching Hyper-Active Mentor...</div>}>
+              <AvatarMentorWidget
+                userId={user?.id}
+                careerProfile={hyperCareerProfile}
+                teacherId={teacherId}
+                minimized={false}
+                setMinimized={() => exitHyperActive(true)}
+                showSpeechBubble={false}
+                setShowSpeechBubble={setShowSpeechBubble}
+                onboardingStep={onboardingStep}
+                setOnboardingStep={setOnboardingStep}
+                onTabShift={(path) => {
+                  exitHyperActive(false);
+                  router.push(path);
+                }}
+                onEnlarge={(val) => {
+                  if (!val) exitHyperActive(false);
+                }}
+                isEnlarged={true}
+                onlyAvatar={false}
+                hyperActive={true}
+                autoStartVoice={voiceListeningActive}
+                onExitHyperActive={() => exitHyperActive(false)}
+                gazeTracking={!pathname.startsWith('/quests/')}
+                speaking={isSpeaking}
+              />
+            </Suspense>
+          </div>
+        </>
+      )}
+
+      {/* ── Expanded floating avatar mentor window (bottom-left when active) ── */}
+      {!minimized && !hyperActive && !shouldHideVisually && (
+        <div
+          className="mentor-widget"
+          data-testid="global-avatar-active-window"
+          data-story-tour-card={tourActive ? '' : undefined}
+          style={{
+            position: 'fixed',
+            bottom: isCentered ? 'auto' : 0,
+            top: isCentered ? '50%' : 'auto',
+            left: isCentered || tourActive ? '50%' : activeDockLeft,
+            right: 'auto',
+            transform: isCentered ? 'translate(-50%, -50%)' : tourActive ? 'translateX(-50%)' : 'none',
+            zIndex: 9999,
+            width: tourActive ? 'min(420px, calc(100vw - 28px))' : (isEnlarged ? 290 : 232),
+            maxWidth: 'calc(100vw - 24px)',
+            height: tourActive ? 240 : (isEnlarged ? 372 : 296),
+            background: 'var(--bg2)',
+            border: '1px solid var(--border)',
+            borderBottom: isCentered ? '1px solid var(--border)' : 'none',
+            borderRadius: isCentered ? 16 : '16px 16px 0 0',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+            display: 'flex',
+            flexDirection: tourActive ? 'row' : 'column',
+            overflow: 'hidden',
+            transition: 'left 0.28s cubic-bezier(0.22, 1, 0.36, 1), width 0.28s cubic-bezier(0.22, 1, 0.36, 1), height 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        >
           {tourActive ? (
             <>
               <StoryTourCard
@@ -839,62 +1001,85 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               </div>
             </>
           ) : (
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <div style={{
-                position: 'absolute',
-                top: 8,
-                left: 10,
-                right: 10,
-                zIndex: 12,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                background: 'rgba(15,23,42,0.85)',
-                backdropFilter: 'blur(10px)',
-                padding: '5px 10px',
-                borderRadius: 12,
-                border: '1px solid rgba(255,255,255,0.12)',
-                boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 14.5 }}>{teacher.emoji}</span>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online & Listening" />
+            <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+              {/* Slim single-line header placed above the 3D avatar so it never covers the avatar face */}
+              <div
+                data-testid="global-avatar-slim-header"
+                style={{
+                  flexShrink: 0,
+                  height: 30,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 6,
+                  padding: '0 8px',
+                  background: 'rgba(15,23,42,0.92)',
+                  borderBottom: '1px solid rgba(255,255,255,0.08)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 5, minWidth: 0, overflow: 'hidden' }}>
+                  <span style={{ width: 6, height: 6, flexShrink: 0, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online" />
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {teacher.name}
+                  </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
                   <button
+                    type="button"
+                    data-testid="global-avatar-hyper-btn"
+                    onClick={enterHyperActive}
+                    title="Open Hyper-Active Chat (or say 'Hey Priya, we need to chat')"
+                    style={{
+                      background: 'rgba(56,189,248,0.16)',
+                      border: '1px solid rgba(56,189,248,0.4)',
+                      borderRadius: 5,
+                      color: '#bae6fd',
+                      fontSize: 9.5,
+                      fontWeight: 700,
+                      padding: '2px 6px',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-mono)',
+                      lineHeight: 1.2,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Chat
+                  </button>
+                  <button
+                    type="button"
                     onClick={startStoryMode}
                     title="Launch Story Tour"
                     style={{
                       background: 'linear-gradient(135deg, var(--accent), var(--purple))',
                       border: 'none',
-                      borderRadius: 6,
-                      color: 'var(--text)',
-                      fontSize: 10.5,
-                      fontWeight: 800,
-                      padding: '2px 7px',
+                      borderRadius: 5,
+                      color: '#ffffff',
+                      fontSize: 9.5,
+                      fontWeight: 700,
+                      padding: '2px 6px',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-mono)',
-                      lineHeight: 1.3,
-                      boxShadow: '0 2px 8px rgba(var(--brand-rgb), 0.4)',
+                      lineHeight: 1.2,
+                      whiteSpace: 'nowrap',
                     }}
                   >
-                    ✨ Tour
+                    Tour
                   </button>
                   <button
+                    type="button"
                     onClick={() => setMinimized(true)}
-                    title="Dock Floating Avatar"
+                    title="Minimize Mentor"
                     style={{
-                      background: 'rgba(255,255,255,0.12)',
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      borderRadius: 6,
-                      color: 'var(--text)',
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.16)',
+                      borderRadius: 5,
+                      color: '#e2e8f0',
                       fontSize: 11,
                       fontWeight: 700,
-                      padding: '2px 7px',
+                      padding: '1px 6px',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-mono)',
-                      lineHeight: 1.2
+                      lineHeight: 1.2,
                     }}
                   >
                     −
@@ -902,7 +1087,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 </div>
               </div>
 
-              <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: isCentered ? 20 : '20px 20px 0 0' }}>
+              {/* Unobstructed 3D avatar canvas region */}
+              <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative', overflow: 'hidden' }}>
                 <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>Loading mentor...</div>}>
                   <AvatarMentorWidget
                     userId={user?.id}
@@ -923,38 +1109,65 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 </Suspense>
               </div>
 
-              {/* Speech bubble overlay when not minimized */}
+              {/* Compact 2-line caption strip docked below the avatar (never covering the avatar body) */}
               {dialogueText && showSpeechBubble && (
-                <div style={{
-                  position: 'absolute',
-                  bottom: 12,
-                  left: 12,
-                  right: 12,
-                  background: 'rgba(15,23,42,0.92)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  borderRadius: 14,
-                  padding: '10px 12px',
-                  zIndex: 10,
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-                }}>
-                  <div style={{ fontSize: 12, color: 'var(--text)', lineHeight: 1.45, maxHeight: 90, overflowY: 'auto' }}>
-                    {dialogueText}
+                <div
+                  data-testid="global-avatar-compact-caption"
+                  title={dialogueText}
+                  style={{
+                    flexShrink: 0,
+                    background: 'rgba(15,23,42,0.94)',
+                    borderTop: '1px solid rgba(255,255,255,0.08)',
+                    padding: '6px 8px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                    <div style={{
+                      flex: 1,
+                      fontSize: 10.5,
+                      color: '#e2e8f0',
+                      lineHeight: 1.35,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}>
+                      {dialogueText}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowSpeechBubble(false)}
+                      title="Hide caption"
+                      aria-label="Hide caption"
+                      style={{
+                        flexShrink: 0,
+                        background: 'transparent',
+                        border: 'none',
+                        color: 'rgba(148,163,184,0.8)',
+                        fontSize: 11,
+                        lineHeight: 1,
+                        cursor: 'pointer',
+                        padding: '1px 2px',
+                      }}
+                    >
+                      ×
+                    </button>
                   </div>
                   {showButton && (
                     <button
+                      type="button"
                       onClick={onButtonClick}
                       style={{
-                        marginTop: 8,
+                        marginTop: 5,
                         width: '100%',
-                        padding: '6px 0',
-                        borderRadius: 8,
+                        padding: '4px 0',
+                        borderRadius: 6,
                         border: 'none',
                         background: 'var(--accent)',
-                        color: 'white',
-                        fontSize: 12,
-                        fontWeight: 800,
-                        cursor: 'pointer'
+                        color: '#ffffff',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        cursor: 'pointer',
                       }}
                     >
                       {buttonText}

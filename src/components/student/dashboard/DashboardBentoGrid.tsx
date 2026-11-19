@@ -5,7 +5,11 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import WhatToDoToday, { ActionProfile } from '@/components/ui/WhatToDoToday';
-import { getSavedCareerProjects } from '@/lib/projects/savedProjects';
+import {
+  getSavedCareerProjects,
+  isStudentEngagedProject,
+  computeHonestProjectProgress,
+} from '@/lib/projects/savedProjects';
 import { DynamicRoleReadiness, StudentSkillProfile } from '@/lib/pathway/competencySchema';
 import type { Project } from '@/lib/data/projectData';
 
@@ -199,13 +203,13 @@ export default function DashboardBentoGrid({
     return vaultItems.filter((v: any) => v.type === 'commit' || v.verified).length;
   }, [vaultItems]);
 
-  // Merged Authentic Saved & Independent Projects (deduped by id)
+  // Merged Authentic Active & Independent Projects (strictly excludes untouched catalog templates; deduped by id)
   const savedProjects = useMemo(() => {
-    const saved = getSavedCareerProjects(cOS?.onboardingAnswers as any);
-    const list = Array.isArray(saved) ? [...saved] : [];
+    const activeSaved = getSavedCareerProjects(cOS?.onboardingAnswers as any).filter((p) => isStudentEngagedProject(p));
+    const list = Array.isArray(activeSaved) ? [...activeSaved] : [];
     const seenIds = new Set(list.map((p: any) => p?.id).filter(Boolean));
     for (const ip of independentProjects) {
-      if (ip && ip.id && !seenIds.has(ip.id)) {
+      if (ip && ip.id && !seenIds.has(ip.id) && isStudentEngagedProject(ip)) {
         seenIds.add(ip.id);
         list.push(ip);
       }
@@ -880,13 +884,13 @@ export default function DashboardBentoGrid({
             }}
           >
             {savedProjects.map((p: any) => {
-              const progressVal = typeof p.progress === 'number'
-                ? p.progress
-                : p.status === 'verified'
-                ? 100
-                : p.status === 'in_progress'
-                ? 50
-                : 15;
+              const progressVal = computeHonestProjectProgress(p);
+              const stackSubtitle = p.category
+                || (Array.isArray(p.techStack)
+                  ? p.techStack.slice(0, 2).join(' · ')
+                  : typeof p.techStack === 'string' && p.techStack.trim()
+                    ? p.techStack.split(',').map((s: string) => s.trim()).filter(Boolean).slice(0, 2).join(' · ')
+                    : (p.level || 'Project Workspace'));
               return (
                 <Link
                   key={p.id}
@@ -918,7 +922,7 @@ export default function DashboardBentoGrid({
                   <div>
                     <div className="db-tabular" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, color: 'var(--t3)', marginBottom: 6 }}>
                       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '75%' }}>
-                        {p.category || (Array.isArray(p.techStack) ? p.techStack.slice(0, 2).join(' · ') : 'Production Architecture')}
+                        {stackSubtitle}
                       </span>
                       <span style={{ color: 'var(--accent-mid, var(--accent))', fontWeight: 700 }}>{progressVal}%</span>
                     </div>

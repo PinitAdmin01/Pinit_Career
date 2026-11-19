@@ -1023,6 +1023,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           refreshProfile={refreshProfile}
           onOpenRightSidebar={() => toggleRightSidebar(false)}
           onExpandLeftNav={() => toggleLeftSidebar(false)}
+          onCollapseLeftNav={() => toggleLeftSidebar(true)}
           isRightSidebarOpen={!rightCollapsed}
           isLeftSidebarOpen={!collapsed}
           onTourSlideChange={(route, tabKey) => {

@@ -23,6 +23,7 @@ import { capstoneInterviewPath } from '@/lib/interview/capstoneInterview';
 import { api, ApiError } from '@/lib/api/client';
 import { CapstoneNextStep } from './CapstoneNextStep';
 import { CourseProjectProgressBar } from '@/components/projects/CourseProjectProgressBar';
+import { ProjectActivityJourney } from '@/components/projects/ProjectActivityJourney';
 import { InnovationHub } from '@/components/projects/InnovationHub';
 import { IndependentWorkspace } from '@/components/projects/IndependentWorkspace';
 import { saveIndependentProjectToDb, fetchIndependentProjectsFromDb } from '@/lib/api/independentProjectsApi';
@@ -1101,7 +1102,16 @@ function ProjectsPageContent() {
 
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
-      
+      {/* ── VISUAL LESSON & BUILD JOURNEY (REAL TELEMETRY MILESTONES) ── */}
+      <ProjectActivityJourney
+        courseTitle={activeCourse.title}
+        completedQuests={completedQuests || []}
+        matchedCourseQuests={selectedPathway === 'standalone' ? standaloneMatchedQuests : certMatchedQuests}
+        completedMissions={cOS.completedMissions || []}
+        missionStreak={cOS.missionStreak || 0}
+        projects={projects}
+      />
+
       {/* ── PATHWAY SUB-TAB NAVIGATION (SLENDER COMPACT INTERFACE) ── */}
       <div
         style={{

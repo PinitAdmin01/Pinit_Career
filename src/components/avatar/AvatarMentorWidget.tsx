@@ -2,7 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePersonalAvatarMemory }    from './hooks/usePersonalAvatarMemory';
 import { useFacialEmotionDetection }  from './hooks/useFacialEmotionDetection';
 import { matchBestAlternative, matchNavigationIntent, getGrammarVocabulary } from './hooks/useVoiceNavigation';
-import { parseWakeWord } from '@/lib/avatar/wakeWordParser';
+import { parseWakeWord, isHyperActiveTrigger } from '@/lib/avatar/wakeWordParser';
+import { buildHyperActiveGreeting } from '@/lib/avatar/hyperActivePersona';
 import { isNextTaskIntent, isValidSnapshotTimestamp, getAuthoritativeNextTask } from '@/lib/avatar/deterministicAdvisor';
 // Lazy-loaded on demand: import('@/lib/data/coursesData')
 import { analyzeVoiceFrames, analyzeVoiceSamples, verifyVoiceSignature, calculateSpectralFeatures, extractMelFilterbank, AcousticFrame, VoicePrint } from './hooks/useVoiceBiometrics';
@@ -36,6 +37,9 @@ interface Props {
   onTabShift?: (path: string) => void;
   onEnlarge?: (enlarged: boolean) => void;
   isEnlarged?: boolean;
+  hyperActive?: boolean;
+  autoStartVoice?: boolean;
+  onExitHyperActive?: () => void;
   gazeTracking?: boolean;
 }
 
@@ -132,6 +136,9 @@ export default function AvatarMentorWidget({
   onTabShift,
   onEnlarge,
   isEnlarged = false,
+  hyperActive = false,
+  autoStartVoice = false,
+  onExitHyperActive,
   gazeTracking = true,
 }: Props) {
   const [input,          setInput]          = useState('');
@@ -143,7 +150,7 @@ export default function AvatarMentorWidget({
   const [voiceFreq,      setVoiceFreq]      = useState<number | null>(null);
   const [voicePrint,     setVoicePrint]     = useState<VoicePrint | null>(null);
   const [isRecordingVoice, setIsRecordingVoice] = useState(false);
-  const [isConversing,   setIsConversing]   = useState(false);
+  const [isConversing,   setIsConversing]   = useState(Boolean(autoStartVoice));
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -524,9 +531,35 @@ export default function AvatarMentorWidget({
     };
   }, []);
 
-  // Greeting on mount
+  const speakReply = useCallback(async (text: string) => {
+    setSubtitle(text);
+    setSubtitleRole('assistant');
+    speakWithAvatar(
+      text,
+      teacherId,
+      () => setSpeaking(true),
+      () => setSpeaking(false)
+    );
+  }, [teacherId]);
+
+  // Greeting on mount (Hyper-Active warm human check-in vs standard mentor greeting)
   useEffect(() => {
     if (hasGreetedRef.current || messages.length > 0) return;
+    if (hyperActive) {
+      const greeting = buildHyperActiveGreeting({
+        studentName: String(careerProfile?.displayName || careerProfile?.full_name || ''),
+        teacherName: teacher.name,
+        targetRole: String(careerProfile?.targetRole || careerProfile?.target_role || ''),
+        completedQuestsCount: Number(careerProfile?.completedQuestsCount ?? 0),
+        completedMissionsCount: Number(careerProfile?.completedMissionsCount ?? 0),
+        missionStreak: Number(careerProfile?.missionStreak ?? careerProfile?.mission_streak ?? 0),
+        careerScore: Number(careerProfile?.careerScore ?? careerProfile?.ats_score ?? 0),
+      });
+      setMessages([{ role: 'assistant', content: greeting }]);
+      hasGreetedRef.current = true;
+      void speakReply(greeting);
+      return;
+    }
     if (activeQuest) {
       const g = `Hello! I am ${teacher.name}, your mentor for this quest: "${activeQuest.title}". We will cover: ${activeQuest.desc}. What questions do you have about this topic?`;
       setMessages([{ role: 'assistant', content: g }]);
@@ -540,29 +573,25 @@ export default function AvatarMentorWidget({
       setMessages([{ role: 'assistant', content: g }]);
       hasGreetedRef.current = true;
     }
-  }, [careerProfile, activeQuest, teacher.name, messages.length]);
+  }, [careerProfile, activeQuest, teacher.name, messages.length, hyperActive, speakReply]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
 
-  // Build ML-powered quick prompts
-  const quickPrompts = [
-    '🎯 What should I study next?',
-    `📊 How do I improve my Career Score from ${careerProfile?.ats_score||0}?`,
-    '⚡ What missions should I do today?',
-    '💼 Am I ready for job interviews?',
-    ...mlRecs.slice(0,2).map(r => `${r.icon} Show me ${r.label.toLowerCase()} options`),
-  ].slice(0, 5);
-
-  const speakReply = useCallback(async (text: string) => {
-    setSubtitle(text);
-    setSubtitleRole('assistant');
-    speakWithAvatar(
-      text,
-      teacherId,
-      () => setSpeaking(true),
-      () => setSpeaking(false)
-    );
-  }, [teacherId]);
+  // Build quick prompts (conversational human check-ins in Hyper-Active mode vs tactical in standard mode)
+  const quickPrompts = hyperActive
+    ? [
+        'My day was hectic today',
+        "I'm doing great — what's next?",
+        'Quiz me playfully on my track',
+        'Help me plan my next quick win',
+      ]
+    : [
+        '🎯 What should I study next?',
+        `📊 How do I improve my Career Score from ${careerProfile?.ats_score||0}?`,
+        '⚡ What missions should I do today?',
+        '💼 Am I ready for job interviews?',
+        ...mlRecs.slice(0,2).map(r => `${r.icon} Show me ${r.label.toLowerCase()} options`),
+      ].slice(0, 5);
 
   const sendMessage = useCallback(async (text?: string) => {
     const msg = (text || input).trim();
@@ -683,11 +712,20 @@ export default function AvatarMentorWidget({
       return;
     }
 
-    // 4. Conversational talk mode check
-    if (lower.includes('talk with u') || lower.includes('want to talk') || lower.includes('chat with u') || lower.includes('talk to you')) {
+    // 4. Conversational / Hyper-Active talk mode check
+    if (
+      isHyperActiveTrigger(effectiveMsg, teacher.name.split(' ')[1] || teacher.name) ||
+      lower.includes('talk with u') ||
+      lower.includes('want to talk') ||
+      lower.includes('chat with u') ||
+      lower.includes('talk to you') ||
+      lower.includes('need to speak') ||
+      lower.includes('need to chat') ||
+      lower.includes('need to chart')
+    ) {
       setIsConversing(true);
       if (onEnlarge) onEnlarge(true);
-      const talkReply = `Yes, I am here! What do you want to talk about? Let me help you prepare for SDE roleplays, or brainstorm your next system design concepts. Just speak up, I am listening!`;
+      const talkReply = `I'm all yours! How has your day been so far? Tell me what's on your mind or what you'd like to tackle next.`;
       setMessages(prev => [...prev, { role: 'assistant', content: talkReply }]);
       await speakReply(talkReply);
       return;
@@ -720,9 +758,9 @@ export default function AvatarMentorWidget({
     }
 
 
-    // 0ms Client-Side Session Micro-Cache (5-min TTL)
-    const sessionCacheKey = `pinit_cache_${teacherId}_${effectiveMsg.toLowerCase()}`;
-    if (typeof window !== 'undefined') {
+    // 0ms Client-Side Session Micro-Cache (5-min TTL; bypassed in Hyper-Active so human dialogue stays fresh)
+    const sessionCacheKey = `pinit_cache_${hyperActive ? 'hyper' : 'std'}_${teacherId}_${effectiveMsg.toLowerCase()}`;
+    if (!hyperActive && typeof window !== 'undefined') {
       try {
         const cachedRaw = sessionStorage.getItem(sessionCacheKey);
         if (cachedRaw) {
@@ -754,6 +792,7 @@ export default function AvatarMentorWidget({
           message: effectiveMsg,
           history: historyForAPI,
           teacherId,
+          hyperActive,
           careerContext: { ...careerProfile, activeQuest }
         }),
       });
@@ -845,7 +884,7 @@ export default function AvatarMentorWidget({
     } finally {
       setLoading(false);
     }
-  }, [input, loading, isConversing, onEnlarge, careerProfile, onTabShift, teacherId, activeQuest, speakReply, userId]);
+  }, [input, loading, isConversing, onEnlarge, careerProfile, onTabShift, teacherId, teacher.name, hyperActive, activeQuest, speakReply, userId]);
 
   // Keep track of latest speaking/loading states in refs to avoid stale closures in SpeechRecognition handlers
   const speakingRef = useRef(speaking);
@@ -1041,7 +1080,7 @@ export default function AvatarMentorWidget({
         } catch {}
       }
     };
-  }, [teacherId, setIsMinimized, speaking, loading, isConversing, speechCooldown]);
+  }, [teacherId, setIsMinimized, speaking, loading, isConversing, speechCooldown, onlyAvatar]);
 
   // Auto-close (minimize) timer when not responding/speaking
   useEffect(() => {
@@ -1091,7 +1130,7 @@ export default function AvatarMentorWidget({
   }
 
   const renderChatPanel = (
-    <div style={{ flex: isEnlarged ? 1.4 : 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: 'var(--bg2)' }}>
+    <div style={{ flex: isEnlarged ? 1.35 : 1, minWidth: 0, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: 'var(--bg2)' }}>
       {/* Messages List Container */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px 14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
         {messages.map((m, i) => {
@@ -1298,14 +1337,34 @@ export default function AvatarMentorWidget({
   }
 
   return (
-    <div className="avatar-mentor-widget" style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--bg2)' }}>
+    <div
+      className="avatar-mentor-widget"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        minHeight: 0,
+        background: 'var(--bg2)',
+        border: hyperActive ? 'none' : undefined,
+        borderRadius: hyperActive ? 0 : undefined,
+      }}
+    >
       {/* Header */}
-      <div className="mentor-header" style={{ background: `linear-gradient(135deg, ${teacher.color}, ${teacher.color}cc)`, flexShrink: 0, padding: '12px 16px' }}>
+      <div className="mentor-header" style={{ background: `linear-gradient(135deg, ${teacher.color}, ${teacher.color}cc)`, flexShrink: 0, padding: hyperActive ? '10px 14px' : '12px 16px' }}>
         <div className="mentor-info">
-          <span className="mentor-emoji" style={{ fontSize: '31px', marginRight: '4px' }}>{teacher.emoji}</span>
+          <span className="mentor-emoji" style={{ fontSize: hyperActive ? '26px' : '31px', marginRight: '4px' }}>{teacher.emoji}</span>
           <div>
-            <p className="mentor-name" style={{ fontSize: '15.5px' }}>{teacher.name}</p>
-            <p className="mentor-subtitle" style={{ fontSize: '11.5px' }}>Career Mentor {speaking ? '🔊' : ''} · {mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}</p>
+            <p className="mentor-name" style={{ fontSize: '15px', display: 'flex', alignItems: 'center', gap: 8 }}>
+              {teacher.name}
+              {hyperActive && (
+                <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '2px 7px', borderRadius: 999, background: 'rgba(15,23,42,0.45)', border: '1px solid rgba(255,255,255,0.28)', color: '#e0f2fe', fontFamily: 'var(--font-mono)' }}>
+                  Hyper-Active
+                </span>
+              )}
+            </p>
+            <p className="mentor-subtitle" style={{ fontSize: '11px' }}>
+              {hyperActive ? `Live Conversation ${speaking ? '🔊' : ''}` : `Career Mentor ${speaking ? '🔊' : ''} · ${mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}`}
+            </p>
           </div>
         </div>
         <div className="mentor-controls" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1337,15 +1396,18 @@ export default function AvatarMentorWidget({
               {isRecordingVoice ? '🎙️ Analyzing...' : '🎙️ Register Voice'}
             </span>
           )}
+          {hyperActive && onExitHyperActive && (
+            <button onClick={onExitHyperActive} className="minimize-btn" title="Exit Hyper-Active">✕</button>
+          )}
           <button onClick={() => setIsMinimized(true)} className="minimize-btn" title="Minimize">_</button>
         </div>
       </div>
 
       {isEnlarged ? (
-        /* Horizontal Split Pane for Enlarged View */
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'row', overflow: 'hidden' }}>
+        /* Horizontal Split Pane for Enlarged / Hyper-Active View (Left: Avatar | Right: Chat) */
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'row', overflow: 'hidden' }}>
           {/* Left Column: Avatar Canvas */}
-          <div style={{ position: 'relative', flex: 1.1, background: 'var(--bg3)', overflow: 'hidden', borderRight: '1px solid var(--border)' }}>
+          <div style={{ position: 'relative', flex: 1.05, minWidth: 0, background: 'var(--bg3)', overflow: 'hidden', borderRight: '1px solid var(--border)' }}>
             <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
             {aiState !== 'idle' && (
               <div style={{

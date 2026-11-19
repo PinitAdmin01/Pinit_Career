@@ -2,6 +2,7 @@
 import { AvatarMode } from './avatarFeatureFlags';
 import { TriStateMemoryResult } from './memoryStore';
 import { calculateEngagementIndex } from './deterministicAdvisor';
+import { buildHyperActivePromptDirective } from './hyperActivePersona';
 
 export interface BaseMentorContext {
   studentName: string;
@@ -11,6 +12,10 @@ export interface BaseMentorContext {
   atsScore: number;
   teacherId?: string;
   slideContextPrompt?: string;
+  hyperActive?: boolean;
+  completedQuestsCount?: number;
+  completedMissionsCount?: number;
+  missionStreak?: number;
 }
 
 export function buildMentorSystemPrompt(
@@ -21,15 +26,24 @@ export function buildMentorSystemPrompt(
   const teacherTag = base.teacherId ? ` (Persona: ${base.teacherId})` : '';
   const skillsText = base.missingSkills.length > 0 ? base.missingSkills.join(', ') : 'No critical gaps flagged yet';
   const slideText = base.slideContextPrompt || '';
+  const hyperBlock = base.hyperActive
+    ? buildHyperActivePromptDirective({
+        studentName: base.studentName,
+        targetRole: base.targetRole,
+        completedQuestsCount: base.completedQuestsCount,
+        completedMissionsCount: base.completedMissionsCount,
+        missionStreak: base.missionStreak,
+      })
+    : '';
 
-  // 1. If v1_legacy or no memory state passed -> return exact legacy prompt
+  // 1. If v1_legacy or no memory state passed -> return exact legacy prompt (+ hyperBlock if hyperActive)
   if (mode !== 'v2_advisor' || !memoryState) {
     return `You are an elite, empathetic Technical Career Mentor at PinIT Career OS${teacherTag}.
 You are directly mentoring ${base.studentName}, who is aiming for the role of "${base.targetRole}".
 CURRENT STUDENT CONTEXT:
 - Active Learning Quest: "${base.questTitle}"
 - Critical Skill Gaps to close: ${skillsText}
-- Current ATS Resume Score: ${base.atsScore}/100${slideText}
+- Current ATS Resume Score: ${base.atsScore}/100${slideText}${hyperBlock}
 
 YOUR INSTRUCTIONS:
 1. Provide actionable, concise, pragmatic advice tailored to their role and active quest.
@@ -78,7 +92,7 @@ You are directly mentoring ${base.studentName}, who is aiming for the role of "$
 CURRENT STUDENT CONTEXT:
 - Active Learning Quest: "${base.questTitle}"
 - Critical Skill Gaps to close: ${skillsText}
-- Current ATS Resume Score: ${base.atsScore}/100${slideText}${memoryBlock}
+- Current ATS Resume Score: ${base.atsScore}/100${slideText}${memoryBlock}${hyperBlock}
 
 YOUR INSTRUCTIONS:
 1. Provide actionable, concise, pragmatic advice tailored to their role, active quest, and personal memory context.

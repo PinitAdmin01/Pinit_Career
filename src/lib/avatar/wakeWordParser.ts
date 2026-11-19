@@ -60,3 +60,40 @@ export function parseWakeWord(
     isStandaloneWake: cleanCommand.length === 0,
   };
 }
+
+/**
+ * Detects conversational "Hyper-Active" activation phrases such as:
+ * - "hey priya we need to chat" / "hey priya we need to chart" (common STT typo)
+ * - "hwy priya we need to speak" / "hey priya let's talk"
+ * - "hyper active" / "hyperactive mode"
+ */
+export function isHyperActiveTrigger(
+  transcript: unknown,
+  configuredMentor?: string
+): boolean {
+  if (typeof transcript !== 'string') return false;
+  const cleaned = transcript.trim().toLowerCase();
+  if (!cleaned) return false;
+
+  if (/\bhyper[\s-]?active\b/i.test(cleaned)) {
+    return true;
+  }
+
+  const extraMentor =
+    configuredMentor && /^[a-zA-Z0-9_-]+$/.test(configuredMentor)
+      ? `|${configuredMentor.toLowerCase()}`
+      : '';
+  const mentorRegex = new RegExp(`\\b(priya|anish${extraMentor})\\b`, 'i');
+  const greetingWithMentorRegex = new RegExp(
+    `\\b(?:hey|hwy|hay|hi|hello)[,\\s]+(?:ms\\.?\\s+|mr\\.?\\s+)?(priya|anish${extraMentor})\\b`,
+    'i'
+  );
+
+  const addressesMentor = mentorRegex.test(cleaned) || greetingWithMentorRegex.test(cleaned);
+  if (!addressesMentor) return false;
+
+  const talkIntentRegex =
+    /\b(?:(?:we|i)\s+(?:need|want|have)\s+to|wanna|let'?s|can\s+we|please|open)\s+(?:chat|chart|speak|talk|converse|discuss)\b|\b(?:chat|chart|speak|talk)\s+(?:with|to)\s+(?:me|you|u)\b/i;
+
+  return talkIntentRegex.test(cleaned);
+}
