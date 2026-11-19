@@ -222,10 +222,30 @@ type PyodideRuntime = {
 
 let serverPyodidePromise: Promise<PyodideRuntime> | null = null;
 
+function resolveServerPyodideIndexUrl(): string | undefined {
+  const candidates = [
+    path.join(process.cwd(), 'node_modules', 'pyodide'),
+    path.join(process.cwd(), 'public', 'pyodide'),
+  ];
+  for (const dir of candidates) {
+    try {
+      if (fs.existsSync(path.join(dir, 'pyodide.asm.wasm'))) {
+        return dir.endsWith(path.sep) ? dir : `${dir}${path.sep}`;
+      }
+    } catch {
+      // ignore fs errors and try next candidate
+    }
+  }
+  return undefined;
+}
+
 async function getServerPyodide(): Promise<PyodideRuntime> {
   if (!serverPyodidePromise) {
+    const indexURL = resolveServerPyodideIndexUrl();
     serverPyodidePromise = import('pyodide')
-      .then((mod) => mod.loadPyodide() as unknown as Promise<PyodideRuntime>)
+      .then((mod) =>
+        (indexURL ? mod.loadPyodide({ indexURL }) : mod.loadPyodide()) as unknown as Promise<PyodideRuntime>
+      )
       .catch((err) => {
         serverPyodidePromise = null;
         throw err;

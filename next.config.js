@@ -128,6 +128,7 @@ const nextConfig = {
       '/api/visuals': ['./src/lib/data/lessonVisuals/**/*', './src/generated/longLessons/**/*'],
       '/api/lesson': ['./src/generated/longLessons/**/*'],
       '/api/quests/grade-test': ['./src/generated/longLessons/**/*'],
+      '/api/quests/verify': ['./node_modules/pyodide/**/*', './public/pyodide/**/*'],
     },
     outputFileTracingExcludes: {
       '*': [

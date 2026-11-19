@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
 import { supabase } from '@/lib/supabaseClient';
@@ -352,9 +352,19 @@ export function useWorkspaceState({
     }
   }, [questId, completedQuests, cOS, unlockedItems]);
 
+  const hydratedQuestKeyRef = useRef<string | null>(null);
+
   useEffect(() => {
     if (!quest) return;
-    const savedCode = cOS.onboardingAnswers?.questCodes?.[questId] || (typeof window !== 'undefined' ? localStorage.getItem(`pinit_code_${userId}_${questId}`) : null);
+    const hydrateKey = `${userId}:${questId}:${isCompleted ? 'done' : 'open'}`;
+    if (hydratedQuestKeyRef.current === hydrateKey) return;
+    hydratedQuestKeyRef.current = hydrateKey;
+
+    const localDraft = typeof window !== 'undefined' ? localStorage.getItem(`pinit_code_${userId}_${questId}`) : null;
+    // For uncompleted quests, only restore the current browser's localStorage draft so a fresh
+    // session/Incognito window starts clean with starterCode instead of pre-filling stale account drafts.
+    // For completed quests (read-only review), also fall back to the saved account submission.
+    const savedCode = localDraft || (isCompleted ? cOS.onboardingAnswers?.questCodes?.[questId] : null);
     
     // Auto-migrate stale legacy function boilerplate from earlier course iterations on Day 1
     const isLegacyDay1ExamStarter = questId === 'python-exam-day-1' && savedCode && /^\s*def\s+page_title\s*\(\s*\)\s*:\s*(?:pass|\.\.\.)?\s*$/m.test(savedCode.trim());
@@ -365,7 +375,7 @@ export function useWorkspaceState({
     } else if (quest.starterCode) {
       setCode(quest.starterCode);
     }
-  }, [quest, questId, userId, cOS.onboardingAnswers]);
+  }, [quest, questId, userId, isCompleted, cOS.onboardingAnswers]);
 
   const handleUnlockQuest = async () => {
     const teacher = TEACHERS.find(t => t.id === selectedTeacherId) || TEACHERS[0];
