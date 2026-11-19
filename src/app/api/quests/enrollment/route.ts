@@ -14,6 +14,7 @@ import {
   insertCourseEnrollment,
   isCoursePlanId,
   normalizeTrack,
+  pauseActiveCourseEnrollments,
   type CourseEnrollment,
   type CoursePaymentMethod,
   type CourseTrack,
@@ -161,7 +162,7 @@ export async function POST(req: Request) {
       console.error('[api/quests/enrollment] lookup failed:', existing.error);
       return paymentsUnavailable();
     }
-    if (existing.enrollment) {
+    if (existing.enrollment && existing.enrollment.track === track) {
       return enrollmentResponse(existing.enrollment, { newBalance: null, pinsDeducted: 0, rewardPinsCredited: 0 }, true);
     }
 
@@ -191,6 +192,12 @@ export async function POST(req: Request) {
         );
       }
       newBalance = typeof spendRes.new_balance === 'number' ? spendRes.new_balance : null;
+    }
+
+    // Pause any previous active enrollment (e.g. switching tracks or programs) before inserting
+    const paused = await pauseActiveCourseEnrollments(admin, userId);
+    if (paused.error) {
+      console.error('[api/quests/enrollment] failed to pause previous enrollment:', paused.error);
     }
 
     const enrollment = buildCourseEnrollment({
@@ -259,9 +266,12 @@ export async function POST(req: Request) {
 function enrollLocally(userId: string, planId: string, track: CourseTrack, method: 'pins' | 'sandbox') {
   const local = readLocalDb();
   local.enrollments = local.enrollments || [];
-  const existing = local.enrollments.find((e) => e.userId === userId && e.planId === planId && e.status === 'active');
+  const existing = local.enrollments.find((e) => e.userId === userId && e.planId === planId && e.track === track && e.status === 'active');
   if (existing) {
     return enrollmentResponse(existing as CourseEnrollment, { newBalance: null, pinsDeducted: 0, rewardPinsCredited: 0 }, true);
+  }
+  for (const e of local.enrollments) {
+    if (e.userId === userId && e.status === 'active') e.status = 'paused';
   }
 
   const pinCost = COURSE_PLAN_PIN_COSTS[planId];
@@ -295,6 +305,41 @@ function enrollLocally(userId: string, planId: string, track: CourseTrack, metho
     pinsDeducted: enrollment.pinsDeducted,
     rewardPinsCredited: method === 'pins' ? 0 : reward,
   });
+}
+
+/**
+ * Pause/deactivate the authenticated student's active course enrollment
+ * when they click "Change Course" to switch certification tracks or plans.
+ * Preserves historical records and certificates while freeing the active slot.
+ */
+export async function DELETE(req: Request) {
+  try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error || !gated.user) {
+      return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
+    }
+    const userId = gated.user.id;
+
+    const admin = getAdminClient();
+    if (admin) {
+      const paused = await pauseActiveCourseEnrollments(admin, userId);
+      if (paused.error) {
+        console.error('[api/quests/enrollment] DELETE pause failed:', paused.error);
+        return NextResponse.json({ ok: false, error: 'PAUSE_FAILED', message: paused.error }, { status: 500 });
+      }
+      return NextResponse.json({ ok: true, status: 'paused' });
+    }
+    if (process.env.NODE_ENV === 'production') return paymentsUnavailable();
+
+    const local = readLocalDb();
+    local.enrollments = (local.enrollments || []).map((e) =>
+      e.userId === userId && e.status === 'active' ? { ...e, status: 'paused' } : e
+    );
+    writeLocalDb(local);
+    return NextResponse.json({ ok: true, status: 'paused' });
+  } catch (err: any) {
+    return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
+  }
 }
 
 // Milestones are written only by POST /api/quests/capstone, after the server checks each sprint.

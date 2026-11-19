@@ -174,6 +174,18 @@ export async function findCourseEnrollmentByPayment(admin: SupabaseClient, userI
   return { enrollment: data ? toCourseEnrollment(data as EnrollmentRow) : null, error: null };
 }
 
+export async function pauseActiveCourseEnrollments(
+  admin: SupabaseClient,
+  userId: string,
+): Promise<{ error: string | null }> {
+  const { error } = await admin
+    .from(TABLE)
+    .update({ status: 'paused' })
+    .eq('user_id', userId)
+    .eq('status', 'active');
+  return { error: error ? error.message : null };
+}
+
 /** `duplicate` is true when a unique index rejected the row (concurrent double purchase). */
 export async function insertCourseEnrollment(
   admin: SupabaseClient,
@@ -233,6 +245,13 @@ export async function fulfilCardCoursePurchase(
   const existing = await findCourseEnrollmentByPayment(admin, input.userId, input.paymentId);
   if (existing.error) return { enrollment: null, rewardPinsCredited: 0, error: existing.error };
   if (existing.enrollment) return { enrollment: existing.enrollment, rewardPinsCredited: 0, error: null };
+
+  // Pause any prior active course enrollment (e.g. student switched tracks/programs)
+  // so the partial unique index uniq_active_crash_enrollment_per_plan never blocks a verified purchase.
+  const paused = await pauseActiveCourseEnrollments(admin, input.userId);
+  if (paused.error) {
+    return { enrollment: null, rewardPinsCredited: 0, error: paused.error };
+  }
 
   const enrollment = buildCourseEnrollment({ ...input, paymentMethod: 'razorpay' });
   const inserted = await insertCourseEnrollment(admin, enrollment);
