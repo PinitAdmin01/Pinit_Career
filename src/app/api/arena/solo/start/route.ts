@@ -17,7 +17,11 @@ export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));
     const problemId = typeof body?.problemId === 'string' ? body.problemId.trim() : '';
-    const requestId = typeof body?.requestId === 'string' ? body.requestId.trim() : randomUUID();
+    const suppliedRequestId = typeof body?.requestId === 'string' ? body.requestId.trim() : '';
+    if (!auth.user.isGuest && !suppliedRequestId) {
+      return NextResponse.json({ error: 'IDEMPOTENCY_KEY_REQUIRED' }, { status: 400 });
+    }
+    const requestId = suppliedRequestId || randomUUID();
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId)) {
       return NextResponse.json({ error: 'INVALID_REQUEST_ID' }, { status: 400 });
     }
@@ -31,7 +35,7 @@ export async function POST(req: Request) {
 
     // Guest sessions are intentionally not persisted to student profiles.
     if (auth.user.isGuest) {
-      return NextResponse.json({ ok: true, matchId: randomUUID(), startedAt: startedAt.toISOString(), deadlineAt: deadlineAt.toISOString(), persisted: false });
+      return NextResponse.json({ ok: true, matchId: requestId, problemId: problem.id, startedAt: startedAt.toISOString(), deadlineAt: deadlineAt.toISOString(), persisted: false });
     }
 
     const { data, error } = await getSupabaseAdmin().rpc('start_solo_arena_match_with_pin_fee', {
@@ -44,7 +48,7 @@ export async function POST(req: Request) {
     });
     if (error || !data?.ok) {
       if (data?.error === 'INSUFFICIENT_PINS') {
-        return NextResponse.json({ error: 'INSUFFICIENT_PINS', message: 'You need 10 Pins to enter a rated Arena match.' }, { status: 402 });
+        return NextResponse.json({ error: 'INSUFFICIENT_PINS', message: 'You need 10 Pins to start AI practice.' }, { status: 402 });
       }
       if (data?.error === 'IDEMPOTENCY_KEY_CONFLICT') {
         return NextResponse.json({ error: 'IDEMPOTENCY_KEY_CONFLICT' }, { status: 409 });
@@ -56,6 +60,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       ok: true,
       matchId: data.matchId,
+      problemId: typeof data.problemId === 'string' ? data.problemId : problem.id,
       startedAt: data.startedAt,
       deadlineAt: data.deadlineAt,
       persisted: true,

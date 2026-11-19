@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { POST as startSolo } from '../src/app/api/arena/solo/start/route';
+import { POST as evaluateCode } from '../src/app/api/code/evaluate/route';
 import { POST as createRoom } from '../src/app/api/arena/create-room/route';
 import { POST as settleSolo } from '../src/app/api/arena/settle-solo/route';
 import { POST as joinLeague } from '../src/app/api/leaderboard/join/route';
@@ -73,6 +74,13 @@ test('Arena and league API handlers enforce the public contracts without externa
     assert.equal(invalidProblem.status, 400, 'Arena rejects problems outside its authoritative catalog');
     assert.equal((await invalidProblem.json()).error, 'UNSUPPORTED_PROBLEM');
 
+    const missingSoloIdempotencyKey = await startSolo(new Request('http://localhost/api/arena/solo/start', {
+      ...jsonBody({ problemId: problem.id }),
+      headers: { authorization: 'Bearer demo-token-bypass' },
+    }));
+    assert.equal(missingSoloIdempotencyKey.status, 400, 'Persistent wallet charges require a replay-safe start key');
+    assert.equal((await missingSoloIdempotencyKey.json()).error, 'IDEMPOTENCY_KEY_REQUIRED');
+
     const guestMatchResponse = await startSolo(new Request('http://localhost/api/arena/solo/start', {
       ...jsonBody({ problemId: problem.id }),
       headers: guestHeaders,
@@ -101,6 +109,7 @@ test('Arena and league API handlers enforce the public contracts without externa
         ok: true,
         replayed: false,
         matchId: 'server-paid-match-id',
+        problemId: 'canonical-server-problem',
         startedAt: '2026-11-17T12:00:00.000Z',
         deadlineAt: '2026-11-17T12:10:00.000Z',
         newBalance: 40,
@@ -124,6 +133,7 @@ test('Arena and league API handlers enforce the public contracts without externa
     const paidMatch = await paidMatchResponse.json();
     assert.equal(paidMatch.persisted, true);
     assert.equal(paidMatch.matchId, 'server-paid-match-id');
+    assert.equal(paidMatch.problemId, 'canonical-server-problem', 'A replay uses the challenge already stored with the charged match');
     assert.equal(paidMatch.newBalance, 40);
     assert.equal(paidMatchRpcArgs?.p_request_id, paidMatchRequestId);
     assert.equal(paidMatchRpcArgs?.p_user_id, 'test_user_001', 'The server derives the charged user from verified auth');
@@ -137,10 +147,63 @@ test('Arena and league API handlers enforce the public contracts without externa
     assert.equal(rejectedPaidMatchResponse.status, 402);
     assert.equal((await rejectedPaidMatchResponse.json()).error, 'INSUFFICIENT_PINS');
 
-    let profileXp = 99;
-    let profileElo = 1200;
+    const malformedEvaluation = await evaluateCode(new Request('http://localhost/api/code/evaluate', {
+      ...jsonBody(null),
+      headers: { authorization: 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+    }) as any);
+    assert.equal(malformedEvaluation.status, 400, 'Malformed evaluation bodies return a client error instead of crashing into a 500');
+    assert.equal((await malformedEvaluation.json()).error, 'INVALID_REQUEST_BODY');
+
+    const inheritedProblem = await evaluateCode(new Request('http://localhost/api/code/evaluate', {
+      ...jsonBody({ problemId: 'toString', code: 'function toString() { return 1; }', language: 'javascript' }),
+      headers: { authorization: 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+    }) as any);
+    assert.equal(inheritedProblem.status, 400, 'Inherited object property names cannot be treated as supported problem IDs');
+    assert.equal((await inheritedProblem.json()).error, 'UNSUPPORTED_PROBLEM');
+
+    let unexpectedXpRpcCalls = 0;
+    setSupabaseAdminForTests({
+      from(table: string) {
+        assert.equal(table, 'arena_solo_matches');
+        const query = {
+          select() { return query; },
+          eq() { return query; },
+          maybeSingle: async () => ({ data: null, error: { message: 'temporary lookup failure' } }),
+        };
+        return query;
+      },
+      rpc: async () => {
+        unexpectedXpRpcCalls += 1;
+        return { data: { ok: true }, error: null };
+      },
+    });
+    const evaluationDuringMatchLookupFailure = await evaluateCode(new Request('http://localhost/api/code/evaluate', {
+      ...jsonBody({
+        problemId: 'war_two_sum_01',
+        matchId: 'solo-practice-match',
+        rewardEligible: true,
+        language: 'javascript',
+        code: 'function twoSum(nums, target) { const seen = new Map(); for (let i = 0; i < nums.length; i++) { const need = target - nums[i]; if (seen.has(need)) return [seen.get(need), i]; seen.set(nums[i], i); } return []; }',
+      }),
+      headers: { authorization: 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+    }) as any);
+    assert.equal(evaluationDuringMatchLookupFailure.status, 200);
+    const evaluationResult = await evaluationDuringMatchLookupFailure.json();
+    assert.equal(evaluationResult.passed, true, 'The solution is still evaluated even if its match reward check is unavailable');
+    assert.equal(evaluationResult.rewardEligible, false, 'The server fails closed on reward eligibility lookup errors');
+    assert.equal(evaluationResult.xpAwarded, 0);
+    assert.equal(unexpectedXpRpcCalls, 0, 'The reward grant must not run after an uncertain practice-match check');
+
+    let profileXp: unknown = 99;
+    let profileElo: number | null = 1200;
     let profileWins = 0;
+    let profileRole: string | null = 'student';
+    let profileExists = true;
+    let profileJoinedAt: string | null = null;
+    let profileTier = 'browns';
     let savedMembership: Record<string, unknown> | null = null;
+    let returnPersistedMembership = true;
+    let simulateConcurrentJoin = false;
     const admin = {
       from(table: string) {
         assert.equal(table, 'users');
@@ -150,15 +213,15 @@ test('Arena and league API handlers enforce the public contracts without externa
               eq(_column: string, _value: string) {
                 return {
                   maybeSingle: async () => ({
-                    data: {
+                    data: profileExists ? {
                       id: 'api-student',
-                      role: 'student',
+                      role: profileRole,
                       xp_total: profileXp,
-                      league_tier: 'browns',
-                      league_joined_at: null,
+                      league_tier: profileTier,
+                      league_joined_at: profileJoinedAt,
                       arena_elo: profileElo,
                       arena_wins: profileWins,
-                    },
+                    } : null,
                     error: null,
                   }),
                 };
@@ -167,9 +230,35 @@ test('Arena and league API handlers enforce the public contracts without externa
           },
           update(payload: Record<string, unknown>) {
             return {
-              eq: async () => {
+              eq() {
                 savedMembership = payload;
-                return { error: null };
+                return {
+                  is() {
+                    return {
+                      select() {
+                        return {
+                          maybeSingle: async () => {
+                            if (!returnPersistedMembership) {
+                              if (simulateConcurrentJoin) {
+                                profileJoinedAt = new Date().toISOString();
+                                profileTier = 'browns';
+                                profileElo = Number(payload.arena_elo);
+                              }
+                              return { data: null, error: null };
+                            }
+                            profileJoinedAt = String(payload.league_joined_at);
+                            profileTier = String(payload.league_tier);
+                            profileElo = Number(payload.arena_elo);
+                            return {
+                              data: { league_tier: profileTier, league_joined_at: profileJoinedAt, arena_elo: profileElo },
+                              error: null,
+                            };
+                          },
+                        };
+                      },
+                    };
+                  },
+                };
               },
             };
           },
@@ -177,6 +266,9 @@ test('Arena and league API handlers enforce the public contracts without externa
       },
     };
     setSupabaseAdminForTests(admin);
+
+    const unauthorizedJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', jsonBody({})));
+    assert.equal(unauthorizedJoin.status, 401, 'An unverified user cannot enroll through the API');
 
     const lockedJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
       ...jsonBody({}),
@@ -186,7 +278,42 @@ test('Arena and league API handlers enforce the public contracts without externa
     assert.equal((await lockedJoin.json()).error, 'LEAGUE_ENTRY_LOCKED');
     assert.equal(savedMembership, null, 'An under-qualified profile is not enrolled');
 
+    profileXp = 'Infinity';
+    const invalidXpJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(invalidXpJoin.status, 403, 'Non-finite XP cannot satisfy the entry requirement');
+
     profileXp = 100;
+    profileRole = 'teacher';
+    const staffJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(staffJoin.status, 403);
+    assert.equal((await staffJoin.json()).error, 'STUDENTS_ONLY');
+
+    profileRole = '';
+    const emptyRoleJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(emptyRoleJoin.status, 403, 'A malformed non-null role cannot enroll as a student');
+
+    profileRole = 'student';
+    profileExists = false;
+    const missingProfileJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(missingProfileJoin.status, 404);
+    assert.equal((await missingProfileJoin.json()).error, 'USER_PROFILE_NOT_FOUND');
+    profileExists = true;
+
+    profileXp = 100;
+    profileElo = 1200;
+    profileWins = 0;
     const qualifiedJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
       ...jsonBody({}),
       headers: { authorization: 'Bearer test-token-api-student' },
@@ -194,16 +321,76 @@ test('Arena and league API handlers enforce the public contracts without externa
     assert.equal(qualifiedJoin.status, 200);
     const joined = await qualifiedJoin.json();
     assert.deepEqual(
-      { ok: joined.ok, leagueTier: joined.leagueTier, arenaElo: joined.arenaElo, careerXp: joined.careerXp },
-      { ok: true, leagueTier: 'browns', arenaElo: 100, careerXp: 100 },
+      { ok: joined.ok, leagueTier: joined.leagueTier, arenaElo: joined.arenaElo, careerXp: joined.careerXp, currentUserHasJoined: joined.currentUserHasJoined },
+      { ok: true, leagueTier: 'browns', arenaElo: 100, careerXp: 100, currentUserHasJoined: true },
     );
+    assert.ok(typeof joined.joinedAt === 'string');
     assert.equal(savedMembership?.league_tier, 'browns');
     assert.ok(typeof savedMembership?.league_joined_at === 'string');
     assert.equal(savedMembership?.arena_elo, 100, 'A legacy zero-win 1200 rating is repaired to the agreed 100 baseline');
 
     // Ensure the mocked values are all used so accidental test fixture drift is visible.
-    assert.equal(profileElo, 1200);
+    assert.equal(profileElo, 100);
     assert.equal(profileWins, 0);
+
+    // A retry is idempotent and a previous member stays enrolled if XP later
+    // falls below the entry threshold; the existing row must not be rewritten.
+    profileXp = 0;
+    profileTier = 'silver';
+    savedMembership = null;
+    const repeatedJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(repeatedJoin.status, 200);
+    const repeatedJoinBody = await repeatedJoin.json();
+    assert.equal(repeatedJoinBody.alreadyJoined, true);
+    assert.equal(repeatedJoinBody.leagueTier, 'silver', 'Idempotent calls preserve the member\'s promoted division');
+    assert.equal(savedMembership, null, 'An idempotent retry does not rewrite the membership row');
+
+    // Missing Elo uses the agreed default rather than Number(null) becoming 0.
+    profileXp = 100;
+    profileJoinedAt = null;
+    profileElo = null;
+    const nullEloJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(nullEloJoin.status, 200);
+    assert.equal((await nullEloJoin.json()).arenaElo, 100);
+
+    profileJoinedAt = null;
+    profileElo = -25;
+    const negativeEloJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(negativeEloJoin.status, 200);
+    assert.equal((await negativeEloJoin.json()).arenaElo, 100, 'A corrupt negative rating is repaired to the baseline');
+
+    // Simulate a concurrent request winning between our read and conditional
+    // update: the losing request must re-read and report the persisted join.
+    profileJoinedAt = null;
+    profileElo = 100;
+    profileTier = 'browns';
+    returnPersistedMembership = false;
+    simulateConcurrentJoin = true;
+    const concurrentMembershipJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(concurrentMembershipJoin.status, 200, 'A concurrent successful join is returned as success after readback');
+    assert.equal((await concurrentMembershipJoin.json()).alreadyJoined, true);
+
+    profileJoinedAt = null;
+    simulateConcurrentJoin = false;
+    returnPersistedMembership = false;
+    const rejectedUnpersistedJoin = await joinLeague(new Request('http://localhost/api/leaderboard/join', {
+      ...jsonBody({}),
+      headers: { authorization: 'Bearer test-token-api-student' },
+    }));
+    assert.equal(rejectedUnpersistedJoin.status, 503, 'The join API must not report success when the membership write returns no row');
+    assert.equal((await rejectedUnpersistedJoin.json()).error, 'LEAGUE_JOIN_NOT_PERSISTED');
   } finally {
     setSupabaseAdminForTests(null);
     if (originalBypass === undefined) delete process.env.ALLOW_DEV_AUTH_BYPASS;

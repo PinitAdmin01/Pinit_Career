@@ -6521,6 +6521,8 @@ export class CodeWarsApiService {
     language: string;
     timeSpentSeconds: number;
     problemId?: string;
+    /** Practice matches are for learning only; they must not grant XP or portfolio evidence. */
+    rewardEligible?: boolean;
   }): Promise<{
     passed: boolean;
     score: number;
@@ -6533,6 +6535,7 @@ export class CodeWarsApiService {
     newXp?: number;
   }> {
     const { matchId, studentId, code, language, timeSpentSeconds, problemId: paramProblemId } = params;
+    let rewardEligible = params.rewardEligible !== false;
     const matches = this.getStudentMatches(studentId);
     let match = matches.find(m => m.id === matchId);
     if (!match) {
@@ -6574,6 +6577,7 @@ export class CodeWarsApiService {
           testsPassed?: number;
           totalTests?: number;
           error?: string;
+          rewardEligible?: boolean;
           xpAwarded?: number;
           newXp?: number;
         } | null = null;
@@ -6612,14 +6616,17 @@ export class CodeWarsApiService {
                 signal: controller.signal,
                 body: JSON.stringify({
                   problemId: problem.id,
+                  matchId,
                   code,
                   language,
+                  rewardEligible,
                 }),
               });
               clearTimeout(timeoutId);
 
               if (res.ok) {
                 evalResult = await res.json();
+                if (evalResult?.rewardEligible === false) rewardEligible = false;
               } else {
                 console.warn(`[CodeWarsApi] Remote evaluation endpoint returned HTTP ${res.status}, activating resilient universal evaluator fallback`);
               }
@@ -6658,6 +6665,7 @@ export class CodeWarsApiService {
 
         if (evalResult) {
           testsPassed = typeof evalResult.testsPassed === 'number' ? evalResult.testsPassed : 0;
+          if (evalResult.rewardEligible === false) rewardEligible = false;
           if (evalResult.error) {
             evalErrorLog = evalResult.error;
           }
@@ -6692,31 +6700,33 @@ export class CodeWarsApiService {
       currentMatch.timeSpentSeconds = timeSpentSeconds;
       currentMatch.executionLogs = logs;
 
-      // Record authentic evidence record into PathwayApiService
-      const evResult = await PathwayApiService.recordEvidence({
-        id: `ev_codewar_${currentMatch.id}`,
-        competencyId: problem.competencyId,
-        competencyVersion: '1.0.0',
-        studentId,
-        programId: 'prog_swe_accelerated_9m',
-        evidenceClass: 'application',
-        difficulty: problem.difficulty as EvidenceDifficulty,
-        evidenceFamilyId: `codewars_${problem.id}`,
-        sourceType: 'quest',
-        sourceId: `codewar_match_${currentMatch.id}`,
-        attemptId: `att_duel_01`,
-        score,
-        evaluatorType: 'deterministic',
-        evaluatorVersion: 'arena-test-runner-v2',
-        rubricVersion: 'rubric-dsa-benchmarks',
-        timestamp: Date.now(),
-        artifacts: {
-          executionLogSnippet: logs,
-        }
-      });
+      if (rewardEligible) {
+        // Only rated/private PvP completions become official portfolio evidence.
+        const evResult = await PathwayApiService.recordEvidence({
+          id: `ev_codewar_${currentMatch.id}`,
+          competencyId: problem.competencyId,
+          competencyVersion: '1.0.0',
+          studentId,
+          programId: 'prog_swe_accelerated_9m',
+          evidenceClass: 'application',
+          difficulty: problem.difficulty as EvidenceDifficulty,
+          evidenceFamilyId: `codewars_${problem.id}`,
+          sourceType: 'quest',
+          sourceId: `codewar_match_${currentMatch.id}`,
+          attemptId: `att_duel_01`,
+          score,
+          evaluatorType: 'deterministic',
+          evaluatorVersion: 'arena-test-runner-v2',
+          rubricVersion: 'rubric-dsa-benchmarks',
+          timestamp: Date.now(),
+          artifacts: {
+            executionLogSnippet: logs,
+          }
+        });
 
-      evidenceRecordId = evResult.evidenceRecord.id;
-      currentMatch.evidenceRecordId = evidenceRecordId;
+        evidenceRecordId = evResult.evidenceRecord.id;
+        currentMatch.evidenceRecordId = evidenceRecordId;
+      }
     } else {
       currentMatch.status = 'defeat';
       currentMatch.score = score;

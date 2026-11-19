@@ -38,7 +38,7 @@ describe('Arena lobby, standings link, and scoring rules', () => {
       'Expected the concise Arena standings note to be present'
     );
     assert.ok(arenaContent.includes('href="/leaderboard?mode=global"'), 'Arena must open the global League Points board');
-    assert.ok(arenaContent.includes('Arena wins add Arena Points to your League Points.'));
+    assert.ok(arenaContent.includes('PvP wins add Arena Points to your League Points. AI practice never changes your competitive stats.'));
   });
 
   it('keeps private-room actions and removes the matchmaking queue card', () => {
@@ -50,6 +50,37 @@ describe('Arena lobby, standings link, and scoring rules', () => {
     assert.ok(arenaContent.includes('PRIVATE BATTLE'), 'Private-room micro-badge must be present');
     assert.ok(arenaContent.includes('INVITE CODE'), 'Room-code micro-badge must be present');
     assert.ok(arenaContent.includes("background: 'var(--card)'"), 'Cards must use var(--card) for Light/Dark parity');
+  });
+
+  it('keeps AI practice reward-free and does not force the app into gaming mode', () => {
+    const appShell = fs.readFileSync(path.resolve('src/components/ui/AppShell.tsx'), 'utf8');
+    const codeWarsService = fs.readFileSync(path.resolve('src/lib/api/codeWarsApi.ts'), 'utf8');
+    const evaluateRoute = fs.readFileSync(path.resolve('src/app/api/code/evaluate/route.ts'), 'utf8');
+    const globalStyles = fs.readFileSync(path.resolve('src/styles/globals.css'), 'utf8');
+
+    assert.ok(arenaContent.includes('Turing AI Practice'), 'The lobby must identify the bot match as practice');
+    assert.ok(arenaContent.includes('Practice results never change your ELO, Arena Points, XP, or ranked stats.'));
+    assert.ok(arenaContent.includes('rewardEligible: Boolean(activeRoom)'), 'Only private PvP submissions can earn rewards');
+    assert.ok(arenaContent.includes('TURING AI PRACTICE · RATINGS UNCHANGED'));
+    assert.ok(arenaContent.includes("soloMatch ? 'ELO · NO CHANGE' : 'ELO RATING'"));
+    assert.ok(arenaContent.includes("soloMatch ? 'ARENA POINTS · NONE' : 'ARENA POINTS'"));
+    assert.ok(arenaContent.includes('10 Pin entry fee was charged when the match started'));
+
+    assert.ok(!arenaContent.includes('data-arena-active'));
+    assert.ok(!arenaContent.includes('pinit-arena-duel-toggle'));
+    assert.ok(!appShell.includes('isArenaDuelActive'));
+    assert.ok(!appShell.includes('pinit-arena-duel-toggle'));
+    assert.ok(!globalStyles.includes('data-arena-active'));
+    assert.ok(!arenaContent.includes('GAMING MODE ACTIVE · 100% IMMERSIVE'));
+    assert.ok(arenaContent.includes('document.documentElement.requestFullscreen()'), 'Fullscreen remains available through the explicit user control');
+
+    assert.ok(codeWarsService.includes('rewardEligible?: boolean'));
+    assert.ok(codeWarsService.includes('if (passed) {'), 'Practice wins must remain wins in match history');
+    assert.ok(codeWarsService.includes('if (rewardEligible) {'), 'Practice passes must skip portfolio evidence');
+    assert.ok(evaluateRoute.includes(".from('arena_solo_matches')"));
+    assert.ok(evaluateRoute.includes("rewardEligible = false"), 'The server must deny rewards for bot matches and failed match verification');
+    assert.ok(evaluateRoute.includes('MATCH_PROBLEM_MISMATCH'), 'A client cannot evaluate a different challenge under a saved practice match');
+    assert.ok(evaluateRoute.includes('hasOwnProperty.call(CODEWARS_PROBLEM_REGISTRY'), 'Inherited property names must not pass problem validation');
   });
 
   it('hydrates real match history without reintroducing fake queue state', () => {

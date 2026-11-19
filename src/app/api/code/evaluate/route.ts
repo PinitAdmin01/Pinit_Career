@@ -41,16 +41,26 @@ export async function POST(req: NextRequest) {
       return auth.error;
     }
 
-    const body = await req.json();
-    const { problemId, code, language } = body;
-    console.log(`[CodeEvaluate API] Evaluation request from ${auth.user.id} | problem: ${problemId} | lang: ${language || 'typescript'} | codeLen: ${(code && typeof code === 'string') ? code.length : 0}`);
+    const body: unknown = await req.json().catch(() => null);
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      return NextResponse.json({ error: 'INVALID_REQUEST_BODY' }, { status: 400 });
+    }
+    const input = body as Record<string, unknown>;
+    const problemId = typeof input.problemId === 'string' ? input.problemId.trim() : '';
+    const code = input.code;
+    const language = input.language;
+    const hasMatchId = input.matchId !== undefined && input.matchId !== null;
+    const submittedMatchId = typeof input.matchId === 'string' ? input.matchId.trim() : '';
 
-    if (!code || typeof code !== 'string') {
+    if (hasMatchId && (!submittedMatchId || submittedMatchId.length > 80)) {
+      return NextResponse.json({ error: 'INVALID_MATCH_ID' }, { status: 400 });
+    }
+    if (typeof code !== 'string' || !code.trim()) {
       return NextResponse.json({ error: 'Code is required' }, { status: 400 });
     }
 
     // Task 4.1: Reject unknown or missing problem IDs with HTTP 400 UNSUPPORTED_PROBLEM
-    if (!problemId || !CODEWARS_PROBLEM_REGISTRY[problemId]) {
+    if (!problemId || !Object.prototype.hasOwnProperty.call(CODEWARS_PROBLEM_REGISTRY, problemId)) {
       return NextResponse.json(
         {
           passed: false,
@@ -63,6 +73,26 @@ export async function POST(req: NextRequest) {
     }
 
     const problemConfig = CODEWARS_PROBLEM_REGISTRY[problemId];
+    let rewardEligible = input.rewardEligible !== false;
+    if (submittedMatchId && !auth.user.isGuest) {
+      const { data: soloMatch, error: soloMatchError } = await getSupabaseAdmin()
+        .from('arena_solo_matches')
+        .select('match_id, problem_id')
+        .eq('match_id', submittedMatchId)
+        .eq('user_id', auth.user.id)
+        .maybeSingle();
+      if (soloMatchError) {
+        // A transient DB failure must not turn bot practice into a reward path.
+        rewardEligible = false;
+        console.warn('[code/evaluate] Could not verify Arena match reward eligibility:', soloMatchError.message);
+      } else if (soloMatch) {
+        rewardEligible = false;
+        if (soloMatch.problem_id !== problemId) {
+          return NextResponse.json({ error: 'MATCH_PROBLEM_MISMATCH' }, { status: 400 });
+        }
+      }
+    }
+    console.log(`[CodeEvaluate API] Evaluation request from ${auth.user.id} | problem: ${problemId} | lang: ${typeof language === 'string' ? language : 'typescript'} | codeLen: ${code.length}`);
 
     // Other languages cannot run in the JS sandbox: the server judges them with the polyglot checks.
     if (typeof language === 'string' && !['javascript', 'typescript', 'js', 'ts'].includes(language.toLowerCase())) {
@@ -70,13 +100,14 @@ export async function POST(req: NextRequest) {
       if (!judged.ok) {
         return NextResponse.json({ passed: false, status: judged.error, error: judged.message }, { status: 400 });
       }
-      const xp = judged.passed ? await firstClearXp(auth.user.id, problemId) : { xpAwarded: 0 };
+      const xp = judged.passed && rewardEligible ? await firstClearXp(auth.user.id, problemId) : { xpAwarded: 0 };
       return NextResponse.json({
         passed: judged.passed,
         status: judged.passed ? 'SUCCESS' : 'FAILED',
         testsPassed: judged.testsPassed,
         totalTests: judged.totalTests,
         error: judged.error,
+        rewardEligible,
         ...xp,
       });
     }
@@ -131,13 +162,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const xp = evalRes.passed ? await firstClearXp(auth.user.id, problemId) : { xpAwarded: 0 };
+    const xp = evalRes.passed && rewardEligible ? await firstClearXp(auth.user.id, problemId) : { xpAwarded: 0 };
     return NextResponse.json({
       passed: evalRes.passed,
       status: evalRes.passed ? 'SUCCESS' : 'FAILED',
       testsPassed: evalRes.testsPassed,
       totalTests: problemConfig.totalTests,
       error: evalRes.error,
+      rewardEligible,
       ...xp,
     });
   } catch (err: any) {
