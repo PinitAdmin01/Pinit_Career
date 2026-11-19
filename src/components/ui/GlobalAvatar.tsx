@@ -205,13 +205,12 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const isLessonOrDetail = cleanPath === '/quests/lesson' || (cleanPath.startsWith('/quests/') && cleanPath !== '/quests/teacher-select' && cleanPath !== '/quests');
   const isInterview = cleanPath === '/interview' || cleanPath.startsWith('/interview/');
   const isGroupDiscussion = cleanPath === '/group-discussion' || cleanPath.startsWith('/group-discussion/');
-  const isMissions = cleanPath === '/missions' || cleanPath.startsWith('/missions/');
-  const isAttentionSpan = cleanPath === '/attention-span' || cleanPath.startsWith('/attention-span/');
   const isExam = cleanPath === '/exams' || cleanPath.startsWith('/exam/');
 
-  // Floating avatar MUST BE STRICTLY INACTIVE & DISCONNECTED during any active task or process!
-  const isTaskOrProcessActive = isLessonOrDetail || isInterview || isGroupDiscussion || isMissions || isAttentionSpan || isExam;
-  const shouldHideVisually = isTaskOrProcessActive && !celebEvent && !tourActive && !showVoiceRegModal && !storyLocked;
+  // Pause wake-word mic on active voice/exam/lesson routes; keep mentor visible on /missions, /interview lobby, and /attention-span
+  // (live interview sessions hide .avatar-mentor-widget / .mentor-widget automatically via body[data-interview-active="true"])
+  const isTaskOrProcessActive = isLessonOrDetail || isInterview || isGroupDiscussion || isExam;
+  const shouldHideVisually = (isLessonOrDetail || isGroupDiscussion || isExam) && !celebEvent && !tourActive && !showVoiceRegModal && !storyLocked;
 
   useEffect(() => {
     if (isTaskOrProcessActive && !tourActive && !celebEvent) {
@@ -777,7 +776,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
       {/* ── Expanded floating avatar mentor window ── */}
       {!minimized && !shouldHideVisually && (
-        <div data-story-tour-card={tourActive ? '' : undefined} style={{
+        <div className="mentor-widget" data-story-tour-card={tourActive ? '' : undefined} style={{
           position: 'fixed',
           bottom: isCentered ? 'auto' : 0,
           top: isCentered ? '50%' : 'auto',
