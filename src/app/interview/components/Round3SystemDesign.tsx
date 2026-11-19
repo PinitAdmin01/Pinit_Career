@@ -3,6 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import type { AnimState } from '@/components/avatar/VRoidAvatarEngine';
+import { AssistModeDrawer } from './AssistModeDrawer';
 
 const VRoidInterviewAvatar = dynamic(
   () => import('@/components/avatar/VRoidInterviewAvatar'),
@@ -40,6 +41,18 @@ export interface Round3SystemDesignProps {
   setAssistScriptLevel?: (lvl: 'standard' | 'advanced') => void;
   fetchAssistScript?: (q: string, lvl?: 'standard' | 'advanced') => void;
   liveSpeechTranscript?: string;
+  messages?: Array<{ role: 'user' | 'assistant'; content: string }>;
+  difficulty?: string;
+  speakWithAvatarRaw?: (
+    text: string,
+    teacherId: string,
+    onStart: () => void,
+    onEnd: () => void,
+    allowMicRestart: boolean,
+    isAssistScript: boolean,
+    diff: string
+  ) => void;
+  setAnimState?: (state: 'idle' | 'talking' | 'thinking') => void;
 }
 
 export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
@@ -68,10 +81,11 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
   setAssistScriptLevel,
   fetchAssistScript,
   liveSpeechTranscript = '',
+  messages = [],
+  difficulty = 'medium',
+  speakWithAvatarRaw,
+  setAnimState,
 }) => {
-  const spokenWordSet = React.useMemo(() => {
-    return new Set(liveSpeechTranscript.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean));
-  }, [liveSpeechTranscript]);
   return (
     <div className="iv-round-layout iv-round3-layout" style={{ display: 'grid', gridTemplateColumns: '7.2fr 2.8fr', gap: 16, alignItems: 'stretch' }}>
       <div className="iv-panel" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -82,7 +96,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
               {domainStream === 'non_tech' ? 'Business Workflow Canvas:' : 'System Architecture Canvas:'} {activeTopicName}
             </h2>
           </div>
-          {canProceed && <button onClick={onProceed} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '7px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
+          {canProceed && <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
             Continue to deep dive ➔
           </button>}
         </div>
@@ -126,23 +140,12 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
 
         {/* 📊 Architecture Evaluation Scorecard (Renders when analysis completes) */}
         {architectureEvaluation && (
-          <div style={{
-            marginTop: 8,
-            padding: '14px 16px',
-            borderRadius: 12,
-            background: 'linear-gradient(135deg, rgba(20, 24, 39, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%)',
-            border: '1.5px solid var(--accent)',
-            boxShadow: '0 4px 18px rgba(var(--brand-rgb), 0.2)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 10
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="iv-eval-report">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                
                 <div>
-                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>Architecture Evaluation Report</h4>
-                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
+                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'inherit' }}>Architecture Evaluation Report</h4>
+                  <span style={{ fontSize: 12, opacity: 0.78 }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
                 </div>
               </div>
               <div style={{
@@ -160,9 +163,9 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
             {/* Radar / Metrics Bar */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, fontSize: 12 }}>
               {architectureEvaluation.radar && Object.entries(architectureEvaluation.radar).map(([metric, val]: any) => (
-                <div key={metric} style={{ background: 'rgba(255,255,255,0.04)', padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)' }}>
-                  <div style={{ color: 'var(--t3)', textTransform: 'uppercase', fontSize: 10.5, fontWeight: 700 }}>{metric}</div>
-                  <div style={{ fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{val} / 100</div>
+                <div key={metric} style={{ background: 'rgba(var(--brand-rgb), 0.08)', padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)' }}>
+                  <div style={{ opacity: 0.72, textTransform: 'uppercase', fontSize: 10.5, fontWeight: 700 }}>{metric}</div>
+                  <div style={{ fontWeight: 800, color: 'inherit', marginTop: 2 }}>{val} / 100</div>
                 </div>
               ))}
             </div>
@@ -191,7 +194,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ height: 190, background: 'var(--bg3)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
-          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(0,0,0,0.65)', color: 'var(--text)', fontSize: 11, fontWeight: 800 }}>
+          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 11, fontWeight: 800 }}>
             {activeTeacher.emoji} {activeTeacher.name}
           </div>
         </div>
@@ -201,96 +204,38 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
             <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
           </div>
-
-          {/* 🎯 Assist Mode AI Teleprompter Card for Round 3 (Architectural Defense Script) */}
-          {isAssistModeActive && (
-            <div style={{
-              padding: '8px 10px',
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
-              border: '1.5px solid var(--reward)',
-              boxShadow: '0 4px 14px rgba(var(--reward-rgb), 0.2)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 6
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span style={{ fontSize: 13 }}>🎯</span>
-                  <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--reward-bright)' }}>Defense Teleprompter</span>
-                </div>
-                <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                  {fetchAssistScript && (
-                    <button
-                      onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
-                      disabled={isFetchingAssist}
-                      style={{ background: 'rgba(var(--reward-rgb),0.12)', border: '1px solid rgba(var(--reward-rgb),0.4)', color: 'var(--reward-bright)', borderRadius: 4, padding: '2px 6px', fontSize: 10, fontWeight: 800, cursor: isFetchingAssist ? 'not-allowed' : 'pointer' }}
-                      title="Refresh defense script for this challenge"
-                    >
-                      {isFetchingAssist ? '⏳ Crafting...' : '🔄 Refresh'}
-                    </button>
-                  )}
-                  {assistData?.script && (
-                    <button
-                      onClick={() => navigator.clipboard.writeText(assistData.script)}
-                      style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'var(--text)', borderRadius: 4, padding: '2px 5px', fontSize: 10, fontWeight: 800, cursor: 'pointer' }}
-                    >
-                      Copy
-                    </button>
-                  )}
-                  {setIsAssistModeActive && (
-                    <button
-                      onClick={() => setIsAssistModeActive(false)}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 11, cursor: 'pointer', padding: '0 2px' }}
-                      title="Close"
-                    >
-                      ✕
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {isFetchingAssist ? (
-                <div style={{ padding: '6px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11, fontStyle: 'italic' }}>
-                  Crafting defense script...
-                </div>
-              ) : assistData?.script ? (
-                <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 6, padding: '6px 8px' }}>
-                  <div style={{ fontSize: 12, lineHeight: 1.4, color: 'var(--text)', maxHeight: 100, overflowY: 'auto' }}>
-                    &ldquo;
-                    {assistData.script.split(' ').map((word: string, wIdx: number) => {
-                      const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
-                      const isMatched = clean.length > 0 && spokenWordSet.has(clean);
-                      return (
-                        <span
-                          key={wIdx}
-                          style={{
-                            color: isMatched ? 'var(--success-bright)' : 'var(--text)',
-                            fontWeight: isMatched ? 800 : 400,
-                            textShadow: isMatched ? '0 0 6px rgba(var(--success-rgb),0.8)' : 'none'
-                          }}
-                        >
-                          {word}{' '}
-                        </span>
-                      );
-                    })}
-                    &rdquo;
-                  </div>
-                </div>
-              ) : (
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 11, color: 'var(--t3)' }}>No defense script ready.</span>
-                  {fetchAssistScript && (
-                    <button
-                      onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
-                      style={{ background: 'var(--reward)', border: 'none', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}
-                    >
-                      Generate Script
-                    </button>
-                  )}
-                </div>
-              )}
+          {isSendingInterviewMessage && (
+            <div className="iv-typing-bubble">
+              <span>{activeTeacher.name} is evaluating your defense</span>
+              <span className="iv-typing-dots" aria-hidden="true"><span /><span /><span /></span>
             </div>
+          )}
+
+          {/* 🎯 Unified Assist Mode AI Teleprompter for Round 3 */}
+          {isAssistModeActive && (
+            <AssistModeDrawer
+              compact
+              isScoredStage={true}
+              isCodingRound={false}
+              activeStage="round3_systems"
+              activeTopicName={activeTopicName}
+              questionText={lastInterviewerSpeech}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive || (() => {})}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel || (() => {})}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab || (() => {})}
+              isFetchingAssist={isFetchingAssist}
+              assistData={assistData ?? null}
+              liveSpeechTranscript={liveSpeechTranscript}
+              messages={messages as any}
+              activeTeacher={activeTeacher as any}
+              difficulty={difficulty}
+              fetchAssistScript={fetchAssistScript || (() => {})}
+              speakWithAvatarRaw={speakWithAvatarRaw}
+              setAnimState={setAnimState}
+            />
           )}
 
           {/* ⌨️ Architectural Defense Typed Input Fallback */}
@@ -338,7 +283,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   borderRadius: 6,
                   border: 'none',
                   background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
-                  color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
+                  color: manualTextInput.trim() ? '#ffffff' : 'var(--t3)',
                   fontSize: 12,
                   fontWeight: 800,
                   cursor: manualTextInput.trim() ? 'pointer' : 'default'

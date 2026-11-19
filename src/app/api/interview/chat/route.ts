@@ -95,6 +95,7 @@ interface FallbackContext {
   history: Array<{ role: string; content: string }>;
   difficulty: string;
   interviewerName: string;
+  stream?: 'tech' | 'non_tech';
 }
 
 function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: string; type: 'tech' | 'action' | 'metric' | 'general' } {
@@ -147,7 +148,7 @@ function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: st
 }
 
 export function generateProgressiveFallbackQuestion(ctx: FallbackContext): string {
-  const { stage, subTopic, history, difficulty, interviewerName } = ctx;
+  const { stage, subTopic, history, interviewerName, stream = 'tech' } = ctx;
 
   const userTurns = (history || []).filter(m => m.role === 'user');
   const lastUserTurn = userTurns[userTurns.length - 1]?.content || '';
@@ -158,24 +159,30 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
   }
 
+  const isSkip = /^(?:\[Candidate skipped question\]|I would like to skip\b)/i.test(lastUserTurn.trim());
   const { phrase, keyTerm } = extractCandidateKeyContext(lastUserTurn);
 
   // Active listening reflection openers
-  const reflectionOpeners = [
-    `I see your point regarding ${phrase}.`,
-    `You made an insightful observation around ${phrase}.`,
-    `Focusing on ${phrase} is a very pragmatic decision for ${subTopic}.`,
-    `I appreciate how you tackled ${phrase}.`,
-    `That is a solid direction regarding ${phrase}.`
-  ];
+  const reflectionOpeners = isSkip
+    ? [
+        `No problem, let's pivot to a different angle in ${subTopic}.`,
+        `Understood—we'll note the skip and move forward on ${subTopic}.`
+      ]
+    : [
+        `I see your point regarding ${phrase}.`,
+        `You made an insightful observation around ${phrase}.`,
+        `Focusing on ${phrase} is a very pragmatic decision for ${subTopic}.`,
+        `I appreciate how you tackled ${phrase}.`,
+        `That is a solid direction regarding ${phrase}.`
+      ];
   const opener = reflectionOpeners[turnCount % reflectionOpeners.length];
 
   // Stage-specific contextual follow-up questions
   if (stage === 'round1_behavioral') {
     const behavioralFollowUps = [
       `When navigating that, what was the most significant roadblock or cross-functional disagreement you encountered, and how did you resolve it?`,
-      `Looking back at that scenario, what is one key technical or process trade-off you would approach differently today?`,
-      `Under tight deadline pressure, how did you balance technical excellence against shipping speed while driving that forward?`,
+      `Looking back at that scenario, what is one key ${stream === 'non_tech' ? 'strategic or stakeholder' : 'technical or process'} trade-off you would approach differently today?`,
+      `Under tight deadline pressure, how did you balance ${stream === 'non_tech' ? 'analytical rigor against commercial urgency' : 'technical excellence against shipping speed'} while driving that forward?`,
       `What measurable signal or feedback confirmed to you and your team that this decision was a success?`
     ];
     const question = behavioralFollowUps[turnCount % behavioralFollowUps.length];
@@ -183,33 +190,47 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
   }
 
   if (stage === 'round2_coding') {
-    const codingFollowUps = [
-      `Given that approach with ${keyTerm}, what is the exact time and space complexity, and where could memory usage spike under large inputs?`,
-      `How does your implementation handle critical boundary conditions, such as null/empty inputs, duplicate records, or extreme numerical ranges?`,
-      `If multiple concurrent threads or API requests hit this logic simultaneously, what race condition or state corruption risks arise, and how would you safeguard against them?`,
-      `How would you structure unit tests to thoroughly verify the correctness and failure modes of that logic before shipping to production?`
-    ];
+    const codingFollowUps = stream === 'non_tech'
+      ? [
+          `Looking closely at your numbers around ${keyTerm}, what sensitivity assumptions or downside scenarios would flip your recommendation?`,
+          `How do you validate data integrity and edge-case anomalies before presenting these ${subTopic} calculations to executive leadership?`,
+          `If acquisition costs rose 25% or margins compressed unexpectedly, how would your model adapt to protect ROI?`,
+          `Which single KPI in this analysis is the strongest leading indicator of execution risk?`
+        ]
+      : [
+          `Given that approach with ${keyTerm}, what is the exact time and space complexity, and where could memory usage spike under large inputs?`,
+          `How does your implementation handle critical boundary conditions, such as null/empty inputs, duplicate records, or extreme numerical ranges?`,
+          `If multiple concurrent threads or API requests hit this logic simultaneously, what race condition or state corruption risks arise, and how would you safeguard against them?`,
+          `How would you structure unit tests to thoroughly verify the correctness and failure modes of that logic before shipping to production?`
+        ];
     const question = codingFollowUps[turnCount % codingFollowUps.length];
     return `${opener} ${question} — ${interviewerName}`;
   }
 
   if (stage === 'round3_systems') {
-    const systemsFollowUps = [
-      `Looking at the role of ${keyTerm} in your architecture, how does the system behave if that specific component experiences a sudden crash or network partition during peak load?`,
-      `Where do you foresee the primary throughput or IO bottleneck in that data path, and how would caching or asynchronous queuing alleviate it?`,
-      `How do you enforce idempotency and maintain data consistency across distributed boundaries if an operation fails midway?`,
-      `What telemetry metrics, error budgets, and health check signals would you establish to monitor that tier in real time?`
-    ];
+    const systemsFollowUps = stream === 'non_tech'
+      ? [
+          `In your workflow around ${keyTerm}, where is the steepest conversion drop-off or operational bottleneck, and what experiment would you run first?`,
+          `How do you align incentives across finance, operations, and customer support when scaling that ${subTopic} loop?`,
+          `What leading KPI dashboard and escalation thresholds would alert you before churn or margin leakage compounds?`,
+          `If budget were cut by 30% tomorrow, which stage of that workflow would you defend and which would you automate?`
+        ]
+      : [
+          `Looking at the role of ${keyTerm} in your architecture, how does the system behave if that specific component experiences a sudden crash or network partition during peak load?`,
+          `Where do you foresee the primary throughput or IO bottleneck in that data path, and how would caching or asynchronous queuing alleviate it?`,
+          `How do you enforce idempotency and maintain data consistency across distributed boundaries if an operation fails midway?`,
+          `What telemetry metrics, error budgets, and health check signals would you establish to monitor that tier in real time?`
+        ];
     const question = systemsFollowUps[turnCount % systemsFollowUps.length];
     return `${opener} ${question} — ${interviewerName}`;
   }
 
   if (stage === 'round4_star') {
     const starFollowUps = [
-      `How does your choice around ${keyTerm} directly drive the overall system SLAs and measurable business impact?`,
+      `How does your choice around ${keyTerm} directly drive the overall ${stream === 'non_tech' ? 'business KPIs' : 'system SLAs'} and measurable business impact?`,
       `What empirical metrics or benchmarks did you monitor to demonstrate that your solution achieved its intended goal?`,
-      `If a principal architect or executive challenged that architectural trade-off, what quantitative data and counter-arguments would you present?`,
-      `Which part of your implementation or system design would you revisit first if traffic grew by a factor of 10x?`
+      `If a ${stream === 'non_tech' ? 'VP or CFO' : 'principal architect or executive'} challenged that trade-off, what quantitative data and counter-arguments would you present?`,
+      `Which part of your execution or design would you revisit first if demand grew by a factor of 10x?`
     ];
     const question = starFollowUps[turnCount % starFollowUps.length];
     return `${opener} ${question} — ${interviewerName}`;
@@ -249,7 +270,9 @@ export async function POST(req: Request) {
       difficulty,
       customTopic,
       domainStream,
-      domainSubTopic
+      domainSubTopic,
+      jdContext,
+      companyContext
     } = body;
 
     const selectedInterviewer = INTERVIEWERS_MAP[interviewerId] || INTERVIEWERS_MAP.vikram;
@@ -279,7 +302,7 @@ export async function POST(req: Request) {
 
     const stream = live ? live.domain_stream : (domainStream === 'non_tech' ? 'non_tech' : 'tech');
     const topicSource = live ? live.topic : (customTopic || domainSubTopic || (stream === 'non_tech' ? 'Finance & Strategy' : 'Software Engineering'));
-    const subTopic = String(topicSource).toUpperCase();
+    const subTopic = String(topicSource).trim();
 
     // Round changes, skipped questions and code submissions happen on the page; the record notes them.
     if (live && (body.event === 'stage' || body.event === 'skip' || body.event === 'code')) {
@@ -323,6 +346,12 @@ export async function POST(req: Request) {
     if (topicFocus) {
       topicPrompt += ` Topic Focus: "${topicFocus}". Align all questions and technical drill-downs strictly to this domain.`;
     }
+    if (typeof companyContext === 'string' && companyContext.trim()) {
+      topicPrompt += `\n${companyContext.trim().slice(0, 1200)}`;
+    }
+    if (typeof jdContext === 'string' && jdContext.trim()) {
+      topicPrompt += `\n${jdContext.trim().slice(0, 1200)}`;
+    }
 
     // 4. Build Stage-Specific Context
     let stageContext = '';
@@ -364,10 +393,11 @@ ${topicPrompt}
 ${stageContext}
 ${telemetryContext}
 RULES:
-1. Speak in first person as ${selectedInterviewer.name}.
-2. ${reviewDecision ? 'For the final code-review decision, provide a concise verdict and use the required marker; do not ask a question.' : 'Ask exactly ONE clear, concise question per turn.'}
-3. Never give the complete code or answer away.
-4. Keep response under 3 sentences max for spoken voice clarity.`;
+1. Speak in first person as ${selectedInterviewer.name} in natural spoken dialogue (no markdown bullets, no numbered lists, no robotic sign-offs).
+2. ${reviewDecision ? 'For the final code-review decision, provide a concise verdict and use the required marker; do not ask a question.' : 'Ask exactly ONE sharp, non-repetitive follow-up question per turn that directly reacts to what the candidate just said.'}
+3. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly skip a question, briefly acknowledge the skip and pivot to a fresh topic.
+4. Never give the complete code or answer away.
+5. Keep response under 3 sentences max for natural spoken voice pacing.`;
 
     // 6. Multi-Key Rotation Pool & Provider Failover
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
@@ -469,7 +499,7 @@ RULES:
       }
 
       // If streaming Groq was offline, stream the deterministic fallback
-      const fallback = generateProgressiveFallbackQuestion({ stage: stage || 'round1_behavioral', subTopic, history: formattedHistory, difficulty: difficulty || 'normal', interviewerName: selectedInterviewer.name });
+      const fallback = generateProgressiveFallbackQuestion({ stage: stage || 'round1_behavioral', subTopic, history: formattedHistory, difficulty: difficulty || 'normal', interviewerName: selectedInterviewer.name, stream });
       const encoder = new TextEncoder();
       const fallbackStream = new ReadableStream({
         start(controller) {
@@ -525,7 +555,7 @@ RULES:
     }
 
     // Fallback to Google Gemini API if Groq pool is exhausted
-    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_AI_KEY;
     if (!reply && geminiKey) {
       try {
         console.log('[Interview Chat API] Falling back to Gemini inference...');
@@ -604,7 +634,7 @@ RULES:
           ? `Your explanation connects the implementation to its complexity or edge cases. That meets the review bar. [[ROUND_VERDICT:PASS]]`
           : `I need a clearer explanation of the reasoning behind your implementation and how it handles complexity or edge cases. [[ROUND_VERDICT:RETRY]]`;
       } else {
-        reply = generateProgressiveFallbackQuestion({ stage: stage || 'round1_behavioral', subTopic, history: formattedHistory, difficulty: difficulty || 'normal', interviewerName: selectedInterviewer.name });
+        reply = generateProgressiveFallbackQuestion({ stage: stage || 'round1_behavioral', subTopic, history: formattedHistory, difficulty: difficulty || 'normal', interviewerName: selectedInterviewer.name, stream });
       }
     }
 
@@ -614,12 +644,14 @@ RULES:
       if (verdictMatch) {
         roundVerdict = verdictMatch[1].toUpperCase() === 'PASS' ? 'PASS' : 'RETRY';
       } else {
-        // Robust semantic fallback if LLM omitted the exact bracket tag
+        // Word-boundary + negation-aware fallback when LLM omits the exact bracket tag
         const lowerReply = reply.toLowerCase();
-        const positiveKeywords = ['looks good', 'meets the bar', 'well explained', 'good explanation', 'solid approach', 'approved', 'pass', 'correctly addressed', 'optimal', 'great job', 'excellent'];
-        const negativeKeywords = ['retry', 'please explain again', 'does not address', 'missed', 'substantive gap', 'unclear', 'insufficient'];
-        const isPositive = positiveKeywords.some(p => lowerReply.includes(p));
-        const isNegative = negativeKeywords.some(p => lowerReply.includes(p));
+        const negatedPositivePattern = /\b(?:not|never|no|doesn'?t|does not|did not|didn'?t|won'?t|will not|cannot|can'?t|failed to)\s+(?:\w+\s+){0,2}(?:looks? good|meets? the bar|well explained|good explanation|solid approach|approved|correctly addressed|optimal|great job|excellent|pass|sufficient)\b/gi;
+        const hasNegatedPositive = negatedPositivePattern.test(lowerReply);
+        const scrubbedForPositive = lowerReply.replace(negatedPositivePattern, '');
+        const isPositive = /\b(looks good|meets the bar|well explained|good explanation|solid approach|approved|correctly addressed|optimal|great job|excellent|pass)\b/i.test(scrubbedForPositive);
+        const scrubbedPositiveNegations = lowerReply.replace(/\b(?:no|not|never|didn'?t|zero)\s+(?:substantive\s+gaps?|gaps?|missed|unclear|issues?)\b/gi, '');
+        const isNegative = hasNegatedPositive || /\b(retry|explain again|does not address|substantive gap|unclear|insufficient|incomplete|missed)\b/i.test(scrubbedPositiveNegations);
         roundVerdict = (isPositive && !isNegative) ? 'PASS' : 'RETRY';
       }
     }

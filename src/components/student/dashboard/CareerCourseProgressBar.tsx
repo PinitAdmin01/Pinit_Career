@@ -34,12 +34,18 @@ export default function CareerCourseProgressBar() {
   const cOS = useCareerOS();
   const [enrollment, setEnrollment] = useState<CrashCourseEnrollment | null>(null);
   const [loading, setLoading] = useState(true);
+  const [resolvedProgress, setResolvedProgress] = useState<{
+    completed: number;
+    total: number;
+    percent: number;
+    nextQuestId: string | null;
+  } | null>(null);
 
-  const completedQuests = cOS?.completedQuests || [];
+  const completedQuests = useMemo(() => cOS?.completedQuests || [], [cOS?.completedQuests]);
 
   useEffect(() => {
     let isMounted = true;
-    (async () => {
+    const fetchActive = async () => {
       try {
         const active = await crashCourseEnrollmentService.getActiveEnrollment();
         if (isMounted) setEnrollment(active);
@@ -48,8 +54,17 @@ export default function CareerCourseProgressBar() {
       } finally {
         if (isMounted) setLoading(false);
       }
-    })();
-    return () => { isMounted = false; };
+    };
+    void fetchActive();
+
+    const handleRefresh = () => { void fetchActive(); };
+    window.addEventListener('pinit:enrollment_updated', handleRefresh);
+    window.addEventListener('focus', handleRefresh);
+    return () => {
+      isMounted = false;
+      window.removeEventListener('pinit:enrollment_updated', handleRefresh);
+      window.removeEventListener('focus', handleRefresh);
+    };
   }, []);
 
   const hasEnrollment = !!enrollment;
@@ -61,19 +76,49 @@ export default function CareerCourseProgressBar() {
     return null;
   }, [enrollment]);
 
-  // Total days for the enrolled plan (e.g., 1M = 30 days, 3M = 60 days)
+  // Resolve real track-specific quest progress asynchronously when enrolled
+  useEffect(() => {
+    let active = true;
+    if (!enrollment || !plan) {
+      setResolvedProgress(null);
+      return;
+    }
+    (async () => {
+      try {
+        const { COURSES_REGISTRY } = await import('@/lib/data/coursesData');
+        const prog = getCrashCourseProgress(plan, enrollment.track, COURSES_REGISTRY, completedQuests, enrollment);
+        if (active) {
+          setResolvedProgress({
+            completed: prog.completed,
+            total: prog.total,
+            percent: prog.percent,
+            nextQuestId: prog.next?.questId || null,
+          });
+        }
+      } catch (err) {
+        console.warn('Could not resolve crash course progress:', err);
+      }
+    })();
+    return () => { active = false; };
+  }, [enrollment, plan, completedQuests]);
+
+  // Total days / units for the enrolled plan
   const totalDays = useMemo(() => {
+    if (resolvedProgress && resolvedProgress.total > 0) return resolvedProgress.total;
     if (!plan) return 60;
     return plan.trainingDurationMonths === 1 ? 30 : plan.trainingDurationMonths === 3 ? 60 : 90;
-  }, [plan]);
+  }, [resolvedProgress, plan]);
 
   // Real completed count
   const completedCount = useMemo(() => {
+    if (enrollment && resolvedProgress) {
+      return Math.min(totalDays, resolvedProgress.completed);
+    }
     if (enrollment) {
       return Math.min(totalDays, completedQuests.length);
     }
     return 0; // Honest baseline: 0 when not enrolled
-  }, [enrollment, completedQuests, totalDays]);
+  }, [enrollment, resolvedProgress, completedQuests, totalDays]);
 
   const isAllComplete = hasEnrollment && completedCount >= totalDays;
   const currentIncompleteDay = useMemo(() => {
@@ -82,17 +127,20 @@ export default function CareerCourseProgressBar() {
   }, [hasEnrollment, completedCount, totalDays, isAllComplete]);
 
   const percentComplete = useMemo(() => {
+    if (hasEnrollment && resolvedProgress) {
+      return Math.min(100, Math.max(0, Math.round(resolvedProgress.percent)));
+    }
     if (hasEnrollment && totalDays > 0) {
       return Math.round((completedCount / totalDays) * 100);
     }
     return 0; // Honest baseline: 0% when not enrolled
-  }, [hasEnrollment, completedCount, totalDays]);
+  }, [hasEnrollment, resolvedProgress, completedCount, totalDays]);
 
   // Checkpoint milestones for the horizontal bar
   const milestones = useMemo(() => {
-    const q1 = Math.round(totalDays * 0.25);
-    const q2 = Math.round(totalDays * 0.50);
-    const q3 = Math.round(totalDays * 0.75);
+    const q1 = Math.max(2, Math.round(totalDays * 0.25));
+    const q2 = Math.max(q1 + 1, Math.round(totalDays * 0.50));
+    const q3 = Math.max(q2 + 1, Math.round(totalDays * 0.75));
 
     if (hasEnrollment && plan) {
       return [
@@ -122,6 +170,10 @@ export default function CareerCourseProgressBar() {
 
   const handleActionClick = async () => {
     if (hasEnrollment && plan) {
+      if (resolvedProgress?.nextQuestId) {
+        router.push(`/quests/lesson?questId=${encodeURIComponent(resolvedProgress.nextQuestId)}`);
+        return;
+      }
       try {
         const { COURSES_REGISTRY } = await import('@/lib/data/coursesData');
         const prog = getCrashCourseProgress(plan, enrollment.track, COURSES_REGISTRY, completedQuests, enrollment);
@@ -136,34 +188,32 @@ export default function CareerCourseProgressBar() {
     router.push('/quests');
   };
 
-  // ── Render 0: Loading Skeleton ─────────────────────────────────────────────
+  // ── Render 0: Shimmer Loading Skeleton ──────────────────────────────────────
   if (loading && !enrollment) {
     return (
       <div
         data-testid="career-progress-skeleton"
         className="db-glass"
         style={{
-          padding: '20px 24px',
-          minHeight: 120,
+          padding: '22px 26px',
+          minHeight: 140,
           display: 'flex',
           flexDirection: 'column',
-          gap: 16,
-          background: 'var(--dash-card)',
-          border: '1px solid var(--dash-border)',
-          opacity: 0.75,
+          gap: 18,
+          animation: 'db-shimmer 1.6s ease-in-out infinite',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 42, height: 42, borderRadius: 12, background: 'var(--bg3)', animation: 'pulse 1.5s infinite' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div style={{ width: 140, height: 12, borderRadius: 4, background: 'var(--bg3)' }} />
-              <div style={{ width: 220, height: 18, borderRadius: 4, background: 'var(--bg3)' }} />
+            <div className="db-well" style={{ width: 42, height: 42, borderRadius: 11 }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+              <div className="db-well" style={{ width: 150, height: 12, borderRadius: 4 }} />
+              <div className="db-well" style={{ width: 240, height: 18, borderRadius: 4 }} />
             </div>
           </div>
-          <div style={{ width: 160, height: 38, borderRadius: 10, background: 'var(--bg3)' }} />
+          <div className="db-well" style={{ width: 180, height: 38, borderRadius: 10 }} />
         </div>
-        <div style={{ width: '100%', height: 4, borderRadius: 2, background: 'var(--bg3)', marginTop: 8 }} />
+        <div className="db-well" style={{ width: '100%', height: 4, borderRadius: 2, marginTop: 8 }} />
       </div>
     );
   }
@@ -175,13 +225,10 @@ export default function CareerCourseProgressBar() {
       className="db-glass"
       style={{
         width: '100%',
-        padding: '20px 26px',
-        background: 'linear-gradient(135deg, rgba(99,102,241,0.08) 0%, var(--dash-card) 100%)',
-        border: '1.5px solid rgba(99,102,241,0.28)',
-        boxShadow: '0 8px 30px -4px rgba(99,102,241,0.18)',
+        padding: '22px 26px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 16,
+        gap: 18,
         position: 'relative',
         overflow: 'hidden',
         borderRadius: 16,
@@ -189,47 +236,57 @@ export default function CareerCourseProgressBar() {
     >
       <style>{TIMELINE_STYLES}</style>
 
-      {/* Header Row: Course Title + Progress Badge + Action Button */}
+      {/* Header Row: Course Eyebrow + Clean Status Pill + Title + Single-Arrow CTA */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {/* SVG Graduation Cap / Book Icon (No Emojis) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
           <div style={{
-            width: 40,
-            height: 40,
-            borderRadius: 10,
-            background: 'rgba(99,102,241,0.14)',
-            border: '1px solid rgba(99,102,241,0.3)',
+            width: 42,
+            height: 42,
+            borderRadius: 11,
+            background: 'rgba(99, 102, 241, 0.12)',
+            border: '1px solid rgba(99, 102, 241, 0.28)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0,
           }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-mid, #6366f1)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
               <path d="M6 12v5c3 3 9 3 12 0v-5"/>
             </svg>
           </div>
           <div>
-            <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              {hasEnrollment ? (
-                <>
-                  Career Course: {plan?.title || 'Active Program'} &bull; <span style={{ color: 'var(--accent)' }}>{percentComplete}% Complete</span>
-                </>
-              ) : (
-                <>
-                  Career Course: No Active Program Enrolled &bull; <span style={{ color: 'var(--t3)' }}>0% Complete</span>
-                </>
-              )}
-            </h3>
-            <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <span className="db-label" style={{ display: 'inline-block' }}>CAREER ACCELERATOR RUNWAY</span>
+              <span
+                className="db-tabular"
+                style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  padding: '2px 9px',
+                  borderRadius: 999,
+                  background: hasEnrollment ? 'rgba(99, 102, 241, 0.14)' : 'var(--dash-subtle-bg)',
+                  color: hasEnrollment ? 'var(--accent-mid, var(--accent))' : 'var(--dash-subtext)',
+                  border: `1px solid ${hasEnrollment ? 'rgba(99, 102, 241, 0.28)' : 'var(--dash-inner-border)'}`,
+                }}
+              >
+                {hasEnrollment ? `${percentComplete}% Complete` : '0% Complete'}
+              </span>
+            </div>
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--dash-text)', margin: '3px 0 0', fontFamily: 'var(--font-display)', letterSpacing: '-0.015em' }}>
               {hasEnrollment
-                ? 'Checkpoints: Phase 1 • Phase 2 • Phase 3 • Phase 4 • Phase 5'
+                ? `Career Course: ${plan?.title || 'Enrolled Specialization'}`
+                : 'Career Course: No Active Program Enrolled'}
+            </h3>
+            <span className="db-tabular" style={{ fontSize: 11.5, color: 'var(--t3)', display: 'block', marginTop: 2 }}>
+              {hasEnrollment
+                ? `${completedCount} of ${totalDays} units completed · Active sprint Phase ${activeMilestoneIndex >= 0 ? activeMilestoneIndex + 1 : 5}`
                 : 'Select a specialization track to begin your engineering journey'}
             </span>
           </div>
         </div>
 
-        {/* Action Button */}
+        {/* Action Button (No double arrow when un-enrolled) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <button
             type="button"
@@ -239,38 +296,32 @@ export default function CareerCourseProgressBar() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              padding: '9px 20px',
+              padding: '10px 20px',
               borderRadius: 10,
               background: hasEnrollment
                 ? 'linear-gradient(135deg, #06b6d4, #6366f1)'
-                : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                : 'linear-gradient(135deg, #6366f1, #4f46e5)',
               border: 'none',
               color: '#ffffff',
               fontSize: 13,
-              fontWeight: 800,
+              fontWeight: 700,
               cursor: 'pointer',
-              boxShadow: '0 4px 18px rgba(99, 102, 241, 0.35)',
+              boxShadow: '0 4px 16px -2px rgba(99, 102, 241, 0.42)',
               fontFamily: 'var(--font-display)',
-              transition: 'all 0.18s ease',
+              transition: 'transform 0.18s ease, box-shadow 0.18s ease',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-1.5px)';
-              e.currentTarget.style.boxShadow = '0 6px 24px rgba(99, 102, 241, 0.55)';
+              e.currentTarget.style.boxShadow = '0 6px 22px -2px rgba(99, 102, 241, 0.55)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 18px rgba(99, 102, 241, 0.35)';
+              e.currentTarget.style.boxShadow = '0 4px 16px -2px rgba(99, 102, 241, 0.42)';
             }}
           >
-            {/* SVG Action Icon */}
-            {hasEnrollment ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            {hasEnrollment && (
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="5 3 19 12 5 21 5 3"/>
-              </svg>
-            ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12 5 19 12 12 19"/>
               </svg>
             )}
             <span>
@@ -284,59 +335,70 @@ export default function CareerCourseProgressBar() {
         </div>
       </div>
 
-      {/* Horizontal Interactive Timeline Bar */}
-      <div style={{ position: 'relative', padding: '16px 8px 10px', marginTop: 4, overflowX: 'auto' }}>
-        <div style={{ minWidth: 440, position: 'relative' }}>
-          {/* Background track line */}
+      {/* Horizontal Interactive 5-Column Grid Stepper (Rail centered cleanly through every dot) */}
+      <div style={{ overflowX: 'auto', padding: '6px 4px 4px' }}>
+        <div
+          style={{
+            minWidth: 520,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(5, minmax(96px, 1fr))',
+            position: 'relative',
+            alignItems: 'start',
+          }}
+        >
+          {/* Background track rail pinned to exact vertical center of 24px node container (top: 12px) */}
           <div
             style={{
               position: 'absolute',
-              top: 24,
-              left: '4%',
-              right: '4%',
-              height: 4,
-              background: 'var(--border2, var(--dash-border))',
-              borderRadius: 2,
+              top: 12,
+              left: '10%',
+              right: '10%',
+              height: 3,
+              transform: 'translateY(-50%)',
+              background: 'var(--dash-rail-bg, var(--border2))',
+              borderRadius: 999,
               zIndex: 0,
             }}
           />
 
-          {/* Completed progress line with gradient glow (0% if not enrolled) */}
+          {/* Completed progress fill bar */}
           <div
             style={{
               position: 'absolute',
-              top: 24,
-              left: '4%',
+              top: 12,
+              left: '10%',
               width: hasEnrollment
-                ? `${Math.min(92, Math.max(4, (completedCount / totalDays) * 92))}%`
+                ? `${Math.min(80, Math.max(3, (completedCount / Math.max(1, totalDays)) * 80))}%`
                 : '0%',
-              height: 4,
-              background: 'linear-gradient(90deg, var(--accent), #10b981)',
-              borderRadius: 2,
-              boxShadow: hasEnrollment && completedCount > 0 ? '0 0 12px rgba(16, 185, 129, 0.6)' : 'none',
-              transition: 'width 0.8s ease',
+              height: 3,
+              transform: 'translateY(-50%)',
+              background: 'linear-gradient(90deg, #6366f1, #10b981)',
+              borderRadius: 999,
+              boxShadow: hasEnrollment && completedCount > 0 ? '0 0 12px rgba(16, 185, 129, 0.55)' : 'none',
+              transition: 'width 0.7s ease',
               zIndex: 0,
             }}
           />
 
-          {/* Milestone nodes along the timeline */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
-            {milestones.map((m, idx) => {
-              const isCompleted = hasEnrollment && m.day <= completedCount;
-              const isCurrent = hasEnrollment && !isAllComplete && (idx === activeMilestoneIndex);
+          {milestones.map((m, idx) => {
+            const isCompleted = hasEnrollment && m.day <= completedCount;
+            const isCurrent = hasEnrollment && !isAllComplete && idx === activeMilestoneIndex;
 
-              return (
-                <div
-                  key={m.day}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    minWidth: 70,
-                  }}
-                >
-                  {/* Node dot */}
+            return (
+              <div
+                key={m.day}
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  padding: '0 6px',
+                }}
+              >
+                {/* Fixed-height 24px wrapper keeps track rail aligned to dot center regardless of active dot scale */}
+                <div style={{ height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <div
                     className={isCurrent ? 'timeline-pulse-node' : ''}
                     style={{
@@ -346,24 +408,22 @@ export default function CareerCourseProgressBar() {
                       background: isCompleted
                         ? '#10b981'
                         : isCurrent
-                        ? 'var(--accent)'
-                        : 'var(--bg3)',
-                      border: `2px solid ${isCurrent ? '#ffffff' : isCompleted ? '#10b981' : 'var(--dash-inner-border, var(--border2))'}`,
+                        ? '#6366f1'
+                        : 'var(--dash-card)',
+                      border: `2px solid ${isCurrent ? '#ffffff' : isCompleted ? '#10b981' : 'var(--dash-border-strong, var(--border2))'}`,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       color: '#ffffff',
-                      fontSize: 9,
-                      fontWeight: 900,
                       cursor: 'pointer',
                       boxShadow: isCompleted
-                        ? '0 0 10px rgba(16,185,129,0.5)'
+                        ? '0 0 10px rgba(16,185,129,0.45)'
                         : isCurrent
-                        ? '0 0 16px rgba(99,102,241,0.8)'
+                        ? '0 0 14px rgba(99,102,241,0.75)'
                         : 'none',
-                      transition: 'all 0.3s ease',
+                      transition: 'all 0.25s ease',
                     }}
-                    title={`${m.label}: ${m.name}`}
+                    title={`${m.label}: ${m.name} (Unit ${m.day})`}
                     role="button"
                     tabIndex={0}
                     aria-label={`Milestone ${m.label}: ${m.name}`}
@@ -371,45 +431,49 @@ export default function CareerCourseProgressBar() {
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleActionClick(); } }}
                   >
                     {isCompleted ? (
-                      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12"/>
                       </svg>
                     ) : isCurrent ? (
                       <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ffffff' }} />
                     ) : null}
                   </div>
-
-                  {/* Day label */}
-                  <div
-                    style={{
-                      fontSize: 11,
-                      fontFamily: 'var(--font-mono)',
-                      fontWeight: isCurrent ? 900 : isCompleted ? 700 : 500,
-                      color: isCurrent ? 'var(--accent)' : isCompleted ? 'var(--t1)' : 'var(--t3)',
-                      marginTop: 8,
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {m.label}
-                  </div>
-
-                  {/* Milestone Name */}
-                  <div
-                    style={{
-                      fontSize: 10.5,
-                      color: isCurrent ? 'var(--t1)' : 'var(--t3)',
-                      fontWeight: isCurrent ? 700 : 500,
-                      marginTop: 2,
-                      maxWidth: 90,
-                      lineHeight: 1.25,
-                    }}
-                  >
-                    {m.name}
-                  </div>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Phase label */}
+                <div
+                  className="db-tabular"
+                  style={{
+                    fontSize: 11,
+                    fontWeight: isCurrent ? 800 : isCompleted ? 700 : 600,
+                    color: isCurrent ? 'var(--accent-mid, var(--accent))' : isCompleted ? 'var(--dash-text)' : 'var(--t3)',
+                    marginTop: 7,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {m.label}
+                </div>
+
+                {/* Milestone Name */}
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: isCurrent ? 'var(--dash-text)' : 'var(--dash-subtext)',
+                    fontWeight: isCurrent ? 700 : 500,
+                    marginTop: 2,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  {m.name}
+                </div>
+
+                {/* Unit indicator */}
+                <div className="db-tabular" style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>
+                  Day {m.day}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

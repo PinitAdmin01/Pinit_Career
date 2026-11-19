@@ -7,6 +7,8 @@ import { z } from 'zod';
 import { createEvaluationSignature, createTopicEvaluationSignature } from '@/lib/interview/evaluationSignature';
 import { completeActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 import { loadActiveLiveSession, markLiveSessionEvaluated, transcriptForModel, type LiveSession } from '@/lib/interview/liveSession';
+import { extractJsonObject } from '@/lib/interview/jsonExtract';
+import { buildQuestionBenchmarks, extractDefendedTechStack } from '@/lib/interview/postInterviewInsights';
 
 const InterviewEvaluateSchema = z.object({
   type: z.string().optional(),
@@ -22,6 +24,9 @@ const InterviewEvaluateSchema = z.object({
   explanation: z.string().optional(),
   transcript: z.string().optional(),
   currentStage: z.string().optional(),
+  companyContext: z.string().optional(),
+  jdContext: z.string().optional(),
+  selectedLang: z.string().optional(),
 }).passthrough();
 import {
   calculateRoleWeightedScore,
@@ -180,7 +185,7 @@ export async function POST(req: Request) {
 
     const systemPrompt = `You are a fair, evidence-led interview assessor evaluating a candidate for "${roleConfig.roleName}" (${stream} stream).
 Role Rubric Focus: ${roleConfig.rubricFocus}
-
+${typeof body.companyContext === 'string' && body.companyContext.trim() ? `\nCompany Hiring Standards:\n${body.companyContext.trim().slice(0, 1000)}\n` : ''}${typeof body.jdContext === 'string' && body.jdContext.trim() ? `\nTarget Job Description Context:\n${body.jdContext.trim().slice(0, 1000)}\n` : ''}
 Assess every CANDIDATE response against the immediately preceding INTERVIEWER question, then summarize performance across the complete transcript. Evaluate these 5 performance dimensions (0-100 scale):
 1. logic (algorithmic rigor, analytical logic, quantitative thinking)
 2. systems (architecture, scalability, workflow design, structural trade-offs)
@@ -218,6 +223,9 @@ Return ONLY valid JSON matching this schema:
       {"dimension": "questionRelevance|answerAccuracy|reasoningDepth|conclusionQuality", "quote": "exact short candidate quote", "assessment": "what this quote demonstrates"}
     ]
   },
+  "question_breakdown": [
+    {"question": "short question summary", "candidate_answer": "brief summary of what candidate answered", "ideal_answer": "concise 10/10 benchmark answer", "score": <0-100>, "feedback": "specific improvement note", "missed_concepts": ["concept1"]}
+  ],
   "strengths": ["string", "string"],
   "weaknesses": ["string"],
   "improvement_tips": ["string", "string"],
@@ -225,11 +233,12 @@ Return ONLY valid JSON matching this schema:
 }`;
 
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
-    let groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
+    const groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
     const singleGroqKey = process.env.GROQ_API_KEY;
     if (singleGroqKey && !groqKeys.includes(singleGroqKey)) {
       groqKeys.push(singleGroqKey);
     }
+    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_AI_KEY;
     const openRouterKey = process.env.OPENROUTER_API_KEY;
 
     let rawParsedEval: any = null;
@@ -248,11 +257,12 @@ Return ONLY valid JSON matching this schema:
           },
           body: JSON.stringify({
             model: 'llama-3.3-70b-versatile',
+            response_format: { type: 'json_object' },
             messages: [
               { role: 'system', content: systemPrompt },
               { role: 'user', content: `Candidate Transcript:\n\n${candidateTranscriptPrompt}` },
             ],
-            max_tokens: 800,
+            max_tokens: 1400,
             temperature: 0.2,
           }),
           signal: AbortSignal.timeout(15000),
@@ -260,10 +270,12 @@ Return ONLY valid JSON matching this schema:
         if (res.ok) {
           const data = await res.json();
           const raw = (data.choices?.[0]?.message?.content || '').trim();
-          const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-          rawParsedEval = JSON.parse(cleanJsonStr);
-          console.log('[Interview Evaluate API] Groq evaluation successfully parsed');
-          break;
+          const parsed = extractJsonObject(raw);
+          if (parsed) {
+            rawParsedEval = parsed;
+            console.log('[Interview Evaluate API] Groq evaluation successfully parsed');
+            break;
+          }
         } else {
           console.warn(`[Interview Evaluate API] Groq key returned status: ${res.status}`);
         }
@@ -272,7 +284,43 @@ Return ONLY valid JSON matching this schema:
       }
     }
 
-    // 2. Fallback to OpenRouter if Groq pool is exhausted
+    // 2. Fallback to Gemini Flash if Groq pool is exhausted
+    if (!rawParsedEval && geminiKey) {
+      try {
+        console.log('[Interview Evaluate API] Falling back to Gemini Flash evaluation...');
+        const gemRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: 'user',
+                parts: [{ text: `${systemPrompt}\n\nCandidate Transcript:\n\n${candidateTranscriptPrompt}\n\nReturn ONLY the JSON object.` }]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.2,
+              maxOutputTokens: 1600,
+              responseMimeType: 'application/json'
+            }
+          }),
+          signal: AbortSignal.timeout(15000),
+        });
+        if (gemRes.ok) {
+          const gemData = await gemRes.json();
+          const raw = (gemData?.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+          const parsed = extractJsonObject(raw);
+          if (parsed) {
+            rawParsedEval = parsed;
+            console.log('[Interview Evaluate API] Gemini evaluation successfully parsed');
+          }
+        }
+      } catch (e: any) {
+        console.warn('[Interview Evaluate API] Gemini evaluation request error/timeout:', e?.message);
+      }
+    }
+
+    // 3. Fallback to OpenRouter if Groq & Gemini are exhausted
     if (!rawParsedEval && openRouterKey) {
       try {
         console.log('[Interview Evaluate API] Falling back to OpenRouter evaluation...');
@@ -296,9 +344,11 @@ Return ONLY valid JSON matching this schema:
         if (res.ok) {
           const data = await res.json();
           const raw = (data.choices?.[0]?.message?.content || '').trim();
-          const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
-          rawParsedEval = JSON.parse(cleanJsonStr);
-          console.log('[Interview Evaluate API] OpenRouter evaluation successfully parsed');
+          const parsed = extractJsonObject(raw);
+          if (parsed) {
+            rawParsedEval = parsed;
+            console.log('[Interview Evaluate API] OpenRouter evaluation successfully parsed');
+          }
         }
       } catch (e: any) {
         console.warn('[Interview Evaluate API] OpenRouter evaluation request error/timeout:', e?.message);
@@ -361,6 +411,27 @@ Return ONLY valid JSON matching this schema:
     // Telemetry Practice Diagnostics (Defect 090: Persisted to DB)
     const telemetryDiagnostics = generateTelemetryDiagnostics(telemetry);
 
+    const deterministicBreakdown = buildQuestionBenchmarks(scoredHistory, topic, stream);
+    const llmBreakdownRaw = Array.isArray(rawParsedEval.question_breakdown) ? rawParsedEval.question_breakdown : [];
+    const questionBreakdown = llmBreakdownRaw.length > 0
+      ? llmBreakdownRaw.slice(0, 8).map((q: any, idx: number) => ({
+          index: idx + 1,
+          question: sanitizeLLMOutput(String(q?.question || deterministicBreakdown[idx]?.question || `Question ${idx + 1}`)),
+          candidateAnswer: sanitizeLLMOutput(String(q?.candidate_answer || deterministicBreakdown[idx]?.candidateAnswer || '')),
+          idealAnswer: sanitizeLLMOutput(String(q?.ideal_answer || deterministicBreakdown[idx]?.idealAnswer || '')),
+          score: clampScore(q?.score, deterministicBreakdown[idx]?.score ?? 65),
+          feedback: sanitizeLLMOutput(String(q?.feedback || deterministicBreakdown[idx]?.feedback || '')),
+          missedConcepts: Array.isArray(q?.missed_concepts)
+            ? q.missed_concepts.map((c: unknown) => sanitizeLLMOutput(String(c))).filter(Boolean).slice(0, 5)
+            : (deterministicBreakdown[idx]?.missedConcepts || [])
+        }))
+      : deterministicBreakdown;
+    const defendedTechStack = extractDefendedTechStack(
+      scoredHistory,
+      typeof body.selectedLang === 'string' ? body.selectedLang : undefined,
+      topology
+    );
+
     const finalEvaluation = {
       verdict: scoringResult.verdict,
       score: scoringResult.overallScore,
@@ -377,6 +448,8 @@ Return ONLY valid JSON matching this schema:
       star_alignment: scoringResult.sanitizedDimensions.star,
       summary: sanitizedEvaluation.summary || `${scoringResult.verdict} performance in ${roleConfig.roleName} interview.`,
       answerQuality,
+      questionBreakdown,
+      defendedTechStack,
       strengths: Array.isArray(sanitizedEvaluation.strengths) && sanitizedEvaluation.strengths.length > 0
         ? sanitizedEvaluation.strengths
         : personaCoaching.tailoredStrengths,

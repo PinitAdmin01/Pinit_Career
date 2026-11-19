@@ -89,6 +89,13 @@ export default function SystemDesignWhiteboard({
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
   const [activeProtocol, setActiveProtocol] = useState<string>('HTTPS/REST');
+  const [pendingPreset, setPendingPreset] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!pendingPreset) return;
+    const t = setTimeout(() => setPendingPreset(null), 4000);
+    return () => clearTimeout(t);
+  }, [pendingPreset]);
 
   const canvasRef = useRef<HTMLDivElement>(null);
 
@@ -96,6 +103,8 @@ export default function SystemDesignWhiteboard({
 
   const prevTopicRef = useRef(activeTopic);
   const prevStreamRef = useRef(domainStream);
+  const onTopologyChangeRef = useRef(onTopologyChange);
+  onTopologyChangeRef.current = onTopologyChange;
 
   // Reset topology ONLY when domain stream or topic actually changes to a different one
   useEffect(() => {
@@ -135,10 +144,10 @@ export default function SystemDesignWhiteboard({
       isFullyConnected: currentNodes.length > 0 && currentLinks.length >= currentNodes.length - 1
     };
 
-    if (onTopologyChange) {
-      onTopologyChange(snapshot);
+    if (onTopologyChangeRef.current) {
+      onTopologyChangeRef.current(snapshot);
     }
-  }, [onTopologyChange]);
+  }, []);
 
   useEffect(() => {
     emitTopology(nodes, links);
@@ -166,14 +175,17 @@ export default function SystemDesignWhiteboard({
     if (selectedSourceId === id) setSelectedSourceId(null);
   };
 
+  const deleteLink = (linkId: string) => {
+    setLinks(prev => prev.filter(l => l.id !== linkId));
+  };
+
   const updateNodeLabel = (id: string, newLabel: string) => {
     setNodes(prev => prev.map(n => n.id === id ? { ...n, label: newLabel } : n));
   };
 
   // ─── Drag & Drop ─────────────────────────────────────────────────────────
   const handleNodeMouseDown = (e: React.MouseEvent, id: string) => {
-    if (isConnectMode) {
-      handleNodeClick(id);
+    if (isConnectMode || editingNodeId === id) {
       return;
     }
     const node = nodes.find(n => n.id === id);
@@ -213,7 +225,7 @@ export default function SystemDesignWhiteboard({
         const exists = links.some(l => l.from === selectedSourceId && l.to === id);
         if (!exists) {
           const newLink: BoardLink = {
-            id: 'link_' + Date.now(),
+            id: 'link_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
             from: selectedSourceId,
             to: id,
             protocol: activeProtocol
@@ -227,8 +239,7 @@ export default function SystemDesignWhiteboard({
 
   // ─── Touch Support ────────────────────────────────────────────────────────
   const handleNodeTouchStart = (e: React.TouchEvent, id: string) => {
-    if (isConnectMode) {
-      handleNodeClick(id);
+    if (isConnectMode || editingNodeId === id) {
       return;
     }
     const node = nodes.find(n => n.id === id);
@@ -258,11 +269,25 @@ export default function SystemDesignWhiteboard({
   };
 
   // ─── Presets ─────────────────────────────────────────────────────────────
-  const loadPreset = (presetName: '3tier' | 'microservices' | 'rag_pipeline' | 'quant_exchange' | 'zero_trust_security' | 'webrtc_conferencing') => {
-    if (nodes.length > 2 && typeof window !== 'undefined') {
-      const confirmWipe = window.confirm('Loading a preset will replace your current whiteboard architecture. Proceed?');
-      if (!confirmWipe) return;
+  type PresetKey =
+    | '3tier'
+    | 'microservices'
+    | 'rag_pipeline'
+    | 'quant_exchange'
+    | 'zero_trust_security'
+    | 'webrtc_conferencing'
+    | 'growth_funnel'
+    | 'ecommerce_ops'
+    | 'erp_ledger';
+
+  const loadPreset = (presetName: PresetKey) => {
+    // Inline 2-click confirmation preserves browser Fullscreen Gaming Mode (never calls window.confirm)
+    if (nodes.length > 2 && pendingPreset !== presetName) {
+      setPendingPreset(presetName);
+      return;
     }
+    setPendingPreset(null);
+    setSelectedSourceId(null);
     console.log(`[Whiteboard] Loading architecture preset: ${presetName}`);
 
     if (presetName === '3tier') {
@@ -369,8 +394,73 @@ export default function SystemDesignWhiteboard({
       ];
       setNodes(n);
       setLinks(l);
+    } else if (presetName === 'growth_funnel') {
+      const n: BoardNode[] = [
+        { id: 'gf_1', type: 'Target Audience', label: 'ICP Paid & Organic Reach', x: 30, y: 170, category: 'business', color: 'var(--info)' },
+        { id: 'gf_2', type: 'Ad Campaign', label: 'Meta / Search Acquisition', x: 220, y: 90, category: 'business', color: 'var(--warning)' },
+        { id: 'gf_3', type: 'Landing Page', label: 'A/B Tested Funnel Page', x: 220, y: 250, category: 'business', color: 'var(--reward)' },
+        { id: 'gf_4', type: 'Checkout Engine', label: 'Subscription & Pricing Tier', x: 430, y: 170, category: 'business', color: 'var(--success)' },
+        { id: 'gf_5', type: 'CRM / Support', label: 'Onboarding & Lifecycle CRM', x: 630, y: 100, category: 'business', color: 'var(--brand)' },
+        { id: 'gf_6', type: 'Retention Loop', label: 'Referral & Upsell Cohort', x: 630, y: 250, category: 'business', color: '#ec4899' },
+      ];
+      const l: BoardLink[] = [
+        { id: 'gfl_1', from: 'gf_1', to: 'gf_2', protocol: 'Targeting' },
+        { id: 'gfl_2', from: 'gf_2', to: 'gf_3', protocol: 'CTR Click' },
+        { id: 'gfl_3', from: 'gf_3', to: 'gf_4', protocol: 'Checkout CR' },
+        { id: 'gfl_4', from: 'gf_4', to: 'gf_5', protocol: 'CRM Sync' },
+        { id: 'gfl_5', from: 'gf_5', to: 'gf_6', protocol: 'LTV Loop' },
+      ];
+      setNodes(n);
+      setLinks(l);
+    } else if (presetName === 'ecommerce_ops') {
+      const n: BoardNode[] = [
+        { id: 'ec_1', type: 'Supplier Network', label: 'Tier-1 Vendors & Sourcing', x: 30, y: 170, category: 'business', color: 'var(--accent-teal)' },
+        { id: 'ec_2', type: 'Logistics Hub', label: 'Regional Fulfillment WMS', x: 230, y: 170, category: 'business', color: '#f97316' },
+        { id: 'ec_3', type: 'Checkout Engine', label: 'Omnichannel Order OMS', x: 440, y: 90, category: 'business', color: 'var(--success)' },
+        { id: 'ec_4', type: 'CRM / Support', label: 'Returns & SLA Resolution', x: 440, y: 260, category: 'business', color: 'var(--brand)' },
+        { id: 'ec_5', type: 'Retention Loop', label: 'Inventory Forecast & Reorder', x: 650, y: 170, category: 'business', color: '#ec4899' },
+      ];
+      const l: BoardLink[] = [
+        { id: 'ecl_1', from: 'ec_1', to: 'ec_2', protocol: 'PO Inbound' },
+        { id: 'ecl_2', from: 'ec_2', to: 'ec_3', protocol: 'Live Stock' },
+        { id: 'ecl_3', from: 'ec_3', to: 'ec_4', protocol: 'Order SLA' },
+        { id: 'ecl_4', from: 'ec_2', to: 'ec_5', protocol: 'Turnover KPI' },
+      ];
+      setNodes(n);
+      setLinks(l);
+    } else if (presetName === 'erp_ledger') {
+      const n: BoardNode[] = [
+        { id: 'erp_1', type: 'Checkout Engine', label: 'Billing & Invoicing Sub-Ledger', x: 30, y: 170, category: 'business', color: 'var(--success)' },
+        { id: 'erp_2', type: 'Supplier Network', label: 'Accounts Payable & Payroll', x: 230, y: 90, category: 'business', color: 'var(--accent-teal)' },
+        { id: 'erp_3', type: 'CRM / Support', label: 'Double-Entry General Ledger', x: 440, y: 170, category: 'business', color: 'var(--brand)' },
+        { id: 'erp_4', type: 'Logistics Hub', label: 'Tax / Statutory Audit Trail', x: 650, y: 90, category: 'business', color: '#f97316' },
+        { id: 'erp_5', type: 'Retention Loop', label: 'CFO Cash Flow & EBITDA Report', x: 650, y: 250, category: 'business', color: '#ec4899' },
+      ];
+      const l: BoardLink[] = [
+        { id: 'erpl_1', from: 'erp_1', to: 'erp_3', protocol: 'Debit/Credit' },
+        { id: 'erpl_2', from: 'erp_2', to: 'erp_3', protocol: 'AP Journal' },
+        { id: 'erpl_3', from: 'erp_3', to: 'erp_4', protocol: 'Reconcile' },
+        { id: 'erpl_4', from: 'erp_3', to: 'erp_5', protocol: 'Close Cycle' },
+      ];
+      setNodes(n);
+      setLinks(l);
     }
   };
+
+  const presetButtons: Array<{ key: PresetKey; label: string }> = domainStream === 'non_tech'
+    ? [
+        { key: 'growth_funnel', label: '📣 Growth Funnel' },
+        { key: 'ecommerce_ops', label: '🚚 E-Commerce Ops' },
+        { key: 'erp_ledger', label: '📊 ERP Double-Entry Ledger' },
+      ]
+    : [
+        { key: '3tier', label: '⚡ 3-Tier Web App' },
+        { key: 'microservices', label: '⚙️ Microservices Bus' },
+        { key: 'rag_pipeline', label: '🧠 RAG AI Pipeline' },
+        { key: 'quant_exchange', label: '📈 Quant Exchange' },
+        { key: 'zero_trust_security', label: '🛡️ Zero-Trust Security' },
+        { key: 'webrtc_conferencing', label: '🎥 WebRTC Video' },
+      ];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--bg2)', padding: 16, borderRadius: 16, border: '1px solid var(--border)' }}>
@@ -378,7 +468,7 @@ export default function SystemDesignWhiteboard({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
         <div>
           <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>
-            Interactive System Whiteboard
+            {domainStream === 'non_tech' ? 'Interactive Business Workflow Canvas' : 'Interactive System Whiteboard'}
           </span>
           <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>
             Architecture Topology: {activeTopic}
@@ -389,17 +479,31 @@ export default function SystemDesignWhiteboard({
           <select
             value={activeProtocol}
             onChange={(e) => setActiveProtocol(e.target.value)}
-            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', padding: '5px 8px', borderRadius: 8, fontSize: 12, fontWeight: 800 }}
+            className="iv-select"
+            style={{ padding: '5px 8px', fontSize: 12, fontWeight: 800 }}
           >
-            <option value='HTTPS/REST'>Protocol: HTTPS/REST</option>
-            <option value='gRPC'>Protocol: gRPC</option>
-            <option value='SQL Query'>Protocol: SQL Query</option>
-            <option value='Redis Cache'>Protocol: Cache Get/Set</option>
-            <option value='Kafka Event'>Protocol: Event Pub/Sub</option>
-            <option value='Websocket'>Protocol: WebSocket Stream</option>
+            {domainStream === 'non_tech' ? (
+              <>
+                <option value='Funnel Flow'>Flow: Funnel Conversion</option>
+                <option value='Data Sync'>Flow: CRM / ERP Sync</option>
+                <option value='SLA Handoff'>Flow: Operational Handoff</option>
+                <option value='Ledger Entry'>Flow: Journal / Audit</option>
+                <option value='KPI Loop'>Flow: Feedback / KPI</option>
+              </>
+            ) : (
+              <>
+                <option value='HTTPS/REST'>Protocol: HTTPS/REST</option>
+                <option value='gRPC'>Protocol: gRPC</option>
+                <option value='SQL Query'>Protocol: SQL Query</option>
+                <option value='Redis Cache'>Protocol: Cache Get/Set</option>
+                <option value='Kafka Event'>Protocol: Event Pub/Sub</option>
+                <option value='Websocket'>Protocol: WebSocket Stream</option>
+              </>
+            )}
           </select>
 
           <button
+            type="button"
             onClick={() => {
               setIsConnectMode(c => !c);
               setSelectedSourceId(null);
@@ -407,7 +511,7 @@ export default function SystemDesignWhiteboard({
             style={{
               background: isConnectMode ? 'var(--accent)' : 'var(--bg3)',
               border: isConnectMode ? '2px solid var(--accent)' : '1px solid var(--border)',
-              color: isConnectMode ? 'var(--text)' : 'var(--t1)',
+              color: isConnectMode ? '#ffffff' : 'var(--t1)',
               borderRadius: 8,
               padding: '6px 12px',
               fontSize: 12,
@@ -421,37 +525,38 @@ export default function SystemDesignWhiteboard({
             <span>{isConnectMode ? '🔗 Connection Mode ON' : '🔗 Connect Nodes'}</span>
           </button>
 
-          <button onClick={() => loadPreset('3tier')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
-            ⚡ 3-Tier Web App
-          </button>
-
-          <button onClick={() => loadPreset('microservices')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
-            ⚙️ Microservices Bus
-          </button>
-
-          <button onClick={() => loadPreset('rag_pipeline')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
-            🧠 RAG AI Pipeline
-          </button>
-
-          <button onClick={() => loadPreset('quant_exchange')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
-            📈 Quant Exchange
-          </button>
-
-          <button onClick={() => loadPreset('zero_trust_security')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
-            🛡️ Zero-Trust Security
-          </button>
-
-          <button onClick={() => loadPreset('webrtc_conferencing')} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}>
-            🎥 WebRTC Video
-          </button>
+          {presetButtons.map((preset) => {
+            const isConfirming = pendingPreset === preset.key;
+            return (
+              <button
+                key={preset.key}
+                type="button"
+                onClick={() => loadPreset(preset.key)}
+                style={{
+                  background: isConfirming ? 'rgba(245, 158, 11, 0.16)' : 'var(--bg3)',
+                  border: isConfirming ? '1px solid var(--warning, #f59e0b)' : '1px solid var(--border)',
+                  color: isConfirming ? 'var(--amber-mid)' : 'var(--t2)',
+                  borderRadius: 8,
+                  padding: '6px 10px',
+                  fontSize: 11.5,
+                  fontWeight: 800,
+                  cursor: 'pointer'
+                }}
+              >
+                {isConfirming ? `✓ Replace with ${preset.label}?` : preset.label}
+              </button>
+            );
+          })}
 
           <button
+            type="button"
             onClick={() => {
               setNodes([]);
               setLinks([]);
               setSelectedSourceId(null);
+              setPendingPreset(null);
             }}
-            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--danger-bright, #ef4444)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}
+            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--coral-mid)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}
             title="Reset canvas to blank"
           >
             🗑️ Clear Canvas
@@ -459,18 +564,14 @@ export default function SystemDesignWhiteboard({
 
           {onAnalyze && (
             <button
+              type="button"
               onClick={onAnalyze}
               disabled={isAnalyzing}
+              className="iv-btn-primary"
               style={{
-                background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-                border: 'none',
-                color: 'var(--text)',
-                borderRadius: 8,
                 padding: '6px 14px',
                 fontSize: 12,
-                fontWeight: 900,
                 cursor: isAnalyzing ? 'not-allowed' : 'pointer',
-                boxShadow: 'var(--shadow-sm)'
               }}
             >
               {isAnalyzing ? '🤖 Evaluating...' : '🤖 Evaluate Architecture'}
@@ -480,15 +581,17 @@ export default function SystemDesignWhiteboard({
       </div>
 
       {/* Palette Toolbar */}
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', background: 'var(--bg3)', padding: 8, borderRadius: 10 }}>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', background: 'var(--bg3)', padding: 8, borderRadius: 10, border: '1px solid var(--border)' }}>
         <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', marginRight: 4 }}>+ ADD:</span>
         {palette.map(item => (
           <button
             key={item.type}
+            type="button"
             onClick={() => addNode(item)}
+            className="iv-seg-btn"
             style={{
               background: 'var(--bg2)',
-              border: '1px solid ' + item.color + '44',
+              border: `1px solid color-mix(in srgb, ${item.color} 38%, var(--border))`,
               color: 'var(--t1)',
               borderRadius: 6,
               padding: '4px 8px',
@@ -509,6 +612,7 @@ export default function SystemDesignWhiteboard({
       {/* Canvas Area */}
       <div
         ref={canvasRef}
+        className="iv-canvas-bg"
         onMouseMove={handleCanvasMouseMove}
         onMouseUp={handleCanvasMouseUp}
         onTouchMove={handleCanvasTouchMove}
@@ -516,8 +620,8 @@ export default function SystemDesignWhiteboard({
         style={{
           position: 'relative',
           height: 440,
-          background: 'radial-gradient(var(--border) 1px, var(--bg) 1px)',
-          backgroundSize: '16px 16px',
+          backgroundImage: 'radial-gradient(var(--border2) 1px, transparent 1px)',
+          backgroundSize: '18px 18px',
           borderRadius: 14,
           border: '1px solid var(--border)',
           overflow: 'hidden',
@@ -547,6 +651,22 @@ export default function SystemDesignWhiteboard({
 
             return (
               <g key={l.id}>
+                {/* Wide transparent hit target so clicking any arrow cleanly deletes that connection */}
+                <line
+                  x1={fromCenterX}
+                  y1={fromCenterY}
+                  x2={toCenterX}
+                  y2={toCenterY}
+                  stroke='transparent'
+                  strokeWidth='14'
+                  className='iv-wb-link-hit'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteLink(l.id);
+                  }}
+                >
+                  <title>Click to remove connection ({l.protocol || 'link'})</title>
+                </line>
                 <line
                   x1={fromCenterX}
                   y1={fromCenterY}
@@ -563,7 +683,7 @@ export default function SystemDesignWhiteboard({
                     x={midX}
                     y={midY - 6}
                     fill='var(--t2)'
-                    fontSize='9'
+                    fontSize='9.5'
                     fontWeight='800'
                     textAnchor='middle'
                   >
@@ -605,7 +725,7 @@ export default function SystemDesignWhiteboard({
                 position: 'absolute',
                 left: n.x,
                 top: n.y,
-                width: 145,
+                width: 148,
                 padding: '8px 10px',
                 background: isSelected ? 'var(--accent-light)' : 'var(--bg2)',
                 border: isSelected ? '2px solid var(--accent)' : ('1.5px solid ' + (n.color || 'var(--border)')),
@@ -614,7 +734,7 @@ export default function SystemDesignWhiteboard({
                 color: 'var(--t1)',
                 fontSize: 12,
                 cursor: isConnectMode ? 'pointer' : 'grab',
-                boxShadow: 'var(--shadow-sm)',
+                boxShadow: isSelected ? '0 0 0 3px var(--accent-glow), var(--shadow-md)' : 'var(--shadow-sm)',
                 userSelect: 'none',
                 zIndex: isSelected ? 10 : 2
               }}
@@ -624,6 +744,10 @@ export default function SystemDesignWhiteboard({
                   {n.type}
                 </span>
                 <button
+                  type="button"
+                  aria-label={`Remove ${n.label}`}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
                   onClick={(e) => {
                     e.stopPropagation();
                     deleteNode(n.id);
@@ -631,10 +755,10 @@ export default function SystemDesignWhiteboard({
                   style={{
                     background: 'var(--danger)',
                     border: 'none',
-                    color: 'var(--text)',
+                    color: '#ffffff',
                     borderRadius: '50%',
-                    width: 15,
-                    height: 15,
+                    width: 16,
+                    height: 16,
                     fontSize: 9,
                     cursor: 'pointer',
                     display: 'flex',
@@ -651,9 +775,11 @@ export default function SystemDesignWhiteboard({
                   type='text'
                   value={n.label}
                   autoFocus
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
                   onChange={(e) => updateNodeLabel(n.id, e.target.value)}
                   onBlur={() => setEditingNodeId(null)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') setEditingNodeId(null); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === 'Escape') setEditingNodeId(null); }}
                   onClick={(e) => e.stopPropagation()}
                   style={{
                     width: '100%',
@@ -689,12 +815,12 @@ export default function SystemDesignWhiteboard({
       </div>
 
       {/* Footer Metrics */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--t3)', fontWeight: 800, padding: '4px 6px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 6, fontSize: 12, color: 'var(--t3)', fontWeight: 800, padding: '4px 6px' }}>
         <div>
           <span>Nodes: {nodes.length}</span> • <span>Connections: {links.length}</span> • <span>Mode: {domainStream.toUpperCase()}</span>
         </div>
         <div>
-          <span>Tip: Double click any component to edit label • Toggle Connect Mode to link nodes</span>
+          <span>Tip: Double click node to rename • Click any arrow to delete link</span>
         </div>
       </div>
     </div>

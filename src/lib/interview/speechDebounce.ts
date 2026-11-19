@@ -65,6 +65,9 @@ export class SpeechDebounceManager {
   public handleFinalChunk(chunk: string, onSilenceTrigger?: (fullText: string) => void): string {
     const trimmed = chunk.trim();
     if (trimmed) {
+      if (!this.speechStartTimestamp) {
+        this.speechStartTimestamp = Date.now();
+      }
       this.accumulatedText = this.accumulatedText
         ? `${this.accumulatedText} ${trimmed}`
         : trimmed;

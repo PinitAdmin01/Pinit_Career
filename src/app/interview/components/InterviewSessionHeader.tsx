@@ -9,6 +9,7 @@ interface InterviewSessionHeaderProps {
   activeStage: string;
   domainStream?: 'tech' | 'non_tech' | string;
   domainSubTopic?: string;
+  companyName?: string;
   isVoiceListening?: boolean;
   elapsedSeconds: number;
   formatElapsed: (sec: number) => string;
@@ -34,6 +35,7 @@ export function InterviewSessionHeader({
   activeStage,
   domainStream,
   domainSubTopic,
+  companyName,
   isVoiceListening = false,
   elapsedSeconds,
   formatElapsed,
@@ -53,6 +55,13 @@ export function InterviewSessionHeader({
   isTabInactive = false
 }: InterviewSessionHeaderProps) {
   const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const [confirmAction, setConfirmAction] = React.useState<'skip' | 'exit' | null>(null);
+
+  React.useEffect(() => {
+    if (!confirmAction) return;
+    const t = setTimeout(() => setConfirmAction(null), 4000);
+    return () => clearTimeout(t);
+  }, [confirmAction]);
 
   React.useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -78,15 +87,7 @@ export function InterviewSessionHeader({
   const activeRoundIndex = rounds.findIndex(round => round.id === activeStage);
   const currentRound = rounds[activeRoundIndex];
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 10,
-      padding: '10px 18px',
-      background: 'var(--bg2)',
-      borderRadius: 14,
-      border: '1px solid var(--border)'
-    }}>
+    <div className="iv-session-header">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 22 }}>{activeTeacher.emoji}</span>
@@ -111,6 +112,23 @@ export function InterviewSessionHeader({
                 }}
               >
                 🎯 {domainSubTopic.replace(/_/g, ' ')}
+              </span>
+            )}
+            {companyName && (
+              <span
+                data-testid="header-company-badge"
+                style={{
+                  fontSize: 10,
+                  fontWeight: 800,
+                  padding: '2px 8px',
+                  borderRadius: 6,
+                  background: 'rgba(16, 185, 129, 0.14)',
+                  color: 'var(--green-mid)',
+                  border: '1px solid rgba(16, 185, 129, 0.35)',
+                  letterSpacing: '0.03em'
+                }}
+              >
+                🏢 {companyName}
               </span>
             )}
             <span
@@ -155,7 +173,6 @@ export function InterviewSessionHeader({
         </div>
       </div>
 
-       </div>
        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
         <div style={{ position: 'relative', display: 'inline-block' }}>
           <button
@@ -166,7 +183,9 @@ export function InterviewSessionHeader({
               setIsAssistModeActive(next);
               if (next) {
                 const lastMsg = messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content;
-                fetchAssistScript(lastMsg || `Provide structured interview coaching for ${activeTopicName} (${activeStage}).`);
+                if (!lastMsg) {
+                  fetchAssistScript(`Provide structured interview coaching for ${activeTopicName} (${activeStage}).`);
+                }
               }
             }}
             style={{
@@ -206,12 +225,12 @@ export function InterviewSessionHeader({
           }}
           style={{
             background: isFullscreen
-              ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%)'
-              : 'rgba(139, 92, 246, 0.15)',
+              ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%)'
+              : 'var(--purple-light)',
             border: isFullscreen
-              ? '1.5px solid rgba(139, 92, 246, 0.8)'
-              : '1px solid rgba(139, 92, 246, 0.4)',
-            color: '#c4b5fd',
+              ? '1.5px solid var(--purple)'
+              : '1px solid rgba(139, 92, 246, 0.45)',
+            color: 'var(--purple-mid, var(--purple))',
             borderRadius: 8,
             padding: '5px 12px',
             fontSize: 12,
@@ -220,7 +239,7 @@ export function InterviewSessionHeader({
             display: 'flex',
             alignItems: 'center',
             gap: 6,
-            boxShadow: isFullscreen ? '0 0 12px rgba(139, 92, 246, 0.35)' : 'none'
+            boxShadow: isFullscreen ? '0 0 12px rgba(139, 92, 246, 0.3)' : 'none'
           }}
         >
           <span>🎮</span>
@@ -284,45 +303,120 @@ export function InterviewSessionHeader({
         )}
 
         {onSkipQuestion && isScoredStage && activeStage !== 'results' && (
+          confirmAction === 'skip' ? (
+            <div style={{ display: 'inline-flex', gap: 4, alignItems: 'center' }}>
+              <button
+                data-testid="header-skip-confirm"
+                onClick={() => {
+                  setConfirmAction(null);
+                  onSkipQuestion();
+                }}
+                style={{
+                  background: 'rgba(234, 179, 8, 0.18)',
+                  border: '1px solid rgba(234, 179, 8, 0.5)',
+                  color: '#fbbf24',
+                  borderRadius: 8,
+                  padding: '5px 10px',
+                  fontSize: 11.5,
+                  fontWeight: 900,
+                  cursor: 'pointer'
+                }}
+              >
+                ✓ Confirm Skip
+              </button>
+              <button
+                onClick={() => setConfirmAction(null)}
+                style={{
+                  background: 'var(--bg3)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--t3)',
+                  borderRadius: 8,
+                  padding: '5px 8px',
+                  fontSize: 11.5,
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button
+              data-testid="header-skip-btn"
+              onClick={() => setConfirmAction('skip')}
+              title="Skip current question (will be noted in audit record)"
+              style={{
+                background: 'var(--bg3)',
+                border: '1px solid var(--border)',
+                color: 'var(--t2)',
+                borderRadius: 8,
+                padding: '5px 12px',
+                fontSize: 12,
+                fontWeight: 800,
+                cursor: 'pointer'
+              }}
+            >
+              ⏭ Skip Question
+            </button>
+          )
+        )}
+
+        {confirmAction === 'exit' ? (
+          <div style={{ display: 'inline-flex', gap: 4, alignItems: 'center' }}>
+            <button
+              data-testid="header-exit-confirm"
+              onClick={() => {
+                setConfirmAction(null);
+                exitInterview();
+              }}
+              style={{
+                background: 'var(--coral-mid)',
+                border: '1px solid var(--coral-mid)',
+                color: '#fff',
+                borderRadius: 8,
+                padding: '5px 10px',
+                fontSize: 11.5,
+                fontWeight: 900,
+                cursor: 'pointer'
+              }}
+            >
+              ✓ Confirm Exit
+            </button>
+            <button
+              onClick={() => setConfirmAction(null)}
+              style={{
+                background: 'var(--bg3)',
+                border: '1px solid var(--border)',
+                color: 'var(--t3)',
+                borderRadius: 8,
+                padding: '5px 8px',
+                fontSize: 11.5,
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
           <button
-            onClick={() => {
-              if (window.confirm('Skip this question and move to the next topic? (This will be noted in the audit record)')) {
-                onSkipQuestion();
-              }
-            }}
-            title="Skip current question"
+            data-testid="header-exit-btn"
+            onClick={() => setConfirmAction('exit')}
             style={{
-              background: 'var(--bg3)',
-              border: '1px solid var(--border)',
-              color: 'var(--t2)',
+              background: 'var(--coral-light)',
+              border: '1px solid var(--coral-mid)',
+              color: 'var(--coral-mid)',
               borderRadius: 8,
-              padding: '5px 12px',
+              padding: '5px 14px',
               fontSize: 12,
               fontWeight: 800,
               cursor: 'pointer'
             }}
           >
-            ⏭ Skip Question
+            ✕ Exit Session
           </button>
         )}
-
-        <button
-          onClick={() => {
-            if (window.confirm('Exit this interview? Your current session will end and you will return to setup.')) exitInterview();
-          }}
-          style={{
-            background: 'var(--coral-light)',
-            border: '1px solid var(--coral-mid)',
-            color: 'var(--coral-mid)',
-            borderRadius: 8,
-            padding: '5px 14px',
-            fontSize: 12,
-            fontWeight: 800,
-            cursor: 'pointer'
-          }}
-        >
-          ✕ Exit Session
-        </button>
+       </div>
       </div>
       <div aria-label="Interview progress" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 6 }}>
         {rounds.map((round, index) => {

@@ -222,10 +222,30 @@ type PyodideRuntime = {
 
 let serverPyodidePromise: Promise<PyodideRuntime> | null = null;
 
+function resolveServerPyodideIndexUrl(): string | undefined {
+  const candidates = [
+    path.join(process.cwd(), 'node_modules', 'pyodide'),
+    path.join(process.cwd(), 'public', 'pyodide'),
+  ];
+  for (const dir of candidates) {
+    try {
+      if (fs.existsSync(path.join(dir, 'pyodide.asm.wasm'))) {
+        return dir.endsWith(path.sep) ? dir : `${dir}${path.sep}`;
+      }
+    } catch {
+      // ignore fs errors and try next candidate
+    }
+  }
+  return undefined;
+}
+
 async function getServerPyodide(): Promise<PyodideRuntime> {
   if (!serverPyodidePromise) {
+    const indexURL = resolveServerPyodideIndexUrl();
     serverPyodidePromise = import('pyodide')
-      .then((mod) => mod.loadPyodide() as unknown as Promise<PyodideRuntime>)
+      .then((mod) =>
+        (indexURL ? mod.loadPyodide({ indexURL }) : mod.loadPyodide()) as unknown as Promise<PyodideRuntime>
+      )
       .catch((err) => {
         serverPyodidePromise = null;
         throw err;
@@ -278,19 +298,30 @@ export async function runPythonInPyodideFallback(
   g.set('__name__', '__main__');
 
   const runnerScript = [
-    'import sys',
+    'import sys, io',
     '_pinit_status = "SUCCESS"',
     '_pinit_err = ""',
+    '_sand_cap = io.StringIO()',
+    '_orig_sys_stdout = sys.stdout',
+    '_captured_stdout_ = ""',
     'try:',
+    '    sys.stdout = _sand_cap',
     `    exec(compile(${JSON.stringify(code)}, "solution.py", "exec"), globals())`,
+    '    _captured_stdout_ = _sand_cap.getvalue()',
+    '    sys.stdout = _orig_sys_stdout',
+    '    if _captured_stdout_:',
+    '        sys.stdout.write(_captured_stdout_)',
     `    exec(compile(${JSON.stringify(tests.trim() ? tests : 'pass')}, "tests.py", "exec"), globals())`,
     'except AssertionError as _ae:',
+    '    sys.stdout = _orig_sys_stdout',
     '    _pinit_status = "ASSERTION_FAILED"',
     '    _pinit_err = f"AssertionError: {_ae}"',
     'except SystemExit as _se:',
+    '    sys.stdout = _orig_sys_stdout',
     '    _pinit_status = "ABNORMAL_TERMINATION"',
     '    _pinit_err = f"SystemExit: {_se}"',
     'except BaseException as _ex:',
+    '    sys.stdout = _orig_sys_stdout',
     '    _pinit_status = "RUNTIME_ERROR"',
     '    _pinit_err = f"{type(_ex).__name__}: {_ex}"',
   ].join('\n');

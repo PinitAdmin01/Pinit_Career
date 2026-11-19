@@ -3,6 +3,7 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
 import { verifyEvaluationSignature } from '@/lib/interview/evaluationSignature';
 import { calculateRoleWeightedScore, normalizeRoleKey, clampScore, InterviewDimensions } from '@/lib/interview/scoringMatrix';
+import { SKIP_TURN_REGEX } from '@/lib/interview/postInterviewInsights';
 
 function getSupabaseServer() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -25,7 +26,9 @@ export async function POST(req: Request) {
     const token = sessionData?.evaluationToken || sessionData?.evaluation?.evaluationToken;
 
     const transcriptMessages = Array.isArray(sessionData?.messages) ? sessionData.messages : [];
-    const userMessageCount = transcriptMessages.filter((m: any) => m.role === 'user').length;
+    const userMessageCount = transcriptMessages.filter(
+      (m: any) => m?.role === 'user' && !SKIP_TURN_REGEX.test(String(m?.content || '').trim())
+    ).length;
 
     // Fail-Closed Guard: If transcript is empty, candidate cannot record a passing score
     if (userMessageCount === 0 && claimedScore > 0) {
@@ -130,20 +133,62 @@ export async function POST(req: Request) {
         strengths: sessionData?.strengths,
         improvements: sessionData?.improvements,
         topology: sessionData?.topology || null,
+        targetCompany: sessionData?.targetCompany || '',
+        defendedTechStack: Array.isArray(sessionData?.defendedTechStack) ? sessionData.defendedTechStack : [],
+        questionBreakdown: Array.isArray(sessionData?.questionBreakdown) ? sessionData.questionBreakdown : [],
+        answerQuality: sessionData?.answerQuality || null,
         verified: isSignatureValid
       },
       completed_at: new Date().toISOString()
     };
 
-    if (isValidUuid) {
-      insertPayload.id = sessionData.id;
-    }
+    let inserted: { id?: string; created_at?: string } | null = null;
+    let insertError: any = null;
 
-    const { data: inserted, error: insertError } = await supabase
-      .from('interview_sessions')
-      .upsert([insertPayload], { onConflict: 'id' })
-      .select('id, created_at')
-      .single();
+    if (isValidUuid) {
+      // Service-role client bypasses RLS: verify ownership before updating an existing session id.
+      const { data: existingRow } = await supabase
+        .from('interview_sessions')
+        .select('id, user_id')
+        .eq('id', sessionData.id)
+        .maybeSingle();
+
+      if (existingRow && existingRow.user_id !== userId) {
+        return NextResponse.json(
+          { error: 'Session ID belongs to another user.', code: 'FORBIDDEN_SESSION_ID' },
+          { status: 403 }
+        );
+      }
+
+      if (existingRow) {
+        const res = await supabase
+          .from('interview_sessions')
+          .update(insertPayload)
+          .eq('id', sessionData.id)
+          .eq('user_id', userId)
+          .select('id, created_at')
+          .single();
+        inserted = res.data;
+        insertError = res.error;
+      } else {
+        insertPayload.id = sessionData.id;
+        const res = await supabase
+          .from('interview_sessions')
+          .insert([insertPayload])
+          .select('id, created_at')
+          .single();
+        inserted = res.data;
+        insertError = res.error;
+      }
+    } else {
+      const res = await supabase
+        .from('interview_sessions')
+        .insert([insertPayload])
+        .select('id, created_at')
+        .single();
+      inserted = res.data;
+      insertError = res.error;
+    }
 
     if (insertError) {
       console.error('[Interview History API] Insert error:', insertError.message);
@@ -208,6 +253,10 @@ export async function GET(req: Request) {
         strengths: evalData.strengths || [],
         improvements: evalData.improvements || [],
         topology: evalData.topology || null,
+        targetCompany: evalData.targetCompany || '',
+        defendedTechStack: Array.isArray(evalData.defendedTechStack) ? evalData.defendedTechStack : [],
+        questionBreakdown: Array.isArray(evalData.questionBreakdown) ? evalData.questionBreakdown : [],
+        answerQuality: evalData.answerQuality || null,
         messages: row.transcript || evalData.messages || [],
         verified: evalData.verified ?? false
       };

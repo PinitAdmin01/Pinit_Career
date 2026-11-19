@@ -410,7 +410,18 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
               isCompleted={isCompleted}
               examTimedOut={state.examTimedOut}
               onSubmit={state.handleVerifySolution}
-              onReset={() => state.setCode(quest.starterCode || '')}
+              onReset={() => {
+                const resetCode = quest.starterCode || '';
+                state.setCode(resetCode);
+                if (typeof window !== 'undefined') {
+                  try {
+                    localStorage.removeItem(`pinit_code_${userId}_${questId}`);
+                  } catch {}
+                }
+                if (typeof saveQuestCode === 'function') {
+                  saveQuestCode(questId, resetCode);
+                }
+              }}
             />
           </div>
 

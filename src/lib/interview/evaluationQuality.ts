@@ -48,16 +48,32 @@ export function normalizeAnswerQuality(
   if (Object.values(scores).every((score) => score === null)) return null;
 
   const allowedDimensions = new Set<string>(ANSWER_QUALITY_DIMENSIONS);
+  const dimensionAliases: Record<string, AnswerQualityDimension> = {
+    question_relevance: 'questionRelevance',
+    answer_accuracy: 'answerAccuracy',
+    reasoning_depth: 'reasoningDepth',
+    conclusion_quality: 'conclusionQuality',
+  };
+  const normalizeText = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').trim();
+  const normalizedAnswers = candidateAnswers.map(normalizeText);
+
   const evidence = (Array.isArray(raw.evidence) ? raw.evidence : [])
     .slice(0, 6)
     .flatMap((item): AnswerQualityEvidence[] => {
       if (!item || typeof item !== 'object' || Array.isArray(item)) return [];
       const row = item as Record<string, unknown>;
-      const dimension = String(row.dimension || '');
+      const rawDim = String(row.dimension || '').trim();
+      const dimension = allowedDimensions.has(rawDim)
+        ? rawDim
+        : (dimensionAliases[rawDim.toLowerCase()] || '');
       const quote = typeof row.quote === 'string' ? row.quote.trim() : '';
       const assessment = typeof row.assessment === 'string' ? row.assessment.trim() : '';
       if (!allowedDimensions.has(dimension) || quote.length < 8 || !assessment) return [];
-      if (!candidateAnswers.some((answer) => answer.includes(quote))) return [];
+      const normQuote = normalizeText(quote);
+      const matched = candidateAnswers.some((answer, idx) =>
+        answer.includes(quote) || normalizedAnswers[idx].includes(normQuote)
+      );
+      if (!matched) return [];
 
       return [{
         dimension: dimension as AnswerQualityDimension,

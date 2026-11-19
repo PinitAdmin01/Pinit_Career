@@ -90,6 +90,7 @@ export function createSemanticFallbackProblem(topicName: string, difficulty: 'ea
       python: `def ${safeFn}(input_data, threshold):\n    # TODO: Implement - Count items in input_data strictly greater than threshold\n    # Example: [10, 20, 30], 15 -> 2\n    pass`,
       javascript: `function ${safeFn}(inputData, threshold) {\n    // TODO: Count items in inputData strictly greater than threshold\n    // Example: [10, 20, 30], 15 -> 2\n}`,
       java: `public class Solution {\n    public int ${safeFn}(int[] data, int threshold) {\n        // TODO: Count items strictly greater than threshold\n        return 0;\n    }\n}`,
+      cpp: `#include <vector>\n\nclass Solution {\npublic:\n    int ${safeFn}(const std::vector<int>& data, int threshold) {\n        // TODO: Count items strictly greater than threshold\n        return 0;\n    }\n};`,
       sql: SQL_INTERVIEW_STARTER
     },
     testCases,
@@ -110,11 +111,13 @@ export function resolveDynamicCodingProblem(
   cached?: any
 ): CodingProblemDefinition {
   if (cached && cached.starterCode) {
+    const fnStub = (cached.functionName || 'evaluate_solution').replace(/[^a-zA-Z0-9_]/g, '_');
+    const cppFallback = `#include <vector>\n#include <string>\n\nclass Solution {\npublic:\n    int ${fnStub}(const std::vector<int>& data, int threshold) {\n        // TODO: Implement ${cached.title || 'solution'}\n        return 0;\n    }\n};`;
     return {
       title: cached.title,
       description: cached.description,
       functionName: cached.functionName,
-      starterCode: cached.starterCode[lang] || cached.starterCode.python || '',
+      starterCode: cached.starterCode[lang] || (lang === 'cpp' ? cppFallback : cached.starterCode.python) || '',
       testSuite: typeof cached.testSuite === 'string' ? cached.testSuite : (lang === 'sql' ? SQL_INTERVIEW_TEST_SUITE : undefined),
       testCases: Array.isArray(cached.testCases) ? cached.testCases : undefined
     };
@@ -135,6 +138,7 @@ export function resolveDynamicCodingProblem(
       python: `def batch_state_updates(initial_state, actions):\n    # TODO: Merge actions list into initial_state copy and return the updated state dict.\n    # Example: batch_state_updates({"count": 0}, [{"count": 1}, {"ready": True}])\n    #          -> {"count": 1, "ready": True}\n    pass`,
       javascript: `function batchStateUpdates(initialState, actions) {\n    // TODO: Merge actions array into initialState copy and return the updated state object.\n    // Example: batchStateUpdates({ count: 0 }, [{ count: 1 }, { ready: true }])\n    //          -> { count: 1, ready: true }\n}`,
       java: `import java.util.*;\npublic class Solution {\n    public Map<String, Object> batchStateUpdates(Map<String, Object> state, List<Map<String, Object>> actions) {\n        // TODO: Merge actions\n        return new HashMap<>(state);\n    }\n}`,
+      cpp: `#include <map>\n#include <string>\n#include <vector>\n\nclass Solution {\npublic:\n    std::map<std::string, std::string> batchStateUpdates(std::map<std::string, std::string> state, const std::vector<std::map<std::string, std::string>>& actions) {\n        // TODO: Merge queued state actions into state copy\n        return state;\n    }\n};`,
       sql: SQL_INTERVIEW_STARTER
     };
     domainTestCases = [
@@ -187,7 +191,8 @@ export function resolveDynamicCodingProblem(
       sql: SQL_INTERVIEW_STARTER,
       python: `def analyze_department_salaries(records, min_avg):\n    # TODO: Group records by 'dept' and calculate average salary for each department.\n    # Return integer count of departments whose average salary strictly exceeds min_avg.\n    # Example: [{"dept": "eng", "salary": 90000}], 80000 -> 1\n    pass`,
       javascript: `function analyzeDepartmentSalaries(records, minAvg) {\n    // TODO: Group records by 'dept' and calculate average salary for each department.\n    // Return integer count of departments whose average salary strictly exceeds minAvg.\n    // Example: [{ dept: "eng", salary: 90000 }], 80000 -> 1\n}`,
-      java: `import java.util.*;\npublic class Solution {\n    public int analyzeDepartmentSalaries(List<Map<String, Object>> records, int minAvg) {\n        // TODO: Count qualifying departments\n        return 0;\n    }\n}`
+      java: `import java.util.*;\npublic class Solution {\n    public int analyzeDepartmentSalaries(List<Map<String, Object>> records, int minAvg) {\n        // TODO: Count qualifying departments\n        return 0;\n    }\n}`,
+      cpp: `#include <vector>\n#include <string>\n#include <utility>\n\nclass Solution {\npublic:\n    int analyzeDepartmentSalaries(const std::vector<std::pair<std::string, int>>& records, int minAvg) {\n        // TODO: Group by department and count departments with average salary > minAvg\n        return 0;\n    }\n};`
     };
     domainTestCases = [
       {
@@ -239,6 +244,7 @@ export function resolveDynamicCodingProblem(
       python: `def is_request_allowed(timestamps, current_ts, limit, window_ms=1000):\n    # TODO: Enforce sliding window rate limit.\n    # Count past timestamps in [current_ts - window_ms, current_ts].\n    # Return True if count < limit (allowing the new request), False otherwise.\n    pass`,
       javascript: `function isRequestAllowed(timestamps, currentTs, limit, windowMs = 1000) {\n    // TODO: Enforce sliding window rate limit.\n    // Count past timestamps in [currentTs - windowMs, currentTs].\n    // Return true if count < limit (allowing the new request), false otherwise.\n}`,
       java: `import java.util.*;\npublic class Solution {\n    public boolean isRequestAllowed(List<Long> timestamps, long currentTs, int limit, long windowMs) {\n        // TODO: Enforce rate limit\n        return true;\n    }\n}`,
+      cpp: `#include <vector>\n\nclass Solution {\npublic:\n    bool isRequestAllowed(const std::vector<long long>& timestamps, long long currentTs, int limit, long long windowMs = 1000) {\n        // TODO: Enforce sliding window rate limit\n        return true;\n    }\n};`,
       sql: SQL_INTERVIEW_STARTER
     };
     domainTestCases = [
@@ -291,6 +297,7 @@ export function resolveDynamicCodingProblem(
       python: `import math\n\ndef cosine_similarity(vec_a, vec_b):\n    # TODO: Compute dot product divided by (norm_a * norm_b).\n    # Return float rounded to 4 decimals, or 0.0 if either norm is zero.\n    # Example: [1.0, 0.0], [1.0, 0.0] -> 1.0\n    pass`,
       javascript: `function cosineSimilarity(vecA, vecB) {\n    // TODO: Compute dot product divided by (normA * normB).\n    // Return number rounded to 4 decimals, or 0.0 if either norm is zero.\n    // Example: [1.0, 0.0], [1.0, 0.0] -> 1.0\n}`,
       java: `public class Solution {\n    public double cosineSimilarity(double[] a, double[] b) {\n        // TODO: Compute cosine similarity\n        return 0.0;\n    }\n}`,
+      cpp: `#include <vector>\n#include <cmath>\n\nclass Solution {\npublic:\n    double cosineSimilarity(const std::vector<double>& a, const std::vector<double>& b) {\n        // TODO: Compute cosine similarity rounded to 4 decimals\n        return 0.0;\n    }\n};`,
       sql: SQL_INTERVIEW_STARTER
     };
     domainTestCases = [
@@ -555,6 +562,7 @@ export function resolveDynamicCodingProblem(
       python: `def max_throughput_window(metrics, min_sla):\n    # TODO: Find length of longest contiguous sequence where all values >= min_sla.\n    # Example: [10, 50, 60, 70, 20, 80], 50 -> 3\n    pass`,
       javascript: `function maxThroughputWindow(metrics, minSla) {\n    // TODO: Find length of longest contiguous sequence where all values >= minSla.\n    // Example: [10, 50, 60, 70, 20, 80], 50 -> 3\n}`,
       java: `public class Solution {\n    public int maxThroughputWindow(int[] metrics, int minSla) {\n        // TODO: Find length of longest contiguous sequence where all values >= minSla\n        return 0;\n    }\n}`,
+      cpp: `#include <vector>\n\nclass Solution {\npublic:\n    int maxThroughputWindow(const std::vector<int>& metrics, int minSla) {\n        // TODO: Find length of longest contiguous sequence where all values >= minSla\n        return 0;\n    }\n};`,
       sql: SQL_INTERVIEW_STARTER
     };
     domainTestCases = [

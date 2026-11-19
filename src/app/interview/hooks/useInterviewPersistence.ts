@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { toast } from '@/lib/store/useAppStore';
 import {
   Stage,
@@ -30,6 +30,8 @@ interface UseInterviewPersistenceProps {
   latestTopology: any;
   liveSessionId?: string | null;
   tabSwitchCount?: number;
+  targetCompany?: string;
+  round4StartMsgIndex?: number;
 }
 
 const DRAFT_CACHE_TTL_MS = 7_200_000; // 2-hour TTL for session recovery buffer
@@ -53,11 +55,16 @@ export function useInterviewPersistence({
   activeTeacherId,
   latestTopology,
   liveSessionId,
-  tabSwitchCount
+  tabSwitchCount,
+  targetCompany,
+  round4StartMsgIndex
 }: UseInterviewPersistenceProps) {
   const [sessions, setSessions] = useState<InterviewSessionRecord[]>([]);
   const [selectedHistorySession, setSelectedHistorySession] = useState<InterviewSessionRecord | null>(null);
   const [activeSessionDraft, setActiveSessionDraft] = useState<ActiveInterviewDraft | null>(null);
+
+  const elapsedSecondsRef = useRef(elapsedSeconds);
+  elapsedSecondsRef.current = elapsedSeconds;
 
   const getDraftKey = useCallback((uid?: string) => {
     const validUid = uid && uid !== 'guest' ? uid : 'active_session';
@@ -86,9 +93,8 @@ export function useInterviewPersistence({
     } catch {}
   }, [userId, getDraftKey]);
 
-  // Persist short-term draft while in-flight (autosave buffer)
-  useEffect(() => {
-    if (!isInterviewActive || activeStage === 'results') return;
+  const persistDraftNow = useCallback(() => {
+    if (typeof window === 'undefined' || !isInterviewActive || activeStage === 'results') return;
     try {
       const key = getDraftKey(userId);
       const draft: ActiveInterviewDraft = {
@@ -103,12 +109,14 @@ export function useInterviewPersistence({
         selectedLang,
         codingAttempt,
         codingProblem,
-        elapsedSeconds,
+        elapsedSeconds: elapsedSecondsRef.current,
         fillerWordCount,
         activeTeacherId,
         latestTopology,
         liveSessionId: liveSessionId ?? null,
         tabSwitchCount: tabSwitchCount || 0,
+        targetCompany: targetCompany || '',
+        round4StartMsgIndex: round4StartMsgIndex || 0,
         timestamp: Date.now()
       };
       localStorage.setItem(key, JSON.stringify(draft));
@@ -126,15 +134,32 @@ export function useInterviewPersistence({
     selectedLang,
     codingAttempt,
     codingProblem,
-    elapsedSeconds,
     fillerWordCount,
     activeTeacherId,
     latestTopology,
     liveSessionId,
     tabSwitchCount,
+    targetCompany,
+    round4StartMsgIndex,
     userId,
     getDraftKey
   ]);
+
+  // Persist immediately on semantic state changes without 1s JSON serialization churn
+  useEffect(() => {
+    persistDraftNow();
+  }, [persistDraftNow]);
+
+  // Periodic checkpoint every 15s + pagehide/beforeunload flush to keep elapsed time fresh
+  useEffect(() => {
+    if (typeof window === 'undefined' || !isInterviewActive || activeStage === 'results') return;
+    const interval = setInterval(persistDraftNow, 15000);
+    window.addEventListener('beforeunload', persistDraftNow);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('beforeunload', persistDraftNow);
+    };
+  }, [isInterviewActive, activeStage, persistDraftNow]);
 
   // Sessions History State (Hydrate local cache first, then sync with Supabase / API)
   useEffect(() => {
@@ -182,7 +207,11 @@ export function useInterviewPersistence({
               strengths: evalData.strengths || [],
               improvements: evalData.improvements || [],
               topology: evalData.topology || null,
-              messages: row.messages || evalData.messages || [],
+              targetCompany: evalData.targetCompany || '',
+              defendedTechStack: Array.isArray(evalData.defendedTechStack) ? evalData.defendedTechStack : [],
+              questionBreakdown: Array.isArray(evalData.questionBreakdown) ? evalData.questionBreakdown : [],
+              answerQuality: evalData.answerQuality || null,
+              messages: row.transcript || row.messages || evalData.messages || [],
             };
           });
           setSessions(formatted);

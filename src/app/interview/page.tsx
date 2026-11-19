@@ -7,7 +7,10 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { stopSpeaking } from '@/lib/tts';
 import { stopArchetypeSoundscape } from '@/lib/audio/soundscapes';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
-import { runTestSuite } from '@/lib/code/codeRunner';
+import { runTestSuite, warmUpCodeRuntime } from '@/lib/code/codeRunner';
+import { resolveCompanyProfile, buildCompanyPromptContext } from '@/lib/interview/companyProfiles';
+import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
+import { SKIP_TURN_REGEX } from '@/lib/interview/postInterviewInsights';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { toast } from '@/lib/store/useAppStore';
 import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
@@ -60,6 +63,21 @@ import {
   type JdMatchResult
 } from '@/lib/interview/jdMatch';
 
+const SUBTOPIC_LABELS: Record<string, string> = {
+  software: 'Software Engineering (SDE)',
+  ai_ml: 'AI, Machine Learning & LLM Systems',
+  systems: 'Cloud & Distributed Systems',
+  embedded: 'Embedded Systems & IoT Engineering',
+  cyber: 'Cybersecurity & Secure Systems',
+  quant: 'Quantitative Systems & Algorithmic Trading',
+  data: 'Data Science & Analytics',
+  finance: 'Finance & Accounting (B.Com)',
+  marketing: 'Digital Marketing & Growth',
+  bba: 'Business Strategy & Product',
+  hr: 'HR & Talent Management',
+  operations: 'Supply Chain & Operations',
+};
+
 export default function InterviewPage() {
   const searchParams = useSearchParams();
   const cOS = useCareerOS();
@@ -94,6 +112,11 @@ export default function InterviewPage() {
   const [activeTopicName, setActiveTopicName] = useState('Software Engineering');
   const [domainStream, setDomainStream] = useState<'tech' | 'non_tech'>('tech');
   const [domainSubTopic, setDomainSubTopic] = useState<string>('software');
+  const [targetCompany, setTargetCompany] = useState<string>('');
+  const [isAssistDocked, setIsAssistDocked] = useState<boolean>(false);
+  const round4StartMsgIndexRef = useRef<number>(0);
+  const [round4StartMsgIndex, setRound4StartMsgIndex] = useState<number>(0);
+  const userPickedSubTopicRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (interviewMode !== 'jd' || !jdInput.trim()) {
@@ -182,7 +205,9 @@ export default function InterviewPage() {
 
   const [isInterviewActive, setIsInterviewActive] = useState(false);
   const [activeStage, setActiveStage] = useState<Stage>('round1_behavioral');
-  const isScoredStage = isInterviewActive && ['round1_behavioral', 'round2_coding', 'round3_systems', 'round4_star', 'results'].includes(activeStage);
+  const isScoredStage = isInterviewActive && ['round1_behavioral', 'round2_coding', 'round3_systems', 'round4_star'].includes(activeStage);
+  const selectedCompanyProfile = useMemo(() => resolveCompanyProfile(targetCompany), [targetCompany]);
+  const companyContext = useMemo(() => buildCompanyPromptContext(selectedCompanyProfile, activeStage), [selectedCompanyProfile, activeStage]);
   const [difficulty, setDifficulty] = useState<'easy' | 'normal' | 'hard'>('normal');
   const [animState, setAnimState] = useState<'idle' | 'listening' | 'thinking' | 'talking'>('idle');
   const [manualTextInput, setManualTextInput] = useState('');
@@ -203,7 +228,7 @@ export default function InterviewPage() {
   const [activeTeacher, setActiveTeacher] = useState(ROUND_INTERVIEWERS.round1_behavioral);
 
   useEffect(() => {
-    preloadAvatarGLB([activeTeacher.id, 'priya', 'anish']);
+    preloadAvatarGLB([activeTeacher.id, 'priya', 'rohan', 'vikram', 'aisha']);
   }, [activeTeacher.id]);
 
   const selectRandomTeacherForSession = useCallback(() => {
@@ -218,6 +243,8 @@ export default function InterviewPage() {
   const [isTabInactive, setIsTabInactive] = useState(false);
   const tabVisibleRef = useRef(true);
   const isInterviewActiveRef = useRef(isInterviewActive);
+  const activeStageRef = useRef<Stage>(activeStage);
+  activeStageRef.current = activeStage;
 
   useEffect(() => {
     isInterviewActiveRef.current = isInterviewActive;
@@ -233,7 +260,7 @@ export default function InterviewPage() {
       const isVisible = document.visibilityState === 'visible';
       tabVisibleRef.current = isVisible;
       setIsTabInactive(!isVisible);
-      if (!isVisible && isInterviewActiveRef.current) {
+      if (!isVisible && isInterviewActiveRef.current && activeStageRef.current !== 'results') {
         setTabSwitchCount(prev => prev + 1);
       }
     };
@@ -305,10 +332,11 @@ export default function InterviewPage() {
   const {
     showCameraPreview,
     eyeContactScore,
+    setEyeContactScore,
     videoPreviewRef,
     toggleCameraPreview,
     stopCamera
-  } = useInterviewGaze(isInterviewActive);
+  } = useInterviewGaze(isInterviewActive, activeStage);
 
   // Dynamic Generative Problem Cache
   const [dynamicProblemData, setDynamicProblemData] = useState<any>(null);
@@ -369,8 +397,9 @@ export default function InterviewPage() {
   useEffect(() => {
     // When switching languages, save current buffer and restore or load new starter
     const prevLang = prevLangRef.current;
+    const currentCodeSnapshot = codeContentRef.current;
     if (prevLang !== selectedLang) {
-      if (codeContent) codePerLangRef.current[prevLang] = codeContent;
+      if (currentCodeSnapshot) codePerLangRef.current[prevLang] = currentCodeSnapshot;
       prevLangRef.current = selectedLang;
       if (codePerLangRef.current[selectedLang]) {
         setCodeContent(codePerLangRef.current[selectedLang]);
@@ -384,13 +413,21 @@ export default function InterviewPage() {
     if (dynamicProb.starterCode) {
       setCodeContent(dynamicProb.starterCode);
     }
-  }, [activeTopicName, selectedLang, getDynamicCodingProblem, codeContent, dynamicProblemData]);
+  }, [activeTopicName, selectedLang, getDynamicCodingProblem, dynamicProblemData]);
+
+  // Eagerly warm up in-browser WASM/worker runtimes when entering Round 2 Coding
+  useEffect(() => {
+    if (isInterviewActive && activeStage === 'round2_coding') {
+      void warmUpCodeRuntime(selectedLang);
+    }
+  }, [isInterviewActive, activeStage, selectedLang]);
 
   // Round 3 Whiteboard Topology State
   const [latestTopology, setLatestTopology] = useState<any>(null);
   const [isAnalyzingArchitecture, setIsAnalyzingArchitecture] = useState(false);
   const [architectureEvaluation, setArchitectureEvaluation] = useState<any>(null);
   const [evaluationResult, setEvaluationResult] = useState<any>(null);
+  const [isEvaluating, setIsEvaluating] = useState<boolean>(false);
 
   // Server-recorded interview (T22): the id of the record the server keeps of this interview. Every
   // answer and the final evaluation carry it, so the score comes from what the server recorded.
@@ -430,11 +467,16 @@ export default function InterviewPage() {
     wpmScore,
     fillerWordCount,
     setFillerWordCount,
+    micAudioLevel,
+    bargeInEnabled,
+    setBargeInEnabled,
     avatarVolume,
     handleVolumeChange,
     startVoiceListening,
     stopVoiceListening,
+    pauseVoiceListening,
     speakWithAvatar,
+    previewAssistSpeech,
     interruptSpeech,
     isSpeechSupported,
     flushAndSubmitTranscript
@@ -480,7 +522,9 @@ export default function InterviewPage() {
     activeTeacherId: activeTeacher.id,
     latestTopology,
     liveSessionId,
-    tabSwitchCount
+    tabSwitchCount,
+    targetCompany,
+    round4StartMsgIndex
   });
 
   // Assist Mode State
@@ -488,14 +532,34 @@ export default function InterviewPage() {
   const [assistData, setAssistData] = useState<any>(null);
   const [isFetchingAssist, setIsFetchingAssist] = useState(false);
   const assistRequestRef = useRef(0);
+  const lastFetchedAssistKeyRef = useRef<string>('');
+  const messagesRef = useRef(messages);
+  messagesRef.current = messages;
   const [assistScriptLevel, setAssistScriptLevel] = useState<'standard' | 'advanced'>('standard');
   const [assistTab, setAssistTab] = useState<'script' | 'bullets' | 'delivery'>('script');
 
-  const fetchAssistScript = useCallback(async (questionText: string, level?: 'standard' | 'advanced', stageOverride?: Stage) => {
-    const requestId = ++assistRequestRef.current;
+  // Alt + Space global shortcut to toggle Assist Mode during scored interview rounds
+  useEffect(() => {
+    if (!isInterviewActive || !isScoredStage || typeof window === 'undefined') return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.code === 'Space') {
+        const target = e.target as HTMLElement | null;
+        const inField = Boolean(
+          target &&
+          (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT' || target.closest('.monaco-editor'))
+        );
+        if (inField) return;
+        e.preventDefault();
+        setIsAssistModeActive(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isInterviewActive, isScoredStage]);
+
+  const fetchAssistScript = useCallback(async (questionText: string, level?: 'standard' | 'advanced', stageOverride?: Stage, force: boolean = true) => {
     const targetStage = stageOverride || activeStage;
     const targetLevel = level || assistScriptLevel;
-    setIsFetchingAssist(true);
 
     const cleanQuestion = String(questionText || '')
       .replace(/\s*—\s*(?:Ms\.|Mr\.)?\s*[\w\s]+$/i, '')
@@ -512,6 +576,22 @@ export default function InterviewPage() {
         : `Tell me about your background and experience with ${activeTopicName}.`
     );
 
+    const dedupKey = `${targetStage}:${activeTopicName}:${targetLevel}:${cleanQuestion}`;
+    if (!force && cleanQuestion && lastFetchedAssistKeyRef.current === dedupKey) {
+      return;
+    }
+    if (cleanQuestion) {
+      lastFetchedAssistKeyRef.current = dedupKey;
+    }
+
+    const requestId = ++assistRequestRef.current;
+    setIsFetchingAssist(true);
+
+    const recentContext = (messagesRef.current || [])
+      .slice(-4)
+      .map(m => `${m.role === 'user' ? 'Candidate' : 'Interviewer'}: ${m.content}`)
+      .join('\n');
+
     try {
       const headers = await getAuthHeaders();
       const res = await fetch('/api/interview/assist', {
@@ -524,6 +604,9 @@ export default function InterviewPage() {
           domainStream,
           difficulty,
           scriptLevel: targetLevel,
+          recentContext,
+          jdContext: jdPromptContext,
+          companyContext,
           isPractice: !isInterviewActive
         })
       });
@@ -546,7 +629,7 @@ export default function InterviewPage() {
     } finally {
       if (requestId === assistRequestRef.current) setIsFetchingAssist(false);
     }
-  }, [isInterviewActive, activeStage, activeTopicName, domainStream, difficulty, assistScriptLevel]);
+  }, [isInterviewActive, activeStage, activeTopicName, domainStream, difficulty, assistScriptLevel, jdPromptContext, companyContext]);
 
   // 🎯 Unified Reactive Assist Mode Synchronization:
   // Automatically crafts a tailored coaching script whenever the interviewer's question changes or Assist Mode is enabled
@@ -555,8 +638,6 @@ export default function InterviewPage() {
     return assistantMsgs.length > 0 ? assistantMsgs[assistantMsgs.length - 1].content : '';
   }, [messages]);
 
-  const lastFetchedAssistKeyRef = useRef<string>('');
-
   useEffect(() => {
     if (!isInterviewActive || !isAssistModeActive || !lastAssistantMessage) return;
     const clean = lastAssistantMessage
@@ -564,14 +645,26 @@ export default function InterviewPage() {
       .replace(/^(?:Ms\.|Mr\.)?\s*[\w\s]+:\s*/i, '')
       .trim();
     if (!clean) return;
-    const key = `${activeStage}:${activeTopicName}:${assistScriptLevel}:${clean}`;
-    if (lastFetchedAssistKeyRef.current === key) return;
-    lastFetchedAssistKeyRef.current = key;
-    void fetchAssistScript(clean, assistScriptLevel);
-  }, [isInterviewActive, isAssistModeActive, lastAssistantMessage, activeStage, activeTopicName, assistScriptLevel, fetchAssistScript]);
+    const lower = clean.toLowerCase();
+    if (
+      lower.includes('having trouble connecting') ||
+      lower.includes('could not review that') ||
+      lower.includes('connection failed')
+    ) {
+      return;
+    }
+    void fetchAssistScript(clean, assistScriptLevel, undefined, false);
+  }, [isInterviewActive, isAssistModeActive, lastAssistantMessage, assistScriptLevel, fetchAssistScript]);
 
   const resumeActiveSession = useCallback(() => {
     if (!activeSessionDraft) return;
+    try { unlockSpeechSynthesis(); } catch {}
+    const restoredR4Idx = Number(activeSessionDraft.round4StartMsgIndex) || 0;
+    round4StartMsgIndexRef.current = restoredR4Idx;
+    setRound4StartMsgIndex(restoredR4Idx);
+    if (typeof activeSessionDraft.targetCompany === 'string') {
+      setTargetCompany(activeSessionDraft.targetCompany);
+    }
     setActiveTopicName(activeSessionDraft.activeTopicName);
     setDomainStream(activeSessionDraft.domainStream);
     if (activeSessionDraft.domainSubTopic) setDomainSubTopic(activeSessionDraft.domainSubTopic);
@@ -643,9 +736,24 @@ export default function InterviewPage() {
   }, [activeSessionDraft, setLiveSessionId, setFillerWordCount, fetchDynamicProblem]);
 
   const startInterview = async () => {
-    stopArchetypeSoundscape();
+    if (interviewMode === 'custom' && !customTopicInput.trim()) {
+      toast.warning('Topic Required', 'Please enter a custom topic or capstone project before starting your interview.');
+      return;
+    }
+    if (interviewMode === 'jd' && !jdInput.trim()) {
+      toast.warning('Job Description Required', 'Paste a target job description first so the panel can tailor questions to the role.');
+      return;
+    }
 
-    // 🎮 Auto-activate Gaming Mode (Browser Fullscreen & Focus Mode) on direct start click gesture
+    stopArchetypeSoundscape();
+    try { unlockSpeechSynthesis(); } catch {}
+    round4StartMsgIndexRef.current = 0;
+    setRound4StartMsgIndex(0);
+    lastFetchedAssistKeyRef.current = '';
+    lastTopologySignatureRef.current = '';
+    setIsEvaluating(false);
+
+    // 🎮 Auto-activate Gaming Mode (Browser Fullscreen & Focus Mode) synchronously inside user click gesture
     if (typeof window !== 'undefined') {
       try {
         const docAny = document as any;
@@ -666,8 +774,12 @@ export default function InterviewPage() {
       document.documentElement.setAttribute('data-gaming-mode', 'true');
     }
 
-    const topic = interviewMode === 'custom' && customTopicInput.trim()
+    const topic = interviewMode === 'jd' && jdMatchResult?.analyzable && activeTopicName
+      ? activeTopicName
+      : interviewMode === 'custom' && customTopicInput.trim()
       ? customTopicInput.trim()
+      : (userPickedSubTopicRef.current || !onboardingAnswers?.role)
+      ? (SUBTOPIC_LABELS[domainSubTopic] || roadmapInterviewTopic(onboardingAnswers?.role, domainStream))
       : roadmapInterviewTopic(onboardingAnswers?.role, domainStream);
 
     // Capstone defenses (roadmap journey, certificate course) are free; any other topic needs Pins.
@@ -677,6 +789,15 @@ export default function InterviewPage() {
     if (!isCapstoneRun && !cOS.isItemUnlocked(itemKey)) {
       const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
       if (!unlocked) {
+        if (typeof window !== 'undefined') {
+          try {
+            if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+          } catch {}
+          document.body.removeAttribute('data-interview-active');
+          document.documentElement.removeAttribute('data-gaming-mode');
+          (window as any).__pinitInterviewActive = false;
+          window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: false } }));
+        }
         toast.error('Insufficient Pins', 'You need Pins to start this corporate interview session. Top up your Pins in the Pins store or claim your daily bonus!');
         return;
       }
@@ -690,6 +811,7 @@ export default function InterviewPage() {
     setTerminalLogs([]);
     setElapsedSeconds(0);
     setTabSwitchCount(0);
+    setEyeContactScore(null);
     setStarStep(0);
     setCodingAttempt(0);
     setCodeReviewStarted(false);
@@ -712,7 +834,19 @@ export default function InterviewPage() {
     dynamicProblemRequestRef.current += 1;
     setDynamicProblemData(null);
 
-    const greeting = `Welcome to your ${topic} Corporate Interview! I am ${sessionTeacher.name}, ${sessionTeacher.title}. To kick things off, please introduce yourself, tell me a bit about your academic background, and share your experience with ${topic}.`;
+    const companyIntro = selectedCompanyProfile
+      ? ` This session simulates a ${selectedCompanyProfile.name} hiring loop (${selectedCompanyProfile.interviewStyle}).`
+      : '';
+    const jdProbeIntro = interviewMode === 'jd' && jdMatchResult?.analyzable && jdMatchResult.missing_skills.length > 0
+      ? ` Based on your target job description, we will pay special attention to ${jdMatchResult.missing_skills.slice(0, 2).join(' and ')}.`
+      : '';
+    const difficultyPromptEnd = difficulty === 'hard'
+      ? `Please keep your introduction concise—focus directly on the highest-stakes ${topic} problem you personally owned and the measurable outcome.`
+      : difficulty === 'easy'
+      ? `To warm up, tell me a bit about your background and what excites you most about ${topic}.`
+      : `To kick things off, please introduce yourself, walk me through your background, and highlight one recent project in ${topic}.`;
+
+    const greeting = `Welcome to your ${topic} Corporate Interview! I am ${sessionTeacher.name}, ${sessionTeacher.title}.${companyIntro}${jdProbeIntro} ${difficultyPromptEnd}`;
 
     // The server opens its record of this interview (the topic is fixed from here on).
     let recordedId: string | null = null;
@@ -733,10 +867,6 @@ export default function InterviewPage() {
 
     setMessages([{ role: 'assistant', content: greeting }]);
     speakWithAvatar(greeting, sessionTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
-
-    if (isAssistModeActive) {
-      fetchAssistScript(greeting, assistScriptLevel);
-    }
   };
 
   const exitInterview = () => {
@@ -800,24 +930,32 @@ export default function InterviewPage() {
       architectureQuestionPendingRef.current = false;
       setArchitectureEvaluation(null);
     }
-    if (next === 'round4_star') setStarStep(0);
+    if (next === 'round4_star') {
+      const r4Idx = messagesRef.current.length;
+      round4StartMsgIndexRef.current = r4Idx;
+      setRound4StartMsgIndex(r4Idx);
+      setStarStep(0);
+    }
     let stagePrompt = '';
+    const companyRoundCue = selectedCompanyProfile ? ` We will evaluate this against ${selectedCompanyProfile.name}'s ${selectedCompanyProfile.interviewStyle} bar.` : '';
     if (next === 'round2_coding') {
+      void warmUpCodeRuntime(selectedLang);
       const prob = await fetchDynamicProblem(activeTopicName, domainStream, selectedLang, codingAttempt);
-      stagePrompt = `Welcome to Round 2. I am ${nextTeacher.name}, your technical interviewer. Your challenge is "${prob.title}": ${prob.description} Work through it in the coding workspace. Assist Mode can offer conceptual guidance without giving you code. I will review your solution once you submit it.`;
+      stagePrompt = domainStream === 'non_tech'
+        ? `Welcome to Round 2. I am ${nextTeacher.name}, your analytical evaluator.${companyRoundCue} Your applied challenge is "${prob.title}": ${prob.description} Work through your logic in the workspace and verify all 5 boundary tiers, then I will challenge your assumptions.`
+        : `Welcome to Round 2. I am ${nextTeacher.name}, your technical interviewer.${companyRoundCue} Your challenge is "${prob.title}": ${prob.description} Implement your solution in the workspace and run the 5-tier boundary tests. I will review your complexity and edge cases once you submit.`;
     } else if (next === 'round3_systems') {
-      stagePrompt = `Welcome to Round 3. I am ${nextTeacher.name}, your systems interviewer. Build a system for ${activeTopicName} using the nodes and connections on the canvas. When you are ready, I will review your architecture and ask you to explain one of your design choices.`;
+      stagePrompt = domainStream === 'non_tech'
+        ? `Welcome to Round 3. I am ${nextTeacher.name}, your strategy and operations evaluator.${companyRoundCue} Map out the end-to-end business workflow for ${activeTopicName} on the canvas. Once you evaluate the workflow, I will probe your biggest operational bottleneck and margin trade-off.`
+        : `Welcome to Round 3. I am ${nextTeacher.name}, your systems interviewer.${companyRoundCue} Architect the production system for ${activeTopicName} using the nodes and protocol links on the canvas. When you click Evaluate Architecture, I will probe one of your core design trade-offs.`;
     } else if (next === 'round4_star') {
-      const builtNodes = latestTopology?.nodes?.map((n: any) => n.label || n.type).join(', ') || 'distributed tiers';
-      stagePrompt = `Welcome to Round 4. I am ${nextTeacher.name}, your executive interviewer. I have reviewed your earlier experience, your coding challenge, and your architecture (${builtNodes}). I will connect all three: why did you choose that implementation, how does it fit the system you designed, and what measurable impact would you expect? Please use specific examples and trade-offs.`;
+      const builtNodes = latestTopology?.nodes?.map((n: any) => n.label || n.type).join(', ') || (domainStream === 'non_tech' ? 'business workflow stages' : 'distributed tiers');
+      stagePrompt = `Welcome to Round 4. I am ${nextTeacher.name}, your executive interviewer.${companyRoundCue} I have reviewed your background, your Round 2 solution, and your Round 3 design (${builtNodes}). Connect all three using concrete STAR evidence: why did you choose that approach, what trade-offs did it create, and what measurable impact did you achieve?`;
     }
     if (stagePrompt) {
       postLiveEvent('stage', next);
       setMessages(prev => [...prev, { role: 'assistant', content: stagePrompt }]);
       speakWithAvatar(stagePrompt, nextTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
-      if (isAssistModeActive) {
-        fetchAssistScript(stagePrompt, assistScriptLevel, next);
-      }
     }
     } finally {
       stageTransitionRef.current = false;
@@ -826,6 +964,7 @@ export default function InterviewPage() {
 
   const handleSendMessageWithText = async (text: string) => {
     if (!text.trim() || isSendingInterviewMessageRef.current) return;
+    const isSkipTurn = SKIP_TURN_REGEX.test(text.trim());
     const answeringCodeReview = activeStage === 'round2_coding' && codeReviewQuestionPendingRef.current;
     const answeringArchitectureQuestion = activeStage === 'round3_systems' && architectureQuestionPendingRef.current;
     isSendingInterviewMessageRef.current = true;
@@ -850,6 +989,8 @@ export default function InterviewPage() {
           domainStream,
           domainSubTopic: activeTopicName,
           reviewDecision: answeringCodeReview,
+          jdContext: jdPromptContext,
+          companyContext,
           telemetry: {
             eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
             wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
@@ -867,28 +1008,31 @@ export default function InterviewPage() {
       if (!res.ok) throw new Error(data?.message || `The interviewer request failed (${res.status}).`);
       const cleanReply = sanitizeLLMOutput(data?.reply);
       if (!cleanReply) throw new Error('The interviewer returned an empty reply.');
-      if (activeStage === 'round4_star') setStarStep(prev => prev + 1);
+      if (activeStage === 'round4_star' && !isSkipTurn) setStarStep(prev => prev + 1);
       setMessages([...newMsgs, { role: 'assistant', content: cleanReply }]);
       speakWithAvatar(cleanReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
-      if (isAssistModeActive) {
-        void fetchAssistScript(cleanReply, assistScriptLevel);
-      }
       if (activeStage === 'round2_coding' && codeSubmitted && !answeringCodeReview) {
         codeReviewQuestionPendingRef.current = true;
         setCodeReviewQuestionReady(true);
       }
-      if (answeringCodeReview && data?.roundVerdict === 'PASS') {
+      if (answeringCodeReview && isSkipTurn) {
+        codeReviewQuestionPendingRef.current = false;
+        setCodeReviewQuestionReady(false);
+        setCodeReviewStarted(false);
+      } else if (answeringCodeReview && !isSkipTurn && data?.roundVerdict === 'PASS') {
         codeReviewQuestionPendingRef.current = false;
         setCodeReviewQuestionReady(false);
         setCodeReviewAnswered(true);
-      } else if (answeringCodeReview) {
+      } else if (answeringCodeReview && !isSkipTurn) {
         codeReviewQuestionPendingRef.current = false;
         setCodeReviewQuestionReady(false);
         setCodeReviewAnswered(false);
         setCodeReviewStarted(false);
         setCodeRunFailed(true);
       }
-      if (answeringArchitectureQuestion) {
+      if (answeringArchitectureQuestion && isSkipTurn) {
+        architectureQuestionPendingRef.current = false;
+      } else if (answeringArchitectureQuestion && !isSkipTurn) {
         architectureQuestionPendingRef.current = false;
         setArchitectureDefenseAnswered(true);
       }
@@ -902,9 +1046,6 @@ export default function InterviewPage() {
             : 'I’m having trouble connecting right now. Please try your response again when the interviewer is back online.';
       setMessages([...newMsgs, { role: 'assistant', content: fallback }]);
       speakWithAvatar(fallback, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
-      if (isAssistModeActive) {
-        fetchAssistScript(fallback, assistScriptLevel);
-      }
       if (activeStage === 'round2_coding' && codeSubmitted) {
         codeReviewQuestionPendingRef.current = false;
         setCodeReviewQuestionReady(false);
@@ -936,14 +1077,14 @@ export default function InterviewPage() {
   const handleSkipQuestion = useCallback(async () => {
     if (isSendingInterviewMessageRef.current) return;
     stopSpeaking();
-    postLiveEvent('skip', activeStage);
+    // Send a single canonical skip turn via handleSendMessageWithText (avoids concurrent CAS collision on live_sessions)
     const skipNotice = activeStage === 'round2_coding'
       ? 'I would like to skip the current coding question or review and move on.'
       : activeStage === 'round3_systems'
       ? 'I would like to skip this architecture defense question and move forward.'
       : 'I would like to skip this question and proceed to the next topic.';
     await handleSendMessageWithText(skipNotice);
-  }, [activeStage, postLiveEvent, handleSendMessageWithText]);
+  }, [activeStage, handleSendMessageWithText]);
 
   // The code the student submits is recorded in the server's interview record, so the evaluator
   // judges the code itself (the in-browser test run below is feedback for the student only).
@@ -980,16 +1121,21 @@ export default function InterviewPage() {
     setCodeSubmitted(false);
     setTerminalLogs([`[RUNNER] Compiling ${selectedLang.toUpperCase()} for ${activeTopicName}...`]);
     try {
+      const resolvedProb = getDynamicCodingProblem(activeTopicName, selectedLang);
       let fnName = dynamicProblemData?.functionName ||
+                   resolvedProb?.functionName ||
                    /def\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
                    /function\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
                    /(?:const|let|var)\s+([a-zA-Z0-9_]+)\s*=/.exec(codeContent)?.[1] ||
                    /(?:public|private|static)?\s*(?:[\w<>\[\]]+\s+)+([a-zA-Z0-9_]+)\s*\(/.exec(codeContent)?.[1] ||
                    'evaluateSolution';
-      if (selectedLang === 'javascript' && fnName.includes('_')) {
+      if (
+        fnName.includes('_') &&
+        (selectedLang === 'javascript' ||
+          ((selectedLang === 'java' || selectedLang === 'cpp') && !codeContent.includes(fnName)))
+      ) {
         fnName = fnName.replace(/_([a-z0-9])/g, (_: string, c: string) => c.toUpperCase());
       }
-      const resolvedProb = getDynamicCodingProblem(activeTopicName, selectedLang);
       const generatedTestCases = Array.isArray(dynamicProblemData?.testCases) && dynamicProblemData.testCases.length > 0
         ? dynamicProblemData.testCases
         : (Array.isArray(resolvedProb?.testCases) && resolvedProb.testCases.length > 0 ? resolvedProb.testCases : null);
@@ -1075,6 +1221,19 @@ export default function InterviewPage() {
     void fetchDynamicProblem(activeTopicName, domainStream, selectedLang, nextAttempt);
   };
 
+  const handleRequestCodingHint = (level: 1 | 2 | 3) => {
+    const prob = getDynamicCodingProblem(activeTopicName, selectedLang);
+    const tierPrompt =
+      level === 1
+        ? `Tier 1 gentle structural direction hint (NO code) for coding problem "${prob.title}": ${prob.description}`
+        : level === 2
+        ? `Tier 2 algorithm & data-structure time/space complexity hint (NO code) for "${prob.title}" in ${selectedLang}`
+        : `Tier 3 invariant & boundary edge-case walkthrough hint (NO code) for "${prob.title}": ${prob.description}`;
+    setIsAssistModeActive(true);
+    setAssistTab('bullets');
+    void fetchAssistScript(tierPrompt, level === 3 ? 'advanced' : assistScriptLevel, 'round2_coding', true);
+  };
+
   const analyzeSystemArchitecture = async () => {
     setIsAnalyzingArchitecture(true);
     try {
@@ -1096,9 +1255,6 @@ export default function InterviewPage() {
         architectureQuestionPendingRef.current = true;
         setMessages(prev => [...prev, { role: 'assistant', content: spoken }]);
         speakWithAvatar(spoken, ROUND_INTERVIEWERS.round3_systems.id, () => setAnimState('talking'), () => setAnimState('idle'));
-        if (isAssistModeActive) {
-          fetchAssistScript(spoken, assistScriptLevel);
-        }
       }
     } catch {
       toast.error('Architecture review unavailable', 'Your canvas is still saved. Check your connection and try Evaluate Architecture again.');
@@ -1107,11 +1263,37 @@ export default function InterviewPage() {
     }
   };
 
+  const lastTopologySignatureRef = useRef<string>('');
+  const handleTopologyChange = useCallback((topology: any) => {
+    setLatestTopology(topology);
+    const sig = JSON.stringify({
+      nodes: (topology?.nodes || []).map((n: any) => `${n.id}:${n.type}:${n.label}`),
+      links: (topology?.links || []).map((l: any) => `${l.fromType}->${l.toType}:${l.protocol}`)
+    });
+    if (sig !== lastTopologySignatureRef.current) {
+      lastTopologySignatureRef.current = sig;
+      setArchitectureEvaluation(null);
+      setArchitectureDefenseAnswered(false);
+      architectureQuestionPendingRef.current = false;
+    }
+  }, []);
+
   const finishingRef = useRef(false);
   const finishInterview = async () => {
     if (finishingRef.current) return;
     finishingRef.current = true;
-    setActiveStage('results');
+    setIsEvaluating(true);
+    stopSpeaking();
+    stopVoiceListening();
+    stopCamera();
+    setIsAssistModeActive(false);
+    if (typeof document !== 'undefined') {
+      try {
+        if (document.fullscreenElement) {
+          document.exitFullscreen?.().catch(() => {});
+        }
+      } catch {}
+    }
     const archetype: MindsetArchetype = cOS?.onboardingAnswers?.mindset_archetype || (user as any)?.mindset_archetype || 'Pattern Hunter';
 
     const evalResult = computeDeterministicEvaluation({
@@ -1125,12 +1307,18 @@ export default function InterviewPage() {
       activeTopicName,
       domainStream,
       archetype,
-      tabSwitchCount
+      tabSwitchCount,
+      selectedLang
     });
+
+    setEvaluationResult(evalResult);
+    setActiveStage('results');
 
     // Make sure the final version of the code is in the record before it is scored.
     await recordCodeSubmission();
     let resultObj: any = evalResult;
+    let serverEvaluated = false;
+    const fullCompanyContext = buildCompanyPromptContext(selectedCompanyProfile, 'results');
     try {
       const headers = await getAuthHeaders();
       const res = await fetch('/api/interview/evaluate', {
@@ -1142,6 +1330,9 @@ export default function InterviewPage() {
           domainStream,
           domainSubTopic: activeTopicName,
           roleKey: activeTopicName,
+          selectedLang,
+          jdContext: jdPromptContext,
+          companyContext: fullCompanyContext,
           liveSessionId: liveSessionIdRef.current,
           archetype,
           topology: latestTopology,
@@ -1155,6 +1346,7 @@ export default function InterviewPage() {
       });
       const data = await res.json();
       if (data?.evaluation) {
+        serverEvaluated = true;
         resultObj = {
           ...evalResult,
           ...data.evaluation,
@@ -1167,6 +1359,10 @@ export default function InterviewPage() {
       }
     } catch {}
 
+    setIsEvaluating(false);
+    if (!serverEvaluated) {
+      toast.info('Local Rubric Used', 'AI grading service was temporarily unreachable, so your scorecard was calculated using the deterministic rubric.');
+    }
     setEvaluationResult(resultObj);
     clearDraft();
     setLiveSessionId(null); // scored: the server record is closed
@@ -1239,7 +1435,11 @@ export default function InterviewPage() {
       summary: resultObj.summary || '',
       strengths: Array.isArray(resultObj.strengths) ? resultObj.strengths : [resultObj.strengths || 'Good effort'],
       improvements: Array.isArray(resultObj.improvements) ? resultObj.improvements.join('. ') : (resultObj.improvements || ''),
-      topology: latestTopology || null
+      topology: latestTopology || null,
+      targetCompany: selectedCompanyProfile?.name || targetCompany || '',
+      defendedTechStack: Array.isArray(resultObj.defendedTechStack) ? resultObj.defendedTechStack : [],
+      questionBreakdown: Array.isArray(resultObj.questionBreakdown) ? resultObj.questionBreakdown : [],
+      answerQuality: resultObj.answerQuality || null
     };
 
     saveSessionHistory(sessionRecord);
@@ -1284,7 +1484,10 @@ export default function InterviewPage() {
     return assistantMsgs.length > 0 ? assistantMsgs[assistantMsgs.length - 1].content : 'Welcome to your interview!';
   }, [messages]);
 
-  const userResponses = useMemo(() => messages.filter(m => m.role === 'user'), [messages]);
+  const userResponses = useMemo(
+    () => messages.filter(m => m.role === 'user' && !SKIP_TURN_REGEX.test(m.content.trim())),
+    [messages]
+  );
 
   const hasSubstantiveRound1 = useMemo(() => {
     const substantiveTurns = userResponses.filter(m => m.content.trim().split(/\s+/).filter(Boolean).length >= 10);
@@ -1292,14 +1495,18 @@ export default function InterviewPage() {
   }, [userResponses]);
 
   const starCoverage = useMemo(() => {
-    const allText = userResponses.map(m => m.content.toLowerCase()).join(' ');
+    const startIdx = round4StartMsgIndex || round4StartMsgIndexRef.current;
+    const scopedMsgs = startIdx > 0 && startIdx < messages.length
+      ? messages.slice(startIdx).filter(m => m.role === 'user' && !SKIP_TURN_REGEX.test(m.content.trim()))
+      : userResponses;
+    const allText = scopedMsgs.map(m => m.content.toLowerCase()).join(' ');
     const hasS = /situation|context|problem|challenge|project|working on|scenario/.test(allText);
     const hasT = /task|goal|needed to|objective|responsible|requirement|deliverable/.test(allText);
     const hasA = /action|i built|i implemented|i designed|i created|i refactored|i led|i used|i engineered/.test(allText);
     const hasR = /result|impact|improved|reduced|increased|delivered|metric|outcome|%|latency|throughput/.test(allText);
     const count = [hasS, hasT, hasA, hasR].filter(Boolean).length;
     return { hasS, hasT, hasA, hasR, count };
-  }, [userResponses]);
+  }, [messages, userResponses, round4StartMsgIndex]);
 
   const currentCodingProb = getDynamicCodingProblem(activeTopicName, selectedLang);
 
@@ -1310,65 +1517,35 @@ export default function InterviewPage() {
   };
 
   return (
-    <div style={{ padding: isInterviewActive ? '0 4px' : '0 0 32px', maxWidth: 1380, margin: '0 auto', color: 'var(--t1)', fontFamily: 'var(--font-sans)' }}>
+    <div
+      className={isInterviewActive ? 'iv-session-shell' : undefined}
+      style={{ padding: isInterviewActive ? '0 4px' : '0 0 32px', maxWidth: 1380, margin: '0 auto', color: 'var(--t1)', fontFamily: 'var(--font-sans)' }}
+    >
       {/* Top Placement Interview Hub Switcher: 1v1 Mock Interview vs GD Practice */}
       {!isInterviewActive && (
         <div
           data-testid="interview-hub-subtabs"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            marginBottom: 20,
-            padding: '4px',
-            background: 'var(--bg2)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            width: 'fit-content'
-          }}
+          className="iv-hub-switcher"
+          style={{ marginBottom: 20 }}
         >
           <button
             type="button"
             data-testid="tab-1v1-interview"
+            data-active={hubTab === 'interview' ? 'true' : 'false'}
+            className="iv-hub-tab"
             onClick={() => handleHubTabChange('interview')}
-            style={{
-              padding: '8px 18px',
-              borderRadius: 8,
-              border: 'none',
-              background: hubTab === 'interview' ? 'var(--accent)' : 'transparent',
-              color: hubTab === 'interview' ? '#fff' : 'var(--t2)',
-              fontWeight: 800,
-              fontSize: 13.5,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              transition: 'all 0.18s ease'
-            }}
           >
-            
+            <span>🎙️</span>
             <span>1v1 Mock Interview</span>
           </button>
           <button
             type="button"
             data-testid="tab-gd-practice"
+            data-active={hubTab === 'gd' ? 'true' : 'false'}
+            className="iv-hub-tab"
             onClick={() => handleHubTabChange('gd')}
-            style={{
-              padding: '8px 18px',
-              borderRadius: 8,
-              border: 'none',
-              background: hubTab === 'gd' ? 'var(--accent)' : 'transparent',
-              color: hubTab === 'gd' ? '#fff' : 'var(--t2)',
-              fontWeight: 800,
-              fontSize: 13.5,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              transition: 'all 0.18s ease'
-            }}
           >
-            
+            <span>👥</span>
             <span>GD Practice (Group Discussion)</span>
           </button>
         </div>
@@ -1381,10 +1558,19 @@ export default function InterviewPage() {
           activeSessionDraft={activeSessionDraft} resumeActiveSession={resumeActiveSession}
           discardActiveSession={discardActiveSession} formatStageLabel={formatStageLabel}
           interviewMode={interviewMode} setInterviewMode={setInterviewMode}
-          domainStream={domainStream} setDomainStream={setDomainStream}
-          domainSubTopic={domainSubTopic} setDomainSubTopic={setDomainSubTopic}
+          domainStream={domainStream}
+          setDomainStream={(stream) => {
+            userPickedSubTopicRef.current = true;
+            setDomainStream(stream);
+          }}
+          domainSubTopic={domainSubTopic}
+          setDomainSubTopic={(sub) => {
+            userPickedSubTopicRef.current = true;
+            setDomainSubTopic(sub);
+          }}
           customTopicInput={customTopicInput} setCustomTopicInput={setCustomTopicInput} jdInput={jdInput} setJdInput={setJdInput} jdMatchResult={jdMatchResult}
           difficulty={difficulty} setDifficulty={setDifficulty}
+          targetCompany={targetCompany} setTargetCompany={setTargetCompany}
           isAssistModeActive={isAssistModeActive} setIsAssistModeActive={setIsAssistModeActive}
           startInterview={startInterview} sessions={sessions}
           clearSessionHistory={clearSessionHistory} setSelectedHistorySession={setSelectedHistorySession}
@@ -1398,6 +1584,7 @@ export default function InterviewPage() {
             activeStage={activeStage}
             domainStream={domainStream}
             domainSubTopic={domainSubTopic}
+            companyName={selectedCompanyProfile?.name}
             isVoiceListening={isVoiceListening}
             elapsedSeconds={elapsedSeconds}
             formatElapsed={formatElapsed}
@@ -1458,25 +1645,33 @@ export default function InterviewPage() {
             </div>
           )}
 
-          {/* Hands-Free Voice HUD Banner */}
-          <InterviewVoiceHud
-            isVoiceListening={isVoiceListening}
-            isAvatarSpeaking={isAvatarSpeaking}
-            isSendingInterviewerReply={isSendingInterviewMessage}
-            activeTeacher={activeTeacher}
-            liveSpeechTranscript={liveSpeechTranscript}
-            stopVoiceListening={stopVoiceListening}
-            startVoiceListening={startVoiceListening}
-            isSpeechSupported={isSpeechSupported}
-            onDoneSpeaking={flushAndSubmitTranscript}
-            isTabInactive={isTabInactive}
-          />
+          {/* Hands-Free Voice HUD Banner (Active Rounds 1-4 Only) */}
+          {activeStage !== 'results' && (
+            <InterviewVoiceHud
+              isVoiceListening={isVoiceListening}
+              isAvatarSpeaking={isAvatarSpeaking}
+              isSendingInterviewerReply={isSendingInterviewMessage}
+              activeTeacher={activeTeacher}
+              liveSpeechTranscript={liveSpeechTranscript}
+              stopVoiceListening={pauseVoiceListening}
+              startVoiceListening={startVoiceListening}
+              isSpeechSupported={isSpeechSupported}
+              onDoneSpeaking={flushAndSubmitTranscript}
+              isTabInactive={isTabInactive}
+              micAudioLevel={micAudioLevel}
+              bargeInEnabled={bargeInEnabled}
+              setBargeInEnabled={setBargeInEnabled}
+            />
+          )}
 
           {/* Assist Mode Floating Teleprompter Drawer (Scoped to Round 2 Coding where there is no vertical chat column) */}
           {activeStage === 'round2_coding' && isAssistModeActive && (
             <AssistModeDrawer
               isScoredStage={false}
               isCodingRound
+              activeStage="round2_coding"
+              activeTopicName={activeTopicName}
+              questionText={`${currentCodingProb.title}: ${currentCodingProb.description}`}
               isAssistModeActive={isAssistModeActive}
               setIsAssistModeActive={setIsAssistModeActive}
               assistScriptLevel={assistScriptLevel}
@@ -1490,7 +1685,7 @@ export default function InterviewPage() {
               activeTeacher={activeTeacher}
               difficulty={difficulty}
               fetchAssistScript={fetchAssistScript}
-              speakWithAvatarRaw={speakWithAvatar}
+              speakWithAvatarRaw={previewAssistSpeech}
               setAnimState={setAnimState}
             />
           )}
@@ -1526,6 +1721,12 @@ export default function InterviewPage() {
               setAssistScriptLevel={setAssistScriptLevel}
               fetchAssistScript={fetchAssistScript}
               liveSpeechTranscript={liveSpeechTranscript}
+              activeTopicName={activeTopicName}
+              difficulty={difficulty}
+              speakWithAvatarRaw={previewAssistSpeech}
+              setAnimState={setAnimState}
+              isDockedUnderCam={isAssistDocked}
+              onToggleDock={() => setIsAssistDocked(v => !v)}
             />
           )}
 
@@ -1576,6 +1777,7 @@ export default function InterviewPage() {
               animState={animState}
               terminalLogs={terminalLogs}
               setTerminalLogs={setTerminalLogs}
+              onRequestHint={handleRequestCodingHint}
             />
           )}
 
@@ -1590,12 +1792,7 @@ export default function InterviewPage() {
                 Number(architectureEvaluation?.score) >= 60 &&
                 (latestTopology?.nodes?.length || 0) > 0
               )}
-              setLatestTopology={(topology) => {
-                setLatestTopology(topology);
-                setArchitectureEvaluation(null);
-                setArchitectureDefenseAnswered(false);
-                architectureQuestionPendingRef.current = false;
-              }}
+              setLatestTopology={handleTopologyChange}
               analyzeSystemArchitecture={analyzeSystemArchitecture}
               isAnalyzingArchitecture={isAnalyzingArchitecture}
               activeTeacher={activeTeacher}
@@ -1616,6 +1813,10 @@ export default function InterviewPage() {
               setAssistScriptLevel={setAssistScriptLevel}
               fetchAssistScript={fetchAssistScript}
               liveSpeechTranscript={liveSpeechTranscript}
+              messages={messages}
+              difficulty={difficulty}
+              speakWithAvatarRaw={previewAssistSpeech}
+              setAnimState={setAnimState}
             />
           )}
 
@@ -1636,7 +1837,9 @@ export default function InterviewPage() {
               setManualTextInput={setManualTextInput}
               onSendMessage={handleSendMessageWithText}
               starStep={starStep}
+              starCoverage={starCoverage}
               messages={messages}
+              messagesEndRef={messagesEndRef}
               isAssistModeActive={isAssistModeActive}
               setIsAssistModeActive={setIsAssistModeActive}
               assistData={assistData}
@@ -1647,6 +1850,12 @@ export default function InterviewPage() {
               setAssistScriptLevel={setAssistScriptLevel}
               fetchAssistScript={fetchAssistScript}
               liveSpeechTranscript={liveSpeechTranscript}
+              activeTopicName={activeTopicName}
+              difficulty={difficulty}
+              speakWithAvatarRaw={previewAssistSpeech}
+              setAnimState={setAnimState}
+              isDockedUnderCam={isAssistDocked}
+              onToggleDock={() => setIsAssistDocked(v => !v)}
             />
           )}
 
@@ -1654,6 +1863,7 @@ export default function InterviewPage() {
           {activeStage === 'results' && (
             <InterviewResultsView
               evaluationResult={evaluationResult}
+              isEvaluating={isEvaluating}
               activeTopicName={activeTopicName}
               codeSubmitted={codeSubmitted}
               latestTopology={latestTopology}

@@ -79,6 +79,20 @@ export const crashCourseEnrollmentService = {
   },
 
   /**
+   * Pause the active enrollment on the server AND clear the local client cache
+   * so switching tracks or programs never collides with the DB unique index.
+   */
+  async pauseActiveEnrollment(): Promise<void> {
+    try {
+      await api.delete('/api/quests/enrollment');
+    } catch (err) {
+      console.warn('[crashCourseEnrollmentService] Failed to pause active enrollment on server:', err);
+    } finally {
+      crashCourseEnrollmentService.clearEnrollment();
+    }
+  },
+
+  /**
    * Clear active enrollment from client cache
    */
   clearEnrollment(): void {

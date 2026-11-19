@@ -15,7 +15,7 @@ import { HomeTab, ExamsTab, ResultsTab, NotesTab, NotificationsTab, ContactTab }
 import { ToastProvider } from '@/lib/context/ToastContext';
 import { useBatches } from '@/lib/context/BatchContext';
 import PublicEffectsShell from '@/components/effects/PublicEffectsShell';
-import { AppSidebar, RIGHT_NAV, isPathActive } from '@/components/ui/AppSidebar';
+import { AppSidebar, RIGHT_NAV, RIGHT_NAV_SVG_ICONS, isPathActive } from '@/components/ui/AppSidebar';
 import { AppHeader } from '@/components/ui/AppHeader';
 import { GlobalAvatar } from '@/components/ui/GlobalAvatar';
 
@@ -883,19 +883,20 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
           {/* Student Info Card */}
           <div style={{ padding: '14px', borderBottom: '1px solid var(--border)', background: 'linear-gradient(135deg, var(--accent-light), var(--bg2))', textAlign: 'center' }}>
-            <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 22, color: 'white', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px color-mix(in srgb, var(--accent) 20%, transparent)', overflow: 'hidden' }}>
-              👤
-            </div>
             {(() => {
               const rawDisp = typeof user?.displayName === 'string' ? user.displayName : (typeof user?.name === 'string' ? user.name : '');
               const rawReal = (user as any)?.fullName || (user as any)?.full_name || (user as any)?.candidateName || (user as any)?.onboardingAnswers?.candidateName || (user as any)?.onboardingAnswers?.fullName;
               const realName = typeof rawReal === 'string' ? rawReal : '';
               const studentName = (rawDisp && !rawDisp.startsWith('usr_') && rawDisp.toLowerCase() !== 'student') ? rawDisp : (realName || rawDisp || 'Student');
+              const avatarInitial = (studentName.trim()[0] || 'S').toUpperCase();
               const rawUName = typeof user?.username === 'string' ? user.username : '';
               const pinitId = (user as any)?.pinitId || (user as any)?.pinit_id || (user as any)?.registerNumber || (user as any)?.register_number || '';
               const handleOrRoll = (rawUName && !rawUName.startsWith('usr_')) ? rawUName : (user?.registerNumber || (typeof user?.email === 'string' ? user.email.split('@')[0] : ''));
               return (
                 <>
+                  <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 19, fontWeight: 900, fontFamily: 'var(--font-display), sans-serif', color: '#ffffff', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px color-mix(in srgb, var(--accent) 20%, transparent)', overflow: 'hidden' }}>
+                    {avatarInitial}
+                  </div>
                   <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{studentName}</div>
                   {pinitId && typeof pinitId === 'string' && pinitId.startsWith('PIN-') ? (
                     <div style={{ fontSize: 10.5, color: 'var(--accent)', marginBottom: 6, fontFamily: 'var(--font-mono)', fontWeight: 800, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', letterSpacing: '0.5px' }}>
@@ -920,14 +921,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             })()}
           </div>
 
-          {/* Navigation Links */}
-          <nav style={{ flex: 1, padding: '8px 7px', display: 'flex', flexDirection: 'column', gap: 2, overflowY: 'auto' }}>
+          {/* Navigation Links (Unified LeftSidebar Vector SVG + .nav-item Tab Representation) */}
+          <nav className="sidebar-nav" style={{ flex: 1, padding: '8px 7px', display: 'flex', flexDirection: 'column', gap: 2, overflowY: 'auto' }}>
             {RIGHT_NAV.map(item => {
               const active = item.href ? isPathActive(pathname, item.href) : activeAcademicTab === item.id;
               const isTourSpotlight = activeTourTabKey === 'academic-sidebar';
+              const navIcon = RIGHT_NAV_SVG_ICONS[item.id] || item.icon;
               return (
                 <button
                   key={item.id}
+                  type="button"
+                  data-testid={`right-nav-${item.id}`}
+                  className={`nav-item${active ? ' active' : ''}${isTourSpotlight ? ' pinit-tour-spotlight' : ''}`}
                   onClick={() => {
                     if (item.href) {
                       setActiveAcademicTab(null);
@@ -944,31 +949,43 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                       window.history.pushState({}, '', url.toString());
                     }
                   }}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    gap: 9,
-                    padding: '9px 10px',
-                    background: isTourSpotlight ? 'rgba(var(--brand-rgb), 0.18)' : (active ? 'rgba(37,99,235,0.08)' : 'transparent'),
-                    border: isTourSpotlight ? '1.5px solid var(--accent)' : '1px solid transparent',
-                    borderColor: isTourSpotlight ? 'var(--accent)' : (active ? 'rgba(37,99,235,0.15)' : 'transparent'),
-                    borderRadius: 9,
-                    cursor: 'pointer',
-                    color: isTourSpotlight ? '#fff' : (active ? '#1d4ed8' : 'var(--t2)'),
-                    fontWeight: (active || isTourSpotlight) ? 700 : 500,
-                    fontSize: 14.5,
-                    transition: 'all 0.15s',
-                    outline: 'none',
-                    textAlign: 'left',
-                    flexShrink: 0,
-                    boxShadow: isTourSpotlight ? '0 0 16px rgba(var(--brand-rgb), 0.5)' : undefined,
-                  }}
+                  style={isTourSpotlight ? {
+                    background: 'var(--accent-light)',
+                    border: '1.5px solid var(--accent)',
+                    boxShadow: '0 0 16px rgba(99, 102, 241, 0.35)',
+                    transform: 'scale(1.01)',
+                    transition: 'all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    zIndex: 5,
+                  } : undefined}
                   title={item.label}
+                  aria-label={item.label}
                 >
-                  <span style={{ fontSize: 17.5, flexShrink: 0, transform: isTourSpotlight ? 'scale(1.15)' : undefined }}>{item.icon}</span>
-                  <span>{item.label}</span>
+                  <span
+                    className="nav-icon"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 22,
+                      height: 22,
+                      flexShrink: 0,
+                      ...(isTourSpotlight ? { transform: 'scale(1.16)', color: 'var(--accent)', transition: 'transform 0.25s' } : {}),
+                    }}
+                  >
+                    {navIcon}
+                  </span>
+                  <span
+                    style={{
+                      flex: 1,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      fontWeight: isTourSpotlight ? 800 : undefined,
+                      color: isTourSpotlight ? 'var(--accent)' : undefined,
+                    }}
+                  >
+                    {item.label}
+                  </span>
                 </button>
               );
             })}

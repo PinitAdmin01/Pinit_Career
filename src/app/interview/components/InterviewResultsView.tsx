@@ -4,9 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import { toast } from '@/lib/store/useAppStore';
 import RadarChart from './RadarChart';
+import { getVerdictTone, formatReadinessBadge } from '../interviewTypes';
 
 export interface InterviewResultsViewProps {
   evaluationResult: any;
+  isEvaluating?: boolean;
   activeTopicName: string;
   codeSubmitted: boolean;
   latestTopology: any;
@@ -21,6 +23,7 @@ export interface InterviewResultsViewProps {
 
 export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
   evaluationResult,
+  isEvaluating = false,
   activeTopicName,
   codeSubmitted,
   latestTopology,
@@ -32,9 +35,39 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
   exportInterviewTranscript,
   exitInterview,
 }) => {
+  const verdictTone = getVerdictTone(evaluationResult?.verdict);
+  const verdictColor = verdictTone === 'positive'
+    ? 'var(--green-mid)'
+    : verdictTone === 'conditional'
+    ? 'var(--amber-mid)'
+    : 'var(--coral-mid)';
+  const readinessInfo = evaluationResult?.readiness ? formatReadinessBadge(evaluationResult.readiness) : null;
+  const fallbackBase = Number.isFinite(Number(evaluationResult?.score)) ? Number(evaluationResult.score) : 0;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-      <div className="iv-panel" style={{ padding: 24, display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 20, alignItems: 'center' }}>
+      {isEvaluating && (
+        <div className="iv-evaluating-banner" data-testid="results-evaluating-banner">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div className="iv-typing-dots" aria-hidden="true">
+              <span /><span /><span />
+            </div>
+            <div>
+              <div style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--t1)' }}>
+                Hiring Panel Deliberating &amp; Verifying Rubric…
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--t2)' }}>
+                Auditing transcript evidence, role-calibrated dimension weights, and Q&amp;A benchmarks.
+              </div>
+            </div>
+          </div>
+          <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent-mid)', whiteSpace: 'nowrap' }}>
+            Syncing Authoritative Score
+          </span>
+        </div>
+      )}
+
+      <div className="iv-panel iv-results-hero" style={{ padding: 24 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <span style={{ fontSize: 11, fontWeight: 900, letterSpacing: '1px', color: 'var(--accent-mid)', textTransform: 'uppercase' }}>
@@ -43,22 +76,37 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
             <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t3)', fontFamily: 'monospace' }}>
               {evaluationResult?.rubricVersion ? `${evaluationResult.rubricVersion} Rubric` : 'v2.0 Rigor Rubric'}
             </span>
-            {evaluationResult?.readiness && (
-              <span style={{
-                fontSize: 10,
-                padding: '2px 8px',
-                borderRadius: 999,
-                background: evaluationResult.readiness.includes('Ready') ? 'rgba(34, 197, 94, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-                border: evaluationResult.readiness.includes('Ready') ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid rgba(245, 158, 11, 0.4)',
-                color: evaluationResult.readiness.includes('Ready') ? 'var(--green-mid)' : 'var(--amber-mid)',
-                fontWeight: 800
-              }}>
-                {evaluationResult.readiness}
+            {readinessInfo && (
+              <span
+                data-testid="results-readiness-badge"
+                style={{
+                  fontSize: 10,
+                  padding: '2px 8px',
+                  borderRadius: 999,
+                  background: readinessInfo.tone === 'positive'
+                    ? 'rgba(34, 197, 94, 0.15)'
+                    : readinessInfo.tone === 'conditional'
+                    ? 'rgba(245, 158, 11, 0.15)'
+                    : 'rgba(239, 68, 68, 0.14)',
+                  border: readinessInfo.tone === 'positive'
+                    ? '1px solid rgba(34, 197, 94, 0.4)'
+                    : readinessInfo.tone === 'conditional'
+                    ? '1px solid rgba(245, 158, 11, 0.4)'
+                    : '1px solid rgba(239, 68, 68, 0.35)',
+                  color: readinessInfo.tone === 'positive'
+                    ? 'var(--green-mid)'
+                    : readinessInfo.tone === 'conditional'
+                    ? 'var(--amber-mid)'
+                    : 'var(--coral-mid)',
+                  fontWeight: 800
+                }}
+              >
+                {readinessInfo.label}
               </span>
             )}
           </div>
-          <h1 style={{ fontSize: 24, fontWeight: 900, margin: '6px 0', color: evaluationResult?.verdict?.includes('Hire') ? 'var(--green-mid)' : 'var(--coral-mid)' }}>
-            Verdict: {evaluationResult?.verdict || 'Needs Practice'} ({evaluationResult?.score || 50}%)
+          <h1 style={{ fontSize: 24, fontWeight: 900, margin: '6px 0', color: verdictColor }}>
+            Verdict: {evaluationResult?.verdict || 'Needs Practice'} ({evaluationResult?.score ?? 0}%)
           </h1>
           <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 10px' }}>
             {evaluationResult?.summary || `Performance evaluation recorded for ${activeTopicName}.`}
@@ -90,7 +138,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <RadarChart scores={evaluationResult?.radar || { logic: 50, systems: 45, comms: 60, solving: 50, star: 48 }} size={190} />
+          <RadarChart scores={evaluationResult?.radar || { logic: fallbackBase, systems: fallbackBase, comms: fallbackBase, solving: fallbackBase, star: fallbackBase }} size={200} />
         </div>
       </div>
 
@@ -110,10 +158,54 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
           {[
-            { key: 'round1', def: { title: 'Round 1: Behavioral', score: 82, verdict: 'Strong Communicator', metric: 'Spoken Q&A', badge: 'Behavioral' }, icon: '🗣️', color: 'var(--accent)' },
-            { key: 'round2', def: { title: 'Round 2: Technical Sandbox', score: codeSubmitted ? 90 : 65, verdict: codeSubmitted ? 'Optimal Implementation' : 'Partial Draft', metric: codeSubmitted ? 'Tests Passed' : 'Incomplete', badge: 'Coding' }, icon: '💻', color: 'var(--pink)' },
-            { key: 'round3', def: { title: 'Round 3: System Canvas', score: latestTopology?.nodes?.length ? 75 : 0, verdict: latestTopology?.nodes?.length ? 'Evaluated Topology' : 'Needs Work', metric: `${latestTopology?.nodes?.length || 0} nodes wired`, badge: 'Systems' }, icon: '🏗️', color: 'var(--teal)' },
-            { key: 'round4', def: { title: 'Round 4: STAR Defense', score: Math.min(100, 50 + starStep * 15), verdict: starStep >= 3 ? 'Exemplary STAR' : 'Developing Structure', metric: `${starStep} STAR steps`, badge: 'STAR' }, icon: '⭐', color: 'var(--amber)' }
+            {
+              key: 'round1',
+              def: {
+                title: 'Round 1: Behavioral',
+                score: Number.isFinite(Number(evaluationResult?.radar?.comms)) ? Number(evaluationResult.radar.comms) : fallbackBase,
+                verdict: (evaluationResult?.radar?.comms ?? fallbackBase) >= 75 ? 'Strong Communicator' : (evaluationResult?.radar?.comms ?? fallbackBase) >= 55 ? 'Competent' : 'Needs Practice',
+                metric: 'Spoken Q&A',
+                badge: 'Behavioral'
+              },
+              icon: '🗣️',
+              color: 'var(--accent)'
+            },
+            {
+              key: 'round2',
+              def: {
+                title: 'Round 2: Technical Sandbox',
+                score: Number.isFinite(Number(evaluationResult?.radar?.solving)) ? Number(evaluationResult.radar.solving) : (codeSubmitted ? 85 : 0),
+                verdict: codeSubmitted ? 'Verified Implementation' : 'Not Submitted',
+                metric: codeSubmitted ? 'Tests Passed' : 'Incomplete',
+                badge: 'Coding'
+              },
+              icon: '💻',
+              color: 'var(--pink)'
+            },
+            {
+              key: 'round3',
+              def: {
+                title: 'Round 3: System Canvas',
+                score: Number.isFinite(Number(evaluationResult?.radar?.systems)) ? Number(evaluationResult.radar.systems) : (latestTopology?.nodes?.length ? 70 : 0),
+                verdict: latestTopology?.nodes?.length ? 'Evaluated Topology' : 'Needs Work',
+                metric: `${latestTopology?.nodes?.length || 0} nodes wired`,
+                badge: 'Systems'
+              },
+              icon: '🏗️',
+              color: 'var(--teal)'
+            },
+            {
+              key: 'round4',
+              def: {
+                title: 'Round 4: STAR Defense',
+                score: Number.isFinite(Number(evaluationResult?.radar?.star)) ? Number(evaluationResult.radar.star) : Math.min(100, starStep * 25),
+                verdict: starStep >= 3 ? 'Exemplary STAR' : starStep > 0 ? 'Developing Structure' : 'Not Completed',
+                metric: `${starStep} STAR steps`,
+                badge: 'STAR'
+              },
+              icon: '⭐',
+              color: 'var(--amber)'
+            }
           ].map((r, idx) => {
             const roundData = evaluationResult?.perRoundScores?.[r.key] || r.def;
             return (
@@ -212,7 +304,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
       )}
 
       {/* Coaching & Diagnostics Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+      <div className="iv-results-2col">
         <div className="iv-panel" style={{ padding: 18 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
             <span style={{ fontSize: 16.5 }}>🧠</span>
@@ -272,10 +364,122 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
         </div>
       </div>
 
+      {/* Defended Tech Stack Badges & Question-by-Question Benchmark Diff */}
+      {Array.isArray(evaluationResult?.defendedTechStack) && evaluationResult.defendedTechStack.length > 0 && (
+        <div className="iv-panel" style={{ padding: 18 }} data-testid="results-tech-stack-badges">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 16 }}>🧩</span>
+              <h3 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                Verified Defended Tech &amp; Domain Stack
+              </h3>
+            </div>
+            <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>
+              Extracted from spoken transcript, code &amp; whiteboard
+            </span>
+          </div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {evaluationResult.defendedTechStack.map((tech: string) => (
+              <span
+                key={tech}
+                style={{
+                  fontSize: 11.5,
+                  fontWeight: 800,
+                  padding: '4px 10px',
+                  borderRadius: 999,
+                  background: 'rgba(var(--brand-rgb), 0.12)',
+                  border: '1px solid rgba(var(--brand-rgb), 0.3)',
+                  color: 'var(--accent-mid)'
+                }}
+              >
+                ✓ {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {Array.isArray(evaluationResult?.questionBreakdown) && evaluationResult.questionBreakdown.length > 0 && (
+        <div className="iv-panel" style={{ padding: 20 }} data-testid="results-question-benchmark">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <div>
+              <h3 style={{ fontSize: 14.5, fontWeight: 900, margin: 0, color: 'var(--t1)', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                Question-by-Question Benchmark Review
+              </h3>
+              <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>
+                Side-by-side comparison of your answer against an exemplary target response.
+              </p>
+            </div>
+            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(var(--brand-rgb),0.1)', color: 'var(--accent-mid)', fontWeight: 800 }}>
+              {evaluationResult.questionBreakdown.length} Exchanges
+            </span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {evaluationResult.questionBreakdown.map((item: any, idx: number) => {
+              const qScore = Number.isFinite(Number(item?.score)) ? Number(item.score) : 0;
+              const candidateAns = item?.candidateAnswer || item?.candidate_answer || '';
+              const idealAns = item?.idealAnswer || item?.ideal_answer || '';
+              const missed = Array.isArray(item?.missedConcepts)
+                ? item.missedConcepts
+                : Array.isArray(item?.missed_concepts)
+                ? item.missed_concepts
+                : [];
+              return (
+                <details
+                  key={idx}
+                  open={idx === 0}
+                  className="iv-scorecard-accordion"
+                >
+                  <summary style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: 12.5, color: 'var(--t1)' }}>
+                    <span>Q{idx + 1}: {item?.question}</span>
+                    <span style={{
+                      flexShrink: 0,
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      fontSize: 11,
+                      fontWeight: 900,
+                      background: qScore >= 75 ? 'rgba(34,197,94,0.15)' : 'rgba(245,158,11,0.15)',
+                      color: qScore >= 75 ? 'var(--green-mid)' : 'var(--amber-mid)'
+                    }}>
+                      {qScore}%
+                    </span>
+                  </summary>
+                  <div style={{ marginTop: 10, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
+                    <div style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>Your Response</div>
+                      <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>{candidateAns || 'No response recorded.'}</div>
+                    </div>
+                    <div style={{ padding: '8px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.06)', border: '1px solid rgba(16, 185, 129, 0.25)' }}>
+                      <div style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--green-mid)', textTransform: 'uppercase', marginBottom: 4 }}>Ideal Benchmark Answer</div>
+                      <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.45 }}>{idealAns}</div>
+                    </div>
+                  </div>
+                  {item?.feedback && (
+                    <div style={{ marginTop: 8, fontSize: 11.5, color: 'var(--t2)' }}>
+                      <strong>Mentor Note:</strong> {item.feedback}
+                    </div>
+                  )}
+                  {missed.length > 0 && (
+                    <div style={{ marginTop: 6, display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
+                      <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--amber-mid)' }}>Missed Signals:</span>
+                      {missed.map((concept: string, cIdx: number) => (
+                        <span key={cIdx} style={{ fontSize: 10.5, padding: '2px 7px', borderRadius: 4, background: 'rgba(245, 158, 11, 0.12)', color: 'var(--amber-mid)', fontWeight: 700 }}>
+                          {concept}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </details>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Action Buttons Row with PDF Print & Share */}
       {/* STAR Framework Metrics & Improvement Suggestions */}
       {(evaluationResult?.starMetrics || evaluationResult?.improvements) && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+        <div className="iv-results-2col">
           {evaluationResult?.starMetrics && (
             <div className="iv-panel" style={{ padding: 18 }} data-testid="star-metrics-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
@@ -318,44 +522,49 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
         </div>
       )}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
-        <button onClick={startInterview} style={{ padding: 12, borderRadius: 10, background: 'linear-gradient(135deg, var(--success) 0%, var(--success-deep) 100%)', border: 'none', color: 'var(--text)', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}>
+        <button onClick={startInterview} className="iv-btn-success" style={{ padding: 12, fontSize: 14 }}>
           🔄 Practice Round Again
         </button>
         <button
           onClick={() => exportInterviewTranscript('markdown')}
-          style={{ padding: 12, borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--accent)', color: 'var(--accent-mid)', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}
+          className="iv-btn-secondary"
+          style={{ padding: 12, borderColor: 'var(--accent)', color: 'var(--accent-mid)', fontSize: 14, fontWeight: 900 }}
         >
           📥 Export Transcript (.md)
         </button>
         <button
           onClick={() => exportInterviewTranscript('json')}
-          style={{ padding: 12, borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}
+          className="iv-btn-secondary"
+          style={{ padding: 12, color: 'var(--t2)', fontSize: 14, fontWeight: 900 }}
         >
           💾 Raw JSON
         </button>
         <button
-          onClick={() => {
-            if (typeof window !== 'undefined') window.print();
-          }}
-          style={{ padding: 12, borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}
+          data-testid="print-pdf-btn"
+          onClick={() => exportInterviewTranscript('pdf')}
+          className="iv-btn-secondary"
+          style={{ padding: 12, fontSize: 14, fontWeight: 900 }}
         >
           🖨️ Print / Save PDF
         </button>
         <button
           onClick={() => {
             if (typeof window !== 'undefined') {
-              const url = `${window.location.origin}/interview?verified=true`;
-              navigator.clipboard.writeText(url).then(() => toast.success('Link Copied! 📋', 'Scorecard verification link copied to clipboard!'));
+              const summaryText = `PinIT Verified AI Interview — ${activeTopicName}: ${evaluationResult?.verdict || 'Completed'} (${evaluationResult?.score ?? 0}%) • ${window.location.origin}/interview`;
+              navigator.clipboard?.writeText(summaryText)
+                .then(() => toast.success('Scorecard Link Copied! 📋', 'Verification summary & link copied to clipboard.'))
+                .catch(() => toast.info('Clipboard Unavailable', 'Use Print / Save PDF or Export Transcript to share your scorecard.'));
             }
           }}
-          style={{ padding: 12, borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}
+          className="iv-btn-secondary"
+          style={{ padding: 12, fontSize: 14, fontWeight: 900 }}
         >
           🔗 Share Verification Link
         </button>
-        <button onClick={exitInterview} style={{ padding: 12, borderRadius: 10, background: 'var(--accent)', border: 'none', color: 'var(--text)', fontSize: 14, fontWeight: 900, cursor: 'pointer' }}>
+        <button onClick={exitInterview} className="iv-btn-primary" style={{ padding: 12, fontSize: 14 }}>
           🔀 Switch Topic / Mode
         </button>
-        <Link href="/career-twin" style={{ padding: 12, borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 14, fontWeight: 900, textAlign: 'center', textDecoration: 'none' }}>
+        <Link href="/career-twin" className="iv-btn-secondary" style={{ padding: 12, fontSize: 14, fontWeight: 900, textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           🧬 Sync Career Twin
         </Link>
       </div>

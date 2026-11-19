@@ -15,18 +15,19 @@ export interface RadarChartProps {
 
 export const RadarChart: React.FC<RadarChartProps> = ({ scores, size = 200 }) => {
   const center = size / 2;
-  const maxRadius = (size / 2) - 28;
+  const maxRadius = Math.max(28, (size / 2) - 34);
 
   const getCoordinates = () => {
     const categories = ['logic', 'systems', 'comms', 'solving', 'star'];
     return categories.map((cat, i) => {
       const rawVal = Number(((scores || {}) as any)[cat]);
-      const safeScore = isNaN(rawVal) ? 50 : Math.max(10, Math.min(100, rawVal));
-      const radius = (safeScore / 100) * maxRadius;
+      const displayScore = isNaN(rawVal) ? 0 : Math.max(0, Math.min(100, Math.round(rawVal)));
+      const visualScore = Math.max(8, displayScore);
+      const radius = (visualScore / 100) * maxRadius;
       const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
       const x = center + radius * Math.cos(angle);
       const y = center + radius * Math.sin(angle);
-      return { x: isNaN(x) ? center : x, y: isNaN(y) ? center : y, score: safeScore, name: cat.toUpperCase() };
+      return { x: isNaN(x) ? center : x, y: isNaN(y) ? center : y, score: displayScore, name: cat.toUpperCase() };
     });
   };
 
@@ -44,8 +45,8 @@ export const RadarChart: React.FC<RadarChartProps> = ({ scores, size = 200 }) =>
   });
 
   return (
-    <div style={{ position: 'relative', width: size, height: size, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ display: 'block' }}>
+    <div style={{ position: 'relative', width: size + 24, height: size + 16, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ display: 'block', overflow: 'visible' }}>
         <defs>
           <filter id="radar-glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="4" result="blur" />
@@ -78,7 +79,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ scores, size = 200 }) =>
 
         <polygon
           points={pointsStr}
-          fill="url(#radar-glow)"
+          fill="url(#radar-grad)"
           stroke="var(--accent-mid)"
           strokeWidth="2"
           filter="url(#radar-glow)"

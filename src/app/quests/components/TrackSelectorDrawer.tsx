@@ -489,9 +489,9 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
                 onOpenCapstonePortal={() => setShowCapstonePortal(true)}
-                onChangePlan={() => {
+                onChangePlan={async () => {
                   if (typeof window !== 'undefined' && window.confirm('Are you sure you want to view the course catalog and switch programs?')) {
-                    crashCourseEnrollmentService.clearEnrollment();
+                    await crashCourseEnrollmentService.pauseActiveEnrollment();
                     setActiveEnrollment(null);
                   }
                 }}

@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 
+export const runtime = 'nodejs';
+export const maxDuration = 30;
+
 /**
  * POST /api/quests/verify
  * Authoritative quest code verification endpoint.
