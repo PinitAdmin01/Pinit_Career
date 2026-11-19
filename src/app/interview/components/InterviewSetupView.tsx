@@ -4,6 +4,7 @@ import React from 'react';
 import type { JdMatchResult } from '@/lib/interview/jdMatch';
 import { COMPANY_PROFILES, resolveCompanyProfile } from '@/lib/interview/companyProfiles';
 import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
+import { getVerdictTone } from '../interviewTypes';
 
 export interface InterviewSetupViewProps {
   activeSessionDraft: any;
@@ -61,8 +62,8 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
   setSelectedHistorySession,
 }) => {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 20 }}>
-      <div className="iv-panel" style={{ padding: 28 }}>
+    <div className="iv-setup-grid">
+      <div className="iv-panel" style={{ padding: 26 }}>
         <h2 style={{ fontSize: 20, fontWeight: 900, margin: '0 0 8px', color: 'var(--t1)' }}>Start AI Corporate Interview</h2>
         <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 20px' }}>
           Practice real-time corporate interviews with spoken voice communication, Monaco code sandbox, interactive architecture canvas, and automated role-weighted scoring.
@@ -106,15 +107,10 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
                   try { unlockSpeechSynthesis(); } catch {}
                   resumeActiveSession();
                 }}
+                className="iv-btn-primary"
                 style={{
-                  background: 'var(--accent)',
-                  color: 'var(--text)',
-                  border: 'none',
-                  borderRadius: 8,
                   padding: '8px 14px',
                   fontSize: 13,
-                  fontWeight: 800,
-                  cursor: 'pointer'
                 }}
               >
                 Resume ➔
@@ -451,6 +447,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
 
         <button
           data-testid="start-interview-btn"
+          className="iv-btn-primary"
           onClick={() => {
             if (typeof document !== 'undefined') {
               try {
@@ -466,7 +463,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
             try { unlockSpeechSynthesis(); } catch {}
             startInterview();
           }}
-          style={{ width: '100%', background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15.5, fontWeight: 900, color: 'var(--text)', cursor: 'pointer', boxShadow: 'var(--shadow-md)' }}
+          style={{ width: '100%', borderRadius: 12, padding: '14px', fontSize: 15.5 }}
         >
           🎙️ Start Proactive Voice Interview ➔
         </button>
@@ -483,32 +480,60 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
           )}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, overflowY: 'auto', maxHeight: 380, paddingRight: 4 }} className="scroll-container">
-          {sessions.map(s => (
-            <div key={s.id} style={{ background: 'var(--bg3)', padding: '12px 14px', borderRadius: 12, border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 11, padding: '2px 6px', borderRadius: 6, background: s.domainStream === 'non_tech' ? 'var(--pink-light)' : 'var(--accent-light)', color: s.domainStream === 'non_tech' ? 'var(--pink)' : 'var(--accent)', fontWeight: 800 }}>
-                    {s.domainStream === 'non_tech' ? 'Non-Tech' : 'Tech'}
-                  </span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{s.type}</span>
-                </div>
-                <span style={{ fontSize: 13, fontWeight: 900, color: s.score >= 70 ? 'var(--green-mid)' : 'var(--coral-mid)' }}>{s.score}%</span>
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--t2)' }}>
-                <span>📅 {s.date}</span>
-                <span style={{ color: s.verdict?.includes('Hire') ? 'var(--green-mid)' : 'var(--coral-mid)', fontWeight: 800 }}>Verdict: {s.verdict}</span>
-              </div>
-
-              <button
-                onClick={() => setSelectedHistorySession(s)}
-                style={{ background: 'var(--accent-light)', border: '1px solid var(--accent)', color: 'var(--accent)', borderRadius: 8, padding: '6px 10px', fontSize: 12, fontWeight: 800, cursor: 'pointer', textAlign: 'center', marginTop: 2 }}
-              >
-                📄 Review Transcript & Report ➔
-              </button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, overflowY: 'auto', maxHeight: 460, paddingRight: 4 }} className="scroll-container">
+          {sessions.length === 0 ? (
+            <div style={{
+              background: 'var(--bg3)',
+              border: '1px dashed var(--border2)',
+              borderRadius: 14,
+              padding: '28px 18px',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 8
+            }}>
+              <span style={{ fontSize: 28, opacity: 0.75 }}>🎙️</span>
+              <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>No Mock Interviews Recorded Yet</div>
+              <p style={{ margin: 0, fontSize: 12, color: 'var(--t3)', lineHeight: 1.5, maxWidth: 260 }}>
+                Complete your first 4-round session to unlock role-calibrated radar charts, verified quote evidence, and PDF scorecards.
+              </p>
             </div>
-          ))}
+          ) : sessions.map(s => {
+            const tone = getVerdictTone(s.verdict);
+            const verdictColor = tone === 'positive' ? 'var(--green-mid)' : tone === 'conditional' ? 'var(--amber-mid)' : 'var(--coral-mid)';
+            return (
+              <div key={s.id} className="iv-history-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: 11, padding: '2px 6px', borderRadius: 6, background: s.domainStream === 'non_tech' ? 'var(--pink-light)' : 'var(--accent-light)', color: s.domainStream === 'non_tech' ? 'var(--pink)' : 'var(--accent)', fontWeight: 800 }}>
+                      {s.domainStream === 'non_tech' ? 'Non-Tech' : 'Tech'}
+                    </span>
+                    {s.targetCompany && (
+                      <span style={{ fontSize: 10.5, padding: '2px 6px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: 'var(--green-mid)', fontWeight: 800 }}>
+                        🏢 {s.targetCompany}
+                      </span>
+                    )}
+                    <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{s.type}</span>
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 900, color: s.score >= 70 ? 'var(--green-mid)' : s.score >= 55 ? 'var(--amber-mid)' : 'var(--coral-mid)' }}>{s.score}%</span>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--t2)' }}>
+                  <span>📅 {s.date}</span>
+                  <span style={{ color: verdictColor, fontWeight: 800 }}>Verdict: {s.verdict}</span>
+                </div>
+
+                <button
+                  onClick={() => setSelectedHistorySession(s)}
+                  className="iv-btn-secondary"
+                  style={{ background: 'var(--accent-light)', borderColor: 'var(--accent)', color: 'var(--accent)', borderRadius: 8, padding: '6px 10px', fontSize: 12, textAlign: 'center', marginTop: 2 }}
+                >
+                  📄 Review Transcript &amp; Report ➔
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import type { AnimState } from '@/components/avatar/VRoidAvatarEngine';
+import { SKIP_TURN_REGEX } from '@/lib/interview/postInterviewInsights';
 import { AssistModeDrawer } from './AssistModeDrawer';
 
 const VRoidInterviewAvatar = dynamic(
@@ -97,7 +98,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
   onToggleDock,
 }) => {
   const userResponseCount = React.useMemo(() => {
-    return messages.filter(m => m.role === 'user').length;
+    return messages.filter(m => m.role === 'user' && !SKIP_TURN_REGEX.test(m.content.trim())).length;
   }, [messages]);
 
   const wpmCadenceLabel = wpmScore !== null
@@ -135,41 +136,31 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
   return (
     <div className="iv-round-layout iv-round1-layout iv-stage-viewport" style={{ display: 'grid', gridTemplateColumns: '6fr 4fr', gap: 16, alignItems: 'stretch' }}>
       {/* Left 60%: 3D VRoid Avatar Viewport */}
-      <div className="iv-round1-avatar iv-avatar-stage" style={{
-        background: 'var(--bg3)',
-        borderRadius: 20,
-        border: '1px solid var(--border)',
-        overflow: 'hidden',
-        position: 'relative',
-        boxShadow: 'var(--shadow-md)',
-      }}>
+      <div className="iv-round1-avatar iv-avatar-stage">
         <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.65} />
 
         {isDockedUnderCam && assistNode && (
-          <div style={{ position: 'absolute', top: showCameraPreview ? 126 : 54, right: 14, width: 330, maxWidth: 'calc(100% - 28px)', zIndex: 18 }}>
+          <div style={{ position: 'absolute', top: showCameraPreview ? 132 : 54, right: 14, width: 330, maxWidth: 'calc(100% - 28px)', zIndex: 18 }}>
             {assistNode}
           </div>
         )}
 
-        {/* Floating Candidate Camera PiP Preview (IV-UX-03: Live Eye Contact & Vocal Pace HUD) */}
+        {/* Floating Candidate Camera PiP Preview (Mirrored Self-View + Compact Eye Contact & Pace HUD) */}
         {showCameraPreview && (
-          <div style={{
-            position: 'absolute', top: 14, right: 14, width: 140, height: 105,
-            borderRadius: 12, overflow: 'hidden', border: '2px solid var(--accent)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.6)', background: '#000', zIndex: 20
-          }}>
-            <video ref={videoPreviewRef} autoPlay muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{
-              position: 'absolute', bottom: 3, left: 3, right: 3,
-              background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)',
-              borderRadius: 6, padding: '2px 6px', fontSize: 9.5, color: 'var(--text)',
-              display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800
-            }}>
-              <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
-                📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
+          <div className="iv-pip-frame">
+            <video
+              ref={videoPreviewRef}
+              autoPlay
+              muted
+              playsInline
+              style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' }}
+            />
+            <div className="iv-pip-hud">
+              <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : '#cbd5e1', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Centered' : 'Adjust') : 'Scanning'}
               </span>
-              <span style={{ color: wpmScore !== null ? (wpmScore >= 115 && wpmScore <= 165 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--info-bright)' }}>
-                ⚡ {wpmCadenceLabel}
+              <span style={{ color: wpmScore !== null ? (wpmScore >= 115 && wpmScore <= 165 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--info-bright)', flexShrink: 0 }}>
+                {wpmScore !== null ? `${wpmScore} WPM` : 'Mic Ready'}
               </span>
             </div>
           </div>
@@ -179,19 +170,15 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         <div style={{
           position: 'absolute', top: 14, left: 14, padding: '6px 14px', borderRadius: 100,
           background: isAvatarSpeaking ? 'var(--accent)' : isVoiceListening ? 'var(--danger)' : 'var(--green)',
-          backdropFilter: 'blur(8px)', color: 'var(--text)', fontSize: 12, fontWeight: 800,
-          display: 'flex', alignItems: 'center', gap: 6, boxShadow: 'var(--shadow-md)'
+          backdropFilter: 'blur(8px)', color: '#ffffff', fontSize: 12, fontWeight: 800,
+          display: 'flex', alignItems: 'center', gap: 7, boxShadow: 'var(--shadow-md)'
         }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#fff', display: 'inline-block' }} />
+          <span className={isAvatarSpeaking || isVoiceListening ? 'iv-pulse-dot' : undefined} style={isAvatarSpeaking || isVoiceListening ? undefined : { width: 8, height: 8, borderRadius: '50%', background: '#fff', display: 'inline-block' }} />
           {isAvatarSpeaking ? `${activeTeacher.name} is Speaking...` : isVoiceListening ? '🎙️ Listening (Speak Now)...' : '🎤 Voice Ready'}
         </div>
 
-        {/* Inverted Subtitle Fixed: Strictly displays interviewer's speech */}
-        <div style={{
-          position: 'absolute', bottom: 14, left: 14, right: 14, padding: '10px 16px',
-          background: 'rgba(0,0,0,0.80)', backdropFilter: 'blur(10px)', borderRadius: 12,
-          color: 'var(--text)', fontSize: 13, lineHeight: 1.4, border: '1px solid rgba(255,255,255,0.12)'
-        }}>
+        {/* Inverted Subtitle Fixed: Strictly displays interviewer's speech with max-height scroll cap */}
+        <div className="iv-subtitle-bar">
           <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
         </div>
       </div>
@@ -205,9 +192,9 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, marginBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
-            <h2 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral & Background Intro</h2>
+            <h2 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral &amp; Background Intro</h2>
           </div>
-          {canProceed && <button onClick={onProceed} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '7px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
+          {canProceed && <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
             Continue to coding ➔
           </button>}
         </div>
@@ -246,6 +233,12 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
               </div>
             </div>
           ))}
+          {isSendingInterviewMessage && (
+            <div className="iv-typing-bubble" data-testid="round1-typing-indicator">
+              <span>{activeTeacher.name} is reviewing your answer</span>
+              <span className="iv-typing-dots" aria-hidden="true"><span /><span /><span /></span>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
 
@@ -303,7 +296,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
                 borderRadius: 8,
                 border: 'none',
                 background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
-                color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
+                color: manualTextInput.trim() ? '#ffffff' : 'var(--t3)',
                 fontSize: 12.5,
                 fontWeight: 800,
                 cursor: manualTextInput.trim() ? 'pointer' : 'default'

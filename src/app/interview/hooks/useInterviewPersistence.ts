@@ -207,7 +207,11 @@ export function useInterviewPersistence({
               strengths: evalData.strengths || [],
               improvements: evalData.improvements || [],
               topology: evalData.topology || null,
-              messages: row.messages || evalData.messages || [],
+              targetCompany: evalData.targetCompany || '',
+              defendedTechStack: Array.isArray(evalData.defendedTechStack) ? evalData.defendedTechStack : [],
+              questionBreakdown: Array.isArray(evalData.questionBreakdown) ? evalData.questionBreakdown : [],
+              answerQuality: evalData.answerQuality || null,
+              messages: row.transcript || row.messages || evalData.messages || [],
             };
           });
           setSessions(formatted);

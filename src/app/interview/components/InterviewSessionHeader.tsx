@@ -87,15 +87,7 @@ export function InterviewSessionHeader({
   const activeRoundIndex = rounds.findIndex(round => round.id === activeStage);
   const currentRound = rounds[activeRoundIndex];
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 10,
-      padding: '10px 18px',
-      background: 'var(--bg2)',
-      borderRadius: 14,
-      border: '1px solid var(--border)'
-    }}>
+    <div className="iv-session-header">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <span style={{ fontSize: 22 }}>{activeTeacher.emoji}</span>
@@ -130,9 +122,9 @@ export function InterviewSessionHeader({
                   fontWeight: 800,
                   padding: '2px 8px',
                   borderRadius: 6,
-                  background: 'rgba(16, 185, 129, 0.12)',
-                  color: '#34d399',
-                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  background: 'rgba(16, 185, 129, 0.14)',
+                  color: 'var(--green-mid)',
+                  border: '1px solid rgba(16, 185, 129, 0.35)',
                   letterSpacing: '0.03em'
                 }}
               >
@@ -233,12 +225,12 @@ export function InterviewSessionHeader({
           }}
           style={{
             background: isFullscreen
-              ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%)'
-              : 'rgba(139, 92, 246, 0.15)',
+              ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%)'
+              : 'var(--purple-light)',
             border: isFullscreen
-              ? '1.5px solid rgba(139, 92, 246, 0.8)'
-              : '1px solid rgba(139, 92, 246, 0.4)',
-            color: '#c4b5fd',
+              ? '1.5px solid var(--purple)'
+              : '1px solid rgba(139, 92, 246, 0.45)',
+            color: 'var(--purple-mid, var(--purple))',
             borderRadius: 8,
             padding: '5px 12px',
             fontSize: 12,
@@ -247,7 +239,7 @@ export function InterviewSessionHeader({
             display: 'flex',
             alignItems: 'center',
             gap: 6,
-            boxShadow: isFullscreen ? '0 0 12px rgba(139, 92, 246, 0.35)' : 'none'
+            boxShadow: isFullscreen ? '0 0 12px rgba(139, 92, 246, 0.3)' : 'none'
           }}
         >
           <span>🎮</span>

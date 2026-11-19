@@ -96,7 +96,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
               {domainStream === 'non_tech' ? 'Business Workflow Canvas:' : 'System Architecture Canvas:'} {activeTopicName}
             </h2>
           </div>
-          {canProceed && <button onClick={onProceed} style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '7px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
+          {canProceed && <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
             Continue to deep dive ➔
           </button>}
         </div>
@@ -140,23 +140,12 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
 
         {/* 📊 Architecture Evaluation Scorecard (Renders when analysis completes) */}
         {architectureEvaluation && (
-          <div style={{
-            marginTop: 8,
-            padding: '14px 16px',
-            borderRadius: 12,
-            background: 'linear-gradient(135deg, rgba(20, 24, 39, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%)',
-            border: '1.5px solid var(--accent)',
-            boxShadow: '0 4px 18px rgba(var(--brand-rgb), 0.2)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 10
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="iv-eval-report">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                
                 <div>
-                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>Architecture Evaluation Report</h4>
-                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
+                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'inherit' }}>Architecture Evaluation Report</h4>
+                  <span style={{ fontSize: 12, opacity: 0.78 }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
                 </div>
               </div>
               <div style={{
@@ -174,9 +163,9 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
             {/* Radar / Metrics Bar */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, fontSize: 12 }}>
               {architectureEvaluation.radar && Object.entries(architectureEvaluation.radar).map(([metric, val]: any) => (
-                <div key={metric} style={{ background: 'rgba(255,255,255,0.04)', padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)' }}>
-                  <div style={{ color: 'var(--t3)', textTransform: 'uppercase', fontSize: 10.5, fontWeight: 700 }}>{metric}</div>
-                  <div style={{ fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{val} / 100</div>
+                <div key={metric} style={{ background: 'rgba(var(--brand-rgb), 0.08)', padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)' }}>
+                  <div style={{ opacity: 0.72, textTransform: 'uppercase', fontSize: 10.5, fontWeight: 700 }}>{metric}</div>
+                  <div style={{ fontWeight: 800, color: 'inherit', marginTop: 2 }}>{val} / 100</div>
                 </div>
               ))}
             </div>
@@ -205,7 +194,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ height: 190, background: 'var(--bg3)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
-          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(0,0,0,0.65)', color: 'var(--text)', fontSize: 11, fontWeight: 800 }}>
+          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 11, fontWeight: 800 }}>
             {activeTeacher.emoji} {activeTeacher.name}
           </div>
         </div>
@@ -215,6 +204,12 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
             <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
           </div>
+          {isSendingInterviewMessage && (
+            <div className="iv-typing-bubble">
+              <span>{activeTeacher.name} is evaluating your defense</span>
+              <span className="iv-typing-dots" aria-hidden="true"><span /><span /><span /></span>
+            </div>
+          )}
 
           {/* 🎯 Unified Assist Mode AI Teleprompter for Round 3 */}
           {isAssistModeActive && (
@@ -288,7 +283,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   borderRadius: 6,
                   border: 'none',
                   background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
-                  color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
+                  color: manualTextInput.trim() ? '#ffffff' : 'var(--t3)',
                   fontSize: 12,
                   fontWeight: 800,
                   cursor: manualTextInput.trim() ? 'pointer' : 'default'

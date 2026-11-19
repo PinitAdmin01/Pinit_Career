@@ -37,22 +37,17 @@ export function InterviewVoiceHud({
   return (
     <div
       data-testid="interview-voice-hud-root"
+      className="iv-voice-hud"
       style={{
         background: isTabInactive
           ? 'rgba(234, 179, 8, 0.12)'
           : !isSpeechSupported
           ? 'rgba(239, 68, 68, 0.1)'
           : isVoiceListening
-          ? 'linear-gradient(90deg, rgba(var(--success-rgb),0.15) 0%, rgba(var(--info-rgb),0.15) 100%)'
+          ? 'linear-gradient(90deg, rgba(var(--success-rgb),0.14) 0%, rgba(var(--info-rgb),0.14) 100%)'
           : 'var(--bg3)',
         border: '1px solid ' + (isTabInactive ? 'var(--warning, #eab308)' : !isSpeechSupported ? 'var(--danger)' : isVoiceListening ? 'var(--success)' : 'var(--border)'),
-        borderRadius: 12,
-        padding: '8px 16px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: 10
+        boxShadow: isVoiceListening && !isTabInactive ? '0 0 0 1px rgba(16, 185, 129, 0.15), var(--shadow-sm)' : 'none'
       }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 260 }}>
         <span style={{ fontSize: 17.5 }}>{isTabInactive ? '⏸️' : !isSpeechSupported ? '⚠️' : isAvatarSpeaking ? '🗣️' : isVoiceListening ? '🎙️' : '🎤'}</span>
@@ -180,7 +175,7 @@ export function InterviewVoiceHud({
           style={{
             background: isTabInactive ? 'var(--bg3)' : isVoiceListening ? 'var(--success)' : !isSpeechSupported ? 'var(--bg2)' : 'var(--accent)',
             border: isTabInactive ? '1px solid rgba(234, 179, 8, 0.4)' : 'none',
-            color: isTabInactive ? 'var(--warning-bright, #eab308)' : 'var(--text)',
+            color: isTabInactive ? 'var(--warning-bright, #eab308)' : !isSpeechSupported ? 'var(--t3)' : '#ffffff',
             borderRadius: 8,
             padding: '6px 14px',
             fontSize: 12,

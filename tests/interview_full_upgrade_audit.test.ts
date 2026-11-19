@@ -32,6 +32,9 @@ import { Round4StarDrill } from '../src/app/interview/components/Round4StarDrill
 import { InterviewResultsView } from '../src/app/interview/components/InterviewResultsView';
 import { RadarChart } from '../src/app/interview/components/RadarChart';
 import { InterviewVoiceHud } from '../src/app/interview/components/InterviewVoiceHud';
+import { Round1Behavioral } from '../src/app/interview/components/Round1Behavioral';
+import { getVerdictTone, formatReadinessBadge } from '../src/app/interview/interviewTypes';
+import { normalizeAnswerQuality } from '../src/lib/interview/evaluationQuality';
 
 const ROOT = process.cwd();
 
@@ -418,4 +421,133 @@ test('Deep Audit Fix #3, #5, #6, #11, #12, #13, #14: Static verification of runt
     'utf8'
   );
   assert.ok(assistRouteSrc.includes('sanitizedStar'), 'assist/route.ts must sanitize bulletPoints, deliveryGuide, and starBreakdown via sanitizeLLMOutput');
+});
+
+test('Deep Tab Audit Round 2: Verdict/Readiness tone, RadarChart 0% label, evaluationQuality aliases, Round1 skip filtering, and Whiteboard/CSS/Security invariants', () => {
+  // 1. Verdict & Readiness tone helpers (No Hire must never be green!)
+  assert.equal(getVerdictTone('No Hire'), 'negative');
+  assert.equal(getVerdictTone('Needs Practice'), 'negative');
+  assert.equal(getVerdictTone('Conditional Hire'), 'conditional');
+  assert.equal(getVerdictTone('Hire'), 'positive');
+  assert.equal(getVerdictTone('Strong Hire'), 'positive');
+
+  assert.deepEqual(formatReadinessBadge('strong'), { label: 'Strong Hire Ready', tone: 'positive' });
+  assert.deepEqual(formatReadinessBadge('ready'), { label: 'Interview Ready', tone: 'positive' });
+  assert.deepEqual(formatReadinessBadge('developing'), { label: 'Developing Readiness', tone: 'conditional' });
+  assert.deepEqual(formatReadinessBadge('not_ready'), { label: 'Not Ready Yet', tone: 'negative' });
+
+  // 2. normalizeAnswerQuality accepts snake_case dimension aliases and normalized whitespace/case while rejecting hallucinations
+  const aq = normalizeAnswerQuality(
+    {
+      question_relevance: 84,
+      answer_accuracy: 78,
+      evidence: [
+        {
+          dimension: 'question_relevance',
+          quote: 'we sharded postgres by tenant id',
+          assessment: 'Directly addresses multi-tenant scaling.'
+        },
+        {
+          dimension: 'answer_accuracy',
+          quote: 'we deployed on mars orbital servers',
+          assessment: 'Hallucinated quote that must be dropped.'
+        }
+      ]
+    },
+    ['We sharded   Postgres by tenant ID to isolate noisy neighbors.']
+  );
+  assert.ok(aq);
+  assert.equal(aq.evidence.length, 1);
+  assert.equal(aq.evidence[0].dimension, 'questionRelevance');
+
+  // 3. RadarChart displays true 0% label (not 10%) and overflow:visible
+  const zeroRadarHtml = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(RadarChart, {
+      scores: { logic: 0, systems: 0, comms: 75, solving: 80, star: 60 },
+      size: 160,
+    })
+  );
+  assert.ok(zeroRadarHtml.includes('LOGIC (0%)'), 'Zero radar score must display 0%, not 10%');
+  assert.ok(zeroRadarHtml.includes('overflow:visible'));
+
+  // 4. InterviewResultsView renders evaluating banner, formatted readiness, and coral No Hire verdict
+  const noHireHtml = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(InterviewResultsView, {
+      evaluationResult: {
+        score: 38,
+        verdict: 'No Hire',
+        readiness: 'not_ready',
+        radar: { logic: 35, systems: 30, comms: 45, solving: 40, star: 40 },
+      },
+      isEvaluating: true,
+      activeTopicName: 'Distributed Systems',
+      codeSubmitted: false,
+      latestTopology: null,
+      starStep: 0,
+      wpmScore: null,
+      fillerWordCount: 0,
+      eyeContactScore: null,
+      startInterview: () => {},
+      exportInterviewTranscript: () => {},
+      exitInterview: () => {},
+    })
+  );
+  assert.ok(noHireHtml.includes('data-testid="results-evaluating-banner"'));
+  assert.ok(noHireHtml.includes('Not Ready Yet'));
+  assert.ok(!noHireHtml.includes('>not_ready<'));
+  assert.ok(noHireHtml.includes('color:var(--coral-mid)'), 'No Hire verdict must render in coral, not green');
+  assert.ok(noHireHtml.includes('iv-results-hero'));
+
+  // 5. Round1Behavioral excludes skip turns from progress counter, mirrors webcam, and shows live typing indicator
+  const r1Html = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(Round1Behavioral, {
+      activeTeacher: { id: 'priya', name: 'Ms. Priya', emoji: '👩‍💼', title: 'HR Director' },
+      animState: 'thinking',
+      showCameraPreview: true,
+      videoPreviewRef: { current: null },
+      eyeContactScore: 84,
+      wpmScore: 132,
+      isAvatarSpeaking: false,
+      isVoiceListening: false,
+      lastInterviewerSpeech: 'Tell me about a scaling trade-off.',
+      onProceed: () => {},
+      canProceed: false,
+      isSendingInterviewMessage: true,
+      fillerWordCount: 1,
+      messages: [
+        { role: 'assistant', content: 'Question 1' },
+        { role: 'user', content: 'I would like to skip this question and proceed to the next topic.' },
+        { role: 'assistant', content: 'Question 2' },
+        { role: 'user', content: 'I would like to skip this question and proceed to the next topic.' },
+      ],
+      messagesEndRef: { current: null },
+      manualTextInput: '',
+      setManualTextInput: () => {},
+      onSendMessage: () => {},
+    })
+  );
+  assert.ok(r1Html.includes('Progress: 0/3 responses completed'), 'Skipped turns must not inflate Round 1 progress counter');
+  assert.ok(r1Html.includes('scaleX(-1)'), 'Self-view webcam PiP must be horizontally mirrored');
+  assert.ok(r1Html.includes('iv-subtitle-bar'), 'Round 1 must use height-capped theme-safe subtitle bar');
+  assert.ok(r1Html.includes('data-testid="round1-typing-indicator"'), 'Round 1 must render typing indicator while waiting for interviewer reply');
+
+  // 6. Static checks for Whiteboard mouse-connect bug fix, Monaco stale closure fix, Supabase transcript hydration, IDOR fix, and globals.css
+  const wbSrc = fs.readFileSync(path.join(ROOT, 'src/components/interview/SystemDesignWhiteboard.tsx'), 'utf8');
+  assert.ok(!wbSrc.includes("item.color + '44'"), 'Whiteboard must not concatenate hex alpha to CSS var() strings');
+  assert.ok(!wbSrc.includes('window.confirm('), 'Whiteboard preset loader must use inline confirmation instead of window.confirm()');
+  assert.ok(wbSrc.includes('deleteLink'), 'Whiteboard must support clicking arrows to delete connections');
+  assert.ok(wbSrc.includes('growth_funnel') && wbSrc.includes('erp_ledger'), 'Whiteboard must offer domain-appropriate non-tech workflow presets');
+
+  const r2Src = fs.readFileSync(path.join(ROOT, 'src/app/interview/components/Round2Coding.tsx'), 'utf8');
+  assert.ok(r2Src.includes('runCodeAndTestsRef'), 'Round2Coding Monaco Ctrl+Enter command must invoke ref to avoid stale closure');
+
+  const persistSrc = fs.readFileSync(path.join(ROOT, 'src/app/interview/hooks/useInterviewPersistence.ts'), 'utf8');
+  assert.ok(persistSrc.includes('row.transcript ||'), 'Supabase session hydration must read row.transcript column');
+
+  const historyApiSrc = fs.readFileSync(path.join(ROOT, 'src/app/api/interview/history/route.ts'), 'utf8');
+  assert.ok(historyApiSrc.includes('existingRow.user_id !== userId'), 'Service-role history POST must verify session ownership before updating');
+
+  const cssSrc = fs.readFileSync(path.join(ROOT, 'src/styles/globals.css'), 'utf8');
+  assert.ok(!cssSrc.includes(":root.light [data-theme='light'] .iv-canvas-bg"), 'Broken light descendant selector must be fixed to comma selector');
+  assert.ok(cssSrc.includes('.iv-setup-grid') && cssSrc.includes('.iv-assist-drawer') && cssSrc.includes('.iv-eval-report'));
 });

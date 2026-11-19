@@ -25,6 +25,7 @@ export interface Round4StarDrillProps {
   setManualTextInput: (val: string) => void;
   onSendMessage: (text: string) => void;
   starStep?: number;
+  starCoverage?: { hasS: boolean; hasT: boolean; hasA: boolean; hasR: boolean; count: number };
   messages?: any[];
   messagesEndRef?: React.RefObject<HTMLDivElement>;
   activeTopicName?: string;
@@ -68,6 +69,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
   setManualTextInput,
   onSendMessage,
   starStep = 0,
+  starCoverage,
   messages = [],
   messagesEndRef,
   activeTopicName = 'Software Engineering',
@@ -123,61 +125,43 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
       style={{ display: 'grid', gridTemplateColumns: '5.5fr 4.5fr', gap: 16, alignItems: 'stretch' }}
     >
       {/* Left Column: 3D Avatar + Webcam PiP + Eye-Level Docked Assist */}
-      <div
-        className="iv-round4-avatar iv-avatar-stage"
-        style={{
-          background: 'var(--bg3)',
-          borderRadius: 20,
-          border: '1px solid var(--border)',
-          overflow: 'hidden',
-          position: 'relative',
-          boxShadow: 'var(--shadow-lg)'
-        }}
-      >
+      <div className="iv-round4-avatar iv-avatar-stage">
         <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
 
         {/* Eye-Level Docked Teleprompter Overlay */}
         {isDockedUnderCam && assistNode && (
-          <div style={{ position: 'absolute', top: showCameraPreview ? 126 : 16, right: 14, width: 330, maxWidth: 'calc(100% - 28px)', zIndex: 18 }}>
+          <div style={{ position: 'absolute', top: showCameraPreview ? 132 : 16, right: 14, width: 330, maxWidth: 'calc(100% - 28px)', zIndex: 18 }}>
             {assistNode}
           </div>
         )}
 
-        {/* Floating Candidate Camera PiP Preview (Live Eye Contact & Vocal Pace HUD) */}
+        {/* Floating Candidate Camera PiP Preview (Mirrored Self-View + Compact Eye Contact & Pace HUD) */}
         {showCameraPreview && (
-          <div style={{
-            position: 'absolute', top: 14, right: 14, width: 140, height: 105,
-            borderRadius: 12, overflow: 'hidden', border: '2px solid var(--accent)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.6)', background: '#000', zIndex: 20
-          }}>
-            <video ref={videoPreviewRef} autoPlay muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{
-              position: 'absolute', bottom: 3, left: 3, right: 3,
-              background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)',
-              borderRadius: 6, padding: '2px 6px', fontSize: 9.5, color: 'var(--text)',
-              display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800
-            }}>
-              <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
-                {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
+          <div className="iv-pip-frame">
+            <video
+              ref={videoPreviewRef}
+              autoPlay
+              muted
+              playsInline
+              style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' }}
+            />
+            <div className="iv-pip-hud">
+              <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : '#cbd5e1', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Centered' : 'Adjust') : 'Scanning'}
               </span>
               <span style={{
                 color: wpmScore !== null
                   ? (wpmScore >= 115 && wpmScore <= 165 ? 'var(--success-bright)' : wpmScore > 165 ? 'var(--warning-bright)' : 'var(--info-bright)')
-                  : 'var(--text-muted)'
+                  : '#cbd5e1',
+                flexShrink: 0
               }}>
-                {wpmScore !== null ? `${wpmScore} WPM ${wpmScore > 165 ? '(Fast)' : wpmScore >= 115 ? '(Optimal)' : '(Paced)'}` : 'Mic Inactive'}
+                {wpmScore !== null ? `${wpmScore} WPM` : 'Mic Ready'}
               </span>
             </div>
           </div>
         )}
 
-        <div style={{
-          position: 'absolute', bottom: 16, left: '5%', right: '5%',
-          background: 'rgba(0,0,0,0.80)', backdropFilter: 'blur(8px)',
-          padding: '10px 16px', borderRadius: 12, color: 'var(--text)',
-          fontSize: 13.5, lineHeight: 1.4, textAlign: 'center',
-          border: '1px solid rgba(255,255,255,0.1)'
-        }}>
+        <div className="iv-subtitle-bar" style={{ textAlign: 'center' }}>
           <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
         </div>
       </div>
@@ -200,10 +184,11 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
           <button
             onClick={finishInterview}
             disabled={!canFinishInterview || isSendingInterviewMessage}
+            className={canFinishInterview ? 'iv-btn-primary' : undefined}
             style={{
-              background: canFinishInterview ? 'var(--accent)' : 'var(--bg3)',
-              border: 'none',
-              color: canFinishInterview ? 'var(--text)' : 'var(--t3)',
+              background: canFinishInterview ? undefined : 'var(--bg3)',
+              border: canFinishInterview ? undefined : '1px solid var(--border)',
+              color: canFinishInterview ? '#ffffff' : 'var(--t3)',
               borderRadius: 10,
               padding: '8px 14px',
               fontSize: 12.5,
@@ -214,9 +199,9 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
           >
             {canFinishInterview
               ? 'Complete interview ➔'
-              : starStep >= 4
+              : (starStep >= 4 || (starCoverage?.count ?? 0) >= 3)
               ? 'Waiting for interviewer…'
-              : `Answer ${Math.max(0, 4 - starStep)} more STAR question${4 - starStep === 1 ? '' : 's'}`}
+              : `Answer ${Math.max(1, 4 - starStep)} more STAR question${4 - starStep === 1 ? '' : 's'}`}
           </button>
         </div>
 
@@ -231,13 +216,13 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
           border: '1px solid var(--border)'
         }}>
           {[
-            { key: 'S', label: 'Situation', desc: 'Context & Challenge' },
-            { key: 'T', label: 'Task', desc: 'Your Role / Target' },
-            { key: 'A', label: 'Action', desc: 'Execution & Decisions' },
-            { key: 'R', label: 'Result', desc: 'Quantifiable Impact' },
+            { key: 'S', label: 'Situation', desc: 'Context & Challenge', detected: starCoverage?.hasS },
+            { key: 'T', label: 'Task', desc: 'Your Role / Target', detected: starCoverage?.hasT },
+            { key: 'A', label: 'Action', desc: 'Execution & Decisions', detected: starCoverage?.hasA },
+            { key: 'R', label: 'Result', desc: 'Quantifiable Impact', detected: starCoverage?.hasR },
           ].map((step, idx) => {
-            const isCompleted = starStep >= 4 || idx < starStep;
-            const isCurrent = starStep < 4 && idx === starStep;
+            const isCompleted = starStep >= 4 || idx < starStep || Boolean(step.detected);
+            const isCurrent = !isCompleted && starStep < 4 && idx === starStep;
             return (
               <div
                 key={step.key}
@@ -304,6 +289,12 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               </div>
             </div>
           ))}
+          {isSendingInterviewMessage && (
+            <div className="iv-typing-bubble" data-testid="round4-typing-indicator">
+              <span>{activeTeacher.name} is evaluating your STAR defense</span>
+              <span className="iv-typing-dots" aria-hidden="true"><span /><span /><span /></span>
+            </div>
+          )}
           {messagesEndRef && <div ref={messagesEndRef} />}
         </div>
 
@@ -358,7 +349,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               borderRadius: 10,
               border: 'none',
               background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
-              color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
+              color: manualTextInput.trim() ? '#ffffff' : 'var(--t3)',
               fontSize: 12.5,
               fontWeight: 800,
               cursor: manualTextInput.trim() ? 'pointer' : 'default'

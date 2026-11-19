@@ -7,7 +7,7 @@ import {
 } from '@/lib/interview/scoringMatrix';
 import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
 import { escapeHtml } from '@/lib/interview/jsonExtract';
-import { buildQuestionBenchmarks, extractDefendedTechStack } from '@/lib/interview/postInterviewInsights';
+import { buildQuestionBenchmarks, extractDefendedTechStack, SKIP_TURN_REGEX } from '@/lib/interview/postInterviewInsights';
 import { toast } from '@/lib/store/useAppStore';
 import { Message } from './interviewTypes';
 
@@ -41,7 +41,9 @@ export function computeDeterministicEvaluation({
   selectedLang
 }: EvaluationInput) {
   const safeMessages = Array.isArray(messages) ? messages : [];
-  const userMsgCount = safeMessages.filter(m => m?.role === 'user').length;
+  const userMsgCount = safeMessages.filter(
+    m => m?.role === 'user' && !SKIP_TURN_REGEX.test(String(m?.content || '').trim())
+  ).length;
   const safeStarStep = typeof starStep === 'number' && Number.isFinite(starStep) ? Math.max(0, Math.min(4, Math.floor(starStep))) : 0;
   const safeFillerCount = typeof fillerWordCount === 'number' && Number.isFinite(fillerWordCount) ? Math.max(0, Math.floor(fillerWordCount)) : 0;
   const safeTabSwitches = typeof tabSwitchCount === 'number' && Number.isFinite(tabSwitchCount) ? Math.max(0, Math.floor(tabSwitchCount)) : 0;
@@ -339,8 +341,18 @@ export function exportInterviewTranscriptFile({
       setTimeout(() => {
         try { printWindow.print(); } catch {}
       }, 300);
+      toast.success('Scorecard PDF Ready 📄', 'Opened print-ready PDF scorecard.');
+    } else {
+      // Fallback if browser pop-up blocker prevented opening a print tab
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Interview_${activeTopicName.replace(/[^a-zA-Z0-9]/g, '_')}_Scorecard.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.info('Pop-up Blocked — Downloaded Scorecard', 'Open the downloaded HTML file and press Ctrl+P to save as PDF.');
     }
-    toast.success('Scorecard PDF Ready 📄', 'Opened print-ready PDF scorecard.');
     return;
   }
 

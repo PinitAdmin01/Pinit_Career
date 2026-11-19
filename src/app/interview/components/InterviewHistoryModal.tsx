@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { toast } from '@/lib/store/useAppStore';
-import { InterviewSessionRecord } from '../interviewTypes';
+import { InterviewSessionRecord, getVerdictTone } from '../interviewTypes';
 import { RadarChart } from './RadarChart';
 
 interface InterviewHistoryModalProps {
@@ -113,22 +113,28 @@ export const InterviewHistoryModal: React.FC<InterviewHistoryModalProps> = ({
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }} className="scroll-container">
-          <div style={{ background: 'var(--bg3)', borderRadius: 14, padding: 16, border: '1px solid var(--border)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, alignItems: 'center' }}>
+          <div className="iv-history-grid" style={{ background: 'var(--bg3)', borderRadius: 14, padding: 16, border: '1px solid var(--border)' }}>
             <div>
               <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)' }}>RECORDED VERDICT</span>
-              <div style={{ fontSize: 22, fontWeight: 900, color: selectedHistorySession.verdict?.includes('Hire') ? 'var(--green-mid)' : 'var(--coral-mid)', margin: '4px 0' }}>
-                {selectedHistorySession.verdict} ({selectedHistorySession.score}%)
-              </div>
+              {(() => {
+                const tone = getVerdictTone(selectedHistorySession.verdict);
+                const verdictColor = tone === 'positive' ? 'var(--green-mid)' : tone === 'conditional' ? 'var(--amber-mid)' : 'var(--coral-mid)';
+                return (
+                  <div style={{ fontSize: 22, fontWeight: 900, color: verdictColor, margin: '4px 0' }}>
+                    {selectedHistorySession.verdict} ({selectedHistorySession.score}%)
+                  </div>
+                );
+              })()}
               <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4, margin: 0 }}>{selectedHistorySession.summary}</p>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <RadarChart scores={selectedHistorySession.radar || { logic: 70, systems: 65, comms: 75, solving: 70, star: 70 }} size={150} />
+              <RadarChart scores={selectedHistorySession.radar || { logic: 0, systems: 0, comms: 0, solving: 0, star: 0 }} size={160} />
             </div>
           </div>
 
           {(strengthsList.length > 0 || improvementsText) && (
-            <div style={{ display: 'grid', gridTemplateColumns: strengthsList.length > 0 && improvementsText ? '1fr 1fr' : '1fr', gap: 12 }}>
+            <div className={strengthsList.length > 0 && improvementsText ? 'iv-results-2col' : undefined} style={strengthsList.length > 0 && improvementsText ? undefined : { display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
               {strengthsList.length > 0 && (
                 <div data-testid="history-strengths-card" style={{ background: 'var(--bg3)', borderRadius: 12, padding: 14, border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--green-mid)', marginBottom: 6 }}>
@@ -227,7 +233,8 @@ export const InterviewHistoryModal: React.FC<InterviewHistoryModalProps> = ({
           </button>
           <button
             onClick={onClose}
-            style={{ background: 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '8px 18px', fontSize: 12.5, fontWeight: 900, cursor: 'pointer' }}
+            className="iv-btn-primary"
+            style={{ borderRadius: 8, padding: '8px 18px', fontSize: 12.5 }}
           >
             Close Review
           </button>
