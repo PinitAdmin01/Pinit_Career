@@ -8,6 +8,7 @@ import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
 import { completeStoryTour, isStoryTourPending, resetStoryTour } from '@/lib/storyTour';
 import { StoryTourEngine, tourRoutePath } from '@/lib/storyTourEngine';
 import { matchBestAlternative, getGrammarVocabulary } from '@/components/avatar/hooks/useVoiceNavigation';
+import { useDraggablePanel } from '@/components/avatar/hooks/useDraggablePanel';
 import { isHyperActiveTrigger } from '@/lib/avatar/wakeWordParser';
 import { isPriorityDiagnosticQuery, buildPriorityDiagnosticReport } from '@/lib/avatar/priorityBriefing';
 import { matchBestActionAlternative } from '@/lib/avatar/voiceActionRouter';
@@ -227,6 +228,20 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   onOpenRightSidebarRef.current = onOpenRightSidebar;
   const onTourSlideChangeRef = useRef(onTourSlideChange);
   onTourSlideChangeRef.current = onTourSlideChange;
+
+  // ── Drag & Settle Engine: allows student to relocate panel anywhere on screen ──
+  const {
+    position: settledPos,
+    isDragging,
+    isSettled,
+    panelRef: activePanelRef,
+    handleRef: dragHandleRef,
+    resetPosition: resetMentorPosition,
+  } = useDraggablePanel({
+    storageKey: 'pinit_mentor_settled_pos_v1',
+    viewportPadding: 10,
+    disabled: tourActive || hyperActive || minimized,
+  });
 
   // ── Congratulations state ──────────────────────────────────────────────────
   const [celebEvent, setCelebEvent] = useState<any>(null);
@@ -1171,32 +1186,40 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         </>
       )}
 
-      {/* ── Expanded floating avatar mentor window (bottom-left when active) ── */}
+      {/* ── Expanded floating avatar mentor window (bottom-left when active, or user-dragged settled position) ── */}
       {!minimized && !hyperActive && !shouldHideVisually && (
         <div
+          ref={activePanelRef}
           className="mentor-widget"
           data-testid="global-avatar-active-window"
           data-story-tour-card={tourActive ? '' : undefined}
+          data-settled={isSettled ? 'true' : undefined}
+          data-dragging={isDragging ? 'true' : undefined}
           style={{
             position: 'fixed',
-            bottom: isCentered ? 'auto' : tourActive ? 10 : 0,
-            top: isCentered ? '50%' : 'auto',
-            left: isCentered || tourActive ? '50%' : activeDockLeft,
+            bottom: isCentered ? 'auto' : tourActive ? 10 : (isSettled && settledPos ? 'auto' : 0),
+            top: isCentered ? '50%' : tourActive ? 'auto' : (isSettled && settledPos ? settledPos.y : 'auto'),
+            left: isCentered || tourActive ? '50%' : (isSettled && settledPos ? settledPos.x : activeDockLeft),
             right: 'auto',
             transform: isCentered ? 'translate(-50%, -50%)' : tourActive ? 'translateX(-50%)' : 'none',
-            zIndex: 9999,
+            zIndex: isDragging ? 10001 : 9999,
             width: tourActive ? 'min(440px, calc(100vw - 28px))' : (isEnlarged ? 290 : 256),
             maxWidth: 'calc(100vw - 24px)',
             height: tourActive ? 248 : (isEnlarged ? 372 : 296),
             background: 'var(--bg2)',
-            border: '1px solid var(--border)',
-            borderBottom: isCentered || tourActive ? '1px solid var(--border)' : 'none',
-            borderRadius: isCentered || tourActive ? 16 : '16px 16px 0 0',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+            border: isDragging ? '1.5px solid rgba(56, 189, 248, 0.7)' : '1px solid var(--border)',
+            borderBottom: isCentered || tourActive || (isSettled && settledPos) ? '1px solid var(--border)' : 'none',
+            borderRadius: isCentered || tourActive || (isSettled && settledPos) ? 16 : '16px 16px 0 0',
+            boxShadow: isDragging
+              ? '0 24px 60px rgba(0,0,0,0.65), 0 0 20px rgba(56, 189, 248, 0.35)'
+              : '0 20px 50px rgba(0,0,0,0.5)',
             display: 'flex',
             flexDirection: tourActive ? 'row' : 'column',
             overflow: 'hidden',
-            transition: 'left 0.28s cubic-bezier(0.22, 1, 0.36, 1), width 0.28s cubic-bezier(0.22, 1, 0.36, 1), height 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
+            userSelect: isDragging ? 'none' : 'auto',
+            transition: isDragging
+              ? 'none'
+              : 'left 0.2s cubic-bezier(0.2, 0.9, 0.4, 1), top 0.2s cubic-bezier(0.2, 0.9, 0.4, 1), width 0.28s cubic-bezier(0.22, 1, 0.36, 1), height 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
           }}
         >
           {tourActive ? (
@@ -1244,7 +1267,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
               {/* Slim single-line header placed above the 3D avatar so it never covers the avatar face */}
               <div
+                ref={dragHandleRef}
                 data-testid="global-avatar-slim-header"
+                title="Drag to relocate mentor anywhere · Double-click to reset position"
                 style={{
                   flexShrink: 0,
                   height: 30,
@@ -1253,21 +1278,73 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                   justifyContent: 'space-between',
                   gap: 4,
                   padding: '0 6px',
-                  background: 'rgba(15,23,42,0.92)',
+                  background: isDragging ? 'rgba(30, 41, 59, 0.98)' : 'rgba(15,23,42,0.92)',
                   borderBottom: '1px solid rgba(255,255,255,0.08)',
+                  cursor: isDragging ? 'grabbing' : 'grab',
+                  touchAction: 'none',
+                  userSelect: 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0, overflow: 'hidden' }}>
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      opacity: isDragging ? 1 : 0.45,
+                      color: isDragging ? '#38bdf8' : '#94a3b8',
+                      cursor: 'inherit',
+                      padding: '0 1px',
+                    }}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor">
+                      <circle cx="5" cy="3" r="1.5" />
+                      <circle cx="11" cy="3" r="1.5" />
+                      <circle cx="5" cy="8" r="1.5" />
+                      <circle cx="11" cy="8" r="1.5" />
+                      <circle cx="5" cy="13" r="1.5" />
+                      <circle cx="11" cy="13" r="1.5" />
+                    </svg>
+                  </span>
                   <span style={{ width: 6, height: 6, flexShrink: 0, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online" />
                   <span style={{ fontFamily: 'var(--font-display)', fontSize: 10.5, fontWeight: 800, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {teacher.name}
                   </span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 3, flexShrink: 0 }}>
+                  {isSettled && (
+                    <button
+                      type="button"
+                      data-no-drag
+                      data-testid="global-avatar-reset-dock-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        resetMentorPosition();
+                      }}
+                      onPointerDown={(e) => e.stopPropagation()}
+                      title="Reset mentor back to bottom dock"
+                      style={{
+                        background: 'rgba(255,255,255,0.08)',
+                        border: '1px solid rgba(255,255,255,0.18)',
+                        borderRadius: 4,
+                        color: '#94a3b8',
+                        fontSize: 8.5,
+                        fontWeight: 700,
+                        padding: '1px 4px',
+                        cursor: 'pointer',
+                        lineHeight: 1.2,
+                        fontFamily: 'var(--font-mono)',
+                      }}
+                    >
+                      Dock
+                    </button>
+                  )}
                   <button
                     type="button"
+                    data-no-drag
                     data-testid="global-avatar-priority-btn"
                     onClick={() => enterHyperActive('diagnostic')}
+                    onPointerDown={(e) => e.stopPropagation()}
                     title="Open Executive Priorities & Mistakes Dossier (or say 'Hey Priya, what are my priorities')"
                     style={{
                       background: 'rgba(245,158,11,0.16)',
@@ -1287,8 +1364,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                   </button>
                   <button
                     type="button"
+                    data-no-drag
                     data-testid="global-avatar-hyper-btn"
                     onClick={() => enterHyperActive('conversational')}
+                    onPointerDown={(e) => e.stopPropagation()}
                     title="Open Hyper-Active Chat (or say 'Hey Priya, we need to chat')"
                     style={{
                       background: 'rgba(56,189,248,0.16)',
@@ -1308,7 +1387,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                   </button>
                   <button
                     type="button"
+                    data-no-drag
                     onClick={startStoryMode}
+                    onPointerDown={(e) => e.stopPropagation()}
                     title="Launch Story Tour"
                     style={{
                       background: 'linear-gradient(135deg, var(--accent), var(--purple))',
@@ -1328,7 +1409,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                   </button>
                   <button
                     type="button"
+                    data-no-drag
                     onClick={() => setMinimized(true)}
+                    onPointerDown={(e) => e.stopPropagation()}
                     title="Minimize Mentor"
                     style={{
                       background: 'rgba(255,255,255,0.1)',
