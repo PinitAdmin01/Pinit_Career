@@ -7,16 +7,16 @@ import {
 } from '../src/lib/avatar/speechRecognitionEngine';
 
 test('Task 1: Avatar Model Chain Deduplication & Fallback Integrity', () => {
-  // Test gender-matched model chains across all personas
-  const FEMALE_FALLBACK_MODELS = ['/avatar/priya.glb', '/avatar/avatarsample_c.glb'];
-  const MALE_FALLBACK_MODELS = ['/avatar/kashyap.glb', '/avatar/akira.glb'];
+  // Test gender-matched model chains across all personas with canonical 1.4MB Draco rigs
+  const FEMALE_FALLBACK_MODELS = ['/avatar/avatarsample_u.glb', '/avatar/mika.glb', '/avatar/hana.glb', '/avatar/priya.glb'];
+  const MALE_FALLBACK_MODELS = ['/avatar/avatarsample_m.glb', '/avatar/akira.glb', '/avatar/avatarsample_c.glb', '/avatar/kashyap.glb'];
 
   const testPersonas = [
     { id: 'priya', gender: 'female' },
     { id: 'kashyap', gender: 'male' },
     { id: 'anish', gender: 'male' },
     { id: 'divya', gender: 'female' },
-    { id: 'avatarsample_c', gender: 'female' },
+    { id: 'avatarsample_u', gender: 'female' },
     { id: 'akira', gender: 'male' },
   ];
 
@@ -25,7 +25,7 @@ test('Task 1: Avatar Model Chain Deduplication & Fallback Integrity', () => {
     const genderMatchedFallbacks =
       persona.gender === 'female' ? FEMALE_FALLBACK_MODELS
       : persona.gender === 'male' ? MALE_FALLBACK_MODELS
-      : ['/avatar/mentor.glb'];
+      : ['/avatar/avatarsample_u.glb', '/avatar/mentor.glb'];
 
     const rawPaths = [modelPath, ...genderMatchedFallbacks];
     const deduplicatedPaths = Array.from(new Set(rawPaths));
@@ -40,18 +40,18 @@ test('Task 1: Avatar Model Chain Deduplication & Fallback Integrity', () => {
     // Verify 2: First item is always the persona's own model
     assert.equal(deduplicatedPaths[0], modelPath);
 
-    // Verify 3: For priya, priya.glb appears exactly ONCE (eliminating the duplicate 16.8MB fetch bug)
+    // Verify 3: For priya, priya.glb appears exactly ONCE, followed by high-speed 1.4MB avatarsample_u.glb
     if (persona.id === 'priya') {
       const priyaCount = deduplicatedPaths.filter((p) => p === '/avatar/priya.glb').length;
       assert.equal(priyaCount, 1, 'priya.glb must appear exactly once in the chain');
-      assert.equal(deduplicatedPaths[1], '/avatar/avatarsample_c.glb', 'Second fallback must be compact avatarsample_c.glb');
+      assert.equal(deduplicatedPaths[1], '/avatar/avatarsample_u.glb', 'Second fallback must be compact avatarsample_u.glb');
     }
 
-    // Verify 4: For kashyap, kashyap.glb appears exactly ONCE
+    // Verify 4: For kashyap, kashyap.glb appears exactly ONCE, followed by high-speed 1.6MB avatarsample_m.glb
     if (persona.id === 'kashyap') {
       const kashyapCount = deduplicatedPaths.filter((p) => p === '/avatar/kashyap.glb').length;
       assert.equal(kashyapCount, 1, 'kashyap.glb must appear exactly once in the chain');
-      assert.equal(deduplicatedPaths[1], '/avatar/akira.glb', 'Second fallback must be compact akira.glb');
+      assert.equal(deduplicatedPaths[1], '/avatar/avatarsample_m.glb', 'Second fallback must be compact avatarsample_m.glb');
     }
   }
 });
