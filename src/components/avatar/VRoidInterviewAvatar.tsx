@@ -24,14 +24,22 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     const scene = new VRoidAvatarEngine();
     sceneRef.current = scene;
 
-    // 8-second safety timeout: degrades to 2D portrait fallback if GLB load stalls
+    // Adaptive safety timeout: allows full network fetch and GLTF parse for 17MB models (or procedural fallback)
     const safetyTimer = setTimeout(() => {
+      console.warn("[VRoid Avatar] Model load exceeded safety threshold. Falling back to 2D portrait.");
       setHasWebGLError(true);
       setIsLoading(false);
-    }, 3000);
+    }, 25000);
 
     scene.onReady = () => {
       clearTimeout(safetyTimer);
+      setIsLoading(false);
+    };
+
+    scene.onError = (err) => {
+      console.warn("[VRoid Avatar] Scene reported irrecoverable error, falling back to 2D portrait:", err);
+      clearTimeout(safetyTimer);
+      setHasWebGLError(true);
       setIsLoading(false);
     };
 
@@ -184,12 +192,12 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
   );
 }
 
-export function preloadAvatarGLB(teacherIds: string | string[] = ['priya']) {
+export function preloadAvatarGLB(teacherIds: string | string[] = ['priya', 'rohan']) {
   if (typeof window === 'undefined') return;
 
-  const schedulePreload = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1200));
+  const schedulePreload = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 800));
 
-  schedulePreload(() => {
+  schedulePreload(async () => {
     const nav = navigator as any;
     const conn = nav?.connection || nav?.mozConnection || nav?.webkitConnection;
     if (conn && (conn.saveData || conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g' || conn.effectiveType === '3g')) {
@@ -197,11 +205,24 @@ export function preloadAvatarGLB(teacherIds: string | string[] = ['priya']) {
     }
 
     const list = Array.isArray(teacherIds) ? teacherIds : [teacherIds];
-    const primaryId = list[0];
-    if (!primaryId) return;
-
-    const charId = primaryId.toLowerCase().trim();
-    const url = `/avatar/${charId}.glb`;
-    fetch(url, { mode: 'cors' }).catch(() => {});
+    for (const id of list) {
+      if (!id) continue;
+      const charId = id.toLowerCase().trim();
+      const url = `/avatar/${charId}.glb`;
+      try {
+        if ('caches' in window) {
+          const cache = await window.caches.open('pinit_avatar_v1');
+          const matched = await cache.match(url);
+          if (!matched) {
+            const res = await fetch(url, { mode: 'cors' });
+            if (res.ok) {
+              await cache.put(url, res.clone());
+            }
+          }
+        } else {
+          fetch(url, { mode: 'cors' }).catch(() => {});
+        }
+      } catch {}
+    }
   });
 }

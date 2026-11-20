@@ -15,6 +15,7 @@ import MissionsStreakPanel from './components/MissionsStreakPanel';
 import MissionsLinguaLabWrapper from './components/MissionsLinguaLabWrapper';
 import MissionsEvolveBanner from './components/MissionsEvolveBanner';
 import MissionsConclusionDetail from './components/MissionsConclusionDetail';
+import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
 
 function MissionsPageInner() {
   const cOS = useCareerOS();
@@ -72,6 +73,10 @@ function MissionsPageInner() {
   const roleplayAutoHandledRef = useRef(false);
   const initiateRoleplayRef = useRef(initiateRoleplay);
   initiateRoleplayRef.current = initiateRoleplay;
+
+  useEffect(() => {
+    preloadAvatarGLB(['rohan', 'priya', 'rajesh', 'sneha', 'abhijit']);
+  }, []);
 
   useEffect(() => {
     const wantsRoleplay = searchParams?.get('roleplay') === 'true';

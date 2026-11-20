@@ -762,7 +762,10 @@ export default function InterviewPage() {
       try {
         const docAny = document as any;
         const elAny = document.documentElement as any;
-        if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+        const hasActiveGesture = typeof navigator !== 'undefined' && 'userActivation' in navigator
+          ? Boolean((navigator as any).userActivation?.isActive)
+          : true;
+        if (hasActiveGesture && !document.fullscreenElement && !docAny.webkitFullscreenElement) {
           if (elAny.requestFullscreen) {
             elAny.requestFullscreen().catch(() => {});
           } else if (elAny.webkitRequestFullscreen) {
@@ -805,7 +808,10 @@ export default function InterviewPage() {
       try {
         const docAny = document as any;
         const elAny = document.documentElement as any;
-        if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+        const hasActiveGesture = typeof navigator !== 'undefined' && 'userActivation' in navigator
+          ? Boolean((navigator as any).userActivation?.isActive)
+          : true;
+        if (hasActiveGesture && !document.fullscreenElement && !docAny.webkitFullscreenElement) {
           if (elAny.requestFullscreen) {
             elAny.requestFullscreen().catch(() => {});
           } else if (elAny.webkitRequestFullscreen) {
@@ -1137,6 +1143,14 @@ export default function InterviewPage() {
   const handleSkipQuestion = useCallback(async () => {
     if (isSendingInterviewMessageRef.current) return;
     stopSpeaking();
+    if (activeStage === 'round2_coding') {
+      setCodeSubmitted(true);
+      setCodeReviewStarted(true);
+      setCodeReviewAnswered(true);
+      setCodeRunFailed(false);
+      codeReviewQuestionPendingRef.current = false;
+      toast.info('Challenge Skipped', 'Challenge marked as skipped. You can now proceed to architecture analysis.');
+    }
     // Send a single canonical skip turn via handleSendMessageWithText (avoids concurrent CAS collision on live_sessions)
     const skipNotice = activeStage === 'round2_coding'
       ? 'I would like to skip the current coding question or review and move on.'
@@ -1847,6 +1861,7 @@ export default function InterviewPage() {
               terminalLogs={terminalLogs}
               setTerminalLogs={setTerminalLogs}
               onRequestHint={handleRequestCodingHint}
+              onSkipChallenge={handleSkipQuestion}
             />
           )}
 
