@@ -38,11 +38,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary defining characteristic of operational toil in SRE?",
           "options": [
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual",
+
+            "Conducting blameless postmortems after production outages",
+
             "Repetitive, manual, tactical work that lacks enduring value and scales linearly with traffic",
-            "Any task involving writing TypeScript code",
-            "Conducting blameless postmortems after production outages"
+
+            "Any task involving writing TypeScript code"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Toil is manual, repetitive work that scales directly with service size without producing permanent system improvements."
         }
       },
@@ -76,11 +81,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following represents a customer-centric SLI rather than an internal system metric?",
           "options": [
+
+            "Total number of git commits pushed to the repository this week",
+
             "Host server memory utilization percentage",
+
             "Percentage of HTTP requests returning status 200 within 200 milliseconds",
-            "Total number of git commits pushed to the repository this week"
+
+            "Post-incident reviews should focus on identifying the individual"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A customer-centric SLI directly measures what the user experiences: request success and prompt responsiveness."
         }
       },
@@ -114,11 +124,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Site Reliability Engineering explicitly avoid targeting 100% availability for web services?",
           "options": [
-            "Cloud providers automatically penalize services that reach 100% uptime",
+
             "Current programming languages do not support high reliability",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "Cloud providers automatically penalize services that reach 100% uptime",
+
             "Targeting 100% availability prevents feature releases, drives costs exponentially higher, and exceeds client device reliability"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Aiming for 100% uptime creates immense costs and stifles velocity, whereas users cannot perceive the difference beyond three or four nines."
         }
       },
@@ -152,11 +167,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an internal engineering SLO be stricter than an external customer SLA?",
           "options": [
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
             "To allow internal teams to detect and mitigate issues before contractual penalties and customer rebates trigger",
+
             "Because lawyers do not understand decimal percentages",
+
             "Because cloud providers prohibit matching internal and external numbers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A safety buffer ensures internal alerts fire and engineers remediate problems well before breach of commercial contracts occurs."
         }
       },
@@ -190,11 +210,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the proper engineering action when an SLI drops below the SLO but remains above the SLA?",
           "options": [
-            "Immediately refund 100% of all customer subscriptions",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
+            "Shut down the entire cloud cluster until next month",
+
             "Freeze non-essential feature deployments and prioritize reliability engineering to safeguard the SLA",
-            "Shut down the entire cloud cluster until next month"
+
+            "Immediately refund 100% of all customer subscriptions"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "When an SLO is breached, feature velocity is throttled so engineers can remediate reliability before external SLA breaches occur."
         }
       },
@@ -232,11 +257,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do SRE systems monitor both short-term (e.g. 5m) and long-term (e.g. 30d) SLI windows?",
           "options": [
+
+            "Short windows catch sudden catastrophic outages immediately, while long windows detect slow, insidious reliability erosion",
+
             "Short windows only run on local developer laptops",
-            "Long windows are required by the TypeScript compiler",
-            "Short windows catch sudden catastrophic outages immediately, while long windows detect slow, insidious reliability erosion"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "Long windows are required by the TypeScript compiler"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Short windows provide fast alarming for severe outages, while long windows track overall error budget consumption and sustained stability."
         }
       }
@@ -294,11 +324,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an SRE team view an unused error budget at the end of a measurement quarter?",
           "options": [
+
+            "As money that the cloud provider owes back to the company",
+
             "As an indicator that the SLO was set too conservatively or that product feature velocity was unnecessarily restricted",
+
             "As proof that the engineering team should receive bonuses for zero downtime",
-            "As money that the cloud provider owes back to the company"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A persistently 100% full error budget suggests the team is moving too slowly, being overly cautious, and under-investing in velocity."
         }
       },
@@ -332,11 +367,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If a service with a 99.9% SLO experiences 800 failures over 1,000,000 total requests, what percentage of its error budget remains?",
           "options": [
-            "80% remaining",
+
             "20% remaining",
-            "0% remaining"
+
+            "0% remaining",
+
+            "80% remaining",
+
+            "Latency under standard operational conditions"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "1,000,000 requests at 99.9% allows 1,000 failures. 800 failures consume 80% of the budget, leaving 20% remaining."
         }
       },
@@ -370,11 +410,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If a service with a 30-day SLO window has an active burn rate of 10x, how long until its error budget is completely exhausted?",
           "options": [
-            "300 days",
+
+            "3 days",
+
             "30 days",
-            "3 days"
+
+            "300 days",
+
+            "Manual"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "At 10x burn rate, the error budget is consumed 10 times faster than nominal: 30 days divided by 10 equals 3 days."
         }
       },
@@ -408,11 +453,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does multi-burn-rate alerting require both a long window and a short window to trigger?",
           "options": [
-            "To ensure that transient temporary spikes do not generate false-alarm pages after the incident has already cleared",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "Because TypeScript cannot compute averages over single windows",
+
             "Because single windows require double the database storage",
-            "Because TypeScript cannot compute averages over single windows"
+
+            "To ensure that transient temporary spikes do not generate false-alarm pages after the incident has already cleared"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A short window ensures fast alert firing, while the long window verifies that the problem is persistent rather than a transient spike."
         }
       },
@@ -450,11 +500,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When an error budget is depleted to 0%, which types of deployments are typically permitted under standard SRE policy?",
           "options": [
-            "Marketing banner updates and UI redesigns",
+
             "Critical security vulnerabilities and reliability remediation fixes",
+
+            "Marketing banner updates and UI redesigns",
+
+            "Service level objectives should be set at one hundred percent",
+
             "All feature releases, because budgets are purely informational"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Depleted error budgets block new features but explicitly permit critical security patches and reliability fixes designed to restore stability."
         }
       },
@@ -488,11 +543,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should sprint planning balance feature work vs reliability work when an error budget drops below 30%?",
           "options": [
+
+            "Shift sprint capacity toward technical debt, automated testing, and reliability hardening",
+
             "Ignore the budget and continue with 100% feature work",
+
             "Relying solely on static hardcoded defaults for Balancing without reconciling Velocity against live boundary conditions.",
-            "Shift sprint capacity toward technical debt, automated testing, and reliability hardening"
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "When budget drops low, shifting sprint allocation to technical debt prevents a full freeze and protects customer trust."
         }
       }
@@ -550,9 +610,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is availability mathematically defined for a system over a given measurement window?",
           "options": [
+
             "Uptime duration divided by total duration (uptime plus downtime)",
+
+            "The maximum CPU clock speed of the underlying server",
+
             "Total lines of code written divided by total bugs reported",
-            "The maximum CPU clock speed of the underlying server"
+
+            "Manual incident response procedures are more reliable than"
           ],
           "answer": 0,
           "why": "Availability is the proportion of total time during which the system is operational and successfully fulfilling user requests."
@@ -588,11 +653,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does chaining microservices together in a synchronous serial dependency path degrade overall system availability?",
           "options": [
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "Because network cables lose bandwidth when handling more than three services",
+
             "Because serial availability is the product of individual availabilities, each less than 1.0, compounding downward",
+
             "Because the Linux kernel limits serial connections to 90%"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Multiplying fractions less than 1.0 always yields a smaller fraction; any failure in any component breaks the entire chain."
         }
       },
@@ -626,11 +696,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If two independent web servers each have 90% availability, what is the composite availability when placed in parallel?",
           "options": [
+
             "81% availability",
+
             "90% availability",
+
+            "Synthetic during normal production workloads",
+
             "99% availability"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Joint unavailability is (1 - 0.90) * (1 - 0.90) = 0.10 * 0.10 = 0.01. Composite availability is 1 - 0.01 = 0.99 (99%)."
         }
       },
@@ -664,11 +739,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When calculating the availability of a composite system with both parallel and serial stages, what is the correct execution order?",
           "options": [
-            "First resolve each parallel stage into its effective availability, then multiply the stages together serially",
+
+            "Always ignore the database tier",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
             "Sum all numbers together and divide by the number of servers",
-            "Always ignore the database tier"
+
+            "First resolve each parallel stage into its effective availability, then multiply the stages together serially"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Parallel stages collapse into single effective probabilities first, which are then multiplied along the serial execution path."
         }
       },
@@ -702,9 +782,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does synchronously calling 20 services with 99.5% availability result in over 68 hours of monthly downtime?",
           "options": [
-            "Because AWS throttling limits accounts to 5 microservices",
+
+            "Because Node.js cannot handle 20 concurrent network sockets",
+
             "Because 0.995 raised to the 20th power equals approximately 90.46%, creating a 9.54% failure rate across the month",
-            "Because Node.js cannot handle 20 concurrent network sockets"
+
+            "Because AWS throttling limits accounts to 5 microservices",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
           "answer": 1,
           "why": "Serial reliability degrades exponentially with dependency depth: 0.995^20 ≈ 0.9046, which yields ~68.7 hours of downtime in a 720-hour month."
@@ -740,9 +825,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does graceful degradation protect composite system availability from non-critical microservice outages?",
           "options": [
-            "It doubles the cloud server RAM whenever an error occurs",
+
             "It forces the client browser to refresh automatically until the service recovers",
-            "It converts hard serial dependencies into non-blocking fallbacks, preventing auxiliary outages from aborting the primary transaction"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "It converts hard serial dependencies into non-blocking fallbacks, preventing auxiliary outages from aborting the primary transaction",
+
+            "It doubles the cloud server RAM whenever an error occurs"
           ],
           "answer": 2,
           "why": "Treating non-essential dependencies as optional fallbacks removes them from the serial failure multiplication chain."
@@ -802,11 +892,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much total downtime is permitted per year for a service operating at 'four nines' (99.99%) availability?",
           "options": [
+
+            "Latency percentiles are unnecessary",
+
             "Approximately 52.56 minutes per year",
+
             "Approximately 8.76 hours per year",
+
             "Approximately 3.65 days per year"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "At 99.99%, allowed unavailability is 0.01% of 525,600 minutes in a year, which equals 52.56 minutes."
         }
       },
@@ -840,8 +935,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must any service targeting 'four nines' (99.99%) rely entirely on automated remediation rather than human on-call triage?",
           "options": [
-            "Because human engineers are prohibited from accessing production servers under SOC2",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "Because total allowed monthly downtime is only 4 minutes and 19 seconds, far faster than human on-call response times",
+
+            "Because human engineers are prohibited from accessing production servers under SOC2",
+
             "Because TypeScript code runs faster when humans are not looking at it"
           ],
           "answer": 1,
@@ -878,11 +978,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is aiming for 'five nines' (99.999%) almost always an irrational decision for standard web and SaaS applications?",
           "options": [
+
             "Modern databases cannot run for more than 4 days continuously",
-            "Cloud providers do not allow more than 4 virtual machines per account",
-            "Infrastructure costs surge exponentially into hundreds of thousands of dollars for benefits users cannot perceive over cell networks"
+
+            "Infrastructure costs surge exponentially into hundreds of thousands of dollars for benefits users cannot perceive over cell networks",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "Cloud providers do not allow more than 4 virtual machines per account"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Five nines requires exorbitant multi-region, active-active multi-cloud infrastructure while end users on 98% mobile networks see no difference."
         }
       },
@@ -916,11 +1021,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are rolling 30-day windows preferred over fixed calendar-month windows in modern SRE practice?",
           "options": [
-            "They eliminate arbitrary first-of-the-month budget resets and continuously reflect the user's recent experience",
+
             "Calendar months have differing numbers of days which causes JavaScript memory leaks",
-            "Google Cloud automatically deletes logs at the end of each calendar month"
+
+            "Google Cloud automatically deletes logs at the end of each calendar month",
+
+            "They eliminate arbitrary first-of-the-month budget resets and continuously reflect the user's recent experience",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Rolling windows provide a continuous, smooth measure of user trust without artificial resets or unfair end-of-month penalties."
         }
       },
@@ -954,11 +1064,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does modern SRE count planned maintenance against the service error budget?",
           "options": [
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
+            "Because planned maintenance is illegal under ISO 27001",
+
             "Because cloud providers charge double during planned maintenance",
-            "Because end users experience all unavailability equally, regardless of whether it was scheduled on a calendar",
-            "Because planned maintenance is illegal under ISO 27001"
+
+            "Because end users experience all unavailability equally, regardless of whether it was scheduled on a calendar"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "To the user, an unavailable service is broken; counting planned downtime forces teams to adopt zero-downtime deployment architectures."
         }
       },
@@ -992,11 +1107,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an e-commerce company assign Tier 1 (99.99%) to Payment Checkout but Tier 3 (99.0%) to Product Recommendations?",
           "options": [
+
+            "Because a checkout outage directly prevents revenue, whereas recommendation failures can gracefully fall back to static popular items",
+
             "Because checkout servers are physically located closer to customers",
+
             "Because the recommendations database is written in Python",
-            "Because a checkout outage directly prevents revenue, whereas recommendation failures can gracefully fall back to static popular items"
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Tiered SLOs allocate expensive high-nines infrastructure to revenue-critical paths while allowing cost-effective pragmatic tiers for auxiliary features."
         }
       }
@@ -1054,11 +1174,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of the SRE Reliability Calculator Engine?",
           "options": [
+
+            "To replace all human software developers with bash scripts",
+
             "To translate raw request telemetry into real-time SLI metrics, error budget tracking, and automated governance decisions",
+
             "To format JavaScript files with prettier",
-            "To replace all human software developers with bash scripts"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The engine acts as the operational nerve center, evaluating live telemetry against SLO targets to enforce reliability policy."
         }
       },
@@ -1092,9 +1217,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should requests that return HTTP 500 errors be excluded when computing the latency SLI?",
           "options": [
-            "HTTP 500 responses do not contain timestamps",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "Failed requests often fail fast (e.g. immediate connection drops), which would deceptively improve the latency ratio",
-            "Because latency can only be measured on GET requests"
+
+            "Because latency can only be measured on GET requests",
+
+            "HTTP 500 responses do not contain timestamps"
           ],
           "answer": 1,
           "why": "Errors frequently return immediately, so counting them as fast requests would artificially inflate the latency SLI."
@@ -1130,11 +1260,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If a service with a 99.9% SLO has an active burn rate of 0.4x, what is its reliability status?",
           "options": [
-            "The team must freeze all deployments immediately",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "The service is operating nominally well within its error budget and will not exhaust it during the window",
+
             "The service has crashed completely",
-            "The service is operating nominally well within its error budget and will not exhaust it during the window"
+
+            "The team must freeze all deployments immediately"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "A burn rate under 1.0x means error budget is being consumed slower than allocated, indicating healthy headroom."
         }
       },
@@ -1172,11 +1307,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what conditions does the policy gate automatically enter the RED_FROZEN state?",
           "options": [
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "When the error budget is depleted to 0% or the active burn rate reaches extreme levels (>= 14.4x)",
-            "Whenever a developer submits a pull request on Friday afternoon",
-            "When the cloud bill is higher than expected"
+
+            "When the cloud bill is higher than expected",
+
+            "Whenever a developer submits a pull request on Friday afternoon"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A depleted budget or extreme burn rate threatens external customer SLAs, requiring an immediate automated feature freeze."
         }
       },
@@ -1210,11 +1350,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of generating multi-tenant reliability scorecards across an engineering organization?",
           "options": [
-            "It automatically reboots all servers every Sunday night",
+
             "It provides clear, normalized visibility into service health, aligning teams around objective reliability standards",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "It automatically reboots all servers every Sunday night",
+
             "It deletes the code repository of any team that receives an F"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Standardized scorecards allow engineering leadership to objectively prioritize resources and identify architectural bottlenecks."
         }
       },
@@ -1248,11 +1393,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key takeaway of Milestone 1 for enterprise software engineering teams?",
           "options": [
-            "Writing TypeScript long lessons is the only task required in production",
+
             "Engineers should never deploy code on any day ending in 'y'",
+
+            "Writing TypeScript long lessons is the only task required in production",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "Operational reliability can be measured quantitatively, monitored automatically, and enforced through algorithmic deployment gates"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Milestone 1 unites SLIs, SLOs, error budgets, and deployment gates into an automated, objective governance framework."
         }
       }
@@ -1310,11 +1460,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of modeling infrastructure as declarative data structures rather than imperative scripts?",
           "options": [
+
+            "Imperative scripts run twice as fast on Linux kernels",
+
             "Declarative data specifies the desired end state idempotently, enabling automated diffing and safe change planning",
+
             "Declarative data eliminates the need for cloud credentials",
-            "Imperative scripts run twice as fast on Linux kernels"
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Declarative representations allow engines to compute exact diffs between live state and desired state without executing ad-hoc mutation commands."
         }
       },
@@ -1348,11 +1503,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When a resource identifier exists in the current state file but is removed from the desired state specification, what action must the engine take?",
           "options": [
-            "It must ignore the difference and leave the resource orphaned",
+
             "It must schedule the resource for safe destruction to prevent resource leaks and cost waste",
-            "It must duplicate the resource in another cloud provider"
+
+            "It must duplicate the resource in another cloud provider",
+
+            "Latency percentiles are unnecessary because mean average response time captures all",
+
+            "It must ignore the difference and leave the resource orphaned"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Declarative infrastructure enforces that what is not declared should not exist, ensuring retired resources are cleaned up."
         }
       },
@@ -1386,9 +1546,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an infrastructure engine generate an explicit execution plan before applying changes to cloud providers?",
           "options": [
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
             "To format the cloud bill before payment",
-            "Because AWS APIs require an MD5 checksum of the plan",
-            "To allow engineers and automated CI gates to review exact changes and prevent catastrophic unintended mutations"
+
+            "To allow engineers and automated CI gates to review exact changes and prevent catastrophic unintended mutations",
+
+            "Because AWS APIs require an MD5 checksum of the plan"
           ],
           "answer": 2,
           "why": "Execution plans eliminate surprises by detailing every create, update, and destroy operation prior to execution."
@@ -1424,11 +1589,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it vital for an IaC engine to flag updates that trigger resource recreation (destroy and recreate)?",
           "options": [
+
+            "Because cloud providers charge a fee for viewing recreate diffs",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
             "Because recreating stateful resources like databases causes severe downtime and potential data loss if unmanaged",
-            "Because recreation consumes double the electricity of standard updates",
-            "Because cloud providers charge a fee for viewing recreate diffs"
+
+            "Because recreation consumes double the electricity of standard updates"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Destroy-and-recreate operations on stateful components destroy existing volumes and IPs, requiring explicit approval and backup safeguards."
         }
       },
@@ -1462,8 +1632,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an infrastructure dependency graph be strictly acyclic (DAG)?",
           "options": [
+
             "Because acyclic graphs use less hard drive space",
+
             "Because cyclic dependencies produce circular deadlocks where no resource can be provisioned first",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "Because cloud load balancers only support linear network trees"
           ],
           "answer": 1,
@@ -1500,9 +1675,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When destroying an entire infrastructure stack, in what order should resources be deleted?",
           "options": [
-            "All resources simultaneously in a single API call",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "In alphabetical order by resource ID",
-            "In reverse topological order, destroying high-level dependents before lower-level foundation resources"
+
+            "In reverse topological order, destroying high-level dependents before lower-level foundation resources",
+
+            "All resources simultaneously in a single API call"
           ],
           "answer": 2,
           "why": "Deleting foundational dependencies first causes foreign-key and network detachment errors; high-level dependents must be cleared first."
@@ -1562,11 +1742,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is unmanaged configuration drift dangerous in production cloud systems?",
           "options": [
-            "It causes future automated deployments to fail unpredictably or overwrite emergency operational adjustments",
+
             "It slows down internet connection speeds for mobile users",
-            "It forces cloud providers to immediately terminate all virtual machines"
+
+            "It forces cloud providers to immediately terminate all virtual machines",
+
+            "It causes future automated deployments to fail unpredictably or overwrite emergency operational adjustments",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Drift completely destroys synchronization between version-controlled source code and live reality, leading to catastrophic overwrites, broken deployment pipelines, or severe security regressions when automated infrastructure code is next applied."
         }
       },
@@ -1600,11 +1785,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a production drift detection engine filter out cloud provider metadata fields like createdAt and arn?",
           "options": [
+
+            "Error budgets should be accumulated indefinitely without any reset period to",
+
             "Because reading metadata fields requires root administrative privileges",
+
             "To avoid generating false-positive drift alarms on non-configurable cloud attributes",
+
             "Because JSON.stringify cannot serialize dates"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Metadata fields such as creation timestamps and resource identifiers are generated dynamically by cloud APIs and are not declared in user code; comparing them creates endless noisy false-positive alarms."
         }
       },
@@ -1638,9 +1828,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does classifying drift severity benefit engineering and security operations?",
           "options": [
-            "It automatically refunds cloud costs for drifted resources",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "It allows engineers to disable security logging permanently",
-            "It prioritizes dangerous security exposure for instant paging while routing cosmetic tag diffs to routine background PRs"
+
+            "It prioritizes dangerous security exposure for instant paging while routing cosmetic tag diffs to routine background PRs",
+
+            "It automatically refunds cloud costs for drifted resources"
           ],
           "answer": 2,
           "why": "Granular severity classification prevents operational alert fatigue across on-call engineering teams, ensuring responders focus urgently on high-risk exposures like public security groups rather than cosmetic tag differences."
@@ -1676,9 +1871,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why might an SRE engine create a pull request from live state rather than forcefully overwriting drifted properties?",
           "options": [
+
             "To codify legitimate emergency production fixes into Git without accidentally triggering a secondary outage",
-            "Because Git cannot accept direct API writes",
-            "To increase total commits on developer profiles"
+
+            "To increase total commits on developer profiles",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "Because Git cannot accept direct API writes"
           ],
           "answer": 0,
           "why": "Capturing valid live operational hotfixes into version control reconciles production reality with Git safely, preserving critical live adjustments while restoring full architectural reproducibility."
@@ -1714,8 +1914,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of applying targeted patch operations rather than tearing down drifted resources?",
           "options": [
+
             "Patches run faster because they bypass DNS lookups",
+
             "Targeted patches avoid service downtime by modifying only drifted attributes in-place",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize",
+
             "Cloud providers offer cash discounts for JSON patch calls"
           ],
           "answer": 1,
@@ -1752,9 +1957,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a declining fleet compliance score signal to engineering leadership?",
           "options": [
+
             "Developers are writing too many unit tests",
-            "The company needs to purchase faster network routers",
-            "Teams are increasingly bypassing automated Git pipelines to perform ad-hoc manual changes in cloud consoles"
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
+            "Teams are increasingly bypassing automated Git pipelines to perform ad-hoc manual changes in cloud consoles",
+
+            "The company needs to purchase faster network routers"
           ],
           "answer": 2,
           "why": "A steady drop in fleet configuration compliance indicates growing manual operational interventions, revealing critical bottlenecks in deployment velocity, broken CI/CD workflows, or unmanaged shadow IT sprawl."
@@ -1814,11 +2024,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary motivation for deploying production systems across multiple cloud regions?",
           "options": [
+
+            "To reduce domain name registration fees",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "To reduce blast radius and survive catastrophic datacenter or cloud control-plane failures in a single region",
-            "To make git pull requests compile faster",
-            "To reduce domain name registration fees"
+
+            "To make git pull requests compile faster"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Multi-region architectures guarantee that if an entire cloud region suffers an outage, traffic can failover to a healthy region."
         }
       },
@@ -1852,11 +2067,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key difference between Recovery Point Objective (RPO) and Recovery Time Objective (RTO)?",
           "options": [
+
+            "RPO is for software; RTO is for hardware",
+
             "RPO measures CPU performance; RTO measures network bandwidth",
+
             "RPO measures the maximum acceptable data loss window; RTO measures the duration required to restore operational service",
-            "RPO is for software; RTO is for hardware"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "RPO defines how much data (in time) you can afford to lose; RTO defines how long the system can remain down during failover."
         }
       },
@@ -1890,9 +2110,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary risk of using Last-Write-Wins (LWW) timestamp conflict resolution in active-active multi-region systems?",
           "options": [
-            "LWW is prohibited by GDPR privacy regulations",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "LWW causes hard disk fragmentation",
-            "Clock drift between regional servers can cause an earlier real-world write to mistakenly overwrite a later write"
+
+            "Clock drift between regional servers can cause an earlier real-world write to mistakenly overwrite a later write",
+
+            "LWW is prohibited by GDPR privacy regulations"
           ],
           "answer": 2,
           "why": "If physical server clocks drift, timestamps may not reflect true causality, causing newer customer updates to be discarded."
@@ -1928,9 +2153,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an automated failover controller use a composite health score rather than a single metric?",
           "options": [
+
             "Single metrics are prone to false positives from transient network spikes, leading to dangerous unnecessary failovers",
-            "Composite scores are required by the W3C consortium",
-            "A single metric can only be monitored on weekdays"
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "A single metric can only be monitored on weekdays",
+
+            "Composite scores are required by the W3C consortium"
           ],
           "answer": 0,
           "why": "Multi-signal scoring guarantees that failover is triggered only when multiple corroborating signals confirm widespread degradation."
@@ -1966,11 +2196,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a cooldown timer essential after executing a multi-region traffic failover?",
           "options": [
+
+            "Because cloud providers shut down accounts that failover in under one minute",
+
             "To allow DNS servers to recharge their battery packs",
+
             "To prevent flapping oscillation where traffic ping-pongs back and forth between unstable regions",
-            "Because cloud providers shut down accounts that failover in under one minute"
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Cooldown periods enforce stability, preventing rapid oscillation when a damaged primary region experiences intermittent recovery."
         }
       },
@@ -2004,11 +2239,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do fencing tokens and monotonically increasing epochs protect systems from split-brain corruption?",
           "options": [
+
             "They automatically format the secondary database",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "They encrypt the network cable between datacenters",
+
             "Storage layers reject any write carrying an older epoch number, neutralizing deposed leaders immediately"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Fencing tokens ensure that even if an old primary believes it is still the leader, its writes are rejected by storage engines as obsolete."
         }
       }
@@ -2066,9 +2306,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does recursive DNS caching affect the speed of cloud disaster recovery failover?",
           "options": [
+
             "Because intermediate DNS resolvers cache old IP addresses until TTL expires, delaying when users discover the failover IP",
-            "Because DNS caching burns extra bandwidth on client mobile phones",
-            "Because DNS resolvers only refresh their cache during scheduled maintenance reboots"
+
+            "Because DNS resolvers only refresh their cache during scheduled maintenance reboots",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "Because DNS caching burns extra bandwidth on client mobile phones"
           ],
           "answer": 0,
           "why": "Until a cached DNS record's TTL expires in recursive resolvers worldwide, clients continue sending traffic to the old IP."
@@ -2104,11 +2349,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does weighted DNS routing assist SREs in managing release risk during canary deployments?",
           "options": [
-            "It recompiles the application code with optimizer flags",
+
             "It exposes only a tiny fraction of real user traffic to the new version before scaling up fleet-wide",
-            "It guarantees zero CPU usage on the canary server"
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "It guarantees zero CPU usage on the canary server",
+
+            "It recompiles the application code with optimizer flags"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Weighted canary routing limits the blast radius of unexpected defects to a small, controlled percentage of incoming traffic."
         }
       },
@@ -2142,11 +2392,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does latency-based DNS routing improve end-user application performance?",
           "options": [
+
             "It compresses the HTML response using gzip",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "It increases the clock frequency of the user's phone",
+
             "It steers client connections to the geographic cloud region with the lowest measured round-trip time (RTT)"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Directing users to network-proximate regions minimizes speed-of-light packet delay, dramatically reducing page load latency."
         }
       },
@@ -2180,11 +2435,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should DNS health checkers require consecutive failures before marking an endpoint unhealthy?",
           "options": [
+
+            "To allow the server CPU to catch up",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize",
+
             "To debounce transient single-packet internet drops and prevent unnecessary route withdrawals",
-            "Because cloud providers charge per health status transition",
-            "To allow the server CPU to catch up"
+
+            "Because cloud providers charge per health status transition"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Debouncing transient network hiccups avoids false alarms and prevents unnecessary traffic thrashing between regions."
         }
       },
@@ -2218,11 +2478,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should the final link in a DNS failover chain be a static page on decoupled object storage?",
           "options": [
+
+            "Because static pages run in the client's browser without electricity",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "Because S3 storage is free of charge",
-            "Because static storage (like S3/Cloud Storage) has no database dependencies, ensuring users see a clean status notice rather than connection errors",
-            "Because static pages run in the client's browser without electricity"
+
+            "Because static storage (like S3/Cloud Storage) has no database dependencies, ensuring users see a clean status notice rather than connection errors"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Static object storage has near-zero failure dependencies, providing a reliable graceful degradation fallback during total backend outages."
         }
       },
@@ -2258,7 +2523,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It disables HTTPS encryption for all clients",
             "It limits the maximum file upload size to 5 megabytes",
-            "It provides near-instant disaster failover but dramatically increases DNS query volume, provider costs, and lookup latency"
+            "It provides near-instant disaster failover but dramatically increases DNS query volume, provider costs, and lookup latency",
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
           "answer": 2,
           "why": "Low TTL forces recursive resolvers to re-query authoritative nameservers constantly, increasing financial cost and connection setup times."
@@ -2318,11 +2584,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of building a Multi-Region Failover Simulator in software?",
           "options": [
-            "To test and validate automated failover logic, state transitions, and SLA compliance in a controlled, repeatable environment",
+
             "To replace real database servers with mock objects permanently",
-            "To mine cryptocurrency using spare cloud CPU cycles"
+
+            "To mine cryptocurrency using spare cloud CPU cycles",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
+            "To test and validate automated failover logic, state transitions, and SLA compliance in a controlled, repeatable environment"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A software simulation engine allows SRE teams to safely inject chaos experiments and mathematically prove that automated failover policies, state machines, and DNS shifts operate reliably before an actual live datacenter disaster strikes."
         }
       },
@@ -2356,11 +2627,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the health scoring engine weight error rate (40%) higher than latency (35%)?",
           "options": [
+
+            "Cloud providers only bill for HTTP 500 responses",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
             "Latency metrics take more CPU cycles to calculate",
-            "Failed HTTP 500 requests directly break transactions, whereas high latency merely slows them down",
-            "Cloud providers only bill for HTTP 500 responses"
+
+            "Failed HTTP 500 requests directly break transactions, whereas high latency merely slows them down"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Customer transactions fail completely and irreversibly when HTTP 5xx errors occur, making real-time error rate the most critical and unforgiving reliability signal in cloud operations."
         }
       },
@@ -2394,11 +2670,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an automated failover controller require multiple consecutive failed ticks before triggering evacuation?",
           "options": [
+
+            "To prevent unnecessary, expensive failovers caused by brief, self-healing network blips",
+
             "Bypassing Automated during initial execution and deferring Failover validation until post-processing completes.",
-            "Because the cloud API requires a warm-up period",
-            "To prevent unnecessary, expensive failovers caused by brief, self-healing network blips"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize",
+
+            "Because the cloud API requires a warm-up period"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Debouncing transient network latency spikes avoids false-positive failovers that would otherwise disrupt thousands of ongoing database connections, invalidate local memory caches, and trigger cascading connection pool storms."
         }
       },
@@ -2432,8 +2713,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the FencingTransactionGate guarantee that a deposed primary cannot corrupt database state?",
           "options": [
+
             "It rejects any write whose epoch is lower than the active epoch or whose target region is not the current leader",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "It disconnects the physical power cable to the primary datacenter",
+
             "It converts all numeric amounts to zero"
           ],
           "answer": 0,
@@ -2470,11 +2756,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must RTO be measured from the moment of fault injection rather than the moment of detection?",
           "options": [
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "Because detection timestamps are encrypted",
+
             "Because cloud provider clocks start at fault injection",
-            "Because customer impact begins immediately when the failure starts, not when automated monitoring notices it",
-            "Because detection timestamps are encrypted"
+
+            "Because customer impact begins immediately when the failure starts, not when automated monitoring notices it"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Customer downtime and business losses begin the exact millisecond the underlying fault occurs; slow monitoring detection directly inflates customer pain and counts against operational RTO."
         }
       },
@@ -2508,11 +2799,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the completed Milestone 2 simulation prove for an enterprise multi-cloud platform?",
           "options": [
-            "Multi-region deployment is only necessary for gaming companies",
+
+            "The platform can autonomously detect regional disasters, safely redirect traffic, prevent split-brain data corruption, and meet RTO/RPO SLAs",
+
             "All software bugs can be solved by adding more RAM",
-            "The platform can autonomously detect regional disasters, safely redirect traffic, prevent split-brain data corruption, and meet RTO/RPO SLAs"
+
+            "Multi-region deployment is only necessary for gaming companies",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Milestone 2 validates that the harmonious combination of multi-metric health scoring, global DNS steering, state machine debouncing, and cryptographic fencing tokens ensures disaster resilience across multi-cloud environments."
         }
       }
@@ -2570,11 +2866,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Layer 7 load balancing require significantly more CPU resources than Layer 4 load balancing?",
           "options": [
-            "Layer 7 terminates TLS, buffers network packets, and parses HTTP headers and paths instead of blindly forwarding packets",
+
             "Layer 7 only supports UDP traffic rather than reliable TCP streams",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "Layer 7 terminates TLS, buffers network packets, and parses HTTP headers and paths instead of blindly forwarding packets",
+
             "Layer 7 operates solely on physical fiber cables"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Layer 7 balancers must decrypt TLS, construct HTTP stream abstractions, and parse application metadata to make routing decisions."
         }
       },
@@ -2608,11 +2909,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary drawback of using standard Round-Robin in heterogeneous server environments?",
           "options": [
-            "It requires quadratic O(N^2) computational overhead per incoming request",
+
             "It ignores differences in backend hardware capacity and request execution duration, potentially overloading weaker servers",
-            "It cannot be implemented in modern object-oriented languages"
+
+            "It cannot be implemented in modern object-oriented languages",
+
+            "It requires quadratic O(N^2) computational overhead per incoming request",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Standard Round-Robin sends an identical quantity of requests to every node, ignoring whether a node is a high-spec server or an under-provisioned container."
         }
       },
@@ -2646,9 +2952,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is smooth weighted round-robin preferred over naive weighted round-robin?",
           "options": [
-            "It encrypts request headers using SHA-256",
+
             "It eliminates the need to configure server weights entirely",
-            "It avoids sending bursts of consecutive requests to a single server by interleaving requests smoothly"
+
+            "It encrypts request headers using SHA-256",
+
+            "It avoids sending bursts of consecutive requests to a single server by interleaving requests smoothly",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
           "answer": 2,
           "why": "Smooth weighted round-robin interleaves dispatches across all servers so that heavy nodes are not subjected to sudden clustered bursts of requests."
@@ -2684,11 +2995,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is Least-Connections significantly superior to Round-Robin?",
           "options": [
-            "When requests have highly variable, unpredictable processing times or involve long-lived WebSocket connections",
+
             "When all requests have identical sub-millisecond execution times",
-            "When no network connections are established"
+
+            "When requests have highly variable, unpredictable processing times or involve long-lived WebSocket connections",
+
+            "When no network connections are established",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Least-Connections dynamically prevents servers from becoming bogged down by clusters of slow, long-running requests by routing new traffic to idle or lightly loaded nodes."
         }
       },
@@ -2722,11 +3038,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of Consistent Hashing over naive hash-modulo routing?",
           "options": [
-            "It guarantees that server CPUs will never exceed fifty percent utilization",
+
             "When a node is added or removed, only a minimal fraction (1/N) of keys are remapped rather than almost all keys",
-            "It converts all HTTP requests into binary UDP streams"
+
+            "It converts all HTTP requests into binary UDP streams",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "It guarantees that server CPUs will never exceed fifty percent utilization"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Consistent Hashing ensures that adding or removing a node only impacts adjacent ring neighbors, preserving existing cache hits and preventing database thundering herds."
         }
       },
@@ -2760,11 +3081,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an enterprise load balancer filter out unhealthy nodes before evaluating routing algorithms?",
           "options": [
-            "To reduce the size of the JavaScript bundle on the client browser",
+
+            "To avoid routing traffic to degraded or crashed instances and ensure high availability",
+
             "To compress network packets using gzip",
-            "To avoid routing traffic to degraded or crashed instances and ensure high availability"
+
+            "To reduce the size of the JavaScript bundle on the client browser",
+
+            "Service level objectives should be set at one hundred percent availability for all"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Filtering out unhealthy nodes before routing prevents end-user requests from failing against crashed backends."
         }
       }
@@ -2822,11 +3148,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical difference between a failed Readiness probe and a failed Liveness probe?",
           "options": [
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "There is no difference; they are synonymous terms in Kubernetes",
+
             "A failed readiness probe temporarily removes the container from load balancer endpoints, while a failed liveness probe kills and restarts the container",
-            "A failed readiness probe restarts the container immediately, whereas liveness does nothing",
-            "There is no difference; they are synonymous terms in Kubernetes"
+
+            "A failed readiness probe restarts the container immediately, whereas liveness does nothing"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Readiness controls traffic admission without killing the process; liveness triggers an orchestrator restart when the process cannot recover on its own."
         }
       },
@@ -2860,11 +3191,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should you use a startup probe instead of merely increasing the liveness probe's initialDelaySeconds?",
           "options": [
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "Startup probes reduce the cost of Amazon EC2 instances",
+
             "Increasing initialDelaySeconds permanently delays deadlock detection during normal runtime, whereas startup probes hand off to strict checks immediately upon boot",
+
             "Startup probes prevent memory leaks in TypeScript garbage collection"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Startup probes offer generous boot allowances while permitting fast, responsive liveness checks once initialization is finished."
         }
       },
@@ -2898,11 +3234,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a database failure trigger a Readiness probe failure rather than a Liveness probe failure?",
           "options": [
+
+            "Liveness failure kills the container, which cannot fix an external database failure and triggers harmful restart loops",
+
             "Databases only accept connections from readiness endpoints",
-            "Readiness probes are faster to execute than liveness probes",
-            "Liveness failure kills the container, which cannot fix an external database failure and triggers harmful restart loops"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "Readiness probes are faster to execute than liveness probes"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Killing the container does not fix an external database outage; readiness gracefully isolates traffic until the database recovers."
         }
       },
@@ -2936,11 +3277,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is checking external database connectivity inside a Liveness probe considered an anti-pattern?",
           "options": [
-            "If the database experiences a momentary blip, all service containers will be killed simultaneously, causing a catastrophic cluster-wide restart storm",
+
             "Databases do not support TCP connections",
+
+            "If the database experiences a momentary blip, all service containers will be killed simultaneously, causing a catastrophic cluster-wide restart storm",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "Liveness probes only run on weekends"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Liveness probes should only inspect internal process vitality. Checking external shared dependencies causes fleet-wide mass restarts during external outages."
         }
       },
@@ -2974,11 +3320,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the probe controller require multiple consecutive successes before restoring traffic to a recovering node?",
           "options": [
+
+            "To allow developers time to inspect server logs manually",
+
             "Because JavaScript numbers are rounded up automatically",
+
             "To prevent flapping and ensure the recovering node is truly stable before subjecting it to full production traffic",
-            "To allow developers time to inspect server logs manually"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Requiring multiple consecutive successes creates hysteresis, ensuring recovering services do not immediately collapse under production traffic."
         }
       },
@@ -3012,11 +3363,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In what sequence should an orchestrator evaluate probes during a container's lifecycle?",
           "options": [
-            "Readiness first, then startup, then liveness",
+
             "Liveness only once when the container is deleted",
+
+            "Readiness first, then startup, then liveness",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "Startup probes first until boot completes; then concurrent Liveness and Readiness probes throughout operational life"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Startup probes protect the container during boot; once completed, liveness and readiness probes run concurrently to manage process restarts and traffic ingress."
         }
       }
@@ -3074,9 +3430,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an HTTP 400 Bad Request error never be retried automatically?",
           "options": [
+
             "It represents a deterministic client-side schema violation that will fail identically on every repeated attempt",
+
+            "Retrying HTTP 400 triggers an automated reboot of the client device",
+
             "HTTP 400 is not defined in RFC standards",
-            "Retrying HTTP 400 triggers an automated reboot of the client device"
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability"
           ],
           "answer": 0,
           "why": "HTTP 400 indicates that the client payload is invalid or malformed. Retrying the identical request will always produce the same failure."
@@ -3112,11 +3473,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a truncation ceiling essential when implementing exponential backoff?",
           "options": [
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "JavaScript cannot compute numbers greater than 1000",
+
             "Without a ceiling, retry delays grow exponentially to hours or days, causing client requests to hang indefinitely",
+
             "Truncation prevents routers from dropping packets"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Without a ceiling, exponential multiplication (2^N) quickly produces impractically large delays that violate user experience expectations."
         }
       },
@@ -3150,11 +3516,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Full Jitter solve the thundering herd problem in distributed architectures?",
           "options": [
-            "It forces all clients to wait exactly 60 seconds",
+
+            "It randomizes the sleep delay between zero and the backoff ceiling, desynchronizing retrying clients and spreading traffic evenly across time",
+
             "It compresses HTTP payload bodies using zlib",
-            "It randomizes the sleep delay between zero and the backoff ceiling, desynchronizing retrying clients and spreading traffic evenly across time"
+
+            "It forces all clients to wait exactly 60 seconds",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Full Jitter picks a random sleep duration between 0 and the current backoff ceiling, ensuring clients retry at scattered intervals rather than hitting the backend in synchronized waves."
         }
       },
@@ -3188,11 +3559,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of Equal Jitter over Full Jitter?",
           "options": [
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "Equal Jitter guarantees a minimum sleep floor equal to half the backoff ceiling, preventing retries from firing too quickly",
-            "Equal Jitter eliminates the need for HTTP status codes",
-            "Equal Jitter runs 10x faster in Node.js"
+
+            "Equal Jitter runs 10x faster in Node.js",
+
+            "Equal Jitter eliminates the need for HTTP status codes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Equal Jitter preserves half the exponential backoff as a non-negotiable minimum delay, ensuring services always get some breathing room."
         }
       },
@@ -3226,11 +3602,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Token Bucket Retry Budget protect downstream services during major outages?",
           "options": [
-            "It restarts the database server automatically",
+
             "It caps total retries to a fixed fraction of successful traffic, preventing retries from multiplying load during severe failures",
-            "It forces all clients to use HTTPS instead of HTTP"
+
+            "It restarts the database server automatically",
+
+            "It forces all clients to use HTTPS instead of HTTP",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Retry budgets cap retries to a percentage (e.g. 10%) of primary traffic, preventing clients from overwhelming an already degraded backend."
         }
       },
@@ -3266,7 +3647,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Garbage collection, memory defragmentation, and disk formatting",
             "React virtual DOM, CSS Grid, and Webpack loaders",
-            "Idempotency classification, truncated exponential backoff with full jitter, and token bucket retry budgeting"
+            "Idempotency classification, truncated exponential backoff with full jitter, and token bucket retry budgeting",
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning"
           ],
           "answer": 2,
           "why": "Resilience requires filtering non-retryable errors, backing off with jitter to avoid thundering herds, and using retry budgets to prevent cascading failure storms."
@@ -3326,11 +3708,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of the Circuit Breaker pattern in distributed systems?",
           "options": [
-            "To prevent cascading thread exhaustion and systemic collapse by failing fast when downstream services become degraded",
+
             "To speed up database indexing",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "To prevent cascading thread exhaustion and systemic collapse by failing fast when downstream services become degraded",
+
             "To replace HTTPS encryption with plain text"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Circuit breakers prevent cascading failures by failing fast during outages, stopping caller threads from hanging and giving failing backends breathing room to recover."
         }
       },
@@ -3364,11 +3751,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens in the Closed state when request failures exceed the failure threshold?",
           "options": [
-            "The breaker deletes the database",
+
             "The breaker trips into the Open state, recording the trip timestamp and starting the recovery timer",
-            "The breaker restarts the operating system"
+
+            "The breaker deletes the database",
+
+            "The breaker restarts the operating system",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "When failures cross the configured threshold, the breaker transitions from CLOSED to OPEN to sever calls to the failing downstream."
         }
       },
@@ -3402,9 +3794,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key benefit of failing fast with a fallback while in the Open state?",
           "options": [
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "It increases AWS CloudWatch invoice costs",
-            "It permanently disables the downstream service",
-            "It prevents client threads from hanging for seconds and delivers a graceful degraded user experience without hitting the failing backend"
+
+            "It prevents client threads from hanging for seconds and delivers a graceful degraded user experience without hitting the failing backend",
+
+            "It permanently disables the downstream service"
           ],
           "answer": 2,
           "why": "Failing fast avoids thread exhaustion and delivers cached or degraded fallbacks in microseconds, keeping the caller responsive while protecting the failing dependency."
@@ -3440,11 +3837,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What occurs if a single canary trial request fails while the circuit breaker is in the Half-Open state?",
           "options": [
-            "The breaker immediately re-trips into the OPEN state and restarts the sleep timeout timer",
+
+            "The breaker deletes the container logs",
+
             "The breaker ignores the failure and opens the circuit anyway",
-            "The breaker deletes the container logs"
+
+            "The breaker immediately re-trips into the OPEN state and restarts the sleep timeout timer",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A single trial failure in Half-Open indicates the downstream dependency has not fully stabilized; the breaker immediately trips back to OPEN for another cooldown cycle."
         }
       },
@@ -3478,11 +3880,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a minimum volume threshold required before evaluating sliding-window error rates?",
           "options": [
+
             "Because JavaScript arrays cannot hold fewer than five items",
-            "To prevent a single isolated failure during low-traffic periods from calculating as 100% error rate and prematurely tripping the breaker",
-            "To satisfy Kubernetes YAML syntax rules"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "To satisfy Kubernetes YAML syntax rules",
+
+            "To prevent a single isolated failure during low-traffic periods from calculating as 100% error rate and prematurely tripping the breaker"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Without a minimum volume threshold, a single error in a low-traffic period calculates as a 100% failure rate, causing false-positive breaker trips."
         }
       },
@@ -3516,11 +3923,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What sequence of states does the circuit breaker traverse during an outage and successful recovery?",
           "options": [
+
             "HALF_OPEN -> CLOSED -> OPEN -> HALF_OPEN",
+
             "OPEN -> CLOSED -> HALF_OPEN -> OPEN",
+
+            "Eliminating all monitoring",
+
             "CLOSED -> OPEN -> HALF_OPEN -> CLOSED"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "The circuit starts in CLOSED, trips to OPEN on failure, transitions to HALF_OPEN after the sleep timeout, and returns to CLOSED upon successful canary probes."
         }
       }
@@ -3578,8 +3990,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Bulkhead pattern protect critical revenue services from non-critical third-party outages?",
           "options": [
+
             "By partitioning resources into isolated pools so that exhaustion in one pool cannot starve other services of capacity",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By converting third-party APIs into local JavaScript arrays",
+
             "By disabling logging across all production servers"
           ],
           "answer": 0,
@@ -3616,11 +4033,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of Semaphore bulkheads in asynchronous environments like Node.js?",
           "options": [
-            "They automatically compress network packets",
+
+            "They bypass JavaScript garbage collection",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "They enforce concurrency limits without allocating OS thread pools, minimizing memory consumption and context-switching overhead",
-            "They bypass JavaScript garbage collection"
+
+            "They automatically compress network packets"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Semaphore bulkheads enforce strict concurrency boundaries using lightweight atomic counters, perfectly matching event-loop runtimes."
         }
       },
@@ -3654,11 +4076,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must caller timeouts strictly exceed downstream callee timeouts in a microservice chain?",
           "options": [
+
             "To satisfy CSS media query constraints",
+
+            "To prevent callers from giving up and abandoning requests while downstream systems continue wasting computation on orphan work",
+
             "Because lower numbers are illegal in HTTP headers",
-            "To prevent callers from giving up and abandoning requests while downstream systems continue wasting computation on orphan work"
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "If a caller gives up before its downstream finishes, the downstream wastes expensive CPU and database resources on requests the client has already abandoned."
         }
       },
@@ -3692,11 +4119,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Distributed Deadline Propagation prevent wasted computation across microservices?",
           "options": [
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "It converts all database tables to in-memory key-value stores",
+
             "Downstream services inspect the propagated remaining budget and immediately abort execution if insufficient time remains before client timeout",
-            "It forces all microservices to use UTC clock time",
-            "It converts all database tables to in-memory key-value stores"
+
+            "It forces all microservices to use UTC clock time"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Deadline propagation passes the remaining time budget across service hops, allowing downstreams to short-circuit immediately if the client deadline has already elapsed."
         }
       },
@@ -3730,11 +4162,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the recommended layering order for resilience patterns?",
           "options": [
+
+            "Circuit Breaker (Outer) -> Retries (Middle) -> Bulkhead (Inner)",
+
             "Retries (Outer) -> Bulkhead (Middle) -> Circuit Breaker (Inner)",
-            "Bulkhead (Outer) -> Circuit Breaker (Middle) -> Retries with Jitter (Inner)",
-            "Circuit Breaker (Outer) -> Retries (Middle) -> Bulkhead (Inner)"
+
+            "Service level objectives should be set at one hundred percent availability",
+
+            "Bulkhead (Outer) -> Circuit Breaker (Middle) -> Retries with Jitter (Inner)"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Bulkhead on the outside isolates resources, Circuit Breaker in the middle fast-fails downstream outages, and Retries on the inside handle transient blips."
         }
       },
@@ -3770,7 +4207,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To format the JSON telemetry response",
             "Because JavaScript requires finally blocks after try-catch",
-            "To guarantee that the bulkhead concurrency slot is always released, even if the operation throws an exception"
+            "To guarantee that the bulkhead concurrency slot is always released, even if the operation throws an exception",
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths"
           ],
           "answer": 2,
           "why": "Using a finally block ensures that bulkhead permits are never leaked on errors, preventing permanent resource starvation."
@@ -3830,11 +4268,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which metric type should be used to monitor the current number of active WebSocket connections on a server?",
           "options": [
-            "A Gauge, because active connections can fluctuate up and down as clients connect and disconnect",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "A Counter, because connections can only increase",
+
+            "A Gauge, because active connections can fluctuate up and down as clients connect and disconnect",
+
             "A Histogram, because WebSockets are binary protocols"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A Gauge is the correct primitive because active connections fluctuate dynamically upwards and downwards over time."
         }
       },
@@ -3868,11 +4311,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do time-series databases require counter values to be strictly monotonic?",
           "options": [
-            "Computers cannot store negative floating-point numbers",
+
             "Monotonicity allows math engines to reliably differentiate deltas and calculate per-second rates while detecting process restarts",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "Computers cannot store negative floating-point numbers",
+
             "Non-monotonic numbers corrupt the Linux file system"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Monotonicity guarantees that any decrease indicates a process restart, allowing time-series engines to accurately compute rate derivatives without negative spikes."
         }
       },
@@ -3906,11 +4354,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should you never apply the rate() function to a Gauge metric in Prometheus?",
           "options": [
-            "Gauges are only supported in Python",
+
             "Prometheus crashes if rate() is called on a gauge",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "Gauges are only supported in Python",
+
             "Gauges can naturally fluctuate up and down; computing rate() on a gauge produces nonsensical and misleading derivatives"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "rate() is designed strictly for monotonically increasing counters. Applying rate() to a fluctuating gauge yields meaningless positive and negative noise."
         }
       },
@@ -3944,11 +4397,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is tracking p99 tail latency vastly superior to tracking average latency?",
           "options": [
-            "Average latency masks severe outliers, whereas p99 exposes the worst-case degradation experienced by the slowest 1% of users",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "Average latency is illegal in European Union regulations",
+
             "p99 requires less memory to store in Prometheus",
-            "Average latency is illegal in European Union regulations"
+
+            "Average latency masks severe outliers, whereas p99 exposes the worst-case degradation experienced by the slowest 1% of users"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Averages smooth out extreme spikes, hiding severe tail latency anomalies that impact mission-critical enterprise workflows."
         }
       },
@@ -3982,11 +4440,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are exponential buckets commonly preferred for web service latency histograms?",
           "options": [
+
+            "Linear buckets are not supported by TypeScript",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "Exponential math runs faster on Intel processors",
-            "They provide tight resolution for fast sub-50ms requests while efficiently covering wide spans up to several seconds without requiring hundreds of buckets",
-            "Linear buckets are not supported by TypeScript"
+
+            "They provide tight resolution for fast sub-50ms requests while efficiently covering wide spans up to several seconds without requiring hundreds of buckets"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Exponential buckets provide fine granularity where most requests cluster (fast latencies) while still capturing distant tail outliers with a compact set of buckets."
         }
       },
@@ -4020,11 +4483,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the standard Prometheus header annotations included before each metric in exposition format?",
           "options": [
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "# HELP describing the metric purpose and # TYPE declaring the metric primitive (counter, gauge, histogram)",
+
             "# HTML and # CSS formatting tags",
-            "# COPYRIGHT and # LICENSE notices",
-            "# HELP describing the metric purpose and # TYPE declaring the metric primitive (counter, gauge, histogram)"
+
+            "# COPYRIGHT and # LICENSE notices"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Prometheus text exposition format requires # HELP and # TYPE metadata to inform scrapers of the metric's purpose and mathematical behavior."
         }
       }
@@ -4082,11 +4550,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is arithmetic average latency considered an anti-pattern for SRE alerting?",
           "options": [
-            "Averages smooth out extreme spikes, completely hiding tail latency degradation experienced by thousands of users",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "Averages cannot be calculated on computers",
+
+            "Averages smooth out extreme spikes, completely hiding tail latency degradation experienced by thousands of users",
+
             "Averages only work for integers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Averages wash out tail outliers, creating a false impression of stability while a fraction of users suffer catastrophic timeouts."
         }
       },
@@ -4122,7 +4595,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The average latency across all requests was 250ms",
             "95% of all client requests completed in 250 milliseconds or less, while the remaining 5% took longer",
-            "Exactly 95 requests failed"
+            "Exactly 95 requests failed",
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
           "answer": 1,
           "why": "A p95 of 250ms means 95% of all evaluated requests finished within 250ms, while only the slowest 5% exceeded that threshold."
@@ -4158,11 +4632,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a long horizontal tail extending to the right on a latency CDF plot indicate?",
           "options": [
-            "Network bandwidth is unlimited",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "All servers have crashed",
+
+            "Network bandwidth is unlimited",
+
             "A small percentage of requests are experiencing extreme tail latency delays compared to the majority"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "A long rightward tail on a CDF reveals significant tail latency, where a minority of requests take exponentially longer than typical traffic."
         }
       },
@@ -4196,11 +4675,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Prometheus histogram_quantile function estimate percentiles from bucket counts?",
           "options": [
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "It downloads raw timestamps from the client browser",
+
             "It identifies the bounding bucket containing the target rank and applies linear interpolation assuming uniform distribution within the bucket",
-            "It calculates the square root of the highest bucket",
-            "It downloads raw timestamps from the client browser"
+
+            "It calculates the square root of the highest bucket"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Prometheus uses linear interpolation between bucket bounds, providing an efficient O(1) approximation without storing individual request timestamps."
         }
       },
@@ -4234,11 +4718,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of an HDR Histogram over traditional fixed-bucket histograms?",
           "options": [
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "It converts all JavaScript numbers to 64-bit strings",
-            "It maintains a constant configurable relative precision (e.g. 3 significant digits) across orders of magnitude using compact compressed memory",
-            "It eliminates the need for Prometheus scrapers"
+
+            "It eliminates the need for Prometheus scrapers",
+
+            "It maintains a constant configurable relative precision (e.g. 3 significant digits) across orders of magnitude using compact compressed memory"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "HDR Histograms provide constant relative accuracy across microsecond to minute ranges in a fixed, minimal memory footprint."
         }
       },
@@ -4272,9 +4761,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an SRE team define distinct SLO targets for p50, p95, and p99 rather than just a single target?",
           "options": [
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "To triple the number of AWS EC2 instances",
-            "Because single targets are not allowed in JSON",
-            "To govern both typical user responsiveness (p50) and acceptable tail latency boundaries (p95/p99) across different traffic cohorts"
+
+            "To govern both typical user responsiveness (p50) and acceptable tail latency boundaries (p95/p99) across different traffic cohorts",
+
+            "Because single targets are not allowed in JSON"
           ],
           "answer": 2,
           "why": "Multi-tier latency SLOs ensure the typical user experiences snappy interactions (p50) while setting a strict, enforceable ceiling on tail outliers (p95, p99)."
@@ -4334,11 +4828,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is structured JSON logging preferred over plain string logging in distributed architectures?",
           "options": [
-            "JSON logs can be ingested and indexed as discrete queryable fields by log aggregators without brittle regex parsing",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "JSON logging eliminates the need for unit tests",
+
             "Plain text logs cannot be printed to stdout in Linux",
-            "JSON logging eliminates the need for unit tests"
+
+            "JSON logs can be ingested and indexed as discrete queryable fields by log aggregators without brittle regex parsing"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Structured JSON enables centralized log aggregators to automatically index discrete fields, allowing instant filtering, aggregation, and alerting without parsing regexes."
         }
       },
@@ -4372,11 +4871,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should the timestamp field always use ISO 8601 format with explicit UTC zone?",
           "options": [
+
             "Because ISO 8601 is the only format supported by JavaScript",
-            "To avoid timezone confusion and enable uniform temporal sorting across servers located in different global regions",
-            "UTC timestamps take less storage space than local timestamps"
+
+            "UTC timestamps take less storage space than local timestamps",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "To avoid timezone confusion and enable uniform temporal sorting across servers located in different global regions"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Standardizing on ISO 8601 UTC ensures logs from servers in different geographic time zones can be correlated chronologically without ambiguity."
         }
       },
@@ -4410,11 +4914,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of a Correlation ID in microservice logging?",
           "options": [
-            "To speed up CSS rendering on the frontend",
+
             "To encrypt user passwords in the database",
-            "To uniquely tag all log events generated across multiple services for a single end-to-end user transaction"
+
+            "To uniquely tag all log events generated across multiple services for a single end-to-end user transaction",
+
+            "To speed up CSS rendering on the frontend",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Correlation IDs stitch together disparate log events from different services into a single unified causal timeline for debugging."
         }
       },
@@ -4448,11 +4957,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if a microservice fails to forward the X-Correlation-ID header on outgoing requests?",
           "options": [
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "The causal trace is broken; downstream services generate a new ID, disconnecting their logs from the parent transaction",
+
             "The HTTP request immediately returns status code 500",
+
             "The TCP connection is forcibly reset by the operating system"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Failing to forward correlation headers breaks the trace chain, resulting in orphaned logs that cannot be correlated with the originating request."
         }
       },
@@ -4486,11 +5000,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must log sanitization and PII scrubbing occur before log events are serialized and transmitted to aggregators?",
           "options": [
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "Because JSON parsers cannot parse the word 'password'",
+
             "To prevent sensitive customer credentials and personal data from being permanently stored in centralized search repositories",
+
             "To reduce network bandwidth consumption by 90%"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Scrubbing before transmission ensures sensitive data never reaches disk or search indexes, maintaining compliance with privacy and security mandates."
         }
       },
@@ -4524,11 +5043,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of child loggers in structured logging frameworks?",
           "options": [
+
             "They automatically reboot the microservice on errors",
-            "They disable JSON formatting to save memory",
-            "They automatically bind contextual baggage (like correlationId and tenantId) to all child logs without repetitive manual coding"
+
+            "They automatically bind contextual baggage (like correlationId and tenantId) to all child logs without repetitive manual coding",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "They disable JSON formatting to save memory"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Child loggers inherit contextual attributes from their parent, guaranteeing that every log line emitted in that request scope includes correlation and tenant identifiers."
         }
       }
@@ -4586,11 +5110,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary purpose of Distributed Tracing compared to standalone logging?",
           "options": [
-            "Distributed tracing measures the precise execution duration and causal parent-child hierarchy of operations across microservices",
+
             "Distributed tracing replaces database indexing",
-            "Distributed tracing increases CPU speed by 20%"
+
+            "Distributed tracing increases CPU speed by 20%",
+
+            "Distributed tracing measures the precise execution duration and causal parent-child hierarchy of operations across microservices",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Distributed tracing captures exact timing, durations, and parent-child causal relationships, showing precisely where time was spent across microservice hops."
         }
       },
@@ -4624,11 +5153,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What identifies the Root Span in a distributed trace DAG?",
           "options": [
-            "It has a duration of zero",
+
             "It has no parentSpanId (or parentSpanId is undefined/null)",
-            "It is always written in Python"
+
+            "It is always written in Python",
+
+            "It has a duration of zero",
+
+            "Service level objectives should be set at one hundred"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The root span initiates the entire transaction at the entry point, meaning it has no parent span."
         }
       },
@@ -4662,11 +5196,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the '01' flag in the final segment of the W3C traceparent header signify?",
           "options": [
-            "The request is executing on CPU core 1",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and",
+
+            "The trace was sampled and should be recorded and exported by downstream services",
+
             "The HTTP request failed with error code 401",
-            "The trace was sampled and should be recorded and exported by downstream services"
+
+            "The request is executing on CPU core 1"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Bit 0 of trace-flags indicates whether the trace was sampled for recording (01 = sampled, 00 = not sampled)."
         }
       },
@@ -4700,11 +5239,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does OpenTelemetry establish strict Semantic Conventions for span attributes?",
           "options": [
+
+            "To enforce TypeScript types in Python code",
+
             "To ensure consistent naming across different languages and services, enabling automated dashboarding, dependency mapping, and query analysis",
+
             "To compress JSON data across the network",
-            "To enforce TypeScript types in Python code"
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Semantic conventions standardize attribute keys so that observability tools can automatically recognize HTTP routes, database queries, and error rates across all services."
         }
       },
@@ -4738,11 +5282,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should you use a Span Event instead of creating a new Child Span?",
           "options": [
+
+            "Span events are only used when errors occur",
+
             "When you want to delete the parent span",
+
             "For point-in-time milestones or state annotations that have no meaningful duration, avoiding trace tree bloat",
-            "Span events are only used when errors occur"
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Span events are designed for zero-duration milestones within an ongoing operation, providing timeline context without creating superfluous child spans."
         }
       },
@@ -4776,11 +5325,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do downstream microservices link their spans to the caller's trace in OpenTelemetry?",
           "options": [
+
+            "By reading the caller's traceparent header, adopting the caller's traceId, and setting their parentSpanId to the caller's spanId",
+
             "By storing spans in client browser local storage",
+
             "By creating a new trace ID on every single microservice hop",
-            "By reading the caller's traceparent header, adopting the caller's traceId, and setting their parentSpanId to the caller's spanId"
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Distributed tracing requires preserving the shared traceId across all hops while setting parentSpanId to the immediate upstream caller's spanId."
         }
       }
@@ -4842,11 +5396,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under Google SRE alerting principles, what criteria must be met before an alert may page an on-call engineer?",
           "options": [
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
             "It must represent active or imminent user impact, be actionable, and require immediate human intervention",
-            "CPU utilization across the fleet must exceed fifty percent",
-            "The alert must be scheduled to fire at least once every twelve hours"
+
+            "The alert must be scheduled to fire at least once every twelve hours",
+
+            "CPU utilization across the fleet must exceed fifty percent"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Pager-level alerts must be strictly reserved for actionable incidents that directly impact users or threaten immediate catastrophe, requiring real-time human intervention."
         }
       },
@@ -4884,11 +5443,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Burn Rate of 14.4 signify for a service governed by a 30-day SLO?",
           "options": [
-            "Fourteen point four percent of user requests will fail every second",
+
+            "Post-incident reviews should focus on identifying the individual responsible",
+
+            "The application server is operating at fourteen times its normal clock speed",
+
             "Two percent of the monthly error budget will be depleted in exactly one hour",
-            "The application server is operating at fourteen times its normal clock speed"
+
+            "Fourteen point four percent of user requests will fail every second"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A 14.4x burn rate burns 2% of the thirty-day error budget in one hour (14.4 / 720 hours = 0.02), signaling an acute operational crisis."
         }
       },
@@ -4926,11 +5490,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Multi-Window Multi-Burn-Rate alerting require both windows to breach the threshold before paging?",
           "options": [
+
             "To allow on-call engineers to verify the math by hand",
+
             "Because Prometheus only supports queries that evaluate two ranges",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "To ensure the incident is actively happening right now while confirming sufficient budget was burned to avoid blips"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Dual windows eliminate transient false alarms while ensuring fast resolution: the short window verifies active ongoing failure, and the long window confirms significant budget consumption."
         }
       },
@@ -4968,11 +5537,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must alert fingerprints be generated only from identity labels rather than error messages or timestamps?",
           "options": [
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "Because including timestamps or dynamic error strings creates unique fingerprints for every event, defeating deduplication",
-            "Because label hashes must fit in a single thirty-two-bit integer",
-            "Because fingerprints are only used for graphic design"
+
+            "Because fingerprints are only used for graphic design",
+
+            "Because label hashes must fit in a single thirty-two-bit integer"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Identity labels identify the logical failure domain. Including dynamic timestamps or pod IDs would make every alert distinct, causing deduplication to fail completely."
         }
       },
@@ -5010,11 +5584,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of Alert Inhibition rules in distributed systems?",
           "options": [
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "It automatically reboots the failed servers in the cloud",
-            "It suppresses cascading secondary symptom alerts when an upstream root cause alert is already active, focusing engineer attention on the true failure",
-            "It increases the frequency of pager notifications to ensure engineers stay alert"
+
+            "It increases the frequency of pager notifications to ensure engineers stay alert",
+
+            "It suppresses cascading secondary symptom alerts when an upstream root cause alert is already active, focusing engineer attention on the true failure"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Inhibition mutes downstream cascade symptoms (e.g. 50 services reporting DB timeout) when the root cause (Database Down) is already firing, preventing panic and pinpointing the fix."
         }
       },
@@ -5052,11 +5631,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should production alert payloads always bundle an actionable runbook URL and exact diagnostic CLI commands?",
           "options": [
-            "To automatically send the runbook text to external customers",
+
             "Because the TypeScript compiler requires runbook URLs in all interface definitions",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "To automatically send the runbook text to external customers",
+
             "To provide sleep-deprived on-call engineers with clear, verified mitigation procedures and commands, minimizing MTTD and MTTR"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Pairing alerts with curated runbooks and triage commands eliminates panic and guesswork during high-stress middle-of-the-night incidents, drastically shortening recovery time."
         }
       }
@@ -5118,11 +5702,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What defines a SEV1 incident under modern SRE operational standards?",
           "options": [
-            "Catastrophic failure of mission-critical services or databases impacting the majority of users, requiring immediate all-hands response",
+
+            "A unit test failure during a local git commit",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "A typo in a CSS stylesheet on the settings page",
-            "A unit test failure during a local git commit"
+
+            "Catastrophic failure of mission-critical services or databases impacting the majority of users, requiring immediate all-hands response"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "SEV1 is the highest urgency tier, reserved for catastrophic, business-critical outages that severely impact customers and require immediate all-hands mobilization."
         }
       },
@@ -5160,8 +5749,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary responsibility of the Incident Commander during a major outage?",
           "options": [
+
             "To write hotfixes directly in production via SSH",
+
             "To maintain overall strategic coordination, delegate tasks, and make operational decisions without getting bogged down in terminal commands",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "To personally reply to all customer support tickets"
           ],
           "answer": 1,
@@ -5202,11 +5796,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the time between INCIDENT_START and DETECTED critical to measure?",
           "options": [
+
+            "It measures detection lag (how long customers suffered silently before automated alerts notified engineers)",
+
             "It is required by the JavaScript runtime",
+
             "It determines the cost of AWS CloudWatch billing",
-            "It measures detection lag (how long customers suffered silently before automated alerts notified engineers)"
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "The gap between incident start and detection reveals blind spots in monitoring, indicating how long silent customer degradation occurred."
         }
       },
@@ -5244,8 +5843,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an increasing Mean Time to Acknowledge (MTTA) trend typically indicate about an engineering team?",
           "options": [
+
             "Engineers are suffering from alert fatigue, ignoring pagers, or on-call notification routing is broken",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "The CPU speed of the production cluster is increasing",
+
             "The company has eliminated all software bugs"
           ],
           "answer": 0,
@@ -5286,11 +5890,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is reducing Mean Time to Recover (MTTR) often a more practical goal for engineering teams than completely preventing failures (increasing MTBF)?",
           "options": [
-            "Because MTBF is not recognized by IEEE",
+
             "Complex distributed systems inevitably fail due to unexpected edge cases, so fast mitigation (rollbacks, failovers) preserves SLOs far more reliably than attempting zero bugs",
-            "Because fixing bugs in code is illegal in cloud environments"
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
+            "Because fixing bugs in code is illegal in cloud environments",
+
+            "Because MTBF is not recognized by IEEE"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "In large-scale distributed architectures, failures are inevitable. Optimizing MTTR through automation and fast rollbacks ensures outages are brief, protecting user experience and error budgets."
         }
       },
@@ -5328,11 +5937,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the orchestrator measure MTTR to the MITIGATE milestone rather than the RESOLVE milestone?",
           "options": [
+
             "To reduce the number of TypeScript interfaces required",
+
             "Because resolve times cannot be stored in databases",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "Because customer suffering ends when the incident is mitigated (e.g. rolled back), even if final cleanup continues for hours"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Mitigation stops active customer harm immediately (via rollback or failover). Subsequent postmortem analysis and deep cleanup should not artificially inflate customer downtime metrics."
         }
       }
@@ -5394,11 +6008,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does SRE insist that 'human error' is never an acceptable root cause in a postmortem?",
           "options": [
-            "Because human error is merely the starting symptom; the true root cause is the systemic absence of validation and safeguards that allowed the error to propagate",
+
             "Because software engineers never make mistakes",
-            "Because human error is not allowed in dictionary definitions"
+
+            "Because human error is not allowed in dictionary definitions",
+
+            "Because human error is merely the starting symptom; the true root cause is the systemic absence of validation and safeguards that allowed the error to propagate",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Blaming a human solves nothing and encourages concealment. The real engineering task is building systems resilient enough that a normal human slip cannot cause an outage."
         }
       },
@@ -5436,11 +6055,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of iterating through the Five Whys in a blameless postmortem?",
           "options": [
-            "To ensure the meeting lasts at least one hour",
+
             "To drill past immediate superficial symptoms and discover systemic, organizational, and tooling root causes",
-            "To assign blame to five different engineers"
+
+            "To assign blame to five different engineers",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "To ensure the meeting lasts at least one hour"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The Five Whys technique peels back successive layers of causation, exposing systemic process and architecture flaws that, when fixed, prevent the entire class of problem."
         }
       },
@@ -5478,11 +6102,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core insight does the Swiss Cheese Model provide for incident postmortems?",
           "options": [
-            "There is always exactly one person at fault",
+
+            "Catastrophic failures happen when holes in multiple independent defense layers align simultaneously, so fixing any single layer prevents recurrence",
+
             "All software should be modeled after dairy products",
-            "Catastrophic failures happen when holes in multiple independent defense layers align simultaneously, so fixing any single layer prevents recurrence"
+
+            "There is always exactly one person at fault",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Major outages require multiple simultaneous breakdowns across process, tooling, and architecture. Strengthening any single defense slice prevents the hazard from penetrating."
         }
       },
@@ -5520,11 +6149,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does SRE strictly forbid assigning postmortem action items to generic teams (e.g. '@all-devs' or 'Frontend Team')?",
           "options": [
+
+            "Because teams are not allowed in Git commit messages",
+
             "When everyone is responsible, no one is responsible; single named ownership ensures accountability and follow-through",
-            "Because Jira databases crash when groups are assigned",
-            "Because teams are not allowed in Git commit messages"
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "Because Jira databases crash when groups are assigned"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Diffusion of responsibility leads to abandoned action items. A named individual owner drives the task to completion, even if others help with execution."
         }
       },
@@ -5562,11 +6196,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do high-maturity SRE organizations enforce a deployment freeze when P0 postmortem action items are overdue?",
           "options": [
-            "Because the cloud provider shuts down the API",
+
             "To prioritize fixing known critical reliability vulnerabilities over releasing new features that could trigger the exact same outage",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "Because the cloud provider shuts down the API",
+
             "Coupling Action directly to unvalidated external state while disabling Tracking across Lifecycle transitions."
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "If a known vulnerability is left unmitigated, shipping new features increases risk exponentially. Freezing deployments enforces accountability to protect system reliability."
         }
       },
@@ -5604,11 +6243,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should completed postmortem reports be shared transparently across the entire engineering organization?",
           "options": [
-            "Because markdown files can only be saved in public repositories",
+
+            "To disseminate lessons learned, prevent other teams from repeating the same architectural mistakes, and normalize a blameless culture",
+
             "To allow other teams to laugh at the impacted team",
-            "To disseminate lessons learned, prevent other teams from repeating the same architectural mistakes, and normalize a blameless culture"
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
+            "Because markdown files can only be saved in public repositories"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Transparent postmortems multiply organizational learning: every engineer benefits from the lessons of a failure, preventing duplicate outages across the company."
         }
       }
@@ -5670,11 +6314,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to Little's Law (L = λW), what happens to the number of concurrent in-flight requests if downstream database latency quadruples while incoming traffic remains constant?",
           "options": [
-            "The number of concurrent in-flight requests quadruples, consuming four times more connections and memory buffers",
+
             "The incoming traffic decreases automatically",
-            "The CPU clock speed quadruples"
+
+            "The CPU clock speed quadruples",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "The number of concurrent in-flight requests quadruples, consuming four times more connections and memory buffers"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Because L = λ * W, if latency W increases by 4x at constant arrival rate λ, concurrent requests L must increase by exactly 4x."
         }
       },
@@ -5712,11 +6361,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should production web services typically be targeted for 60% to 70% average CPU utilization rather than 95%?",
           "options": [
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "Because cloud providers charge double for CPUs above 80%",
-            "Because queuing delays grow exponentially above 80%, so running at 65% prevents sudden queue explosions during traffic spikes",
-            "Because server power supplies melt at 80%"
+
+            "Because server power supplies melt at 80%",
+
+            "Because queuing delays grow exponentially above 80%, so running at 65% prevents sudden queue explosions during traffic spikes"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Due to the non-linear M/M/1 queuing curve, operating above 80% utilization places the system on the verge of the utilization cliff, where small spikes cause catastrophic queuing latency."
         }
       },
@@ -5754,11 +6408,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the capacity planner recommend 29 instances instead of the bare minimum 21 instances for 5,000 RPS?",
           "options": [
+
             "Because Kubernetes requires prime numbers of pods",
-            "To spend the entire annual budget before the quarter ends",
-            "To keep fleet utilization at a safe 69%, providing 2,250 RPS of headroom to absorb traffic surges without hitting queuing cliffs"
+
+            "To keep fleet utilization at a safe 69%, providing 2,250 RPS of headroom to absorb traffic surges without hitting queuing cliffs",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "To spend the entire annual budget before the quarter ends"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Provisioning only 21 nodes would run the fleet at 95%+ utilization, triggering severe queuing delays. 29 nodes keeps load at 69%, absorbing surges gracefully."
         }
       },
@@ -5796,11 +6455,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is N+2 redundancy strongly recommended for mission-critical Kubernetes clusters?",
           "options": [
+
+            "Because N+2 is required by OAuth 2.0",
+
             "It ensures the cluster serves peak traffic without degradation even if one node crashes while another node is being updated during a rolling deployment",
-            "Because Kubernetes cannot scale with odd numbers of pods",
-            "Because N+2 is required by OAuth 2.0"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "Because Kubernetes cannot scale with odd numbers of pods"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "N+2 guarantees complete resilience: one node can be offline for routine rolling maintenance while a second node experiences unexpected hardware failure, with zero customer degradation."
         }
       },
@@ -5838,11 +6502,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is queue depth considered a superior leading indicator for auto-scaling compared to CPU utilization?",
           "options": [
-            "Because queue depth is measured in floating point numbers",
+
             "Queue depth reveals traffic backlog and I/O bottlenecks instantly, whereas CPU is a lagging indicator that may stay low during I/O waits",
-            "Because CPU utilization is only updated once per month"
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "Because CPU utilization is only updated once per month",
+
+            "Because queue depth is measured in floating point numbers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "In I/O-bound microservices, blocked requests queue up while CPUs remain mostly idle. Scaling on queue depth reacts immediately before users experience timeouts."
         }
       },
@@ -5880,11 +6549,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the capacity engine recommend an autoscaling maximum of 79 replicas when 49 replicas serve expected peak?",
           "options": [
-            "To exhaust the AWS VPC IP address pool",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
+            "To provide emergency burst absorption headroom if unexpected viral demand exceeds modeled peak projections",
+
             "Because 79 is a lucky number in Kubernetes",
-            "To provide emergency burst absorption headroom if unexpected viral demand exceeds modeled peak projections"
+
+            "To exhaust the AWS VPC IP address pool"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Setting autoscaling max above modeled peak (e.g. 1.6x of peak plan) provides an emergency safety valve against unanticipated viral traffic surges or DDoS events."
         }
       }
@@ -5946,11 +6620,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should steady-state baseline production workloads rarely be run on pure On-Demand instances?",
           "options": [
-            "Because Reserved Instances and Committed Use Discounts provide 40% to 60% cost savings for predictable baseline capacity with identical performance and SLAs",
+
             "Because On-Demand instances run slower CPUs",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "Because Reserved Instances and Committed Use Discounts provide 40% to 60% cost savings for predictable baseline capacity with identical performance and SLAs",
+
             "Because On-Demand billing requires daily paper invoices"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Running predictable 24/7 baseline capacity on On-Demand is financially wasteful; committing to 1-year or 3-year Reserved plans slashes compute bills in half for the exact same hardware."
         }
       },
@@ -5988,11 +6667,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is purchasing a Reserved Instance for a staging environment that only runs 40 hours per week financially counterproductive?",
           "options": [
+
             "Because staging environments are not allowed on AWS",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "Because Reserved plans bill for all 8,760 hours of the year; running only 2,080 hours means you pay for 6,680 hours of unused idle capacity",
+
             "Because Reserved Instances do not support Linux"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Reserved Instances require paying 24/7 regardless of usage. A server running only 40 hours a week operates at ~24% utilization, far below the 60% break-even mark."
         }
       },
@@ -6030,11 +6714,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the mandatory first step when an EC2 Spot Interruption Notice is received?",
           "options": [
-            "Increase the CPU clock frequency",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "Format all hard drives immediately",
+
+            "Increase the CPU clock frequency",
+
             "Deregister the instance from the load balancer target group so no new client traffic is directed to the dying node"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Deregistering from the load balancer immediately stops new traffic routing to the instance, allowing the 2-minute window to be used exclusively for draining existing in-flight connections."
         }
       },
@@ -6072,11 +6761,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Hybrid Fleet Portfolio strategy allocate baseline load to Reserved Instances rather than Spot?",
           "options": [
-            "Reserved instances guarantee 100% capacity availability with zero preemption risk, ensuring mission-critical baseline traffic never drops during datacenter-wide Spot shortages",
+
+            "Because AWS bans Spot instances after 5:00 PM",
+
             "Because Spot instances cannot run Linux containers",
-            "Because AWS bans Spot instances after 5:00 PM"
+
+            "Reserved instances guarantee 100% capacity availability with zero preemption risk, ensuring mission-critical baseline traffic never drops during datacenter-wide Spot shortages",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Baseline traffic must never fail. Running baseline on Reserved ensures contractual capacity availability, while using Spot strictly for elastic surge capacity protects the system against mass evictions."
         }
       },
@@ -6114,9 +6808,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Cost per Million Requests a more valuable operational metric than total monthly cloud spend?",
           "options": [
-            "Because total spend cannot be parsed by JavaScript",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "It normalizes financial spend against business traffic volume, revealing whether infrastructure efficiency is improving or degrading regardless of top-line growth",
-            "Because cloud providers only bill in units of one million"
+
+            "Because cloud providers only bill in units of one million",
+
+            "Because total spend cannot be parsed by JavaScript"
           ],
           "answer": 1,
           "why": "Total cloud spend increases naturally as a business grows. Unit economics (cost per request) reveals true architectural efficiency: a growing service should see cost per request trend downwards."
@@ -6156,11 +6855,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the CloudFinancialOptimizer achieve over 50% annual cost savings while preserving peak reliability?",
           "options": [
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By throttling client requests to zero during peak hours",
+
             "By deleting all staging environments permanently",
+
             "By locking in multi-year Reserved discounts for 24/7 baseline traffic and utilizing deep 75% Spot discounts for transient peak surges with an On-Demand safety buffer"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Combining Reserved Instances for steady-state baseline load with heavily discounted Spot instances for elastic daytime bursts delivers maximum economic efficiency without compromising uptime."
         }
       }
@@ -6222,11 +6926,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Milestone 3 integrate metrics, logs, traces, and incident response into a single unified platform?",
           "options": [
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "To avoid paying for internet access",
+
             "To eliminate context switching between disconnected tools during high-stress production outages, drastically reducing MTTD and MTTR",
-            "Because TypeScript only allows one class per project",
-            "To avoid paying for internet access"
+
+            "Because TypeScript only allows one class per project"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Siloed observability tools force sleep-deprived engineers to manually copy-paste IDs between disparate dashboards, delaying triage and inflating recovery times."
         }
       },
@@ -6264,8 +6973,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the metrics pipeline compute percentiles (p95/p99) from raw observations rather than simply averaging the latencies?",
           "options": [
-            "Because percentiles are faster to calculate than addition",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "Arithmetic averages smooth out extreme spikes, hiding catastrophic tail degradation experienced by high-value transactions",
+
+            "Because percentiles are faster to calculate than addition",
+
             "Because Prometheus does not support the division operator"
           ],
           "answer": 1,
@@ -6306,11 +7020,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does propagating a Trace ID across microservice HTTP headers accelerate incident triage?",
           "options": [
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "It links distributed execution spans and structured log entries across all services into a single queryable diagnostic trail",
+
             "It eliminates the need for unit testing",
-            "It compresses the JSON payloads by 50%",
-            "It links distributed execution spans and structured log entries across all services into a single queryable diagnostic trail"
+
+            "It compresses the JSON payloads by 50%"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "A shared Trace ID binds every log message, database call, and microservice hop across distributed systems into a cohesive narrative, allowing instant root cause isolation."
         }
       },
@@ -6348,11 +7067,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the alerting engine require both the short window and long window to breach 14.4x before paging?",
           "options": [
-            "The short window ensures the outage is active right now, while the long window verifies sufficient budget was burned to avoid paging on 10-second blips",
+
             "Because Prometheus only executes queries in pairs",
-            "To allow time for engineers to cancel the alert"
+
+            "To allow time for engineers to cancel the alert",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "The short window ensures the outage is active right now, while the long window verifies sufficient budget was burned to avoid paging on 10-second blips"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Dual-window evaluation eliminates transient false alarms while ensuring prompt pages for real outages that consume substantial error budget."
         }
       },
@@ -6390,8 +7114,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is tracking the exact difference between MITIGATE and RESOLVE critical for honest SRE scorecards?",
           "options": [
-            "Because TypeScript compilers crash if both timestamps are identical",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "Mitigation marks the end of active customer suffering, while resolution includes hours of postmortem forensics and cleanup that should not penalize user uptime metrics",
+
+            "Because TypeScript compilers crash if both timestamps are identical",
+
             "To allow developers to leave work earlier"
           ],
           "answer": 1,
@@ -6432,9 +7161,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the completed Milestone 3 Platform demonstrate enterprise SRE operational maturity?",
           "options": [
-            "It stores all data in plain text CSV files on desktop computers",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "It completely eliminates the need for human software engineers",
-            "It integrates the complete observability lifecycle—from telemetry anomaly detection to correlated root cause triage, incident command, and blameless postmortem action items"
+
+            "It integrates the complete observability lifecycle—from telemetry anomaly detection to correlated root cause triage, incident command, and blameless postmortem action items",
+
+            "It stores all data in plain text CSV files on desktop computers"
           ],
           "answer": 2,
           "why": "Milestone 3 proves comprehensive systems maturity by uniting high-fidelity telemetry, distributed tracing, error budget alerting, incident command, and blameless culture into a single unified platform."
@@ -6498,11 +7232,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of a Blast Radius in Chaos Engineering?",
           "options": [
+
+            "To test military explosives in data centers",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "To strictly limit the scope and customer exposure of an experiment so an unexpected failure affects only a tiny, contained percentage of traffic",
-            "To maximize the damage caused to competitor web servers",
-            "To test military explosives in data centers"
+
+            "To maximize the damage caused to competitor web servers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A well-architected blast radius isolates chaos to a minor fraction of traffic (e.g. 5% canary), ensuring safety while still gathering valid empirical resilience telemetry."
         }
       },
@@ -6540,11 +7279,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is disproving a steady-state hypothesis considered a success in chaos engineering?",
           "options": [
+
             "Because disproving hypotheses guarantees a promotion",
+
+            "Because failed experiments do not require postmortems",
+
             "Because discovering an unknown architectural vulnerability during a controlled test allows you to fix it before it causes a real customer outage",
-            "Because failed experiments do not require postmortems"
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A disproven hypothesis exposes a latent vulnerability under controlled, safe conditions with engineers watching, preventing a future catastrophic production disaster."
         }
       },
@@ -6582,11 +7326,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is latency injection often more dangerous to microservices than sudden process crashes?",
           "options": [
+
             "Because slow HTTP requests are not allowed by the W3C spec",
+
+            "Slow responses tie up threads, sockets, and connection pools across calling services, triggering widespread cascading resource exhaustion",
+
             "Because latency increases electricity costs on servers",
-            "Slow responses tie up threads, sockets, and connection pools across calling services, triggering widespread cascading resource exhaustion"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Sudden crashes fail fast, allowing callers to catch errors immediately. Slow responses hold connections open, exhausting thread pools and causing cascading collapse throughout the microservice mesh."
         }
       },
@@ -6624,11 +7373,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should error injection be used to test dependencies that are considered 'non-critical' (like product recommendations)?",
           "options": [
-            "To prove that failure of the non-critical dependency does not crash or block the primary critical user journey (e.g. checkout)",
+
             "To permanently disable product recommendations",
-            "Because non-critical services do not cost money"
+
+            "To prove that failure of the non-critical dependency does not crash or block the primary critical user journey (e.g. checkout)",
+
+            "Because non-critical services do not cost money",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Non-critical dependencies frequently suffer from 'silent coupling' where an unhandled exception in an optional feature crashes the entire primary transaction. Fault injection exposes this coupling."
         }
       },
@@ -6666,9 +7420,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a distributed database freeze writes when a network partition causes a cluster to lose consensus quorum?",
           "options": [
-            "Because network cables overheat during partitions",
+
+            "Because the cloud billing engine pauses",
+
             "To prevent Split-Brain data corruption, where two isolated sub-clusters accept conflicting writes that can never be reconciled",
-            "Because the cloud billing engine pauses"
+
+            "Because network cables overheat during partitions",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning"
           ],
           "answer": 1,
           "why": "In a network partition, if a minority partition accepts writes without majority quorum, both sides diverge, resulting in permanent, catastrophic database corruption."
@@ -6708,11 +7467,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an automated emergency Stop Button mandatory in every production chaos experiment?",
           "options": [
-            "To notify the marketing team to post on social media",
+
+            "To immediately remove injected faults and halt the experiment if telemetry breaches safety thresholds, preventing self-inflicted production outages",
+
             "Because the JavaScript runtime requires break statements",
-            "To immediately remove injected faults and halt the experiment if telemetry breaches safety thresholds, preventing self-inflicted production outages"
+
+            "To notify the marketing team to post on social media",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Chaos engineering must build confidence, not cause outages. An automated stop button guarantees that if resilience mechanisms fail, the experiment terminates instantly before customers suffer."
         }
       }
@@ -6774,11 +7538,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of Blue/Green deployment over a Rolling Update?",
           "options": [
-            "Instantaneous rollback capability: if the new environment is flawed, traffic can be atomically switched back to the stable environment in seconds",
+
             "It uses 50% less memory than all other strategies",
-            "It allows developers to skip code review"
+
+            "Instantaneous rollback capability: if the new environment is flawed, traffic can be atomically switched back to the stable environment in seconds",
+
+            "It allows developers to skip code review",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Blue/Green keeps the old (Blue) environment warm and untouched. If the new (Green) environment fails, flipping the router back restores healthy service in seconds."
         }
       },
@@ -6816,11 +7585,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the old Blue environment remain running for a soak duration after traffic is cut over to Green?",
           "options": [
+
             "Because AWS charges a deletion fee if instances are destroyed immediately",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "To allow instant emergency rollback if unexpected latency spikes or errors appear on Green under real customer traffic",
+
             "To allow the load balancer to download software updates"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Synthetic tests cannot catch all production edge cases. Keeping the old environment warm for a 30-minute soak period guarantees instant, zero-downtime rollback if Green fails."
         }
       },
@@ -6858,11 +7632,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should production rolling updates set maxUnavailable to 0% for high-throughput services?",
           "options": [
-            "To double the number of AWS VPC gateways",
+
+            "To guarantee that available capacity never drops below 100% of desired replicas, preventing traffic overload on surviving pods",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "Because 0% is required by JSON syntax",
-            "To guarantee that available capacity never drops below 100% of desired replicas, preventing traffic overload on surviving pods"
+
+            "To double the number of AWS VPC gateways"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Setting maxUnavailable=0 ensures that total serving capacity never dips below the baseline. New pods must pass health checks before any old pods are taken offline."
         }
       },
@@ -6900,11 +7679,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should canary releases begin with a tiny traffic allocation like 1% rather than jumping directly to 50%?",
           "options": [
-            "To shield 99% of customers from potential catastrophic bugs, data corruption, or crashes during initial live validation",
+
+            "To test whether DNS servers are awake",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "Because routing tables cannot handle fractions greater than one",
-            "To test whether DNS servers are awake"
+
+            "To shield 99% of customers from potential catastrophic bugs, data corruption, or crashes during initial live validation"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A 1% allocation limits the blast radius of unexpected defects to a tiny fraction of users, allowing safe empirical validation before broader rollout."
         }
       },
@@ -6942,11 +7726,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an automated rollback controller lock the deployment pipeline after executing a rollback?",
           "options": [
+
+            "To delete all unit test files",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "Because Git repositories require 24 hours to cool down",
-            "To prevent automated CI/CD retry jobs from immediately redeploying the exact same failing container image into production",
-            "To delete all unit test files"
+
+            "To prevent automated CI/CD retry jobs from immediately redeploying the exact same failing container image into production"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Without a deployment lock, automated CI/CD schedules or polling webhooks might immediately re-attempt deployment of the broken release, re-inflicting customer outage loops."
         }
       },
@@ -6984,9 +7773,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Enterprise Deployment Orchestrator ensure safe production software releases?",
           "options": [
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "By restarting all load balancers before every commit",
-            "By deploying all software exclusively on Friday evenings",
-            "By combining progressive traffic shifting with real-time telemetry auditing and automated rollbacks if health metrics degrade"
+
+            "By combining progressive traffic shifting with real-time telemetry auditing and automated rollbacks if health metrics degrade",
+
+            "By deploying all software exclusively on Friday evenings"
           ],
           "answer": 2,
           "why": "Automating progressive traffic steps and pairing them with real-time SLI auditing ensures that bad code is caught at low traffic volumes and rolled back automatically."
@@ -7050,11 +7844,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Automated Canary Analysis compare the Canary against a concurrently running Baseline rather than historical data from last week?",
           "options": [
-            "A concurrent baseline experiences the exact same real-time traffic surges, network conditions, and external API latencies, eliminating false alarms",
+
             "Because storing data from last week violates GDPR",
-            "Because historical metrics run out of memory"
+
+            "Because historical metrics run out of memory",
+
+            "A concurrent baseline experiences the exact same real-time traffic surges, network conditions, and external API latencies, eliminating false alarms",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Historical comparisons fail because traffic patterns and third-party latencies change day-to-day. Comparing concurrent baseline and canary cohorts isolates pure code differences."
         }
       },
@@ -7094,7 +7893,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because latency cannot be converted into numbers",
             "An error rate spike represents active customer failure and broken transactions, whereas a minor latency variance might be acceptable if new features were added",
-            "Because error rates are only checked on weekends"
+            "Because error rates are only checked on weekends",
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning"
           ],
           "answer": 1,
           "why": "Errors break user transactions directly, threatening SLOs immediately. Minor latency variations may be acceptable trade-offs for new capabilities and are evaluated holistically."
@@ -7134,11 +7934,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Canary Scoring Engine use a weighted composite score rather than requiring every metric to score 100%?",
           "options": [
-            "To allow developers to ignore all error rate spikes",
+
+            "Real-world releases involve minor trade-offs (e.g. 5% more CPU for a new caching algorithm), so composite scoring evaluates overall net health",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "Because scoring 100% is impossible in computer software",
-            "Real-world releases involve minor trade-offs (e.g. 5% more CPU for a new caching algorithm), so composite scoring evaluates overall net health"
+
+            "To allow developers to ignore all error rate spikes"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Software engineering involves trade-offs. Weighting signals proportionally to customer impact allows features with minor harmless trade-offs to pass while catching severe regressions."
         }
       },
@@ -7176,11 +7981,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an Automated Canary Analysis pipeline enforce a minimum request count before evaluating metrics?",
           "options": [
-            "Small sample sizes have high statistical variance, where a single random client network timeout could trigger a false-alarm rollback",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "To increase AWS CloudWatch metric billing costs",
+
             "Because database queries only work with thousands of records",
-            "To increase AWS CloudWatch metric billing costs"
+
+            "Small sample sizes have high statistical variance, where a single random client network timeout could trigger a false-alarm rollback"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Statistical significance requires adequate sample volume. On small sample sizes, random blips distort percentage calculations and cause costly false-alarm deployment rollbacks."
         }
       },
@@ -7218,11 +8028,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do automated deployment pipelines enforce progressive stage gates rather than jumping directly from canary to 100%?",
           "options": [
+
             "Because web servers can only receive traffic in prime numbers",
+
+            "To force software engineers to work through the weekend",
+
             "Progressive stage gates limit blast radius exposure and allow resource consumption to be tested at increasing concurrency levels safely",
-            "To force software engineers to work through the weekend"
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Multi-stage gating ensures that concurrency-dependent issues such as connection pool exhaustion and memory pressure are discovered before exposing 100% of user traffic."
         }
       },
@@ -7260,9 +8075,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Automated Canary Judge eliminate human error from production deployments?",
           "options": [
-            "By ignoring all error rates and focusing only on CPU",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "By deploying all code directly to master branch without testing",
-            "By mathematically comparing live baseline and canary cohorts, enforcing soak windows, and automating promote or rollback decisions using objective scoring rules"
+
+            "By mathematically comparing live baseline and canary cohorts, enforcing soak windows, and automating promote or rollback decisions using objective scoring rules",
+
+            "By ignoring all error rates and focusing only on CPU"
           ],
           "answer": 2,
           "why": "Automating the analysis removes human bias, fatigue, and guesswork, ensuring every deployment is objectively evaluated against empirical statistical criteria."
@@ -7326,11 +8146,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are executable Runbooks as Code superior to static documentation wikis?",
           "options": [
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "They eliminate human copy-paste errors, ensure procedures are version-controlled and tested, and execute in milliseconds",
-            "They eliminate the need to have on-call engineers altogether",
-            "Because static wikis cost more money to host on AWS"
+
+            "Because static wikis cost more money to host on AWS",
+
+            "They eliminate the need to have on-call engineers altogether"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Static documentation rots quickly and invites human error under stress. Runbooks as Code are version-controlled, tested, and executed deterministically."
         }
       },
@@ -7368,11 +8193,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do decision tree runbooks standardize operational incident triage?",
           "options": [
+
             "By restarting all production servers simultaneously",
-            "By evaluating telemetry systematically through condition branches and executing verified diagnostic steps rather than guessing",
-            "By assigning blame to the engineer who committed most recently"
+
+            "By assigning blame to the engineer who committed most recently",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "By evaluating telemetry systematically through condition branches and executing verified diagnostic steps rather than guessing"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Decision trees formalize diagnostic logic into unambiguous condition-action paths, guaranteeing thorough, reproducible triage without guesswork."
         }
       },
@@ -7410,11 +8240,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must automated remediation engines implement strict execution rate limiting?",
           "options": [
-            "Because computers need time to rest between commands",
+
             "Because cloud providers charge a fee for every function execution",
-            "To prevent endless reboot loops and cascading resource exhaustion if the underlying root cause is not fixed by restarting"
+
+            "To prevent endless reboot loops and cascading resource exhaustion if the underlying root cause is not fixed by restarting",
+
+            "Because computers need time to rest between commands",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Rate limiters prevent automated feedback loops where remediation actions (like pod restarts) amplify downtime during persistent infrastructure outages."
         }
       },
@@ -7452,9 +8287,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an automated runbook include its executed step history when escalating to human on-call engineers?",
           "options": [
+
             "It eliminates redundant troubleshooting and informs the engineer immediately of what has already been tried and failed",
+
+            "Because PagerDuty requires every message to be at least 500 characters",
+
             "To prove that the computer is smarter than the human",
-            "Because PagerDuty requires every message to be at least 500 characters"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths"
           ],
           "answer": 0,
           "why": "Passing diagnostic context prevents the human responder from wasting precious outage minutes repeating steps that the automated engine already executed."
@@ -7494,11 +8334,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is tracking Runbook Coverage essential for maintaining production operational readiness?",
           "options": [
-            "It ensures developers write more lines of code each quarter",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
+            "It is required by browser security headers",
+
             "It identifies unmapped failure modes and alerts that lack documented remediation procedures before an outage occurs",
-            "It is required by browser security headers"
+
+            "It ensures developers write more lines of code each quarter"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Auditing runbook coverage ensures no alert fires in production without an assigned, verified playbook, eliminating operational blind spots."
         }
       },
@@ -7536,9 +8381,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the ultimate benefit of encoding runbooks as software decision engines?",
           "options": [
-            "It allows databases to run without backups",
+
             "It removes the need to write unit tests",
-            "It provides sub-second diagnostic triage, safe automated self-healing for known failure modes, and lossless context for human escalations"
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
+            "It provides sub-second diagnostic triage, safe automated self-healing for known failure modes, and lossless context for human escalations",
+
+            "It allows databases to run without backups"
           ],
           "answer": 2,
           "why": "Software-driven runbooks resolve recurring known incidents autonomously in milliseconds while escalating novel edge cases with complete diagnostic transcripts."
@@ -7602,11 +8452,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do enterprise engineering organizations need a Multi-Cloud Reliability Scorecard?",
           "options": [
-            "It unifies disparate cloud telemetry into an objective composite reliability grade, identifying risky services before outages occur",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "To reduce the number of microservices to zero",
+
             "Because it is required to buy cloud servers",
-            "To reduce the number of microservices to zero"
+
+            "It unifies disparate cloud telemetry into an objective composite reliability grade, identifying risky services before outages occur"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A unified scorecard cuts through multi-cloud telemetry noise, offering leadership an objective, empirical measure of operational health across all services."
         }
       },
@@ -7644,9 +8499,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the SLO Compliance Engine protect customer experience in the scorecard?",
           "options": [
-            "By rounding all availability numbers to 100%",
+
+            "By deleting error logs automatically",
+
             "By awarding points only when services preserve their error budgets and meet customer availability targets",
-            "By deleting error logs automatically"
+
+            "By rounding all availability numbers to 100%",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
           "answer": 1,
           "why": "Customer experience is directly tied to SLO adherence. Tying 40% of the scorecard to SLO compliance ensures engineering teams prioritize availability over reckless feature velocity."
@@ -7686,11 +8546,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Chaos Resilience a mandatory pillar in the enterprise reliability scorecard?",
           "options": [
+
+            "It proves empirically that the service handles unexpected infrastructure faults through tested fallbacks and circuit breakers",
+
             "To consume extra cloud compute credits before fiscal year end",
+
             "Because chaos experiments look impressive on resumes",
-            "It proves empirically that the service handles unexpected infrastructure faults through tested fallbacks and circuit breakers"
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "True reliability is tested under duress. Chaos scoring verifies that failovers, retries, and circuit breakers function correctly under actual turbulent failure conditions."
         }
       },
@@ -7728,11 +8593,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the scorecard allocate thirty percent of its score to deployment safety?",
           "options": [
-            "Deployments are the primary source of production incidents, so enforcing automated canary gates prevents outages at the root",
+
+            "Because developers prefer canary releases to weekend deployments",
+
             "Because deployment pipelines run on Kubernetes",
-            "Because developers prefer canary releases to weekend deployments"
+
+            "Deployments are the primary source of production incidents, so enforcing automated canary gates prevents outages at the root",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Software releases cause the vast majority of downtime. Rewarding automated canary gating directly eliminates the most frequent vector of operational failure."
         }
       },
@@ -7770,11 +8640,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the MultiCloudScorecardGenerator assign an overall letter grade to a cloud fleet?",
           "options": [
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
+            "It assigns an A only if all services are hosted in AWS",
+
             "It randomly generates grades using Math.random()",
-            "It averages composite scores (40 SLO + 30 Chaos + 30 Canary) across all services and maps the average to thresholds: 90+ A, 80+ B, 70+ C, 60+ D, else F",
-            "It assigns an A only if all services are hosted in AWS"
+
+            "It averages composite scores (40 SLO + 30 Chaos + 30 Canary) across all services and maps the average to thresholds: 90+ A, 80+ B, 70+ C, 60+ D, else F"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Averaging composite scores across all fleet services provides an equitable, standardized grade reflecting organization-wide operational maturity."
         }
       },
@@ -7812,11 +8687,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What distinguishes an Enterprise Certified Site Reliability Engineer in modern cloud architectures?",
           "options": [
+
+            "The ability to treat operations as a software problem, systematically eliminating toil, codifying reliability, and automating self-healing systems",
+
             "Refusing to deploy any software to production ever",
-            "Knowing how to manually reboot Linux servers faster than other engineers",
-            "The ability to treat operations as a software problem, systematically eliminating toil, codifying reliability, and automating self-healing systems"
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
+            "Knowing how to manually reboot Linux servers faster than other engineers"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "SRE is fundamentally software engineering applied to operations: building resilient, automated, observable systems that scale reliably with minimal human toil."
         }
       }
@@ -7881,11 +8761,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateMultiWindowCore guarantee predictable operational behavior when evaluating Multi-Window Multi-Burn-Rate SLO Alerting (Google SRE Workbook Fast/Slow Burn Math) — Foundations & Mathematical Invariants?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "evaluateMultiWindowCore handles core evaluation logic for Multi-Window Multi-Burn-Rate SLO Alerting by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -7926,11 +8811,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeMultiThreshold guarantee predictable operational behavior when evaluating Multi-Window Multi-Burn-Rate SLO Alerting (Google SRE Workbook Fast/Slow Burn Math) — Core Algorithm & State Representation?",
           "options": [
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "computeMultiThreshold handles threshold computation for Multi-Window Multi-Burn-Rate SLO Alerting — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -7971,11 +8861,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeMultiPipeline guarantee predictable operational behavior when evaluating Multi-Window Multi-Burn-Rate SLO Alerting (Google SRE Workbook Fast/Slow Burn Math) — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "optimizeMultiPipeline handles pipeline optimization for Multi-Window Multi-Burn-Rate SLO Alerting — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8016,11 +8911,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateMultiGuard guarantee predictable operational behavior when evaluating Multi-Window Multi-Burn-Rate SLO Alerting (Google SRE Workbook Fast/Slow Burn Math) — Resilience Guardrails & Failure Recovery?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "validateMultiGuard handles guard validation for Multi-Window Multi-Burn-Rate SLO Alerting — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8061,11 +8961,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditMultiTelemetry guarantee predictable operational behavior when evaluating Multi-Window Multi-Burn-Rate SLO Alerting (Google SRE Workbook Fast/Slow Burn Math) — Production Telemetry & Verification Audit?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "auditMultiTelemetry handles telemetry auditing for Multi-Window Multi-Burn-Rate SLO Alerting by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -8130,11 +9035,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateCompositeServiceCore guarantee predictable operational behavior when evaluating Composite Service SLOs — Foundations & Mathematical Invariants?",
           "options": [
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "evaluateCompositeServiceCore handles core evaluation logic for Composite Service SLOs by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8177,7 +9087,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability"
           ],
           "answer": 0,
           "why": "computeCompositeThreshold handles threshold computation for Composite Service SLOs — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
@@ -8220,11 +9131,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeCompositePipeline guarantee predictable operational behavior when evaluating Composite Service SLOs — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "optimizeCompositePipeline handles pipeline optimization for Composite Service SLOs — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8265,11 +9181,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateCompositeGuard guarantee predictable operational behavior when evaluating Composite Service SLOs — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "validateCompositeGuard handles guard validation for Composite Service SLOs — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8310,8 +9231,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditCompositeTelemetry guarantee predictable operational behavior when evaluating Composite Service SLOs — Production Telemetry & Verification Audit?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
@@ -8379,8 +9305,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateHighCardinalityCore guarantee predictable operational behavior when evaluating High-Cardinality OpenTelemetry Trace Sampling — Foundations & Mathematical Invariants?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
@@ -8424,11 +9355,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeHighThreshold guarantee predictable operational behavior when evaluating High-Cardinality OpenTelemetry Trace Sampling — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "computeHighThreshold handles threshold computation for High-Cardinality OpenTelemetry Trace Sampling — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8469,11 +9405,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeHighPipeline guarantee predictable operational behavior when evaluating High-Cardinality OpenTelemetry Trace Sampling — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "optimizeHighPipeline handles pipeline optimization for High-Cardinality OpenTelemetry Trace Sampling — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8514,11 +9455,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateHighGuard guarantee predictable operational behavior when evaluating High-Cardinality OpenTelemetry Trace Sampling — Resilience Guardrails & Failure Recovery?",
           "options": [
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "validateHighGuard handles guard validation for High-Cardinality OpenTelemetry Trace Sampling — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8559,11 +9505,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditHighTelemetry guarantee predictable operational behavior when evaluating High-Cardinality OpenTelemetry Trace Sampling — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "auditHighTelemetry handles telemetry auditing for High-Cardinality OpenTelemetry Trace Sampling by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -8630,7 +9581,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
           "answer": 1,
           "why": "evaluateRedUseCore handles core evaluation logic for RED & USE Telemetry Pipelines by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
@@ -8673,11 +9625,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeRedThreshold guarantee predictable operational behavior when evaluating RED & USE Telemetry Pipelines — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "computeRedThreshold handles threshold computation for RED & USE Telemetry Pipelines — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8718,11 +9675,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeRedPipeline guarantee predictable operational behavior when evaluating RED & USE Telemetry Pipelines — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "optimizeRedPipeline handles pipeline optimization for RED & USE Telemetry Pipelines — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8763,11 +9725,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateRedGuard guarantee predictable operational behavior when evaluating RED & USE Telemetry Pipelines — Resilience Guardrails & Failure Recovery?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "validateRedGuard handles guard validation for RED & USE Telemetry Pipelines — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8808,9 +9775,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditRedTelemetry guarantee predictable operational behavior when evaluating RED & USE Telemetry Pipelines — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 2,
           "why": "auditRedTelemetry handles telemetry auditing for RED & USE Telemetry Pipelines by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
@@ -8877,11 +9849,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateMultiBurnCore guarantee predictable operational behavior when evaluating Milestone 7 — Foundations & Mathematical Invariants?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "evaluateMultiBurnCore handles core evaluation logic for Milestone 7 by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8922,11 +9899,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeMultiThreshold guarantee predictable operational behavior when evaluating Milestone 7 — Core Algorithm & State Representation?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "computeMultiThreshold handles threshold computation for Milestone 7 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -8967,11 +9949,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeMultiPipeline guarantee predictable operational behavior when evaluating Milestone 7 — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "optimizeMultiPipeline handles pipeline optimization for Milestone 7 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9012,11 +9999,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateMultiGuard guarantee predictable operational behavior when evaluating Milestone 7 — Resilience Guardrails & Failure Recovery?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "validateMultiGuard handles guard validation for Milestone 7 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9057,11 +10049,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditMultiTelemetry guarantee predictable operational behavior when evaluating Milestone 7 — Production Telemetry & Verification Audit?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "auditMultiTelemetry handles telemetry auditing for Milestone 7 by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -9126,11 +10123,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateAdaptiveCircuitCore guarantee predictable operational behavior when evaluating Adaptive Circuit Breakers — Foundations & Mathematical Invariants?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "evaluateAdaptiveCircuitCore handles core evaluation logic for Adaptive Circuit Breakers by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9171,11 +10173,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeAdaptiveThreshold guarantee predictable operational behavior when evaluating Adaptive Circuit Breakers — Core Algorithm & State Representation?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "computeAdaptiveThreshold handles threshold computation for Adaptive Circuit Breakers — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9216,11 +10223,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeAdaptivePipeline guarantee predictable operational behavior when evaluating Adaptive Circuit Breakers — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "optimizeAdaptivePipeline handles pipeline optimization for Adaptive Circuit Breakers — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9261,11 +10273,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateAdaptiveGuard guarantee predictable operational behavior when evaluating Adaptive Circuit Breakers — Resilience Guardrails & Failure Recovery?",
           "options": [
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "validateAdaptiveGuard handles guard validation for Adaptive Circuit Breakers — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9308,7 +10325,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks"
           ],
           "answer": 1,
           "why": "auditAdaptiveTelemetry handles telemetry auditing for Adaptive Circuit Breakers by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
@@ -9375,11 +10393,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateLittleLawCore guarantee predictable operational behavior when evaluating Little's Law Concurrency Limiters & AIMD (Additive-Increase Multiplicative-Decrease) Backpressure — Foundations & Mathematical Invariants?",
           "options": [
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "evaluateLittleLawCore handles core evaluation logic for Little's Law Concurrency Limiters & AIMD Backpressure by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9420,11 +10443,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeLittleThreshold guarantee predictable operational behavior when evaluating Little's Law Concurrency Limiters & AIMD (Additive-Increase Multiplicative-Decrease) Backpressure — Core Algorithm & State Representation?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "computeLittleThreshold handles threshold computation for Little's Law Concurrency Limiters & AIMD Backpressure — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9465,11 +10493,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeLittlePipeline guarantee predictable operational behavior when evaluating Little's Law Concurrency Limiters & AIMD (Additive-Increase Multiplicative-Decrease) Backpressure — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "optimizeLittlePipeline handles pipeline optimization for Little's Law Concurrency Limiters & AIMD Backpressure — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9510,11 +10543,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateLittleGuard guarantee predictable operational behavior when evaluating Little's Law Concurrency Limiters & AIMD (Additive-Increase Multiplicative-Decrease) Backpressure — Resilience Guardrails & Failure Recovery?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "validateLittleGuard handles guard validation for Little's Law Concurrency Limiters & AIMD Backpressure — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9555,11 +10593,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditLittleTelemetry guarantee predictable operational behavior when evaluating Little's Law Concurrency Limiters & AIMD (Additive-Increase Multiplicative-Decrease) Backpressure — Production Telemetry & Verification Audit?",
           "options": [
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "auditLittleTelemetry handles telemetry auditing for Little's Law Concurrency Limiters & AIMD Backpressure by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -9624,11 +10667,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateTokenBucketCore guarantee predictable operational behavior when evaluating Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Foundations & Mathematical Invariants?",
           "options": [
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "evaluateTokenBucketCore handles core evaluation logic for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9669,11 +10717,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeTokenThreshold guarantee predictable operational behavior when evaluating Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Core Algorithm & State Representation?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "computeTokenThreshold handles threshold computation for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9716,7 +10769,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning"
           ],
           "answer": 1,
           "why": "optimizeTokenPipeline handles pipeline optimization for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
@@ -9759,11 +10813,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateTokenGuard guarantee predictable operational behavior when evaluating Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "validateTokenGuard handles guard validation for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9804,11 +10863,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditTokenTelemetry guarantee predictable operational behavior when evaluating Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Production Telemetry & Verification Audit?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "auditTokenTelemetry handles telemetry auditing for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -9873,11 +10937,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateRetryStormsCore guarantee predictable operational behavior when evaluating Retry Storms & Metastable Failures — Foundations & Mathematical Invariants?",
           "options": [
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "evaluateRetryStormsCore handles core evaluation logic for Retry Storms & Metastable Failures by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9918,11 +10987,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeRetryThreshold guarantee predictable operational behavior when evaluating Retry Storms & Metastable Failures — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "computeRetryThreshold handles threshold computation for Retry Storms & Metastable Failures — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -9963,11 +11037,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeRetryPipeline guarantee predictable operational behavior when evaluating Retry Storms & Metastable Failures — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "optimizeRetryPipeline handles pipeline optimization for Retry Storms & Metastable Failures — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10008,11 +11087,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateRetryGuard guarantee predictable operational behavior when evaluating Retry Storms & Metastable Failures — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "validateRetryGuard handles guard validation for Retry Storms & Metastable Failures — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10053,9 +11137,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditRetryTelemetry guarantee predictable operational behavior when evaluating Retry Storms & Metastable Failures — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 1,
           "why": "auditRetryTelemetry handles telemetry auditing for Retry Storms & Metastable Failures by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
@@ -10122,11 +11211,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateMetastableFailureCore guarantee predictable operational behavior when evaluating Milestone 8 — Foundations & Mathematical Invariants?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "evaluateMetastableFailureCore handles core evaluation logic for Milestone 8 by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10167,11 +11261,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeMetastableThreshold guarantee predictable operational behavior when evaluating Milestone 8 — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "computeMetastableThreshold handles threshold computation for Milestone 8 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10212,11 +11311,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeMetastablePipeline guarantee predictable operational behavior when evaluating Milestone 8 — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "optimizeMetastablePipeline handles pipeline optimization for Milestone 8 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10257,11 +11361,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateMetastableGuard guarantee predictable operational behavior when evaluating Milestone 8 — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "validateMetastableGuard handles guard validation for Milestone 8 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10302,9 +11411,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditMetastableTelemetry guarantee predictable operational behavior when evaluating Milestone 8 — Production Telemetry & Verification Audit?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 2,
           "why": "auditMetastableTelemetry handles telemetry auditing for Milestone 8 by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
@@ -10371,11 +11485,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateMultiRegionCore guarantee predictable operational behavior when evaluating Multi-Region Active-Active Traffic Steering — Foundations & Mathematical Invariants?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "evaluateMultiRegionCore handles core evaluation logic for Multi-Region Active-Active Traffic Steering by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10416,11 +11535,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeMultiThreshold guarantee predictable operational behavior when evaluating Multi-Region Active-Active Traffic Steering — Core Algorithm & State Representation?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "computeMultiThreshold handles threshold computation for Multi-Region Active-Active Traffic Steering — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10461,11 +11585,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeMultiPipeline guarantee predictable operational behavior when evaluating Multi-Region Active-Active Traffic Steering — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "optimizeMultiPipeline handles pipeline optimization for Multi-Region Active-Active Traffic Steering — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10506,9 +11635,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateMultiGuard guarantee predictable operational behavior when evaluating Multi-Region Active-Active Traffic Steering — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 2,
           "why": "validateMultiGuard handles guard validation for Multi-Region Active-Active Traffic Steering — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
@@ -10551,11 +11685,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditMultiTelemetry guarantee predictable operational behavior when evaluating Multi-Region Active-Active Traffic Steering — Production Telemetry & Verification Audit?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "auditMultiTelemetry handles telemetry auditing for Multi-Region Active-Active Traffic Steering by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -10620,11 +11759,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateCellularArchitectureCore guarantee predictable operational behavior when evaluating Cellular Architecture & Shuffle Sharding — Foundations & Mathematical Invariants?",
           "options": [
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "evaluateCellularArchitectureCore handles core evaluation logic for Cellular Architecture & Shuffle Sharding by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10665,8 +11809,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeCellularThreshold guarantee predictable operational behavior when evaluating Cellular Architecture & Shuffle Sharding — Core Algorithm & State Representation?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
@@ -10710,11 +11859,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeCellularPipeline guarantee predictable operational behavior when evaluating Cellular Architecture & Shuffle Sharding — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "optimizeCellularPipeline handles pipeline optimization for Cellular Architecture & Shuffle Sharding — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10755,9 +11909,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateCellularGuard guarantee predictable operational behavior when evaluating Cellular Architecture & Shuffle Sharding — Resilience Guardrails & Failure Recovery?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 0,
           "why": "validateCellularGuard handles guard validation for Cellular Architecture & Shuffle Sharding — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
@@ -10800,11 +11959,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditCellularTelemetry guarantee predictable operational behavior when evaluating Cellular Architecture & Shuffle Sharding — Production Telemetry & Verification Audit?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "auditCellularTelemetry handles telemetry auditing for Cellular Architecture & Shuffle Sharding by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -10869,11 +12033,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateGracefulDegradationCore guarantee predictable operational behavior when evaluating Graceful Degradation Tiers — Foundations & Mathematical Invariants?",
           "options": [
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "evaluateGracefulDegradationCore handles core evaluation logic for Graceful Degradation Tiers by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10914,11 +12083,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeGracefulThreshold guarantee predictable operational behavior when evaluating Graceful Degradation Tiers — Core Algorithm & State Representation?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "computeGracefulThreshold handles threshold computation for Graceful Degradation Tiers — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -10959,11 +12133,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeGracefulPipeline guarantee predictable operational behavior when evaluating Graceful Degradation Tiers — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "optimizeGracefulPipeline handles pipeline optimization for Graceful Degradation Tiers — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11004,11 +12183,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateGracefulGuard guarantee predictable operational behavior when evaluating Graceful Degradation Tiers — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "validateGracefulGuard handles guard validation for Graceful Degradation Tiers — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11049,11 +12233,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditGracefulTelemetry guarantee predictable operational behavior when evaluating Graceful Degradation Tiers — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "auditGracefulTelemetry handles telemetry auditing for Graceful Degradation Tiers by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -11120,7 +12309,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
           "answer": 2,
           "why": "evaluateAutomatedCanaryCore handles core evaluation logic for Automated Canary Analysis by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
@@ -11163,11 +12353,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeAutomatedThreshold guarantee predictable operational behavior when evaluating Automated Canary Analysis (ACA) — Core Algorithm & State Representation?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "computeAutomatedThreshold handles threshold computation for Automated Canary Analysis — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11208,11 +12403,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeAutomatedPipeline guarantee predictable operational behavior when evaluating Automated Canary Analysis (ACA) — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "optimizeAutomatedPipeline handles pipeline optimization for Automated Canary Analysis — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11253,11 +12453,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateAutomatedGuard guarantee predictable operational behavior when evaluating Automated Canary Analysis (ACA) — Resilience Guardrails & Failure Recovery?",
           "options": [
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "validateAutomatedGuard handles guard validation for Automated Canary Analysis — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11298,9 +12503,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditAutomatedTelemetry guarantee predictable operational behavior when evaluating Automated Canary Analysis (ACA) — Production Telemetry & Verification Audit?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 0,
           "why": "auditAutomatedTelemetry handles telemetry auditing for Automated Canary Analysis by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
@@ -11367,11 +12577,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateShuffleShardedCore guarantee predictable operational behavior when evaluating Milestone 9 — Foundations & Mathematical Invariants?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "evaluateShuffleShardedCore handles core evaluation logic for Milestone 9 by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11412,11 +12627,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeShuffleThreshold guarantee predictable operational behavior when evaluating Milestone 9 — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "computeShuffleThreshold handles threshold computation for Milestone 9 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11457,9 +12677,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeShufflePipeline guarantee predictable operational behavior when evaluating Milestone 9 — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 2,
           "why": "optimizeShufflePipeline handles pipeline optimization for Milestone 9 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
@@ -11502,11 +12727,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateShuffleGuard guarantee predictable operational behavior when evaluating Milestone 9 — Resilience Guardrails & Failure Recovery?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "validateShuffleGuard handles guard validation for Milestone 9 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11547,8 +12777,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditShuffleTelemetry guarantee predictable operational behavior when evaluating Milestone 9 — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
@@ -11616,11 +12851,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateChaosEngineeringCore guarantee predictable operational behavior when evaluating Chaos Engineering Injection Engine — Foundations & Mathematical Invariants?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "evaluateChaosEngineeringCore handles core evaluation logic for Chaos Engineering Injection Engine by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11661,11 +12901,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeChaosThreshold guarantee predictable operational behavior when evaluating Chaos Engineering Injection Engine — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "computeChaosThreshold handles threshold computation for Chaos Engineering Injection Engine — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11706,11 +12951,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeChaosPipeline guarantee predictable operational behavior when evaluating Chaos Engineering Injection Engine — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "optimizeChaosPipeline handles pipeline optimization for Chaos Engineering Injection Engine — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11751,11 +13001,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateChaosGuard guarantee predictable operational behavior when evaluating Chaos Engineering Injection Engine — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "validateChaosGuard handles guard validation for Chaos Engineering Injection Engine — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11796,11 +13051,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditChaosTelemetry guarantee predictable operational behavior when evaluating Chaos Engineering Injection Engine — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "auditChaosTelemetry handles telemetry auditing for Chaos Engineering Injection Engine by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -11865,9 +13125,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateDistributedLockCore guarantee predictable operational behavior when evaluating Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Foundations & Mathematical Invariants?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 2,
           "why": "evaluateDistributedLockCore handles core evaluation logic for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
@@ -11910,11 +13175,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeDistributedThreshold guarantee predictable operational behavior when evaluating Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Core Algorithm & State Representation?",
           "options": [
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "computeDistributedThreshold handles threshold computation for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -11955,11 +13225,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeDistributedPipeline guarantee predictable operational behavior when evaluating Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "optimizeDistributedPipeline handles pipeline optimization for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12000,11 +13275,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateDistributedGuard guarantee predictable operational behavior when evaluating Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "validateDistributedGuard handles guard validation for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12045,9 +13325,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditDistributedTelemetry guarantee predictable operational behavior when evaluating Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Production Telemetry & Verification Audit?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 0,
           "why": "auditDistributedTelemetry handles telemetry auditing for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
@@ -12114,11 +13399,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateDatabaseConnectionCore guarantee predictable operational behavior when evaluating Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Foundations & Mathematical Invariants?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "evaluateDatabaseConnectionCore handles core evaluation logic for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12159,11 +13449,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeDatabaseThreshold guarantee predictable operational behavior when evaluating Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Core Algorithm & State Representation?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "computeDatabaseThreshold handles threshold computation for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12204,9 +13499,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeDatabasePipeline guarantee predictable operational behavior when evaluating Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 2,
           "why": "optimizeDatabasePipeline handles pipeline optimization for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
@@ -12249,8 +13549,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateDatabaseGuard guarantee predictable operational behavior when evaluating Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Resilience Guardrails & Failure Recovery?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
@@ -12294,9 +13599,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditDatabaseTelemetry guarantee predictable operational behavior when evaluating Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 1,
           "why": "auditDatabaseTelemetry handles telemetry auditing for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
@@ -12363,11 +13673,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateIdempotencyKeysCore guarantee predictable operational behavior when evaluating Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Foundations & Mathematical Invariants?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "evaluateIdempotencyKeysCore handles core evaluation logic for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12410,7 +13725,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment"
           ],
           "answer": 2,
           "why": "computeIdempotencyThreshold handles threshold computation for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
@@ -12453,9 +13769,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeIdempotencyPipeline guarantee predictable operational behavior when evaluating Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 0,
           "why": "optimizeIdempotencyPipeline handles pipeline optimization for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
@@ -12498,11 +13819,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateIdempotencyGuard guarantee predictable operational behavior when evaluating Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "validateIdempotencyGuard handles guard validation for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12543,11 +13869,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditIdempotencyTelemetry guarantee predictable operational behavior when evaluating Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Production Telemetry & Verification Audit?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "auditIdempotencyTelemetry handles telemetry auditing for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -12612,11 +13943,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateChaosFaultCore guarantee predictable operational behavior when evaluating Milestone 10 — Foundations & Mathematical Invariants?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "evaluateChaosFaultCore handles core evaluation logic for Milestone 10 by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12657,11 +13993,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeChaosThreshold guarantee predictable operational behavior when evaluating Milestone 10 — Core Algorithm & State Representation?",
           "options": [
+
+            "Runbooks should be written once and never updated because production systems maintain stable behavior after initial deployment",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "computeChaosThreshold handles threshold computation for Milestone 10 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12702,8 +14043,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeChaosPipeline guarantee predictable operational behavior when evaluating Milestone 10 — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
@@ -12747,9 +14093,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateChaosGuard guarantee predictable operational behavior when evaluating Milestone 10 — Resilience Guardrails & Failure Recovery?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 2,
           "why": "validateChaosGuard handles guard validation for Milestone 10 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
@@ -12792,11 +14143,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditChaosTelemetry guarantee predictable operational behavior when evaluating Milestone 10 — Production Telemetry & Verification Audit?",
           "options": [
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "auditChaosTelemetry handles telemetry auditing for Milestone 10 by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -12861,11 +14217,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateIncidentCommandCore guarantee predictable operational behavior when evaluating Incident Command System (ICS) — Foundations & Mathematical Invariants?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "evaluateIncidentCommandCore handles core evaluation logic for Incident Command System by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12906,11 +14267,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeIncidentThreshold guarantee predictable operational behavior when evaluating Incident Command System (ICS) — Core Algorithm & State Representation?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "computeIncidentThreshold handles threshold computation for Incident Command System — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12951,11 +14317,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeIncidentPipeline guarantee predictable operational behavior when evaluating Incident Command System (ICS) — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "optimizeIncidentPipeline handles pipeline optimization for Incident Command System — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -12996,11 +14367,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateIncidentGuard guarantee predictable operational behavior when evaluating Incident Command System (ICS) — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "validateIncidentGuard handles guard validation for Incident Command System — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13041,11 +14417,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditIncidentTelemetry guarantee predictable operational behavior when evaluating Incident Command System (ICS) — Production Telemetry & Verification Audit?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "auditIncidentTelemetry handles telemetry auditing for Incident Command System by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -13110,11 +14491,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateExecutableRunbooksCore guarantee predictable operational behavior when evaluating Executable Runbooks — Foundations & Mathematical Invariants?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "evaluateExecutableRunbooksCore handles core evaluation logic for Executable Runbooks by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13155,11 +14541,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeExecutableThreshold guarantee predictable operational behavior when evaluating Executable Runbooks — Core Algorithm & State Representation?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "computeExecutableThreshold handles threshold computation for Executable Runbooks — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13200,11 +14591,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeExecutablePipeline guarantee predictable operational behavior when evaluating Executable Runbooks — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "optimizeExecutablePipeline handles pipeline optimization for Executable Runbooks — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13245,11 +14641,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateExecutableGuard guarantee predictable operational behavior when evaluating Executable Runbooks — Resilience Guardrails & Failure Recovery?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "validateExecutableGuard handles guard validation for Executable Runbooks — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13290,9 +14691,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditExecutableTelemetry guarantee predictable operational behavior when evaluating Executable Runbooks — Production Telemetry & Verification Audit?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 2,
           "why": "auditExecutableTelemetry handles telemetry auditing for Executable Runbooks by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
@@ -13359,9 +14765,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateBlamelessPostmortemCore guarantee predictable operational behavior when evaluating Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Foundations & Mathematical Invariants?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 2,
           "why": "evaluateBlamelessPostmortemCore handles core evaluation logic for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
@@ -13406,7 +14817,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction"
           ],
           "answer": 0,
           "why": "computeBlamelessThreshold handles threshold computation for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
@@ -13449,9 +14861,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeBlamelessPipeline guarantee predictable operational behavior when evaluating Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 1,
           "why": "optimizeBlamelessPipeline handles pipeline optimization for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
@@ -13494,11 +14911,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateBlamelessGuard guarantee predictable operational behavior when evaluating Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Resilience Guardrails & Failure Recovery?",
           "options": [
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "validateBlamelessGuard handles guard validation for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13539,11 +14961,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditBlamelessTelemetry guarantee predictable operational behavior when evaluating Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Production Telemetry & Verification Audit?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Service level objectives should be set at one hundred percent availability for all production systems to maximize user satisfaction",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "auditBlamelessTelemetry handles telemetry auditing for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -13608,11 +15035,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateCapacityPlanningCore guarantee predictable operational behavior when evaluating Capacity Planning & Load Forecasting — Foundations & Mathematical Invariants?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "evaluateCapacityPlanningCore handles core evaluation logic for Capacity Planning & Load Forecasting by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13653,11 +15085,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeCapacityThreshold guarantee predictable operational behavior when evaluating Capacity Planning & Load Forecasting — Core Algorithm & State Representation?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "computeCapacityThreshold handles threshold computation for Capacity Planning & Load Forecasting — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13698,11 +15135,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeCapacityPipeline guarantee predictable operational behavior when evaluating Capacity Planning & Load Forecasting — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "optimizeCapacityPipeline handles pipeline optimization for Capacity Planning & Load Forecasting — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13743,11 +15185,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateCapacityGuard guarantee predictable operational behavior when evaluating Capacity Planning & Load Forecasting — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "validateCapacityGuard handles guard validation for Capacity Planning & Load Forecasting — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13788,11 +15235,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditCapacityTelemetry guarantee predictable operational behavior when evaluating Capacity Planning & Load Forecasting — Production Telemetry & Verification Audit?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Post-incident reviews should focus on identifying the individual responsible rather than systemic process improvement opportunities"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "auditCapacityTelemetry handles telemetry auditing for Capacity Planning & Load Forecasting by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -13857,11 +15309,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateAutomatedRunbookCore guarantee predictable operational behavior when evaluating Milestone 11 — Foundations & Mathematical Invariants?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "evaluateAutomatedRunbookCore handles core evaluation logic for Milestone 11 by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13902,11 +15359,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeAutomatedThreshold guarantee predictable operational behavior when evaluating Milestone 11 — Core Algorithm & State Representation?",
           "options": [
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "computeAutomatedThreshold handles threshold computation for Milestone 11 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13947,11 +15409,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeAutomatedPipeline guarantee predictable operational behavior when evaluating Milestone 11 — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "optimizeAutomatedPipeline handles pipeline optimization for Milestone 11 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -13992,11 +15459,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateAutomatedGuard guarantee predictable operational behavior when evaluating Milestone 11 — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Change velocity should be maximized without regard to error budgets because faster releases always improve service reliability"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "validateAutomatedGuard handles guard validation for Milestone 11 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14037,9 +15509,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditAutomatedTelemetry guarantee predictable operational behavior when evaluating Milestone 11 — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 2,
           "why": "auditAutomatedTelemetry handles telemetry auditing for Milestone 11 by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
@@ -14108,7 +15585,8 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
           "answer": 2,
           "why": "evaluateZeroDowntimeCore handles core evaluation logic for Zero-Downtime Schema Migrations by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
@@ -14151,8 +15629,13 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeZeroThreshold guarantee predictable operational behavior when evaluating Zero-Downtime Schema Migrations — Core Algorithm & State Representation?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
@@ -14196,11 +15679,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeZeroPipeline guarantee predictable operational behavior when evaluating Zero-Downtime Schema Migrations — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "optimizeZeroPipeline handles pipeline optimization for Zero-Downtime Schema Migrations — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14241,11 +15729,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateZeroGuard guarantee predictable operational behavior when evaluating Zero-Downtime Schema Migrations — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "validateZeroGuard handles guard validation for Zero-Downtime Schema Migrations — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14286,11 +15779,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditZeroTelemetry guarantee predictable operational behavior when evaluating Zero-Downtime Schema Migrations — Production Telemetry & Verification Audit?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "auditZeroTelemetry handles telemetry auditing for Zero-Downtime Schema Migrations by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -14355,11 +15853,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateBackupIntegrityCore guarantee predictable operational behavior when evaluating Backup Integrity Verification — Foundations & Mathematical Invariants?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "evaluateBackupIntegrityCore handles core evaluation logic for Backup Integrity Verification by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14400,11 +15903,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeBackupThreshold guarantee predictable operational behavior when evaluating Backup Integrity Verification — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "computeBackupThreshold handles threshold computation for Backup Integrity Verification — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14445,9 +15953,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeBackupPipeline guarantee predictable operational behavior when evaluating Backup Integrity Verification — Throughput Optimization & Edge-Case Handling?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 2,
           "why": "optimizeBackupPipeline handles pipeline optimization for Backup Integrity Verification — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
@@ -14490,11 +16003,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateBackupGuard guarantee predictable operational behavior when evaluating Backup Integrity Verification — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "validateBackupGuard handles guard validation for Backup Integrity Verification — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14535,11 +16053,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditBackupTelemetry guarantee predictable operational behavior when evaluating Backup Integrity Verification — Production Telemetry & Verification Audit?",
           "options": [
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "auditBackupTelemetry handles telemetry auditing for Backup Integrity Verification by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -14604,11 +16127,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateCertificateSecretCore guarantee predictable operational behavior when evaluating Certificate & Secret Rotation Lifecycles — Foundations & Mathematical Invariants?",
           "options": [
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "evaluateCertificateSecretCore handles core evaluation logic for Certificate & Secret Rotation Lifecycles by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14649,11 +16177,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeCertificateThreshold guarantee predictable operational behavior when evaluating Certificate & Secret Rotation Lifecycles — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "computeCertificateThreshold handles threshold computation for Certificate & Secret Rotation Lifecycles — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14694,11 +16227,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeCertificatePipeline guarantee predictable operational behavior when evaluating Certificate & Secret Rotation Lifecycles — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "Alerting on every individual metric anomaly ensures faster incident detection without contributing to alert fatigue or noise",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "optimizeCertificatePipeline handles pipeline optimization for Certificate & Secret Rotation Lifecycles — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14739,11 +16277,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateCertificateGuard guarantee predictable operational behavior when evaluating Certificate & Secret Rotation Lifecycles — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "validateCertificateGuard handles guard validation for Certificate & Secret Rotation Lifecycles — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14784,11 +16327,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditCertificateTelemetry guarantee predictable operational behavior when evaluating Certificate & Secret Rotation Lifecycles — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "auditCertificateTelemetry handles telemetry auditing for Certificate & Secret Rotation Lifecycles by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -14853,9 +16401,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateFinopsReliabilityCore guarantee predictable operational behavior when evaluating FinOps Reliability Trade-Offs — Foundations & Mathematical Invariants?",
           "options": [
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 2,
           "why": "evaluateFinopsReliabilityCore handles core evaluation logic for FinOps Reliability Trade-Offs by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
@@ -14898,9 +16451,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeFinopsThreshold guarantee predictable operational behavior when evaluating FinOps Reliability Trade-Offs — Core Algorithm & State Representation?",
           "options": [
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 0,
           "why": "computeFinopsThreshold handles threshold computation for FinOps Reliability Trade-Offs — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
@@ -14943,11 +16501,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeFinopsPipeline guarantee predictable operational behavior when evaluating FinOps Reliability Trade-Offs — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Eliminating all monitoring infrastructure reduces system complexity and therefore directly improves overall service reliability",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "optimizeFinopsPipeline handles pipeline optimization for FinOps Reliability Trade-Offs — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -14988,11 +16551,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateFinopsGuard guarantee predictable operational behavior when evaluating FinOps Reliability Trade-Offs — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Error budgets should be accumulated indefinitely without any reset period to maximize deployment velocity across all service teams",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "validateFinopsGuard handles guard validation for FinOps Reliability Trade-Offs — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -15033,11 +16601,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditFinopsTelemetry guarantee predictable operational behavior when evaluating FinOps Reliability Trade-Offs — Production Telemetry & Verification Audit?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "Synthetic monitoring is redundant when real user monitoring is deployed because actual traffic covers all critical user journey paths"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "auditFinopsTelemetry handles telemetry auditing for FinOps Reliability Trade-Offs by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       }
@@ -15102,11 +16675,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does evaluateAutonomousMultiCore guarantee predictable operational behavior when evaluating Milestone 12 Capstone — Foundations & Mathematical Invariants?",
           "options": [
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "evaluateAutonomousMultiCore handles core evaluation logic for Milestone 12 Capstone by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -15147,9 +16725,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does computeAutonomousThreshold guarantee predictable operational behavior when evaluating Milestone 12 Capstone — Core Algorithm & State Representation?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "Latency percentiles are unnecessary because mean average response time captures all relevant performance distribution characteristics",
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry"
           ],
           "answer": 1,
           "why": "computeAutonomousThreshold handles threshold computation for Milestone 12 Capstone — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
@@ -15192,9 +16775,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimizeAutonomousPipeline guarantee predictable operational behavior when evaluating Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling?",
           "options": [
+
+            "Capacity planning is unnecessary for cloud-native services because auto-scaling handles all demand spikes without pre-provisioning",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 2,
           "why": "optimizeAutonomousPipeline handles pipeline optimization for Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
@@ -15237,11 +16825,16 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validateAutonomousGuard guarantee predictable operational behavior when evaluating Milestone 12 Capstone — Resilience Guardrails & Failure Recovery?",
           "options": [
-            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
+
             "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
+            "Toil elimination is best achieved by adding more operations engineers rather than automating repetitive manual production tasks",
+
+            "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "validateAutonomousGuard handles guard validation for Milestone 12 Capstone — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
@@ -15282,9 +16875,14 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does auditAutonomousTelemetry guarantee predictable operational behavior when evaluating Milestone 12 Capstone — Production Telemetry & Verification Audit?",
           "options": [
-            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "By hardcoding a static boolean result and ignoring runtime load and weight parameters",
+
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold",
-            "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
+
+            "By bypassing all capacity checks and allowing unbounded memory growth without telemetry",
+
+            "Manual incident response procedures are more reliable than automated remediation runbooks because humans adapt to novel failures"
           ],
           "answer": 1,
           "why": "auditAutonomousTelemetry handles telemetry auditing for Milestone 12 Capstone by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
