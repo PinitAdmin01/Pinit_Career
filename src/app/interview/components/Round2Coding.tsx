@@ -241,7 +241,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
           }}
         >
           {canProceed
-            ? '✅ Code Verified & Approved — Click "Continue to architecture ➔" above to proceed!'
+            ? '✅ Code & Review Defense Verified — Click "Continue to architecture ➔" above to proceed!'
             : codeRunFailed
             ? `⚠️ Some test cases failed. Check the execution output below to see expected vs actual values, refine your logic, or click "Skip Challenge" to move on.`
             : codeSubmitted && codeReviewQuestionReady
@@ -249,8 +249,8 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             : codeSubmitted && codeReviewStarted
             ? `⏳ Submitting solution to ${activeTeacher.name} for code review...`
             : codeSubmitted
-            ? '✅ Step 1 of 2 Complete: All test cases passed! Click "Submit solution for review" above so the interviewer can ask about your approach.'
-            : '🧪 Step 1 of 2: Write your solution and pass all test cases (Ctrl+↵), then defend your approach in code review.'}
+            ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Click "Submit solution for review" above so the interviewer can ask about your approach.'
+            : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then defend your approach in code review.'}
         </div>
 
         {/* Language Selector */}

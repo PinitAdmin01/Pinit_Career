@@ -28,6 +28,8 @@ import {
 import { generateScorecardPrintHtml } from '../src/app/interview/interviewEvaluator';
 import { InterviewSessionHeader } from '../src/app/interview/components/InterviewSessionHeader';
 import { InterviewSetupView } from '../src/app/interview/components/InterviewSetupView';
+import { Round2Coding } from '../src/app/interview/components/Round2Coding';
+import { Round2CaseStudy } from '../src/app/interview/components/Round2CaseStudy';
 import { Round4StarDrill } from '../src/app/interview/components/Round4StarDrill';
 import { InterviewResultsView } from '../src/app/interview/components/InterviewResultsView';
 import { RadarChart } from '../src/app/interview/components/RadarChart';
@@ -676,4 +678,95 @@ test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants'
   assert.ok(!replyHi3.includes('tackled'), 'Must never say tackled for repeated hi');
   assert.ok(!replyHi3.includes('initial approach'), 'Must never say initial approach for repeated hi');
   assert.ok(!replyHi3.includes('pragmatic decision'), 'Must never say pragmatic decision for repeated hi');
+});
+
+test('Task 4 & Task 7: Round 2 Non-Tech Case Study Studio and Skip Challenge integration', () => {
+  // Test Round2CaseStudy SSR
+  const caseStudyHtml = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(Round2CaseStudy, {
+      domainStream: 'non_tech',
+      currentCodingProb: {
+        title: 'Accounting & Forensic Bookkeeping (B.Com)',
+        description: 'Case study analysis',
+        starterCode: ''
+      },
+      onProceed: () => {},
+      onReviewSolution: () => {},
+      onRetryChallenge: () => {},
+      canProceed: false,
+      codeSubmitted: false,
+      codeRunFailed: false,
+      codeReviewStarted: false,
+      codeReviewQuestionReady: false,
+      isSendingInterviewMessage: false,
+      lastInterviewerSpeech: 'Welcome to your financial case study.',
+      manualTextInput: '',
+      setManualTextInput: () => {},
+      onSendMessage: () => {},
+      selectedLang: 'python',
+      setSelectedLang: () => {},
+      runCodeAndTests: () => {},
+      isRunning: false,
+      codeContent: '',
+      setCodeContent: () => {},
+      codeModifiedRef: { current: false },
+      activeTeacher: { id: 'vikram', name: 'Mr. Vikram', emoji: '👨‍⚖️', title: 'Commerce, Finance & Systems Evaluator' },
+      animState: 'idle',
+      terminalLogs: [],
+      setTerminalLogs: () => {},
+      onSkipChallenge: () => {}
+    })
+  );
+
+  assert.ok(caseStudyHtml.includes('APPLIED BUSINESS CASE STUDY'), 'Must render business case study heading');
+  assert.ok(caseStudyHtml.includes('Financial Ledger &amp; Balance Data'), 'Must render financial ledger');
+  assert.ok(caseStudyHtml.includes('Current Ratio'), 'Must render Current Ratio calculator');
+  assert.ok(caseStudyHtml.includes('Quick Ratio'), 'Must render Quick Ratio calculator');
+  assert.ok(!caseStudyHtml.includes('def finance_accounting'), 'Must NEVER render Python function stubs');
+  assert.ok(!caseStudyHtml.includes('monaco-editor'), 'Must NEVER render Monaco Editor for non-tech case study');
+  assert.ok(caseStudyHtml.includes('data-testid="round2-skip-challenge-btn"'), 'Must render Skip Case Study button');
+
+  // Test Round2Coding SSR includes Skip Challenge button when provided
+  const codingHtml = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(Round2Coding, {
+      domainStream: 'tech',
+      currentCodingProb: {
+        title: 'Software Engineering (SDE) Algorithmic Pipeline',
+        description: 'Algorithmic challenge',
+        starterCode: 'def solution(): pass',
+        testCases: [
+          { name: 'Standard Case', tierLabel: '1. Standard Case' },
+          { name: 'Large Scale', tierLabel: '2. Large Scale' }
+        ]
+      },
+      onProceed: () => {},
+      onReviewSolution: () => {},
+      onRetryChallenge: () => {},
+      canProceed: false,
+      codeSubmitted: false,
+      codeRunFailed: false,
+      codeReviewStarted: false,
+      codeReviewQuestionReady: false,
+      isSendingInterviewMessage: false,
+      lastInterviewerSpeech: 'Let us examine your code.',
+      manualTextInput: '',
+      setManualTextInput: () => {},
+      onSendMessage: () => {},
+      selectedLang: 'python',
+      setSelectedLang: () => {},
+      runCodeAndTests: () => {},
+      isRunning: false,
+      codeContent: 'def solution(): pass',
+      setCodeContent: () => {},
+      codeModifiedRef: { current: false },
+      activeTeacher: { id: 'rohan', name: 'Mr. Rohan', emoji: '👨‍💻', title: 'Senior Technical Evaluator' },
+      animState: 'idle',
+      terminalLogs: [],
+      setTerminalLogs: () => {},
+      onSkipChallenge: () => {}
+    })
+  );
+
+  assert.ok(codingHtml.includes('data-testid="round2-skip-challenge-btn"'), 'Must render Skip Challenge button in coding round');
+  assert.ok(codingHtml.includes('TEST CASES'), 'Must render friendly TEST CASES label');
 });
