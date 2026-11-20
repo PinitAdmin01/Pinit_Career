@@ -659,9 +659,9 @@ export class VRoidAvatarEngine {
       const abortCtrl = new AbortController();
       let timer: ReturnType<typeof setTimeout> | null = null;
 
-      // Adaptive timeout: 9s (12s on slow net) for primary heavy asset, 6s for compact 1.4MB fallbacks
+      // Adaptive timeout: 15s (20s on slow net) for primary heavy asset, 7500ms for compact 1.4MB fallbacks
       const isPrimary = idx === 0;
-      const timeoutMs = isPrimary ? (isSlowNetwork ? 12000 : 9000) : 6000;
+      const timeoutMs = isPrimary ? (isSlowNetwork ? 20000 : 15000) : 7500;
 
       console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
 
