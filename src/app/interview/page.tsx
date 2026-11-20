@@ -205,6 +205,39 @@ export default function InterviewPage() {
 
   const [isInterviewActive, setIsInterviewActive] = useState(false);
   const [activeStage, setActiveStage] = useState<Stage>('round1_behavioral');
+
+  // Voice action deep-links: `/interview?autostart=interview` & `/interview?tab=gd&autostart=gd`
+  // Opens a ready-to-confirm launch modal for 1v1 interview (never silently spending Pins) or
+  // advances the GD boardroom to panelist confirmation.
+  const [showVoiceInterviewModal, setShowVoiceInterviewModal] = useState(false);
+  const [gdAutostartRequested, setGdAutostartRequested] = useState(false);
+  const voiceAutostartHandledRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const autostart = searchParams.get('autostart');
+    if (autostart !== 'interview' && autostart !== 'gd') {
+      voiceAutostartHandledRef.current = null;
+      return;
+    }
+    if (voiceAutostartHandledRef.current === autostart) return;
+    voiceAutostartHandledRef.current = autostart;
+
+    if (autostart === 'gd') {
+      setHubTab('gd');
+      setGdAutostartRequested(true);
+    } else if (!isInterviewActive) {
+      setHubTab('interview');
+      setShowVoiceInterviewModal(true);
+    }
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  }, [searchParams, isInterviewActive]);
   const isScoredStage = isInterviewActive && ['round1_behavioral', 'round2_coding', 'round3_systems', 'round4_star'].includes(activeStage);
   const selectedCompanyProfile = useMemo(() => resolveCompanyProfile(targetCompany), [targetCompany]);
   const companyContext = useMemo(() => buildCompanyPromptContext(selectedCompanyProfile, activeStage), [selectedCompanyProfile, activeStage]);
@@ -1552,7 +1585,7 @@ export default function InterviewPage() {
       )}
 
       {hubTab === 'gd' && !isInterviewActive ? (
-        <GroupDiscussionPage embedded={true} />
+        <GroupDiscussionPage embedded={true} autoStartGd={gdAutostartRequested} />
       ) : !isInterviewActive ? (
         <InterviewSetupView
           activeSessionDraft={activeSessionDraft} resumeActiveSession={resumeActiveSession}
@@ -1884,6 +1917,94 @@ export default function InterviewPage() {
         selectedHistorySession={selectedHistorySession}
         onClose={() => setSelectedHistorySession(null)}
       />
+
+      {showVoiceInterviewModal && !isInterviewActive && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Confirm AI Mock Interview Launch"
+          data-testid="interview-voice-launch-modal"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 1200,
+            background: 'rgba(2, 6, 23, 0.72)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20,
+          }}
+          onClick={() => setShowVoiceInterviewModal(false)}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 460,
+              background: 'var(--bg2)',
+              border: '1.5px solid var(--accent)',
+              borderRadius: 20,
+              padding: 26,
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.45)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                🎙️ Voice Launch Ready
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowVoiceInterviewModal(false)}
+                aria-label="Close modal"
+                style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+            </div>
+            <h3 style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 900, color: 'var(--t1)' }}>
+              Start AI Mock Interview?
+            </h3>
+            <p style={{ margin: '0 0 18px', fontSize: 13.5, lineHeight: 1.55, color: 'var(--t2)' }}>
+              Topic ready: <strong>{activeTopicName}</strong> ({difficulty}). Confirm to unlock your 4-round panel interview (25 Pins unless already unlocked or capstone defense).
+            </p>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => setShowVoiceInterviewModal(false)}
+                style={{
+                  padding: '10px 16px',
+                  borderRadius: 10,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg3)',
+                  color: 'var(--t2)',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Customize Setup
+              </button>
+              <button
+                type="button"
+                data-testid="interview-voice-confirm-launch-btn"
+                onClick={() => {
+                  setShowVoiceInterviewModal(false);
+                  void startInterview();
+                }}
+                className="btn-primary"
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: 10,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                }}
+              >
+                🎙️ Start Interview Now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

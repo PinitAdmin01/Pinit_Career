@@ -376,7 +376,7 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
               max_tokens: selectedMaxTokens,
               temperature: 0.7
             }),
-            signal: AbortSignal.timeout(3500)
+            signal: AbortSignal.timeout(6000)
           });
           if (res.ok) {
             const data = await res.json();
@@ -409,7 +409,7 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
             max_tokens: 350,
             temperature: 0.7
           }),
-          signal: AbortSignal.timeout(4000)
+          signal: AbortSignal.timeout(6000)
         });
         if (res.ok) {
           const data = await res.json();
@@ -425,13 +425,17 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
     if (!llmResponse) {
       isSimulated = true;
       if (isHyperActive) {
-        llmResponse = buildHyperActiveFallbackReply(userMessage, {
-          studentName,
-          targetRole,
-          completedQuestsCount,
-          completedMissionsCount,
-          missionStreak,
-        });
+        llmResponse = buildHyperActiveFallbackReply(
+          userMessage,
+          {
+            studentName,
+            targetRole,
+            completedQuestsCount,
+            completedMissionsCount,
+            missionStreak,
+          },
+          history
+        );
       } else {
         const gapsNotice = missingSkills.length > 0
           ? `Given your goal of becoming a ${targetRole}, I recommend tackling your gaps in ${missingSkills.slice(0, 2).join(' and ')}.`

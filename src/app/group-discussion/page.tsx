@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
@@ -81,7 +81,10 @@ function normalizeGdHistoryRecords(value: unknown): GdHistoryRecord[] {
   }).slice(0, 25);
 }
 
-export default function GroupDiscussionPage({ embedded = false }: { embedded?: boolean } = {}) {
+export default function GroupDiscussionPage({
+  embedded = false,
+  autoStartGd = false,
+}: { embedded?: boolean; autoStartGd?: boolean } = {}) {
   const { user } = useAuth();
   const cOS = useCareerOS();
   const currentMentorId = resolveFloatingMentorId({
@@ -95,6 +98,20 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
 
   // Navigation steps: 'create_room' | 'invite_concept' | 'call_grid'
   const [step, setStep] = useState<'create_room' | 'invite_concept' | 'call_grid'>('create_room');
+
+  // Voice action deep-link: `/interview?tab=gd&autostart=gd`
+  // Advances from room setup to the ready-to-launch panelist confirmation step (0 Pins spent).
+  const autoStartGdHandledRef = useRef(false);
+  useEffect(() => {
+    if (!autoStartGd) {
+      autoStartGdHandledRef.current = false;
+      return;
+    }
+    if (autoStartGdHandledRef.current || step !== 'create_room') return;
+    autoStartGdHandledRef.current = true;
+    setStep('invite_concept');
+    toast.info('GD Boardroom Ready 👥', 'Review your AI panelists and start the group discussion when ready.');
+  }, [autoStartGd, step]);
 
   // Difficulty & Custom Avatar Guide & History Modal States
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');

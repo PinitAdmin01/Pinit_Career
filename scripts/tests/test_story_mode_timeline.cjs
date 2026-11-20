@@ -273,10 +273,10 @@ async function run() {
     assert(TOUR_TOTAL_MS === 95000, `TOUR_TOTAL_MS is ${TOUR_TOTAL_MS}`);
   });
 
-  await test('budget: 8s intro, 14 left-sidebar tabs x 5s, one 10-15s academics overview, 5s wrap-up', async () => {
+  await test('budget: 8s intro, 12 left-sidebar tabs x 6s, one 10-15s academics overview, 5s wrap-up', async () => {
     const tabs = TOUR_SLIDES.filter((s) => s.segmentLabel.startsWith('TAB '));
-    assert(tabs.length === 14, `${tabs.length} tab slides`);
-    assert(tabs.every((s) => s.durationMs === 5000 && s.segment !== 3), 'every left-sidebar tab slide must be 5000ms');
+    assert(tabs.length === 12, `${tabs.length} tab slides`);
+    assert(tabs.every((s) => s.durationMs === 6000 && s.segment !== 3), 'every left-sidebar tab slide must be 6000ms');
     const academics = TOUR_SLIDES.filter((s) => s.segment === 3);
     assert(academics.length === 1, `right sidebar must be ONE overview slide, found ${academics.length}`);
     assert(academics[0].durationMs >= 10000 && academics[0].durationMs <= 15000, 'academics overview must be 10-15s');
@@ -445,8 +445,9 @@ async function run() {
     h.engine.next();
     await h.clock.advance(9000);
     const acts = h.of('activate');
+    const expectedSlide3At = 2000 + TOUR_SLIDES[2].durationMs;
     assert(acts[1].index === 2 && acts[1].t === 2000, 'Next should activate slide 2 at 2000ms');
-    assert(acts[2].index === 3 && acts[2].t === 7000, `slide 3 activated at ${acts[2] && acts[2].t}ms, expected 7000ms`);
+    assert(acts[2].index === 3 && acts[2].t === expectedSlide3At, `slide 3 activated at ${acts[2] && acts[2].t}ms, expected ${expectedSlide3At}ms`);
   });
 
   await test('engine: route guard pauses when the user leaves the slide page; Next resumes', async () => {
@@ -454,7 +455,7 @@ async function run() {
     h.engine.start(2);
     await h.clock.advance(1000);
     h.setPath('/friends');
-    await h.clock.advance(6000);
+    await h.clock.advance(TOUR_SLIDES[2].durationMs + 1000);
     assert(h.of('activate').length === 1, 'must not auto-advance off-route');
     assert(h.of('paused').some((e) => e.paused), 'should report paused');
     h.engine.next();
@@ -467,7 +468,7 @@ async function run() {
     const h = createEngineHarness(TOUR_SLIDES, { renderRoutes: false });
     const { TOUR_ROUTE_WAIT_MS } = loadTs(SOURCES.engine);
     h.engine.start(2);
-    await h.clock.advance(5000);
+    await h.clock.advance(TOUR_SLIDES[2].durationMs);
     const arm = h.of('arm')[0];
     assert(arm && arm.t === TOUR_ROUTE_WAIT_MS, `armed at ${arm && arm.t}ms`);
     assert(h.of('activate').length === 2, 'should advance at slot end');

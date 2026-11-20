@@ -437,6 +437,7 @@ export interface AppSidebarProps {
   setMobileOpen: (v: boolean) => void;
   toggleLeftSidebar: (val?: boolean) => void;
   activeTourRoute: string | null;
+  activeTourTabKey?: string | null;
   setActiveAcademicTab: (tab: string | null) => void;
   activeAcademicTab?: string | null;
   currentSearch?: string;
@@ -458,6 +459,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
   setMobileOpen,
   toggleLeftSidebar,
   activeTourRoute,
+  activeTourTabKey = null,
   setActiveAcademicTab,
   activeAcademicTab = null,
   currentSearch = '',
@@ -636,10 +638,16 @@ const NAV_SVG_ICONS: Record<string, React.ReactNode> = {
     const navIcon = NAV_SVG_ICONS[href] || icon;
     const isTourSpotlight = Boolean(
       activeTourRoute && (
-        href === activeTourRoute ||
-        (activeTourRoute !== '/dashboard' && href.startsWith(activeTourRoute)) ||
-        (href === '/interview' && activeTourRoute.startsWith('/group-discussion')) ||
-        (href === '/mirror' && (activeTourRoute.startsWith('/learning') || activeTourRoute.startsWith('/career-builder') || activeTourRoute.startsWith('/career_builder')))
+        activeTourTabKey === 'academic-sidebar' || activeTourTabKey === 'intro' || activeTourTabKey === 'outro'
+          ? false
+          : activeTourTabKey === 'dashboard'
+            ? href === '/dashboard'
+            : (
+                href === activeTourRoute ||
+                (activeTourRoute !== '/dashboard' && href.startsWith(activeTourRoute)) ||
+                (href === '/interview' && activeTourRoute.startsWith('/group-discussion')) ||
+                (href === '/mirror' && (activeTourRoute.startsWith('/learning') || activeTourRoute.startsWith('/career-builder') || activeTourRoute.startsWith('/career_builder')))
+              )
       )
     );
 

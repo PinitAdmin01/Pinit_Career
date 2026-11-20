@@ -38,7 +38,7 @@ describe('Digital Studio Redesign & Architecture Verification Suite', () => {
       const tourPath = path.join(rootDir, 'src/components/ui/StoryTourModal.tsx');
       const content = fs.readFileSync(tourPath, 'utf-8');
       assert.ok(content.includes("title: 'Digital Studio'"), 'StoryTourModal must have Digital Studio title');
-      assert.ok(content.includes("segmentLabel: 'TAB 8/13 · DIGITAL STUDIO'"), 'StoryTourModal segment label updated');
+      assert.ok(content.includes("segmentLabel: 'TAB 7/12 · DIGITAL STUDIO'"), 'StoryTourModal segment label updated');
     });
   });
 

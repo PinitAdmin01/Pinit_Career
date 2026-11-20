@@ -128,6 +128,30 @@ function ProjectsPageContent() {
   const [ownProjectTechStack, setOwnProjectTechStack] = useState<string>('Python, FastAPI, Docker, Pytest');
   const [ownProjectDesc, setOwnProjectDesc] = useState<string>('');
 
+  // Voice action deep-link: `/projects?autostart=new`
+  // Safely opens the free "Start Your Own Project" modal once per navigation (0 Pins spent).
+  const autostartNewHandledRef = useRef(false);
+  useEffect(() => {
+    const autostart = searchParams?.get('autostart');
+    if (autostart !== 'new') {
+      autostartNewHandledRef.current = false;
+      return;
+    }
+    if (autostartNewHandledRef.current) return;
+    autostartNewHandledRef.current = true;
+    setMainTab('projects');
+    setOwnProjectStep('confirm');
+    setShowOwnProjectModal(true);
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  }, [searchParams]);
+
   const handleCreateOwnProject = (e: React.FormEvent) => {
     e.preventDefault();
     if (!ownProjectName.trim()) {

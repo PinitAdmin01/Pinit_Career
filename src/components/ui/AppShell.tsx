@@ -711,6 +711,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         setMobileOpen={setMobileOpen}
         toggleLeftSidebar={toggleLeftSidebar}
         activeTourRoute={activeTourRoute}
+        activeTourTabKey={activeTourTabKey}
         setActiveAcademicTab={setActiveAcademicTab}
         activeAcademicTab={activeAcademicTab}
         currentSearch={searchParams?.toString() || ''}
@@ -750,6 +751,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           toggleRightSidebar={toggleRightSidebar}
           isRightSidebarOpen={!rightCollapsed}
           isCollegeConnected={isCollegeConnected}
+          activeTourTabKey={activeTourTabKey}
           onOpenConnectCollege={() => {
             setCollegeError('');
             setShowConnectCollegeModal(true);

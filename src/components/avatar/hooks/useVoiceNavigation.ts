@@ -1,423 +1,270 @@
 /**
- * useVoiceNavigation — Intent-Gated Voice Navigation Engine for PinIT Career OS
- * 
- * Provides route vocabulary mapping, phonetic similarity scoring, and strict
- * intent gating to ensure voice commands navigate accurately without triggering
- * on ordinary conversational dialogue.
+ * useVoiceNavigation — Intent-Gated, Accent-Tolerant Voice Navigation Engine
+ * Scoped strictly to the 12 canonical Left Sidebar student tabs (STUDENT_NAV + BOTTOM_NAV).
+ *
+ * Features:
+ * - Strictly aligned to current Left Sidebar tabs (zero stale/removed routes).
+ * - Indian-English & ESL phonetic normalization (e.g., "quessst", "korses", "mishun",
+ *   "dajbord", "intervyu", "dijital studio", "inoveshan", "atenshan", "notifikesan").
+ * - Broken sentence & SOV word-order tolerance (e.g., "hey priya navigate me to mission tab",
+ *   "hey priya i want to go to quest", "priya mission tab open", "hey priya quessst").
+ * - Question & conversation exclusion guards to prevent accidental navigation mid-chat.
  */
-
-// ── Route Vocabulary Map ────────────────────────────────────────────────────
-// Each route maps to an array of synonyms (all lowercase).
-// The first synonym is the canonical display name shown in TTS confirmations.
 
 export interface RouteEntry {
   path: string;
   displayName: string;
+  sidebarGroup: 'primary' | 'bottom';
   synonyms: string[];
 }
 
-const ROUTE_VOCABULARY: RouteEntry[] = [
-  // ── PinIT Career OS (Left Sidebar) ──
+export interface NavMatchOptions {
+  /** True when the user explicitly addressed the mentor (e.g., "hey priya ..."). */
+  addressedMentor?: boolean;
+}
+
+// ── Canonical 12 Left Sidebar Student Routes (STUDENT_NAV 8 + BOTTOM_NAV 4) ─
+export const LEFT_SIDEBAR_ROUTES: RouteEntry[] = [
+  // Primary Left Sidebar (8 tabs)
   {
     path: '/dashboard',
     displayName: 'Dashboard',
+    sidebarGroup: 'primary',
     synonyms: [
-      'dashboard', 'home', 'main dashboard', 'home screen', 'dashboard tab',
-      'home tab', 'home page', 'main page', 'my dashboard', 'go home'
+      'dashboard', 'dash board', 'dashbord', 'dajbord', 'deshbord', 'dash',
+      'home', 'home screen', 'home page', 'main page', 'main screen',
+      'command center', 'overview',
     ],
   },
   {
     path: '/quests',
-    displayName: 'Quests',
+    displayName: 'Courses',
+    sidebarGroup: 'primary',
     synonyms: [
-      'quests', 'quest tab', 'quests tab', 'quest page', 'coding quests',
-      'learning quests', 'quest section', 'coding lessons', 'quest module',
-      'study quests', 'my quests'
+      'courses', 'course', 'korses', 'kors', 'corses', 'cors', 'classes', 'class',
+      'quests', 'quest', 'quessst', 'kwest', 'guest', 'lessons', 'lesson',
+      'curriculum', 'syllabus', 'roadmap', 'study', 'learning', 'learn',
     ],
   },
   {
     path: '/missions',
-    displayName: 'Missions',
+    displayName: 'Daily Missions',
+    sidebarGroup: 'primary',
     synonyms: [
-      'missions', 'daily missions', 'daily mission', 'mission tab',
-      'missions tab', 'coding missions', 'my missions', 'today missions',
-      'mission page', 'daily tasks', 'daily challenges'
-    ],
-  },
-  {
-    path: '/arena',
-    displayName: 'Challenging Arena',
-    synonyms: [
-      'arena', 'challenging arena', 'code wars', '1v1 duel', 'battle arena',
-      'pvp coding', 'timed duel', 'arena tab', 'code wars arena', 'multiplayer coding',
-      'speedrun', 'algorithm battle', 'arena challenges', 'coding challenges'
+      'daily missions', 'daily mission', 'missions', 'mission', 'mishun', 'mishan',
+      'mishons', 'machine', 'daily tasks', 'daily task', 'daily challenges',
+      'daily challenge', 'roleplay', 'role play', 'evolve yourself',
     ],
   },
   {
     path: '/projects',
-    displayName: 'Projects & Squads',
+    displayName: 'Projects',
+    sidebarGroup: 'primary',
     synonyms: [
-      'projects', 'industry projects', 'project tab', 'projects tab',
-      'my projects', 'coding projects', 'real projects', 'project page',
-      'squads tab', 'team projects', 'hackathon squad'
+      'projects', 'project', 'projekts', 'projek', 'projeck', 'projecks',
+      'capstone', 'capstones', 'capstone projects', 'portfolio projects',
+      'build workspace', 'project workspace',
+    ],
+  },
+  {
+    path: '/innovation-hub',
+    displayName: 'Innovation Hub',
+    sidebarGroup: 'primary',
+    synonyms: [
+      'innovation hub', 'innovation', 'inovation', 'inoveshan', 'innovate',
+      'inowation', 'hackathon', 'hackathons', 'hackathon squads', 'squads', 'squad',
+      'team projects', 'ideas hub',
     ],
   },
   {
     path: '/interview',
     displayName: 'AI Interview',
+    sidebarGroup: 'primary',
     synonyms: [
-      'interview', 'ai interview', 'mock interview', 'practice interview',
-      'interview tab', 'interview practice', 'interview page',
-      'technical interview', 'interview simulator', 'ai mock'
+      'ai interview', 'interview', 'interviews', 'intervyu', 'interwiew', 'intarvyu',
+      'mock interview', 'mock', 'interview studio', 'interview prep',
+      'group discussion', 'gd', 'gd practice', 'boardroom',
     ],
   },
   {
-    path: '/group-discussion',
-    displayName: 'Group Discussion',
+    path: '/mirror',
+    displayName: 'Digital Studio',
+    sidebarGroup: 'primary',
     synonyms: [
-      'group discussion', 'gd', 'gd practice', 'boardroom debate',
-      'gd tab', 'group debate', 'gd page', 'group discussion tab',
-      'socratic debate'
-    ],
-  },
-  {
-    path: '/learning',
-    displayName: 'Learning & Twin',
-    synonyms: [
-      'learning', 'learning tab', 'learning roadmap', 'learning page',
-      'study roadmap', 'masterclass', 'learning and twin', 'study plan',
-      'syllabus tab'
-    ],
-  },
-
-  // ── Career Intelligence ──
-  {
-    path: '/career-dna',
-    displayName: 'Career DNA',
-    synonyms: [
-      'career dna', 'career dna tab', 'my dna', 'dna page',
-      'career dna page', 'dna score', 'competencies tab', 'my competencies'
-    ],
-  },
-  {
-    path: '/career-twin',
-    displayName: 'Career Twin',
-    synonyms: [
-      'career twin', 'career twin tab', 'twin page', 'career twin page',
-      'job match tab', 'role match', 'my twin', 'career match'
-    ],
-  },
-  {
-    path: '/career-builder',
-    displayName: 'Career Builder',
-    synonyms: [
-      'career builder', 'resume builder', 'build resume', 'career builder tab',
-      'resume page', 'cv builder', 'create resume', 'my resume'
-    ],
-  },
-  {
-    path: '/career-intelligence',
-    displayName: 'Career Intelligence',
-    synonyms: [
-      'career intelligence', 'market intelligence', 'job market trends',
-      'career intelligence tab', 'market trends', 'job trends'
-    ],
-  },
-
-  // ── Portfolio & Credentials ──
-  {
-    path: '/portfolio',
-    displayName: 'Portfolio',
-    synonyms: [
-      'portfolio', 'my portfolio', 'portfolio tab', 'portfolio page',
-      'professional profile', 'skill portfolio', 'public profile'
-    ],
-  },
-  {
-    path: '/passport',
-    displayName: 'Skill Passport & Transcript',
-    synonyms: [
-      'skill passport', 'passport tab', 'verified skills', 'skill credentials',
-      'my passport', 'passport page', 'my certificates', 'verifiable transcript',
-      'transcript tab', 'certifications tab'
-    ],
-  },
-
-  // ── Placement & Opportunities ──
-  {
-    path: '/career-intelligence?tab=tracker',
-    displayName: 'Placement Predictor',
-    synonyms: [
-      'placement', 'placement predictor', 'salary predictor', 'placement tab',
-      'placement page', 'predict placement', 'my placement', 'salary prediction'
-    ],
-  },
-  {
-    path: '/opportunities',
-    displayName: 'Opportunities',
-    synonyms: [
-      'opportunities', 'job listings', 'opportunities tab', 'job opportunities',
-      'career opportunities', 'my opportunities', 'opportunities page'
-    ],
-  },
-  {
-    path: '/internships',
-    displayName: 'Internship Tracker',
-    synonyms: [
-      'internships', 'internship tracker', 'internship tab',
-      'my internships', 'internship page', 'track internship'
-    ],
-  },
-
-  // ── Documents & Vault ──
-  {
-    path: '/vault',
-    displayName: 'Document Vault',
-    synonyms: [
-      'document vault', 'vault tab', 'my documents', 'document page',
-      'my vault', 'upload documents', 'file vault', 'vault page'
-    ],
-  },
-
-  // ── Student Services (Right Sidebar) ──
-  {
-    path: '/services',
-    displayName: 'Student Services',
-    synonyms: [
-      'student services', 'services tab', 'service page', 'campus services'
-    ],
-  },
-  {
-    path: '/library',
-    displayName: 'Library Center',
-    synonyms: [
-      'library', 'library center', 'library books', 'library tab',
-      'library page', 'my library', 'book library', 'study library'
-    ],
-  },
-  {
-    path: '/hostel',
-    displayName: 'Hostel Hub',
-    synonyms: [
-      'hostel', 'hostel hub', 'accommodation', 'dormitory',
-      'hostel tab', 'hostel page', 'my hostel', 'hostel room', 'hostel dorm'
-    ],
-  },
-  {
-    path: '/transport',
-    displayName: 'Transit Desk',
-    synonyms: [
-      'transport', 'transit', 'transit desk', 'transport tab',
-      'transportation', 'bus schedule', 'shuttle service', 'campus shuttle'
-    ],
-  },
-  {
-    path: '/events',
-    displayName: 'Campus Events',
-    synonyms: [
-      'campus events', 'event tab', 'events tab', 'upcoming events',
-      'my events', 'campus event', 'event page'
-    ],
-  },
-  {
-    path: '/grievances',
-    displayName: 'Contact Admin',
-    synonyms: [
-      'grievances', 'contact admin', 'admin contact', 'file grievance',
-      'file complaint', 'grievance tab', 'raise complaint', 'help desk',
-      'contact support'
-    ],
-  },
-  {
-    path: '/research',
-    displayName: 'Research Desk',
-    synonyms: [
-      'research desk', 'research tab', 'research page', 'research projects',
-      'my research', 'academic research'
-    ],
-  },
-  {
-    path: '/finance',
-    displayName: 'Finance & Fees',
-    synonyms: [
-      'finance and fees', 'finance tab', 'pay fees', 'finance page',
-      'my fees', 'fee payment', 'tuition fees', 'billing tab'
-    ],
-  },
-  {
-    path: '/maintenance',
-    displayName: 'Infrastructure',
-    synonyms: [
-      'infrastructure', 'facilities', 'maintenance tab',
-      'campus maintenance', 'infrastructure page'
-    ],
-  },
-  {
-    path: '/advisor',
-    displayName: 'AI Academic Advisor',
-    synonyms: [
-      'academic advisor', 'ai advisor', 'advisor tab',
-      'ai academic advisor', 'academic advice', 'advisor page'
-    ],
-  },
-
-  // ── Bottom Nav & Misc ──
-  {
-    path: '/leaderboard',
-    displayName: 'Leaderboard & Leagues',
-    synonyms: [
-      'leaderboard', 'leader board', 'weekly league', 'leaderboard tab',
-      'leagues tab', 'student leaderboard'
+      'digital studio', 'dijital studio', 'studio', 'mirror', 'miror',
+      'career twin', 'digital twin', 'twin', 'skill gap', 'skill gaps',
+      'resume', 'resume builder', 'ats', 'ats resume', 'cv', 'career builder',
     ],
   },
   {
     path: '/attention-span',
     displayName: 'Attention Span',
+    sidebarGroup: 'primary',
     synonyms: [
-      'attention span', 'focus trainer', 'cognitive endurance',
-      'attention tab', 'focus tab', 'brain drills'
+      'attention span', 'attention', 'atenshan', 'atention', 'attenshan',
+      'focus', 'focus mode', 'focus trainer', 'pomodoro', 'concentration',
+      'brain drills', 'deep focus',
+    ],
+  },
+
+  // Bottom Left Sidebar Utilities (4 tabs)
+  {
+    path: '/friends',
+    displayName: 'My Network',
+    sidebarGroup: 'bottom',
+    synonyms: [
+      'my network', 'network', 'netwark', 'netwerk', 'friends', 'friend',
+      'frends', 'frnds', 'peers', 'connections', 'classmates', 'campus network',
     ],
   },
   {
-    path: '/analytics',
-    displayName: 'Analytics',
+    path: '/arena',
+    displayName: 'Arena',
+    sidebarGroup: 'bottom',
     synonyms: [
-      'analytics', 'analytics tab', 'analytics page', 'my analytics',
-      'statistics', 'view analytics', 'performance analytics'
+      'arena', 'arina', 'errina', 'arenaa', 'challenging arena', 'battle arena',
+      'duel', 'duels', '1v1', 'code wars', 'speedrun', 'coding battle',
+      'leaderboard', 'leader board', 'leagues', 'league', 'rankings', 'ranking',
     ],
   },
   {
     path: '/notifications',
     displayName: 'Notifications',
+    sidebarGroup: 'bottom',
     synonyms: [
-      'notifications', 'notification tab', 'my notifications',
-      'notification page'
-    ],
-  },
-  {
-    path: '/pins',
-    displayName: 'Pins & Wallet',
-    synonyms: [
-      'pins', 'wallet', 'pins and wallet', 'pin wallet', 'pins tab',
-      'wallet tab', 'pins page', 'my pins', 'pin balance'
-    ],
-  },
-  {
-    path: '/pricing',
-    displayName: 'Pricing & Plans',
-    synonyms: [
-      'pricing', 'pricing plans', 'subscription', 'upgrade plan',
-      'plans tab', 'pins and plans'
+      'notifications', 'notification', 'notifikesan', 'notifikeshan', 'notifs',
+      'alerts', 'alert', 'updates', 'bell', 'inbox',
     ],
   },
   {
     path: '/profile',
     displayName: 'Profile',
+    sidebarGroup: 'bottom',
     synonyms: [
-      'my profile', 'profile tab', 'account settings', 'my account',
-      'profile page', 'user settings', 'profile settings'
-    ],
-  },
-  {
-    path: '/attendance',
-    displayName: 'Attendance',
-    synonyms: [
-      'attendance', 'my attendance', 'attendance tab', 'attendance page',
-      'attendance record', 'check attendance'
-    ],
-  },
-  {
-    path: '/applications',
-    displayName: 'My Applications',
-    synonyms: [
-      'my applications', 'job applications', 'application tab',
-      'applied jobs', 'application page', 'application tracker'
+      'profile', 'profail', 'profayl', 'porfile', 'my profile', 'account',
+      'my account', 'settings', 'career dna', 'dna', 'credentials', 'vault',
     ],
   },
 ];
 
-// ── Navigation Intent Verbs ─────────────────────────────────────────────────
-// Only verbs/phrases that clearly convey navigation intent are included.
-// Common conversational words (e.g., 'i need', 'go', 'view', 'check') are omitted.
-const NAV_INTENT_VERBS = [
-  'go to', 'goto', 'open up', 'open', 'show me', 'show',
-  'switch to', 'navigate to', 'navigate', 'take me to', 'take me',
-  'bring up', 'pull up', 'launch', 'visit', 'jump to', 'head to',
-  'move to', 'bring me to', 'can you open', 'please open',
-  'i want to go to', 'i want to see', 'let me see',
-  'can you show', 'get me to', 'redirect to', 'change to', 'swap to',
-  'shift to', 'contact', 'file', 'report'
+// ── Navigation Intent Phrases (supports SVO, SOV, and broken English) ───────
+const NAV_INTENT_PHRASES = [
+  'i want to go to', 'i want to go', 'want to go to', 'want to go',
+  'i need to go to', 'i need to go', 'need to go to', 'need to go',
+  'navigate me to', 'navigate to', 'navigate me', 'navigate',
+  'take me to', 'take me', 'bring me to', 'bring up', 'pull up',
+  'show me', 'let me see', 'i want to see', 'can you open', 'please open',
+  'can you show', 'please show', 'get me to', 'redirect me to', 'redirect to',
+  'switch me to', 'switch to', 'shift me to', 'shift to', 'change to', 'swap to',
+  'jump to', 'head to', 'move to', 'go to', 'goto', 'open up', 'open', 'visit',
+  'show', 'enter', 'go',
 ];
 
-// ── Phonetic Simplification (lightweight Soundex-like) ──────────────────────
-function phoneticKey(word: string): string {
-  return word
+const QUESTION_EXCLUSION_REGEX =
+  /^\s*(?:what|why|how|when|where|who|is|are|am|can\s+i|should\s+i|tell\s+me\s+about|explain)\b/i;
+
+const EXPLICIT_NAV_VERB_REGEX =
+  /\b(?:go\s+to|goto|open|navigate(?:\s+me)?(?:\s+to)?|switch(?:\s+me)?\s+to|shift(?:\s+me)?\s+to|take\s+me(?:\s+to)?|bring\s+(?:me\s+to|up)|jump\s+to|move\s+to|head\s+to|visit|show\s+me|redirect(?:\s+me)?\s+to|want\s+to\s+go|need\s+to\s+go)\b/i;
+
+// ── Elongation & Accent Normalization ───────────────────────────────────────
+export function collapseElongatedChars(word: string): string {
+  return word.toLowerCase().replace(/[^a-z0-9]/g, '').replace(/(.)\1{2,}/g, '$1$1').replace(/(.)\1+/g, '$1');
+}
+
+export function phoneticKey(word: string): string {
+  const cleaned = word
     .toLowerCase()
-    .replace(/^[^a-z]+|[^a-z]+$/g, '')   // trim non-alpha
+    .replace(/^[^a-z]+|[^a-z]+$/g, '')
+    .replace(/(.)\1+/g, '$1'); // collapse elongated letters first: quessst -> quest
+
+  if (!cleaned) return '';
+
+  return cleaned
+    .replace(/(?:tion|sion|shun|shan|san)$/g, 'sn')
     .replace(/ph/g, 'f')
     .replace(/ck/g, 'k')
-    .replace(/sh/g, 's')
-    .replace(/th/g, 't')
-    .replace(/ch/g, 'c')
+    .replace(/qu/g, 'kw')
+    .replace(/c(?=[eiy])/g, 's')
+    .replace(/c/g, 'k')
+    .replace(/sh|ch/g, 's')
+    .replace(/th|dh/g, 't')
+    .replace(/bh/g, 'b')
+    .replace(/kh/g, 'k')
+    .replace(/gh/g, 'g')
     .replace(/wh/g, 'w')
     .replace(/kn/g, 'n')
     .replace(/wr/g, 'r')
-    .replace(/qu/g, 'kw')
     .replace(/x/g, 'ks')
-    .replace(/[aeiou]/g, (m, i) => i === 0 ? m : '') // keep only leading vowel
-    .replace(/(.)\1+/g, '$1');            // collapse doubles
+    .replace(/v/g, 'w')
+    .replace(/[zj]/g, 's')
+    .replace(/y/g, 'i')
+    .replace(/[aeiou]/g, (m, i) => (i === 0 ? m : ''))
+    .replace(/(.)\1+/g, '$1');
 }
 
 // ── Levenshtein Distance ────────────────────────────────────────────────────
 function levenshtein(a: string, b: string): number {
-  const la = a.length, lb = b.length;
+  const la = a.length;
+  const lb = b.length;
   if (la === 0) return lb;
   if (lb === 0) return la;
-
   if (a === b) return 0;
 
-  const matrix: number[][] = [];
-  for (let i = 0; i <= la; i++) {
-    matrix[i] = [i];
+  const prev = new Array<number>(lb + 1);
+  const curr = new Array<number>(lb + 1);
+  for (let j = 0; j <= lb; j++) prev[j] = j;
+
+  for (let i = 1; i <= la; i++) {
+    curr[0] = i;
     for (let j = 1; j <= lb; j++) {
-      if (i === 0) {
-        matrix[i][j] = j;
-      } else {
-        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j] + 1,       // deletion
-          matrix[i][j - 1] + 1,       // insertion
-          matrix[i - 1][j - 1] + cost // substitution
-        );
-      }
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
     }
+    for (let j = 0; j <= lb; j++) prev[j] = curr[j];
   }
-  return matrix[la][lb];
+  return prev[lb];
 }
 
-// ── Score a single word against a single synonym word ────────────────────────
-function wordSimilarity(spoken: string, target: string): number {
+// ── Score a single spoken token against a target keyword ────────────────────
+function wordSimilarity(rawSpoken: string, rawTarget: string): number {
+  const spoken = collapseElongatedChars(rawSpoken);
+  const target = collapseElongatedChars(rawTarget);
+  if (!spoken || !target) return 0;
   if (spoken === target) return 1.0;
 
-  if (phoneticKey(spoken) === phoneticKey(target) && spoken.length > 2) return 0.92;
+  // Guard very short tokens (e.g., "gd", "ai", "cv") against fuzzy false matches
+  if (spoken.length < 3 || target.length < 3) {
+    return 0;
+  }
 
-  if (target.startsWith(spoken) && spoken.length >= 3) return 0.88;
-  if (spoken.startsWith(target) && target.length >= 3) return 0.85;
+  // Exact phonetic key match (handles Indian-English variants: korses/courses, mishun/mission, dajbord/dashboard)
+  const pSpoken = phoneticKey(rawSpoken);
+  const pTarget = phoneticKey(rawTarget);
+  if (pSpoken.length >= 3 && pSpoken === pTarget) return 0.93;
 
+  // Near-phonetic match for longer words (e.g., intervyu/interview, notifikesan/notification)
+  if (pSpoken.length >= 4 && pTarget.length >= 4 && levenshtein(pSpoken, pTarget) <= 1) {
+    return 0.88;
+  }
+
+  // Prefix truncation match
+  if (target.startsWith(spoken) && spoken.length >= 4) return 0.86;
+  if (spoken.startsWith(target) && target.length >= 4) return 0.85;
+
+  // Edit distance on collapsed strings (handles quessst->quest, mishon->mission, profayl->profile)
   const maxLen = Math.max(spoken.length, target.length);
-  if (maxLen === 0) return 0;
   const dist = levenshtein(spoken, target);
-  const tolerance = maxLen <= 4 ? 1 : 2;
+  const tolerance = maxLen <= 4 ? 1 : maxLen <= 7 ? 2 : 3;
   if (dist <= tolerance) {
-    return 1.0 - (dist / maxLen) * 0.4;
+    return Math.max(0.55, 1.0 - (dist / maxLen) * 0.45);
   }
 
   return 0;
 }
 
-// ── Score a full phrase against a synonym (multi-word aware) ─────────────────
+// ── Multi-word order-agnostic phrase similarity ─────────────────────────────
 function phraseSimilarity(spokenWords: string[], synonymWords: string[]): number {
-  if (synonymWords.length === 0) return 0;
+  if (synonymWords.length === 0 || spokenWords.length === 0) return 0;
 
   let totalScore = 0;
   const usedIndices = new Set<number>();
@@ -449,105 +296,122 @@ export interface NavMatchResult {
   candidates: Array<{ path: string; displayName: string; confidence: number }>;
 }
 
-// ── Strip wake words and navigation intent verbs from transcript ─────────────
-function stripNavVerbs(text: string): string {
-  let cleaned = text;
+const WAKE_AND_MENTOR_REGEX =
+  /\b(?:hey|hwy|hay|hi|hello|ok|okay|yo|please|pls|plz|priya|preya|pria|freeya|freya|riya|anish|aneesh|kashyap|karthic|karthik|maya|divya|aisha|vikram|rohan|shalini|pinit|mentor)\b/gi;
 
-  // 1. Strip wake word prefixes
-  cleaned = cleaned.replace(/\b(hey|hay|hi|hello)\b/gi, '')
-                   .replace(/\b(priya|preya|pria|freeya|freya|riya|kashyap|kash|karthic|karthik|kartik|maya|maia|mya|divya|divia|anish|sentinel|pinit)\b/gi, '')
-                   .trim();
+function stripWakeAndNavVerbs(text: string): string {
+  let cleaned = text.replace(WAKE_AND_MENTOR_REGEX, ' ').replace(/\s+/g, ' ').trim();
 
-  // 2. Sort verbs by length descending so longer phrases match first
-  const sorted = [...NAV_INTENT_VERBS].sort((a, b) => b.length - a.length);
-  for (const verb of sorted) {
-    const re = new RegExp(`^(?:can you |please |i want to |let me |i need to )?${verb.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*`, 'i');
-    cleaned = cleaned.replace(re, '');
+  const sorted = [...NAV_INTENT_PHRASES].sort((a, b) => b.length - a.length);
+  for (const phrase of sorted) {
+    const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Match anywhere in sentence so both SVO ("go to quest") and SOV ("quest tab open") work
+    const re = new RegExp(`(?:^|\\s)${escaped}(?=\\s|$)`, 'gi');
+    cleaned = cleaned.replace(re, ' ');
   }
 
-  // Final trim of any leftover wake words after verb removal
-  cleaned = cleaned.replace(/\b(priya|kashyap|karthic|maya|divya|anish)\b/gi, '').trim();
-
-  return cleaned.trim();
+  return cleaned.replace(/\s+/g, ' ').trim();
 }
 
-// ── Detect if text contains a navigation intent ─────────────────────────────
 function hasNavIntent(text: string): boolean {
   const lower = text.toLowerCase();
-  for (const verb of NAV_INTENT_VERBS) {
-    const re = new RegExp(`(?:^|\\s)${verb.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:\\s|$)`, 'i');
-    if (re.test(lower)) return true;
+  if (EXPLICIT_NAV_VERB_REGEX.test(lower)) return true;
+  // Also tolerate broken SOV/short commands: "quest open", "mission go", "i want quest"
+  if (/\b(?:open|go|goto|navigate|switch|shift|show|visit|enter|launch)\b/i.test(lower)) return true;
+  if (/\b(?:i\s+want|want\s+to)\b/i.test(lower) && !/\b(?:want\s+to\s+(?:know|ask|do|chat|chart|speak|talk|learn\s+about))\b/i.test(lower)) {
+    return true;
   }
   return false;
 }
 
-// ── Detect if text contains explicit UI route indicators ────────────────────
 function hasRouteIndicator(text: string): boolean {
-  return /\b(tab|page|section|screen|hub|desk|predictor|builder|center|tracker)\b/i.test(text);
+  return /\b(?:tab|tabs|page|section|screen|hub|studio|menu|option)\b/i.test(text);
 }
 
-// ── Main matching function ──────────────────────────────────────────────────
-export function matchNavigationIntent(rawTranscript: string): NavMatchResult {
+function hasMentorAddress(text: string): boolean {
+  return /\b(?:hey|hwy|hay|hi|hello)\s+(?:ms\.?\s+|mr\.?\s+)?(?:priya|preya|pria|anish|aneesh)\b|\b(?:priya|preya|pria|anish|aneesh)\b/i.test(text);
+}
+
+const FILLER_WORDS = new Set([
+  'the', 'a', 'an', 'my', 'me', 'to', 'for', 'of', 'in', 'on', 'at', 'up', 'into',
+  'please', 'pls', 'plz', 'can', 'could', 'you', 'u', 'i', 'we', 'want', 'wanna',
+  'need', 'let', 'see', 'hey', 'hwy', 'hay', 'hi', 'hello', 'now', 'karo', 'kardo',
+  'priya', 'preya', 'pria', 'anish', 'aneesh', 'tab', 'tabs', 'page', 'section',
+  'screen', 'menu', 'option', 'please', 'bro', 'yaar',
+]);
+
+// ── Main Matching Function ──────────────────────────────────────────────────
+export function matchNavigationIntent(
+  rawTranscript: string,
+  options: NavMatchOptions = {}
+): NavMatchResult {
   const empty: NavMatchResult = {
     matched: false, path: '', displayName: '', confidence: 0, candidates: [],
   };
 
   if (!rawTranscript || rawTranscript.trim().length < 2) return empty;
 
-  const text = rawTranscript.toLowerCase().replace(/[.,!?;:'"]/g, '').trim();
+  const text = rawTranscript.toLowerCase().replace(/[.,!?;:'"()]/g, ' ').replace(/\s+/g, ' ').trim();
+  const strippedOfWake = text.replace(WAKE_AND_MENTOR_REGEX, ' ').replace(/\s+/g, ' ').trim();
 
-  // Strict intent gating: must have an explicit navigation verb OR route indicator suffix
-  // Ordinary conversational sentences (e.g. "I am in my room reading", "I need support with this data")
-  // will not qualify and are immediately bypassed.
-  const isNavCommand = hasNavIntent(text);
-  const isIndicator = hasRouteIndicator(text);
-
-  if (!isNavCommand && !isIndicator) {
+  // Exclude genuine informational questions unless an explicit nav verb is present
+  const hasExplicitNav = EXPLICIT_NAV_VERB_REGEX.test(text);
+  if (QUESTION_EXCLUSION_REGEX.test(strippedOfWake) && !hasExplicitNav) {
     return empty;
   }
 
-  // Strip navigation verbs & wake words to get the target phrase
-  const targetPhrase = stripNavVerbs(text);
-  const effectiveText = targetPhrase || text;
+  const isNavCommand = hasNavIntent(text);
+  const isIndicator = hasRouteIndicator(text);
+  const addressedMentor = Boolean(options.addressedMentor) || hasMentorAddress(text);
 
-  // Tokenize spoken target into words
-  const spokenWords = effectiveText.split(/\s+/).filter(w => w.length > 0);
-  const fillers = new Set([
-    'the', 'a', 'an', 'my', 'me', 'to', 'for', 'of', 'in', 'on', 'at', 'up',
-    'please', 'can', 'you', 'i', 'want', 'need', 'let', 'see', 'hey', 'hay', 'hi', 'hello',
-    'priya', 'kashyap', 'karthic', 'maya', 'divya', 'anish', 'tab', 'page', 'section'
-  ]);
-  const meaningfulWords = spokenWords.filter(w => !fillers.has(w));
+  // Extract clean target phrase regardless of word order
+  const targetPhrase = stripWakeAndNavVerbs(text);
+  const effectiveText = targetPhrase || strippedOfWake || text;
+
+  const spokenWords = effectiveText.split(/\s+/).filter(Boolean);
+  const meaningfulWords = spokenWords.filter((w) => !FILLER_WORDS.has(w));
   const wordsToScore = meaningfulWords.length > 0 ? meaningfulWords : spokenWords;
 
-  // Score every route
+  // Strict intent gate:
+  // Allow if (explicit nav verb) OR (tab/page indicator) OR (addressed mentor with concise 1-3 word route target)
+  const isConciseAddressedRoute = addressedMentor && wordsToScore.length >= 1 && wordsToScore.length <= 3;
+  if (!isNavCommand && !isIndicator && !isConciseAddressedRoute) {
+    return empty;
+  }
+
+  if (wordsToScore.length === 0) return empty;
+
+  const collapsedTargetPhrase = wordsToScore.map(collapseElongatedChars).join(' ');
+
   const scored: Array<{ entry: RouteEntry; score: number }> = [];
 
-  for (const entry of ROUTE_VOCABULARY) {
+  for (const entry of LEFT_SIDEBAR_ROUTES) {
     let bestScore = 0;
 
     for (const synonym of entry.synonyms) {
       const synWords = synonym.split(/\s+/);
+      const collapsedSyn = synWords.map(collapseElongatedChars).join(' ');
 
-      // Method 1: Full phrase similarity
+      // 1. Multi-word order-agnostic phonetic/fuzzy similarity
       const phraseScore = phraseSimilarity(wordsToScore, synWords);
 
-      // Method 2: Direct substring containment
+      // 2. Direct containment on elongation-collapsed target phrase
       let containScore = 0;
-      if (targetPhrase.length >= 3 && targetPhrase.includes(synonym)) {
-        containScore = 0.95;
-      } else if (synonym.includes(targetPhrase) && targetPhrase.length >= 4) {
-        containScore = 0.85;
+      if (collapsedTargetPhrase.length >= 3 && collapsedTargetPhrase === collapsedSyn) {
+        containScore = 1.0;
+      } else if (collapsedTargetPhrase.length >= 4 && collapsedTargetPhrase.includes(collapsedSyn) && collapsedSyn.length >= 4) {
+        containScore = 0.94;
       }
 
-      // Method 3: Single-word exact match for single-word synonyms
+      // 3. Single-word best fuzzy/phonetic match (guard ambiguous homophone "guest" behind nav/indicator)
       let exactWordScore = 0;
-      if (synWords.length === 1 && synWords[0].length >= 3) {
+      if (synWords.length === 1) {
+        if (synWords[0] === 'guest' && !isNavCommand && !isIndicator) {
+          continue;
+        }
         for (const w of wordsToScore) {
-          if (w.length >= 3) {
-            const sim = wordSimilarity(w, synWords[0]);
-            if (sim > exactWordScore) exactWordScore = sim;
-          }
+          const sim = wordSimilarity(w, synWords[0]);
+          if (sim > exactWordScore) exactWordScore = sim;
         }
       }
 
@@ -555,23 +419,22 @@ export function matchNavigationIntent(rawTranscript: string): NavMatchResult {
       if (score > bestScore) bestScore = score;
     }
 
-    if (bestScore >= 0.5) {
+    if (bestScore >= 0.55) {
       scored.push({ entry, score: bestScore });
     }
   }
 
-  // Sort by score descending
   scored.sort((a, b) => b.score - a.score);
-
   if (scored.length === 0) return empty;
 
   const top = scored[0];
-  const intentBoost = isNavCommand ? 0.05 : 0;
+  const minThreshold = isNavCommand || isIndicator ? 0.58 : 0.78;
+  const intentBoost = isNavCommand ? 0.05 : isIndicator ? 0.03 : 0;
   const finalConfidence = Math.min(1.0, top.score + intentBoost);
 
-  if (finalConfidence < 0.55) return empty;
+  if (finalConfidence < minThreshold) return empty;
 
-  const candidates = scored.slice(0, 3).map(s => ({
+  const candidates = scored.slice(0, 3).map((s) => ({
     path: s.entry.path,
     displayName: s.entry.displayName,
     confidence: Math.min(1.0, s.score + intentBoost),
@@ -586,14 +449,17 @@ export function matchNavigationIntent(rawTranscript: string): NavMatchResult {
   };
 }
 
-// ── Score multiple speech recognition alternatives ──────────────────────────
-export function matchBestAlternative(alternatives: string[]): NavMatchResult {
+// ── Score multiple Web Speech API alternatives (picks highest-confidence match) ─
+export function matchBestAlternative(
+  alternatives: string[],
+  options: NavMatchOptions = {}
+): NavMatchResult {
   let bestResult: NavMatchResult = {
     matched: false, path: '', displayName: '', confidence: 0, candidates: [],
   };
 
   for (const alt of alternatives) {
-    const result = matchNavigationIntent(alt);
+    const result = matchNavigationIntent(alt, options);
     if (result.confidence > bestResult.confidence) {
       bestResult = result;
     }
@@ -602,11 +468,11 @@ export function matchBestAlternative(alternatives: string[]): NavMatchResult {
   return bestResult;
 }
 
-// ── Build expanded grammar vocabulary for SpeechRecognition ─────────────────
+// ── Grammar Vocabulary for SpeechRecognition biasing ────────────────────────
 export function getGrammarVocabulary(): string[] {
   const vocab = new Set<string>();
 
-  for (const entry of ROUTE_VOCABULARY) {
+  for (const entry of LEFT_SIDEBAR_ROUTES) {
     for (const syn of entry.synonyms) {
       for (const word of syn.split(/\s+/)) {
         if (word.length > 2) vocab.add(word);
@@ -614,28 +480,22 @@ export function getGrammarVocabulary(): string[] {
     }
   }
 
-  for (const verb of NAV_INTENT_VERBS) {
-    for (const word of verb.split(/\s+/)) {
+  for (const phrase of NAV_INTENT_PHRASES) {
+    for (const word of phrase.split(/\s+/)) {
       if (word.length > 2) vocab.add(word);
     }
   }
 
-  const wakeWords = [
-    'priya', 'preya', 'pria', 'freya', 'riya',
-    'kashyap', 'kash',
-    'karthic', 'karthik', 'kartik',
-    'maya', 'maia',
-    'divya',
-    'anish',
-    'sentinel', 'pinit', 'socratic', 'verify', 'exam',
-    'hey', 'hello'
+  const extras = [
+    'priya', 'anish', 'hey', 'hello', 'start', 'launch', 'begin', 'priority',
+    'priorities', 'mistakes', 'weak', 'strong', 'hyper', 'active', 'chat', 'speak',
   ];
-  for (const w of wakeWords) vocab.add(w);
+  for (const w of extras) vocab.add(w);
 
   return Array.from(vocab);
 }
 
-// ── Export the complete route list (for external use if needed) ──────────────
+// ── Export strictly the canonical 12 Left Sidebar routes ────────────────────
 export function getAllRoutes(): RouteEntry[] {
-  return [...ROUTE_VOCABULARY];
+  return [...LEFT_SIDEBAR_ROUTES];
 }

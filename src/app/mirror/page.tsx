@@ -1,11 +1,12 @@
 'use client';
 
-import React, { Suspense, useState, useEffect, useMemo } from 'react';
+import React, { Suspense, useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CareerBuilderPage from '@/app/career-builder/page';
 import LearningPage from '@/app/learning/page';
 import { useOptionalCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
+import { toast } from '@/lib/store/useAppStore';
 
 export type MirrorSubTab = 'career-builder' | 'twin' | 'roadmap' | 'resume' | 'gaps';
 export type DigitalStudioPillar = 'resume' | 'twin';
@@ -78,8 +79,10 @@ function DigitalStudioInner() {
   }, [cOS?.dnaScore]);
 
   // Synchronize state from URL query parameters
+  const autostartScanRef = useRef(false);
   useEffect(() => {
     const tabParam = searchParams.get('tab');
+    const autostart = searchParams.get('autostart');
     if (tabParam === 'career-builder' || tabParam === 'resume' || tabParam === 'ats') {
       setActivePillar('resume');
     } else if (tabParam === 'twin' || tabParam === 'radar' || tabParam === 'roadmap' || tabParam === 'gaps') {
@@ -89,6 +92,32 @@ function DigitalStudioInner() {
       } else {
         setTwinSubTab('radar');
       }
+    }
+
+    // Voice action deep-link: `/mirror?tab=twin&autostart=scan`
+    // Focuses the Digital Career Twin & Skill Gap view idempotently (0 Pins spent).
+    if (autostart !== 'scan') {
+      autostartScanRef.current = false;
+      return;
+    }
+    if (autostartScanRef.current) return;
+    autostartScanRef.current = true;
+    setActivePillar('twin');
+    setTwinSubTab('gaps');
+    toast.info('Skill Gap Scan Ready ✦', 'Reviewing your Digital Career Twin and priority skill gaps.');
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+      window.setTimeout(() => {
+        document.querySelector('[data-testid="mirror-view-learning-twin"]')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 150);
     }
   }, [searchParams]);
 

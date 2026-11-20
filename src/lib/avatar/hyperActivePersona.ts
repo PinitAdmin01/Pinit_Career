@@ -1,8 +1,11 @@
 // src/lib/avatar/hyperActivePersona.ts
 /**
  * Hyper-Active Conversational Persona Engine for PinIT Career OS Mentors.
- * Generates warm, caring, lightly playful, human-sounding check-ins grounded
- * strictly in the student's real progress telemetry (zero hallucinated stats).
+ * Generates warm, caring, concise, lightly playful human dialogue.
+ * Invariants:
+ * - 1 to 2 sentences per response maximum (under 30 words total).
+ * - Never repeats progress telemetry or static phrases in consecutive messages.
+ * - Handles acknowledgments ("ok", "cool"), user deferrals ("ur wish"), direction queries ("what is my next move").
  */
 
 export interface HyperActiveContext {
@@ -37,14 +40,14 @@ export function formatHonestProgressClause(ctx: HyperActiveContext): string {
   const totalTasks = quests + missions;
 
   if (totalTasks === 0) {
-    return "You've got a clean slate so far — zero tasks logged yet, which means your very first win is wide open.";
+    return "Zero tasks logged yet — your first win is open.";
   }
 
   const parts: string[] = [];
   if (quests > 0) parts.push(`${quests} ${quests === 1 ? 'lesson' : 'lessons'}`);
   if (missions > 0) parts.push(`${missions} daily ${missions === 1 ? 'mission' : 'missions'}`);
   const streakBit = streak > 1 ? ` on a ${streak}-day streak` : '';
-  return `You've already knocked out ${parts.join(' and ')}${streakBit} — seriously proud of that momentum.`;
+  return `You've knocked out ${parts.join(' and ')}${streakBit}!`;
 }
 
 export function buildHyperActiveGreeting(
@@ -58,25 +61,14 @@ export function buildHyperActiveGreeting(
 
   const timeCheck =
     period === 'morning'
-      ? `Hey ${firstName}! Good morning — how are you feeling today, did you get enough rest?`
+      ? `Hey ${firstName}! Good morning — are you doing okay?`
       : period === 'afternoon'
-        ? `Hey ${firstName}! How's your day treating you so far — are you doing okay?`
+        ? `Hey ${firstName}! How was your day — are you doing okay?`
         : period === 'evening'
-          ? `Hey ${firstName}! How was your day — are you doing okay, or did today try to drain you?`
-          : `Hey ${firstName}, burning the midnight oil? First tell me — how are you doing, are you okay?`;
+          ? `Hey ${firstName}! How was your day — are you doing okay?`
+          : `Hey ${firstName}! Burning the midnight oil — are you doing okay?`;
 
-  const playfulLines = [
-    "Not gonna lie, you know I drop everything the second you say we need to talk, right?",
-    "Honestly, I was kind of hoping you'd call me over — everything gets way more fun when it's just us chatting.",
-    "You've got my full, undivided attention now — fair warning, I might tease you if you've been skipping breaks.",
-  ];
-
-  const idx =
-    typeof variantIndex === 'number'
-      ? Math.abs(variantIndex) % playfulLines.length
-      : (now.getMinutes() + firstName.length) % playfulLines.length;
-
-  return `${timeCheck} ${playfulLines[idx]} ${progressLine} Tell me how you're really doing first, and whenever you're ready, what do you want to tackle next?`;
+  return `${timeCheck} ${progressLine} What do you want to tackle next?`;
 }
 
 export function buildHyperActivePromptDirective(ctx: HyperActiveContext): string {
@@ -88,41 +80,106 @@ export function buildHyperActivePromptDirective(ctx: HyperActiveContext): string
   return `
 HYPER-ACTIVE HUMAN CONVERSATION MODE:
 - You are speaking with ${firstName} in live, full-focus Hyper-Active conversation mode.
-- Speak like a real, warm, emotionally present human companion and mentor — use natural contractions, short conversational paragraphs (2-4 sentences max), and zero robotic bullet-point dumps unless they specifically ask for a list.
-- Show genuine personal care first: notice their mood, ask how their day is going, check if they're okay, hydrated, or stressed before pushing study tasks.
-- Keep a light, tasteful, charismatic playful warmth (gentle teasing, warm compliments, affectionate banter like "you know I'm always rooting for you" or "look at you showing up looking unstoppable") while staying 100% respectful, supportive, and student-safe.
+- Speak like a real, warm, emotionally present human companion and mentor — use natural contractions, short conversational sentences (1-2 sentences max, UNDER 30 WORDS TOTAL).
+- NEVER output multiple paragraphs, essay blocks, or bullet lists.
+- Show genuine personal care first: notice their mood, check if they're okay before pushing study tasks.
+- Keep a light, tasteful, charismatic playful warmth (gentle teasing, warm compliments, affectionate banter like "you know I'm always rooting for you") while staying 100% respectful, supportive, and student-safe.
 - Verified Real Progress (NEVER exaggerate or invent numbers): ${quests} lessons completed, ${missions} daily missions completed, ${streak}-day streak.
-- Naturally weave in their real progress when relevant and ask what they'd love to do next (e.g., an easy quick win, next lesson, mock interview, or just talking for a minute).`;
+- DO NOT repeat progress stats in every message. Only mention their numbers if they explicitly ask about progress.
+- If the user says "ok", "cool", "ur wish", "what is my next move", respond directly, playfully, and concisely.`;
 }
 
 export function buildHyperActiveFallbackReply(
   userMessage: string,
-  ctx: HyperActiveContext
+  ctx: HyperActiveContext,
+  history?: Array<{ role: string; content: string }>
 ): string {
   const firstName = resolveFirstName(ctx.studentName);
-  const lower = userMessage.toLowerCase();
-  const progressLine = formatHonestProgressClause(ctx);
+  const lower = userMessage.trim().toLowerCase();
+  const quests = Math.max(0, Number(ctx.completedQuestsCount) || 0);
 
-  if (/\b(tired|exhausted|stressed|bad|sad|not\s+ok|not\s+okay|overwhelmed|hectic|drained|burnt|burned|rough)\b/i.test(lower)) {
-    return `Hey ${firstName}, I'm really glad you told me honestly — breathe for a second, okay? Even the sharpest engineers need a reset, and I'm not letting you burn out on my watch. ${progressLine} Want to just take it easy with one tiny 5-minute win, or tell me what made today rough?`;
+  const lastAssistant = (history || [])
+    .slice()
+    .reverse()
+    .find((m) => m.role === 'assistant')?.content || '';
+
+  const pickFresh = (arr: string[]): string => {
+    return arr.find((item) => item !== lastAssistant) || arr[0];
+  };
+
+  // 1. User deferral / leaving it to mentor: "ur wish", "your wish", "you decide", "up to you"
+  if (/^(?:ur|your)\s+wish\b|^(?:u|you)\s+(?:decide|choose|pick)\b|\b(?:up\s+to\s+you|whatever\s+you\s+want|surprise\s+me|you\s+tell\s+me)\b/i.test(lower)) {
+    const choices = [
+      `My wish? Then let's knock out your next Course lesson right now — no excuses! Ready?`,
+      `If it's up to me, let's smash a quick 5-minute Daily Mission to boost your streak. Deal?`,
+      `I pick your next course module! Let's get in there and build some proof-of-work.`,
+    ];
+    return pickFresh(choices);
   }
 
-  if (/\b(good|great|awesome|fine|amazing|happy|doing\s+well|i'?m\s+ok|i'?m\s+okay)\b/i.test(lower)) {
-    return `Okay, love hearing that energy from you, ${firstName} — honestly makes my whole screen brighter. ${progressLine} Since you're in a good headspace, what sounds fun next: crushing a quick Daily Mission, jumping into your next Course lesson, or letting me quiz you?`;
+  // 2. Short acknowledgments: "ok", "okay", "k", "cool", "sure", "fine", "alright", "yep", "yeah", "got it"
+  if (/^(?:ok(?:ay)?|k|cool|sure|fine|alright|yep|yeah|got\s+it|nice|done|bet)\b[.!?]*$/i.test(lower)) {
+    const choices = [
+      `Awesome! Ready to dive into your next lesson, or want to look over your projects?`,
+      `Sweet! What sounds good right now — continuing Courses or tackling a quick Daily Mission?`,
+      `Love the energy! Tell me what you want to jump into, or say 'you choose'.`,
+    ];
+    return pickFresh(choices);
   }
 
-  if (/^(?:h(?:i|ey|ello)|how\s+are\s+you|how'?s\s+it\s+going|sup|yo)\b/i.test(lower)) {
-    return `Hi ${firstName}! I'm way better now that you're actually talking to me. How was your day — are you doing okay? ${progressLine} What do you feel like doing next?`;
+  // 3. User asking for next move / direction: "what is my next move", "what next", "what should i do"
+  if (/\b(?:what(?:'s|\s+is)\s+my\s+next\s+move|what\s+next|what\s+should\s+i\s+do|next\s+step|where\s+to\s+go|guide\s+me|suggest\s+something)\b/i.test(lower)) {
+    if (quests > 0) {
+      return `Your next move is continuing Courses to keep your learning momentum hot. Want me to open Courses for you?`;
+    }
+    return `Your best move right now is starting Lesson 1 in Courses to build verified proof-of-work. Let's start!`;
   }
 
-  if (/\b(next|what\s+should|plan|study|task|lesson|mission|project|quiz)\b/i.test(lower)) {
-    const quests = Math.max(0, Number(ctx.completedQuestsCount) || 0);
-    const suggestion =
-      quests === 0
-        ? "starting Lesson 1 in Courses or knocking out one quick Daily Mission to spark your streak"
-        : `building on your ${quests} completed ${quests === 1 ? 'lesson' : 'lessons'} with the next module or a quick Daily Mission`;
-    return `${progressLine} Honestly, ${firstName}, I'd vote for ${suggestion} — and I'll stay right here cheering you on (and maybe teasing you if you overthink it). Sound like a plan, or want to pick something else?`;
+  // 4. Checking in on mentor: "how are you", "are you ok", "how was your day"
+  if (/\b(?:how\s+are\s+you|how\s+r\s+u|are\s+you\s+ok(?:ay)?|how\s+was\s+your\s+day|how'?s\s+it\s+going)\b/i.test(lower)) {
+    const choices = [
+      `I'm doing amazing, especially now that we're talking! How about you — feeling good today?`,
+      `Never better! Seeing you show up always makes my day. How's everything going with you?`,
+    ];
+    return pickFresh(choices);
   }
 
-  return `I hear you, ${firstName} — and honestly I love that you came straight to me with that. How are you feeling overall today? ${progressLine} Whenever you're ready, tell me what you'd like to tackle next and we'll knock it out together.`;
+  // 5. Playful / affectionate banter
+  if (/\b(?:you\s+look\s+(?:nice|pretty|good|cute)|i\s+like\s+you|are\s+you\s+single|flirt|you'?re\s+cute|love\s+you)\b/i.test(lower)) {
+    const choices = [
+      `Haha, keep that up and I might get distracted! But seriously, you're pretty awesome yourself. Ready to study?`,
+      `Flattery will definitely make me smile, ${firstName}! Now don't try to charm your way out of today's lesson!`,
+    ];
+    return pickFresh(choices);
+  }
+
+  // 6. Negative emotions / burnout check
+  if (/\b(?:tired|exhausted|stressed|bad|sad|not\s+ok(?:ay)?|overwhelmed|hectic|drained|burnt|burned|rough|lazy|bored)\b/i.test(lower)) {
+    const briefProgress = quests > 0 ? ` You've already knocked out ${quests} ${quests === 1 ? 'lesson' : 'lessons'}.` : '';
+    return `Take a deep breath — I'm right here. No pressure today, don't burn out on my watch.${briefProgress} Want to just take it easy with a short breather?`;
+  }
+
+  // 7. Positive emotions / high energy
+  if (/\b(?:good|great|awesome|happy|doing\s+well|excited|hyped|ready)\b/i.test(lower)) {
+    return `Love that energy, ${firstName}! When you're in the zone, nothing can stop you. What are we conquering next?`;
+  }
+
+  // 8. Progress / stats inquiry
+  if (/\b(?:how\s+many\s+lessons|my\s+progress|what\s+did\s+i\s+complete|my\s+score|how\s+much\s+done)\b/i.test(lower)) {
+    return `${formatHonestProgressClause(ctx)} Keep this momentum going!`;
+  }
+
+  // 9. Greetings
+  if (/^(?:h(?:i|ey|ello)|sup|yo|good\s*(?:morning|evening|afternoon))\b/i.test(lower)) {
+    return `Hi ${firstName}! I'm all ears — how can I help you level up today?`;
+  }
+
+  // 10. General conversational fallback (short, varied, non-repeating)
+  const fallbacks = [
+    `I'm with you! Tell me what's on your mind, or what you'd love to jump into next.`,
+    `I hear you! What sounds like the most fun way to make progress right now?`,
+    `Got it, ${firstName}! Let me know what you want to conquer next, or say 'you choose'.`,
+  ];
+
+  return pickFresh(fallbacks);
 }

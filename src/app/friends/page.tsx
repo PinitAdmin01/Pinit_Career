@@ -57,7 +57,8 @@ function FriendsContent() {
   // Chat View Active Friend
   const [activeChatFriendId, setActiveChatFriendId] = useState<string | undefined>(undefined);
 
-  // ── Sync URL Search Parameters (e.g. ?tab=messages&friendId=...) ─────────
+  // ── Sync URL Search Parameters (e.g. ?tab=messages&friendId=... or ?autostart=find) ─
+  const autostartFindRef = useRef(false);
   useEffect(() => {
     const tabParam = searchParams.get('tab');
     if (tabParam && ['discover', 'network', 'requests', 'messages', 'challenges', 'projects'].includes(tabParam)) {
@@ -66,6 +67,27 @@ function FriendsContent() {
     const friendIdParam = searchParams.get('friendId');
     if (friendIdParam) {
       setActiveChatFriendId(friendIdParam);
+    }
+
+    const autostart = searchParams.get('autostart');
+    if (autostart !== 'find') {
+      autostartFindRef.current = false;
+      return;
+    }
+    if (autostartFindRef.current) return;
+    autostartFindRef.current = true;
+    setActiveTab('discover');
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+      window.setTimeout(() => {
+        searchInputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        searchInputRef.current?.focus();
+      }, 150);
     }
   }, [searchParams]);
 

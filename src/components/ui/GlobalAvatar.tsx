@@ -7,8 +7,15 @@ import { speakWithAvatar, stopSpeaking, preloadTTS, setStoryTourAudioLock } from
 import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
 import { completeStoryTour, isStoryTourPending, resetStoryTour } from '@/lib/storyTour';
 import { StoryTourEngine, tourRoutePath } from '@/lib/storyTourEngine';
-import { matchNavigationIntent } from '@/components/avatar/hooks/useVoiceNavigation';
+import { matchBestAlternative, getGrammarVocabulary } from '@/components/avatar/hooks/useVoiceNavigation';
 import { isHyperActiveTrigger } from '@/lib/avatar/wakeWordParser';
+import { isPriorityDiagnosticQuery, buildPriorityDiagnosticReport } from '@/lib/avatar/priorityBriefing';
+import { matchBestActionAlternative } from '@/lib/avatar/voiceActionRouter';
+import {
+  createSpeechRecognitionController,
+  resolveBestSpeechLocale,
+  type SpeechEngineStatus,
+} from '@/lib/avatar/speechRecognitionEngine';
 import {
   StoryTourCard,
   StoryTourProgressBar,
@@ -143,9 +150,16 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [isEnlarged, setIsEnlarged] = useState(false);
   const [showVoiceRegModal, setShowVoiceRegModal] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const isSpeakingRef = useRef(false);
+  isSpeakingRef.current = isSpeaking;
   const [voiceListeningActive, setVoiceListeningActive] = useState(false);
+  const [speechStatus, setSpeechStatus] = useState<SpeechEngineStatus>('idle');
+  const [heardPreview, setHeardPreview] = useState<string>('');
+  const heardPreviewTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const speechControllerRef = useRef<ReturnType<typeof createSpeechRecognitionController> | null>(null);
   const [isCompactViewport, setIsCompactViewport] = useState(false);
   const [hyperActive, setHyperActive] = useState(false);
+  const [hyperModeVariant, setHyperModeVariant] = useState<'conversational' | 'diagnostic'>('conversational');
   const leftSidebarBeforeHyperRef = useRef<boolean>(false);
   const lastHyperTriggerRef = useRef<number>(0);
   const onCollapseLeftNavRef = useRef(onCollapseLeftNav);
@@ -153,9 +167,25 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const isLeftSidebarOpenRef = useRef(isLeftSidebarOpen);
   isLeftSidebarOpenRef.current = isLeftSidebarOpen;
 
+  const showHeardPreview = useCallback((text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    setHeardPreview(trimmed.length > 36 ? `${trimmed.slice(0, 35)}…` : trimmed);
+    if (heardPreviewTimerRef.current) clearTimeout(heardPreviewTimerRef.current);
+    heardPreviewTimerRef.current = setTimeout(() => {
+      setHeardPreview('');
+    }, 3000);
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    setVoiceListeningActive(localStorage.getItem('pinit_voice_wake_active') === 'true');
+    const stored = localStorage.getItem('pinit_voice_wake_active');
+    // Default to active voice wake listening unless student explicitly muted ('false')
+    const active = stored !== 'false';
+    setVoiceListeningActive(active);
+    if (stored === null) {
+      localStorage.setItem('pinit_voice_wake_active', 'true');
+    }
     const mq = window.matchMedia('(max-width: 900px)');
     const syncViewport = () => setIsCompactViewport(mq.matches);
     syncViewport();
@@ -236,19 +266,28 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   useEffect(() => {
     setMounted(true);
     return () => {
+      if (heardPreviewTimerRef.current) clearTimeout(heardPreviewTimerRef.current);
+      speechControllerRef.current?.destroy();
+      speechControllerRef.current = null;
       tourEngineRef.current?.stop();
       setStoryTourAudioLock(false);
       stopSpeaking(true);
     };
   }, []);
 
+  // Sync TTS speaking state into the speech recognition controller to prevent self-hearing feedback loops
+  useEffect(() => {
+    speechControllerRef.current?.setTtsSpeaking(isSpeaking);
+  }, [isSpeaking]);
+
   // ── 2. Hyper-Active mode lifecycle + 15s auto-dock timer ────────────────────
-  const enterHyperActive = useCallback(() => {
+  const enterHyperActive = useCallback((variant: 'conversational' | 'diagnostic' = 'conversational') => {
     const now = Date.now();
     if (now - lastHyperTriggerRef.current < 800) return;
     lastHyperTriggerRef.current = now;
     leftSidebarBeforeHyperRef.current = isLeftSidebarOpenRef.current;
     onCollapseLeftNavRef.current?.();
+    setHyperModeVariant(variant);
     setTourActive(false);
     setMinimized(false);
     setHyperActive(true);
@@ -298,108 +337,128 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   useEffect(() => {
     // Pause wake-word speech recognition during active tasks, story tour, or Hyper-Active chat (prevents dual-mic lock)
     if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive || isTaskOrProcessActive || hyperActive) return;
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
 
-    let recognition: any = null;
-    let isMounted = true;
-    try {
-      recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = 'en-US';
+    const controller = createSpeechRecognitionController({
+      lang: resolveBestSpeechLocale(typeof navigator !== 'undefined' ? navigator.language : undefined),
+      silenceCommitMs: 750,
+      ttsCooldownMs: 450,
+      grammarWords: getGrammarVocabulary(),
+      onInterim: (text) => {
+        showHeardPreview(text);
+      },
+      onStatusChange: (status) => {
+        setSpeechStatus(status);
+      },
+      onPermissionDenied: () => {
+        console.warn('[PinIT Speech] Permission denied.');
+        setSpeechStatus('denied');
+        setVoiceListeningActive(false);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('pinit_voice_wake_active', 'false');
+        }
+      },
+      onUtterance: ({ primary, alternatives }) => {
+        const allAlternatives = Array.from(
+          new Set([primary, ...(alternatives || [])].map((s) => (s || '').trim()).filter(Boolean))
+        );
+        if (allAlternatives.length === 0) return;
 
-      recognition.onresult = (event: any) => {
-        if (!isMounted || !voiceListeningActive) return;
-        const startIdx = typeof event.resultIndex === 'number' ? event.resultIndex : 0;
-        const latestSlice = Array.from(event.results).slice(startIdx);
-        const transcript = latestSlice
-          .map((r: any) => r[0].transcript)
-          .join(' ')
-          .toLowerCase();
+        showHeardPreview(allAlternatives[0]);
 
         const mentorName = teacher.name.split(' ')[1]?.toLowerCase() || teacher.name.toLowerCase();
+        const escapedMentor = mentorName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const wakeRegex = new RegExp(
+          `\\b(?:hey|hwy|hay|hi|hello|priya|preya|pria|anish|aneesh|vikram|kashyap|karthic|maya|divya|aisha|rohan|shalini|${escapedMentor})\\b`,
+          'i'
+        );
+        const hasWakeWord = allAlternatives.some((alt) => wakeRegex.test(alt));
+        const hasExplicitHyperPhrase = allAlternatives.some((alt) => /\bhyper[\s-]?active\b/i.test(alt));
+        const hasExplicitNavAction = allAlternatives.some((alt) => {
+          const lower = alt.toLowerCase();
+          return (
+            /\b(?:go\s+to|open|navigate\s+to|switch\s+to|take\s+me\s+to|jump\s+to|show\s+me)\b/.test(lower) ||
+            /\b(?:start|launch|initiate|begin|resume)\s+(?:mission|lesson|quest|interview|duel|challenge|sprint|exam)\b/.test(lower)
+          );
+        });
 
-        // 0. Hyper-Active trigger ("hey priya we need to chat/chart/speak/talk")
-        if (isHyperActiveTrigger(transcript, mentorName)) {
-          stopSpeaking();
-          enterHyperActive();
-          return;
-        }
+        if (!hasWakeWord && !hasExplicitHyperPhrase && !hasExplicitNavAction) return;
 
-        // Clean wake words (removed false triggers: freya, riya)
-        const hasWakeWord = /\b(hey|hwy|hay|hi|hello)\b/i.test(transcript) ||
-                            /\b(priya|anish|vikram|kashyap|karthic|maya|divya|aisha|rohan|shalini)\b/i.test(transcript) ||
-                            transcript.includes(mentorName);
-
-        if (!hasWakeWord) return;
-
-        setMinimized(false);
-        resetIdleTimer();
         stopSpeaking();
 
-        const currentActivePath = cleanPathRef.current;
-
-        // 1. Socratic Guidance Queries
-        const isWhatToDoQuery = transcript.includes('what to do') ||
-                                transcript.includes('what should i do') ||
-                                transcript.includes('what next') ||
-                                transcript.includes('recommend') ||
-                                transcript.includes('where to go') ||
-                                transcript.includes('guide me') ||
-                                transcript.includes('what should i study');
-
-        if (isWhatToDoQuery) {
-          let advice = "I recommend checking your Daily Missions to solve gap-closure challenges and build your streak!";
-          if (currentActivePath === '/dashboard') {
-            advice = "Head to the Missions tab to solve today's gap-closure challenges, or Quests to continue your active learning track!";
-          } else if (currentActivePath === '/quests') {
-            advice = "Explore your active socratic courses to earn XP and increase your verified skill metrics!";
-          } else if (currentActivePath === '/missions') {
-            advice = "Complete today's daily challenges to close your skill gaps and protect your consistency streak!";
-          } else if (currentActivePath === '/arena') {
-            advice = "Enter a 1v1 speedrun battle or algorithm duel to test your skills against other students!";
-          } else if (currentActivePath === '/interview') {
-            advice = "Start a simulated AI technical interview to practice behavioral and algorithmic questions with live feedback!";
-          }
-          speakWithAvatar(advice, teacherId, () => {}, () => {});
+        // Priority 1 — Executive Priority / Diagnostic / Mistakes Query (Task 4)
+        if (hasWakeWord && allAlternatives.some((alt) => isPriorityDiagnosticQuery(alt))) {
+          enterHyperActive('diagnostic');
           return;
         }
 
-        // 2. Route Navigation Commands via Precision Vocabulary
-        const navResult = matchNavigationIntent(transcript);
-        if (navResult.matched && navResult.confidence >= 0.5) {
-          speakWithAvatar(`Navigating to ${navResult.displayName}!`, teacherId, () => {}, () => {});
-          router.push(navResult.path);
+        // Priority 2 — Hyper-Active Conversational Trigger (Task 2 & 3)
+        if (allAlternatives.some((alt) => isHyperActiveTrigger(alt, mentorName))) {
+          enterHyperActive('conversational');
           return;
         }
 
-        // 3. General Wake Word Greeting
-        speakWithAvatar(`Yes! I am here. Say "we need to chat" for full conversation mode, or ask what to do next.`, teacherId, () => {}, () => {});
-      };
+        if (!hasWakeWord && !hasExplicitNavAction) return;
 
-      recognition.onerror = (err: any) => {
-        if (err.error === 'not-allowed') {
-          console.warn('[PinIT Speech] Permission denied.');
-          setVoiceListeningActive(false);
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('pinit_voice_wake_active', 'false');
-          }
+        // Priority 3 — Actionable Start/Launch Commands (Task 5)
+        const actionResult = matchBestActionAlternative(allAlternatives, { addressedMentor: true });
+        if (actionResult.matched && actionResult.confidence >= 0.6) {
+          speakWithAvatar(
+            actionResult.spokenReply,
+            teacherIdRef.current,
+            () => setIsSpeaking(true),
+            () => setIsSpeaking(false)
+          );
+          routerRef.current.push(actionResult.path);
+          return;
         }
-      };
 
-      recognition.start();
-    } catch {
-      // Gracefully ignore startup collision
-    }
+        // Priority 4 — Left Sidebar Tab Navigation (Tasks 2 & 3)
+        const navResult = matchBestAlternative(allAlternatives, { addressedMentor: true });
+        if (navResult.matched && navResult.confidence >= 0.58) {
+          speakWithAvatar(
+            `Opening ${navResult.displayName}.`,
+            teacherIdRef.current,
+            () => setIsSpeaking(true),
+            () => setIsSpeaking(false)
+          );
+          routerRef.current.push(navResult.path);
+          return;
+        }
+
+        // Priority 5 — Fallback Wake Greeting
+        setMinimized(false);
+        resetIdleTimer();
+        speakWithAvatar(
+          "I'm here. Say 'go to courses', 'start mission', 'what are my priorities', or 'we need to chat'.",
+          teacherIdRef.current,
+          () => setIsSpeaking(true),
+          () => setIsSpeaking(false)
+        );
+      },
+    });
+
+    speechControllerRef.current = controller;
+    controller.setTtsSpeaking(isSpeakingRef.current);
+    controller.start();
 
     return () => {
-      isMounted = false;
-      if (recognition) {
-        try { recognition.stop(); } catch {}
+      controller.destroy();
+      if (speechControllerRef.current === controller) {
+        speechControllerRef.current = null;
       }
+      setSpeechStatus('idle');
     };
-  }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive, isTaskOrProcessActive, hyperActive, enterHyperActive]);
+  }, [
+    teacher.name,
+    resetIdleTimer,
+    isOnboardingOrAuth,
+    voiceListeningActive,
+    tourActive,
+    isTaskOrProcessActive,
+    hyperActive,
+    enterHyperActive,
+    showHeardPreview,
+  ]);
 
   // ── Story tour engine ──────────────────────────────────────────────────────
   // Engine callbacks read the latest render's handlers through this ref.
@@ -444,6 +503,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const startTour = useCallback(() => {
     setStoryTourAudioLock(true);
     stopSpeaking(true);
+    setHyperActive(false);
     setCelebEvent(null);
     setStoryLocked(true);
     setTourPaused(false);
@@ -690,6 +750,128 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     [profile, user, completedQuestsCount, completedMissionsCount, missionStreakVal, careerScoreVal, xpVal]
   );
 
+  const diagnosticReport = useMemo(() => {
+    const profileAny = (profile || {}) as Record<string, any>;
+    const userAny = (user || {}) as Record<string, any>;
+    const oa = (cOS.onboardingAnswers || profileAny.onboarding_answers || profileAny.onboardingAnswers || null) as Record<string, any> | null;
+
+    const studentName = String(
+      user?.displayName ||
+      userAny.name ||
+      userAny.full_name ||
+      profileAny.displayName ||
+      profileAny.name ||
+      profileAny.full_name ||
+      ''
+    );
+
+    const targetRole = String(
+      profileAny.targetRole ||
+      profileAny.target_role ||
+      (oa?.hasCompleted ? oa?.role : '') ||
+      ''
+    );
+
+    const activeCourseTitle = String(
+      profileAny.activeCourseTitle ||
+      profileAny.active_course_title ||
+      cOS.activeCourseId ||
+      oa?.courseId ||
+      ''
+    );
+
+    const weakAreas: string[] = [
+      ...(Array.isArray(profileAny.weak_areas) ? profileAny.weak_areas : []),
+      ...(Array.isArray(profileAny.weakAreas) ? profileAny.weakAreas : []),
+      ...(Array.isArray(userAny.weak_areas) ? userAny.weak_areas : []),
+      ...(Array.isArray(userAny.weakAreas) ? userAny.weakAreas : []),
+      ...(oa?.hasCompleted && Array.isArray(oa.weakAreas) ? oa.weakAreas : []),
+    ];
+
+    const strongAreas: string[] = [
+      ...(Array.isArray(profileAny.strong_areas) ? profileAny.strong_areas : []),
+      ...(Array.isArray(profileAny.strongAreas) ? profileAny.strongAreas : []),
+    ];
+
+    const onboardingSkills =
+      oa?.hasCompleted && Array.isArray(oa.skills)
+        ? oa.skills
+        : oa?.hasCompleted && typeof oa.skills === 'string'
+          ? oa.skills.split(',').map((s: string) => s.trim()).filter(Boolean)
+          : [];
+
+    const skillTags: string[] = [
+      ...(Array.isArray(profileAny.skill_tags) ? profileAny.skill_tags : []),
+      ...(Array.isArray(profileAny.skillTags) ? profileAny.skillTags : []),
+      ...(Array.isArray(userAny.skill_tags) ? userAny.skill_tags : []),
+      ...(Array.isArray(userAny.skillTags) ? userAny.skillTags : []),
+      ...onboardingSkills,
+    ];
+
+    const rawMistakeSources = [
+      profileAny.learning_mistakes,
+      profileAny.learningMistakes,
+      userAny.learning_mistakes,
+      oa?.learning_mistakes,
+    ];
+    const seenMistakes = new Set<string>();
+    const learningMistakes: unknown[] = [];
+    for (const src of rawMistakeSources) {
+      if (!Array.isArray(src)) continue;
+      for (const item of src) {
+        if (!item || typeof item !== 'object') continue;
+        const rec = item as Record<string, unknown>;
+        const key = String(rec.id || `${rec.module || rec.topic || ''}|${rec.description || rec.detail || ''}`).toLowerCase();
+        if (!seenMistakes.has(key)) {
+          seenMistakes.add(key);
+          learningMistakes.push(item);
+        }
+      }
+    }
+
+    const vaultCount = Math.max(
+      Array.isArray(cOS.vaultItems) ? cOS.vaultItems.length : 0,
+      Number(profileAny.vault_count ?? profileAny.vaultCount ?? 0) || 0
+    );
+
+    return buildPriorityDiagnosticReport({
+      studentName,
+      targetRole,
+      activeCourseTitle,
+      completedQuests: cOS.completedQuests || [],
+      completedMissions: cOS.completedMissions || [],
+      missionStreak: cOS.missionStreak || Number(profileAny.mission_streak ?? userAny.missionStreak ?? 0) || 0,
+      careerScore: cOS.careerScore || Number(profileAny.career_dna_score ?? userAny.careerDnaScore ?? 0) || 0,
+      trustScore:
+        cOS.trustScore > 0
+          ? cOS.trustScore
+          : Number(profileAny.trust_score ?? profileAny.trustScore ?? userAny.trust_score ?? userAny.trustScore ?? 100),
+      xp: cOS.xp || Number(profileAny.xp ?? userAny.xp ?? 0) || 0,
+      atsScore: Number(profileAny.ats_score ?? profileAny.atsScore ?? userAny.atsScore ?? 0) || 0,
+      vaultCount,
+      interviewsDone: Number(profileAny.interviews_done ?? profileAny.interviewsDone ?? 0) || 0,
+      weakAreas,
+      strongAreas,
+      skillTags,
+      jdMissingSkills: cOS.jdMissingSkills || [],
+      learningMistakes,
+      onboardingAnswers: oa,
+    });
+  }, [
+    cOS.onboardingAnswers,
+    cOS.activeCourseId,
+    cOS.completedQuests,
+    cOS.completedMissions,
+    cOS.missionStreak,
+    cOS.careerScore,
+    cOS.trustScore,
+    cOS.xp,
+    cOS.vaultItems,
+    cOS.jdMissingSkills,
+    profile,
+    user,
+  ]);
+
   if (!mounted || isOnboardingOrAuth) return null;
 
   const isCentered = onboardingStep === 0;
@@ -788,7 +970,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             borderRadius: '18px 18px 0 0',
             padding: '6px 14px 6px 8px',
             boxShadow: '0 -4px 24px rgba(0,0,0,0.38), 0 0 18px rgba(var(--brand-rgb), 0.22)',
-            opacity: INACTIVE_PILL_OPACITY,
+            opacity: voiceListeningActive && (speechStatus === 'hearing' || Boolean(heardPreview)) ? 0.96 : INACTIVE_PILL_OPACITY,
             transition: 'opacity 0.25s ease, transform 0.25s ease, box-shadow 0.2s',
           }}
           onMouseEnter={e => {
@@ -796,10 +978,39 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             e.currentTarget.style.transform = 'translateX(-50%) scale(1.04)';
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.opacity = String(INACTIVE_PILL_OPACITY);
+            e.currentTarget.style.opacity = String(
+              voiceListeningActive && (speechStatus === 'hearing' || Boolean(heardPreview)) ? 0.96 : INACTIVE_PILL_OPACITY
+            );
             e.currentTarget.style.transform = 'translateX(-50%)';
           }}
         >
+          {voiceListeningActive && heardPreview && (
+            <div
+              data-testid="global-avatar-heard-preview"
+              style={{
+                position: 'absolute',
+                bottom: 'calc(100% + 6px)',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                maxWidth: 260,
+                padding: '4px 10px',
+                borderRadius: 999,
+                background: 'rgba(15, 23, 42, 0.95)',
+                border: '1px solid rgba(56, 189, 248, 0.45)',
+                boxShadow: '0 6px 20px rgba(0,0,0,0.45)',
+                color: '#e0f2fe',
+                fontSize: 10.5,
+                fontWeight: 600,
+                fontFamily: 'var(--font-mono)',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                pointerEvents: 'none',
+              }}
+            >
+              “{heardPreview}”
+            </div>
+          )}
           <div style={{
             width: 30,
             height: 30,
@@ -828,10 +1039,37 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             <div style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>
               {teacher.name}
             </div>
-            <div style={{ fontSize: 9.5, color: voiceListeningActive ? '#34d399' : '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div
+              data-testid="global-avatar-speech-status"
+              style={{
+                fontSize: 9.5,
+                color: !voiceListeningActive
+                  ? '#a5b4fc'
+                  : speechStatus === 'hearing'
+                    ? '#38bdf8'
+                    : speechStatus === 'paused-tts'
+                      ? '#c4b5fd'
+                      : speechStatus === 'denied'
+                        ? '#f87171'
+                        : '#34d399',
+                fontFamily: 'var(--font-mono)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
               {voiceListeningActive ? (
                 <>
-                  <span style={{ color: '#ef4444' }}>🎙️</span> Listening
+                  <span style={{ color: speechStatus === 'hearing' ? '#38bdf8' : '#ef4444' }}>🎙️</span>
+                  {speechStatus === 'hearing'
+                    ? 'Hearing...'
+                    : speechStatus === 'paused-tts'
+                      ? 'Speaking...'
+                      : speechStatus === 'denied'
+                        ? 'Mic Blocked'
+                        : speechStatus === 'unsupported'
+                          ? 'Voice N/A'
+                          : 'Listening'}
                 </>
               ) : (
                 <>AI Mentor · Muted</>
@@ -921,6 +1159,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 isEnlarged={true}
                 onlyAvatar={false}
                 hyperActive={true}
+                hyperModeVariant={hyperModeVariant}
+                diagnosticReport={diagnosticReport}
                 autoStartVoice={voiceListeningActive}
                 onExitHyperActive={() => exitHyperActive(false)}
                 gazeTracking={!pathname.startsWith('/quests/')}
@@ -939,19 +1179,19 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           data-story-tour-card={tourActive ? '' : undefined}
           style={{
             position: 'fixed',
-            bottom: isCentered ? 'auto' : 0,
+            bottom: isCentered ? 'auto' : tourActive ? 10 : 0,
             top: isCentered ? '50%' : 'auto',
             left: isCentered || tourActive ? '50%' : activeDockLeft,
             right: 'auto',
             transform: isCentered ? 'translate(-50%, -50%)' : tourActive ? 'translateX(-50%)' : 'none',
             zIndex: 9999,
-            width: tourActive ? 'min(420px, calc(100vw - 28px))' : (isEnlarged ? 290 : 232),
+            width: tourActive ? 'min(440px, calc(100vw - 28px))' : (isEnlarged ? 290 : 256),
             maxWidth: 'calc(100vw - 24px)',
-            height: tourActive ? 240 : (isEnlarged ? 372 : 296),
+            height: tourActive ? 248 : (isEnlarged ? 372 : 296),
             background: 'var(--bg2)',
             border: '1px solid var(--border)',
-            borderBottom: isCentered ? '1px solid var(--border)' : 'none',
-            borderRadius: isCentered ? 16 : '16px 16px 0 0',
+            borderBottom: isCentered || tourActive ? '1px solid var(--border)' : 'none',
+            borderRadius: isCentered || tourActive ? 16 : '16px 16px 0 0',
             boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
             display: 'flex',
             flexDirection: tourActive ? 'row' : 'column',
@@ -1011,32 +1251,53 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  gap: 6,
-                  padding: '0 8px',
+                  gap: 4,
+                  padding: '0 6px',
                   background: 'rgba(15,23,42,0.92)',
                   borderBottom: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 5, minWidth: 0, overflow: 'hidden' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0, overflow: 'hidden' }}>
                   <span style={{ width: 6, height: 6, flexShrink: 0, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online" />
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 10.5, fontWeight: 800, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {teacher.name}
                   </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 3, flexShrink: 0 }}>
+                  <button
+                    type="button"
+                    data-testid="global-avatar-priority-btn"
+                    onClick={() => enterHyperActive('diagnostic')}
+                    title="Open Executive Priorities & Mistakes Dossier (or say 'Hey Priya, what are my priorities')"
+                    style={{
+                      background: 'rgba(245,158,11,0.16)',
+                      border: '1px solid rgba(245,158,11,0.45)',
+                      borderRadius: 5,
+                      color: '#fde68a',
+                      fontSize: 9,
+                      fontWeight: 700,
+                      padding: '2px 5px',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-mono)',
+                      lineHeight: 1.2,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Priorities
+                  </button>
                   <button
                     type="button"
                     data-testid="global-avatar-hyper-btn"
-                    onClick={enterHyperActive}
+                    onClick={() => enterHyperActive('conversational')}
                     title="Open Hyper-Active Chat (or say 'Hey Priya, we need to chat')"
                     style={{
                       background: 'rgba(56,189,248,0.16)',
                       border: '1px solid rgba(56,189,248,0.4)',
                       borderRadius: 5,
                       color: '#bae6fd',
-                      fontSize: 9.5,
+                      fontSize: 9,
                       fontWeight: 700,
-                      padding: '2px 6px',
+                      padding: '2px 5px',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-mono)',
                       lineHeight: 1.2,
@@ -1054,9 +1315,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                       border: 'none',
                       borderRadius: 5,
                       color: '#ffffff',
-                      fontSize: 9.5,
+                      fontSize: 9,
                       fontWeight: 700,
-                      padding: '2px 6px',
+                      padding: '2px 5px',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-mono)',
                       lineHeight: 1.2,
@@ -1076,7 +1337,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                       color: '#e2e8f0',
                       fontSize: 11,
                       fontWeight: 700,
-                      padding: '1px 6px',
+                      padding: '1px 5px',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-mono)',
                       lineHeight: 1.2,

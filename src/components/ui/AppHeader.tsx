@@ -33,6 +33,7 @@ export interface AppHeaderProps {
   isRightSidebarOpen?: boolean;
   isCollegeConnected?: boolean;
   onOpenConnectCollege?: () => void;
+  activeTourTabKey?: string | null;
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
@@ -60,6 +61,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   isRightSidebarOpen,
   isCollegeConnected = false,
   onOpenConnectCollege,
+  activeTourTabKey = null,
 }) => {
   return (
     <header className="topbar" style={{ display: (isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive) ? 'none' : 'flex' }}>
@@ -114,11 +116,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               width: 30,
               height: 30,
               borderRadius: '50%',
-              background: isRightSidebarOpen
+              background: isRightSidebarOpen || activeTourTabKey === 'academic-sidebar'
                 ? 'linear-gradient(135deg, var(--accent), var(--purple))'
                 : 'var(--bg3)',
-              border: `1.5px solid ${isRightSidebarOpen ? 'var(--accent)' : 'var(--border)'}`,
-              color: isRightSidebarOpen ? '#ffffff' : 'var(--accent)',
+              border: activeTourTabKey === 'academic-sidebar'
+                ? '2px solid #38bdf8'
+                : `1.5px solid ${isRightSidebarOpen ? 'var(--accent)' : 'var(--border)'}`,
+              color: isRightSidebarOpen || activeTourTabKey === 'academic-sidebar' ? '#ffffff' : 'var(--accent)',
               fontWeight: 900,
               fontSize: 14,
               fontFamily: 'var(--font-display), sans-serif',
@@ -126,11 +130,15 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              boxShadow: isRightSidebarOpen ? '0 0 12px rgba(99, 102, 241, 0.45)' : 'none',
+              boxShadow: activeTourTabKey === 'academic-sidebar'
+                ? '0 0 18px rgba(56, 189, 248, 0.8), 0 0 30px rgba(99, 102, 241, 0.5)'
+                : isRightSidebarOpen ? '0 0 12px rgba(99, 102, 241, 0.45)' : 'none',
+              transform: activeTourTabKey === 'academic-sidebar' ? 'scale(1.18)' : 'scale(1)',
               transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
               lineHeight: 1,
               padding: 0,
               flexShrink: 0,
+              zIndex: activeTourTabKey === 'academic-sidebar' ? 10 : 1,
             }}
           >
             A

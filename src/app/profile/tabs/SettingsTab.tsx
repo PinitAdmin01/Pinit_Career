@@ -56,7 +56,7 @@ export default function SettingsTab({ onLogout, loggingOut }: SettingsTabProps) 
       </div>
 
       {/* Card 2: Voice Registration & Microphone Calibration */}
-      <div style={CS.card}>
+      <div id="profile-section-voice" style={{ ...CS.card, scrollMarginTop: 88 }}>
         <div style={CS.cardTitle}>🎙️ Voice Registration & Microphone Calibration</div>
         <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
           Calibrate your microphone sensitivity and verify your speech recognition baseline for AI mock interviews and voice-assisted problem solving.

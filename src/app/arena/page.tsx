@@ -208,6 +208,30 @@ function ArenaContent() {
   const [soloSettlementRetry, setSoloSettlementRetry] = useState(0);
   const soloSettlementAttemptsRef = useRef(0);
 
+  // Voice action deep-link: `/arena?autostart=duel`
+  // Opens a ready-to-confirm 1v1 Code Wars modal showing the 10-Pin entry fee (never silently spends Pins).
+  const [showVoiceDuelModal, setShowVoiceDuelModal] = useState(false);
+  const autostartDuelHandledRef = useRef(false);
+  useEffect(() => {
+    const autostart = searchParams?.get('autostart');
+    if (autostart !== 'duel') {
+      autostartDuelHandledRef.current = false;
+      return;
+    }
+    if (activeRoom || soloMatch || autostartDuelHandledRef.current) return;
+    autostartDuelHandledRef.current = true;
+    setActiveTab('code_wars');
+    setShowVoiceDuelModal(true);
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  }, [searchParams, activeRoom, soloMatch]);
+
   // In-battle state
   const [language, setLanguage] = useState<'typescript' | 'python' | 'java'>('typescript');
   const [code, setCode] = useState<string>('');
@@ -2562,6 +2586,97 @@ function ArenaContent() {
             >
               Understood — Return to Arena
             </button>
+          </div>
+        </div>
+      )}
+
+      {showVoiceDuelModal && !activeRoom && !soloMatch && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Confirm 1v1 Arena Duel Launch"
+          data-testid="arena-voice-duel-modal"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 1200,
+            background: 'rgba(2, 6, 23, 0.76)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20,
+          }}
+          onClick={() => setShowVoiceDuelModal(false)}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 460,
+              background: 'var(--bg2)',
+              border: '1.5px solid rgba(99, 102, 241, 0.5)',
+              borderRadius: 20,
+              padding: 26,
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.45)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                🎙️ Voice Launch Ready
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowVoiceDuelModal(false)}
+                aria-label="Close modal"
+                style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+            </div>
+            <h3 style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 900, color: 'var(--t1)' }}>
+              Enter Rated 1v1 Code Wars Duel?
+            </h3>
+            <p style={{ margin: '0 0 18px', fontSize: 13.5, lineHeight: 1.55, color: 'var(--t2)' }}>
+              Difficulty calibrated to <strong>{studentKnowledge.recommendedDifficulty || 'basic'}</strong> (ELO {eloRating}). Entry stake is <strong>10 Pins</strong> (your balance: <strong>{pins} Pins</strong>).
+            </p>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+              <button
+                type="button"
+                onClick={() => setShowVoiceDuelModal(false)}
+                style={{
+                  padding: '10px 16px',
+                  borderRadius: 10,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg3)',
+                  color: 'var(--t2)',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                data-testid="arena-voice-confirm-duel-btn"
+                disabled={isStartingSolo}
+                onClick={() => {
+                  setShowVoiceDuelModal(false);
+                  void handleStartSoloSparring();
+                }}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: 10,
+                  border: 'none',
+                  background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                  color: '#fff',
+                  fontWeight: 800,
+                  cursor: isStartingSolo ? 'not-allowed' : 'pointer',
+                }}
+              >
+                {isStartingSolo ? 'PREPARING MATCH…' : '⚔️ Enter the Ring (10 Pins)'}
+              </button>
+            </div>
           </div>
         </div>
       )}

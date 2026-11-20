@@ -1,8 +1,9 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { CourseNotesModal } from '@/components/CourseNotesModal';
-import { useQuestProgression } from './components/useQuestProgression';
+import { useQuestProgression, type Quest } from './components/useQuestProgression';
 import { TrackSelectorDrawer } from './components/TrackSelectorDrawer';
 import { QuestPathView } from './components/QuestPathView';
 import { RoadmapCompleteBanner } from './components/RoadmapCompleteBanner';
@@ -15,6 +16,51 @@ import {
 
 function QuestsPageContent() {
   const prog = useQuestProgression();
+  const searchParams = useSearchParams();
+  const autostartLessonHandledRef = useRef(false);
+  const [voiceLaunchQuest, setVoiceLaunchQuest] = useState<Quest | null>(null);
+  const handleLaunchQuestRef = useRef(prog.handleLaunchQuest);
+  handleLaunchQuestRef.current = prog.handleLaunchQuest;
+
+  // Voice action deep-link: `/quests?autostart=lesson`
+  // Auto-launches immediately if the next lesson is already initiated or unlocked (0 Pins);
+  // otherwise opens a ready-to-confirm modal so Pins are never spent silently.
+  useEffect(() => {
+    const autostart = searchParams?.get('autostart');
+    if (autostart !== 'lesson') {
+      autostartLessonHandledRef.current = false;
+      return;
+    }
+    if (autostartLessonHandledRef.current) return;
+    if (!prog.nextUncompletedQuest || prog.modules.length === 0) return;
+
+    autostartLessonHandledRef.current = true;
+    const nextQuest = prog.nextUncompletedQuest;
+    prog.setShowCourseLibrary(false);
+    if (prog.activeSubTab === 'certification_passport') {
+      prog.setActiveSubTab('custom_roadmap');
+    }
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+
+    const initiated: string[] = Array.isArray(prog.onboardingAnswers?.initiatedQuests)
+      ? prog.onboardingAnswers.initiatedQuests
+      : [];
+    const isAlreadyFree =
+      initiated.includes(nextQuest.id) || Boolean(prog.isItemUnlocked?.(`quest:${nextQuest.id}`));
+
+    if (isAlreadyFree) {
+      void handleLaunchQuestRef.current(nextQuest);
+    } else {
+      setVoiceLaunchQuest(nextQuest);
+    }
+  }, [searchParams, prog]);
 
   return (
     <div data-testid="quests-page-root" className="quests-page" style={{ paddingBottom: 60 }}>
@@ -156,6 +202,98 @@ function QuestsPageContent() {
         trajectory={prog.trajectory}
         COURSES_REGISTRY={prog.COURSES_REGISTRY}
       />
+
+      {voiceLaunchQuest && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Confirm Next Lesson Launch"
+          data-testid="quests-voice-launch-modal"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 1200,
+            background: 'rgba(2, 6, 23, 0.72)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20,
+          }}
+          onClick={() => setVoiceLaunchQuest(null)}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 460,
+              background: 'var(--bg2)',
+              border: '1.5px solid var(--accent)',
+              borderRadius: 20,
+              padding: 26,
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.45)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                🎙️ Voice Launch Ready
+              </span>
+              <button
+                type="button"
+                onClick={() => setVoiceLaunchQuest(null)}
+                aria-label="Close modal"
+                style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+            </div>
+            <h3 style={{ margin: '0 0 8px', fontSize: 19, fontWeight: 900, color: 'var(--t1)' }}>
+              Start Next Lesson?
+            </h3>
+            <p style={{ margin: '0 0 6px', fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>
+              {voiceLaunchQuest.title}
+            </p>
+            <p style={{ margin: '0 0 18px', fontSize: 13, lineHeight: 1.5, color: 'var(--t2)' }}>
+              Course: <strong>{prog.activeCourse?.title || prog.trajectory.roleTitle}</strong>. Confirm to open your interactive lesson workspace.
+            </p>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+              <button
+                type="button"
+                onClick={() => setVoiceLaunchQuest(null)}
+                style={{
+                  padding: '10px 16px',
+                  borderRadius: 10,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg3)',
+                  color: 'var(--t2)',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Later
+              </button>
+              <button
+                type="button"
+                data-testid="quests-voice-confirm-launch-btn"
+                onClick={() => {
+                  const target = voiceLaunchQuest;
+                  setVoiceLaunchQuest(null);
+                  void prog.handleLaunchQuest(target);
+                }}
+                className="btn-primary"
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: 10,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                }}
+              >
+                ▶ Start Lesson
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
