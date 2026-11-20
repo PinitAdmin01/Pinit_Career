@@ -47,6 +47,7 @@ export class ArenaPvPService {
 
   static async startSoloMatch(problemId: string, requestId?: string): Promise<{
     matchId: string;
+    problemId: string;
     startedAt: string;
     deadlineAt: string;
     persisted: boolean;
@@ -62,10 +63,11 @@ export class ArenaPvPService {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.ok || typeof data.matchId !== 'string') {
-      throw new Error(data.error || 'Could not start Arena match.');
+      throw new Error(data.message || data.error || 'Could not start Arena practice.');
     }
     return {
       matchId: data.matchId,
+      problemId: typeof data.problemId === 'string' ? data.problemId : problemId,
       startedAt: data.startedAt,
       deadlineAt: data.deadlineAt,
       persisted: Boolean(data.persisted),

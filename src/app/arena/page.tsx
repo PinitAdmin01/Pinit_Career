@@ -58,7 +58,11 @@ function ArenaContent() {
   const roomQueryCode = searchParams?.get('room');
 
   const { user, refresh } = useAuth();
-  const studentId = user?.id || 'student_' + Math.random().toString(36).substring(2, 8);
+  const guestStudentIdRef = useRef<string | null>(null);
+  if (!guestStudentIdRef.current) {
+    guestStudentIdRef.current = `student_${Math.random().toString(36).slice(2, 8)}`;
+  }
+  const studentId = user?.id || guestStudentIdRef.current;
   const [combatantDeviceId, setCombatantDeviceId] = useState('');
   const studentName = (user as any)?.full_name || (user as any)?.name || 'Combatant';
   const studentAvatar = (user as any)?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
@@ -194,7 +198,7 @@ function ArenaContent() {
   const [roomInputCode, setRoomInputCode] = useState<string>('');
   const [isCreatingRoom, setIsCreatingRoom] = useState<boolean>(false);
   const roomCreateRequestIdRef = useRef<string | null>(null);
-  const soloStartRequestIdRef = useRef<string | null>(null);
+  const soloStartRequestRef = useRef<{ requestId: string; problemId: string } | null>(null);
   const [isJoiningRoom, setIsJoiningRoom] = useState<boolean>(false);
   const [isStartingSolo, setIsStartingSolo] = useState<boolean>(false);
   const [roomError, setRoomError] = useState<string | null>(null);
@@ -380,24 +384,6 @@ function ArenaContent() {
       setTimeout(() => setCopiedField(null), 1800);
     }
   };
-
-  const isGameActive = activeRoom?.status === 'in_progress' || soloMatch?.status === 'active';
-
-  // Game Mode: Vanish sidebars and topbars during active combat
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      if (isGameActive) {
-        document.body.setAttribute('data-arena-active', 'true');
-      } else {
-        document.body.removeAttribute('data-arena-active');
-      }
-    }
-    return () => {
-      if (typeof document !== 'undefined') {
-        document.body.removeAttribute('data-arena-active');
-      }
-    };
-  }, [isGameActive]);
 
   // Determine current active problem
   const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || (selectedProblemId !== 'auto' ? selectedProblemId : ''))) || problems[0];
@@ -685,6 +671,7 @@ function ArenaContent() {
         language,
         timeSpentSeconds: (activeRoom?.timeLimitSeconds || 600) - timeRemaining,
         problemId: activeProblem.id,
+        rewardEligible: Boolean(activeRoom),
       });
       setTestResult(result);
 
@@ -763,6 +750,7 @@ function ArenaContent() {
         language,
         timeSpentSeconds: (activeRoom?.timeLimitSeconds || 600) - timeRemaining,
         problemId: activeProblem.id,
+        rewardEligible: Boolean(activeRoom),
       });
       setTestResult(result);
 
@@ -804,20 +792,6 @@ function ArenaContent() {
         }
       } else if (soloMatch) {
         setSoloMatch(prev => prev ? { ...prev, status: result.passed ? 'victory' : 'defeat' } : null);
-        if (result.passed) {
-          const isFirstClear = !solvedProblemIds.has(activeProblem.id);
-          if (isFirstClear) {
-            triggerPinStream({ count: 12 });
-            if (result.xpAwarded && cOS?.applyServerXp) cOS.applyServerXp(result.newXp, result.xpAwarded, 'Code Wars Victory (First Clear)');
-            setSolvedProblemIds(prev => {
-              const next = new Set(prev).add(activeProblem.id);
-              try {
-                localStorage.setItem(`pinit_arena_solved_${studentId}`, JSON.stringify(Array.from(next)));
-              } catch {}
-              return next;
-            });
-          }
-        }
       }
     } catch (err: any) {
       toast.error('Submission Error', err.message || 'Could not submit solution.');
@@ -862,7 +836,7 @@ function ArenaContent() {
     setSoloReward(null);
     const hasPersistentWallet = Boolean(user?.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id));
     if (!hasPersistentWallet && cOS?.canAfford && !cOS.canAfford('code_arena')) {
-      toast.error('Insufficient Pins', 'You need 10 Pins to enter a rated Arena match.');
+      toast.error('Insufficient Pins', 'You need 10 Pins to start AI practice.');
       setIsStartingSolo(false);
       return;
     }
@@ -870,32 +844,70 @@ function ArenaContent() {
     const candidateProblems = problems.filter(p => p.difficulty === targetDiff);
     const unvisited = candidateProblems.filter(p => !solvedProblemIds.has(p.id));
     const pool = unvisited.length > 0 ? unvisited : candidateProblems;
-    const chosenProblem = pool.length > 0
+    const newlyChosenProblem = pool.length > 0
       ? pool[Math.floor(Math.random() * pool.length)]
       : problems[0];
 
-    setSelectedProblemId(chosenProblem.id);
+    const pendingStorageKey = `pinit_arena_solo_start_${studentId}`;
+    let pendingStart = soloStartRequestRef.current;
+    if (!pendingStart && hasPersistentWallet) {
+      try {
+        const saved = JSON.parse(localStorage.getItem(pendingStorageKey) || 'null');
+        if (
+          saved &&
+          typeof saved.requestId === 'string' &&
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(saved.requestId) &&
+          typeof saved.problemId === 'string' &&
+          problems.some(problem => problem.id === saved.problemId)
+        ) {
+          pendingStart = { requestId: saved.requestId, problemId: saved.problemId };
+        } else if (saved) {
+          localStorage.removeItem(pendingStorageKey);
+        }
+      } catch {
+        try { localStorage.removeItem(pendingStorageKey); } catch {}
+      }
+    }
+    const requestedProblem = pendingStart
+      ? problems.find(problem => problem.id === pendingStart?.problemId) || newlyChosenProblem
+      : newlyChosenProblem;
+    pendingStart = pendingStart || { requestId: createArenaRequestId(), problemId: requestedProblem.id };
+    soloStartRequestRef.current = pendingStart;
+    if (hasPersistentWallet) {
+      try { localStorage.setItem(pendingStorageKey, JSON.stringify(pendingStart)); } catch {}
+    }
+    setSelectedProblemId(requestedProblem.id);
+
     try {
-      if (!soloStartRequestIdRef.current) soloStartRequestIdRef.current = createArenaRequestId();
-      const serverMatch = await ArenaPvPService.startSoloMatch(chosenProblem.id, soloStartRequestIdRef.current);
+      const serverMatch = await ArenaPvPService.startSoloMatch(requestedProblem.id, pendingStart.requestId);
+      const matchProblem = problems.find(problem => problem.id === serverMatch.problemId) || requestedProblem;
       if (serverMatch.persisted) {
         if (typeof serverMatch.newBalance === 'number') cOS?.setPins?.(serverMatch.newBalance);
         if (typeof serverMatch.newBonusBalance === 'number') cOS?.setBonusPins?.(serverMatch.newBonusBalance);
       } else {
         const charged = cOS?.spendPins
-          ? await cOS.spendPins('code_arena', undefined, 'Start Rated Arena Match')
+          ? await cOS.spendPins('code_arena', undefined, 'Start AI Practice Match')
           : false;
-        if (!charged) throw new Error('You need 10 Pins to enter a rated Arena match.');
+        if (!charged) throw new Error('You need 10 Pins to start AI practice.');
       }
-      const match = CodeWarsApiService.startMatch(studentId, chosenProblem.id, '1v1_duel');
+      const match = CodeWarsApiService.startMatch(studentId, matchProblem.id, '1v1_duel');
       match.id = serverMatch.matchId;
       match.startedAt = Date.parse(serverMatch.startedAt) || Date.now();
+      const deadline = Date.parse(serverMatch.deadlineAt);
+      const remainingSeconds = Number.isFinite(deadline)
+        ? Math.max(0, Math.ceil((deadline - Date.now()) / 1000))
+        : matchProblem.timeLimitSeconds;
+      if (remainingSeconds === 0) match.status = 'timeout';
       soloSettledRef.current = null;
       soloSettlementAttemptsRef.current = 0;
       setSoloMatch(match);
-      setTimeRemaining(chosenProblem.timeLimitSeconds);
+      setSelectedProblemId(matchProblem.id);
+      setTimeRemaining(remainingSeconds);
       setTestResult(null);
-      soloStartRequestIdRef.current = null;
+      soloStartRequestRef.current = null;
+      if (hasPersistentWallet) {
+        try { localStorage.removeItem(pendingStorageKey); } catch {}
+      }
     } catch (err) {
       toast.error('Arena unavailable', err instanceof Error ? err.message : 'Could not start a sparring match.');
     } finally {
@@ -1050,8 +1062,8 @@ function ArenaContent() {
       });
   }, [isMatchOver, soloMatch, code, language, studentId, cOS, refresh, soloSettlementRetry, user]);
 
-  // Keep the arena layout immersive while a duel is active. Fullscreen is an
-  // explicit user action; starting a match must never change browser mode.
+  // Keep Arena's own focus layout local to this page; starting a match must not
+  // switch the whole application into focus or fullscreen gaming mode.
   const inDuel = Boolean(((activeRoom && activeRoom.status !== 'waiting') || soloMatch) && !isMatchOver);
 
   return (
@@ -1074,20 +1086,20 @@ function ArenaContent() {
                 <div className={styles.arenaHeroContent}>
                   <div className={styles.eyebrow}>
                     <span className={styles.liveDot} />
-                    1v1 Code Wars <span aria-hidden="true" style={{ color: 'var(--t3)' }}>·</span> Live Arena
+                    Turing AI Practice <span aria-hidden="true" style={{ color: 'var(--t3)' }}>·</span> Training Arena
                   </div>
                   <h1 className={styles.heroTitle}>
-                    Outthink. Outcode. Outlast.
+                    Practice the challenge. Keep your rating.
                   </h1>
                   <p className={styles.heroDescription}>
-                    Fair, timed duels move your Arena ELO. Choose your format and make the next move.
+                    Solve a timed coding challenge against the Turing benchmark. Practice results never change your ELO, Arena Points, XP, or ranked stats.
                   </p>
                   <div className={styles.heroActions}>
                     <span className={styles.detailPill}>
-                      1v1 · Arena ELO
+                      10 Pins · charged at start
                     </span>
                     <span className={styles.detailPill}>
-                      Difficulty matched to you
+                      No rating impact
                     </span>
                     <button
                       type="button"
@@ -1095,7 +1107,7 @@ function ArenaContent() {
                       disabled={isStartingSolo}
                       className={styles.primaryAction}
                     >
-                      {isStartingSolo ? 'PREPARING MATCH…' : 'ENTER THE RING'} <span aria-hidden="true">↗</span><span style={{ opacity: .82 }}>· 10 PINS</span>
+                      {isStartingSolo ? 'PREPARING PRACTICE…' : 'START AI PRACTICE'} <span aria-hidden="true">↗</span><span style={{ opacity: .82 }}>· 10 PINS</span>
                     </button>
                   </div>
                 </div>
@@ -1265,7 +1277,7 @@ function ArenaContent() {
               )}
 
               <p data-testid="arena-league-note" className={styles.arenaLeagueLink}>
-                Arena wins add Arena Points to your League Points.{' '}
+                PvP wins add Arena Points to your League Points. AI practice never changes your competitive stats.{' '}
                 <Link href="/leaderboard?mode=global" style={{ color: 'var(--accent)', fontWeight: 800, textDecoration: 'none' }}>
                   View League Points standings →
                 </Link>
@@ -1520,27 +1532,25 @@ function ArenaContent() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                  {isArenaFullscreen && (
-                    <span
-                      style={{
-                        background: 'rgba(99, 102, 241, 0.14)',
-                        border: '1px solid rgba(99, 102, 241, 0.35)',
-                        color: '#818cf8',
-                        fontSize: 11.5,
-                        fontWeight: 800,
-                        padding: '5px 12px',
-                        borderRadius: 999,
-                        fontFamily: "'JetBrains Mono', monospace",
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 6,
-                        letterSpacing: '0.5px',
-                        boxShadow: '0 0 12px rgba(99,102,241,0.2)',
-                      }}
-                    >
-                      🎮 FULLSCREEN ACTIVE · PRESS ESC TO EXIT
-                    </span>
-                  )}
+                  <span
+                    style={{
+                      background: 'rgba(99, 102, 241, 0.14)',
+                      border: '1px solid rgba(99, 102, 241, 0.35)',
+                      color: '#818cf8',
+                      fontSize: 11.5,
+                      fontWeight: 800,
+                      padding: '5px 12px',
+                      borderRadius: 999,
+                      fontFamily: "'JetBrains Mono', monospace",
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      letterSpacing: '0.5px',
+                      boxShadow: '0 0 12px rgba(99,102,241,0.2)',
+                    }}
+                  >
+                    {soloMatch ? 'TURING AI PRACTICE · RATINGS UNCHANGED' : 'LIVE PvP DUEL'}
+                  </span>
 
                   <button
                     type="button"
@@ -2289,7 +2299,9 @@ function ArenaContent() {
                     </div>
 
                     <p style={{ color: 'var(--t2)', fontSize: 15.5, margin: '0 0 20px' }}>
-                      {didIDraw
+                      {soloMatch
+                        ? 'Practice result only. The 10 Pin entry fee was charged when the match started; ELO, Arena Points, XP, and ranked win/loss stats stay unchanged.'
+                        : didIDraw
                         ? 'The match ended level. Your Arena ELO and Arena Points stay unchanged.'
                         : didIWin
                         ? 'Sensational performance! You conquered the algorithmic duel under official Arena rules.'
@@ -2323,9 +2335,10 @@ function ArenaContent() {
                       marginBottom: 24
                     }}>
                       <div>
-                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ELO RATING</div>
-                        <div style={{ fontSize: 20, fontWeight: 800, color: didIDraw ? '#a5b4fc' : didIWin ? '#34d399' : '#f87171' }}>
+                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>{soloMatch ? 'ELO · NO CHANGE' : 'ELO RATING'}</div>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: soloMatch ? '#38bdf8' : didIDraw ? '#a5b4fc' : didIWin ? '#34d399' : '#f87171' }}>
                           {(() => {
+                            if (soloMatch) return '+0';
                             if (activeRoom) {
                               const delta = isHost ? (activeRoom as any)?.hostEloDelta : (activeRoom as any)?.guestEloDelta;
                               if (typeof delta === 'number') {
@@ -2339,13 +2352,17 @@ function ArenaContent() {
                           })()}
                         </div>
                         <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
-                          {soloReward?.newElo ? `New Rating: ${soloReward.newElo}` : (activeRoom ? `Rating: ${isHost ? (activeRoom as any)?.hostNewElo ?? liveElo ?? sanitizedUserElo ?? 100 : (activeRoom as any)?.guestNewElo ?? liveElo ?? sanitizedUserElo ?? 100}` : (didIDraw ? `New: ${liveElo ?? sanitizedUserElo ?? 100}` : didIWin ? 'New: 120' : 'New: 80'))}
+                          {soloMatch
+                            ? `Rating remains ${soloReward?.newElo ?? liveElo ?? sanitizedUserElo ?? cachedElo}`
+                            : activeRoom
+                              ? `Rating: ${isHost ? (activeRoom as any)?.hostNewElo ?? liveElo ?? sanitizedUserElo ?? 100 : (activeRoom as any)?.guestNewElo ?? liveElo ?? sanitizedUserElo ?? 100}`
+                              : `New: ${liveElo ?? sanitizedUserElo ?? 100}`}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ARENA POINTS</div>
+                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>{soloMatch ? 'ARENA POINTS · NONE' : 'ARENA POINTS'}</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
-                          +{(() => {
+                          +{soloMatch ? 0 : (() => {
                             if (activeRoom) {
                               const awardPoints = isHost ? (activeRoom as any)?.hostArenaPointsAward : (activeRoom as any)?.guestArenaPointsAward;
                               if (typeof awardPoints === 'number') return awardPoints;
@@ -2501,17 +2518,17 @@ function ArenaContent() {
             </div>
 
             <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
-              Match outcomes are resolved by the Arena. ELO and Arena Points follow the same rules in private duels and solo sparring.
+              Private PvP matches affect ELO and Arena Points. Turing AI practice costs 10 Pins when it starts and never changes your ratings, XP, or ranked stats.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
               <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 16 }}>⚡</span>
-                  <strong style={{ color: '#f59e0b', fontSize: 14.5 }}>Rule 1: Win and rating rewards</strong>
+                  <strong style={{ color: '#f59e0b', fontSize: 14.5 }}>Rule 1: Private PvP ratings and rewards</strong>
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  The first combatant to pass all test cases wins. A win adds <strong>20 ELO</strong> and awards <strong>half of pre-match ELO as Arena Points</strong>, rounded and capped at 250. A loss removes up to 20 ELO and awards no Arena Points; a draw changes neither.
+                  In a private PvP match, the first combatant to pass all test cases wins. A win adds <strong>20 ELO</strong> and awards <strong>half of pre-match ELO as Arena Points</strong>, rounded and capped at 250. A loss removes up to 20 ELO and awards no Arena Points; a draw changes neither. These rating rules never apply to Turing AI practice.
                 </div>
               </div>
 

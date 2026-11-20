@@ -25,6 +25,10 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
       path.join(process.cwd(), 'supabase/migrations/20261117010000_atomic_arena_room_creation_and_fee.sql'),
       'utf8',
     );
+    const botPracticeMigration = fs.readFileSync(
+      path.join(process.cwd(), 'supabase/migrations/20261117020000_bot_practice_no_ratings_or_rewards.sql'),
+      'utf8',
+    );
     const legacySelfMatchHost = '8e2b5e4d-6b82-465f-b37a-72d5f922f389';
     await db.query(
       `insert into public.arena_rooms (room_code, problem_id, host_id, host_name, guest_id, status, winner_id)
@@ -32,6 +36,8 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
       [legacySelfMatchHost, `${legacySelfMatchHost}_challenger`],
     );
     await db.exec(roomFeeMigration);
+    await db.exec(botPracticeMigration);
+    await db.exec(botPracticeMigration);
     const { rows: cleanedSelfMatches } = await db.query<{
       status: string;
       winner_id: string | null;
@@ -152,20 +158,44 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
 
     const soloFeeUser = await createUser(db, { email: 'arena-solo-fee@pinit.test', role: 'student', pins: 100 });
     const soloFeeRequestId = 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee';
-    const startPaidSoloMatch = (requestId: string, userId: string, matchId: string) => db.query<{ result: unknown }>(
+    const startPaidSoloMatch = (requestId: string, userId: string, matchId: string, problemId = 'integration-problem') => db.query<{ result: unknown }>(
       `select public.start_solo_arena_match_with_pin_fee(
         $1::uuid, $2::uuid, $3::text, $4::text, now(), now() + interval '5 minutes'
       ) as result`,
-      [requestId, userId, matchId, 'integration-problem'],
+      [requestId, userId, matchId, problemId],
     );
     const firstPaidSolo = resultObject((await startPaidSoloMatch(soloFeeRequestId, soloFeeUser, 'solo-pin-match')).rows[0].result);
     assert.equal(firstPaidSolo.ok, true);
     assert.equal(firstPaidSolo.newBalance, 90);
-    const replayedPaidSolo = resultObject((await startPaidSoloMatch(soloFeeRequestId, soloFeeUser, 'solo-pin-match-retry')).rows[0].result);
+    assert.equal(firstPaidSolo.problemId, 'integration-problem');
+    const replayedPaidSolo = resultObject((await startPaidSoloMatch(soloFeeRequestId, soloFeeUser, 'solo-pin-match-retry', 'different-problem-on-retry')).rows[0].result);
     assert.equal(replayedPaidSolo.ok, true);
     assert.equal(replayedPaidSolo.replayed, true);
     assert.equal(replayedPaidSolo.matchId, 'solo-pin-match');
+    assert.equal(replayedPaidSolo.problemId, 'integration-problem', 'A retry cannot silently swap the problem attached to an already charged match');
     assert.equal(replayedPaidSolo.newBalance, 90, 'A retried solo start returns the existing match without charging twice');
+
+    const concurrentSoloUser = await createUser(db, { email: 'arena-solo-concurrent@pinit.test', role: 'student', pins: 100 });
+    const concurrentSoloKey = 'abababab-abab-4bab-8bab-abababababab';
+    const startConcurrentSoloMatch = (matchId: string, problemId: string) => db.query<{ result: unknown }>(
+      `select public.start_solo_arena_match_with_pin_fee(
+        $1::uuid, $2::uuid, $3::text, $4::text, now(), now() + interval '5 minutes'
+      ) as result`,
+      [concurrentSoloKey, concurrentSoloUser, matchId, problemId],
+    );
+    const concurrentSoloStarts = await Promise.all([
+      startConcurrentSoloMatch('solo-concurrent-a', 'challenge-a'),
+      startConcurrentSoloMatch('solo-concurrent-b', 'challenge-b'),
+    ]);
+    const concurrentSoloResults = concurrentSoloStarts.map(result => resultObject(result.rows[0].result));
+    assert.ok(concurrentSoloResults.every(result => result.ok), 'Concurrent retries with one request key both resolve to the created match');
+    assert.equal(new Set(concurrentSoloResults.map(result => result.matchId)).size, 1, 'Only one match id wins the request-key race');
+    assert.equal(new Set(concurrentSoloResults.map(result => result.problemId)).size, 1, 'Concurrent retries return the same stored challenge');
+    const { rows: concurrentSoloProfile } = await db.query<{ pins: number; match_count: number }>(
+      `select u.pins, (select count(*)::integer from public.arena_solo_matches where user_id = u.id) as match_count
+       from public.users u where u.id = $1::uuid`, [concurrentSoloUser],
+    );
+    assert.deepEqual(concurrentSoloProfile[0], { pins: 90, match_count: 1 }, 'Concurrent starts charge once and create one match');
 
     const soloBonusUser = await createUser(db, { email: 'arena-solo-bonus-fee@pinit.test', role: 'student', pins: 5 });
     await db.query('update public.users set bonus_pins = 10 where id = $1::uuid', [soloBonusUser]);
@@ -173,6 +203,29 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
     assert.equal(bonusSolo.ok, true);
     assert.equal(bonusSolo.newBalance, 0);
     assert.equal(bonusSolo.newBonusBalance, 5);
+
+    const malformedHistoryUser = await createUser(db, { email: 'arena-solo-history-recovery@pinit.test', role: 'student', pins: 20 });
+    await db.query("update public.users set pin_history = '{}'::jsonb where id = $1::uuid", [malformedHistoryUser]);
+    const recoveredHistoryStart = resultObject((await startPaidSoloMatch(
+      '12121212-1212-4121-8121-121212121212', malformedHistoryUser, 'solo-history-recovery',
+    )).rows[0].result);
+    assert.equal(recoveredHistoryStart.ok, true, 'A malformed legacy Pin history must not block an otherwise valid practice start');
+    const { rows: recoveredHistory } = await db.query<{ history_type: string; reason: string; pins: number }>(
+      `select jsonb_typeof(pin_history) as history_type, pin_history->0->>'reason' as reason, pins
+       from public.users where id = $1::uuid`, [malformedHistoryUser],
+    );
+    assert.deepEqual(recoveredHistory[0], { history_type: 'array', reason: 'Start AI Practice Match', pins: 10 });
+
+    const negativeWalletUser = await createUser(db, { email: 'arena-solo-negative-wallet@pinit.test', role: 'student', pins: 10 });
+    await db.query('update public.users set pins = -5, bonus_pins = 15 where id = $1::uuid', [negativeWalletUser]);
+    const negativeWalletStart = resultObject((await startPaidSoloMatch(
+      '13131313-1313-4131-8131-131313131313', negativeWalletUser, 'solo-negative-wallet',
+    )).rows[0].result);
+    assert.equal(negativeWalletStart.ok, true);
+    const { rows: normalizedWallet } = await db.query<{ pins: number; bonus_pins: number }>(
+      'select pins, bonus_pins from public.users where id = $1::uuid', [negativeWalletUser],
+    );
+    assert.deepEqual(normalizedWallet[0], { pins: 0, bonus_pins: 5 }, 'Corrupt negative balances cannot make the 10 Pin fee consume more than 10 available Pins');
 
     const poorSoloUser = await createUser(db, { email: 'arena-solo-poor-fee@pinit.test', role: 'student', pins: 9 });
     const rejectedSolo = resultObject((await startPaidSoloMatch('99999999-9999-4999-8999-999999999999', poorSoloUser, 'solo-pin-reject')).rows[0].result);
@@ -206,26 +259,79 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
     assert.deepEqual(xpTotals[0], { xp_total: 50, weekly_xp: 50, ledger_rows: 1 }, 'Quest XP retry must not double-award lifetime or sprint XP');
 
     const soloUser = await makeStudent('solo-arena-test@pinit.test');
-    const soloMatchId = 'solo-integration-match';
-    await db.query('insert into public.arena_solo_matches (match_id, user_id, problem_id, deadline_at) values ($1, $2::uuid, $3, now() + interval \'5 minutes\')', [soloMatchId, soloUser, 'two-sum']);
+    await db.query(
+      `update public.users set arena_elo = 500, arena_wins = 12, arena_losses = 8,
+        weekly_arena_points = 321, xp_total = 765, weekly_xp = 44 where id = $1::uuid`,
+      [soloUser],
+    );
+    const soloMatchId = 'solo-practice-win';
+    const startedPracticeWin = resultObject((await startPaidSoloMatch(
+      'a1111111-1111-4111-8111-111111111111', soloUser, soloMatchId,
+    )).rows[0].result);
+    assert.equal(startedPracticeWin.newBalance, 90, 'The bot match charges its 10 Pin fee when it starts');
     const { rows: soloResult } = await db.query<{ result: unknown }>(
       'select public.settle_solo_arena_match($1::uuid, $2::text, true) as result',
       [soloUser, soloMatchId],
     );
     const solo = resultObject(soloResult[0].result);
-    assert.equal(solo.newElo, 120);
-    assert.equal(solo.eloDelta, 20);
-    assert.equal(solo.arenaPointsAwarded, 50);
-    assert.equal(solo.pinsAwarded, 0);
+    assert.deepEqual(
+      {
+        passed: solo.passed,
+        oldElo: solo.oldElo,
+        newElo: solo.newElo,
+        eloDelta: solo.eloDelta,
+        arenaPointsAwarded: solo.arenaPointsAwarded,
+        newArenaPoints: solo.newArenaPoints,
+        newXp: solo.newXp,
+        pinsAwarded: solo.pinsAwarded,
+        newPins: solo.newPins,
+        arenaWins: solo.arenaWins,
+        arenaLosses: solo.arenaLosses,
+      },
+      { passed: true, oldElo: 500, newElo: 500, eloDelta: 0, arenaPointsAwarded: 0, newArenaPoints: 321, newXp: 765, pinsAwarded: 0, newPins: 90, arenaWins: 12, arenaLosses: 8 },
+      'A bot-practice win records the result but awards no XP, rating, points, counters, or extra Pins',
+    );
     const { rows: repeatedSoloResult } = await db.query<{ result: unknown }>(
       'select public.settle_solo_arena_match($1::uuid, $2::text, false) as result',
       [soloUser, soloMatchId],
     );
-    assert.equal(resultObject(repeatedSoloResult[0].result).newElo, 120, 'A repeated settlement must return the original result');
-    const { rows: soloProfile } = await db.query<{ arena_elo: number; weekly_arena_points: number; pins: number }>(
-      'select arena_elo, weekly_arena_points, pins from public.users where id = $1::uuid', [soloUser],
+    assert.equal(resultObject(repeatedSoloResult[0].result).passed, true, 'A repeated settlement returns the original practice result');
+    const { rows: soloProfile } = await db.query<{
+      arena_elo: number; weekly_arena_points: number; pins: number; arena_wins: number;
+      arena_losses: number; xp_total: number; weekly_xp: number; pin_reason: string;
+    }>(
+      `select arena_elo, weekly_arena_points, pins, arena_wins, arena_losses, xp_total, weekly_xp,
+        pin_history->0->>'reason' as pin_reason from public.users where id = $1::uuid`,
+      [soloUser],
     );
-    assert.deepEqual(soloProfile[0], { arena_elo: 120, weekly_arena_points: 50, pins: 100 }, 'Solo replay must not duplicate Arena points or change Pins');
+    assert.deepEqual(soloProfile[0], { arena_elo: 500, weekly_arena_points: 321, pins: 90, arena_wins: 12, arena_losses: 8, xp_total: 765, weekly_xp: 44, pin_reason: 'Start AI Practice Match' }, 'Settling or replaying practice changes only its match-history row; the start fee remains the sole profile change');
+
+    const soloLossUser = await makeStudent('solo-arena-loss-test@pinit.test');
+    await db.query(
+      `update public.users set arena_elo = 230, arena_wins = 4, arena_losses = 9,
+        weekly_arena_points = 88, xp_total = 150, weekly_xp = 26 where id = $1::uuid`,
+      [soloLossUser],
+    );
+    const soloLossMatchId = 'solo-practice-loss';
+    const startedPracticeLoss = resultObject((await startPaidSoloMatch(
+      'b2222222-2222-4222-8222-222222222222', soloLossUser, soloLossMatchId,
+    )).rows[0].result);
+    assert.equal(startedPracticeLoss.newBalance, 90, 'A bot match charges no more than its single 10 Pin entry fee');
+    const { rows: soloLossResult } = await db.query<{ result: unknown }>(
+      'select public.settle_solo_arena_match($1::uuid, $2::text, false) as result',
+      [soloLossUser, soloLossMatchId],
+    );
+    const soloLoss = resultObject(soloLossResult[0].result);
+    assert.deepEqual(
+      { passed: soloLoss.passed, eloDelta: soloLoss.eloDelta, newElo: soloLoss.newElo, arenaPointsAwarded: soloLoss.arenaPointsAwarded, newArenaPoints: soloLoss.newArenaPoints, newXp: soloLoss.newXp, pinsAwarded: soloLoss.pinsAwarded, newPins: soloLoss.newPins, arenaWins: soloLoss.arenaWins, arenaLosses: soloLoss.arenaLosses },
+      { passed: false, eloDelta: 0, newElo: 230, arenaPointsAwarded: 0, newArenaPoints: 88, newXp: 150, pinsAwarded: 0, newPins: 90, arenaWins: 4, arenaLosses: 9 },
+      'A bot-practice loss removes nothing beyond the entry fee already paid at start',
+    );
+    const { rows: soloLossProfile } = await db.query<{ arena_elo: number; weekly_arena_points: number; pins: number; arena_wins: number; arena_losses: number; xp_total: number; weekly_xp: number }>(
+      'select arena_elo, weekly_arena_points, pins, arena_wins, arena_losses, xp_total, weekly_xp from public.users where id = $1::uuid',
+      [soloLossUser],
+    );
+    assert.deepEqual(soloLossProfile[0], { arena_elo: 230, weekly_arena_points: 88, pins: 90, arena_wins: 4, arena_losses: 9, xp_total: 150, weekly_xp: 26 });
 
     const highEloWinner = await makeStudent('high-elo-winner@pinit.test');
     const highEloOpponent = await makeStudent('high-elo-opponent@pinit.test');
