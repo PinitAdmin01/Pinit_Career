@@ -98,20 +98,48 @@ interface FallbackContext {
   stream?: 'tech' | 'non_tech';
 }
 
-function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: string; type: 'tech' | 'action' | 'metric' | 'general' } {
-  const clean = text.replace(/```[\s\S]*?```/g, '').replace(/[^\w\s.,%'-]/g, ' ').trim();
-  if (!clean || clean.length < 5) return { phrase: 'your initial approach', keyTerm: 'approach', type: 'general' };
+export interface CandidateTurnAnalysis {
+  intent: 'skip' | 'stuck' | 'intro' | 'vague' | 'substantive';
+  subject: string;
+  keyTerm: string;
+}
 
-  // Check for metrics or scale: e.g. "40%", "10x", "500ms", "3 team members", "millions of users"
-  const metricMatch = clean.match(/(\d+%\s*(?:latency\s*(?:drop|reduction|increase)?|improvement|reduction|increase|drop)|10x|5x|\d+\s*(?:ms|seconds|minutes|hours|users|req\/s|rps|nodes|servers|instances))/i);
-  if (metricMatch) {
-    return { phrase: `achieving ${metricMatch[1]}`, keyTerm: metricMatch[1], type: 'metric' };
+export function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: string; type: 'tech' | 'action' | 'metric' | 'general' } {
+  const analysis = analyzeCandidateTurn(text, 'your work');
+  return {
+    phrase: analysis.subject,
+    keyTerm: analysis.keyTerm,
+    type: analysis.intent === 'substantive' ? 'tech' : 'general'
+  };
+}
+
+export function analyzeCandidateTurn(text: string, subTopic: string): CandidateTurnAnalysis {
+  const clean = text.replace(/```[\s\S]*?```/g, '').replace(/[^\w\s.,%'-]/g, ' ').trim();
+  const lower = clean.toLowerCase();
+
+  // 1. Check for explicit skip
+  if (/^(?:\[Candidate skipped question\]|I would like to skip\b|skip\b|let'?s move on\b|next question\b)/i.test(lower)) {
+    return { intent: 'skip', subject: subTopic, keyTerm: subTopic };
   }
 
-  // Common high-value technical keywords & domains
+  // 2. Check for candidate uncertainty, confusion, or "I don't know"
+  if (
+    /\b(don'?t know|do not know|no idea|not sure|not certain|never worked with|haven'?t worked|haven'?t done|unclear|stuck|lost|what to do|cannot say|can'?t answer|not familiar|blanking)\b/i.test(lower) ||
+    /^(i don'?t know|no idea|not sure|dunno|idk)[.!]?$/i.test(lower)
+  ) {
+    return { intent: 'stuck', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 3. Metric match: e.g. "40%", "10x", "500ms", "3 team members", "millions of users"
+  const metricMatch = clean.match(/(\d+%\s*(?:latency\s*(?:drop|reduction|increase)?|improvement|reduction|increase|drop)?|10x|5x|\d+\s*(?:ms|seconds|minutes|hours|users|req\/s|rps|nodes|servers|instances))/i);
+  if (metricMatch) {
+    return { intent: 'substantive', subject: metricMatch[1].trim(), keyTerm: metricMatch[1].trim() };
+  }
+
+  // 4. Common high-value technical & business keywords
   const techKeywords = [
     'redis', 'kafka', 'postgresql', 'postgres', 'mongodb', 'mysql', 'docker', 'kubernetes',
-    'k8s', 'microservices', 'monolith', 'graphql', 'rest api', 'websocket', 'websockets',
+    'k8s', 'microservices', 'monolith', 'graphql', 'rest api', 'api', 'websocket', 'websockets',
     'caching', 'indexes', 'indexing', 'sharding', 'replication', 'concurrency', 'race condition',
     'deadlock', 'mutex', 'thread pool', 'event loop', 'async/await', 'load balancer', 'nginx',
     'react', 'next.js', 'nextjs', 'typescript', 'python', 'golang', 'java', 'spring boot',
@@ -122,29 +150,36 @@ function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: st
     'turnover', 'compliance', 'audit', 'taxation', 'statutory', 'reconciliation', 'ledger'
   ];
 
-  const lower = clean.toLowerCase();
   for (const tk of techKeywords) {
     if (lower.includes(tk)) {
-      return { phrase: `leveraging ${tk}`, keyTerm: tk, type: 'tech' };
+      return { intent: 'substantive', subject: tk, keyTerm: tk };
     }
   }
 
-  // Extract substantive action/problem clauses
-  const actionMatch = clean.match(/(?:migrat|refactor|optimiz|debugg|deploy|resolv|implement|architect|scal|build|handl|manag|tackl)\w*\s+(?:the\s+)?[\w\s]{4,30}/i);
+  // 5. Extract substantive action/problem clauses
+  const actionMatch = clean.match(/(?:migrat|refactor|optimiz|debugg|deploy|resolv|implement|architect|scal|build|handl|manag|tackl)\w*\s+(?:the\s+)?[\w\s]{3,24}/i);
   if (actionMatch) {
     const rawPhrase = actionMatch[0].trim().replace(/\s+/g, ' ');
     const parts = rawPhrase.split(/\s+/);
-    return { phrase: rawPhrase, keyTerm: parts.slice(-2).join(' '), type: 'action' };
+    return { intent: 'substantive', subject: rawPhrase, keyTerm: parts.slice(-2).join(' ') };
   }
 
-  // Meaningful non-filler words
-  const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|would|could|should|can|will|just|really|basically|like|you|know)$/i.test(w));
+  // 6. Broad self-introduction without substantive project details
+  if (
+    /\b(hi\b|hello\b|hey\b|greetings\b|my name is\b|i am a\b|i'm a\b|full stack\b|fresher\b|recent graduate\b|student\b)/i.test(lower) &&
+    clean.split(/\s+/).length < 25
+  ) {
+    return { intent: 'intro', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 7. Meaningful non-filler words for general substantive input
+  const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|would|could|should|can|will|just|really|basically|like|you|know|there|here|then|some|all|our)$/i.test(w));
   if (words.length >= 2) {
-    const snippet = words.slice(0, 4).join(' ');
-    return { phrase: `focusing on ${snippet}`, keyTerm: snippet, type: 'general' };
+    const snippet = words.slice(0, 3).join(' ');
+    return { intent: 'substantive', subject: snippet, keyTerm: snippet };
   }
 
-  return { phrase: clean.slice(0, 30), keyTerm: clean.slice(0, 20), type: 'general' };
+  return { intent: 'vague', subject: subTopic, keyTerm: subTopic };
 }
 
 export function generateProgressiveFallbackQuestion(ctx: FallbackContext): string {
@@ -154,30 +189,78 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
   const lastUserTurn = userTurns[userTurns.length - 1]?.content || '';
   const turnCount = userTurns.length;
 
-  // First turn: warm welcome & initial background question
+  // First turn: warm welcome & initial background question (only turn that includes self-intro)
   if (turnCount <= 1 && (!lastUserTurn || lastUserTurn.length < 15)) {
     return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
   }
 
-  const isSkip = /^(?:\[Candidate skipped question\]|I would like to skip\b)/i.test(lastUserTurn.trim());
-  const { phrase, keyTerm } = extractCandidateKeyContext(lastUserTurn);
+  const analysis = analyzeCandidateTurn(lastUserTurn, subTopic);
 
-  // Active listening reflection openers
-  const reflectionOpeners = isSkip
-    ? [
-        `No problem, let's pivot to a different angle in ${subTopic}.`,
-        `Understood—we'll note the skip and move forward on ${subTopic}.`
-      ]
-    : [
-        `I see your point regarding ${phrase}.`,
-        `You made an insightful observation around ${phrase}.`,
-        `Focusing on ${phrase} is a very pragmatic decision for ${subTopic}.`,
-        `I appreciate how you tackled ${phrase}.`,
-        `That is a solid direction regarding ${phrase}.`
+  // 1. Candidate is stuck or explicitly says "I don't know" — never praise or fake success!
+  if (analysis.intent === 'stuck') {
+    if (stage === 'round1_behavioral') {
+      const stuckPivots = [
+        `That's completely fine—interviews often touch on unfamiliar ground. Let's take a step back: think of a project or task in ${subTopic} where you felt confident. What was the core problem you solved?`,
+        `No worries at all, let's look at this from a different angle. When you run into a scenario where you're not sure how to proceed, what is your systematic process for investigating and finding a path forward?`,
+        `Understood—let's pivot. In your recent experience with ${subTopic}, what has been the most satisfying technical challenge you successfully resolved?`
       ];
+      return stuckPivots[turnCount % stuckPivots.length];
+    }
+
+    if (stage === 'round2_coding') {
+      const stuckCodingPivots = [
+        `That is completely alright—let's break it down into smaller steps. What would be the simplest baseline or brute-force approach you can think of, even if it's not optimal?`,
+        `No problem at all. Looking at the requirements for ${subTopic}, what is the very first boundary condition or input validation check you would write?`,
+        `Take your time. If you trace a small sample input with 2 or 3 elements by hand, what pattern or intermediate state emerges?`
+      ];
+      return stuckCodingPivots[turnCount % stuckCodingPivots.length];
+    }
+
+    if (stage === 'round3_systems') {
+      const stuckSystemsPivots = [
+        `No problem at all—system design is fundamentally about exploring trade-offs. If we start with the simplest single-service architecture for ${subTopic}, where would the first bottleneck appear as traffic grows?`,
+        `That's completely fine. Which part of the architecture do you feel most comfortable discussing first—the client request ingress, the service logic, or the storage layer?`,
+        `Understood. Let's simplify: suppose you have 1,000 active users and one database. What simple caching or indexing strategy would you add first to keep latency low?`
+      ];
+      return stuckSystemsPivots[turnCount % stuckSystemsPivots.length];
+    }
+
+    // round4_star
+    const stuckStarPivots = [
+      `Understood, let's pivot to a different angle. Can you describe a situation where you had to learn a new tool or technology under a tight deadline to deliver results?`,
+      `That's completely fine. Tell me about a scenario where you collaborated closely with a teammate or stakeholder to resolve a challenging roadblock.`,
+      `No problem. Looking back across your projects, what is one achievement in ${subTopic} that you are most proud of?`
+    ];
+    return stuckStarPivots[turnCount % stuckStarPivots.length];
+  }
+
+  // 2. Candidate gave a broad introductory greeting without project specifics
+  if (analysis.intent === 'intro') {
+    return `Great to have you here! Diving into your hands-on experience with ${subTopic}, could you highlight one specific project you worked on, the core problem it addressed, and your direct contribution?`;
+  }
+
+  // 3. Candidate gave an extremely brief or vague answer
+  if (analysis.intent === 'vague') {
+    return `Understood. Could you expand a bit more on that? Specifically, what was your personal responsibility and the primary technical challenge you navigated for ${subTopic}?`;
+  }
+
+  // 4. Candidate explicitly skipped
+  if (analysis.intent === 'skip') {
+    return `Understood—we'll note the skip and move forward. Let's pivot to another dimension of ${subTopic}: what is an area in this domain where you've spent significant hands-on time?`;
+  }
+
+  // 5. Candidate provided substantive response with technical / metric / action details
+  const { subject, keyTerm } = analysis;
+  const reflectionOpeners = [
+    `I see your point regarding ${subject}.`,
+    `You made an insightful observation around ${subject}.`,
+    `Working with ${subject} is a solid direction for ${subTopic}.`,
+    `Regarding your approach with ${subject}:`,
+    `That is a very practical consideration around ${subject}.`
+  ];
   const opener = reflectionOpeners[turnCount % reflectionOpeners.length];
 
-  // Stage-specific contextual follow-up questions
+  // Stage-specific contextual follow-up questions (Natural spoken dialogue — no robotic sign-offs)
   if (stage === 'round1_behavioral') {
     const behavioralFollowUps = [
       `When navigating that, what was the most significant roadblock or cross-functional disagreement you encountered, and how did you resolve it?`,
@@ -186,7 +269,7 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
       `What measurable signal or feedback confirmed to you and your team that this decision was a success?`
     ];
     const question = behavioralFollowUps[turnCount % behavioralFollowUps.length];
-    return `${opener} ${question} — ${interviewerName}`;
+    return `${opener} ${question}`;
   }
 
   if (stage === 'round2_coding') {
@@ -204,7 +287,7 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
           `How would you structure unit tests to thoroughly verify the correctness and failure modes of that logic before shipping to production?`
         ];
     const question = codingFollowUps[turnCount % codingFollowUps.length];
-    return `${opener} ${question} — ${interviewerName}`;
+    return `${opener} ${question}`;
   }
 
   if (stage === 'round3_systems') {
@@ -222,7 +305,7 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
           `What telemetry metrics, error budgets, and health check signals would you establish to monitor that tier in real time?`
         ];
     const question = systemsFollowUps[turnCount % systemsFollowUps.length];
-    return `${opener} ${question} — ${interviewerName}`;
+    return `${opener} ${question}`;
   }
 
   if (stage === 'round4_star') {
@@ -233,10 +316,10 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
       `Which part of your execution or design would you revisit first if demand grew by a factor of 10x?`
     ];
     const question = starFollowUps[turnCount % starFollowUps.length];
-    return `${opener} ${question} — ${interviewerName}`;
+    return `${opener} ${question}`;
   }
 
-  return `${opener} Could you elaborate on the key trade-offs and decisions you made for ${subTopic}? — ${interviewerName}`;
+  return `${opener} Could you elaborate on the key trade-offs and decisions you made for ${subTopic}?`;
 }
 
 export async function POST(req: Request) {
@@ -393,11 +476,13 @@ ${topicPrompt}
 ${stageContext}
 ${telemetryContext}
 RULES:
-1. Speak in first person as ${selectedInterviewer.name} in natural spoken dialogue (no markdown bullets, no numbered lists, no robotic sign-offs).
+1. Speak in first person as ${selectedInterviewer.name} in natural spoken dialogue (no markdown bullets, no numbered lists, and NEVER append a sign-off or your name like '— ${selectedInterviewer.name}').
 2. ${reviewDecision ? 'For the final code-review decision, provide a concise verdict and use the required marker; do not ask a question.' : 'Ask exactly ONE sharp, non-repetitive follow-up question per turn that directly reacts to what the candidate just said.'}
-3. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly skip a question, briefly acknowledge the skip and pivot to a fresh topic.
-4. Never give the complete code or answer away.
-5. Keep response under 3 sentences max for natural spoken voice pacing.`;
+3. If the candidate says "I don't know", expresses confusion, or feels stuck, NEVER pretend they gave an answer or praise them for not knowing. Supportively acknowledge it ("No problem at all—let's look at this from a different angle...") and guide them with a simpler stepping-stone question or an alternative practical angle in ${subTopic}.
+4. If the candidate gives a broad introductory greeting without project specifics, warmly acknowledge them and ask for one specific project, the technical problem it solved, and their direct contribution.
+5. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly skip a question, briefly acknowledge the skip and pivot to a fresh topic.
+6. Never give the complete code or answer away.
+7. Keep response under 3 sentences max for natural spoken voice pacing.`;
 
     // 6. Multi-Key Rotation Pool & Provider Failover
     const groqKeysStr = process.env.GROQ_API_KEYS || '';

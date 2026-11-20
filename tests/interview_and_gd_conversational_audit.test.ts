@@ -26,8 +26,8 @@ describe('AI Interview Conversational Fluidity Audit', () => {
       interviewerName: 'Ms. Priya'
     });
 
-    // Must NOT be a canned static question
-    assert.ok(reply.includes('Ms. Priya'), 'Must include interviewer name');
+    // Must NOT be a canned static question and must NOT have robotic sign-off
+    assert.ok(!reply.includes('— Ms. Priya'), 'Must not have robotic trailing sign-off');
     // Must actively reflect either kafka, postgresql, microservices, or leading
     const lowerReply = reply.toLowerCase();
     const hasReflection = lowerReply.includes('kafka') || lowerReply.includes('postgresql') || lowerReply.includes('microservices') || lowerReply.includes('leading');
@@ -49,7 +49,7 @@ describe('AI Interview Conversational Fluidity Audit', () => {
       interviewerName: 'Mr. Rohan'
     });
 
-    assert.ok(reply.includes('Mr. Rohan'), 'Must include interviewer name');
+    assert.ok(!reply.includes('— Mr. Rohan'), 'Must not have robotic trailing sign-off');
     const lowerReply = reply.toLowerCase();
     const hasReflection = lowerReply.includes('caching') || lowerReply.includes('prefix') || lowerReply.includes('approach') || lowerReply.includes('pointer');
     assert.ok(hasReflection, `Expected reflection of coding approach, but got: "${reply}"`);
@@ -70,7 +70,7 @@ describe('AI Interview Conversational Fluidity Audit', () => {
       interviewerName: 'Mr. Vikram'
     });
 
-    assert.ok(reply.includes('Mr. Vikram'), 'Must include interviewer name');
+    assert.ok(!reply.includes('— Mr. Vikram'), 'Must not have robotic trailing sign-off');
     const lowerReply = reply.toLowerCase();
     const hasReflection = lowerReply.includes('redis') || lowerReply.includes('mongodb') || lowerReply.includes('rate limit');
     assert.ok(hasReflection, `Expected reflection of systems architecture, but got: "${reply}"`);
@@ -90,7 +90,7 @@ describe('AI Interview Conversational Fluidity Audit', () => {
       interviewerName: 'Ms. Aisha'
     });
 
-    assert.ok(reply.includes('Ms. Aisha'), 'Must include interviewer name');
+    assert.ok(!reply.includes('— Ms. Aisha'), 'Must not have robotic trailing sign-off');
     const lowerReply = reply.toLowerCase();
     const hasMetricOrImpact = lowerReply.includes('45%') || lowerReply.includes('metric') || lowerReply.includes('benchmark') || lowerReply.includes('sla');
     assert.ok(hasMetricOrImpact, `Expected reflection of metric or executive follow-up, but got: "${reply}"`);
