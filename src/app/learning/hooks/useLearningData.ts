@@ -68,30 +68,30 @@ export const QUESTS: Quest[] = [
     id: 'frontend_dev',
     title: 'Frontend Developer Quest',
     subtitle: 'Master responsive scale systems and UI deployment',
-    icon: '</>',
+    icon: 'DEV',
     color: 'var(--accent)',
     reward: { badge: '"Frontend Pro" Badge', xp: 2000, boost: 'Get featured to top recruiters' },
     stages: [
-      { title: 'Resume Optimisation',   desc: 'Get your resume ATS score above 60.',             href: '/mirror?tab=career-builder', icon: '📄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
-      { title: 'React Challenge',       desc: 'Complete React Fundamentals mission.',           href: '/missions', icon: '⚛',  isComplete: cOS => cOS?.completedMissions?.includes('react_loops') ?? false },
-      { title: 'Mock STAR Interview',   desc: 'Practice with AI and complete STAR preparation.', href: '/missions', icon: '🎙', isComplete: cOS => cOS?.completedMissions?.includes('star_video') ?? false },
-      { title: 'Portfolio Upload',      desc: 'Deploy living portfolio website.',                href: '/profile?tab=portfolio', icon: '🚀', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_portfolio) ?? false },
-      { title: 'Evidence In Vault',     desc: 'Upload at least 3 assets to Vault.',              href: '/vault',        icon: '📁', isComplete: cOS => (cOS?.vaultItems?.length || 0) >= 3 },
-      { title: 'Recruiter Simulation',  desc: 'Raise Career Score above 70.',                    href: '/dashboard',    icon: '🧬', isComplete: cOS => (cOS?.careerScore || 0) >= 70 },
+      { title: 'Resume Optimisation',   desc: 'Get your resume ATS score above 60.',             href: '/mirror?tab=career-builder', icon: 'ATS', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
+      { title: 'React Challenge',       desc: 'Complete React Fundamentals mission.',           href: '/missions', icon: 'JSX',  isComplete: cOS => cOS?.completedMissions?.includes('react_loops') ?? false },
+      { title: 'Mock STAR Interview',   desc: 'Practice with AI and complete STAR preparation.', href: '/missions', icon: 'STAR', isComplete: cOS => cOS?.completedMissions?.includes('star_video') ?? false },
+      { title: 'Portfolio Upload',      desc: 'Deploy living portfolio website.',                href: '/profile?tab=portfolio', icon: 'WEB', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_portfolio) ?? false },
+      { title: 'Evidence In Vault',     desc: 'Upload at least 3 assets to Vault.',              href: '/vault',        icon: 'DATA', isComplete: cOS => (cOS?.vaultItems?.length || 0) >= 3 },
+      { title: 'Recruiter Simulation',  desc: 'Raise Career Score above 70.',                    href: '/dashboard',    icon: 'SCORE', isComplete: cOS => (cOS?.careerScore || 0) >= 70 },
     ],
   },
   {
     id: 'data_scientist',
     title: 'Data Scientist Quest',
     subtitle: 'Master the data stack and land your first data role',
-    icon: '📊',
+    icon: 'DATA',
     color: 'var(--teal)',
     reward: { badge: '"Data Pro" Badge', xp: 2200, boost: 'Priority visibility to data recruiters' },
     stages: [
-      { title: 'Resume Optimisation',  desc: 'Generate career assets with AI.',                href: '/mirror?tab=career-builder', icon: '📄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
-      { title: 'Python Foundation',    desc: 'Pass the Python Fundamentals mission.',          href: '/missions',     icon: '🐍', isComplete: cOS => cOS?.completedMissions?.includes('python_loops') ?? false },
-      { title: 'SQL Mastery',          desc: 'Upload evidence of database projects.',          href: '/vault',        icon: '🗄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.skill_tags?.some((s: string) => s.toLowerCase().includes('sql') || s.toLowerCase().includes('database'))) ?? false },
-      { title: 'Data Vault',           desc: 'Upload a data project to your Vault.',           href: '/vault',        icon: '📁', isComplete: cOS => (cOS?.vaultItems?.length || 0) >= 2 },
+      { title: 'Resume Optimisation',  desc: 'Generate career assets with AI.',                href: '/mirror?tab=career-builder', icon: 'ATS', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
+      { title: 'Python Foundation',    desc: 'Pass the Python Fundamentals mission.',          href: '/missions',     icon: 'PY', isComplete: cOS => cOS?.completedMissions?.includes('python_loops') ?? false },
+      { title: 'SQL Mastery',          desc: 'Upload evidence of database projects.',          href: '/vault',        icon: 'SQL', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.skill_tags?.some((s: string) => s.toLowerCase().includes('sql') || s.toLowerCase().includes('database'))) ?? false },
+      { title: 'Data Vault',           desc: 'Upload a data project to your Vault.',           href: '/vault',        icon: 'DATA', isComplete: cOS => (cOS?.vaultItems?.length || 0) >= 2 },
     ],
   },
 ];
@@ -280,11 +280,11 @@ export function useLearningData(defaultTab?: 'mistakes' | 'roadmap' | 'twin' | '
   
   const teacherId = user?.selectedTeacherId || 'priya';
   const teacher = {
-    priya:  { name: 'Ms. Priya',  emoji: '👩‍💼' },
-    aisha:  { name: 'Ms. Aisha',  emoji: '👩‍🏫' },
-    rohan:  { name: 'Mr. Rohan',  emoji: '👨‍💻' },
-    vikram: { name: 'Mr. Vikram', emoji: '👨‍⚖️' },
-  }[teacherId] || { name: 'Ms. Priya', emoji: '👩‍💼' };
+    priya:  { name: 'Ms. Priya',  emoji: 'P' },
+    aisha:  { name: 'Ms. Aisha',  emoji: 'A' },
+    rohan:  { name: 'Mr. Rohan',  emoji: 'R' },
+    vikram: { name: 'Mr. Vikram', emoji: 'V' },
+  }[teacherId] || { name: 'Ms. Priya', emoji: 'P' };
 
   const ONBOARDING_QUESTIONS = getOnboardingQuestions(teacher.name);
   const [chatHistory, setChatHistory] = useState<Array<{ sender: 'ai' | 'user'; text: string }>>([
@@ -411,7 +411,7 @@ export function useLearningData(defaultTab?: 'mistakes' | 'roadmap' | 'twin' | '
 
     api.post('/api/auth/onboarding', { learning_mistakes: nextMistakes }).catch(() => {});
 
-    toast.success('🎉 Blind Spot Remediation Verified!', `+${xpEarned} XP granted. Card added to your Spaced Memory (FSRS) queue.`);
+    toast.success('Blind Spot Remediation Verified!', `+${xpEarned} XP granted. Card added to your Spaced Memory (FSRS) queue.`);
     return { success: true, xpEarned };
   }, [humanizedMistakes, mistakes, onboardingAnswers, setOnboarding, cOS]);
 

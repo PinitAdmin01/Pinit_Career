@@ -74,7 +74,65 @@ export function LearningPathView({
     const currentStage = dynamicRoadmap[activeStep] || dynamicRoadmap[0];
 
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20, alignItems: 'start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        {/* Sub-tab Explainer Banner for Custom Growth Roadmap */}
+        <div
+          style={{
+            background: 'var(--bg2)',
+            border: '1.5px solid var(--border)',
+            borderRadius: 16,
+            padding: '20px 24px',
+            boxShadow: 'var(--shadow-sm)'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 12 }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--accent)', background: 'var(--accent-light)', padding: '2px 8px', borderRadius: 6, border: '1px solid var(--accent)' }}>
+                  Personalized Engineering Path
+                </span>
+                <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>
+                  Tailored to {targetRole}
+                </span>
+              </div>
+              <h2 style={{ margin: 0, fontSize: 19, fontWeight: 900, color: 'var(--t1)' }}>
+                Custom Growth Roadmap Pathway
+              </h2>
+            </div>
+          </div>
+          <p style={{ margin: '0 0 16px 0', fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+            This roadmap breaks your journey into 4 sequential technical progression phases. Each phase establishes core architectural invariants, tests practical problem-solving, and requires satisfying a verifiable milestone gate before advancing.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+            <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
+                1. Select Phase
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+                Click any of the 4 progression phases on the left to inspect its required competencies and gate criteria.
+              </div>
+            </div>
+            <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--purple)', textTransform: 'uppercase', marginBottom: 4 }}>
+                2. Master Blueprint
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+                Review the core verified skills and production concepts specified in the right-hand Active Stage Blueprint.
+              </div>
+            </div>
+            <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--green)', textTransform: 'uppercase', marginBottom: 4 }}>
+                3. Clear Verification Gate
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+                Launch into Quests or upload proof to your Vault to satisfy the milestone gate and unlock the next phase.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20, alignItems: 'start' }}>
         {/* Left Column: Stages List */}
         <div style={card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
@@ -169,7 +227,7 @@ export function LearningPathView({
             {/* Core Competencies & Skills */}
             <div style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', marginBottom: 16 }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)', textTransform: 'uppercase', marginBottom: 8 }}>
-                🛠️ Core Verified Competencies To Master:
+                Core Verified Competencies To Master:
               </div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {currentStage.skills.map(skill => (
@@ -194,7 +252,7 @@ export function LearningPathView({
             {/* Stage Gate Requirements */}
             <div style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', marginBottom: 18 }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)', textTransform: 'uppercase', marginBottom: 10 }}>
-                🛡️ Stage Milestone Verification Gate:
+                Stage Milestone Verification Gate:
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10 }}>
                 <div style={{ background: 'var(--bg2)', padding: 10, borderRadius: 8, border: '1px solid var(--border)' }}>
@@ -236,7 +294,7 @@ export function LearningPathView({
                   textDecoration: 'none'
                 }}
               >
-                🚀 Enter Quest Arena for this Stage
+                Enter Quest Arena for this Stage
               </Link>
               <Link
                 href="/vault"
@@ -251,11 +309,12 @@ export function LearningPathView({
                   textDecoration: 'none'
                 }}
               >
-                📁 Check Vault
+                Check Vault
               </Link>
             </div>
           </div>
         )}
+        </div>
       </div>
     );
   }
@@ -294,7 +353,7 @@ export function LearningPathView({
             {simulating && (
               <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <div style={{ background: 'var(--card)', border: '1px solid var(--border)', padding: '10px 14px', borderRadius: 12, fontSize: 13.5, color: 'var(--accent)' }}>
-                  ⚡ Simulating digital twin trajectory...
+                  Simulating digital twin trajectory...
                 </div>
               </div>
             )}
@@ -317,82 +376,122 @@ export function LearningPathView({
         // The Interactive Digital Career Twin Cockpit
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Top Bar: Overview & Recalibration */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 24 }}>🧬</span>
-              <div>
-                <h2 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
-                  Digital Career Twin — Market Placement Cockpit
-                </h2>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>
-                  Dynamic algorithmic model mirroring your market hireability, placement timeline, and salary brackets.
-                </span>
-              </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+            <div>
+              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
+                Digital Career Twin — Market Placement Cockpit
+              </h2>
+              <span style={{ fontSize: 12.5, color: 'var(--t3)', display: 'block', marginTop: 3 }}>
+                Continuous algorithmic model simulating your market hireability, placement timeline, and salary brackets based on verified code completions and interview performance.
+              </span>
             </div>
             <button
+              type="button"
               onClick={() => setOnboardingComplete(false)}
               style={{
-                padding: '6px 14px',
+                padding: '7px 14px',
                 fontSize: 12,
                 fontWeight: 800,
                 background: 'var(--bg2)',
                 border: '1px solid var(--border)',
                 borderRadius: 8,
                 color: 'var(--accent)',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
               }}
             >
-              🔄 Recalibrate with AI Companion
+              Recalibrate with AI Companion
             </button>
           </div>
 
-          {/* 4 Bento Overview Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
+          {/* 4 Bento Overview Cards with Clear Meaning */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14 }}>
+            {/* Card 1: Market Readiness Score */}
             <div style={{ background: 'var(--bg2)', padding: 16, borderRadius: 14, border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>Market Readiness</div>
-              <div style={{ fontSize: 22, fontWeight: 950, color: 'var(--accent)' }}>{sim?.overallMarketReadiness || 78}%</div>
-              <div style={{ height: 4, background: 'var(--bg3)', borderRadius: 2, marginTop: 8, overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${sim?.overallMarketReadiness || 78}%`, background: 'var(--accent)' }} />
+              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>
+                Market Readiness
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                <span style={{ fontSize: 24, fontWeight: 950, color: 'var(--accent)' }}>{sim?.overallMarketReadiness || 54}%</span>
+                <span style={{ fontSize: 11.5, fontWeight: 700, color: (sim?.overallMarketReadiness || 54) >= 75 ? 'var(--green)' : 'var(--amber)' }}>
+                  {(sim?.overallMarketReadiness || 54) >= 75 ? 'Placement Ready' : 'In Calibration'}
+                </span>
+              </div>
+              <div style={{ height: 5, background: 'var(--bg3)', borderRadius: 3, marginTop: 10, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${sim?.overallMarketReadiness || 54}%`, background: 'var(--accent)', borderRadius: 3 }} />
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8, lineHeight: 1.4 }}>
+                Calculated from verified projects (40%), mock interview STAR defense (35%), and daily coding missions (25%). Target is 75%+ for Tier-1 placements.
               </div>
             </div>
 
+            {/* Card 2: Projected Starting Salary / CTC */}
             <div style={{ background: 'var(--bg2)', padding: 16, borderRadius: 14, border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>Projected Starting CTC</div>
-              <div style={{ fontSize: 22, fontWeight: 950, color: 'var(--green)' }}>{sim?.projectedCtcBracket || '₹12 - 18 LPA'}</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Based on verified competencies</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>
+                Projected Starting CTC
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 950, color: 'var(--green)' }}>
+                {sim?.projectedCtcBracket || '₹11 - 19 LPA'}
+              </div>
+              <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4 }}>
+                Estimated salary bracket for verified {targetRole} skills.
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8, lineHeight: 1.4 }}>
+                Closing remaining curriculum gaps unlocks the ₹18 - 25 LPA high-growth tier.
+              </div>
             </div>
 
+            {/* Card 3: Estimated Placement Timeline */}
             <div style={{ background: 'var(--bg2)', padding: 16, borderRadius: 14, border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>Est. Months to First Offer</div>
-              <div style={{ fontSize: 22, fontWeight: 950, color: 'var(--purple)' }}>{sim?.estimatedMonthsToOffer || 4.2} Mo</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Accelerates with quest velocity</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>
+                Est. Months to First Offer
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 950, color: 'var(--purple)' }}>
+                {sim?.estimatedMonthsToOffer || 6.7} Months
+              </div>
+              <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4 }}>
+                At steady pace of {dailyQuestPace} quest{dailyQuestPace > 1 ? 's' : ''}/day.
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8, lineHeight: 1.4 }}>
+                Increasing to {Math.min(dailyQuestPace + 1, 4)} quests/day cuts timeline by ~1.5 months.
+              </div>
             </div>
 
+            {/* Card 4: Recruiter Appeal Tier */}
             <div style={{ background: 'var(--bg2)', padding: 16, borderRadius: 14, border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>Recruiter Appeal Tier</div>
-              <div style={{ fontSize: 15, fontWeight: 900, color: 'var(--coral)', marginTop: 4 }}>{sim?.recruiterAppealTier || 'Competitive Contender'}</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 6 }}>~{sim?.weeklyEffortHours || 20} hrs/week commitment</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>
+                Recruiter Appeal Tier
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--coral)', marginTop: 4 }}>
+                {sim?.recruiterAppealTier || 'Standard Pool'}
+              </div>
+              <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4 }}>
+                ~{sim?.weeklyEffortHours || 20} hrs/week active learning.
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8, lineHeight: 1.4 }}>
+                Score ≥ 80% on Mock Interview to enter the Priority Fast-Track Pool.
+              </div>
             </div>
           </div>
 
           {/* Interactive Sensitivity Sliders (What-If Engine) */}
-          <div style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.05), rgba(6,182,212,0.03))', border: '1.5px solid rgba(79,70,229,0.25)', borderRadius: 18, padding: 20 }}>
+          <div style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.05), rgba(6,182,212,0.03))', border: '1.5px solid rgba(79,70,229,0.25)', borderRadius: 16, padding: 20 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
               <div>
                 <span style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
-                  🎛️ Interactive Career Twin Sensitivity Simulator ("What-If" Engine)
+                  Interactive Career Twin Sensitivity Simulator ("What-If" Engine)
                 </span>
                 <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t2)' }}>
-                  Drag the sliders below to see your Twin dynamically recalculate market readiness, salary ranges, and hiring probabilities in real time!
+                  Adjust the sliders below to see your Twin dynamically recalculate market readiness, salary ranges, and placement timeline in real time.
                 </p>
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
               {/* Slider 1: Daily Quest Pacing */}
               <div style={{ background: 'var(--bg2)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>🏃 Daily Quest Pacing</span>
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>Daily Quest Pacing</span>
                   <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--accent)' }}>{dailyQuestPace} Quests / Day</span>
                 </div>
                 <input
@@ -410,12 +509,15 @@ export function LearningPathView({
                   <span>3 (Intensive)</span>
                   <span>4 (Sprint)</span>
                 </div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8 }}>
+                  Clearing quests daily compresses months to offer.
+                </div>
               </div>
 
               {/* Slider 2: Mock Interview Target */}
               <div style={{ background: 'var(--bg2)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>🎙️ Mock Interview Target</span>
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>Mock Interview Target</span>
                   <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--teal)' }}>{interviewScoreTarget}% STAR Score</span>
                 </div>
                 <input
@@ -432,12 +534,15 @@ export function LearningPathView({
                   <span>75% (Proficient)</span>
                   <span>90%+ (Top Tier)</span>
                 </div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8 }}>
+                  Higher STAR defense directly boosts recruiter offer confidence.
+                </div>
               </div>
 
               {/* Slider 3: Gaps Resolved */}
               <div style={{ background: 'var(--bg2)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>🎯 Remedial Gaps Closed</span>
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>Remedial Gaps Closed</span>
                   <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--green)' }}>{gapsResolvedCount} Closed</span>
                 </div>
                 <input
@@ -452,8 +557,18 @@ export function LearningPathView({
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10.5, color: 'var(--t3)', marginTop: 4 }}>
                   <span>0 Gaps</span>
                   <span>5 Gaps</span>
-                  <span>10 Gaps (Full Mastery)</span>
+                  <span>10 Gaps (Mastery)</span>
                 </div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 8 }}>
+                  Eliminating weak areas raises your CTC bracket to premium tiers.
+                </div>
+              </div>
+            </div>
+
+            {/* Live Impact Summary Banner */}
+            <div style={{ marginTop: 14, padding: '10px 16px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+              <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+                <strong style={{ color: 'var(--t1)' }}>Live Forecast:</strong> At <strong>{dailyQuestPace} quests/day</strong> with <strong>{interviewScoreTarget}% STAR proficiency</strong>, your projected placement timeline is <strong>{sim?.estimatedMonthsToOffer || 6.7} Months</strong> with an expected starting salary of <strong style={{ color: 'var(--green)' }}>{sim?.projectedCtcBracket || '₹11 - 19 LPA'}</strong>.
               </div>
             </div>
           </div>
@@ -462,9 +577,9 @@ export function LearningPathView({
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
               <span style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-                🏆 3 Parallel Market Trajectory Archetypes
+                3 Parallel Market Trajectory Archetypes
               </span>
-              <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>Click an archetype to inspect hiring criteria</span>
+              <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>Select a path to compare criteria, gates &amp; risks</span>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
@@ -477,7 +592,7 @@ export function LearningPathView({
                     style={{
                       background: isSelected ? 'var(--accent-light)' : 'var(--bg2)',
                       border: `1.5px solid ${isSelected ? 'var(--accent)' : 'var(--border)'}`,
-                      borderRadius: 16,
+                      borderRadius: 14,
                       padding: 16,
                       cursor: 'pointer',
                       display: 'flex',
@@ -488,9 +603,11 @@ export function LearningPathView({
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: 26 }}>{p.icon}</span>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                        Track {idx + 1}
+                      </span>
                       <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', background: 'var(--bg3)', padding: '2px 8px', borderRadius: 6 }}>
-                        {p.fitScore}% Fit
+                        {p.fitScore}% Qualified
                       </span>
                     </div>
 
@@ -535,10 +652,10 @@ export function LearningPathView({
                 <strong>Strategic Advantage:</strong> {sim.paths[selectedTwinPath].strategicAdvantage}
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
                 <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t1)', textTransform: 'uppercase', marginBottom: 6 }}>
-                    📋 Mandatory Hiring Criteria:
+                    Mandatory Hiring Criteria:
                   </div>
                   <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
                     {sim.paths[selectedTwinPath].hiringCriteria.map((c, i) => (
@@ -549,7 +666,7 @@ export function LearningPathView({
 
                 <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--coral)', textTransform: 'uppercase', marginBottom: 6 }}>
-                    ⚠️ Key Risk &amp; Hurdle:
+                    Key Risk &amp; Hurdle:
                   </div>
                   <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
                     {sim.paths[selectedTwinPath].keyRisk}
@@ -561,7 +678,7 @@ export function LearningPathView({
 
           {/* Recommended Strategic Sprints */}
           <div style={card}>
-            <div style={cardLabel}>🚀 High-Leverage Strategic Action Plan</div>
+            <div style={cardLabel}>High-Leverage Strategic Action Plan</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14 }}>
               {sim?.recommendedSprints.map((sp, idx) => (
                 <div key={idx} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>

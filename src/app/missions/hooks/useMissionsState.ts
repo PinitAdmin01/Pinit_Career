@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export interface Mission {
@@ -46,7 +46,19 @@ export function useMissionsState(defaultRole: string = 'Software Developer') {
   const [generatingSkill, setGeneratingSkill] = useState(false);
 
   // Gamified Sub-tab selections & Universal History Command Center states
-  const [activeTab, setActiveTab] = useState<'evolve' | 'language' | 'history'>('evolve');
+  const tabFromUrl = searchParams?.get('tab');
+  const initialActiveTab = (tabFromUrl === 'history' || tabFromUrl === 'language' || tabFromUrl === 'evolve')
+    ? tabFromUrl
+    : 'evolve';
+  const [activeTab, setActiveTab] = useState<'evolve' | 'language' | 'history'>(initialActiveTab);
+
+  useEffect(() => {
+    const t = searchParams?.get('tab');
+    if (t === 'history' || t === 'language' || t === 'evolve') {
+      setActiveTab(t);
+    }
+  }, [searchParams]);
+
   const [selectedHistoryRecord, setSelectedHistoryRecord] = useState<any | null>(null);
   const [socraticHistory, setSocraticHistory] = useState<any[]>([]);
   const [historySearchQuery, setHistorySearchQuery] = useState('');
@@ -65,21 +77,41 @@ export function useMissionsState(defaultRole: string = 'Software Developer') {
     setRoleplayActive(active);
     if (typeof window !== 'undefined') {
       (window as any).__pinitMissionsRoleplayActive = active;
+      if (!active) {
+        (window as any).__pinitMissionsUserAborted = true;
+      } else {
+        (window as any).__pinitMissionsUserAborted = false;
+      }
       window.dispatchEvent(new CustomEvent('pinit-roleplay-toggle', { detail: { active } }));
       try {
         const url = new URL(window.location.href);
         if (active) {
           url.searchParams.set('roleplay', 'true');
+          const nextUrl = url.pathname + (url.search ? url.search : '');
+          window.history.replaceState({}, '', nextUrl);
+          if (router && typeof router.replace === 'function') {
+            router.replace(nextUrl);
+          }
         } else {
           url.searchParams.delete('roleplay');
+          const cleanSearch = url.searchParams.toString();
+          const targetUrl = url.pathname + (cleanSearch ? `?${cleanSearch}` : '');
+          window.history.replaceState({}, '', targetUrl);
+          if (router && typeof router.replace === 'function') {
+            router.replace(targetUrl);
+          }
         }
-        window.history.replaceState({}, '', url.toString());
       } catch {}
-    }
-    if (active && !isRoleplayParam) {
-      router.replace('/missions?roleplay=true');
-    } else if (!active && isRoleplayParam) {
-      router.replace('/missions');
+    } else {
+      if (active) {
+        if (router && typeof router.replace === 'function') {
+          router.replace('/missions?roleplay=true');
+        }
+      } else {
+        if (router && typeof router.replace === 'function') {
+          router.replace('/missions');
+        }
+      }
     }
   };
 

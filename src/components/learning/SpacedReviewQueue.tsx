@@ -170,70 +170,136 @@ export default function SpacedReviewQueue() {
   }
 
   return (
-    <div
-      style={{
-        background: 'var(--bg2)',
-        border: '1.5px solid var(--border)',
-        borderRadius: 20,
-        padding: 24,
-        boxShadow: 'var(--shadow-md)',
-        color: 'var(--t1)'
-      }}
-    >
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: 16, marginBottom: 20 }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* Sub-tab Explainer Banner for Spaced Memory */}
+      <div
+        style={{
+          background: 'var(--bg2)',
+          border: '1.5px solid var(--border)',
+          borderRadius: 16,
+          padding: '20px 24px',
+          boxShadow: 'var(--shadow-sm)'
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 12 }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--purple)', background: 'var(--purple-light)', padding: '2px 8px', borderRadius: 6, border: '1px solid var(--purple)' }}>
+                Cognitive Science Protocol
+              </span>
+              <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>
+                FSRS-4.5 Adaptive Retention Algorithm
+              </span>
+            </div>
             <h2 style={{ margin: 0, fontSize: 19, fontWeight: 900, color: 'var(--t1)' }}>
-              🧠 Spaced Repetition Memory Engine (FSRS-4.5)
+              Spaced Memory Queue (FSRS-4.5)
             </h2>
-            <span style={{ fontSize: 11, fontWeight: 800, background: 'var(--accent-light)', color: 'var(--accent)', padding: '2px 8px', borderRadius: 6, border: '1px solid var(--accent)' }}>
-              FSRS-4.5 Verified
-            </span>
           </div>
-          <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t2)' }}>
-            Mathematical forgetting-curve scheduler guaranteeing 90% retention for core system invariants and resolved mistakes.
-          </p>
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--accent)' }}>{dueCards.length} Cards Due Today</div>
-          <div style={{ fontSize: 11, color: 'var(--t3)' }}>Target Retention: 90%</div>
+        <p style={{ margin: '0 0 16px 0', fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+          The Free Spaced Repetition Scheduler models your individual memory stability and difficulty per concept. It dynamically computes optimal review intervals so you recall core system invariants with 90%+ probability during live technical screenings.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
+          <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--coral)', textTransform: 'uppercase', marginBottom: 4 }}>
+              Again (1)
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+              Blanked or incorrect. Resets stability to 0.4 days for immediate review.
+            </div>
+          </div>
+          <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--amber)', textTransform: 'uppercase', marginBottom: 4 }}>
+              Hard (2)
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+              Recalled with significant hesitation. Schedules a cautious, short interval.
+            </div>
+          </div>
+          <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
+              Good (3)
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+              Correct recall with normal cognitive effort. Exponentially increases stability.
+            </div>
+          </div>
+          <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--green)', textTransform: 'uppercase', marginBottom: 4 }}>
+              Easy (4)
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+              Effortless, instantaneous recall. Maximum stability boost for long-term spacing.
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Deck Filter Tabs */}
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
-        {[
-          { id: 'all', label: `🌐 All Cards (${deck.length})` },
-          { id: 'frontend', label: '⚛️ Frontend & React' },
-          { id: 'backend', label: '⚙️ Backend & Systems' },
-          { id: 'commerce', label: '📊 Commerce & Audit' },
-          { id: 'mistake', label: `⚠️ Resolved Mistakes (${deck.filter(c => c.id.startsWith('fsrs_')).length})` }
-        ].map(cat => (
-          <button
-            key={cat.id}
-            onClick={() => {
-              setActiveDeckFilter(cat.id);
-              setCurrentIndex(0);
-              setIsCompleted(false);
-              setIsAnswerRevealed(false);
-            }}
-            style={{
-              padding: '6px 12px',
-              borderRadius: 8,
-              border: `1px solid ${activeDeckFilter === cat.id ? 'var(--accent)' : 'var(--border)'}`,
-              background: activeDeckFilter === cat.id ? 'var(--accent)' : 'var(--bg3)',
-              color: activeDeckFilter === cat.id ? '#fff' : 'var(--t2)',
-              fontSize: 12.5,
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.15s'
-            }}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
+      <div
+        style={{
+          background: 'var(--bg2)',
+          border: '1.5px solid var(--border)',
+          borderRadius: 20,
+          padding: 24,
+          boxShadow: 'var(--shadow-md)',
+          color: 'var(--t1)'
+        }}
+      >
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: 16, marginBottom: 20 }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <h2 style={{ margin: 0, fontSize: 19, fontWeight: 900, color: 'var(--t1)' }}>
+                Spaced Repetition Memory Engine (FSRS-4.5)
+              </h2>
+              <span style={{ fontSize: 11, fontWeight: 800, background: 'var(--accent-light)', color: 'var(--accent)', padding: '2px 8px', borderRadius: 6, border: '1px solid var(--accent)' }}>
+                FSRS-4.5 Verified
+              </span>
+            </div>
+            <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t2)' }}>
+              Mathematical forgetting-curve scheduler guaranteeing 90% retention for core system invariants and resolved mistakes.
+            </p>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--accent)' }}>{dueCards.length} Cards Due Today</div>
+            <div style={{ fontSize: 11, color: 'var(--t3)' }}>Target Retention: 90%</div>
+          </div>
+        </div>
+
+        {/* Deck Filter Tabs */}
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
+          {[
+            { id: 'all', label: `All Cards (${deck.length})` },
+            { id: 'frontend', label: 'Frontend & React' },
+            { id: 'backend', label: 'Backend & Systems' },
+            { id: 'commerce', label: 'Commerce & Audit' },
+            { id: 'mistake', label: `Resolved Mistakes (${deck.filter(c => c.id.startsWith('fsrs_')).length})` }
+          ].map(cat => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setActiveDeckFilter(cat.id);
+                setCurrentIndex(0);
+                setIsCompleted(false);
+                setIsAnswerRevealed(false);
+              }}
+              style={{
+                padding: '6px 12px',
+                borderRadius: 8,
+                border: `1px solid ${activeDeckFilter === cat.id ? 'var(--accent)' : 'var(--border)'}`,
+                background: activeDeckFilter === cat.id ? 'var(--accent)' : 'var(--bg3)',
+                color: activeDeckFilter === cat.id ? '#fff' : 'var(--t2)',
+                fontSize: 12.5,
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.15s'
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
 
       {isCompleted || dueCards.length === 0 ? (
         <div style={{ padding: '40px 20px', textAlign: 'center', background: 'var(--bg3)', borderRadius: 16, border: '1px dashed var(--border)' }}>
@@ -305,7 +371,7 @@ export default function SpacedReviewQueue() {
             {isAnswerRevealed && (
               <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--border)' }} className="animate-fade-in">
                 <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--green)', textTransform: 'uppercase', letterSpacing: '0.8px', display: 'block', marginBottom: 6 }}>
-                  💡 Core Mastery Invariant:
+                  Core Mastery Invariant:
                 </span>
                 <p style={{ margin: 0, fontSize: 14, color: 'var(--t1)', lineHeight: 1.6, fontWeight: 500 }}>
                   {currentCard.answer}
@@ -416,6 +482,7 @@ export default function SpacedReviewQueue() {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 }

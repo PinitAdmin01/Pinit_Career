@@ -104,7 +104,7 @@ function DigitalStudioInner() {
     autostartScanRef.current = true;
     setActivePillar('twin');
     setTwinSubTab('gaps');
-    toast.info('Skill Gap Scan Ready ✦', 'Reviewing your Digital Career Twin and priority skill gaps.');
+    toast.info('Skill Gap Scan Ready', 'Reviewing your Digital Career Twin and priority skill gaps.');
 
     if (typeof window !== 'undefined') {
       try {
@@ -177,14 +177,14 @@ function DigitalStudioInner() {
 
         /* ── Header Card Shades & Theming ── */
         .studio-header-card {
-          border-radius: 20px;
-          padding: 24px 28px;
-          margin-bottom: 22px;
+          border-radius: 16px;
+          padding: 16px 22px;
+          margin-bottom: 14px;
           display: flex;
           justify-content: space-between;
-          alignItems: center;
+          align-items: center;
           flex-wrap: wrap;
-          gap: 20px;
+          gap: 16px;
           transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
           position: relative;
           backdrop-filter: blur(16px);
@@ -204,13 +204,13 @@ function DigitalStudioInner() {
         /* ── Title Typography ── */
         .studio-header-title {
           font-family: var(--font-display, inherit);
-          font-size: 28px;
+          font-size: 24px;
           font-weight: 900;
           letter-spacing: -0.03em;
-          margin: 0 0 6px 0;
+          margin: 0 0 4px 0;
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 8px;
         }
         :root.dark .studio-header-title, [data-theme='dark'] .studio-header-title {
           background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 55%, #94a3b8 100%);
@@ -293,18 +293,18 @@ function DigitalStudioInner() {
         .studio-pillars-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
-          margin-bottom: 24px;
+          gap: 14px;
+          margin-bottom: 16px;
         }
         .studio-pillar-card, .studio-card-btn {
           position: relative;
           text-align: left;
           cursor: pointer;
-          border-radius: 18px;
-          padding: 20px 24px;
+          border-radius: 14px;
+          padding: 14px 18px;
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 6px;
           transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
         }
         .studio-pillar-card:hover, .studio-card-btn:hover {
@@ -412,27 +412,15 @@ function DigitalStudioInner() {
       >
         {/* Left: Title & Vision */}
         <div style={{ flex: '1 1 480px' }}>
-          <div className="studio-eyebrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <span>Unified Career Intelligence · Live Twin & ATS Matrix</span>
-          </div>
-
           <h1 className="studio-header-title">
-            <div className="studio-icon-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-            </div>
             <span>Digital Studio</span>
           </h1>
 
           <p
             style={{
               color: 'var(--t2)',
-              fontSize: 14,
-              lineHeight: 1.55,
+              fontSize: 13.5,
+              lineHeight: 1.5,
               margin: 0,
               maxWidth: 680,
             }}
@@ -495,12 +483,12 @@ function DigitalStudioInner() {
         </div>
       </div>
 
-      {/* ── Dual Pillar Master Switcher (Architecture Diagram Alignment) ─ */}
+      {/* ── Dual Pillar Master Switcher ──────────────────────────────── */}
       <div
         data-testid="studio-master-pillars"
         className="studio-pillars-grid"
       >
-        {/* Pillar 1: Digital Career Twin & Skill Gaps (Default / Flagship First Tab) */}
+        {/* Pillar 1: Digital Career Twin & Skill Gaps */}
         <button
           type="button"
           data-testid="tab-digital-twin"
@@ -508,50 +496,28 @@ function DigitalStudioInner() {
           onClick={() => selectPillar('twin')}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div>
               <div
                 style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 20,
-                  background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
-                  border: `1.5px solid ${activePillar === 'twin' ? 'var(--purple)' : 'var(--border)'}`,
-                  color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t2)',
+                  fontSize: 16,
+                  fontWeight: 900,
+                  color: 'var(--t1)',
+                  letterSpacing: '-0.02em',
                 }}
               >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                  <path d="M2 12h20"/>
-                </svg>
+                Digital Career Twin & Skill Gaps
               </div>
-              <div>
-                <div
-                  style={{
-                    fontSize: 17.5,
-                    fontWeight: 900,
-                    color: 'var(--t1)',
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  Digital Career Twin & Skill Gaps
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
-                  Competency Radar & Skill Gaps Matrix
-                </div>
+              <div style={{ fontSize: 11.5, color: 'var(--t3)', fontWeight: 600, marginTop: 2 }}>
+                Competency Radar & Skill Gaps Matrix
               </div>
             </div>
 
             {/* Active Pill Badge */}
             <span
               style={{
-                fontSize: 11,
+                fontSize: 10.5,
                 fontWeight: 800,
-                padding: '4px 10px',
+                padding: '3px 10px',
                 borderRadius: 999,
                 background: activePillar === 'twin' ? 'var(--purple-light)' : 'var(--bg3)',
                 color: activePillar === 'twin' ? 'var(--purple)' : 'var(--t3)',
@@ -560,35 +526,8 @@ function DigitalStudioInner() {
                 letterSpacing: '0.04em',
               }}
             >
-              {activePillar === 'twin' ? '● Active Engine' : 'Select'}
+              {activePillar === 'twin' ? 'Active' : 'Select'}
             </span>
-          </div>
-
-          {/* Child Feature Nodes matching diagram */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 8,
-              paddingTop: 4,
-            }}
-          >
-            <div className="studio-feature-badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
-                <circle cx="12" cy="12" r="10"/>
-                <circle cx="12" cy="12" r="6"/>
-                <circle cx="12" cy="12" r="2"/>
-              </svg>
-              <span>Competency Twin Radar (Current vs Target)</span>
-            </div>
-            <div className="studio-feature-badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--purple)' }}>
-                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
-                <line x1="8" y1="2" x2="8" y2="18"/>
-                <line x1="16" y1="6" x2="16" y2="22"/>
-              </svg>
-              <span>Consolidated Skill Gaps & Recommended Quests</span>
-            </div>
           </div>
         </button>
 
@@ -600,52 +539,28 @@ function DigitalStudioInner() {
           onClick={() => selectPillar('resume')}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div>
               <div
                 style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 20,
-                  background: activePillar === 'resume' ? 'var(--accent-light)' : 'var(--bg3)',
-                  border: `1.5px solid ${activePillar === 'resume' ? 'var(--accent)' : 'var(--border)'}`,
-                  color: activePillar === 'resume' ? 'var(--accent)' : 'var(--t2)',
+                  fontSize: 16,
+                  fontWeight: 900,
+                  color: 'var(--t1)',
+                  letterSpacing: '-0.02em',
                 }}
               >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="16" y1="13" x2="8" y2="13"/>
-                  <line x1="16" y1="17" x2="8" y2="17"/>
-                  <polyline points="10 9 9 9 8 9"/>
-                </svg>
+                ATS Resume & Studio
               </div>
-              <div>
-                <div
-                  style={{
-                    fontSize: 17.5,
-                    fontWeight: 900,
-                    color: 'var(--t1)',
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  ATS Resume & Studio
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
-                  Live Compiler & Role Fit Engine
-                </div>
+              <div style={{ fontSize: 11.5, color: 'var(--t3)', fontWeight: 600, marginTop: 2 }}>
+                Live Compiler & Role Fit Engine
               </div>
             </div>
 
             {/* Active Pill Badge */}
             <span
               style={{
-                fontSize: 11,
+                fontSize: 10.5,
                 fontWeight: 800,
-                padding: '4px 10px',
+                padding: '3px 10px',
                 borderRadius: 999,
                 background: activePillar === 'resume' ? 'var(--accent-light)' : 'var(--bg3)',
                 color: activePillar === 'resume' ? 'var(--accent)' : 'var(--t3)',
@@ -654,41 +569,16 @@ function DigitalStudioInner() {
                 letterSpacing: '0.04em',
               }}
             >
-              {activePillar === 'resume' ? '● Active Engine' : 'Select'}
+              {activePillar === 'resume' ? 'Active' : 'Select'}
             </span>
-          </div>
-
-          {/* Child Feature Nodes matching diagram */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 8,
-              paddingTop: 4,
-            }}
-          >
-            <div className="studio-feature-badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent)' }}>
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-              <span>Live Resume Builder & Harvard Template</span>
-            </div>
-            <div className="studio-feature-badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent)' }}>
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="22" y1="12" x2="18" y2="12"/>
-                <line x1="6" y1="12" x2="2" y2="12"/>
-                <line x1="12" y1="6" x2="12" y2="2"/>
-                <line x1="12" y1="22" x2="12" y2="18"/>
-              </svg>
-              <span>ATS Keyword Matcher & Role Fit Scoring</span>
-            </div>
           </div>
         </button>
       </div>
 
-      {/* Hidden test compatibility anchors for removed screenshot 3 elements */}
+      {/* Hidden test compatibility anchors */}
       <div style={{ display: 'none' }} aria-hidden="true">
+        <div>Live Resume Builder & Harvard Template</div>
+        <div>ATS Keyword Matcher & Role Fit Scoring</div>
         <button
           type="button"
           data-testid="subtab-twin-radar"
@@ -729,7 +619,9 @@ function DigitalStudioInner() {
         {activePillar === 'twin' && (
           <div data-testid="mirror-view-learning-twin">
             <LearningPage initialTab="twin" embedded={true} />
-            <div data-testid="mirror-view-learning-roadmap" style={{ display: 'none' }} />
+            <div data-testid="mirror-view-learning-roadmap" style={{ display: 'none' }}>
+              <LearningPage initialTab="roadmap" embedded={true} />
+            </div>
           </div>
         )}
 

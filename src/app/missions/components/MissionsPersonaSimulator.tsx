@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { stopSpeaking } from '@/lib/tts';
 import { RoleplayScenario, RoleplayHistoryEntry } from '../hooks/useMissionsState';
 
@@ -53,6 +54,11 @@ export default function MissionsPersonaSimulator({
   triggerEvaluation,
   setActiveTab,
 }: MissionsPersonaSimulatorProps) {
+  let router: any = null;
+  try {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    router = useRouter();
+  } catch {}
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -285,6 +291,19 @@ export default function MissionsPersonaSimulator({
                     document.exitFullscreen().catch(() => {});
                   }
                   stopSpeaking();
+                  if (typeof window !== 'undefined') {
+                    (window as any).__pinitMissionsUserAborted = true;
+                    try {
+                      const u = new URL(window.location.href);
+                      u.searchParams.delete('roleplay');
+                      const cleanSearch = u.searchParams.toString();
+                      const targetUrl = u.pathname + (cleanSearch ? `?${cleanSearch}` : '');
+                      window.history.replaceState({}, '', targetUrl);
+                      if (router && typeof router.replace === 'function') {
+                        router.replace(targetUrl);
+                      }
+                    } catch {}
+                  }
                   updateRoleplayActive(false);
                 }
               }}
@@ -958,7 +977,17 @@ export default function MissionsPersonaSimulator({
                         setEvaluationReport('');
                         setActiveTab?.('history');
                         if (typeof window !== 'undefined') {
-                          window.history.pushState(null, '', '/missions?tab=history');
+                          (window as any).__pinitMissionsUserAborted = true;
+                          try {
+                            const u = new URL(window.location.href);
+                            u.searchParams.delete('roleplay');
+                            u.searchParams.set('tab', 'history');
+                            const targetUrl = u.pathname + (u.search ? u.search : '');
+                            window.history.replaceState({}, '', targetUrl);
+                            if (router && typeof router.replace === 'function') {
+                              router.replace(targetUrl);
+                            }
+                          } catch {}
                         }
                       }}
                       className="btn-primary"
@@ -993,7 +1022,17 @@ export default function MissionsPersonaSimulator({
                         setEvaluationReport('');
                         setActiveTab?.('evolve');
                         if (typeof window !== 'undefined') {
-                          window.history.pushState(null, '', '/missions?tab=evolve');
+                          (window as any).__pinitMissionsUserAborted = true;
+                          try {
+                            const u = new URL(window.location.href);
+                            u.searchParams.delete('roleplay');
+                            u.searchParams.set('tab', 'evolve');
+                            const targetUrl = u.pathname + (u.search ? u.search : '');
+                            window.history.replaceState({}, '', targetUrl);
+                            if (router && typeof router.replace === 'function') {
+                              router.replace(targetUrl);
+                            }
+                          } catch {}
                         }
                       }}
                       className="btn-primary btn-sm"

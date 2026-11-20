@@ -4,7 +4,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { stopSpeaking } from '@/lib/tts';
 import MissionsHistoryTab from '@/components/missions/MissionsHistoryTab';
 import { useMissionsState } from './hooks/useMissionsState';
@@ -19,6 +19,7 @@ import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
 
 function MissionsPageInner() {
   const cOS = useCareerOS();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const { user, refresh } = useAuth();
   const state = useMissionsState(cOS.onboardingAnswers?.role || 'Software Developer');
@@ -71,6 +72,7 @@ function MissionsPageInner() {
   // launch modal so Pins are never spent silently.
   const [showRoleplayLaunchModal, setShowRoleplayLaunchModal] = useState(false);
   const roleplayAutoHandledRef = useRef(false);
+  const userDismissedRoleplayRef = useRef(false);
   const initiateRoleplayRef = useRef(initiateRoleplay);
   initiateRoleplayRef.current = initiateRoleplay;
 
@@ -79,20 +81,38 @@ function MissionsPageInner() {
   }, []);
 
   useEffect(() => {
+    // If candidate explicitly dismissed or aborted the mindset simulation session, never auto-start
+    if (
+      userDismissedRoleplayRef.current ||
+      (typeof window !== 'undefined' && (window as any).__pinitMissionsUserAborted)
+    ) {
+      return;
+    }
+
     const wantsRoleplay = searchParams?.get('roleplay') === 'true';
     if (!wantsRoleplay) {
-      roleplayAutoHandledRef.current = false;
       return;
     }
     if (roleplayActive || roleplayAutoHandledRef.current) return;
     roleplayAutoHandledRef.current = true;
-    setActiveTab('evolve');
+
+    // Preserve incoming tab (e.g. ?tab=history&roleplay=true -> preserve history tab)
+    const urlTab = searchParams?.get('tab');
+    if (urlTab === 'history' || urlTab === 'language' || urlTab === 'evolve') {
+      setActiveTab(urlTab);
+    } else {
+      setActiveTab('evolve');
+    }
 
     if (typeof window !== 'undefined') {
       try {
         const url = new URL(window.location.href);
         url.searchParams.delete('roleplay');
-        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+        const cleanUrl = url.pathname + (url.search ? url.search : '');
+        window.history.replaceState({}, '', cleanUrl);
+        if (router && typeof router.replace === 'function') {
+          router.replace(cleanUrl);
+        }
       } catch {}
     }
 
@@ -101,7 +121,7 @@ function MissionsPageInner() {
     } else {
       setShowRoleplayLaunchModal(true);
     }
-  }, [searchParams, roleplayActive, setActiveTab, cOS]);
+  }, [searchParams, roleplayActive, setActiveTab, cOS, router]);
 
   const {
     missionOnlyStreak,
@@ -428,7 +448,11 @@ function MissionsPageInner() {
               </span>
               <button
                 type="button"
-                onClick={() => setShowRoleplayLaunchModal(false)}
+                onClick={() => {
+                  userDismissedRoleplayRef.current = true;
+                  if (typeof window !== 'undefined') (window as any).__pinitMissionsUserAborted = true;
+                  setShowRoleplayLaunchModal(false);
+                }}
                 aria-label="Close modal"
                 style={{ background: 'none', border: 'none', color: theme.tSecondary, fontSize: 18, cursor: 'pointer' }}
               >
@@ -444,7 +468,11 @@ function MissionsPageInner() {
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
               <button
                 type="button"
-                onClick={() => setShowRoleplayLaunchModal(false)}
+                onClick={() => {
+                  userDismissedRoleplayRef.current = true;
+                  if (typeof window !== 'undefined') (window as any).__pinitMissionsUserAborted = true;
+                  setShowRoleplayLaunchModal(false);
+                }}
                 style={{
                   padding: '10px 16px',
                   borderRadius: 10,
@@ -462,6 +490,9 @@ function MissionsPageInner() {
                 data-testid="missions-voice-confirm-launch-btn"
                 disabled={roleplayLoading || isUnlocking}
                 onClick={() => {
+                  userDismissedRoleplayRef.current = false;
+                  if (typeof window !== 'undefined') (window as any).__pinitMissionsUserAborted = false;
+                  roleplayAutoHandledRef.current = true;
                   setShowRoleplayLaunchModal(false);
                   void initiateRoleplay();
                 }}

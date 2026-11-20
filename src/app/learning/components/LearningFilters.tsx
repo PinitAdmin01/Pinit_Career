@@ -26,7 +26,7 @@ export function LearningFilters({
       <div className="page-header" style={{ marginBottom: 20, display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
-            📖 Learning Roadmap & Digital Career Twin
+            Learning Roadmap & Digital Career Twin
           </h1>
           <p style={{ color: 'var(--t2)', fontSize: 15, margin: 0 }}>
             {activeRole === 'student' && "Continuous personalized path to placement derived dynamically from your Career DNA and learning logs."}
@@ -38,8 +38,8 @@ export function LearningFilters({
         {canAccessFaculty && (
           <div style={{ display: 'flex', gap: 6, background: 'var(--bg3)', padding: 4, borderRadius: 10, border: '1px solid var(--border)' }}>
             {[
-              { id: 'student', label: '🧑‍🎓 Student Portal' },
-              { id: 'faculty', label: '👩‍🏫 Faculty Desk' }
+              { id: 'student', label: 'Student Portal' },
+              { id: 'faculty', label: 'Faculty Desk' }
             ].map(role => (
               <button
                 key={role.id}
@@ -80,11 +80,11 @@ export function LearningFilters({
           }}
         >
           {[
-            { id: 'mistakes', label: '⚠️ Mistakes & Remediation' },
-            { id: 'roadmap', label: '📖 Growth Roadmap' },
-            { id: 'twin', label: '🧬 Career Twin Simulator' },
-            { id: 'gaps', label: '🎯 Curriculum Gaps' },
-            { id: 'memory', label: '🧠 Spaced Memory (FSRS)' }
+            { id: 'roadmap', label: 'Custom Growth Roadmap' },
+            { id: 'memory', label: 'Spaced Memory (FSRS)' },
+            { id: 'twin', label: 'Career Twin Simulator' },
+            { id: 'gaps', label: 'Curriculum Gaps' },
+            { id: 'mistakes', label: 'Mistakes & Remediation' }
           ].map(t => (
             <button
               key={t.id}
