@@ -1777,6 +1777,7 @@ export default function InterviewPage() {
           {/* Round 1: Behavioral */}
           {activeStage === 'round1_behavioral' && (
             <Round1Behavioral
+              domainStream={domainStream}
               activeTeacher={activeTeacher}
               animState={animState}
               showCameraPreview={showCameraPreview}

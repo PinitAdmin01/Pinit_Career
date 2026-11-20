@@ -122,12 +122,16 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           }}
         >
           {canProceed
-            ? '✅ Architecture & Trade-Off Defense Verified — Ready for Round 4 STAR Defense!'
+            ? (domainStream === 'non_tech'
+                ? '✅ Business Workflow & Strategy Defense Verified — Ready for Round 4 Executive Defense!'
+                : '✅ Architecture & Trade-Off Defense Verified — Ready for Round 4 STAR Defense!')
             : architectureEvaluation && Number(architectureEvaluation.score) < 60
-            ? `⚠️ Topology score (${architectureEvaluation.score}/100) is below the 60/100 threshold. Address the bottlenecks below and re-evaluate.`
+            ? `⚠️ ${domainStream === 'non_tech' ? 'Workflow' : 'Topology'} score (${architectureEvaluation.score}/100) is below the 60/100 threshold. Address the bottlenecks below and re-evaluate.`
             : architectureEvaluation
-            ? `💬 Step 2 of 2: Answer ${activeTeacher.name}'s architectural trade-off question on the right to unlock Round 4.`
-            : '📐 Step 1 of 2: Place components on the canvas and click "Evaluate Architecture" to inspect your topology.'}
+            ? `💬 Step 2 of 2: Answer ${activeTeacher.name}'s ${domainStream === 'non_tech' ? 'business strategy' : 'architectural trade-off'} question on the right to unlock Round 4.`
+            : (domainStream === 'non_tech'
+                ? '📐 Step 1 of 2: Connect workflow components on the canvas and click "Evaluate Workflow" to inspect your design.'
+                : '📐 Step 1 of 2: Place components on the canvas and click "Evaluate Architecture" to inspect your topology.')}
         </div>
 
         <SystemDesignWhiteboard
