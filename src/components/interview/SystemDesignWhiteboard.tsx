@@ -619,7 +619,7 @@ export default function SystemDesignWhiteboard({
         onTouchEnd={handleCanvasTouchEnd}
         style={{
           position: 'relative',
-          height: 440,
+          height: 'clamp(280px, 42vh, 400px)',
           backgroundImage: 'radial-gradient(var(--border2) 1px, transparent 1px)',
           backgroundSize: '18px 18px',
           borderRadius: 14,

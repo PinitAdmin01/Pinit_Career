@@ -87,8 +87,8 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
   setAnimState,
 }) => {
   return (
-    <div className="iv-round-layout iv-round3-layout" style={{ display: 'grid', gridTemplateColumns: '7.2fr 2.8fr', gap: 16, alignItems: 'stretch' }}>
-      <div className="iv-panel" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <div className="iv-round-layout iv-round3-layout iv-stage-viewport" style={{ display: 'grid', gridTemplateColumns: '7.2fr 2.8fr', gap: 12, alignItems: 'stretch' }}>
+      <div className="iv-panel" style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 8, height: '100%', minHeight: 0, overflowY: 'auto' }}>
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--teal-mid)' }}>ROUND 3 OF 4</span>
@@ -191,15 +191,15 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
       </div>
 
       {/* Right 28%: Avatar Viewport, Review Comments & Defense Input */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ height: 190, background: 'var(--bg3)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, height: '100%', minHeight: 0, overflow: 'hidden' }}>
+        <div style={{ height: 160, flexShrink: 0, background: 'var(--bg3)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
           <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 11, fontWeight: 800 }}>
             {activeTeacher.emoji} {activeTeacher.name}
           </div>
         </div>
 
-        <div className="iv-panel" style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div className="iv-panel" style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
           <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)' }}>INTERVIEWER FEEDBACK & QUESTIONS</div>
           <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
             <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}

@@ -261,7 +261,7 @@ export default function InterviewPage() {
   const [activeTeacher, setActiveTeacher] = useState(ROUND_INTERVIEWERS.round1_behavioral);
 
   useEffect(() => {
-    preloadAvatarGLB([activeTeacher.id, 'priya', 'rohan', 'vikram', 'aisha']);
+    preloadAvatarGLB([activeTeacher.id, 'sneha', 'rohan', 'vikram', 'aisha']);
   }, [activeTeacher.id]);
 
   const selectRandomTeacherForSession = useCallback(() => {
@@ -488,9 +488,23 @@ export default function InterviewPage() {
   }, []);
 
   const handleSilenceNudge = useCallback((nudgeMsg: string) => {
-    setMessages(prev => [...prev, { role: 'assistant', content: nudgeMsg }]);
-    speakWithAvatarRef.current(nudgeMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
-  }, [activeTeacher.id]);
+    setMessages(prev => {
+      const userTurns = prev.filter(m => m.role === 'user' && !SKIP_TURN_REGEX.test(m.content.trim()));
+      const isRound1Complete = activeStage === 'round1_behavioral' && (userTurns.length >= 3 || userTurns.filter(m => m.content.trim().split(/\s+/).length >= 10).length >= 2);
+
+      const targetMsg = isRound1Complete
+        ? "You've completed the behavioral intro! Whenever you're ready, click 'Continue to coding' to start Round 2."
+        : nudgeMsg;
+
+      // Deduplication: Never append or speak the exact same silence nudge consecutively
+      if (prev.length > 0 && prev[prev.length - 1].content === targetMsg) {
+        return prev;
+      }
+
+      speakWithAvatarRef.current(targetMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+      return [...prev, { role: 'assistant', content: targetMsg }];
+    });
+  }, [activeTeacher.id, activeStage]);
 
   const {
     isVoiceListening,
@@ -820,6 +834,19 @@ export default function InterviewPage() {
       || (courseDefense !== null && topic === courseDefense.topic);
     const itemKey = `interview:${domainStream}:${topic.toLowerCase().replace(/\s+/g, '_')}`;
     if (!isCapstoneRun && !cOS.isItemUnlocked(itemKey)) {
+      if ((cOS.pins ?? 0) < 25) {
+        if (typeof window !== 'undefined') {
+          try {
+            if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+          } catch {}
+          document.body.removeAttribute('data-interview-active');
+          document.documentElement.removeAttribute('data-gaming-mode');
+          (window as any).__pinitInterviewActive = false;
+          window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: false } }));
+        }
+        toast.error('Insufficient Pins', 'You need 25 Pins to start this corporate interview session. Top up your Pins in the Pins store or claim your daily bonus!');
+        return;
+      }
       const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
       if (!unlocked) {
         if (typeof window !== 'undefined') {
@@ -1552,7 +1579,16 @@ export default function InterviewPage() {
   return (
     <div
       className={isInterviewActive ? 'iv-session-shell' : undefined}
-      style={{ padding: isInterviewActive ? '0 4px' : '0 0 32px', maxWidth: 1380, margin: '0 auto', color: 'var(--t1)', fontFamily: 'var(--font-sans)' }}
+      style={{
+        padding: isInterviewActive ? '0 4px' : '0 0 32px',
+        maxWidth: isInterviewActive ? '100vw' : 1380,
+        margin: isInterviewActive ? '0' : '0 auto',
+        height: isInterviewActive ? '100dvh' : 'auto',
+        maxHeight: isInterviewActive ? '100dvh' : 'none',
+        overflow: isInterviewActive ? 'hidden' : 'visible',
+        color: 'var(--t1)',
+        fontFamily: 'var(--font-sans)'
+      }}
     >
       {/* Top Placement Interview Hub Switcher: 1v1 Mock Interview vs GD Practice */}
       {!isInterviewActive && (
@@ -1609,7 +1645,7 @@ export default function InterviewPage() {
           clearSessionHistory={clearSessionHistory} setSelectedHistorySession={setSelectedHistorySession}
         />
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, height: '100%', flex: '1 1 0%', minHeight: 0, overflow: 'hidden' }}>
           {/* Top Session Control Header */}
           <InterviewSessionHeader
             activeTeacher={activeTeacher}
@@ -1892,22 +1928,24 @@ export default function InterviewPage() {
             />
           )}
 
-          {/* Results Screen */}
+          {/* Results Screen (Scrollable Scorecard & Insights View) */}
           {activeStage === 'results' && (
-            <InterviewResultsView
-              evaluationResult={evaluationResult}
-              isEvaluating={isEvaluating}
-              activeTopicName={activeTopicName}
-              codeSubmitted={codeSubmitted}
-              latestTopology={latestTopology}
-              starStep={starStep}
-              wpmScore={wpmScore}
-              fillerWordCount={fillerWordCount}
-              eyeContactScore={eyeContactScore}
-              startInterview={startInterview}
-              exportInterviewTranscript={exportInterviewTranscript}
-              exitInterview={exitInterview}
-            />
+            <div style={{ flex: '1 1 0%', minHeight: 0, overflowY: 'auto', paddingRight: 4 }}>
+              <InterviewResultsView
+                evaluationResult={evaluationResult}
+                isEvaluating={isEvaluating}
+                activeTopicName={activeTopicName}
+                codeSubmitted={codeSubmitted}
+                latestTopology={latestTopology}
+                starStep={starStep}
+                wpmScore={wpmScore}
+                fillerWordCount={fillerWordCount}
+                eyeContactScore={eyeContactScore}
+                startInterview={startInterview}
+                exportInterviewTranscript={exportInterviewTranscript}
+                exitInterview={exitInterview}
+              />
+            </div>
           )}
         </div>
       )}

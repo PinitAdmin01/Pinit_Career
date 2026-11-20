@@ -185,16 +185,19 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
 
       {/* Right 40%: Scrollable Transcript, Teleprompter & Input */}
       <div className="iv-panel iv-chat-stage" style={{
-        padding: 18,
+        padding: '10px 14px',
         display: 'flex',
         flexDirection: 'column',
+        height: '100%',
+        minHeight: 0,
+        overflow: 'hidden'
       }}>
-        <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, marginBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 6, marginBottom: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
           <div>
-            <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
-            <h2 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral &amp; Background Intro</h2>
+            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
+            <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral &amp; Background Intro</h2>
           </div>
-          {canProceed && <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
+          {canProceed && <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 6, padding: '5px 10px', fontSize: 11 }}>
             Continue to coding ➔
           </button>}
         </div>
@@ -202,14 +205,15 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         <div
           data-testid="round1-progress-pill"
           style={{
-            marginBottom: 8,
-            padding: '6px 10px',
-            borderRadius: 8,
-            fontSize: 11.5,
+            marginBottom: 6,
+            padding: '4px 8px',
+            borderRadius: 6,
+            fontSize: 10.5,
             fontWeight: 700,
             background: canProceed ? 'rgba(34, 197, 94, 0.12)' : 'rgba(var(--brand-rgb), 0.08)',
             border: canProceed ? '1px solid rgba(34, 197, 94, 0.35)' : '1px solid rgba(var(--brand-rgb), 0.22)',
-            color: canProceed ? 'var(--green-mid)' : 'var(--t2)'
+            color: canProceed ? 'var(--green-mid)' : 'var(--t2)',
+            flexShrink: 0
           }}
         >
           {canProceed
@@ -218,17 +222,17 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         </div>
 
         {/* Telemetry Bar */}
-        <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: '8px 12px', border: '1px solid var(--border)', marginBottom: 10, display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+        <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: '5px 10px', border: '1px solid var(--border)', marginBottom: 6, display: 'flex', justifyContent: 'space-between', fontSize: 11, flexShrink: 0 }}>
           <div>👀 Eye Contact: <strong style={{ color: eyeContactScore !== null ? 'var(--green-mid)' : 'var(--t3)' }}>{eyeContactScore !== null ? `${eyeContactScore}%` : 'Cam Off'}</strong></div>
           <div>⚡ Pace: <strong style={{ color: wpmScore !== null ? (wpmScore >= 115 && wpmScore <= 165 ? 'var(--green-mid)' : 'var(--amber-mid)') : 'var(--accent-mid)' }}>{wpmScore !== null ? wpmCadenceLabel : 'Mic Off'}</strong></div>
           <div>💬 Fillers: <strong style={{ color: 'var(--green-mid)' }}>{wpmScore !== null || fillerWordCount > 0 ? fillerWordCount : 'N/A'}</strong></div>
         </div>
 
         {/* Transcript Stream */}
-        <div className="scroll-container" style={{ flex: 1, minHeight: 96, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, paddingRight: 4 }}>
+        <div className="scroll-container" style={{ flex: '1 1 0%', minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 6, paddingRight: 4 }}>
           {messages.map((m, i) => (
             <div key={i} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%' }}>
-              <div className={m.role === 'user' ? 'iv-chat-user' : 'iv-chat-assistant'} style={{ padding: '10px 14px', borderRadius: 14, fontSize: 13, lineHeight: 1.5 }}>
+              <div className={m.role === 'user' ? 'iv-chat-user' : 'iv-chat-assistant'} style={{ padding: '6px 10px', borderRadius: 10, fontSize: 11.5, lineHeight: 1.4 }}>
                 {m.content}
               </div>
             </div>
@@ -244,12 +248,12 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
 
         {/* 🎯 Assist Mode AI Teleprompter (Unified Component) */}
         {!isDockedUnderCam && assistNode && (
-          <div style={{ marginTop: 8, marginBottom: 4 }}>
+          <div style={{ marginTop: 4, marginBottom: 2, flexShrink: 0 }}>
             {assistNode}
           </div>
         )}
 
-        <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 4, flexShrink: 0 }}>
           {/* ⌨️ Direct Typed Response Fallback for Noisy Environments */}
           <form
             onSubmit={(e) => {
@@ -280,19 +284,19 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
               placeholder="Or type your response here... (Enter or Ctrl+↵ to send)"
               style={{
                 flex: 1,
-                padding: '8px 12px',
-                borderRadius: 8,
+                padding: '6px 10px',
+                borderRadius: 7,
                 border: '1px solid var(--border)',
                 background: 'var(--bg3)',
                 color: 'var(--t1)',
-                fontSize: 12.5
+                fontSize: 11.5
               }}
             />
             <button
               type="submit"
               disabled={!manualTextInput.trim() || isSendingInterviewMessage}
               style={{
-                padding: '8px 14px',
+                padding: '6px 12px',
                 borderRadius: 8,
                 border: 'none',
                 background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',

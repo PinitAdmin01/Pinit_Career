@@ -120,9 +120,9 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
   }, [isRunning, isSendingInterviewMessage, runCodeAndTests]);
 
   return (
-    <div className="iv-round-layout iv-round2-layout" style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.6fr', gap: 16, alignItems: 'stretch' }}>
+    <div className="iv-round-layout iv-round2-layout iv-stage-viewport" style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.6fr', gap: 12, alignItems: 'stretch' }}>
       {/* Left 70%: Code Workspace with Monaco Editor */}
-      <div className="iv-panel" style={{ padding: 18, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div className="iv-panel" style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 8, height: '100%', minHeight: 0, overflowY: 'auto' }}>
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--pink)' }}>ROUND 2 OF 4</span>
@@ -324,15 +324,15 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
       </div>
 
       {/* Right 30%: Avatar Viewport & Execution Terminal */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ height: 180, background: 'var(--bg3)', borderRadius: 14, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, height: '100%', minHeight: 0, overflow: 'hidden' }}>
+        <div style={{ height: 160, flexShrink: 0, background: 'var(--bg3)', borderRadius: 14, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
           <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 11, fontWeight: 800 }}>
             {activeTeacher.emoji} {activeTeacher.name}
           </div>
         </div>
 
-        <div className="iv-panel" style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }} aria-live="polite">
+        <div className="iv-panel" style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 8, flex: 1, minHeight: 0, overflowY: 'auto' }} aria-live="polite">
           <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Interviewer</div>
           <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.45 }}>{lastInterviewerSpeech}</div>
           {codeReviewQuestionReady && !canProceed && !codeRunFailed && (

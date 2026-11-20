@@ -553,7 +553,25 @@ test('Deep Tab Audit Round 2: Verdict/Readiness tone, RadarChart 0% label, evalu
 });
 
 test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants', async () => {
-  const { analyzeCandidateTurn, generateProgressiveFallbackQuestion } = await import('../src/app/api/interview/chat/route');
+  const { analyzeCandidateTurn, generateProgressiveFallbackQuestion, stripInterviewerSignoff } = await import('../src/app/api/interview/chat/route');
+  const { ROUND_INTERVIEWERS } = await import('../src/app/interview/interviewTypes');
+
+  // Roster invariant: Priya is platform mentor only, Round 1 interviewer is Ms. Sneha
+  assert.equal(ROUND_INTERVIEWERS.round1_behavioral.id, 'sneha', 'Round 1 interviewer must be sneha');
+  assert.equal(ROUND_INTERVIEWERS.round1_behavioral.name, 'Ms. Sneha');
+  assert.ok(!Object.values(ROUND_INTERVIEWERS).some(iv => iv.id === 'priya'), 'Priya must never be in ROUND_INTERVIEWERS');
+
+  // Strip interviewer sign-offs
+  assert.equal(stripInterviewerSignoff('Good point. What was the latency? — Ms. Priya'), 'Good point. What was the latency?');
+  assert.equal(stripInterviewerSignoff('Great work! — Mr. Rohan'), 'Great work!');
+  assert.equal(stripInterviewerSignoff('How did you scale Kafka? — Ms. Sneha (HR Director)'), 'How did you scale Kafka?');
+
+  // Substring collision safety: capacity must NOT match cac, rapid must NOT match api
+  const analysisCapacity = analyzeCandidateTurn('We evaluated database capacity and memory.', 'Software Engineering');
+  assert.notEqual(analysisCapacity.keyTerm, 'cac', 'capacity must not trigger cac keyword');
+
+  const analysisRapid = analyzeCandidateTurn('We practiced rapid prototyping and iteration.', 'Software Engineering');
+  assert.notEqual(analysisRapid.keyTerm, 'api', 'rapid must not trigger api keyword');
 
   // Test 1: "in this scenario I don't know what to do" must classify as 'stuck', never praise or hallucinate success
   const analysis1 = analyzeCandidateTurn("in this scenario I don't know what to do", 'Software Engineering (SDE)');
@@ -594,22 +612,24 @@ test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants'
   assert.ok(!reply2.includes('confirmed to you and your team that this decision was a success'), 'Must never hallucinate success for I don\'t know');
   assert.ok(!reply2.endsWith('— Ms. Sneha'), 'Must not end with robotic sign-off');
 
-  // Test 3: Broad intro greetings without project depth ask for concrete project
-  const analysis3 = analyzeCandidateTurn('hi I am full stack software developer with a strong focus on software engineering', 'Software Engineering (SDE)');
-  assert.equal(analysis3.intent, 'intro');
+  // Test 3: Broad intro with incomplete API description classifies as intro with keyTerm api
+  const rawCandidateIntro = 'hi I am full stack software developer with a strong focus on software engineering in my recent projects I developed a API key which helps other uses to be there on a';
+  const analysis3 = analyzeCandidateTurn(rawCandidateIntro, 'Software Engineering (SDE)');
+  assert.equal(analysis3.intent, 'intro', 'Greeting intro should classify as intro');
+  assert.equal(analysis3.keyTerm, 'api', 'Detected API in intro');
 
   const reply3 = generateProgressiveFallbackQuestion({
     stage: 'round1_behavioral',
     subTopic: 'Software Engineering (SDE)',
     history: [
       { role: 'assistant', content: 'Welcome!' },
-      { role: 'user', content: 'hi I am full stack software developer with a strong focus on software engineering' }
+      { role: 'user', content: rawCandidateIntro }
     ],
     difficulty: 'normal',
     interviewerName: 'Ms. Sneha'
   });
 
   assert.ok(!reply3.includes('focusing on hi am full stack'), 'Must not produce nonsense word slices');
-  assert.ok(reply3.toLowerCase().includes('project') || reply3.toLowerCase().includes('challenge'), 'Must prompt for specific project details');
+  assert.ok(reply3.toLowerCase().includes('api') && (reply3.toLowerCase().includes('project') || reply3.toLowerCase().includes('contribution')), 'Must prompt for concrete project details on the API mentioned');
   assert.ok(!reply3.endsWith('— Ms. Sneha'), 'Must not end with robotic sign-off');
 });

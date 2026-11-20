@@ -48,6 +48,7 @@ export function useInterviewVoice({
   const [hasStartedMicOnce, setHasStartedMicOnce] = useState<boolean>(false);
   const avatarSpeechStartTimeRef = useRef<number>(0);
   const isAssistPreviewSpeakingRef = useRef<boolean>(false);
+  const silenceNudgeFiredRef = useRef<boolean>(false);
 
   const debouncerRef = useRef<SpeechDebounceManager>(
     new SpeechDebounceManager({
@@ -117,6 +118,7 @@ export function useInterviewVoice({
   }, []);
 
   const flushAndSubmitTranscript = useCallback(() => {
+    silenceNudgeFiredRef.current = false;
     const committed = debouncerRef.current.commitSubmission();
     setLiveSpeechTranscript('');
     if (!committed) {
@@ -232,32 +234,38 @@ export function useInterviewVoice({
         setIsVoiceListening(true);
 
         if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-        if (activeStage === 'round1_behavioral' || activeStage === 'round4_star') {
-          silenceTimerRef.current = setTimeout(() => {
-            if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript()) {
-              const nudgeMsg = `Take all the time you need! When you're ready, feel free to share your thoughts or explain your approach for ${activeTopicName}.`;
-              onSilenceNudge(nudgeMsg);
-            }
-          }, 45000);
-        } else if (activeStage === 'round2_coding') {
-          silenceTimerRef.current = setTimeout(() => {
-            if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript()) {
-              const nudgeMsg = `How is your implementation coming along? Feel free to explain your approach out loud, or check the hints toggle if you need a nudge!`;
-              onSilenceNudge(nudgeMsg);
-            }
-          }, 90000);
-        } else if (activeStage === 'round3_systems') {
-          silenceTimerRef.current = setTimeout(() => {
-            if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript()) {
-              const nudgeMsg = `As you lay out your architecture nodes for ${activeTopicName}, consider explaining how traffic flows across your tiers.`;
-              onSilenceNudge(nudgeMsg);
-            }
-          }, 90000);
+        if (!silenceNudgeFiredRef.current) {
+          if (activeStage === 'round1_behavioral' || activeStage === 'round4_star') {
+            silenceTimerRef.current = setTimeout(() => {
+              if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
+                silenceNudgeFiredRef.current = true;
+                const nudgeMsg = `Take all the time you need! When you're ready, feel free to share your thoughts or explain your approach for ${activeTopicName}.`;
+                onSilenceNudge(nudgeMsg);
+              }
+            }, 45000);
+          } else if (activeStage === 'round2_coding') {
+            silenceTimerRef.current = setTimeout(() => {
+              if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
+                silenceNudgeFiredRef.current = true;
+                const nudgeMsg = `How is your implementation coming along? Feel free to explain your approach out loud, or check the hints toggle if you need a nudge!`;
+                onSilenceNudge(nudgeMsg);
+              }
+            }, 90000);
+          } else if (activeStage === 'round3_systems') {
+            silenceTimerRef.current = setTimeout(() => {
+              if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
+                silenceNudgeFiredRef.current = true;
+                const nudgeMsg = `As you lay out your architecture nodes for ${activeTopicName}, consider explaining how traffic flows across your tiers.`;
+                onSilenceNudge(nudgeMsg);
+              }
+            }, 90000);
+          }
         }
       };
 
       rec.onresult = (e: any) => {
         if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+        silenceNudgeFiredRef.current = false;
 
         // Echo protection: ignore mic transcript if avatar or assist preview is actively speaking
         if (isAvatarSpeakingRef.current || isAssistPreviewSpeakingRef.current) {

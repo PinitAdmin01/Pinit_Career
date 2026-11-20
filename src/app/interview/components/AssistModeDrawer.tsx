@@ -282,30 +282,33 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
       data-testid="assist-mode-drawer"
       className="iv-assist-drawer"
       style={{
-        borderRadius: compact ? 12 : 14,
-        padding: compact ? '8px 10px' : '14px 16px',
+        borderRadius: compact ? 8 : 10,
+        padding: compact ? '5px 8px' : '8px 10px',
         boxShadow: isDockedUnderCam
-          ? '0 10px 28px rgba(var(--reward-rgb), 0.35)'
-          : '0 8px 24px rgba(var(--reward-rgb), 0.22)',
-        gap: compact ? 6 : 10
+          ? '0 8px 24px rgba(var(--reward-rgb), 0.35)'
+          : '0 6px 18px rgba(var(--reward-rgb), 0.22)',
+        gap: compact ? 3 : 5,
+        maxHeight: compact ? 160 : 210,
+        overflowY: 'auto',
+        boxSizing: 'border-box'
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(var(--reward-rgb),0.3)', paddingBottom: compact ? 6 : 8, gap: 6, flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: compact ? 15 : 17.5 }}>🪄</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(var(--reward-rgb),0.3)', paddingBottom: compact ? 4 : 6, gap: 4, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ fontSize: compact ? 13 : 15 }}>🪄</span>
           <div>
-            <div style={{ fontSize: compact ? 12.5 : 14, fontWeight: 900, color: 'var(--reward-bright)', letterSpacing: 0.5 }}>
+            <div style={{ fontSize: compact ? 11 : 12, fontWeight: 900, color: 'var(--reward-bright)', letterSpacing: 0.5 }}>
               {isCodingRound ? 'CODING COACH • HINTS ONLY' : 'ASSIST MODE • INTERVIEW COACH'}
             </div>
             {!compact && (
-              <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>
                 {isCodingRound ? 'Plan your approach and test your reasoning. No code or pseudocode.' : 'A tailored response outline and delivery coaching for the current question. (Alt+Space to toggle)'}
               </div>
             )}
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center', flexWrap: 'wrap' }}>
           {speakWithAvatarRaw && activeTeacher && (
             <button
               data-testid="assist-listen-btn"
@@ -326,9 +329,9 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                 background: 'rgba(var(--reward-rgb),0.15)',
                 border: '1px solid var(--reward)',
                 color: 'var(--reward-bright)',
-                borderRadius: 6,
-                padding: '3px 8px',
-                fontSize: 11,
+                borderRadius: 5,
+                padding: '2px 6px',
+                fontSize: 10,
                 fontWeight: 800,
                 cursor: 'pointer'
               }}
@@ -345,9 +348,9 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                 background: isDockedUnderCam ? 'var(--reward)' : 'rgba(var(--reward-rgb),0.15)',
                 border: '1px solid var(--reward)',
                 color: isDockedUnderCam ? '#fff' : 'var(--reward-bright)',
-                borderRadius: 6,
-                padding: '3px 8px',
-                fontSize: 11,
+                borderRadius: 5,
+                padding: '2px 6px',
+                fontSize: 10,
                 fontWeight: 800,
                 cursor: 'pointer'
               }}
@@ -366,9 +369,9 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
               background: 'rgba(var(--reward-rgb),0.15)',
               border: '1px solid var(--reward)',
               color: 'var(--reward-bright)',
-              borderRadius: 6,
-              padding: '3px 8px',
-              fontSize: 11,
+              borderRadius: 5,
+              padding: '2px 6px',
+              fontSize: 10,
               fontWeight: 800,
               cursor: isFetchingAssist ? 'wait' : 'pointer',
               opacity: isFetchingAssist ? 0.6 : 1
@@ -388,9 +391,9 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
               background: 'rgba(var(--reward-rgb),0.15)',
               border: '1px solid var(--reward)',
               color: 'var(--reward-bright)',
-              borderRadius: 6,
-              padding: '3px 8px',
-              fontSize: 11,
+              borderRadius: 5,
+              padding: '2px 6px',
+              fontSize: 10,
               fontWeight: 800,
               cursor: 'pointer'
             }}
@@ -406,14 +409,14 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                   .catch(() => toast.info('Copy Unavailable', 'Select the text directly to copy it.'));
               }
             }}
-            style={{ background: 'rgba(var(--reward-rgb), 0.18)', border: '1px solid rgba(var(--reward-rgb), 0.35)', color: 'inherit', borderRadius: 6, padding: '3px 8px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}
+            style={{ background: 'rgba(var(--reward-rgb), 0.18)', border: '1px solid rgba(var(--reward-rgb), 0.35)', color: 'inherit', borderRadius: 5, padding: '2px 6px', fontSize: 10, fontWeight: 800, cursor: 'pointer' }}
           >
             📋 Copy
           </button>
 
           <button
             onClick={() => setIsAssistModeActive(false)}
-            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer', padding: '0 4px' }}
+            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 12, cursor: 'pointer', padding: '0 3px' }}
           >
             ✕
           </button>
@@ -421,14 +424,14 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
       </div>
 
       {/* Tab Selectors */}
-      <div style={{ display: 'flex', gap: 6 }}>
+      <div style={{ display: 'flex', gap: 4 }}>
         <button
           onClick={() => setAssistTab('script')}
           style={{
             flex: 1,
-            padding: '6px',
-            borderRadius: 6,
-            fontSize: 12,
+            padding: '4px 6px',
+            borderRadius: 5,
+            fontSize: 10.5,
             fontWeight: 800,
             background: assistTab === 'script' ? 'var(--reward)' : 'rgba(255,255,255,0.05)',
             color: assistTab === 'script' ? '#fff' : 'var(--text-muted)',
@@ -442,9 +445,9 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
           onClick={() => setAssistTab('bullets')}
           style={{
             flex: 1,
-            padding: '6px',
-            borderRadius: 6,
-            fontSize: 12,
+            padding: '4px 6px',
+            borderRadius: 5,
+            fontSize: 10.5,
             fontWeight: 800,
             background: assistTab === 'bullets' ? 'var(--reward)' : 'rgba(255,255,255,0.05)',
             color: assistTab === 'bullets' ? '#fff' : 'var(--text-muted)',
@@ -458,9 +461,9 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
           onClick={() => setAssistTab('delivery')}
           style={{
             flex: 1,
-            padding: '6px',
-            borderRadius: 6,
-            fontSize: 12,
+            padding: '4px 6px',
+            borderRadius: 5,
+            fontSize: 10.5,
             fontWeight: 800,
             background: assistTab === 'delivery' ? 'var(--reward)' : 'rgba(255,255,255,0.05)',
             color: assistTab === 'delivery' ? '#fff' : 'var(--text-muted)',
@@ -474,14 +477,14 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
 
       {/* Tab Content */}
       {isFetchingAssist ? (
-        <div style={{ padding: 14, textAlign: 'center', color: 'var(--reward-bright)', fontSize: 12.5, fontStyle: 'italic' }}>
+        <div style={{ padding: 10, textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11.5, fontStyle: 'italic' }}>
           {isCodingRound ? '✨ Preparing conceptual hints…' : '✨ Preparing interview coaching…'}
         </div>
       ) : (
         <div>
           {assistTab === 'script' && (
-            <div className="iv-assist-surface" style={{ padding: compact ? '8px 10px' : '12px 14px' }}>
-              <div style={{ fontSize: compact ? 12.5 : 14.5, lineHeight: 1.5, color: 'inherit', fontWeight: 500, maxHeight: compact ? 112 : undefined, overflowY: compact ? 'auto' : undefined }}>
+            <div className="iv-assist-surface" style={{ padding: compact ? '5px 7px' : '8px 10px' }}>
+              <div style={{ fontSize: compact ? 10.5 : 11.5, lineHeight: 1.35, color: 'inherit', fontWeight: 500, maxHeight: compact ? 68 : 100, overflowY: 'auto' }}>
                 {isCodingRound ? resolvedAssistData.script : <>
                 &ldquo;
                 {resolvedAssistData.script.split(' ').map((word: string, wIdx: number) => {
@@ -504,14 +507,14 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                 &rdquo;
                 </>}
               </div>
-              <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, fontSize: 11, color: 'var(--reward-bright)' }}>
+              <div style={{ marginTop: 5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 6, fontSize: 10, color: 'var(--reward-bright)' }}>
                 <span>{isCodingRound ? 'Use these as prompts, not a solution.' : `🎙️ ${liveSpeechTranscript ? '🟢 Reading detected — word matches glow green' : 'Adapt this outline to your own experience'}`}</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   {!isCodingRound && (
                     <span
                       data-testid="assist-coverage-pill"
                       style={{
-                        padding: '2px 8px',
+                        padding: '1px 6px',
                         borderRadius: 99,
                         background: scriptCoverage.pct >= 50 ? 'rgba(34, 197, 94, 0.18)' : 'rgba(var(--reward-rgb), 0.16)',
                         color: scriptCoverage.pct >= 50 ? 'var(--success-bright, #22c55e)' : 'var(--reward-bright)',
@@ -528,27 +531,27 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
           )}
 
           {assistTab === 'bullets' && (
-            <div className="iv-assist-surface" style={{ padding: '10px 14px' }}>
-              <ul style={{ margin: 0, paddingLeft: 16, fontSize: 13, lineHeight: 1.6, color: 'inherit' }}>
+            <div className="iv-assist-surface" style={{ padding: '6px 10px' }}>
+              <ul style={{ margin: 0, paddingLeft: 14, fontSize: 11, lineHeight: 1.45, color: 'inherit' }}>
                 {(resolvedAssistData.bulletPoints || []).map((pt, idx) => (
-                  <li key={idx} style={{ marginBottom: 4 }}>{pt}</li>
+                  <li key={idx} style={{ marginBottom: 3 }}>{pt}</li>
                 ))}
               </ul>
             </div>
           )}
 
           {assistTab === 'delivery' && (
-            <div className="iv-assist-surface" style={{ padding: '10px 14px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 10 }}>
+            <div className="iv-assist-surface" style={{ padding: '6px 10px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 8 }}>
               <div>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Vocal Delivery</span>
-                <div style={{ fontSize: 12.5, color: 'inherit', marginTop: 4 }}><strong>Pacing:</strong> {resolvedAssistData.deliveryGuide?.pacing}</div>
-                <div style={{ fontSize: 12.5, color: 'inherit', marginTop: 2 }}><strong>Tone:</strong> {resolvedAssistData.deliveryGuide?.tone}</div>
+                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Vocal Delivery</span>
+                <div style={{ fontSize: 11, color: 'inherit', marginTop: 3 }}><strong>Pacing:</strong> {resolvedAssistData.deliveryGuide?.pacing}</div>
+                <div style={{ fontSize: 11, color: 'inherit', marginTop: 2 }}><strong>Tone:</strong> {resolvedAssistData.deliveryGuide?.tone}</div>
               </div>
               <div>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Emphasis Keywords</span>
-                <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 4 }}>
+                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--reward-bright)', textTransform: 'uppercase' }}>Emphasis Keywords</span>
+                <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap', marginTop: 3 }}>
                   {(resolvedAssistData.deliveryGuide?.emphasisWords || []).map((w, i) => (
-                    <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.24)', color: 'var(--reward-bright)', padding: '2px 6px', borderRadius: 4, fontSize: 11, fontWeight: 800 }}>
+                    <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.24)', color: 'var(--reward-bright)', padding: '1px 5px', borderRadius: 4, fontSize: 10, fontWeight: 800 }}>
                       {w}
                     </span>
                   ))}

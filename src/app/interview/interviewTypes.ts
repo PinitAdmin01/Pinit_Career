@@ -121,7 +121,7 @@ export const formatStageLabel = (stage: Stage): string => {
 };
 
 export const AVATAR_POOL: AvatarTeacher[] = [
-  { id: 'priya', name: 'Ms. Priya', title: 'HR & Talent Acquisition Director', emoji: '👩‍💼' },
+  { id: 'sneha', name: 'Ms. Sneha', title: 'HR & Talent Acquisition Director', emoji: '👩‍💼' },
   { id: 'rohan', name: 'Mr. Rohan', title: 'Senior Technical & Applied Evaluator', emoji: '👨‍💻' },
   { id: 'vikram', name: 'Mr. Vikram', title: 'Commerce, Finance & Systems Evaluator', emoji: '👨‍⚖️' },
   { id: 'aisha', name: 'Ms. Aisha', title: 'Executive STAR & Case Evaluator', emoji: '👩‍🏫' }

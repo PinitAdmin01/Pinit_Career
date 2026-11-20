@@ -16,8 +16,13 @@ import {
 
 // Comprehensive Interviewer Persona Roster matching all frontend 3D VRoid Avatars
 const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: string }> = {
+  sneha: {
+    name: 'Ms. Sneha',
+    role: 'HR & Talent Acquisition Director',
+    nature: 'You are an insightful, warm, but incisive HR Director. You focus on leadership, cultural adaptability, situational conflict resolution, and the STAR framework (Situation, Task, Action, Result).'
+  },
   priya: {
-    name: 'Ms. Priya',
+    name: 'Ms. Sneha', // Priya is platform mentor only; legacy interview calls map to Sneha
     role: 'HR & Talent Acquisition Director',
     nature: 'You are an insightful, warm, but incisive HR Director. You focus on leadership, cultural adaptability, situational conflict resolution, and the STAR framework (Situation, Task, Action, Result).'
   },
@@ -76,11 +81,6 @@ const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: str
     role: 'Operations & Supply Chain Director',
     nature: 'You focus on inventory models, unit economics, logistics bottlenecks, and ERP/data modeling.'
   },
-  sneha: {
-    name: 'Ms. Sneha',
-    role: 'People Operations & Talent Lead',
-    nature: 'You focus on talent retention, employee lifecycle metrics, recruitment funnels, and organizational health.'
-  },
   abhijit: {
     name: 'Mr. Abhijit',
     role: 'Quantitative Finance & Economics Specialist',
@@ -102,6 +102,13 @@ export interface CandidateTurnAnalysis {
   intent: 'skip' | 'stuck' | 'intro' | 'vague' | 'substantive';
   subject: string;
   keyTerm: string;
+}
+
+export function stripInterviewerSignoff(text: string): string {
+  return text
+    .replace(/\s*[—~–-]\s*(?:(?:Ms\.|Mr\.|Dr\.)\s*)?[A-Za-z]+(?:\s*\(.*?\))?\s*$/i, '')
+    .replace(/\s*—\s*[^.!?]+$/i, '')
+    .trim();
 }
 
 export function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: string; type: 'tech' | 'action' | 'metric' | 'general' } {
@@ -136,7 +143,7 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'substantive', subject: metricMatch[1].trim(), keyTerm: metricMatch[1].trim() };
   }
 
-  // 4. Common high-value technical & business keywords
+  // 4. Common high-value technical & business keywords (matched with strict word boundaries)
   const techKeywords = [
     'redis', 'kafka', 'postgresql', 'postgres', 'mongodb', 'mysql', 'docker', 'kubernetes',
     'k8s', 'microservices', 'monolith', 'graphql', 'rest api', 'api', 'websocket', 'websockets',
@@ -150,26 +157,36 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     'turnover', 'compliance', 'audit', 'taxation', 'statutory', 'reconciliation', 'ledger'
   ];
 
+  let matchedTech: string | null = null;
   for (const tk of techKeywords) {
-    if (lower.includes(tk)) {
-      return { intent: 'substantive', subject: tk, keyTerm: tk };
+    const escaped = tk.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(?:^|[^a-z0-9])${escaped}(?:s|es)?(?:[^a-z0-9]|$)`, 'i');
+    if (regex.test(lower)) {
+      matchedTech = tk;
+      break;
     }
   }
 
-  // 5. Extract substantive action/problem clauses
+  // 5. Broad self-introduction check (greeting or background introduction)
+  const isIntroGreeting = /\b(?:hi\b|hello\b|hey\b|greetings\b|my name is\b|i am a\b|i'm a\b|i am full stack\b|i'm full stack\b|as a software\b|fresher\b|recent graduate\b|student\b)/i.test(lower);
+  if (isIntroGreeting) {
+    return {
+      intent: 'intro',
+      subject: matchedTech || subTopic,
+      keyTerm: matchedTech || subTopic
+    };
+  }
+
+  if (matchedTech) {
+    return { intent: 'substantive', subject: matchedTech, keyTerm: matchedTech };
+  }
+
+  // 6. Extract substantive action/problem clauses
   const actionMatch = clean.match(/(?:migrat|refactor|optimiz|debugg|deploy|resolv|implement|architect|scal|build|handl|manag|tackl)\w*\s+(?:the\s+)?[\w\s]{3,24}/i);
   if (actionMatch) {
     const rawPhrase = actionMatch[0].trim().replace(/\s+/g, ' ');
     const parts = rawPhrase.split(/\s+/);
     return { intent: 'substantive', subject: rawPhrase, keyTerm: parts.slice(-2).join(' ') };
-  }
-
-  // 6. Broad self-introduction without substantive project details
-  if (
-    /\b(hi\b|hello\b|hey\b|greetings\b|my name is\b|i am a\b|i'm a\b|full stack\b|fresher\b|recent graduate\b|student\b)/i.test(lower) &&
-    clean.split(/\s+/).length < 25
-  ) {
-    return { intent: 'intro', subject: subTopic, keyTerm: subTopic };
   }
 
   // 7. Meaningful non-filler words for general substantive input
@@ -234,8 +251,11 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return stuckStarPivots[turnCount % stuckStarPivots.length];
   }
 
-  // 2. Candidate gave a broad introductory greeting without project specifics
+  // 2. Candidate gave a broad introductory greeting or project summary
   if (analysis.intent === 'intro') {
+    if (analysis.keyTerm && analysis.keyTerm !== subTopic) {
+      return `Thanks for walking me through your background! You mentioned working with ${analysis.keyTerm} in your recent work. Could you dive into one specific project where you leveraged ${analysis.keyTerm}, explaining the core problem and your contribution?`;
+    }
     return `Great to have you here! Diving into your hands-on experience with ${subTopic}, could you highlight one specific project you worked on, the core problem it addressed, and your direct contribution?`;
   }
 
@@ -740,7 +760,7 @@ RULES:
         roundVerdict = (isPositive && !isNegative) ? 'PASS' : 'RETRY';
       }
     }
-    const sanitizedReply = sanitizeLLMOutput(reviewDecision ? reply.replace(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/i, '').trim() : reply);
+    const sanitizedReply = stripInterviewerSignoff(sanitizeLLMOutput(reviewDecision ? reply.replace(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/i, '').trim() : reply));
     if (live) {
       await recordTurns([liveUserTurn, clampTurn('assistant', sanitizedReply, stage)]);
       return NextResponse.json({ reply: sanitizedReply, recorded: true, roundVerdict });

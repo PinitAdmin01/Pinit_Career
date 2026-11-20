@@ -1494,10 +1494,21 @@ body[data-arena-active="true"] .mentor-widget {
   display: none !important;
 }
 
+body[data-interview-active="true"],
 body[data-interview-active="true"] main,
 body[data-interview-active="true"] .main-content-area,
 body[data-interview-active="true"] .main-area,
-body[data-interview-active="true"] .page-content,
+body[data-interview-active="true"] .page-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+}
+
 html[data-gaming-mode="true"] main,
 html[data-gaming-mode="true"] .main-content-area,
 html[data-gaming-mode="true"] .main-area,
@@ -1515,9 +1526,21 @@ body[data-arena-active="true"] .page-content {
 }
 
 /* Ensure Monaco Editor internal input textarea never floats or resizes visibly */
+.monaco-editor textarea.inputarea,
 .monaco-editor .inputarea {
   position: absolute !important;
   opacity: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  white-space: nowrap !important;
+  background: transparent !important;
+  color: transparent !important;
   resize: none !important;
   pointer-events: none !important;
 }
@@ -1649,25 +1672,27 @@ body[data-arena-active="true"] .page-content {
 }
 
 .iv-session-header {
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 11px 18px;
+  gap: 6px;
+  padding: 6px 14px;
   background: color-mix(in srgb, var(--card, var(--bg2)) 92%, transparent);
   backdrop-filter: blur(16px);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
 
 .iv-voice-hud {
-  border-radius: 14px;
-  padding: 9px 16px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  padding: 5px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -1791,20 +1816,20 @@ body[data-arena-active="true"] .page-content {
 
 .iv-subtitle-bar {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
-  right: 14px;
-  padding: 10px 15px;
-  max-height: 92px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  padding: 6px 12px;
+  max-height: 64px;
   overflow-y: auto;
-  background: rgba(10, 14, 26, 0.86);
+  background: rgba(10, 14, 26, 0.88);
   backdrop-filter: blur(12px);
-  border-radius: 12px;
+  border-radius: 10px;
   color: #f8fafc;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 11.5px;
+  line-height: 1.4;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 .iv-pip-frame {
@@ -1995,24 +2020,53 @@ body[data-arena-active="true"] .page-content {
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
+/* Zero-window-scroll cockpit for active live interview */
+html:has(body[data-interview-active='true']),
+body[data-interview-active='true'],
+body[data-interview-active='true'] main,
+body[data-interview-active='true'] .page-content,
+body[data-interview-active='true'] .main-content-area,
+body[data-interview-active='true'] .main-area {
+  overflow: hidden !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
 .iv-session-shell {
-  min-height: calc(100dvh - 12px);
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 6px 12px 12px;
+  gap: 6px;
+  padding: 4px 10px 8px;
+  box-sizing: border-box;
 }
 
 .iv-stage-viewport {
-  height: calc(100dvh - 168px);
-  min-height: 410px;
-  max-height: 740px;
+  flex: 1 1 0%;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: none !important;
+  overflow: hidden;
 }
 
-.iv-avatar-stage,
+.iv-avatar-stage {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
 .iv-chat-stage {
   height: 100%;
   min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 900px) {

@@ -170,16 +170,19 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
       <div
         className="iv-panel iv-chat-stage iv-round4-content"
         style={{
-          padding: 16,
+          padding: '10px 14px',
           display: 'flex',
           flexDirection: 'column',
-          gap: 10
+          gap: 6,
+          height: '100%',
+          minHeight: 0,
+          overflow: 'hidden'
         }}
       >
-        <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+        <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           <div>
-            <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 4 OF 4</span>
-            <h2 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Executive STAR Deep Dive</h2>
+            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 4 OF 4</span>
+            <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Executive STAR Deep Dive</h2>
           </div>
           <button
             onClick={finishInterview}
@@ -189,9 +192,9 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               background: canFinishInterview ? undefined : 'var(--bg3)',
               border: canFinishInterview ? undefined : '1px solid var(--border)',
               color: canFinishInterview ? '#ffffff' : 'var(--t3)',
-              borderRadius: 10,
-              padding: '8px 14px',
-              fontSize: 12.5,
+              borderRadius: 8,
+              padding: '6px 12px',
+              fontSize: 11.5,
               fontWeight: 900,
               cursor: canFinishInterview ? 'pointer' : 'not-allowed',
               flexShrink: 0
@@ -209,11 +212,12 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 6,
+          gap: 4,
           background: 'var(--bg3)',
-          padding: '6px 8px',
-          borderRadius: 12,
-          border: '1px solid var(--border)'
+          padding: '4px 6px',
+          borderRadius: 10,
+          border: '1px solid var(--border)',
+          flexShrink: 0
         }}>
           {[
             { key: 'S', label: 'Situation', desc: 'Context & Challenge', detected: starCoverage?.hasS },
@@ -228,17 +232,17 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                 key={step.key}
                 data-testid={`star-step-${step.key.toLowerCase()}`}
                 style={{
-                  padding: '5px 6px',
-                  borderRadius: 8,
+                  padding: '4px 5px',
+                  borderRadius: 6,
                   background: isCurrent ? 'var(--accent-light)' : isCompleted ? 'rgba(var(--success-rgb), 0.12)' : 'transparent',
                   border: isCurrent ? '1.5px solid var(--accent)' : isCompleted ? '1px solid var(--success)' : '1px solid transparent',
                   textAlign: 'center'
                 }}
               >
-                <div style={{ fontSize: 11.5, fontWeight: 900, color: isCurrent ? 'var(--accent)' : isCompleted ? 'var(--success-bright)' : 'var(--t3)' }}>
+                <div style={{ fontSize: 10.5, fontWeight: 900, color: isCurrent ? 'var(--accent)' : isCompleted ? 'var(--success-bright)' : 'var(--t3)' }}>
                   {isCompleted ? '✅ ' : isCurrent ? '👉 ' : ''}{step.key} — {step.label}
                 </div>
-                <div style={{ fontSize: 10, color: isCurrent ? 'var(--t1)' : 'var(--t3)', marginTop: 1 }}>
+                <div style={{ fontSize: 9.5, color: isCurrent ? 'var(--t1)' : 'var(--t3)', marginTop: 1 }}>
                   {step.desc}
                 </div>
               </div>
@@ -250,16 +254,17 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
         <div
           data-testid="star-coaching-pill"
           style={{
-            fontSize: 11.5,
-            padding: '6px 10px',
-            borderRadius: 8,
+            fontSize: 10.5,
+            padding: '4px 8px',
+            borderRadius: 6,
             background: starStep >= 4 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(168, 85, 247, 0.08)',
             border: starStep >= 4 ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid rgba(168, 85, 247, 0.25)',
             color: starStep >= 4 ? 'var(--success-bright)' : 'var(--accent)',
             fontWeight: 700,
             display: 'flex',
             alignItems: 'center',
-            gap: 6
+            gap: 6,
+            flexShrink: 0
           }}
         >
           {starStep === 0
@@ -277,13 +282,13 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
         <div
           className="scroll-container"
           data-testid="round4-transcript-stream"
-          style={{ flex: 1, minHeight: 96, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 8, paddingRight: 4 }}
+          style={{ flex: '1 1 0%', minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 6, paddingRight: 4 }}
         >
           {recentMessages.map((m, i) => (
             <div key={i} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%' }}>
               <div
                 className={m.role === 'user' ? 'iv-chat-user' : 'iv-chat-assistant'}
-                style={{ padding: '8px 12px', borderRadius: 12, fontSize: 12.5, lineHeight: 1.45 }}
+                style={{ padding: '6px 10px', borderRadius: 10, fontSize: 11.5, lineHeight: 1.4 }}
               >
                 {m.content}
               </div>
@@ -300,7 +305,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
 
         {/* 🎯 Unified Assist Mode Teleprompter (Inline when not docked under camera) */}
         {!isDockedUnderCam && assistNode && (
-          <div>{assistNode}</div>
+          <div style={{ flexShrink: 0 }}>{assistNode}</div>
         )}
 
         {/* ⌨️ Direct Typed STAR Response Fallback */}
@@ -313,7 +318,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
             console.log('[Interview] ⌨️ Candidate submitted typed STAR response:', textToSend);
             onSendMessage(textToSend);
           }}
-          style={{ display: 'flex', gap: 6 }}
+          style={{ display: 'flex', gap: 6, flexShrink: 0 }}
         >
           <input
             type="text"
