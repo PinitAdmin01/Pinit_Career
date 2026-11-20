@@ -99,7 +99,7 @@ interface FallbackContext {
 }
 
 export interface CandidateTurnAnalysis {
-  intent: 'skip' | 'stuck' | 'intro' | 'vague' | 'substantive';
+  intent: 'skip' | 'stuck' | 'greeting' | 'intro' | 'vague' | 'substantive';
   subject: string;
   keyTerm: string;
 }
@@ -135,6 +135,11 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     /^(i don'?t know|no idea|not sure|dunno|idk)[.!]?$/i.test(lower)
   ) {
     return { intent: 'stuck', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 3. Check for bare greetings without substance (e.g. "hi", "hello", "hey", "namaste", "hi there")
+  if (/^(?:hi|hello|hey|greetings|good\s+(?:morning|afternoon|evening)|namaste|hola|yo|sup)[.!]?$/i.test(lower)) {
+    return { intent: 'greeting', subject: subTopic, keyTerm: subTopic };
   }
 
   // 3. Metric match: e.g. "40%", "10x", "500ms", "3 team members", "millions of users"
@@ -251,7 +256,18 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return stuckStarPivots[turnCount % stuckStarPivots.length];
   }
 
-  // 2. Candidate gave a broad introductory greeting or project summary
+  // 2. Candidate gave a bare greeting without substance (e.g. "hi", "hello")
+  if (analysis.intent === 'greeting') {
+    if (turnCount <= 1) {
+      return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
+    }
+    if (turnCount === 2) {
+      return `Hello! To help us get underway, please share an overview of your background, your education, or any recent projects you've worked on in ${subTopic}.`;
+    }
+    return `Whenever you're ready, feel free to introduce yourself or describe any practical experience or coursework you've done in ${subTopic} so we can begin.`;
+  }
+
+  // 3. Candidate gave a broad introductory greeting or project summary
   if (analysis.intent === 'intro') {
     if (analysis.keyTerm && analysis.keyTerm !== subTopic) {
       return `Thanks for walking me through your background! You mentioned working with ${analysis.keyTerm} in your recent work. Could you dive into one specific project where you leveraged ${analysis.keyTerm}, explaining the core problem and your contribution?`;
