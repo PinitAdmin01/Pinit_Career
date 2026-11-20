@@ -11,6 +11,11 @@ import { toast } from '@/lib/store/useAppStore';
 import LeagueBadge, { LeagueTier, LEAGUE_CONFIGS, normalizeLeagueTier } from '@/components/pins/LeagueBadge';
 import PinCoin from '@/components/pins/PinCoin';
 import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
+import {
+  encodeConfirmedLeagueMembership,
+  isConfirmedLeagueMembershipCacheValue,
+  shouldApplyLeagueMembershipSnapshot,
+} from '@/lib/competition/leagueMembershipSnapshot';
 import styles from '../competition-experience.module.css';
 
 export interface LeaderboardEntry {
@@ -54,17 +59,27 @@ const ALL_LEAGUES: LeagueTier[] = ['browns', 'silver', 'gold', 'platinum', 'ruby
 function hasStoredLeagueMembership(userId?: string | null): boolean {
   if (!userId || typeof window === 'undefined') return false;
   try {
-    return localStorage.getItem(`pinit_joined_league_${userId}`) === 'true';
+    const value = localStorage.getItem(`pinit_joined_league_${userId}`);
+    return value === 'true' || isConfirmedLeagueMembershipCacheValue(value);
   } catch {
     return false;
   }
 }
 
-function storeLeagueMembership(userId: string | null | undefined, joined: boolean): void {
+function hasConfirmedStoredLeagueMembership(userId?: string | null): boolean {
+  if (!userId || typeof window === 'undefined') return false;
+  try {
+    return isConfirmedLeagueMembershipCacheValue(localStorage.getItem(`pinit_joined_league_${userId}`));
+  } catch {
+    return false;
+  }
+}
+
+function storeLeagueMembership(userId: string | null | undefined, joined: boolean, joinedAt?: string | null): void {
   if (!userId || typeof window === 'undefined') return;
   try {
     const key = `pinit_joined_league_${userId}`;
-    if (joined) localStorage.setItem(key, 'true');
+    if (joined) localStorage.setItem(key, encodeConfirmedLeagueMembership(joinedAt));
     else localStorage.removeItem(key);
   } catch {
     // Server state remains authoritative when browser storage is unavailable.
@@ -240,7 +255,7 @@ function LeaderboardContent() {
       setCurrentUserLeague(joinedTier);
       setSelectedLeague(joinedTier);
       setServerCareerXp(Number(result.careerXp) || userTotalXp);
-      storeLeagueMembership(joiningUserId, true);
+      storeLeagueMembership(joiningUserId, true, result.joinedAt);
       window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
         detail: { user_id: joiningUserId, league_tier: result.leagueTier, league_joined_at: result.joinedAt },
       }));
@@ -351,7 +366,7 @@ function LeaderboardContent() {
             membershipRevisionRef.current += 1;
           }
           membershipStatusRef.current = { userId: membershipUserId, joined: true };
-          storeLeagueMembership(membershipUserId, true);
+          storeLeagueMembership(membershipUserId, true, e.detail.league_joined_at);
           setJoinedLeague(true);
           setCurrentUserHasJoined(true);
         }
@@ -464,7 +479,13 @@ function LeaderboardContent() {
             // an administrator revokes membership).
             const responseStillMatchesAccount = requestUserId && requestUserId === latestMembershipUserIdRef.current;
             const responseIsCurrent = membershipRevisionAtStart === membershipRevisionRef.current;
-            if (responseStillMatchesAccount && responseIsCurrent) {
+            const snapshotIsSafeToApply = requestUserId && shouldApplyLeagueMembershipSnapshot(
+              requestUserId,
+              data.currentUserHasJoined,
+              membershipStatusRef.current,
+              hasConfirmedStoredLeagueMembership(requestUserId),
+            );
+            if (responseStillMatchesAccount && responseIsCurrent && snapshotIsSafeToApply) {
               membershipStatusRef.current = { userId: requestUserId, joined: data.currentUserHasJoined };
               storeLeagueMembership(requestUserId, data.currentUserHasJoined);
               setCurrentUserHasJoined(data.currentUserHasJoined);
