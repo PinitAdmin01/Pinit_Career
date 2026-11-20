@@ -161,6 +161,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [isCompactViewport, setIsCompactViewport] = useState(false);
   const [hyperActive, setHyperActive] = useState(false);
   const [hyperModeVariant, setHyperModeVariant] = useState<'conversational' | 'diagnostic'>('conversational');
+  const [isExitingHyperActive, setIsExitingHyperActive] = useState(false);
+  const isExitingHyperActiveRef = useRef(false);
+  const [hyperTransformOrigin, setHyperTransformOrigin] = useState<string>('50% 95%');
   const leftSidebarBeforeHyperRef = useRef<boolean>(false);
   const lastHyperTriggerRef = useRef<number>(0);
   const onCollapseLeftNavRef = useRef(onCollapseLeftNav);
@@ -305,17 +308,46 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     setHyperModeVariant(variant);
     setTourActive(false);
     setMinimized(false);
+    setIsExitingHyperActive(false);
+    isExitingHyperActiveRef.current = false;
+
+    // Calculate Apple Dynamic Island fluid morph origin from current mentor position
+    if (typeof window !== 'undefined') {
+      const activeRect = activePanelRef.current?.getBoundingClientRect();
+      if (activeRect && activeRect.width > 0 && activeRect.height > 0) {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const panelCenterX = activeRect.left + activeRect.width / 2;
+        const panelCenterY = activeRect.top + activeRect.height / 2;
+        const originX = 50 + ((panelCenterX - centerX) / window.innerWidth) * 100;
+        const originY = 50 + ((panelCenterY - centerY) / window.innerHeight) * 100;
+        setHyperTransformOrigin(`${originX.toFixed(1)}% ${originY.toFixed(1)}%`);
+      } else {
+        setHyperTransformOrigin('50% 95%');
+      }
+    }
+
     setHyperActive(true);
   }, []);
 
   const exitHyperActive = useCallback((minimizeToPill = false) => {
     stopSpeaking();
-    setHyperActive(false);
-    setMinimized(minimizeToPill);
+    if (isExitingHyperActiveRef.current) return;
+    isExitingHyperActiveRef.current = true;
+    setIsExitingHyperActive(true);
+
     if (leftSidebarBeforeHyperRef.current) {
       leftSidebarBeforeHyperRef.current = false;
       onExpandLeftNavRef.current?.();
     }
+
+    // Smooth 240ms fluid collapse before state unmount
+    setTimeout(() => {
+      setHyperActive(false);
+      setIsExitingHyperActive(false);
+      isExitingHyperActiveRef.current = false;
+      setMinimized(minimizeToPill);
+    }, 240);
   }, []);
 
   useEffect(() => {
@@ -1115,9 +1147,114 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         </div>
       )}
 
-      {/* ── Hyper-Active Centered 65% Stage (Left: 3D Avatar | Right: Live Chat) ── */}
+      {/* ── Hyper-Active Centered 65% Stage (Apple Duo Morph: 3D Avatar | Live Chat) ── */}
       {hyperActive && !shouldHideVisually && (
         <>
+          {/* Apple Dynamic Island / Fluid Duo Morph Keyframes */}
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              @keyframes appleDuoExpand {
+                0% {
+                  opacity: 0;
+                  transform: translate(-50%, -50%) scale(0.36);
+                  filter: blur(8px);
+                  border-radius: 36px;
+                  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 45px rgba(56, 189, 248, 0.35);
+                }
+                45% {
+                  opacity: 1;
+                  border-radius: 26px;
+                  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(56, 189, 248, 0.45);
+                }
+                80% {
+                  transform: translate(-50%, -50%) scale(1.015);
+                  border-radius: 21px;
+                  filter: blur(0px);
+                }
+                100% {
+                  opacity: 1;
+                  transform: translate(-50%, -50%) scale(1);
+                  border-radius: 20px;
+                  filter: blur(0px);
+                  box-shadow: 0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);
+                }
+              }
+
+              @keyframes appleDuoCollapse {
+                0% {
+                  opacity: 1;
+                  transform: translate(-50%, -50%) scale(1);
+                  border-radius: 20px;
+                  filter: blur(0px);
+                  box-shadow: 0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);
+                }
+                30% {
+                  transform: translate(-50%, -50%) scale(0.96);
+                  border-radius: 24px;
+                  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 25px rgba(56, 189, 248, 0.3);
+                }
+                100% {
+                  opacity: 0;
+                  transform: translate(-50%, -50%) scale(0.32);
+                  border-radius: 36px;
+                  filter: blur(6px);
+                }
+              }
+
+              @keyframes appleBackdropFadeIn {
+                from {
+                  opacity: 0;
+                  backdrop-filter: blur(0px);
+                  -webkit-backdrop-filter: blur(0px);
+                }
+                to {
+                  opacity: 1;
+                  backdrop-filter: blur(6px);
+                  -webkit-backdrop-filter: blur(6px);
+                }
+              }
+
+              @keyframes appleBackdropFadeOut {
+                from {
+                  opacity: 1;
+                  backdrop-filter: blur(6px);
+                  -webkit-backdrop-filter: blur(6px);
+                }
+                to {
+                  opacity: 0;
+                  backdrop-filter: blur(0px);
+                  -webkit-backdrop-filter: blur(0px);
+                }
+              }
+
+              @keyframes appleContentReveal {
+                from {
+                  opacity: 0;
+                  transform: scale(0.97);
+                }
+                to {
+                  opacity: 1;
+                  transform: scale(1);
+                }
+              }
+
+              @media (prefers-reduced-motion: reduce) {
+                @keyframes appleDuoExpand {
+                  from { opacity: 0; }
+                  to { opacity: 1; }
+                }
+                @keyframes appleDuoCollapse {
+                  from { opacity: 1; }
+                  to { opacity: 0; }
+                }
+                @keyframes appleContentReveal {
+                  from { opacity: 0; }
+                  to { opacity: 1; }
+                }
+              }
+            `
+          }} />
+
           <div
             data-testid="global-avatar-hyper-backdrop"
             onClick={() => exitHyperActive(false)}
@@ -1128,11 +1265,15 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               background: 'rgba(2, 6, 23, 0.58)',
               backdropFilter: 'blur(6px)',
               WebkitBackdropFilter: 'blur(6px)',
+              animation: isExitingHyperActive
+                ? 'appleBackdropFadeOut 0.24s ease forwards'
+                : 'appleBackdropFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards',
             }}
           />
           <div
             className="mentor-widget"
             data-testid="global-avatar-hyper-active"
+            data-animating={isExitingHyperActive ? 'collapse' : 'expand'}
             role="dialog"
             aria-modal="true"
             aria-label={`${teacher.name} Hyper-Active Conversation`}
@@ -1141,6 +1282,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
+              transformOrigin: hyperTransformOrigin,
               zIndex: 9999,
               width: 'min(94vw, clamp(720px, 68vw, 1120px))',
               height: 'min(84vh, clamp(480px, 68vh, 740px))',
@@ -1151,37 +1293,51 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
+              animation: isExitingHyperActive
+                ? 'appleDuoCollapse 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards'
+                : 'appleDuoExpand 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              willChange: 'transform, opacity, border-radius',
             }}
           >
-            <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>Launching Hyper-Active Mentor...</div>}>
-              <AvatarMentorWidget
-                userId={user?.id}
-                careerProfile={hyperCareerProfile}
-                teacherId={teacherId}
-                minimized={false}
-                setMinimized={() => exitHyperActive(true)}
-                showSpeechBubble={false}
-                setShowSpeechBubble={setShowSpeechBubble}
-                onboardingStep={onboardingStep}
-                setOnboardingStep={setOnboardingStep}
-                onTabShift={(path) => {
-                  exitHyperActive(false);
-                  router.push(path);
-                }}
-                onEnlarge={(val) => {
-                  if (!val) exitHyperActive(false);
-                }}
-                isEnlarged={true}
-                onlyAvatar={false}
-                hyperActive={true}
-                hyperModeVariant={hyperModeVariant}
-                diagnosticReport={diagnosticReport}
-                autoStartVoice={voiceListeningActive}
-                onExitHyperActive={() => exitHyperActive(false)}
-                gazeTracking={!pathname.startsWith('/quests/')}
-                speaking={isSpeaking}
-              />
-            </Suspense>
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                animation: isExitingHyperActive ? 'none' : 'appleContentReveal 0.26s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both',
+              }}
+            >
+              <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>Launching Hyper-Active Mentor...</div>}>
+                <AvatarMentorWidget
+                  userId={user?.id}
+                  careerProfile={hyperCareerProfile}
+                  teacherId={teacherId}
+                  minimized={false}
+                  setMinimized={() => exitHyperActive(true)}
+                  showSpeechBubble={false}
+                  setShowSpeechBubble={setShowSpeechBubble}
+                  onboardingStep={onboardingStep}
+                  setOnboardingStep={setOnboardingStep}
+                  onTabShift={(path) => {
+                    exitHyperActive(false);
+                    router.push(path);
+                  }}
+                  onEnlarge={(val) => {
+                    if (!val) exitHyperActive(false);
+                  }}
+                  isEnlarged={true}
+                  onlyAvatar={false}
+                  hyperActive={true}
+                  hyperModeVariant={hyperModeVariant}
+                  diagnosticReport={diagnosticReport}
+                  autoStartVoice={voiceListeningActive}
+                  onExitHyperActive={() => exitHyperActive(false)}
+                  gazeTracking={!pathname.startsWith('/quests/')}
+                  speaking={isSpeaking}
+                />
+              </Suspense>
+            </div>
           </div>
         </>
       )}
