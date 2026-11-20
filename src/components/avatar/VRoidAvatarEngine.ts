@@ -409,15 +409,28 @@ export class VRoidAvatarEngine {
 
     const modelPath = `/avatar/${id}.glb`;
 
-    const FEMALE_FALLBACK_MODELS = ['/avatar/priya.glb', '/avatar/avatarsample_c.glb'];
-    const MALE_FALLBACK_MODELS = ['/avatar/kashyap.glb', '/avatar/akira.glb'];
+    // High-speed 1.4MB Draco/WebP archetype fallbacks matching persona gender
+    // avatarsample_u.glb is the identical Draco-compressed rig for Priya & Mentor
+    // avatarsample_m.glb is the Draco-compressed rig for Kashyap
+    const FEMALE_FALLBACK_MODELS = ['/avatar/avatarsample_u.glb', '/avatar/mika.glb', '/avatar/hana.glb', '/avatar/priya.glb'];
+    const MALE_FALLBACK_MODELS = ['/avatar/avatarsample_m.glb', '/avatar/akira.glb', '/avatar/avatarsample_c.glb', '/avatar/kashyap.glb'];
 
     const genderMatchedFallbacks =
       personaForModel.gender === 'female' ? FEMALE_FALLBACK_MODELS
       : personaForModel.gender === 'male' ? MALE_FALLBACK_MODELS
-      : ['/avatar/mentor.glb'];
+      : ['/avatar/avatarsample_u.glb', '/avatar/mentor.glb'];
 
-    const paths = Array.from(new Set([modelPath, ...genderMatchedFallbacks]));
+    // If on mobile or slow network, prioritize the 1.4MB Draco archetype to guarantee < 1s startup
+    const primaryFastModel =
+      personaForModel.gender === 'female' ? '/avatar/avatarsample_u.glb'
+      : personaForModel.gender === 'male' ? '/avatar/avatarsample_m.glb'
+      : '/avatar/avatarsample_u.glb';
+
+    const rawPaths = prefersHD
+      ? [modelPath, ...genderMatchedFallbacks]
+      : [primaryFastModel, modelPath, ...genderMatchedFallbacks];
+
+    const paths = Array.from(new Set(rawPaths));
 
     console.log(
       `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}):`,
@@ -646,9 +659,9 @@ export class VRoidAvatarEngine {
       const abortCtrl = new AbortController();
       let timer: ReturnType<typeof setTimeout> | null = null;
 
-      // Generous adaptive timeout: 15s (20s on slow net) for primary (16.8MB), 8s for compact fallbacks (1.5MB)
+      // Adaptive timeout: 9s (12s on slow net) for primary heavy asset, 6s for compact 1.4MB fallbacks
       const isPrimary = idx === 0;
-      const timeoutMs = isPrimary ? (isSlowNetwork ? 20000 : 15000) : 8000;
+      const timeoutMs = isPrimary ? (isSlowNetwork ? 12000 : 9000) : 6000;
 
       console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
 
