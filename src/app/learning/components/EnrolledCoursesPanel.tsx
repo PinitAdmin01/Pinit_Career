@@ -122,27 +122,84 @@ export function EnrolledCoursesPanel({
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20, alignItems: 'start' }}>
-      {/* Left Column: Fused Learning Mistakes Tracker & Socratic Drills */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div style={card}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-            <div style={cardLabel}>⚠️ Fused Learning Mistakes Tracker</div>
-            <span style={{ fontSize: 11, fontWeight: 800, background: 'var(--coral-light)', color: 'var(--coral)', padding: '2px 8px', borderRadius: 8 }}>
-              {filteredMistakes.length} Active Blind Spots
-            </span>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* Sub-tab Explainer Banner for Mistakes & Remediation */}
+      <div
+        style={{
+          background: 'var(--bg2)',
+          border: '1.5px solid var(--border)',
+          borderRadius: 16,
+          padding: '20px 24px',
+          boxShadow: 'var(--shadow-sm)'
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 12 }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--coral)', background: 'var(--coral-light)', padding: '2px 8px', borderRadius: 6, border: '1px solid var(--coral)' }}>
+                Diagnostic Telemetry
+              </span>
+              <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>
+                Synthesized from sandbox build errors &amp; mock interviews
+              </span>
+            </div>
+            <h2 style={{ margin: 0, fontSize: 19, fontWeight: 900, color: 'var(--t1)' }}>
+              Execution Blind Spots &amp; Socratic Remediation
+            </h2>
           </div>
+        </div>
+        <p style={{ margin: '0 0 16px 0', fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+          Mistakes are high-value diagnostic signals. Whenever a code execution throws an uncaught exception, a test fails, or an interview response breaches STAR criteria, our engine records the root cause and compiles a targeted Socratic drill.
+        </p>
 
-          {/* Educational Callout */}
-          <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', background: 'var(--accent-light)', border: '1px solid var(--accent)', padding: 16, borderRadius: 12, marginBottom: 16 }}>
-            <span style={{ fontSize: 26.5 }}>💡</span>
-            <div>
-              <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--accent)', marginBottom: 4 }}>Why do we collect mistake data?</div>
-              <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
-                Locating where and why you hit failure modes in Quests, Daily Missions, AI Interviews, and GD rooms helps our Socratic Engine compile targeted remedial modules. Fixing active blind spots is the fastest path to bridging your skill gaps.
-              </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+          <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
+              1. Root-Cause Analysis
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+              Isolates the architectural misunderstanding instead of superficial syntax errors.
             </div>
           </div>
+          <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--coral)', textTransform: 'uppercase', marginBottom: 4 }}>
+              2. Socratic Verification
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+              Challenge yourself with real-world scenarios to verify you understand the correct trade-off.
+            </div>
+          </div>
+          <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--green)', textTransform: 'uppercase', marginBottom: 4 }}>
+              3. Spaced Retention
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
+              Resolved blind spots automatically seed into your FSRS Spaced Memory queue for long-term recall.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20, alignItems: 'start' }}>
+        {/* Left Column: Fused Learning Mistakes Tracker & Socratic Drills */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={card}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+              <div style={cardLabel}>Fused Learning Mistakes Tracker</div>
+              <span style={{ fontSize: 11, fontWeight: 800, background: 'var(--coral-light)', color: 'var(--coral)', padding: '2px 8px', borderRadius: 8 }}>
+                {filteredMistakes.length} Active Blind Spots
+              </span>
+            </div>
+
+            {/* Educational Callout */}
+            <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', background: 'var(--accent-light)', border: '1px solid var(--accent)', padding: 16, borderRadius: 12, marginBottom: 16 }}>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--accent)', marginBottom: 4 }}>Why do we collect mistake data?</div>
+                <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, margin: 0 }}>
+                  Locating where and why you hit failure modes in Quests, Daily Missions, AI Interviews, and GD rooms helps our Socratic Engine compile targeted remedial modules. Fixing active blind spots is the fastest path to bridging your skill gaps.
+                </p>
+              </div>
+            </div>
 
           {/* Category Quick Filter */}
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
@@ -176,7 +233,9 @@ export function EnrolledCoursesPanel({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {filteredMistakes.length === 0 ? (
               <div style={{ padding: 32, textAlign: 'center', borderRadius: 14, background: 'var(--bg3)', border: '1px dashed var(--border)' }}>
-                <div style={{ fontSize: 32, marginBottom: 8 }}>🎉</div>
+                <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--green-light)', border: '1.5px solid var(--green)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 10px auto', color: 'var(--green)', fontSize: 20, fontWeight: 900 }}>
+                  ✓
+                </div>
                 <div style={{ fontWeight: 800, fontSize: 16, color: 'var(--t1)', marginBottom: 4 }}>
                   All Active Blind Spots Resolved!
                 </div>
@@ -198,7 +257,7 @@ export function EnrolledCoursesPanel({
                     textDecoration: 'none'
                   }}
                 >
-                  🧠 Review in Spaced Repetition →
+                  Review in Spaced Repetition →
                 </Link>
               </div>
             ) : (
@@ -294,7 +353,7 @@ export function EnrolledCoursesPanel({
                       >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                           <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                            🎯 Socratic Remedial Drill (+{m.drill.successRewardXp || 25} XP)
+                            Socratic Remedial Drill (+{m.drill.successRewardXp || 25} XP)
                           </span>
                           <span style={{ fontSize: 11, color: 'var(--t3)' }}>Select the optimal pattern:</span>
                         </div>
@@ -413,7 +472,7 @@ export function EnrolledCoursesPanel({
                           gap: 4
                         }}
                       >
-                        ⚡ Practice in Sandbox
+                        Practice in Sandbox
                       </Link>
                       <button
                         onClick={() => clearMistake(m.id)}
@@ -442,7 +501,7 @@ export function EnrolledCoursesPanel({
       {/* Right Column: AI Fused Remedial Plan */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={card}>
-          <div style={cardLabel}>🛡️ AI Fused Remedial Plan</div>
+          <div style={cardLabel}>AI Fused Remedial Plan</div>
           <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
             Based on your accumulated performance errors, assessment records, and Socratic diagnostic results, the AI has compiled the following custom plan to guide your revision:
           </p>
@@ -501,7 +560,7 @@ export function EnrolledCoursesPanel({
           {/* Remediation Uplift Summary */}
           <div style={{ marginTop: 18, background: 'linear-gradient(135deg, rgba(79,70,229,0.06), rgba(16,185,129,0.06))', border: '1px solid var(--border)', borderRadius: 12, padding: 14 }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
-              📈 Estimated Placement Uplift
+              Estimated Placement Uplift
             </div>
             <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
               Resolving these active blind spots boosts your predicted technical interview pass rate by <strong>+18% to 24%</strong> and promotes your Digital Career Twin to Tier-1 product consideration.
@@ -509,6 +568,7 @@ export function EnrolledCoursesPanel({
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
