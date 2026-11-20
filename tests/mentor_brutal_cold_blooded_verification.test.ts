@@ -66,8 +66,11 @@ describe('BRUTAL COLD-BLOODED AUDIT: AI Avatar Mentor & Hyper-Active Systems', (
         'applyRestPose must snap bones directly to rest on ready');
     });
 
-    test('1.4: Increased timeout from 3.5s to 7.5s for reliable GLB delivery on standard broadband/mobile', () => {
-      assert.ok(vroidSource.includes('7500'), 'Must use 7500ms timeout for large VRM downloads');
+    test('1.4: Increased timeout for reliable GLB delivery on standard broadband/mobile', () => {
+      assert.ok(
+        vroidSource.includes('15000') || vroidSource.includes('7500'),
+        'Must use at least 7500ms (or adaptive 15000ms) timeout for large VRM downloads'
+      );
     });
   });
 

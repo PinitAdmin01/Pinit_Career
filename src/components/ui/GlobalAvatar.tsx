@@ -158,6 +158,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [heardPreview, setHeardPreview] = useState<string>('');
   const heardPreviewTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const speechControllerRef = useRef<ReturnType<typeof createSpeechRecognitionController> | null>(null);
+  const speakingSafetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isCompactViewport, setIsCompactViewport] = useState(false);
   const [hyperActive, setHyperActive] = useState(false);
   const [hyperModeVariant, setHyperModeVariant] = useState<'conversational' | 'diagnostic'>('conversational');
@@ -286,12 +287,43 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     setMounted(true);
     return () => {
       if (heardPreviewTimerRef.current) clearTimeout(heardPreviewTimerRef.current);
+      if (speakingSafetyTimerRef.current) clearTimeout(speakingSafetyTimerRef.current);
       speechControllerRef.current?.destroy();
       speechControllerRef.current = null;
       tourEngineRef.current?.stop();
       setStoryTourAudioLock(false);
       stopSpeaking(true);
     };
+  }, []);
+
+  // Failsafe speech dispatcher: guarantees isSpeaking never gets stuck true on superseded speech
+  const speakWithAvatarSafely = useCallback((text: string, onDone?: () => void) => {
+    if (speakingSafetyTimerRef.current) {
+      clearTimeout(speakingSafetyTimerRef.current);
+    }
+    setIsSpeaking(true);
+    // 9-second safety watchdog in GlobalAvatar
+    speakingSafetyTimerRef.current = setTimeout(() => {
+      speakingSafetyTimerRef.current = null;
+      setIsSpeaking(false);
+      onDone?.();
+    }, 9000);
+
+    speakWithAvatar(
+      text,
+      teacherIdRef.current,
+      () => {
+        setIsSpeaking(true);
+      },
+      () => {
+        if (speakingSafetyTimerRef.current) {
+          clearTimeout(speakingSafetyTimerRef.current);
+          speakingSafetyTimerRef.current = null;
+        }
+        setIsSpeaking(false);
+        onDone?.();
+      }
+    );
   }, []);
 
   // Sync TTS speaking state into the speech recognition controller to prevent self-hearing feedback loops
@@ -455,12 +487,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         // Priority 3 — Actionable Start/Launch Commands (Task 5)
         const actionResult = matchBestActionAlternative(allAlternatives, { addressedMentor: true });
         if (actionResult.matched && actionResult.confidence >= 0.6) {
-          speakWithAvatar(
-            actionResult.spokenReply,
-            teacherIdRef.current,
-            () => setIsSpeaking(true),
-            () => setIsSpeaking(false)
-          );
+          speakWithAvatarSafely(actionResult.spokenReply);
           routerRef.current.push(actionResult.path);
           return;
         }
@@ -468,12 +495,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         // Priority 4 — Left Sidebar Tab Navigation (Tasks 2 & 3)
         const navResult = matchBestAlternative(allAlternatives, { addressedMentor: true });
         if (navResult.matched && navResult.confidence >= 0.58) {
-          speakWithAvatar(
-            `Opening ${navResult.displayName}.`,
-            teacherIdRef.current,
-            () => setIsSpeaking(true),
-            () => setIsSpeaking(false)
-          );
+          speakWithAvatarSafely(`Opening ${navResult.displayName}.`);
           routerRef.current.push(navResult.path);
           return;
         }
@@ -481,11 +503,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         // Priority 5 — Fallback Wake Greeting
         setMinimized(false);
         resetIdleTimer();
-        speakWithAvatar(
-          "I'm here. Say 'go to courses', 'start mission', 'what are my priorities', or 'we need to chat'.",
-          teacherIdRef.current,
-          () => setIsSpeaking(true),
-          () => setIsSpeaking(false)
+        speakWithAvatarSafely(
+          "I'm here. Say 'go to courses', 'start mission', 'what are my priorities', or 'we need to chat'."
         );
       },
     });
@@ -511,6 +530,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     hyperActive,
     enterHyperActive,
     showHeardPreview,
+    speakWithAvatarSafely,
   ]);
 
   // ── Story tour engine ──────────────────────────────────────────────────────

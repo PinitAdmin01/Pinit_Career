@@ -321,6 +321,8 @@ export function createSpeechRecognitionController(
   let silenceTimer: ReturnType<typeof setTimeout> | null = null;
   let restartTimer: ReturnType<typeof setTimeout> | null = null;
   let ttsCooldownTimer: ReturnType<typeof setTimeout> | null = null;
+  let startingWatchdog: ReturnType<typeof setTimeout> | null = null;
+  let ttsSpeakingWatchdog: ReturnType<typeof setTimeout> | null = null;
   let pendingInterim: { primary: string; alternatives: string[] } | null = null;
 
   let lastDispatchedKey = '';
@@ -353,10 +355,38 @@ export function createSpeechRecognitionController(
     }
   };
 
+  const clearStartingWatchdog = (): void => {
+    if (startingWatchdog !== null) {
+      clearTimeout(startingWatchdog);
+      startingWatchdog = null;
+    }
+  };
+
+  const clearTtsSpeakingWatchdog = (): void => {
+    if (ttsSpeakingWatchdog !== null) {
+      clearTimeout(ttsSpeakingWatchdog);
+      ttsSpeakingWatchdog = null;
+    }
+  };
+
   const clearAllTimers = (): void => {
     clearSilenceTimer();
     clearRestartTimer();
     clearTtsCooldownTimer();
+    clearStartingWatchdog();
+    clearTtsSpeakingWatchdog();
+  };
+
+  const teardownInstance = (): void => {
+    if (recognition) {
+      const rec = recognition;
+      recognition = null;
+      rec.onstart = null;
+      rec.onresult = null;
+      rec.onerror = null;
+      rec.onend = null;
+      safeAbortRecognition(rec);
+    }
   };
 
   const dispatchUtterance = (
@@ -404,8 +434,8 @@ export function createSpeechRecognitionController(
     }, delay);
   };
 
-  const ensureRecognition = (): SpeechRecognitionInstance | null => {
-    if (recognition) return recognition;
+  const createFreshRecognition = (): SpeechRecognitionInstance | null => {
+    teardownInstance();
 
     const win = getSpeechWindow();
     const Ctor = getRecognitionCtor(win);
@@ -427,6 +457,7 @@ export function createSpeechRecognitionController(
     attachGrammarBias(instance, win, config.grammarWords);
 
     instance.onstart = () => {
+      clearStartingWatchdog();
       if (destroyed) return;
       starting = false;
       running = true;
@@ -435,14 +466,14 @@ export function createSpeechRecognitionController(
       if (ttsSpeaking) {
         running = false;
         setStatus('paused-tts');
-        safeAbortRecognition(instance);
+        teardownInstance();
         return;
       }
 
       if (!active) {
         running = false;
         setStatus('idle');
-        safeStopRecognition(instance);
+        teardownInstance();
         return;
       }
 
@@ -505,6 +536,8 @@ export function createSpeechRecognitionController(
     };
 
     instance.onerror = (event: SpeechRecognitionErrorEventLike) => {
+      clearStartingWatchdog();
+      starting = false;
       if (destroyed) return;
       const errCode = event?.error || '';
 
@@ -513,9 +546,9 @@ export function createSpeechRecognitionController(
         denied = true;
         active = false;
         running = false;
-        starting = false;
         pendingInterim = null;
         clearAllTimers();
+        teardownInstance();
         setStatus('denied');
         if (!alreadyDenied) {
           config.onPermissionDenied?.();
@@ -526,9 +559,18 @@ export function createSpeechRecognitionController(
       if (errCode === 'no-speech' || errCode === 'aborted') {
         return;
       }
+
+      // Handle transient audio-capture/network drops by cycling instance cleanly
+      console.warn(`[SpeechEngine] Transient recognition error: "${errCode}". Cycling session.`);
+      running = false;
+      teardownInstance();
+      if (active && !ttsSpeaking && !denied) {
+        scheduleRestart();
+      }
     };
 
     instance.onend = () => {
+      clearStartingWatchdog();
       if (destroyed) return;
       running = false;
       starting = false;
@@ -542,6 +584,9 @@ export function createSpeechRecognitionController(
         clearSilenceTimer();
         pendingInterim = null;
       }
+
+      // Always tear down dead instance to prevent Chrome zombie states
+      teardownInstance();
 
       if (active && !ttsSpeaking && !denied) {
         setStatus('listening');
@@ -559,14 +604,29 @@ export function createSpeechRecognitionController(
 
   const startRecognitionNow = (): void => {
     if (destroyed || !active || ttsSpeaking || denied || running || starting) return;
-    const rec = ensureRecognition();
+    const rec = createFreshRecognition();
     if (!rec) return;
 
     starting = true;
+    clearStartingWatchdog();
+    // Safety watchdog: Chrome SpeechRecognition must fire onstart within 1800ms
+    startingWatchdog = setTimeout(() => {
+      startingWatchdog = null;
+      if (starting && !running && !destroyed && active && !ttsSpeaking) {
+        console.warn('[SpeechEngine] Recognition start watchdog expired (no onstart within 1800ms). Cycling instance.');
+        starting = false;
+        teardownInstance();
+        scheduleRestart();
+      }
+    }, 1800);
+
     try {
       rec.start();
-    } catch {
+    } catch (startErr) {
+      clearStartingWatchdog();
       starting = false;
+      teardownInstance();
+      console.warn('[SpeechEngine] Synchronous start() error:', startErr);
       scheduleRestart();
     }
   };
@@ -585,6 +645,7 @@ export function createSpeechRecognitionController(
       restartAttempt = 0;
       clearRestartTimer();
       clearTtsCooldownTimer();
+      clearStartingWatchdog();
 
       if (ttsSpeaking) {
         setStatus('paused-tts');
@@ -599,13 +660,10 @@ export function createSpeechRecognitionController(
       active = false;
       pendingInterim = null;
       restartAttempt = 0;
+      running = false;
+      starting = false;
       clearAllTimers();
-
-      if (recognition && (running || starting)) {
-        running = false;
-        starting = false;
-        safeStopRecognition(recognition);
-      }
+      teardownInstance();
 
       if (!denied && status !== 'unsupported') {
         setStatus('idle');
@@ -620,18 +678,28 @@ export function createSpeechRecognitionController(
         pendingInterim = null;
         clearAllTimers();
 
+        // 9-second failsafe watchdog: auto-resume if TTS was aborted or canceled without clear
+        ttsSpeakingWatchdog = setTimeout(() => {
+          ttsSpeakingWatchdog = null;
+          if (ttsSpeaking && active && !destroyed && !denied) {
+            console.warn('[SpeechEngine] TTS speaking watchdog expired (9s). Auto-resuming speech recognition.');
+            ttsSpeaking = false;
+            setStatus('listening');
+            startRecognitionNow();
+          }
+        }, 9000);
+
         if (!denied && status !== 'unsupported') {
           setStatus('paused-tts');
         }
 
-        if (recognition && (running || starting)) {
-          running = false;
-          starting = false;
-          safeAbortRecognition(recognition);
-        }
+        running = false;
+        starting = false;
+        teardownInstance();
         return;
       }
 
+      clearTtsSpeakingWatchdog();
       if (!ttsSpeaking && ttsCooldownTimer === null && (running || starting)) {
         return;
       }
@@ -663,16 +731,7 @@ export function createSpeechRecognitionController(
       ttsSpeaking = false;
       pendingInterim = null;
       clearAllTimers();
-
-      if (recognition) {
-        const rec = recognition;
-        recognition = null;
-        rec.onstart = null;
-        rec.onresult = null;
-        rec.onerror = null;
-        rec.onend = null;
-        safeStopRecognition(rec);
-      }
+      teardownInstance();
     },
   };
 }
